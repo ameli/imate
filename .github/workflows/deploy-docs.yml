@@ -30,6 +30,7 @@ jobs:
                   BUILD_SCRIPT: |
                       python -m pip install --upgrade pip
                       python -m pip install --upgrade numpy
+                      python -m pip install --upgrade sphinx
                       python -m pip install --upgrade .[docs]
                       sphinx-apidoc -f -o docs/_modules/ ./TraceInv
                       make -C docs/ html
