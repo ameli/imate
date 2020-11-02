@@ -36,7 +36,7 @@ This package computes the trace of inverse of matrices for two purposes:
 Fixed Matrix
 ~~~~~~~~~~~~
 
-For a given generic invertible matrix :math:`\mathbf{A}` |image01|, this package can compute :math:`\mathrm{trace}(\mathbf{A}^{-1})` |image02| |image04| by either of these three methods:
+For a given generic invertible matrix :math:`\mathbf{A}` |image01|, this package can compute :math:`\mathrm{trace}(\mathbf{A}^{-1})` |image02| by either of these three methods:
 
 1. *Cholesky method*: This results the exact computation of the trace.
 2. *Hutchinson's method*: This is a randomized approximation and suitable for large or implicit matrices.
@@ -45,11 +45,10 @@ For a given generic invertible matrix :math:`\mathbf{A}` |image01|, this package
 Linear Matrix Function
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Consider two matrices :math:`\mathbf{A}` |image01| and :math:`\mathbf{B}` and a range of real number :math:`t \in [t_0,t_1]` such that :math:`\mathbf{A} + t \mathbf{B}` is invertible. Then, this package can interpolate the function
+Consider two matrices :math:`\mathbf{A}` |image01| and :math:`\mathbf{B}` |image03| and a range of real number :math:`t \in [t_0,t_1]` |image04| such that :math:`\mathbf{A} + t \mathbf{B}` |image05| is invertible. Then, this package can interpolate the function
 
-.. image:: https://render.githubusercontent.com/render/math?math=t\mapsto\mathrm{trace}\left((\mathbf{A}+t\mathbf{B})^{-1}\right)
-    
 .. image:: https://latex.codecogs.com/svg.latex?t\mapsto\mathrm{trace}\left((\mathbf{A}+t\mathbf{B})^{-1}\right)
+       :align: center
 
 by the method described in [Ameli-2020]_. The above function is featured in a wide range of applications in statistics and machine learning, particularly, in model selection and optimizing hyperparameters with gradient-based maximum likelihood methods.
 
@@ -161,8 +160,8 @@ Citation
 .. |format| image:: https://img.shields.io/pypi/format/TraceInv
 .. |pypi| image:: https://img.shields.io/pypi/v/TraceInv
 
-.. |image01| image:: https://render.githubusercontent.com/render/math?math=\mathbf{A}
+.. |image01| image:: https://latex.codecogs.com/svg.latex?\small&space;\mathbf{A}
 .. |image02| image:: https://latex.codecogs.com/svg.latex?\small&space;\mathrm{trace}(\mathbf{A}^{-1})
-.. |image04| image:: https://render.githubusercontent.com/render/math?math=\mathrm{trace}(\mathbf{A}^{-1})
-.. |image03| image:: https://render.githubusercontent.com/render/math?math=\mathbf{A}
-.. |image09| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/phi_i_perp.svg
+.. |image03| image:: https://latex.codecogs.com/svg.latex?\small&space;\mathbf{B}
+.. |image04| image:: https://latex.codecogs.com/svg.latex?\small&space;t\in&space;[t_0,t_1]
+.. |image05| image:: https://latex.codecogs.com/svg.latex?\small&space;\mathbf{A}+t\mathbf{B}
