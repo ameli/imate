@@ -36,7 +36,7 @@ This package computes the trace of inverse of matrices for two purposes:
 Fixed Matrix
 ~~~~~~~~~~~~
 
-For a given generic invertible matrix :math:`\mathbf{A}` |image01|, this package can compute :math:`\mathrm{trace}(\mathbf{A}^{-1})` |image02| by either of these three methods:
+For a given generic invertible matrix |image01|, this package can compute |image02| by either of these three methods:
 
 1. *Cholesky method*: This results the exact computation of the trace.
 2. *Hutchinson's method*: This is a randomized approximation and suitable for large or implicit matrices.
@@ -45,7 +45,7 @@ For a given generic invertible matrix :math:`\mathbf{A}` |image01|, this package
 Linear Matrix Function
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Consider two matrices :math:`\mathbf{A}` |image01| and :math:`\mathbf{B}` |image03| and a range of real number :math:`t \in [t_0,t_1]` |image04| such that :math:`\mathbf{A} + t \mathbf{B}` |image05| is invertible. Then, this package can interpolate the function
+Consider two matrices |image01| and |image03| and a range of real number |image04| such that |image05| is invertible. Then, this package can interpolate the function
 
 .. image:: https://latex.codecogs.com/svg.latex?t\mapsto\mathrm{trace}\left((\mathbf{A}+t\mathbf{B})^{-1}\right)
        :align: center
