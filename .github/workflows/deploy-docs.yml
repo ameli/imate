@@ -15,6 +15,12 @@ jobs:
             - name: Checkout
               uses: actions/checkout@master
 
+            - name: Install Prerequisit
+              run: |
+                  apt update
+                  apt install sudo
+                  sudo apt install libsuitesparse-dev
+
             - name: Build and Deploy
               uses: JacksonMaxfield/github-pages-deploy-action-python@master
               env:
@@ -23,7 +29,6 @@ jobs:
                   BRANCH: gh-pages
                   FOLDER: docs/_build/html
                   BUILD_SCRIPT: |
-                      sudo apt install libsuitesparse-dev
                       python -m pip install --upgrade pip
                       pip install .[docs]
                       sphinx-apidoc -f -o docs/_modules/ ./TraceInv
