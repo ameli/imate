@@ -29,7 +29,7 @@ jobs:
                   FOLDER: docs/_build/html
                   BUILD_SCRIPT: |
                       python -m pip install --upgrade pip
-                      pip install .[docs]
+                      pip install --upgrade .[docs]
                       sphinx-apidoc -f -o docs/_modules/ ./TraceInv
                       make -C docs/ html
                       touch docs/_build/html/.nojekyll
