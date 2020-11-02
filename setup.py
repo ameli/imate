@@ -40,7 +40,7 @@ def ReadFileToRST(Filename):
 
 def main(argv):
 
-    Directory = os.path.dirname(__file__)
+    Directory = os.path.dirname(os.path.realpath(__file__))
     PackageName = "TraceInv"
     PackageNameForDoc = "TraceInv"
 

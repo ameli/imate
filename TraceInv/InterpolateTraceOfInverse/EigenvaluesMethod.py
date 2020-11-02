@@ -70,8 +70,8 @@ class EigenvaluesMethod(InterpolantBaseClass):
 
         This function computes the trace of inverse using the eigenvalues by:
 
-        ::
-            
+        .. math:: 
+
             \\mathrm{trace}\\left( (\\mathbf{A} + t \\mathbf{I})^{-1} \\right) = \\sum_{i = 1}^n \\frac{1}{\\lambda_i + t}
 
         where :math:`\\lambda_i` is the eigenvalue of :math:`\\mathbf{A}`.

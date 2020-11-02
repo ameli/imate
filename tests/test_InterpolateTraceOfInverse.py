@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+
 # =======
 # Imports
 # =======
@@ -26,8 +28,8 @@ def test_InterpolateTraceOfInverse():
     InquiryPoint = 0.4
 
     # Compute exact trace without interpolation
-    TI00 = InterpolateTraceOfInverse(K1,Method='EIG')
-    Trace00 = TI00.Compute(InquiryPoint)
+    TI00 = InterpolateTraceOfInverse(K1,Method='EXT')
+    Trace00 = TI00.Interpolate(InquiryPoint)
     Error00 = 0
 
     # Eigenvalues Method

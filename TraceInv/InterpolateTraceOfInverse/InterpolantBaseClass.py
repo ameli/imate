@@ -108,3 +108,27 @@ class InterpolantBaseClass(object):
         print(' Done.')
 
         return trace_eta_i
+
+    # -----------
+    # Lower Bound
+    # -----------
+
+    def LowerBound(self,t):
+        """
+        """
+
+        T_lb = self.n/(1.0+t)
+
+        return T_lb
+
+    # -----------
+    # Upper Bound
+    # -----------
+
+    def UpperBound(self,t):
+        """
+        """
+
+        T_ub = 1.0/(1.0/self.T0 + t/self.n)
+
+        return T_ub

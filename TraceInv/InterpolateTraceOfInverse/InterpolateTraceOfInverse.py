@@ -10,7 +10,7 @@ from scipy import sparse
 from numbers import Number
 
 # Classes, Files
-from .PlotSettings import *
+from .ExactMethod import ExactMethod
 from .EigenvaluesMethod import EigenvaluesMethod
 from .MonomialBasisFunctionsMethod import MonomialBasisFunctionsMethod
 from .RootMonomialBasisFunctionsMethod import RootMonomialBasisFunctionsMethod
@@ -30,16 +30,19 @@ class InterpolateTraceOfInverse(object):
     # Init
     # ----
 
-    def __init__(self,A,InterpolantPoints=None,Method='RMBF',**Options):
+    def __init__(self,A,InterpolantPoints=None,InterpolationMethod='RMBF',**Options):
         """
         Initializes the object depending on the method.
 
-        Methods
-            * ``'EIG'`` : Uses eigenvalues of ``A``.
-            * ``'MBF'`` : Uses monomial basis functions.
-            * ``'RMBF'``: Uses root monomial basis functions.
-            * ``'RBF'`` : Uses radial basis functions.
-            * ``'RPF'`` : Uses ratioanl polynomial functions.
+        --------------------  -----------------------------
+        Interpolation method  Description
+        ====================  =============================
+         ``'EIG'``            Eigenvalues of ``A``
+         ``'MBF'``            Mnomial basis functions
+         ``'RMBF'`            Root monomial basis functions
+         ``'RBF'``            Radial basis functions
+         ``'RPF'``            Ratioanl polynomial functions
+        --------------------  -----------------------------
 
         :param Method: determines one of the methods of interpolation.
         :type Method: string
@@ -48,8 +51,19 @@ class InterpolateTraceOfInverse(object):
         :type Options: ``**kwargs``
         """
 
+        # Attributes
+        self.n = A.shape[0]
+        if InterpolantPoints is not None:
+            self.p = len(InterpolantPoints)
+        else:
+            self.p = 0
+
         # Define an interpolation object depending on the given method
-        if Method == 'EIG':
+        if Method == 'EXT':
+            # Exact computation, not interpolation
+            self.Interpolator = ExactMethod(A,**Options)
+
+        elif Method == 'EIG':
             # Eigenvalues method
             self.Interpolator = EigenvaluesMethod(A,**Options)
 
@@ -86,7 +100,7 @@ class InterpolateTraceOfInverse(object):
 
         else:
             # An array of points
-            T = numpy.array((len(t)),dtype=float)
+            T = numpy.empty((len(t),),dtype=float)
             for i in range(len(t)):
                 T[i] =  self.Interpolator.Compute(t[i],Method,**Options)
 
@@ -113,8 +127,48 @@ class InterpolateTraceOfInverse(object):
 
         else:
             # An array of points
-            T = numpy.array((len(t)),dtype=float)
+            T = numpy.empty((len(t),),dtype=float)
             for i in range(len(t)):
                 T[i] =  self.Interpolator.Interpolate(t[i])
 
         return T
+
+    # -----------
+    # Lower Bound
+    # -----------
+
+    def LowerBound(self,t):
+        """
+        """
+
+        if isinstance(t,Number):
+            # Single number
+            T_lb =  self.Interpolator.LowerBound(t)
+
+        else:
+            # An array of points
+            T_lb = numpy.empty((len(t),),dtype=float)
+            for i in range(len(t)):
+                T_lb[i] =  self.Interpolator.LowerBound(t[i])
+
+        return T_lb
+
+    # -----------
+    # Upper Bound
+    # -----------
+
+    def UpperBound(self,t):
+        """
+        """
+
+        if isinstance(t,Number):
+            # Single number
+            T_ub =  self.Interpolator.UpperBound(t)
+
+        else:
+            # An array of points
+            T_ub = numpy.empty((len(t),),dtype=float)
+            for i in range(len(t)):
+                T_ub[i] =  self.Interpolator.UpperBound(t[i])
+
+        return T_ub

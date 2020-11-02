@@ -19,16 +19,17 @@ from .LinearSolver import LinearSolver
 
 def ComputeTraceInvByInverseOfCholesky(L,UseSparse):
     """
-    Compute the trace of inverse by inverting the Cholesky matrix `L` directly.
+    Compute the trace of inverse by inverting the Cholesky matrix ``L`` directly.
 
-    ..note::
-        * For small matrices: This method is much faster for small matrices than :func:`ComputeTraceInvBySolvingLinearSystem`.
+    .. note::
+
+        * For small matrices: This method is much faster for small matrices than :py:func:`ComputeTraceInvBySolvingLinearSystem`.
         * For large matrices: This method is very slow and results are unstable.
 
     :param L: Cholesky matrix
     :type L: ndarray
 
-    :param UseSparse: Flag, if ``true``, the matrix ``L``is considered as sparse.
+    :param UseSparse: Flag, if ``true``, the matrix ``L`` is considered as sparse.
     :type UseSparse: bool
 
     :return: Trace of matrix ``A``.
@@ -59,13 +60,14 @@ def ComputeTraceInvBySolvingLinearSystem(L,n,UseSparse):
     to obtain the inverse of ``L`` subsequentially.
 
     .. note::
+
         * For small matrices: This method is slow.
         * For large matrices: This method should be used for large matrices.
 
     :param L: Cholesky matrix
     :type L: ndarray
 
-    :param UseSparse: Flag, if ``true``, the matrix ``L``is considered as sparse.
+    :param UseSparse: Flag, if ``true``, the matrix ``L`` is considered as sparse.
     :type UseSparse: bool
 
     :return: Trace of matrix ``A``.
@@ -117,10 +119,10 @@ def CholeskyMethod(A,UseInverseMatrix=True):
 
     .. math::
 
-        \mathrm{trace}(\mathbf{A}^{-1}) = \| \mathbf{L}^{-1} \|_F^2
+        \\mathrm{trace}(\\mathbf{A}^{-1}) = \\| \\mathbf{L}^{-1} \\|_F^2
 
-    where :math:`\mathbf{L}` is the Cholesky factorization of :math:`\mathbf{A}`, 
-    and :math:`\| cdot \|_F` is the Frobenius norm.
+    where :math:`\\mathbf{L}` is the Cholesky factorization of :math:`\\mathbf{A}`, 
+    and :math:`\\| \\cdot \\|_F` is the Frobenius norm.
 
     .. note::
 

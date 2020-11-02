@@ -7,6 +7,7 @@ from .InterpolantBaseClass import InterpolantBaseClass
 
 import numpy
 import scipy
+from scipy import interpolate
 
 # =============================
 # Radial Basis Functions Method

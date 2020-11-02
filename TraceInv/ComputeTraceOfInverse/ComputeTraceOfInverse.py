@@ -14,7 +14,7 @@ def ComputeTraceOfInverse(A,Method='cholesky',**Options):
     """
     Computes the trace of inverse of a matrix without using interpolation.
 
-    The trace of inverse is computed with one of these three methods in this function:
+    The trace of inverse is computed with one of these three methods in this function.
 
     =============================  =============
     Method                             Type
@@ -28,16 +28,15 @@ def ComputeTraceOfInverse(A,Method='cholesky',**Options):
     :type A: ndarray
 
     :param Method: One of ``'cholesky'``, ``'hutchinson'``, or ``'SLQ'``. Default if ``'cholesky'``.
-    "param Method: string
+    :type Method: string
 
     :param Options: Options for either of the methods. 
-    :type Options: ``'**kwargs'''``
+    :type Options: ``'**kwargs'``
 
     :return: trace of inverse of matrix
     :rtype: float
 
     :raises RunTimeError: Method is not recognized.
-
     """
 
     if Method == 'cholesky':

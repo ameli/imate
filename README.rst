@@ -1,19 +1,19 @@
 |travis-devel| |codecov-devel| |licence| |format| |pypi| |implementation| |pyversions|
 
-Orthogonal Functions
-====================
+TraceInv
+========
 
-A python package to generate a set of orthogonal functions.
+A python package to compute the trace of the inverse of a matrix or a linear matrix function.
 
 For users
     * `PyPi package <https://pypi.org/project/TraceInv/>`_
-    * `Source code <https://github.com/ameli/Orthogonal-Functions>`_
-    * `Documentation <https://ameli.github.io/Orthogonal-Functions/index.html>`_
+    * `Source code <https://github.com/ameli/TraceInv>`_
+    * `Documentation <https://ameli.github.io/TraceInv/index.html>`_
 
 For developers
-    * `API <https://ameli.github.io/Orthogonal-Functions/_modules/modules.html>`_
-    * `Travis-CI <https://travis-ci.com/github/ameli/Orthogonal-Functions>`_
-    * `Codecov <https://codecov.io/gh/ameli/Orthogonal-Functions>`_
+    * `API <https://ameli.github.io/TraceInv/_modules/modules.html>`_
+    * `Travis-CI <https://travis-ci.com/github/ameli/TraceInv>`_
+    * `Codecov <https://codecov.io/gh/ameli/TraceInv>`_
 
 .. Status
 .. ------
@@ -169,7 +169,7 @@ The variables |image17|, |image18|, and |image19| can be set in the script by th
 Citation
 --------
 
-.. [AMELI-2020] Ameli, S., and Shadden. S. C. (2020). Interpolating the Trace of the Inverse of Matrix **A** + t **B**. `arXiv:2009.07385 <https://arxiv.org/abs/2009.07385>`__ [math.NA]
+.. [Ameli-2020] Ameli, S., and Shadden. S. C. (2020). Interpolating the Trace of the Inverse of Matrix **A** + t **B**. `arXiv:2009.07385 <https://arxiv.org/abs/2009.07385>`__ [math.NA]
 
 ::
 
@@ -202,22 +202,22 @@ Citation
 .. |format| image:: https://img.shields.io/pypi/format/TraceInv
 .. |pypi| image:: https://img.shields.io/pypi/v/TraceInv
 
-.. |image09| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/phi_i_perp.svg
-.. |image10| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/phi_i.svg
-.. |image11| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/phi_i_perp.svg
-.. |image12| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/phi_i.svg
-.. |image13| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/phi_i_perp.svg
-.. |image14| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/interval.svg
-.. |image15| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/w.svg
-.. |image16| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/delta.svg
-.. |image17| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/i_0.svg
-.. |image18| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/n.svg
-.. |image19| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/L.svg
-.. |image20| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/i_0.svg
-.. |image21| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/n.svg
-.. |image22| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/L.svg
-.. |image23| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/i_0.svg
-.. |image24| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/n.svg
-.. |image25| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/L.svg
-.. |image26| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/alpha_i.svg
-.. |image27| image:: https://raw.githubusercontent.com/ameli/Orthogonal-Functions/master/docs/images/a_ij.svg
+.. |image09| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/phi_i_perp.svg
+.. |image10| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/phi_i.svg
+.. |image11| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/phi_i_perp.svg
+.. |image12| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/phi_i.svg
+.. |image13| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/phi_i_perp.svg
+.. |image14| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/interval.svg
+.. |image15| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/w.svg
+.. |image16| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/delta.svg
+.. |image17| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/i_0.svg
+.. |image18| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/n.svg
+.. |image19| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/L.svg
+.. |image20| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/i_0.svg
+.. |image21| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/n.svg
+.. |image22| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/L.svg
+.. |image23| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/i_0.svg
+.. |image24| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/n.svg
+.. |image25| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/L.svg
+.. |image26| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/alpha_i.svg
+.. |image27| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/a_ij.svg

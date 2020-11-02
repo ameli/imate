@@ -38,7 +38,7 @@ class RationalPolynomialFunctionsMethod(InterpolantBaseClass):
         """
 
         # Matrix of coefficients
-        A = numpy.array([
+        C = numpy.array([
             [eta_i[0],1-tau0/tau_i[0]],
             [eta_i[1],1-tau0/tau_i[1]]])
 
@@ -48,10 +48,10 @@ class RationalPolynomialFunctionsMethod(InterpolantBaseClass):
             eta_i[1]/tau_i[1]-eta_i[1]**2])
 
         # Condition number
-        print('Condition number: %0.2e'%(numpy.linalg.cond(A)))
+        print('Condition number: %0.2e'%(numpy.linalg.cond(C)))
 
         # Solve with least square. NOTE: do not solve with numpy.linalg.solve directly.
-        b = numpy.linalg.solve(A,c)
+        b = numpy.linalg.solve(C,c)
         b0 = b[1]
         b1 = b[0]
         a0 = b0*tau0
@@ -80,7 +80,7 @@ class RationalPolynomialFunctionsMethod(InterpolantBaseClass):
         """
 
         # Matrix of coefficients
-        A = numpy.array([
+        C = numpy.array([
             [eta_i[0]**2,eta_i[0],1-tau0/tau_i[0],-eta_i[0]/tau_i[0]],
             [eta_i[1]**2,eta_i[1],1-tau0/tau_i[1],-eta_i[1]/tau_i[1]],
             [eta_i[2]**2,eta_i[2],1-tau0/tau_i[2],-eta_i[2]/tau_i[2]],
@@ -94,10 +94,10 @@ class RationalPolynomialFunctionsMethod(InterpolantBaseClass):
             eta_i[3]**2/tau_i[3]-eta_i[3]**3])
 
         # Condition number
-        print('Condition number: %0.2e'%(numpy.linalg.cond(A)))
+        print('Condition number: %0.2e'%(numpy.linalg.cond(C)))
 
         # Solve with least square. NOTE: do not solve with numpy.linalg.solve directly.
-        b = numpy.linalg.solve(A,c)
+        b = numpy.linalg.solve(C,c)
         b2 = b[0]
         b1 = b[1]
         b0 = b[2]

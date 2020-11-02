@@ -49,7 +49,6 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
                 for j in range(self.p):
                     C[i,j] = self.BasisFunctions(j,self.eta_i[i])
 
-            # Test
             # print('Condition number: %f'%(numpy.linalg.cond(C)))
 
             self.w = numpy.linalg.solve(C,b)
@@ -72,11 +71,11 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
                     C[i,j] = self.BasisFunctions(j,self.eta_i[i]/self.Scale_eta)
             C[-1,:] = self.alpha[:self.p+1]*self.a[:self.p+1,0]
 
+            # print('Condition number: %f'%(numpy.linalg.cond(A)))
+
             # Solve weights
             self.w = numpy.linalg.solve(C,b)
 
-            # Test
-            # print('Condition number: %f'%(numpy.linalg.cond(A)))
 
         elif self.BasisFunctionsType == 'Orthogonal2':
 
@@ -93,15 +92,14 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
                 for j in range(self.p):
                     C[i,j] = self.BasisFunctions(j,self.eta_i[i]/self.Scale_eta)
 
+            # print('Condition number: %f'%(numpy.linalg.cond(C)))
+
             # Solve weights
             self.w = numpy.linalg.solve(C,b)
             # Lambda = 1e1   # Regularization parameter  # SETTING
             # C2 = C.T.dot(C) + Lambda * numpy.eye(C.shape[0])
             # b2 = C.T.dot(b)
             # self.w = numpy.linalg.solve(C2,b2)
-
-            # Test
-            print('Condition number: %f'%(numpy.linalg.cond(C)))
 
         print('Done.')
 
@@ -170,15 +168,15 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
 
         if self.BasisFunctionsType == 'Orthogonal':
             alpha = numpy.array([
-                +numpy.sqrt(2/1),
-                -numpy.sqrt(2/2),
-                +numpy.sqrt(2/3),
-                -numpy.sqrt(2/4),
-                +numpy.sqrt(2/5),
-                -numpy.sqrt(2/6),
-                +numpy.sqrt(2/7),
-                -numpy.sqrt(2/8),
-                +numpy.sqrt(2/9)])
+                +numpy.sqrt(2.0/1.0),
+                -numpy.sqrt(2.0/2.0),
+                +numpy.sqrt(2.0/3.0),
+                -numpy.sqrt(2.0/4.0),
+                +numpy.sqrt(2.0/5.0),
+                -numpy.sqrt(2.0/6.0),
+                +numpy.sqrt(2.0/7.0),
+                -numpy.sqrt(2.0/8.0),
+                +numpy.sqrt(2.0/9.0)])
 
             a[0,:1] = numpy.array([1])
             a[1,:2] = numpy.array([4, -3])
@@ -192,15 +190,15 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
 
         elif self.BasisFunctionsType == 'Orthogonal2':
             alpha = numpy.array([
-                +numpy.sqrt(2/2),
-                -numpy.sqrt(2/3),
-                +numpy.sqrt(2/4),
-                -numpy.sqrt(2/5),
-                +numpy.sqrt(2/6),
-                -numpy.sqrt(2/7),
-                +numpy.sqrt(2/8),
-                -numpy.sqrt(2/9),
-                +numpy.sqrt(2/10)])
+                +numpy.sqrt(2.0/2.0),
+                -numpy.sqrt(2.0/3.0),
+                +numpy.sqrt(2.0/4.0),
+                -numpy.sqrt(2.0/5.0),
+                +numpy.sqrt(2.0/6.0),
+                -numpy.sqrt(2.0/7.0),
+                +numpy.sqrt(2.0/8.0),
+                -numpy.sqrt(2.0/9.0),
+                +numpy.sqrt(2.0/10.0)])
 
             a[0,:1] = numpy.array([1])
             a[1,:2] = numpy.array([6, -5])
