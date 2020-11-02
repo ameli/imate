@@ -36,7 +36,7 @@ This package computes the trace of inverse of matrices for two purposes:
 Fixed Matrix
 ~~~~~~~~~~~~
 
-For a given generic invertible matrix :math:`\mathbf{A}`, this package can compute :math:`\mathrm{trace}(\mathbf{A}^{-1})` |image02|_ by either of these three methods:
+For a given generic invertible matrix :math:`\mathbf{A}` |image01|, this package can compute :math:`\mathrm{trace}(\mathbf{A}^{-1})` |image02| by either of these three methods:
 
 1. *Cholesky method*: This results the exact computation of the trace.
 2. *Hutchinson's method*: This is a randomized approximation and suitable for large or implicit matrices.
@@ -202,5 +202,6 @@ Citation
 .. |format| image:: https://img.shields.io/pypi/format/TraceInv
 .. |pypi| image:: https://img.shields.io/pypi/v/TraceInv
 
+.. |image01| image:: https://render.githubusercontent.com/render/math?math=\mathbf{A}
 .. |image02| image:: https://latex.codecogs.com/gif.latex?\mathrm{trace}(\mathbf{A}^{-1})" title="\mathrm{trace}(\mathbf{A}^{-1})
 .. |image09| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/phi_i_perp.svg
