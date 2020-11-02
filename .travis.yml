@@ -28,6 +28,7 @@ matrix:
             - sudo add-apt-repository universe
             - sudo apt update
             - sudo apt install gfortran libopenblas-dev liblapack-dev python-dev
+            - sudo apt install libsuitesparse-dev
             - pypy --version
             - pypy -m pip install --upgrade pip
             - pypy -m pip install --upgrade pytest-cov
@@ -57,6 +58,7 @@ matrix:
             - python3 -m pip install --upgrade pip
             - python3 -m pip install --upgrade pytest-cov
             - python3 -m pip install codecov
+            - sudo apt install libsuitesparse-dev
           install:
             - python3 -m pip install -r requirements.txt
             - python3 -m pip install -e .
@@ -72,6 +74,7 @@ matrix:
             - python -m pip install --upgrade pip
             - python -m pip install --upgrade pytest-cov
             - python -m pip install codecov
+            - sudo apt install libsuitesparse-dev
           env:
             - PATH=/c/Python38:/c/Python38/Scripts:$PATH
             - BADGE=windows
@@ -107,6 +110,7 @@ before_install:
   - python -m pip install --upgrade pip
   - python -m pip install --upgrade pytest-cov
   - python -m pip install codecov
+  - sudo apt install libsuitesparse-dev
 
 # These only apply to the above jobs that install is not declared for them in the above.
 install:

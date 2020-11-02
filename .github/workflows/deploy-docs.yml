@@ -23,6 +23,8 @@ jobs:
                   BRANCH: gh-pages
                   FOLDER: docs/_build/html
                   BUILD_SCRIPT: |
+                      sudo apt install libsuitesparse-dev
+                      python -m pip install --upgrade pip
                       pip install .[docs]
                       sphinx-apidoc -f -o docs/_modules/ ./TraceInv
                       make -C docs/ html
