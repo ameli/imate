@@ -45,6 +45,15 @@ matrix:
           env:
             - PYTHON_VERSION=2.7
             - BADGE=osx
+          before_install:
+            - python --version
+            - python -m pip install --upgrade pip
+            - python -m pip install --upgrade pytest-cov
+            - python -m pip install codecov
+            - brew install suite-sparse 
+          install:
+            - python -m pip install -r requirements.txt
+            - python -m pip install -e .
 
         - name: 'macOSX with Python: 3.7'
           os: osx
@@ -58,8 +67,8 @@ matrix:
             - python3 -m pip install --upgrade pip
             - python3 -m pip install --upgrade pytest-cov
             - python3 -m pip install codecov
-            - sudo apt install libsuitesparse-dev
           install:
+            - brew install suite-sparse 
             - python3 -m pip install -r requirements.txt
             - python3 -m pip install -e .
           script:
@@ -74,6 +83,7 @@ matrix:
             - python -m pip install --upgrade pip
             - python -m pip install --upgrade pytest-cov
             - python -m pip install codecov
+            - sudo apt update
             - sudo apt install libsuitesparse-dev
           env:
             - PATH=/c/Python38:/c/Python38/Scripts:$PATH
@@ -110,6 +120,7 @@ before_install:
   - python -m pip install --upgrade pip
   - python -m pip install --upgrade pytest-cov
   - python -m pip install codecov
+  - sudo apt update
   - sudo apt install libsuitesparse-dev
 
 # These only apply to the above jobs that install is not declared for them in the above.
