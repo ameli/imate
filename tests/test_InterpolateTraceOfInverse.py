@@ -28,59 +28,59 @@ def test_InterpolateTraceOfInverse():
     InquiryPoint = 0.4
 
     # Compute exact trace without interpolation
-    TI00 = InterpolateTraceOfInverse(K1,Method='EXT')
+    TI00 = InterpolateTraceOfInverse(K1,InterpolationMethod='EXT')
     Trace00 = TI00.Interpolate(InquiryPoint)
     Error00 = 0
 
     # Eigenvalues Method
-    TI01 = InterpolateTraceOfInverse(K1,Method='EIG')
+    TI01 = InterpolateTraceOfInverse(K1,InterpolationMethod='EIG')
     Trace01 = TI01.Interpolate(InquiryPoint)
     Error01 = 100.0 * numpy.abs(Trace01 - Trace00) / Trace00
 
     # Monomial Basis Functions
-    TI02 = InterpolateTraceOfInverse(K1,Method='MBF')
+    TI02 = InterpolateTraceOfInverse(K1,InterpolationMethod='MBF')
     Trace02 = TI02.Interpolate(InquiryPoint)
     Error02 = 100.0 * numpy.abs(Trace02 - Trace00) / Trace00
 
     # Root Monomial Basis Functions, basis type: NonOrthogonal
-    TI03 = InterpolateTraceOfInverse(K1,InterpolantPoints,Method='RMBF',BasisFunctionsType='NonOrthogonal')
+    TI03 = InterpolateTraceOfInverse(K1,InterpolantPoints,InterpolationMethod='RMBF',BasisFunctionsType='NonOrthogonal')
     Trace03 = TI03.Interpolate(InquiryPoint)
     Error03 = 100.0 * numpy.abs(Trace03 - Trace00) / Trace00
 
     # Root Monomial Basis Functions, basis type: Orthogonal
-    TI04 = InterpolateTraceOfInverse(K1,InterpolantPoints,Method='RMBF',BasisFunctionsType='Orthogonal')
+    TI04 = InterpolateTraceOfInverse(K1,InterpolantPoints,InterpolationMethod='RMBF',BasisFunctionsType='Orthogonal')
     Trace04 = TI04.Interpolate(InquiryPoint)
     Error04 = 100.0 * numpy.abs(Trace04 - Trace00) / Trace00
 
     # Root Monomial Basis Functions, basis type: Orthogonal2
-    TI05 = InterpolateTraceOfInverse(K1,InterpolantPoints,Method='RMBF',BasisFunctionsType='Orthogonal2')
+    TI05 = InterpolateTraceOfInverse(K1,InterpolantPoints,InterpolationMethod='RMBF',BasisFunctionsType='Orthogonal2')
     Trace05 = TI05.Interpolate(InquiryPoint)
     Error05 = 100.0 * numpy.abs(Trace05 - Trace00) / Trace00
 
     # Radial Basis Functions, FunctionType 1
-    TI06 = InterpolateTraceOfInverse(K1,InterpolantPoints,Method='RBF',FunctionType=1)
+    TI06 = InterpolateTraceOfInverse(K1,InterpolantPoints,InterpolationMethod='RBF',FunctionType=1)
     Trace06 = TI06.Interpolate(InquiryPoint)
     Error06 = 100.0 * numpy.abs(Trace06 - Trace00) / Trace00
 
     # Radial Basis Functions, FunctionType 1
-    TI07 = InterpolateTraceOfInverse(K1,InterpolantPoints,Method='RBF',FunctionType=2)
+    TI07 = InterpolateTraceOfInverse(K1,InterpolantPoints,InterpolationMethod='RBF',FunctionType=2)
     Trace07 = TI07.Interpolate(InquiryPoint)
     Error07 = 100.0 * numpy.abs(Trace07 - Trace00) / Trace00
 
     # Radial Basis Functions, FunctionType 1
-    TI08 = InterpolateTraceOfInverse(K1,InterpolantPoints,Method='RBF',FunctionType=3)
+    TI08 = InterpolateTraceOfInverse(K1,InterpolantPoints,InterpolationMethod='RBF',FunctionType=3)
     Trace08 = TI08.Interpolate(InquiryPoint)
     Error08 = 100.0 * numpy.abs(Trace08 - Trace00) / Trace00
 
     # Rational Polynomial with two interpolating points
     InterpolantPoints = [1e-1,1e+1]
-    TI09 = InterpolateTraceOfInverse(K1,InterpolantPoints,Method='RPF')
+    TI09 = InterpolateTraceOfInverse(K1,InterpolantPoints,InterpolationMethod='RPF')
     Trace09 = TI09.Interpolate(InquiryPoint)
     Error09 = 100.0 * numpy.abs(Trace09 - Trace00) / Trace00
 
     # Rational Polynomial with four interpolating points
     InterpolantPoints = [1e-2,1e-1,1,1e+1]
-    TI10 = InterpolateTraceOfInverse(K1,InterpolantPoints,Method='RPF')
+    TI10 = InterpolateTraceOfInverse(K1,InterpolantPoints,InterpolationMethod='RPF')
     Trace10 = TI10.Interpolate(InquiryPoint)
     Error10 = 100.0 * numpy.abs(Trace10 - Trace00) / Trace00
 

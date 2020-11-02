@@ -102,7 +102,7 @@ class InterpolateTraceOfInverse(object):
             # An array of points
             T = numpy.empty((len(t),),dtype=float)
             for i in range(len(t)):
-                T[i] =  self.Interpolator.Compute(t[i],Method,**Options)
+                T[i] =  self.Interpolator.Compute(t[i],ComputingMethod,**Options)
 
         return T
 

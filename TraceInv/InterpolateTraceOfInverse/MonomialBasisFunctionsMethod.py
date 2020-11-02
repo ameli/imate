@@ -23,14 +23,14 @@ class MonomialBasisFunctionsMethod(InterpolantBaseClass):
         # Base class constructor
         super(MonomialBasisFunctionsMethod,self).__init__(A)
 
+        # Compute trace at interpolant points
+        self.T0 = ComputeTraceOfInverse(self.A)
+
         # t1
         if t1 is None:
             self.t1 = self.n / self.T0
         else:
             self.t1 = t1
-
-        # Compute trace at interpolant points
-        self.T0 = ComputeTraceOfInverse(self.A)
 
         # Initialize interpolator
         self.T1 = None
