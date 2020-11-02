@@ -17,7 +17,8 @@ jobs:
 
             - name: Install Prerequisit
               run: |
-                  apt install libsuitesparse-dev
+                  sudo apt-get update
+                  sudo apt-get install libsuitesparse-dev
 
             - name: Build and Deploy
               uses: JacksonMaxfield/github-pages-deploy-action-python@master
