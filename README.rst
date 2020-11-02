@@ -47,9 +47,9 @@ Linear Matrix Function
 
 Consider two matrices :math:`\mathbf{A}` |image01| and :math:`\mathbf{B}` and a range of real number :math:`t \in [t_0,t_1]` such that :math:`\mathbf{A} + t \mathbf{B}` is invertible. Then, this package can interpolate the function
 
-.. math::
-
-    t \mapsto \mathrm{trace}\left((\mathbf{A} + t \mathbf{B})^{-1} \right)
+.. image:: https://render.githubusercontent.com/render/math?math=t\mapsto\mathrm{trace}\left((\mathbf{A}+t\mathbf{B})^{-1}\right)
+    
+.. image:: https://latex.codecogs.com/svg.latex?t\mapsto\mathrm{trace}\left((\mathbf{A}+t\mathbf{B})^{-1}\right)
 
 by the method described in [Ameli-2020]_. The above function is featured in a wide range of applications in statistics and machine learning, particularly, in model selection and optimizing hyperparameters with gradient-based maximum likelihood methods.
 
@@ -162,7 +162,7 @@ Citation
 .. |pypi| image:: https://img.shields.io/pypi/v/TraceInv
 
 .. |image01| image:: https://render.githubusercontent.com/render/math?math=\mathbf{A}
-.. |image02| image:: https://latex.codecogs.com/gif.latex?\mathrm{trace}(\mathbf{A}^{-1})
+.. |image02| image:: https://latex.codecogs.com/svg.latex?\small&space;\mathrm{trace}(\mathbf{A}^{-1})
 .. |image04| image:: https://render.githubusercontent.com/render/math?math=\mathrm{trace}(\mathbf{A}^{-1})
 .. |image03| image:: https://render.githubusercontent.com/render/math?math=\mathbf{A}
 .. |image09| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/phi_i_perp.svg
