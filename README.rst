@@ -36,7 +36,7 @@ This package computes the trace of inverse of matrices for two purposes:
 Fixed Matrix
 ~~~~~~~~~~~~
 
-For a given generic invertible matrix :math:`\mathbf{A}`, this package can compute :math:`\mathrm{trace}(\mathbf{A}^{-1})` by either of these three methods:
+For a given generic invertible matrix :math:`\mathbf{A}`, this package can compute :math:`\mathrm{trace}(\mathbf{A}^{-1})` |image02| by either of these three methods:
 
 1. *Cholesky method*: This results the exact computation of the trace.
 2. *Hutchinson's method*: This is a randomized approximation and suitable for large or implicit matrices.
@@ -202,22 +202,5 @@ Citation
 .. |format| image:: https://img.shields.io/pypi/format/TraceInv
 .. |pypi| image:: https://img.shields.io/pypi/v/TraceInv
 
+.. |image02| image:: https://latex.codecogs.com/gif.latex?\mathrm{trace}(\mathbf{A}^{-1})" title="\mathrm{trace}(\mathbf{A}^{-1})
 .. |image09| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/phi_i_perp.svg
-.. |image10| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/phi_i.svg
-.. |image11| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/phi_i_perp.svg
-.. |image12| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/phi_i.svg
-.. |image13| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/phi_i_perp.svg
-.. |image14| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/interval.svg
-.. |image15| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/w.svg
-.. |image16| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/delta.svg
-.. |image17| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/i_0.svg
-.. |image18| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/n.svg
-.. |image19| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/L.svg
-.. |image20| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/i_0.svg
-.. |image21| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/n.svg
-.. |image22| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/L.svg
-.. |image23| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/i_0.svg
-.. |image24| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/n.svg
-.. |image25| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/L.svg
-.. |image26| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/alpha_i.svg
-.. |image27| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/a_ij.svg

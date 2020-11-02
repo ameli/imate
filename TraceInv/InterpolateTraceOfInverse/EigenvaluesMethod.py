@@ -14,15 +14,43 @@ from .InterpolantBaseClass import InterpolantBaseClass
 # ==================
 
 class EigenvaluesMethod(InterpolantBaseClass):
+    """
+    Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A} + t \\mathbf{I}` using eigenvalues of 
+    :math:`\\mathbf{A}` by
+
+    .. math::
+
+        \\mathrm{trace}\\left( (\\mathbf{A} + t \\mathbf{I})^{-1} \\right) = \\sum_{i = 1}^n \\frac{1}{\\lambda_i + t}
+
+    where :math:`\\lambda_i` is the eigenvalue of :math:`\\mathbf{A}`.
+
+    * The result is an exact value.
+    * This class does not accept interpolant points.
+    * The input matrix :math:`\\mathbf{A}` can be either sparse or dense.
+    * In case of a sparse matrix, only a portion of its eigenvalues with the largest magnitude is computed and the rest 
+      of its eigenvalues is assumed to be negligible.
+    """
 
     # ----
     # Init
     # ----
 
-    def __init__(self,A,**Options):
+    def __init__(self,A,NonZeroRatio=0.9,Tol=1e-3):
+        """
+        Cnstructor of the class.
+
+        :param A: Invertible matrix, can be rither dense or sparse matrix.
+        :type A: ndarray
+
+        :param NonZeroRatio:
+        """
 
         # Base class constructor
         super(EigenvaluesMethod,self).__init__(A)
+
+        # Attiributes
+        self.NonZeroRatio = NonZeroRatio
+        self.Tol = Tol
 
         # Initialize Interpolator
         self.A_eigenvalues = None
@@ -50,9 +78,9 @@ class EigenvaluesMethod(InterpolantBaseClass):
             self.A_eigenvalues = numpy.zeros(n)
 
             # find 90% of eigenvalues and assume the rest are very close to zero.
-            NumNoneZeroEig = int(n*0.9)
+            NumNoneZeroEig = int(n*self.NonZeroRatio)
             self.A_eigenvalues[:NumNoneZeroEig] = scipy.sparse.linalg.eigsh(
-                    A,NumNoneZeroEig,which='LM',tol=1e-3,return_eigenvectors=False)
+                    A,NumNoneZeroEig,which='LM',tol=self.Tol,return_eigenvectors=False)
 
         else:
             # A is dense matrix

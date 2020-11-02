@@ -29,6 +29,9 @@ class MonomialBasisFunctionsMethod(InterpolantBaseClass):
         else:
             self.t1 = t1
 
+        # Compute trace at interpolant points
+        self.T0 = ComputeTraceOfInverse(self.A)
+
         # Initialize interpolator
         self.T1 = None
         self.InitializeInterpolator() 

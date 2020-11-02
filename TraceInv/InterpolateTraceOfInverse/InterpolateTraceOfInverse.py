@@ -59,44 +59,44 @@ class InterpolateTraceOfInverse(object):
             self.p = 0
 
         # Define an interpolation object depending on the given method
-        if Method == 'EXT':
+        if InterpolationMethod == 'EXT':
             # Exact computation, not interpolation
             self.Interpolator = ExactMethod(A,**Options)
 
-        elif Method == 'EIG':
+        elif InterpolationMethod == 'EIG':
             # Eigenvalues method
             self.Interpolator = EigenvaluesMethod(A,**Options)
 
-        elif Method == 'MBF':
+        elif InterpolationMethod == 'MBF':
             # Monomial Basis Functions method
             self.Interpolator = MonomialBasisFunctionsMethod(A,InterpolantPoints,**Options)
 
-        elif Method == 'RMBF':
+        elif InterpolationMethod == 'RMBF':
             # Root Monomial Basis Functions method
             self.Interpolator = RootMonomialBasisFunctionsMethod(A,InterpolantPoints,**Options)
 
-        elif Method == 'RBF':
+        elif InterpolationMethod == 'RBF':
             # Radial Basis Functions method
             self.Interpolator = RadialBasisFunctionsMethod(A,InterpolantPoints,**Options)
 
-        elif Method == 'RPF':
+        elif InterpolationMethod == 'RPF':
             # Rational Polynomial Functions method
             self.Interpolator = RationalPolynomialFunctionsMethod(A,InterpolantPoints,**Options)
 
         else:
-            raise ValueError('Method is invalid.')
+            raise ValueError("'InterpolationMethod' is invalid. Select one of 'EXT', 'EIG', 'MBF', 'RMBF', 'RBF', or 'RPF'.")
 
     # -------
     # Compute
     # -------
 
-    def Compute(self,t,Method='cholesky',**Options):
+    def Compute(self,t,ComputingMethod='cholesky',**Options):
         """
         """
         
         if isinstance(t,Number):
             # Single number
-            T =  self.Interpolator.Compute(t,Method,**Options)
+            T =  self.Interpolator.Compute(t,ComputingMethod,**Options)
 
         else:
             # An array of points

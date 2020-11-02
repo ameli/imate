@@ -44,9 +44,12 @@ class InterpolantBaseClass(object):
             self.UseSparse = True
 
         # Compute trace at interpolant points
-        self.T0 = ComputeTraceOfInverse(self.A)
+        self.T0 = None
 
         if InterpolantPoints is not None:
+
+            # Compute trace at interpolant points
+            self.T0 = ComputeTraceOfInverse(self.A)
 
             # Compute trace at interpolant points
             self.eta_i = numpy.array(InterpolantPoints)
@@ -128,6 +131,10 @@ class InterpolantBaseClass(object):
     def UpperBound(self,t):
         """
         """
+
+        # Compute trace at interpolant points
+        if self.T0 is None:
+            self.T0 = ComputeTraceOfInverse(self.A)
 
         T_ub = 1.0/(1.0/self.T0 + t/self.n)
 
