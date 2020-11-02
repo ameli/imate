@@ -36,7 +36,7 @@ This package computes the trace of inverse of matrices for two purposes:
 Fixed Matrix
 ~~~~~~~~~~~~
 
-For a given generic invertible matrix :math:`\mathbf{A}` |image01|, this package can compute :math:`\mathrm{trace}(\mathbf{A}^{-1})` |image02| by either of these three methods:
+For a given generic invertible matrix :math:`\mathbf{A}` |image01|, this package can compute :math:`\mathrm{trace}(\mathbf{A}^{-1})` |image02| |image04| by either of these three methods:
 
 1. *Cholesky method*: This results the exact computation of the trace.
 2. *Hutchinson's method*: This is a randomized approximation and suitable for large or implicit matrices.
@@ -45,7 +45,7 @@ For a given generic invertible matrix :math:`\mathbf{A}` |image01|, this package
 Linear Matrix Function
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Consider two matrices :math:`\mathbf{A}` and :math:`\mathbf{B}` and a range of real number :math:`t \in [t_0,t_1]` such that :math:`\mathbf{A} + t \mathbf{B}` is invertible. Then, this package can interpolate the function
+Consider two matrices :math:`\mathbf{A}` |image01| and :math:`\mathbf{B}` and a range of real number :math:`t \in [t_0,t_1]` such that :math:`\mathbf{A} + t \mathbf{B}` is invertible. Then, this package can interpolate the function
 
 .. math::
 
@@ -125,47 +125,6 @@ Usage
     # Compute trace of inverse
     trace = ComputeTraceOfInverse(A,method='cholesky')
 
-
-Optional arguments
-~~~~~~~~~~~~~~~~~~
-
-When the *standalone application* (the second method in the above) is called, the executable accepts some optional arguments as follows.
-
-+--------------------------------------+------------------------------------------------------------------------------------------+
-| Option                               | Description                                                                              |
-+======================================+==========================================================================================+
-| ``-h``, ``--help``                   | Prints a help message.                                                                   |
-+--------------------------------------+------------------------------------------------------------------------------------------+
-| ``-v``, ``--version``                | Prints version.                                                                          |
-+--------------------------------------+------------------------------------------------------------------------------------------+
-| ``-l``, ``--license``                | Prints author info, citation and license.                                                |
-+--------------------------------------+------------------------------------------------------------------------------------------+
-| ``-n``, ``--num-func[=int]``         | Number of orthogonal functions to generate. Positive integer. Default is 9.              |
-+--------------------------------------+------------------------------------------------------------------------------------------+
-| ``-s``, ``--start-func[=int]``       | Starting function index. Non-negative integer. Default is 1.                             |
-+--------------------------------------+------------------------------------------------------------------------------------------+
-| ``-e``, ``--end-interval[=float]``   | End of the interval of functions domains. A real number greater than zero. Default is 1. |
-+--------------------------------------+------------------------------------------------------------------------------------------+
-| ``-c``,\ ``--check``                 | Checks orthogonality of generated functions.                                             |
-+--------------------------------------+------------------------------------------------------------------------------------------+
-| ``-p``, ``--plot``                   | Plots generated functions, also saves the plot as pdf file in the current directory.     |
-+--------------------------------------+------------------------------------------------------------------------------------------+
-
-Parameters
-~~~~~~~~~~
-
-The variables |image17|, |image18|, and |image19| can be set in the script by the following arguments,
-
-+-------------+--------------------------+---------------------------------+
-| Variable    | Variable in script       | Option                          |
-+=============+==========================+=================================+
-| |image23|   | ``StartFunctionIndex``   | ``-s``, or ``--start-func``     |
-+-------------+--------------------------+---------------------------------+
-| |image24|   | ``NumFunctions``         | ``-n``, or ``--num-func``       |
-+-------------+--------------------------+---------------------------------+
-| |image25|   | ``EndInterval``          | ``-e``, or ``--end-interval``   |
-+-------------+--------------------------+---------------------------------+
-
 Citation
 --------
 
@@ -203,5 +162,7 @@ Citation
 .. |pypi| image:: https://img.shields.io/pypi/v/TraceInv
 
 .. |image01| image:: https://render.githubusercontent.com/render/math?math=\mathbf{A}
-.. |image02| image:: https://latex.codecogs.com/gif.latex?\mathrm{trace}(\mathbf{A}^{-1})" title="\mathrm{trace}(\mathbf{A}^{-1})
+.. |image02| image:: https://latex.codecogs.com/gif.latex?\mathrm{trace}(\mathbf{A}^{-1})
+.. |image04| image:: https://render.githubusercontent.com/render/math?math=\mathrm{trace}(\mathbf{A}^{-1})
+.. |image03| image:: https://render.githubusercontent.com/render/math?math=\mathbf{A}
 .. |image09| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/phi_i_perp.svg
