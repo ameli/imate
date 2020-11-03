@@ -7,7 +7,7 @@ import scipy
 from scipy import special
 from scipy import sparse
 # import multiprocessing
-import psutil
+import os
 import logging
 
 try:
@@ -223,7 +223,7 @@ def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,R
 
         try:
             # Get number of cpus
-            NumCPUs = psutil.cpu_count()
+            NumCPUs = os.cpu_count()
 
             # Parallelization with ray
             ray.init(num_cpus=NumCPUs,logging_level=logging.FATAL)
