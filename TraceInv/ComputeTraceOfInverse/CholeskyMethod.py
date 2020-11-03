@@ -161,9 +161,9 @@ def CholeskyMethod(A,UseInverseMatrix=True):
             # L = sksparse.cholmod.cholesky(A,mode='supernodal')
             L = sksparse.cholmod.cholesky(A)
         except:
-            raise RuntimeError('The package "sksparse" is not installed. Either install "sksparse", 
-                    or do not use Cholesky method for sparse matrices. Alternative methods are
-                    Hutchinson method and stochastic Lanczos quadrature methods.')
+            raise RuntimeError('The package "sksparse" is not installed. '
+                'Either install "sksparse", or do not use Cholesky method for sparse matrices. '
+                'Alternative methods are Hutchinson method and stochastic Lanczos quadrature methods.')
             
     else:
         L = scipy.linalg.cholesky(A,lower=True)
