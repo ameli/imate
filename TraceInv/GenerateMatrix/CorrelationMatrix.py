@@ -9,6 +9,7 @@ from scipy import sparse
 # import multiprocessing
 import os
 import logging
+import warnings
 
 try:
     import ray
@@ -217,7 +218,7 @@ def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,R
 
     # If matrice are sparse, it is better to generate columns of correlation in parallel
     if (RunInParallel == False) and (UseSparse == True):
-        raise ValueError('If matrices are sparse, it is better to generate columns of correlation matrix in parallel. Set "RunInParallel" to True.')
+        warnings.warn('If matrices are sparse, it is better to generate columns of correlation matrix in parallel. Set "RunInParallel" to True.')
 
     if RunInParallel:
 
@@ -248,7 +249,7 @@ def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,R
 
         except:
 
-            print('Ray parallel processing to generate correlation failed. Try with a single process ...')
+            warnings.warn('Ray parallel processing to generate correlation failed. Try with a single process ...')
 
             # Sometimes Ray's communications fail. Compute correlation withput parallel section
             K = ComputeCorrelationForAProcess(DecorrelationScale,nu,KernelThreshold,x,y,UseSparse,None,None)

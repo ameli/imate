@@ -20,22 +20,22 @@ env: BADGE=linux
 # Include Other operating systems
 matrix:
     include:
-        - name: "Linux with Python: pypy"
-          os: linux
-          python: "pypy"
-          env: BADGE=linux
-          before_install:
-            - sudo add-apt-repository universe
-            - sudo apt update
-            - sudo apt install gfortran libopenblas-dev liblapack-dev python-dev
-            - sudo apt install libsuitesparse-dev
-            - pypy --version
-            - pypy -m pip install --upgrade pip
-            - pypy -m pip install --upgrade pytest-cov
-            - pypy -m pip install codecov
-          install:
-            - pypy -m pip install -r requirements.txt
-            - pypy -m pip install -e .
+        # - name: "Linux with Python: pypy"
+        #   os: linux
+        #   python: "pypy"
+        #   env: BADGE=linux
+        #   before_install:
+        #     - sudo add-apt-repository universe
+        #     - sudo apt update
+        #     - sudo apt install gfortran libopenblas-dev liblapack-dev python-dev
+        #     - sudo apt install libsuitesparse-dev
+        #     - pypy --version
+        #     - pypy -m pip install --upgrade pip
+        #     - pypy -m pip install --upgrade pytest-cov
+        #     - pypy -m pip install codecov
+        #   install:
+        #     - pypy -m pip install -r requirements.txt
+        #     - pypy -m pip install -e .
 
         - name: "macOSX with Python: 2.7"
           os: osx
@@ -50,6 +50,7 @@ matrix:
             - python -m pip install --upgrade pip
             - python -m pip install --upgrade pytest-cov
             - python -m pip install codecov
+            - python -m pip install --upgrade numpy
             - brew install suite-sparse 
           install:
             - python -m pip install -r requirements.txt
@@ -67,9 +68,9 @@ matrix:
             - python3 -m pip install --upgrade pip
             - python3 -m pip install --upgrade pytest-cov
             - python3 -m pip install codecov
-          install:
             - brew install suite-sparse 
-            - python3 -m pip install -r requirements.txt
+          install:
+            - python3 -m pip install --upgrade -r requirements.txt
             - python3 -m pip install -e .
           script:
             - python3 -m pytest --cov-report=xml --cov=tests/
