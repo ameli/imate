@@ -7,8 +7,14 @@ import scipy
 from scipy import sparse
 from scipy import linalg
 from scipy.sparse import linalg
-import sksparse
-from sksparse.cholmod import cholesky
+
+try:
+    import sksparse
+    from sksparse.cholmod import cholesky
+    SparseSuiteInstalled = True
+except:
+    SparseSuiteInstalled = False
+
 
 # Package
 from .LinearSolver import LinearSolver
@@ -151,8 +157,14 @@ def CholeskyMethod(A,UseInverseMatrix=True):
 
     # Cholesky factorization
     if UseSparse:
-        # L = sksparse.cholmod.cholesky(A,mode='supernodal')
-        L = sksparse.cholmod.cholesky(A)
+        try:
+            # L = sksparse.cholmod.cholesky(A,mode='supernodal')
+            L = sksparse.cholmod.cholesky(A)
+        except:
+            raise RuntimeError('The package "sksparse" is not installed. Either install "sksparse", 
+                    or do not use Cholesky method for sparse matrices. Alternative methods are
+                    Hutchinson method and stochastic Lanczos quadrature methods.')
+            
     else:
         L = scipy.linalg.cholesky(A,lower=True)
 

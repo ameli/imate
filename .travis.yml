@@ -50,10 +50,8 @@ matrix:
             - python -m pip install --upgrade pip
             - python -m pip install --upgrade pytest-cov
             - python -m pip install codecov
-            - python -m pip install --upgrade numpy
-            - brew install suite-sparse 
           install:
-            - python -m pip install -r requirements.txt
+            - python -m pip install --upgrade -r requirements-lite.txt
             - python -m pip install -e .
 
         - name: 'macOSX with Python: 3.7'
@@ -68,9 +66,8 @@ matrix:
             - python3 -m pip install --upgrade pip
             - python3 -m pip install --upgrade pytest-cov
             - python3 -m pip install codecov
-            - brew install suite-sparse 
           install:
-            - python3 -m pip install --upgrade -r requirements.txt
+            - python3 -m pip install --upgrade -r requirements-lite.txt
             - python3 -m pip install -e .
           script:
             - python3 -m pytest --cov-report=xml --cov=tests/
@@ -84,8 +81,9 @@ matrix:
             - python -m pip install --upgrade pip
             - python -m pip install --upgrade pytest-cov
             - python -m pip install codecov
-            - sudo apt update
-            - sudo apt install libsuitesparse-dev
+          install:
+            - python -m pip install --upgrade -r requirements-lite.txt
+            - python -m pip install -e .
           env:
             - PATH=/c/Python38:/c/Python38/Scripts:$PATH
             - BADGE=windows

@@ -17,9 +17,8 @@ jobs:
 
             - name: Install Prerequisit
               run: |
-                  sudo apt-get update
-                  sudo apt-get install libsuitesparse-dev
-                  sudo apt-get install libcholmod3
+                  python -m pip install --upgrade pip
+                  python -m pip install --upgrade sphinx
 
             - name: Build and Deploy
               uses: JacksonMaxfield/github-pages-deploy-action-python@master
@@ -29,8 +28,6 @@ jobs:
                   BRANCH: gh-pages
                   FOLDER: docs/_build/html
                   BUILD_SCRIPT: |
-                      python -m pip install --upgrade pip
-                      python -m pip install --upgrade .[docs]
                       sphinx-apidoc -f -o docs/_modules/ ./TraceInv
                       make -C docs/ html
                       touch docs/_build/html/.nojekyll

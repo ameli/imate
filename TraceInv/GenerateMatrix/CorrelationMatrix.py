@@ -74,8 +74,6 @@ def CorrelationKernel(Distance,DecorrelationScale,nu):
 # Compute Correlation For A Process
 # =================================
 
-# if RayInstalled:
-# @ray.remote
 def ComputeCorrelationForAProcess(DecorrelationScale,nu,KernelThreshold,x,y,UseSparse,NumCPUs,StartIndex):
     """
     Computes correlation at the ColumnIndex-th column and row of ``K``.
@@ -155,6 +153,91 @@ def ComputeCorrelationForAProcess(DecorrelationScale,nu,KernelThreshold,x,y,UseS
     else:
         return K
 
+# ==========================================
+# Compute Correlation For A Process With Ray
+# ==========================================
+
+if RayInstalled:
+    @ray.remote
+    def ComputeCorrelationForAProcessWithRay(DecorrelationScale,nu,KernelThreshold,x,y,UseSparse,NumCPUs,StartIndex):
+        """
+        Computes correlation at the ColumnIndex-th column and row of ``K``.
+
+        * ``K`` is updated inplace.
+        * This function is used as a partial function for parallel processing.
+
+        * If ``StartIndex`` is ``None``, it fills all columns of correlation matrix ``K``.
+        * If ``StartIndex`` is not ``None``, it fills only a sub-rang of columns of ``K`` from ``StartIndex`` to ``n`` by ``NumCPUs`` increment.
+
+        .. note::
+
+            To run the code in parallel, uncomment the ``@ray.remote`` directive before the definition of the function.
+
+        :param DecorrelationScale: A parameter of correlation function that scales distance.
+        :type DecorrelationScale: float
+
+        :param nu: A parameter of the Matern correlation function. ``nu`` modulates the smoothness of the stochastic process.
+        :type nu: float
+        
+        :param KernelThreshold: To sparsify the matrix (if ``UseSparse`` is ``True``), the correlation function values below this threshold 
+            is set to zero.
+        :type Kernel Threshold: float
+        
+        :param x: x-coordinates of the set of points. 
+        :type x: array
+
+        :param y: y-coordinates of the set of points. 
+        :type y: array
+
+        :param UseSparse: Flag to indicate the correlation matrix should be sparse or dense matrix.
+        :type UseSparse: bool
+
+        :param NumCPUs: Number of processors to employ parallel processing with ``ray`` package.
+        :type NumCPUs: int
+
+        :param StartIndex: The start index of the column of ``K`` to be filled.
+            If this is ``None``, all columns of ``K`` are filled.
+            If this is not ``None``, only a range of columns of ``K`` are filled.
+
+        :type: int
+        """
+
+        n = x.size
+
+        if UseSparse:
+            K = scipy.sparse.lil_matrix((n,n))
+        else:
+            K = numpy.zeros((n,n),dtype=float)
+
+        # Range of filling columns of correlation
+        if StartIndex is None:
+            Range = range(n)
+        else:
+            Range = range(StartIndex,n,NumCPUs)
+
+        # Fill K only at each NumCPU columns starting from StartIndex
+        for i in Range:
+
+            # Euclidean distance of points
+            Distance = numpy.sqrt((x[i:]-x[i])**2 + (y[i:] - y[i])**2)
+            Correlation = CorrelationKernel(Distance,DecorrelationScale,nu)
+
+            # Sparsify
+            if UseSparse:
+                Correlation[Correlation < KernelThreshold] = 0
+
+            # Diagonal element
+            K[i,i] = Correlation[0] * 0.5
+
+            # Upper-right elements
+            if i < n-1:
+                K[i,i+1:] = Correlation[1:]
+
+        if UseSparse:
+            return K.tocsc()
+        else:
+            return K
+
 # ==================
 # Correlation Matrix
 # ==================
@@ -230,7 +313,7 @@ def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,R
             ray.init(num_cpus=NumCPUs,logging_level=logging.FATAL)
 
             # Parallel section with ray. This just creates process Ids. It does not do computation
-            Process_Ids = [ComputeCorrelationForAProcess.remote(DecorrelationScale,nu,KernelThreshold,x,y,UseSparse,NumCPUs,StartIndex) for StartIndex in range(NumCPUs)]
+            Process_Ids = [ComputeCorrelationForAProcessWithRay.remote(DecorrelationScale,nu,KernelThreshold,x,y,UseSparse,NumCPUs,StartIndex) for StartIndex in range(NumCPUs)]
 
             # Do the parallel computations
             K_List = ray.get(Process_Ids)

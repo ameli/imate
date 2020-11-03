@@ -37,6 +37,7 @@ class InterpolateTraceOfInverse(object):
         --------------------  -----------------------------
         Interpolation method  Description
         ====================  =============================
+         ``'EXT'``            Exact, no interpolation
          ``'EIG'``            Eigenvalues of ``A``
          ``'MBF'``            Mnomial basis functions
          ``'RMBF'`            Root monomial basis functions
