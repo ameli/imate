@@ -97,7 +97,6 @@ def main(argv):
         extras_require = {
             'full': [
                 'scikit-sparse',
-                'ray'
                 ],
             'dev': [
                 'pytest-cov',
