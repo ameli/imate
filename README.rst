@@ -56,7 +56,7 @@ by the method described in [Ameli-2020]_. The above function is featured in a wi
 Install
 -------
 
-To run ``TraceInv``, the prerequisite packages are ``numpy``, ``scipy`` are required. Also, to run the examples provided in ``/examples``, the packages ``matplotlib`` and ``seaborn`` are required. These prerequisite packages will be installed automatically by installing ``TraceInv``. You may install ``TraceInv`` by either of the following ways:
+You may install ``TraceInv`` by either of the following ways:
 
 - Method 1: install from the package available at `PyPi <https://pypi.org/project/TraceInv>`_:
 
@@ -73,14 +73,15 @@ To run ``TraceInv``, the prerequisite packages are ``numpy``, ``scipy`` are requ
     cd TraceInv
     python -m pip install -e .
 
+To run ``TraceInv``, the prerequisite packages are ``numpy``, ``scipy`` are required. Also, to run the examples provided in ``/examples``, the packages ``matplotlib`` and ``seaborn`` are required. These prerequisite packages will be installed automatically by installing ``TraceInv``.
 
 Additional Installations (*Optional*)
 -------------------------------------
 
 Installing the additional packages ``ray`` and ``scikit-sparse`` can improve the performance of ``TraceInv``, but they are not required. 
 
-1. Installing ``ray``
-~~~~~~~~~~~~~~~~~~~~~
+1. Install ``ray``
+~~~~~~~~~~~~~~~~~~
 
 If you want to run the examples provided in ``/examples``, you may install the ``ray`` package to leverage the parallel processing used in generate large sparse matrices. Installing ``ray`` is optional as the examples can still produce results without it. Install ``ray`` package by:
 
@@ -88,8 +89,8 @@ If you want to run the examples provided in ``/examples``, you may install the `
 
     python -m pip install ray
 
-2. Installing ``scikit-sparse``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2. Install ``scikit-sparse``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In ``TraceInv`` package, one of the methods to compute the trace of a matrix is by the *Cholesky decomposition*. If the input matrix is *sparse*, the Cholesky decomposition is computed with either of these packages below, whichever is available:
 
@@ -139,6 +140,18 @@ To install ``scikit-sparse``, follow the two steps below.
 
        python -m pip install scikit-sparse
 
+Sub-packages
+------------
+
+The package ``TraceInv`` has three sub-packages:
+
+=============================  ===================================================================================================
+Package                        Description
+-----------------------------  ---------------------------------------------------------------------------------------------------
+``GenerateData``               Generates symmetric and positive-definite matrices. This package is only used for testing purposes.
+``ComputeTraceOfInverse``      Computes trace of inverse for a fixed matrix.
+``InterpolateTraceOfInverse``  Interpolates trace of inverse for a linear matrix function.
+=============================  ===================================================================================================
 
 Basic Usage
 -----------
@@ -157,9 +170,9 @@ For a complete set of options, see the documentation. A minimalistic examples fo
     A = GenerateMatrix(NumPoints=20)
     
     # Compute trace of inverse
-    trace = ComputeTraceOfInverse(A,method='cholesky')
+    trace = ComputeTraceOfInverse(A,ComputeMethod='hutchinson')
 
-1. For a Linear Matrix Function
+2. For a Linear Matrix Function
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
@@ -169,13 +182,42 @@ For a complete set of options, see the documentation. A minimalistic examples fo
     
     # Generate a symmetric positive-definite matrix
     A = GenerateMatrix(NumPoints=20)
+
+    # Define some interpolating points
+    InterpolantPoints = [1e-2,1e-1,1,1e+1]
     
     # Create an interpolating TraceInv object
-    TI = InterpolateTraceOfInverse(A,InterpolatingMethod='RMBF')
+    TI = InterpolateTraceOfInverse(A,InterpolantPoints,InterpolatingMethod='RMBF')
     
-    # Interpolate A+tI
+    # Interpolate A+tI at some input point t
     t = 4e-1
     trace = TI.Interpolate(t)
+
+Options
+-------
+
+Options for ``ComputeTraceOfInverse`` module:
+
+===================  ===========================================  ==============  =============  =============  
+``ComputingMethod``  Description                                  Matrix size     Matrix type    Results        
+-------------------  -------------------------------------------  --------------  -------------  -------------  
+``'cholesky'``         Uses Cholesky decomposition                small           dense, sparse  exact          
+``'hutchinson'``       Uses Hutchinson's randomized method        small or large  dense, sparse  approximation  
+``'SLO'``              Uses Stochastic Lanczos Quadrature method  small or large  dense, sparse  approximation  
+===================  ===========================================  ==============  =============  =============  
+
+Options for ``InterpolateTraceOfInverse`` module:
+
+=======================  =========================================  ==============  =============  =============
+``InterpolationMethod``  Description                                Matrix size     Matrix type    Results
+-----------------------  -----------------------------------------  --------------  -------------  -------------
+``'EXT'``                Computes trace directly, no interpolation  Small           dense, sparse  exact
+``'EIG'``                Uses Eigenvalues of matrix                 Small           dense, sparse  exact
+``'MBF'``                Monomial Basis Functions                   Small or large  dense, sparse  interpolation
+``'RMBF'`                Root monomial basis functions              small or large  dense, sparse  interpolation
+``'RBF'``                Radial basis functions                     small or large  dense, sparse  interpolation
+``'RPF'``                Ratioanl polynomial functions              small or large  dense, sparse  interpolation
+=======================  =========================================  ==============  =============  =============
 
 Citation
 --------
