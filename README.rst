@@ -145,13 +145,13 @@ Sub-packages
 
 The package ``TraceInv`` has three sub-packages:
 
-=============================  ===================================================================================================
-Package                        Description
------------------------------  ---------------------------------------------------------------------------------------------------
-``GenerateData``               Generates symmetric and positive-definite matrices. This package is only used for testing purposes.
-``ComputeTraceOfInverse``      Computes trace of inverse for a fixed matrix.
-``InterpolateTraceOfInverse``  Interpolates trace of inverse for a linear matrix function.
-=============================  ===================================================================================================
+======================================  ===================================================================================
+Sub-Package                             Description
+--------------------------------------  -----------------------------------------------------------------------------------
+``TraceInv.GenerateData``               Generates symmetric and positive-definite matrices. Only used for testing purposes.
+``TraceInv.ComputeTraceOfInverse``      Computes trace of inverse for a fixed matrix.
+``TraceInv.InterpolateTraceOfInverse``  Interpolates trace of inverse for a linear matrix function.
+======================================  ===================================================================================
 
 Basic Usage
 -----------
@@ -198,13 +198,13 @@ Options
 
 Options for ``ComputeTraceOfInverse`` module:
 
-===================  ===========================================  ==============  =============  =============  
-``ComputingMethod``  Description                                  Matrix size     Matrix type    Results        
--------------------  -------------------------------------------  --------------  -------------  -------------  
-``'cholesky'``         Uses Cholesky decomposition                small           dense, sparse  exact          
-``'hutchinson'``       Uses Hutchinson's randomized method        small or large  dense, sparse  approximation  
-``'SLO'``              Uses Stochastic Lanczos Quadrature method  small or large  dense, sparse  approximation  
-===================  ===========================================  ==============  =============  =============  
+===================  ====================================  ==============  =============  =============  
+``ComputingMethod``  Description                           Matrix size     Matrix type    Results        
+-------------------  ------------------------------------  --------------  -------------  -------------  
+``'cholesky'``       Cholesky decomposition                small           dense, sparse  exact          
+``'hutchinson'``     Hutchinson's randomized method        small or large  dense, sparse  approximation  
+``'SLO'``            Stochastic Lanczos Quadrature method  small or large  dense, sparse  approximation  
+===================  ====================================  ==============  =============  =============  
 
 Options for ``InterpolateTraceOfInverse`` module:
 
@@ -214,10 +214,60 @@ Options for ``InterpolateTraceOfInverse`` module:
 ``'EXT'``                Computes trace directly, no interpolation  Small           dense, sparse  exact
 ``'EIG'``                Uses Eigenvalues of matrix                 Small           dense, sparse  exact
 ``'MBF'``                Monomial Basis Functions                   Small or large  dense, sparse  interpolation
-``'RMBF'`                Root monomial basis functions              small or large  dense, sparse  interpolation
+``'RMBF'``               Root monomial basis functions              small or large  dense, sparse  interpolation
 ``'RBF'``                Radial basis functions                     small or large  dense, sparse  interpolation
 ``'RPF'``                Ratioanl polynomial functions              small or large  dense, sparse  interpolation
 =======================  =========================================  ==============  =============  =============
+
+Examples
+--------
+
+Three examples are provided in ``/examples``, which aim to reproduce the figures presented in |Ameli-2020|. Namely, in that reference,
+
+1. ``/examples/Plot_TraceInv_FullRank.py`` reproduces Figure 2.
+2. ``/examples/Plot_TraceInv_IllConditioned.py`` reproduces Figure 3.
+3. ``/examples/Plot_GeneralizedCorssValidation.py`` reproduces Figure 4 and generates the results of Table 2.
+
+To run the examples, the prerequisite packages ``matplotlib`` and ``seaborn`` should be installed. Usually, these packages are installed by installing ``TraceInv``.
+
+Example 1
+~~~~~~~~~
+
+The script ``/examples/Plot_TraceInv_FullRank.py`` plots the trace of the inverse of a full rank linear matrix function. Run the example by
+
+::
+
+    python examples/Plot_TraceInv_FullRank.py
+
+The script generates the figure below. See more details in Figure 2 of |Ameli-2020|.
+
+.. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/Example1.svg
+
+Example 2
+~~~~~~~~~
+
+The script ``/examples/Plot_TraceInv_IllConditoned.py`` plots the trace of the inverse of an ill-conditioned linear matrix function. Run the example by
+
+::
+
+    python examples/Plot_TraceInv_IllConditioned.py
+
+The script generates the figure below. See more details in Figure 3 of |Ameli-2020|.
+
+.. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/Example2.svg
+
+Example 3
+~~~~~~~~~
+
+The script ``/examples/Plot_GeneralizedCrossValidation.py`` plots the trace of the inverse of an ill-conditioned linear matrix function. Run the example by
+
+::
+
+    python examples/Plot_GeneralizedCrossValidation.py
+
+The script generates the figure below and prints the processing times of the computations. See more details in Figure 3 and results of Table 2 of |Ameli-2020|.
+
+.. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/GeneralizedCrossValidation.svg
 
 Citation
 --------
@@ -260,3 +310,9 @@ Citation
 .. |image03| image:: https://latex.codecogs.com/svg.latex?\mathbf{B}
 .. |image04| image:: https://latex.codecogs.com/svg.latex?t\in&space;[t_0,t_1]
 .. |image05| image:: https://latex.codecogs.com/svg.latex?\mathbf{A}+t\mathbf{B}
+
+Acknowledgement
+---------------
+
+* National Science Foundation #1520825
+* American Heart Association #18EIA33900046
