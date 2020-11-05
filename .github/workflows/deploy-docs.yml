@@ -15,13 +15,6 @@ jobs:
             - name: Checkout
               uses: actions/checkout@master
 
-            - name: Install Prerequisit
-              run: |
-                  python3 -m pip install --upgrade pip
-                  python3 -m pip install --upgrade sphinx
-                  ls /home/runner/.local/bin
-                  export PATH=${PATH}:/home/runner/.local/bin
-
             - name: Build and Deploy
               uses: JacksonMaxfield/github-pages-deploy-action-python@master
               env:
@@ -29,7 +22,10 @@ jobs:
                   BASE_BRANCH: master
                   BRANCH: gh-pages
                   FOLDER: docs/_build/html
+                  PATH: $HOME/.local/bin:$PATH
                   BUILD_SCRIPT: |
+                      python3 -m pip install --upgrade pip
+                      python3 -m pip install --upgrade sphinx
                       sphinx-apidoc -f -o docs/_modules/ ./TraceInv
                       make -C docs/ html
                       touch docs/_build/html/.nojekyll
