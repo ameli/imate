@@ -58,8 +58,10 @@ matrix:
           os: osx
           osx_image: xcode11
           language: shell
+          python: "3.7"
           env:
-            - PYTHON_VERSION=3.7
+            - PYTHON=3.7
+            - PYTHON_VERSION=3.7.7
             - BADGE=osx
           before_install:
             - python3 --version

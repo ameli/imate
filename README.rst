@@ -33,8 +33,8 @@ Description
 
 This package computes the trace of inverse of matrices for two purposes:
 
-Fixed Matrix
-~~~~~~~~~~~~
+1. Fixed Matrix
+~~~~~~~~~~~~~~~
 
 For a given generic invertible matrix |image01|, this package can compute |image02| by either of these three methods:
 
@@ -42,8 +42,8 @@ For a given generic invertible matrix |image01|, this package can compute |image
 2. *Hutchinson's method*: This is a randomized approximation and suitable for large or implicit matrices.
 3. *Stochastic Lanczos Quadrature Method*: This is a randomized approximation and suitable for large or implicit matrices.
 
-Linear Matrix Function
-~~~~~~~~~~~~~~~~~~~~~~
+2. Linear Matrix Function
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Consider two matrices |image01| and |image03| and a range of real number |image04| such that |image05| is invertible. Then, this package can interpolate the function
 
@@ -63,7 +63,7 @@ Install
     python -m pip install TraceInv
 
 
-- Method 2: install directly from the source code by:
+- Method 2: or, download the source code and install from the source code by:
 
   ::
 
@@ -80,58 +80,60 @@ Additional Installations (*Optional*)
 If you want to run the examples provided in ``/examples``, you may install the ``ray`` package to leverage the parallel processing used in generate large sparse matrices. Installing ``ray`` is optional as the examples can still produce results without it. Install ``ray`` package by:
 
 ::
+
     python -m pip install ray
 
 2. Installing ``scikit-sparse``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In ``TraceInv`` package, one of the three methods to compute the trace of a matrix is by the *Cholesky decomposition*. If the input matrix is *sparse*, the Cholesky decomposition is computed with either of ``scikit-sparse`` or ``scipy`` package, whichever is available.
+In ``TraceInv`` package, one of the methods to compute the trace of a matrix is by the *Cholesky decomposition*. If the input matrix is *sparse*, the Cholesky decomposition is computed with either of these packages below, whichever is available:
 
-* ``scikit-sparse``: If this package is installed, ``TraceInv`` uses this package by *default*. Note that ``scikit-sparse`` is not available by installing ``TraceInv`` only, rather, it should be installed separately (see instructions below).
-* ``scipy``: If ``scikit-sparse`` is not installed, the ``scipy`` package is used instead. The ``scipy`` package is a prerequisite of ``TracewInv`` and is readily available by installing ``TraceInv``.
+* ``scikit-sparse``: If this is available, ``TraceInv`` uses this package by *default*. Note that ``scikit-sparse`` is not available by installing ``TraceInv`` only, rather, it should be installed separately (see instructions below).
+* ``scipy``: If ``scikit-sparse`` is not available, the ``scipy`` package is used instead. The ``scipy`` package is readily available by installing ``TraceInv``.
 
 To install ``scikit-sparse``, follow the two steps below.
 
-1. Install `*Suite Sarse* <https://people.engr.tamu.edu/davis/suitesparse.html>`_ as described below depending on the operating system.
+1. Install *`Suite Sarse <https://people.engr.tamu.edu/davis/suitesparse.html>`_* as described below depending on the operating system.
 
    + In *Linux*, install ``libsuitesparse-dev`` package, such as for a few Linux distros below:
 
-     + Install by ``apt`` (in Debian, Ubuntu, Mint)
+     + Install with ``apt`` (in Debian, Ubuntu, Mint)
 
-     ::
+        ::
 
          sudo apt install libsuitesparse-dev  
 
-     + Or, install by ``yum`` (in Redhat, Fedora, CentOS)
+     + Or, install with ``yum`` (in Redhat, Fedora, CentOS)
 
        ::
 
          sudo yum install libsuitesparse-dev  
 
-     + or, install by ``pacman`` (in Arch Linux)
+     + or, install with ``pacman`` (in Arch Linux)
 
        ::
 
          sudo pacman -S install libsuitesparse-dev  
 
-   + In *MacOSX*, install ``libsuitesparse-dev`` package by ``brew``:
+   + In *MacOSX*, install with ``brew``:
 
-   ::
+       ::
 
-       sudo brew install libsuitesparse-dev
+         sudo brew install libsuitesparse-dev
 
 
    + In *Windows*, compile Sparse Suite from the source.
 
    + Alternatively, if you are using *Anaconda* for python distribution (on either of the operating systems), install Suite Sparse by:
 
-   ::
+       ::
 
-       sudo conda install -c conda-forge suitesparse
+         sudo conda install -c conda-forge suitesparse
 
 2. Install ``scikit-sparse`` package:
 
    ::
+
        python -m pip install scikit-sparse
 
 
