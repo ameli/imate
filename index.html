@@ -84,7 +84,7 @@
 </div>
 <div class="section" id="install">
 <h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
-<p>To run <code class="docutils literal notranslate"><span class="pre">TraceInv</span></code>, the prerequisite packages are <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code> are required. Also, to run the examples provided in <code class="docutils literal notranslate"><span class="pre">/examples</span></code>, the packages <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> are required. These prerequisite packages will be installed automatically by installing <code class="docutils literal notranslate"><span class="pre">TraceInv</span></code>. You may install <code class="docutils literal notranslate"><span class="pre">TraceInv</span></code> by either of the following ways:</p>
+<p>You may install <code class="docutils literal notranslate"><span class="pre">TraceInv</span></code> by either of the following ways:</p>
 <ul>
 <li><p>Method 1: install from the package available at <a class="reference external" href="https://pypi.org/project/TraceInv">PyPi</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">TraceInv</span>
@@ -99,19 +99,20 @@
 </div>
 </li>
 </ul>
+<p>To run <code class="docutils literal notranslate"><span class="pre">TraceInv</span></code>, the prerequisite packages are <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">scipy</span></code> are required. Also, to run the examples provided in <code class="docutils literal notranslate"><span class="pre">/examples</span></code>, the packages <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> are required. These prerequisite packages will be installed automatically by installing <code class="docutils literal notranslate"><span class="pre">TraceInv</span></code>.</p>
 </div>
 <div class="section" id="additional-installations-optional">
 <h2>Additional Installations (<em>Optional</em>)<a class="headerlink" href="#additional-installations-optional" title="Permalink to this headline">¶</a></h2>
 <p>Installing the additional packages <code class="docutils literal notranslate"><span class="pre">ray</span></code> and <code class="docutils literal notranslate"><span class="pre">scikit-sparse</span></code> can improve the performance of <code class="docutils literal notranslate"><span class="pre">TraceInv</span></code>, but they are not required.</p>
-<div class="section" id="installing-ray">
-<h3>1. Installing <code class="docutils literal notranslate"><span class="pre">ray</span></code><a class="headerlink" href="#installing-ray" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="install-ray">
+<h3>1. Install <code class="docutils literal notranslate"><span class="pre">ray</span></code><a class="headerlink" href="#install-ray" title="Permalink to this headline">¶</a></h3>
 <p>If you want to run the examples provided in <code class="docutils literal notranslate"><span class="pre">/examples</span></code>, you may install the <code class="docutils literal notranslate"><span class="pre">ray</span></code> package to leverage the parallel processing used in generate large sparse matrices. Installing <code class="docutils literal notranslate"><span class="pre">ray</span></code> is optional as the examples can still produce results without it. Install <code class="docutils literal notranslate"><span class="pre">ray</span></code> package by:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">ray</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="installing-scikit-sparse">
-<h3>2. Installing <code class="docutils literal notranslate"><span class="pre">scikit-sparse</span></code><a class="headerlink" href="#installing-scikit-sparse" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="install-scikit-sparse">
+<h3>2. Install <code class="docutils literal notranslate"><span class="pre">scikit-sparse</span></code><a class="headerlink" href="#install-scikit-sparse" title="Permalink to this headline">¶</a></h3>
 <p>In <code class="docutils literal notranslate"><span class="pre">TraceInv</span></code> package, one of the methods to compute the trace of a matrix is by the <em>Cholesky decomposition</em>. If the input matrix is <em>sparse</em>, the Cholesky decomposition is computed with either of these packages below, whichever is available:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">scikit-sparse</span></code>: If this is available, <code class="docutils literal notranslate"><span class="pre">TraceInv</span></code> uses this package by <em>default</em>. Note that <code class="docutils literal notranslate"><span class="pre">scikit-sparse</span></code> is not available by installing <code class="docutils literal notranslate"><span class="pre">TraceInv</span></code> only, rather, it should be installed separately (see instructions below).</p></li>
@@ -164,6 +165,30 @@
 </ol>
 </div>
 </div>
+<div class="section" id="sub-packages">
+<h2>Sub-packages<a class="headerlink" href="#sub-packages" title="Permalink to this headline">¶</a></h2>
+<p>The package <code class="docutils literal notranslate"><span class="pre">TraceInv</span></code> has three sub-packages:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 77%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Package</p></td>
+<td><p>Description</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">GenerateData</span></code></p></td>
+<td><p>Generates symmetric and positive-definite matrices. This package is only used for testing purposes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></p></td>
+<td><p>Computes trace of inverse for a fixed matrix.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></p></td>
+<td><p>Interpolates trace of inverse for a linear matrix function.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="basic-usage">
 <h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
 <p>For a complete set of options, see the documentation. A minimalistic examples for both fixed matrix and matrix function are as follows.</p>
@@ -176,27 +201,123 @@
 <span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
 <span class="c1"># Compute trace of inverse</span>
-<span class="n">trace</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;cholesky&#39;</span><span class="p">)</span>
+<span class="n">trace</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="for-a-linear-matrix-function">
-<h3>1. For a Linear Matrix Function<a class="headerlink" href="#for-a-linear-matrix-function" title="Permalink to this headline">¶</a></h3>
+<h3>2. For a Linear Matrix Function<a class="headerlink" href="#for-a-linear-matrix-function" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
 <span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">InterpolateTraceOfInverse</span>
 
 <span class="c1"># Generate a symmetric positive-definite matrix</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
-<span class="c1"># Create an interpolating TraceInv object</span>
-<span class="n">TI</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">InterpolatingMethod</span><span class="o">=</span><span class="s1">&#39;RMBF&#39;</span><span class="p">)</span>
+<span class="c1"># Define some interpolating points</span>
+<span class="n">InterpolantPoints</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1e-2</span><span class="p">,</span><span class="mf">1e-1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1e+1</span><span class="p">]</span>
 
-<span class="c1"># Interpolate A+tI</span>
+<span class="c1"># Create an interpolating TraceInv object</span>
+<span class="n">TI</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">InterpolatingMethod</span><span class="o">=</span><span class="s1">&#39;RMBF&#39;</span><span class="p">)</span>
+
+<span class="c1"># Interpolate A+tI at some input point t</span>
 <span class="n">t</span> <span class="o">=</span> <span class="mf">4e-1</span>
 <span class="n">trace</span> <span class="o">=</span> <span class="n">TI</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<p>Options for <code class="docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code> module:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 42%" />
+<col style="width: 14%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ComputingMethod</span></code></p></td>
+<td><p>Description</p></td>
+<td><p>Matrix size</p></td>
+<td><p>Matrix type</p></td>
+<td><p>Results</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'cholesky'</span></code></p></td>
+<td><p>Uses Cholesky decomposition</p></td>
+<td><p>small</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>exact</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'hutchinson'</span></code></p></td>
+<td><p>Uses Hutchinson’s randomized method</p></td>
+<td><p>small or large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>approximation</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'SLO'</span></code></p></td>
+<td><p>Uses Stochastic Lanczos Quadrature method</p></td>
+<td><p>small or large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>approximation</p></td>
+</tr>
+</tbody>
+</table>
+<p>Options for <code class="docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code> module:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 39%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">InterpolationMethod</span></code></p></td>
+<td><p>Description</p></td>
+<td><p>Matrix size</p></td>
+<td><p>Matrix type</p></td>
+<td><p>Results</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'EXT'</span></code></p></td>
+<td><p>Computes trace directly, no interpolation</p></td>
+<td><p>Small</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>exact</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'EIG'</span></code></p></td>
+<td><p>Uses Eigenvalues of matrix</p></td>
+<td><p>Small</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>exact</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'MBF'</span></code></p></td>
+<td><p>Monomial Basis Functions</p></td>
+<td><p>Small or large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>interpolation</p></td>
+</tr>
+<tr class="row-odd"><td><p><a href="#id2"><span class="problematic" id="id3">``</span></a>’RMBF’`</p></td>
+<td><p>Root monomial basis functions</p></td>
+<td><p>small or large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>interpolation</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'RBF'</span></code></p></td>
+<td><p>Radial basis functions</p></td>
+<td><p>small or large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>interpolation</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'RPF'</span></code></p></td>
+<td><p>Ratioanl polynomial functions</p></td>
+<td><p>small or large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>interpolation</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="citation">
 <h2>Citation<a class="headerlink" href="#citation" title="Permalink to this headline">¶</a></h2>
@@ -239,15 +360,17 @@
 </li>
 <li><a class="reference internal" href="#install">Install</a></li>
 <li><a class="reference internal" href="#additional-installations-optional">Additional Installations (<em>Optional</em>)</a><ul>
-<li><a class="reference internal" href="#installing-ray">1. Installing <code class="docutils literal notranslate"><span class="pre">ray</span></code></a></li>
-<li><a class="reference internal" href="#installing-scikit-sparse">2. Installing <code class="docutils literal notranslate"><span class="pre">scikit-sparse</span></code></a></li>
+<li><a class="reference internal" href="#install-ray">1. Install <code class="docutils literal notranslate"><span class="pre">ray</span></code></a></li>
+<li><a class="reference internal" href="#install-scikit-sparse">2. Install <code class="docutils literal notranslate"><span class="pre">scikit-sparse</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#sub-packages">Sub-packages</a></li>
 <li><a class="reference internal" href="#basic-usage">Basic Usage</a><ul>
 <li><a class="reference internal" href="#for-a-fixed-matrix">1. For a Fixed Matrix</a></li>
-<li><a class="reference internal" href="#for-a-linear-matrix-function">1. For a Linear Matrix Function</a></li>
+<li><a class="reference internal" href="#for-a-linear-matrix-function">2. For a Linear Matrix Function</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#options">Options</a></li>
 <li><a class="reference internal" href="#citation">Citation</a></li>
 </ul>
 </li>
