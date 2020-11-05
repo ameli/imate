@@ -68,10 +68,8 @@ matrix:
             - python3 -m pip install --upgrade pytest-cov
             - python3 -m pip install codecov
           install:
-            - python3 --version
             - python3 -m pip install -e .
           script:
-            - python3 --version
             - python3 -m pytest --cov-report=xml --cov=tests/
 
         - name: "Windows with Python: 3.8"
