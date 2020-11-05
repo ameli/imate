@@ -170,20 +170,20 @@
 <p>The package <code class="docutils literal notranslate"><span class="pre">TraceInv</span></code> has three sub-packages:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 23%" />
-<col style="width: 77%" />
+<col style="width: 31%" />
+<col style="width: 69%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p>Package</p></td>
+<tr class="row-odd"><td><p>Sub-Package</p></td>
 <td><p>Description</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">GenerateData</span></code></p></td>
-<td><p>Generates symmetric and positive-definite matrices. This package is only used for testing purposes.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TraceInv.GenerateData</span></code></p></td>
+<td><p>Generates symmetric and positive-definite matrices. Only used for testing purposes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse</span></code></p></td>
 <td><p>Computes trace of inverse for a fixed matrix.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse</span></code></p></td>
 <td><p>Interpolates trace of inverse for a linear matrix function.</p></td>
 </tr>
 </tbody>
@@ -231,11 +231,11 @@
 <p>Options for <code class="docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code> module:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 19%" />
-<col style="width: 42%" />
+<col style="width: 20%" />
+<col style="width: 38%" />
+<col style="width: 15%" />
 <col style="width: 14%" />
-<col style="width: 13%" />
-<col style="width: 13%" />
+<col style="width: 14%" />
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ComputingMethod</span></code></p></td>
@@ -245,19 +245,19 @@
 <td><p>Results</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'cholesky'</span></code></p></td>
-<td><p>Uses Cholesky decomposition</p></td>
+<td><p>Cholesky decomposition</p></td>
 <td><p>small</p></td>
 <td><p>dense, sparse</p></td>
 <td><p>exact</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'hutchinson'</span></code></p></td>
-<td><p>Uses Hutchinson’s randomized method</p></td>
+<td><p>Hutchinson’s randomized method</p></td>
 <td><p>small or large</p></td>
 <td><p>dense, sparse</p></td>
 <td><p>approximation</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'SLO'</span></code></p></td>
-<td><p>Uses Stochastic Lanczos Quadrature method</p></td>
+<td><p>Stochastic Lanczos Quadrature method</p></td>
 <td><p>small or large</p></td>
 <td><p>dense, sparse</p></td>
 <td><p>approximation</p></td>
@@ -298,7 +298,7 @@
 <td><p>dense, sparse</p></td>
 <td><p>interpolation</p></td>
 </tr>
-<tr class="row-odd"><td><p><a href="#id2"><span class="problematic" id="id3">``</span></a>’RMBF’`</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'RMBF'</span></code></p></td>
 <td><p>Root monomial basis functions</p></td>
 <td><p>small or large</p></td>
 <td><p>dense, sparse</p></td>
@@ -318,6 +318,40 @@
 </tr>
 </tbody>
 </table>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Three examples are provided in <code class="docutils literal notranslate"><span class="pre">/examples</span></code>, which aim to reproduce the figures presented in <a href="#id2"><span class="problematic" id="id3">|Ameli-2020|</span></a>. Namely, in that reference,</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">/examples/Plot_TraceInv_FullRank.py</span></code> reproduces Figure 2.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/examples/Plot_TraceInv_IllConditioned.py</span></code> reproduces Figure 3.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">/examples/Plot_GeneralizedCorssValidation.py</span></code> reproduces Figure 4 and generates the results of Table 2.</p></li>
+</ol>
+<p>To run the examples, the prerequisite packages <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> should be installed. Usually, these packages are installed by installing <code class="docutils literal notranslate"><span class="pre">TraceInv</span></code>.</p>
+<div class="section" id="example-1">
+<h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h3>
+<p>The script <code class="docutils literal notranslate"><span class="pre">/examples/Plot_TraceInv_FullRank.py</span></code> plots the trace of the inverse of a full rank linear matrix function. Run the example by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">examples</span><span class="o">/</span><span class="n">Plot_TraceInv_FullRank</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>The script generates the figure below. See more details in Figure 2 of <a href="#id4"><span class="problematic" id="id5">|Ameli-2020|</span></a>.</p>
+<img alt="https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/Example1.svg" src="https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/Example1.svg" /></div>
+<div class="section" id="example-2">
+<h3>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h3>
+<p>The script <code class="docutils literal notranslate"><span class="pre">/examples/Plot_TraceInv_IllConditoned.py</span></code> plots the trace of the inverse of an ill-conditioned linear matrix function. Run the example by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">examples</span><span class="o">/</span><span class="n">Plot_TraceInv_IllConditioned</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>The script generates the figure below. See more details in Figure 3 of <a href="#id6"><span class="problematic" id="id7">|Ameli-2020|</span></a>.</p>
+<img alt="https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/Example2.svg" src="https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/Example2.svg" /></div>
+<div class="section" id="example-3">
+<h3>Example 3<a class="headerlink" href="#example-3" title="Permalink to this headline">¶</a></h3>
+<p>The script <code class="docutils literal notranslate"><span class="pre">/examples/Plot_GeneralizedCrossValidation.py</span></code> plots the trace of the inverse of an ill-conditioned linear matrix function. Run the example by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">examples</span><span class="o">/</span><span class="n">Plot_GeneralizedCrossValidation</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>The script generates the figure below and prints the processing times of the computations. See more details in Figure 3 and results of Table 2 of <a href="#id8"><span class="problematic" id="id9">|Ameli-2020|</span></a>.</p>
+<img alt="https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/GeneralizedCrossValidation.svg" src="https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/GeneralizedCrossValidation.svg" /></div>
 </div>
 <div class="section" id="citation">
 <h2>Citation<a class="headerlink" href="#citation" title="Permalink to this headline">¶</a></h2>
@@ -339,6 +373,13 @@
 }
 </pre></div>
 </div>
+</div>
+<div class="section" id="acknowledgement">
+<h2>Acknowledgement<a class="headerlink" href="#acknowledgement" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>National Science Foundation #1520825</p></li>
+<li><p>American Heart Association #18EIA33900046</p></li>
+</ul>
 </div>
 </div>
 
@@ -371,7 +412,14 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#options">Options</a></li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#example-1">Example 1</a></li>
+<li><a class="reference internal" href="#example-2">Example 2</a></li>
+<li><a class="reference internal" href="#example-3">Example 3</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#citation">Citation</a></li>
+<li><a class="reference internal" href="#acknowledgement">Acknowledgement</a></li>
 </ul>
 </li>
 </ul>
