@@ -22,9 +22,9 @@ jobs:
                   BASE_BRANCH: master
                   BRANCH: gh-pages
                   FOLDER: docs/_build/html
-                  PATH: $HOME/.local/bin:$PATH
                   BUILD_SCRIPT: |
                       pip install .[docs]
+                      export PATH=$HOME/.local/bin:$PATH
                       sphinx-apidoc -f -o docs/_modules/ ./TraceInv
                       make -C docs/ html
                       touch docs/_build/html/.nojekyll

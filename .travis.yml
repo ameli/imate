@@ -54,12 +54,12 @@ matrix:
           install:
             - python -m pip install -e .[extra]
 
-        - name: 'macOSX with Python: 3.6'
+        - name: 'macOSX with Python: 3.7'
           os: osx
           osx_image: xcode11
           language: shell
           env:
-            - PYTHON_VERSION=3.6
+            - PYTHON_VERSION=3.7
             - BADGE=osx
           before_install:
             - python3 --version
@@ -68,7 +68,7 @@ matrix:
             - python3 -m pip install codecov
             - brew install suite-sparse
           install:
-            - python3 -m pip install -e .[extra]
+            - python3 -m pip install -e .
           script:
             - python3 -m pytest --cov-report=xml --cov=tests/
 
