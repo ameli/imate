@@ -56,6 +56,8 @@ by the method described in [Ameli-2020]_. The above function is featured in a wi
 Install
 -------
 
+To run ``TraceInv``, the prerequisite packages are ``numpy``, ``scipy`` are required. Also, to run the examples provided in ``/examples``, the packages ``matplotlib`` and ``seaborn`` are required. These prerequisite packages will be installed automatically by installing ``TraceInv``. You may install ``TraceInv`` by either of the following ways:
+
 - Method 1: install from the package available at `PyPi <https://pypi.org/project/TraceInv>`_:
 
   ::
@@ -63,7 +65,7 @@ Install
     python -m pip install TraceInv
 
 
-- Method 2: or, download the source code and install from the source code by:
+- Method 2: download the source code and install from the source code by:
 
   ::
 
@@ -71,8 +73,11 @@ Install
     cd TraceInv
     python -m pip install -e .
 
+
 Additional Installations (*Optional*)
 -------------------------------------
+
+Installing the additional packages ``ray`` and ``scikit-sparse`` can improve the performance of ``TraceInv``, but they are not required. 
 
 1. Installing ``ray``
 ~~~~~~~~~~~~~~~~~~~~~
@@ -93,13 +98,13 @@ In ``TraceInv`` package, one of the methods to compute the trace of a matrix is 
 
 To install ``scikit-sparse``, follow the two steps below.
 
-1. Install *`Suite Sarse <https://people.engr.tamu.edu/davis/suitesparse.html>`_* as described below depending on the operating system.
+1. Install `Suite Sarse <https://people.engr.tamu.edu/davis/suitesparse.html>`_ as described below depending on the operating system.
 
    + In *Linux*, install ``libsuitesparse-dev`` package, such as for a few Linux distros below:
 
      + Install with ``apt`` (in Debian, Ubuntu, Mint)
 
-        ::
+       ::
 
          sudo apt install libsuitesparse-dev  
 
@@ -115,14 +120,12 @@ To install ``scikit-sparse``, follow the two steps below.
 
          sudo pacman -S install libsuitesparse-dev  
 
-   + In *MacOSX*, install with ``brew``:
+   + In *macOS*, install with ``brew``:
 
        ::
 
          sudo brew install libsuitesparse-dev
 
-
-   + In *Windows*, compile Sparse Suite from the source.
 
    + Alternatively, if you are using *Anaconda* for python distribution (on either of the operating systems), install Suite Sparse by:
 
@@ -137,8 +140,13 @@ To install ``scikit-sparse``, follow the two steps below.
        python -m pip install scikit-sparse
 
 
-Usage
------
+Basic Usage
+-----------
+
+For a complete set of options, see the documentation. A minimalistic examples for both fixed matrix and matrix function are as follows.
+
+1. For a Fixed Matrix
+~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
 
@@ -147,9 +155,27 @@ Usage
     
     # Generate a symmetric positive-definite matrix
     A = GenerateMatrix(NumPoints=20)
-
+    
     # Compute trace of inverse
     trace = ComputeTraceOfInverse(A,method='cholesky')
+
+1. For a Linear Matrix Function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+    from TraceInv import GenerateMatrix
+    from TraceInv import InterpolateTraceOfInverse
+    
+    # Generate a symmetric positive-definite matrix
+    A = GenerateMatrix(NumPoints=20)
+    
+    # Create an interpolating TraceInv object
+    TI = InterpolateTraceOfInverse(A,InterpolatingMethod='RMBF')
+    
+    # Interpolate A+tI
+    t = 4e-1
+    trace = TI.Interpolate(t)
 
 Citation
 --------
