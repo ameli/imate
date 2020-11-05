@@ -13,6 +13,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="TraceInv.GenerateMatrix package" href="TraceInv.GenerateMatrix.html" />
@@ -24,6 +25,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="TraceInv.GenerateMatrix.html" title="TraceInv.GenerateMatrix package"
              accesskey="N">next</a> |</li>
@@ -47,26 +51,386 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="traceinv-computetraceofinverse-choleskymethod-module">
-<h2>TraceInv.ComputeTraceOfInverse.CholeskyMethod module<a class="headerlink" href="#traceinv-computetraceofinverse-choleskymethod-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-TraceInv.ComputeTraceOfInverse.CholeskyMethod">
+<span id="traceinv-computetraceofinverse-choleskymethod-module"></span><h2>TraceInv.ComputeTraceOfInverse.CholeskyMethod module<a class="headerlink" href="#module-TraceInv.ComputeTraceOfInverse.CholeskyMethod" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="TraceInv.ComputeTraceOfInverse.CholeskyMethod.CholeskyMethod">
+<code class="sig-prename descclassname">TraceInv.ComputeTraceOfInverse.CholeskyMethod.</code><code class="sig-name descname">CholeskyMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">UseInverseMatrix</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TraceInv.ComputeTraceOfInverse.CholeskyMethod.CholeskyMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes trace of inverse of matrix using Cholesky factorization.</p>
+<div class="math notranslate nohighlight">
+\[\mathrm{trace}(\mathbf{A}^{-1}) = \| \mathbf{L}^{-1} \|_F^2\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{L}\)</span> is the Cholesky factorization of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, 
+and <span class="math notranslate nohighlight">\(\| \cdot \|_F\)</span> is the Frobenius norm.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function does not produce correct results when <code class="docutils literal notranslate"><span class="pre">'A'</span></code> is sparse.
+It seems <code class="docutils literal notranslate"><span class="pre">sksparse.cholmod</span></code> has a problem.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">=</span> <span class="pre">K</span></code>, it produces correct result, But when <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">=</span> <span class="pre">Kn</span> <span class="pre">=</span> <span class="pre">K</span> <span class="pre">+</span> <span class="pre">eta</span> <span class="pre">I</span></code>, its result is
+differen than Hurchinson, Lanczos method. Also its result becomes correct when <code class="docutils literal notranslate"><span class="pre">A</span></code> is converted
+to dense matrix, and when we do not use <code class="docutils literal notranslate"><span class="pre">skspase.cholmod</span></code> anymore.</p>
 </div>
-<div class="section" id="traceinv-computetraceofinverse-computetraceofinverse-module">
-<h2>TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse module<a class="headerlink" href="#traceinv-computetraceofinverse-computetraceofinverse-module" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>ndarray</em>) – Invertible matrix</p></li>
+<li><p><strong>UseInverseMatrix</strong> (<em>bool</em>) – Flag to invert Cholesky matrix.
+If <code class="docutils literal notranslate"><span class="pre">false</span></code>, the inverse of Cholesky is not computed, but a linear system is solved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Trace of matrix <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvByInverseOfCholesky">
+<code class="sig-prename descclassname">TraceInv.ComputeTraceOfInverse.CholeskyMethod.</code><code class="sig-name descname">ComputeTraceInvByInverseOfCholesky</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">L</span></em>, <em class="sig-param"><span class="n">UseSparse</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvByInverseOfCholesky" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the trace of inverse by inverting the Cholesky matrix <code class="docutils literal notranslate"><span class="pre">L</span></code> directly.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>For small matrices: This method is much faster for small matrices than <a class="reference internal" href="#TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvBySolvingLinearSystem" title="TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvBySolvingLinearSystem"><code class="xref py py-func docutils literal notranslate"><span class="pre">ComputeTraceInvBySolvingLinearSystem()</span></code></a>.</p></li>
+<li><p>For large matrices: This method is very slow and results are unstable.</p></li>
+</ul>
 </div>
-<div class="section" id="traceinv-computetraceofinverse-hutchinsonmethod-module">
-<h2>TraceInv.ComputeTraceOfInverse.HutchinsonMethod module<a class="headerlink" href="#traceinv-computetraceofinverse-hutchinsonmethod-module" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>L</strong> (<em>ndarray</em>) – Cholesky matrix</p></li>
+<li><p><strong>UseSparse</strong> (<em>bool</em>) – Flag, if <code class="docutils literal notranslate"><span class="pre">true</span></code>, the matrix <code class="docutils literal notranslate"><span class="pre">L</span></code> is considered as sparse.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Trace of matrix <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvBySolvingLinearSystem">
+<code class="sig-prename descclassname">TraceInv.ComputeTraceOfInverse.CholeskyMethod.</code><code class="sig-name descname">ComputeTraceInvBySolvingLinearSystem</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">L</span></em>, <em class="sig-param"><span class="n">n</span></em>, <em class="sig-param"><span class="n">UseSparse</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvBySolvingLinearSystem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the trace of inverse by solving a linear system for Cholesky matrix and each column of the identity matrix
+to obtain the inverse of <code class="docutils literal notranslate"><span class="pre">L</span></code> subsequentially.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>For small matrices: This method is slow.</p></li>
+<li><p>For large matrices: This method should be used for large matrices.</p></li>
+</ul>
 </div>
-<div class="section" id="traceinv-computetraceofinverse-linearalgebra-module">
-<h2>TraceInv.ComputeTraceOfInverse.LinearAlgebra module<a class="headerlink" href="#traceinv-computetraceofinverse-linearalgebra-module" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>L</strong> (<em>ndarray</em>) – Cholesky matrix</p></li>
+<li><p><strong>UseSparse</strong> (<em>bool</em>) – Flag, if <code class="docutils literal notranslate"><span class="pre">true</span></code>, the matrix <code class="docutils literal notranslate"><span class="pre">L</span></code> is considered as sparse.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Trace of matrix <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="TraceInv.ComputeTraceOfInverse.CholeskyMethod.SparseCholesky">
+<code class="sig-prename descclassname">TraceInv.ComputeTraceOfInverse.CholeskyMethod.</code><code class="sig-name descname">SparseCholesky</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TraceInv.ComputeTraceOfInverse.CholeskyMethod.SparseCholesky" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function uses LU decomposition assuming that A is symmetric and positive-definite.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function does not check if <code class="docutils literal notranslate"><span class="pre">A</span></code> is positive-definite. If the input matrix is 
+not positive-definite, the Cholesky decomposition does not exist and the return value
+is misleadingly wrong.</p>
 </div>
-<div class="section" id="traceinv-computetraceofinverse-linearsolver-module">
-<h2>TraceInv.ComputeTraceOfInverse.LinearSolver module<a class="headerlink" href="#traceinv-computetraceofinverse-linearsolver-module" title="Permalink to this headline">¶</a></h2>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>A</strong> (<em>ndarray</em>) – Symmetric and positive-definite matrix.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Chlesky decomposition of <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Super.LU</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="traceinv-computetraceofinverse-stochasticlanczosquadraturemethod-module">
-<h2>TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod module<a class="headerlink" href="#traceinv-computetraceofinverse-stochasticlanczosquadraturemethod-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse">
+<span id="traceinv-computetraceofinverse-computetraceofinverse-module"></span><h2>TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse module<a class="headerlink" href="#module-TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse.ComputeTraceOfInverse">
+<code class="sig-prename descclassname">TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse.</code><code class="sig-name descname">ComputeTraceOfInverse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">Method</span><span class="o">=</span><span class="default_value">'cholesky'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">Options</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse.ComputeTraceOfInverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the trace of inverse of a matrix without using interpolation.</p>
+<p>The trace of inverse is computed with one of these three methods in this function.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 69%" />
+<col style="width: 31%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Cholesky</p></td>
+<td><p>exact</p></td>
+</tr>
+<tr class="row-odd"><td><p>Hutchinson</p></td>
+<td><p>approximation</p></td>
+</tr>
+<tr class="row-even"><td><p>Stochastic Lanczos Quadrature</p></td>
+<td><p>approximation</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>ndarray</em>) – Invertible matrix</p></li>
+<li><p><strong>Method</strong> (<em>string</em>) – One of <code class="docutils literal notranslate"><span class="pre">'cholesky'</span></code>, <code class="docutils literal notranslate"><span class="pre">'hutchinson'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code>. Default if <code class="docutils literal notranslate"><span class="pre">'cholesky'</span></code>.</p></li>
+<li><p><strong>Options</strong> (<code class="docutils literal notranslate"><span class="pre">'**kwargs'</span></code>) – Options for either of the methods.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>trace of inverse of matrix</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>RunTimeError</strong> – Method is not recognized.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-TraceInv.ComputeTraceOfInverse.HutchinsonMethod">
+<span id="traceinv-computetraceofinverse-hutchinsonmethod-module"></span><h2>TraceInv.ComputeTraceOfInverse.HutchinsonMethod module<a class="headerlink" href="#module-TraceInv.ComputeTraceOfInverse.HutchinsonMethod" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="TraceInv.ComputeTraceOfInverse.HutchinsonMethod.HutchinsonMethod">
+<code class="sig-prename descclassname">TraceInv.ComputeTraceOfInverse.HutchinsonMethod.</code><code class="sig-name descname">HutchinsonMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">NumIterations</span><span class="o">=</span><span class="default_value">20</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TraceInv.ComputeTraceOfInverse.HutchinsonMethod.HutchinsonMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the trace of inverse of a matrix by Hutchinson method.</p>
+<p>The random vectors have Radamacher distribution. Compared to the Gaissuan
+distribution, the former distribution yields estimation of trace with lower
+variance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>ndarray</em>) – invertible matrix</p></li>
+<li><p><strong>NumIterations</strong> (<em>int</em>) – number of Monte-Carlo random trials</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Trace of matrix <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-TraceInv.ComputeTraceOfInverse.LinearAlgebra">
+<span id="traceinv-computetraceofinverse-linearalgebra-module"></span><h2>TraceInv.ComputeTraceOfInverse.LinearAlgebra module<a class="headerlink" href="#module-TraceInv.ComputeTraceOfInverse.LinearAlgebra" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="TraceInv.ComputeTraceOfInverse.LinearAlgebra.GolubKahnLanczosBidiagonalization">
+<code class="sig-prename descclassname">TraceInv.ComputeTraceOfInverse.LinearAlgebra.</code><code class="sig-name descname">GolubKahnLanczosBidiagonalization</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">Tolerance</span><span class="o">=</span><span class="default_value">1e-08</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TraceInv.ComputeTraceOfInverse.LinearAlgebra.GolubKahnLanczosBidiagonalization" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Inputs:</dt><dd><p>A: symmetric matrix, n*n
+w: a random vector, n*1
+m: Lanczos degree of bidoagonalization, scalar.</p>
+</dd>
+<dt>Output:</dt><dd><p>B: symmetric matrix, upper bidiagonal, (m+1)*(m+1)</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code> should be symmetric and positive-definite matrix size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B</span></code> will be symmetric and positve-definite matrix of size <code class="docutils literal notranslate"><span class="pre">(m+1,m+1)</span></code>.</p></li>
+</ul>
+</div>
+<p>Bidiagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">B</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">w</span></code>. <code class="docutils literal notranslate"><span class="pre">m</span></code> is the Lanczos
+degree, which will be the size of square matrix <code class="docutils literal notranslate"><span class="pre">B</span></code>.</p>
+<dl class="simple">
+<dt>Reference</dt><dd><ul class="simple">
+<li><p>NetLib <a class="reference external" href="http://www.netlib.org/utk/people/JackDongarra/etemplates/node198.html">Algorithm 6.27</a></p></li>
+<li><p>Matrix Computations, Golub, p. 495</p></li>
+<li><p>Templates for Solution of Algebraic Eigenvalue Problem, Demmel, p. 143</p></li>
+</ul>
+</dd>
+<dt>Issues:</dt><dd><p>When matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> is very close to the identity matrix, the Golub-Kahn bidoagonalization method can not 
+find <span class="math notranslate nohighlight">\(\beta\)</span>, as <span class="math notranslate nohighlight">\(\beta\)</span> becomes zero. If <code class="docutils literal notranslate"><span class="pre">A</span></code> is not exactly identity, you may descrease the Tolerance
+to a very small number. However, if <code class="docutils literal notranslate"><span class="pre">A</span></code> is almost identity matrix, descreasing tolerance will not 
+help, and this function cannot be used.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>ndarray</em>) – Input matrix of the size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>. Matrix should be positive-definite and symmetric.</p></li>
+<li><p><strong>w</strong> (<em>array</em>) – Start vector for the Lanczos tri-diagonalization. Column vector of size <code class="docutils literal notranslate"><span class="pre">n</span></code>.
+It could be generated randomly. Often it is generated by the Rademacher distribution with entries <code class="docutils literal notranslate"><span class="pre">+1</span></code> and <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) – Lanczos degree, which is the number of Lanczos iterations.</p></li>
+<li><p><strong>Tolerance</strong> (<em>float</em>) – The tolerance of the residial error of the Lanczos iteration.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Symmetric positive-definite matric <code class="docutils literal notranslate"><span class="pre">B</span></code> of the size <code class="docutils literal notranslate"><span class="pre">(m+1)*(m+1)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="TraceInv.ComputeTraceOfInverse.LinearAlgebra.LanczosTridiagonalization">
+<code class="sig-prename descclassname">TraceInv.ComputeTraceOfInverse.LinearAlgebra.</code><code class="sig-name descname">LanczosTridiagonalization</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">Tolerance</span><span class="o">=</span><span class="default_value">1e-08</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TraceInv.ComputeTraceOfInverse.LinearAlgebra.LanczosTridiagonalization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tridiagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">w</span></code>. <code class="docutils literal notranslate"><span class="pre">m</span></code> is the Lanczos
+degree, which will be the size of square matrix <code class="docutils literal notranslate"><span class="pre">T</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code> should be symmetric and positive-definite matrix size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code> will be symmetric and positve-definite matrix of size <code class="docutils literal notranslate"><span class="pre">(m+1,m+1)</span></code>.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>ndarray</em>) – Input matrix of the size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>. Matrix should be positive-definite and symmetric.</p></li>
+<li><p><strong>w</strong> (<em>array</em>) – Start vector for the Lanczos tri-diagonalization. Column vector of size <code class="docutils literal notranslate"><span class="pre">n</span></code>.
+It could be generated randomly. Often it is generated by the Rademacher distribution with entries <code class="docutils literal notranslate"><span class="pre">+1</span></code> and <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) – Lanczos degree, which is the number of Lanczos iterations.</p></li>
+<li><p><strong>Tolerance</strong> (<em>float</em>) – The tolerance of the residial error of the Lanczos iteration.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Symmetric positive-definite matric <code class="docutils literal notranslate"><span class="pre">T</span></code> of the size <code class="docutils literal notranslate"><span class="pre">(m+1)*(m+1)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="TraceInv.ComputeTraceOfInverse.LinearAlgebra.LanczosTridiagonalization2">
+<code class="sig-prename descclassname">TraceInv.ComputeTraceOfInverse.LinearAlgebra.</code><code class="sig-name descname">LanczosTridiagonalization2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">v</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">Tolerance</span><span class="o">=</span><span class="default_value">1e-08</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TraceInv.ComputeTraceOfInverse.LinearAlgebra.LanczosTridiagonalization2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tridiagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">v</span></code>. <code class="docutils literal notranslate"><span class="pre">m</span></code> is the Lanczos
+degree, which will be the size of square matrix <code class="docutils literal notranslate"><span class="pre">T</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code> should be symmetric and positive-definite matrix size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code> will be symmetric and positve-definite matrix of size <code class="docutils literal notranslate"><span class="pre">(m+1,m+1)</span></code>.</p></li>
+</ul>
+</div>
+<dl class="simple">
+<dt>Reference</dt><dd><p><em>Templates for solution of Algebraic Eigenvalue Problems</em>, James Demmel, p.57</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>ndarray</em>) – Input matrix of the size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>. Matrix should be positive-definite and symmetric.</p></li>
+<li><p><strong>v</strong> (<em>array</em>) – Start vector for the Lanczos tri-diagonalization. Column vector of size <code class="docutils literal notranslate"><span class="pre">n</span></code>.
+It could be generated randomly. Often it is generated by the Rademacher distribution with entries <code class="docutils literal notranslate"><span class="pre">+1</span></code> and <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p></li>
+<li><p><strong>m</strong> (<em>int</em>) – Lanczos degree, which is the number of Lanczos iterations.</p></li>
+<li><p><strong>Tolerance</strong> (<em>float</em>) – The tolerance of the residial error of the Lanczos iteration.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Symmetric positive-definite matric <code class="docutils literal notranslate"><span class="pre">T</span></code> of the size <code class="docutils literal notranslate"><span class="pre">(m+1)*(m+1)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-TraceInv.ComputeTraceOfInverse.LinearSolver">
+<span id="traceinv-computetraceofinverse-linearsolver-module"></span><h2>TraceInv.ComputeTraceOfInverse.LinearSolver module<a class="headerlink" href="#module-TraceInv.ComputeTraceOfInverse.LinearSolver" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="TraceInv.ComputeTraceOfInverse.LinearSolver.LinearSolver">
+<code class="sig-prename descclassname">TraceInv.ComputeTraceOfInverse.LinearSolver.</code><code class="sig-name descname">LinearSolver</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">Tol</span><span class="o">=</span><span class="default_value">1e-05</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TraceInv.ComputeTraceOfInverse.LinearSolver.LinearSolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solves the linear system <span class="math notranslate nohighlight">\(Ax = b\)</span> where <span class="math notranslate nohighlight">\(A\)</span> can be either sparse or dense.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>ndarray</em>) – matrix of coefficients, two-dimensional array, can be either sparse or dense</p></li>
+<li><p><strong>b</strong> (<em>array</em>) – column vector of the right hand side of the linear system, one-dimensional array</p></li>
+<li><p><strong>Tol</strong> (<em>float</em>) – Tolerance for the error of solving linear system. This is only applicable if <code class="docutils literal notranslate"><span class="pre">A</span></code> is spase.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>one-dimensional array of the solution of the linear system</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod">
+<span id="traceinv-computetraceofinverse-stochasticlanczosquadraturemethod-module"></span><h2>TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod module<a class="headerlink" href="#module-TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod.StochasticLanczosQuadratureMethod">
+<code class="sig-prename descclassname">TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod.</code><code class="sig-name descname">StochasticLanczosQuadratureMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">NumIterations</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">LanczosDegree</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">UseLanczosTridiagonalization</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod.StochasticLanczosQuadratureMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the trace of inverse of matrix based on stochastic Lanczos quadrature method.</p>
+<dl class="simple">
+<dt>Reference</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="https://www-users.cs.umn.edu/~saad/PDF/ys-2016-04.pdf">Ubaru, S., Chen, J., and Saad, Y. (2017)</a>, Fast Estimation of <span class="math notranslate nohighlight">\(\mathrm{tr}(F(A))\)</span> Via Stochastic Lanczos Quadrature, SIAM J. Matrix Anal. Appl., 38(4), 1075-1099.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In Lanczos tridiagonalization method, <span class="math notranslate nohighlight">\(\theta\)</span> is the eigenvalue of <code class="docutils literal notranslate"><span class="pre">T</span></code>. 
+However, in Golub-Kahn bidoagonalization method, <span class="math notranslate nohighlight">\(\theta\)</span> is the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code>.
+The relation between these two methods are are follows: <code class="docutils literal notranslate"><span class="pre">B.T*B</span></code> is the <code class="docutils literal notranslate"><span class="pre">T</span></code> for <code class="docutils literal notranslate"><span class="pre">A.T*A</span></code>.
+That is, if we have the input matrix <code class="docutils literal notranslate"><span class="pre">A.T*T</span></code>, its Lanczos tridiagonalization <code class="docutils literal notranslate"><span class="pre">T</span></code> is the same matrix
+as if we bidiagonalize <code class="docutils literal notranslate"><span class="pre">A</span></code> (not <code class="docutils literal notranslate"><span class="pre">A.T*A</span></code>) with Golub-Kahn to get <code class="docutils literal notranslate"><span class="pre">B</span></code>, then <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">B.T*B</span></code>.
+This has not been highlighted paper in the above paper.</p>
+<p>To correctly implement Golub-Kahn, here <span class="math notranslate nohighlight">\(\theta\)</span> should be the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code>, <strong>NOT</strong>
+the square of the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code> (as decribed in the above paper incorrectly!).</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>ndarray</em>) – invertible matrix</p></li>
+<li><p><strong>NumIterations</strong> (<em>int</em>) – Number of Monte-Carlo trials</p></li>
+<li><p><strong>LanczosDegree</strong> (<em>int</em>) – Lanczos degree</p></li>
+<li><p><strong>UseLanczosTridiagonalization</strong> (<em>bool</em>) – Flag, if <code class="docutils literal notranslate"><span class="pre">True</span></code>, it uses the Lanczos tridiagonalization. 
+If <code class="docutils literal notranslate"><span class="pre">False</span></code>, it uses the Golub-Kahn bi-diagonalization.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Trace of <code class="docutils literal notranslate"><span class="pre">A</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-TraceInv.ComputeTraceOfInverse">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-TraceInv.ComputeTraceOfInverse" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -81,13 +445,13 @@
   <ul>
 <li><a class="reference internal" href="#">TraceInv.ComputeTraceOfInverse package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#traceinv-computetraceofinverse-choleskymethod-module">TraceInv.ComputeTraceOfInverse.CholeskyMethod module</a></li>
-<li><a class="reference internal" href="#traceinv-computetraceofinverse-computetraceofinverse-module">TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse module</a></li>
-<li><a class="reference internal" href="#traceinv-computetraceofinverse-hutchinsonmethod-module">TraceInv.ComputeTraceOfInverse.HutchinsonMethod module</a></li>
-<li><a class="reference internal" href="#traceinv-computetraceofinverse-linearalgebra-module">TraceInv.ComputeTraceOfInverse.LinearAlgebra module</a></li>
-<li><a class="reference internal" href="#traceinv-computetraceofinverse-linearsolver-module">TraceInv.ComputeTraceOfInverse.LinearSolver module</a></li>
-<li><a class="reference internal" href="#traceinv-computetraceofinverse-stochasticlanczosquadraturemethod-module">TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod module</a></li>
-<li><a class="reference internal" href="#module-contents">Module contents</a></li>
+<li><a class="reference internal" href="#module-TraceInv.ComputeTraceOfInverse.CholeskyMethod">TraceInv.ComputeTraceOfInverse.CholeskyMethod module</a></li>
+<li><a class="reference internal" href="#module-TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse">TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse module</a></li>
+<li><a class="reference internal" href="#module-TraceInv.ComputeTraceOfInverse.HutchinsonMethod">TraceInv.ComputeTraceOfInverse.HutchinsonMethod module</a></li>
+<li><a class="reference internal" href="#module-TraceInv.ComputeTraceOfInverse.LinearAlgebra">TraceInv.ComputeTraceOfInverse.LinearAlgebra module</a></li>
+<li><a class="reference internal" href="#module-TraceInv.ComputeTraceOfInverse.LinearSolver">TraceInv.ComputeTraceOfInverse.LinearSolver module</a></li>
+<li><a class="reference internal" href="#module-TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod">TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod module</a></li>
+<li><a class="reference internal" href="#module-TraceInv.ComputeTraceOfInverse">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -125,6 +489,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="TraceInv.GenerateMatrix.html" title="TraceInv.GenerateMatrix package"
              >next</a> |</li>
