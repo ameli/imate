@@ -24,8 +24,7 @@ jobs:
                   FOLDER: docs/_build/html
                   PATH: $HOME/.local/bin:$PATH
                   BUILD_SCRIPT: |
-                      python3 -m pip install --upgrade pip
-                      python3 -m pip install --upgrade sphinx
+                      pip install .[docs]
                       sphinx-apidoc -f -o docs/_modules/ ./TraceInv
                       make -C docs/ html
                       touch docs/_build/html/.nojekyll

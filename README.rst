@@ -71,57 +71,68 @@ Install
     cd TraceInv
     python -m pip install -e .
 
-Optional Installation
----------------------
+Additional Installations (*Optional*)
+-------------------------------------
 
-In ``TraceInv`` package, one of the three methods to compute the trace of a matrix is by the Cholesky decomposition. If the input matrix is *sparse*, the Cholesky is computed with either of ``scikit-sparse`` or ``scipy`` package depending on which one is available.
+1. Installing ``ray``
+~~~~~~~~~~~~~~~~~~~~~
 
-* ``scikit-sparse``: If this package is installed, ``TraceInv`` uses this package by *default*. Note that this package should be installed separately besides ``TraceInv``.
-* ``scipy``: If ``scikit-sparse`` is not installed, the ``scipy`` package is used instead. By installing ``TraceInv``, the package ``scipy`` is automatically installed as a prerequisite.
+If you want to run the examples provided in ``/examples``, you may install the ``ray`` package to leverage the parallel processing used in generate large sparse matrices. Installing ``ray`` is optional as the examples can still produce results without it. Install ``ray`` package by:
 
-Installing ``scikit-sparse``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+::
+    python -m pip install ray
 
-This step is optional, and only needed if the user works with sparse matrices, wishes to use the Cholesky method to compute that trace, and wants to employ ``scikit-sparse`` package instead of ``scipy``. Install ``scikit-sparse`` as follows.
+2. Installing ``scikit-sparse``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. Install `*Suite Sarse* <https://people.engr.tamu.edu/davis/suitesparse.html>`_:
+In ``TraceInv`` package, one of the three methods to compute the trace of a matrix is by the *Cholesky decomposition*. If the input matrix is *sparse*, the Cholesky decomposition is computed with either of ``scikit-sparse`` or ``scipy`` package, whichever is available.
 
-   + In Linux, install ``libsuitesparse-dev`` package. 
+* ``scikit-sparse``: If this package is installed, ``TraceInv`` uses this package by *default*. Note that ``scikit-sparse`` is not available by installing ``TraceInv`` only, rather, it should be installed separately (see instructions below).
+* ``scipy``: If ``scikit-sparse`` is not installed, the ``scipy`` package is used instead. The ``scipy`` package is a prerequisite of ``TracewInv`` and is readily available by installing ``TraceInv``.
 
-     + Install by using ``apt`` (in Debian, Ubuntu, Mint)
+To install ``scikit-sparse``, follow the two steps below.
+
+1. Install `*Suite Sarse* <https://people.engr.tamu.edu/davis/suitesparse.html>`_ as described below depending on the operating system.
+
+   + In *Linux*, install ``libsuitesparse-dev`` package, such as for a few Linux distros below:
+
+     + Install by ``apt`` (in Debian, Ubuntu, Mint)
 
      ::
 
          sudo apt install libsuitesparse-dev  
 
-     + Or, install by using ``yum`` (in Redhat, Fedora)
+     + Or, install by ``yum`` (in Redhat, Fedora, CentOS)
 
        ::
 
          sudo yum install libsuitesparse-dev  
 
-     + or, install by using ``pacman`` (in Arch Linux)
+     + or, install by ``pacman`` (in Arch Linux)
 
        ::
 
          sudo pacman -S install libsuitesparse-dev  
 
-   + In MacOSX, install ``libsuitesparse-dev`` package, for instance by ``brew``:
+   + In *MacOSX*, install ``libsuitesparse-dev`` package by ``brew``:
 
    ::
 
        sudo brew install libsuitesparse-dev
 
-   + Alternatively, if you are using Anaconda for python distribution (on either of the operating systems), install Suite Sparse by:
+
+   + In *Windows*, compile Sparse Suite from the source.
+
+   + Alternatively, if you are using *Anaconda* for python distribution (on either of the operating systems), install Suite Sparse by:
 
    ::
 
        sudo conda install -c conda-forge suitesparse
 
-2. Install ``scikit-sparse``:
+2. Install ``scikit-sparse`` package:
 
    ::
-       python -m pip install --upgrade scikit-sparse
+       python -m pip install scikit-sparse
 
 
 Usage

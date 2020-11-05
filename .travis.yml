@@ -52,15 +52,14 @@ matrix:
             - python -m pip install codecov
             - brew install suite-sparse
           install:
-            - python -m pip install --upgrade -r requirements.txt
-            - python -m pip install -e .
+            - python -m pip install -e .[extra]
 
         - name: 'macOSX with Python: 3.6'
           os: osx
           osx_image: xcode11
           language: shell
           env:
-            - PYTHON_VERSION=3.7
+            - PYTHON_VERSION=3.6
             - BADGE=osx
           before_install:
             - python3 --version
@@ -69,8 +68,7 @@ matrix:
             - python3 -m pip install codecov
             - brew install suite-sparse
           install:
-            - python3 -m pip install --upgrade -r requirements.txt
-            - python3 -m pip install -e .
+            - python3 -m pip install -e .[extra]
           script:
             - python3 -m pytest --cov-report=xml --cov=tests/
 
@@ -84,8 +82,7 @@ matrix:
             - python -m pip install --upgrade pytest-cov
             - python -m pip install codecov
           install:
-            - python -m pip install --upgrade -r requirements.txt
-            - python -m pip install -e .
+            - python -m pip install -e .[extra]
           env:
             - PATH=/c/Python38:/c/Python38/Scripts:$PATH
             - BADGE=windows
@@ -126,7 +123,7 @@ before_install:
 
 # These only apply to the above jobs that install is not declared for them in the above.
 install:
-  - python -m pip install --upgrade -e .
+  - python -m pip install --upgrade -e .[full]
 
 # These only apply to the above jobs that script is not declared for them in the above.
 script:
