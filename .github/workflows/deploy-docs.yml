@@ -19,8 +19,8 @@ jobs:
               run: |
                   python3 -m pip install --upgrade pip
                   python3 -m pip install --upgrade sphinx
-                  which sphinx
-                  which sphinx-apidoc
+                  ls /home/runner/.local/bin
+                  export PATH=${PATH}:/home/runner/.local/bin
 
             - name: Build and Deploy
               uses: JacksonMaxfield/github-pages-deploy-action-python@master
@@ -30,8 +30,6 @@ jobs:
                   BRANCH: gh-pages
                   FOLDER: docs/_build/html
                   BUILD_SCRIPT: |
-                      export PATH=${PATH}:/home/runner/.local/bin
-                      ls /home/runner/.local/bin
                       sphinx-apidoc -f -o docs/_modules/ ./TraceInv
                       make -C docs/ html
                       touch docs/_build/html/.nojekyll

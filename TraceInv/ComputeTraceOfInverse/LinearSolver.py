@@ -7,7 +7,6 @@ import scipy
 from scipy import sparse
 from scipy import linalg
 from scipy.sparse import linalg
-import sksparse
 
 # =============
 # Linear Solver

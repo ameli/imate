@@ -58,8 +58,19 @@ Install
 
 Install Prerequisits
 ~~~~~~~~~~~~~~~~~~~~
+
+Overview of required python packages:
+    + Core packages: ``numpy`` and ``scipy``
+    + For running examples: ``ray``, ``matplotlib``, and ``seaborn``.
+    + For performance (optional): ``scikit-sparse``
+
+To install packages for the core functionality and running examples,
+
+::
+    python -m pip install --upgrade -r requirements.txt
+
     
-(*Optional*) If you use sparse matrices, the `*Suite Sarse* <https://people.engr.tamu.edu/davis/suitesparse.html>`_ package should be installed. Depending on the operating system, install Suite Sparse as follows.
+(*Optional*) If you will use the Cholesky method (see details in ) sparse matrices, the `*Suite Sarse* <https://people.engr.tamu.edu/davis/suitesparse.html>`_ package should be installed. Depending on the operating system, install Suite Sparse as follows.
 
 * In Linux, install ``libsuitesparse-dev`` package. 
 
@@ -93,14 +104,15 @@ Install Prerequisits
 
     sudo conda install -c conda-forge suitesparse
 
-Install this package
-~~~~~~~~~~~~~~~~~~~~
+Install TraceInv package
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Method 1: install from the package available at `PyPi <https://pypi.org/project/TraceInv>`_:
 
   ::
 
     python -m pip install TraceInv
+
 
 - Method 2: install directly from the source code by:
 

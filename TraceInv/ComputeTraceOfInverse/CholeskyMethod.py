@@ -93,11 +93,22 @@ def ComputeTraceInvBySolvingLinearSystem(L,n,UseSparse):
             e = scipy.sparse.lil_matrix((n,1),dtype=float)
             e[i] = 1.0
 
-            # x is the solution of L x = e. Thus, x is the i-th column of L inverse. Also, LDL SHOULD be disabled.
-            x = L.solve_L(e.tocsc(),use_LDLt_decomposition=False)
+            # x is the solution of L x = e. Thus, x is the i-th column of L inverse.
+            if SparseSuiteInstalled and isinstance(L,sksparse.cholmod.Factor):
+
+                # Using cholmod.Note: LDL SHOULD be disabled.
+                x = L.solve_L(e.tocsc(),use_LDLt_decomposition=False).toarray()
+
+            elif isinstance(L,scipy.sparse.csc.csc_matrix):
+
+                # Using scipy
+                x = scipy.sparse.linalg.spsolve_triangular(L.tocsr(),e.toarray(),lower=True)
+
+            else:
+                raise RuntimeError('Unknown sparse matrix type.')
 
             # Append to the Frobenius norm of L inverse
-            Norm2 += numpy.sum(x.toarray()**2)
+            Norm2 += numpy.sum(x**2)
 
         else:
 
@@ -114,6 +125,40 @@ def ComputeTraceInvBySolvingLinearSystem(L,n,UseSparse):
     Trace = Norm2
 
     return Trace
+
+# ===============
+# Sparse Cholesky
+# ===============
+
+def SparseCholesky(A):
+    """
+    This function uses LU decomposition assuming that A is symmetric and positive-definite.
+
+    .. note::
+
+        This function does not check if ``A`` is positive-definite. If the input matrix is 
+        not positive-definite, the Cholesky decomposition does not exist and the return value
+        is misleadingly wrong.
+
+    :param A: Symmetric and positive-definite matrix.
+    :type A: ndarray
+
+    :return: Chlesky decomposition of ``A``.
+    :rtype: Super.LU
+    """
+
+    n = A.shape[0]
+
+    # sparse LU decomposition
+    LU = scipy.sparse.linalg.splu(A,diag_pivot_thresh=0,permc_spec='NATURAL')
+
+    return LU.L.dot(sparse.diags(LU.U.diagonal()**0.5))
+
+    # check the matrix A is positive definite.
+    if (LU.perm_r == numpy.arange(n)).all() and (LU.U.diagonal() > 0).all():
+        return LU.L.dot(sparse.diags(LU.U.diagonal()**0.5))
+    else:
+        raise RuntimeError('The matrix is not positive definite.')
 
 # ===============
 # Cholesky Method
@@ -158,12 +203,14 @@ def CholeskyMethod(A,UseInverseMatrix=True):
     # Cholesky factorization
     if UseSparse:
         try:
-            # L = sksparse.cholmod.cholesky(A,mode='supernodal')
+            # Using Sparse Suite package
             L = sksparse.cholmod.cholesky(A)
         except:
-            raise RuntimeError('The package "sksparse" is not installed. '
-                'Either install "sksparse", or do not use Cholesky method for sparse matrices. '
-                'Alternative methods are Hutchinson method and stochastic Lanczos quadrature methods.')
+            # Using scipy, but with LU instad of Cholesky directoy
+            L = SparseCholesky(A)
+            # raise RuntimeError('The package "sksparse" is not installed. '
+            #     'Either install "sksparse", or do not use Cholesky method for sparse matrices. '
+            #     'Alternative methods are Hutchinson method and stochastic Lanczos quadrature methods.')
             
     else:
         L = scipy.linalg.cholesky(A,lower=True)
