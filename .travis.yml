@@ -126,8 +126,7 @@ before_install:
 
 # These only apply to the above jobs that install is not declared for them in the above.
 install:
-  - python -m pip install -r requirements.txt
-  - python -m pip install -e .
+  - python -m pip install --upgrade -e .
 
 # These only apply to the above jobs that script is not declared for them in the above.
 script:

@@ -75,11 +75,6 @@ def test_ComputeTraceOfInverse():
     K2 = GenerateMatrix(NumPoints=20,UseSparse=True,RunInParallel=True)
     ComputeTraceOfInverseWithMultipleMethods(K2)
 
-    # Test
-    import pickle
-    with open('/home/sia/Downloads/K.pickle','wb') as h:
-        pickle.dump(K2,h)
-
 # ===========
 # System Main
 # ===========
