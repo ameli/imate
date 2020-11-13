@@ -17,10 +17,10 @@ class RationalPolynomialFunctionsMethod(InterpolantBaseClass):
     # Init
     # ----
 
-    def __init__(self,A,InterpolantPoints,**Options):
+    def __init__(self,A,B=None,InterpolantPoints=None,ComputeOptions={}):
 
         # Base class constructor
-        super(RationalPolynomialFunctionsMethod,self).__init__(A,InterpolantPoints)
+        super(RationalPolynomialFunctionsMethod,self).__init__(A,B,InterpolantPoints,ComputeOptions=ComputeOptions)
 
         # Initilaize interpolator
         self.Numerator = None
@@ -139,16 +139,12 @@ class RationalPolynomialFunctionsMethod(InterpolantBaseClass):
         
         print('Initialize interpolator ...')
         
-
-        tau0 = self.T0 / self.n
-        tau_i = self.trace_eta_i / self.n
-
         # Coefficients of a linear system
         if self.p == 2:
-            self.Numerator,self.Denominator = RationalPolynomialFunctionsMethod.RationalPoly12(self.eta_i,tau_i,tau0)
+            self.Numerator,self.Denominator = RationalPolynomialFunctionsMethod.RationalPoly12(self.eta_i,self.tau_i,self.tau0)
 
         elif self.p == 4:
-            self.Numerator,self.Denominator = RationalPolynomialFunctionsMethod.RationalPoly23(self.eta_i,tau_i,tau0)
+            self.Numerator,self.Denominator = RationalPolynomialFunctionsMethod.RationalPoly23(self.eta_i,self.tau_i,self.tau0)
 
         else:
             raise ValueError('In RationalPolynomial method, the number of interpolant points, p, should be 2 or 4.')
@@ -171,6 +167,6 @@ class RationalPolynomialFunctionsMethod(InterpolantBaseClass):
         """
 
         tau = RationalPolynomialFunctionsMethod.RationalPoly(t,self.Numerator,self.Denominator)
-        T = tau*self.n
+        trace = tau*self.trace_Binv
 
-        return T
+        return trace

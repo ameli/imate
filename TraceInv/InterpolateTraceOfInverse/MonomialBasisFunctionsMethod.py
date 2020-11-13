@@ -18,22 +18,26 @@ class MonomialBasisFunctionsMethod(InterpolantBaseClass):
     # Init
     # ----
 
-    def __init__(self,A,t1=None):
+    def __init__(self,A,B=None,InterpolantPoint=None,ComputeOptions={}):
 
         # Base class constructor
-        super(MonomialBasisFunctionsMethod,self).__init__(A)
+        super(MonomialBasisFunctionsMethod,self).__init__(A,B,ComputeOptions={})
 
-        # Compute trace at interpolant points
-        self.T0 = ComputeTraceOfInverse(self.A)
+        # Compute self.trace_Ainv, self.trace_Binv, and self.tau0
+        self.ComputeTraceInvOfInputMatrices()
 
-        # t1
-        if t1 is None:
-            self.t1 = self.n / self.T0
+        # eta1
+        if InterpolantPoint is None:
+            self.eta1 = 1.0 / self.tau0
         else:
-            self.t1 = t1
+            # Check number of interpolant points
+            if not isinstance(InterpolantPoint,Number):
+                raise TypeError("InterpolantPoints for the 'MBF' method should be a single number, not an array of list of numbers.")
+
+            self.eta1 = InterpolantPoint
 
         # Initialize interpolator
-        self.T1 = None
+        self.tau1 = None
         self.InitializeInterpolator() 
 
     # -----------------------
@@ -46,14 +50,9 @@ class MonomialBasisFunctionsMethod(InterpolantBaseClass):
         
         print('Initialize interpolator ...')
         
-        # Interpolant points for the auxilliary estimation method
-        if self.UseSparse:
-            I = scipy.sparse.eye(n,format='csc')
-        else:
-            I = numpy.eye(self.n)
-
-        An = self.A + self.t1*I
-        self.T1 = ComputeTraceOfInverse(An)
+        An = self.A + self.eta1*self.B
+        T1 = ComputeTraceOfInverse(An,**self.ComputeOptions)
+        self.tau1 = T1 / self.trace_Binv
 
         print('Done.')
         
@@ -63,15 +62,16 @@ class MonomialBasisFunctionsMethod(InterpolantBaseClass):
 
     def Interpolate(self,t):
         """
-        Interpolates the trace of inverse of ``A + t*I``.
+        Interpolates the trace of inverse of ``A + t*B``.
 
-        :param t: A real variable to form the linear matrix function ``A + tI``.
+        :param t: A real variable to form the linear matrix function ``A + tB``.
         :type t: float
 
-        :return: The interpolated value of the trace of inverse of ``A + tI``.
+        :return: The interpolated value of the trace of inverse of ``A + tB``.
         :rtype: float
         """
 
-        T = 1.0 / (numpy.sqrt((t/self.n)**2 + ((1.0/self.T1)**2 - (1.0/self.T0)**2 - (self.t1/self.n)**2)*(t/self.t1) + (1/self.T0)**2))
+        tau = 1.0 / (numpy.sqrt(t**2 + ((1.0/self.tau1)**2 - (1.0/self.tau0)**2 - self.eta1**2)*(t/self.eta1) + (1.0/self.tau0)**2))
+        trace = tau*self.trace_Binv
 
-        return T
+        return trace

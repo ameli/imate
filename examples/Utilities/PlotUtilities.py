@@ -66,9 +66,10 @@ def SavePlot(plt,Filename):
     # Get the root directory of the package (parent directory of this script)
     FileDirectory = os.path.dirname(os.path.realpath(__file__))
     ParentDirectory = os.path.dirname(FileDirectory)
+    SecondParentDirectory = os.path.dirname(ParentDirectory)
 
     # Try to save in the docs/images dirctory. Check if exists and writable
-    SaveDir = os.path.join(ParentDirectory,'docs','images')
+    SaveDir = os.path.join(SecondParentDirectory,'docs','images')
     if (not os.path.isdir(SaveDir)) or (not os.access(SaveDir,os.W_OK)):
 
         # Write in the current working directory

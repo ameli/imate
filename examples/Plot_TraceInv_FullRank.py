@@ -16,15 +16,15 @@ import numpy
 # Package modules
 from TraceInv import GenerateMatrix
 from TraceInv import InterpolateTraceOfInverse
-from PlotUtilities import *
-from PlotUtilities import LoadPlotSettings
-from PlotUtilities import SavePlot
+from Utilities.PlotUtilities import *
+from Utilities.PlotUtilities import LoadPlotSettings
+from Utilities.PlotUtilities import SavePlot
 
 # ====
 # Plot
 # ====
 
-def Plot(TI):
+def Plot(TI,test):
     """
     Plots the curve of trace of An inverse versus eta (we use t instead of eta in the plots).
     """
@@ -41,7 +41,11 @@ def Plot(TI):
     NumberOfPlots = len(TI)
 
     # Range to plot
-    eta = numpy.logspace(-4,3,100)
+    if test:
+        eta_Resolution = 20
+    else:
+        eta_Resolution = 100
+    eta = numpy.logspace(-4,3,eta_Resolution)
 
     # Functions
     trace_exact = TI[0].Compute(eta)
@@ -153,7 +157,7 @@ def Plot(TI):
 # Main
 # ====
 
-def main():
+def main(test=False):
     """
     This function uses three methods
         1. Maximizing log likelihood with parameters sigma and sigma0
@@ -168,7 +172,10 @@ def main():
     """
 
     # Generate noisy data
-    NumPoints = 50
+    if test:
+        NumPoints = 20
+    else:
+        NumPoints = 50
     A = GenerateMatrix(
         NumPoints,
         DecorrelationScale=0.1,
@@ -184,18 +191,18 @@ def main():
     InterpolantPoints_5 = [1e-1]
 
     # Interpolating objects
-    InterpolatingMethod = 'RMBF'
-    TI_1 = InterpolateTraceOfInverse(A,InterpolantPoints_1,Method=InterpolatingMethod)
-    TI_2 = InterpolateTraceOfInverse(A,InterpolantPoints_2,Method=InterpolatingMethod)
-    TI_3 = InterpolateTraceOfInverse(A,InterpolantPoints_3,Method=InterpolatingMethod)
-    TI_4 = InterpolateTraceOfInverse(A,InterpolantPoints_4,Method=InterpolatingMethod)
-    TI_5 = InterpolateTraceOfInverse(A,InterpolantPoints_5,Method=InterpolatingMethod)
+    InterpolationMethod = 'RMBF'
+    TI_1 = InterpolateTraceOfInverse(A,InterpolantPoints_1,InterpolationMethod=InterpolationMethod)
+    TI_2 = InterpolateTraceOfInverse(A,InterpolantPoints_2,InterpolationMethod=InterpolationMethod)
+    TI_3 = InterpolateTraceOfInverse(A,InterpolantPoints_3,InterpolationMethod=InterpolationMethod)
+    TI_4 = InterpolateTraceOfInverse(A,InterpolantPoints_4,InterpolationMethod=InterpolationMethod)
+    TI_5 = InterpolateTraceOfInverse(A,InterpolantPoints_5,InterpolationMethod=InterpolationMethod)
 
     # List of interpolating objects
     TI = [TI_1,TI_2,TI_3,TI_4,TI_5]
 
     # Plot interpolations
-    Plot(TI)
+    Plot(TI,test)
 
 # ====
 # Main

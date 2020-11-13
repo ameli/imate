@@ -23,6 +23,7 @@ jobs:
                   BRANCH: gh-pages
                   FOLDER: docs/_build/html
                   BUILD_SCRIPT: |
+                      sudo apt install graphviz
                       pip install .[docs]
                       export PATH=$HOME/.local/bin:$PATH
                       sphinx-apidoc -f -o docs/_modules/ ./TraceInv

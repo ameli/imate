@@ -19,10 +19,10 @@ class RadialBasisFunctionsMethod(InterpolantBaseClass):
     # Init
     # ----
 
-    def __init__(self,A,InterpolantPoints,FunctionType=1):
+    def __init__(self,A,B=None,InterpolantPoints=None,ComputeOptions={},FunctionType=1):
 
         # Base class constructor
-        super(RadialBasisFunctionsMethod,self).__init__(A,InterpolantPoints)
+        super(RadialBasisFunctionsMethod,self).__init__(A,B,InterpolantPoints,ComputeOptions=ComputeOptions)
 
         # Initialize Interpolator
         self.RBF = None
@@ -43,8 +43,6 @@ class RadialBasisFunctionsMethod(InterpolantBaseClass):
         
         # Take logarithm of eta_i
         xi = numpy.log10(self.eta_i)
-        tau_i = self.trace_eta_i / self.n
-        tau_0 = self.T0 / self.n
 
         if xi.size > 1:
             dxi = numpy.mean(numpy.diff(xi))
@@ -54,13 +52,13 @@ class RadialBasisFunctionsMethod(InterpolantBaseClass):
         # Function Type
         if self.FunctionType == 1:
             # Ascending function
-            yi = 1/tau_i - (1/tau_0 + self.eta_i)
+            yi = 1.0/self.tau_i - (1.0/self.tau0 + self.eta_i)
         elif self.FunctionType == 2:
             # Bell shape, going to zero at boundaries
-            yi = (1/tau_i)/(1/tau_0 + self.eta_i) - 1
+            yi = (1.0/self.tau_i)/(1.0/self.tau0 + self.eta_i) - 1.0
         elif self.FunctionType == 3:
             # Bell shape, going to zero at boundaries
-            yi = 1 - (tau_i)*(1/tau_0 + self.eta_i)
+            yi = 1.0 - (self.tau_i)*(1.0/self.tau0 + self.eta_i)
         else:
             raise ValueError('Invalid function type.')
 
@@ -132,17 +130,15 @@ class RadialBasisFunctionsMethod(InterpolantBaseClass):
         else:
             y = self.RBF(x)
 
-        tau_0 = self.T0 / self.n
-
         if self.FunctionType == 1:
-            tau = 1/(y + 1/tau_0 + t)
+            tau = 1.0/(y + 1.0/self.tau0 + t)
         elif self.FunctionType == 2:
-            tau = 1/((y+1)*(1/tau_0 + t))
+            tau = 1.0/((y+1.0)*(1.0/self.tau0 + t))
         elif self.FunctionType == 3:
-            tau = (1-y)/(1/tau_0 + t)
+            tau = (1.0-y)/(1.0/self.tau0 + t)
         else:
             raise ValueError('Invalid function type.')
 
-        T = self.n*tau
+        trace = self.trace_Binv*tau
         
-        return T
+        return trace

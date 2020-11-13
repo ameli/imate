@@ -50,14 +50,14 @@ import pickle
 # Package Modules
 from TraceInv import InterpolateTraceOfInverse
 from TraceInv import ComputeTraceOfInverse
-from ProcessingTimeUtilities import RestrictComputationToSingleProcessor
-from ProcessingTimeUtilities import TimeCounterClass
-from DataUtilities import GenerateBasisFunctions
-from DataUtilities import GenerateNoisyData
-from DataUtilities import GenerateMatrix
-from PlotUtilities import *
-from PlotUtilities import LoadPlotSettings
-from PlotUtilities import SavePlot
+from Utilities.ProcessingTimeUtilities import RestrictComputationToSingleProcessor
+from Utilities.ProcessingTimeUtilities import TimeCounterClass
+from Utilities.DataUtilities import GenerateBasisFunctions
+from Utilities.DataUtilities import GenerateNoisyData
+from Utilities.DataUtilities import GenerateMatrix
+from Utilities.PlotUtilities import *
+from Utilities.PlotUtilities import LoadPlotSettings
+from Utilities.PlotUtilities import SavePlot
 
 # ============================
 # Generalized Cross Validation
@@ -255,7 +255,7 @@ def PlotGeneralizedCrossValidation(Data):
 # Main
 # ====
 
-def main():
+def main(test=False):
     """
     """
 
@@ -268,8 +268,12 @@ def main():
     Shift = 1e-3
 
     # Generate a nearly singular matrix
-    n = 1000
-    m = 500
+    if test:
+        n = 100
+        m = 50
+    else:
+        n = 1000
+        m = 500
     NoiseLevel = 4e-1
     X = GenerateBasisFunctions(n,m)
     z = GenerateNoisyData(X,NoiseLevel)
@@ -280,17 +284,17 @@ def main():
     InterpolantPoints_2 = [1e-3,1e-1]
 
     # Interpolating method
-    InterpolatingMethod = 'RPF'
+    InterpolationMethod = 'RPF'
 
     # Interpolation with 4 interpolant points
     time0 = time.process_time()
-    TI_1 = InterpolateTraceOfInverse(K,InterpolantPoints_1,Method=InterpolatingMethod)
+    TI_1 = InterpolateTraceOfInverse(K,InterpolantPoints_1,InterpolationMethod=InterpolationMethod)
     time1 = time.process_time()
     InitialElapsedTime1 = time1 - time0
 
     # Interpolation with 2 interpolant points
     time2 = time.process_time()
-    TI_2 = InterpolateTraceOfInverse(K,InterpolantPoints_2,Method=InterpolatingMethod)
+    TI_2 = InterpolateTraceOfInverse(K,InterpolantPoints_2,InterpolationMethod=InterpolationMethod)
     time3 = time.process_time()
     InitialElapsedTime2 = time3 - time2
 
@@ -312,7 +316,11 @@ def main():
     print('')
 
     # Compute GCV for a range of Lambda
-    Lambda = numpy.logspace(-7,1,500)
+    if test:
+        Lambda_Resolution = 50
+    else:
+        Lambda_Resolution = 500
+    Lambda = numpy.logspace(-7,1,Lambda_Resolution)
     GCV1 = numpy.empty(Lambda.size)
     GCV2 = numpy.empty(Lambda.size)
     GCV3 = numpy.empty(Lambda.size)

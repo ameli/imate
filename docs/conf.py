@@ -29,7 +29,23 @@ author = 'Siavash Ameli'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx_math_dollar','sphinx.ext.mathjax',
+    'sphinx.ext.graphviz','sphinx.ext.inheritance_diagram',
+    'sphinx.ext.viewcode',
+    'sphinx_toggleprompt',
+    'sphinx.ext.autosectionlabel'
 ]
+
+mathjax_config = {
+    'tex2jax': {
+        'inlineMath': [ ["\\(","\\)"] ],
+        'displayMath': [["\\[","\\]"] ],
+    },
+}
+
+# LaTeX
+# 'sphinx.ext.imgmath',
+# imgmath_image_format = 'svg'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -46,19 +62,40 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # a list of builtin themes.
 #
 # Good themes
-# html_theme = 'sphinx_rtd_theme'
-html_theme = 'nature'               # <-- I used this one
+html_theme = 'sphinx_rtd_theme'
+# html_theme = 'nature'               # <-- I used this one
 # html_theme = 'bizstyle'
-# html_theme = 'classic'
 # html_theme = 'haiku'
+# html_theme = 'classic'
 
 # Not good thmes
 # html_theme = 'sphinxdoc'
+# html_theme = 'alabaster'
 # html_theme = 'pyramid'
 # html_theme = 'agogo'
-# html_theme = 'alabaster'
 # html_theme = 'traditional'
 # html_theme = 'scrolls'
+
+# To use sphinx3, download https://github.com/sphinx-doc/sphinx/tree/master/doc/_themes/sphinx13
+# and put it in /docs/_themes
+# html_theme = 'sphinx13'
+# html_theme_path = ['_themes']
+
+# import sphinx_readable_theme
+# html_theme_path = [sphinx_readable_theme.get_html_theme_path()]
+# html_theme = 'readable'
+
+# import sphinx_nameko_theme
+# html_theme_path = [sphinx_nameko_theme.get_html_theme_path()]
+# html_theme = 'nameko'
+
+# import sphinx_bootstrap_theme
+# html_theme = 'bootstrap'
+# html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+
+# extensions.append('sphinxjp.themes.basicstrap')
+# html_theme = 'basicstrap'
+
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

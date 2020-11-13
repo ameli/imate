@@ -11,16 +11,16 @@ import numpy
 # Package modules
 from TraceInv import GenerateMatrix
 from TraceInv import InterpolateTraceOfInverse
-from DataUtilities import GenerateMatrix
-from PlotUtilities import *
-from PlotUtilities import LoadPlotSettings
-from PlotUtilities import SavePlot
+from Utilities.DataUtilities import GenerateMatrix
+from Utilities.PlotUtilities import *
+from Utilities.PlotUtilities import LoadPlotSettings
+from Utilities.PlotUtilities import SavePlot
 
 # ====
 # Plot
 # ====
 
-def Plot(TI):
+def Plot(TI,test):
     """
     Plots the curve of trace of Kn inverse versus eta.
     """
@@ -37,7 +37,11 @@ def Plot(TI):
     NumberOfPlots = len(TI)
 
     # Range to plot
-    eta = numpy.r_[-numpy.logspace(-9,-3.0001,500)[::-1],0,numpy.logspace(-9,3,500)]
+    if test:
+        eta_Resolution = 20
+    else:
+        eta_Resolution = 500
+    eta = numpy.r_[-numpy.logspace(-9,-3.0001,eta_Resolution)[::-1],0,numpy.logspace(-9,3,eta_Resolution)]
     ZeroIndex = numpy.argmin(numpy.abs(eta))
 
     # Functions
@@ -166,7 +170,7 @@ def Plot(TI):
 # Main
 # ====
 
-def main():
+def main(test=False):
     """
     """
 
@@ -176,8 +180,12 @@ def main():
     Shift = 1e-3
 
     # Generate a nearly singular matrix
-    n = 1000
-    m = 500
+    if test:
+        n = 100
+        m = 50
+    else:
+        n = 1000
+        m = 500
     K = GenerateMatrix(n,m,Shift)
 
     # Interpolatng points
@@ -185,15 +193,15 @@ def main():
     InterpolantPoints_2 = [1e-3,1e-1]
 
     # Interpolating objects
-    InterpolatingMethod = 'RPF'
-    TI_1 = InterpolateTraceOfInverse(K,InterpolantPoints_1,Method=InterpolatingMethod)
-    TI_2 = InterpolateTraceOfInverse(K,InterpolantPoints_2,Method=InterpolatingMethod)
+    InterpolationMethod = 'RPF'
+    TI_1 = InterpolateTraceOfInverse(K,InterpolantPoints_1,InterpolationMethod=InterpolationMethod)
+    TI_2 = InterpolateTraceOfInverse(K,InterpolantPoints_2,InterpolationMethod=InterpolationMethod)
 
     # List of interpolating objects
     TI = [TI_1,TI_2]
 
     # Plot interpolations
-    Plot(TI)
+    Plot(TI,test)
 
 # ===========
 # System Main

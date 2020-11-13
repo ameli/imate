@@ -17,10 +17,10 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
     # Init
     # ----
 
-    def __init__(self,A,InterpolantPoints,BasisFunctionsType='Orthogonal2'):
+    def __init__(self,A,B=None,InterpolantPoints=None,ComputeOptions={},BasisFunctionsType='Orthogonal2'):
 
         # Base class constructor
-        super(RootMonomialBasisFunctionsMethod,self).__init__(A,InterpolantPoints)
+        super(RootMonomialBasisFunctionsMethod,self).__init__(A,B,InterpolantPoints,ComputeOptions=ComputeOptions)
 
         self.BasisFunctionsType = BasisFunctionsType
 
@@ -43,7 +43,7 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
         # Method 1: Use non-orthogonal basis functions
         if self.BasisFunctionsType == 'NonOrthogonal':
             # Form a linear system for weights w
-            b = (self.n/self.trace_eta_i) - (self.n/self.T0) - self.eta_i
+            b = (1.0/self.tau_i) - (1.0/self.tau0) - self.eta_i
             C = numpy.zeros((self.p,self.p))
             for i in range(self.p):
                 for j in range(self.p):
@@ -63,15 +63,15 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
 
             # Form a linear system Cw = b for weights w
             b = numpy.zeros(self.p+1)
-            b[:-1] = (self.n/self.trace_eta_i) - (self.n/self.T0)
-            b[-1] = 1
+            b[:-1] = (1.0/self.tau_i) - (1.0/self.tau0)
+            b[-1] = 1.0
             C = numpy.zeros((self.p+1,self.p+1))
             for i in range(self.p):
                 for j in range(self.p+1):
                     C[i,j] = self.BasisFunctions(j,self.eta_i[i]/self.Scale_eta)
             C[-1,:] = self.alpha[:self.p+1]*self.a[:self.p+1,0]
 
-            # print('Condition number: %f'%(numpy.linalg.cond(A)))
+            print('Condition number: %f'%(numpy.linalg.cond(C)))
 
             # Solve weights
             self.w = numpy.linalg.solve(C,b)
@@ -79,14 +79,14 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
 
         elif self.BasisFunctionsType == 'Orthogonal2':
 
-            # Method 2: Use orthogonal basis functions
+            # Method 3: Use orthogonal basis functions
             self.alpha,self.a = self.OrthogonalBasisFunctionCoefficients()
 
             if self.alpha.size < self.eta_i.size:
                 raise ValueError('Cannot regress order higher than %d. Decrease the number of interpolation points.'%(self.alpha.size))
 
             # Form a linear system Aw = b for weights w
-            b = (self.n/self.trace_eta_i) - (self.n/self.T0) - self.eta_i
+            b = (1.0/self.tau_i) - (1.0/self.tau0) - self.eta_i
             C = numpy.zeros((self.p,self.p))
             for i in range(self.p):
                 for j in range(self.p):
@@ -218,12 +218,12 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
 
     def Interpolate(self,t):
         """
-        Interpolates the trace of inverse of ``A + t*I``.
+        Interpolates the trace of inverse of ``A + t*B``.
 
-        :param t: A real variable to form the linear matrix function ``A + tI``.
+        :param t: A real variable to form the linear matrix function ``A + tB``.
         :type t: float
 
-        :return: The interpolated value of the trace of inverse of ``A + tI``.
+        :return: The interpolated value of the trace of inverse of ``A + tB``.
         :rtype: float
         """
         
@@ -232,27 +232,23 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
             S = 0.0
             for j in range(self.p):
                 S += self.w[j] * self.BasisFunctions(j,t)
-
-            T = self.n / (self.n/self.T0+S+t)
-
-            return T
+            tau = 1.0 / (1.0/self.tau0+S+t)
                 
         elif self.BasisFunctionsType == 'Orthogonal':
 
             S = 0.0
             for j in range(self.w.size):
                 S += self.w[j] * self.BasisFunctions(j,t/self.Scale_eta)
-
-            T = self.n / (self.n/self.T0+S)
-
-            return T
+            tau = 1.0 / (1.0/self.tau0+S)
 
         elif self.BasisFunctionsType == 'Orthogonal2':
 
             S = 0.0
             for j in range(self.p):
                 S += self.w[j] * self.BasisFunctions(j,t/self.Scale_eta)
+            tau = 1.0 / (1.0/self.tau0+S+t)
 
-            T = self.n / (self.n/self.T0+S+t)
+        # Compute trace from tau
+        trace = tau * self.trace_Binv
 
-            return T
+        return trace

@@ -108,6 +108,8 @@ def main(argv):
             ],
             'docs': [
                 'sphinx',
+                'sphinx-math-dollar',
+                'sphinx-toggleprompt'
             ]
         },
         classifiers = [

@@ -30,7 +30,7 @@ class InterpolateTraceOfInverse(object):
     # Init
     # ----
 
-    def __init__(self,A,InterpolantPoints=None,InterpolationMethod='RMBF',**Options):
+    def __init__(self,A,B=None,InterpolantPoints=None,InterpolationMethod='RMBF',ComputeOptions={'ComputeMethod': 'cholesky'},**InterpolationOptions):
         """
         Initializes the object depending on the method.
 
@@ -62,27 +62,27 @@ class InterpolateTraceOfInverse(object):
         # Define an interpolation object depending on the given method
         if InterpolationMethod == 'EXT':
             # Exact computation, not interpolation
-            self.Interpolator = ExactMethod(A,**Options)
+            self.Interpolator = ExactMethod(A,B,ComputeOptions=ComputeOptions,**InterpolationOptions)
 
         elif InterpolationMethod == 'EIG':
             # Eigenvalues method
-            self.Interpolator = EigenvaluesMethod(A,**Options)
+            self.Interpolator = EigenvaluesMethod(A,B,ComputeOptions=ComputeOptions,**InterpolationOptions)
 
         elif InterpolationMethod == 'MBF':
             # Monomial Basis Functions method
-            self.Interpolator = MonomialBasisFunctionsMethod(A,InterpolantPoints,**Options)
+            self.Interpolator = MonomialBasisFunctionsMethod(A,B,InterpolantPoints,ComputeOptions=ComputeOptions,**InterpolationOptions)
 
         elif InterpolationMethod == 'RMBF':
             # Root Monomial Basis Functions method
-            self.Interpolator = RootMonomialBasisFunctionsMethod(A,InterpolantPoints,**Options)
+            self.Interpolator = RootMonomialBasisFunctionsMethod(A,B,InterpolantPoints,ComputeOptions=ComputeOptions,**InterpolationOptions)
 
         elif InterpolationMethod == 'RBF':
             # Radial Basis Functions method
-            self.Interpolator = RadialBasisFunctionsMethod(A,InterpolantPoints,**Options)
+            self.Interpolator = RadialBasisFunctionsMethod(A,B,InterpolantPoints,ComputeOptions=ComputeOptions,**InterpolationOptions)
 
         elif InterpolationMethod == 'RPF':
             # Rational Polynomial Functions method
-            self.Interpolator = RationalPolynomialFunctionsMethod(A,InterpolantPoints,**Options)
+            self.Interpolator = RationalPolynomialFunctionsMethod(A,B,InterpolantPoints,ComputeOptions=ComputeOptions,**InterpolationOptions)
 
         else:
             raise ValueError("'InterpolationMethod' is invalid. Select one of 'EXT', 'EIG', 'MBF', 'RMBF', 'RBF', or 'RPF'.")
@@ -91,19 +91,19 @@ class InterpolateTraceOfInverse(object):
     # Compute
     # -------
 
-    def Compute(self,t,ComputingMethod='cholesky',**Options):
+    def Compute(self,t):
         """
         """
         
         if isinstance(t,Number):
             # Single number
-            T =  self.Interpolator.Compute(t,ComputingMethod,**Options)
+            T =  self.Interpolator.Compute(t)
 
         else:
             # An array of points
             T = numpy.empty((len(t),),dtype=float)
             for i in range(len(t)):
-                T[i] =  self.Interpolator.Compute(t[i],ComputingMethod,**Options)
+                T[i] =  self.Interpolator.Compute(t[i])
 
         return T
 
