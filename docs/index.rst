@@ -6,22 +6,14 @@ TraceInv's documentation
 A python package to compute the trace of the inverse of a matrix or a linear matrix function.
 
 .. For users
+..     * `Documentation <https://ameli.github.io/TraceInv/index.html>`_
 ..     * `PyPi package <https://pypi.org/project/TraceInv/>`_
 ..     * `Source code <https://github.com/ameli/TraceInv>`_
-..     * `Documentation <https://ameli.github.io/TraceInv/index.html>`_
 ..
 .. For developers
 ..     * `API <https://ameli.github.io/TraceInv/_modules/modules.html>`_
 ..     * `Travis-CI <https://travis-ci.com/github/ameli/TraceInv>`_
 ..     * `Codecov <https://codecov.io/gh/ameli/TraceInv>`_
-
-.. +------------------------------------------------------------------+--+-------------------------------------------------------------------+
-.. |    For users                                                     |  | For developers                                                    |
-.. +==================================================================+==+===================================================================+
-.. | * `PyPi package <https://pypi.org/project/TraceInv/>`_           |  | * `API <https://ameli.github.io/TraceInv/_modules/modules.html>`_ |
-.. | * `Source code <https://github.com/ameli/TraceInv>`_             |  | * `Travis-CI <https://travis-ci.com/github/ameli/TraceInv>`_      |
-.. | * `Documentation <https://ameli.github.io/TraceInv/index.html>`_ |  | * `Codecov <https://codecov.io/gh/ameli/TraceInv>`_               |
-.. +------------------------------------------------------------------+--+-------------------------------------------------------------------+
 
 +------------------------------------------------------------------+-------------------------------------------------------------------+
 |    For users                                                     | For developers                                                    |

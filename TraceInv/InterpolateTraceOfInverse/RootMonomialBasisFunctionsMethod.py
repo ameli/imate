@@ -20,7 +20,7 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
     def __init__(self,A,B=None,InterpolantPoints=None,ComputeOptions={},BasisFunctionsType='Orthogonal2'):
 
         # Base class constructor
-        super(RootMonomialBasisFunctionsMethod,self).__init__(A,B,InterpolantPoints,ComputeOptions=ComputeOptions)
+        super(RootMonomialBasisFunctionsMethod,self).__init__(A,B=B,InterpolantPoints=InterpolantPoints,ComputeOptions=ComputeOptions)
 
         self.BasisFunctionsType = BasisFunctionsType
 
@@ -71,7 +71,7 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
                     C[i,j] = self.BasisFunctions(j,self.eta_i[i]/self.Scale_eta)
             C[-1,:] = self.alpha[:self.p+1]*self.a[:self.p+1,0]
 
-            print('Condition number: %f'%(numpy.linalg.cond(C)))
+            # print('Condition number: %f'%(numpy.linalg.cond(C)))
 
             # Solve weights
             self.w = numpy.linalg.solve(C,b)

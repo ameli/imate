@@ -21,7 +21,7 @@ class MonomialBasisFunctionsMethod(InterpolantBaseClass):
     def __init__(self,A,B=None,InterpolantPoint=None,ComputeOptions={}):
 
         # Base class constructor
-        super(MonomialBasisFunctionsMethod,self).__init__(A,B,ComputeOptions={})
+        super(MonomialBasisFunctionsMethod,self).__init__(A,B=B,ComputeOptions={})
 
         # Compute self.trace_Ainv, self.trace_Binv, and self.tau0
         self.ComputeTraceInvOfInputMatrices()

@@ -92,7 +92,7 @@ class EigenvaluesMethod(InterpolantBaseClass):
         """
 
         # Base class constructor
-        super(EigenvaluesMethod,self).__init__(A,B,ComputeOptions=ComputeOptions)
+        super(EigenvaluesMethod,self).__init__(A,B=B,ComputeOptions=ComputeOptions)
 
         # Attiributes
         self.NonZeroRatio = NonZeroRatio

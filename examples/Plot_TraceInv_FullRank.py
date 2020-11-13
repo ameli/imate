@@ -192,11 +192,11 @@ def main(test=False):
 
     # Interpolating objects
     InterpolationMethod = 'RMBF'
-    TI_1 = InterpolateTraceOfInverse(A,InterpolantPoints_1,InterpolationMethod=InterpolationMethod)
-    TI_2 = InterpolateTraceOfInverse(A,InterpolantPoints_2,InterpolationMethod=InterpolationMethod)
-    TI_3 = InterpolateTraceOfInverse(A,InterpolantPoints_3,InterpolationMethod=InterpolationMethod)
-    TI_4 = InterpolateTraceOfInverse(A,InterpolantPoints_4,InterpolationMethod=InterpolationMethod)
-    TI_5 = InterpolateTraceOfInverse(A,InterpolantPoints_5,InterpolationMethod=InterpolationMethod)
+    TI_1 = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints_1,InterpolationMethod=InterpolationMethod)
+    TI_2 = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints_2,InterpolationMethod=InterpolationMethod)
+    TI_3 = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints_3,InterpolationMethod=InterpolationMethod)
+    TI_4 = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints_4,InterpolationMethod=InterpolationMethod)
+    TI_5 = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints_5,InterpolationMethod=InterpolationMethod)
 
     # List of interpolating objects
     TI = [TI_1,TI_2,TI_3,TI_4,TI_5]

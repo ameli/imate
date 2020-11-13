@@ -22,7 +22,7 @@ class RadialBasisFunctionsMethod(InterpolantBaseClass):
     def __init__(self,A,B=None,InterpolantPoints=None,ComputeOptions={},FunctionType=1):
 
         # Base class constructor
-        super(RadialBasisFunctionsMethod,self).__init__(A,B,InterpolantPoints,ComputeOptions=ComputeOptions)
+        super(RadialBasisFunctionsMethod,self).__init__(A,B=B,InterpolantPoints=InterpolantPoints,ComputeOptions=ComputeOptions)
 
         # Initialize Interpolator
         self.RBF = None
@@ -115,12 +115,12 @@ class RadialBasisFunctionsMethod(InterpolantBaseClass):
 
     def Interpolate(self,t):
         """
-        Interpolates the trace of inverse of ``K + t*I``.
+        Interpolates the trace of inverse of ``A + t*B``.
 
-        :param t: A real variable to form the linear matrix function ``K + tI``.
+        :param t: A real variable to form the linear matrix function ``A + tB``.
         :type t: float
 
-        :return: The interpolated value of the trace of inverse of ``K + tI``.
+        :return: The interpolated value of the trace of inverse of ``A + tB``.
         :rtype: float
         """
         

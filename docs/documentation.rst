@@ -87,7 +87,7 @@ Installing the additional packages ``ray`` and ``scikit-sparse`` can improve the
 Install ``ray``
 ---------------
 
-If you want to run the examples provided in ``/examples`` (see also :ref:`Examples`), you may install the ``ray`` package to leverage the parallel processing used in generate large sparse matrices. Installing ``ray`` is optional as the examples can still produce results without it. Install ``ray`` package by:
+To run the examples provided in ``/examples`` (see also `Examples <Examples>`_), you may install the ``ray`` package to leverage the parallel processing used in generate large sparse matrices. Installing ``ray`` is optional as the examples can still produce results without it. Install ``ray`` package by:
 
 ::
 
@@ -258,6 +258,8 @@ The ``InterpolateTraceOfInverse`` module internally defines a ``ComputeTraceOfIn
    ...             InterpolantPoints=InterpolantPoints,
    ...             InterpolatingMethod='RMBF',
    ...             ComputeOptions=ComputeOptions)
+
+.. _Examples:
 
 ********
 Examples

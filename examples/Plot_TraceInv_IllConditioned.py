@@ -194,8 +194,8 @@ def main(test=False):
 
     # Interpolating objects
     InterpolationMethod = 'RPF'
-    TI_1 = InterpolateTraceOfInverse(K,InterpolantPoints_1,InterpolationMethod=InterpolationMethod)
-    TI_2 = InterpolateTraceOfInverse(K,InterpolantPoints_2,InterpolationMethod=InterpolationMethod)
+    TI_1 = InterpolateTraceOfInverse(K,InterpolantPoints=InterpolantPoints_1,InterpolationMethod=InterpolationMethod)
+    TI_2 = InterpolateTraceOfInverse(K,InterpolantPoints=InterpolantPoints_2,InterpolationMethod=InterpolationMethod)
 
     # List of interpolating objects
     TI = [TI_1,TI_2]

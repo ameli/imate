@@ -20,7 +20,7 @@ class RationalPolynomialFunctionsMethod(InterpolantBaseClass):
     def __init__(self,A,B=None,InterpolantPoints=None,ComputeOptions={}):
 
         # Base class constructor
-        super(RationalPolynomialFunctionsMethod,self).__init__(A,B,InterpolantPoints,ComputeOptions=ComputeOptions)
+        super(RationalPolynomialFunctionsMethod,self).__init__(A,B=B,InterpolantPoints=InterpolantPoints,ComputeOptions=ComputeOptions)
 
         # Initilaize interpolator
         self.Numerator = None

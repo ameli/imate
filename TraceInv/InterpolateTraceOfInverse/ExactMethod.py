@@ -52,7 +52,7 @@ class ExactMethod(InterpolantBaseClass):
     def __init__(self,A,B=None,ComputeOptions={}):
 
         # Base class constructor
-        super(ExactMethod,self).__init__(A,B,ComputeOptions=ComputeOptions)
+        super(ExactMethod,self).__init__(A,B=B,ComputeOptions=ComputeOptions)
 
     # -----------
     # Interpolate

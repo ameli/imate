@@ -288,13 +288,13 @@ def main(test=False):
 
     # Interpolation with 4 interpolant points
     time0 = time.process_time()
-    TI_1 = InterpolateTraceOfInverse(K,InterpolantPoints_1,InterpolationMethod=InterpolationMethod)
+    TI_1 = InterpolateTraceOfInverse(K,InterpolantPoints=InterpolantPoints_1,InterpolationMethod=InterpolationMethod)
     time1 = time.process_time()
     InitialElapsedTime1 = time1 - time0
 
     # Interpolation with 2 interpolant points
     time2 = time.process_time()
-    TI_2 = InterpolateTraceOfInverse(K,InterpolantPoints_2,InterpolationMethod=InterpolationMethod)
+    TI_2 = InterpolateTraceOfInverse(K,InterpolantPoints=InterpolantPoints_2,InterpolationMethod=InterpolationMethod)
     time3 = time.process_time()
     InitialElapsedTime2 = time3 - time2
 
