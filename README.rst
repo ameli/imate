@@ -41,7 +41,7 @@ Consider the matrix function |image05|, where |image01| and |image03| are symmet
     These interpolation methods are described in [Ameli-2020]_. 
 
 
-.. include:: math_sphinx.rst
+.. include:: math_codecogs.rst
 
 *******
 Install
