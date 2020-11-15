@@ -1,29 +1,3 @@
-********
-TraceInv
-********
-
-|travis-devel| |codecov-devel| |licence| |format| |pypi| |implementation| |pyversions|
-
-A python package to compute the trace of the inverse of a matrix or a linear matrix function.
-
-.. For users
-..     * `Documentation <https://ameli.github.io/TraceInv/index.html>`_
-..     * `PyPi package <https://pypi.org/project/TraceInv/>`_
-..     * `Source code <https://github.com/ameli/TraceInv>`_
-..
-.. For developers
-..     * `API <https://ameli.github.io/TraceInv/_modules/modules.html>`_
-..     * `Travis-CI <https://travis-ci.com/github/ameli/TraceInv>`_
-..     * `Codecov <https://codecov.io/gh/ameli/TraceInv>`_
-
-+------------------------------------------------------------------+-------------------------------------------------------------------+
-|    For users                                                     | For developers                                                    |
-+==================================================================+===================================================================+
-| * `Documentation <https://ameli.github.io/TraceInv/index.html>`_ | * `API <https://ameli.github.io/TraceInv/_modules/modules.html>`_ |
-| * `PyPi package <https://pypi.org/project/TraceInv/>`_           | * `Travis-CI <https://travis-ci.com/github/ameli/TraceInv>`_      |
-| * `Source code <https://github.com/ameli/TraceInv>`_             | * `Codecov <https://codecov.io/gh/ameli/TraceInv>`_               |
-+------------------------------------------------------------------+-------------------------------------------------------------------+
-
 ************
 Introduction
 ************
@@ -34,36 +8,40 @@ This package computes the trace of inverse of two forms of matrices:
 1. Fixed Matrix
 ===============
 
-For an invertible matrix |image01|, this package computes |image02| by either of these three methods:
+For an invertible matrix |image01|, this package computes |image02| for both sparse and dense matrices.
 
-#. **Cholesky Decomposition**:  accurate, suitable for small matrices.
-#. **Hutchinson's Randomized Estimator**: approximation, suitable for large matrices.
-#. **Stochastic Lanczos Quadrature**: approximation, suitable for large matrices.
+**Computing Methods:**
+    The following methods are implemented:
 
-Both sparse and dense matrices are supported.
+    #. **Cholesky Decomposition**:  accurate, suitable for small matrices.
+    #. **Hutchinson's Randomized Estimator**: approximation, suitable for large matrices.
+    #. **Stochastic Lanczos Quadrature**: approximation, suitable for large matrices.
 
 =======================================
 2. One-Parameter Affine Matrix Function
 =======================================
 
-This package can interpolate the one-parameter affine function
+Consider the matrix function |image05|, where |image01| and |image03| are symmetric and positive-definite matrices and :math:`t` is a real parameter. This package can interpolate the function
 
 |image06|
 
-where |image01| and |image03| are symmetric and positive-definite matrices and :math:`t` is a parameter.
 
-The above function is featured in a wide range of applications in statistics and machine learning. Particular applications are in model selection and optimizing hyperparameters with gradient-based maximum likelihood methods. In such applications, computing the above function is often a computational challenge for large matrices. Often, this function is evaluated for a wide range of the parameter :math:`t` while :math:`\mathbf{A}` and :math:`\mathbf{B}` remain fixed. As such, an interpolation scheme enables fast computation of the function.
+**Application:**
+    The above function is featured in a wide range of applications in statistics and machine learning. Particular applications are in model selection and optimizing hyperparameters with gradient-based maximum likelihood methods. In such applications, computing the above function is often a computational challenge for large matrices. Often, this function is evaluated for a wide range of the parameter :math:`t` while :math:`\mathbf{A}` and :math:`\mathbf{B}` remain fixed. As such, an interpolation scheme enables fast computation of the function.
 
-Various interpolation methods of the above function are implemented in this package, namely:
+**Interpolation Methods**
+    Various interpolation methods of the above function are implemented in this package, namely
 
-#. **Eigenvalues Method**
-#. **Monomial Basis Functions**
-#. **Root Monomial Basis Functions**
-#. **Rational Polynomial Functions**
-#. **Radial Basis Functions**
+    #. **Eigenvalues Method**
+    #. **Monomial Basis Functions**
+    #. **Root Monomial Basis Functions**
+    #. **Rational Polynomial Functions**
+    #. **Radial Basis Functions**
 
-These interpolation methods are described in [Ameli-2020]_. 
+    These interpolation methods are described in [Ameli-2020]_. 
 
+
+.. include:: math_sphinx.rst
 
 *******
 Install
@@ -75,25 +53,27 @@ Prerequisites
 
 The prerequisite packages are:
 
-* ``numpy`` and ``scipy``.
-* ``matplotlib`` and ``seaborn``, but only needed to run the examples provided in ``/examples`` (see also `Examples <#Examples>`_).
+* **Required:** ``numpy`` and ``scipy``.
+* **Required:** ``matplotlib`` and ``seaborn``, but only required to run the :ref:`ref_Examples`.
+* **Optional:** ``ray`` and ``scikit-sparse`` can improve performance, but not required.
 
-By installing ``TraceInv`` (see :ref:`Install ``TraceInv``` below), the prerequisite packages will be installed automatically and no other action is needed.
+.. note::
+    By installing TraceInv :ref:`below <Install TraceInv>`, the *required* prerequisite packages (but not the *optional* packages) in the above will be installed automatically and no other action is needed. However, if desired, the *optional* packages should be installed :ref:`manually <Install Optional Packages>`.
 
-====================
-Install ``TraceInv``
-====================
+================
+Install TraceInv
+================
 
-Install ``TraceInv`` by either of the following ways:
+Install by either of the following ways:
 
-- Method 1: install from the package available at `PyPi <https://pypi.org/project/TraceInv>`_:
+* **Method 1:** The recommended way is to install through the package available at `PyPi <https://pypi.org/project/TraceInv>`_:
 
   ::
 
     python -m pip install TraceInv
 
 
-- Method 2: download the source code and install by:
+* **Method 2:** download the source code and install by:
 
   ::
 
@@ -105,28 +85,22 @@ Install ``TraceInv`` by either of the following ways:
 Install Optional Packages
 =========================
 
-Installing the additional packages ``ray`` and ``scikit-sparse`` can improve the performance of ``TraceInv``, but they are not required. 
+Installing the additional packages can improve the performance, but not required. 
 
 ---------------
 Install ``ray``
 ---------------
 
-If you want to run the examples provided in ``/examples`` (see also :ref:`Examples`), you may install the ``ray`` package to leverage the parallel processing used in generate large sparse matrices. Installing ``ray`` is optional as the examples can still produce results without it. Install ``ray`` package by:
-
 ::
 
     python -m pip install ray
 
+When ``ray`` is needed:
+    To run the :ref:`examples <Examples>`, you may install the ``ray`` package to leverage the parallel processing used in generate large sparse matrices. However, the examples can still produce results without installing ``ray``.
+
 -------------------------
 Install ``scikit-sparse``
 -------------------------
-
-In ``TraceInv`` package, one of the methods to compute the trace of a matrix is by the *Cholesky decomposition*. If the input matrix is *sparse*, the Cholesky decomposition is computed with either of these packages below, whichever is available:
-
-* ``scikit-sparse``: If this is available, ``TraceInv`` uses this package by *default*. Note that ``scikit-sparse`` is not available by installing ``TraceInv`` only, rather, it should be installed separately (see instructions below).
-* ``scipy``: If ``scikit-sparse`` is not available, the ``scipy`` package is used instead. The ``scipy`` package is readily available by installing ``TraceInv``.
-
-To install ``scikit-sparse``, follow the two steps below.
 
 1. Install `Suite Sarse <https://people.engr.tamu.edu/davis/suitesparse.html>`_, which is distributed by ``libsuitesparse-dev`` package, and can be installed with ``apt`` package manager in Linux (*Debian, Ubuntu, Mint*) by
    
@@ -148,24 +122,27 @@ To install ``scikit-sparse``, follow the two steps below.
        
        python -m pip install scikit-sparse
 
+When ``scikit-sparse`` is needed:
+    In ``TraceInv`` package, one of the methods to compute the trace of a matrix is by the *Cholesky decomposition*. If the input matrix is *sparse*, the Cholesky decomposition is computed using ``scikit-sparse`` if available. But if this package is not available, the ``scipy`` package is used instead.
+
 *****
 Usage
 *****
 
-The package ``TraceInv`` provides three sub-packages:
+The package TraceInv provides three sub-packages:
 
-======================================  =====================================================================
-Sub-Package                             Description
-======================================  =====================================================================
-``TraceInv.GenerateMatrix``             Generates symmetric and positive-definite matrices for test purposes.
-``TraceInv.ComputeTraceOfInverse``      Computes trace of inverse for a fixed matrix.
-``TraceInv.InterpolateTraceOfInverse``  Interpolates trace of inverse for a linear matrix function.
-======================================  =====================================================================
+=========================================  =====================================================================
+Sub-Package                                Description
+=========================================  =====================================================================
+:mod:`TraceInv.GenerateMatrix`             Generates symmetric and positive-definite matrices for test purposes.
+:mod:`TraceInv.ComputeTraceOfInverse`      Computes trace of inverse for a fixed matrix.
+:mod:`TraceInv.InterpolateTraceOfInverse`  Interpolates trace of inverse for a linear matrix function.
+=========================================  =====================================================================
 
 The next two sections presents minimalistic examples respectively for:
 
-1. :ref:`Fixed matrix <Fixed-Matrix>` using ``ComputeTraceOfInverse`` module.
-2. :ref:`One-parameter affine matrix function <Affine-Matrix>` using ``InterpolateTraceOfInverse`` module.
+1. :ref:`Fixed matrix <Fixed-Matrix>` using :mod:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` module.
+2. :ref:`One-parameter affine matrix function <Affine-Matrix>` using :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>` module.
 
 .. _Fixed-Matrix:
 
@@ -177,16 +154,16 @@ The next two sections presents minimalistic examples respectively for:
 
    >>> from TraceInv import GenerateMatrix
    >>> from TraceInv import ComputeTraceOfInverse
-
+   
    >>> # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)
    >>> A = GenerateMatrix(NumPoints=20)
-
+   
    >>> # Compute trace of inverse
    >>> trace = ComputeTraceOfInverse(A)
 
-In the above, the class ``GenerateMatrix`` produces a sample matrix for test purposes. Specifically, this class produces a correlation matrix from the mutual Euclidean distance of a set of points. By default, the set of points are generated on an equally spaced rectangular grid in the unit square. The produced matrix is symmetric and positive-definite, hence, invertible. The sample matrix ``A`` in the above code is of the size :math:`20^2 \times 20^2` corresponding to a rectangular grid of :math:`20 \times 20` points.
+In the above, the class :class:`GenerateMatrix <TraceInv.GenerateMatrix>` produces a sample matrix for test purposes. Specifically, this class produces a correlation matrix from the mutual Euclidean distance of a set of points. By default, the set of points are generated on an equally spaced rectangular grid in the unit square. The produced matrix is symmetric and positive-definite, hence, invertible. The sample matrix ``A`` in the above code is of the size :math:`20^2 \times 20^2` corresponding to a rectangular grid of :math:`20 \times 20` points.
 
-The ``ComputeTraceOfInverse`` class in the above code employs the Cholesky method by default to compute the trace of inverse. However, the user may choose other methods given in the table below.
+The :mod:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` class in the above code employs the Cholesky method by default to compute the trace of inverse. However, the user may choose other methods given in the table below.
 
 ===================  ====================================  ==============  =============  =============
 ``ComputeMethod``    Description                           Matrix size     Matrix type    Results       
@@ -196,7 +173,7 @@ The ``ComputeTraceOfInverse`` class in the above code employs the Cholesky metho
 ``'SLQ'``            Stochastic Lanczos Quadrature method  small or large  dense, sparse  approximation
 ===================  ====================================  ==============  =============  =============  
 
-The desired method of computation can be passed through the ``ComputeMethod`` argument when calling ``ComputeTraceOfInverse``. For instance, in the following example, we apply the *Hutchinson's randomized estimator* method:
+The desired method of computation can be passed through the ``ComputeMethod`` argument when calling :mod:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>`. For instance, in the following example, we apply the *Hutchinson's randomized estimator* method:
 
 .. code-block:: python
 
@@ -211,10 +188,11 @@ Each of the methods in the above accept some options. For instance, the Hutchins
 2. Usage for One-Parameter Affine Matrix Function
 =================================================
 
-The module ``InterpolateTraceOfInverse`` interpolates the trace of the inverse of :math:`\mathbf{A} + t \mathbf{B}`, as shown by the example below.
+The module :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>` interpolates the trace of the inverse of :math:`\mathbf{A} + t \mathbf{B}`, as shown by the example below.
 
 .. code-block:: python
-
+   :emphasize-lines: 11,15
+    
    >>> from TraceInv import GenerateMatrix
    >>> from TraceInv import InterpolateTraceOfInverse
    
@@ -231,7 +209,7 @@ The module ``InterpolateTraceOfInverse`` interpolates the trace of the inverse o
    >>> t = 4e-1
    >>> trace = TI.Interpolate(t)
 
-In the above code, we only provided the matrix ``A`` to the module ``InterpolateTraceOfInverse``, which then it assumes ``B`` is identity matrix by default. To compute the trace of the inverse of :math:`\mathbf{A} + t \mathbf{B}` where :math:`\mathbf{B}` is not identity matrix, pass both ``A`` and ``B`` to ``InterpolateTraceOfInverse`` as follows.
+In the above code, we only provided the matrix ``A`` to the module :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>`, which then it assumes ``B`` is identity matrix by default. To compute the trace of the inverse of :math:`\mathbf{A} + t \mathbf{B}` where :math:`\mathbf{B}` is not identity matrix, pass both ``A`` and ``B`` to :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>` as follows.
 
 .. code-block:: python
 
@@ -242,7 +220,7 @@ In the above code, we only provided the matrix ``A`` to the module ``Interpolate
    >>> # Create an interpolating TraceInv object
    >>> TI = InterpolateTraceOfInverse(A,B,InterpolantPoints=InterpolantPoints)
 
-The parameter ``DecorrelationScale`` of the class ``GenerateMatrix`` in the above specifies the scale of correlation function used to form a positive-definite matrix. We specified two correlation scales to generate different matrices ``A`` and ``B``. The user may use their own matrix data.
+The parameter ``DecorrelationScale`` of the class :mod:`GenerateMatrix <TraceInv.GenerateMatrix>` in the above specifies the scale of correlation function used to form a positive-definite matrix. We specified two correlation scales to generate different matrices ``A`` and ``B``. The user may use their own matrix data.
 
 Interpolation for an array of inquiries points can be made by:
 
@@ -253,23 +231,24 @@ Interpolation for an array of inquiries points can be made by:
    >>> t_array = numpy.logspace(-3,+3,5)
    >>> traces = TI.Interpolate(t_array,InterpolantPoints=InterpolantPoints)
 
-The module ``InterpolateTraceOfInverse`` can employ various interpolation methods listed in the table below. The method of interpolation can be set by ``InterpolationMethod`` argument when calling ``InterpolateTraceOfInverse``. The default method is ``RMBF``.
+The module :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>` can employ various interpolation methods listed in the table below. The method of interpolation can be set by ``InterpolationMethod`` argument when calling :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>`. The default method is ``RMBF``.
 
-=======================  =========================================  ============  =============  =============
+=======================  =========================================  ============  =============  ============
 ``InterpolationMethod``  Description                                Matrix size   Matrix type    Results
-=======================  =========================================  ============  =============  =============
+=======================  =========================================  ============  =============  ============
 ``'EXT'``                Computes trace directly, no interpolation  Small         dense, sparse  exact
 ``'EIG'``                Uses Eigenvalues of matrix                 Small         dense, sparse  exact
-``'MBF'``                Monomial Basis Functions                   Small, large  dense, sparse  interpolation
-``'RMBF'``               Root monomial basis functions              small, large  dense, sparse  interpolation
-``'RBF'``                Radial basis functions                     small, large  dense, sparse  interpolation
-``'RPF'``                Rational polynomial functions              small, large  dense, sparse  interpolation
-=======================  =========================================  ============  =============  =============
+``'MBF'``                Monomial Basis Functions                   Small, large  dense, sparse  interpolated
+``'RMBF'``               Root monomial basis functions              small, large  dense, sparse  interpolated
+``'RBF'``                Radial basis functions                     small, large  dense, sparse  interpolated
+``'RPF'``                Rational polynomial functions              small, large  dense, sparse  interpolated
+=======================  =========================================  ============  =============  ============
 
-The ``InterpolateTraceOfInverse`` module internally defines a ``ComputeTraceOfInverse`` object (see :ref:`Fixed Matrix <Fixed-Matrix>`) to evaluate the trace of inverse at the given interpolant points ``InterpolantPoints``. You can pass the options for this internal ``ComputeTraceOfInverse`` object by ``ComputeOptions`` argument when initializing  ``InterpolateTraceOfInverse``, such as in the example below.
+The :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>` module internally defines an object of :class:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` (see :ref:`Fixed Matrix <Fixed-Matrix>`) to evaluate the trace of inverse at the given interpolant points ``InterpolantPoints``. You can pass the options for this internal :class:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` object by ``ComputeOptions`` argument when initializing  :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>`, such as in the example below.
 
 .. code-block:: python
-
+   :emphasize-lines: 12
+    
    >>> # Specify options of the internal ComputeTraceOfInverse object in a dictionary
    >>> ComputeOptions = \
    ... {
@@ -283,30 +262,31 @@ The ``InterpolateTraceOfInverse`` module internally defines a ``ComputeTraceOfIn
    ...             InterpolatingMethod='RMBF',
    ...             ComputeOptions=ComputeOptions)
 
-.. _Examples:
+.. _ref_Examples:
 
 ********
 Examples
 ********
 
-Three examples are provided in |examples|_, which aim to reproduce the figures presented in [Ameli-2020]_. Namely, in that reference,
+Three examples are provided in |examplesdir|_, which aim to reproduce the figures presented in [Ameli-2020]_. Namely, in that reference,
 
-1. |example1|_ reproduces Figure 2.
-2. |example2|_ reproduces Figure 3.
-3. |example3|_ reproduces Figure 4 and generates the results of Table 2.
+* **Example 1:** Script |example1|_ reproduces Figure 2.
+* **Example 2:** Script |example2|_ reproduces Figure 3.
+* **Example 3:** Script |example3|_ reproduces Figure 4 and generates the results of Table 2.
 
-To run the examples only, you may not need to install the ``TraceInv`` package, rather, you can download the source code and run the examples by
+Before running examples:
+   To run the examples, you may not need to install the ``TraceInv`` package. Rather, download the source code and install requirements:
 
-::
+   ::
     
-    # Download
-    git clone https://github.com/ameli/TraceInv.git
+       # Download
+       git clone https://github.com/ameli/TraceInv.git
 
-    # Install prerequisite packages
-    cd TraceInv
-    python -m pip install --upgrade -r requirements.txt
-
-and run either of the examples as described below.
+       # Install prerequisite packages
+       cd TraceInv
+       python -m pip install --upgrade -r requirements.txt
+    
+   Then, run either of the examples as described below.
 
 
 =========
@@ -405,17 +385,14 @@ Citation
         howpublished={\emph{arXiv}: 2009.07385 [math.NA]},
     }
 
-.. |examples| replace:: ``/examples`` 
-.. _examples: https://github.com/ameli/TraceInv/blob/master/examples
+.. |examplesdir| replace:: ``/examples`` 
+.. _examplesdir: https://github.com/ameli/TraceInv/blob/master/examples
 .. |example1| replace:: ``/examples/Plot_TraceInv_FullRank.py``
 .. _example1: https://github.com/ameli/TraceInv/blob/master/examples/Plot_TraceInv_FullRank.py
 .. |example2| replace:: ``/examples/Plot_TraceInv_IllConditioned.py``
 .. _example2: https://github.com/ameli/TraceInv/blob/master/examples/Plot_TraceInv_IllConditioned.py
 .. |example3| replace:: ``/examples/Plot_GeneralizedCorssValidation.py``
 .. _example3: https://github.com/ameli/TraceInv/blob/master/examples/Plot_GeneralizedCrossValidation.py
-
-
-.. include:: docs/math_codecogs.rst
 
 
 ****************

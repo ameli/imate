@@ -12,6 +12,82 @@ import numpy
 # ====================================
 
 class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
+    """
+    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod
+        :parts: 1
+
+    Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A} + t \\mathbf{B}` using 
+    an interpolation scheme based on root monomial basis functions (see details below).
+
+    :param A: Invertible matrix, can be rither dense or sparse matrix.
+    :type A: numpy.ndarray
+
+    :param B: Invertible matrix, can be either dense or sparse matrix.
+    :type B: numpy.ndarray
+
+    :param ComputeOptions: A dictionary of input arguments for :mod:`TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse` module.
+    :type ComputeOptions: dict
+
+    :param NonZeroRatio: The ratio of the number of eigenvalues to be assumed non-zero.
+        Used for sparse matrices.
+        Default is ``0.9`` indicating to compute 90 percent of the eigenevalues with the largest magnitude
+        and assume the rest of the eigenvalues are zero.
+    :type NonZeroRatio: int
+
+    :param Tol: Tolerance of computing eigenvalues. Used onlt for sparse matrices.
+        Default value is ``1e-3``.
+    :type Tol: float
+
+
+    **Interpolation Method**
+    
+    Define the function
+
+    .. math::
+
+        \\tau(t) = \\frac{\\mathrm{trace}\\left( (\\mathbf{A} + t \\mathbf{B})^{-1} \\right)}{\mathrm{trace}(\mathbf{B}^{-1})}
+
+    and :math:`\\tau_0 = \\tau(0)`. Then, we approximate :math:`\\tau^{-1}(t)` by
+
+    .. math::
+
+        \\frac{1}{\\tau(t)} = \\frac{1}{\\tau_0} + \sum_{i = 0}^p w_i \phi_i(t),
+
+    where :math:`\phi_i` are basis functions defined by
+
+    .. math::
+
+        \\phi_i(t) = t^{\\frac{1}{i+1}}, \qquad i = 0,\dots,p
+
+    and :math:`w_i` are the coefficients of the linear basis functions with :math:`w_{0} = 1` and the rest of the weights 
+    are to be found form the known function values :math:`\\tau_i = \\tau(t_i)` at some given interpolant points :math:`t_i`.
+
+
+    **Example**
+
+    This class can be invoked from the :class:`TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse` module 
+    using ``InterpolationMethod='EIG'`` argument.
+
+    .. code-block:: python
+
+        from TraceInv import GenerateMatrix
+        from TraceInv import InterpolateTraceOfInverse
+        
+        # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)
+        A = GenerateMatrix(NumPoints=20)
+        
+        # Create an object that interpolats trace of inverse of A+tI (I is identity matrix)
+        TI = InterpolateTraceOfInverse(A,InterpolatingMethod='EIG')
+        
+        # Interpolate A+tI at some input point t
+        t = 4e-1
+        trace = TI.Interpolate(t)
+
+    .. seealso::
+
+        The result of the ``EIG`` method is identical with the exact method ``EXT``, 
+        which is given by :class:`TraceInv.InterpolateTraceOfInverse.ExactMethod`.
+    """
 
     # ----
     # Init

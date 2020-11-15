@@ -33,8 +33,12 @@ extensions = [
     'sphinx.ext.graphviz','sphinx.ext.inheritance_diagram',
     'sphinx.ext.viewcode',
     'sphinx_toggleprompt',
-    'sphinx.ext.autosectionlabel'
+    'sphinx.ext.autosectionlabel',
+    'sphinx.ext.autosummary'
 ]
+
+# autosummary
+autosummary_generate = True
 
 mathjax_config = {
     'tex2jax': {
@@ -101,3 +105,11 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# # Add css
+# html_css_files = [
+#     'custom.css',
+# ]
+
+def setup (app):
+    app.add_stylesheet('css/custom.css')   # relative to /docs/_static/

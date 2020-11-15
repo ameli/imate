@@ -27,61 +27,62 @@ def test_InterpolateTraceOfInverse():
 
     InterpolantPoints = [1e-4,1e-3,1e-2,1e-1,1,1e+1]
     InquiryPoint = 0.4
+    ComputeOptions={'ComputeMethod':'cholesky','UseInverseMatrix':True}
 
     # Compute exact trace without interpolation
-    TI00 = InterpolateTraceOfInverse(A,B=B,InterpolationMethod='EXT',ComputeOptions={'ComputeMethod':'cholesky','UseInverseMatrix':True})
+    TI00 = InterpolateTraceOfInverse(A,B=B,InterpolationMethod='EXT',ComputeOptions=ComputeOptions)
     Trace00 = TI00.Interpolate(InquiryPoint)
     Error00 = 0
 
     # Eigenvalues Method
-    TI01 = InterpolateTraceOfInverse(A,B=B,InterpolationMethod='EIG',ComputeOptions={'ComputeMethod':'cholesky','UseInverseMatrix':True})
+    TI01 = InterpolateTraceOfInverse(A,B=B,InterpolationMethod='EIG',ComputeOptions=ComputeOptions)
     Trace01 = TI01.Interpolate(InquiryPoint)
     Error01 = 100.0 * numpy.abs(Trace01 - Trace00) / Trace00
 
     # Monomial Basis Functions
-    TI02 = InterpolateTraceOfInverse(A,B=B,InterpolationMethod='MBF',ComputeOptions={'ComputeMethod':'cholesky','UseInverseMatrix':True})
+    TI02 = InterpolateTraceOfInverse(A,B=B,InterpolationMethod='MBF',ComputeOptions=ComputeOptions)
     Trace02 = TI02.Interpolate(InquiryPoint)
     Error02 = 100.0 * numpy.abs(Trace02 - Trace00) / Trace00
 
     # Root Monomial Basis Functions, basis type: NonOrthogonal
-    TI03 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RMBF',BasisFunctionsType='NonOrthogonal',ComputeOptions={'ComputeMethod':'cholesky','UseInverseMatrix':True})
+    TI03 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RMBF',BasisFunctionsType='NonOrthogonal',ComputeOptions=ComputeOptions)
     Trace03 = TI03.Interpolate(InquiryPoint)
     Error03 = 100.0 * numpy.abs(Trace03 - Trace00) / Trace00
 
     # Root Monomial Basis Functions, basis type: Orthogonal
-    TI04 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RMBF',BasisFunctionsType='Orthogonal',ComputeOptions={'ComputeMethod':'cholesky','UseInverseMatrix':True})
+    TI04 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RMBF',BasisFunctionsType='Orthogonal',ComputeOptions=ComputeOptions)
     Trace04 = TI04.Interpolate(InquiryPoint)
     Error04 = 100.0 * numpy.abs(Trace04 - Trace00) / Trace00
 
     # Root Monomial Basis Functions, basis type: Orthogonal2
-    TI05 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RMBF',BasisFunctionsType='Orthogonal2',ComputeOptions={'ComputeMethod':'cholesky','UseInverseMatrix':True})
+    TI05 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RMBF',BasisFunctionsType='Orthogonal2',ComputeOptions=ComputeOptions)
     Trace05 = TI05.Interpolate(InquiryPoint)
     Error05 = 100.0 * numpy.abs(Trace05 - Trace00) / Trace00
 
     # Radial Basis Functions, FunctionType 1
-    TI06 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RBF',FunctionType=1,ComputeOptions={'ComputeMethod':'cholesky','UseInverseMatrix':True})
+    TI06 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RBF',FunctionType=1,ComputeOptions=ComputeOptions)
     Trace06 = TI06.Interpolate(InquiryPoint)
     Error06 = 100.0 * numpy.abs(Trace06 - Trace00) / Trace00
 
     # Radial Basis Functions, FunctionType 1
-    TI07 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RBF',FunctionType=2,ComputeOptions={'ComputeMethod':'cholesky','UseInverseMatrix':True})
+    TI07 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RBF',FunctionType=2,ComputeOptions=ComputeOptions)
     Trace07 = TI07.Interpolate(InquiryPoint)
     Error07 = 100.0 * numpy.abs(Trace07 - Trace00) / Trace00
 
     # Radial Basis Functions, FunctionType 1
-    TI08 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RBF',FunctionType=3,ComputeOptions={'ComputeMethod':'cholesky','UseInverseMatrix':True})
+    TI08 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RBF',FunctionType=3,ComputeOptions=ComputeOptions)
     Trace08 = TI08.Interpolate(InquiryPoint)
     Error08 = 100.0 * numpy.abs(Trace08 - Trace00) / Trace00
 
     # Rational Polynomial with two interpolating points
     InterpolantPoints = [1e-1,1e+1]
-    TI09 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RPF',ComputeOptions={'ComputeMethod':'cholesky','UseInverseMatrix':True})
+    TI09 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RPF',ComputeOptions=ComputeOptions)
     Trace09 = TI09.Interpolate(InquiryPoint)
     Error09 = 100.0 * numpy.abs(Trace09 - Trace00) / Trace00
 
     # Rational Polynomial with four interpolating points
     InterpolantPoints = [1e-2,1e-1,1,1e+1]
-    TI10 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RPF',ComputeOptions={'ComputeMethod':'cholesky','UseInverseMatrix':True})
+    TI10 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RPF',ComputeOptions=ComputeOptions)
     Trace10 = TI10.Interpolate(InquiryPoint)
     Error10 = 100.0 * numpy.abs(Trace10 - Trace00) / Trace00
 

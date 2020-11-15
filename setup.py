@@ -109,7 +109,9 @@ def main(argv):
             'docs': [
                 'sphinx',
                 'sphinx-math-dollar',
-                'sphinx-toggleprompt'
+                'sphinx-toggleprompt',
+                'sphinx_rtd_theme',
+                'sphinx.ext.autosummary'
             ]
         },
         classifiers = [

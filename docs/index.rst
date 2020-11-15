@@ -3,7 +3,7 @@ TraceInv's documentation
 
 |travis-devel| |codecov-devel| |licence| |format| |pypi| |implementation| |pyversions|
 
-A python package to compute the trace of the inverse of a matrix or a linear matrix function.
+A python package to compute the trace of the inverse of a :ref:`matrix <1. Fixed matrix>` or a :ref:`linear matrix function <2. One-Parameter Affine Matrix Function>`.
 
 .. For users
 ..     * `Documentation <https://ameli.github.io/TraceInv/index.html>`_
@@ -26,7 +26,7 @@ A python package to compute the trace of the inverse of a matrix or a linear mat
 
 .. toctree::
    :maxdepth: 1
-   :caption: Contents
+   :caption: Documentation
 
    Documentation <documentation.rst>
 
@@ -42,6 +42,12 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+.. .. autosummary::
+..
+..    TraceInv.GenerateMatrix
+..    TraceInv.ComputeTraceOfInverse
+..    TraceInv.InterpolateTraceOfInverse
 
 .. |travis-devel| image:: https://img.shields.io/travis/com/ameli/TraceInv
    :target: https://travis-ci.com/github/ameli/TraceInv
