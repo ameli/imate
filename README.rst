@@ -41,7 +41,7 @@ Consider the matrix function |image05|, where |image01| and |image03| are symmet
     These interpolation methods are described in [Ameli-2020]_. 
 
 
-.. include:: math_codecogs.rst
+.. include:: docs/math_codecogs.rst
 
 *******
 Install
@@ -57,8 +57,9 @@ The prerequisite packages are:
 * **Required:** ``matplotlib`` and ``seaborn``, but only required to run the :ref:`ref_Examples`.
 * **Optional:** ``ray`` and ``scikit-sparse`` can improve performance, but not required.
 
-.. note::
-    By installing TraceInv :ref:`below <Install TraceInv>`, the *required* prerequisite packages (but not the *optional* packages) in the above will be installed automatically and no other action is needed. However, if desired, the *optional* packages should be installed :ref:`manually <Install Optional Packages>`.
+By installing TraceInv `below <Install>`_, the *required* prerequisite packages (but not the *optional* packages) in the above will be installed automatically and no other action is needed. However, if desired, the *optional* packages should be installed :ref:`manually <Install Optional Packages>`.
+
+.. _Install
 
 ================
 Install TraceInv
