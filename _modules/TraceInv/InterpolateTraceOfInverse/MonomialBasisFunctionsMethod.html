@@ -1,0 +1,289 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#install">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#usage">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#examples">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#acknowledgements">Acknowledgements</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Package API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =======</span>
+<span class="c1"># Imports</span>
+<span class="c1"># =======</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">..ComputeTraceOfInverse</span> <span class="kn">import</span> <span class="n">ComputeTraceOfInverse</span>
+<span class="kn">from</span> <span class="nn">.InterpolantBaseClass</span> <span class="kn">import</span> <span class="n">InterpolantBaseClass</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="c1"># ===============================</span>
+<span class="c1"># Monomial Basis Functions Method</span>
+<span class="c1"># ===============================</span>
+
+<div class="viewcode-block" id="MonomialBasisFunctionsMethod"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod">[docs]</a><span class="k">class</span> <span class="nc">MonomialBasisFunctionsMethod</span><span class="p">(</span><span class="n">InterpolantBaseClass</span><span class="p">):</span>
+
+    <span class="c1"># ----</span>
+    <span class="c1"># Init</span>
+    <span class="c1"># ----</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">InterpolantPoint</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{}):</span>
+
+        <span class="c1"># Base class constructor</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MonomialBasisFunctionsMethod</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{})</span>
+
+        <span class="c1"># Compute self.trace_Ainv, self.trace_Binv, and self.tau0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ComputeTraceInvOfInputMatrices</span><span class="p">()</span>
+
+        <span class="c1"># eta1</span>
+        <span class="k">if</span> <span class="n">InterpolantPoint</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">eta1</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">tau0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Check number of interpolant points</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">InterpolantPoint</span><span class="p">,</span><span class="n">Number</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;InterpolantPoints for the &#39;MBF&#39; method should be a single number, not an array of list of numbers.&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">eta1</span> <span class="o">=</span> <span class="n">InterpolantPoint</span>
+
+        <span class="c1"># Initialize interpolator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tau1</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">InitializeInterpolator</span><span class="p">()</span> 
+
+    <span class="c1"># -----------------------</span>
+    <span class="c1"># Initialize Interpolator</span>
+    <span class="c1"># -----------------------</span>
+
+<div class="viewcode-block" id="MonomialBasisFunctionsMethod.InitializeInterpolator"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.InitializeInterpolator">[docs]</a>    <span class="k">def</span> <span class="nf">InitializeInterpolator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Initialize interpolator ...&#39;</span><span class="p">)</span>
+        
+        <span class="n">An</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta1</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">B</span>
+        <span class="n">T1</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">An</span><span class="p">,</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">ComputeOptions</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tau1</span> <span class="o">=</span> <span class="n">T1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">trace_Binv</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done.&#39;</span><span class="p">)</span></div>
+        
+    <span class="c1"># -----------</span>
+    <span class="c1"># Interpolate</span>
+    <span class="c1"># -----------</span>
+
+<div class="viewcode-block" id="MonomialBasisFunctionsMethod.Interpolate"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interpolates the trace of inverse of ``A + t*B``.</span>
+
+<span class="sd">        :param t: A real variable to form the linear matrix function ``A + tB``.</span>
+<span class="sd">        :type t: float</span>
+
+<span class="sd">        :return: The interpolated value of the trace of inverse of ``A + tB``.</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">tau</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">((</span><span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">tau1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">tau0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta1</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">eta1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">tau0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">trace</span> <span class="o">=</span> <span class="n">tau</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">trace_Binv</span>
+
+        <span class="k">return</span> <span class="n">trace</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

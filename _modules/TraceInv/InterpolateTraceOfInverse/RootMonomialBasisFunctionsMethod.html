@@ -1,0 +1,542 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#install">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#usage">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#examples">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#acknowledgements">Acknowledgements</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Package API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =======</span>
+<span class="c1"># Imports</span>
+<span class="c1"># =======</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">.InterpolantBaseClass</span> <span class="kn">import</span> <span class="n">InterpolantBaseClass</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="c1"># ====================================</span>
+<span class="c1"># Root Monomial Basis Functions Method</span>
+<span class="c1"># ====================================</span>
+
+<div class="viewcode-block" id="RootMonomialBasisFunctionsMethod"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod">[docs]</a><span class="k">class</span> <span class="nc">RootMonomialBasisFunctionsMethod</span><span class="p">(</span><span class="n">InterpolantBaseClass</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod</span>
+<span class="sd">        :parts: 1</span>
+
+<span class="sd">    Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A} + t \\mathbf{B}` using </span>
+<span class="sd">    an interpolation scheme based on root monomial basis functions (see details below).</span>
+
+<span class="sd">    :param A: Invertible matrix, can be rither dense or sparse matrix.</span>
+<span class="sd">    :type A: numpy.ndarray</span>
+
+<span class="sd">    :param B: Invertible matrix, can be either dense or sparse matrix.</span>
+<span class="sd">    :type B: numpy.ndarray</span>
+
+<span class="sd">    :param ComputeOptions: A dictionary of input arguments for :mod:`TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse` module.</span>
+<span class="sd">    :type ComputeOptions: dict</span>
+
+<span class="sd">    :param NonZeroRatio: The ratio of the number of eigenvalues to be assumed non-zero.</span>
+<span class="sd">        Used for sparse matrices.</span>
+<span class="sd">        Default is ``0.9`` indicating to compute 90 percent of the eigenevalues with the largest magnitude</span>
+<span class="sd">        and assume the rest of the eigenvalues are zero.</span>
+<span class="sd">    :type NonZeroRatio: int</span>
+
+<span class="sd">    :param Tol: Tolerance of computing eigenvalues. Used onlt for sparse matrices.</span>
+<span class="sd">        Default value is ``1e-3``.</span>
+<span class="sd">    :type Tol: float</span>
+
+
+<span class="sd">    **Interpolation Method**</span>
+<span class="sd">    </span>
+<span class="sd">    Define the function</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \\tau(t) = \\frac{\\mathrm{trace}\\left( (\\mathbf{A} + t \\mathbf{B})^{-1} \\right)}{\mathrm{trace}(\mathbf{B}^{-1})}</span>
+
+<span class="sd">    and :math:`\\tau_0 = \\tau(0)`. Then, we approximate :math:`\\tau^{-1}(t)` by</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \\frac{1}{\\tau(t)} = \\frac{1}{\\tau_0} + \sum_{i = 0}^p w_i \phi_i(t),</span>
+
+<span class="sd">    where :math:`\phi_i` are basis functions defined by</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \\phi_i(t) = t^{\\frac{1}{i+1}}, \qquad i = 0,\dots,p</span>
+
+<span class="sd">    and :math:`w_i` are the coefficients of the linear basis functions with :math:`w_{0} = 1` and the rest of the weights </span>
+<span class="sd">    are to be found form the known function values :math:`\\tau_i = \\tau(t_i)` at some given interpolant points :math:`t_i`.</span>
+
+
+<span class="sd">    **Example**</span>
+
+<span class="sd">    This class can be invoked from the :class:`TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse` module </span>
+<span class="sd">    using ``InterpolationMethod=&#39;EIG&#39;`` argument.</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        from TraceInv import GenerateMatrix</span>
+<span class="sd">        from TraceInv import InterpolateTraceOfInverse</span>
+<span class="sd">        </span>
+<span class="sd">        # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)</span>
+<span class="sd">        A = GenerateMatrix(NumPoints=20)</span>
+<span class="sd">        </span>
+<span class="sd">        # Create an object that interpolats trace of inverse of A+tI (I is identity matrix)</span>
+<span class="sd">        TI = InterpolateTraceOfInverse(A,InterpolatingMethod=&#39;EIG&#39;)</span>
+<span class="sd">        </span>
+<span class="sd">        # Interpolate A+tI at some input point t</span>
+<span class="sd">        t = 4e-1</span>
+<span class="sd">        trace = TI.Interpolate(t)</span>
+
+<span class="sd">    .. seealso::</span>
+
+<span class="sd">        The result of the ``EIG`` method is identical with the exact method ``EXT``, </span>
+<span class="sd">        which is given by :class:`TraceInv.InterpolateTraceOfInverse.ExactMethod`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># ----</span>
+    <span class="c1"># Init</span>
+    <span class="c1"># ----</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{},</span><span class="n">BasisFunctionsType</span><span class="o">=</span><span class="s1">&#39;Orthogonal2&#39;</span><span class="p">):</span>
+
+        <span class="c1"># Base class constructor</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RootMonomialBasisFunctionsMethod</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctionsType</span> <span class="o">=</span> <span class="n">BasisFunctionsType</span>
+
+        <span class="c1"># Initialize Interpolator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">InitializeInterpolator</span><span class="p">()</span>
+
+    <span class="c1"># -----------------------</span>
+    <span class="c1"># Initialize Interpolator</span>
+    <span class="c1"># -----------------------</span>
+
+<div class="viewcode-block" id="RootMonomialBasisFunctionsMethod.InitializeInterpolator"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.InitializeInterpolator">[docs]</a>    <span class="k">def</span> <span class="nf">InitializeInterpolator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Initialize interpolator ...&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Method 1: Use non-orthogonal basis functions</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctionsType</span> <span class="o">==</span> <span class="s1">&#39;NonOrthogonal&#39;</span><span class="p">:</span>
+            <span class="c1"># Form a linear system for weights w</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">tau_i</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">tau0</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_i</span>
+            <span class="n">C</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">):</span>
+                    <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctions</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_i</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+            <span class="c1"># print(&#39;Condition number: %f&#39;%(numpy.linalg.cond(C)))</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctionsType</span> <span class="o">==</span> <span class="s1">&#39;Orthogonal&#39;</span><span class="p">:</span>
+
+            <span class="c1"># Method 2: Use orthogonal basis functions</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">OrthogonalBasisFunctionCoefficients</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_i</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot regress order higher than </span><span class="si">%d</span><span class="s1">. Decrease the number of interpolation points.&#39;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+
+            <span class="c1"># Form a linear system Cw = b for weights w</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">b</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">tau_i</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">tau0</span><span class="p">)</span>
+            <span class="n">b</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+            <span class="n">C</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+                    <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctions</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_i</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Scale_eta</span><span class="p">)</span>
+            <span class="n">C</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="c1"># print(&#39;Condition number: %f&#39;%(numpy.linalg.cond(C)))</span>
+
+            <span class="c1"># Solve weights</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctionsType</span> <span class="o">==</span> <span class="s1">&#39;Orthogonal2&#39;</span><span class="p">:</span>
+
+            <span class="c1"># Method 3: Use orthogonal basis functions</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">OrthogonalBasisFunctionCoefficients</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_i</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Cannot regress order higher than </span><span class="si">%d</span><span class="s1">. Decrease the number of interpolation points.&#39;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">size</span><span class="p">))</span>
+
+            <span class="c1"># Form a linear system Aw = b for weights w</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">tau_i</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">tau0</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_i</span>
+            <span class="n">C</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">):</span>
+                    <span class="n">C</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctions</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_i</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Scale_eta</span><span class="p">)</span>
+
+            <span class="c1"># print(&#39;Condition number: %f&#39;%(numpy.linalg.cond(C)))</span>
+
+            <span class="c1"># Solve weights</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+            <span class="c1"># Lambda = 1e1   # Regularization parameter  # SETTING</span>
+            <span class="c1"># C2 = C.T.dot(C) + Lambda * numpy.eye(C.shape[0])</span>
+            <span class="c1"># b2 = C.T.dot(b)</span>
+            <span class="c1"># self.w = numpy.linalg.solve(C2,b2)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done.&#39;</span><span class="p">)</span></div>
+
+    <span class="c1"># ---</span>
+    <span class="c1"># Phi</span>
+    <span class="c1"># ---</span>
+
+<div class="viewcode-block" id="RootMonomialBasisFunctionsMethod.phi"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.phi">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">phi</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Non-orthogonal basis function</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">t</span><span class="o">**</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">i</span><span class="p">)</span></div>
+
+    <span class="c1"># ---------------</span>
+    <span class="c1"># Basis Functions</span>
+    <span class="c1"># ---------------</span>
+
+<div class="viewcode-block" id="RootMonomialBasisFunctionsMethod.BasisFunctions"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.BasisFunctions">[docs]</a>    <span class="k">def</span> <span class="nf">BasisFunctions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Functions phi_j(t).</span>
+<span class="sd">        The index j of the basis functions starts from 1.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctionsType</span> <span class="o">==</span> <span class="s1">&#39;NonOrthogonal&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">RootMonomialBasisFunctionsMethod</span><span class="o">.</span><span class="n">phi</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctionsType</span> <span class="o">==</span> <span class="s1">&#39;Orthogonal&#39;</span><span class="p">:</span>
+
+            <span class="c1"># Use Orthogonal basis functions</span>
+            <span class="n">alpha</span><span class="p">,</span><span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">OrthogonalBasisFunctionCoefficients</span><span class="p">()</span>
+
+            <span class="n">phi_perp</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">phi_perp</span> <span class="o">+=</span> <span class="n">alpha</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">RootMonomialBasisFunctionsMethod</span><span class="o">.</span><span class="n">phi</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">phi_perp</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctionsType</span> <span class="o">==</span> <span class="s1">&#39;Orthogonal2&#39;</span><span class="p">:</span>
+
+            <span class="c1"># Use Orthogonal basis functions</span>
+            <span class="n">alpha</span><span class="p">,</span><span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">OrthogonalBasisFunctionCoefficients</span><span class="p">()</span>
+
+            <span class="n">phi_perp</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="n">phi_perp</span> <span class="o">+=</span> <span class="n">alpha</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">RootMonomialBasisFunctionsMethod</span><span class="o">.</span><span class="n">phi</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">phi_perp</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Method is invalid.&#39;</span><span class="p">)</span></div>
+
+    <span class="c1"># --------------------------------------</span>
+    <span class="c1"># Orthogonal Basis Function Coefficients</span>
+    <span class="c1"># --------------------------------------</span>
+
+<div class="viewcode-block" id="RootMonomialBasisFunctionsMethod.OrthogonalBasisFunctionCoefficients"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.OrthogonalBasisFunctionCoefficients">[docs]</a>    <span class="k">def</span> <span class="nf">OrthogonalBasisFunctionCoefficients</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Coefficients alpha and a.</span>
+<span class="sd">        To genrate these coefficients, see GenerateOrthogonalFunctions.py</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="mi">9</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">p</span><span class="p">,</span><span class="n">p</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctionsType</span> <span class="o">==</span> <span class="s1">&#39;Orthogonal&#39;</span><span class="p">:</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                <span class="o">+</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">1.0</span><span class="p">),</span>
+                <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">2.0</span><span class="p">),</span>
+                <span class="o">+</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">3.0</span><span class="p">),</span>
+                <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">4.0</span><span class="p">),</span>
+                <span class="o">+</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">5.0</span><span class="p">),</span>
+                <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">6.0</span><span class="p">),</span>
+                <span class="o">+</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">7.0</span><span class="p">),</span>
+                <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">8.0</span><span class="p">),</span>
+                <span class="o">+</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">9.0</span><span class="p">)])</span>
+
+            <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">,:</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">,:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">])</span>
+            <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">9</span><span class="p">,</span> <span class="o">-</span><span class="mi">18</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+            <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">,:</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">16</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="o">-</span><span class="mi">35</span><span class="p">])</span>
+            <span class="n">a</span><span class="p">[</span><span class="mi">4</span><span class="p">,:</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">25</span><span class="p">,</span> <span class="o">-</span><span class="mi">150</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="o">-</span><span class="mi">350</span><span class="p">,</span> <span class="mi">126</span><span class="p">])</span>
+            <span class="n">a</span><span class="p">[</span><span class="mi">5</span><span class="p">,:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">36</span><span class="p">,</span> <span class="o">-</span><span class="mi">315</span><span class="p">,</span> <span class="mi">1120</span><span class="p">,</span> <span class="o">-</span><span class="mi">1890</span><span class="p">,</span> <span class="mi">1512</span><span class="p">,</span> <span class="o">-</span><span class="mi">462</span><span class="p">])</span>
+            <span class="n">a</span><span class="p">[</span><span class="mi">6</span><span class="p">,:</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">49</span><span class="p">,</span> <span class="o">-</span><span class="mi">588</span><span class="p">,</span> <span class="mi">2940</span><span class="p">,</span> <span class="o">-</span><span class="mi">7350</span><span class="p">,</span> <span class="mi">9702</span><span class="p">,</span> <span class="o">-</span><span class="mi">6468</span><span class="p">,</span> <span class="mi">1716</span><span class="p">])</span>
+            <span class="n">a</span><span class="p">[</span><span class="mi">7</span><span class="p">,:</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">64</span><span class="p">,</span> <span class="o">-</span><span class="mi">1008</span><span class="p">,</span> <span class="mi">6720</span><span class="p">,</span> <span class="o">-</span><span class="mi">23100</span><span class="p">,</span> <span class="mi">44352</span><span class="p">,</span> <span class="o">-</span><span class="mi">48048</span><span class="p">,</span> <span class="mi">27456</span><span class="p">,</span> <span class="o">-</span><span class="mi">6435</span><span class="p">])</span>
+            <span class="n">a</span><span class="p">[</span><span class="mi">8</span><span class="p">,:</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">81</span><span class="p">,</span> <span class="o">-</span><span class="mi">1620</span><span class="p">,</span> <span class="mi">13860</span><span class="p">,</span> <span class="o">-</span><span class="mi">62370</span><span class="p">,</span> <span class="mi">162162</span><span class="p">,</span> <span class="o">-</span><span class="mi">252252</span><span class="p">,</span> <span class="mi">231660</span><span class="p">,</span> <span class="o">-</span><span class="mi">115830</span><span class="p">,</span> <span class="mi">24310</span><span class="p">])</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctionsType</span> <span class="o">==</span> <span class="s1">&#39;Orthogonal2&#39;</span><span class="p">:</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+                <span class="o">+</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">2.0</span><span class="p">),</span>
+                <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">3.0</span><span class="p">),</span>
+                <span class="o">+</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">4.0</span><span class="p">),</span>
+                <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">5.0</span><span class="p">),</span>
+                <span class="o">+</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">6.0</span><span class="p">),</span>
+                <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">7.0</span><span class="p">),</span>
+                <span class="o">+</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">8.0</span><span class="p">),</span>
+                <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">9.0</span><span class="p">),</span>
+                <span class="o">+</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">10.0</span><span class="p">)])</span>
+
+            <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">,:</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">,:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">])</span>
+            <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span> <span class="o">-</span><span class="mi">40</span><span class="p">,</span> <span class="mi">21</span><span class="p">])</span>
+            <span class="n">a</span><span class="p">[</span><span class="mi">3</span><span class="p">,:</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">175</span><span class="p">,</span> <span class="mi">210</span><span class="p">,</span> <span class="o">-</span><span class="mi">84</span><span class="p">])</span>
+            <span class="n">a</span><span class="p">[</span><span class="mi">4</span><span class="p">,:</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">105</span><span class="p">,</span> <span class="o">-</span><span class="mi">560</span><span class="p">,</span> <span class="mi">1134</span><span class="p">,</span> <span class="o">-</span><span class="mi">1008</span><span class="p">,</span> <span class="mi">330</span><span class="p">])</span>
+            <span class="n">a</span><span class="p">[</span><span class="mi">5</span><span class="p">,:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">196</span><span class="p">,</span> <span class="o">-</span><span class="mi">1470</span><span class="p">,</span> <span class="mi">4410</span><span class="p">,</span> <span class="o">-</span><span class="mi">6468</span><span class="p">,</span> <span class="mi">4620</span><span class="p">,</span> <span class="o">-</span><span class="mi">1287</span><span class="p">])</span>
+            <span class="n">a</span><span class="p">[</span><span class="mi">6</span><span class="p">,:</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">336</span><span class="p">,</span> <span class="o">-</span><span class="mi">3360</span><span class="p">,</span> <span class="mi">13860</span><span class="p">,</span> <span class="o">-</span><span class="mi">29568</span><span class="p">,</span> <span class="mi">34320</span><span class="p">,</span> <span class="o">-</span><span class="mi">20592</span><span class="p">,</span> <span class="mi">5005</span><span class="p">])</span>
+            <span class="n">a</span><span class="p">[</span><span class="mi">7</span><span class="p">,:</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">540</span><span class="p">,</span> <span class="o">-</span><span class="mi">6930</span><span class="p">,</span> <span class="mi">37422</span><span class="p">,</span> <span class="o">-</span><span class="mi">108108</span><span class="p">,</span> <span class="mi">180180</span><span class="p">,</span> <span class="o">-</span><span class="mi">173745</span><span class="p">,</span> <span class="mi">90090</span><span class="p">,</span> <span class="o">-</span><span class="mi">19448</span><span class="p">])</span>
+            <span class="n">a</span><span class="p">[</span><span class="mi">8</span><span class="p">,:</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">825</span><span class="p">,</span> <span class="o">-</span><span class="mi">13200</span><span class="p">,</span> <span class="mi">90090</span><span class="p">,</span> <span class="o">-</span><span class="mi">336336</span><span class="p">,</span> <span class="mi">750750</span><span class="p">,</span> <span class="o">-</span><span class="mi">1029600</span><span class="p">,</span> <span class="mi">850850</span><span class="p">,</span> <span class="o">-</span><span class="mi">388960</span><span class="p">,</span> <span class="mi">75582</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">alpha</span><span class="p">,</span><span class="n">a</span></div>
+
+    <span class="c1"># -----------</span>
+    <span class="c1"># Interpolate</span>
+    <span class="c1"># -----------</span>
+
+<div class="viewcode-block" id="RootMonomialBasisFunctionsMethod.Interpolate"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interpolates the trace of inverse of ``A + t*B``.</span>
+
+<span class="sd">        :param t: A real variable to form the linear matrix function ``A + tB``.</span>
+<span class="sd">        :type t: float</span>
+
+<span class="sd">        :return: The interpolated value of the trace of inverse of ``A + tB``.</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctionsType</span> <span class="o">==</span> <span class="s1">&#39;NonOrthogonal&#39;</span><span class="p">:</span>
+
+            <span class="n">S</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">):</span>
+                <span class="n">S</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctions</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+            <span class="n">tau</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">tau0</span><span class="o">+</span><span class="n">S</span><span class="o">+</span><span class="n">t</span><span class="p">)</span>
+                
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctionsType</span> <span class="o">==</span> <span class="s1">&#39;Orthogonal&#39;</span><span class="p">:</span>
+
+            <span class="n">S</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
+                <span class="n">S</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctions</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="n">t</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Scale_eta</span><span class="p">)</span>
+            <span class="n">tau</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">tau0</span><span class="o">+</span><span class="n">S</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctionsType</span> <span class="o">==</span> <span class="s1">&#39;Orthogonal2&#39;</span><span class="p">:</span>
+
+            <span class="n">S</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">):</span>
+                <span class="n">S</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">BasisFunctions</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="n">t</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">Scale_eta</span><span class="p">)</span>
+            <span class="n">tau</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">tau0</span><span class="o">+</span><span class="n">S</span><span class="o">+</span><span class="n">t</span><span class="p">)</span>
+
+        <span class="c1"># Compute trace from tau</span>
+        <span class="n">trace</span> <span class="o">=</span> <span class="n">tau</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">trace_Binv</span>
+
+        <span class="k">return</span> <span class="n">trace</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

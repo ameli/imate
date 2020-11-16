@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#install">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#usage">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#examples">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#acknowledgements">Acknowledgements</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Package API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =======</span>
+<span class="c1"># Imports</span>
+<span class="c1"># =======</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linalg</span>
+
+<span class="kn">from</span> <span class="nn">.LinearAlgebra</span> <span class="kn">import</span> <span class="n">LanczosTridiagonalization</span>
+<span class="kn">from</span> <span class="nn">.LinearAlgebra</span> <span class="kn">import</span> <span class="n">LanczosTridiagonalization2</span>
+<span class="kn">from</span> <span class="nn">.LinearAlgebra</span> <span class="kn">import</span> <span class="n">GolubKahnLanczosBidiagonalization</span>
+
+<span class="c1"># ====================================</span>
+<span class="c1"># Stochastic Lanczos Quadrature Method</span>
+<span class="c1"># ====================================</span>
+
+<div class="viewcode-block" id="StochasticLanczosQuadratureMethod"><a class="viewcode-back" href="../../TraceInv.ComputeTraceOfInverse.html#TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod.StochasticLanczosQuadratureMethod">[docs]</a><span class="k">def</span> <span class="nf">StochasticLanczosQuadratureMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span>
+        <span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="n">UseLanczosTridiagonalization</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the trace of inverse of matrix based on stochastic Lanczos quadrature method.</span>
+<span class="sd">   </span>
+<span class="sd">    Reference</span>
+<span class="sd">        * `Ubaru, S., Chen, J., and Saad, Y. (2017) &lt;https://www-users.cs.umn.edu/~saad/PDF/ys-2016-04.pdf&gt;`_, Fast Estimation of :math:`\\mathrm{tr}(F(A))` Via Stochastic Lanczos Quadrature, SIAM J. Matrix Anal. Appl., 38(4), 1075-1099.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        In Lanczos tridiagonalization method, :math:`\\theta`` is the eigenvalue of ``T``. </span>
+<span class="sd">        However, in Golub-Kahn bidoagonalization method, :math:`\\theta` is the singular values of ``B``.</span>
+<span class="sd">        The relation between these two methods are are follows: ``B.T*B`` is the ``T`` for ``A.T*A``.</span>
+<span class="sd">        That is, if we have the input matrix ``A.T*T``, its Lanczos tridiagonalization ``T`` is the same matrix</span>
+<span class="sd">        as if we bidiagonalize ``A`` (not ``A.T*A``) with Golub-Kahn to get ``B``, then ``T = B.T*B``.</span>
+<span class="sd">        This has not been highlighted paper in the above paper.</span>
+
+<span class="sd">        To correctly implement Golub-Kahn, here :math:`\\theta` should be the singular values of ``B``, **NOT**</span>
+<span class="sd">        the square of the singular values of ``B`` (as decribed in the above paper incorrectly!).</span>
+
+
+<span class="sd">    :param A: invertible matrix</span>
+<span class="sd">    :type A: ndarray</span>
+
+<span class="sd">    :param NumIterations: Number of Monte-Carlo trials</span>
+<span class="sd">    :type NumIterations: int</span>
+
+<span class="sd">    :param LanczosDegree: Lanczos degree</span>
+<span class="sd">    :type LanczosDegree: int</span>
+
+<span class="sd">    :param UseLanczosTridiagonalization: Flag, if ``True``, it uses the Lanczos tridiagonalization. </span>
+<span class="sd">        If ``False``, it uses the Golub-Kahn bi-diagonalization.</span>
+<span class="sd">    :type UseLanczosTridiagonalization: bool</span>
+
+<span class="sd">    :return: Trace of ``A``</span>
+<span class="sd">    :rtype: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">TraceEstimates</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">NumIterations</span><span class="p">,))</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NumIterations</span><span class="p">):</span>
+
+        <span class="c1"># Radamacher random vector, consists of 1 and -1.</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">UseLanczosTridiagonalization</span><span class="p">:</span>
+            <span class="c1"># Lanczos recustive iteration to convert A to tridiagonal form T</span>
+            <span class="c1"># T = LanczosTridiagonalization(A,w,LanczosDegree)</span>
+            <span class="n">T</span> <span class="o">=</span> <span class="n">LanczosTridiagonalization2</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="p">)</span>
+
+            <span class="c1"># Spectral decomposition of T</span>
+            <span class="n">Eigenvalues</span><span class="p">,</span><span class="n">Eigenvectors</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+            <span class="n">Theta</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Eigenvalues</span><span class="p">)</span>
+            <span class="n">Tau2</span> <span class="o">=</span> <span class="n">Eigenvectors</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">**</span><span class="mi">2</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="c1"># Use Golub-Kahn-Lanczos bidigonalization instead of Lanczos tridiagonalization</span>
+            <span class="n">B</span> <span class="o">=</span> <span class="n">GolubKahnLanczosBidiagonalization</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="p">)</span>
+            <span class="n">LeftEigenvectors</span><span class="p">,</span><span class="n">SingularValues</span><span class="p">,</span><span class="n">RightEigenvectorsTransposed</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+            <span class="n">Theta</span> <span class="o">=</span> <span class="n">SingularValues</span>    <span class="c1"># Theta is just singular values, not singular values squared</span>
+            <span class="n">Tau2</span> <span class="o">=</span> <span class="n">RightEigenvectorsTransposed</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+
+        <span class="c1"># Here, f(theta) = 1/theta, since we compute trace of matrix inverse</span>
+        <span class="n">TraceEstimates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Tau2</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="n">Theta</span><span class="p">))</span> <span class="o">*</span> <span class="n">n</span>
+
+    <span class="n">Trace</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">TraceEstimates</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Trace</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

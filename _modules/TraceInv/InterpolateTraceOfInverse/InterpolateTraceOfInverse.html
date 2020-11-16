@@ -1,0 +1,387 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#install">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#usage">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#examples">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#acknowledgements">Acknowledgements</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Package API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =======</span>
+<span class="c1"># Imports</span>
+<span class="c1"># =======</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">sparse</span>
+
+<span class="kn">from</span> <span class="nn">numbers</span> <span class="kn">import</span> <span class="n">Number</span>
+
+<span class="c1"># Classes, Files</span>
+<span class="kn">from</span> <span class="nn">.ExactMethod</span> <span class="kn">import</span> <span class="n">ExactMethod</span>
+<span class="kn">from</span> <span class="nn">.EigenvaluesMethod</span> <span class="kn">import</span> <span class="n">EigenvaluesMethod</span>
+<span class="kn">from</span> <span class="nn">.MonomialBasisFunctionsMethod</span> <span class="kn">import</span> <span class="n">MonomialBasisFunctionsMethod</span>
+<span class="kn">from</span> <span class="nn">.RootMonomialBasisFunctionsMethod</span> <span class="kn">import</span> <span class="n">RootMonomialBasisFunctionsMethod</span>
+<span class="kn">from</span> <span class="nn">.RadialBasisFunctionsMethod</span> <span class="kn">import</span> <span class="n">RadialBasisFunctionsMethod</span>
+<span class="kn">from</span> <span class="nn">.RationalPolynomialFunctionsMethod</span> <span class="kn">import</span> <span class="n">RationalPolynomialFunctionsMethod</span>
+
+<span class="c1"># ======================</span>
+<span class="c1"># Trace Estimation Class</span>
+<span class="c1"># ======================</span>
+
+<div class="viewcode-block" id="InterpolateTraceOfInverse"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse">[docs]</a><span class="k">class</span> <span class="nc">InterpolateTraceOfInverse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A wrapper class that incorporates all interpolator classes of the package.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># ----</span>
+    <span class="c1"># Init</span>
+    <span class="c1"># ----</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">InterpolationMethod</span><span class="o">=</span><span class="s1">&#39;RMBF&#39;</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ComputeMethod&#39;</span><span class="p">:</span> <span class="s1">&#39;cholesky&#39;</span><span class="p">},</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the object depending on the method.</span>
+
+<span class="sd">        --------------------  -----------------------------</span>
+<span class="sd">        Interpolation method  Description</span>
+<span class="sd">        ====================  =============================</span>
+<span class="sd">         ``&#39;EXT&#39;``            Exact, no interpolation</span>
+<span class="sd">         ``&#39;EIG&#39;``            Eigenvalues of ``A``</span>
+<span class="sd">         ``&#39;MBF&#39;``            Monomial basis functions</span>
+<span class="sd">         ``&#39;RMBF&#39;`            Root monomial basis functions</span>
+<span class="sd">         ``&#39;RBF&#39;``            Radial basis functions</span>
+<span class="sd">         ``&#39;RPF&#39;``            Ratioanl polynomial functions</span>
+<span class="sd">        --------------------  -----------------------------</span>
+
+<span class="sd">        :param Method: determines one of the methods of interpolation.</span>
+<span class="sd">        :type Method: string</span>
+
+<span class="sd">        :param Options: Optios for each of the methods.</span>
+<span class="sd">        :type Options: ``**kwargs``</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">InterpolantPoints</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">InterpolantPoints</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Define an interpolation object depending on the given method</span>
+        <span class="k">if</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;EXT&#39;</span><span class="p">:</span>
+            <span class="c1"># Exact computation, not interpolation</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">ExactMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;EIG&#39;</span><span class="p">:</span>
+            <span class="c1"># Eigenvalues method</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">EigenvaluesMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;MBF&#39;</span><span class="p">:</span>
+            <span class="c1"># Monomial Basis Functions method</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">MonomialBasisFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;RMBF&#39;</span><span class="p">:</span>
+            <span class="c1"># Root Monomial Basis Functions method</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">RootMonomialBasisFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;RBF&#39;</span><span class="p">:</span>
+            <span class="c1"># Radial Basis Functions method</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">RadialBasisFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;RPF&#39;</span><span class="p">:</span>
+            <span class="c1"># Rational Polynomial Functions method</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">RationalPolynomialFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;InterpolationMethod&#39; is invalid. Select one of &#39;EXT&#39;, &#39;EIG&#39;, &#39;MBF&#39;, &#39;RMBF&#39;, &#39;RBF&#39;, or &#39;RPF&#39;.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># -------</span>
+    <span class="c1"># Compute</span>
+    <span class="c1"># -------</span>
+
+<div class="viewcode-block" id="InterpolateTraceOfInverse.Compute"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Compute">[docs]</a>    <span class="k">def</span> <span class="nf">Compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Number</span><span class="p">):</span>
+            <span class="c1"># Single number</span>
+            <span class="n">T</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span><span class="o">.</span><span class="n">Compute</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># An array of points</span>
+            <span class="n">T</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">),),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+                <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span><span class="o">.</span><span class="n">Compute</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">T</span></div>
+
+    <span class="c1"># -----------</span>
+    <span class="c1"># Interpolate</span>
+    <span class="c1"># -----------</span>
+
+<div class="viewcode-block" id="InterpolateTraceOfInverse.Interpolate"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interpolates the trace of inverse of ``A + t*I``.</span>
+
+<span class="sd">        :param t: A real variable to form the linear matrix function ``A + tI``.</span>
+<span class="sd">        :type t: float or array</span>
+
+<span class="sd">        :return: The interpolated value of the trace of inverse of ``A + tI``.</span>
+<span class="sd">        :rtype: float or array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Number</span><span class="p">):</span>
+            <span class="c1"># Single number</span>
+            <span class="n">T</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># An array of points</span>
+            <span class="n">T</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">),),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+                <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">T</span></div>
+
+    <span class="c1"># -----------</span>
+    <span class="c1"># Lower Bound</span>
+    <span class="c1"># -----------</span>
+
+<div class="viewcode-block" id="InterpolateTraceOfInverse.LowerBound"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.LowerBound">[docs]</a>    <span class="k">def</span> <span class="nf">LowerBound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Number</span><span class="p">):</span>
+            <span class="c1"># Single number</span>
+            <span class="n">T_lb</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span><span class="o">.</span><span class="n">LowerBound</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># An array of points</span>
+            <span class="n">T_lb</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">),),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+                <span class="n">T_lb</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span><span class="o">.</span><span class="n">LowerBound</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">T_lb</span></div>
+
+    <span class="c1"># -----------</span>
+    <span class="c1"># Upper Bound</span>
+    <span class="c1"># -----------</span>
+
+<div class="viewcode-block" id="InterpolateTraceOfInverse.UpperBound"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.UpperBound">[docs]</a>    <span class="k">def</span> <span class="nf">UpperBound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Number</span><span class="p">):</span>
+            <span class="c1"># Single number</span>
+            <span class="n">T_ub</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span><span class="o">.</span><span class="n">UpperBound</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># An array of points</span>
+            <span class="n">T_ub</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">),),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+                <span class="n">T_ub</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span><span class="o">.</span><span class="n">UpperBound</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">T_ub</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

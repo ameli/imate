@@ -1,0 +1,384 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#install">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#usage">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#examples">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#citation">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#acknowledgements">Acknowledgements</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Package API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =======</span>
+<span class="c1"># Imports</span>
+<span class="c1"># =======</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">.InterpolantBaseClass</span> <span class="kn">import</span> <span class="n">InterpolantBaseClass</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+
+<span class="c1"># ====================================</span>
+<span class="c1"># Rational Polynomial Functions Method</span>
+<span class="c1"># ====================================</span>
+
+<div class="viewcode-block" id="RationalPolynomialFunctionsMethod"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod">[docs]</a><span class="k">class</span> <span class="nc">RationalPolynomialFunctionsMethod</span><span class="p">(</span><span class="n">InterpolantBaseClass</span><span class="p">):</span>
+
+    <span class="c1"># ----</span>
+    <span class="c1"># Init</span>
+    <span class="c1"># ----</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{}):</span>
+
+        <span class="c1"># Base class constructor</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">RationalPolynomialFunctionsMethod</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">)</span>
+
+        <span class="c1"># Initilaize interpolator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Numerator</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Denominator</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">InitializeInterpolator</span><span class="p">()</span>
+
+    <span class="c1"># ----------------</span>
+    <span class="c1"># Rational Poly 12</span>
+    <span class="c1"># ----------------</span>
+
+<div class="viewcode-block" id="RationalPolynomialFunctionsMethod.RationalPoly12"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.RationalPoly12">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">RationalPoly12</span><span class="p">(</span><span class="n">eta_i</span><span class="p">,</span><span class="n">tau_i</span><span class="p">,</span><span class="n">tau0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rational polynomial of order 1 over 2</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Matrix of coefficients</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="p">[</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="o">-</span><span class="n">tau0</span><span class="o">/</span><span class="n">tau_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+            <span class="p">[</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="mi">1</span><span class="o">-</span><span class="n">tau0</span><span class="o">/</span><span class="n">tau_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]]])</span>
+
+        <span class="c1"># Vector of right hand side</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="n">eta_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">tau_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">eta_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">tau_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span>
+
+        <span class="c1"># Condition number</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Condition number: </span><span class="si">%0.2e</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">C</span><span class="p">)))</span>
+
+        <span class="c1"># Solve with least square. NOTE: do not solve with numpy.linalg.solve directly.</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">b0</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">b1</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">a0</span> <span class="o">=</span> <span class="n">b0</span><span class="o">*</span><span class="n">tau0</span>
+
+        <span class="c1"># Output</span>
+        <span class="n">Numerator</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">a0</span><span class="p">]</span>
+        <span class="n">Denominator</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">b0</span><span class="p">]</span>
+
+        <span class="c1"># Check poles</span>
+        <span class="n">Poles</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">Denominator</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">Poles</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Denominator poles:&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">Poles</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;RationalPolynomial has positive poles.&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Numerator</span><span class="p">,</span><span class="n">Denominator</span></div>
+
+    <span class="c1"># ----------------</span>
+    <span class="c1"># Rational Poly 23</span>
+    <span class="c1"># ----------------</span>
+
+<div class="viewcode-block" id="RationalPolynomialFunctionsMethod.RationalPoly23"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.RationalPoly23">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">RationalPoly23</span><span class="p">(</span><span class="n">eta_i</span><span class="p">,</span><span class="n">tau_i</span><span class="p">,</span><span class="n">tau0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rational polynomial of order 2 over 3</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Matrix of coefficients</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="p">[</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="o">-</span><span class="n">tau0</span><span class="o">/</span><span class="n">tau_i</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="o">-</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">tau_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span>
+            <span class="p">[</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="mi">1</span><span class="o">-</span><span class="n">tau0</span><span class="o">/</span><span class="n">tau_i</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="o">-</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">tau_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span>
+            <span class="p">[</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="mi">1</span><span class="o">-</span><span class="n">tau0</span><span class="o">/</span><span class="n">tau_i</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="o">-</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="n">tau_i</span><span class="p">[</span><span class="mi">2</span><span class="p">]],</span>
+            <span class="p">[</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="mi">1</span><span class="o">-</span><span class="n">tau0</span><span class="o">/</span><span class="n">tau_i</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="o">-</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">/</span><span class="n">tau_i</span><span class="p">[</span><span class="mi">3</span><span class="p">]]])</span>
+
+        <span class="c1"># Vector of right hand side</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="n">eta_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">tau_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">eta_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">tau_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">eta_i</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">tau_i</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">eta_i</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">tau_i</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">eta_i</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">**</span><span class="mi">3</span><span class="p">])</span>
+
+        <span class="c1"># Condition number</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Condition number: </span><span class="si">%0.2e</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">C</span><span class="p">)))</span>
+
+        <span class="c1"># Solve with least square. NOTE: do not solve with numpy.linalg.solve directly.</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">C</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">b2</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">b1</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">b0</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">a1</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">a0</span> <span class="o">=</span> <span class="n">b0</span><span class="o">*</span><span class="n">tau0</span>
+
+        <span class="c1"># Output</span>
+        <span class="n">Numerator</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">a1</span><span class="p">,</span><span class="n">a0</span><span class="p">]</span>
+        <span class="n">Denominator</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">b2</span><span class="p">,</span><span class="n">b1</span><span class="p">,</span><span class="n">b0</span><span class="p">]</span>
+
+        <span class="c1"># Check poles</span>
+        <span class="n">Poles</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">roots</span><span class="p">(</span><span class="n">Denominator</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">Poles</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Denominator poles:&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">Poles</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;RationalPolynomial has positive poles.&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">Numerator</span><span class="p">,</span><span class="n">Denominator</span></div>
+
+    <span class="c1"># -------------</span>
+    <span class="c1"># Rational Poly</span>
+    <span class="c1"># -------------</span>
+
+<div class="viewcode-block" id="RationalPolynomialFunctionsMethod.RationalPoly"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.RationalPoly">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">RationalPoly</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Numerator</span><span class="p">,</span><span class="n">Denominator</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluates rationa polynomial</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">Numerator</span><span class="p">,</span><span class="n">t</span><span class="p">)</span> <span class="o">/</span> <span class="n">numpy</span><span class="o">.</span><span class="n">polyval</span><span class="p">(</span><span class="n">Denominator</span><span class="p">,</span><span class="n">t</span><span class="p">)</span></div>
+
+    <span class="c1"># -----------------------</span>
+    <span class="c1"># Initialize Interpolator</span>
+    <span class="c1"># -----------------------</span>
+
+<div class="viewcode-block" id="RationalPolynomialFunctionsMethod.InitializeInterpolator"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.InitializeInterpolator">[docs]</a>    <span class="k">def</span> <span class="nf">InitializeInterpolator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Initialize interpolator ...&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># Coefficients of a linear system</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Numerator</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Denominator</span> <span class="o">=</span> <span class="n">RationalPolynomialFunctionsMethod</span><span class="o">.</span><span class="n">RationalPoly12</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_i</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">tau_i</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">tau0</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Numerator</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Denominator</span> <span class="o">=</span> <span class="n">RationalPolynomialFunctionsMethod</span><span class="o">.</span><span class="n">RationalPoly23</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_i</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">tau_i</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">tau0</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;In RationalPolynomial method, the number of interpolant points, p, should be 2 or 4.&#39;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Done.&#39;</span><span class="p">)</span></div>
+
+    <span class="c1"># -----------</span>
+    <span class="c1"># Interpolate</span>
+    <span class="c1"># -----------</span>
+
+<div class="viewcode-block" id="RationalPolynomialFunctionsMethod.Interpolate"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interpolates the trace of inverse of ``A + t*I``.</span>
+
+<span class="sd">        :param t: A real variable to form the linear matrix function ``A + tI``.</span>
+<span class="sd">        :type t: float</span>
+
+<span class="sd">        :return: The interpolated value of the trace of inverse of ``A + tI``.</span>
+<span class="sd">        :rtype: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">tau</span> <span class="o">=</span> <span class="n">RationalPolynomialFunctionsMethod</span><span class="o">.</span><span class="n">RationalPoly</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Numerator</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">Denominator</span><span class="p">)</span>
+        <span class="n">trace</span> <span class="o">=</span> <span class="n">tau</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">trace_Binv</span>
+
+        <span class="k">return</span> <span class="n">trace</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
