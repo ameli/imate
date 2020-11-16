@@ -4,6 +4,13 @@
 
 import os
 import matplotlib
+
+# Check DISPLAY
+if os.environ.get('DISPLAY','') == '':
+    print('No display found. Using non-interactive Agg backend.')
+    matplotlib.use('Agg')
+    os.environ.__setitem__('DISPLAY', ':0.0')
+
 from matplotlib.ticker import PercentFormatter
 from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes,InsetPosition,mark_inset

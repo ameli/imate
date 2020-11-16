@@ -198,7 +198,7 @@ def MinimizeGCV(X,K,z,TI,Shift,LambdaBounds,InitialElapsedTime,TimeCounter):
 # Plot Generalized Cross Validation
 # =================================
 
-def PlotGeneralizedCrossValidation(Data):
+def PlotGeneralizedCrossValidation(Data,test):
     """
     Plots GCV for a range of Lambda.
 
@@ -245,10 +245,12 @@ def PlotGeneralizedCrossValidation(Data):
 
     # Save Plot
     Filename = 'GeneralizedCrossValidation'
+    if test:
+        Filename = "test_" + Filename
     SavePlot(plt,Filename)
 
     # If no display backend is enabled, do not plot in the interactive mode
-    if matplotlib.get_backend() != 'agg':
+    if (not test) and (matplotlib.get_backend() != 'agg'):
         plt.show()
 
 # ====
@@ -358,7 +360,7 @@ def main(test=False):
     PlotData = [PlotData1,PlotData2,PlotData3]
 
     # Plots
-    PlotGeneralizedCrossValidation(PlotData)
+    PlotGeneralizedCrossValidation(PlotData,test)
 
 # ===========
 # System Main
