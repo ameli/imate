@@ -111,7 +111,6 @@ def main(argv):
                 'sphinx-math-dollar',
                 'sphinx-toggleprompt',
                 'sphinx_rtd_theme',
-                'sphinx.ext.autosummary'
             ]
         },
         classifiers = [
