@@ -3,6 +3,14 @@
 # =======
 
 import os
+import time
+
+# Check python version
+import sys
+if  sys.version_info[0] == 2:
+    Python2 = True
+else:
+    Python2 = False
 
 # ============
 # Time Counter
@@ -73,3 +81,19 @@ def RestrictComputationToSingleProcessor():
     os.environ["MKL_NUM_THREADS"]        = "1"    # export MKL_NUM_THREADS=1
     os.environ["VECLIB_MAXIMUM_THREADS"] = "1"    # export VECLIB_MAXIMUM_THREADS=1
     os.environ["NUMEXPR_NUM_THREADS"]    = "1"    # export NUMEXPR_NUM_THREADS=1
+
+# ============
+# Process Time
+# ============
+
+def ProcessTime():
+    """
+    Returns the CPU time.
+    
+    For python 2, it returns time.time() and for python 3, it returns time.process_time().
+    """
+
+    if Python2:
+        return time.time()
+    else:
+        return time.process_time()

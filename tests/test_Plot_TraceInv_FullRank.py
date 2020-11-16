@@ -13,6 +13,11 @@ import sys
 
 def test_Plot_TraceInv_FullRank():
     """
+    Test for the module :mod:`examples.Plot_TraceInv_FullRank`.
+
+    The function :func:`examples.Plot_TraceInv_FulRank.main` is called
+    with ``test=True`` argument, which evokes computation on smaller matrix
+    size. The produced figures are saved with ``test_`` prefix.
     """
  
     # Get the root directory of the package (parent directory of this script)

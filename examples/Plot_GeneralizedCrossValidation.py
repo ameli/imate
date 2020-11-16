@@ -52,6 +52,7 @@ from TraceInv import InterpolateTraceOfInverse
 from TraceInv import ComputeTraceOfInverse
 from Utilities.ProcessingTimeUtilities import RestrictComputationToSingleProcessor
 from Utilities.ProcessingTimeUtilities import TimeCounterClass
+from Utilities.ProcessingTimeUtilities import ProcessTime
 from Utilities.DataUtilities import GenerateBasisFunctions
 from Utilities.DataUtilities import GenerateNoisyData
 from Utilities.DataUtilities import GenerateMatrix
@@ -97,11 +98,11 @@ def GeneralizedCrossValidation(X,K,z,TI,Shift,TimeCounter,UseLogLambda,Lambda):
             Trace = n - m + mu * TI.Interpolate(mu-Shift)
         else:
             # Compute the exact value of the trace of inverse
-            time0 = time.process_time()
+            time0 = ProcessTime()
             # Ainv = numpy.linalg.inv(A)
             # Trace = n - m + mu * numpy.trace(Ainv)
             Trace = n - m + mu * ComputeTraceOfInverse(A)
-            time1 = time.process_time()
+            time1 = ProcessTime()
             if TimeCounter is not None:
                 TimeCounter.Add(time1 - time0)
     else:
@@ -109,13 +110,13 @@ def GeneralizedCrossValidation(X,K,z,TI,Shift,TimeCounter,UseLogLambda,Lambda):
             # Interpolate trace of inverse
             Trace = mu * TI.Interpolate(mu-Shift)
         else:
-            time0 = time.process_time()
+            time0 = ProcessTime()
             In = numpy.eye(n)
             B = X.dot(X.T) + mu * In
             # Binv = numpy.linalg.inv(B)
             # Trace = mu * numpy.trace(Binv)
             Trace = mu * ComputeTraceOfInverse(B)
-            time1 = time.process_time()
+            time1 = ProcessTime()
             if TimeCounter is not None:
                 TimeCounter.Add(time1 - time0)
 
@@ -148,8 +149,7 @@ def MinimizeGCV(X,K,z,TI,Shift,LambdaBounds,InitialElapsedTime,TimeCounter):
             X,K,z,TI,Shift,TimeCounter,UseLogLambda)
 
     # Optimization methods
-    time0 = time.process_time()
-    # time0 = time.time()
+    time0 = ProcessTime()
 
     # Local optimization method (use for both direct and presented method)
     # Method = 'Nelder-Mead'
@@ -178,8 +178,7 @@ def MinimizeGCV(X,K,z,TI,Shift,LambdaBounds,InitialElapsedTime,TimeCounter):
     # Message = "Using bute force"
     # Sucess = True
 
-    time1 = time.process_time()
-    # time1 = time.time()
+    time1 = ProcessTime()
     ElapsedTime = InitialElapsedTime + time1 - time0
     print('Elapsed time: %f\n'%ElapsedTime)
 
@@ -289,15 +288,15 @@ def main(test=False):
     InterpolationMethod = 'RPF'
 
     # Interpolation with 4 interpolant points
-    time0 = time.process_time()
+    time0 = ProcessTime()
     TI_1 = InterpolateTraceOfInverse(K,InterpolantPoints=InterpolantPoints_1,InterpolationMethod=InterpolationMethod)
-    time1 = time.process_time()
+    time1 = ProcessTime()
     InitialElapsedTime1 = time1 - time0
 
     # Interpolation with 2 interpolant points
-    time2 = time.process_time()
+    time2 = ProcessTime()
     TI_2 = InterpolateTraceOfInverse(K,InterpolantPoints=InterpolantPoints_2,InterpolationMethod=InterpolationMethod)
-    time3 = time.process_time()
+    time3 = ProcessTime()
     InitialElapsedTime2 = time3 - time2
 
     # List of interpolating objects

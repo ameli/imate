@@ -13,7 +13,7 @@ from TraceInv import GenerateMatrix
 
 def test_GenerateMatrix():
     """
-    Testing ``GenerateMatrix`` sub-package.
+    Test for :mod:`TraceInv.GenerateMatrix` sub-package.
     """
 
     # Generate a dense matrix

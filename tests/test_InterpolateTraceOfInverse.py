@@ -17,7 +17,7 @@ from TraceInv import InterpolateTraceOfInverse
 
 def test_InterpolateTraceOfInverse():
     """
-    Testing ``InterpolateTraceOfInverse`` sub-package.
+    Test for :mod:`TraceInv.InterpolateTraceOfInverse` sub-package.
     """
 
     # Compute trace of inverse of K using dense matrix

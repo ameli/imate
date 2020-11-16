@@ -16,7 +16,10 @@ from TraceInv import ComputeTraceOfInverse
 
 def ComputeTraceOfInverseWithMultipleMethods(K):
     """
-    Computes the trace of the inverse of ``K`` with multiple method.
+    Computes the trace of the inverse of matrix ``K`` with multiple method.
+
+    :param K: Invertible matrix.
+    :type K: numpy.ndarray
     """
 
     # Use Cholesky method with direct inverse
@@ -62,7 +65,7 @@ def ComputeTraceOfInverseWithMultipleMethods(K):
 
 def test_ComputeTraceOfInverse():
     """
-    Testing ``ComputeTraceOfInverse`` sub-package
+    Test for :mod:`TraceInv.ComputeTraceOfInverse` sub-package.
     """
 
     # Compute trace of inverse of K using dense matrix
