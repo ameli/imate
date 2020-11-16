@@ -24,13 +24,13 @@ A python package to compute the trace of the inverse of a matrix or a linear mat
 | * `Source code <https://github.com/ameli/TraceInv>`_             | * `Codecov <https://codecov.io/gh/ameli/TraceInv>`_               |
 +------------------------------------------------------------------+-------------------------------------------------------------------+
 
-************
-Introduction
-************
+***********
+Description
+***********
 
 This package computes the trace of inverse of two forms of matrices:
 
-1. **Fixed Matrix:** For an invertible matrix |image01|, this package computes |image02| for both sparse and dense matrices.
+1. **Fixed Matrix:** For an invertible matrix |image01| (sparse of dense), this package computes |image02|.
 2. **One-Parameter Affine Matrix Function:** |image05|, where |image01| and |image03| are symmetric and positive-definite matrices and ``t`` is a real parameter. This package can interpolate the function
 
 |image06|
