@@ -11,7 +11,7 @@ print(os.environ.get('DISPLAY',''))
 print('QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ')
 if os.environ.get('DISPLAY','') == '':
     print('No display found. Using non-interactive Agg backend.')
-    matplotlib.use('Agg')
+    matplotlib.use('agg')
     # os.environ.__setitem__('DISPLAY', ':0.0')
 
 from matplotlib.ticker import PercentFormatter
@@ -21,6 +21,9 @@ import matplotlib.ticker
 from matplotlib.ticker import ScalarFormatter,NullFormatter,FormatStrFormatter
 import matplotlib.pyplot as plt
 from distutils.spawn import find_executable
+
+# Test
+plt.switch_backend('agg')
 
 # Remove plt.tight_layput() warning
 import logging
