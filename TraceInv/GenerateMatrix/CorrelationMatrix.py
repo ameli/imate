@@ -23,17 +23,61 @@ except:
 
 def CorrelationKernel(Distance,DecorrelationScale,nu):
     """
-    Matern class correlation function.
+    Computes the Matern class correlation function for a given Euclidean distance of two spatial points.
 
-    The Matern correlation function is
+    The Matern correlation function defined by
 
     .. math::
+        K(\\boldsymbol{x},\\boldsymbol{x}'|\\rho,\\nu) = 
+            \\frac{2^{1-\\nu}}{\\Gamma(\\nu)}
+            \\left( \\sqrt{2 \\nu} \\frac{\| \\boldsymbol{x} - \\boldsymbol{x}' \|}{\\rho} \\right) 
+            K_{\\nu}\\left(\\sqrt{2 \\nu}  \\frac{\|\\boldsymbol{x} - \\boldsymbol{x}' \|}{\\rho} \\right)
 
-        K(\\boldsymbol{x},\\boldsymbol{x}'|\\rho,\\nu) = \\frac{2^{1-\\nu}}{\\Gamma(\\nu)} \lleft( \\sqrt{2 \\nu} \\frac{\\boldsymbol{x}}{\\rho} \\right) K_{\\nu}\\left(\\sqrt{2 \\nu}  \\frac{\\boldsymbol}{\\rho} \\right)
+    where
 
-    where :math:`\\rho` is decorrelation scale of the function and :math:`\\rho` is the smoothness parameter. 
+        * :math:`\\rho` is decorrelation scale of the function,
+        * :math:`\\Gamma` is the Gamma function, 
+        * :math:`\| \cdot \|` is the Euclidean distance,
+        * :math:`\\nu` is the smoothness parameter. 
+        * :math:`K_{\\nu}` is the modiffied Bessel function of the second kind of order :math:`\\nu`
+
+    .. warning::
+
+        When the distance :math:`\| \\boldsymbol{x} - \\boldsymbol{x}' \|` is zero, the correlation function produces 
+        :math:`\\frac{0}{0}` but in the limit, the correlation function is :math:`1`. If the distance is not exactly zero, but
+        close to zero, this function might produce unstable results.
+
     If :math:`\\nu` is half integer, the Matern function has exponential form.
-    Otherwise it is represented by Bessel function.
+    
+    At :math:`\\nu = \\frac{1}{2}`:
+
+    .. math::
+        K(\\boldsymbol{x},\\boldsymbol{x}'|\\rho,\\nu) = 
+        \\exp \\left( -\\frac{\| \\boldsymbol{x} - \\boldsymbol{x}'\|}{\\rho} \\right)
+
+    At :math:`\\nu = \\frac{3}{2}`
+
+    .. math::
+        K(\\boldsymbol{x},\\boldsymbol{x}'|\\rho,\\nu) =
+        \\left( 1 + \\sqrt{3} \\frac{\| \\boldsymbol{x} - \\boldsymbol{x}'\|}{\\rho} \\right)
+        \\exp \\left( - \\sqrt{3} \\frac{\| \\boldsymbol{x} - \\boldsymbol{x}'\|}{\\rho} \\right)
+
+    At :math:`\\nu = \\frac{5}{2}`
+
+    .. math::
+        K(\\boldsymbol{x},\\boldsymbol{x}'|\\rho,\\nu) =
+        \\left( 1 + \\sqrt{5} \\frac{\| \\boldsymbol{x} - \\boldsymbol{x}'\|}{\\rho} + \\frac{5}{3} \\frac{\| \\boldsymbol{x} - \\boldsymbol{x}'\|^2}{\\rho^2} \\right) 
+        \\exp \\left( -\\sqrt{5} \\frac{\| \\boldsymbol{x} - \\boldsymbol{x}'\|}{\\rho} \\right)
+
+    and at :math:`\\nu = \\infty`, the Matern function approaches the Gaussian correlation function:
+
+    .. math::
+        K(\\boldsymbol{x},\\boldsymbol{x}'|\\rho,\\nu) = 
+        \\exp \\left( -\\frac{1}{2} \\frac{\| \\boldsymbol{x} - \\boldsymbol{x}'\|^2}{\\rho^2} \\right)
+
+    .. note::
+
+        At :math:`\\nu > 100`, it is assumed that :math:`\\nu = \\infty` and the Gaussian correlation function is used.
 
     :param Distance: The distance matrix (``n*n``) that represents the Euclidean distance between mutual points.
     :type Distance: ndarray
@@ -83,9 +127,9 @@ def CorrelationKernel(Distance,DecorrelationScale,nu):
 
 def ComputeCorrelationForAProcess(DecorrelationScale,nu,KernelThreshold,x,y,UseSparse,NumCPUs,StartIndex):
     """
-    Computes correlation at the ColumnIndex-th column and row of ``K``.
+    Computes correlation matrix ``K`` at the row and the column with the index ``ColumnIndex``.
 
-    * ``K`` is updated inplace.
+    * ``K`` is updated *inplace*.
     * This function is used as a partial function for parallel processing.
 
     * If ``StartIndex`` is ``None``, it fills all columns of correlation matrix ``K``.
@@ -120,6 +164,9 @@ def ComputeCorrelationForAProcess(DecorrelationScale,nu,KernelThreshold,x,y,UseS
 
     :return: Correlation matrix ``K``
     :rtype: numpy.ndarray or scipy.sparse.csc_matrix
+
+    .. seealso::
+        The parallel implementation of function is given in :func:`TraceInv.GenerateMatrix.CorrelationMatrix.ComputeCorrelationForAProcessWithRay` using ``ray`` package.
     """
 
     n = x.size
@@ -166,9 +213,9 @@ if RayInstalled:
     @ray.remote
     def ComputeCorrelationForAProcessWithRay(DecorrelationScale,nu,KernelThreshold,x,y,UseSparse,NumCPUs,StartIndex):
         """
-        Computes correlation at the ColumnIndex-th column and row of ``K``.
+        Computes correlation matrix ``K`` at the row and the column with the index ``ColumnIndex``.
 
-        * ``K`` is updated inplace.
+        * ``K`` is updated *inplace*.
         * This function is used as a partial function for parallel processing.
 
         * If ``StartIndex`` is ``None``, it fills all columns of correlation matrix ``K``.
@@ -207,6 +254,9 @@ if RayInstalled:
 
         :return: Correlation matrix ``K``
         :rtype: numpy.ndarray or scipy.sparse.csc_matrix
+
+        .. seealso::
+            The non-parallel implementation of function is given in :func:`TraceInv.GenerateMatrix.CorrelationMatrix.ComputeCorrelationForAProcess`.
         """
 
         n = x.size
@@ -251,13 +301,14 @@ if RayInstalled:
 
 def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,RunInParallel=False):
     """
-    Generates correlation matrix ``K``.
+    Generates correlation matrix :math:`\\mathbf{K}`.
 
     .. note::
 
         If the ``KernelThreshold`` is large, it causes:
-            * ``K`` to not be positive-definite.
-            * ``trace((K+etaI)**{-1})`` to oscillate.
+
+            * The correlation matrix :math:`\mathbf{K}` will not be positive-definite.
+            * The function :math:`\\mathrm{trace}\\left((\\mathbf{K}+t*\\mathbf{I})^{-1}\\right)` produces unwanted oscillations.
 
     :param x: x-coordinates of the set of points. 
     :type x: array
@@ -283,6 +334,17 @@ def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,R
 
     :return: Correlation matrix. If ``x`` and ``y`` are ``n*1`` arrays, the correlation ``K`` is ``n*n`` matrix.
     :rtype: ndarray or sparse array
+
+    .. warning::
+        If the generated matrix is sparse (``UseSparse=True``), it is better to enable parallel processing ``RunInParallel=True``.
+        To run in parallel, the package ``ray`` should be installed, otherwise it run sequentially.
+
+    .. warning::
+        If the generated matrix is sparse (``UseSparse=True``), the ``KernelThreshold`` should be large enough so that the correlation matrix is not
+        shrinked to identity. If such case happens, this function raises a *ValueError8 exception.
+        
+        ,In addition, the ``KernelThreshold ``should be small enough to not erradicate its positive-definiteness. This is not checked by this function
+        and the user should be aware of it.
     """
 
     print('Generate correlation matrix ...')

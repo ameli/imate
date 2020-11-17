@@ -10,7 +10,17 @@ import numpy
 
 def GeneratePoints(NumPoints,GridOfPoints=True):
     """
-    Generates two column vectors ``x`` and ``y`` of data points.
+    Generates set of spatial points in the unit square and outputs their ``x`` and ``y`` coordinates.
+
+    .. note::
+        The number of generated points depend on ``GridOfPoints``.
+
+        * If ``GridOfPoints`` is ``True``, the set of points is generated on a equi-distanced rectangular grid 
+          in the unit square. The number of pointsalong each axis is ``NumPoints``, thus the total number of 
+          points is ``NumPoints**2``.
+
+        * If ``GridOfPoints`` is ``False``, the set of points is generated randomly with uniform distribution
+          in the unit square. The number of points is ``NumPoints``.
 
     :param NumPoints: Depending on ``GridOfPoints``, this is either the number of points or the number of grid points along an axis.
     :type NumPoints: int

@@ -23,7 +23,7 @@ jobs:
                   BRANCH: gh-pages
                   FOLDER: docs/_build/html
                   BUILD_SCRIPT: |
-                      apt install graphviz
+                      apt install graphviz -y
                       pip install --upgrade pip
                       pip install .[docs]
                       export PATH=$HOME/.local/bin:$PATH
