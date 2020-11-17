@@ -55,6 +55,7 @@ These interpolation methods are described in [Ameli-2020]_.
 .. |image04| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/image04.svg
 .. |image05| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/image05.svg
 .. |image06| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/image06.svg
+                     :align: center
 
 *******
 Install

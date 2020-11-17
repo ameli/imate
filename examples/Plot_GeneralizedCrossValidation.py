@@ -34,6 +34,10 @@ Notes:
       labeled as p = 1 and p = 2 (degree of the rational polynomial).
 """
 
+# Test
+import matplotlib
+matplotlib.use('Agg')
+
 # =======
 # Imports
 # =======
@@ -48,20 +52,17 @@ import time
 import pickle
 
 # Package Modules
-from TraceInv import InterpolateTraceOfInverse
-from TraceInv import ComputeTraceOfInverse
+from Utilities.PlotUtilities import *
+from Utilities.PlotUtilities import LoadPlotSettings
+from Utilities.PlotUtilities import SavePlot
 from Utilities.ProcessingTimeUtilities import RestrictComputationToSingleProcessor
 from Utilities.ProcessingTimeUtilities import TimeCounterClass
 from Utilities.ProcessingTimeUtilities import ProcessTime
 from Utilities.DataUtilities import GenerateBasisFunctions
 from Utilities.DataUtilities import GenerateNoisyData
 from Utilities.DataUtilities import GenerateMatrix
-from Utilities.PlotUtilities import *
-from Utilities.PlotUtilities import LoadPlotSettings
-from Utilities.PlotUtilities import SavePlot
-
-# Test
-print(matplotlib.get_backend())
+from TraceInv import InterpolateTraceOfInverse
+from TraceInv import ComputeTraceOfInverse
 
 # ============================
 # Generalized Cross Validation
