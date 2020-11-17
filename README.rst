@@ -35,6 +35,9 @@ This package computes the trace of inverse of two forms of matrices:
 
 |image06|
 
+.. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/image06.svg
+   :align: center
+
 **Application:**
     The above function is featured in a wide range of applications in statistics and machine learning. Particular applications are in model selection and optimizing hyperparameters with gradient-based maximum likelihood methods. In such applications, computing the above function is often a computational challenge for large matrices. Often, this function is evaluated for a wide range of the parameter |image00| while |image01| and |image03| remain fixed. As such, an interpolation scheme enables fast computation of the function.
 
