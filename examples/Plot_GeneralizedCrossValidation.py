@@ -34,10 +34,6 @@ Notes:
       labeled as p = 1 and p = 2 (degree of the rational polynomial).
 """
 
-# Test
-import matplotlib
-matplotlib.use('Agg')
-
 # =======
 # Imports
 # =======
@@ -63,11 +59,6 @@ from Utilities.DataUtilities import GenerateNoisyData
 from Utilities.DataUtilities import GenerateMatrix
 from TraceInv import InterpolateTraceOfInverse
 from TraceInv import ComputeTraceOfInverse
-
-# Test
-print('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW')
-print(matplotlib.get_backend())
-print('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW')
 
 
 # ============================

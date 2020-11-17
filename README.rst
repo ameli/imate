@@ -33,8 +33,6 @@ This package computes the trace of inverse of two forms of matrices:
 1. **Fixed Matrix:** For an invertible matrix |image01| (sparse of dense), this package computes |image02|.
 2. **One-Parameter Affine Matrix Function:** |image05|, where |image01| and |image03| are symmetric and positive-definite matrices and ``t`` is a real parameter. This package can interpolate the function
 
-|image06|
-
 .. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/image06.svg
    :align: center
 
@@ -42,14 +40,6 @@ This package computes the trace of inverse of two forms of matrices:
     The above function is featured in a wide range of applications in statistics and machine learning. Particular applications are in model selection and optimizing hyperparameters with gradient-based maximum likelihood methods. In such applications, computing the above function is often a computational challenge for large matrices. Often, this function is evaluated for a wide range of the parameter |image00| while |image01| and |image03| remain fixed. As such, an interpolation scheme enables fast computation of the function.
 
 These interpolation methods are described in [Ameli-2020]_. 
-
-.. .. |image00| image:: https://latex.codecogs.com/svg.latex?t
-.. .. |image01| image:: https://latex.codecogs.com/svg.latex?\mathbf{A}
-.. .. |image02| image:: https://latex.codecogs.com/svg.latex?\mathrm{trace}(\mathbf{A}^{-1})
-.. .. |image03| image:: https://latex.codecogs.com/svg.latex?\mathbf{B}
-.. .. |image04| image:: https://latex.codecogs.com/svg.latex?t\in&space;[t_0,t_1]
-.. .. |image05| image:: https://latex.codecogs.com/svg.latex?t\mapsto\mathbf{A}+t\mathbf{B}
-.. .. |image06| image:: https://latex.codecogs.com/svg.latex?t\mapsto\mathrm{trace}\left((\mathbf{A}+t\mathbf{B})^{-1}\right)
 
 .. |image00| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/image00.svg
 .. |image01| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/image01.svg
