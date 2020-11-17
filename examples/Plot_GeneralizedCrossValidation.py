@@ -64,6 +64,12 @@ from Utilities.DataUtilities import GenerateMatrix
 from TraceInv import InterpolateTraceOfInverse
 from TraceInv import ComputeTraceOfInverse
 
+# Test
+print('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW')
+print(matplotlib.get_backend())
+print('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW')
+
+
 # ============================
 # Generalized Cross Validation
 # ============================
