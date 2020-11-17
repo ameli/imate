@@ -25,7 +25,14 @@ def CorrelationKernel(Distance,DecorrelationScale,nu):
     """
     Matern class correlation function.
 
-    If ``nu`` is half integer, the Matern function has exponential form.
+    The Matern correlation function is
+
+    .. math::
+
+        K(\\boldsymbol{x},\\boldsymbol{x}'|\\rho,\\nu) = \\frac{2^{1-\\nu}}{\\Gamma(\\nu)} \lleft( \\sqrt{2 \\nu} \\frac{\\boldsymbol{x}}{\\rho} \\right) K_{\\nu}\\left(\\sqrt{2 \\nu}  \\frac{\\boldsymbol}{\\rho} \\right)
+
+    where :math:`\\rho` is decorrelation scale of the function and :math:`\\rho` is the smoothness parameter. 
+    If :math:`\\nu` is half integer, the Matern function has exponential form.
     Otherwise it is represented by Bessel function.
 
     :param Distance: The distance matrix (``n*n``) that represents the Euclidean distance between mutual points.
@@ -84,10 +91,6 @@ def ComputeCorrelationForAProcess(DecorrelationScale,nu,KernelThreshold,x,y,UseS
     * If ``StartIndex`` is ``None``, it fills all columns of correlation matrix ``K``.
     * If ``StartIndex`` is not ``None``, it fills only a sub-rang of columns of ``K`` from ``StartIndex`` to ``n`` by ``NumCPUs`` increment.
 
-    .. note::
-
-        To run the code in parallel, uncomment the ``@ray.remote`` directive before the definition of the function.
-
     :param DecorrelationScale: A parameter of correlation function that scales distance.
     :type DecorrelationScale: float
 
@@ -113,8 +116,10 @@ def ComputeCorrelationForAProcess(DecorrelationScale,nu,KernelThreshold,x,y,UseS
     :param StartIndex: The start index of the column of ``K`` to be filled.
         If this is ``None``, all columns of ``K`` are filled.
         If this is not ``None``, only a range of columns of ``K`` are filled.
+    :type StartIndex: int
 
-    :type: int
+    :return: Correlation matrix ``K``
+    :rtype: numpy.ndarray or scipy.sparse.csc_matrix
     """
 
     n = x.size
@@ -171,7 +176,7 @@ if RayInstalled:
 
         .. note::
 
-            To run the code in parallel, uncomment the ``@ray.remote`` directive before the definition of the function.
+            This function should be called if the package ``ray`` is installed.
 
         :param DecorrelationScale: A parameter of correlation function that scales distance.
         :type DecorrelationScale: float
@@ -198,8 +203,10 @@ if RayInstalled:
         :param StartIndex: The start index of the column of ``K`` to be filled.
             If this is ``None``, all columns of ``K`` are filled.
             If this is not ``None``, only a range of columns of ``K`` are filled.
+        :type StartIndex: int
 
-        :type: int
+        :return: Correlation matrix ``K``
+        :rtype: numpy.ndarray or scipy.sparse.csc_matrix
         """
 
         n = x.size

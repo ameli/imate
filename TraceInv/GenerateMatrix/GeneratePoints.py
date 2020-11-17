@@ -17,6 +17,10 @@ def GeneratePoints(NumPoints,GridOfPoints=True):
 
     :param GridOfPoints: if ``True``, the number of ``NumPoints^2`` points are generated on a grid inside the unit square.
         If ``False``, the number of ``NumPoints`` points are generated randomly inside the unit square.
+    :type GridPoints: bool
+
+    :return: Two column-vectors of data points
+    :rtype: List of numpy.ndarray
     """
 
     print('Generate data ...')
