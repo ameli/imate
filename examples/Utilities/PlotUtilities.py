@@ -6,6 +6,9 @@ import os
 import matplotlib
 
 # Check DISPLAY
+print('QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ')
+print(os.environ.get('DISPLAY',''))
+print('QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ')
 if os.environ.get('DISPLAY','') == '':
     print('No display found. Using non-interactive Agg backend.')
     matplotlib.use('Agg')

@@ -60,6 +60,9 @@ from Utilities.PlotUtilities import *
 from Utilities.PlotUtilities import LoadPlotSettings
 from Utilities.PlotUtilities import SavePlot
 
+# Test
+print(matplotlib.get_backend())
+
 # ============================
 # Generalized Cross Validation
 # ============================
@@ -249,7 +252,7 @@ def PlotGeneralizedCrossValidation(Data,test):
     SavePlot(plt,Filename)
 
     # If no display backend is enabled, do not plot in the interactive mode
-    if (not test) and (matplotlib.get_backend() != 'Agg'):
+    if (not test) and (matplotlib.get_backend() != 'agg'):
         plt.show()
 
 # ====
