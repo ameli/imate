@@ -190,9 +190,9 @@
 <dl class="py function">
 <dt id="TraceInv.GenerateMatrix.CorrelationMatrix.ComputeCorrelationForAProcess">
 <code class="sig-prename descclassname">TraceInv.GenerateMatrix.CorrelationMatrix.</code><code class="sig-name descname">ComputeCorrelationForAProcess</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">DecorrelationScale</span></em>, <em class="sig-param"><span class="n">nu</span></em>, <em class="sig-param"><span class="n">KernelThreshold</span></em>, <em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">UseSparse</span></em>, <em class="sig-param"><span class="n">NumCPUs</span></em>, <em class="sig-param"><span class="n">StartIndex</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/GenerateMatrix/CorrelationMatrix.html#ComputeCorrelationForAProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.GenerateMatrix.CorrelationMatrix.ComputeCorrelationForAProcess" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes correlation at the ColumnIndex-th column and row of <code class="docutils literal notranslate"><span class="pre">K</span></code>.</p>
+<dd><p>Computes correlation matrix <code class="docutils literal notranslate"><span class="pre">K</span></code> at the row and the column with the index <code class="docutils literal notranslate"><span class="pre">ColumnIndex</span></code>.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">K</span></code> is updated inplace.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">K</span></code> is updated <em>inplace</em>.</p></li>
 <li><p>This function is used as a partial function for parallel processing.</p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">StartIndex</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, it fills all columns of correlation matrix <code class="docutils literal notranslate"><span class="pre">K</span></code>.</p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">StartIndex</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>, it fills only a sub-rang of columns of <code class="docutils literal notranslate"><span class="pre">K</span></code> from <code class="docutils literal notranslate"><span class="pre">StartIndex</span></code> to <code class="docutils literal notranslate"><span class="pre">n</span></code> by <code class="docutils literal notranslate"><span class="pre">NumCPUs</span></code> increment.</p></li>
@@ -220,18 +220,61 @@ If this is not <code class="docutils literal notranslate"><span class="pre">None
 <dd class="field-odd"><p>numpy.ndarray or scipy.sparse.csc_matrix</p>
 </dd>
 </dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The parallel implementation of function is given in <code class="xref py py-func docutils literal notranslate"><span class="pre">TraceInv.GenerateMatrix.CorrelationMatrix.ComputeCorrelationForAProcessWithRay()</span></code> using <code class="docutils literal notranslate"><span class="pre">ray</span></code> package.</p>
+</div>
 </dd></dl>
 
 <dl class="py function">
 <dt id="TraceInv.GenerateMatrix.CorrelationMatrix.CorrelationKernel">
 <code class="sig-prename descclassname">TraceInv.GenerateMatrix.CorrelationMatrix.</code><code class="sig-name descname">CorrelationKernel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Distance</span></em>, <em class="sig-param"><span class="n">DecorrelationScale</span></em>, <em class="sig-param"><span class="n">nu</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/GenerateMatrix/CorrelationMatrix.html#CorrelationKernel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.GenerateMatrix.CorrelationMatrix.CorrelationKernel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Matern class correlation function.</p>
-<p>The Matern correlation function is</p>
+<dd><p>Computes the Matern class correlation function for a given Euclidean distance of two spatial points.</p>
+<p>The Matern correlation function defined by</p>
 <div class="math notranslate nohighlight">
-\[K(\boldsymbol{x},\boldsymbol{x}'|\rho,\nu) = \frac{2^{1-\nu}}{\Gamma(\nu)} \lleft( \sqrt{2 \nu} \frac{\boldsymbol{x}}{\rho} \right) K_{\nu}\left(\sqrt{2 \nu}  \frac{\boldsymbol}{\rho} \right)\]</div>
-<p>where <span class="math notranslate nohighlight">\(\rho\)</span> is decorrelation scale of the function and <span class="math notranslate nohighlight">\(\rho\)</span> is the smoothness parameter. 
-If <span class="math notranslate nohighlight">\(\nu\)</span> is half integer, the Matern function has exponential form.
-Otherwise it is represented by Bessel function.</p>
+\[K(\boldsymbol{x},\boldsymbol{x}'|\rho,\nu) = 
+    \frac{2^{1-\nu}}{\Gamma(\nu)}
+    \left( \sqrt{2 \nu} \frac{\| \boldsymbol{x} - \boldsymbol{x}' \|}{\rho} \right) 
+    K_{\nu}\left(\sqrt{2 \nu}  \frac{\|\boldsymbol{x} - \boldsymbol{x}' \|}{\rho} \right)\]</div>
+<p>where</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\rho\)</span> is decorrelation scale of the function,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Gamma\)</span> is the Gamma function,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\| \cdot \|\)</span> is the Euclidean distance,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\nu\)</span> is the smoothness parameter.</p></li>
+<li><p><span class="math notranslate nohighlight">\(K_{\nu}\)</span> is the modiffied Bessel function of the second kind of order <span class="math notranslate nohighlight">\(\nu\)</span></p></li>
+</ul>
+</div></blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When the distance <span class="math notranslate nohighlight">\(\| \boldsymbol{x} - \boldsymbol{x}' \|\)</span> is zero, the correlation function produces 
+<span class="math notranslate nohighlight">\(\frac{0}{0}\)</span> but in the limit, the correlation function is <span class="math notranslate nohighlight">\(1\)</span>. If the distance is not exactly zero, but
+close to zero, this function might produce unstable results.</p>
+</div>
+<p>If <span class="math notranslate nohighlight">\(\nu\)</span> is half integer, the Matern function has exponential form.</p>
+<p>At <span class="math notranslate nohighlight">\(\nu = \frac{1}{2}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[K(\boldsymbol{x},\boldsymbol{x}'|\rho,\nu) = 
+\exp \left( -\frac{\| \boldsymbol{x} - \boldsymbol{x}'\|}{\rho} \right)\]</div>
+<p>At <span class="math notranslate nohighlight">\(\nu = \frac{3}{2}\)</span></p>
+<div class="math notranslate nohighlight">
+\[K(\boldsymbol{x},\boldsymbol{x}'|\rho,\nu) =
+\left( 1 + \sqrt{3} \frac{\| \boldsymbol{x} - \boldsymbol{x}'\|}{\rho} \right)
+\exp \left( - \sqrt{3} \frac{\| \boldsymbol{x} - \boldsymbol{x}'\|}{\rho} \right)\]</div>
+<p>At <span class="math notranslate nohighlight">\(\nu = \frac{5}{2}\)</span></p>
+<div class="math notranslate nohighlight">
+\[K(\boldsymbol{x},\boldsymbol{x}'|\rho,\nu) =
+\left( 1 + \sqrt{5} \frac{\| \boldsymbol{x} - \boldsymbol{x}'\|}{\rho} + \frac{5}{3} \frac{\| \boldsymbol{x} - \boldsymbol{x}'\|^2}{\rho^2} \right) 
+\exp \left( -\sqrt{5} \frac{\| \boldsymbol{x} - \boldsymbol{x}'\|}{\rho} \right)\]</div>
+<p>and at <span class="math notranslate nohighlight">\(\nu = \infty\)</span>, the Matern function approaches the Gaussian correlation function:</p>
+<div class="math notranslate nohighlight">
+\[K(\boldsymbol{x},\boldsymbol{x}'|\rho,\nu) = 
+\exp \left( -\frac{1}{2} \frac{\| \boldsymbol{x} - \boldsymbol{x}'\|^2}{\rho^2} \right)\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At <span class="math notranslate nohighlight">\(\nu &gt; 100\)</span>, it is assumed that <span class="math notranslate nohighlight">\(\nu = \infty\)</span> and the Gaussian correlation function is used.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -246,16 +289,16 @@ Otherwise it is represented by Bessel function.</p>
 <dl class="py function">
 <dt id="TraceInv.GenerateMatrix.CorrelationMatrix.CorrelationMatrix">
 <code class="sig-prename descclassname">TraceInv.GenerateMatrix.CorrelationMatrix.</code><code class="sig-name descname">CorrelationMatrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">DecorrelationScale</span></em>, <em class="sig-param"><span class="n">nu</span></em>, <em class="sig-param"><span class="n">UseSparse</span></em>, <em class="sig-param"><span class="n">KernelThreshold</span><span class="o">=</span><span class="default_value">0.03</span></em>, <em class="sig-param"><span class="n">RunInParallel</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/GenerateMatrix/CorrelationMatrix.html#CorrelationMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.GenerateMatrix.CorrelationMatrix.CorrelationMatrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generates correlation matrix <code class="docutils literal notranslate"><span class="pre">K</span></code>.</p>
+<dd><p>Generates correlation matrix <span class="math notranslate nohighlight">\(\mathbf{K}\)</span>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<dl class="simple">
-<dt>If the <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code> is large, it causes:</dt><dd><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">K</span></code> to not be positive-definite.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">trace((K+etaI)**{-1})</span></code> to oscillate.</p></li>
+<p>If the <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code> is large, it causes:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The correlation matrix <span class="math notranslate nohighlight">\(\mathbf{K}\)</span> will not be positive-definite.</p></li>
+<li><p>The function <span class="math notranslate nohighlight">\(\mathrm{trace}\left((\mathbf{K}+t*\mathbf{I})^{-1}\right)\)</span> produces unwanted oscillations.</p></li>
 </ul>
-</dd>
-</dl>
+</div></blockquote>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -277,6 +320,18 @@ is set to zero.</p></li>
 <dd class="field-odd"><p>ndarray or sparse array</p>
 </dd>
 </dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the generated matrix is sparse (<code class="docutils literal notranslate"><span class="pre">UseSparse=True</span></code>), it is better to enable parallel processing <code class="docutils literal notranslate"><span class="pre">RunInParallel=True</span></code>.
+To run in parallel, the package <code class="docutils literal notranslate"><span class="pre">ray</span></code> should be installed, otherwise it run sequentially.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the generated matrix is sparse (<code class="docutils literal notranslate"><span class="pre">UseSparse=True</span></code>), the <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code> should be large enough so that the correlation matrix is not
+shrinked to identity. If such case happens, this function raises a <a href="#id1"><span class="problematic" id="id2">*</span></a>ValueError8 exception.</p>
+<p>,In addition, the <a href="#id3"><span class="problematic" id="id4">``</span></a>KernelThreshold <a href="#id5"><span class="problematic" id="id6">``</span></a>should be small enough to not erradicate its positive-definiteness. This is not checked by this function
+and the user should be aware of it.</p>
+</div>
 </dd></dl>
 
 </div>
@@ -285,10 +340,41 @@ is set to zero.</p></li>
 <dl class="py function">
 <dt id="TraceInv.GenerateMatrix.GenerateMatrix.GenerateMatrix">
 <code class="sig-prename descclassname">TraceInv.GenerateMatrix.GenerateMatrix.</code><code class="sig-name descname">GenerateMatrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">NumPoints</span></em>, <em class="sig-param"><span class="n">DecorrelationScale</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">nu</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">UseSparse</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">GridOfPoints</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">KernelThreshold</span><span class="o">=</span><span class="default_value">0.03</span></em>, <em class="sig-param"><span class="n">RunInParallel</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">PlotFlag</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/GenerateMatrix/GenerateMatrix.html#GenerateMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.GenerateMatrix.GenerateMatrix.GenerateMatrix" title="Permalink to this definition">¶</a></dt>
-<dd><p>The main module of this package, which generates a symmetric and positive-definite correlation matrix.</p>
+<dd><p>Generates a symmetric and positive-definite.</p>
+<p>The generated matrx is a correlation matrix based on Matern correlation of spatial distance of 
+a list of points in the unit square. The Matern correlation function can be characterized by two 
+parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\rho\)</span>: the discorrelation scale in <span class="math notranslate nohighlight">\(\rho \in (0,1]\)</span>. Smaller decorrelation produces correlation matrix that is closer to the identity matrix.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\nu\)</span>: correlation smoothness, <span class="math notranslate nohighlight">\(\rho &gt; 0\)</span>. Larger smoothness produces correlation similar to the Gaussian process. Smaller smoothness 
+produces more discrete correlation function.</p></li>
+</ul>
+</div></blockquote>
+<p>Also, the size of the generated matrix is determined by <code class="docutils literal notranslate"><span class="pre">NumPoints</span></code> which we refer to as <span class="math notranslate nohighlight">\(n\)</span>,
+and <code class="docutils literal notranslate"><span class="pre">GridOfPoints</span></code>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">GridOfPoints</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> (default value), then, the matrix is of the size <span class="math notranslate nohighlight">\(n^2 \times n^2\)</span>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">GridOfPoints</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, then, the matrix is of the size <span class="math notranslate nohighlight">\(n \times n\)</span>.</p></li>
+</ul>
+</div></blockquote>
+<p>The values of the correlation matrix are between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. To sparsify the generated matrix, 
+set <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code>, which makes all correlations below this threshold to be zero. If <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code> is zet to
+zer, the matrix is not sparsified.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Too large <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code> might eradicate the positive-definiteness of the correlation matrix.</p>
+</div>
+<p>For very large sparse matrices, use <code class="docutils literal notranslate"><span class="pre">RunInParallel</span></code> to generate the rows and columns of the correlation matrix in parallel.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To use parallel processing, the package <code class="docutils literal notranslate"><span class="pre">ray</span></code> should be insatalled.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>NumPoints</strong> (<em>int</em>) – Depending on <code class="docutils literal notranslate"><span class="pre">GridOfPoints</span></code>, this is either the number of points or the number of grid points along an axis.</p></li>
 <li><p><strong>DecorrelationScale</strong> (<em>float</em>) – A parameter of correlation function that scales distance.</p></li>
 <li><p><strong>nu</strong> (<em>float</em>) – A parameter of the Matern correlation function. <code class="docutils literal notranslate"><span class="pre">nu</span></code> modulates the smoothness of the stochastic process.</p></li>
 <li><p><strong>UseSparse</strong> (<em>bool</em>) – Flag to indicate the correlation matrix should be sparse or dense matrix.</p></li>
@@ -313,7 +399,18 @@ is set to zero.</p></li>
 <dl class="py function">
 <dt id="TraceInv.GenerateMatrix.GeneratePoints.GeneratePoints">
 <code class="sig-prename descclassname">TraceInv.GenerateMatrix.GeneratePoints.</code><code class="sig-name descname">GeneratePoints</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">NumPoints</span></em>, <em class="sig-param"><span class="n">GridOfPoints</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/GenerateMatrix/GeneratePoints.html#GeneratePoints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.GenerateMatrix.GeneratePoints.GeneratePoints" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generates two column vectors <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> of data points.</p>
+<dd><p>Generates set of spatial points in the unit square and outputs their <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> coordinates.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The number of generated points depend on <code class="docutils literal notranslate"><span class="pre">GridOfPoints</span></code>.</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">GridOfPoints</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the set of points is generated on a equi-distanced rectangular grid 
+in the unit square. The number of pointsalong each axis is <code class="docutils literal notranslate"><span class="pre">NumPoints</span></code>, thus the total number of 
+points is <code class="docutils literal notranslate"><span class="pre">NumPoints**2</span></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">GridOfPoints</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, the set of points is generated randomly with uniform distribution
+in the unit square. The number of points is <code class="docutils literal notranslate"><span class="pre">NumPoints</span></code>.</p></li>
+</ul>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

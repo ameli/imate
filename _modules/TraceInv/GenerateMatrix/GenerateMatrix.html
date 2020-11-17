@@ -183,7 +183,38 @@
         <span class="n">RunInParallel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">PlotFlag</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The main module of this package, which generates a symmetric and positive-definite correlation matrix.</span>
+<span class="sd">    Generates a symmetric and positive-definite.</span>
+<span class="sd">    </span>
+<span class="sd">    The generated matrx is a correlation matrix based on Matern correlation of spatial distance of </span>
+<span class="sd">    a list of points in the unit square. The Matern correlation function can be characterized by two </span>
+<span class="sd">    parameters:</span>
+
+<span class="sd">        * :math:`\\rho`: the discorrelation scale in :math:`\\rho \in (0,1]`. Smaller decorrelation produces correlation matrix that is closer to the identity matrix.</span>
+<span class="sd">        * :math:`\\nu`: correlation smoothness, :math:`\\rho &gt; 0`. Larger smoothness produces correlation similar to the Gaussian process. Smaller smoothness </span>
+<span class="sd">          produces more discrete correlation function.</span>
+
+<span class="sd">    Also, the size of the generated matrix is determined by ``NumPoints`` which we refer to as :math:`n`,</span>
+<span class="sd">    and ``GridOfPoints``.</span>
+
+<span class="sd">        * If ``GridOfPoints`` is ``True`` (default value), then, the matrix is of the size :math:`n^2 \\times n^2`.</span>
+<span class="sd">        * If ``GridOfPoints`` is ``False``, then, the matrix is of the size :math:`n \\times n`.</span>
+
+<span class="sd">    The values of the correlation matrix are between :math:`0` and :math:`1`. To sparsify the generated matrix, </span>
+<span class="sd">    set ``KernelThreshold``, which makes all correlations below this threshold to be zero. If ``KernelThreshold`` is zet to</span>
+<span class="sd">    zer, the matrix is not sparsified.</span>
+
+<span class="sd">    .. note:: </span>
+<span class="sd">        </span>
+<span class="sd">        Too large ``KernelThreshold`` might eradicate the positive-definiteness of the correlation matrix.</span>
+
+<span class="sd">    For very large sparse matrices, use ``RunInParallel`` to generate the rows and columns of the correlation matrix in parallel.</span>
+
+<span class="sd">    .. note:: </span>
+
+<span class="sd">        To use parallel processing, the package ``ray`` should be insatalled.</span>
+
+<span class="sd">    :param NumPoints: Depending on ``GridOfPoints``, this is either the number of points or the number of grid points along an axis.</span>
+<span class="sd">    :type NumPoints: int</span>
 
 <span class="sd">    :param DecorrelationScale: A parameter of correlation function that scales distance.</span>
 <span class="sd">    :type DecorrelationScale: float</span>

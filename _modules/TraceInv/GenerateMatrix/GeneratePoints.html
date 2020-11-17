@@ -173,7 +173,17 @@
 
 <div class="viewcode-block" id="GeneratePoints"><a class="viewcode-back" href="../../TraceInv.GenerateMatrix.html#TraceInv.GenerateMatrix.GeneratePoints.GeneratePoints">[docs]</a><span class="k">def</span> <span class="nf">GeneratePoints</span><span class="p">(</span><span class="n">NumPoints</span><span class="p">,</span><span class="n">GridOfPoints</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Generates two column vectors ``x`` and ``y`` of data points.</span>
+<span class="sd">    Generates set of spatial points in the unit square and outputs their ``x`` and ``y`` coordinates.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        The number of generated points depend on ``GridOfPoints``.</span>
+
+<span class="sd">        * If ``GridOfPoints`` is ``True``, the set of points is generated on a equi-distanced rectangular grid </span>
+<span class="sd">          in the unit square. The number of pointsalong each axis is ``NumPoints``, thus the total number of </span>
+<span class="sd">          points is ``NumPoints**2``.</span>
+
+<span class="sd">        * If ``GridOfPoints`` is ``False``, the set of points is generated randomly with uniform distribution</span>
+<span class="sd">          in the unit square. The number of points is ``NumPoints``.</span>
 
 <span class="sd">    :param NumPoints: Depending on ``GridOfPoints``, this is either the number of points or the number of grid points along an axis.</span>
 <span class="sd">    :type NumPoints: int</span>
