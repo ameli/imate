@@ -197,10 +197,6 @@
 <li><p>If <code class="docutils literal notranslate"><span class="pre">StartIndex</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, it fills all columns of correlation matrix <code class="docutils literal notranslate"><span class="pre">K</span></code>.</p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">StartIndex</span></code> is not <code class="docutils literal notranslate"><span class="pre">None</span></code>, it fills only a sub-rang of columns of <code class="docutils literal notranslate"><span class="pre">K</span></code> from <code class="docutils literal notranslate"><span class="pre">StartIndex</span></code> to <code class="docutils literal notranslate"><span class="pre">n</span></code> by <code class="docutils literal notranslate"><span class="pre">NumCPUs</span></code> increment.</p></li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>To run the code in parallel, uncomment the <code class="docutils literal notranslate"><span class="pre">&#64;ray.remote</span></code> directive before the definition of the function.</p>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -212,13 +208,16 @@ is set to zero.</p></li>
 <li><p><strong>y</strong> (<em>array</em>) – y-coordinates of the set of points.</p></li>
 <li><p><strong>UseSparse</strong> (<em>bool</em>) – Flag to indicate the correlation matrix should be sparse or dense matrix.</p></li>
 <li><p><strong>NumCPUs</strong> (<em>int</em>) – Number of processors to employ parallel processing with <code class="docutils literal notranslate"><span class="pre">ray</span></code> package.</p></li>
-<li><p><strong>StartIndex</strong> – The start index of the column of <code class="docutils literal notranslate"><span class="pre">K</span></code> to be filled.
+<li><p><strong>StartIndex</strong> (<em>int</em>) – The start index of the column of <code class="docutils literal notranslate"><span class="pre">K</span></code> to be filled.
 If this is <code class="docutils literal notranslate"><span class="pre">None</span></code>, all columns of <code class="docutils literal notranslate"><span class="pre">K</span></code> are filled.
 If this is not <code class="docutils literal notranslate"><span class="pre">None</span></code>, only a range of columns of <code class="docutils literal notranslate"><span class="pre">K</span></code> are filled.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Type</dt>
-<dd class="field-even"><p>int</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Correlation matrix <code class="docutils literal notranslate"><span class="pre">K</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray or scipy.sparse.csc_matrix</p>
 </dd>
 </dl>
 </dd></dl>
@@ -227,7 +226,11 @@ If this is not <code class="docutils literal notranslate"><span class="pre">None
 <dt id="TraceInv.GenerateMatrix.CorrelationMatrix.CorrelationKernel">
 <code class="sig-prename descclassname">TraceInv.GenerateMatrix.CorrelationMatrix.</code><code class="sig-name descname">CorrelationKernel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">Distance</span></em>, <em class="sig-param"><span class="n">DecorrelationScale</span></em>, <em class="sig-param"><span class="n">nu</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/GenerateMatrix/CorrelationMatrix.html#CorrelationKernel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.GenerateMatrix.CorrelationMatrix.CorrelationKernel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Matern class correlation function.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">nu</span></code> is half integer, the Matern function has exponential form.
+<p>The Matern correlation function is</p>
+<div class="math notranslate nohighlight">
+\[K(\boldsymbol{x},\boldsymbol{x}'|\rho,\nu) = \frac{2^{1-\nu}}{\Gamma(\nu)} \lleft( \sqrt{2 \nu} \frac{\boldsymbol{x}}{\rho} \right) K_{\nu}\left(\sqrt{2 \nu}  \frac{\boldsymbol}{\rho} \right)\]</div>
+<p>where <span class="math notranslate nohighlight">\(\rho\)</span> is decorrelation scale of the function and <span class="math notranslate nohighlight">\(\rho\)</span> is the smoothness parameter. 
+If <span class="math notranslate nohighlight">\(\nu\)</span> is half integer, the Matern function has exponential form.
 Otherwise it is represented by Bessel function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -318,6 +321,12 @@ is set to zero.</p></li>
 <li><p><strong>GridOfPoints</strong> – if <code class="docutils literal notranslate"><span class="pre">True</span></code>, the number of <code class="docutils literal notranslate"><span class="pre">NumPoints^2</span></code> points are generated on a grid inside the unit square.
 If <code class="docutils literal notranslate"><span class="pre">False</span></code>, the number of <code class="docutils literal notranslate"><span class="pre">NumPoints</span></code> points are generated randomly inside the unit square.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Two column-vectors of data points</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List of numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
