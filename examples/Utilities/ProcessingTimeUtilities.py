@@ -21,12 +21,45 @@ class TimeCounterClass(object):
     This class is used to measure the elapsed time of computing trace only for the
     exact (non-interpolation) method.
 
-    In the interpolation method, the trace is "pre-computed" (in TraceEstimationUtilities), so we can easily find
-    how much time did it take to compute trace in the pre-computation.
+    In the interpolation methods using :mod:`Trace.InterpolateTraceOfInverse`, the trace at interpolant points are
+    *pre-computed*, so we can easily find how much time did it take to compute trace in the pre-computation stage.
 
     However, in the direct method of minimizing GCV, we can only measue the total time of minimization process.
     To measure only the elapsed time of computing trace (which is a part of computing GCV) we pass an object
     of this class to accumulatively measure the elapsed time of a portion related to computing trace.
+
+    **Example:**
+
+    .. code-block:: python
+
+        >>> # Imports
+        >>> from Utilities.ProcessingTimeUtilities import RestrictComputationToSingleProcessor
+        >>> from Utilities.ProcessingTimeUtilities import TimeCounterClass
+        >>> from Utilities.ProcessingTimeUtilities import ProcessTime
+
+        >>> # Define a function
+        >>> def function(TimeCounter):
+        ...     
+        ...     # Count time with time object
+        ...     time1 = ProcessTime()
+        ...     ...
+        ...     time2 = ProcessTime()
+        ...
+        ...     # Store the time in TimeCounter object
+        ...     TimeCounter.Add(time2 - time1)
+
+        >>> # The main script
+        >>> if __name__ == "__main__":
+        >>>     
+        >>>     # Creat time counter object
+        >>>     TimeCounter = TimeCounterClass()
+        >>> 
+        >>>     # Pass the TimeCounter in some functions
+        >>>     function(TimeCounter)
+        >>>     print(TimeCounter.ElapsedTime)
+        >>> 
+        >>>     # Reset the time counter
+        >>>     TimeCounter.Reset()
     """
 
     # ----
@@ -34,6 +67,7 @@ class TimeCounterClass(object):
     # ----
     def __init__(self):
         """
+        Initialize attribute ``self.ElapsedTime`` to zero.
         """
 
         self.ElapsedTime = 0
@@ -44,6 +78,10 @@ class TimeCounterClass(object):
     
     def Add(self,Time):
         """
+        Adds the input ``Time`` to the memer data.
+
+        :param Time: Input time to be added to ``self.ElapsedTime``.
+        :type Time: float
         """
 
         self.ElapsedTime = self.ElapsedTime + Time
@@ -54,6 +92,7 @@ class TimeCounterClass(object):
 
     def Reset(self):
         """
+        Resets the member data ``self.ElapsedTime`` to zero.
         """
 
         self.ElapsedTime = 0

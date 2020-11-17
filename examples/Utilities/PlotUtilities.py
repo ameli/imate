@@ -9,7 +9,7 @@ import matplotlib
 if os.environ.get('DISPLAY','') == '':
     print('No display found. Using non-interactive Agg backend.')
     matplotlib.use('Agg')
-    os.environ.__setitem__('DISPLAY', ':0.0')
+    # os.environ.__setitem__('DISPLAY', ':0.0')
 
 from matplotlib.ticker import PercentFormatter
 from mpl_toolkits.mplot3d import Axes3D
@@ -31,7 +31,8 @@ warnings.filterwarnings(action='ignore',module='matplotlib',category=UserWarning
 
 def LoadPlotSettings():
     """
-    General settings for the plot.
+    Specifies general settings for the plots in the example scripts, 
+    namely, it sets plot themes by ``seaborn``, fonts by LaTeX if available.
     """
 
     # Color palette
@@ -68,6 +69,21 @@ def LoadPlotSettings():
 
 def SavePlot(plt,Filename):
     """
+    Saves plots.
+
+    :param plt: matplotlib.pyplot object for the plots.
+    :type plt: matplotlib.pyplot
+
+    :param Filename: Name of the file without extention or directory name.
+    :type Filename: string
+
+    Format:
+        The file is saved in both ``svg`` and ``pdf`` format.
+    
+    Directory:
+        The plot issaved in the directory ``/docs/images/`` with respect to the package root,
+        if this directory is exists and writable. Otherwise, the plot is saved in the *current*
+        directory of the user.
     """
 
     # Get the root directory of the package (parent directory of this script)
