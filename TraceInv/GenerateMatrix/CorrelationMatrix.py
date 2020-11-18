@@ -308,7 +308,7 @@ def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,R
         If the ``KernelThreshold`` is large, it causes:
 
             * The correlation matrix :math:`\mathbf{K}` will not be positive-definite.
-            * The function :math:`\\mathrm{trace}\\left((\\mathbf{K}+t*\\mathbf{I})^{-1}\\right)` produces unwanted oscillations.
+            * The function :math:`\\mathrm{trace}\\left((\\mathbf{K}+t \\mathbf{I})^{-1}\\right)` produces unwanted oscillations.
 
     :param x: x-coordinates of the set of points. 
     :type x: array

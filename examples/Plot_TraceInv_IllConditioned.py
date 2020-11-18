@@ -174,6 +174,20 @@ def Plot(TI,test):
 
 def main(test=False):
     """
+    Run the script by
+
+    ::
+
+        python examples/Plot_TraceInv_IllConditioned.py
+
+    The script generates the figure below (see also  Figure 3 of [Ameli-2020]_).
+
+    .. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/Example2.svg
+       :align: center
+
+    **References**
+
+    .. [Ameli-2020] Ameli, S., and Shadden. S. C. (2020). Interpolating the Trace of the Inverse of Matrix **A** + t **B**. `arXiv:2009.07385 <https://arxiv.org/abs/2009.07385>`__ [math.NA]
     """
 
     # Shift to make singular matrix non-signular
@@ -195,9 +209,10 @@ def main(test=False):
     InterpolantPoints_2 = [1e-3,1e-1]
 
     # Interpolating objects
+    ComputeOptions = {'ComputeMethod':'cholesky','UseInverseMatrix':True}
     InterpolationMethod = 'RPF'
-    TI_1 = InterpolateTraceOfInverse(K,InterpolantPoints=InterpolantPoints_1,InterpolationMethod=InterpolationMethod)
-    TI_2 = InterpolateTraceOfInverse(K,InterpolantPoints=InterpolantPoints_2,InterpolationMethod=InterpolationMethod)
+    TI_1 = InterpolateTraceOfInverse(K,InterpolantPoints=InterpolantPoints_1,InterpolationMethod=InterpolationMethod,ComputeOptions=ComputeOptions)
+    TI_2 = InterpolateTraceOfInverse(K,InterpolantPoints=InterpolantPoints_2,InterpolationMethod=InterpolationMethod,ComputeOptions=ComputeOptions)
 
     # List of interpolating objects
     TI = [TI_1,TI_2]

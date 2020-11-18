@@ -71,7 +71,10 @@ def main(argv):
         description = 'Computes the trace of the inverse of matrix or linear matrix function',
         long_description = LongDescription,
         long_description_content_type = 'text/x-rst',
-        keywords = 'matrix-trace matrix-inverse interpolation model-selection',
+        keywords = 'matrix-computations matrix-inverse interpolation-techniques 
+                cholesky-decomposition randomized-algorithms lanczos-iteration 
+                parameter-estimation radial-basis-function polynomial-bases 
+                orthogonal-polynomials cross-validation',
         url = 'https://github.com/ameli/TraceInv',
         download_url = 'https://github.com/ameli/TraceInv/archive/master.zip',
         project_urls = {

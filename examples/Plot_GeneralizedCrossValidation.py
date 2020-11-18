@@ -25,7 +25,7 @@ Notes:
 
       Otherwise, all measured elapsed times will be wrong due to the parallel processing.
       The only way that seems to measure elased time of multicore process properly is to 
-      restrict python to use multi-cores.
+      prevent python to use multi-cores.
 
       Note:
       In rational polynomial method, p in the code means the number of interpolant points.
@@ -60,19 +60,66 @@ from Utilities.DataUtilities import GenerateMatrix
 from TraceInv import InterpolateTraceOfInverse
 from TraceInv import ComputeTraceOfInverse
 
-
 # ============================
 # Generalized Cross Validation
 # ============================
 
 def GeneralizedCrossValidation(X,K,z,TI,Shift,TimeCounter,UseLogLambda,Lambda):
     """
-    Computes the CGV function, V(Lambda)
+    Computes the CGV function :math:`V(\\theta)`.
 
-    X size is (n,m)
-    K = X.T * X, which is (m,m) size
+    * ``X`` shape is ``(n,m)``.
+    * :math:`K = X^{\intercal} X`, which is ``(m,m)`` shape.
 
-    Reference: https://www.jstor.org/stable/pdf/1390722.pdf?refreqid=excelsior%3Adf48321fdd477aab0ea5dbf2542df01d
+    **Reference:** 
+    
+        Golub, G., & Von Matt, U. (1997). 
+        Generalized Cross-Validation for Large-Scale Problems. 
+        Journal of Computational and Graphical Statistics, 6(1), 1-34.
+        doi: `10.2307-1390722 <https://www.jstor.org/stable/pdf/1390722.pdf?refreqid=excelsior%3Adf48321fdd477aab0ea5dbf2542df01d>`_
+
+        :param X: Matrix if basis functions of the shape ``(n,m)`` with ``m`` basis functions over ``n`` spatial points.
+        :type X: numpy.ndarray
+
+        :param K: Correlation matrix of the shape ``(n,n)``.
+        :type: numpy.ndarray or scipy.sparse.csc_matrix
+
+        :param z: Column vector of data at ``n`` points.
+        :type: numpy.array
+
+        :param TI: TraceInv interpolating object
+        :type TI: TraceInv.InterpolateTraceOfInverse
+
+        :param Shift: Shift for the signular matrix ``K0`` to ``K = K0 + Shift * I``.
+        :type Shift: float
+
+        :param TimeCounter: A counter object to store the elasped time and to be read outside of this function.
+        :type TimeCounteR: examples.Utilities.TimeCounterClass
+
+        :param UseLog: A flag, if ``True``, it assumes ``Lambda`` is in logarithmic scale.
+                If ``False``, then ``Lambda`` is not assumed to be in logarithmic scale.
+        :type UseLog: bool
+
+        :param Lambda: Parameter of generalized cross validation.
+        :type: float
+
+        The generalized cros-validation (GCV) function is:
+
+        .. math::
+
+            V(\theta) = \frac{\frac{1}{n} \| \mathbf{I} - \mathbf{X} (\mathbf{X}^{\intercal} \mathbf{X} + n \theta \mathbf{I})^{-1} \mathbf{X}^{\intercal} \boldsymbol{z} \|_2^2}{\left( \frac{1}{n} \mathrm{trace}\left( (\mathbf{I} - \mathbf{X}(\mathbf{X}^{\intercal} \mathbf{X} + n \theta \mathbf{I})^{-1})\mathbf{X}^{\intercal} \right) \right)^2}
+
+        In the above equation, the term involving trace is implemented differently depending on wtether :math:`n > m` or :math:`n < m` (see details in [GOLUB-1979]_).
+
+        .. note::
+
+            In this function, we use the variable ``Lambda`` for :math:`\\theta`.
+
+
+        **References:**
+
+        .. [GOLUB-1979] Golub, G., Heath, M., & Wahba, G. (1979). Generalized Cross-Validation as a Method for Choosing a Good Ridge Parameter. Technometrics, 21(2), 215-223. doi: `10.2307/1268518 <https://www.jstor.org/stable/1268518?seq=1>`_ 
+
     """
 
     # If lambda is in the logarithm scale, convert it to normal scale
@@ -133,7 +180,9 @@ def GeneralizedCrossValidation(X,K,z,TI,Shift,TimeCounter,UseLogLambda,Lambda):
 
 def MinimizeGCV(X,K,z,TI,Shift,LambdaBounds,InitialElapsedTime,TimeCounter):
     """
-    In this function we use lambda in logarithmic scale.
+    Finds the parameter ``lambda`` such that GCV is minimized.
+
+    In this function, ``lambda`` in logarithmic scale.
     """
 
     print('\nMinimize GCV ...')
@@ -202,12 +251,12 @@ def PlotGeneralizedCrossValidation(Data,test):
     """
     Plots GCV for a range of Lambda.
 
-    Data is a list of dictionaries, Data[0], Data[1], ...
-    Each dictionary Data[i] has the fields
+    Data is a list of dictionaries, ``Data[0], Data[1], ...``.
+    Each dictionary ``Data[i]`` has the fields:
 
-        'Lambda': x axis, this is the same for all dictionaries in the list.
-        'GCV': y axis data. These are 
-        'Label': the label of the data GCV in the plot.
+        * ``'Lambda'``: x axis, this is the same for all dictionaries in the list.
+        * ``'GCV'``: y axis data.
+        * ``'Label'``: the label of the data GCV in the plot.
     """
     
     # Load plot settings
@@ -259,6 +308,21 @@ def PlotGeneralizedCrossValidation(Data,test):
 
 def main(test=False):
     """
+    Run the script by
+
+    ::
+
+        python examples/Plot_GeneralizedCrossValidation.py
+
+    The script generates the figure below and prints the processing times of the computations. See more details in Figure 3 and results of Table 2 of [Ameli-2020]_.
+
+    .. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/GeneralizedCrossValidation.svg
+       :width: 550
+       :align: center
+
+    **References**
+
+    .. [Ameli-2020] Ameli, S., and Shadden. S. C. (2020). Interpolating the Trace of the Inverse of Matrix **A** + t **B**. `arXiv:2009.07385 <https://arxiv.org/abs/2009.07385>`__ [math.NA]
     """
 
     # When measuring elapsed time, restrict number of processors to a single core only to measure time properly

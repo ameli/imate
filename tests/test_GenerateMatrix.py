@@ -19,7 +19,7 @@ def test_GenerateMatrix():
     # Generate a dense matrix
     K1 = GenerateMatrix(NumPoints=20,UseSparse=False)
 
-    # Run in parallel
+    # Generate sparse matrix and run in parallel
     K2 = GenerateMatrix(NumPoints=20,UseSparse=True,RunInParallel=True)
 
 # ===========

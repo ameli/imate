@@ -1,10 +1,5 @@
 #! /usr/bin/env python
 
-"""
-Before running this code, make sure in TraceEstimation.py, the ComputeTraceOfInverse() is set to
-Cholsky method, with either UseInverse or without it.
-"""
-
 # =======
 # Imports
 # =======
@@ -161,13 +156,30 @@ def Plot(TI,test):
 
 def main(test=False):
     """
+    Run the script by
+
+    ::
+
+        python examples/Plot_TraceInv_FullRank.py
+
+    The script generates the figure below (see Figure 2 of [Ameli-2020]_).
+
+    .. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/Example1.svg
+       :align: center
+
+    **References**
+
+    .. [Ameli-2020] Ameli, S., and Shadden. S. C. (2020). Interpolating the Trace of the Inverse of Matrix **A** + t **B**. `arXiv:2009.07385 <https://arxiv.org/abs/2009.07385>`__ [math.NA]
+
     This function uses three methods
-        1. Maximizing log likelihood with parameters sigma and sigma0
-        2. Maximizing log likelihood with parameters sigma and eta
+
+        1. Maximizing log likelihood with parameters ``sigma`` and ``sigma0``
+        2. Maximizing log likelihood with parameters ``sigma`` and ``eta``
         3. Finding zeros of derivative of log likelihood
 
     This script uses a single data, for which the random noise with a given standard deviation is added to the data once.
     It plots
+
         1. liklelihood in 3D as function of parameters sigma and eta
         2. Trace estimation using interpolation
         3. Derivative of log likelihood.
@@ -178,6 +190,8 @@ def main(test=False):
         NumPoints = 20
     else:
         NumPoints = 50
+
+    # Generate matrix
     A = GenerateMatrix(
         NumPoints,
         DecorrelationScale=0.1,
@@ -193,12 +207,13 @@ def main(test=False):
     InterpolantPoints_5 = [1e-1]
 
     # Interpolating objects
+    ComputeOptions = {'ComputeMethod':'cholesky','UseInverseMatrix':True}
     InterpolationMethod = 'RMBF'
-    TI_1 = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints_1,InterpolationMethod=InterpolationMethod)
-    TI_2 = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints_2,InterpolationMethod=InterpolationMethod)
-    TI_3 = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints_3,InterpolationMethod=InterpolationMethod)
-    TI_4 = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints_4,InterpolationMethod=InterpolationMethod)
-    TI_5 = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints_5,InterpolationMethod=InterpolationMethod)
+    TI_1 = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints_1,InterpolationMethod=InterpolationMethod,ComputeOptions=ComputeOptions)
+    TI_2 = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints_2,InterpolationMethod=InterpolationMethod,ComputeOptions=ComputeOptions)
+    TI_3 = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints_3,InterpolationMethod=InterpolationMethod,ComputeOptions=ComputeOptions)
+    TI_4 = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints_4,InterpolationMethod=InterpolationMethod,ComputeOptions=ComputeOptions)
+    TI_5 = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints_5,InterpolationMethod=InterpolationMethod,ComputeOptions=ComputeOptions)
 
     # List of interpolating objects
     TI = [TI_1,TI_2,TI_3,TI_4,TI_5]
