@@ -97,6 +97,7 @@
 <p class="caption"><span class="caption-text">API</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Change Log</a></li>
 </ul>
 
             
@@ -183,7 +184,7 @@
         <span class="n">RunInParallel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">PlotFlag</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Generates a symmetric and positive-definite.</span>
+<span class="sd">    Generates symmetric and positive-definite matrix for test purposes.</span>
 <span class="sd">    </span>
 <span class="sd">    The generated matrx is a correlation matrix based on Matern correlation of spatial distance of </span>
 <span class="sd">    a list of points in the unit square. The Matern correlation function can be characterized by two </span>
@@ -237,6 +238,46 @@
 
 <span class="sd">    :return: Correlation matrix. If ``x`` and ``y`` are ``n*1`` arrays, the correlation ``K`` is ``n*n`` matrix.</span>
 <span class="sd">    :rtype: ndarray or sparse array</span>
+
+<span class="sd">    **Example:**</span>
+
+<span class="sd">    Generate a matrix of the shape ``(20**2,20**2)`` based on mutual correlation of a grid of 20x20 points on unit square</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       &gt;&gt;&gt; from TraceInv import GenerateMatrix</span>
+<span class="sd">       &gt;&gt;&gt; A = GenerateMatrix(NumPoints=20)</span>
+
+<span class="sd">    Generate a correlation matrix of shape ``(20,20)`` based on 20 random points in unit square. Default for ``GridOfPoints`` is True.</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       &gt;&gt;&gt; A = GenerateMatrix(NumPoints=20,GridOfPoints=False)</span>
+
+<span class="sd">    Generate a matrix of shape ``(20**2,20**2)`` with stronger spatial correlation. Default for ``DecorrelationScale`` is ``0.1``.</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       &gt;&gt;&gt; A = GenerateMatrix(NumPoints=20,DecorrelationScale=0.3)</span>
+
+<span class="sd">    Generate a corelation matrix with more smoothness.. Default for ``nu`` is ``0.5``.</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       &gt;&gt;&gt; A = GenerateMatrix(NumPoints=20,nu=2.5)</span>
+
+<span class="sd">    Sparsify correlation matrix (makes all entries below 0.03 to zero). Default for ``KernelThreshold`` is ``0.03``.</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       &gt;&gt;&gt; A = GenerateMatrix(NumPoints=20,UseSparse=True,KernelThreshold=0.03)</span>
+
+<span class="sd">    For very large correlation matrices, generate the rows and columns are generated in parallel.</span>
+<span class="sd">    To use ``RunInParallel`` option, the package ``ray`` should be installed.</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">       &gt;&gt;&gt; A = GenerateMatrix(NumPoints=100,UseSparse=True,RunInParallel=True)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Generate a set of points in the unit square</span>
