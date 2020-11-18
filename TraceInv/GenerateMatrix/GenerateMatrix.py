@@ -20,7 +20,7 @@ def GenerateMatrix(
         RunInParallel=False,
         PlotFlag=False):
     """
-    Generates a symmetric and positive-definite.
+    Generates symmetric and positive-definite matrix for test purposes.
     
     The generated matrx is a correlation matrix based on Matern correlation of spatial distance of 
     a list of points in the unit square. The Matern correlation function can be characterized by two 

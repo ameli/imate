@@ -1,39 +1,5 @@
 #! /usr/bin/env python
 
-"""
-Notes:
-
-    To find the CPU rum time of minimizing GCV, I used
-    - SHGO global optimization method
-    - Bound of search for lambda is 10^{-16} to 10^{+16}
-    - Trace is computed with either:
-      1. Hutchinson method
-      2. Cholesky factorization and without computing Inverse
-         (that is,in EstimationTrace.py, set UseInverseMatrix = False)
-
-      But, the trace fails to be computed with Lanczos Quadrature method, since for very
-      small lambda, the tri-diagnalization fails.
-
-      To plot GCV and trace estimations, compute trace with Cholesky, and WITH matrix
-      inverse. That is, in EstimateTrace.py, set UseInverseMatrix=True.
-
-      NOTE:
-      If you want to measure the elased time of minimizing GCV, do the followings:
-
-      1. in the Differential Evolution method, set worker=1 (NOT -1).
-      2. In the import os, uncomment all the os.environ(...) variables.
-
-      Otherwise, all measured elapsed times will be wrong due to the parallel processing.
-      The only way that seems to measure elased time of multicore process properly is to 
-      prevent python to use multi-cores.
-
-      Note:
-      In rational polynomial method, p in the code means the number of interpolant points.
-      However, in the paper, p means the degree of the rational polynomial.
-      In the code we have p = 2, and p = 4, (num points) but in the plots in this script, they are
-      labeled as p = 1 and p = 2 (degree of the rational polynomial).
-"""
-
 # =======
 # Imports
 # =======
@@ -314,11 +280,41 @@ def main(test=False):
 
         python examples/Plot_GeneralizedCrossValidation.py
 
-    The script generates the figure below and prints the processing times of the computations. See more details in Figure 3 and results of Table 2 of [Ameli-2020]_.
+    The script generates the figure below and prints the processing times of the computations. 
+    See more details in Figure 3 and results of Table 2 of [Ameli-2020]_.
 
     .. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/GeneralizedCrossValidation.svg
        :width: 550
        :align: center
+
+    .. note::
+        To *plot* GCV and trace estimations, compute trace with ``cholesky``, and *with* matrix
+        inverse. That is, set ``UseInverseMatrix=True``.
+
+    .. note::
+        To properly *measure the elased-time* of minimizing GCV, do the followings:
+
+        1. in the :func:`MinimizeGCV`, use the *Differential Evolution* method, and  set ``worker=1`` (**NOT** ``-1``).
+        2. Definitely call the function :func:`Utilities.ProcessingTimeUtilities.RestrictComputationToSingleProcessor()`
+            to disable any multi-core processing. By this, all computations are forced to execute on a single thread.
+            Otherwise, all measured elapsed times will be wrong due to the parallel processing.
+            The only way that seems to measure elased time of multicore process properly is to 
+            prevent python to use multi-cores.
+        3. Set thebound of search for ``lambda`` to ``10e-16`` to ``10e+16``.
+        4. Trace should be computed by either:
+            * Hutchinson method
+            * Cholesky factorization and without computing Inverse (set ``UseInverseMatrix=False``).
+
+    .. warning::
+        To compute the elapsed-time, do not compute trace with *stochastic Lanczos Quadrature* method, since for very
+        small ``lambda``, the tri-diagnalization fails.
+
+    .. note::
+        In the *rational polynomial functions * method for interpolation (using ``InterpolationMethod='RPF'``), 
+        the variable ``p`` in the code represents the number of interpolant points.
+        However, in the paper [Ameli-2020], the variable ``p`` represents the degree of the rational polynomial,
+        As such, in the code we have ``p = 2``, and ``p = 4``, (num points) but in the plots in this script, 
+        they are labeled as ``p = 1`` and ``p = 2`` (degree of the rational polynomial).
 
     **References**
 
@@ -350,17 +346,20 @@ def main(test=False):
     InterpolantPoints_2 = [1e-3,1e-1]
 
     # Interpolating method
+    ComputeOptions = {'ComputeMethd':'cholesky','UseInverseMatrix':True}      # Use this for plotting GCV and traces
+    # ComputeOptions = {'ComputeMethd':'cholesky','UseInverseMatrix':False}   # use this to measure elapsed time of optimizing GCV
+    # ComputeOptions = {'ComputeMethd':'hutchinson','NumIterations':20}       # Use this to measure elapsed time of optimizing GCV
     InterpolationMethod = 'RPF'
 
     # Interpolation with 4 interpolant points
     time0 = ProcessTime()
-    TI_1 = InterpolateTraceOfInverse(K,InterpolantPoints=InterpolantPoints_1,InterpolationMethod=InterpolationMethod)
+    TI_1 = InterpolateTraceOfInverse(K,InterpolantPoints=InterpolantPoints_1,InterpolationMethod=InterpolationMethod,ComputeOptions=ComputeOptions)
     time1 = ProcessTime()
     InitialElapsedTime1 = time1 - time0
 
     # Interpolation with 2 interpolant points
     time2 = ProcessTime()
-    TI_2 = InterpolateTraceOfInverse(K,InterpolantPoints=InterpolantPoints_2,InterpolationMethod=InterpolationMethod)
+    TI_2 = InterpolateTraceOfInverse(K,InterpolantPoints=InterpolantPoints_2,InterpolationMethod=InterpolationMethod,ComputeOptions=ComputeOptions)
     time3 = ProcessTime()
     InitialElapsedTime2 = time3 - time2
 

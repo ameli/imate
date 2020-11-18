@@ -23,7 +23,7 @@ from .RationalPolynomialFunctionsMethod import RationalPolynomialFunctionsMethod
 
 class InterpolateTraceOfInverse(object):
     """
-    A wrapper class that incorporates all interpolator classes of the package.
+    Interpolates the trace of inverse of linear matrix functions.
     """
 
     # ----

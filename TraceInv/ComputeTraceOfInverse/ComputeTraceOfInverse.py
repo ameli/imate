@@ -12,7 +12,7 @@ from .StochasticLanczosQuadratureMethod import StochasticLanczosQuadratureMethod
 
 def ComputeTraceOfInverse(A,ComputeMethod='cholesky',**Options):
     """
-    Computes the trace of inverse of a matrix without using interpolation.
+    Computes the trace of inverse of a matrix.
 
     The trace of inverse is computed with one of these three methods in this function.
 

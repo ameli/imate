@@ -1,3 +1,4 @@
+************************
 TraceInv's documentation
 ************************
 
@@ -14,6 +15,10 @@ A python package to compute the trace of the inverse of a :ref:`matrix <1. Fixed
 ..     * `API <https://ameli.github.io/TraceInv/_modules/modules.html>`_
 ..     * `Travis-CI <https://travis-ci.com/github/ameli/TraceInv>`_
 ..     * `Codecov <https://codecov.io/gh/ameli/TraceInv>`_
+
+============
+Useful Links
+============
 
 +------------------------------------------------------------------+-------------------------------------------------------------------+
 |    For users                                                     | For developers                                                    |
@@ -35,7 +40,22 @@ A python package to compute the trace of the inverse of a :ref:`matrix <1. Fixed
    :caption: API
 
    Package API <_modules/modules>
+   Change Log <changelog>
 
+.. =======
+.. Modules
+.. =======
+..
+.. .. autosummary::
+..    :toctree: _autosummary
+..    :recursive:
+..    :nosignatures:
+..
+..    TraceInv.ComputeTraceOfInverse
+..    TraceInv.InterpolateTraceOfInverse
+..    TraceInv.GenerateMatrix
+
+==================
 Indices and tables
 ==================
 
