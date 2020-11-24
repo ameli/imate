@@ -218,11 +218,11 @@
 <p>The <a class="reference internal" href="_modules/TraceInv.ComputeLogDeterminant.html#module-TraceInv.ComputeLogDeterminant" title="TraceInv.ComputeLogDeterminant"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ComputeLogDeterminant</span></code></a> module in the above code employs the Cholesky method by default to compute the log-determinant. However, the user may choose other methods given in the table below.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 13%" />
-<col style="width: 58%" />
-<col style="width: 10%" />
-<col style="width: 9%" />
-<col style="width: 9%" />
+<col style="width: 16%" />
+<col style="width: 51%" />
+<col style="width: 12%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">ComputeMethod</span></code></p></th>
@@ -234,13 +234,13 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'cholesky'</span></code></p></td>
-<td><p><a class="reference internal" href="ComputeTraceOfInverse.html#cholesky-decomposition-method"><span class="std std-ref">Cholesky decomposition</span></a></p></td>
+<td><p><a class="reference internal" href="#mathdetails-cholesky"><span class="std std-ref">Cholesky decomposition</span></a></p></td>
 <td><p>small</p></td>
 <td><p>dense, sparse</p></td>
 <td><p>exact</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code></p></td>
-<td><p><a class="reference internal" href="ComputeTraceOfInverse.html#stochastic-lanczos-quadrature-method"><span class="std std-ref">Stochastic Lanczos Quadrature method</span></a></p></td>
+<td><p><a class="reference internal" href="#mathdetails-slq"><span class="std std-ref">Stochastic Lanczos Quadrature method</span></a></p></td>
 <td><p>small or large</p></td>
 <td><p>dense, sparse</p></td>
 <td><p>approximation</p></td>
@@ -252,15 +252,15 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span> <span class="o">=</span> <span class="n">ComputeLogDeterminant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;SLQ&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Each of the methods in the above accepts some options. For instance, the SLQ method accepts <a class="reference internal" href="ComputeTraceOfInverse.html#NumIterations" title="NumIterations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">NumIterations</span></code></a> argument, which sets the number of Monte-Carlo trials. To see the detailed list of all arguments for each method, see <a class="reference internal" href="InterpolateTraceOfInverse.html#parameters"><span class="std std-ref">Parameters</span></a> and the <a class="reference external" href="https://ameli.github.io/TraceInv/_modules/modules.html">API</a> of the package.</p>
+<p>Each of the methods in the above accepts some options. For instance, the SLQ method accepts <a class="reference internal" href="ComputeTraceOfInverse.html#NumIterations" title="NumIterations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">NumIterations</span></code></a> argument, which sets the number of Monte-Carlo trials. To see the detailed list of all arguments for each method, see <a class="reference internal" href="#parameters-logdet"><span class="std std-ref">Parameters</span></a> and the <a class="reference external" href="https://ameli.github.io/TraceInv/_modules/modules.html">API</a> of the package.</p>
 </div>
 <div class="section" id="parameters">
-<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<span id="parameters-logdet"></span><h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference internal" href="_modules/TraceInv.ComputeLogDeterminant.html#module-TraceInv.ComputeLogDeterminant" title="TraceInv.ComputeLogDeterminant"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeLogDeterminant</span></code></a> module accepts the following attributes as input argument.</p>
 <dl class="py attribute">
 <dt id="ComputeMethod">
 <code class="sig-name descname">ComputeMethod</code><em class="property">: string</em><em class="property"> = 'cholesky'</em><a class="headerlink" href="#ComputeMethod" title="Permalink to this definition">¶</a></dt>
-<dd><p>Specifies the method of computation. The methods are one of <code class="docutils literal notranslate"><span class="pre">'cholsky'</span></code> and <code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code> (see <a class="reference internal" href="GenerateMatrix.html#mathematical-details"><span class="std std-ref">Mathematical Details</span></a>).</p>
+<dd><p>Specifies the method of computation. The methods are one of <code class="docutils literal notranslate"><span class="pre">'cholsky'</span></code> and <code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code> (see <span class="xref std std-ref">Mathematical Details &lt;MathDetails_LogDet</span>).</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -268,7 +268,7 @@
 <code class="sig-name descname">NumIterations</code><em class="property">: int</em><em class="property"> = 20</em><a class="headerlink" href="#NumIterations" title="Permalink to this definition">¶</a></dt>
 <dd><p>This parameter is only applied to <code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code> computing methods (see <a class="reference internal" href="ComputeTraceOfInverse.html#ComputeMethod" title="ComputeMethod"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ComputeMethod</span></code></a>).</p>
 <p>The number of iterations refers to the number of Monte-Carlo samplings during the randomized estimators. With the larger number of Monte-Carlo samples, better numerical convergence is obtained.</p>
-<p>For mathematical details of this parameter, see <a class="reference internal" href="ComputeTraceOfInverse.html#stochastic-lanczos-quadrature-method"><span class="std std-ref">Stochastic Lanczos quadrature method</span></a>.</p>
+<p>For mathematical details of this parameter, see <a class="reference internal" href="#mathdetails-slq"><span class="std std-ref">Stochastic Lanczos quadrature method</span></a>.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -276,7 +276,7 @@
 <code class="sig-name descname">LanczosDegree</code><em class="property">: int</em><em class="property"> = 20</em><a class="headerlink" href="#LanczosDegree" title="Permalink to this definition">¶</a></dt>
 <dd><p>This parameter is only applied to <code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code> computing method (see <a class="reference internal" href="ComputeTraceOfInverse.html#ComputeMethod" title="ComputeMethod"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ComputeMethod</span></code></a>).</p>
 <p>The Lanczos degree is the number of Lanczos iterations during the Lanczos tridiagonalization process in stochastic Lanczos quadrature (SLQ) method. Larger Lanczos degree yields better numerical convergence.</p>
-<p>For mathematical detail of this parameter, see <a class="reference internal" href="ComputeTraceOfInverse.html#stochastic-lanczos-quadrature-method"><span class="std std-ref">Stochastic Lanczos quadrature method</span></a>.</p>
+<p>For mathematical detail of this parameter, see <a class="reference internal" href="#mathdetails-slq"><span class="std std-ref">Stochastic Lanczos quadrature method</span></a>.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -287,26 +287,26 @@
 <li><p>When set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the <em>Lanczos tri-diagonalization</em> method is used.</p></li>
 <li><p>When set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, the <em>Golub-Kahn-Lanczos bi-diagonalization</em> method is used.</p></li>
 </ul>
-<p>For mathematical details of this parameter, see <a class="reference internal" href="ComputeTraceOfInverse.html#stochastic-lanczos-quadrature-method"><span class="std std-ref">Stochastic Lanczos quadrature method</span></a>.</p>
+<p>For mathematical details of this parameter, see <a class="reference internal" href="#mathdetails-slq"><span class="std std-ref">Stochastic Lanczos quadrature method</span></a>.</p>
 </dd></dl>
 
 </div>
 <div class="section" id="mathematical-details">
-<h2>Mathematical Details<a class="headerlink" href="#mathematical-details" title="Permalink to this headline">¶</a></h2>
+<span id="mathdetails-logdet"></span><h2>Mathematical Details<a class="headerlink" href="#mathematical-details" title="Permalink to this headline">¶</a></h2>
 <p>The three methods of computing the log-determinant is described below. These methods are categorized into two groups:</p>
 <ol class="arabic simple">
-<li><p><strong>Exact:</strong> The <span class="xref std std-ref">Cholesky decomposition method</span> aims to compute the log-determinant of a matrix exactly. The exact method is expensive and suitable for only small matrices.</p></li>
-<li><p><strong>Aproximation:</strong> The <a class="reference internal" href="ComputeTraceOfInverse.html#stochastic-lanczos-quadrature-method"><span class="std std-ref">stochastic Lanczos quadrature method</span></a> are <em>randomized estimation algorithms</em> that estimate the log-determinant with <em>Monte-Carlo sampling</em>. These methods do not compute the determinant exactly, but over the iterations, their approximation converges to the true solution. These methods are very suitable for large matrices.</p></li>
+<li><p><strong>Exact:</strong> The <a class="reference internal" href="#mathdetails-cholesky"><span class="std std-ref">Cholesky decomposition method</span></a> aims to compute the log-determinant of a matrix exactly. The exact method is expensive and suitable for only small matrices.</p></li>
+<li><p><strong>Aproximation:</strong> The <a class="reference internal" href="#mathdetails-slq"><span class="std std-ref">stochastic Lanczos quadrature method</span></a> are <em>randomized estimation algorithms</em> that estimate the log-determinant with <em>Monte-Carlo sampling</em>. These methods do not compute the determinant exactly, but over the iterations, their approximation converges to the true solution. These methods are very suitable for large matrices.</p></li>
 </ol>
 <div class="section" id="cholesky-decomposition-method">
-<h3>Cholesky Decomposition Method<a class="headerlink" href="#cholesky-decomposition-method" title="Permalink to this headline">¶</a></h3>
+<span id="mathdetails-cholesky"></span><h3>Cholesky Decomposition Method<a class="headerlink" href="#cholesky-decomposition-method" title="Permalink to this headline">¶</a></h3>
 <p>The log-determinant of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> can be computed via</p>
 <div class="math notranslate nohighlight">
 \[\log | \mathbf{A} | = 2 \mathrm{trace}( \log \mathrm{diag}(\mathbf{L})).\]</div>
 <p>In this package, the Cholesky decomposition computed via <a class="reference external" href="https://people.engr.tamu.edu/davis/suitesparse.html">Suite Sparse</a> package <a class="reference internal" href="ComputeTraceOfInverse.html#davis-2006" id="id1"><span>[Davis-2006]</span></a> (see <a class="reference internal" href="install.html#installscikitsparse"><span class="std std-ref">installation</span></a>). If this package is not installed, the Cholesky decomposition is computed using <code class="docutils literal notranslate"><span class="pre">scipy</span></code> package instead.</p>
 </div>
 <div class="section" id="stochastic-lanczos-quadrature-method">
-<h3>Stochastic Lanczos Quadrature Method<a class="headerlink" href="#stochastic-lanczos-quadrature-method" title="Permalink to this headline">¶</a></h3>
+<span id="mathdetails-slq"></span><h3>Stochastic Lanczos Quadrature Method<a class="headerlink" href="#stochastic-lanczos-quadrature-method" title="Permalink to this headline">¶</a></h3>
 <p>The stochastic Lanczos quadrature (SLQ) method combines stochastic estimator and the Gauss quadrature technique. A stochastic estimator approximates the log-determinant by</p>
 <div class="math notranslate nohighlight">
 \[\log | \mathbf{A} | = \mathrm{trace}(\log \mathbf{A}) = \mathbb{E} \left[ \boldsymbol{q}^{\intercal} (\log \mathbf{A}) \boldsymbol{q} \right]
@@ -395,7 +395,7 @@ is implementd in this module is unstable.</p>
 </div>
 <div class="section" id="sparse-matrix">
 <h3>Sparse Matrix<a class="headerlink" href="#sparse-matrix" title="Permalink to this headline">¶</a></h3>
-<p>In the code below, we compare the three computing methods for a large sparse matrix of the shape <span class="math notranslate nohighlight">\((80^2,80^2)\)</span> and sparse density <span class="math notranslate nohighlight">\(d = 0.01\)</span>.</p>
+<p>In the code below, we compare the three computing methods for a large sparse matrix of the shape <span class="math notranslate nohighlight">\((50^2,50^2)\)</span> and sparse density <span class="math notranslate nohighlight">\(d = 0.01\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import modules</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">ComputeLogDeterminant</span>

@@ -25,12 +25,12 @@ In the above, the class :class:`GenerateMatrix <TraceInv.GenerateMatrix>` produc
 
 The :mod:`ComputeLogDeterminant <TraceInv.ComputeLogDeterminant>` module in the above code employs the Cholesky method by default to compute the log-determinant. However, the user may choose other methods given in the table below.
 
-===================  ==================================================================================  ==============  =============  =============
-``ComputeMethod``    Description                                                                         Matrix size     Matrix type    Results       
-===================  ==================================================================================  ==============  =============  =============
-``'cholesky'``       :ref:`Cholesky decomposition <Cholesky Decomposition Method>`                       small           dense, sparse  exact          
-``'SLQ'``            :ref:`Stochastic Lanczos Quadrature method <Stochastic Lanczos Quadrature Method>`  small or large  dense, sparse  approximation
-===================  ==================================================================================  ==============  =============  =============
+===================  =============================================================  ==============  =============  =============
+``ComputeMethod``    Description                                                    Matrix size     Matrix type    Results       
+===================  =============================================================  ==============  =============  =============
+``'cholesky'``       :ref:`Cholesky decomposition <MathDetails_Cholesky>`           small           dense, sparse  exact          
+``'SLQ'``            :ref:`Stochastic Lanczos Quadrature method <MathDetails_SLQ>`  small or large  dense, sparse  approximation
+===================  =============================================================  ==============  =============  =============
 
 The desired method of computation can be passed through the ``ComputeMethod`` argument when calling :mod:`ComputeLogDeterminant <TraceInv.ComputeLogDeterminant>`. For instance, in the following example, we apply the *SLQ randomized estimator* method:
 
@@ -39,7 +39,9 @@ The desired method of computation can be passed through the ``ComputeMethod`` ar
    >>> # Using SLQ method with 20 Monte-Carlo iterations
    >>> logdet = ComputeLogDeterminant(A,ComputeMethod='SLQ',NumIterations=20)
 
-Each of the methods in the above accepts some options. For instance, the SLQ method accepts :attr:`NumIterations` argument, which sets the number of Monte-Carlo trials. To see the detailed list of all arguments for each method, see :ref:`Parameters` and the `API <https://ameli.github.io/TraceInv/_modules/modules.html>`__ of the package.
+Each of the methods in the above accepts some options. For instance, the SLQ method accepts :attr:`NumIterations` argument, which sets the number of Monte-Carlo trials. To see the detailed list of all arguments for each method, see :ref:`Parameters <Parameters_LogDet>` and the `API <https://ameli.github.io/TraceInv/_modules/modules.html>`__ of the package.
+
+.. _Parameters_LogDet:
 
 ==========
 Parameters
@@ -51,7 +53,7 @@ The :mod:`TraceInv.ComputeLogDeterminant` module accepts the following attribute
    :type: string
    :value: 'cholesky'
 
-   Specifies the method of computation. The methods are one of ``'cholsky'`` and ``'SLQ'`` (see :ref:`Mathematical Details`).
+   Specifies the method of computation. The methods are one of ``'cholsky'`` and ``'SLQ'`` (see :ref:`Mathematical Details <MathDetails_LogDet`).
 
 .. attribute:: NumIterations
    :type: int
@@ -61,7 +63,7 @@ The :mod:`TraceInv.ComputeLogDeterminant` module accepts the following attribute
 
    The number of iterations refers to the number of Monte-Carlo samplings during the randomized estimators. With the larger number of Monte-Carlo samples, better numerical convergence is obtained.
 
-   For mathematical details of this parameter, see :ref:`Stochastic Lanczos quadrature method <Stochastic Lanczos Quadrature Method>`.
+   For mathematical details of this parameter, see :ref:`Stochastic Lanczos quadrature method <MathDetails_SLQ>`.
 
 .. attribute:: LanczosDegree
    :type: int
@@ -71,7 +73,7 @@ The :mod:`TraceInv.ComputeLogDeterminant` module accepts the following attribute
 
    The Lanczos degree is the number of Lanczos iterations during the Lanczos tridiagonalization process in stochastic Lanczos quadrature (SLQ) method. Larger Lanczos degree yields better numerical convergence.
 
-   For mathematical detail of this parameter, see :ref:`Stochastic Lanczos quadrature method <Stochastic Lanczos Quadrature Method>`.
+   For mathematical detail of this parameter, see :ref:`Stochastic Lanczos quadrature method <MathDetails_SLQ>`.
 
 .. attribute:: UseLanczosTridiagonalization
    :type: bool
@@ -82,7 +84,10 @@ The :mod:`TraceInv.ComputeLogDeterminant` module accepts the following attribute
    * When set to ``True``, the *Lanczos tri-diagonalization* method is used.
    * When set to ``False``, the *Golub-Kahn-Lanczos bi-diagonalization* method is used.
 
-   For mathematical details of this parameter, see :ref:`Stochastic Lanczos quadrature method <Stochastic Lanczos Quadrature Method>`.
+   For mathematical details of this parameter, see :ref:`Stochastic Lanczos quadrature method <MathDetails_SLQ>`.
+
+
+.. _MathDetails_LogDet:
 
 ====================
 Mathematical Details
@@ -90,8 +95,10 @@ Mathematical Details
 
 The three methods of computing the log-determinant is described below. These methods are categorized into two groups:
 
-1. **Exact:** The :ref:`Cholesky decomposition method <Choleshy Decomposition Method>` aims to compute the log-determinant of a matrix exactly. The exact method is expensive and suitable for only small matrices.
-2. **Aproximation:** The :ref:`stochastic Lanczos quadrature method <Stochastic Lanczos Quadrature Method>` are *randomized estimation algorithms* that estimate the log-determinant with *Monte-Carlo sampling*. These methods do not compute the determinant exactly, but over the iterations, their approximation converges to the true solution. These methods are very suitable for large matrices.
+1. **Exact:** The :ref:`Cholesky decomposition method <MathDetails_Cholesky>` aims to compute the log-determinant of a matrix exactly. The exact method is expensive and suitable for only small matrices.
+2. **Aproximation:** The :ref:`stochastic Lanczos quadrature method <MathDetails_SLQ>` are *randomized estimation algorithms* that estimate the log-determinant with *Monte-Carlo sampling*. These methods do not compute the determinant exactly, but over the iterations, their approximation converges to the true solution. These methods are very suitable for large matrices.
+
+.. _MathDetails_Cholesky:
 
 -----------------------------
 Cholesky Decomposition Method
@@ -104,6 +111,8 @@ The log-determinant of an invertible matrix :math:`\mathbf{A}` can be computed v
     \log | \mathbf{A} | = 2 \mathrm{trace}( \log \mathrm{diag}(\mathbf{L})).
 
 In this package, the Cholesky decomposition computed via `Suite Sparse <https://people.engr.tamu.edu/davis/suitesparse.html>`_ package [Davis-2006]_ (see :ref:`installation <InstallScikitSparse>`). If this package is not installed, the Cholesky decomposition is computed using ``scipy`` package instead.
+
+.. _MathDetails_SLQ:
 
 ------------------------------------
 Stochastic Lanczos Quadrature Method
@@ -187,7 +196,7 @@ The above table can be produced by running the test script |test_script2|_, alth
 Sparse Matrix
 -------------
 
-In the code below, we compare the three computing methods for a large sparse matrix of the shape :math:`(80^2,80^2)` and sparse density :math:`d = 0.01`.
+In the code below, we compare the three computing methods for a large sparse matrix of the shape :math:`(50^2,50^2)` and sparse density :math:`d = 0.01`.
 
 .. code-block:: python
 

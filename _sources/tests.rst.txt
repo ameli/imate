@@ -40,7 +40,7 @@ The latest status of *automated tests* can be checked on `travis <https://travis
 Platform              Python versions
 ====================  =======================
 Linux (Ubuntu 18.04)  2.7, 3.5, 3.6, 3.7, 3.8
-MacOS (xcode 11)      2.7, 3.7
+macOS (xcode 11)      2.7, 3.7
 Windows               3.8
 ====================  =======================
 

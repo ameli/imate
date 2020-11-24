@@ -19,7 +19,7 @@ The python dependency packages are:
 Install TraceInv
 ================
 
-Install TraceInv (in Linux, MacOS, or Windows) by either of the following ways:
+TraceInv can be installed on Linux, macOS, and Windows platforms and supports both python 2 and 3. Install by either of the following ways:
 
 * **Method 1: Through PyPi package.** The recommended way to install TraceInv and its dependencies is through the package available at `PyPi <https://pypi.org/project/TraceInv>`_ by
 
@@ -117,7 +117,7 @@ When ``ray`` is needed:
 Install ``scikit-sparse``
 -------------------------
 
-1. Install `Suite Sarse <https://people.engr.tamu.edu/davis/suitesparse.html>`_ development library ``libsuitesparse-dev`` using ``apt`` package manager in Linux (*Debian, Ubuntu, Mint*) by
+1. Install `Suite Sarse <https://people.engr.tamu.edu/davis/suitesparse.html>`_ development library ``libsuitesparse-dev`` using ``apt`` package manager in Debian-based Linux distros (such as *Debian, Ubuntu, Mint*) by
    
    ::
 
