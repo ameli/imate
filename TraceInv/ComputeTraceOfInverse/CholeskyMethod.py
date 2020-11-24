@@ -11,13 +11,13 @@ from scipy.sparse import linalg
 try:
     import sksparse
     from sksparse.cholmod import cholesky
-    SparseSuiteInstalled = True
+    SuiteSparseInstalled = True
 except:
-    SparseSuiteInstalled = False
-
+    SuiteSparseInstalled = False
 
 # Package
 from ..LinearAlgebra import LinearSolver
+from ..LinearAlgebra import SparseCholesky
 
 # ========================================
 # Compute Trace Inv By Inverse of Cholesky
@@ -111,7 +111,7 @@ def ComputeTraceInvBySolvingLinearSystem(L,n,UseSparse):
             e[i] = 1.0
 
             # x is the solution of L x = e. Thus, x is the i-th column of L inverse.
-            if SparseSuiteInstalled and isinstance(L,sksparse.cholmod.Factor):
+            if SuiteSparseInstalled and isinstance(L,sksparse.cholmod.Factor):
 
                 # Using cholmod.Note: LDL SHOULD be disabled.
                 x = L.solve_L(e.tocsc(),use_LDLt_decomposition=False).toarray()
@@ -142,40 +142,6 @@ def ComputeTraceInvBySolvingLinearSystem(L,n,UseSparse):
     Trace = Norm2
 
     return Trace
-
-# ===============
-# Sparse Cholesky
-# ===============
-
-def SparseCholesky(A):
-    """
-    This function uses LU decomposition assuming that ``A`` is symmetric and positive-definite.
-
-    .. note::
-
-        This function does not check if ``A`` is positive-definite. If the input matrix is 
-        not positive-definite, the Cholesky decomposition does not exist and the return value
-        is misleadingly wrong.
-
-    :param A: Symmetric and positive-definite matrix.
-    :type A: ndarray
-
-    :return: Chlesky decomposition of ``A``.
-    :rtype: Super.LU
-    """
-
-    n = A.shape[0]
-
-    # sparse LU decomposition
-    LU = scipy.sparse.linalg.splu(A,diag_pivot_thresh=0,permc_spec='NATURAL')
-
-    return LU.L.dot(sparse.diags(LU.U.diagonal()**0.5))
-
-    # check the matrix A is positive definite.
-    if (LU.perm_r == numpy.arange(n)).all() and (LU.U.diagonal() > 0).all():
-        return LU.L.dot(sparse.diags(LU.U.diagonal()**0.5))
-    else:
-        raise RuntimeError('The matrix is not positive definite.')
 
 # ===============
 # Cholesky Method

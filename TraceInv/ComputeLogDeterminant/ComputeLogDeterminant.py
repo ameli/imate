@@ -2,15 +2,21 @@
 # Imports
 # =======
 
-# Python packages
 import numpy
 import scipy
 from scipy import linalg
-import sksparse
-from sksparse.cholmod import cholesky
-import multiprocessing
+# import multiprocessing
+
+try:
+    import sksparse
+    from sksparse.cholmod import cholesky
+    SuiteSparseInstalled = True
+except:
+    SuiteSparseInstalled = False
+SuiteSparseInstalled = False
 
 from ..LinearAlgebra import LinearSolver
+from ..LinearAlgebra import SparseCholesky
 from ..LinearAlgebra import LanczosTridiagonalization
 from ..LinearAlgebra import LanczosTridiagonalization2
 from ..LinearAlgebra import GolubKahnLanczosBidiagonalization
@@ -43,9 +49,14 @@ def CholeskyMethod(A):
 
     if scipy.sparse.issparse(A):
 
-        # Use Suite Sparse
-        Factor = sksparse.cholmod.cholesky(A)
-        LogDet = Factor.logdet()
+        if SuiteSparseInstalled:
+            # Use Suite Sparse
+            Factor = sksparse.cholmod.cholesky(A)
+            LogDet = Factor.logdet()
+        else:
+            # Use scipy
+            L_diag = SparseCholesky(A,DiagonalOnly=True)
+            LogDet = 2.0 * numpy.sum(numpy.log(L_diag))
 
     else:
 
