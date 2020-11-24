@@ -33,8 +33,6 @@ def GeneratePoints(NumPoints,GridOfPoints=True):
     :rtype: List of numpy.ndarray
     """
 
-    print('Generate data ...')
-
     # Grid of points
     if GridOfPoints == True:
         x_axis = numpy.linspace(0,1,NumPoints)

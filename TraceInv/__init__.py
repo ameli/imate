@@ -14,6 +14,7 @@
 #     from .InterpolateTraceOfInverse import InterpolateTraceOfInverse
 #     from .GenerateMatrix import GenerateMatrix
 
+from .ComputeLogDeterminant import ComputeLogDeterminant
 from .ComputeTraceOfInverse import ComputeTraceOfInverse
 from .InterpolateTraceOfInverse import InterpolateTraceOfInverse
 from .GenerateMatrix import GenerateMatrix

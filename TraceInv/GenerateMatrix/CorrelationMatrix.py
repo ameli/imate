@@ -39,7 +39,7 @@ def CorrelationKernel(Distance,DecorrelationScale,nu):
         * :math:`\\Gamma` is the Gamma function, 
         * :math:`\| \cdot \|` is the Euclidean distance,
         * :math:`\\nu` is the smoothness parameter. 
-        * :math:`K_{\\nu}` is the modiffied Bessel function of the second kind of order :math:`\\nu`
+        * :math:`K_{\\nu}` is the modified Bessel function of the second kind of order :math:`\\nu`
 
     .. warning::
 
@@ -49,7 +49,7 @@ def CorrelationKernel(Distance,DecorrelationScale,nu):
 
     If :math:`\\nu` is half integer, the Matern function has exponential form.
     
-    At :math:`\\nu = \\frac{1}{2}`:
+    At :math:`\\nu = \\frac{1}{2}`
 
     .. math::
         K(\\boldsymbol{x},\\boldsymbol{x}'|\\rho,\\nu) = 
@@ -341,13 +341,11 @@ def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,R
 
     .. warning::
         If the generated matrix is sparse (``UseSparse=True``), the ``KernelThreshold`` should be large enough so that the correlation matrix is not
-        shrinked to identity. If such case happens, this function raises a *ValueError8 exception.
+        shrinked to identity. If such case happens, this function raises a *ValueError* exception.
         
-        ,In addition, the ``KernelThreshold ``should be small enough to not erradicate its positive-definiteness. This is not checked by this function
+        In addition, the ``KernelThreshold`` should be small enough to not erradicate its positive-definiteness. This is not checked by this function
         and the user should be aware of it.
     """
-
-    print('Generate correlation matrix ...')
 
     # size of Distance matrix
     n = x.size
@@ -369,7 +367,7 @@ def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,R
         RunInParallel = False
 
     # If matrice are sparse, it is better to generate columns of correlation in parallel
-    if (RunInParallel == False) and (UseSparse == True):
+    if (RunInParallel == False) and (UseSparse == True) and (n > 5000):
         warnings.warn('If matrices are sparse, it is better to generate columns of correlation matrix in parallel. Set "RunInParallel" to True.')
 
     if RunInParallel:

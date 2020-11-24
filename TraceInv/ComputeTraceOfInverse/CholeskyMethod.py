@@ -17,7 +17,7 @@ except:
 
 
 # Package
-from .LinearSolver import LinearSolver
+from ..LinearAlgebra import LinearSolver
 
 # ========================================
 # Compute Trace Inv By Inverse of Cholesky
@@ -65,10 +65,27 @@ def ComputeTraceInvBySolvingLinearSystem(L,n,UseSparse):
     Computes the trace of inverse by solving a linear system for Cholesky matrix and each column of the identity matrix
     to obtain the inverse of ``L`` subsequentially.
 
+    The matrix :math:`\mathbf{L}` is not inverted directly, rather, the linear system
+
+    .. math::
+
+        \mathbf{L} \\boldsymbol{x}_i = \\boldsymbol{e}_i, \qquad i = 1,\dots,n
+
+    is solved, where :math:`\\boldsymbol{e}_i = (0,\dots,0,1,0,\dots,0)^{\intercal}` is a column vector of zeros except its
+    :math:`i` th entry is one, and :math:`n` is the size of the square matrix :math:`\mathbf{A}`. 
+    The solution :math:`\\boldsymbol{x}_i` is the :math:`i` th column of :math:`\mathbf{L}^{-1}`. Then, its Frobenius norm is
+
+    .. math::
+
+        \| \mathbf{L} \|_F^2 = \sum_{i=1}^n \| \\boldsymbol{x}_i \|^2.
+
+    The method is memory efficient as the vectors :math:`\\boldsymbol{x}_i` do not need to be stored, 
+    rather, their norm can be stored in each iteration.
+
     .. note::
 
-        * For small matrices: This method is slow.
-        * For large matrices: This method should be used for large matrices.
+        This method is slow, and it should be used only if the direct matrix inversion can not
+        be computed (such as for large matrices).
 
     :param L: Cholesky matrix
     :type L: ndarray
@@ -132,7 +149,7 @@ def ComputeTraceInvBySolvingLinearSystem(L,n,UseSparse):
 
 def SparseCholesky(A):
     """
-    This function uses LU decomposition assuming that A is symmetric and positive-definite.
+    This function uses LU decomposition assuming that ``A`` is symmetric and positive-definite.
 
     .. note::
 
@@ -166,7 +183,7 @@ def SparseCholesky(A):
 
 def CholeskyMethod(A,UseInverseMatrix=True):
     """
-    Computes trace of inverse of matrix using Cholesky factorization.
+    Computes trace of inverse of matrix using Cholesky factorization by
 
     .. math::
 

@@ -7,7 +7,3 @@ Methods:
     + ``'CholeskyMethod'``: defined in ``CholeskyMethods.CholeskyMethods()``.
     + ``'HutchinsomMethod'``: defined in ``HutchinsonMethod.HutchinsonMethod()``.
     + ``'StochasticLanczosQuadratureMethod'``: defined in ``StochasticLanczosQuadratureMethod.StochasticLanczosQuandratureMethod()``.
-
-Helper modules:
-    + ``LinearAlgenra``: is a helper for the module ``StochasticLanzcosQuadratureMethod``.
-    + ``LinearSolver``: is a helper for ``CholeskyMethod`` and ``HutchinsonMethod``.

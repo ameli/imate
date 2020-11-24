@@ -12,17 +12,8 @@ from .StochasticLanczosQuadratureMethod import StochasticLanczosQuadratureMethod
 
 def ComputeTraceOfInverse(A,ComputeMethod='cholesky',**Options):
     """
-    Computes the trace of inverse of a matrix.
-
-    The trace of inverse is computed with one of these three methods in this function.
-
-    =============================  =============
-    ComputeMethod                      Type
-    =============================  =============
-    Cholesky                       exact
-    Hutchinson                     approximation
-    Stochastic Lanczos Quadrature  approximation
-    =============================  =============
+    Computes the trace of inverse of a matrix. 
+    See :ref:`Compute Trace of Inverse User Guide<ComputeTraceOfInverse_UserGuide>` for details.
 
     :param A: Invertible matrix
     :type A: ndarray
@@ -31,12 +22,62 @@ def ComputeTraceOfInverse(A,ComputeMethod='cholesky',**Options):
     :type ComputeMethod: string
 
     :param Options: Options for either of the methods. 
-    :type Options: ``'**kwargs'``
+    :type Options: ``**kwargs``
 
     :return: trace of inverse of matrix
     :rtype: float
 
     :raises RunTimeError: Method is not recognized.
+
+    **Methods:**
+
+    The trace of inverse is computed with one of these three methods in this function.
+
+    ===================  =============================  =============
+    ``'ComputeMethod'``  Description                    Type
+    ===================  =============================  =============
+    ``'cholesky'``       Cholesky method                exact
+    ``'hutchinson'``     Hutchinson method              approximation
+    ``'SLQ'``            Stochastic Lanczos Quadrature  approximation
+    ===================  =============================  =============
+
+    Depending the method, this function calls these modules:
+
+    * :mod:`TraceInv.ComputeTraceOfInverse.CholeskyMethod`
+    * :mod:`TraceInv.ComputeTraceOfInverse.HutchinsonMethod`
+    * :mod:`TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod`
+
+    **Examples:**
+
+    .. code-block:: python
+
+       >>> from TraceInv import GenerateMatrix
+       >>> from TraceInv import ComputeTraceOfInverse
+       
+       >>> # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)
+       >>> A = GenerateMatrix(NumPoints=20)
+       
+       >>> # Compute trace of inverse
+       >>> trace = ComputeTraceOfInverse(A)
+
+    The above exaple uses the Cholesky method by default.
+    In the next example, we apply the *Hutchinson's randomized estimator* method.
+
+    .. code-block:: python
+
+       >>> trace = ComputeTraceOfInverse(A,ComputeMethod='hutchinson',NumIterations=20)
+
+    Using the stochastic Lanczos quadrature method with Lanczos tri-diagonalization
+
+    .. code-block:: python
+
+       >>> trace = ComputeTraceOfInverse(A,ComputeMethod='SLQ',NumIterations=20,LanczosDegree=30)
+
+    Using the stochastic Lanczos quadrature method with Golub-Kahn bi-diagonalization
+
+    .. code-block:: python
+
+       >>> trace = ComputeTraceOfInverse(A,ComputeMethod='SLQ',NumIterations=20,LanczosDegree=30,UseLanczosTridiagonalization=False)
     """
 
     if ComputeMethod == 'cholesky':

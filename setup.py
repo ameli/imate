@@ -105,7 +105,7 @@ def main(argv):
                 'scikit-sparse',
                 'ray'
                 ],
-            'dev': [
+            'test': [
                 'pytest-cov',
                 'codecov'
             ],

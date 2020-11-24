@@ -65,7 +65,7 @@ def LoadPlotSettings():
 # Save Plot
 # =========
 
-def SavePlot(plt,Filename):
+def SavePlot(plt,Filename,TransparentBackground=True):
     """
     Saves plots.
 
@@ -102,8 +102,8 @@ def SavePlot(plt,Filename):
     if os.access(SaveDir,os.W_OK):
         SaveFullname_SVG = os.path.join(SaveDir,Filename_SVG)
         SaveFullname_PDF = os.path.join(SaveDir,Filename_PDF)
-        plt.savefig(SaveFullname_SVG,transparent=True,bbox_inches='tight')
-        plt.savefig(SaveFullname_PDF,transparent=True,bbox_inches='tight')
+        plt.savefig(SaveFullname_SVG,transparent=TransparentBackground,bbox_inches='tight')
+        plt.savefig(SaveFullname_PDF,transparent=TransparentBackground,bbox_inches='tight')
         print('')
         print('Plot saved to "%s".'%(SaveFullname_SVG))
         print('Plot saved to "%s".'%(SaveFullname_PDF))

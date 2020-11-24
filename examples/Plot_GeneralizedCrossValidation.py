@@ -346,9 +346,9 @@ def main(test=False):
     InterpolantPoints_2 = [1e-3,1e-1]
 
     # Interpolating method
-    ComputeOptions = {'ComputeMethd':'cholesky','UseInverseMatrix':True}      # Use this for plotting GCV and traces
-    # ComputeOptions = {'ComputeMethd':'cholesky','UseInverseMatrix':False}   # use this to measure elapsed time of optimizing GCV
-    # ComputeOptions = {'ComputeMethd':'hutchinson','NumIterations':20}       # Use this to measure elapsed time of optimizing GCV
+    ComputeOptions = {'ComputeMethod':'cholesky','UseInverseMatrix':True}      # Use this for plotting GCV and traces
+    # ComputeOptions = {'ComputeMethod':'cholesky','UseInverseMatrix':False}   # use this to measure elapsed time of optimizing GCV
+    # ComputeOptions = {'ComputeMethod':'hutchinson','NumIterations':20}       # Use this to measure elapsed time of optimizing GCV
     InterpolationMethod = 'RPF'
 
     # Interpolation with 4 interpolant points

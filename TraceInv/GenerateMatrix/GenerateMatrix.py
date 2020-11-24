@@ -4,21 +4,22 @@
 
 from .GeneratePoints import GeneratePoints
 from .CorrelationMatrix import CorrelationMatrix
-import matplotlib.pyplot as plt
+
+__all__ = ['GenerateMatrix']
 
 # ===============
 # Generate Matrix
 # ===============
 
 def GenerateMatrix(
-        NumPoints,
+        NumPoints=20,
         DecorrelationScale=0.1,
         nu=0.5,
         UseSparse=False,
         GridOfPoints=True,
         KernelThreshold=0.03,
         RunInParallel=False,
-        PlotFlag=False):
+        Plot=False):
     """
     Generates symmetric and positive-definite matrix for test purposes.
     
@@ -69,8 +70,8 @@ def GenerateMatrix(
     :param RunInParallel: Runs the code in parallel. Note that the ``ray`` module should be uncommented.
     :type RunInParallel: bool
 
-    :param PlotFlag: If ``True``, the matrix will be ploted.
-    :type PlotFlag: bool
+    :param Plot: If ``True``, the matrix will be ploted.
+    :type Plot: bool
 
     :return: Correlation matrix. If ``x`` and ``y`` are ``n*1`` arrays, the correlation ``K`` is ``n*n`` matrix.
     :rtype: ndarray or sparse array
@@ -114,6 +115,12 @@ def GenerateMatrix(
     .. code-block:: python
 
        >>> A = GenerateMatrix(NumPoints=100,UseSparse=True,RunInParallel=True)
+
+    Plot the matrix by
+
+    .. code-block:: python
+
+        >>> A = GenerateMatrix(NumPoints=30,Plot=True)
     """
 
     # Generate a set of points in the unit square
@@ -123,11 +130,70 @@ def GenerateMatrix(
     K = CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold,RunInParallel)
 
     # Plot Correlation Matrix
-    if PlotFlag:
-        fig,ax = plt.subplots()
-        p = ax.matshow(K)
-        fig.colorbar(p,ax=ax)
-        plt.title('Correlation Matrix')
-        plt.show()
+    if Plot:
+        PlotMatrix(K,UseSparse)
 
     return K
+
+# ===========
+# Plot Matrix
+# ===========
+
+def PlotMatrix(K,UseSparse):
+    """
+    Plots the matrix ``K``. 
+
+    If ``K`` is a sparse matrix, it plots all non-zero elements with single:w color
+    regardless of their values, and leaves the zero elements white.
+
+    Whereas, if ``K`` is not a sparse matrix, the colormap of the plot
+    correspond to the value of the elements of the matrix.
+
+    If a graphical backend is not provided, the plot is not displayed,
+    rather saved as SVG file in the current directory of user.
+
+    :param K: matrix to plot
+    :type K : numpy.ndarray or scipy.sparse.csc_matrix
+
+    :param UseSparse: Determine whether the matrix is dense or sparse
+    :type UseSparse: bool
+    """
+
+    # Imports
+    import os
+    import matplotlib
+    import matplotlib.pyplot as plt
+
+    # Check if the graphic backend exists
+    if os.environ.get('DISPLAY','') == '':
+        print('No display found. Using non-interactive Agg backend.')
+        plt.switch_backend('agg')
+
+    # Font settings
+    plt.rcParams['svg.fonttype'] = 'none'  # text in svg file will be text not path.
+
+    # Figure
+    fig,ax = plt.subplots(figsize=(6,4))
+
+    if UseSparse:
+        # Plot sparse matrix
+        p = ax.spy(K,markersize=1,color='blue',rasterized=True)
+    else:
+        # Plot dense matrix
+        p = ax.matshow(K,cmap='Blue')
+        fig.colorbar(p,ax=ax)
+
+    ax.set_title('Correlation Matrix')
+    ax.set_xlabel('Index i')
+    ax.set_ylabel('Index j')
+    
+    # Check if the graphical backend exists
+    if (not test) and (matplotlib.get_backend() != 'agg'):
+        plt.show()
+    else:
+        # write the plot as SVG file in the current working directory
+        SaveDir = os.getcwd()
+        Filename_SVG = 'CorrelationMatrix' + '.svg'
+        SaveFullname_SVG = os.path.join(SaveDir,Filename_SVG)
+        plt.savefig(SaveFullname_SVG,transparent=True,bbox_inches='tight')
+        print('Plot saved to "%s".'%(SaveFullname_SVG))

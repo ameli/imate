@@ -34,11 +34,15 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx_toggleprompt',
     'sphinx.ext.autosectionlabel',
-    'sphinx.ext.autosummary'
+    'sphinx.ext.autosummary',
+    'sphinx_automodapi.automodapi'
 ]
 
 # autosummary
 autosummary_generate = True
+
+# automodapi
+numpydoc_show_class_members = False
 
 mathjax_config = {
     'tex2jax': {
@@ -112,4 +116,5 @@ html_static_path = ['_static']
 # ]
 
 def setup (app):
-    app.add_stylesheet('css/custom.css')   # relative to /docs/_static/
+    app.add_stylesheet('css/custom.css')                  # relative to /docs/_static/
+    # app.add_stylesheet('css/custom-anaconda-doc.css')   # relative to /docs/_static/

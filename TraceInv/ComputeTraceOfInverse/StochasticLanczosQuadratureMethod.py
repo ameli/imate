@@ -5,9 +5,9 @@
 import numpy
 from numpy import linalg
 
-from .LinearAlgebra import LanczosTridiagonalization
-from .LinearAlgebra import LanczosTridiagonalization2
-from .LinearAlgebra import GolubKahnLanczosBidiagonalization
+from ..LinearAlgebra import LanczosTridiagonalization
+from ..LinearAlgebra import LanczosTridiagonalization2
+from ..LinearAlgebra import GolubKahnLanczosBidiagonalization
 
 # ====================================
 # Stochastic Lanczos Quadrature Method
@@ -20,8 +20,9 @@ def StochasticLanczosQuadratureMethod(A,
     """
     Computes the trace of inverse of matrix based on stochastic Lanczos quadrature method.
    
-    Reference
-        * `Ubaru, S., Chen, J., and Saad, Y. (2017) <https://www-users.cs.umn.edu/~saad/PDF/ys-2016-04.pdf>`_, Fast Estimation of :math:`\\mathrm{tr}(F(A))` Via Stochastic Lanczos Quadrature, SIAM J. Matrix Anal. Appl., 38(4), 1075-1099.
+    Reference:
+        * `Ubaru, S., Chen, J., and Saad, Y. (2017) <https://www-users.cs.umn.edu/~saad/PDF/ys-2016-04.pdf>`_, 
+          Fast Estimation of :math:`\\mathrm{tr}(F(A))` Via Stochastic Lanczos Quadrature, SIAM J. Matrix Anal. Appl., 38(4), 1075-1099.
 
     .. note::
 

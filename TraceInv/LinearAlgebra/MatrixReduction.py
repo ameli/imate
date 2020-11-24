@@ -96,8 +96,8 @@ def LanczosTridiagonalization2(A,v,m,Tolerance=1e-8):
         * ``A`` should be symmetric and positive-definite matrix size ``n*n``.
         * ``T`` will be symmetric and positve-definite matrix of size ``(m+1,m+1)``.
 
-    Reference
-        *Templates for solution of Algebraic Eigenvalue Problems*, James Demmel, p.57
+    Reference:
+        * Templates for solution of Algebraic Eigenvalue Problems*, James Demmel, p.57
 
     :param A: Input matrix of the size ``n*n``. Matrix should be positive-definite and symmetric.
     :type A: ndarray
@@ -158,34 +158,23 @@ def LanczosTridiagonalization2(A,v,m,Tolerance=1e-8):
     return T
 
 # ====================================
-# Golub Kahn Lanczos Bidiagonalization
+# Golub-Kahn-Lanczos Bidiagonalization
 # ====================================
 
 def GolubKahnLanczosBidiagonalization(A,w,m,Tolerance=1e-8):
     """
-    Inputs:
-        A: symmetric matrix, n*n
-        w: a random vector, n*1
-        m: Lanczos degree of bidoagonalization, scalar.
+    B-diagonalizes the positive-definite matrix ``A`` using Golub-Kahn-Lanczos method.
 
-    Output:
-        B: symmetric matrix, upper bidiagonal, (m+1)*(m+1)
+    This method bidiagonalizes matrix ``A`` to ``B`` using the start vector ``w``. ``m`` is the Lanczos
+    degree, which will be the size of square matrix ``B``.
 
     .. note::
 
-        * ``A`` should be symmetric and positive-definite matrix size ``n*n``.
-        * ``B`` will be symmetric and positve-definite matrix of size ``(m+1,m+1)``.
+        * ``A`` should be positive-definite matrix size ``n*n``.
+        * ``B`` will be positve-definite matrix of size ``(m+1,m+1)``.
 
+    .. warning::
 
-    Bidiagonalizes matrix ``A`` to ``B`` using the start vector ``w``. ``m`` is the Lanczos
-    degree, which will be the size of square matrix ``B``.
-
-    Reference
-        * NetLib `Algorithm 6.27 <http://www.netlib.org/utk/people/JackDongarra/etemplates/node198.html>`_
-        * Matrix Computations, Golub, p. 495
-        * Templates for Solution of Algebraic Eigenvalue Problem, Demmel, p. 143
-
-    Issues:
         When matrix ``A`` is very close to the identity matrix, the Golub-Kahn bidoagonalization method can not 
         find :math:`\\beta`, as :math:`\\beta` becomes zero. If ``A`` is not exactly identity, you may descrease the Tolerance
         to a very small number. However, if ``A`` is almost identity matrix, descreasing tolerance will not 
@@ -206,6 +195,11 @@ def GolubKahnLanczosBidiagonalization(A,w,m,Tolerance=1e-8):
 
     :return: Symmetric positive-definite matric ``B`` of the size ``(m+1)*(m+1)``.
     :rtype: ndarray
+
+    Reference:
+        * NetLib `Algorithm 6.27 <http://www.netlib.org/utk/people/JackDongarra/etemplates/node198.html>`_
+        * Matrix Computations, Golub, p. 495
+        * Templates for Solution of Algebraic Eigenvalue Problem, Demmel, p. 143
     """
 
     # Normalize random vector

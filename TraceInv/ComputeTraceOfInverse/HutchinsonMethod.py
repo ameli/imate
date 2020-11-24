@@ -7,7 +7,7 @@ import scipy
 from scipy import linalg
 
 # Package
-from .LinearSolver import LinearSolver
+from ..LinearAlgebra import LinearSolver
 
 # =================
 # Hutchinson Method
@@ -18,8 +18,14 @@ def HutchinsonMethod(A,NumIterations=20):
     Computes the trace of inverse of a matrix by Hutchinson method.
 
     The random vectors have Radamacher distribution. Compared to the Gaissuan
-    distribution, the former distribution yields estimation of trace with lower
+    distribution, the Rademacher distribution yields estimation of trace with lower
     variance.
+
+    .. note::
+
+        In the is function, the generated set of random vectors are orthonormalized using 
+        QR decomposition. hence, they no longer have Rademacher distribution. By orthonormalization,
+        the solution seem to have better convergence.
 
     :param A: invertible matrix
     :type A: ndarray

@@ -162,7 +162,7 @@ def Plot(TI,test):
     Filename = 'Example2'
     if test:
         Filename = "test_" + Filename
-    SavePlot(plt,Filename)
+    SavePlot(plt,Filename,TransparentBackground=False)
 
     # If no display backend is enabled, do not plot in the interactive mode
     if (not test) and (matplotlib.get_backend() != 'agg'):
