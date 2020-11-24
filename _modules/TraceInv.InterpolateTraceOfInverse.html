@@ -41,7 +41,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Changelog" href="../changelog.html" />
+    <link rel="next" title="TraceInv.LinearAlgebra package" href="TraceInv.LinearAlgebra.html" />
     <link rel="prev" title="TraceInv.GenerateMatrix package" href="TraceInv.GenerateMatrix.html" /> 
 </head>
 
@@ -89,21 +89,29 @@
             
               <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../documentation.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../documentation.html#install">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../documentation.html#usage">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../documentation.html#examples">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../documentation.html#citation">Citation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../documentation.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 </ul>
-<p class="caption"><span class="caption-text">API</span></p>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Package API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="TraceInv.html">TraceInv package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="TraceInv.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="TraceInv.ComputeLogDeterminant.html">TraceInv.ComputeLogDeterminant package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="TraceInv.ComputeTraceOfInverse.html">TraceInv.ComputeTraceOfInverse package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="TraceInv.GenerateMatrix.html">TraceInv.GenerateMatrix package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">TraceInv.InterpolateTraceOfInverse package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="TraceInv.LinearAlgebra.html">TraceInv.LinearAlgebra package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="TraceInv.html#module-TraceInv">Module contents</a></li>
@@ -111,6 +119,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Running Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Change Log</a></li>
 </ul>
 
@@ -208,7 +217,7 @@ This class does not accept interpolant points as the result is not interpolated.
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be rither dense or sparse matrix.</p></li>
 <li><p><strong>B</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
-<li><p><strong>ComputeOptions</strong> (<em>dict</em>) – A dictionary of input arguments for <a class="reference internal" href="TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse</span></code></a> module.</p></li>
+<li><p><strong>ComputeOptions</strong> (<em>dict</em>) – A dictionary of input arguments for <a class="reference internal" href="../api/TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse.html#TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse</span></code></a> module.</p></li>
 <li><p><strong>NonZeroRatio</strong> (<em>int</em>) – The ratio of the number of eigenvalues to be assumed non-zero.
 Used for sparse matrices.
 Default is <code class="docutils literal notranslate"><span class="pre">0.9</span></code> indicating to compute 90 percent of the eigenevalues with the largest magnitude
@@ -230,7 +239,7 @@ The tolerance at which the eigenvalues are computed can be set by <code class="d
 <dt class="field-odd">Example</dt>
 <dd class="field-odd"><p></p></dd>
 </dl>
-<p>This class can be invoked from the <a class="reference internal" href="#module-TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse</span></code></a> module 
+<p>This class can be invoked from the <a class="reference internal" href="../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse</span></code></a> module 
 using <code class="docutils literal notranslate"><span class="pre">InterpolationMethod='EIG'</span></code> argument.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
 <span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">InterpolateTraceOfInverse</span>
@@ -302,7 +311,7 @@ This class does not accept interpolant points as the result is not interpolated.
 <dt class="field-odd">Example</dt>
 <dd class="field-odd"><p></p></dd>
 </dl>
-<p>This class can be invoked from the <a class="reference internal" href="#module-TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse</span></code></a> module 
+<p>This class can be invoked from the <a class="reference internal" href="../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse</span></code></a> module 
 using <code class="docutils literal notranslate"><span class="pre">InterpolationMethod='EXT'</span></code> argument.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
 <span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">InterpolateTraceOfInverse</span>
@@ -394,7 +403,7 @@ At each interpolant point, the trace is computed exactly using <a class="referen
 <dt id="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.LowerBound">
 <code class="sig-name descname">LowerBound</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/InterpolantBaseClass.html#InterpolantBaseClass.LowerBound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.LowerBound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the lower bound of the trce of the inverse of the one-parameter function <code class="docutils literal notranslate"><span class="pre">A+tB</span></code>.</p>
-<p>The lower bound is given by Remark 2.2 of <a class="reference internal" href="../documentation.html#ameli-2020" id="id1"><span>[Ameli-2020]</span></a> as</p>
+<p>The lower bound is given by Remark 2.2 of <a class="reference internal" href="../references.html#ameli-2020" id="id1"><span>[Ameli-2020]</span></a> as</p>
 <div class="math notranslate nohighlight">
 \[\mathrm{trace}((\mathbf{A}+t\mathbf{B})^{-1}) \geq \frac{n^2}{\mathrm{trace}(\mathbf{A}) + \mathrm{trace}(t \mathbf{B})}\]</div>
 </dd></dl>
@@ -411,7 +420,7 @@ used internally.</p>
 <dt id="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.UpperBound">
 <code class="sig-name descname">UpperBound</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/InterpolantBaseClass.html#InterpolantBaseClass.UpperBound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.UpperBound" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the upper bound of the trace of the inverse of the one-parameter function <code class="docutils literal notranslate"><span class="pre">A+tB</span></code>.</p>
-<p>The upper bound is given by Theorem 1 of <a class="reference internal" href="../documentation.html#ameli-2020" id="id2"><span>[Ameli-2020]</span></a> as</p>
+<p>The upper bound is given by Theorem 1 of <a class="reference internal" href="../references.html#ameli-2020" id="id2"><span>[Ameli-2020]</span></a> as</p>
 <div class="math notranslate nohighlight">
 \[\frac{1}{\tau(t)} \geq \frac{1}{\tau_0} + t\]</div>
 <p>where</p>
@@ -593,7 +602,7 @@ an interpolation scheme based on root monomial basis functions (see details belo
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be rither dense or sparse matrix.</p></li>
 <li><p><strong>B</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
-<li><p><strong>ComputeOptions</strong> (<em>dict</em>) – A dictionary of input arguments for <a class="reference internal" href="TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse</span></code></a> module.</p></li>
+<li><p><strong>ComputeOptions</strong> (<em>dict</em>) – A dictionary of input arguments for <a class="reference internal" href="../api/TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse.html#TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse</span></code></a> module.</p></li>
 <li><p><strong>NonZeroRatio</strong> (<em>int</em>) – The ratio of the number of eigenvalues to be assumed non-zero.
 Used for sparse matrices.
 Default is <code class="docutils literal notranslate"><span class="pre">0.9</span></code> indicating to compute 90 percent of the eigenevalues with the largest magnitude
@@ -616,7 +625,7 @@ Default value is <code class="docutils literal notranslate"><span class="pre">1e
 <p>and <span class="math notranslate nohighlight">\(w_i\)</span> are the coefficients of the linear basis functions with <span class="math notranslate nohighlight">\(w_{0} = 1\)</span> and the rest of the weights 
 are to be found form the known function values <span class="math notranslate nohighlight">\(\tau_i = \tau(t_i)\)</span> at some given interpolant points <span class="math notranslate nohighlight">\(t_i\)</span>.</p>
 <p><strong>Example</strong></p>
-<p>This class can be invoked from the <a class="reference internal" href="#module-TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse</span></code></a> module 
+<p>This class can be invoked from the <a class="reference internal" href="../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse</span></code></a> module 
 using <code class="docutils literal notranslate"><span class="pre">InterpolationMethod='EIG'</span></code> argument.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
 <span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">InterpolateTraceOfInverse</span>
@@ -695,7 +704,7 @@ To genrate these coefficients, see GenerateOrthogonalFunctions.py</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="TraceInv.LinearAlgebra.html" class="btn btn-neutral float-right" title="TraceInv.LinearAlgebra package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="TraceInv.GenerateMatrix.html" class="btn btn-neutral float-left" title="TraceInv.GenerateMatrix package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

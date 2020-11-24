@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ComputeTraceOfInverse &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CholeskyMethod" href="TraceInv.ComputeTraceOfInverse.CholeskyMethod.CholeskyMethod.html" />
+    <link rel="prev" title="Compute Trace of Inverse (TraceInv.ComputeTraceOfInverse)" href="../ComputeTraceOfInverse.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../ComputeTraceOfInverse.html">Compute Trace of Inverse</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../ComputeTraceOfInverse.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ComputeTraceOfInverse.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ComputeTraceOfInverse.html#mathematical-details">Mathematical Details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ComputeTraceOfInverse.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ComputeTraceOfInverse.html#references">References</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../ComputeTraceOfInverse.html#api">API</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../ComputeTraceOfInverse.html#main-interface">Main Interface</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse">TraceInv.ComputeTraceOfInverse Package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ComputeTraceOfInverse.html#modules">Modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_modules/modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../ComputeTraceOfInverse.html">Compute Trace of Inverse (<code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse</span></code>)</a> &raquo;</li>
+        
+      <li>ComputeTraceOfInverse</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="computetraceofinverse">
+<h1>ComputeTraceOfInverse<a class="headerlink" href="#computetraceofinverse" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse">
+<code class="sig-prename descclassname">TraceInv.ComputeTraceOfInverse.</code><code class="sig-name descname">ComputeTraceOfInverse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">ComputeMethod</span><span class="o">=</span><span class="default_value">'cholesky'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">Options</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/ComputeTraceOfInverse/ComputeTraceOfInverse.html#ComputeTraceOfInverse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the trace of inverse of a matrix. 
+See <a class="reference internal" href="../ComputeTraceOfInverse.html#computetraceofinverse-userguide"><span class="std std-ref">Compute Trace of Inverse User Guide</span></a> for details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>ndarray</em>) – Invertible matrix</p></li>
+<li><p><strong>ComputeMethod</strong> (<em>string</em>) – One of <code class="docutils literal notranslate"><span class="pre">'cholesky'</span></code>, <code class="docutils literal notranslate"><span class="pre">'hutchinson'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code>. Default if <code class="docutils literal notranslate"><span class="pre">'cholesky'</span></code>.</p></li>
+<li><p><strong>Options</strong> (<code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>) – Options for either of the methods.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>trace of inverse of matrix</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>RunTimeError</strong> – Method is not recognized.</p>
+</dd>
+</dl>
+<p><strong>Methods:</strong></p>
+<p>The trace of inverse is computed with one of these three methods in this function.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 48%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">'ComputeMethod'</span></code></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'cholesky'</span></code></p></td>
+<td><p>Cholesky method</p></td>
+<td><p>exact</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'hutchinson'</span></code></p></td>
+<td><p>Hutchinson method</p></td>
+<td><p>approximation</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code></p></td>
+<td><p>Stochastic Lanczos Quadrature</p></td>
+<td><p>approximation</p></td>
+</tr>
+</tbody>
+</table>
+<p>Depending the method, this function calls these modules:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse.CholeskyMethod" title="TraceInv.ComputeTraceOfInverse.CholeskyMethod"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse.CholeskyMethod</span></code></a></p></li>
+<li><p><a class="reference internal" href="../_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse.HutchinsonMethod" title="TraceInv.ComputeTraceOfInverse.HutchinsonMethod"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse.HutchinsonMethod</span></code></a></p></li>
+<li><p><a class="reference internal" href="../_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod" title="TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod</span></code></a></p></li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">ComputeTraceOfInverse</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a symmetric positive-definite matrix of the shape (20**2,20**2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute trace of inverse</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above exaple uses the Cholesky method by default.
+In the next example, we apply the <em>Hutchinson’s randomized estimator</em> method.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Using the stochastic Lanczos quadrature method with Lanczos tri-diagonalization</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;SLQ&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Using the stochastic Lanczos quadrature method with Golub-Kahn bi-diagonalization</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;SLQ&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">UseLanczosTridiagonalization</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="TraceInv.ComputeTraceOfInverse.CholeskyMethod.CholeskyMethod.html" class="btn btn-neutral float-right" title="CholeskyMethod" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../ComputeTraceOfInverse.html" class="btn btn-neutral float-left" title="Compute Trace of Inverse (TraceInv.ComputeTraceOfInverse)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

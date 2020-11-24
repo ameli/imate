@@ -7,9 +7,11 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
+   TraceInv.ComputeLogDeterminant
    TraceInv.ComputeTraceOfInverse
    TraceInv.GenerateMatrix
    TraceInv.InterpolateTraceOfInverse
+   TraceInv.LinearAlgebra
 
 Module contents
 ---------------

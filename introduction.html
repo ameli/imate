@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduction &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Install" href="install.html" />
+    <link rel="prev" title="TraceInv" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fixed-matrix">1. Fixed Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#one-parameter-affine-matrix-function">2. One-Parameter Affine Matrix Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#some-potential-applications">Some Potential Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#benefits-of-traceinv-package">Benefits of TraceInv Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-useful-packages">Other Useful Packages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="_modules/modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Introduction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/introduction.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>This package computes the trace of inverse of two forms of matrices:</p>
+<div class="section" id="fixed-matrix">
+<h2>1. Fixed Matrix<a class="headerlink" href="#fixed-matrix" title="Permalink to this headline">¶</a></h2>
+<p>For an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, this package computes <span class="math notranslate nohighlight">\(\mathrm{trace}(\mathbf{A}^{-1})\)</span> for both sparse and dense matrices.</p>
+<dl class="simple">
+<dt><strong>Computing Methods:</strong></dt><dd><p>The following methods are implemented:</p>
+<ol class="arabic simple">
+<li><p><strong>Cholesky Decomposition</strong>:  accurate, suitable for small matrices.</p></li>
+<li><p><strong>Hutchinson’s Randomized Estimator</strong>: approximation, suitable for large matrices.</p></li>
+<li><p><strong>Stochastic Lanczos Quadrature</strong>: approximation, suitable for large matrices.</p></li>
+</ol>
+</dd>
+</dl>
+</div>
+<div class="section" id="one-parameter-affine-matrix-function">
+<h2>2. One-Parameter Affine Matrix Function<a class="headerlink" href="#one-parameter-affine-matrix-function" title="Permalink to this headline">¶</a></h2>
+<p>Consider the matrix function <span class="math notranslate nohighlight">\(t\mapsto\mathbf{A}+t\mathbf{B}\)</span>, where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> are symmetric and positive-definite matrices and <span class="math notranslate nohighlight">\(t\)</span> is a real parameter. This package can interpolate the function</p>
+<p><div class="math notranslate nohighlight">
+\[t\mapsto\mathrm{trace}\left((\mathbf{A}+t\mathbf{B})^{-1}\right)\]</div>
+</p>
+<dl>
+<dt><strong>Application:</strong></dt><dd><p>The above function is featured in a wide range of applications in statistics and machine learning. Particular applications are in model selection and optimizing hyperparameters with gradient-based maximum likelihood methods. In such applications, computing the above function is often a computational challenge for large matrices. Often, this function is evaluated for a wide range of the parameter <span class="math notranslate nohighlight">\(t\)</span> while <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> remain fixed. As such, an interpolation scheme enables fast computation of the function.</p>
+</dd>
+<dt><strong>Interpolation Methods</strong></dt><dd><p>Various interpolation methods of the above function are implemented in this package, namely</p>
+<ol class="arabic simple">
+<li><p><strong>Eigenvalues Method</strong></p></li>
+<li><p><strong>Monomial Basis Functions</strong></p></li>
+<li><p><strong>Root Monomial Basis Functions</strong></p></li>
+<li><p><strong>Rational Polynomial Functions</strong></p></li>
+<li><p><strong>Radial Basis Functions</strong></p></li>
+</ol>
+<p>These interpolation methods are described in <a class="reference internal" href="references.html#ameli-2020" id="id1"><span>[Ameli-2020]</span></a>.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="some-potential-applications">
+<h2>Some Potential Applications<a class="headerlink" href="#some-potential-applications" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="benefits-of-traceinv-package">
+<h2>Benefits of TraceInv Package<a class="headerlink" href="#benefits-of-traceinv-package" title="Permalink to this headline">¶</a></h2>
+<p>The greatest benefit that TraceInv offers is its ability to interpolate the trace of the inverse of <em>affine matrix functions</em>, which is implemented in <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse</span></code></a> module based.</p>
+<p>Mention Examples</p>
+</div>
+<div class="section" id="other-useful-packages">
+<h2>Other Useful Packages<a class="headerlink" href="#other-useful-packages" title="Permalink to this headline">¶</a></h2>
+<p>TraceInv does not replace many sophisticated computational packages in linear algebra and machine learning. Rather, some if its features were implemented on top of other packages.</p>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<dl class="citation">
+<dt class="label" id="ameli-2020"><span class="brackets"><a class="fn-backref" href="#id1">Ameli-2020</a></span></dt>
+<dd><p>Ameli, S., and Shadden. S. C. (2020). Interpolating the Trace of the Inverse of Matrix <strong>A</strong> + t <strong>B</strong>. <a class="reference external" href="https://arxiv.org/abs/2009.07385">arXiv:2009.07385</a> [math.NA]</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="install.html" class="btn btn-neutral float-right" title="Install" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="TraceInv" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

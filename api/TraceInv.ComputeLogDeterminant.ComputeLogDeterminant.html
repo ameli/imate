@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ComputeLogDeterminant &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="LinearSolver" href="TraceInv.LinearAlgebra.LinearSolver.LinearSolver.html" />
+    <link rel="prev" title="Compute Log-Determinant (TraceInv.ComputeLogDeterminant)" href="../ComputeLogDeterminant.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../ComputeLogDeterminant.html">Compute Log Determinant</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../ComputeLogDeterminant.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ComputeLogDeterminant.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ComputeLogDeterminant.html#mathematical-details">Mathematical Details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ComputeLogDeterminant.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ComputeLogDeterminant.html#references">References</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../ComputeLogDeterminant.html#api">API</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../ComputeLogDeterminant.html#main-interface">Main Interface</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../ComputeLogDeterminant.html#module-TraceInv.ComputeLogDeterminant">TraceInv.ComputeLogDeterminant Package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ComputeLogDeterminant.html#modules">Modules</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_modules/modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../ComputeLogDeterminant.html">Compute Log-Determinant (<code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeLogDeterminant</span></code>)</a> &raquo;</li>
+        
+      <li>ComputeLogDeterminant</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/TraceInv.ComputeLogDeterminant.ComputeLogDeterminant.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="computelogdeterminant">
+<h1>ComputeLogDeterminant<a class="headerlink" href="#computelogdeterminant" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="TraceInv.ComputeLogDeterminant.ComputeLogDeterminant">
+<code class="sig-prename descclassname">TraceInv.ComputeLogDeterminant.</code><code class="sig-name descname">ComputeLogDeterminant</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">ComputeMethod</span><span class="o">=</span><span class="default_value">'cholesky'</span></em>, <em class="sig-param"><span class="n">NumIterations</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">LanczosDegree</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">UseLanczosTridiagonalization</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/ComputeLogDeterminant/ComputeLogDeterminant.html#ComputeLogDeterminant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.ComputeLogDeterminant.ComputeLogDeterminant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the log-determinan of full-rank matrix <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>numpy.ndarray</em><em> or </em><em>scipy.sparse.csc_matrix</em>) – A full-rank matrix.</p></li>
+<li><p><strong>NumIterations</strong> (<em>int</em>) – Number of Monte-Carlo trials</p></li>
+<li><p><strong>LanczosDegree</strong> (<em>int</em>) – Lanczos degree of the tri-diagonalization (or bi-diaqgonalization) process</p></li>
+<li><p><strong>UseLanczosTridiagonalization</strong> (<em>bool</em>) – Flag, if <code class="docutils literal notranslate"><span class="pre">True</span></code>, it uses the Lanczos tridiagonalization. 
+If <code class="docutils literal notranslate"><span class="pre">False</span></code>, it uses the Golub-Kahn bi-diagonalization.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Log-determinant of <code class="docutils literal notranslate"><span class="pre">A</span></code></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For computing the <em>trace of inverse</em> with the sothcastic Lanczos quadrature method 
+(see <code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadrature</span></code>), the preferred algorithm is
+the Lanczos tri-diagonalization, as opposed to Golub-Kahn bi-diagonalization.</p>
+<p>In contrast to the above, the preferred SLQ method for computing <em>log-determinant</em> is
+the Golu-Kahn bi-diagonalization. The reason is that if the matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> 
+has many singular values close to zero, bi-diagonalization performs better, 
+and this matters when we compute determinant.</p>
+</div>
+<dl class="simple">
+<dt>References:</dt><dd><ul class="simple">
+<li><p>Ubaru, S., Chen, J., and Saad, Y. (2017). 
+Fast estimation of <span class="math notranslate nohighlight">\(\mathrm{tr}(f(A))\)</span> via stochastic Lanczos quadrature. 
+<em>SIAM Journal on Matrix Analysis and Applications</em>, 38(4), 1075-1099. 
+<a class="reference external" href="https://doi.org/10.1137/16M1104974">doi: 10.1137/16M1104974</a></p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Examples:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import packages</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">ComputeLogDeterminant</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant with Cholesky method</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">LogDet_1</span> <span class="o">=</span> <span class="n">ComputeLogDeterminant</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant with stochastic Lanczos quadrature method</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">LogDet_1</span> <span class="o">=</span> <span class="n">ComputeLogDeterminant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;SLQ&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant with stochastic Lanczos quadrature method with Golub-Khan bi-diagonaliation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">LogDet_1</span> <span class="o">=</span> <span class="n">ComputeLogDeterminant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;SLQ&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> 
+<span class="gp">... </span>                <span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">Tridiagonalization</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="TraceInv.LinearAlgebra.LinearSolver.LinearSolver.html" class="btn btn-neutral float-right" title="LinearSolver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../ComputeLogDeterminant.html" class="btn btn-neutral float-left" title="Compute Log-Determinant (TraceInv.ComputeLogDeterminant)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

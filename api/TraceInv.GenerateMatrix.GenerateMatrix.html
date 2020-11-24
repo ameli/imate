@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>GenerateMatrix &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="TraceInv" href="../_modules/modules.html" />
+    <link rel="prev" title="Generate Matirx (TraceInv.GenerateMatrix)" href="../GenerateMatrix.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../GenerateMatrix.html">Generate Matrix</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../GenerateMatrix.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GenerateMatrix.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GenerateMatrix.html#mathematical-details">Mathematical Details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GenerateMatrix.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../GenerateMatrix.html#references">References</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../GenerateMatrix.html#api">API</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">GenerateMatrix</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_modules/modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../GenerateMatrix.html">Generate Matirx (<code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.GenerateMatrix</span></code>)</a> &raquo;</li>
+        
+      <li>GenerateMatrix</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/TraceInv.GenerateMatrix.GenerateMatrix.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="generatematrix">
+<h1>GenerateMatrix<a class="headerlink" href="#generatematrix" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="TraceInv.GenerateMatrix.GenerateMatrix">
+<code class="sig-prename descclassname">TraceInv.GenerateMatrix.</code><code class="sig-name descname">GenerateMatrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">NumPoints</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">DecorrelationScale</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">nu</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">UseSparse</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">GridOfPoints</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">KernelThreshold</span><span class="o">=</span><span class="default_value">0.03</span></em>, <em class="sig-param"><span class="n">RunInParallel</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">Plot</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/GenerateMatrix/GenerateMatrix.html#GenerateMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.GenerateMatrix.GenerateMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates symmetric and positive-definite matrix for test purposes.</p>
+<p>The generated matrx is a correlation matrix based on Matern correlation of spatial distance of 
+a list of points in the unit square. The Matern correlation function can be characterized by two 
+parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\rho\)</span>: the discorrelation scale in <span class="math notranslate nohighlight">\(\rho \in (0,1]\)</span>. Smaller decorrelation produces correlation matrix that is closer to the identity matrix.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\nu\)</span>: correlation smoothness, <span class="math notranslate nohighlight">\(\rho &gt; 0\)</span>. Larger smoothness produces correlation similar to the Gaussian process. Smaller smoothness 
+produces more discrete correlation function.</p></li>
+</ul>
+</div></blockquote>
+<p>Also, the size of the generated matrix is determined by <code class="docutils literal notranslate"><span class="pre">NumPoints</span></code> which we refer to as <span class="math notranslate nohighlight">\(n\)</span>,
+and <code class="docutils literal notranslate"><span class="pre">GridOfPoints</span></code>.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">GridOfPoints</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> (default value), then, the matrix is of the size <span class="math notranslate nohighlight">\(n^2 \times n^2\)</span>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">GridOfPoints</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, then, the matrix is of the size <span class="math notranslate nohighlight">\(n \times n\)</span>.</p></li>
+</ul>
+</div></blockquote>
+<p>The values of the correlation matrix are between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. To sparsify the generated matrix, 
+set <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code>, which makes all correlations below this threshold to be zero. If <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code> is zet to
+zer, the matrix is not sparsified.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Too large <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code> might eradicate the positive-definiteness of the correlation matrix.</p>
+</div>
+<p>For very large sparse matrices, use <code class="docutils literal notranslate"><span class="pre">RunInParallel</span></code> to generate the rows and columns of the correlation matrix in parallel.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To use parallel processing, the package <code class="docutils literal notranslate"><span class="pre">ray</span></code> should be insatalled.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>NumPoints</strong> (<em>int</em>) – Depending on <code class="docutils literal notranslate"><span class="pre">GridOfPoints</span></code>, this is either the number of points or the number of grid points along an axis.</p></li>
+<li><p><strong>DecorrelationScale</strong> (<em>float</em>) – A parameter of correlation function that scales distance.</p></li>
+<li><p><strong>nu</strong> (<em>float</em>) – A parameter of the Matern correlation function. <code class="docutils literal notranslate"><span class="pre">nu</span></code> modulates the smoothness of the stochastic process.</p></li>
+<li><p><strong>UseSparse</strong> (<em>bool</em>) – Flag to indicate the correlation matrix should be sparse or dense matrix.</p></li>
+<li><p><strong>KernelThreshold</strong> – To sparsify the matrix (if <code class="docutils literal notranslate"><span class="pre">UseSparse</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>), the correlation function values below this threshold 
+is set to zero.</p></li>
+<li><p><strong>RunInParallel</strong> (<em>bool</em>) – Runs the code in parallel. Note that the <code class="docutils literal notranslate"><span class="pre">ray</span></code> module should be uncommented.</p></li>
+<li><p><strong>Plot</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the matrix will be ploted.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Correlation matrix. If <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are <code class="docutils literal notranslate"><span class="pre">n*1</span></code> arrays, the correlation <code class="docutils literal notranslate"><span class="pre">K</span></code> is <code class="docutils literal notranslate"><span class="pre">n*n</span></code> matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>ndarray or sparse array</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<p>Generate a matrix of the shape <code class="docutils literal notranslate"><span class="pre">(20**2,20**2)</span></code> based on mutual correlation of a grid of 20x20 points on unit square</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Generate a correlation matrix of shape <code class="docutils literal notranslate"><span class="pre">(20,20)</span></code> based on 20 random points in unit square. Default for <code class="docutils literal notranslate"><span class="pre">GridOfPoints</span></code> is True.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">GridOfPoints</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Generate a matrix of shape <code class="docutils literal notranslate"><span class="pre">(20**2,20**2)</span></code> with stronger spatial correlation. Default for <code class="docutils literal notranslate"><span class="pre">DecorrelationScale</span></code> is <code class="docutils literal notranslate"><span class="pre">0.1</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">DecorrelationScale</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Generate a corelation matrix with more smoothness.. Default for <code class="docutils literal notranslate"><span class="pre">nu</span></code> is <code class="docutils literal notranslate"><span class="pre">0.5</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">nu</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Sparsify correlation matrix (makes all entries below 0.03 to zero). Default for <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code> is <code class="docutils literal notranslate"><span class="pre">0.03</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">UseSparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">KernelThreshold</span><span class="o">=</span><span class="mf">0.03</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For very large correlation matrices, generate the rows and columns are generated in parallel.
+To use <code class="docutils literal notranslate"><span class="pre">RunInParallel</span></code> option, the package <code class="docutils literal notranslate"><span class="pre">ray</span></code> should be installed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">UseSparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">RunInParallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plot the matrix by</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">Plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../_modules/modules.html" class="btn btn-neutral float-right" title="TraceInv" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../GenerateMatrix.html" class="btn btn-neutral float-left" title="Generate Matirx (TraceInv.GenerateMatrix)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,492 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Generate Matirx (TraceInv.GenerateMatrix) &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="GenerateMatrix" href="api/TraceInv.GenerateMatrix.GenerateMatrix.html" />
+    <link rel="prev" title="InterpolateTraceOfInverse" href="api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Generate Matrix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mathematical-details">Mathematical Details</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generate-set-of-points">Generate Set of Points</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#correlation-function">Correlation Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sparse-matrix">Sparse Matrix</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/TraceInv.GenerateMatrix.GenerateMatrix.html">GenerateMatrix</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="_modules/modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Generate Matirx (<code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.GenerateMatrix</span></code>)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/GenerateMatrix.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="generate-matirx-traceinv-generatematrix">
+<span id="generatematrix"></span><h1>Generate Matirx (<a class="reference internal" href="_modules/TraceInv.GenerateMatrix.html#module-TraceInv.GenerateMatrix" title="TraceInv.GenerateMatrix"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.GenerateMatrix</span></code></a>)<a class="headerlink" href="#generate-matirx-traceinv-generatematrix" title="Permalink to this headline">¶</a></h1>
+<p>The sub package <a class="reference internal" href="_modules/TraceInv.GenerateMatrix.html#module-TraceInv.GenerateMatrix" title="TraceInv.GenerateMatrix"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.GenerateMatrix</span></code></a> is tangent to the purpose of the TraceInv package as it does not provide a computational utility. Rather, it generates sample matrices for test purposes only. TraceInv works with generic invertible matrices. However, in most applications where TraceInv can be utilized, the matrices are of the form of covariance or correlation matrices (such as in machine learning purposes). Such matrices have these characteristics:</p>
+<ol class="arabic simple">
+<li><p>symmetric</p></li>
+<li><p>positive-definite or positive-semidefinite</p></li>
+</ol>
+<p>This sub-package generates such matrices to tests TraceInv on applicable matrices.</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a symmetric positive-definite matrix of the shape (20**2,20**2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">K</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The matrix <code class="docutils literal notranslate"><span class="pre">K</span></code> in the above has the shape <code class="docutils literal notranslate"><span class="pre">(20**2,20**2)</span></code>, is symmetric and positive-definite.</p>
+</div>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="_modules/TraceInv.GenerateMatrix.html#module-TraceInv.GenerateMatrix" title="TraceInv.GenerateMatrix"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.GenerateMatrix</span></code></a> module accepts the following attributes as input argument to customize the generated matrix.</p>
+<dl class="py attribute">
+<dt id="NumPoints">
+<code class="sig-name descname">NumPoints</code><em class="property">: int</em><em class="property"> = 20</em><a class="headerlink" href="#NumPoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines the size of the matrix.</p>
+<ul class="simple">
+<li><p>When the parameter <a class="reference internal" href="#GridOfPoints" title="GridOfPoints"><code class="xref py py-data docutils literal notranslate"><span class="pre">GridOfPoints</span></code></a> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the matrix has the shape of <code class="docutils literal notranslate"><span class="pre">(NumPoints**2,NumPoints**2)</span></code>.
+This is corresponding to the mutual correlation between a set of <span class="math notranslate nohighlight">\(n^2\)</span> points generated on an equidistanced rectangular
+grid of <span class="math notranslate nohighlight">\(n \times n\)</span> points in the unit square.</p></li>
+<li><p>When the parameter <a class="reference internal" href="#GridOfPoints" title="GridOfPoints"><code class="xref py py-data docutils literal notranslate"><span class="pre">GridOfPoints</span></code></a> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, the matrix has the shape of <code class="docutils literal notranslate"><span class="pre">(NumPoints,NumPoints)</span></code>.
+This is corresponding to the mutual corelation between a set of <span class="math notranslate nohighlight">\(n\)</span> points generated randomly in the unit square.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="GridOfPoints">
+<code class="sig-name descname">GridOfPoints</code><em class="property">: bool</em><em class="property"> = True</em><a class="headerlink" href="#GridOfPoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines the structure of the points which the correlation matrix if formed based on.</p>
+<ul class="simple">
+<li><p>When set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the set of <span class="math notranslate nohighlight">\(n \times n\)</span> points is generated on an equispaced rectangular grid in the unit square.
+Here, <span class="math notranslate nohighlight">\(n\)</span> is set by <a class="reference internal" href="#NumPoints" title="NumPoints"><code class="xref py py-attr docutils literal notranslate"><span class="pre">NumPoints</span></code></a> argument. As a result, the generated matrix is of the shape <span class="math notranslate nohighlight">\((n^2 \times n^2)\)</span>.</p></li>
+<li><p>When set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, the set of <span class="math notranslate nohighlight">\(n \times n\)</span> points is generated randomly in the unit square.
+Here, <span class="math notranslate nohighlight">\(n\)</span> is set by <a class="reference internal" href="#NumPoints" title="NumPoints"><code class="xref py py-attr docutils literal notranslate"><span class="pre">NumPoints</span></code></a> argument. As a result, the generated matrix is of the shape <span class="math notranslate nohighlight">\((n \times n)\)</span>.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="DecorrelationScale">
+<code class="sig-name descname">DecorrelationScale</code><em class="property">: float</em><em class="property"> = 0.1</em><a class="headerlink" href="#DecorrelationScale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorrelation scale parameter <span class="math notranslate nohighlight">\(\rho\)</span> of the <a class="reference internal" href="#correlation-function"><span class="std std-ref">Correlation Function</span></a>.
+Generally, <span class="math notranslate nohighlight">\(\rho &gt; 0\)</span>, but in this class it should be set to <span class="math notranslate nohighlight">\(\rho \in (0,1]\)</span>.
+Smaller <span class="math notranslate nohighlight">\(\rho\)</span> yields correlation matrix closer to the identity matrix, whereas
+larget <span class="math notranslate nohighlight">\(\rho\)</span> leads to a more correlated matrix.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nu">
+<code class="sig-name descname">nu</code><em class="property">: float</em><em class="property"> = 0.5</em><a class="headerlink" href="#nu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the smoothness of the stochastic process that is represented by the correlation matrix. (see the parameter <span class="math notranslate nohighlight">\(\nu\)</span> in <a class="reference internal" href="#correlation-function"><span class="std std-ref">Correlation Function</span></a>).
+<span class="math notranslate nohighlight">\(\nu\)</span> should be positive. Small values of <span class="math notranslate nohighlight">\(\nu\)</span> yields correlation matrix closer to the identity matrix.
+For values <span class="math notranslate nohighlight">\(\nu &gt; 100\)</span>, the Gaussian correlation function is used which corresponds to <span class="math notranslate nohighlight">\(\nu \to \infty\)</span>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="UseSparse">
+<code class="sig-name descname">UseSparse</code><em class="property">: bool</em><em class="property"> = False</em><a class="headerlink" href="#UseSparse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines to generate dense or sparse matrix. If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the sparse denisity of the matrix can be set by <a class="reference internal" href="#KernelThreshold" title="KernelThreshold"><code class="xref py py-attr docutils literal notranslate"><span class="pre">KernelThreshold</span></code></a> argument.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="KernelThreshold">
+<code class="sig-name descname">KernelThreshold</code><em class="property">: float</em><em class="property"> = 0.03</em><a class="headerlink" href="#KernelThreshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>To sparsify the matrix, the matrix elements smaller than this threshold are considered to be zero
+(see parameter <span class="math notranslate nohighlight">\(\kappa\)</span> in <a class="reference internal" href="#sparse-matrix"><span class="std std-ref">Sparse Matrix</span></a>).
+Increasing the threshold yields a more sparse matrix.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Plot">
+<code class="sig-name descname">Plot</code><em class="property">: bool</em><em class="property"> = False</em><a class="headerlink" href="#Plot" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, it plots the generated matrix.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="mathematical-details">
+<h2>Mathematical Details<a class="headerlink" href="#mathematical-details" title="Permalink to this headline">¶</a></h2>
+<p>The module <a class="reference internal" href="_modules/TraceInv.GenerateMatrix.html#module-TraceInv.GenerateMatrix" title="TraceInv.GenerateMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenerateMatrix</span></code></a> produces a correlation matrix <span class="math notranslate nohighlight">\(\mathbf{K}\)</span> as follows.</p>
+<ol class="arabic">
+<li><p>It generates a set of spatial points <span class="math notranslate nohighlight">\(\boldsymbol{x}_i \in \mathcal{D}\)</span> (see <a class="reference internal" href="#generate-set-of-points"><span class="std std-ref">Generate Set of Points</span></a>).</p></li>
+<li><p>Using a given correlation function <span class="math notranslate nohighlight">\(K: \mathcal{D} \times \mathcal{D} \to [0,1]\)</span> (see <a class="reference internal" href="#correlation-function"><span class="std std-ref">Correlation Function</span></a>), the component <span class="math notranslate nohighlight">\(K_{ij}\)</span> of the matrix <span class="math notranslate nohighlight">\(\mathbf{K}\)</span> is then computed by</p>
+<div class="math notranslate nohighlight">
+\[K_{ij} = K(\boldsymbol{x}_i,\boldsymbol{x}_j)\]</div>
+</li>
+</ol>
+<div class="section" id="generate-set-of-points">
+<h3>Generate Set of Points<a class="headerlink" href="#generate-set-of-points" title="Permalink to this headline">¶</a></h3>
+<p>In this module, the set of points is defined in two ways:</p>
+<p><strong>On a Grid:</strong> When <a class="reference internal" href="#GridOfPoints" title="GridOfPoints"><code class="xref py py-attr docutils literal notranslate"><span class="pre">GridOfPoints</span></code></a> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, a set of <span class="math notranslate nohighlight">\(n \times n\)</span> points are generated on a equi-distanced grid in the unit square <span class="math notranslate nohighlight">\(\mathcal{D} = [0,1]^2\)</span>.</p>
+<p><strong>Random:</strong> When <a class="reference internal" href="#GridOfPoints" title="GridOfPoints"><code class="xref py py-attr docutils literal notranslate"><span class="pre">GridOfPoints</span></code></a> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, a set of <span class="math notranslate nohighlight">\(n\)</span> points are generated with uniform random distribution in the unit square <span class="math notranslate nohighlight">\(\mathcal{D} = [0,1]^2\)</span>.</p>
+</div>
+<div class="section" id="correlation-function">
+<h3>Correlation Function<a class="headerlink" href="#correlation-function" title="Permalink to this headline">¶</a></h3>
+<p>The module uses the Matern correlation function (see <a class="reference internal" href="#matern-1960" id="id1"><span>[Matern-1960]</span></a>, or <a class="reference internal" href="#stein-1999" id="id2"><span>[Stein-1999]</span></a>) defined by</p>
+<div class="math notranslate nohighlight">
+\[K(\boldsymbol{x},\boldsymbol{x}'|\rho,\nu) =
+\frac{2^{1-\nu}}{\Gamma(\nu)}
+\left( \sqrt{2 \nu} \frac{\| \boldsymbol{x} - \boldsymbol{x}' \|}{\rho} \right)
+K_{\nu}\left(\sqrt{2 \nu}  \frac{\|\boldsymbol{x} - \boldsymbol{x}' \|}{\rho} \right)\]</div>
+<p>where</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\Gamma( \cdot)\)</span> is the Gamma function (see <a class="reference internal" href="#dlmf" id="id3"><span>[DLMF]</span></a>),</p></li>
+<li><p><span class="math notranslate nohighlight">\(\| \cdot \|\)</span> is the Euclidean distance,</p></li>
+<li><p><span class="math notranslate nohighlight">\(K_{\nu}(\cdot)\)</span> is the modified Bessel function of the second kind of order <span class="math notranslate nohighlight">\(\nu\)</span> (see <a class="reference internal" href="#dlmf" id="id4"><span>[DLMF]</span></a>).</p></li>
+</ul>
+</div></blockquote>
+<p>and with the hyperparameters</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\rho &gt; 0\)</span>: <strong>decorrelation scale</strong> of the correlation function (see <a class="reference internal" href="#DecorrelationScale" title="DecorrelationScale"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DecorrelationScale</span></code></a>).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\nu &gt; 0\)</span>: <strong>smoothness</strong> of the stochastic process represented by the correlation function (see <a class="reference internal" href="#nu" title="nu"><code class="xref py py-attr docutils literal notranslate"><span class="pre">nu</span></code></a>).</p></li>
+</ul>
+</div></blockquote>
+<p>When <span class="math notranslate nohighlight">\(\| \boldsymbol{x} - \boldsymbol{x}' \| = 0\)</span>, the correlation function is defined to be <span class="math notranslate nohighlight">\(1\)</span>. This corresponds to the diagonals of the correlation matrix <span class="math notranslate nohighlight">\(\mathbf{K}\)</span> as the correlation between <span class="math notranslate nohighlight">\(\boldsymbol{x}_i\)</span> with itself.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When the distance <span class="math notranslate nohighlight">\(\| \boldsymbol{x} - \boldsymbol{x}' \| \to 0^+\)</span>, the correlation function produces
+<span class="math notranslate nohighlight">\(\frac{0}{0}\)</span>. Thus, if the distance is <em>not</em> exactly zero, but close to zero, this function might produce unstable results.</p>
+</div>
+<p>If <span class="math notranslate nohighlight">\(\nu\)</span> is half integer, the Matern function has exponential form.</p>
+<ul>
+<li><p>At <span class="math notranslate nohighlight">\(\nu = \frac{1}{2}\)</span>, the Matern correlation function is just the exponential decay function</p>
+<div class="math notranslate nohighlight">
+\[K(\boldsymbol{x},\boldsymbol{x}'|\rho,\nu) =
+\exp \left( -\frac{\| \boldsymbol{x} - \boldsymbol{x}'\|}{\rho} \right)\]</div>
+</li>
+<li><p>At <span class="math notranslate nohighlight">\(\nu = \frac{3}{2}\)</span></p>
+<div class="math notranslate nohighlight">
+\[K(\boldsymbol{x},\boldsymbol{x}'|\rho,\nu) =
+\left( 1 + \sqrt{3} \frac{\| \boldsymbol{x} - \boldsymbol{x}'\|}{\rho} \right)
+\exp \left( - \sqrt{3} \frac{\| \boldsymbol{x} - \boldsymbol{x}'\|}{\rho} \right)\]</div>
+</li>
+<li><p>At <span class="math notranslate nohighlight">\(\nu = \frac{5}{2}\)</span></p>
+<div class="math notranslate nohighlight">
+\[K(\boldsymbol{x},\boldsymbol{x}'|\rho,\nu) =
+\left( 1 + \sqrt{5} \frac{\| \boldsymbol{x} - \boldsymbol{x}'\|}{\rho} + \frac{5}{3} \frac{\| \boldsymbol{x} - \boldsymbol{x}'\|^2}{\rho^2} \right)
+\exp \left( -\sqrt{5} \frac{\| \boldsymbol{x} - \boldsymbol{x}'\|}{\rho} \right)\]</div>
+</li>
+<li><p>At <span class="math notranslate nohighlight">\(\nu = \infty\)</span>, the Matern function approaches the <em>Gaussian correlation function</em> (also known as square exponential decay function):</p>
+<div class="math notranslate nohighlight">
+\[K(\boldsymbol{x},\boldsymbol{x}'|\rho,\nu) =
+\exp \left( -\frac{1}{2} \frac{\| \boldsymbol{x} - \boldsymbol{x}'\|^2}{\rho^2} \right)\]</div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At <span class="math notranslate nohighlight">\(\nu &gt; 100\)</span>, this module assumes that <span class="math notranslate nohighlight">\(\nu = \infty\)</span> and the Gaussian correlation function is used.</p>
+</div>
+</div>
+<div class="section" id="sparse-matrix">
+<h3>Sparse Matrix<a class="headerlink" href="#sparse-matrix" title="Permalink to this headline">¶</a></h3>
+<p>To produce a sparse matrix, a compactly supported kernel is used by tapering the tail of the correlation function <span class="math notranslate nohighlight">\(K\)</span>. Define the <em>indicator function</em></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{1}_{K &gt; \kappa}(\boldsymbol{x},\boldsymbol{x}') =
+\begin{cases}
+    1, &amp; K &gt; \kappa \\
+    0, &amp; K \leq \kappa \\
+\end{cases}\end{split}\]</div>
+<p>The parameter <span class="math notranslate nohighlight">\(\kappa\)</span> is the threshold of the indicator function (see <a class="reference internal" href="#KernelThreshold" title="KernelThreshold"><code class="xref py py-attr docutils literal notranslate"><span class="pre">KernelThreshold</span></code></a>). By multiplying the indicator function <span class="math notranslate nohighlight">\(\mathbf{1}_{K &gt; \kappa}\)</span> with the correlation kernel <span class="math notranslate nohighlight">\(K\)</span>, any correlation value less than the threshold <span class="math notranslate nohighlight">\(\kappa\)</span> becomes zero, hence makes the correlation matrix sparse.</p>
+<p>The <em>sparse density</em> <span class="math notranslate nohighlight">\(d\)</span> of the sparse matrix (ratio of non-zero elements over all elements) is</p>
+<div class="math notranslate nohighlight">
+\[d = \pi \left( \rho \log \kappa \right)^2\]</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the threshold <span class="math notranslate nohighlight">\(\kappa\)</span> is too large, the sparse matrix might no longer be positive-definite <a class="reference internal" href="#genton-2002" id="id5"><span>[Genton-2002]</span></a>. On the other hand, if <span class="math notranslate nohighlight">\(\kappa\)</span> is not small enough, the matrix will not be sparse enough.</p>
+</div>
+</div>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Generate a matrix of the shape <code class="docutils literal notranslate"><span class="pre">(20**2,20**2)</span></code> based on mutual correlation of a grid of <span class="math notranslate nohighlight">\(20^2\)</span> points on unit square</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Generate a correlation matrix of shape <code class="docutils literal notranslate"><span class="pre">(20,20)</span></code> based on 20 random points in unit square. Default for <a class="reference internal" href="#GridOfPoints" title="GridOfPoints"><code class="xref py py-attr docutils literal notranslate"><span class="pre">GridOfPoints</span></code></a> is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">GridOfPoints</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Generate a matrix of shape <code class="docutils literal notranslate"><span class="pre">(20**2,20**2)</span></code> with stronger spatial correlation. Default for <a class="reference internal" href="#DecorrelationScale" title="DecorrelationScale"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DecorrelationScale</span></code></a> is <code class="docutils literal notranslate"><span class="pre">0.1</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">DecorrelationScale</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Generate a correlation matrix with more smoothness.. Default for <code class="docutils literal notranslate"><span class="pre">nu</span></code> is <code class="docutils literal notranslate"><span class="pre">0.5</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">nu</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Sparsify correlation matrix (makes all entries below <a class="reference internal" href="#KernelThreshold" title="KernelThreshold"><code class="xref py py-attr docutils literal notranslate"><span class="pre">KernelThreshold</span></code></a> to zero).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">UseSparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">KernelThreshold</span><span class="o">=</span><span class="mf">0.03</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For very large correlation matrices, generate the rows and columns are generated in parallel.
+To use <code class="xref py py-attr docutils literal notranslate"><span class="pre">RunInParallel</span></code> option, the package <code class="docutils literal notranslate"><span class="pre">ray</span></code> should be installed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">UseSparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">RunInParallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plot the matrix by <a class="reference internal" href="#Plot" title="Plot"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Plot</span></code></a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span><span class="n">DecorrelationScale</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span><span class="n">Plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/CorrelationMatrix.svg" class="align-center" src="_images/CorrelationMatrix.svg" /><p>If no graphical backend exists, the plot is not shown, and saved as an <code class="docutils literal notranslate"><span class="pre">svg</span></code> files instead.</p>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<dl class="citation">
+<dt class="label" id="matern-1960"><span class="brackets"><a class="fn-backref" href="#id1">Matern-1960</a></span></dt>
+<dd><p>Matérn, B. (1960). Spatial variation. In <em>Meddelanden från Statens Skogsforskningsinstitut</em>, volume 49, No. 5. Almänna Förlaget, Stockholm. Second edition (1986), Springer-Verlag, Berlin. <a class="reference external" href="https://www.springer.com/gp/book/9781461578925">doi: 10.1007/978-1-4615-7892-5</a></p>
+</dd>
+<dt class="label" id="genton-2002"><span class="brackets"><a class="fn-backref" href="#id5">Genton-2002</a></span></dt>
+<dd><p>Genton, M. G. (2002). Classes of kernels for machine learning: A statistics perspective. <em>Journal of Machine Learning Research</em>, 2, 299–312. <a class="reference external" href="https://dl.acm.org/doi/10.5555/944790.944815">doi: 10.5555/944790.944815</a></p>
+</dd>
+<dt class="label" id="stein-1999"><span class="brackets"><a class="fn-backref" href="#id2">Stein-1999</a></span></dt>
+<dd><p>Stein, M. L. (1999). Interpolation of Spatial Data: Some Theory for Kriging. Springer Series in Statistics. Springer New York. <a class="reference external" href="https://www.springer.com/gp/book/9780387986296">doi: 10.1007/978-1-4612-1494-6</a></p>
+</dd>
+<dt class="label" id="dlmf"><span class="brackets">DLMF</span><span class="fn-backref">(<a href="#id3">1</a>,<a href="#id4">2</a>)</span></dt>
+<dd><p><a class="reference external" href="http://dlmf.nist.gov/">NIST Digital Library of Mathematical Functions.</a>, F. W. J. Olver, A. B. Olde Daalhuis, D. W. Lozier, B. I. Schneider, R. F. Boisvert, C. W. Clark, B. R. Miller, B. V. Saunders, H. S. Cohl, and M. A. McClain, eds. <a class="reference external" href="https://doi.org/10.1023/A:1022915830921">doi: 10.1023/A:1022915830921</a></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-TraceInv.GenerateMatrix"></span><table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.GenerateMatrix.GenerateMatrix.html#TraceInv.GenerateMatrix.GenerateMatrix" title="TraceInv.GenerateMatrix.GenerateMatrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GenerateMatrix</span></code></a>([NumPoints, …])</p></td>
+<td><p>Generates symmetric and positive-definite matrix for test purposes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api/TraceInv.GenerateMatrix.GenerateMatrix.html" class="btn btn-neutral float-right" title="GenerateMatrix" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html" class="btn btn-neutral float-left" title="InterpolateTraceOfInverse" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

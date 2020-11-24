@@ -87,16 +87,23 @@
             
               <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#install">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#usage">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#examples">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#citation">Citation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
 </ul>
-<p class="caption"><span class="caption-text">API</span></p>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tests.html">Running Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Change Log</a></li>
 </ul>
 
@@ -169,23 +176,24 @@
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linalg</span>
 
-<span class="kn">from</span> <span class="nn">.LinearAlgebra</span> <span class="kn">import</span> <span class="n">LanczosTridiagonalization</span>
-<span class="kn">from</span> <span class="nn">.LinearAlgebra</span> <span class="kn">import</span> <span class="n">LanczosTridiagonalization2</span>
-<span class="kn">from</span> <span class="nn">.LinearAlgebra</span> <span class="kn">import</span> <span class="n">GolubKahnLanczosBidiagonalization</span>
+<span class="kn">from</span> <span class="nn">..LinearAlgebra</span> <span class="kn">import</span> <span class="n">LanczosTridiagonalization</span>
+<span class="kn">from</span> <span class="nn">..LinearAlgebra</span> <span class="kn">import</span> <span class="n">LanczosTridiagonalization2</span>
+<span class="kn">from</span> <span class="nn">..LinearAlgebra</span> <span class="kn">import</span> <span class="n">GolubKahnLanczosBidiagonalization</span>
 
 <span class="c1"># ====================================</span>
 <span class="c1"># Stochastic Lanczos Quadrature Method</span>
 <span class="c1"># ====================================</span>
 
-<div class="viewcode-block" id="StochasticLanczosQuadratureMethod"><a class="viewcode-back" href="../../TraceInv.ComputeTraceOfInverse.html#TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod.StochasticLanczosQuadratureMethod">[docs]</a><span class="k">def</span> <span class="nf">StochasticLanczosQuadratureMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span>
+<div class="viewcode-block" id="StochasticLanczosQuadratureMethod"><a class="viewcode-back" href="../../../api/TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod.StochasticLanczosQuadratureMethod.html#TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod.StochasticLanczosQuadratureMethod">[docs]</a><span class="k">def</span> <span class="nf">StochasticLanczosQuadratureMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span>
         <span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
         <span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
         <span class="n">UseLanczosTridiagonalization</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the trace of inverse of matrix based on stochastic Lanczos quadrature method.</span>
 <span class="sd">   </span>
-<span class="sd">    Reference</span>
-<span class="sd">        * `Ubaru, S., Chen, J., and Saad, Y. (2017) &lt;https://www-users.cs.umn.edu/~saad/PDF/ys-2016-04.pdf&gt;`_, Fast Estimation of :math:`\\mathrm{tr}(F(A))` Via Stochastic Lanczos Quadrature, SIAM J. Matrix Anal. Appl., 38(4), 1075-1099.</span>
+<span class="sd">    Reference:</span>
+<span class="sd">        * `Ubaru, S., Chen, J., and Saad, Y. (2017) &lt;https://www-users.cs.umn.edu/~saad/PDF/ys-2016-04.pdf&gt;`_, </span>
+<span class="sd">          Fast Estimation of :math:`\\mathrm{tr}(F(A))` Via Stochastic Lanczos Quadrature, SIAM J. Matrix Anal. Appl., 38(4), 1075-1099.</span>
 
 <span class="sd">    .. note::</span>
 

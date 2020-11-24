@@ -89,21 +89,29 @@
             
               <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../documentation.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../documentation.html#install">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../documentation.html#usage">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../documentation.html#examples">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../documentation.html#citation">Citation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../documentation.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 </ul>
-<p class="caption"><span class="caption-text">API</span></p>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Package API</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="TraceInv.html">TraceInv package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="TraceInv.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="TraceInv.ComputeLogDeterminant.html">TraceInv.ComputeLogDeterminant package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="TraceInv.ComputeTraceOfInverse.html">TraceInv.ComputeTraceOfInverse package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">TraceInv.GenerateMatrix package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="TraceInv.InterpolateTraceOfInverse.html">TraceInv.InterpolateTraceOfInverse package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="TraceInv.LinearAlgebra.html">TraceInv.LinearAlgebra package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="TraceInv.html#module-TraceInv">Module contents</a></li>
@@ -111,6 +119,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Running Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Change Log</a></li>
 </ul>
 
@@ -244,7 +253,7 @@ If this is not <code class="docutils literal notranslate"><span class="pre">None
 <li><p><span class="math notranslate nohighlight">\(\Gamma\)</span> is the Gamma function,</p></li>
 <li><p><span class="math notranslate nohighlight">\(\| \cdot \|\)</span> is the Euclidean distance,</p></li>
 <li><p><span class="math notranslate nohighlight">\(\nu\)</span> is the smoothness parameter.</p></li>
-<li><p><span class="math notranslate nohighlight">\(K_{\nu}\)</span> is the modiffied Bessel function of the second kind of order <span class="math notranslate nohighlight">\(\nu\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(K_{\nu}\)</span> is the modified Bessel function of the second kind of order <span class="math notranslate nohighlight">\(\nu\)</span></p></li>
 </ul>
 </div></blockquote>
 <div class="admonition warning">
@@ -254,7 +263,7 @@ If this is not <code class="docutils literal notranslate"><span class="pre">None
 close to zero, this function might produce unstable results.</p>
 </div>
 <p>If <span class="math notranslate nohighlight">\(\nu\)</span> is half integer, the Matern function has exponential form.</p>
-<p>At <span class="math notranslate nohighlight">\(\nu = \frac{1}{2}\)</span>:</p>
+<p>At <span class="math notranslate nohighlight">\(\nu = \frac{1}{2}\)</span></p>
 <div class="math notranslate nohighlight">
 \[K(\boldsymbol{x},\boldsymbol{x}'|\rho,\nu) = 
 \exp \left( -\frac{\| \boldsymbol{x} - \boldsymbol{x}'\|}{\rho} \right)\]</div>
@@ -329,8 +338,8 @@ To run in parallel, the package <code class="docutils literal notranslate"><span
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If the generated matrix is sparse (<code class="docutils literal notranslate"><span class="pre">UseSparse=True</span></code>), the <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code> should be large enough so that the correlation matrix is not
-shrinked to identity. If such case happens, this function raises a <a href="#id1"><span class="problematic" id="id2">*</span></a>ValueError8 exception.</p>
-<p>,In addition, the <a href="#id3"><span class="problematic" id="id4">``</span></a>KernelThreshold <a href="#id5"><span class="problematic" id="id6">``</span></a>should be small enough to not erradicate its positive-definiteness. This is not checked by this function
+shrinked to identity. If such case happens, this function raises a <em>ValueError</em> exception.</p>
+<p>In addition, the <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code> should be small enough to not erradicate its positive-definiteness. This is not checked by this function
 and the user should be aware of it.</p>
 </div>
 </dd></dl>
@@ -340,7 +349,7 @@ and the user should be aware of it.</p>
 <span id="traceinv-generatematrix-generatematrix-module"></span><h2>TraceInv.GenerateMatrix.GenerateMatrix module<a class="headerlink" href="#module-TraceInv.GenerateMatrix.GenerateMatrix" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="TraceInv.GenerateMatrix.GenerateMatrix.GenerateMatrix">
-<code class="sig-prename descclassname">TraceInv.GenerateMatrix.GenerateMatrix.</code><code class="sig-name descname">GenerateMatrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">NumPoints</span></em>, <em class="sig-param"><span class="n">DecorrelationScale</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">nu</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">UseSparse</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">GridOfPoints</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">KernelThreshold</span><span class="o">=</span><span class="default_value">0.03</span></em>, <em class="sig-param"><span class="n">RunInParallel</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">PlotFlag</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/GenerateMatrix/GenerateMatrix.html#GenerateMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.GenerateMatrix.GenerateMatrix.GenerateMatrix" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">TraceInv.GenerateMatrix.GenerateMatrix.</code><code class="sig-name descname">GenerateMatrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">NumPoints</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">DecorrelationScale</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">nu</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">UseSparse</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">GridOfPoints</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">KernelThreshold</span><span class="o">=</span><span class="default_value">0.03</span></em>, <em class="sig-param"><span class="n">RunInParallel</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">Plot</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/GenerateMatrix/GenerateMatrix.html#GenerateMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.GenerateMatrix.GenerateMatrix.GenerateMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates symmetric and positive-definite matrix for test purposes.</p>
 <p>The generated matrx is a correlation matrix based on Matern correlation of spatial distance of 
 a list of points in the unit square. The Matern correlation function can be characterized by two 
@@ -382,7 +391,7 @@ zer, the matrix is not sparsified.</p>
 <li><p><strong>KernelThreshold</strong> – To sparsify the matrix (if <code class="docutils literal notranslate"><span class="pre">UseSparse</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>), the correlation function values below this threshold 
 is set to zero.</p></li>
 <li><p><strong>RunInParallel</strong> (<em>bool</em>) – Runs the code in parallel. Note that the <code class="docutils literal notranslate"><span class="pre">ray</span></code> module should be uncommented.</p></li>
-<li><p><strong>PlotFlag</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the matrix will be ploted.</p></li>
+<li><p><strong>Plot</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the matrix will be ploted.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -417,6 +426,10 @@ is set to zero.</p></li>
 <p>For very large correlation matrices, generate the rows and columns are generated in parallel.
 To use <code class="docutils literal notranslate"><span class="pre">RunInParallel</span></code> option, the package <code class="docutils literal notranslate"><span class="pre">ray</span></code> should be installed.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">UseSparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">RunInParallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plot the matrix by</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">Plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>

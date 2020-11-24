@@ -1,0 +1,500 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>TraceInv.LinearAlgebra.MatrixReduction &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tests.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>TraceInv.LinearAlgebra.MatrixReduction</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for TraceInv.LinearAlgebra.MatrixReduction</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =======</span>
+<span class="c1"># Imports</span>
+<span class="c1"># =======</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+
+<span class="c1"># ==========================</span>
+<span class="c1"># Lanczos Tridiagonalization</span>
+<span class="c1"># ==========================</span>
+
+<div class="viewcode-block" id="LanczosTridiagonalization"><a class="viewcode-back" href="../../../api/TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization.html#TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization">[docs]</a><span class="k">def</span> <span class="nf">LanczosTridiagonalization</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">Tolerance</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Tridiagonalizes matrix ``A`` to ``T`` using the start vector ``w``. ``m`` is the Lanczos</span>
+<span class="sd">    degree, which will be the size of square matrix ``T``.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        * ``A`` should be symmetric and positive-definite matrix size ``n*n``.</span>
+<span class="sd">        * ``T`` will be symmetric and positve-definite matrix of size ``(m+1,m+1)``.</span>
+
+<span class="sd">    :param A: Input matrix of the size ``n*n``. Matrix should be positive-definite and symmetric.</span>
+<span class="sd">    :type A: ndarray</span>
+
+<span class="sd">    :param w: Start vector for the Lanczos tri-diagonalization. Column vector of size ``n``.</span>
+<span class="sd">        It could be generated randomly. Often it is generated by the Rademacher distribution with entries ``+1`` and ``-1``.</span>
+<span class="sd">    :type w: array</span>
+
+<span class="sd">    :param m: Lanczos degree, which is the number of Lanczos iterations.</span>
+<span class="sd">    :type m: int</span>
+
+<span class="sd">    :param Tolerance: The tolerance of the residial error of the Lanczos iteration.</span>
+<span class="sd">    :type Tolerance: float</span>
+
+<span class="sd">    :return: Symmetric positive-definite matric ``T`` of the size ``(m+1)*(m+1)``.</span>
+<span class="sd">    :rtype: ndarray</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Normalize random vector</span>
+    <span class="n">Norm</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">w</span><span class="o">/</span><span class="n">Norm</span>
+
+    <span class="n">beta</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">V</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">V</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="n">v_old</span> <span class="o">=</span> <span class="n">v</span>
+
+    <span class="n">wn</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="c1"># Loop through Lanczos degrees</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+
+        <span class="c1"># Compute A*v depending if A is sparse or dense</span>
+        <span class="k">if</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">isspmatrix</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
+
+        <span class="n">w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">beta</span><span class="o">*</span><span class="n">v_old</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
+        <span class="n">wn</span> <span class="o">+=</span> <span class="n">alpha</span><span class="o">**</span><span class="mi">2</span>
+        <span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">*</span><span class="n">v</span>
+
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">V</span><span class="p">[:,:</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">w</span> <span class="o">-</span> <span class="n">numpy</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">V</span><span class="p">[:,:</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span><span class="n">t1</span><span class="p">)</span>
+        <span class="n">beta</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+        <span class="c1"># Exit criterion</span>
+        <span class="k">if</span> <span class="n">beta</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Tolerance</span><span class="p">:</span>
+            <span class="k">break</span>
+
+        <span class="n">wn</span> <span class="o">+=</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">beta</span>
+        <span class="n">beta</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>
+        <span class="n">v_old</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">w</span><span class="o">/</span><span class="n">beta</span>
+        <span class="n">V</span><span class="p">[:,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+        <span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">beta</span>
+        <span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">beta</span>
+
+    <span class="k">return</span> <span class="n">T</span></div>
+
+<span class="c1"># ============================</span>
+<span class="c1"># Lanczos Tridiagonalization 2</span>
+<span class="c1"># ============================</span>
+
+<div class="viewcode-block" id="LanczosTridiagonalization2"><a class="viewcode-back" href="../../../api/TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2.html#TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2">[docs]</a><span class="k">def</span> <span class="nf">LanczosTridiagonalization2</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">Tolerance</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Tridiagonalizes matrix ``A`` to ``T`` using the start vector ``v``. ``m`` is the Lanczos</span>
+<span class="sd">    degree, which will be the size of square matrix ``T``.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        * ``A`` should be symmetric and positive-definite matrix size ``n*n``.</span>
+<span class="sd">        * ``T`` will be symmetric and positve-definite matrix of size ``(m+1,m+1)``.</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        * Templates for solution of Algebraic Eigenvalue Problems*, James Demmel, p.57</span>
+
+<span class="sd">    :param A: Input matrix of the size ``n*n``. Matrix should be positive-definite and symmetric.</span>
+<span class="sd">    :type A: ndarray</span>
+
+<span class="sd">    :param v: Start vector for the Lanczos tri-diagonalization. Column vector of size ``n``.</span>
+<span class="sd">        It could be generated randomly. Often it is generated by the Rademacher distribution with entries ``+1`` and ``-1``.</span>
+<span class="sd">    :type v: array</span>
+
+<span class="sd">    :param m: Lanczos degree, which is the number of Lanczos iterations.</span>
+<span class="sd">    :type m: int</span>
+
+<span class="sd">    :param Tolerance: The tolerance of the residial error of the Lanczos iteration.</span>
+<span class="sd">    :type Tolerance: float</span>
+
+<span class="sd">    :return: Symmetric positive-definite matric ``T`` of the size ``(m+1)*(m+1)``.</span>
+<span class="sd">    :rtype: ndarray</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">m</span><span class="p">,</span><span class="n">m</span><span class="p">))</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">V</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">))</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="n">beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="c1"># In the following, beta[j] means beta[j-1] in the Demmel text</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+
+        <span class="n">V</span><span class="p">[:,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span> <span class="o">/</span> <span class="n">beta</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+
+        <span class="c1"># Matrix-vector multiplication</span>
+        <span class="k">if</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">isspmatrix</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">V</span><span class="p">[:,</span><span class="n">j</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">V</span><span class="p">[:,</span><span class="n">j</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">r</span> <span class="o">-</span> <span class="n">V</span><span class="p">[:,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">beta</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+
+        <span class="n">alpha</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">V</span><span class="p">[:,</span><span class="n">j</span><span class="p">],</span><span class="n">r</span><span class="p">)</span>
+
+        <span class="n">r</span> <span class="o">=</span> <span class="n">r</span> <span class="o">-</span> <span class="n">V</span><span class="p">[:,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">alpha</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+
+        <span class="n">beta</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+        <span class="c1"># Exit if beta got very small</span>
+        <span class="k">if</span> <span class="n">beta</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">Tolerance</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">T</span><span class="p">[:</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,:</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">beta</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">T</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">beta</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">T</span></div>
+
+<span class="c1"># ====================================</span>
+<span class="c1"># Golub-Kahn-Lanczos Bidiagonalization</span>
+<span class="c1"># ====================================</span>
+
+<div class="viewcode-block" id="GolubKahnLanczosBidiagonalization"><a class="viewcode-back" href="../../../api/TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization.html#TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization">[docs]</a><span class="k">def</span> <span class="nf">GolubKahnLanczosBidiagonalization</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">Tolerance</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    B-diagonalizes the positive-definite matrix ``A`` using Golub-Kahn-Lanczos method.</span>
+
+<span class="sd">    This method bidiagonalizes matrix ``A`` to ``B`` using the start vector ``w``. ``m`` is the Lanczos</span>
+<span class="sd">    degree, which will be the size of square matrix ``B``.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        * ``A`` should be positive-definite matrix size ``n*n``.</span>
+<span class="sd">        * ``B`` will be positve-definite matrix of size ``(m+1,m+1)``.</span>
+
+<span class="sd">    .. warning::</span>
+
+<span class="sd">        When matrix ``A`` is very close to the identity matrix, the Golub-Kahn bidoagonalization method can not </span>
+<span class="sd">        find :math:`\\beta`, as :math:`\\beta` becomes zero. If ``A`` is not exactly identity, you may descrease the Tolerance</span>
+<span class="sd">        to a very small number. However, if ``A`` is almost identity matrix, descreasing tolerance will not </span>
+<span class="sd">        help, and this function cannot be used.</span>
+
+<span class="sd">    :param A: Input matrix of the size ``n*n``. Matrix should be positive-definite and symmetric.</span>
+<span class="sd">    :type A: ndarray</span>
+
+<span class="sd">    :param w: Start vector for the Lanczos tri-diagonalization. Column vector of size ``n``.</span>
+<span class="sd">        It could be generated randomly. Often it is generated by the Rademacher distribution with entries ``+1`` and ``-1``.</span>
+<span class="sd">    :type w: array</span>
+
+<span class="sd">    :param m: Lanczos degree, which is the number of Lanczos iterations.</span>
+<span class="sd">    :type m: int</span>
+
+<span class="sd">    :param Tolerance: The tolerance of the residial error of the Lanczos iteration.</span>
+<span class="sd">    :type Tolerance: float</span>
+
+<span class="sd">    :return: Symmetric positive-definite matric ``B`` of the size ``(m+1)*(m+1)``.</span>
+<span class="sd">    :rtype: ndarray</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        * NetLib `Algorithm 6.27 &lt;http://www.netlib.org/utk/people/JackDongarra/etemplates/node198.html&gt;`_</span>
+<span class="sd">        * Matrix Computations, Golub, p. 495</span>
+<span class="sd">        * Templates for Solution of Algebraic Eigenvalue Problem, Demmel, p. 143</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Normalize random vector</span>
+    <span class="n">Norm</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">w</span><span class="o">/</span><span class="n">Norm</span>
+
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">m</span><span class="p">,</span><span class="n">m</span><span class="p">))</span>
+
+    <span class="c1"># u = numpy.zeros(w.size)</span>
+    <span class="c1"># beta[0] = 1</span>
+    <span class="c1"># p = numpy.copy(v)</span>
+
+    <span class="c1"># for k in range(m):</span>
+
+    <span class="c1">#     v_old = numpy.copy(v)</span>
+    <span class="c1">#     u_old = numpy.copy(u)</span>
+
+    <span class="c1">#     v = p / beta[k]</span>
+
+    <span class="c1">#     r = A.dot(v_old) - beta[k]*u_old</span>
+
+    <span class="c1">#     alpha[k] = numpy.linalg.norm(r)</span>
+
+    <span class="c1">#     u = r/alpha[k]</span>
+    <span class="c1">#     p = A.T.dot(u) - alpha[k]*v</span>
+    <span class="c1">#     beta[k+1] = numpy.linalg.norm(p)</span>
+
+    <span class="c1">#     if beta[k+1] &lt; Tolerance:</span>
+    <span class="c1">#         return B[:k,:k]</span>
+    <span class="c1">#     </span>
+    <span class="c1">#     # Update B</span>
+    <span class="c1">#     B[k,k] = alpha[k]</span>
+
+    <span class="c1">#     if k &lt; m-1:</span>
+    <span class="c1">#         B[k,k+1] = beta[k+1]</span>
+
+    <span class="c1"># return B</span>
+
+    <span class="n">beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">v_old</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">u_new</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v_old</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">u_new</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v_old</span><span class="p">)</span> <span class="o">-</span> <span class="n">beta</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="n">u_old</span>
+
+        <span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">u_new</span><span class="p">)</span>
+        <span class="n">u_new</span> <span class="o">=</span> <span class="n">u_new</span> <span class="o">/</span> <span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+        <span class="n">v_new</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u_new</span><span class="p">)</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="n">v_old</span>
+        <span class="n">beta</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v_new</span><span class="p">)</span>
+
+        <span class="c1"># Exit criterion</span>
+        <span class="k">if</span> <span class="n">beta</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">Tolerance</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># raise ValueError(&#39;Premature exit at k = 0. beta[0:2] = %0.16f, %0.16f. This happens when A is close to identity. To resolve issue, decrease Tolerance: %f&#39;%(beta[0],beta[1],Tolerance))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Premature exit in Golub-Kahn-Lanczos bi-diagonalization. alpha: </span><span class="si">%e</span><span class="s1">, beta: </span><span class="si">%e</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">beta</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                <span class="n">B</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">]]])</span>
+                <span class="k">return</span> <span class="n">B</span>
+            <span class="k">return</span> <span class="n">B</span><span class="p">[:</span><span class="n">k</span><span class="p">,:</span><span class="n">k</span><span class="p">]</span>
+
+        <span class="n">v_new</span> <span class="o">=</span> <span class="n">v_new</span> <span class="o">/</span> <span class="n">beta</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Store to the output matrix</span>
+        <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">beta</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Update for new iteration</span>
+        <span class="n">v_old</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">v_new</span><span class="p">)</span>
+        <span class="n">u_old</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">u_new</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">B</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

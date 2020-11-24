@@ -1,0 +1,772 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Compute Trace of Inverse (TraceInv.ComputeTraceOfInverse) &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ComputeTraceOfInverse" href="api/TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse.html" />
+    <link rel="prev" title="LanczosTridiagonalization2" href="api/TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Compute Trace of Inverse</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mathematical-details">Mathematical Details</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cholesky-decomposition-method">Cholesky Decomposition Method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hutchinson-randomized-method">Hutchinson Randomized Method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stochastic-lanczos-quadrature-method">Stochastic Lanczos Quadrature Method</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dense-matrix">Dense Matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sparse-matrix">Sparse Matrix</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#main-interface">Main Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.ComputeTraceOfInverse">TraceInv.ComputeTraceOfInverse Package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#modules">Modules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.ComputeTraceOfInverse.CholeskyMethod">TraceInv.ComputeTraceOfInverse.CholeskyMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.ComputeTraceOfInverse.HutchinsonMethod">TraceInv.ComputeTraceOfInverse.HutchinsonMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.LinearAlgebra.LinearSolver">TraceInv.LinearAlgebra.LinearSolver Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.LinearAlgebra.MatrixReduction">TraceInv.LinearAlgebra.MatrixReduction Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod">TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod Module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="_modules/modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Compute Trace of Inverse (<code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse</span></code>)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ComputeTraceOfInverse.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="compute-trace-of-inverse-traceinv-computetraceofinverse">
+<span id="computetraceofinverse-userguide"></span><h1>Compute Trace of Inverse (<a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse</span></code></a>)<a class="headerlink" href="#compute-trace-of-inverse-traceinv-computetraceofinverse" title="Permalink to this headline">¶</a></h1>
+<p>The sub-package <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse</span></code></a> computes the trace of inverse of an invertible matrix.</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">ComputeTraceOfInverse</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a symmetric positive-definite matrix of the shape (20**2,20**2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute trace of inverse</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the above, the class <a class="reference internal" href="_modules/TraceInv.GenerateMatrix.html#module-TraceInv.GenerateMatrix" title="TraceInv.GenerateMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenerateMatrix</span></code></a> produces a sample matrix for test purposes (see <a class="reference internal" href="api/TraceInv.GenerateMatrix.GenerateMatrix.html#generatematrix"><span class="std std-ref">Generate Matrix</span></a> for details).</p>
+<p>The <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a> module in the above code employs the Cholesky method by default to compute the trace of inverse. However, the user may choose other methods given in the table below.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 58%" />
+<col style="width: 10%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">ComputeMethod</span></code></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Matrix size</p></th>
+<th class="head"><p>Matrix type</p></th>
+<th class="head"><p>Results</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'cholesky'</span></code></p></td>
+<td><p><a class="reference internal" href="#cholesky-decomposition-method"><span class="std std-ref">Cholesky decomposition</span></a></p></td>
+<td><p>small</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>exact</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'hutchinson'</span></code></p></td>
+<td><p><a class="reference internal" href="#hutchinson-randomized-method"><span class="std std-ref">Hutchinson’s randomized method</span></a></p></td>
+<td><p>small or large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>approximation</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code></p></td>
+<td><p><a class="reference internal" href="#stochastic-lanczos-quadrature-method"><span class="std std-ref">Stochastic Lanczos Quadrature method</span></a></p></td>
+<td><p>small or large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>approximation</p></td>
+</tr>
+</tbody>
+</table>
+<p>The desired method of computation can be passed through the <code class="docutils literal notranslate"><span class="pre">ComputeMethod</span></code> argument when calling <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a>. For instance, in the following example, we apply the <em>Hutchinson’s randomized estimator</em> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using Hutchinson method with 20 Monte-Carlo iterations</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Each of the methods in the above accepts some options. For instance, the Hutchinson’s method accepts <a class="reference internal" href="#NumIterations" title="NumIterations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">NumIterations</span></code></a> argument, which sets the number of Monte-Carlo trials. To see the detailed list of all arguments for each method, see <a class="reference internal" href="InterpolateTraceOfInverse.html#parameters"><span class="std std-ref">Parameters</span></a> and the <a class="reference external" href="https://ameli.github.io/TraceInv/_modules/modules.html">API</a> of the package.</p>
+</div>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse</span></code></a> module accepts the following attributes as input argument.</p>
+<dl class="py attribute">
+<dt id="ComputeMethod">
+<code class="sig-name descname">ComputeMethod</code><em class="property">: string</em><em class="property"> = 'cholesky'</em><a class="headerlink" href="#ComputeMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specifies the method of computation. The methods are one of <code class="docutils literal notranslate"><span class="pre">'cholsky'</span></code>, <code class="docutils literal notranslate"><span class="pre">'hutchinson'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code> (see <a class="reference internal" href="GenerateMatrix.html#mathematical-details"><span class="std std-ref">Mathematical Details</span></a>).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="UseInverseMatrix">
+<code class="sig-name descname">UseInverseMatrix</code><em class="property">: bool</em><em class="property"> = True</em><a class="headerlink" href="#UseInverseMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>This parameter is only applied to the <code class="docutils literal notranslate"><span class="pre">'cholesky'</span></code> computing method (see <a class="reference internal" href="#ComputeMethod" title="ComputeMethod"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ComputeMethod</span></code></a>).</p>
+<ul class="simple">
+<li><p>When set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the Cholesky matrix is inverted directly. This approach is computationally expensive, but fast. This option is suitable for small matrices.</p></li>
+<li><p>When set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, the Cholesky matrix is inverted indirectly by solving succissive linear systems for each column of the right hand side identity matrix. This approach is less computationally expensive and memory efficient, but slow. This approach is suitable for larger matrices.</p></li>
+</ul>
+<p>For mathematical details of this parameter, see <a class="reference internal" href="#cholesky-decomposition-method"><span class="std std-ref">Cholesky decomposition method</span></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="NumIterations">
+<code class="sig-name descname">NumIterations</code><em class="property">: int</em><em class="property"> = 20</em><a class="headerlink" href="#NumIterations" title="Permalink to this definition">¶</a></dt>
+<dd><p>This parameter is only applied to <code class="docutils literal notranslate"><span class="pre">'hutchinson'</span></code> and <code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code> computing methods (see <a class="reference internal" href="#ComputeMethod" title="ComputeMethod"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ComputeMethod</span></code></a>).</p>
+<p>The number of iterations refers to the number of Monte-Carlo samplings during the randomized trace estimators. With the larger number of Monte-Carlo samples, better numerical convergence is obtained.</p>
+<p>For mathematical details of this parameter, see <a class="reference internal" href="#hutchinson-randomized-method"><span class="std std-ref">Hutchinson randomized method</span></a> and <a class="reference internal" href="#stochastic-lanczos-quadrature-method"><span class="std std-ref">Stochastic Lanczos quadrature method</span></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="LanczosDegree">
+<code class="sig-name descname">LanczosDegree</code><em class="property">: int</em><em class="property"> = 20</em><a class="headerlink" href="#LanczosDegree" title="Permalink to this definition">¶</a></dt>
+<dd><p>This parameter is only applied to <code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code> computing method (see <a class="reference internal" href="#ComputeMethod" title="ComputeMethod"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ComputeMethod</span></code></a>).</p>
+<p>The Lanczos degree is the number of Lanczos iterations during the Lanczos tridiagonalization process in stochastic Lanczos quadrature (SLQ) method. Larger Lanczos degree yields better numerical convergence.</p>
+<p>For mathematical detail of this parameter, see <a class="reference internal" href="#stochastic-lanczos-quadrature-method"><span class="std std-ref">Stochastic Lanczos quadrature method</span></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="UseLanczosTridiagonalization">
+<code class="sig-name descname">UseLanczosTridiagonalization</code><em class="property">: bool</em><em class="property"> = True</em><a class="headerlink" href="#UseLanczosTridiagonalization" title="Permalink to this definition">¶</a></dt>
+<dd><p>This parameter is only applied to <code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code> computing method (see <a class="reference internal" href="#ComputeMethod" title="ComputeMethod"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ComputeMethod</span></code></a>).</p>
+<ul class="simple">
+<li><p>When set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the <em>Lanczos tri-diagonalization</em> method is used.</p></li>
+<li><p>When set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, the <em>Golub-Kahn-Lanczos bi-diagonalization</em> method is used.</p></li>
+</ul>
+<p>For mathematical details of this parameter, see <a class="reference internal" href="#stochastic-lanczos-quadrature-method"><span class="std std-ref">Stochastic Lanczos quadrature method</span></a>.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="mathematical-details">
+<h2>Mathematical Details<a class="headerlink" href="#mathematical-details" title="Permalink to this headline">¶</a></h2>
+<p>The three methods of computing the trace is described below. These methods are categorized into two groups:</p>
+<ol class="arabic simple">
+<li><p><strong>Exact:</strong> The <span class="xref std std-ref">Cholesky decomposition method</span> aims to compute the trace of inverse of a matrix exactly. The exact method is expensive and suitable for only small matrices.</p></li>
+<li><p><strong>Aproximation:</strong> The <a class="reference internal" href="#hutchinson-randomized-method"><span class="std std-ref">Hutchinson method</span></a> and the <a class="reference internal" href="#stochastic-lanczos-quadrature-method"><span class="std std-ref">stochastic Lanczos quadrature method</span></a> are <em>randomized estimation algorithms</em> that estimate the trace with <em>Monte-Carlo sampling</em>. These methods do not compute the trace exactly, but over the iterations, their approximation converges to the true solution. These methods are very suitable for large matrices.</p></li>
+</ol>
+<div class="section" id="cholesky-decomposition-method">
+<h3>Cholesky Decomposition Method<a class="headerlink" href="#cholesky-decomposition-method" title="Permalink to this headline">¶</a></h3>
+<p>The trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> can be computed via</p>
+<div class="math notranslate nohighlight">
+\[\mathrm{trace}(\mathbf{A}^{-1}) = \| \mathbf{L}^{-1} \|^2_F\]</div>
+<p>where <span class="math notranslate nohighlight">\(\| \cdot \|_F\)</span> is the Frobenius norm, and the lower-triangular matrix <span class="math notranslate nohighlight">\(\mathbf{L}\)</span> is the Cholesky decomposition of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, that is</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{A} = \mathbf{L} \mathbf{L}^{\intercal}.\]</div>
+<p>In this package, the Cholesky decomposition computed via <a class="reference external" href="https://people.engr.tamu.edu/davis/suitesparse.html">Suite Sparse</a> package <a class="reference internal" href="#davis-2006" id="id1"><span>[Davis-2006]</span></a> (see <a class="reference internal" href="install.html#installscikitsparse"><span class="std std-ref">installation</span></a>). If this package is not installed, the Cholesky decomposition is computed using <code class="docutils literal notranslate"><span class="pre">scipy</span></code> package instead.</p>
+<p>The term <span class="math notranslate nohighlight">\(\| \mathbf{L}^{-1} \|_F\)</span> can be computed in two ways:</p>
+<ol class="arabic">
+<li><p>If <a class="reference internal" href="#UseInverseMatrix" title="UseInverseMatrix"><code class="xref py py-attr docutils literal notranslate"><span class="pre">UseInverseMatrix</span></code></a> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the matrix <span class="math notranslate nohighlight">\(\mathbf{L}\)</span> is inverted and its Frobenius norm is computed directly. This approach is fast but expensive or often impractical for large matrices.</p></li>
+<li><p>If <a class="reference internal" href="#UseInverseMatrix" title="UseInverseMatrix"><code class="xref py py-attr docutils literal notranslate"><span class="pre">UseInverseMatrix</span></code></a> is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, the matrix <span class="math notranslate nohighlight">\(\mathbf{L}\)</span> is not inverted directly, rather, the linear system</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{L} \boldsymbol{x}_i = \boldsymbol{e}_i, \qquad i = 1,\dots,n\]</div>
+<p>is solved, where <span class="math notranslate nohighlight">\(\boldsymbol{e}_i = (0,\dots,0,1,0,\dots,0)^{\intercal}\)</span> is a column vector of zeros except its <span class="math notranslate nohighlight">\(i\)</span> th entry is one, and <span class="math notranslate nohighlight">\(n\)</span> is the size of the square matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>. The solution <span class="math notranslate nohighlight">\(\boldsymbol{x}_i\)</span> is the <span class="math notranslate nohighlight">\(i\)</span> th column of <span class="math notranslate nohighlight">\(\mathbf{L}^{-1}\)</span>. Then, its Frobenius norm is</p>
+<div class="math notranslate nohighlight">
+\[\| \mathbf{L} \|_F^2 = \sum_{i=1}^n \| \boldsymbol{x}_i \|^2.\]</div>
+<p>The method is memory efficient as the vectors <span class="math notranslate nohighlight">\(\boldsymbol{x}_i\)</span> do not need to be stored, rather, their norm can be stored in each iteration.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="hutchinson-randomized-method">
+<h3>Hutchinson Randomized Method<a class="headerlink" href="#hutchinson-randomized-method" title="Permalink to this headline">¶</a></h3>
+<p>The Hutchinson’s method computes the trace of a matrix as follows.</p>
+<div class="math notranslate nohighlight">
+\[\mathrm{trace}(\mathbf{A}^{-1}) = \mathbb{E} \left[ \boldsymbol{q}^{\intercal} \mathbf{A}^{-1} \boldsymbol{q} \right]
+\approx \frac{1}{m} \sum_{i=1}^m \boldsymbol{q}_i^{\intercal} \mathbf{A}^{-1} \boldsymbol{q}_i\]</div>
+<p>In Hutchinson’s method, the random vector <span class="math notranslate nohighlight">\(\boldsymbol{q}\)</span> has Rademacher distribution (see <a class="reference internal" href="references.html#hutchinson-1990" id="id2"><span>[Hutchinson-1990]</span></a>, <a class="reference internal" href="#gibbs-1997" id="id3"><span>[Gibbs-1997]</span></a>, and <a class="reference internal" href="#avron-2011" id="id4"><span>[Avron-2011]</span></a>)</p>
+<p>In this module, a random matrix <span class="math notranslate nohighlight">\(\mathbf{E}\)</span> of the size <span class="math notranslate nohighlight">\((n \times m)\)</span>  is randomly generated where its <span class="math notranslate nohighlight">\(m\)</span> columns have Rademacher distribution. Here, <span class="math notranslate nohighlight">\(n\)</span> is the size of the square matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(m\)</span> will be the number of Monte-Carlo random sampling which is set by <a class="reference internal" href="#NumIterations" title="NumIterations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">NumIterations</span></code></a>. We orthogonalize the columns of <span class="math notranslate nohighlight">\(\mathbf{E}\)</span> by performing the QR decomposition on <span class="math notranslate nohighlight">\(\mathbf{E}\)</span> as</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{E} = \mathbf{Q} \mathbf{R}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> is orthonormal and <span class="math notranslate nohighlight">\(\mathbf{R}\)</span> is upper triangular. We use the <span class="math notranslate nohighlight">\(m\)</span> orthogonal columns of <span class="math notranslate nohighlight">\(\mathbf{Q}\)</span> instead as the vectors <span class="math notranslate nohighlight">\(\boldsymbol{q}_i\)</span> to approximate <span class="math notranslate nohighlight">\(\mathbb{E}[\boldsymbol{q}^{\intercal} \mathbf{A}^{-1} \boldsymbol{q}]\)</span> by</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}[ \boldsymbol{q}^{\intercal} \mathbf{A}^{-1} \boldsymbol{q}] = \frac{n}{m} \sum_{i=1}^m \boldsymbol{q}_i \cdot \boldsymbol{p}_i\]</div>
+<p>where the column vector <span class="math notranslate nohighlight">\(\boldsymbol{p}_i\)</span> is obtained by solving the linear system <span class="math notranslate nohighlight">\(\mathbf{A} \boldsymbol{p}_i = \boldsymbol{q}_i\)</span>. The factor <span class="math notranslate nohighlight">\(n\)</span> in the numerator is due to the fact that the vectors <span class="math notranslate nohighlight">\(\boldsymbol{q}_i\)</span> are orthonormalized.</p>
+</div>
+<div class="section" id="stochastic-lanczos-quadrature-method">
+<h3>Stochastic Lanczos Quadrature Method<a class="headerlink" href="#stochastic-lanczos-quadrature-method" title="Permalink to this headline">¶</a></h3>
+<p>The stochastic Lanczos quadrature (SLQ) method combines stochastic estimator and the Gauss quadrature technique. A stochastic estimator approximates the trace by</p>
+<div class="math notranslate nohighlight">
+\[\mathrm{trace}(\mathbf{A}^{-1}) = \mathbb{E} \left[ \boldsymbol{q}^{\intercal} \mathbf{A}^{-1} \boldsymbol{q} \right]
+\approx \frac{n}{m} \sum_{i=1}^m \boldsymbol{q}_i^{\intercal} \mathbf{A}^{-1} \boldsymbol{q}_i\]</div>
+<p>where <span class="math notranslate nohighlight">\(\boldsymbol{q}_i\)</span> are unit random vectors obtained from random Rademacher distribution that are normalized to unit norm.</p>
+<p>In the SLQ method, first, an <span class="math notranslate nohighlight">\((l \times l)\)</span> tri-diagonal matrix <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> is formed by the Lanczos tri-diagonalization of the matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> (see p. 57 of <a class="reference internal" href="#bai-2000" id="id5"><span>[Bai-2000]</span></a>). The <em>Lanczos degree</em> <span class="math notranslate nohighlight">\(l\)</span> can be set by the parameter <a class="reference internal" href="#LanczosDegree" title="LanczosDegree"><code class="xref py py-attr docutils literal notranslate"><span class="pre">LanczosDegree</span></code></a>.</p>
+<p>The term on the right side in the above is approximated by the Gaussian quadrature (see <a class="reference internal" href="#bai-1996" id="id6"><span>[Bai-1996]</span></a> and <a class="reference internal" href="#golub-2009" id="id7"><span>[Golub-2009]</span></a>), by</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{q}_i^{\intercal} \mathbf{A}^{-1} \boldsymbol{q}_i = \sum_{j=0}^l \left( \tau_{j1} \right)^2 \frac{1}{\theta_j}.\]</div>
+<p>where <span class="math notranslate nohighlight">\(\theta_j\)</span> is the <span class="math notranslate nohighlight">\(j\)</span><sup>th</sup> eigenvalue of the tri-diagonalized matrix <span class="math notranslate nohighlight">\(\mathbf{T}\)</span>. Also, <span class="math notranslate nohighlight">\(\tau_{j1}\)</span> is the first element of the vector <span class="math notranslate nohighlight">\(\boldsymbol{\tau}_j = (\tau_{j1},\dots,\tau_{jn})\)</span> where <span class="math notranslate nohighlight">\(\boldsymbol{\tau}_j\)</span> is the <span class="math notranslate nohighlight">\(j\)</span><sup>th</sup> eigenvector of <span class="math notranslate nohighlight">\(\mathbf{T}\)</span> (see Algorithm 1 of <a class="reference internal" href="#ubaru-2017" id="id8"><span>[Ubaru-2017]</span></a>).</p>
+<p>Alternatively, instead of the tri-diagonalized matrix <span class="math notranslate nohighlight">\(\mathbf{T}\)</span>, one might use the bi-diagonalized matrix <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> that is obtained by Golun-Kahn-Lanczos bi-diagonalization (see p. 143 of <a class="reference internal" href="#bai-2000" id="id9"><span>[Bai-2000]</span></a>, p. 495 of <a class="reference internal" href="#golub-1996" id="id10"><span>[Golub-1996]</span></a>). This way, the above them is computed by</p>
+<div class="math notranslate nohighlight">
+\[\boldsymbol{q}_i^{\intercal} \mathbf{A}^{-1} \boldsymbol{q}_i = \sum_{j=0}^l \left( \tau_{j1} \right)^2 \frac{1}{\phi_j}.\]</div>
+<p>where here <span class="math notranslate nohighlight">\(\phi_j\)</span> is the <span class="math notranslate nohighlight">\(j\)</span><sup>th</sup> singular value of <span class="math notranslate nohighlight">\(\mathbf{B}\)</span>. Also, <span class="math notranslate nohighlight">\(\tau_{j1}\)</span> denotes the first entry of the <span class="math notranslate nohighlight">\(j\)</span><sup>th</sup> right singular vector of <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> (see Algorithm 2 of <a class="reference internal" href="#ubaru-2017" id="id11"><span>[Ubaru-2017]</span></a>).</p>
+<p>In this module, by setting <a class="reference internal" href="#UseLanczosTridiagonalization" title="UseLanczosTridiagonalization"><code class="xref py py-attr docutils literal notranslate"><span class="pre">UseLanczosTridiagonalization</span></code></a> to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the Lanczos tri-diagonalization method is applied. Whereas if this parameter is set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, the Golub-Kahn-Lancos bi-diagonalization is used.</p>
+<p>The Golub-Kahn bi-diagonalization method is suitable for non-symmetric matrices. For the symmetric matrices, the Lanczos tri-diagonalization is preferred.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When the matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is very close to the identity matrix, the Golub-Kahn bidoagonalization method that
+is implementd in this module is unstable.</p>
+</div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dense-matrix">
+<h3>Dense Matrix<a class="headerlink" href="#dense-matrix" title="Permalink to this headline">¶</a></h3>
+<p>In the code below, we compare the three computing methods for a small dense matrix of the shape <span class="math notranslate nohighlight">\((20^2,20^2)\)</span>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import modules</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">ComputeTraceOfInverse</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Try various methods</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T1</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;cholesky&#39;</span><span class="p">,</span><span class="n">UseInverseMatrix</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T2</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;cholesky&#39;</span><span class="p">,</span><span class="n">UseInverseMatrix</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T3</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T4</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;SLQ&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">UseLanczosTridiagonalization</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T5</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;SLQ&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">UseLanczosTridiagonalization</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The results are shown in the table below. The last column is the elapsed time in seconds. The fifth column is the relative error compared to the Cholesky method. Recall that the Cholesky method computes the trace exactly, hence, it can be used as the benchmark solution. The randomized methods do not much advantage over the exact method for small matrices as their elapsed time higher.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 12%" />
+<col style="width: 60%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Method</p></th>
+<th class="head"><p>Options</p></th>
+<th class="head"><p>Result</p></th>
+<th class="head"><p>Error</p></th>
+<th class="head"><p>Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T1</span></code></p></td>
+<td><p>Cholesky</p></td>
+<td><p>without using inverse</p></td>
+<td><p>1008.1</p></td>
+<td><p>0.00%</p></td>
+<td><p>0.14</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">T2</span></code></p></td>
+<td><p>Cholesky</p></td>
+<td><p>using inverse</p></td>
+<td><p>1008.1</p></td>
+<td><p>0.00%</p></td>
+<td><p>0.01</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T3</span></code></p></td>
+<td><p>Hutchinson</p></td>
+<td><p><span class="math notranslate nohighlight">\(m = 30\)</span></p></td>
+<td><p>1012.9</p></td>
+<td><p>0.48%</p></td>
+<td><p>0.01</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">T4</span></code></p></td>
+<td><p>SLQ</p></td>
+<td><p><span class="math notranslate nohighlight">\(m = 30\)</span>, <span class="math notranslate nohighlight">\(l = 30\)</span>, tri-diagonalization</p></td>
+<td><p>1013.4</p></td>
+<td><p>0.53%</p></td>
+<td><p>0.14</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T5</span></code></p></td>
+<td><p>SLQ</p></td>
+<td><p><span class="math notranslate nohighlight">\(m = 30\)</span>, <span class="math notranslate nohighlight">\(l = 30\)</span>, bi-diagonalization</p></td>
+<td><p>999.19</p></td>
+<td><p>0.89%</p></td>
+<td><p>0.21</p></td>
+</tr>
+</tbody>
+</table>
+<p>The above table can be produced by running the test script <a class="reference external" href="https://github.com/ameli/TraceInv/blob/master/tests/test_ComputeTraceOfInverse.py"><code class="docutils literal notranslate"><span class="pre">/test/test_ComputeTraceOfInverse.py</span></code></a>, although, the results might be slightly difference due to the random number generator.</p>
+</div>
+<div class="section" id="sparse-matrix">
+<h3>Sparse Matrix<a class="headerlink" href="#sparse-matrix" title="Permalink to this headline">¶</a></h3>
+<p>In the code below, we compare the three computing methods for a large sparse matrix of the shape <span class="math notranslate nohighlight">\((80^2,80^2)\)</span> and sparse density <span class="math notranslate nohighlight">\(d = 0.01\)</span>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import modules</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">ComputeTraceOfInverse</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span><span class="n">KernelThreshold</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span><span class="n">DecorrelationScale</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span><span class="n">UseSparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">RunInParallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Try various methods</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T1</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;cholesky&#39;</span><span class="p">,</span><span class="n">UseInverseMatrix</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># T2 = ComputeTraceOfInverse(A,ComputeMethod=&#39;cholesky&#39;,UseInverseMatrix=True)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T3</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T4</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;SLQ&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">UseLanczosTridiagonalization</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T5</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;SLQ&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">UseLanczosTridiagonalization</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that the line <code class="docutils literal notranslate"><span class="pre">T2</span></code> in the above is commented out because the Cholesky method using direct matrix inversion cannot be used on sparse matrices in this module. The results are shown in the table below.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 12%" />
+<col style="width: 59%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Method</p></th>
+<th class="head"><p>Options</p></th>
+<th class="head"><p>Result</p></th>
+<th class="head"><p>Error</p></th>
+<th class="head"><p>Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T1</span></code></p></td>
+<td><p>Cholesky</p></td>
+<td><p>without using inverse</p></td>
+<td><p>15579.9</p></td>
+<td><p>0.00%</p></td>
+<td><p>119</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">T2</span></code></p></td>
+<td><p>Cholesky</p></td>
+<td><p>using inverse</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T3</span></code></p></td>
+<td><p>Hutchinson</p></td>
+<td><p><span class="math notranslate nohighlight">\(m = 30\)</span></p></td>
+<td><p>15559.8</p></td>
+<td><p>0.13%</p></td>
+<td><p>2.21</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">T4</span></code></p></td>
+<td><p>SLQ</p></td>
+<td><p><span class="math notranslate nohighlight">\(m = 30\)</span>, <span class="math notranslate nohighlight">\(l = 30\)</span>, tri-diagonalization</p></td>
+<td><p>15576.1</p></td>
+<td><p>0.02%</p></td>
+<td><p>0.95</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T5</span></code></p></td>
+<td><p>SLQ</p></td>
+<td><p><span class="math notranslate nohighlight">\(m = 30\)</span>, <span class="math notranslate nohighlight">\(l = 30\)</span>, bi-diagonalization</p></td>
+<td><p>14243.8</p></td>
+<td><p>8.58%</p></td>
+<td><p>1.57</p></td>
+</tr>
+</tbody>
+</table>
+<p>The advantages of randomized methods can be clearly observed on large sparse matrices. In the above table, the Cholesky method took two minutes, whereas the randomized approaches took one or two seconds to compute. Moreover, a considerable accuracy is achieved with only a few Monte-Carlo sampling (<span class="math notranslate nohighlight">\(m = 30\)</span>). The SLQ method with bi-diagonalization produced less accurate result compared to the tri-diagonalization method. However, by increasing the Lanczos degree, the accuracy of bi-diagonalization method improves.</p>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<dl class="citation">
+<dt class="label" id="davis-2006"><span class="brackets"><a class="fn-backref" href="#id1">Davis-2006</a></span></dt>
+<dd><p>Davis, T. A. (2006). Direct Methods for Sparse Linear Systems. Society for Industrial and Applied Mathematics, <a class="reference external" href="https://doi.org/10.1137/1.9780898718881">doi: 10.1137/1.9780898718881</a></p>
+</dd>
+<dt class="label" id="hutchinson-1990"><span class="brackets"><a class="fn-backref" href="#id2">Hutchinson-1990</a></span></dt>
+<dd><p>Hutchinson, M. F. (1990). A stochastic estimator of the trace of the influence matrix for Laplacian smoothing splines. Communications in Statistics - Simulation and Computation, 19(2), 433–450. <a class="reference external" href="https://www.tandfonline.com/doi/abs/10.1080/03610919008812866">doi: 10.1080/03610919008812866</a>.</p>
+</dd>
+<dt class="label" id="gibbs-1997"><span class="brackets"><a class="fn-backref" href="#id3">Gibbs-1997</a></span></dt>
+<dd><p>Gibbs, M. &amp; MacKay, D. J. C. (1997). <a class="reference external" href="http://www.inference.org.uk/mackay/gpB.pdf">Efficient Implementation of Gaussian Processes</a>. Technical report, Cavendish Laboratory, Cambridge, UK</p>
+</dd>
+<dt class="label" id="avron-2011"><span class="brackets"><a class="fn-backref" href="#id4">Avron-2011</a></span></dt>
+<dd><p>Avron, H. and Toledo, S. (2011). Randomized Algorithms for Estimating the Trace of an Implicit Symmetric Positive Semi-Definite Matrix. <em>Journal ofA ACM</em>, volume 58, No. 2, Association for Computing Machinery. New York, NY, USA. <a class="reference external" href="https://doi.org/10.1145/1944345.1944349">doi: 10.1145/1944345.1944349</a>.</p>
+</dd>
+<dt class="label" id="bai-1996"><span class="brackets"><a class="fn-backref" href="#id6">Bai-1996</a></span></dt>
+<dd><p>Bai, Z., Fahey, G., and Golub, G. (1996). Some large-scale matrix computation problems. <em>Journal of Computational and Applied Mathematics</em>, 74(1), 71 – 89. <a class="reference external" href="https://doi.org/10.1016/0377-0427(96)00018-0">doi : 10.1016/0377-0427(96)00018-0</a></p>
+</dd>
+<dt class="label" id="bai-2000"><span class="brackets">Bai-2000</span><span class="fn-backref">(<a href="#id5">1</a>,<a href="#id9">2</a>)</span></dt>
+<dd><p>Bai, Z, Demmel, J., Dongarra, J., Ruhe, A., van der Vorst, H. (2000). Templates for the Solution of Algebraic Eigenvalue Problem, A Practical Guide. Society for Industrial and Applied Mathematics. <a class="reference external" href="https://doi.org/10.1137/1.9780898719581">doi:10.1137/1.9780898719581</a></p>
+</dd>
+<dt class="label" id="golub-1996"><span class="brackets"><a class="fn-backref" href="#id10">Golub-1996</a></span></dt>
+<dd><p>Golub, G. H. &amp; Van Loan, C. F. (1996). Matrix Computations. Johns Hopkins Studies in the Mathematical Sciences. Johns Hopkins University Press. <a class="reference external" href="https://jhupbooks.press.jhu.edu/title/matrix-computations">ISBN: 9781421407944</a></p>
+</dd>
+<dt class="label" id="golub-2009"><span class="brackets"><a class="fn-backref" href="#id7">Golub-2009</a></span></dt>
+<dd><p>Golub, G. H. &amp; Meurant, G. (2009). Matrices, Moments and Quadrature with Applications. USA: Princeton University Press. <a class="reference external" href="https://doi.org/10.1007/s10208-010-9082-0">doi: 10.1007/s10208-010-9082-0</a></p>
+</dd>
+<dt class="label" id="ubaru-2017"><span class="brackets">Ubaru-2017</span><span class="fn-backref">(<a href="#id8">1</a>,<a href="#id11">2</a>)</span></dt>
+<dd><p>Ubaru, S., Chen, J., &amp; Saad, Y. (2017). Fast estimation of <span class="math notranslate nohighlight">\(\mathrm{tr}(f(A))\)</span> via stochastic Lanczos quadrature. <em>SIAM Journal on Matrix Analysis and Applications</em>, 38(4), 1075-1099. <a class="reference external" href="https://doi.org/10.1137/16M1104974">doi: 10.1137/16M1104974</a></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="api">
+<h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="main-interface">
+<h3>Main Interface<a class="headerlink" href="#main-interface" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="module-TraceInv.ComputeTraceOfInverse">
+<span id="traceinv-computetraceofinverse-package"></span><h4>TraceInv.ComputeTraceOfInverse Package<a class="headerlink" href="#module-TraceInv.ComputeTraceOfInverse" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="functions">
+<h5>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h5>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse.html#TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a>(A[, ComputeMethod])</p></td>
+<td><p>Computes the trace of inverse of a matrix.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="section" id="modules">
+<h3>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="module-TraceInv.ComputeTraceOfInverse.CholeskyMethod">
+<span id="traceinv-computetraceofinverse-choleskymethod-module"></span><h4>TraceInv.ComputeTraceOfInverse.CholeskyMethod Module<a class="headerlink" href="#module-TraceInv.ComputeTraceOfInverse.CholeskyMethod" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id12">
+<h5>Functions<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h5>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.ComputeTraceOfInverse.CholeskyMethod.CholeskyMethod.html#TraceInv.ComputeTraceOfInverse.CholeskyMethod.CholeskyMethod" title="TraceInv.ComputeTraceOfInverse.CholeskyMethod.CholeskyMethod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CholeskyMethod</span></code></a>(A[, UseInverseMatrix])</p></td>
+<td><p>Computes trace of inverse of matrix using Cholesky factorization by</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvByInverseOfCholesky.html#TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvByInverseOfCholesky" title="TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvByInverseOfCholesky"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ComputeTraceInvByInverseOfCholesky</span></code></a>(L, UseSparse)</p></td>
+<td><p>Compute the trace of inverse by inverting the Cholesky matrix <code class="docutils literal notranslate"><span class="pre">L</span></code> directly.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvBySolvingLinearSystem.html#TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvBySolvingLinearSystem" title="TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvBySolvingLinearSystem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ComputeTraceInvBySolvingLinearSystem</span></code></a>(L, n, …)</p></td>
+<td><p>Computes the trace of inverse by solving a linear system for Cholesky matrix and each column of the identity matrix to obtain the inverse of <code class="docutils literal notranslate"><span class="pre">L</span></code> subsequentially.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearSolver</span></code>(A, b[, Tol])</p></td>
+<td><p>Solves the linear system <span class="math notranslate nohighlight">\(Ax = b\)</span> where <span class="math notranslate nohighlight">\(A\)</span> can be either sparse or dense.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.ComputeTraceOfInverse.CholeskyMethod.SparseCholesky.html#TraceInv.ComputeTraceOfInverse.CholeskyMethod.SparseCholesky" title="TraceInv.ComputeTraceOfInverse.CholeskyMethod.SparseCholesky"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SparseCholesky</span></code></a>(A[, DiagonalOnly])</p></td>
+<td><p>This function uses LU decomposition assuming that <code class="docutils literal notranslate"><span class="pre">A</span></code> is symmetric and positive-definite.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-TraceInv.ComputeTraceOfInverse.HutchinsonMethod">
+<span id="traceinv-computetraceofinverse-hutchinsonmethod-module"></span><h4>TraceInv.ComputeTraceOfInverse.HutchinsonMethod Module<a class="headerlink" href="#module-TraceInv.ComputeTraceOfInverse.HutchinsonMethod" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id13">
+<h5>Functions<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h5>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.ComputeTraceOfInverse.HutchinsonMethod.HutchinsonMethod.html#TraceInv.ComputeTraceOfInverse.HutchinsonMethod.HutchinsonMethod" title="TraceInv.ComputeTraceOfInverse.HutchinsonMethod.HutchinsonMethod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HutchinsonMethod</span></code></a>(A[, NumIterations])</p></td>
+<td><p>Computes the trace of inverse of a matrix by Hutchinson method.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearSolver</span></code>(A, b[, Tol])</p></td>
+<td><p>Solves the linear system <span class="math notranslate nohighlight">\(Ax = b\)</span> where <span class="math notranslate nohighlight">\(A\)</span> can be either sparse or dense.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-TraceInv.LinearAlgebra.LinearSolver">
+<span id="traceinv-linearalgebra-linearsolver-module"></span><h4>TraceInv.LinearAlgebra.LinearSolver Module<a class="headerlink" href="#module-TraceInv.LinearAlgebra.LinearSolver" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id14">
+<h5>Functions<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h5>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.LinearAlgebra.LinearSolver.LinearSolver.html#TraceInv.LinearAlgebra.LinearSolver.LinearSolver" title="TraceInv.LinearAlgebra.LinearSolver.LinearSolver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearSolver</span></code></a>(A, b[, Tol])</p></td>
+<td><p>Solves the linear system <span class="math notranslate nohighlight">\(Ax = b\)</span> where <span class="math notranslate nohighlight">\(A\)</span> can be either sparse or dense.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-TraceInv.LinearAlgebra.MatrixReduction">
+<span id="traceinv-linearalgebra-matrixreduction-module"></span><h4>TraceInv.LinearAlgebra.MatrixReduction Module<a class="headerlink" href="#module-TraceInv.LinearAlgebra.MatrixReduction" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id15">
+<h5>Functions<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h5>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization.html#TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization" title="TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GolubKahnLanczosBidiagonalization</span></code></a>(A, w, m[, …])</p></td>
+<td><p>B-diagonalizes the positive-definite matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> using Golub-Kahn-Lanczos method.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization.html#TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization" title="TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LanczosTridiagonalization</span></code></a>(A, w, m[, Tolerance])</p></td>
+<td><p>Tridiagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">w</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2.html#TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2" title="TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LanczosTridiagonalization2</span></code></a>(A, v, m[, Tolerance])</p></td>
+<td><p>Tridiagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">v</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod">
+<span id="traceinv-computetraceofinverse-stochasticlanczosquadraturemethod-module"></span><h4>TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod Module<a class="headerlink" href="#module-TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id16">
+<h5>Functions<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h5>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">GolubKahnLanczosBidiagonalization</span></code>(A, w, m[, …])</p></td>
+<td><p>B-diagonalizes the positive-definite matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> using Golub-Kahn-Lanczos method.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">LanczosTridiagonalization</span></code>(A, w, m[, Tolerance])</p></td>
+<td><p>Tridiagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">w</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">LanczosTridiagonalization2</span></code>(A, v, m[, Tolerance])</p></td>
+<td><p>Tridiagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">v</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod.StochasticLanczosQuadratureMethod.html#TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod.StochasticLanczosQuadratureMethod" title="TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod.StochasticLanczosQuadratureMethod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StochasticLanczosQuadratureMethod</span></code></a>(A[, …])</p></td>
+<td><p>Computes the trace of inverse of matrix based on stochastic Lanczos quadrature method.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api/TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse.html" class="btn btn-neutral float-right" title="ComputeTraceOfInverse" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="api/TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2.html" class="btn btn-neutral float-left" title="LanczosTridiagonalization2" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

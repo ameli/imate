@@ -87,16 +87,23 @@
             
               <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#install">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#usage">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#examples">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#citation">Citation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
 </ul>
-<p class="caption"><span class="caption-text">API</span></p>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tests.html">Running Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Change Log</a></li>
 </ul>
 
@@ -175,19 +182,19 @@
 <span class="k">try</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">sksparse</span>
     <span class="kn">from</span> <span class="nn">sksparse.cholmod</span> <span class="kn">import</span> <span class="n">cholesky</span>
-    <span class="n">SparseSuiteInstalled</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">SuiteSparseInstalled</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="k">except</span><span class="p">:</span>
-    <span class="n">SparseSuiteInstalled</span> <span class="o">=</span> <span class="kc">False</span>
-
+    <span class="n">SuiteSparseInstalled</span> <span class="o">=</span> <span class="kc">False</span>
 
 <span class="c1"># Package</span>
-<span class="kn">from</span> <span class="nn">.LinearSolver</span> <span class="kn">import</span> <span class="n">LinearSolver</span>
+<span class="kn">from</span> <span class="nn">..LinearAlgebra</span> <span class="kn">import</span> <span class="n">LinearSolver</span>
+<span class="kn">from</span> <span class="nn">..LinearAlgebra</span> <span class="kn">import</span> <span class="n">SparseCholesky</span>
 
 <span class="c1"># ========================================</span>
 <span class="c1"># Compute Trace Inv By Inverse of Cholesky</span>
 <span class="c1"># ========================================</span>
 
-<div class="viewcode-block" id="ComputeTraceInvByInverseOfCholesky"><a class="viewcode-back" href="../../TraceInv.ComputeTraceOfInverse.html#TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvByInverseOfCholesky">[docs]</a><span class="k">def</span> <span class="nf">ComputeTraceInvByInverseOfCholesky</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">UseSparse</span><span class="p">):</span>
+<div class="viewcode-block" id="ComputeTraceInvByInverseOfCholesky"><a class="viewcode-back" href="../../../api/TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvByInverseOfCholesky.html#TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvByInverseOfCholesky">[docs]</a><span class="k">def</span> <span class="nf">ComputeTraceInvByInverseOfCholesky</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">UseSparse</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the trace of inverse by inverting the Cholesky matrix ``L`` directly.</span>
 
@@ -224,15 +231,32 @@
 <span class="c1"># Compute Trace Inv By Solving Linear System</span>
 <span class="c1"># ==========================================</span>
 
-<div class="viewcode-block" id="ComputeTraceInvBySolvingLinearSystem"><a class="viewcode-back" href="../../TraceInv.ComputeTraceOfInverse.html#TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvBySolvingLinearSystem">[docs]</a><span class="k">def</span> <span class="nf">ComputeTraceInvBySolvingLinearSystem</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">UseSparse</span><span class="p">):</span>
+<div class="viewcode-block" id="ComputeTraceInvBySolvingLinearSystem"><a class="viewcode-back" href="../../../api/TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvBySolvingLinearSystem.html#TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvBySolvingLinearSystem">[docs]</a><span class="k">def</span> <span class="nf">ComputeTraceInvBySolvingLinearSystem</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">UseSparse</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the trace of inverse by solving a linear system for Cholesky matrix and each column of the identity matrix</span>
 <span class="sd">    to obtain the inverse of ``L`` subsequentially.</span>
 
+<span class="sd">    The matrix :math:`\mathbf{L}` is not inverted directly, rather, the linear system</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \mathbf{L} \\boldsymbol{x}_i = \\boldsymbol{e}_i, \qquad i = 1,\dots,n</span>
+
+<span class="sd">    is solved, where :math:`\\boldsymbol{e}_i = (0,\dots,0,1,0,\dots,0)^{\intercal}` is a column vector of zeros except its</span>
+<span class="sd">    :math:`i` th entry is one, and :math:`n` is the size of the square matrix :math:`\mathbf{A}`. </span>
+<span class="sd">    The solution :math:`\\boldsymbol{x}_i` is the :math:`i` th column of :math:`\mathbf{L}^{-1}`. Then, its Frobenius norm is</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \| \mathbf{L} \|_F^2 = \sum_{i=1}^n \| \\boldsymbol{x}_i \|^2.</span>
+
+<span class="sd">    The method is memory efficient as the vectors :math:`\\boldsymbol{x}_i` do not need to be stored, </span>
+<span class="sd">    rather, their norm can be stored in each iteration.</span>
+
 <span class="sd">    .. note::</span>
 
-<span class="sd">        * For small matrices: This method is slow.</span>
-<span class="sd">        * For large matrices: This method should be used for large matrices.</span>
+<span class="sd">        This method is slow, and it should be used only if the direct matrix inversion can not</span>
+<span class="sd">        be computed (such as for large matrices).</span>
 
 <span class="sd">    :param L: Cholesky matrix</span>
 <span class="sd">    :type L: ndarray</span>
@@ -258,7 +282,7 @@
             <span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
 
             <span class="c1"># x is the solution of L x = e. Thus, x is the i-th column of L inverse.</span>
-            <span class="k">if</span> <span class="n">SparseSuiteInstalled</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">sksparse</span><span class="o">.</span><span class="n">cholmod</span><span class="o">.</span><span class="n">Factor</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">SuiteSparseInstalled</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">sksparse</span><span class="o">.</span><span class="n">cholmod</span><span class="o">.</span><span class="n">Factor</span><span class="p">):</span>
 
                 <span class="c1"># Using cholmod.Note: LDL SHOULD be disabled.</span>
                 <span class="n">x</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">solve_L</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">tocsc</span><span class="p">(),</span><span class="n">use_LDLt_decomposition</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
@@ -291,46 +315,12 @@
     <span class="k">return</span> <span class="n">Trace</span></div>
 
 <span class="c1"># ===============</span>
-<span class="c1"># Sparse Cholesky</span>
-<span class="c1"># ===============</span>
-
-<div class="viewcode-block" id="SparseCholesky"><a class="viewcode-back" href="../../TraceInv.ComputeTraceOfInverse.html#TraceInv.ComputeTraceOfInverse.CholeskyMethod.SparseCholesky">[docs]</a><span class="k">def</span> <span class="nf">SparseCholesky</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This function uses LU decomposition assuming that A is symmetric and positive-definite.</span>
-
-<span class="sd">    .. note::</span>
-
-<span class="sd">        This function does not check if ``A`` is positive-definite. If the input matrix is </span>
-<span class="sd">        not positive-definite, the Cholesky decomposition does not exist and the return value</span>
-<span class="sd">        is misleadingly wrong.</span>
-
-<span class="sd">    :param A: Symmetric and positive-definite matrix.</span>
-<span class="sd">    :type A: ndarray</span>
-
-<span class="sd">    :return: Chlesky decomposition of ``A``.</span>
-<span class="sd">    :rtype: Super.LU</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="c1"># sparse LU decomposition</span>
-    <span class="n">LU</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">splu</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">diag_pivot_thresh</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">permc_spec</span><span class="o">=</span><span class="s1">&#39;NATURAL&#39;</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">LU</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">sparse</span><span class="o">.</span><span class="n">diags</span><span class="p">(</span><span class="n">LU</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span><span class="o">**</span><span class="mf">0.5</span><span class="p">))</span>
-
-    <span class="c1"># check the matrix A is positive definite.</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">LU</span><span class="o">.</span><span class="n">perm_r</span> <span class="o">==</span> <span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="ow">and</span> <span class="p">(</span><span class="n">LU</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">LU</span><span class="o">.</span><span class="n">L</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">sparse</span><span class="o">.</span><span class="n">diags</span><span class="p">(</span><span class="n">LU</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span><span class="o">**</span><span class="mf">0.5</span><span class="p">))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;The matrix is not positive definite.&#39;</span><span class="p">)</span></div>
-
-<span class="c1"># ===============</span>
 <span class="c1"># Cholesky Method</span>
 <span class="c1"># ===============</span>
 
-<div class="viewcode-block" id="CholeskyMethod"><a class="viewcode-back" href="../../TraceInv.ComputeTraceOfInverse.html#TraceInv.ComputeTraceOfInverse.CholeskyMethod.CholeskyMethod">[docs]</a><span class="k">def</span> <span class="nf">CholeskyMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">UseInverseMatrix</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="CholeskyMethod"><a class="viewcode-back" href="../../../api/TraceInv.ComputeTraceOfInverse.CholeskyMethod.CholeskyMethod.html#TraceInv.ComputeTraceOfInverse.CholeskyMethod.CholeskyMethod">[docs]</a><span class="k">def</span> <span class="nf">CholeskyMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">UseInverseMatrix</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Computes trace of inverse of matrix using Cholesky factorization.</span>
+<span class="sd">    Computes trace of inverse of matrix using Cholesky factorization by</span>
 
 <span class="sd">    .. math::</span>
 

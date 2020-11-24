@@ -1,0 +1,358 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Install &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quick Start" href="quickstart.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python-dependencies">Python Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-traceinv">Install TraceInv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-traceinv-in-virtual-environment">Install TraceInv in Virtual Environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-optional-packages">Install Optional Packages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-ray">Install <code class="docutils literal notranslate"><span class="pre">ray</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-scikit-sparse">Install <code class="docutils literal notranslate"><span class="pre">scikit-sparse</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="_modules/modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Install</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/install.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="install">
+<h1>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="python-dependencies">
+<h2>Python Dependencies<a class="headerlink" href="#python-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>The python dependency packages are:</p>
+<ul class="simple">
+<li><p><strong>Required:</strong> <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">scipy</span></code>.</p></li>
+<li><p><strong>Required:</strong> <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">seaborn</span></code>, but only required to run the <a class="reference internal" href="examples.html#examples"><span class="std std-ref">Examples</span></a>.</p></li>
+<li><p><strong>Optional:</strong> <code class="docutils literal notranslate"><span class="pre">ray</span></code> and <code class="docutils literal notranslate"><span class="pre">scikit-sparse</span></code> can improve performance, but not required.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By installing TraceInv <a class="reference internal" href="#install-traceinv"><span class="std std-ref">below</span></a>, the <em>required</em> dependencies (but not the <em>optional</em> packages) will be installed automatically and no other action is needed. However, if desired, the <em>optional</em> packages should be installed <a class="reference internal" href="#install-optional-packages"><span class="std std-ref">manually</span></a>.</p>
+</div>
+</div>
+<div class="section" id="install-traceinv">
+<h2>Install TraceInv<a class="headerlink" href="#install-traceinv" title="Permalink to this headline">¶</a></h2>
+<p>Install TraceInv (in Linux, MacOS, or Windows) by either of the following ways:</p>
+<ul>
+<li><p><strong>Method 1: Through PyPi package.</strong> The recommended way to install TraceInv and its dependencies is through the package available at <a class="reference external" href="https://pypi.org/project/TraceInv">PyPi</a> by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">TraceInv</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Method 2: Through Conda package.</strong> Install TraceInv and its dependencies through the package available at <a class="reference external" href="https://anaconda.org/conda-forge/TraceInv">Conda</a> by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">TraceInv</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Method 3: Build source locally.</strong>
+Clone the source code, build locally, and install by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ameli</span><span class="o">/</span><span class="n">TraceInv</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">TraceInv</span>
+<span class="n">python</span> <span class="n">setup</span> <span class="n">build</span>
+<span class="n">python</span> <span class="n">setup</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>Note that the last line in the above many need to be run with <code class="docutils literal notranslate"><span class="pre">sudo</span></code>.</p>
+<p>The third installation method does not install the dependencies automatically and they should be installed separately such as with <code class="docutils literal notranslate"><span class="pre">pip</span></code> below. In the same root directory of the package (where the file <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> can be found) run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>Alternatively, the dependencies can be installed with <code class="docutils literal notranslate"><span class="pre">conda</span></code> by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">--</span><span class="n">file</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="install-traceinv-in-virtual-environment">
+<h2>Install TraceInv in Virtual Environment<a class="headerlink" href="#install-traceinv-in-virtual-environment" title="Permalink to this headline">¶</a></h2>
+<p>If you do not want the <a class="reference internal" href="#install-traceinv"><span class="std std-ref">above</span></a> installation occupy your python site packages (either you are testing or the dependencies mess with your existing installed packages), you may install and try TraceInv in a virtual environment.</p>
+<ol class="arabic">
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">intall</span> <span class="n">virtualenv</span>
+</pre></div>
+</div>
+</li>
+<li><p>Create a virtual environment called <code class="docutils literal notranslate"><span class="pre">TraceInvEnv</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">virtualenv</span> <span class="n">TraceInvEnv</span>
+</pre></div>
+</div>
+</li>
+<li><p>Activate python in the new environment</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="n">TraceInvEnv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+</pre></div>
+</div>
+<p>Now, the python and pip is sourced from the new environment.</p>
+</li>
+<li><p>Install TraceInv with any of the <a class="reference internal" href="#install-traceinv"><span class="std std-ref">above</span></a> methods and try it this python environment.</p></li>
+<li><p>To exit from the environment</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deactivate</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="install-optional-packages">
+<h2>Install Optional Packages<a class="headerlink" href="#install-optional-packages" title="Permalink to this headline">¶</a></h2>
+<p>Installing the optional packages below can improve the performance for some of the functionalities, but not necessary.</p>
+<div class="section" id="install-ray">
+<span id="installray"></span><h3>Install <code class="docutils literal notranslate"><span class="pre">ray</span></code><a class="headerlink" href="#install-ray" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">ray</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>When <code class="docutils literal notranslate"><span class="pre">ray</span></code> is needed:</dt><dd><p>To run the <a class="reference internal" href="examples.html#examples"><span class="std std-ref">examples</span></a>, you may install the <code class="docutils literal notranslate"><span class="pre">ray</span></code> package to leverage the parallel processing used to generate large sparse matrices. However, the examples produce results without installing <code class="docutils literal notranslate"><span class="pre">ray</span></code>.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="install-scikit-sparse">
+<span id="installscikitsparse"></span><h3>Install <code class="docutils literal notranslate"><span class="pre">scikit-sparse</span></code><a class="headerlink" href="#install-scikit-sparse" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p>Install <a class="reference external" href="https://people.engr.tamu.edu/davis/suitesparse.html">Suite Sarse</a> development library <code class="docutils literal notranslate"><span class="pre">libsuitesparse-dev</span></code> using <code class="docutils literal notranslate"><span class="pre">apt</span></code> package manager in Linux (<em>Debian, Ubuntu, Mint</em>) by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">libsuitesparse</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">apt</span></code> in the above with the native package manager of your operating system, such as <code class="docutils literal notranslate"><span class="pre">yum</span></code> for  <em>Redhat, Fedora, and CentOS Linux</em>, <code class="docutils literal notranslate"><span class="pre">pacman</span></code> for <em>Arch Linux</em>, and <code class="docutils literal notranslate"><span class="pre">brew</span></code> for <em>macOS</em>.</p>
+<p>Alternatively, if you are using <em>Anaconda</em> python distribution (on either of the operating systems), install Suite Sparse by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">suitesparse</span>
+</pre></div>
+</div>
+</li>
+<li><p>Install <code class="docutils literal notranslate"><span class="pre">scikit-sparse</span></code> python package:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">scikit</span><span class="o">-</span><span class="n">sparse</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<dl class="simple">
+<dt>When <code class="docutils literal notranslate"><span class="pre">scikit-sparse</span></code> is needed:</dt><dd><p>In <code class="docutils literal notranslate"><span class="pre">TraceInv</span></code> package, one of the methods to compute the trace of a matrix is by the <em>Cholesky decomposition</em>. If the input matrix is <em>sparse</em>, the Cholesky decomposition is computed using <code class="docutils literal notranslate"><span class="pre">scikit-sparse</span></code>. But if this package is not installed, the <code class="docutils literal notranslate"><span class="pre">scipy</span></code> package is used instead.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quick Start" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,506 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>TraceInv.ComputeLogDeterminant.ComputeLogDeterminant &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tests.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>TraceInv.ComputeLogDeterminant.ComputeLogDeterminant</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for TraceInv.ComputeLogDeterminant.ComputeLogDeterminant</h1><div class="highlight"><pre>
+<span></span><span class="c1"># =======</span>
+<span class="c1"># Imports</span>
+<span class="c1"># =======</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span>
+<span class="c1"># import multiprocessing</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sksparse</span>
+    <span class="kn">from</span> <span class="nn">sksparse.cholmod</span> <span class="kn">import</span> <span class="n">cholesky</span>
+    <span class="n">SuiteSparseInstalled</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">SuiteSparseInstalled</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">SuiteSparseInstalled</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="kn">from</span> <span class="nn">..LinearAlgebra</span> <span class="kn">import</span> <span class="n">LinearSolver</span>
+<span class="kn">from</span> <span class="nn">..LinearAlgebra</span> <span class="kn">import</span> <span class="n">SparseCholesky</span>
+<span class="kn">from</span> <span class="nn">..LinearAlgebra</span> <span class="kn">import</span> <span class="n">LanczosTridiagonalization</span>
+<span class="kn">from</span> <span class="nn">..LinearAlgebra</span> <span class="kn">import</span> <span class="n">LanczosTridiagonalization2</span>
+<span class="kn">from</span> <span class="nn">..LinearAlgebra</span> <span class="kn">import</span> <span class="n">GolubKahnLanczosBidiagonalization</span>
+
+<span class="c1"># __all__ = [&#39;ComputeLogDeterminant&#39;]</span>
+
+<span class="c1"># ===============</span>
+<span class="c1"># Cholesky Method</span>
+<span class="c1"># ===============</span>
+
+<div class="viewcode-block" id="CholeskyMethod"><a class="viewcode-back" href="../../TraceInv.ComputeLogDeterminant.html#TraceInv.ComputeLogDeterminant.ComputeLogDeterminant.CholeskyMethod">[docs]</a><span class="k">def</span> <span class="nf">CholeskyMethod</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes log-determinant using Cholesky decomposition.</span>
+
+<span class="sd">    :param A: A full-rank matrix.</span>
+<span class="sd">    :type A: numpy.ndarray</span>
+
+<span class="sd">    The log-determinant is computed from the Cholesky decomposition :math:`\mathbf{A} = \mathbf{L} \mathbf{L}^{\intercal}` as</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        \log | \mathbf{A} | = 2 \mathrm{trace}( \log \mathrm{diag}(\mathbf{L})).</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        This function uses the `Suite Sparse &lt;https://people.engr.tamu.edu/davis/suitesparse.html&gt;`_ </span>
+<span class="sd">        package to compute the Cholesky decompositon. See the :ref:`installation &lt;InstallScikitSparse&gt;`.</span>
+<span class="sd">    </span>
+<span class="sd">    The result is exact (no approximation) and should be used as benchmark to test other methods.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">SuiteSparseInstalled</span><span class="p">:</span>
+            <span class="c1"># Use Suite Sparse</span>
+            <span class="n">Factor</span> <span class="o">=</span> <span class="n">sksparse</span><span class="o">.</span><span class="n">cholmod</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+            <span class="n">LogDet</span> <span class="o">=</span> <span class="n">Factor</span><span class="o">.</span><span class="n">logdet</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Use scipy</span>
+            <span class="n">L_diag</span> <span class="o">=</span> <span class="n">SparseCholesky</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">DiagonalOnly</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">LogDet</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">L_diag</span><span class="p">))</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="c1"># Use scipy</span>
+        <span class="n">L</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">lower</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">LogDet</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">L</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">LogDet</span></div>
+
+<span class="c1"># ====================================</span>
+<span class="c1"># Stochastic Lanczos Quadrature Method</span>
+<span class="c1"># ====================================</span>
+
+<div class="viewcode-block" id="StochasticLanczosQuadratureMethod"><a class="viewcode-back" href="../../TraceInv.ComputeLogDeterminant.html#TraceInv.ComputeLogDeterminant.ComputeLogDeterminant.StochasticLanczosQuadratureMethod">[docs]</a><span class="k">def</span> <span class="nf">StochasticLanczosQuadratureMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">UseLanczosTridiagonalization</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Method should be &#39;LanczosTridiagonalization&#39; or &#39;GolubKahnLanczosBidiagonalization&#39;.</span>
+<span class="sd">    LanczosDegree is an integer.</span>
+
+<span class="sd">    :param A: A full-rank matrix.</span>
+<span class="sd">    :type A: numpy.ndarray or scipy.sparse.csc_matrix</span>
+
+<span class="sd">    :param NumIterations: Number of Monte-Carlo trials</span>
+<span class="sd">    :type NumIterations: int</span>
+
+<span class="sd">    :param LanczosDegree: Lanczos degree of the tri-diagonalization (or bi-diaqgonalization) process</span>
+<span class="sd">    :type LanczosDegree: int</span>
+
+<span class="sd">    :param UseLanczosTridiagonalization: Flag, if ``True``, it uses the Lanczos tridiagonalization. </span>
+<span class="sd">        If ``False``, it uses the Golub-Kahn bi-diagonalization.</span>
+<span class="sd">    :type UseLanczosTridiagonalization: bool</span>
+
+<span class="sd">    :return: Log-determinant of ``A``</span>
+<span class="sd">    :rtype: float</span>
+
+<span class="sd">    About the implementation of Golub-Kahn bi-diagonalization:</span>
+<span class="sd">        In Lanczos tridiagonalization method, ``theta`` is the eigenvalues of ``T``. </span>
+<span class="sd">        However, in Golub-Kahn bidoagonalization method, ``theta`` is the singular values of ``B``.</span>
+<span class="sd">        The relation between these two methords are are follows: ``B.T*B`` is the ``T`` for ``A.T*A``.</span>
+<span class="sd">        That is, if we have the input matrix ``A.T*T``, its Lanczos tridiagonalization ``T`` is the same matrix</span>
+<span class="sd">        as if we bidiagonalize ``A`` (not ``A.T*A``) with Golub-Kahn to get ``B``, then ``T = B.T*B``.</span>
+<span class="sd">        This has not been highlighted paper referenced below.</span>
+
+<span class="sd">        To correctly implement Golub-Kahn, here Theta should be the singular values of ``B``, *NOT*</span>
+<span class="sd">        the square of the singular values of ``B`` (as decribed in the paper incorrectly!).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Radamacher random vector, consists of 1 and -1.</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">UseLanczosTridiagonalization</span><span class="p">:</span>
+        <span class="c1"># Lanczos recustive iteration to convert A to tridiagonal form T</span>
+        <span class="c1"># T = LanczosTridiagonalization(A,w,LanczosDegree)</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="n">LanczosTridiagonalization2</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="p">,</span><span class="n">Tolerance</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">)</span>
+
+        <span class="c1"># Spectral decomposition of T</span>
+        <span class="n">Eigenvalues</span><span class="p">,</span><span class="n">Eigenvectors</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+
+        <span class="n">Theta</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">Eigenvalues</span><span class="p">)</span>
+        <span class="n">Tau2</span> <span class="o">=</span> <span class="n">Eigenvectors</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">**</span><span class="mi">2</span>
+
+        <span class="c1"># Here, f(theta) = log(theta), since log det is trace of log</span>
+        <span class="n">LogDetEstimate</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Tau2</span> <span class="o">*</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Theta</span><span class="p">)))</span> <span class="o">*</span> <span class="n">n</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="c1"># Use Golub-Kahn-Lanczos bidigonalization instead of Lanczos tridiagonalization</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">GolubKahnLanczosBidiagonalization</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">w</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="p">,</span><span class="n">Tolerance</span><span class="o">=</span><span class="mf">1e-10</span><span class="p">)</span>
+        <span class="n">LeftEigenvectors</span><span class="p">,</span><span class="n">SingularValues</span><span class="p">,</span><span class="n">RightEigenvectorsTransposed</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+        <span class="n">Theta</span> <span class="o">=</span> <span class="n">SingularValues</span>   <span class="c1"># Theta is just singular values, not singular values squared</span>
+        <span class="n">Tau2</span> <span class="o">=</span> <span class="n">RightEigenvectorsTransposed</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
+
+        <span class="c1"># Here, f(theta) = log(theta), since log det X = trace of log X.</span>
+        <span class="n">LogDetEstimate</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">Tau2</span> <span class="o">*</span> <span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">Theta</span><span class="p">)))</span> <span class="o">*</span> <span class="n">n</span>
+
+    <span class="k">return</span> <span class="n">LogDetEstimate</span></div>
+
+<span class="c1"># ====================</span>
+<span class="c1"># Monte Carlo Sampling</span>
+<span class="c1"># ====================</span>
+
+<div class="viewcode-block" id="MonteCarloSampling"><a class="viewcode-back" href="../../TraceInv.ComputeLogDeterminant.html#TraceInv.ComputeLogDeterminant.ComputeLogDeterminant.MonteCarloSampling">[docs]</a><span class="k">def</span> <span class="nf">MonteCarloSampling</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">UseLanczosTridiagonalization</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function samples results from the Stochastic Lanczos Quadrature method.</span>
+
+<span class="sd">    :param A: A full-rank matrix.</span>
+<span class="sd">    :type A: numpy.ndarray or scipy.sparse.csc_matrix</span>
+
+<span class="sd">    :param NumIterations: Number of Monte-Carlo trials</span>
+<span class="sd">    :type NumIterations: int</span>
+
+<span class="sd">    :param LanczosDegree: Lanczos degree of the tri-diagonalization (or bi-diaqgonalization) process</span>
+<span class="sd">    :type LanczosDegree: int</span>
+
+<span class="sd">    :param UseLanczosTridiagonalization: Flag, if ``True``, it uses the Lanczos tridiagonalization. </span>
+<span class="sd">        If ``False``, it uses the Golub-Kahn bi-diagonalization.</span>
+<span class="sd">    :type UseLanczosTridiagonalization: bool</span>
+
+<span class="sd">    :return: Log-determinant of ``A``</span>
+<span class="sd">    :rtype: float</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        The parallelized implementation requires the ``ray`` package (see :ref:`installation &lt;InstallRay&gt;`).</span>
+<span class="sd">        Currently, the parallel implementation is commented in the code below.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># No Parallel processing</span>
+    <span class="n">LogDetEstimatesList</span> <span class="o">=</span> <span class="p">[</span><span class="n">StochasticLanczosQuadratureMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="p">,</span><span class="n">UseLanczosTridiagonalization</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">NumIterations</span><span class="p">)]</span>
+
+    <span class="c1"># Parallel processing with Ray</span>
+    <span class="c1"># Get number of cpus</span>
+    <span class="c1"># NumProcessors = psutil.cpu_count()</span>
+
+    <span class="c1"># Parallelization with ray</span>
+    <span class="c1"># ray.init(num_cpus=NumProcessors,logging_level=logging.FATAL)</span>
+
+    <span class="c1"># Put A into object store</span>
+    <span class="c1"># A_id = ray.put(A)</span>
+
+    <span class="c1"># Parallel section with ray. This just creates process Ids. It does not do computation</span>
+    <span class="c1"># Process_Ids = [MonteCarloSampling.remote(A_id,Method,LanczosDegree) for i in range(NumIterations)]</span>
+
+    <span class="c1"># Do the parallel computations</span>
+    <span class="c1"># LogDetEstimatesList = ray.get(Process_Ids)</span>
+
+    <span class="c1"># ray.shutdown()</span>
+
+    <span class="c1"># LogDet = numpy.mean(numpy.array(LogDetEstimatesList))</span>
+
+    <span class="c1"># Parallel processing with multiprocessing</span>
+    <span class="c1"># NumProcessors = multiprocessing.cpu_count()</span>
+    <span class="c1"># pool = multiprocessing.Pool(processes=NumProcessors)</span>
+    <span class="c1"># ChunkSize = int(NumIterations / NumProcessors)</span>
+    <span class="c1"># if ChunkSize &lt; 1:</span>
+    <span class="c1">#     ChunkSize = 1</span>
+
+    <span class="c1"># MonteCarloSampling_PartialFunction = partial(LikelihoodEstimation.MonteCarloSampling,A,Method,LanczosDegree)</span>
+
+    <span class="c1"># Iterations = range(NumIterations)</span>
+    <span class="c1"># Processes = [pool.apply_async(LikelihoodEstimation.MonteCarloSampling,(A,Method,LanczosDegree)) for i in range(NumIterations)]</span>
+    <span class="c1"># pool.close()</span>
+    <span class="c1"># pool.join()</span>
+    <span class="c1"># LogDetEstimatesList = [Process.get() for Process in Processes]</span>
+
+    <span class="c1"># Average samples</span>
+    <span class="n">LogDet</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">LogDetEstimatesList</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">LogDet</span></div>
+
+<span class="c1"># =======================</span>
+<span class="c1"># Compute Log Determinant</span>
+<span class="c1"># =======================</span>
+
+<div class="viewcode-block" id="ComputeLogDeterminant"><a class="viewcode-back" href="../../../api/TraceInv.ComputeLogDeterminant.ComputeLogDeterminant.html#TraceInv.ComputeLogDeterminant.ComputeLogDeterminant.ComputeLogDeterminant">[docs]</a><span class="k">def</span> <span class="nf">ComputeLogDeterminant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;cholesky&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">UseLanczosTridiagonalization</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the log-determinan of full-rank matrix ``A``.</span>
+
+<span class="sd">    :param A: A full-rank matrix.</span>
+<span class="sd">    :type A: numpy.ndarray or scipy.sparse.csc_matrix</span>
+
+<span class="sd">    :param NumIterations: Number of Monte-Carlo trials</span>
+<span class="sd">    :type NumIterations: int</span>
+
+<span class="sd">    :param LanczosDegree: Lanczos degree of the tri-diagonalization (or bi-diaqgonalization) process</span>
+<span class="sd">    :type LanczosDegree: int</span>
+
+<span class="sd">    :param UseLanczosTridiagonalization: Flag, if ``True``, it uses the Lanczos tridiagonalization. </span>
+<span class="sd">        If ``False``, it uses the Golub-Kahn bi-diagonalization.</span>
+<span class="sd">    :type UseLanczosTridiagonalization: bool</span>
+
+<span class="sd">    :return: Log-determinant of ``A``</span>
+<span class="sd">    :rtype: float</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        For computing the *trace of inverse* with the sothcastic Lanczos quadrature method </span>
+<span class="sd">        (see :mod:`TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadrature`), the preferred algorithm is</span>
+<span class="sd">        the Lanczos tri-diagonalization, as opposed to Golub-Kahn bi-diagonalization.</span>
+
+<span class="sd">        In contrast to the above, the preferred SLQ method for computing *log-determinant* is</span>
+<span class="sd">        the Golu-Kahn bi-diagonalization. The reason is that if the matrix :math:`\mathbf{A}` </span>
+<span class="sd">        has many singular values close to zero, bi-diagonalization performs better, </span>
+<span class="sd">        and this matters when we compute determinant.</span>
+<span class="sd">    </span>
+<span class="sd">    References:</span>
+<span class="sd">        * Ubaru, S., Chen, J., and Saad, Y. (2017). </span>
+<span class="sd">          Fast estimation of :math:`\mathrm{tr}(f(A))` via stochastic Lanczos quadrature. </span>
+<span class="sd">          *SIAM Journal on Matrix Analysis and Applications*, 38(4), 1075-1099. </span>
+<span class="sd">          `doi: 10.1137/16M1104974 &lt;https://doi.org/10.1137/16M1104974&gt;`_</span>
+
+<span class="sd">    **Examples:**</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        &gt;&gt;&gt; # Import packages</span>
+<span class="sd">        &gt;&gt;&gt; from TraceInv import ComputeLogDeterminant</span>
+<span class="sd">        &gt;&gt;&gt; from TraceInv import GenerateMatrix</span>
+
+<span class="sd">        &gt;&gt;&gt; # Generate a sample matrix</span>
+<span class="sd">        &gt;&gt;&gt; A = GenerateMatrix(NumPoints=20)</span>
+
+<span class="sd">        &gt;&gt;&gt; # Compute log-determinant with Cholesky method</span>
+<span class="sd">        &gt;&gt;&gt; LogDet_1 = ComputeLogDeterminant(A)</span>
+
+<span class="sd">        &gt;&gt;&gt; # Compute log-determinant with stochastic Lanczos quadrature method</span>
+<span class="sd">        &gt;&gt;&gt; LogDet_1 = ComputeLogDeterminant(A,ComputeMethod=&#39;SLQ&#39;,NumIterations=20,LanczosDegree=20)</span>
+
+<span class="sd">        &gt;&gt;&gt; # Compute log-determinant with stochastic Lanczos quadrature method with Golub-Khan bi-diagonaliation</span>
+<span class="sd">        &gt;&gt;&gt; LogDet_1 = ComputeLogDeterminant(A,ComputeMethod=&#39;SLQ&#39;,NumIterations=20, </span>
+<span class="sd">        ...                 LanczosDegree=20,Tridiagonalization=False)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">ComputeMethod</span> <span class="o">==</span> <span class="s1">&#39;cholesky&#39;</span><span class="p">:</span>
+
+        <span class="c1"># Cholesky method</span>
+        <span class="n">LogDet</span> <span class="o">=</span> <span class="n">CholeskyMethod</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">ComputeMethod</span> <span class="o">==</span> <span class="s1">&#39;SLQ&#39;</span><span class="p">:</span>
+
+        <span class="c1"># Stochastic Lanczos Quadrature method (by Monte-Carlo sampling)</span>
+        <span class="n">LogDet</span> <span class="o">=</span> <span class="n">MonteCarloSampling</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">NumIterations</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="p">,</span><span class="n">UseLanczosTridiagonalization</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;ComputeMethod is invalid.&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">LogDet</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

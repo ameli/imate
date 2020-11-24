@@ -87,16 +87,23 @@
             
               <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#install">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#usage">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#examples">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#citation">Citation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
 </ul>
-<p class="caption"><span class="caption-text">API</span></p>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tests.html">Running Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Change Log</a></li>
 </ul>
 
@@ -171,19 +178,25 @@
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">linalg</span>
 
 <span class="c1"># Package</span>
-<span class="kn">from</span> <span class="nn">.LinearSolver</span> <span class="kn">import</span> <span class="n">LinearSolver</span>
+<span class="kn">from</span> <span class="nn">..LinearAlgebra</span> <span class="kn">import</span> <span class="n">LinearSolver</span>
 
 <span class="c1"># =================</span>
 <span class="c1"># Hutchinson Method</span>
 <span class="c1"># =================</span>
 
-<div class="viewcode-block" id="HutchinsonMethod"><a class="viewcode-back" href="../../TraceInv.ComputeTraceOfInverse.html#TraceInv.ComputeTraceOfInverse.HutchinsonMethod.HutchinsonMethod">[docs]</a><span class="k">def</span> <span class="nf">HutchinsonMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
+<div class="viewcode-block" id="HutchinsonMethod"><a class="viewcode-back" href="../../../api/TraceInv.ComputeTraceOfInverse.HutchinsonMethod.HutchinsonMethod.html#TraceInv.ComputeTraceOfInverse.HutchinsonMethod.HutchinsonMethod">[docs]</a><span class="k">def</span> <span class="nf">HutchinsonMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the trace of inverse of a matrix by Hutchinson method.</span>
 
 <span class="sd">    The random vectors have Radamacher distribution. Compared to the Gaissuan</span>
-<span class="sd">    distribution, the former distribution yields estimation of trace with lower</span>
+<span class="sd">    distribution, the Rademacher distribution yields estimation of trace with lower</span>
 <span class="sd">    variance.</span>
+
+<span class="sd">    .. note::</span>
+
+<span class="sd">        In the is function, the generated set of random vectors are orthonormalized using </span>
+<span class="sd">        QR decomposition. hence, they no longer have Rademacher distribution. By orthonormalization,</span>
+<span class="sd">        the solution seem to have better convergence.</span>
 
 <span class="sd">    :param A: invertible matrix</span>
 <span class="sd">    :type A: ndarray</span>

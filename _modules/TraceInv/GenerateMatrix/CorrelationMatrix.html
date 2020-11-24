@@ -87,16 +87,23 @@
             
               <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#install">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#usage">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#examples">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#citation">Citation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
 </ul>
-<p class="caption"><span class="caption-text">API</span></p>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tests.html">Running Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Change Log</a></li>
 </ul>
 
@@ -203,7 +210,7 @@
 <span class="sd">        * :math:`\\Gamma` is the Gamma function, </span>
 <span class="sd">        * :math:`\| \cdot \|` is the Euclidean distance,</span>
 <span class="sd">        * :math:`\\nu` is the smoothness parameter. </span>
-<span class="sd">        * :math:`K_{\\nu}` is the modiffied Bessel function of the second kind of order :math:`\\nu`</span>
+<span class="sd">        * :math:`K_{\\nu}` is the modified Bessel function of the second kind of order :math:`\\nu`</span>
 
 <span class="sd">    .. warning::</span>
 
@@ -213,7 +220,7 @@
 
 <span class="sd">    If :math:`\\nu` is half integer, the Matern function has exponential form.</span>
 <span class="sd">    </span>
-<span class="sd">    At :math:`\\nu = \\frac{1}{2}`:</span>
+<span class="sd">    At :math:`\\nu = \\frac{1}{2}`</span>
 
 <span class="sd">    .. math::</span>
 <span class="sd">        K(\\boldsymbol{x},\\boldsymbol{x}&#39;|\\rho,\\nu) = </span>
@@ -505,13 +512,11 @@
 
 <span class="sd">    .. warning::</span>
 <span class="sd">        If the generated matrix is sparse (``UseSparse=True``), the ``KernelThreshold`` should be large enough so that the correlation matrix is not</span>
-<span class="sd">        shrinked to identity. If such case happens, this function raises a *ValueError8 exception.</span>
+<span class="sd">        shrinked to identity. If such case happens, this function raises a *ValueError* exception.</span>
 <span class="sd">        </span>
-<span class="sd">        ,In addition, the ``KernelThreshold ``should be small enough to not erradicate its positive-definiteness. This is not checked by this function</span>
+<span class="sd">        In addition, the ``KernelThreshold`` should be small enough to not erradicate its positive-definiteness. This is not checked by this function</span>
 <span class="sd">        and the user should be aware of it.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Generate correlation matrix ...&#39;</span><span class="p">)</span>
 
     <span class="c1"># size of Distance matrix</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span>
@@ -533,7 +538,7 @@
         <span class="n">RunInParallel</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="c1"># If matrice are sparse, it is better to generate columns of correlation in parallel</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">RunInParallel</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">UseSparse</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">RunInParallel</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">UseSparse</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">5000</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;If matrices are sparse, it is better to generate columns of correlation matrix in parallel. Set &quot;RunInParallel&quot; to True.&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">RunInParallel</span><span class="p">:</span>

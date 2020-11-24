@@ -1,0 +1,434 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Quick Start &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="Install" href="install.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#usage-for-fixed-matrix">1. Usage for Fixed Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage-for-one-parameter-affine-matrix-function">2. Usage for One-Parameter Affine Matrix Function</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="_modules/modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tests.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Quick Start</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/quickstart.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
+<p>The package TraceInv provides three sub-packages:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Sub-Package</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="_modules/TraceInv.GenerateMatrix.html#module-TraceInv.GenerateMatrix" title="TraceInv.GenerateMatrix"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.GenerateMatrix</span></code></a></p></td>
+<td><p>Generates symmetric and positive-definite matrices for test purposes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse</span></code></a></p></td>
+<td><p>Computes trace of inverse for a fixed matrix.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse</span></code></a></p></td>
+<td><p>Interpolates trace of inverse for a linear matrix function.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The next two sections presents minimalistic examples respectively for:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#fixed-matrix"><span class="std std-ref">Fixed matrix</span></a> using <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a> module.</p></li>
+<li><p><a class="reference internal" href="#affine-matrix"><span class="std std-ref">One-parameter affine matrix function</span></a> using <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a> module.</p></li>
+</ol>
+<div class="section" id="usage-for-fixed-matrix">
+<span id="fixed-matrix"></span><h2>1. Usage for Fixed Matrix<a class="headerlink" href="#usage-for-fixed-matrix" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">ComputeTraceOfInverse</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a symmetric positive-definite matrix of the shape (20**2,20**2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute trace of inverse</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the above, the class <a class="reference internal" href="_modules/TraceInv.GenerateMatrix.html#module-TraceInv.GenerateMatrix" title="TraceInv.GenerateMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenerateMatrix</span></code></a> produces a sample matrix for test purposes. Specifically, this class produces a correlation matrix from the mutual Euclidean distance of a set of points. By default, the set of points are generated on an equally spaced rectangular grid in the unit square. The produced matrix is symmetric and positive-definite, hence, invertible. The sample matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> in the above code is of the size <span class="math notranslate nohighlight">\(20^2 \times 20^2\)</span> corresponding to a rectangular grid of <span class="math notranslate nohighlight">\(20 \times 20\)</span> points.</p>
+<p>The <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a> class in the above code employs the Cholesky method by default to compute the trace of inverse. However, the user may choose other methods given in the table below.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 38%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">ComputeMethod</span></code></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Matrix size</p></th>
+<th class="head"><p>Matrix type</p></th>
+<th class="head"><p>Results</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'cholesky'</span></code></p></td>
+<td><p>Cholesky decomposition</p></td>
+<td><p>small</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>exact</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'hutchinson'</span></code></p></td>
+<td><p>Hutchinson’s randomized method</p></td>
+<td><p>small or large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>approximation</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code></p></td>
+<td><p>Stochastic Lanczos Quadrature method</p></td>
+<td><p>small or large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>approximation</p></td>
+</tr>
+</tbody>
+</table>
+<p>The desired method of computation can be passed through the <code class="docutils literal notranslate"><span class="pre">ComputeMethod</span></code> argument when calling <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a>. For instance, in the following example, we apply the <em>Hutchinson’s randomized estimator</em> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using hutchinson method with 20 Monte-Carlo iterations</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Each of the methods in the above accept some options. For instance, the Hutchinson’s method accepts <code class="docutils literal notranslate"><span class="pre">NumIterations</span></code> argument, which sets the number of Monte-Carlo trials. To see the detailed list of all arguments for each method, see the <a class="reference external" href="https://ameli.github.io/TraceInv/_modules/modules.html">API</a> of the package.</p>
+</div>
+<div class="section" id="usage-for-one-parameter-affine-matrix-function">
+<span id="affine-matrix"></span><h2>2. Usage for One-Parameter Affine Matrix Function<a class="headerlink" href="#usage-for-one-parameter-affine-matrix-function" title="Permalink to this headline">¶</a></h2>
+<p>The module <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a> interpolates the trace of the inverse of <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span>, as shown by the example below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">InterpolateTraceOfInverse</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a symmetric positive-definite matrix of the shape (20**2,20**2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define some interpolant points</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">InterpolantPoints</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1e-2</span><span class="p">,</span><span class="mf">1e-1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1e+1</span><span class="p">]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an interpolating TraceInv object</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">TI</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="n">InterpolantPoints</span><span class="p">)</span>
+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Interpolate A+tI at some inquiry point t</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="mf">4e-1</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">TI</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>In the above code, we only provided the matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to the module <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a>, which then it assumes <code class="docutils literal notranslate"><span class="pre">B</span></code> is identity matrix by default. To compute the trace of the inverse of <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> where <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> is not identity matrix, pass both <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> to <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a> as follows.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate two different symmetric positive-definite matrices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">DecorrelationScale</span><span class="o">=</span><span class="mf">1e-1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">DecorrelationScale</span><span class="o">=</span><span class="mf">2e-2</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an interpolating TraceInv object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TI</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="n">InterpolantPoints</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The parameter <code class="docutils literal notranslate"><span class="pre">DecorrelationScale</span></code> of the class <a class="reference internal" href="_modules/TraceInv.GenerateMatrix.html#module-TraceInv.GenerateMatrix" title="TraceInv.GenerateMatrix"><code class="xref py py-mod docutils literal notranslate"><span class="pre">GenerateMatrix</span></code></a> in the above specifies the scale of correlation function used to form a positive-definite matrix. We specified two correlation scales to generate different matrices <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code>. The user may use their own matrix data.</p>
+<p>Interpolation for an array of inquiries points can be made by:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an array of inquiry points</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_array</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traces</span> <span class="o">=</span> <span class="n">TI</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">t_array</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="n">InterpolantPoints</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The module <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a> can employ various interpolation methods listed in the table below. The method of interpolation can be set by <code class="docutils literal notranslate"><span class="pre">InterpolationMethod</span></code> argument when calling <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a>. The default method is <code class="docutils literal notranslate"><span class="pre">RMBF</span></code>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 41%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">InterpolationMethod</span></code></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Matrix size</p></th>
+<th class="head"><p>Matrix type</p></th>
+<th class="head"><p>Results</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'EXT'</span></code></p></td>
+<td><p>Computes trace directly, no interpolation</p></td>
+<td><p>Small</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>exact</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'EIG'</span></code></p></td>
+<td><p>Uses Eigenvalues of matrix</p></td>
+<td><p>Small</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>exact</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'MBF'</span></code></p></td>
+<td><p>Monomial Basis Functions</p></td>
+<td><p>Small, large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>interpolated</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'RMBF'</span></code></p></td>
+<td><p>Root monomial basis functions</p></td>
+<td><p>small, large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>interpolated</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'RBF'</span></code></p></td>
+<td><p>Radial basis functions</p></td>
+<td><p>small, large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>interpolated</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'RPF'</span></code></p></td>
+<td><p>Rational polynomial functions</p></td>
+<td><p>small, large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>interpolated</p></td>
+</tr>
+</tbody>
+</table>
+<p>The <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a> module internally defines an object of <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a> (see <a class="reference internal" href="#fixed-matrix"><span class="std std-ref">Fixed Matrix</span></a>) to evaluate the trace of inverse at the given interpolant points <code class="docutils literal notranslate"><span class="pre">InterpolantPoints</span></code>. You can pass the options for this internal <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a> object by <code class="docutils literal notranslate"><span class="pre">ComputeOptions</span></code> argument when initializing  <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a>, such as in the example below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Specify options of the internal ComputeTraceOfInverse object in a dictionary</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ComputeOptions</span> <span class="o">=</span> \
+<span class="gp">... </span><span class="p">{</span>
+<span class="gp">... </span>    <span class="s1">&#39;ComputeMethod&#39;</span><span class="p">:</span> <span class="s1">&#39;hutchinson&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;NumIterations&#39;</span><span class="p">:</span> <span class="mi">20</span>
+<span class="gp">... </span><span class="p">}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Pass options by ComputeOptions argument</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TI</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">InterpolantPoints</span><span class="o">=</span><span class="n">InterpolantPoints</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">InterpolatingMethod</span><span class="o">=</span><span class="s1">&#39;RMBF&#39;</span><span class="p">,</span>
+<span class="hll"><span class="gp">... </span>            <span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<span class="target" id="ref-examples"></span></div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="examples.html" class="btn btn-neutral float-right" title="Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="install.html" class="btn btn-neutral float-left" title="Install" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

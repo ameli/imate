@@ -87,16 +87,23 @@
             
               <p class="caption"><span class="caption-text">Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#install">Install</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#usage">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#examples">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#citation">Citation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../documentation.html#acknowledgements">Acknowledgements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../references.html">References</a></li>
 </ul>
-<p class="caption"><span class="caption-text">API</span></p>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tests.html">Running Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Change Log</a></li>
 </ul>
 
@@ -185,7 +192,7 @@
 <span class="c1"># Trace Estimation Class</span>
 <span class="c1"># ======================</span>
 
-<div class="viewcode-block" id="InterpolateTraceOfInverse"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse">[docs]</a><span class="k">class</span> <span class="nc">InterpolateTraceOfInverse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="InterpolateTraceOfInverse"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse">[docs]</a><span class="k">class</span> <span class="nc">InterpolateTraceOfInverse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Interpolates the trace of inverse of linear matrix functions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -255,7 +262,7 @@
     <span class="c1"># Compute</span>
     <span class="c1"># -------</span>
 
-<div class="viewcode-block" id="InterpolateTraceOfInverse.Compute"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Compute">[docs]</a>    <span class="k">def</span> <span class="nf">Compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+<div class="viewcode-block" id="InterpolateTraceOfInverse.Compute"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Compute">[docs]</a>    <span class="k">def</span> <span class="nf">Compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         
@@ -275,7 +282,7 @@
     <span class="c1"># Interpolate</span>
     <span class="c1"># -----------</span>
 
-<div class="viewcode-block" id="InterpolateTraceOfInverse.Interpolate"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+<div class="viewcode-block" id="InterpolateTraceOfInverse.Interpolate"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Interpolates the trace of inverse of ``A + t*I``.</span>
 
@@ -302,7 +309,7 @@
     <span class="c1"># Lower Bound</span>
     <span class="c1"># -----------</span>
 
-<div class="viewcode-block" id="InterpolateTraceOfInverse.LowerBound"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.LowerBound">[docs]</a>    <span class="k">def</span> <span class="nf">LowerBound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+<div class="viewcode-block" id="InterpolateTraceOfInverse.LowerBound"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.LowerBound">[docs]</a>    <span class="k">def</span> <span class="nf">LowerBound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -322,7 +329,7 @@
     <span class="c1"># Upper Bound</span>
     <span class="c1"># -----------</span>
 
-<div class="viewcode-block" id="InterpolateTraceOfInverse.UpperBound"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.UpperBound">[docs]</a>    <span class="k">def</span> <span class="nf">UpperBound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+<div class="viewcode-block" id="InterpolateTraceOfInverse.UpperBound"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.UpperBound">[docs]</a>    <span class="k">def</span> <span class="nf">UpperBound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
