@@ -1,52 +1,53 @@
 {% set name = "TraceInv" %}
-{% set version = "0.0.7" %}
+{% set data = load_setup_py_data() %}
 
 package:
-  name: "{{ name|lower }}"
-  version: "{{ version }}"
+    name: "{{ name|lower }}"
+    version: "{{ data['version'] }}"
 
 source:
-  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+    path: ..
+
+# source:
+#   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
 
 build:
-  number: 0
-  script: "{{ PYTHON }} -m pip install . -vv"
+    number: 0
+    script: "{{ PYTHON }} -m pip install . -vv"
 
 requirements:
-  host:
-    - python {{ python }}
-    - setuptools
-    - pip
-    - pytest-runner
-  run:
-    - python {{ python }}
-    - numpy
-    - scipy
-    - matplotlib
-    - seaborn
+    host:
+        - python {{ python }}
+        - setuptools
+        - pip
+        - pytest-runner
+    run:
+        - python {{ python }}
+        - numpy
+        - scipy
+        - matplotlib
+        - seaborn
 
 test:
-  imports:
-    - TraceInv
-    - TraceInv.ComputeLogDeterminant
-    - TraceInv.ComputeTraceOfInverse
-    - TraceInv.GenerateMatrix
-    - TraceInv.InterpolateTraceOfInverse
-  requires:
-    - pytest
+    imports:
+        - TraceInv
+        - TraceInv.ComputeLogDeterminant
+        - TraceInv.ComputeTraceOfInverse
+        - TraceInv.GenerateMatrix
+        - TraceInv.InterpolateTraceOfInverse
+    requires:
+        - pytest
 
 about:
-  home: "https://github.com/ameli/TraceInv"
-  license: MIT
-  license_family: MIT
-  license_file: LICENSE.txt
-  summary: "Computes the trace of the inverse of matrix or linear matrix function"
-  description: |
-      This package computes the trace of inverse of a matrix, also interpolates the trace
-      of the inverse of a linear matrix function.
-  doc_url: https://ameli.github.io/TraceInv/index.html
-  dev_url: https://github.com/ameli/TraceInv
+    home: {{ data['url'] }}
+    license: MIT
+    license_family: MIT
+    license_file: LICENSE.txt
+    summary: {{ data['description'] }}
+    description: {{ data['description'] }}
+    doc_url: https://ameli.github.io/TraceInv/index.html
+    dev_url: https://github.com/ameli/TraceInv
 
 extra:
-  recipe-maintainers:
-    - ameli
+    recipe-maintainers:
+        - ameli
