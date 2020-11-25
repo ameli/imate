@@ -2,7 +2,7 @@
 TraceInv
 ********
 
-|travis-devel| |codecov-devel| |docs| |licence| |format| |pypi| |implementation| |pyversions|
+|travis-devel| |codecov-devel| |docs| |licence| |platforms| |conda-version| |conda| |format| |pypi| |implementation| |pyversions|
 
 This python package can perform the following matrix operations:
 
@@ -156,3 +156,9 @@ Indices and tables
 .. |pyversions| image:: https://img.shields.io/pypi/pyversions/TraceInv
 .. |format| image:: https://img.shields.io/pypi/format/TraceInv
 .. |pypi| image:: https://img.shields.io/pypi/v/TraceInv
+.. |conda| image:: https://anaconda.org/s-ameli/traceinv/badges/installer/conda.svg
+   :target: https://anaconda.org/s-ameli/traceinv
+.. |platforms| image:: https://img.shields.io/conda/pn/s-ameli/traceinv?color=orange?label=platforms
+   :target: https://anaconda.org/s-ameli/traceinv
+.. |conda-version| image:: https://img.shields.io/conda/v/s-ameli/traceinv
+   :target: https://anaconda.org/s-ameli/traceinv
