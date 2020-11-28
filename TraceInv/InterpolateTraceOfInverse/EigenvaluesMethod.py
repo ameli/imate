@@ -46,9 +46,9 @@ class EigenvaluesMethod(InterpolantBaseClass):
         and assume the rest of the eigenvalues are zero.
     :type NonZeroRatio: int
 
-    :param Tol: Tolerance of computing eigenvalues. This option is only used for sparse matrices.
+    :param Tolerance: Tolerance of computing eigenvalues. This option is only used for sparse matrices.
         Default value is ``1e-3``.
-    :type Tol: float
+    :type Tolerance: float
 
     :param Verbose: If ``True``, prints some information on the computation process. Default is ``False``.
     :type Verbose: bool
@@ -59,7 +59,7 @@ class EigenvaluesMethod(InterpolantBaseClass):
         In case of a **sparse matrix**, only some of the eigenvalues with the largest magnitude is computed 
         and the rest of its eigenvalues is assumed to be negligible. The ratio of computed eigenvalues over 
         the total number of eigenvalues can be set by ``NonZeroRatio``.
-        The tolerance at which the eigenvalues are computed can be set by ``Tol``.
+        The tolerance at which the eigenvalues are computed can be set by ``Tolerance``.
 
     :example:
 
@@ -91,7 +91,7 @@ class EigenvaluesMethod(InterpolantBaseClass):
     # Init
     # ----
 
-    def __init__(self,A,B=None,ComputeOptions={},NonZeroRatio=0.9,Tol=1e-3,Verbose=False):
+    def __init__(self,A,B=None,ComputeOptions={},NonZeroRatio=0.9,Tolerance=1e-3,Verbose=False):
         """
         Constructor of the class, which initializes the bases class and computes eigenvalues
         of the input matrices.
@@ -102,7 +102,7 @@ class EigenvaluesMethod(InterpolantBaseClass):
 
         # Attributes
         self.NonZeroRatio = NonZeroRatio
-        self.Tol = Tol
+        self.Tolerance = Tolerance
 
         # Initialize Interpolator
         self.A_eigenvalues = None
@@ -136,7 +136,7 @@ class EigenvaluesMethod(InterpolantBaseClass):
             # find 90% of eigenvalues and assume the rest are very close to zero.
             NumNoneZeroEig = int(self.n*self.NonZeroRatio)
             self.A_eigenvalues[:NumNoneZeroEig] = scipy.sparse.linalg.eigsh(
-                    A,NumNoneZeroEig,which='LM',tol=self.Tol,return_eigenvectors=False)
+                    A,NumNoneZeroEig,which='LM',tol=self.Tolerance,return_eigenvectors=False)
 
         else:
             # A is dense matrix
@@ -158,7 +158,7 @@ class EigenvaluesMethod(InterpolantBaseClass):
                 # find 90% of eigenvalues and assume the rest are very close to zero.
                 NumNoneZeroEig = int(self.n*self.NonZeroRatio)
                 self.B_eigenvalues[:NumNoneZeroEig] = scipy.sparse.linalg.eigsh(
-                        B,NumNoneZeroEig,which='LM',tol=self.Tol,return_eigenvectors=False)
+                        B,NumNoneZeroEig,which='LM',tol=self.Tolerance,return_eigenvectors=False)
 
             else:
                 # B is dense matrix

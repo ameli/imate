@@ -16,6 +16,10 @@ import codecs
 # =========
 
 def ReadFile(Filename):
+    """
+    Reads a file with latin codec.
+    """
+
     with codecs.open(Filename,'r','latin') as File:
         return File.read()
 
@@ -24,6 +28,10 @@ def ReadFile(Filename):
 # ================
 
 def ReadFileToRST(Filename):
+    """
+    Reads atext file and converts it to RST file using pandas.
+    """
+
     try:
         import pypandoc
         rstname = "{}.{}".format(os.path.splitext(Filename)[0],'rst')

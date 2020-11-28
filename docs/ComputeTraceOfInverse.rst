@@ -89,12 +89,18 @@ The :mod:`TraceInv.ComputeTraceOfInverse` module accepts the following attribute
    :type: bool
    :value: True
 
+   If ``True``, prints some information about the process.
+
    This parameter is only applied to ``'SLQ'`` computing method (see :attr:`ComputeMethod`).
 
    * When set to ``True``, the *Lanczos tri-diagonalization* method is used.
    * When set to ``False``, the *Golub-Kahn-Lanczos bi-diagonalization* method is used.
 
    For mathematical details of this parameter, see :ref:`Stochastic Lanczos quadrature method <Stochastic Lanczos Quadrature Method>`.
+
+.. attribute:: Verbose
+   :type: bool
+   :value: False
 
 ====================
 Mathematical Details
@@ -324,6 +330,6 @@ Modules
 
 .. automodapi:: TraceInv.ComputeTraceOfInverse.CholeskyMethod
 .. automodapi:: TraceInv.ComputeTraceOfInverse.HutchinsonMethod
+.. automodapi:: TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod
 .. automodapi:: TraceInv.LinearAlgebra.LinearSolver
 .. automodapi:: TraceInv.LinearAlgebra.MatrixReduction
-.. automodapi:: TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod

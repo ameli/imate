@@ -65,12 +65,12 @@ def test_InterpolateTraceOfInverse():
     Trace06 = TI06.Interpolate(InquiryPoint)
     Error06 = 100.0 * numpy.abs(Trace06 - Trace00) / Trace00
 
-    # Radial Basis Functions, FunctionType 1
+    # Radial Basis Functions, FunctionType 2
     TI07 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RBF',FunctionType=2,ComputeOptions=ComputeOptions,Verbose=Verbose)
     Trace07 = TI07.Interpolate(InquiryPoint)
     Error07 = 100.0 * numpy.abs(Trace07 - Trace00) / Trace00
 
-    # Radial Basis Functions, FunctionType 1
+    # Radial Basis Functions, FunctionType 3
     TI08 = InterpolateTraceOfInverse(A,B=B,InterpolantPoints=InterpolantPoints,InterpolationMethod='RBF',FunctionType=3,ComputeOptions=ComputeOptions,Verbose=Verbose)
     Trace08 = TI08.Interpolate(InquiryPoint)
     Error08 = 100.0 * numpy.abs(Trace08 - Trace00) / Trace00
