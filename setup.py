@@ -68,7 +68,7 @@ def main(argv):
         version = Version,
         author = Author,
         author_email = 'sameli@berkeley.edu',
-        description = 'Computes the trace of the inverse of matrix or linear matrix function',
+        description = 'Computes the trace of the inverse of matrix or linear matrix function.',
         long_description = LongDescription,
         long_description_content_type = 'text/x-rst',
         keywords = """matrix-computations matrix-inverse interpolation-techniques 

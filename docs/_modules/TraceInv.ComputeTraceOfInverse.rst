@@ -28,22 +28,6 @@ TraceInv.ComputeTraceOfInverse.HutchinsonMethod module
    :undoc-members:
    :show-inheritance:
 
-TraceInv.ComputeTraceOfInverse.LinearAlgebra module
----------------------------------------------------
-
-.. automodule:: TraceInv.ComputeTraceOfInverse.LinearAlgebra
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-TraceInv.ComputeTraceOfInverse.LinearSolver module
---------------------------------------------------
-
-.. automodule:: TraceInv.ComputeTraceOfInverse.LinearSolver
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod module
 -----------------------------------------------------------------------
 

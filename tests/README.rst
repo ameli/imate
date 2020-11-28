@@ -2,7 +2,7 @@
 Tests
 =====
 
-The modules in this dorectory is used for the test on `travis-ci <https://travis-ci.com/github/ameli/TraceInv>`_. 
+The modules in this directory is used for the test on `travis-ci <https://travis-ci.com/github/ameli/TraceInv>`_. 
 
 ------------------------
 Testing TraceInv Package

@@ -6,8 +6,8 @@ This package generates a symmetric and positive-definite matrix for test purpose
 
 Helper modules are:
 
-* ``GeneratePoints``: Generates a set of points in the unit cirle. The set of points can be either on a Cartesian grid or randomly generated.
-* ``CorrelationMatrix``: Generates a corelation matrix based on the mutual distance of the set of points. The Matern correlation kernel is used to generate the correlation function. The main function of this module is ``CorrelationMatrix()``.
+* ``GeneratePoints``: Generates a set of points in the unit square. The set of points can be either on a Cartesian grid or randomly generated.
+* ``CorrelationMatrix``: Generates a correlation matrix based on the mutual distance of the set of points. The Matern correlation kernel is used to generate the correlation function. The main function of this module is ``CorrelationMatrix()``.
 
 -------
 Example
@@ -32,7 +32,7 @@ Generate a matrix of shape ``(20**2,20**2)`` with stronger spatial correlation. 
 
    >>> A = GenerateMatrix(NumPoints=20,DecorrelationScale=0.3)
 
-Generate a corelation matrix with more smoothness.. Default for ``nu`` is ``0.5``.
+Generate a correlation matrix with more smoothness.. Default for ``nu`` is ``0.5``.
 
 .. code-block:: python
 

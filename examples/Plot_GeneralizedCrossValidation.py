@@ -59,7 +59,7 @@ def GeneralizedCrossValidation(X,K,z,TI,Shift,TimeCounter,UseLogLambda,Lambda):
         :param Shift: Shift for the signular matrix ``K0`` to ``K = K0 + Shift * I``.
         :type Shift: float
 
-        :param TimeCounter: A counter object to store the elasped time and to be read outside of this function.
+        :param TimeCounter: A counter object to store the elapsed time and to be read outside of this function.
         :type TimeCounteR: examples.Utilities.TimeCounterClass
 
         :param UseLog: A flag, if ``True``, it assumes ``Lambda`` is in logarithmic scale.
@@ -69,7 +69,7 @@ def GeneralizedCrossValidation(X,K,z,TI,Shift,TimeCounter,UseLogLambda,Lambda):
         :param Lambda: Parameter of generalized cross validation.
         :type: float
 
-        The generalized cros-validation (GCV) function is:
+        The generalized cross-validation (GCV) function is:
 
         .. math::
 
@@ -191,8 +191,8 @@ def MinimizeGCV(X,K,z,TI,Shift,LambdaBounds,InitialElapsedTime,TimeCounter):
     # Optimal_nu = Res[0][1]
     # max_lp = -Res[1]
     # Iterations = None
-    # Message = "Using bute force"
-    # Sucess = True
+    # Message = "Using brute force"
+    # Success = True
 
     time1 = ProcessTime()
     ElapsedTime = InitialElapsedTime + time1 - time0
@@ -292,22 +292,22 @@ def main(test=False):
         inverse. That is, set ``UseInverseMatrix=True``.
 
     .. note::
-        To properly *measure the elased-time* of minimizing GCV, do the followings:
+        To properly *measure the elapsed-time* of minimizing GCV, do the followings:
 
         1. in the :func:`MinimizeGCV`, use the *Differential Evolution* method, and  set ``worker=1`` (**NOT** ``-1``).
         2. Definitely call the function :func:`Utilities.ProcessingTimeUtilities.RestrictComputationToSingleProcessor()`
             to disable any multi-core processing. By this, all computations are forced to execute on a single thread.
             Otherwise, all measured elapsed times will be wrong due to the parallel processing.
-            The only way that seems to measure elased time of multicore process properly is to 
+            The only way that seems to measure elapsed time of multicore process properly is to 
             prevent python to use multi-cores.
-        3. Set thebound of search for ``lambda`` to ``10e-16`` to ``10e+16``.
+        3. Set the bound of search for ``lambda`` to ``10e-16`` to ``10e+16``.
         4. Trace should be computed by either:
             * Hutchinson method
             * Cholesky factorization and without computing Inverse (set ``UseInverseMatrix=False``).
 
     .. warning::
         To compute the elapsed-time, do not compute trace with *stochastic Lanczos Quadrature* method, since for very
-        small ``lambda``, the tri-diagnalization fails.
+        small ``lambda``, the tri-diagonalization fails.
 
     .. note::
         In the *rational polynomial functions * method for interpolation (using ``InterpolationMethod='RPF'``), 
@@ -324,7 +324,7 @@ def main(test=False):
     # When measuring elapsed time, restrict number of processors to a single core only to measure time properly
     RestrictComputationToSingleProcessor()
 
-    # Shift to make singular matrix non-signular
+    # Shift to make singular matrix non-singular
     # Shift = 2e-4
     # Shift = 4e-4
     Shift = 1e-3
@@ -341,7 +341,7 @@ def main(test=False):
     z = GenerateNoisyData(X,NoiseLevel)
     K = GenerateMatrix(n,m,Shift)
 
-    # Interpolatng points
+    # Interpolating points
     InterpolantPoints_1 = [1e-3,1e-2,1e-1,1]
     InterpolantPoints_2 = [1e-3,1e-1]
 

@@ -96,7 +96,7 @@ def Plot(TI,test):
     # Mark the region corresponding to the inset axes on ax1 and draw lines
     # in grey linking the two axes.
 
-    # Avoid inset mark lines interset the inset axes itself by setting its anchor
+    # Avoid inset mark lines intersect the inset axes itself by setting its anchor
     InsetColor = 'oldlace'
     mark_inset(ax[0],ax2,loc1=1,loc2=2,facecolor=InsetColor,edgecolor='0.5')
     ax2.semilogx(eta,tau_exact,color='black',label='Exact')
@@ -180,7 +180,7 @@ def main(test=False):
     This script uses a single data, for which the random noise with a given standard deviation is added to the data once.
     It plots
 
-        1. liklelihood in 3D as function of parameters sigma and eta
+        1. Likelihood in 3D as function of parameters sigma and eta
         2. Trace estimation using interpolation
         3. Derivative of log likelihood.
     """

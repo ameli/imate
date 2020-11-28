@@ -60,7 +60,7 @@ def ComputeTraceOfInverse(A,ComputeMethod='cholesky',**Options):
        >>> # Compute trace of inverse
        >>> trace = ComputeTraceOfInverse(A)
 
-    The above exaple uses the Cholesky method by default.
+    The above example uses the Cholesky method by default.
     In the next example, we apply the *Hutchinson's randomized estimator* method.
 
     .. code-block:: python

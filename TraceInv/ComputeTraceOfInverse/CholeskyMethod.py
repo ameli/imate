@@ -47,7 +47,7 @@ def ComputeTraceInvByInverseOfCholesky(L,UseSparse):
 
         raise ValueError('Do not use sksparse.cholmod.inv, as it computes LDLt decomposition and the computed trace becomes incorrect. Either set UseInverseMatrix to False when using sparse matrices, or use Hutchinson or Lanczos method.')
 
-        # Note: the L.inv() uses LDLt decomposition, not LLt, which then the compueted Trace becomes incorrect.
+        # Note: the L.inv() uses LDLt decomposition, not LLt, which then the computed Trace becomes incorrect.
         Linv = L.inv()
         Trace = scipy.sparse.linalg.norm(Linv,ord='fro')**2
     else:
@@ -63,7 +63,7 @@ def ComputeTraceInvByInverseOfCholesky(L,UseSparse):
 def ComputeTraceInvBySolvingLinearSystem(L,n,UseSparse):
     """
     Computes the trace of inverse by solving a linear system for Cholesky matrix and each column of the identity matrix
-    to obtain the inverse of ``L`` subsequentially.
+    to obtain the inverse of ``L`` sub-sequentially.
 
     The matrix :math:`\mathbf{L}` is not inverted directly, rather, the linear system
 
@@ -189,7 +189,7 @@ def CholeskyMethod(A,UseInverseMatrix=True):
             # Using Sparse Suite package
             L = sksparse.cholmod.cholesky(A)
         except:
-            # Using scipy, but with LU instad of Cholesky directoy
+            # Using scipy, but with LU instead of Cholesky directly.
             L = SparseCholesky(A)
             # raise RuntimeError('The package "sksparse" is not installed. '
             #     'Either install "sksparse", or do not use Cholesky method for sparse matrices. '

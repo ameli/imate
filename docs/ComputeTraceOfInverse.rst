@@ -133,7 +133,7 @@ The term :math:`\| \mathbf{L}^{-1} \|_F` can be computed in two ways:
 
        \mathbf{L} \boldsymbol{x}_i = \boldsymbol{e}_i, \qquad i = 1,\dots,n
 
-   is solved, where :math:`\boldsymbol{e}_i = (0,\dots,0,1,0,\dots,0)^{\intercal}` is a column vector of zeros except its :math:`i` th entry is one, and :math:`n` is the size of the square matrix :math:`\mathbf{A}`. The solution :math:`\boldsymbol{x}_i` is the :math:`i` th column of :math:`\mathbf{L}^{-1}`. Then, its Frobenius norm is
+   is solved, where :math:`\boldsymbol{e}_i = (0,\dots,0,1,0,\dots,0)^{\intercal}` is a column vector of zeros except its :math:`i`:superscript:`th` entry is one, and :math:`n` is the size of the square matrix :math:`\mathbf{A}`. The solution :math:`\boldsymbol{x}_i` is the :math:`i`:superscript:`th` column of :math:`\mathbf{L}^{-1}`. Then, its Frobenius norm is
 
    .. math::
 
@@ -191,7 +191,7 @@ The term on the right side in the above is approximated by the Gaussian quadratu
 
 where :math:`\theta_j` is the :math:`j`:sup:`th` eigenvalue of the tri-diagonalized matrix :math:`\mathbf{T}`. Also, :math:`\tau_{j1}` is the first element of the vector :math:`\boldsymbol{\tau}_j = (\tau_{j1},\dots,\tau_{jn})` where :math:`\boldsymbol{\tau}_j` is the :math:`j`:sup:`th` eigenvector of :math:`\mathbf{T}` (see Algorithm 1 of [Ubaru-2017]_).
 
-Alternatively, instead of the tri-diagonalized matrix :math:`\mathbf{T}`, one might use the bi-diagonalized matrix :math:`\mathbf{B}` that is obtained by Golun-Kahn-Lanczos bi-diagonalization (see p. 143 of [Bai-2000]_, p. 495 of [Golub-1996]_). This way, the above them is computed by
+Alternatively, instead of the tri-diagonalized matrix :math:`\mathbf{T}`, one might use the bi-diagonalized matrix :math:`\mathbf{B}` that is obtained by Golub-Kahn-Lanczos bi-diagonalization (see p. 143 of [Bai-2000]_, p. 495 of [Golub-1996]_). This way, the above them is computed by
 
 .. math::
 
@@ -199,7 +199,7 @@ Alternatively, instead of the tri-diagonalized matrix :math:`\mathbf{T}`, one mi
 
 where here :math:`\phi_j` is the :math:`j`:sup:`th` singular value of :math:`\mathbf{B}`. Also, :math:`\tau_{j1}` denotes the first entry of the :math:`j`:sup:`th` right singular vector of :math:`\mathbf{B}` (see Algorithm 2 of [Ubaru-2017]_).
 
-In this module, by setting :attr:`UseLanczosTridiagonalization` to ``True``, the Lanczos tri-diagonalization method is applied. Whereas if this parameter is set to ``False``, the Golub-Kahn-Lancos bi-diagonalization is used.
+In this module, by setting :attr:`UseLanczosTridiagonalization` to ``True``, the Lanczos tri-diagonalization method is applied. Whereas if this parameter is set to ``False``, the Golub-Kahn-Lanczos bi-diagonalization is used.
 
 The Golub-Kahn bi-diagonalization method is suitable for non-symmetric matrices. For the symmetric matrices, the Lanczos tri-diagonalization is preferred.
 

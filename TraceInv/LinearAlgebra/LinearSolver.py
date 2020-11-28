@@ -17,16 +17,16 @@ def LinearSolver(A,b,Tol=1e-5):
     Solves the linear system :math:`Ax = b` where :math:`A` can be either sparse or dense.
 
     :param A: matrix of coefficients, two-dimensional array, can be either sparse or dense
-    :type A: ndarray
+    :type A: numpy.ndarray
 
     :param b: column vector of the right hand side of the linear system, one-dimensional array
     :type b: array
 
-    :param Tol: Tolerance for the error of solving linear system. This is only applicable if ``A`` is spase.
+    :param Tol: Tolerance for the error of solving linear system. This is only applicable if ``A`` is sparse.
     :type Tol: float
 
     :return: one-dimensional array of the solution of the linear system
-    :rtype: array
+    :rtype: numpy.array
     """
 
     if scipy.sparse.isspmatrix(A):

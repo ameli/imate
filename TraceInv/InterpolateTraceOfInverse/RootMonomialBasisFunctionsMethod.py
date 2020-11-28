@@ -19,7 +19,7 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
     Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A} + t \\mathbf{B}` using 
     an interpolation scheme based on root monomial basis functions (see details below).
 
-    :param A: Invertible matrix, can be rither dense or sparse matrix.
+    :param A: Invertible matrix, can be either dense or sparse matrix.
     :type A: numpy.ndarray
 
     :param B: Invertible matrix, can be either dense or sparse matrix.
@@ -28,16 +28,12 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
     :param ComputeOptions: A dictionary of input arguments for :mod:`TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse` module.
     :type ComputeOptions: dict
 
-    :param NonZeroRatio: The ratio of the number of eigenvalues to be assumed non-zero.
-        Used for sparse matrices.
-        Default is ``0.9`` indicating to compute 90 percent of the eigenevalues with the largest magnitude
-        and assume the rest of the eigenvalues are zero.
-    :type NonZeroRatio: int
+    :param Verbose: If ``True``, prints some information on the computation process. Default is ``False``.
+    :type Verbose: bool
 
-    :param Tol: Tolerance of computing eigenvalues. Used onlt for sparse matrices.
-        Default value is ``1e-3``.
-    :type Tol: float
-
+    :param BasisFunctionsType: One of the types ``'NonOrthogonal'``, ``'Orthogonal'`` and ``'Orthogonal2'``. 
+        Default is ``'orthogonal2'``.
+    :type basisFunctionsType: string
 
     **Interpolation Method**
     
@@ -51,52 +47,84 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
 
     .. math::
 
-        \\frac{1}{\\tau(t)} = \\frac{1}{\\tau_0} + \sum_{i = 0}^p w_i \phi_i(t),
+        \\frac{1}{\\tau(t)} \\approx \\frac{1}{\\tau_0} + \sum_{i = 0}^p w_i \phi_i(t),
 
-    where :math:`\phi_i` are basis functions defined by
+    where  :math:`\phi_i` are some known basis functions, and :math:`w_i` are the coefficients of the linear basis functions.
+    The first coefficient is set to :math:`w_{0} = 1` and the rest of the weights 
+    are to be found form the known function values :math:`\\tau_i = \\tau(t_i)` at some given interpolant points :math:`t_i`.
+    
+    **Basis Functions:**
+
+    In this module, three kinds of basis functions which can be set by the argument ``BasisFunctionsType``.
+
+    When ``BasisFunctionsType`` is set to ``NonOrthogonal``, the basis functions are the
+    root of the monomial functions defined by
 
     .. math::
 
-        \\phi_i(t) = t^{\\frac{1}{i+1}}, \qquad i = 0,\dots,p
+        \\phi_i(t) = t^{\\frac{1}{i+1}}, \qquad i = 0,\dots,p.
 
-    and :math:`w_i` are the coefficients of the linear basis functions with :math:`w_{0} = 1` and the rest of the weights 
-    are to be found form the known function values :math:`\\tau_i = \\tau(t_i)` at some given interpolant points :math:`t_i`.
+    When ``BasisFunctionsType`` is set to ``'Orthogonal'`` or ``'Orthogonal2'``, the orthogoanl form of the
+    above basis functions are used. Orthogonal basis functions are formed by the above non-orthogonal functions
+    as
+
+    .. math::
+
+        \\phi_i^{\perp}(t) = \\alpha_i \sum_{j=1}^i a_{ij} \phi_j(t)
+
+    The coefficients :math:`\\alpha_i` and :math:`a_{ij}` can be obtained by the python package 
+    `Orthogoanl Functions <https://ameli.github.io/Orthogonal-Functions>`_. These coefficients are
+    hard-coded in this function up to :math:`i = 9`. Thus, in this module, up to nine interpolant points
+    are supported. 
+
+    .. warning::
+
+        The non-orhtogonal basis functions can lead to ill-conditioned system of equations for finding the weight
+        coefficients :math:`w_i`. When the number of interpolating points is large (such as :math:`p > 6`), 
+        it is recommended to use the orthogonalized set of basis functions.
+
+    .. note::
+
+        The recommended basis function type is ``'Orthogonal2'`.`
 
 
     **Example**
 
-    This class can be invoked from the :class:`TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse` module 
-    using ``InterpolationMethod='EIG'`` argument.
+    This class can be invoked from :class:`TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse` module 
+    using ``InterpolationMethod='RMBF'`` argument.
 
     .. code-block:: python
 
-        from TraceInv import GenerateMatrix
-        from TraceInv import InterpolateTraceOfInverse
+        >>> from TraceInv import GenerateMatrix
+        >>> from TraceInv import InterpolateTraceOfInverse
         
-        # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)
-        A = GenerateMatrix(NumPoints=20)
+        >>> # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)
+        >>> A = GenerateMatrix(NumPoints=20)
         
-        # Create an object that interpolats trace of inverse of A+tI (I is identity matrix)
-        TI = InterpolateTraceOfInverse(A,InterpolatingMethod='EIG')
+        >>> # Create an object that interpolates trace of inverse of A+tI (I is identity matrix)
+        >>> TI = InterpolateTraceOfInverse(A,InterpolatingMethod='RMBF')
         
-        # Interpolate A+tI at some input point t
-        t = 4e-1
-        trace = TI.Interpolate(t)
+        >>> # Interpolate A+tI at some input point t
+        >>> t = 4e-1
+        >>> trace = TI.Interpolate(t)
 
     .. seealso::
 
-        The result of the ``EIG`` method is identical with the exact method ``EXT``, 
-        which is given by :class:`TraceInv.InterpolateTraceOfInverse.ExactMethod`.
+        The other class that provides interpolation with basis functions method is 
+        :mod:`TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod`.
     """
 
     # ----
     # Init
     # ----
 
-    def __init__(self,A,B=None,InterpolantPoints=None,ComputeOptions={},BasisFunctionsType='Orthogonal2'):
+    def __init__(self,A,B=None,InterpolantPoints=None,ComputeOptions={},Verbose=False,BasisFunctionsType='Orthogonal2'):
+        """
+        Initializes the base class and the attributes, namely, the computes the trace at interpolant points.
+        """
 
         # Base class constructor
-        super(RootMonomialBasisFunctionsMethod,self).__init__(A,B=B,InterpolantPoints=InterpolantPoints,ComputeOptions=ComputeOptions)
+        super(RootMonomialBasisFunctionsMethod,self).__init__(A,B=B,InterpolantPoints=InterpolantPoints,ComputeOptions=ComputeOptions,Verbose=Verbose)
 
         self.BasisFunctionsType = BasisFunctionsType
 
@@ -112,20 +140,24 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
 
     def InitializeInterpolator(self):
         """
+        Internal function that is called by the class constructor. It computes the weight coefficients
+        :math:`w_i` and stores them in the member variable ``self.w``.
         """
-        
-        print('Initialize interpolator ...')
+       
+        if self.Verbose:
+            print('Initialize interpolator ...')
 
         # Method 1: Use non-orthogonal basis functions
         if self.BasisFunctionsType == 'NonOrthogonal':
             # Form a linear system for weights w
-            b = (1.0/self.tau_i) - (1.0/self.tau0) - self.eta_i
+            b = (1.0/self.tau_i) - (1.0/self.tau0) - self.t_i
             C = numpy.zeros((self.p,self.p))
             for i in range(self.p):
                 for j in range(self.p):
-                    C[i,j] = self.BasisFunctions(j,self.eta_i[i])
+                    C[i,j] = self.BasisFunctions(j,self.t_i[i])
 
-            # print('Condition number: %f'%(numpy.linalg.cond(C)))
+            if self.Verbose:
+                print('Condition number: %f'%(numpy.linalg.cond(C)))
 
             self.w = numpy.linalg.solve(C,b)
 
@@ -134,7 +166,7 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
             # Method 2: Use orthogonal basis functions
             self.alpha,self.a = self.OrthogonalBasisFunctionCoefficients()
 
-            if self.alpha.size < self.eta_i.size:
+            if self.alpha.size < self.t_i.size:
                 raise ValueError('Cannot regress order higher than %d. Decrease the number of interpolation points.'%(self.alpha.size))
 
             # Form a linear system Cw = b for weights w
@@ -144,31 +176,34 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
             C = numpy.zeros((self.p+1,self.p+1))
             for i in range(self.p):
                 for j in range(self.p+1):
-                    C[i,j] = self.BasisFunctions(j,self.eta_i[i]/self.Scale_eta)
+                    C[i,j] = self.BasisFunctions(j,self.t_i[i]/self.Scale_t)
+
+            # The coefficient of term "t" should be 1.
             C[-1,:] = self.alpha[:self.p+1]*self.a[:self.p+1,0]
 
-            # print('Condition number: %f'%(numpy.linalg.cond(C)))
+            if self.Verbose:
+                print('Condition number: %f'%(numpy.linalg.cond(C)))
 
             # Solve weights
             self.w = numpy.linalg.solve(C,b)
-
 
         elif self.BasisFunctionsType == 'Orthogonal2':
 
             # Method 3: Use orthogonal basis functions
             self.alpha,self.a = self.OrthogonalBasisFunctionCoefficients()
 
-            if self.alpha.size < self.eta_i.size:
+            if self.alpha.size < self.t_i.size:
                 raise ValueError('Cannot regress order higher than %d. Decrease the number of interpolation points.'%(self.alpha.size))
 
             # Form a linear system Aw = b for weights w
-            b = (1.0/self.tau_i) - (1.0/self.tau0) - self.eta_i
+            b = (1.0/self.tau_i) - (1.0/self.tau0) - self.t_i
             C = numpy.zeros((self.p,self.p))
             for i in range(self.p):
                 for j in range(self.p):
-                    C[i,j] = self.BasisFunctions(j,self.eta_i[i]/self.Scale_eta)
+                    C[i,j] = self.BasisFunctions(j,self.t_i[i]/self.Scale_t)
 
-            # print('Condition number: %f'%(numpy.linalg.cond(C)))
+            if self.Verbose:
+                print('Condition number: %f'%(numpy.linalg.cond(C)))
 
             # Solve weights
             self.w = numpy.linalg.solve(C,b)
@@ -177,7 +212,8 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
             # b2 = C.T.dot(b)
             # self.w = numpy.linalg.solve(C2,b2)
 
-        print('Done.')
+        if self.Verbose:
+            print('Done.')
 
     # ---
     # Phi
@@ -186,7 +222,17 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
     @staticmethod
     def phi(i,t):
         """
-        Non-orthogonal basis function
+        Non-orthogonal basis function, which is defined by
+
+        .. math::
+
+            \\phi_i(t) = t^{\\frac{1}{i}}, \qquad i > 0.
+
+        :param t: Inquiry point.
+        :type t: float
+
+        :return: The value of the function :math:`\\phi(t)`
+        :rtype: float
         """
 
         return t**(1.0/i)
@@ -197,8 +243,42 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
 
     def BasisFunctions(self,j,t):
         """
-        Functions phi_j(t).
-        The index j of the basis functions starts from 1.
+        Returns the basis functions at inquiry point :math:`t`
+
+        The index j of the basis functions should start from 1.
+
+        :param t: Inquiry point.
+        :type t: float
+
+        :return: Basis functions at inquiry point.
+        :rtype: float
+
+        Depending on ``BasisFunctionsType``, the basis functions are:
+
+        * For ``NonOrthogonal``:
+
+            .. math::
+
+                \phi_i(t) = t^{\\frac{1}{i}}, \qquad i > 0
+
+        * For ``Orthogonal``:
+
+            .. math::
+
+                \phi_i^{\perp}(t) = \\alpha_i \sum_{j=1}^9 a_{ij} \phi_j(t)
+
+        * For ``Orthogona2``:
+
+            .. math::
+
+                \phi_i^{\perp}(t) = \\alpha_i \sum_{j=1}^9 a_{ij} \phi_{j+1}(t)
+
+        .. note::
+
+            The difference between ``Orthogonal`` and ``Orthogonal2`` is that in the former,
+            the functions :math:`\phi_j^{\perp}` at :math:`j=1,\dots,9` are orthogonal
+            but in the latter, the functions at :math:`j=2,\dots,9` are orthogonal. That is
+            they are not orthogonal to :math:`\phi_1(t) = t`.
         """
 
         if self.BasisFunctionsType == 'NonOrthogonal':
@@ -235,8 +315,39 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
 
     def OrthogonalBasisFunctionCoefficients(self):
         """
-        Coefficients alpha and a.
-        To genrate these coefficients, see GenerateOrthogonalFunctions.py
+        Hard-coded coefficients :math:`\\alpha_i` and :math:`a_{ij}` which will be
+        used by :func:`TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.BasisFunctions` 
+        to form the orthogonal basis:
+
+        .. math::
+
+            \\phi_i^{\perp}(t) = \\alpha_i \sum_{j=0}^9 a_{ij} \phi_j(t).
+
+        **Generate coefficients:**
+
+        To generate these coefficients, see the python package 
+        `Orthogonal Functions <https://ameli.github.io/Orthogonal-Functions>`_.
+
+        Install this package by
+
+            ::
+                
+                pip install OrthogonalFunctions
+
+        * To generate the coefficients corresponding to ``Orthogonal`` basis:
+
+          ::
+          
+            gen-orth -n 9 -s 0
+
+        * To generate the coefficients corresponding to ``Orthogonal2`` basis:
+
+          ::
+
+            gen-orth -n 9 -s 1
+
+        :return: Weight coefficients of the orthogonal basis functions.
+        :rtype: numpy.array, numpy.ndarray
         """
 
         p = 9
@@ -294,13 +405,32 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
 
     def Interpolate(self,t):
         """
-        Interpolates the trace of inverse of ``A + t*B``.
+        Interpolates :math:`\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)` at :math:`t`.
 
-        :param t: A real variable to form the linear matrix function ``A + tB``.
-        :type t: float
+        This is the main interface function of this module and it is used after the interpolation
+        object is initialized.
 
-        :return: The interpolated value of the trace of inverse of ``A + tB``.
-        :rtype: float
+        :param t: The inquiry point(s).
+        :type t: float, list, or numpy.array
+
+        :return: The interpolated value of the trace.
+        :rtype: float or numpy.array
+
+        **Details:**
+
+        Depending on the ``BasisFunctionsType``, the interpolation is as follows:
+
+        For ``'NonOrthogonal'`` basis:
+
+        .. math::
+
+            \\frac{1}{\\tau(t)} = \\frac{1}{\\tau_0} + t + \sum_{j=1}^p w_j \\phi_j(t).
+
+        For ``'Orthogonal'`` and ``'Orthogonal2'`` bases:
+
+        .. math::
+
+            \\frac{1}{\\tau(t)} = \\frac{1}{\\tau_0} + t + \sum_{j=1}^p w_j \\phi_j(t).
         """
         
         if self.BasisFunctionsType == 'NonOrthogonal':
@@ -314,14 +444,14 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
 
             S = 0.0
             for j in range(self.w.size):
-                S += self.w[j] * self.BasisFunctions(j,t/self.Scale_eta)
+                S += self.w[j] * self.BasisFunctions(j,t/self.Scale_t)
             tau = 1.0 / (1.0/self.tau0+S)
 
         elif self.BasisFunctionsType == 'Orthogonal2':
 
             S = 0.0
             for j in range(self.p):
-                S += self.w[j] * self.BasisFunctions(j,t/self.Scale_eta)
+                S += self.w[j] * self.BasisFunctions(j,t/self.Scale_t)
             tau = 1.0 / (1.0/self.tau0+S+t)
 
         # Compute trace from tau

@@ -22,12 +22,12 @@ def SparseCholesky(A,DiagonalOnly=False):
         is misleadingly wrong.
 
     :param A: Symmetric and positive-definite matrix.
-    :type A: ndarray
+    :type A: numpy.ndarray
 
     :param DiagonalOnly: If ``True``, returns a column array of the diagonals of the Cholesky decomposition.
         If ``False``, returns the full Cholesky matrix as scipy.sparse.csc_matrix.
 
-    :return: Chlesky decomposition of ``A``.
+    :return: Cholesky decomposition of ``A``.
     :rtype: Super.LU
     """
 

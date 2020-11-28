@@ -68,7 +68,7 @@ If you do not want the :ref:`above <Install TraceInv>` installation occupy your 
 
    ::
 
-       python -m pip intall virtualenv
+       python -m pip install virtualenv
 
 2. Create a virtual environment called ``TraceInvEnv``
 

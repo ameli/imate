@@ -29,7 +29,7 @@ class EigenvaluesMethod(InterpolantBaseClass):
     and :math:`\\mu_i` is the eigenvalue of :math:`\mathbf{B}`. 
     This class does not accept interpolant points as the result is not interpolated.
 
-    :param A: Invertible matrix, can be rither dense or sparse matrix.
+    :param A: Invertible matrix, can be either dense or sparse matrix.
     :type A: numpy.ndarray
 
     :param B: Invertible matrix, can be either dense or sparse matrix.
@@ -38,15 +38,20 @@ class EigenvaluesMethod(InterpolantBaseClass):
     :param ComputeOptions: A dictionary of input arguments for :mod:`TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse` module.
     :type ComputeOptions: dict
 
-    :param NonZeroRatio: The ratio of the number of eigenvalues to be assumed non-zero.
-        Used for sparse matrices.
-        Default is ``0.9`` indicating to compute 90 percent of the eigenevalues with the largest magnitude
+    :param NonZeroRatio: The ratio of the number of eigenvalues to be assumed non-zero over all eigenvalues.
+        This option is only used for sparse matrices where as assume some of eigenvalues are very small 
+        and we are only interested in computing non-zero eigenvalues. In practice, it is not possible to 
+        compute all eigenvalues of a large sparse matrix.
+        Default is ``0.9`` indicating to compute 90 percent of the eigenvalues with the largest magnitude
         and assume the rest of the eigenvalues are zero.
     :type NonZeroRatio: int
 
-    :param Tol: Tolerance of computing eigenvalues. Used onlt for sparse matrices.
+    :param Tol: Tolerance of computing eigenvalues. This option is only used for sparse matrices.
         Default value is ``1e-3``.
     :type Tol: float
+
+    :param Verbose: If ``True``, prints some information on the computation process. Default is ``False``.
+    :type Verbose: bool
 
     .. note::
 
@@ -58,23 +63,23 @@ class EigenvaluesMethod(InterpolantBaseClass):
 
     :example:
 
-    This class can be invoked from the :class:`TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse` module 
+    This class can be invoked from :class:`TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse` module 
     using ``InterpolationMethod='EIG'`` argument.
 
     .. code-block:: python
 
-        from TraceInv import GenerateMatrix
-        from TraceInv import InterpolateTraceOfInverse
+        >>> from TraceInv import GenerateMatrix
+        >>> from TraceInv import InterpolateTraceOfInverse
         
-        # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)
-        A = GenerateMatrix(NumPoints=20)
+        >>> # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)
+        >>> A = GenerateMatrix(NumPoints=20)
         
-        # Create an object that interpolats trace of inverse of A+tI (I is identity matrix)
-        TI = InterpolateTraceOfInverse(A,InterpolatingMethod='EIG')
+        >>> # Create an object that interpolates trace of inverse of A+tI (I is identity matrix)
+        >>> TI = InterpolateTraceOfInverse(A,InterpolatiionMethod='EIG')
         
-        # Interpolate A+tI at some input point t
-        t = 4e-1
-        trace = TI.Interpolate(t)
+        >>> # Interpolate A+tI at some input point t
+        >>> t = 4e-1
+        >>> trace = TI.Interpolate(t)
 
     .. seealso::
 
@@ -86,15 +91,16 @@ class EigenvaluesMethod(InterpolantBaseClass):
     # Init
     # ----
 
-    def __init__(self,A,B=None,ComputeOptions={},NonZeroRatio=0.9,Tol=1e-3):
+    def __init__(self,A,B=None,ComputeOptions={},NonZeroRatio=0.9,Tol=1e-3,Verbose=False):
         """
-        Constructor of the class.
+        Constructor of the class, which initializes the bases class and computes eigenvalues
+        of the input matrices.
         """
 
         # Base class constructor
-        super(EigenvaluesMethod,self).__init__(A,B=B,ComputeOptions=ComputeOptions)
+        super(EigenvaluesMethod,self).__init__(A,B=B,ComputeOptions=ComputeOptions,Verbose=Verbose)
 
-        # Attiributes
+        # Attributes
         self.NonZeroRatio = NonZeroRatio
         self.Tol = Tol
 
@@ -117,12 +123,14 @@ class EigenvaluesMethod(InterpolantBaseClass):
             a fraction of the number of its eigenvalues with the larges magnitude and
             we assume the rest of the eigenvalues are close to zero.
         """
-        
-        print('Initialize interpolator ...',end='')
+       
+        if self.Verbose:
+            print('Initialize interpolator ...',end='')
 
         # Find eigenvalues of A
         if self.UseSparse:
 
+            # A is sparse
             self.A_eigenvalues = numpy.zeros(self.n)
 
             # find 90% of eigenvalues and assume the rest are very close to zero.
@@ -136,12 +144,15 @@ class EigenvaluesMethod(InterpolantBaseClass):
 
         # Find eigenvalues of B
         if self.BIsIdentity:
+
             # B is identity
             self.B_eigenvalues = numpy.ones(self.n,dtype=float)
 
         else:
             # B is not identity
             if self.UseSparse:
+
+                # B is sparse
                 self.B_eigenvalues = numpy.zeros(self.n)
 
                 # find 90% of eigenvalues and assume the rest are very close to zero.
@@ -153,7 +164,8 @@ class EigenvaluesMethod(InterpolantBaseClass):
                 # B is dense matrix
                 self.B_eigenvalues = scipy.linalg.eigh(self.B,eigvals_only=True,check_finite=False)
 
-        print(' Done.')
+        if self.Verbose:
+            print(' Done.')
 
     # -----------
     # Interpolate
@@ -161,9 +173,8 @@ class EigenvaluesMethod(InterpolantBaseClass):
 
     def Interpolate(self,t):
         """
-        Interpolates the trace of inverse of ``A + t*N``.
-
-        This function computes the trace of inverse using the eigenvalues by:
+        Computes the function :math:`\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)` 
+        at the input point :math:`t` by
 
         .. math:: 
 
@@ -172,7 +183,10 @@ class EigenvaluesMethod(InterpolantBaseClass):
         where :math:`\\lambda_i` is the eigenvalue of :math:`\\mathbf{A}`.
         and  :math:`\\mu_i` is the eigenvalue of :math:`\\mathbf{B}`.
 
-        :return: The interpolated value of the trace of inverse of ``A + tB``.
+        :param: t: An inquiry point, which can be a single number, or an array of numbers.
+        :type t: float or numpy.array
+
+        :return: The exact value of the trace of inverse of ``A + tB``.
         :rtype: float
         """
         

@@ -215,7 +215,7 @@ if RayInstalled:
         """
         Computes correlation matrix ``K`` at the row and the column with the index ``ColumnIndex``.
 
-        * ``K`` is updated *inplace*.
+        * ``K`` is updated *in place*.
         * This function is used as a partial function for parallel processing.
 
         * If ``StartIndex`` is ``None``, it fills all columns of correlation matrix ``K``.
@@ -350,7 +350,7 @@ def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,R
     # size of Distance matrix
     n = x.size
 
-    # Check if the thresholding is not too much to avoid the correlation matrix becomes identity. Each point should have at least one neighbor point in correlation matrix.
+    # Check if the threshold is not too much to avoid the correlation matrix becomes identity. Each point should have at least one neighbor point in correlation matrix.
     if UseSparse:
         # Compute Adjacency
         NumPointsAlongAxis = numpy.rint(numpy.sqrt(n))
@@ -358,7 +358,7 @@ def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,R
         KernelLength = -DecorrelationScale*numpy.log(KernelThreshold)
         Adjacency = KernelLength / GridSize
 
-        # If Adjacency is less that one, the correlation matrix becomes identity since no point will be adjacet to other in the correlation matrix.
+        # If Adjacency is less that one, the correlation matrix becomes identity since no point will be adjacent to other in the correlation matrix.
         if Adjacency < 1.0:
             raise ValueError('Adjacency: %0.2f. Correlation matrix will become identity since Kernel length is less that grid size. To increase adjacency, consider decreasing KernelThreshold or increase DecorrelationScale.'%(Adjacency))
 
@@ -366,14 +366,14 @@ def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,R
     if not RayInstalled:
         RunInParallel = False
 
-    # If matrice are sparse, it is better to generate columns of correlation in parallel
+    # If matrices are sparse, it is better to generate columns of correlation in parallel
     if (RunInParallel == False) and (UseSparse == True) and (n > 5000):
         warnings.warn('If matrices are sparse, it is better to generate columns of correlation matrix in parallel. Set "RunInParallel" to True.')
 
     if RunInParallel:
 
         try:
-            # Get number of cpus
+            # Get number of CPUs
             NumCPUs = os.cpu_count()
 
             # Parallelization with ray
@@ -401,12 +401,12 @@ def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,R
 
             warnings.warn('Ray parallel processing to generate correlation failed. Try with a single process ...')
 
-            # Sometimes Ray's communications fail. Compute correlation withput parallel section
+            # Sometimes Ray's communications fail. Compute correlation without parallel section
             K = ComputeCorrelationForAProcess(DecorrelationScale,nu,KernelThreshold,x,y,UseSparse,None,None)
 
     else:
 
-        # Compute correlation withput parallel section
+        # Compute correlation without parallel section
         K = ComputeCorrelationForAProcess(DecorrelationScale,nu,KernelThreshold,x,y,UseSparse,None,None)
 
     # Fill lower left elements using symmetry of matrix

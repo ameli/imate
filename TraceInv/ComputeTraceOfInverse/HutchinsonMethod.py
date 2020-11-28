@@ -17,14 +17,14 @@ def HutchinsonMethod(A,NumIterations=20):
     """
     Computes the trace of inverse of a matrix by Hutchinson method.
 
-    The random vectors have Radamacher distribution. Compared to the Gaissuan
+    The random vectors have Rademacher distribution. Compared to the Gaussian
     distribution, the Rademacher distribution yields estimation of trace with lower
     variance.
 
     .. note::
 
         In the is function, the generated set of random vectors are orthonormalized using 
-        QR decomposition. hence, they no longer have Rademacher distribution. By orthonormalization,
+        QR decomposition. Hence, they no longer have Rademacher distribution. By orthonormalization,
         the solution seem to have better convergence.
 
     :param A: invertible matrix
@@ -39,7 +39,7 @@ def HutchinsonMethod(A,NumIterations=20):
 
     n = A.shape[0]
 
-    # Create a random matrix with m random vectors with Radamacher distribution.
+    # Create a random matrix with m random vectors with Rademacher distribution.
     E = numpy.sign(numpy.random.randn(n,NumIterations))
 
     # Orthonormalize random vectors

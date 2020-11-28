@@ -42,7 +42,7 @@ def CholeskyMethod(A):
 
     .. note::
         This function uses the `Suite Sparse <https://people.engr.tamu.edu/davis/suitesparse.html>`_ 
-        package to compute the Cholesky decompositon. See the :ref:`installation <InstallScikitSparse>`.
+        package to compute the Cholesky decomposition. See the :ref:`installation <InstallScikitSparse>`.
     
     The result is exact (no approximation) and should be used as benchmark to test other methods.
     """
@@ -84,7 +84,7 @@ def StochasticLanczosQuadratureMethod(A,LanczosDegree=20,UseLanczosTridiagonaliz
     :param LanczosDegree: Lanczos degree of the tri-diagonalization (or bi-diaqgonalization) process
     :type LanczosDegree: int
 
-    :param UseLanczosTridiagonalization: Flag, if ``True``, it uses the Lanczos tridiagonalization. 
+    :param UseLanczosTridiagonalization: Flag, if ``True``, it uses the Lanczos tri-diagonalization. 
         If ``False``, it uses the Golub-Kahn bi-diagonalization.
     :type UseLanczosTridiagonalization: bool
 
@@ -92,15 +92,15 @@ def StochasticLanczosQuadratureMethod(A,LanczosDegree=20,UseLanczosTridiagonaliz
     :rtype: float
 
     About the implementation of Golub-Kahn bi-diagonalization:
-        In Lanczos tridiagonalization method, ``theta`` is the eigenvalues of ``T``. 
-        However, in Golub-Kahn bidoagonalization method, ``theta`` is the singular values of ``B``.
-        The relation between these two methords are are follows: ``B.T*B`` is the ``T`` for ``A.T*A``.
-        That is, if we have the input matrix ``A.T*T``, its Lanczos tridiagonalization ``T`` is the same matrix
-        as if we bidiagonalize ``A`` (not ``A.T*A``) with Golub-Kahn to get ``B``, then ``T = B.T*B``.
+        In Lanczos tri-diagonalization method, ``theta`` is the eigenvalues of ``T``. 
+        However, in Golub-Kahn bi-diagonalization method, ``theta`` is the singular values of ``B``.
+        The relation between these two methods are are follows: ``B.T*B`` is the ``T`` for ``A.T*A``.
+        That is, if we have the input matrix ``A.T*T``, its Lanczos tri-diagonalization ``T`` is the same matrix
+        as if we bi-diagonalize ``A`` (not ``A.T*A``) with Golub-Kahn to get ``B``, then ``T = B.T*B``.
         This has not been highlighted paper referenced below.
 
         To correctly implement Golub-Kahn, here Theta should be the singular values of ``B``, *NOT*
-        the square of the singular values of ``B`` (as decribed in the paper incorrectly!).
+        the square of the singular values of ``B`` (as described in the paper incorrectly!).
     """
 
     # Radamacher random vector, consists of 1 and -1.
@@ -123,7 +123,7 @@ def StochasticLanczosQuadratureMethod(A,LanczosDegree=20,UseLanczosTridiagonaliz
 
     else:
 
-        # Use Golub-Kahn-Lanczos bidigonalization instead of Lanczos tridiagonalization
+        # Use Golub-Kahn-Lanczos bi-diagonalization instead of Lanczos tri-diagonalization
         B = GolubKahnLanczosBidiagonalization(A,w,LanczosDegree,Tolerance=1e-10)
         LeftEigenvectors,SingularValues,RightEigenvectorsTransposed = numpy.linalg.svd(B)
         Theta = SingularValues   # Theta is just singular values, not singular values squared
@@ -148,10 +148,10 @@ def MonteCarloSampling(A,NumIterations=20,LanczosDegree=20,UseLanczosTridiagonal
     :param NumIterations: Number of Monte-Carlo trials
     :type NumIterations: int
 
-    :param LanczosDegree: Lanczos degree of the tri-diagonalization (or bi-diaqgonalization) process
+    :param LanczosDegree: Lanczos degree of the tri-diagonalization (or bi-diagonalization) process
     :type LanczosDegree: int
 
-    :param UseLanczosTridiagonalization: Flag, if ``True``, it uses the Lanczos tridiagonalization. 
+    :param UseLanczosTridiagonalization: Flag, if ``True``, it uses the Lanczos tri-diagonalization. 
         If ``False``, it uses the Golub-Kahn bi-diagonalization.
     :type UseLanczosTridiagonalization: bool
 
@@ -168,7 +168,7 @@ def MonteCarloSampling(A,NumIterations=20,LanczosDegree=20,UseLanczosTridiagonal
     LogDetEstimatesList = [StochasticLanczosQuadratureMethod(A,LanczosDegree,UseLanczosTridiagonalization) for i in range(NumIterations)]
 
     # Parallel processing with Ray
-    # Get number of cpus
+    # Get number of CPUs
     # NumProcessors = psutil.cpu_count()
 
     # Parallelization with ray
@@ -213,7 +213,7 @@ def MonteCarloSampling(A,NumIterations=20,LanczosDegree=20,UseLanczosTridiagonal
 
 def ComputeLogDeterminant(A,ComputeMethod='cholesky',NumIterations=20,LanczosDegree=20,UseLanczosTridiagonalization=False):
     """
-    Computes the log-determinan of full-rank matrix ``A``.
+    Computes the log-determinant of full-rank matrix ``A``.
 
     :param A: A full-rank matrix.
     :type A: numpy.ndarray or scipy.sparse.csc_matrix
@@ -233,12 +233,12 @@ def ComputeLogDeterminant(A,ComputeMethod='cholesky',NumIterations=20,LanczosDeg
 
     .. note::
 
-        For computing the *trace of inverse* with the sothcastic Lanczos quadrature method 
+        For computing the *trace of inverse* with the stochastic Lanczos quadrature method 
         (see :mod:`TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadrature`), the preferred algorithm is
         the Lanczos tri-diagonalization, as opposed to Golub-Kahn bi-diagonalization.
 
         In contrast to the above, the preferred SLQ method for computing *log-determinant* is
-        the Golu-Kahn bi-diagonalization. The reason is that if the matrix :math:`\mathbf{A}` 
+        the Golub-Kahn bi-diagonalization. The reason is that if the matrix :math:`\mathbf{A}` 
         has many singular values close to zero, bi-diagonalization performs better, 
         and this matters when we compute determinant.
     
@@ -265,7 +265,7 @@ def ComputeLogDeterminant(A,ComputeMethod='cholesky',NumIterations=20,LanczosDeg
         >>> # Compute log-determinant with stochastic Lanczos quadrature method
         >>> LogDet_1 = ComputeLogDeterminant(A,ComputeMethod='SLQ',NumIterations=20,LanczosDegree=20)
 
-        >>> # Compute log-determinant with stochastic Lanczos quadrature method with Golub-Khan bi-diagonaliation
+        >>> # Compute log-determinant with stochastic Lanczos quadrature method with Golub-Khan bi-diagonalization
         >>> LogDet_1 = ComputeLogDeterminant(A,ComputeMethod='SLQ',NumIterations=20, 
         ...                 LanczosDegree=20,Tridiagonalization=False)
     """

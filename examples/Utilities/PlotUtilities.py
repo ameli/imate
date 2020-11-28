@@ -17,7 +17,7 @@ if os.environ.get('DISPLAY','') == '':
     print('No display found. Using non-interactive Agg backend.')
     plt.switch_backend('agg')
 
-# Remove plt.tight_layput() warning
+# Remove plt.tight_layout() warning
 import logging
 logging.captureWarnings(True)
 import warnings
@@ -72,14 +72,14 @@ def SavePlot(plt,Filename,TransparentBackground=True):
     :param plt: matplotlib.pyplot object for the plots.
     :type plt: matplotlib.pyplot
 
-    :param Filename: Name of the file without extention or directory name.
+    :param Filename: Name of the file without extension or directory name.
     :type Filename: string
 
     Format:
         The file is saved in both ``svg`` and ``pdf`` format.
     
     Directory:
-        The plot issaved in the directory ``/docs/images/`` with respect to the package root,
+        The plot is saved in the directory ``/docs/images/`` with respect to the package root,
         if this directory is exists and writable. Otherwise, the plot is saved in the *current*
         directory of the user.
     """
@@ -89,7 +89,7 @@ def SavePlot(plt,Filename,TransparentBackground=True):
     ParentDirectory = os.path.dirname(FileDirectory)
     SecondParentDirectory = os.path.dirname(ParentDirectory)
 
-    # Try to save in the docs/images dirctory. Check if exists and writable
+    # Try to save in the docs/images directory. Check if exists and writable
     SaveDir = os.path.join(SecondParentDirectory,'docs','images')
     if (not os.path.isdir(SaveDir)) or (not os.access(SaveDir,os.W_OK)):
 

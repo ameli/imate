@@ -20,6 +20,14 @@ TraceInv.LinearAlgebra.MatrixReduction module
    :undoc-members:
    :show-inheritance:
 
+TraceInv.LinearAlgebra.SparseCholesky module
+--------------------------------------------
+
+.. automodule:: TraceInv.LinearAlgebra.SparseCholesky
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

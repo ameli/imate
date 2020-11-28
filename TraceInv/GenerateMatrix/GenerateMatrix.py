@@ -23,7 +23,7 @@ def GenerateMatrix(
     """
     Generates symmetric and positive-definite matrix for test purposes.
     
-    The generated matrx is a correlation matrix based on Matern correlation of spatial distance of 
+    The generated matrix is a correlation matrix based on Matern correlation of spatial distance of 
     a list of points in the unit square. The Matern correlation function can be characterized by two 
     parameters:
 
@@ -38,8 +38,8 @@ def GenerateMatrix(
         * If ``GridOfPoints`` is ``False``, then, the matrix is of the size :math:`n \\times n`.
 
     The values of the correlation matrix are between :math:`0` and :math:`1`. To sparsify the generated matrix, 
-    set ``KernelThreshold``, which makes all correlations below this threshold to be zero. If ``KernelThreshold`` is zet to
-    zer, the matrix is not sparsified.
+    set ``KernelThreshold``, which makes all correlations below this threshold to be zero. If ``KernelThreshold`` is set to
+    zero, the matrix is not sparsified.
 
     .. note:: 
         
@@ -49,7 +49,7 @@ def GenerateMatrix(
 
     .. note:: 
 
-        To use parallel processing, the package ``ray`` should be insatalled.
+        To use parallel processing, the package ``ray`` should be installed.
 
     :param NumPoints: Depending on ``GridOfPoints``, this is either the number of points or the number of grid points along an axis.
     :type NumPoints: int
@@ -70,11 +70,11 @@ def GenerateMatrix(
     :param RunInParallel: Runs the code in parallel. Note that the ``ray`` module should be uncommented.
     :type RunInParallel: bool
 
-    :param Plot: If ``True``, the matrix will be ploted.
+    :param Plot: If ``True``, the matrix will be plotted.
     :type Plot: bool
 
     :return: Correlation matrix. If ``x`` and ``y`` are ``n*1`` arrays, the correlation ``K`` is ``n*n`` matrix.
-    :rtype: ndarray or sparse array
+    :rtype: numpy.ndarray or sparse array
 
     **Example:**
 
@@ -97,7 +97,7 @@ def GenerateMatrix(
 
        >>> A = GenerateMatrix(NumPoints=20,DecorrelationScale=0.3)
 
-    Generate a corelation matrix with more smoothness.. Default for ``nu`` is ``0.5``.
+    Generate a correlation matrix with more smoothness.. Default for ``nu`` is ``0.5``.
 
     .. code-block:: python
 
@@ -150,7 +150,7 @@ def PlotMatrix(K,UseSparse):
     correspond to the value of the elements of the matrix.
 
     If a graphical backend is not provided, the plot is not displayed,
-    rather saved as SVG file in the current directory of user.
+    rather saved as ``SVG`` file in the current directory of user.
 
     :param K: matrix to plot
     :type K : numpy.ndarray or scipy.sparse.csc_matrix

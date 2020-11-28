@@ -103,7 +103,7 @@ def Plot(TI,test):
     # Mark the region corresponding to the inset axes on ax1 and draw lines
     # in grey linking the two axes.
 
-    # Avoid inset mark lines interset the inset axes itself by setting its anchor
+    # Avoid inset mark lines intersect the inset axes itself by setting its anchor
     InsetColor = 'oldlace'
     mark_inset(ax[0],ax2,loc1=1,loc2=4,facecolor=InsetColor,edgecolor='0.5')
     ax2.plot(eta,tau_exact,color='black',label='Exact')
@@ -190,7 +190,7 @@ def main(test=False):
     .. [Ameli-2020] Ameli, S., and Shadden. S. C. (2020). Interpolating the Trace of the Inverse of Matrix **A** + t **B**. `arXiv:2009.07385 <https://arxiv.org/abs/2009.07385>`__ [math.NA]
     """
 
-    # Shift to make singular matrix non-signular
+    # Shift to make singular matrix non-singular
     # Shift = 2e-4
     # Shift = 4e-4
     Shift = 1e-3
@@ -204,7 +204,7 @@ def main(test=False):
         m = 500
     K = GenerateMatrix(n,m,Shift)
 
-    # Interpolatng points
+    # Interpolating points
     InterpolantPoints_1 = [1e-3,1e-2,1e-1,1]
     InterpolantPoints_2 = [1e-3,1e-1]
 

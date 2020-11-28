@@ -24,7 +24,7 @@ class TimeCounterClass(object):
     In the interpolation methods using :mod:`Trace.InterpolateTraceOfInverse`, the trace at interpolant points are
     *pre-computed*, so we can easily find how much time did it take to compute trace in the pre-computation stage.
 
-    However, in the direct method of minimizing GCV, we can only measue the total time of minimization process.
+    However, in the direct method of minimizing GCV, we can only measure the total time of minimization process.
     To measure only the elapsed time of computing trace (which is a part of computing GCV) we pass an object
     of this class to accumulatively measure the elapsed time of a portion related to computing trace.
 
@@ -51,7 +51,7 @@ class TimeCounterClass(object):
         >>> # The main script
         >>> if __name__ == "__main__":
         >>>     
-        >>>     # Creat time counter object
+        >>>     # Create time counter object
         >>>     TimeCounter = TimeCounterClass()
         >>> 
         >>>     # Pass the TimeCounter in some functions
@@ -78,7 +78,7 @@ class TimeCounterClass(object):
     
     def Add(self,Time):
         """
-        Adds the input ``Time`` to the memer data.
+        Adds the input ``Time`` to the member data.
 
         :param Time: Input time to be added to ``self.ElapsedTime``.
         :type Time: float
@@ -103,7 +103,7 @@ class TimeCounterClass(object):
 
 def RestrictComputationToSingleProcessor():
     """
-    To measure the CPU time of all processors we use time.process_time() which takes into acount 
+    To measure the CPU time of all processors we use time.process_time() which takes into account 
     of elapsed time of all running threads. However, it seems when I use scipy.optimize.differential_evolution
     method with either worker=-1 or worker=1, the CPU time is not measured properly.
 
@@ -114,7 +114,7 @@ def RestrictComputationToSingleProcessor():
     in parallel and the time.process_time() measures the CPU time of all cores properly.
     """
 
-    # Uncomment lines below if measureing elapsed time. These will restrict python to only use one processing thread.
+    # Uncomment lines below if measuring elapsed time. These will restrict python to only use one processing thread.
     os.environ["OMP_NUM_THREADS"]        = "1"    # export OMP_NUM_THREADS=1
     os.environ["OPENBLAS_NUM_THREADS"]   = "1"    # export OPENBLAS_NUM_THREADS=1
     os.environ["MKL_NUM_THREADS"]        = "1"    # export MKL_NUM_THREADS=1

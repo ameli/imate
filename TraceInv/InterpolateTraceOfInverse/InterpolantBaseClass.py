@@ -15,32 +15,52 @@ from scipy import sparse
 
 class InterpolantBaseClass(object):
     """
-    This is the base class for the following classes:
+    This is the base class for the following derived classes:
 
     * :class:`TraceInv.InterpolateTraceOfInverse.ExactMethod`
     * :class:`TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod`
-    * :class:`TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod``
-    * :class:`TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod``
-    * :class:`TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod``
-    * :class:`TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod``
+    * :class:`TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod`
+    * :class:`TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod`
+    * :class:`TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod`
+    * :class:`TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod`
 
-    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass
-        :parts: 1
+    :param A: A positive-definite matrix. Matrix can be dense or sparse.
+    :type A: numpy.ndarray or scipy.sparse.csc_matrix
 
+    :param B: A positive-definite matrix. Matrix can be dense or sparse.
+        If ``None`` or not provided, it is assumed that ``B`` is an identity matrix of the shape of ``A``.
+    :type B: numpy.ndarray or scipy.sparse.csc_matrix
+
+    :param InterpolantPoints: A list or an array of points that the interpolator use to interpolate. 
+        The trace of inverse is computed for the interpolant points with exact method. 
+    :type InterpolantPoints: list(float) or numpy.array(float)
+
+    :param InterpolationMethod: One of the methods ``'EXT'``, ``'EIG'``, ``'MBF'``, ``'RMBF'``, ``'RBF'``, and ``'RPF'``.
+        Default is ``'RMBF'``.
+    :type InterpolationMethod: string
+
+    :param ComputeOptions: A dictionary of arguments to pass to :mod:`TraceInv.ComputeTraceOfInverse` module.
+    :type ComputeOptions: dict
+
+    :param Verbose: If ``True``, prints some information on the computation process. Default is ``False``.
+    :type Verbose: bool
     """
 
     # ----
     # Init
     # ----
 
-    def __init__(self,A,B=None,InterpolantPoints=None,ComputeOptions={}):
+    def __init__(self,A,B=None,InterpolantPoints=None,ComputeOptions={},Verbose=False):
         """
         The initialization function does the followings:
 
         * Initializes te interpolant points and the input matrix.
         * Scale the interpolant points if needed.
-        * Comutes the trace of inverse at the interpolant points.
+        * Computes the trace of inverse at the interpolant points.
         """
+
+        # Attributes
+        self.Verbose = Verbose
 
         # Matrix A
         self.A = A
@@ -78,13 +98,13 @@ class InterpolantBaseClass(object):
             self.ComputeTraceInvOfInputMatrices()
 
             # Compute trace at interpolant points
-            self.eta_i = numpy.array(InterpolantPoints)
-            self.p = self.eta_i.size
+            self.t_i = numpy.array(InterpolantPoints)
+            self.p = self.t_i.size
             self.trace_i = self.ComputeTraceAtInterpolantPoints()
             self.tau_i = self.trace_i / self.trace_Binv
 
             # Scale interpolant points
-            self.Scale_eta = None
+            self.Scale_t = None
             self.ScaleInterpolantPoints()
 
     # ----------------------------------
@@ -93,19 +113,18 @@ class InterpolantBaseClass(object):
 
     def ComputeTraceInvOfInputMatrices(self):
         """
-        Computes the trace of inverse of input matrices ``A`` and ``B``, and their ratio ``tau0``.
+        Computes the trace of inverse of input matrices :math:`\mathbf{A}` and :math:`\mathbf{B}`, and the ratio :math:`\\tau_0`
+        defined by
 
-        This function sets the following class attirbutes:
+        .. math::
+
+            \\tau_0 = \\frac{\mathrm{trace}( \mathbf{A}^{-1})}{\mathrm{trace}( \mathbf{B}^{-1})}.
+
+        This function sets the following class attributes:
 
         * ``self.trace_Ainv``: trace of inverse of ``A``.
         * ``self.trace_Binv``: trace of inverse of ``B``.
         * ``self.tau0``: the ratio of ``self.trace_Ainv`` over ``self.trace_Binv``.
-
-        The ratio :math:`\\tau_0` is defined by:
-
-        .. math::
-
-            \\tau_0 = \\frac{\mathrm{trace}(\mathbf{A}^{-1})}{\mathrm{trace}(\mathbf{B}^{-1})}.
         """
 
         # trace of Ainv
@@ -126,16 +145,19 @@ class InterpolantBaseClass(object):
 
     def ScaleInterpolantPoints(self):
         """
+        Rescales the range of interpolant points. This function is intended to be used internally.
+
         If the largest interpolant point in ``self.InterpolantPoints`` is greater than ``1``, 
-        this function rescales their range to max at ``1``. This function is intended to be 
-        used internally.
+        this function rescales their range to max at ``1``.  The rescale is necessary if the method of 
+        interpolation is based on the orthogonal basis functions, which they are defined to be orthogonal 
+        in the range :math:`t \in [0,1]`.
         """
 
-        # Scale eta, if some of eta_i are greater than 1
-        self.Scale_eta = 1.0
-        if self.eta_i.size > 0:
-            if numpy.max(self.eta_i) > 1.0:
-                self.Scale_eta = numpy.max(self.eta_i)
+        # Scale t, if some of t_i are greater than 1
+        self.Scale_t = 1.0
+        if self.t_i.size > 0:
+            if numpy.max(self.t_i) > 1.0:
+                self.Scale_t = numpy.max(self.t_i)
 
     # -------
     # Compute
@@ -143,10 +165,10 @@ class InterpolantBaseClass(object):
 
     def Compute(self,t):
         """
-        Computes the trace of inverse of ``A+tB`` at point ``t`` with exact method, that is,
+        Computes :math:`\mathrm{trace}\left( (\mathbf{A}+t \mathbf{B})^{-1} \\right)` at point :math:`t` with exact method, that is,
         no interpolation is used and the result is exact.
        
-        This function is primarily used internally to compute trace of inverse at interpolant points. 
+        This function is primarily used internally to compute trace of inverse at *interpolant points*. 
         This function uses :class:`TraceInv.ComputeTraceOfInverse` class with options described by
         ``self.ComputeOptions``.
         """
@@ -162,18 +184,21 @@ class InterpolantBaseClass(object):
 
     def ComputeTraceAtInterpolantPoints(self):
         """
-        Computes the trace of inverse of ``A+tB`` at interpolant points ``self.InterpolantPoints``.
-        At each interpolant point, the trace is computed exactly using :class:`TraceInv.ComputeTraceOfInverse`.
+        Computes :math:`\mathrm{trace} \left( (\mathbf{A}+ t \mathbf{B})^{-1} \\right)` at interpolant points 
+        ``self.InterpolantPoints``. At interpolant points, the trace is computed exactly 
+        using :class:`TraceInv.ComputeTraceOfInverse`.
         """
 
-        print('Evaluate function at interpolant points ...',end='')
+        if self.Verbose:
+            print('Evaluate function at interpolant points ...',end='')
 
         # Compute trace at interpolant points
         trace_i = numpy.zeros(self.p)
         for i in range(self.p):
-            trace_i[i] = self.Compute(self.eta_i[i])
+            trace_i[i] = self.Compute(self.t_i[i])
 
-        print(' Done.')
+        if self.Verbose:
+            print(' Done.')
 
         return trace_i
 
@@ -183,7 +208,7 @@ class InterpolantBaseClass(object):
 
     def LowerBound(self,t):
         """
-        Computes the lower bound of the trce of the inverse of the one-parameter function ``A+tB``.
+        Lower bound of the function :math:`t \mapsto \mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)`.
 
         The lower bound is given by Remark 2.2 of [Ameli-2020]_ as
 
@@ -207,7 +232,7 @@ class InterpolantBaseClass(object):
 
     def UpperBound(self,t):
         """
-        Computes the upper bound of the trace of the inverse of the one-parameter function ``A+tB``.
+        Upper bound of the function :math:`t \mapsto \mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)`.
 
         The upper bound is given by Theorem 1 of [Ameli-2020]_ as
 

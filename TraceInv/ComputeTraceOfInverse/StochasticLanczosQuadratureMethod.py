@@ -26,15 +26,15 @@ def StochasticLanczosQuadratureMethod(A,
 
     .. note::
 
-        In Lanczos tridiagonalization method, :math:`\\theta`` is the eigenvalue of ``T``. 
-        However, in Golub-Kahn bidoagonalization method, :math:`\\theta` is the singular values of ``B``.
+        In Lanczos tri-diagonalization method, :math:`\\theta`` is the eigenvalue of ``T``. 
+        However, in Golub-Kahn bi-diagonalization method, :math:`\\theta` is the singular values of ``B``.
         The relation between these two methods are are follows: ``B.T*B`` is the ``T`` for ``A.T*A``.
-        That is, if we have the input matrix ``A.T*T``, its Lanczos tridiagonalization ``T`` is the same matrix
-        as if we bidiagonalize ``A`` (not ``A.T*A``) with Golub-Kahn to get ``B``, then ``T = B.T*B``.
+        That is, if we have the input matrix ``A.T*T``, its Lanczos tri-diagonalization ``T`` is the same matrix
+        as if we bi-diagonalize ``A`` (not ``A.T*A``) with Golub-Kahn to get ``B``, then ``T = B.T*B``.
         This has not been highlighted paper in the above paper.
 
         To correctly implement Golub-Kahn, here :math:`\\theta` should be the singular values of ``B``, **NOT**
-        the square of the singular values of ``B`` (as decribed in the above paper incorrectly!).
+        the square of the singular values of ``B`` (as described in the above paper incorrectly!).
 
 
     :param A: invertible matrix
@@ -46,7 +46,7 @@ def StochasticLanczosQuadratureMethod(A,
     :param LanczosDegree: Lanczos degree
     :type LanczosDegree: int
 
-    :param UseLanczosTridiagonalization: Flag, if ``True``, it uses the Lanczos tridiagonalization. 
+    :param UseLanczosTridiagonalization: Flag, if ``True``, it uses the Lanczos tri-diagonalization. 
         If ``False``, it uses the Golub-Kahn bi-diagonalization.
     :type UseLanczosTridiagonalization: bool
 
@@ -63,7 +63,7 @@ def StochasticLanczosQuadratureMethod(A,
         w = numpy.sign(numpy.random.randn(n))
 
         if UseLanczosTridiagonalization:
-            # Lanczos recustive iteration to convert A to tridiagonal form T
+            # Lanczos resistive iteration to convert A to tri-diagonal form T
             # T = LanczosTridiagonalization(A,w,LanczosDegree)
             T = LanczosTridiagonalization2(A,w,LanczosDegree)
 
@@ -75,7 +75,7 @@ def StochasticLanczosQuadratureMethod(A,
 
         else:
 
-            # Use Golub-Kahn-Lanczos bidigonalization instead of Lanczos tridiagonalization
+            # Use Golub-Kahn-Lanczos bi-diagonalization instead of Lanczos tri-diagonalization
             B = GolubKahnLanczosBidiagonalization(A,w,LanczosDegree)
             LeftEigenvectors,SingularValues,RightEigenvectorsTransposed = numpy.linalg.svd(B)
             Theta = SingularValues    # Theta is just singular values, not singular values squared

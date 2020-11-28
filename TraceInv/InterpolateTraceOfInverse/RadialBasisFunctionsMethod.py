@@ -14,15 +14,88 @@ from scipy import interpolate
 # =============================
 
 class RadialBasisFunctionsMethod(InterpolantBaseClass):
+    """
+    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod
+        :parts: 1
+
+    Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A} + t \\mathbf{B}` using 
+    an interpolation scheme based on rational polynomial functions (see details below).
+
+    :param A: Invertible matrix, can be either dense or sparse matrix.
+    :type A: numpy.ndarray
+
+    :param B: Invertible matrix, can be either dense or sparse matrix.
+    :type B: numpy.ndarray
+
+    :param ComputeOptions: A dictionary of input arguments for :mod:`TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse` module.
+    :type ComputeOptions: dict
+
+    :param Verbose: If ``True``, prints some information on the computation process. Default is ``False``.
+    :type Verbose: bool
+
+    :param FunctionType: Can be ``1``, ``2``, or ``3``, which defines different radial basis functions (see details below).
+    :type FunctionType: int
+
+    **Interpolation Method**
+    
+    Define the function
+
+    .. math::
+
+        \\tau(t) = \\frac{\\mathrm{trace}\\left( (\\mathbf{A} + t \\mathbf{B})^{-1} \\right)}{\mathrm{trace}(\mathbf{B}^{-1})}
+
+    and :math:`\\tau_0 = \\tau(0)`. Then, we approximate :math:`\\tau(t)` by radial basis functions as follows. Define
+
+    .. math::
+
+        x(t) = \log t
+
+    Depending whether ``FunctionType`` is set to ``1``, ``2``, or ``3``, one of the following functions is defined:
+
+    .. math::
+        :nowrap:
+
+        \\begin{eqnarray}
+        y_1(t) &= \\frac{1}{\\tau(t)} - \\frac{1}{\\tau_0} - t, \\\\
+        y_2(t) &= \\frac{\\frac{1}{\\tau(t)}}{\\frac{1}{\\tau_0} + t} - 1, \\\\
+        y_3(t) &= 1 - \\tau(t) \left( \\frac{1}{\\tau_0} + t \\right).
+        \end{eqnarray}
+
+    * The set of data :math:`(x,y_1(x))` are interpolated using *cubic splines*.
+    * The set of data :math:`(x,y_2(x))` and :math:`(x,y_3(x))` are interpolated using *Gaussian radial basis functions*.
+
+    **Example**
+
+    This class can be invoked from :class:`TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse` module 
+    using ``InterpolationMethod='RBF'`` argument.
+
+    .. code-block:: python
+
+        >>> from TraceInv import GenerateMatrix
+        >>> from TraceInv import InterpolateTraceOfInverse
+        
+        >>> # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)
+        >>> A = GenerateMatrix(NumPoints=20)
+        
+        >>> # Create an object that interpolates trace of inverse of A+tI (I is identity matrix)
+        >>> TI = InterpolateTraceOfInverse(A,InterpolatingMethod='RBF')
+        
+        >>> # Interpolate A+tI at some input point t
+        >>> t = 4e-1
+        >>> trace = TI.Interpolate(t)
+    """
 
     # ----
     # Init
     # ----
 
-    def __init__(self,A,B=None,InterpolantPoints=None,ComputeOptions={},FunctionType=1):
+    def __init__(self,A,B=None,InterpolantPoints=None,ComputeOptions={},Verbose=False,FunctionType=1):
+        """
+        Initializes the base class and attributes.
+        """
 
         # Base class constructor
-        super(RadialBasisFunctionsMethod,self).__init__(A,B=B,InterpolantPoints=InterpolantPoints,ComputeOptions=ComputeOptions)
+        super(RadialBasisFunctionsMethod,self).__init__(A,B=B,InterpolantPoints=InterpolantPoints,ComputeOptions=ComputeOptions,Verbose=Verbose)
 
         # Initialize Interpolator
         self.RBF = None
@@ -37,12 +110,14 @@ class RadialBasisFunctionsMethod(InterpolantBaseClass):
 
     def InitializeInterpolator(self):
         """
+        Finds the coefficients of the interpolating function.
         """
         
-        print('Initialize interpolator ...')
+        if self.Verbose:
+            print('Initialize interpolator ...')
         
-        # Take logarithm of eta_i
-        xi = numpy.log10(self.eta_i)
+        # Take logarithm of t_i
+        xi = numpy.log10(self.t_i)
 
         if xi.size > 1:
             dxi = numpy.mean(numpy.diff(xi))
@@ -52,20 +127,20 @@ class RadialBasisFunctionsMethod(InterpolantBaseClass):
         # Function Type
         if self.FunctionType == 1:
             # Ascending function
-            yi = 1.0/self.tau_i - (1.0/self.tau0 + self.eta_i)
+            yi = 1.0/self.tau_i - (1.0/self.tau0 + self.t_i)
         elif self.FunctionType == 2:
             # Bell shape, going to zero at boundaries
-            yi = (1.0/self.tau_i)/(1.0/self.tau0 + self.eta_i) - 1.0
+            yi = (1.0/self.tau_i)/(1.0/self.tau0 + self.t_i) - 1.0
         elif self.FunctionType == 3:
             # Bell shape, going to zero at boundaries
-            yi = 1.0 - (self.tau_i)*(1.0/self.tau0 + self.eta_i)
+            yi = 1.0 - (self.tau_i)*(1.0/self.tau0 + self.t_i)
         else:
             raise ValueError('Invalid function type.')
 
         # extend boundaries to zero
         self.LowLogThreshold = -4.5   # SETTING
         self.HighLogThreshold = 3.5   # SETTING
-        NumExtend = 3            # SETTING
+        NumExtend = 3                 # SETTING
        
         # Avoid thresholds to cross interval of data
         if self.LowLogThreshold >= numpy.min(xi):
@@ -84,7 +159,7 @@ class RadialBasisFunctionsMethod(InterpolantBaseClass):
         # Radial Basis Function
         if self.FunctionType == 1:
             # These interpolation methods are good for the ascending shaped function
-            self.RBF = scipy.interpolate.CubicSpline(xi,yi,bc_type=((1,0.0),(2,0)),extrapolate=True)       # best for ascneing function
+            self.RBF = scipy.interpolate.CubicSpline(xi,yi,bc_type=((1,0.0),(2,0)),extrapolate=True)       # best for ascending function
             # self.RBF = scipy.interpolate.PchipInterpolator(xi,yi,extrapolate=True)                       # good
             # self.RBF = scipy.interpolate.UnivariateSpline(xi,yi,k=3,s=0.0)                               # bad
         elif (self.FunctionType == 2) or (self.FunctionType == 3):
@@ -94,20 +169,22 @@ class RadialBasisFunctionsMethod(InterpolantBaseClass):
             # self.RBF = scipy.interpolate.CubicSpline(xi,yi,bc_type=((1,0.0),(1,0.0)),extrapolate=True)
 
         # Plot interpolation with RBF
-        PlotFlag = False
-        if PlotFlag:
-            eta = numpy.logspace(self.LowLogThreshold-dxi,self.HighLogThreshold+dxi,100)
-            x = numpy.log10(eta)
-            y = self.RBF(x)
-            fig,ax = plt.subplots()
-            ax.plot(x,y)
-            ax.plot(xi,yi,'o')
-            ax.grid(True)
-            ax.set_xlim([self.LowLogThreshold-dxi,self.HighLogThreshold+dxi])
-            # ax.set_ylim(-0.01,0.18)
-            plt.show()
+        # PlotFlag = False
+        # if PlotFlag:
+        #     import matplotlib.pyplot as plt
+        #     t = numpy.logspace(self.LowLogThreshold-dxi,self.HighLogThreshold+dxi,100)
+        #     x = numpy.log10(t)
+        #     y = self.RBF(x)
+        #     fig,ax = plt.subplots()
+        #     ax.plot(x,y)
+        #     ax.plot(xi,yi,'o')
+        #     ax.grid(True)
+        #     ax.set_xlim([self.LowLogThreshold-dxi,self.HighLogThreshold+dxi])
+        #     # ax.set_ylim(-0.01,0.18)
+        #     plt.show()
 
-        print('Done.')
+        if self.Verbose:
+            print('Done.')
 
     # -----------
     # Interpolate
@@ -115,13 +192,16 @@ class RadialBasisFunctionsMethod(InterpolantBaseClass):
 
     def Interpolate(self,t):
         """
-        Interpolates the trace of inverse of ``A + t*B``.
+        Interpolates :math:`\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)` at :math:`t`.
 
-        :param t: A real variable to form the linear matrix function ``A + tB``.
-        :type t: float
+        This is the main interface function of this module and it is used after the interpolation
+        object is initialized.
 
-        :return: The interpolated value of the trace of inverse of ``A + tB``.
-        :rtype: float
+        :param t: The inquiry point(s).
+        :type t: float, list, or numpy.array
+
+        :return: The interpolated value of the trace.
+        :rtype: float or numpy.array
         """
         
         x = numpy.log10(t)

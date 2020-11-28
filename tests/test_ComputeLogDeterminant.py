@@ -29,12 +29,12 @@ def ComputeLogDeterminantWithMultipleMethods(K):
     Trace1 = ComputeLogDeterminant(K,ComputeMethod='cholesky')
     Time11 = time.time()
 
-    # Use Stochastic Lanczos Quadrature method, with tridiagonalization
+    # Use Stochastic Lanczos Quadrature method, with tri-diagonalization
     Time20 = time.time()
     Trace2 = ComputeLogDeterminant(K,ComputeMethod='SLQ',NumIterations=50,LanczosDegree=30,UseLanczosTridiagonalization=True)
     Time21 = time.time()
 
-    # Use Stochastic Lanczos Quadrature method, with bidiagonalization
+    # Use Stochastic Lanczos Quadrature method, with bi-diagonalization
     Time30 = time.time()
     Trace3 = ComputeLogDeterminant(K,ComputeMethod='SLQ',NumIterations=50,LanczosDegree=30,UseLanczosTridiagonalization=False)
     Time31 = time.time()
