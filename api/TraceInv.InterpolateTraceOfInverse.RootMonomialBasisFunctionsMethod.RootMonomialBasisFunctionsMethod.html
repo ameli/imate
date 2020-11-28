@@ -1,0 +1,501 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>RootMonomialBasisFunctionsMethod &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="RadialBasisFunctionsMethod" href="TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod.html" />
+    <link rel="prev" title="MonomialBasisFunctionsMethod" href="TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../InterpolateTraceOfInverse.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../InterpolateTraceOfInverse.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../InterpolateTraceOfInverse.html#mathematical-details">Mathematical Details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../InterpolateTraceOfInverse.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../InterpolateTraceOfInverse.html#references">References</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../InterpolateTraceOfInverse.html#api">API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../InterpolateTraceOfInverse.html#main-interface">Main Interface</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../InterpolateTraceOfInverse.html#modules">Modules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.ExactMethod">TraceInv.InterpolateTraceOfInverse.ExactMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod">TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod">TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod Module</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod">TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod">TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod">TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod Module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_modules/modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse (<code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse</span></code>)</a> &raquo;</li>
+        
+      <li>RootMonomialBasisFunctionsMethod</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rootmonomialbasisfunctionsmethod">
+<h1>RootMonomialBasisFunctionsMethod<a class="headerlink" href="#rootmonomialbasisfunctionsmethod" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod">
+<em class="property">class </em><code class="sig-prename descclassname">TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.</code><code class="sig-name descname">RootMonomialBasisFunctionsMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">InterpolantPoints</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ComputeOptions</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">Verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">BasisFunctionsType</span><span class="o">=</span><span class="default_value">'Orthogonal2'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/RootMonomialBasisFunctionsMethod.html#RootMonomialBasisFunctionsMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" title="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass</span></code></a></p>
+<div class="graphviz"><img src="../_images/inheritance-ff581957eb5c981e447f64d9edddce934e502cc3.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod" usemap="#inheritance4504cd62b7" class="inheritance graphviz" /></div>
+<map id="inheritance4504cd62b7" name="inheritance4504cd62b7">
+<area shape="rect" id="node1" href="../_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
+<area shape="rect" id="node2" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod" alt="" coords="213,5,472,31"/>
+</map><p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using 
+an interpolation scheme based on root monomial basis functions (see details below).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
+<li><p><strong>B</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
+<li><p><strong>ComputeOptions</strong> (<em>dict</em>) – A dictionary of input arguments for <a class="reference internal" href="TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse.html#TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse</span></code></a> module.</p></li>
+<li><p><strong>Verbose</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, prints some information on the computation process. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>BasisFunctionsType</strong> – One of the types <code class="docutils literal notranslate"><span class="pre">'NonOrthogonal'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Orthogonal'</span></code> and <code class="docutils literal notranslate"><span class="pre">'Orthogonal2'</span></code>. 
+Default is <code class="docutils literal notranslate"><span class="pre">'orthogonal2'</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Interpolation Method</strong></p>
+<p>Define the function</p>
+<div class="math notranslate nohighlight">
+\[\tau(t) = \frac{\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \right)}{\mathrm{trace}(\mathbf{B}^{-1})}\]</div>
+<p>and <span class="math notranslate nohighlight">\(\tau_0 = \tau(0)\)</span>. Then, we approximate <span class="math notranslate nohighlight">\(\tau^{-1}(t)\)</span> by</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\tau(t)} \approx \frac{1}{\tau_0} + \sum_{i = 0}^p w_i \phi_i(t),\]</div>
+<p>where  <span class="math notranslate nohighlight">\(\phi_i\)</span> are some known basis functions, and <span class="math notranslate nohighlight">\(w_i\)</span> are the coefficients of the linear basis functions.
+The first coefficient is set to <span class="math notranslate nohighlight">\(w_{0} = 1\)</span> and the rest of the weights 
+are to be found form the known function values <span class="math notranslate nohighlight">\(\tau_i = \tau(t_i)\)</span> at some given interpolant points <span class="math notranslate nohighlight">\(t_i\)</span>.</p>
+<p><strong>Basis Functions:</strong></p>
+<p>In this module, three kinds of basis functions which can be set by the argument <code class="docutils literal notranslate"><span class="pre">BasisFunctionsType</span></code>.</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">BasisFunctionsType</span></code> is set to <code class="docutils literal notranslate"><span class="pre">NonOrthogonal</span></code>, the basis functions are the
+root of the monomial functions defined by</p>
+<div class="math notranslate nohighlight">
+\[\phi_i(t) = t^{\frac{1}{i+1}}, \qquad i = 0,\dots,p.\]</div>
+<p>When <code class="docutils literal notranslate"><span class="pre">BasisFunctionsType</span></code> is set to <code class="docutils literal notranslate"><span class="pre">'Orthogonal'</span></code> or <code class="docutils literal notranslate"><span class="pre">'Orthogonal2'</span></code>, the orthogoanl form of the
+above basis functions are used. Orthogonal basis functions are formed by the above non-orthogonal functions
+as</p>
+<div class="math notranslate nohighlight">
+\[\phi_i^{\perp}(t) = \alpha_i \sum_{j=1}^i a_{ij} \phi_j(t)\]</div>
+<p>The coefficients <span class="math notranslate nohighlight">\(\alpha_i\)</span> and <span class="math notranslate nohighlight">\(a_{ij}\)</span> can be obtained by the python package 
+<a class="reference external" href="https://ameli.github.io/Orthogonal-Functions">Orthogoanl Functions</a>. These coefficients are
+hard-coded in this function up to <span class="math notranslate nohighlight">\(i = 9\)</span>. Thus, in this module, up to nine interpolant points
+are supported.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The non-orhtogonal basis functions can lead to ill-conditioned system of equations for finding the weight
+coefficients <span class="math notranslate nohighlight">\(w_i\)</span>. When the number of interpolating points is large (such as <span class="math notranslate nohighlight">\(p &gt; 6\)</span>), 
+it is recommended to use the orthogonalized set of basis functions.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The recommended basis function type is <a href="#id1"><span class="problematic" id="id2">``</span></a>’Orthogonal2’<cite>.</cite></p>
+</div>
+<p><strong>Example</strong></p>
+<p>This class can be invoked from <a class="reference internal" href="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse</span></code></a> module 
+using <code class="docutils literal notranslate"><span class="pre">InterpolationMethod='RMBF'</span></code> argument.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">InterpolateTraceOfInverse</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a symmetric positive-definite matrix of the shape (20**2,20**2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an object that interpolates trace of inverse of A+tI (I is identity matrix)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TI</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">InterpolatingMethod</span><span class="o">=</span><span class="s1">&#39;RMBF&#39;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Interpolate A+tI at some input point t</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="mf">4e-1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">TI</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The other class that provides interpolation with basis functions method is 
+<a class="reference internal" href="../_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod" title="TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod</span></code></a>.</p>
+</div>
+<p class="rubric">Methods Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.BasisFunctions" title="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.BasisFunctions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BasisFunctions</span></code></a>(j, t)</p></td>
+<td><p>Returns the basis functions at inquiry point <span class="math notranslate nohighlight">\(t\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.InitializeInterpolator" title="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.InitializeInterpolator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeInterpolator</span></code></a>()</p></td>
+<td><p>Internal function that is called by the class constructor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.Interpolate" title="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.Interpolate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Interpolate</span></code></a>(t)</p></td>
+<td><p>Interpolates <span class="math notranslate nohighlight">\(\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span> at <span class="math notranslate nohighlight">\(t\)</span>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.OrthogonalBasisFunctionCoefficients" title="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.OrthogonalBasisFunctionCoefficients"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OrthogonalBasisFunctionCoefficients</span></code></a>()</p></td>
+<td><p>Hard-coded coefficients <span class="math notranslate nohighlight">\(\alpha_i\)</span> and <span class="math notranslate nohighlight">\(a_{ij}\)</span> which will be used by <a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.BasisFunctions" title="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.BasisFunctions"><code class="xref py py-func docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.BasisFunctions()</span></code></a>  to form the orthogonal basis:</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.phi" title="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.phi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">phi</span></code></a>(i, t)</p></td>
+<td><p>Non-orthogonal basis function, which is defined by</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Documentation</p>
+<dl class="py method">
+<dt id="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.BasisFunctions">
+<code class="sig-name descname">BasisFunctions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">j</span></em>, <em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/RootMonomialBasisFunctionsMethod.html#RootMonomialBasisFunctionsMethod.BasisFunctions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.BasisFunctions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the basis functions at inquiry point <span class="math notranslate nohighlight">\(t\)</span></p>
+<p>The index j of the basis functions should start from 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> (<em>float</em>) – Inquiry point.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Basis functions at inquiry point.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p>Depending on <code class="docutils literal notranslate"><span class="pre">BasisFunctionsType</span></code>, the basis functions are:</p>
+<ul>
+<li><p>For <code class="docutils literal notranslate"><span class="pre">NonOrthogonal</span></code>:</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\phi_i(t) = t^{\frac{1}{i}}, \qquad i &gt; 0\]</div>
+</div></blockquote>
+</li>
+<li><p>For <code class="docutils literal notranslate"><span class="pre">Orthogonal</span></code>:</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\phi_i^{\perp}(t) = \alpha_i \sum_{j=1}^9 a_{ij} \phi_j(t)\]</div>
+</div></blockquote>
+</li>
+<li><p>For <code class="docutils literal notranslate"><span class="pre">Orthogona2</span></code>:</p>
+<blockquote>
+<div><div class="math notranslate nohighlight">
+\[\phi_i^{\perp}(t) = \alpha_i \sum_{j=1}^9 a_{ij} \phi_{j+1}(t)\]</div>
+</div></blockquote>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The difference between <code class="docutils literal notranslate"><span class="pre">Orthogonal</span></code> and <code class="docutils literal notranslate"><span class="pre">Orthogonal2</span></code> is that in the former,
+the functions <span class="math notranslate nohighlight">\(\phi_j^{\perp}\)</span> at <span class="math notranslate nohighlight">\(j=1,\dots,9\)</span> are orthogonal
+but in the latter, the functions at <span class="math notranslate nohighlight">\(j=2,\dots,9\)</span> are orthogonal. That is
+they are not orthogonal to <span class="math notranslate nohighlight">\(\phi_1(t) = t\)</span>.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.InitializeInterpolator">
+<code class="sig-name descname">InitializeInterpolator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/RootMonomialBasisFunctionsMethod.html#RootMonomialBasisFunctionsMethod.InitializeInterpolator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.InitializeInterpolator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internal function that is called by the class constructor. It computes the weight coefficients
+<span class="math notranslate nohighlight">\(w_i\)</span> and stores them in the member variable <code class="docutils literal notranslate"><span class="pre">self.w</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.Interpolate">
+<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/RootMonomialBasisFunctionsMethod.html#RootMonomialBasisFunctionsMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpolates <span class="math notranslate nohighlight">\(\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span> at <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>This is the main interface function of this module and it is used after the interpolation
+object is initialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> (<em>float</em><em>, </em><em>list</em><em>, or </em><em>numpy.array</em>) – The inquiry point(s).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The interpolated value of the trace.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float or numpy.array</p>
+</dd>
+</dl>
+<p><strong>Details:</strong></p>
+<p>Depending on the <code class="docutils literal notranslate"><span class="pre">BasisFunctionsType</span></code>, the interpolation is as follows:</p>
+<p>For <code class="docutils literal notranslate"><span class="pre">'NonOrthogonal'</span></code> basis:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\tau(t)} = \frac{1}{\tau_0} + t + \sum_{j=1}^p w_j \phi_j(t).\]</div>
+<p>For <code class="docutils literal notranslate"><span class="pre">'Orthogonal'</span></code> and <code class="docutils literal notranslate"><span class="pre">'Orthogonal2'</span></code> bases:</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{\tau(t)} = \frac{1}{\tau_0} + t + \sum_{j=1}^p w_j \phi_j(t).\]</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.OrthogonalBasisFunctionCoefficients">
+<code class="sig-name descname">OrthogonalBasisFunctionCoefficients</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/RootMonomialBasisFunctionsMethod.html#RootMonomialBasisFunctionsMethod.OrthogonalBasisFunctionCoefficients"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.OrthogonalBasisFunctionCoefficients" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hard-coded coefficients <span class="math notranslate nohighlight">\(\alpha_i\)</span> and <span class="math notranslate nohighlight">\(a_{ij}\)</span> which will be
+used by <a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.BasisFunctions" title="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.BasisFunctions"><code class="xref py py-func docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.BasisFunctions()</span></code></a> 
+to form the orthogonal basis:</p>
+<div class="math notranslate nohighlight">
+\[\phi_i^{\perp}(t) = \alpha_i \sum_{j=0}^9 a_{ij} \phi_j(t).\]</div>
+<p><strong>Generate coefficients:</strong></p>
+<p>To generate these coefficients, see the python package 
+<a class="reference external" href="https://ameli.github.io/Orthogonal-Functions">Orthogonal Functions</a>.</p>
+<p>Install this package by</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">OrthogonalFunctions</span>
+</pre></div>
+</div>
+</div></blockquote>
+<ul>
+<li><p>To generate the coefficients corresponding to <code class="docutils literal notranslate"><span class="pre">Orthogonal</span></code> basis:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gen</span><span class="o">-</span><span class="n">orth</span> <span class="o">-</span><span class="n">n</span> <span class="mi">9</span> <span class="o">-</span><span class="n">s</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</li>
+<li><p>To generate the coefficients corresponding to <code class="docutils literal notranslate"><span class="pre">Orthogonal2</span></code> basis:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gen</span><span class="o">-</span><span class="n">orth</span> <span class="o">-</span><span class="n">n</span> <span class="mi">9</span> <span class="o">-</span><span class="n">s</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Weight coefficients of the orthogonal basis functions.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.array, numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.phi">
+<em class="property">static </em><code class="sig-name descname">phi</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">i</span></em>, <em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/RootMonomialBasisFunctionsMethod.html#RootMonomialBasisFunctionsMethod.phi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.phi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-orthogonal basis function, which is defined by</p>
+<div class="math notranslate nohighlight">
+\[\phi_i(t) = t^{\frac{1}{i}}, \qquad i &gt; 0.\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> (<em>float</em>) – Inquiry point.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The value of the function <span class="math notranslate nohighlight">\(\phi(t)\)</span></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod.html" class="btn btn-neutral float-right" title="RadialBasisFunctionsMethod" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.html" class="btn btn-neutral float-left" title="MonomialBasisFunctionsMethod" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

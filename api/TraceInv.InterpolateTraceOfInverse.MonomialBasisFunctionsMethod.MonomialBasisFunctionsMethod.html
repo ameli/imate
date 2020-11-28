@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MonomialBasisFunctionsMethod &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="RootMonomialBasisFunctionsMethod" href="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.html" />
+    <link rel="prev" title="EigenvaluesMethod" href="TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../InterpolateTraceOfInverse.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../InterpolateTraceOfInverse.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../InterpolateTraceOfInverse.html#mathematical-details">Mathematical Details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../InterpolateTraceOfInverse.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../InterpolateTraceOfInverse.html#references">References</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../InterpolateTraceOfInverse.html#api">API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../InterpolateTraceOfInverse.html#main-interface">Main Interface</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../InterpolateTraceOfInverse.html#modules">Modules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.ExactMethod">TraceInv.InterpolateTraceOfInverse.ExactMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod">TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod Module</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod">TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod">TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod">TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod">TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod Module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_modules/modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse (<code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse</span></code>)</a> &raquo;</li>
+        
+      <li>MonomialBasisFunctionsMethod</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="monomialbasisfunctionsmethod">
+<h1>MonomialBasisFunctionsMethod<a class="headerlink" href="#monomialbasisfunctionsmethod" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod">
+<em class="property">class </em><code class="sig-prename descclassname">TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.</code><code class="sig-name descname">MonomialBasisFunctionsMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">InterpolantPoint</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ComputeOptions</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">Verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/MonomialBasisFunctionsMethod.html#MonomialBasisFunctionsMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" title="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass</span></code></a></p>
+<div class="graphviz"><img src="../_images/inheritance-5209fb9a247a97ca1655c34a1b5aa0c1e750ceac.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod" usemap="#inheritance7b38cd99f7" class="inheritance graphviz" /></div>
+<map id="inheritance7b38cd99f7" name="inheritance7b38cd99f7">
+<area shape="rect" id="node1" href="../_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
+<area shape="rect" id="node2" href="#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod" alt="" coords="213,5,444,31"/>
+</map><p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{(\tau(t))^{p+1}} = \frac{1}{(\tau_0)^{p+1}} + \sum_{i=1}^{p+1} w_i t^i,\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[\tau(t) = \frac{\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \right)}{\mathrm{trace \left( \mathbf{B}^{-1} \right)}}\]</div>
+<p>and <span class="math notranslate nohighlight">\(\tau_0 = \tau(0)\)</span> and <span class="math notranslate nohighlight">\(w_{p+1} = 1\)</span>. 
+To find the weight coefficient <span class="math notranslate nohighlight">\(w_1\)</span>, the trace is computed at the given 
+interpolant point <span class="math notranslate nohighlight">\(t_1\)</span> (see <code class="docutils literal notranslate"><span class="pre">InterpolantPoint</span></code> argument).</p>
+<p>When <span class="math notranslate nohighlight">\(p = 1\)</span>, meaning that there is only one interpolant point <span class="math notranslate nohighlight">\(t_1\)</span> with the function value 
+<span class="math notranslate nohighlight">\(\tau_1 = \tau(t_1)\)</span>, the weight coefficient <span class="math notranslate nohighlight">\(w_1\)</span> can be solved easily. In this case, 
+the interpolation function becomes</p>
+<div class="math notranslate nohighlight">
+\[\frac{1}{(\tau(t))^2} \approx  \frac{1}{\tau_0^2} + t^2 + \left( \frac{1}{\tau_1^2} - \frac{1}{\tau_0^2} - t_1^2 \right) \frac{t}{t_1}.\]</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This class accepts only <em>one</em> interpolant point (<span class="math notranslate nohighlight">\(p = 1\)</span>). That is, the argument
+<code class="docutils literal notranslate"><span class="pre">InterpolantPoint</span></code> should be only one number or a list of the length 1.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
+<li><p><strong>B</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
+<li><p><strong>ComputeOptions</strong> (<em>dict</em>) – A dictionary of input arguments for <a class="reference internal" href="TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse.html#TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse</span></code></a> module.</p></li>
+<li><p><strong>Verbose</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, prints some information on the computation process. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Example</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<p>This class can be invoked from <a class="reference internal" href="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse</span></code></a> module 
+using <code class="docutils literal notranslate"><span class="pre">InterpolationMethod='MBF'</span></code> argument.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">InterpolateTraceOfInverse</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a symmetric positive-definite matrix of the shape (20**2,20**2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an object that interpolates trace of inverse of A+tI (I is identity matrix)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TI</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">InterpolatingMethod</span><span class="o">=</span><span class="s1">&#39;MBF&#39;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Interpolate A+tI at some input point t</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="mf">4e-1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">TI</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>This class can only accept one interpolant point. A better method is <code class="docutils literal notranslate"><span class="pre">'RMBF'</span></code> which 
+accepts arbitrary number of interpolant points. It is recommended to use the
+<code class="docutils literal notranslate"><span class="pre">'RMBF'</span></code> (see <a class="reference internal" href="../_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod" title="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod</span></code></a>) instead of this class.</p>
+</div>
+<p class="rubric">Methods Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.InitializeInterpolator" title="TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.InitializeInterpolator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeInterpolator</span></code></a>()</p></td>
+<td><p>Computes the trace at the interpolant point.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.Interpolate" title="TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.Interpolate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Interpolate</span></code></a>(t)</p></td>
+<td><p>Interpolates <span class="math notranslate nohighlight">\(\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span> at <span class="math notranslate nohighlight">\(t\)</span>.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Documentation</p>
+<dl class="py method">
+<dt id="TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.InitializeInterpolator">
+<code class="sig-name descname">InitializeInterpolator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/MonomialBasisFunctionsMethod.html#MonomialBasisFunctionsMethod.InitializeInterpolator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.InitializeInterpolator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the trace at the interpolant point. This function is used internally.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.Interpolate">
+<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/MonomialBasisFunctionsMethod.html#MonomialBasisFunctionsMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpolates <span class="math notranslate nohighlight">\(\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span> at <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>This is the main interface function of this module and it is used after the interpolation
+object is initialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> (<em>float</em><em>, </em><em>list</em><em>, or </em><em>numpy.array</em>) – The inquiry point(s).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The interpolated value of the trace.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float or numpy.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.html" class="btn btn-neutral float-right" title="RootMonomialBasisFunctionsMethod" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.html" class="btn btn-neutral float-left" title="EigenvaluesMethod" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

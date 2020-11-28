@@ -121,9 +121,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#modules">Modules</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.ComputeTraceOfInverse.CholeskyMethod">TraceInv.ComputeTraceOfInverse.CholeskyMethod Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.ComputeTraceOfInverse.HutchinsonMethod">TraceInv.ComputeTraceOfInverse.HutchinsonMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod">TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.LinearAlgebra.LinearSolver">TraceInv.LinearAlgebra.LinearSolver Module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.LinearAlgebra.MatrixReduction">TraceInv.LinearAlgebra.MatrixReduction Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod">TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod Module</a></li>
 </ul>
 </li>
 </ul>
@@ -270,7 +270,7 @@
 <dl class="py attribute">
 <dt id="ComputeMethod">
 <code class="sig-name descname">ComputeMethod</code><em class="property">: string</em><em class="property"> = 'cholesky'</em><a class="headerlink" href="#ComputeMethod" title="Permalink to this definition">¶</a></dt>
-<dd><p>Specifies the method of computation. The methods are one of <code class="docutils literal notranslate"><span class="pre">'cholsky'</span></code>, <code class="docutils literal notranslate"><span class="pre">'hutchinson'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code> (see <a class="reference internal" href="GenerateMatrix.html#mathematical-details"><span class="std std-ref">Mathematical Details</span></a>).</p>
+<dd><p>Specifies the method of computation. The methods are one of <code class="docutils literal notranslate"><span class="pre">'cholsky'</span></code>, <code class="docutils literal notranslate"><span class="pre">'hutchinson'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code> (see <a class="reference internal" href="InterpolateTraceOfInverse.html#mathematical-details"><span class="std std-ref">Mathematical Details</span></a>).</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -303,13 +303,19 @@
 <dl class="py attribute">
 <dt id="UseLanczosTridiagonalization">
 <code class="sig-name descname">UseLanczosTridiagonalization</code><em class="property">: bool</em><em class="property"> = True</em><a class="headerlink" href="#UseLanczosTridiagonalization" title="Permalink to this definition">¶</a></dt>
-<dd><p>This parameter is only applied to <code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code> computing method (see <a class="reference internal" href="#ComputeMethod" title="ComputeMethod"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ComputeMethod</span></code></a>).</p>
+<dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, prints some information about the process.</p>
+<p>This parameter is only applied to <code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code> computing method (see <a class="reference internal" href="#ComputeMethod" title="ComputeMethod"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ComputeMethod</span></code></a>).</p>
 <ul class="simple">
 <li><p>When set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the <em>Lanczos tri-diagonalization</em> method is used.</p></li>
 <li><p>When set to <code class="docutils literal notranslate"><span class="pre">False</span></code>, the <em>Golub-Kahn-Lanczos bi-diagonalization</em> method is used.</p></li>
 </ul>
 <p>For mathematical details of this parameter, see <a class="reference internal" href="#stochastic-lanczos-quadrature-method"><span class="std std-ref">Stochastic Lanczos quadrature method</span></a>.</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt id="Verbose">
+<code class="sig-name descname">Verbose</code><em class="property">: bool</em><em class="property"> = False</em><a class="headerlink" href="#Verbose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </div>
 <div class="section" id="mathematical-details">
@@ -643,50 +649,10 @@ is implementd in this module is unstable.</p>
 </table>
 </div>
 </div>
-<div class="section" id="module-TraceInv.LinearAlgebra.LinearSolver">
-<span id="traceinv-linearalgebra-linearsolver-module"></span><h4>TraceInv.LinearAlgebra.LinearSolver Module<a class="headerlink" href="#module-TraceInv.LinearAlgebra.LinearSolver" title="Permalink to this headline">¶</a></h4>
-<div class="section" id="id14">
-<h5>Functions<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h5>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.LinearAlgebra.LinearSolver.LinearSolver.html#TraceInv.LinearAlgebra.LinearSolver.LinearSolver" title="TraceInv.LinearAlgebra.LinearSolver.LinearSolver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearSolver</span></code></a>(A, b[, Tol])</p></td>
-<td><p>Solves the linear system <span class="math notranslate nohighlight">\(Ax = b\)</span> where <span class="math notranslate nohighlight">\(A\)</span> can be either sparse or dense.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="section" id="module-TraceInv.LinearAlgebra.MatrixReduction">
-<span id="traceinv-linearalgebra-matrixreduction-module"></span><h4>TraceInv.LinearAlgebra.MatrixReduction Module<a class="headerlink" href="#module-TraceInv.LinearAlgebra.MatrixReduction" title="Permalink to this headline">¶</a></h4>
-<div class="section" id="id15">
-<h5>Functions<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h5>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization.html#TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization" title="TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GolubKahnLanczosBidiagonalization</span></code></a>(A, w, m[, …])</p></td>
-<td><p>B-diagonalizes the positive-definite matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> using Golub-Kahn-Lanczos method.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="api/TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization.html#TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization" title="TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LanczosTridiagonalization</span></code></a>(A, w, m[, Tolerance])</p></td>
-<td><p>Tri-diagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">w</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2.html#TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2" title="TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LanczosTridiagonalization2</span></code></a>(A, v, m[, Tolerance])</p></td>
-<td><p>Tri-diagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">v</span></code>.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <div class="section" id="module-TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod">
 <span id="traceinv-computetraceofinverse-stochasticlanczosquadraturemethod-module"></span><h4>TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod Module<a class="headerlink" href="#module-TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod" title="Permalink to this headline">¶</a></h4>
-<div class="section" id="id16">
-<h5>Functions<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h5>
+<div class="section" id="id14">
+<h5>Functions<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h5>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -704,6 +670,46 @@ is implementd in this module is unstable.</p>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="api/TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod.StochasticLanczosQuadratureMethod.html#TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod.StochasticLanczosQuadratureMethod" title="TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod.StochasticLanczosQuadratureMethod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StochasticLanczosQuadratureMethod</span></code></a>(A[, …])</p></td>
 <td><p>Computes the trace of inverse of matrix based on stochastic Lanczos quadrature method.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-TraceInv.LinearAlgebra.LinearSolver">
+<span id="traceinv-linearalgebra-linearsolver-module"></span><h4>TraceInv.LinearAlgebra.LinearSolver Module<a class="headerlink" href="#module-TraceInv.LinearAlgebra.LinearSolver" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id15">
+<h5>Functions<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h5>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.LinearAlgebra.LinearSolver.LinearSolver.html#TraceInv.LinearAlgebra.LinearSolver.LinearSolver" title="TraceInv.LinearAlgebra.LinearSolver.LinearSolver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LinearSolver</span></code></a>(A, b[, Tol])</p></td>
+<td><p>Solves the linear system <span class="math notranslate nohighlight">\(Ax = b\)</span> where <span class="math notranslate nohighlight">\(A\)</span> can be either sparse or dense.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-TraceInv.LinearAlgebra.MatrixReduction">
+<span id="traceinv-linearalgebra-matrixreduction-module"></span><h4>TraceInv.LinearAlgebra.MatrixReduction Module<a class="headerlink" href="#module-TraceInv.LinearAlgebra.MatrixReduction" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id16">
+<h5>Functions<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h5>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization.html#TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization" title="TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GolubKahnLanczosBidiagonalization</span></code></a>(A, w, m[, …])</p></td>
+<td><p>B-diagonalizes the positive-definite matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> using Golub-Kahn-Lanczos method.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization.html#TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization" title="TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LanczosTridiagonalization</span></code></a>(A, w, m[, Tolerance])</p></td>
+<td><p>Tri-diagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">w</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2.html#TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2" title="TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LanczosTridiagonalization2</span></code></a>(A, v, m[, Tolerance])</p></td>
+<td><p>Tri-diagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">v</span></code>.</p></td>
 </tr>
 </tbody>
 </table>

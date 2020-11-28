@@ -102,12 +102,25 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Interpolate Trace of Inverse</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#parameters">Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mathematical-details">Mathematical Details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#comparison-of-interpolation-methods">Comparison of Interpolation Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plot-exact-versus-interpolated-function">Plot Exact Versus Interpolated Function</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#api">API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#module-TraceInv.InterpolateTraceOfInverse">TraceInv.InterpolateTraceOfInverse Package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#classes">Classes</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#class-inheritance-diagram">Class Inheritance Diagram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#main-interface">Main Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.InterpolateTraceOfInverse">TraceInv.InterpolateTraceOfInverse Package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#modules">Modules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.InterpolateTraceOfInverse.ExactMethod">TraceInv.InterpolateTraceOfInverse.ExactMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod">TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod">TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod">TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod">TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod">TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod Module</a></li>
 </ul>
 </li>
 </ul>
@@ -190,22 +203,310 @@
 <span id="interpolatetraceofinverse"></span><h1>Interpolate Trace of Inverse (<a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse</span></code></a>)<a class="headerlink" href="#interpolate-trace-of-inverse-traceinv-interpolatetraceofinverse" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>The module <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a> interpolates the trace of the inverse of <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span>, as shown by the example below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">InterpolateTraceOfInverse</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a symmetric positive-definite matrix of the shape (20**2,20**2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Define some interpolant points</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">InterpolantPoints</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1e-2</span><span class="p">,</span><span class="mf">1e-1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1e+1</span><span class="p">]</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an interpolating TraceInv object</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">TI</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="n">InterpolantPoints</span><span class="p">)</span>
+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Interpolate A+tI at some inquiry point t</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="mf">4e-1</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">TI</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span></pre></div>
+</div>
+<p>In the above code, we only provided the matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to the module <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a>, which then it assumes <code class="docutils literal notranslate"><span class="pre">B</span></code> is identity matrix by default. To compute the trace of the inverse of <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> where <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> is not identity matrix, pass both <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> to <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a> as follows.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate two different symmetric positive-definite matrices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">DecorrelationScale</span><span class="o">=</span><span class="mf">1e-1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">DecorrelationScale</span><span class="o">=</span><span class="mf">2e-2</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an interpolating TraceInv object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TI</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="n">InterpolantPoints</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The parameter <code class="docutils literal notranslate"><span class="pre">DecorrelationScale</span></code> of the class <a class="reference internal" href="_modules/TraceInv.GenerateMatrix.html#module-TraceInv.GenerateMatrix" title="TraceInv.GenerateMatrix"><code class="xref py py-mod docutils literal notranslate"><span class="pre">GenerateMatrix</span></code></a> in the above specifies the scale of correlation function used to form a positive-definite matrix. We specified two correlation scales to generate different matrices <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code>. The user may use their own matrix data.</p>
+<p>Interpolation for an array of inquiries points can be made by:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an array of inquiry points</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_array</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="o">+</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traces</span> <span class="o">=</span> <span class="n">TI</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">t_array</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="n">InterpolantPoints</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The module <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a> can employ various interpolation methods listed in the table below. The method of interpolation can be set by <code class="docutils literal notranslate"><span class="pre">InterpolationMethod</span></code> argument when calling <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a>. The default method is <code class="docutils literal notranslate"><span class="pre">RMBF</span></code>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 41%" />
+<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">InterpolationMethod</span></code></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Matrix size</p></th>
+<th class="head"><p>Matrix type</p></th>
+<th class="head"><p>Results</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'EXT'</span></code></p></td>
+<td><p>Computes trace directly, no interpolation</p></td>
+<td><p>Small</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>exact</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'EIG'</span></code></p></td>
+<td><p>Uses Eigenvalues of matrix</p></td>
+<td><p>Small</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>exact</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'MBF'</span></code></p></td>
+<td><p>Monomial Basis Functions</p></td>
+<td><p>Small, large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>interpolated</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'RMBF'</span></code></p></td>
+<td><p>Root monomial basis functions</p></td>
+<td><p>small, large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>interpolated</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'RBF'</span></code></p></td>
+<td><p>Radial basis functions</p></td>
+<td><p>small, large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>interpolated</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'RPF'</span></code></p></td>
+<td><p>Rational polynomial functions</p></td>
+<td><p>small, large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>interpolated</p></td>
+</tr>
+</tbody>
+</table>
+<p>The <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a> module internally defines an object of <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a> (see <a class="reference internal" href="quickstart.html#fixed-matrix"><span class="std std-ref">Fixed Matrix</span></a>) to evaluate the trace of inverse at the given interpolant points <code class="docutils literal notranslate"><span class="pre">InterpolantPoints</span></code>. You can pass the options for this internal <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a> object by <code class="docutils literal notranslate"><span class="pre">ComputeOptions</span></code> argument when initializing  <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a>, such as in the example below.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Specify options of the internal ComputeTraceOfInverse object in a dictionary</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ComputeOptions</span> <span class="o">=</span> \
+<span class="gp">... </span><span class="p">{</span>
+<span class="gp">... </span>    <span class="s1">&#39;ComputeMethod&#39;</span><span class="p">:</span> <span class="s1">&#39;hutchinson&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;NumIterations&#39;</span><span class="p">:</span> <span class="mi">20</span>
+<span class="gp">... </span><span class="p">}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Pass options by ComputeOptions argument</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TI</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">InterpolantPoints</span><span class="o">=</span><span class="n">InterpolantPoints</span><span class="p">,</span>
+<span class="gp">... </span>            <span class="n">InterpolatingMethod</span><span class="o">=</span><span class="s1">&#39;RMBF&#39;</span><span class="p">,</span>
+<span class="hll"><span class="gp">... </span>            <span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">)</span>
+</span></pre></div>
+</div>
 </div>
 <div class="section" id="parameters">
 <h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse</span></code></a> module accepts the following attributes as input argument.</p>
+<dl class="py attribute">
+<dt id="InterpolationMethod">
+<code class="sig-name descname">InterpolationMethod</code><em class="property">: string</em><em class="property"> = 'RMBF'</em><a class="headerlink" href="#InterpolationMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specifies the method of interpolation. The methods are one of <code class="docutils literal notranslate"><span class="pre">'EXT'</span></code>, <code class="docutils literal notranslate"><span class="pre">'EIG'</span></code>, <code class="docutils literal notranslate"><span class="pre">'MBF'</span></code>, <code class="docutils literal notranslate"><span class="pre">'RMBF'</span></code>, <code class="docutils literal notranslate"><span class="pre">'RBF'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'RPF'</span></code> (see <a class="reference internal" href="#mathematical-details"><span class="std std-ref">Mathematical Details</span></a>).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="ComputeOptions">
+<code class="sig-name descname">ComputeOptions</code><em class="property">: dict</em><em class="property"> = {}</em><a class="headerlink" href="#ComputeOptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>A disctionary to pass the parameters of the internal module <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse</span></code></a>.
+This module internally computes the trace of inverse at interpolant points.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Verbose">
+<code class="sig-name descname">Verbose</code><em class="property">: bool</em><em class="property"> = False</em><a class="headerlink" href="#Verbose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="NonZeroRatio">
+<code class="sig-name descname">NonZeroRatio</code><em class="property">: float</em><em class="property"> = 0.9</em><a class="headerlink" href="#NonZeroRatio" title="Permalink to this definition">¶</a></dt>
+<dd><p>This parameter is only applied to <code class="docutils literal notranslate"><span class="pre">'EIG'</span></code> method.</p>
+<p>In the case of large sparse input matrices, it is not possible to find all the eigenvalues.
+However, often most of the eigenvalues of the matrices in many a applications are near zero. This
+parameter is a number in the range <span class="math notranslate nohighlight">\([0,1]\)</span> and sets a fraction of the eigenvalues to
+be assumed nonzero.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="Tolerance">
+<code class="sig-name descname">Tolerance</code><em class="property">: float</em><em class="property"> = 1e-3</em><a class="headerlink" href="#Tolerance" title="Permalink to this definition">¶</a></dt>
+<dd><p>This parameter is only applied to <code class="docutils literal notranslate"><span class="pre">'EIG'</span></code> method.
+Sets the tolerance of finding the eigenvalues in case the input matrices are sparse.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="FunctionType">
+<code class="sig-name descname">FunctionType</code><em class="property">: int</em><em class="property"> = 1</em><a class="headerlink" href="#FunctionType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This parameter is only applied to <code class="docutils literal notranslate"><span class="pre">'RBF'</span></code> method. This parameter can be either <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">3</span></code> and speficies three function types interpolation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="BasisFunctionsType">
+<code class="sig-name descname">BasisFunctionsType</code><em class="property">: string</em><em class="property"> = 'Orthogonal2'</em><a class="headerlink" href="#BasisFunctionsType" title="Permalink to this definition">¶</a></dt>
+<dd><p>This parameter is only applied to <code class="docutils literal notranslate"><span class="pre">'RMBF'</span></code> method. This parameter can be either of
+<code class="docutils literal notranslate"><span class="pre">'NonOrthogonal'</span></code>, <code class="docutils literal notranslate"><span class="pre">'Orthogonal'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'Orthogonal2'</span></code>, which specifies the type
+of basis functions used in the interpolation.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="mathematical-details">
+<h2>Mathematical Details<a class="headerlink" href="#mathematical-details" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="examples">
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="comparison-of-interpolation-methods">
+<h3>Comparison of Interpolation Methods<a class="headerlink" href="#comparison-of-interpolation-methods" title="Permalink to this headline">¶</a></h3>
+<p>The following code compares the methods <code class="docutils literal notranslate"><span class="pre">'EXT'</span></code>, <code class="docutils literal notranslate"><span class="pre">'EIG'</span></code>, <code class="docutils literal notranslate"><span class="pre">'MBF'</span></code>, <code class="docutils literal notranslate"><span class="pre">'RMBF'</span></code>, <code class="docutils literal notranslate"><span class="pre">'RBF'</span></code>, and <code class="docutils literal notranslate"><span class="pre">'RPF'</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import packages</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">InterpolateTraceOfInverse</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate two symmetric and positive-definite matrices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">UseSparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">UseSparse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">DecorrelationScale</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+
+<span class="go"># Specify interpolation points and the inquiry point</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">InterpolantPoints</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1e-4</span><span class="p">,</span><span class="mf">1e-3</span><span class="p">,</span><span class="mf">1e-2</span><span class="p">,</span><span class="mf">1e-1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1e+1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">InquiryPoint</span> <span class="o">=</span> <span class="mf">0.4</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Specify options to pass to the internal TraceInv.ComputeTraceOfInverse module</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ComputeMethod&#39;</span><span class="p">:</span><span class="s1">&#39;cholesky&#39;</span><span class="p">,</span><span class="s1">&#39;UseInverseMatrix&#39;</span><span class="p">:</span><span class="kc">True</span><span class="p">}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute exact trace without interpolation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TI0</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolationMethod</span><span class="o">=</span><span class="s1">&#39;EXT&#39;</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T0</span> <span class="o">=</span> <span class="n">TI0</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">InquiryPoint</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Eigenvalues Method</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TI1</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolationMethod</span><span class="o">=</span><span class="s1">&#39;EIG&#39;</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T1</span> <span class="o">=</span> <span class="n">TI1</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">InquiryPoint</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Monomial Basis Functions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TI2</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolationMethod</span><span class="o">=</span><span class="s1">&#39;MBF&#39;</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T2</span> <span class="o">=</span> <span class="n">TI2</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">InquiryPoint</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Root Monomial Basis Functions, basis type: Orthogonal2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TI3</span><span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">InterpolationMethod</span><span class="o">=</span><span class="s1">&#39;RMBF&#39;</span><span class="p">,</span><span class="n">BasisFunctionsType</span><span class="o">=</span><span class="s1">&#39;Orthogonal2&#39;</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T3</span> <span class="o">=</span> <span class="n">TI3</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">InquiryPoint</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Radial Basis Functions, FunctionType 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TI4</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">InterpolationMethod</span><span class="o">=</span><span class="s1">&#39;RBF&#39;</span><span class="p">,</span><span class="n">FunctionType</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T4</span> <span class="o">=</span> <span class="n">TI4</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">InquiryPoint</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Rational Polynomial with four interpolating points</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">InterpolantPoints</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1e-2</span><span class="p">,</span><span class="mf">1e-1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1e+1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TI5</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">InterpolationMethod</span><span class="o">=</span><span class="s1">&#39;RPF&#39;</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T5</span> <span class="o">=</span> <span class="n">TI5</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">InquiryPoint</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The results are given in the table below.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 63%" />
+<col style="width: 14%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Method</p></th>
+<th class="head"><p>Result</p></th>
+<th class="head"><p>Error</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T0</span></code></p></td>
+<td><p>Exact method (no interpolation)</p></td>
+<td><p>590.4149</p></td>
+<td><p>0.00%</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">T1</span></code></p></td>
+<td><p>Eigenvalues method</p></td>
+<td><p>590.4954</p></td>
+<td><p>0.01%</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T2</span></code></p></td>
+<td><p>Monomial Basis Functions method</p></td>
+<td><p>590.2722</p></td>
+<td><p>0.02%</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">T3</span></code></p></td>
+<td><p>Root Monomial Basis Functions method</p></td>
+<td><p>590.4579</p></td>
+<td><p>0.01%</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T4</span></code></p></td>
+<td><p>Radial Basis Functions method</p></td>
+<td><p>590.1533</p></td>
+<td><p>0.04%</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">T5</span></code></p></td>
+<td><p>Rational Polynomial Functions method</p></td>
+<td><p>590.4157</p></td>
+<td><p>0.00%</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="plot-exact-versus-interpolated-function">
+<h3>Plot Exact Versus Interpolated Function<a class="headerlink" href="#plot-exact-versus-interpolated-function" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import packages</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">InterpolateTraceOfInverse</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a symmetric and positive-definite matrices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">UseSparse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Specify interpolation points and the inquiry point</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">InterpolantPoints</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1e-4</span><span class="p">,</span><span class="mf">1e-3</span><span class="p">,</span><span class="mf">1e-2</span><span class="p">,</span><span class="mf">1e-1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">1e+1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create interpolation object with exact method, then compute exact values of trace</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TI</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">InterpolationMethod</span><span class="o">=</span><span class="s1">&#39;EXT&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace_exact</span> <span class="o">=</span> <span class="n">TI</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create interpolation object with RMBF method, then interpolate array t</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TI</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">InterpolationMethod</span><span class="o">=</span><span class="s1">&#39;RMBF&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace_interpolated</span> <span class="o">=</span> <span class="n">TI</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Plot results</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">trace_exact</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Exact&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">trace_interpolated</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Interpolated&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Trace&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="api">
 <h2>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="main-interface">
+<h3>Main Interface<a class="headerlink" href="#main-interface" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="module-TraceInv.InterpolateTraceOfInverse">
-<span id="traceinv-interpolatetraceofinverse-package"></span><h3>TraceInv.InterpolateTraceOfInverse Package<a class="headerlink" href="#module-TraceInv.InterpolateTraceOfInverse" title="Permalink to this headline">¶</a></h3>
+<span id="traceinv-interpolatetraceofinverse-package"></span><h4>TraceInv.InterpolateTraceOfInverse Package<a class="headerlink" href="#module-TraceInv.InterpolateTraceOfInverse" title="Permalink to this headline">¶</a></h4>
 <div class="section" id="classes">
-<h4>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h4>
+<h5>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h5>
 <table class="longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
@@ -218,12 +519,196 @@
 </tbody>
 </table>
 </div>
+</div>
+</div>
+<div class="section" id="modules">
+<h3>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="module-TraceInv.InterpolateTraceOfInverse.ExactMethod">
+<span id="traceinv-interpolatetraceofinverse-exactmethod-module"></span><h4>TraceInv.InterpolateTraceOfInverse.ExactMethod Module<a class="headerlink" href="#module-TraceInv.InterpolateTraceOfInverse.ExactMethod" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id1">
+<h5>Classes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h5>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod.html#TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod" title="TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExactMethod</span></code></a>(A[, B, ComputeOptions, Verbose])</p></td>
+<td><p><div class="graphviz"><img src="_images/inheritance-4f39afb8d3ed176aebe4d2aece1ca1e93d99d625.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.ExactMethod" usemap="#inheritance2542897448" class="inheritance graphviz" /></div>
+<map id="inheritance2542897448" name="inheritance2542897448">
+<area shape="rect" id="node1" href="api/TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod.html#TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.ExactMethod" alt="" coords="443,4,764,23"/>
+<area shape="rect" id="node2" href="_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="4,4,407,23"/>
+</map></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InterpolantBaseClass</span></code>(A[, B, …])</p></td>
+<td><p>This is the base class for the following derived classes:</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="class-inheritance-diagram">
-<h4>Class Inheritance Diagram<a class="headerlink" href="#class-inheritance-diagram" title="Permalink to this headline">¶</a></h4>
-<div class="graphviz"><img src="_images/inheritance-0e16f8851a66933ece69aeb59f9cf5bb0a20880b.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse" usemap="#inheritance21fc106d60" class="inheritance graphviz" /></div>
-<map id="inheritance21fc106d60" name="inheritance21fc106d60">
-<area shape="rect" id="node1" href="_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse" target="_top" title="Interpolates the trace of inverse of affine matrix functions." alt="" coords="5,5,196,31"/>
+<h5>Class Inheritance Diagram<a class="headerlink" href="#class-inheritance-diagram" title="Permalink to this headline">¶</a></h5>
+<div class="graphviz"><img src="_images/inheritance-f463c9fbcb910dba29bb0815e4d7eacad1bf9083.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod" usemap="#inheritance032cc940b1" class="inheritance graphviz" /></div>
+<map id="inheritance032cc940b1" name="inheritance032cc940b1">
+<area shape="rect" id="node1" href="api/TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod.html#TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.ExactMethod" alt="" coords="213,5,320,31"/>
+<area shape="rect" id="node2" href="_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
 </map></div>
+</div>
+<div class="section" id="module-TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod">
+<span id="traceinv-interpolatetraceofinverse-eigenvaluesmethod-module"></span><h4>TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod Module<a class="headerlink" href="#module-TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id2">
+<h5>Classes<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h5>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.html#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod" title="TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EigenvaluesMethod</span></code></a>(A[, B, ComputeOptions, …])</p></td>
+<td><p><div class="graphviz"><img src="_images/inheritance-449c9b4ede8255ae7d7c5ce7c690778f2cf32efd.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod" usemap="#inheritance10b365dd2f" class="inheritance graphviz" /></div>
+<map id="inheritance10b365dd2f" name="inheritance10b365dd2f">
+<area shape="rect" id="node1" href="api/TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.html#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod" alt="" coords="408,4,764,21"/>
+<area shape="rect" id="node2" href="_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="4,4,375,21"/>
+</map></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InterpolantBaseClass</span></code>(A[, B, …])</p></td>
+<td><p>This is the base class for the following derived classes:</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id3">
+<h5>Class Inheritance Diagram<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h5>
+<div class="graphviz"><img src="_images/inheritance-7ab5adf078934147781b45db6525835782af83ef.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod" usemap="#inheritancea30f48d890" class="inheritance graphviz" /></div>
+<map id="inheritancea30f48d890" name="inheritancea30f48d890">
+<area shape="rect" id="node1" href="api/TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.html#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod" alt="" coords="213,5,363,31"/>
+<area shape="rect" id="node2" href="_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
+</map></div>
+</div>
+<div class="section" id="module-TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod">
+<span id="traceinv-interpolatetraceofinverse-monomialbasisfunctionsmethod-module"></span><h4>TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod Module<a class="headerlink" href="#module-TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id4">
+<h5>Classes<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h5>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InterpolantBaseClass</span></code>(A[, B, …])</p></td>
+<td><p>This is the base class for the following derived classes:</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod" title="TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MonomialBasisFunctionsMethod</span></code></a>(A[, B, …])</p></td>
+<td><p><div class="graphviz"><img src="_images/inheritance-5ba6e39a3874acb15a7dc4ab558ddaae53553ca0.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod" usemap="#inheritance851f9f03d7" class="inheritance graphviz" /></div>
+<map id="inheritance851f9f03d7" name="inheritance851f9f03d7">
+<area shape="rect" id="node1" href="_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="3,3,327,19"/>
+<area shape="rect" id="node2" href="api/TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod" alt="" coords="356,3,765,19"/>
+</map></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id5">
+<h5>Class Inheritance Diagram<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h5>
+<div class="graphviz"><img src="_images/inheritance-025a9fd4a7868af97ccd3a7c0d88b5869ab9f272.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod" usemap="#inheritance4a0df16c7c" class="inheritance graphviz" /></div>
+<map id="inheritance4a0df16c7c" name="inheritance4a0df16c7c">
+<area shape="rect" id="node1" href="_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
+<area shape="rect" id="node2" href="api/TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod" alt="" coords="213,5,444,31"/>
+</map></div>
+</div>
+<div class="section" id="module-TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod">
+<span id="traceinv-interpolatetraceofinverse-rootmonomialbasisfunctionsmethod-module"></span><h4>TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod Module<a class="headerlink" href="#module-TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id6">
+<h5>Classes<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h5>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InterpolantBaseClass</span></code>(A[, B, …])</p></td>
+<td><p>This is the base class for the following derived classes:</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod" title="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RootMonomialBasisFunctionsMethod</span></code></a>(A[, B, …])</p></td>
+<td><p><div class="graphviz"><img src="_images/inheritance-e72f41fed16ee234983d92a40e8ee7eef7869c5a.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod" usemap="#inheritancefcb9c89220" class="inheritance graphviz" /></div>
+<map id="inheritancefcb9c89220" name="inheritancefcb9c89220">
+<area shape="rect" id="node1" href="_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="3,3,312,18"/>
+<area shape="rect" id="node2" href="api/TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod" alt="" coords="340,3,765,18"/>
+</map></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id7">
+<h5>Class Inheritance Diagram<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h5>
+<div class="graphviz"><img src="_images/inheritance-d27b6f12b12715ffa6187d345f7c4f8a506799bc.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod" usemap="#inheritance0a4efb0fd0" class="inheritance graphviz" /></div>
+<map id="inheritance0a4efb0fd0" name="inheritance0a4efb0fd0">
+<area shape="rect" id="node1" href="_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
+<area shape="rect" id="node2" href="api/TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod" alt="" coords="213,5,472,31"/>
+</map></div>
+</div>
+<div class="section" id="module-TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod">
+<span id="traceinv-interpolatetraceofinverse-radialbasisfunctionsmethod-module"></span><h4>TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod Module<a class="headerlink" href="#module-TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id8">
+<h5>Classes<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h5>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InterpolantBaseClass</span></code>(A[, B, …])</p></td>
+<td><p>This is the base class for the following derived classes:</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod" title="TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RadialBasisFunctionsMethod</span></code></a>(A[, B, …])</p></td>
+<td><p><div class="graphviz"><img src="_images/inheritance-24ffa03496fda4dc720a103eba0540d649c65914.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod" usemap="#inheritanced70bd80873" class="inheritance graphviz" /></div>
+<map id="inheritanced70bd80873" name="inheritanced70bd80873">
+<area shape="rect" id="node1" href="_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="3,3,339,19"/>
+<area shape="rect" id="node2" href="api/TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod" alt="" coords="369,3,765,19"/>
+</map></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id9">
+<h5>Class Inheritance Diagram<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h5>
+<div class="graphviz"><img src="_images/inheritance-49aa15356fcc49e61dd7c3e65ce9aae5746b4265.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod" usemap="#inheritance73323e0f51" class="inheritance graphviz" /></div>
+<map id="inheritance73323e0f51" name="inheritance73323e0f51">
+<area shape="rect" id="node1" href="_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
+<area shape="rect" id="node2" href="api/TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod" alt="" coords="213,5,420,31"/>
+</map></div>
+</div>
+<div class="section" id="module-TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod">
+<span id="traceinv-interpolatetraceofinverse-rationalpolynomialfunctionsmethod-module"></span><h4>TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod Module<a class="headerlink" href="#module-TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="id10">
+<h5>Classes<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h5>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">InterpolantBaseClass</span></code>(A[, B, …])</p></td>
+<td><p>This is the base class for the following derived classes:</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod" title="TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RationalPolynomialFunctionsMethod</span></code></a>(A[, B, …])</p></td>
+<td><p><div class="graphviz"><img src="_images/inheritance-c47100cf45f0e31922b6eb1b77e2fcb319d04c1f.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod" usemap="#inheritancef4c818a9a5" class="inheritance graphviz" /></div>
+<map id="inheritancef4c818a9a5" name="inheritancef4c818a9a5">
+<area shape="rect" id="node1" href="_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="3,3,313,18"/>
+<area shape="rect" id="node2" href="api/TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod" alt="" coords="341,3,765,18"/>
+</map></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id11">
+<h5>Class Inheritance Diagram<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h5>
+<div class="graphviz"><img src="_images/inheritance-ac42c5b28ec84c82a28c41101ef79df35533d86c.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod" usemap="#inheritancec2a97de4c2" class="inheritance graphviz" /></div>
+<map id="inheritancec2a97de4c2" name="inheritancec2a97de4c2">
+<area shape="rect" id="node1" href="_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
+<area shape="rect" id="node2" href="api/TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod" alt="" coords="213,5,472,31"/>
+</map></div>
+</div>
 </div>
 </div>
 </div>

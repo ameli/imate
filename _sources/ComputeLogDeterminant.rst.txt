@@ -85,6 +85,12 @@ The :mod:`TraceInv.ComputeLogDeterminant` module accepts the following attribute
    * When set to ``False``, the *Golub-Kahn-Lanczos bi-diagonalization* method is used.
 
    For mathematical details of this parameter, see :ref:`Stochastic Lanczos quadrature method <MathDetails_SLQ>`.
+   
+.. attribute:: Verbose
+   :type: bool
+   :value: False
+
+   If ``True``, prints some information about the process.
 
 
 .. _MathDetails_LogDet:

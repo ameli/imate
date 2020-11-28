@@ -184,7 +184,7 @@
 <span class="c1"># Eigenvalues Method</span>
 <span class="c1"># ==================</span>
 
-<div class="viewcode-block" id="EigenvaluesMethod"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod">[docs]</a><span class="k">class</span> <span class="nc">EigenvaluesMethod</span><span class="p">(</span><span class="n">InterpolantBaseClass</span><span class="p">):</span>
+<div class="viewcode-block" id="EigenvaluesMethod"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.html#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod">[docs]</a><span class="k">class</span> <span class="nc">EigenvaluesMethod</span><span class="p">(</span><span class="n">InterpolantBaseClass</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod</span>
 <span class="sd">        :parts: 1</span>
@@ -217,9 +217,9 @@
 <span class="sd">        and assume the rest of the eigenvalues are zero.</span>
 <span class="sd">    :type NonZeroRatio: int</span>
 
-<span class="sd">    :param Tol: Tolerance of computing eigenvalues. This option is only used for sparse matrices.</span>
+<span class="sd">    :param Tolerance: Tolerance of computing eigenvalues. This option is only used for sparse matrices.</span>
 <span class="sd">        Default value is ``1e-3``.</span>
-<span class="sd">    :type Tol: float</span>
+<span class="sd">    :type Tolerance: float</span>
 
 <span class="sd">    :param Verbose: If ``True``, prints some information on the computation process. Default is ``False``.</span>
 <span class="sd">    :type Verbose: bool</span>
@@ -230,7 +230,7 @@
 <span class="sd">        In case of a **sparse matrix**, only some of the eigenvalues with the largest magnitude is computed </span>
 <span class="sd">        and the rest of its eigenvalues is assumed to be negligible. The ratio of computed eigenvalues over </span>
 <span class="sd">        the total number of eigenvalues can be set by ``NonZeroRatio``.</span>
-<span class="sd">        The tolerance at which the eigenvalues are computed can be set by ``Tol``.</span>
+<span class="sd">        The tolerance at which the eigenvalues are computed can be set by ``Tolerance``.</span>
 
 <span class="sd">    :example:</span>
 
@@ -262,7 +262,7 @@
     <span class="c1"># Init</span>
     <span class="c1"># ----</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{},</span><span class="n">NonZeroRatio</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span><span class="n">Tol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{},</span><span class="n">NonZeroRatio</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span><span class="n">Tolerance</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Constructor of the class, which initializes the bases class and computes eigenvalues</span>
 <span class="sd">        of the input matrices.</span>
@@ -273,7 +273,7 @@
 
         <span class="c1"># Attributes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">NonZeroRatio</span> <span class="o">=</span> <span class="n">NonZeroRatio</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Tol</span> <span class="o">=</span> <span class="n">Tol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Tolerance</span> <span class="o">=</span> <span class="n">Tolerance</span>
 
         <span class="c1"># Initialize Interpolator</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">A_eigenvalues</span> <span class="o">=</span> <span class="kc">None</span>
@@ -284,7 +284,7 @@
     <span class="c1"># Initialize Interpolator</span>
     <span class="c1"># -----------------------</span>
 
-<div class="viewcode-block" id="EigenvaluesMethod.InitializeInterpolator"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.InitializeInterpolator">[docs]</a>    <span class="k">def</span> <span class="nf">InitializeInterpolator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="EigenvaluesMethod.InitializeInterpolator"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.html#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.InitializeInterpolator">[docs]</a>    <span class="k">def</span> <span class="nf">InitializeInterpolator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the ``A_eigenvalues`` and ``B_eigenvalues``  member data of the class.</span>
 
@@ -307,7 +307,7 @@
             <span class="c1"># find 90% of eigenvalues and assume the rest are very close to zero.</span>
             <span class="n">NumNoneZeroEig</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">NonZeroRatio</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">A_eigenvalues</span><span class="p">[:</span><span class="n">NumNoneZeroEig</span><span class="p">]</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigsh</span><span class="p">(</span>
-                    <span class="n">A</span><span class="p">,</span><span class="n">NumNoneZeroEig</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;LM&#39;</span><span class="p">,</span><span class="n">tol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Tol</span><span class="p">,</span><span class="n">return_eigenvectors</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                    <span class="n">A</span><span class="p">,</span><span class="n">NumNoneZeroEig</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;LM&#39;</span><span class="p">,</span><span class="n">tol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Tolerance</span><span class="p">,</span><span class="n">return_eigenvectors</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># A is dense matrix</span>
@@ -329,7 +329,7 @@
                 <span class="c1"># find 90% of eigenvalues and assume the rest are very close to zero.</span>
                 <span class="n">NumNoneZeroEig</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">NonZeroRatio</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">B_eigenvalues</span><span class="p">[:</span><span class="n">NumNoneZeroEig</span><span class="p">]</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigsh</span><span class="p">(</span>
-                        <span class="n">B</span><span class="p">,</span><span class="n">NumNoneZeroEig</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;LM&#39;</span><span class="p">,</span><span class="n">tol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Tol</span><span class="p">,</span><span class="n">return_eigenvectors</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                        <span class="n">B</span><span class="p">,</span><span class="n">NumNoneZeroEig</span><span class="p">,</span><span class="n">which</span><span class="o">=</span><span class="s1">&#39;LM&#39;</span><span class="p">,</span><span class="n">tol</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">Tolerance</span><span class="p">,</span><span class="n">return_eigenvectors</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># B is dense matrix</span>
@@ -342,7 +342,7 @@
     <span class="c1"># Interpolate</span>
     <span class="c1"># -----------</span>
 
-<div class="viewcode-block" id="EigenvaluesMethod.Interpolate"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+<div class="viewcode-block" id="EigenvaluesMethod.Interpolate"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.html#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes the function :math:`\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)` </span>
 <span class="sd">        at the input point :math:`t` by</span>

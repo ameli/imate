@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>RationalPolynomialFunctionsMethod &mdash; TraceInv  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/toggleprompt.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Generate Matirx (TraceInv.GenerateMatrix)" href="../GenerateMatrix.html" />
+    <link rel="prev" title="RadialBasisFunctionsMethod" href="TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> TraceInv
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../InterpolateTraceOfInverse.html#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../InterpolateTraceOfInverse.html#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../InterpolateTraceOfInverse.html#mathematical-details">Mathematical Details</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../InterpolateTraceOfInverse.html#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../InterpolateTraceOfInverse.html#references">References</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../InterpolateTraceOfInverse.html#api">API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../InterpolateTraceOfInverse.html#main-interface">Main Interface</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../InterpolateTraceOfInverse.html#modules">Modules</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.ExactMethod">TraceInv.InterpolateTraceOfInverse.ExactMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod">TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod">TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod">TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod">TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod Module</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod">TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod Module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../GenerateMatrix.html">Generate Matrix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../_modules/modules.html">Package API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tests.html">Running Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Change Log</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">TraceInv</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse (<code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse</span></code>)</a> &raquo;</li>
+        
+      <li>RationalPolynomialFunctionsMethod</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rationalpolynomialfunctionsmethod">
+<h1>RationalPolynomialFunctionsMethod<a class="headerlink" href="#rationalpolynomialfunctionsmethod" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod">
+<em class="property">class </em><code class="sig-prename descclassname">TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.</code><code class="sig-name descname">RationalPolynomialFunctionsMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">InterpolantPoints</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ComputeOptions</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">Verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/RationalPolynomialFunctionsMethod.html#RationalPolynomialFunctionsMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" title="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass</span></code></a></p>
+<div class="graphviz"><img src="../_images/inheritance-f1c5a3ee4d42c916f29229d1f87435bfe66b201a.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod" usemap="#inheritance555c48ff52" class="inheritance graphviz" /></div>
+<map id="inheritance555c48ff52" name="inheritance555c48ff52">
+<area shape="rect" id="node1" href="../_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
+<area shape="rect" id="node2" href="#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod" alt="" coords="213,5,472,31"/>
+</map><p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using 
+an interpolation scheme based on rational polynomial functions (see details below).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
+<li><p><strong>B</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
+<li><p><strong>ComputeOptions</strong> (<em>dict</em>) – A dictionary of input arguments for <a class="reference internal" href="TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse.html#TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse</span></code></a> module.</p></li>
+<li><p><strong>Verbose</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, prints some information on the computation process. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p><strong>Interpolation Method</strong></p>
+<p>Define the function</p>
+<div class="math notranslate nohighlight">
+\[\tau(t) = \frac{\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \right)}{\mathrm{trace}(\mathbf{B}^{-1})}\]</div>
+<p>and <span class="math notranslate nohighlight">\(\tau_0 = \tau(0)\)</span>. Then, we approximate <span class="math notranslate nohighlight">\(\tau^{-1}(t)\)</span> by</p>
+<div class="math notranslate nohighlight">
+\[\tau(t) \approx \frac{t^p + a_{p-1} t^{p-1} + \cdots + a_1 t + a_0}{t^{p+1} + b_p t^p + \cdots + b_1 t + b_0}\]</div>
+<p>where <span class="math notranslate nohighlight">\(a_0 = b_0 \tau_0\)</span>. The rest of coefficients are found by solving a linear system using the 
+function value at the interpolant points <span class="math notranslate nohighlight">\(\tau_i = \tau(t_i)\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The number of interpolant points <span class="math notranslate nohighlight">\(p\)</span> in this module can be only <span class="math notranslate nohighlight">\(p = 2\)</span> or <span class="math notranslate nohighlight">\(p = 4\)</span>.</p>
+</div>
+<p><strong>Example</strong></p>
+<p>This class can be invoked from <a class="reference internal" href="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse</span></code></a> module 
+using <code class="docutils literal notranslate"><span class="pre">InterpolationMethod='RPF'</span></code> argument.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">InterpolateTraceOfInverse</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a symmetric positive-definite matrix of the shape (20**2,20**2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an object that interpolates trace of inverse of A+tI (I is identity matrix)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">TI</span> <span class="o">=</span> <span class="n">InterpolateTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">InterpolatingMethod</span><span class="o">=</span><span class="s1">&#39;RPF&#39;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Interpolate A+tI at some input point t</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="mf">4e-1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">TI</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">Methods Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.InitializeInterpolator" title="TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.InitializeInterpolator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeInterpolator</span></code></a>()</p></td>
+<td><p>Sets <code class="docutils literal notranslate"><span class="pre">self.Numerator</span></code> and <code class="docutils literal notranslate"><span class="pre">self.Denominator</span></code> which are list of the coefficients of the numerator and denominator of the rational polynomial.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.Interpolate" title="TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.Interpolate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Interpolate</span></code></a>(t)</p></td>
+<td><p>Interpolates <span class="math notranslate nohighlight">\(\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span> at <span class="math notranslate nohighlight">\(t\)</span>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.RationalPoly" title="TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.RationalPoly"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RationalPoly</span></code></a>(t, Numerator, Denominator)</p></td>
+<td><p>Evaluates rational polynomial.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.RationalPoly12" title="TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.RationalPoly12"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RationalPoly12</span></code></a>(t_i, tau_i, tau0)</p></td>
+<td><p>Finds the coefficients <span class="math notranslate nohighlight">\((a_0,b_1,b_0)\)</span> of a Rational polynomial of order 1 over 2,</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.RationalPoly23" title="TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.RationalPoly23"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RationalPoly23</span></code></a>(t_i, tau_i, tau0)</p></td>
+<td><p>Finds the coefficients <span class="math notranslate nohighlight">\((a_1,a_0,b_2,b_1,b_0)\)</span> of a Rational polynomial of order 2 over 3,</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Documentation</p>
+<dl class="py method">
+<dt id="TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.InitializeInterpolator">
+<code class="sig-name descname">InitializeInterpolator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/RationalPolynomialFunctionsMethod.html#RationalPolynomialFunctionsMethod.InitializeInterpolator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.InitializeInterpolator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets <code class="docutils literal notranslate"><span class="pre">self.Numerator</span></code> and <code class="docutils literal notranslate"><span class="pre">self.Denominator</span></code> which are list of the coefficients of the
+numerator and denominator of the rational polynomial.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.Interpolate">
+<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/RationalPolynomialFunctionsMethod.html#RationalPolynomialFunctionsMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpolates <span class="math notranslate nohighlight">\(\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span> at <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>This is the main interface function of this module and it is used after the interpolation
+object is initialized.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> (<em>float</em><em>, </em><em>list</em><em>, or </em><em>numpy.array</em>) – The inquiry point(s).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The interpolated value of the trace.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float or numpy.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.RationalPoly">
+<code class="sig-name descname">RationalPoly</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">Numerator</span></em>, <em class="sig-param"><span class="n">Denominator</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/RationalPolynomialFunctionsMethod.html#RationalPolynomialFunctionsMethod.RationalPoly"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.RationalPoly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates rational polynomial.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>float</em>) – Inquiry point.</p></li>
+<li><p><strong>Numerator</strong> (<em>list</em>) – A list of coefficients of polynomial in the numerator of the rational polynomial function.</p></li>
+<li><p><strong>Denominator</strong> – A list of coefficients of polynomial in the denominator of the rational polynomial function.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.RationalPoly12">
+<code class="sig-name descname">RationalPoly12</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t_i</span></em>, <em class="sig-param"><span class="n">tau_i</span></em>, <em class="sig-param"><span class="n">tau0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/RationalPolynomialFunctionsMethod.html#RationalPolynomialFunctionsMethod.RationalPoly12"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.RationalPoly12" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the coefficients <span class="math notranslate nohighlight">\((a_0,b_1,b_0)\)</span> of a Rational polynomial of order 1 over 2,</p>
+<div class="math notranslate nohighlight">
+\[\tau(t) \approx \frac{t + a_0}{t^2 + b_1 t + b_0}\]</div>
+<p>This is used when the number of interpolant points is <span class="math notranslate nohighlight">\(p = 2\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t_i</strong> (<em>float</em>) – Inquiry point.</p></li>
+<li><p><strong>tau_i</strong> (<em>float</em>) – The function value at the inquiry point <span class="math notranslate nohighlight">\(t\)</span></p></li>
+<li><p><strong>tau_0</strong> (<em>float</em>) – The function value at <span class="math notranslate nohighlight">\(t_0 = 0\)</span>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.RationalPoly23">
+<code class="sig-name descname">RationalPoly23</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t_i</span></em>, <em class="sig-param"><span class="n">tau_i</span></em>, <em class="sig-param"><span class="n">tau0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/RationalPolynomialFunctionsMethod.html#RationalPolynomialFunctionsMethod.RationalPoly23"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.RationalPoly23" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the coefficients <span class="math notranslate nohighlight">\((a_1,a_0,b_2,b_1,b_0)\)</span> of a Rational polynomial of order 2 over 3,</p>
+<div class="math notranslate nohighlight">
+\[\tau(t) \approx \frac{t^2 + a_{1} t + a_0}{t^3 + b_2 t^2 + b_1 t + b_0}\]</div>
+<p>This is used when the number of interpolant points is <span class="math notranslate nohighlight">\(p = 4\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t_i</strong> (<em>float</em>) – Inquiry point.</p></li>
+<li><p><strong>tau_i</strong> (<em>float</em>) – The function value at the inquiry point <span class="math notranslate nohighlight">\(t\)</span></p></li>
+<li><p><strong>tau_0</strong> (<em>float</em>) – The function value at <span class="math notranslate nohighlight">\(t_0 = 0\)</span>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../GenerateMatrix.html" class="btn btn-neutral float-right" title="Generate Matirx (TraceInv.GenerateMatrix)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod.html" class="btn btn-neutral float-left" title="RadialBasisFunctionsMethod" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Siavash Ameli
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
