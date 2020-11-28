@@ -177,7 +177,6 @@
 <span class="kn">import</span> <span class="nn">numpy</span>
 <span class="kn">import</span> <span class="nn">scipy</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">sparse</span>
-
 <span class="kn">from</span> <span class="nn">numbers</span> <span class="kn">import</span> <span class="n">Number</span>
 
 <span class="c1"># Classes, Files</span>
@@ -194,33 +193,129 @@
 
 <div class="viewcode-block" id="InterpolateTraceOfInverse"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse">[docs]</a><span class="k">class</span> <span class="nc">InterpolateTraceOfInverse</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Interpolates the trace of inverse of linear matrix functions.</span>
+<span class="sd">    Interpolates the trace of inverse of affine matrix functions.</span>
+
+<span class="sd">    :param A: A positive-definite matrix. Matrix can be dense or sparse.</span>
+<span class="sd">    :type A: numpy.ndarray or scipy.sparse.csc_matrix</span>
+
+<span class="sd">    :param B: A positive-definite matrix. Matrix can be dense or sparse.</span>
+<span class="sd">        If ``None`` or not provided, it is assumed that ``B`` is an identity matrix of the shape of ``A``.</span>
+<span class="sd">    :type B: numpy.ndarray or scipy.sparse.csc_matrix</span>
+
+<span class="sd">    :param InterpolantPoints: A list or an array of points that the interpolator use to interpolate. </span>
+<span class="sd">        The trace of inverse is computed for the interpolant points with exact method. </span>
+<span class="sd">    :type InterpolantPoints: list(float) or numpy.array(float)</span>
+
+<span class="sd">    :param InterpolationMethod: One of the methods ``&#39;EXT&#39;``, ``&#39;EIG&#39;``, ``&#39;MBF&#39;``, ``&#39;RMBF&#39;``, ``&#39;RBF&#39;``, and ``&#39;RPF&#39;``.</span>
+<span class="sd">        Default is ``&#39;RMBF&#39;``.</span>
+<span class="sd">    :type InterpolationMethod: string</span>
+
+<span class="sd">    :param ComputeOptions: A dictionary of arguments to pass to :mod:`TraceInv.ComputeTraceOfInverse` module.</span>
+<span class="sd">    :type ComputeOptions: dict</span>
+
+<span class="sd">    :param Verbose: If ``True``, prints some information on the computation process. Default is ``False``.</span>
+<span class="sd">    :type Verbose: bool</span>
+
+<span class="sd">    :param InterpolationOptions: Additional options to pass to each specific interpolator class. </span>
+<span class="sd">        See the sub-classes of :mod:`TraceInv.InterpolantBaseClass`.</span>
+<span class="sd">    :type InterpolationOptions: \*\*kwargs</span>
+
+<span class="sd">    **Methods:**</span>
+
+<span class="sd">    =======================  =========================================  ============  =============  ============</span>
+<span class="sd">    ``InterpolationMethod``  Description                                Matrix size   Matrix type    Results</span>
+<span class="sd">    =======================  =========================================  ============  =============  ============</span>
+<span class="sd">    ``&#39;EXT&#39;``                Computes trace directly, no interpolation  Small         dense, sparse  exact</span>
+<span class="sd">    ``&#39;EIG&#39;``                Uses Eigenvalues of matrix                 Small         dense, sparse  exact</span>
+<span class="sd">    ``&#39;MBF&#39;``                Monomial Basis Functions                   Small, large  dense, sparse  interpolated</span>
+<span class="sd">    ``&#39;RMBF&#39;``               Root monomial basis functions              small, large  dense, sparse  interpolated</span>
+<span class="sd">    ``&#39;RBF&#39;``                Radial basis functions                     small, large  dense, sparse  interpolated</span>
+<span class="sd">    ``&#39;RPF&#39;``                Rational polynomial functions              small, large  dense, sparse  interpolated</span>
+<span class="sd">    =======================  =========================================  ============  =============  ============</span>
+
+<span class="sd">    **Details:**</span>
+
+<span class="sd">    An affine matrix function is defined by</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        t \mapsto \mathbf{A} + t \mathbf{B}</span>
+
+<span class="sd">    where :math:`\mathbf{A}` and :math:`\mathbf{B}` are invertible matrices and :math:`t` is a real parameter.</span>
+
+<span class="sd">    This module interpolates the function</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">        t \mapsto \mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)</span>
+
+<span class="sd">    The interpolator is initialized by providing :math:`p` interpolant points :math:`t_i`, :math:`i = 1,\dots,p`,</span>
+<span class="sd">    which are often logarithmically spaced in some interval :math:`t_i \in [t_1,t_p]`. </span>
+<span class="sd">    The interpolator can interpolate the above function at inquity points :math:`t \in [t_1,t_p]` </span>
+<span class="sd">    using various methods.</span>
+
+<span class="sd">    **Examples:**</span>
+
+<span class="sd">    Interpolate the trace of inverse of the affine matrix function :math:`\mathbf{A} + t \mathbf{B}`:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        &gt;&gt;&gt; # Generate two sample matrices (symmetric and positive-definite)</span>
+<span class="sd">        &gt;&gt;&gt; from TraceInv import GenerateMatrix</span>
+<span class="sd">        &gt;&gt;&gt; A = GenerateMatrix(NumPoints=20,DecorrelationScale=1e-1)</span>
+<span class="sd">        &gt;&gt;&gt; B = GenerateMatrix(NumPoints=20,DecorrelationScale=2e-2)</span>
+
+<span class="sd">        &gt;&gt;&gt; # Initialize interpolator object</span>
+<span class="sd">        &gt;&gt;&gt; from TraceInv import InterpolateTraceOfInverse</span>
+<span class="sd">        &gt;&gt;&gt; InterpolantPoints = [1e-2,1e-1,1,1e1]</span>
+<span class="sd">        &gt;&gt;&gt; TI = InterpolateTraceOfInverse(A,B,InterpolantPoints)</span>
+
+<span class="sd">        &gt;&gt;&gt; # Interpolate at an inquiry point t = 0.4</span>
+<span class="sd">        &gt;&gt;&gt; t = 4e-1</span>
+<span class="sd">        &gt;&gt;&gt; Trace = TI.Interpolate(t)</span>
+
+<span class="sd">    Interpolate an array of inquiry points</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        &gt;&gt;&gt; # Interpolate at an array of points</span>
+<span class="sd">        &gt;&gt;&gt; import numpy</span>
+<span class="sd">        &gt;&gt;&gt; t_array = numoy.logspace(-2,1,10)</span>
+<span class="sd">        &gt;&gt;&gt; Trace = TI.Interpolator(t_array)</span>
+
+<span class="sd">    By default, the interpolation method is ``&#39;RMBF&#39;``. Use a different interpolation method, such as ``&#39;RBF&#39;`` by</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        &gt;&gt;&gt; TI = InterpolateTraceOfInverse(A,B,InterpolantPoints,InterpolationMethod=&#39;RBF&#39;)</span>
+
+<span class="sd">    By default, the trace is computed with the Cholesky decomposition method as the interpolant points. Configure the</span>
+<span class="sd">    computation method by ``ComputeOptions`` as</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        &gt;&gt;&gt; # Specify arguments to TraceInv.ComputeTraceOfInverse in a dictionary</span>
+<span class="sd">        &gt;&gt;&gt; ComputeOptions = \ </span>
+<span class="sd">        ... {</span>
+<span class="sd">        ...     &#39;ComputeMethod&#39;: &#39;hutchinson&#39;,</span>
+<span class="sd">        ...     &#39;NumIterations&#39;: 20</span>
+<span class="sd">        ... }</span>
+
+<span class="sd">        &gt;&gt;&gt; # Pass the options to the interpolator</span>
+<span class="sd">        &gt;&gt;&gt; TI = InterpolateTraceOfInverse(A,B,InterpolantPoints,ComputeOptions=ComputeOptions)</span>
+
+<span class="sd">    .. seealso:: </span>
+<span class="sd">        This module calls a derived class of the base class :mod:`TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass`.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># ----</span>
     <span class="c1"># Init</span>
     <span class="c1"># ----</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">InterpolationMethod</span><span class="o">=</span><span class="s1">&#39;RMBF&#39;</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ComputeMethod&#39;</span><span class="p">:</span> <span class="s1">&#39;cholesky&#39;</span><span class="p">},</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">InterpolationMethod</span><span class="o">=</span><span class="s1">&#39;RMBF&#39;</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ComputeMethod&#39;</span><span class="p">:</span> <span class="s1">&#39;cholesky&#39;</span><span class="p">},</span><span class="n">Verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the object depending on the method.</span>
-
-<span class="sd">        --------------------  -----------------------------</span>
-<span class="sd">        Interpolation method  Description</span>
-<span class="sd">        ====================  =============================</span>
-<span class="sd">         ``&#39;EXT&#39;``            Exact, no interpolation</span>
-<span class="sd">         ``&#39;EIG&#39;``            Eigenvalues of ``A``</span>
-<span class="sd">         ``&#39;MBF&#39;``            Monomial basis functions</span>
-<span class="sd">         ``&#39;RMBF&#39;`            Root monomial basis functions</span>
-<span class="sd">         ``&#39;RBF&#39;``            Radial basis functions</span>
-<span class="sd">         ``&#39;RPF&#39;``            Ratioanl polynomial functions</span>
-<span class="sd">        --------------------  -----------------------------</span>
-
-<span class="sd">        :param Method: determines one of the methods of interpolation.</span>
-<span class="sd">        :type Method: string</span>
-
-<span class="sd">        :param Options: Optios for each of the methods.</span>
-<span class="sd">        :type Options: ``**kwargs``</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Attributes</span>
@@ -233,27 +328,27 @@
         <span class="c1"># Define an interpolation object depending on the given method</span>
         <span class="k">if</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;EXT&#39;</span><span class="p">:</span>
             <span class="c1"># Exact computation, not interpolation</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">ExactMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">ExactMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;EIG&#39;</span><span class="p">:</span>
             <span class="c1"># Eigenvalues method</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">EigenvaluesMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">EigenvaluesMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;MBF&#39;</span><span class="p">:</span>
             <span class="c1"># Monomial Basis Functions method</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">MonomialBasisFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">MonomialBasisFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;RMBF&#39;</span><span class="p">:</span>
             <span class="c1"># Root Monomial Basis Functions method</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">RootMonomialBasisFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">RootMonomialBasisFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;RBF&#39;</span><span class="p">:</span>
             <span class="c1"># Radial Basis Functions method</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">RadialBasisFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">RadialBasisFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;RPF&#39;</span><span class="p">:</span>
             <span class="c1"># Rational Polynomial Functions method</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">RationalPolynomialFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">RationalPolynomialFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;InterpolationMethod&#39; is invalid. Select one of &#39;EXT&#39;, &#39;EIG&#39;, &#39;MBF&#39;, &#39;RMBF&#39;, &#39;RBF&#39;, or &#39;RPF&#39;.&quot;</span><span class="p">)</span>
@@ -264,6 +359,17 @@
 
 <div class="viewcode-block" id="InterpolateTraceOfInverse.Compute"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Compute">[docs]</a>    <span class="k">def</span> <span class="nf">Compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the function :math:`\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)` </span>
+<span class="sd">        at the input point :math:`t` using exact method.</span>
+
+<span class="sd">        The computation method used in this function is exact (no interpolation). This function </span>
+<span class="sd">        is primarily used to compute trace on the *interpolant points*.</span>
+
+<span class="sd">        :param: t: An inquiry point, which can be a single number, or an array of numbers.</span>
+<span class="sd">        :type t: float or numpy.array</span>
+
+<span class="sd">        :return: The exact value of the trace</span>
+<span class="sd">        :rtype: float or numpy.array</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Number</span><span class="p">):</span>
@@ -284,13 +390,16 @@
 
 <div class="viewcode-block" id="InterpolateTraceOfInverse.Interpolate"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Interpolates the trace of inverse of ``A + t*I``.</span>
+<span class="sd">        Interpolates :math:`\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)` at :math:`t`.</span>
 
-<span class="sd">        :param t: A real variable to form the linear matrix function ``A + tI``.</span>
-<span class="sd">        :type t: float or array</span>
+<span class="sd">        This is the main interface function of this module and it is used after the interpolation</span>
+<span class="sd">        object is initialized.</span>
 
-<span class="sd">        :return: The interpolated value of the trace of inverse of ``A + tI``.</span>
-<span class="sd">        :rtype: float or array</span>
+<span class="sd">        :param t: The inquiry point(s).</span>
+<span class="sd">        :type t: float, list, or numpy.array</span>
+
+<span class="sd">        :return: The interpolated value of the trace.</span>
+<span class="sd">        :rtype: float or numpy.array</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Number</span><span class="p">):</span>
@@ -311,6 +420,23 @@
 
 <div class="viewcode-block" id="InterpolateTraceOfInverse.LowerBound"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.LowerBound">[docs]</a>    <span class="k">def</span> <span class="nf">LowerBound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Lower bound of the function :math:`t \mapsto \mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)`.</span>
+
+<span class="sd">        The lower bound is given by</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">        </span>
+<span class="sd">            \mathrm{trace}((\mathbf{A}+t\mathbf{B})^{-1}) \geq \\frac{n^2}{\mathrm{trace}(\mathbf{A}) + \mathrm{trace}(t \mathbf{B})}</span>
+
+<span class="sd">        :param t: An inquiry point or an array of inquiry points.</span>
+<span class="sd">        :type t: float or numpy.array</span>
+
+<span class="sd">        :return: Lower bound of the affine matrix function.</span>
+<span class="sd">        :rtype: float or numpy.array</span>
+
+<span class="sd">        .. seealso::</span>
+
+<span class="sd">            This function is implemented in :meth:`TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.LowerBound`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Number</span><span class="p">):</span>
@@ -331,6 +457,31 @@
 
 <div class="viewcode-block" id="InterpolateTraceOfInverse.UpperBound"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.UpperBound">[docs]</a>    <span class="k">def</span> <span class="nf">UpperBound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Upper bound of the function :math:`t \mapsto \mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)`.</span>
+
+<span class="sd">        The upper bound is given by</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">                </span>
+<span class="sd">                \\frac{1}{\\tau(t)} \geq \\frac{1}{\\tau_0} + t</span>
+
+<span class="sd">        where</span>
+
+<span class="sd">        .. math::</span>
+
+<span class="sd">                \\tau(t) = \\frac{\mathrm{trace}\\left( (\mathbf{A} + t \mathbf{B})^{-1}  \\right)}{\mathrm{trace}(\mathbf{B}^{-1})}</span>
+
+<span class="sd">        and :math:`\\tau_0 = \\tau(0)`.</span>
+
+<span class="sd">        :param t: An inquiry point or an array of inquiry points.</span>
+<span class="sd">        :type t: float or numpy.array</span>
+
+<span class="sd">        :return: Lower bound of the affine matrix function.</span>
+<span class="sd">        :rtype: float or numpy.array</span>
+
+<span class="sd">        .. seealso::</span>
+
+<span class="sd">            This function is implemented in :meth:`TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.UpperBound`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Number</span><span class="p">):</span>

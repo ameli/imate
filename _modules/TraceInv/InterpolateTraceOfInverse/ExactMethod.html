@@ -188,27 +188,41 @@
 
 <span class="sd">    Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A} + t \\mathbf{B}` using </span>
 <span class="sd">    exact method (no interpolation is performed).</span>
-<span class="sd">    This class does not accept interpolant points as the result is not interpolated.</span>
+<span class="sd">    This class does not accept interpolant points as the result is not interpolated, rather, used</span>
+<span class="sd">    as a benchmark to compare the exact versus the interpolated solution of the other classes.</span>
+
+<span class="sd">    :param A: A positive-definite matrix. Matrix can be dense or sparse.</span>
+<span class="sd">    :type A: numpy.ndarray or scipy.sparse.csc_matrix</span>
+
+<span class="sd">    :param B: A positive-definite matrix. </span>
+<span class="sd">        If ``None`` or not provided, it is assumed that ``B`` is an identity matrix of the shape of ``A``.</span>
+<span class="sd">    :type B: numpy.ndarray or scipy.sparse.csc_matrix</span>
+
+<span class="sd">    :param ComputeOptions: A dictionary of arguments to pass to :mod:`TraceInv.ComputeTraceOfInverse` module.</span>
+<span class="sd">    :type ComputeOptions: dict</span>
+
+<span class="sd">    :param Verbose: If ``True``, prints some information on the computation process. Default is ``False``.</span>
+<span class="sd">    :type Verbose: bool</span>
 
 <span class="sd">    :example:</span>
 
-<span class="sd">    This class can be invoked from the :class:`TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse` module </span>
+<span class="sd">    This class can be invoked from :class:`TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse` module </span>
 <span class="sd">    using ``InterpolationMethod=&#39;EXT&#39;`` argument.</span>
 
 <span class="sd">    .. code-block:: python</span>
 
-<span class="sd">        from TraceInv import GenerateMatrix</span>
-<span class="sd">        from TraceInv import InterpolateTraceOfInverse</span>
+<span class="sd">        &gt;&gt;&gt; from TraceInv import GenerateMatrix</span>
+<span class="sd">        &gt;&gt;&gt; from TraceInv import InterpolateTraceOfInverse</span>
 <span class="sd">        </span>
-<span class="sd">        # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)</span>
-<span class="sd">        A = GenerateMatrix(NumPoints=20)</span>
+<span class="sd">        &gt;&gt;&gt; # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)</span>
+<span class="sd">        &gt;&gt;&gt; A = GenerateMatrix(NumPoints=20)</span>
 <span class="sd">        </span>
-<span class="sd">        # Create an object that interpolats trace of inverse of A+tI (I is identity matrix)</span>
-<span class="sd">        TI = InterpolateTraceOfInverse(A,InterpolatingMethod=&#39;EXT&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Create an object that interpolates trace of inverse of A+tI (I is identity matrix)</span>
+<span class="sd">        &gt;&gt;&gt; TI = InterpolateTraceOfInverse(A,InterpolationMethod=&#39;EXT&#39;)</span>
 <span class="sd">        </span>
-<span class="sd">        # Interpolate A+tI at some input point t</span>
-<span class="sd">        t = 4e-1</span>
-<span class="sd">        trace = TI.Interpolate(t)</span>
+<span class="sd">        &gt;&gt;&gt; # Interpolate A+tI at some input point t</span>
+<span class="sd">        &gt;&gt;&gt; t = 4e-1</span>
+<span class="sd">        &gt;&gt;&gt; trace = TI.Interpolate(t)</span>
 
 <span class="sd">    .. seealso::</span>
 
@@ -220,10 +234,13 @@
     <span class="c1"># Init</span>
     <span class="c1"># ----</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{},</span><span class="n">Verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the parent class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Base class constructor</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">ExactMethod</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ExactMethod</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">)</span>
 
     <span class="c1"># -----------</span>
     <span class="c1"># Interpolate</span>
@@ -231,10 +248,13 @@
 
 <div class="viewcode-block" id="ExactMethod.Interpolate"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This function does not interpolate, rather exactly computes the trace of inverse of ``A + t*B``.</span>
+<span class="sd">        This function does not interpolate, rather exactly computes :math:`\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1}  \rright)`</span>
 
-<span class="sd">        :return: The exact value of the trace of inverse of ``A + tB``.</span>
-<span class="sd">        :rtype: float</span>
+<span class="sd">        :param t: The inquiry point(s).</span>
+<span class="sd">        :type t: float, list, or numpy.array</span>
+
+<span class="sd">        :return: The exact value of the trace.</span>
+<span class="sd">        :rtype: float or numpy.array</span>
 <span class="sd">        &quot;&quot;&quot;</span>
  
         <span class="c1"># Do not interpolate, instead compute the exact value</span>

@@ -204,16 +204,16 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>ndarray</em>) – matrix of coefficients, two-dimensional array, can be either sparse or dense</p></li>
+<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – matrix of coefficients, two-dimensional array, can be either sparse or dense</p></li>
 <li><p><strong>b</strong> (<em>array</em>) – column vector of the right hand side of the linear system, one-dimensional array</p></li>
-<li><p><strong>Tol</strong> (<em>float</em>) – Tolerance for the error of solving linear system. This is only applicable if <code class="docutils literal notranslate"><span class="pre">A</span></code> is spase.</p></li>
+<li><p><strong>Tol</strong> (<em>float</em>) – Tolerance for the error of solving linear system. This is only applicable if <code class="docutils literal notranslate"><span class="pre">A</span></code> is sparse.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>one-dimensional array of the solution of the linear system</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>array</p>
+<dd class="field-odd"><p>numpy.array</p>
 </dd>
 </dl>
 </dd></dl>
@@ -225,37 +225,37 @@
 <dt id="TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization">
 <code class="sig-prename descclassname">TraceInv.LinearAlgebra.MatrixReduction.</code><code class="sig-name descname">GolubKahnLanczosBidiagonalization</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">Tolerance</span><span class="o">=</span><span class="default_value">1e-08</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/LinearAlgebra/MatrixReduction.html#GolubKahnLanczosBidiagonalization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization" title="Permalink to this definition">¶</a></dt>
 <dd><p>B-diagonalizes the positive-definite matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> using Golub-Kahn-Lanczos method.</p>
-<p>This method bidiagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">B</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">w</span></code>. <code class="docutils literal notranslate"><span class="pre">m</span></code> is the Lanczos
+<p>This method bi-diagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">B</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">w</span></code>. <code class="docutils literal notranslate"><span class="pre">m</span></code> is the Lanczos
 degree, which will be the size of square matrix <code class="docutils literal notranslate"><span class="pre">B</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">A</span></code> should be positive-definite matrix size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">B</span></code> will be positve-definite matrix of size <code class="docutils literal notranslate"><span class="pre">(m+1,m+1)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">B</span></code> will be positive-definite matrix of size <code class="docutils literal notranslate"><span class="pre">(m+1,m+1)</span></code>.</p></li>
 </ul>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>When matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> is very close to the identity matrix, the Golub-Kahn bidoagonalization method can not 
-find <span class="math notranslate nohighlight">\(\beta\)</span>, as <span class="math notranslate nohighlight">\(\beta\)</span> becomes zero. If <code class="docutils literal notranslate"><span class="pre">A</span></code> is not exactly identity, you may descrease the Tolerance
-to a very small number. However, if <code class="docutils literal notranslate"><span class="pre">A</span></code> is almost identity matrix, descreasing tolerance will not 
+<p>When matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> is very close to the identity matrix, the Golub-Kahn bi-doagonalization method can not 
+find <span class="math notranslate nohighlight">\(\beta\)</span>, as <span class="math notranslate nohighlight">\(\beta\)</span> becomes zero. If <code class="docutils literal notranslate"><span class="pre">A</span></code> is not exactly identity, you may decrease the Tolerance
+to a very small number. However, if <code class="docutils literal notranslate"><span class="pre">A</span></code> is almost identity matrix, decreasing tolerance will not 
 help, and this function cannot be used.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>ndarray</em>) – Input matrix of the size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>. Matrix should be positive-definite and symmetric.</p></li>
+<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Input matrix of the size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>. Matrix should be positive-definite and symmetric.</p></li>
 <li><p><strong>w</strong> (<em>array</em>) – Start vector for the Lanczos tri-diagonalization. Column vector of size <code class="docutils literal notranslate"><span class="pre">n</span></code>.
 It could be generated randomly. Often it is generated by the Rademacher distribution with entries <code class="docutils literal notranslate"><span class="pre">+1</span></code> and <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p></li>
 <li><p><strong>m</strong> (<em>int</em>) – Lanczos degree, which is the number of Lanczos iterations.</p></li>
-<li><p><strong>Tolerance</strong> (<em>float</em>) – The tolerance of the residial error of the Lanczos iteration.</p></li>
+<li><p><strong>Tolerance</strong> (<em>float</em>) – The tolerance of the residual error of the Lanczos iteration.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Symmetric positive-definite matric <code class="docutils literal notranslate"><span class="pre">B</span></code> of the size <code class="docutils literal notranslate"><span class="pre">(m+1)*(m+1)</span></code>.</p>
+<dd class="field-even"><p>Symmetric positive-definite matrix <code class="docutils literal notranslate"><span class="pre">B</span></code> of the size <code class="docutils literal notranslate"><span class="pre">(m+1)*(m+1)</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>ndarray</p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 <dl class="simple">
@@ -271,7 +271,7 @@ It could be generated randomly. Often it is generated by the Rademacher distribu
 <dl class="py function">
 <dt id="TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization">
 <code class="sig-prename descclassname">TraceInv.LinearAlgebra.MatrixReduction.</code><code class="sig-name descname">LanczosTridiagonalization</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">Tolerance</span><span class="o">=</span><span class="default_value">1e-08</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/LinearAlgebra/MatrixReduction.html#LanczosTridiagonalization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tridiagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">w</span></code>. <code class="docutils literal notranslate"><span class="pre">m</span></code> is the Lanczos
+<dd><p>Tri-diagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">w</span></code>. <code class="docutils literal notranslate"><span class="pre">m</span></code> is the Lanczos
 degree, which will be the size of square matrix <code class="docutils literal notranslate"><span class="pre">T</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -283,18 +283,18 @@ degree, which will be the size of square matrix <code class="docutils literal no
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>ndarray</em>) – Input matrix of the size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>. Matrix should be positive-definite and symmetric.</p></li>
+<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Input matrix of the size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>. Matrix should be positive-definite and symmetric.</p></li>
 <li><p><strong>w</strong> (<em>array</em>) – Start vector for the Lanczos tri-diagonalization. Column vector of size <code class="docutils literal notranslate"><span class="pre">n</span></code>.
 It could be generated randomly. Often it is generated by the Rademacher distribution with entries <code class="docutils literal notranslate"><span class="pre">+1</span></code> and <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p></li>
 <li><p><strong>m</strong> (<em>int</em>) – Lanczos degree, which is the number of Lanczos iterations.</p></li>
-<li><p><strong>Tolerance</strong> (<em>float</em>) – The tolerance of the residial error of the Lanczos iteration.</p></li>
+<li><p><strong>Tolerance</strong> (<em>float</em>) – The tolerance of the residual error of the Lanczos iteration.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Symmetric positive-definite matric <code class="docutils literal notranslate"><span class="pre">T</span></code> of the size <code class="docutils literal notranslate"><span class="pre">(m+1)*(m+1)</span></code>.</p>
+<dd class="field-even"><p>Symmetric positive-definite matrix <code class="docutils literal notranslate"><span class="pre">T</span></code> of the size <code class="docutils literal notranslate"><span class="pre">(m+1)*(m+1)</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>ndarray</p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -302,13 +302,13 @@ It could be generated randomly. Often it is generated by the Rademacher distribu
 <dl class="py function">
 <dt id="TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2">
 <code class="sig-prename descclassname">TraceInv.LinearAlgebra.MatrixReduction.</code><code class="sig-name descname">LanczosTridiagonalization2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">v</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">Tolerance</span><span class="o">=</span><span class="default_value">1e-08</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/LinearAlgebra/MatrixReduction.html#LanczosTridiagonalization2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tridiagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">v</span></code>. <code class="docutils literal notranslate"><span class="pre">m</span></code> is the Lanczos
+<dd><p>Tri-diagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">v</span></code>. <code class="docutils literal notranslate"><span class="pre">m</span></code> is the Lanczos
 degree, which will be the size of square matrix <code class="docutils literal notranslate"><span class="pre">T</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">A</span></code> should be symmetric and positive-definite matrix size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code> will be symmetric and positve-definite matrix of size <code class="docutils literal notranslate"><span class="pre">(m+1,m+1)</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code> will be symmetric and positive-definite matrix of size <code class="docutils literal notranslate"><span class="pre">(m+1,m+1)</span></code>.</p></li>
 </ul>
 </div>
 <dl class="simple">
@@ -320,18 +320,18 @@ degree, which will be the size of square matrix <code class="docutils literal no
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>ndarray</em>) – Input matrix of the size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>. Matrix should be positive-definite and symmetric.</p></li>
+<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Input matrix of the size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>. Matrix should be positive-definite and symmetric.</p></li>
 <li><p><strong>v</strong> (<em>array</em>) – Start vector for the Lanczos tri-diagonalization. Column vector of size <code class="docutils literal notranslate"><span class="pre">n</span></code>.
 It could be generated randomly. Often it is generated by the Rademacher distribution with entries <code class="docutils literal notranslate"><span class="pre">+1</span></code> and <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p></li>
 <li><p><strong>m</strong> (<em>int</em>) – Lanczos degree, which is the number of Lanczos iterations.</p></li>
-<li><p><strong>Tolerance</strong> (<em>float</em>) – The tolerance of the residial error of the Lanczos iteration.</p></li>
+<li><p><strong>Tolerance</strong> (<em>float</em>) – The tolerance of the residual error of the Lanczos iteration.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Symmetric positive-definite matric <code class="docutils literal notranslate"><span class="pre">T</span></code> of the size <code class="docutils literal notranslate"><span class="pre">(m+1)*(m+1)</span></code>.</p>
+<dd class="field-even"><p>Symmetric positive-definite matrix <code class="docutils literal notranslate"><span class="pre">T</span></code> of the size <code class="docutils literal notranslate"><span class="pre">(m+1)*(m+1)</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>ndarray</p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -352,13 +352,13 @@ is misleadingly wrong.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>ndarray</em>) – Symmetric and positive-definite matrix.</p></li>
+<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Symmetric and positive-definite matrix.</p></li>
 <li><p><strong>DiagonalOnly</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, returns a column array of the diagonals of the Cholesky decomposition.
 If <code class="docutils literal notranslate"><span class="pre">False</span></code>, returns the full Cholesky matrix as scipy.sparse.csc_matrix.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Chlesky decomposition of <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
+<dd class="field-even"><p>Cholesky decomposition of <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>Super.LU</p>

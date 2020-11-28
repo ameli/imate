@@ -386,7 +386,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes correlation matrix ``K`` at the row and the column with the index ``ColumnIndex``.</span>
 
-<span class="sd">        * ``K`` is updated *inplace*.</span>
+<span class="sd">        * ``K`` is updated *in place*.</span>
 <span class="sd">        * This function is used as a partial function for parallel processing.</span>
 
 <span class="sd">        * If ``StartIndex`` is ``None``, it fills all columns of correlation matrix ``K``.</span>
@@ -521,7 +521,7 @@
     <span class="c1"># size of Distance matrix</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span>
 
-    <span class="c1"># Check if the thresholding is not too much to avoid the correlation matrix becomes identity. Each point should have at least one neighbor point in correlation matrix.</span>
+    <span class="c1"># Check if the threshold is not too much to avoid the correlation matrix becomes identity. Each point should have at least one neighbor point in correlation matrix.</span>
     <span class="k">if</span> <span class="n">UseSparse</span><span class="p">:</span>
         <span class="c1"># Compute Adjacency</span>
         <span class="n">NumPointsAlongAxis</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">rint</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
@@ -529,7 +529,7 @@
         <span class="n">KernelLength</span> <span class="o">=</span> <span class="o">-</span><span class="n">DecorrelationScale</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">KernelThreshold</span><span class="p">)</span>
         <span class="n">Adjacency</span> <span class="o">=</span> <span class="n">KernelLength</span> <span class="o">/</span> <span class="n">GridSize</span>
 
-        <span class="c1"># If Adjacency is less that one, the correlation matrix becomes identity since no point will be adjacet to other in the correlation matrix.</span>
+        <span class="c1"># If Adjacency is less that one, the correlation matrix becomes identity since no point will be adjacent to other in the correlation matrix.</span>
         <span class="k">if</span> <span class="n">Adjacency</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Adjacency: </span><span class="si">%0.2f</span><span class="s1">. Correlation matrix will become identity since Kernel length is less that grid size. To increase adjacency, consider decreasing KernelThreshold or increase DecorrelationScale.&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">Adjacency</span><span class="p">))</span>
 
@@ -537,14 +537,14 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">RayInstalled</span><span class="p">:</span>
         <span class="n">RunInParallel</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="c1"># If matrice are sparse, it is better to generate columns of correlation in parallel</span>
+    <span class="c1"># If matrices are sparse, it is better to generate columns of correlation in parallel</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">RunInParallel</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">UseSparse</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">5000</span><span class="p">):</span>
         <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;If matrices are sparse, it is better to generate columns of correlation matrix in parallel. Set &quot;RunInParallel&quot; to True.&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">RunInParallel</span><span class="p">:</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># Get number of cpus</span>
+            <span class="c1"># Get number of CPUs</span>
             <span class="n">NumCPUs</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
 
             <span class="c1"># Parallelization with ray</span>
@@ -572,12 +572,12 @@
 
             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Ray parallel processing to generate correlation failed. Try with a single process ...&#39;</span><span class="p">)</span>
 
-            <span class="c1"># Sometimes Ray&#39;s communications fail. Compute correlation withput parallel section</span>
+            <span class="c1"># Sometimes Ray&#39;s communications fail. Compute correlation without parallel section</span>
             <span class="n">K</span> <span class="o">=</span> <span class="n">ComputeCorrelationForAProcess</span><span class="p">(</span><span class="n">DecorrelationScale</span><span class="p">,</span><span class="n">nu</span><span class="p">,</span><span class="n">KernelThreshold</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">UseSparse</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span>
 
     <span class="k">else</span><span class="p">:</span>
 
-        <span class="c1"># Compute correlation withput parallel section</span>
+        <span class="c1"># Compute correlation without parallel section</span>
         <span class="n">K</span> <span class="o">=</span> <span class="n">ComputeCorrelationForAProcess</span><span class="p">(</span><span class="n">DecorrelationScale</span><span class="p">,</span><span class="n">nu</span><span class="p">,</span><span class="n">KernelThreshold</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">UseSparse</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">)</span>
 
     <span class="c1"># Fill lower left elements using symmetry of matrix</span>

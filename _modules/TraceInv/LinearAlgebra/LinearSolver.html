@@ -188,16 +188,16 @@
 <span class="sd">    Solves the linear system :math:`Ax = b` where :math:`A` can be either sparse or dense.</span>
 
 <span class="sd">    :param A: matrix of coefficients, two-dimensional array, can be either sparse or dense</span>
-<span class="sd">    :type A: ndarray</span>
+<span class="sd">    :type A: numpy.ndarray</span>
 
 <span class="sd">    :param b: column vector of the right hand side of the linear system, one-dimensional array</span>
 <span class="sd">    :type b: array</span>
 
-<span class="sd">    :param Tol: Tolerance for the error of solving linear system. This is only applicable if ``A`` is spase.</span>
+<span class="sd">    :param Tol: Tolerance for the error of solving linear system. This is only applicable if ``A`` is sparse.</span>
 <span class="sd">    :type Tol: float</span>
 
 <span class="sd">    :return: one-dimensional array of the solution of the linear system</span>
-<span class="sd">    :rtype: array</span>
+<span class="sd">    :rtype: numpy.array</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">isspmatrix</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>

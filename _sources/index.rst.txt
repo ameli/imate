@@ -68,13 +68,13 @@ Useful Links
 ..     * `Travis-CI <https://travis-ci.com/github/ameli/TraceInv>`_
 ..     * `Codecov <https://codecov.io/gh/ameli/TraceInv>`_
 
-+------------------------------------------------------------------+-------------------------------------------------------------------+
-|    For users                                                     | For developers                                                    |
-+==================================================================+===================================================================+
-| * `Documentation <https://ameli.github.io/TraceInv/index.html>`_ | * `API <https://ameli.github.io/TraceInv/_modules/modules.html>`_ |
-| * `PyPi package <https://pypi.org/project/TraceInv/>`_           | * `Travis-CI <https://travis-ci.com/github/ameli/TraceInv>`_      |
-| * `Source code <https://github.com/ameli/TraceInv>`_             | * `Codecov <https://codecov.io/gh/ameli/TraceInv>`_               |
-+------------------------------------------------------------------+-------------------------------------------------------------------+
++---------------------------------------------------------------+-------------------------------------------------------------------+
+|    For users                                                  | For developers                                                    |
++===============================================================+===================================================================+
+| * `Anaconda package <https://anaconda.org/s-ameli/traceinv>`_ | * `API <https://ameli.github.io/TraceInv/_modules/modules.html>`_ |
+| * `PyPi package <https://pypi.org/project/TraceInv/>`_        | * `Travis-CI <https://travis-ci.com/github/ameli/TraceInv>`_      |
+| * `Source code <https://github.com/ameli/TraceInv>`_          | * `Codecov <https://codecov.io/gh/ameli/TraceInv>`_               |
++---------------------------------------------------------------+-------------------------------------------------------------------+
 
 =================
 How to Contribute

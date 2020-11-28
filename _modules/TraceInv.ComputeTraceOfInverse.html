@@ -261,7 +261,7 @@ If <code class="docutils literal notranslate"><span class="pre">false</span></co
 <dt id="TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvBySolvingLinearSystem">
 <code class="sig-prename descclassname">TraceInv.ComputeTraceOfInverse.CholeskyMethod.</code><code class="sig-name descname">ComputeTraceInvBySolvingLinearSystem</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">L</span></em>, <em class="sig-param"><span class="n">n</span></em>, <em class="sig-param"><span class="n">UseSparse</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/ComputeTraceOfInverse/CholeskyMethod.html#ComputeTraceInvBySolvingLinearSystem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvBySolvingLinearSystem" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the trace of inverse by solving a linear system for Cholesky matrix and each column of the identity matrix
-to obtain the inverse of <code class="docutils literal notranslate"><span class="pre">L</span></code> subsequentially.</p>
+to obtain the inverse of <code class="docutils literal notranslate"><span class="pre">L</span></code> sub-sequentially.</p>
 <p>The matrix <span class="math notranslate nohighlight">\(\mathbf{L}\)</span> is not inverted directly, rather, the linear system</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{L} \boldsymbol{x}_i = \boldsymbol{e}_i, \qquad i = 1,\dots,n\]</div>
@@ -365,7 +365,7 @@ See <a class="reference internal" href="../ComputeTraceOfInverse.html#computetra
 <span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The above exaple uses the Cholesky method by default.
+<p>The above example uses the Cholesky method by default.
 In the next example, we apply the <em>Hutchinson’s randomized estimator</em> method.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
@@ -387,13 +387,13 @@ In the next example, we apply the <em>Hutchinson’s randomized estimator</em> m
 <dt id="TraceInv.ComputeTraceOfInverse.HutchinsonMethod.HutchinsonMethod">
 <code class="sig-prename descclassname">TraceInv.ComputeTraceOfInverse.HutchinsonMethod.</code><code class="sig-name descname">HutchinsonMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">NumIterations</span><span class="o">=</span><span class="default_value">20</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/ComputeTraceOfInverse/HutchinsonMethod.html#HutchinsonMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.ComputeTraceOfInverse.HutchinsonMethod.HutchinsonMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the trace of inverse of a matrix by Hutchinson method.</p>
-<p>The random vectors have Radamacher distribution. Compared to the Gaissuan
+<p>The random vectors have Rademacher distribution. Compared to the Gaussian
 distribution, the Rademacher distribution yields estimation of trace with lower
 variance.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In the is function, the generated set of random vectors are orthonormalized using 
-QR decomposition. hence, they no longer have Rademacher distribution. By orthonormalization,
+QR decomposition. Hence, they no longer have Rademacher distribution. By orthonormalization,
 the solution seem to have better convergence.</p>
 </div>
 <dl class="field-list simple">
@@ -428,14 +428,14 @@ Fast Estimation of <span class="math notranslate nohighlight">\(\mathrm{tr}(F(A)
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In Lanczos tridiagonalization method, <span class="math notranslate nohighlight">\(\theta\)</span> is the eigenvalue of <code class="docutils literal notranslate"><span class="pre">T</span></code>. 
-However, in Golub-Kahn bidoagonalization method, <span class="math notranslate nohighlight">\(\theta\)</span> is the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code>.
+<p>In Lanczos tri-diagonalization method, <span class="math notranslate nohighlight">\(\theta\)</span> is the eigenvalue of <code class="docutils literal notranslate"><span class="pre">T</span></code>. 
+However, in Golub-Kahn bi-diagonalization method, <span class="math notranslate nohighlight">\(\theta\)</span> is the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code>.
 The relation between these two methods are are follows: <code class="docutils literal notranslate"><span class="pre">B.T*B</span></code> is the <code class="docutils literal notranslate"><span class="pre">T</span></code> for <code class="docutils literal notranslate"><span class="pre">A.T*A</span></code>.
-That is, if we have the input matrix <code class="docutils literal notranslate"><span class="pre">A.T*T</span></code>, its Lanczos tridiagonalization <code class="docutils literal notranslate"><span class="pre">T</span></code> is the same matrix
-as if we bidiagonalize <code class="docutils literal notranslate"><span class="pre">A</span></code> (not <code class="docutils literal notranslate"><span class="pre">A.T*A</span></code>) with Golub-Kahn to get <code class="docutils literal notranslate"><span class="pre">B</span></code>, then <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">B.T*B</span></code>.
+That is, if we have the input matrix <code class="docutils literal notranslate"><span class="pre">A.T*T</span></code>, its Lanczos tri-diagonalization <code class="docutils literal notranslate"><span class="pre">T</span></code> is the same matrix
+as if we bi-diagonalize <code class="docutils literal notranslate"><span class="pre">A</span></code> (not <code class="docutils literal notranslate"><span class="pre">A.T*A</span></code>) with Golub-Kahn to get <code class="docutils literal notranslate"><span class="pre">B</span></code>, then <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">B.T*B</span></code>.
 This has not been highlighted paper in the above paper.</p>
 <p>To correctly implement Golub-Kahn, here <span class="math notranslate nohighlight">\(\theta\)</span> should be the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code>, <strong>NOT</strong>
-the square of the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code> (as decribed in the above paper incorrectly!).</p>
+the square of the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code> (as described in the above paper incorrectly!).</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -443,7 +443,7 @@ the square of the singular values of <code class="docutils literal notranslate">
 <li><p><strong>A</strong> (<em>ndarray</em>) – invertible matrix</p></li>
 <li><p><strong>NumIterations</strong> (<em>int</em>) – Number of Monte-Carlo trials</p></li>
 <li><p><strong>LanczosDegree</strong> (<em>int</em>) – Lanczos degree</p></li>
-<li><p><strong>UseLanczosTridiagonalization</strong> (<em>bool</em>) – Flag, if <code class="docutils literal notranslate"><span class="pre">True</span></code>, it uses the Lanczos tridiagonalization. 
+<li><p><strong>UseLanczosTridiagonalization</strong> (<em>bool</em>) – Flag, if <code class="docutils literal notranslate"><span class="pre">True</span></code>, it uses the Lanczos tri-diagonalization. 
 If <code class="docutils literal notranslate"><span class="pre">False</span></code>, it uses the Golub-Kahn bi-diagonalization.</p></li>
 </ul>
 </dd>

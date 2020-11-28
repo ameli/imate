@@ -200,7 +200,7 @@
 <span class="sd">    and :math:`\\mu_i` is the eigenvalue of :math:`\mathbf{B}`. </span>
 <span class="sd">    This class does not accept interpolant points as the result is not interpolated.</span>
 
-<span class="sd">    :param A: Invertible matrix, can be rither dense or sparse matrix.</span>
+<span class="sd">    :param A: Invertible matrix, can be either dense or sparse matrix.</span>
 <span class="sd">    :type A: numpy.ndarray</span>
 
 <span class="sd">    :param B: Invertible matrix, can be either dense or sparse matrix.</span>
@@ -209,15 +209,20 @@
 <span class="sd">    :param ComputeOptions: A dictionary of input arguments for :mod:`TraceInv.ComputeTraceOfInverse.ComputeTraceOfInverse` module.</span>
 <span class="sd">    :type ComputeOptions: dict</span>
 
-<span class="sd">    :param NonZeroRatio: The ratio of the number of eigenvalues to be assumed non-zero.</span>
-<span class="sd">        Used for sparse matrices.</span>
-<span class="sd">        Default is ``0.9`` indicating to compute 90 percent of the eigenevalues with the largest magnitude</span>
+<span class="sd">    :param NonZeroRatio: The ratio of the number of eigenvalues to be assumed non-zero over all eigenvalues.</span>
+<span class="sd">        This option is only used for sparse matrices where as assume some of eigenvalues are very small </span>
+<span class="sd">        and we are only interested in computing non-zero eigenvalues. In practice, it is not possible to </span>
+<span class="sd">        compute all eigenvalues of a large sparse matrix.</span>
+<span class="sd">        Default is ``0.9`` indicating to compute 90 percent of the eigenvalues with the largest magnitude</span>
 <span class="sd">        and assume the rest of the eigenvalues are zero.</span>
 <span class="sd">    :type NonZeroRatio: int</span>
 
-<span class="sd">    :param Tol: Tolerance of computing eigenvalues. Used onlt for sparse matrices.</span>
+<span class="sd">    :param Tol: Tolerance of computing eigenvalues. This option is only used for sparse matrices.</span>
 <span class="sd">        Default value is ``1e-3``.</span>
 <span class="sd">    :type Tol: float</span>
+
+<span class="sd">    :param Verbose: If ``True``, prints some information on the computation process. Default is ``False``.</span>
+<span class="sd">    :type Verbose: bool</span>
 
 <span class="sd">    .. note::</span>
 
@@ -229,23 +234,23 @@
 
 <span class="sd">    :example:</span>
 
-<span class="sd">    This class can be invoked from the :class:`TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse` module </span>
+<span class="sd">    This class can be invoked from :class:`TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse` module </span>
 <span class="sd">    using ``InterpolationMethod=&#39;EIG&#39;`` argument.</span>
 
 <span class="sd">    .. code-block:: python</span>
 
-<span class="sd">        from TraceInv import GenerateMatrix</span>
-<span class="sd">        from TraceInv import InterpolateTraceOfInverse</span>
+<span class="sd">        &gt;&gt;&gt; from TraceInv import GenerateMatrix</span>
+<span class="sd">        &gt;&gt;&gt; from TraceInv import InterpolateTraceOfInverse</span>
 <span class="sd">        </span>
-<span class="sd">        # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)</span>
-<span class="sd">        A = GenerateMatrix(NumPoints=20)</span>
+<span class="sd">        &gt;&gt;&gt; # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)</span>
+<span class="sd">        &gt;&gt;&gt; A = GenerateMatrix(NumPoints=20)</span>
 <span class="sd">        </span>
-<span class="sd">        # Create an object that interpolats trace of inverse of A+tI (I is identity matrix)</span>
-<span class="sd">        TI = InterpolateTraceOfInverse(A,InterpolatingMethod=&#39;EIG&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; # Create an object that interpolates trace of inverse of A+tI (I is identity matrix)</span>
+<span class="sd">        &gt;&gt;&gt; TI = InterpolateTraceOfInverse(A,InterpolatiionMethod=&#39;EIG&#39;)</span>
 <span class="sd">        </span>
-<span class="sd">        # Interpolate A+tI at some input point t</span>
-<span class="sd">        t = 4e-1</span>
-<span class="sd">        trace = TI.Interpolate(t)</span>
+<span class="sd">        &gt;&gt;&gt; # Interpolate A+tI at some input point t</span>
+<span class="sd">        &gt;&gt;&gt; t = 4e-1</span>
+<span class="sd">        &gt;&gt;&gt; trace = TI.Interpolate(t)</span>
 
 <span class="sd">    .. seealso::</span>
 
@@ -257,15 +262,16 @@
     <span class="c1"># Init</span>
     <span class="c1"># ----</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{},</span><span class="n">NonZeroRatio</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span><span class="n">Tol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{},</span><span class="n">NonZeroRatio</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span><span class="n">Tol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Constructor of the class.</span>
+<span class="sd">        Constructor of the class, which initializes the bases class and computes eigenvalues</span>
+<span class="sd">        of the input matrices.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># Base class constructor</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">EigenvaluesMethod</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">EigenvaluesMethod</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">)</span>
 
-        <span class="c1"># Attiributes</span>
+        <span class="c1"># Attributes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">NonZeroRatio</span> <span class="o">=</span> <span class="n">NonZeroRatio</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Tol</span> <span class="o">=</span> <span class="n">Tol</span>
 
@@ -288,12 +294,14 @@
 <span class="sd">            a fraction of the number of its eigenvalues with the larges magnitude and</span>
 <span class="sd">            we assume the rest of the eigenvalues are close to zero.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Initialize interpolator ...&#39;</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+       
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Initialize interpolator ...&#39;</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
         <span class="c1"># Find eigenvalues of A</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">UseSparse</span><span class="p">:</span>
 
+            <span class="c1"># A is sparse</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">A_eigenvalues</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
 
             <span class="c1"># find 90% of eigenvalues and assume the rest are very close to zero.</span>
@@ -307,12 +315,15 @@
 
         <span class="c1"># Find eigenvalues of B</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">BIsIdentity</span><span class="p">:</span>
+
             <span class="c1"># B is identity</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">B_eigenvalues</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># B is not identity</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">UseSparse</span><span class="p">:</span>
+
+                <span class="c1"># B is sparse</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">B_eigenvalues</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
 
                 <span class="c1"># find 90% of eigenvalues and assume the rest are very close to zero.</span>
@@ -324,7 +335,8 @@
                 <span class="c1"># B is dense matrix</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">B_eigenvalues</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">B</span><span class="p">,</span><span class="n">eigvals_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">check_finite</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; Done.&#39;</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; Done.&#39;</span><span class="p">)</span></div>
 
     <span class="c1"># -----------</span>
     <span class="c1"># Interpolate</span>
@@ -332,9 +344,8 @@
 
 <div class="viewcode-block" id="EigenvaluesMethod.Interpolate"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Interpolates the trace of inverse of ``A + t*N``.</span>
-
-<span class="sd">        This function computes the trace of inverse using the eigenvalues by:</span>
+<span class="sd">        Computes the function :math:`\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)` </span>
+<span class="sd">        at the input point :math:`t` by</span>
 
 <span class="sd">        .. math:: </span>
 
@@ -343,7 +354,10 @@
 <span class="sd">        where :math:`\\lambda_i` is the eigenvalue of :math:`\\mathbf{A}`.</span>
 <span class="sd">        and  :math:`\\mu_i` is the eigenvalue of :math:`\\mathbf{B}`.</span>
 
-<span class="sd">        :return: The interpolated value of the trace of inverse of ``A + tB``.</span>
+<span class="sd">        :param: t: An inquiry point, which can be a single number, or an array of numbers.</span>
+<span class="sd">        :type t: float or numpy.array</span>
+
+<span class="sd">        :return: The exact value of the trace of inverse of ``A + tB``.</span>
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         

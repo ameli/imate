@@ -218,7 +218,7 @@
 
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Do not use sksparse.cholmod.inv, as it computes LDLt decomposition and the computed trace becomes incorrect. Either set UseInverseMatrix to False when using sparse matrices, or use Hutchinson or Lanczos method.&#39;</span><span class="p">)</span>
 
-        <span class="c1"># Note: the L.inv() uses LDLt decomposition, not LLt, which then the compueted Trace becomes incorrect.</span>
+        <span class="c1"># Note: the L.inv() uses LDLt decomposition, not LLt, which then the computed Trace becomes incorrect.</span>
         <span class="n">Linv</span> <span class="o">=</span> <span class="n">L</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span>
         <span class="n">Trace</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">sparse</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">Linv</span><span class="p">,</span><span class="nb">ord</span><span class="o">=</span><span class="s1">&#39;fro&#39;</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
     <span class="k">else</span><span class="p">:</span>
@@ -234,7 +234,7 @@
 <div class="viewcode-block" id="ComputeTraceInvBySolvingLinearSystem"><a class="viewcode-back" href="../../../api/TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvBySolvingLinearSystem.html#TraceInv.ComputeTraceOfInverse.CholeskyMethod.ComputeTraceInvBySolvingLinearSystem">[docs]</a><span class="k">def</span> <span class="nf">ComputeTraceInvBySolvingLinearSystem</span><span class="p">(</span><span class="n">L</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">UseSparse</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes the trace of inverse by solving a linear system for Cholesky matrix and each column of the identity matrix</span>
-<span class="sd">    to obtain the inverse of ``L`` subsequentially.</span>
+<span class="sd">    to obtain the inverse of ``L`` sub-sequentially.</span>
 
 <span class="sd">    The matrix :math:`\mathbf{L}` is not inverted directly, rather, the linear system</span>
 
@@ -360,7 +360,7 @@
             <span class="c1"># Using Sparse Suite package</span>
             <span class="n">L</span> <span class="o">=</span> <span class="n">sksparse</span><span class="o">.</span><span class="n">cholmod</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="c1"># Using scipy, but with LU instad of Cholesky directoy</span>
+            <span class="c1"># Using scipy, but with LU instead of Cholesky directly.</span>
             <span class="n">L</span> <span class="o">=</span> <span class="n">SparseCholesky</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
             <span class="c1"># raise RuntimeError(&#39;The package &quot;sksparse&quot; is not installed. &#39;</span>
             <span class="c1">#     &#39;Either install &quot;sksparse&quot;, or do not use Cholesky method for sparse matrices. &#39;</span>

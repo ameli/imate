@@ -208,14 +208,14 @@ Fast Estimation of <span class="math notranslate nohighlight">\(\mathrm{tr}(F(A)
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In Lanczos tridiagonalization method, <span class="math notranslate nohighlight">\(\theta\)</span> is the eigenvalue of <code class="docutils literal notranslate"><span class="pre">T</span></code>. 
-However, in Golub-Kahn bidoagonalization method, <span class="math notranslate nohighlight">\(\theta\)</span> is the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code>.
+<p>In Lanczos tri-diagonalization method, <span class="math notranslate nohighlight">\(\theta\)</span> is the eigenvalue of <code class="docutils literal notranslate"><span class="pre">T</span></code>. 
+However, in Golub-Kahn bi-diagonalization method, <span class="math notranslate nohighlight">\(\theta\)</span> is the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code>.
 The relation between these two methods are are follows: <code class="docutils literal notranslate"><span class="pre">B.T*B</span></code> is the <code class="docutils literal notranslate"><span class="pre">T</span></code> for <code class="docutils literal notranslate"><span class="pre">A.T*A</span></code>.
-That is, if we have the input matrix <code class="docutils literal notranslate"><span class="pre">A.T*T</span></code>, its Lanczos tridiagonalization <code class="docutils literal notranslate"><span class="pre">T</span></code> is the same matrix
-as if we bidiagonalize <code class="docutils literal notranslate"><span class="pre">A</span></code> (not <code class="docutils literal notranslate"><span class="pre">A.T*A</span></code>) with Golub-Kahn to get <code class="docutils literal notranslate"><span class="pre">B</span></code>, then <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">B.T*B</span></code>.
+That is, if we have the input matrix <code class="docutils literal notranslate"><span class="pre">A.T*T</span></code>, its Lanczos tri-diagonalization <code class="docutils literal notranslate"><span class="pre">T</span></code> is the same matrix
+as if we bi-diagonalize <code class="docutils literal notranslate"><span class="pre">A</span></code> (not <code class="docutils literal notranslate"><span class="pre">A.T*A</span></code>) with Golub-Kahn to get <code class="docutils literal notranslate"><span class="pre">B</span></code>, then <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">B.T*B</span></code>.
 This has not been highlighted paper in the above paper.</p>
 <p>To correctly implement Golub-Kahn, here <span class="math notranslate nohighlight">\(\theta\)</span> should be the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code>, <strong>NOT</strong>
-the square of the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code> (as decribed in the above paper incorrectly!).</p>
+the square of the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code> (as described in the above paper incorrectly!).</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -223,7 +223,7 @@ the square of the singular values of <code class="docutils literal notranslate">
 <li><p><strong>A</strong> (<em>ndarray</em>) – invertible matrix</p></li>
 <li><p><strong>NumIterations</strong> (<em>int</em>) – Number of Monte-Carlo trials</p></li>
 <li><p><strong>LanczosDegree</strong> (<em>int</em>) – Lanczos degree</p></li>
-<li><p><strong>UseLanczosTridiagonalization</strong> (<em>bool</em>) – Flag, if <code class="docutils literal notranslate"><span class="pre">True</span></code>, it uses the Lanczos tridiagonalization. 
+<li><p><strong>UseLanczosTridiagonalization</strong> (<em>bool</em>) – Flag, if <code class="docutils literal notranslate"><span class="pre">True</span></code>, it uses the Lanczos tri-diagonalization. 
 If <code class="docutils literal notranslate"><span class="pre">False</span></code>, it uses the Golub-Kahn bi-diagonalization.</p></li>
 </ul>
 </dd>

@@ -212,7 +212,7 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This function uses the <a class="reference external" href="https://people.engr.tamu.edu/davis/suitesparse.html">Suite Sparse</a> 
-package to compute the Cholesky decompositon. See the <a class="reference internal" href="../install.html#installscikitsparse"><span class="std std-ref">installation</span></a>.</p>
+package to compute the Cholesky decomposition. See the <a class="reference internal" href="../install.html#installscikitsparse"><span class="std std-ref">installation</span></a>.</p>
 </div>
 <p>The result is exact (no approximation) and should be used as benchmark to test other methods.</p>
 </dd></dl>
@@ -220,7 +220,7 @@ package to compute the Cholesky decompositon. See the <a class="reference intern
 <dl class="py function">
 <dt id="TraceInv.ComputeLogDeterminant.ComputeLogDeterminant.ComputeLogDeterminant">
 <code class="sig-prename descclassname">TraceInv.ComputeLogDeterminant.ComputeLogDeterminant.</code><code class="sig-name descname">ComputeLogDeterminant</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">ComputeMethod</span><span class="o">=</span><span class="default_value">'cholesky'</span></em>, <em class="sig-param"><span class="n">NumIterations</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">LanczosDegree</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">UseLanczosTridiagonalization</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/ComputeLogDeterminant/ComputeLogDeterminant.html#ComputeLogDeterminant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.ComputeLogDeterminant.ComputeLogDeterminant.ComputeLogDeterminant" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes the log-determinan of full-rank matrix <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
+<dd><p>Computes the log-determinant of full-rank matrix <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -240,11 +240,11 @@ If <code class="docutils literal notranslate"><span class="pre">False</span></co
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For computing the <em>trace of inverse</em> with the sothcastic Lanczos quadrature method 
+<p>For computing the <em>trace of inverse</em> with the stochastic Lanczos quadrature method 
 (see <code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadrature</span></code>), the preferred algorithm is
 the Lanczos tri-diagonalization, as opposed to Golub-Kahn bi-diagonalization.</p>
 <p>In contrast to the above, the preferred SLQ method for computing <em>log-determinant</em> is
-the Golu-Kahn bi-diagonalization. The reason is that if the matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> 
+the Golub-Kahn bi-diagonalization. The reason is that if the matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> 
 has many singular values close to zero, bi-diagonalization performs better, 
 and this matters when we compute determinant.</p>
 </div>
@@ -271,7 +271,7 @@ Fast estimation of <span class="math notranslate nohighlight">\(\mathrm{tr}(f(A)
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant with stochastic Lanczos quadrature method</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">LogDet_1</span> <span class="o">=</span> <span class="n">ComputeLogDeterminant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;SLQ&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant with stochastic Lanczos quadrature method with Golub-Khan bi-diagonaliation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant with stochastic Lanczos quadrature method with Golub-Khan bi-diagonalization</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">LogDet_1</span> <span class="o">=</span> <span class="n">ComputeLogDeterminant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;SLQ&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> 
 <span class="gp">... </span>                <span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">Tridiagonalization</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
@@ -287,8 +287,8 @@ Fast estimation of <span class="math notranslate nohighlight">\(\mathrm{tr}(f(A)
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> (<em>numpy.ndarray</em><em> or </em><em>scipy.sparse.csc_matrix</em>) – A full-rank matrix.</p></li>
 <li><p><strong>NumIterations</strong> (<em>int</em>) – Number of Monte-Carlo trials</p></li>
-<li><p><strong>LanczosDegree</strong> (<em>int</em>) – Lanczos degree of the tri-diagonalization (or bi-diaqgonalization) process</p></li>
-<li><p><strong>UseLanczosTridiagonalization</strong> (<em>bool</em>) – Flag, if <code class="docutils literal notranslate"><span class="pre">True</span></code>, it uses the Lanczos tridiagonalization. 
+<li><p><strong>LanczosDegree</strong> (<em>int</em>) – Lanczos degree of the tri-diagonalization (or bi-diagonalization) process</p></li>
+<li><p><strong>UseLanczosTridiagonalization</strong> (<em>bool</em>) – Flag, if <code class="docutils literal notranslate"><span class="pre">True</span></code>, it uses the Lanczos tri-diagonalization. 
 If <code class="docutils literal notranslate"><span class="pre">False</span></code>, it uses the Golub-Kahn bi-diagonalization.</p></li>
 </ul>
 </dd>
@@ -317,7 +317,7 @@ LanczosDegree is an integer.</p>
 <li><p><strong>A</strong> (<em>numpy.ndarray</em><em> or </em><em>scipy.sparse.csc_matrix</em>) – A full-rank matrix.</p></li>
 <li><p><strong>NumIterations</strong> (<em>int</em>) – Number of Monte-Carlo trials</p></li>
 <li><p><strong>LanczosDegree</strong> (<em>int</em>) – Lanczos degree of the tri-diagonalization (or bi-diaqgonalization) process</p></li>
-<li><p><strong>UseLanczosTridiagonalization</strong> (<em>bool</em>) – Flag, if <code class="docutils literal notranslate"><span class="pre">True</span></code>, it uses the Lanczos tridiagonalization. 
+<li><p><strong>UseLanczosTridiagonalization</strong> (<em>bool</em>) – Flag, if <code class="docutils literal notranslate"><span class="pre">True</span></code>, it uses the Lanczos tri-diagonalization. 
 If <code class="docutils literal notranslate"><span class="pre">False</span></code>, it uses the Golub-Kahn bi-diagonalization.</p></li>
 </ul>
 </dd>
@@ -329,14 +329,14 @@ If <code class="docutils literal notranslate"><span class="pre">False</span></co
 </dd>
 </dl>
 <dl>
-<dt>About the implementation of Golub-Kahn bi-diagonalization:</dt><dd><p>In Lanczos tridiagonalization method, <code class="docutils literal notranslate"><span class="pre">theta</span></code> is the eigenvalues of <code class="docutils literal notranslate"><span class="pre">T</span></code>. 
-However, in Golub-Kahn bidoagonalization method, <code class="docutils literal notranslate"><span class="pre">theta</span></code> is the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code>.
-The relation between these two methords are are follows: <code class="docutils literal notranslate"><span class="pre">B.T*B</span></code> is the <code class="docutils literal notranslate"><span class="pre">T</span></code> for <code class="docutils literal notranslate"><span class="pre">A.T*A</span></code>.
-That is, if we have the input matrix <code class="docutils literal notranslate"><span class="pre">A.T*T</span></code>, its Lanczos tridiagonalization <code class="docutils literal notranslate"><span class="pre">T</span></code> is the same matrix
-as if we bidiagonalize <code class="docutils literal notranslate"><span class="pre">A</span></code> (not <code class="docutils literal notranslate"><span class="pre">A.T*A</span></code>) with Golub-Kahn to get <code class="docutils literal notranslate"><span class="pre">B</span></code>, then <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">B.T*B</span></code>.
+<dt>About the implementation of Golub-Kahn bi-diagonalization:</dt><dd><p>In Lanczos tri-diagonalization method, <code class="docutils literal notranslate"><span class="pre">theta</span></code> is the eigenvalues of <code class="docutils literal notranslate"><span class="pre">T</span></code>. 
+However, in Golub-Kahn bi-diagonalization method, <code class="docutils literal notranslate"><span class="pre">theta</span></code> is the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code>.
+The relation between these two methods are are follows: <code class="docutils literal notranslate"><span class="pre">B.T*B</span></code> is the <code class="docutils literal notranslate"><span class="pre">T</span></code> for <code class="docutils literal notranslate"><span class="pre">A.T*A</span></code>.
+That is, if we have the input matrix <code class="docutils literal notranslate"><span class="pre">A.T*T</span></code>, its Lanczos tri-diagonalization <code class="docutils literal notranslate"><span class="pre">T</span></code> is the same matrix
+as if we bi-diagonalize <code class="docutils literal notranslate"><span class="pre">A</span></code> (not <code class="docutils literal notranslate"><span class="pre">A.T*A</span></code>) with Golub-Kahn to get <code class="docutils literal notranslate"><span class="pre">B</span></code>, then <code class="docutils literal notranslate"><span class="pre">T</span> <span class="pre">=</span> <span class="pre">B.T*B</span></code>.
 This has not been highlighted paper referenced below.</p>
 <p>To correctly implement Golub-Kahn, here Theta should be the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code>, <em>NOT</em>
-the square of the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code> (as decribed in the paper incorrectly!).</p>
+the square of the singular values of <code class="docutils literal notranslate"><span class="pre">B</span></code> (as described in the paper incorrectly!).</p>
 </dd>
 </dl>
 </dd></dl>

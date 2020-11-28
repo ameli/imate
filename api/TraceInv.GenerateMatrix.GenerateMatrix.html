@@ -191,7 +191,7 @@
 <dt id="TraceInv.GenerateMatrix.GenerateMatrix">
 <code class="sig-prename descclassname">TraceInv.GenerateMatrix.</code><code class="sig-name descname">GenerateMatrix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">NumPoints</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">DecorrelationScale</span><span class="o">=</span><span class="default_value">0.1</span></em>, <em class="sig-param"><span class="n">nu</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">UseSparse</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">GridOfPoints</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">KernelThreshold</span><span class="o">=</span><span class="default_value">0.03</span></em>, <em class="sig-param"><span class="n">RunInParallel</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">Plot</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/GenerateMatrix/GenerateMatrix.html#GenerateMatrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.GenerateMatrix.GenerateMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates symmetric and positive-definite matrix for test purposes.</p>
-<p>The generated matrx is a correlation matrix based on Matern correlation of spatial distance of 
+<p>The generated matrix is a correlation matrix based on Matern correlation of spatial distance of 
 a list of points in the unit square. The Matern correlation function can be characterized by two 
 parameters:</p>
 <blockquote>
@@ -210,8 +210,8 @@ and <code class="docutils literal notranslate"><span class="pre">GridOfPoints</s
 </ul>
 </div></blockquote>
 <p>The values of the correlation matrix are between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>. To sparsify the generated matrix, 
-set <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code>, which makes all correlations below this threshold to be zero. If <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code> is zet to
-zer, the matrix is not sparsified.</p>
+set <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code>, which makes all correlations below this threshold to be zero. If <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code> is set to
+zero, the matrix is not sparsified.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Too large <code class="docutils literal notranslate"><span class="pre">KernelThreshold</span></code> might eradicate the positive-definiteness of the correlation matrix.</p>
@@ -219,7 +219,7 @@ zer, the matrix is not sparsified.</p>
 <p>For very large sparse matrices, use <code class="docutils literal notranslate"><span class="pre">RunInParallel</span></code> to generate the rows and columns of the correlation matrix in parallel.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>To use parallel processing, the package <code class="docutils literal notranslate"><span class="pre">ray</span></code> should be insatalled.</p>
+<p>To use parallel processing, the package <code class="docutils literal notranslate"><span class="pre">ray</span></code> should be installed.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -231,14 +231,14 @@ zer, the matrix is not sparsified.</p>
 <li><p><strong>KernelThreshold</strong> – To sparsify the matrix (if <code class="docutils literal notranslate"><span class="pre">UseSparse</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>), the correlation function values below this threshold 
 is set to zero.</p></li>
 <li><p><strong>RunInParallel</strong> (<em>bool</em>) – Runs the code in parallel. Note that the <code class="docutils literal notranslate"><span class="pre">ray</span></code> module should be uncommented.</p></li>
-<li><p><strong>Plot</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the matrix will be ploted.</p></li>
+<li><p><strong>Plot</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the matrix will be plotted.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Correlation matrix. If <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> are <code class="docutils literal notranslate"><span class="pre">n*1</span></code> arrays, the correlation <code class="docutils literal notranslate"><span class="pre">K</span></code> is <code class="docutils literal notranslate"><span class="pre">n*n</span></code> matrix.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>ndarray or sparse array</p>
+<dd class="field-odd"><p>numpy.ndarray or sparse array</p>
 </dd>
 </dl>
 <p><strong>Example:</strong></p>
@@ -255,7 +255,7 @@ is set to zero.</p></li>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">DecorrelationScale</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Generate a corelation matrix with more smoothness.. Default for <code class="docutils literal notranslate"><span class="pre">nu</span></code> is <code class="docutils literal notranslate"><span class="pre">0.5</span></code>.</p>
+<p>Generate a correlation matrix with more smoothness.. Default for <code class="docutils literal notranslate"><span class="pre">nu</span></code> is <code class="docutils literal notranslate"><span class="pre">0.5</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">nu</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
 </pre></div>
 </div>

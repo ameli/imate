@@ -194,7 +194,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generates symmetric and positive-definite matrix for test purposes.</span>
 <span class="sd">    </span>
-<span class="sd">    The generated matrx is a correlation matrix based on Matern correlation of spatial distance of </span>
+<span class="sd">    The generated matrix is a correlation matrix based on Matern correlation of spatial distance of </span>
 <span class="sd">    a list of points in the unit square. The Matern correlation function can be characterized by two </span>
 <span class="sd">    parameters:</span>
 
@@ -209,8 +209,8 @@
 <span class="sd">        * If ``GridOfPoints`` is ``False``, then, the matrix is of the size :math:`n \\times n`.</span>
 
 <span class="sd">    The values of the correlation matrix are between :math:`0` and :math:`1`. To sparsify the generated matrix, </span>
-<span class="sd">    set ``KernelThreshold``, which makes all correlations below this threshold to be zero. If ``KernelThreshold`` is zet to</span>
-<span class="sd">    zer, the matrix is not sparsified.</span>
+<span class="sd">    set ``KernelThreshold``, which makes all correlations below this threshold to be zero. If ``KernelThreshold`` is set to</span>
+<span class="sd">    zero, the matrix is not sparsified.</span>
 
 <span class="sd">    .. note:: </span>
 <span class="sd">        </span>
@@ -220,7 +220,7 @@
 
 <span class="sd">    .. note:: </span>
 
-<span class="sd">        To use parallel processing, the package ``ray`` should be insatalled.</span>
+<span class="sd">        To use parallel processing, the package ``ray`` should be installed.</span>
 
 <span class="sd">    :param NumPoints: Depending on ``GridOfPoints``, this is either the number of points or the number of grid points along an axis.</span>
 <span class="sd">    :type NumPoints: int</span>
@@ -241,11 +241,11 @@
 <span class="sd">    :param RunInParallel: Runs the code in parallel. Note that the ``ray`` module should be uncommented.</span>
 <span class="sd">    :type RunInParallel: bool</span>
 
-<span class="sd">    :param Plot: If ``True``, the matrix will be ploted.</span>
+<span class="sd">    :param Plot: If ``True``, the matrix will be plotted.</span>
 <span class="sd">    :type Plot: bool</span>
 
 <span class="sd">    :return: Correlation matrix. If ``x`` and ``y`` are ``n*1`` arrays, the correlation ``K`` is ``n*n`` matrix.</span>
-<span class="sd">    :rtype: ndarray or sparse array</span>
+<span class="sd">    :rtype: numpy.ndarray or sparse array</span>
 
 <span class="sd">    **Example:**</span>
 
@@ -268,7 +268,7 @@
 
 <span class="sd">       &gt;&gt;&gt; A = GenerateMatrix(NumPoints=20,DecorrelationScale=0.3)</span>
 
-<span class="sd">    Generate a corelation matrix with more smoothness.. Default for ``nu`` is ``0.5``.</span>
+<span class="sd">    Generate a correlation matrix with more smoothness.. Default for ``nu`` is ``0.5``.</span>
 
 <span class="sd">    .. code-block:: python</span>
 
@@ -321,7 +321,7 @@
 <span class="sd">    correspond to the value of the elements of the matrix.</span>
 
 <span class="sd">    If a graphical backend is not provided, the plot is not displayed,</span>
-<span class="sd">    rather saved as SVG file in the current directory of user.</span>
+<span class="sd">    rather saved as ``SVG`` file in the current directory of user.</span>
 
 <span class="sd">    :param K: matrix to plot</span>
 <span class="sd">    :type K : numpy.ndarray or scipy.sparse.csc_matrix</span>

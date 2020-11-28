@@ -186,32 +186,52 @@
 
 <div class="viewcode-block" id="InterpolantBaseClass"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass">[docs]</a><span class="k">class</span> <span class="nc">InterpolantBaseClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This is the base class for the following classes:</span>
+<span class="sd">    This is the base class for the following derived classes:</span>
 
 <span class="sd">    * :class:`TraceInv.InterpolateTraceOfInverse.ExactMethod`</span>
 <span class="sd">    * :class:`TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod`</span>
-<span class="sd">    * :class:`TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod``</span>
-<span class="sd">    * :class:`TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod``</span>
-<span class="sd">    * :class:`TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod``</span>
-<span class="sd">    * :class:`TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod``</span>
+<span class="sd">    * :class:`TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod`</span>
+<span class="sd">    * :class:`TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod`</span>
+<span class="sd">    * :class:`TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod`</span>
+<span class="sd">    * :class:`TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod`</span>
 
-<span class="sd">    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass</span>
-<span class="sd">        :parts: 1</span>
+<span class="sd">    :param A: A positive-definite matrix. Matrix can be dense or sparse.</span>
+<span class="sd">    :type A: numpy.ndarray or scipy.sparse.csc_matrix</span>
 
+<span class="sd">    :param B: A positive-definite matrix. Matrix can be dense or sparse.</span>
+<span class="sd">        If ``None`` or not provided, it is assumed that ``B`` is an identity matrix of the shape of ``A``.</span>
+<span class="sd">    :type B: numpy.ndarray or scipy.sparse.csc_matrix</span>
+
+<span class="sd">    :param InterpolantPoints: A list or an array of points that the interpolator use to interpolate. </span>
+<span class="sd">        The trace of inverse is computed for the interpolant points with exact method. </span>
+<span class="sd">    :type InterpolantPoints: list(float) or numpy.array(float)</span>
+
+<span class="sd">    :param InterpolationMethod: One of the methods ``&#39;EXT&#39;``, ``&#39;EIG&#39;``, ``&#39;MBF&#39;``, ``&#39;RMBF&#39;``, ``&#39;RBF&#39;``, and ``&#39;RPF&#39;``.</span>
+<span class="sd">        Default is ``&#39;RMBF&#39;``.</span>
+<span class="sd">    :type InterpolationMethod: string</span>
+
+<span class="sd">    :param ComputeOptions: A dictionary of arguments to pass to :mod:`TraceInv.ComputeTraceOfInverse` module.</span>
+<span class="sd">    :type ComputeOptions: dict</span>
+
+<span class="sd">    :param Verbose: If ``True``, prints some information on the computation process. Default is ``False``.</span>
+<span class="sd">    :type Verbose: bool</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># ----</span>
     <span class="c1"># Init</span>
     <span class="c1"># ----</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{},</span><span class="n">Verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The initialization function does the followings:</span>
 
 <span class="sd">        * Initializes te interpolant points and the input matrix.</span>
 <span class="sd">        * Scale the interpolant points if needed.</span>
-<span class="sd">        * Comutes the trace of inverse at the interpolant points.</span>
+<span class="sd">        * Computes the trace of inverse at the interpolant points.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Verbose</span> <span class="o">=</span> <span class="n">Verbose</span>
 
         <span class="c1"># Matrix A</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">=</span> <span class="n">A</span>
@@ -249,13 +269,13 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">ComputeTraceInvOfInputMatrices</span><span class="p">()</span>
 
             <span class="c1"># Compute trace at interpolant points</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">eta_i</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">InterpolantPoints</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_i</span><span class="o">.</span><span class="n">size</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">t_i</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">InterpolantPoints</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_i</span><span class="o">.</span><span class="n">size</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">trace_i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ComputeTraceAtInterpolantPoints</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">tau_i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trace_i</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">trace_Binv</span>
 
             <span class="c1"># Scale interpolant points</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Scale_eta</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Scale_t</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ScaleInterpolantPoints</span><span class="p">()</span>
 
     <span class="c1"># ----------------------------------</span>
@@ -264,19 +284,18 @@
 
 <div class="viewcode-block" id="InterpolantBaseClass.ComputeTraceInvOfInputMatrices"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.ComputeTraceInvOfInputMatrices">[docs]</a>    <span class="k">def</span> <span class="nf">ComputeTraceInvOfInputMatrices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Computes the trace of inverse of input matrices ``A`` and ``B``, and their ratio ``tau0``.</span>
+<span class="sd">        Computes the trace of inverse of input matrices :math:`\mathbf{A}` and :math:`\mathbf{B}`, and the ratio :math:`\\tau_0`</span>
+<span class="sd">        defined by</span>
 
-<span class="sd">        This function sets the following class attirbutes:</span>
+<span class="sd">        .. math::</span>
+
+<span class="sd">            \\tau_0 = \\frac{\mathrm{trace}( \mathbf{A}^{-1})}{\mathrm{trace}( \mathbf{B}^{-1})}.</span>
+
+<span class="sd">        This function sets the following class attributes:</span>
 
 <span class="sd">        * ``self.trace_Ainv``: trace of inverse of ``A``.</span>
 <span class="sd">        * ``self.trace_Binv``: trace of inverse of ``B``.</span>
 <span class="sd">        * ``self.tau0``: the ratio of ``self.trace_Ainv`` over ``self.trace_Binv``.</span>
-
-<span class="sd">        The ratio :math:`\\tau_0` is defined by:</span>
-
-<span class="sd">        .. math::</span>
-
-<span class="sd">            \\tau_0 = \\frac{\mathrm{trace}(\mathbf{A}^{-1})}{\mathrm{trace}(\mathbf{B}^{-1})}.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="c1"># trace of Ainv</span>
@@ -297,16 +316,19 @@
 
 <div class="viewcode-block" id="InterpolantBaseClass.ScaleInterpolantPoints"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.ScaleInterpolantPoints">[docs]</a>    <span class="k">def</span> <span class="nf">ScaleInterpolantPoints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Rescales the range of interpolant points. This function is intended to be used internally.</span>
+
 <span class="sd">        If the largest interpolant point in ``self.InterpolantPoints`` is greater than ``1``, </span>
-<span class="sd">        this function rescales their range to max at ``1``. This function is intended to be </span>
-<span class="sd">        used internally.</span>
+<span class="sd">        this function rescales their range to max at ``1``.  The rescale is necessary if the method of </span>
+<span class="sd">        interpolation is based on the orthogonal basis functions, which they are defined to be orthogonal </span>
+<span class="sd">        in the range :math:`t \in [0,1]`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="c1"># Scale eta, if some of eta_i are greater than 1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">Scale_eta</span> <span class="o">=</span> <span class="mf">1.0</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eta_i</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_i</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">Scale_eta</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_i</span><span class="p">)</span></div>
+        <span class="c1"># Scale t, if some of t_i are greater than 1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Scale_t</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">t_i</span><span class="o">.</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_i</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">Scale_t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_i</span><span class="p">)</span></div>
 
     <span class="c1"># -------</span>
     <span class="c1"># Compute</span>
@@ -314,10 +336,10 @@
 
 <div class="viewcode-block" id="InterpolantBaseClass.Compute"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.Compute">[docs]</a>    <span class="k">def</span> <span class="nf">Compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Computes the trace of inverse of ``A+tB`` at point ``t`` with exact method, that is,</span>
+<span class="sd">        Computes :math:`\mathrm{trace}\left( (\mathbf{A}+t \mathbf{B})^{-1} \\right)` at point :math:`t` with exact method, that is,</span>
 <span class="sd">        no interpolation is used and the result is exact.</span>
 <span class="sd">       </span>
-<span class="sd">        This function is primarily used internally to compute trace of inverse at interpolant points. </span>
+<span class="sd">        This function is primarily used internally to compute trace of inverse at *interpolant points*. </span>
 <span class="sd">        This function uses :class:`TraceInv.ComputeTraceOfInverse` class with options described by</span>
 <span class="sd">        ``self.ComputeOptions``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -333,18 +355,21 @@
 
 <div class="viewcode-block" id="InterpolantBaseClass.ComputeTraceAtInterpolantPoints"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.ComputeTraceAtInterpolantPoints">[docs]</a>    <span class="k">def</span> <span class="nf">ComputeTraceAtInterpolantPoints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Computes the trace of inverse of ``A+tB`` at interpolant points ``self.InterpolantPoints``.</span>
-<span class="sd">        At each interpolant point, the trace is computed exactly using :class:`TraceInv.ComputeTraceOfInverse`.</span>
+<span class="sd">        Computes :math:`\mathrm{trace} \left( (\mathbf{A}+ t \mathbf{B})^{-1} \\right)` at interpolant points </span>
+<span class="sd">        ``self.InterpolantPoints``. At interpolant points, the trace is computed exactly </span>
+<span class="sd">        using :class:`TraceInv.ComputeTraceOfInverse`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Evaluate function at interpolant points ...&#39;</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Evaluate function at interpolant points ...&#39;</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
         <span class="c1"># Compute trace at interpolant points</span>
         <span class="n">trace_i</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">):</span>
-            <span class="n">trace_i</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Compute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">eta_i</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">trace_i</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Compute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t_i</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; Done.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">Verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; Done.&#39;</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">trace_i</span></div>
 
@@ -354,7 +379,7 @@
 
 <div class="viewcode-block" id="InterpolantBaseClass.LowerBound"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.LowerBound">[docs]</a>    <span class="k">def</span> <span class="nf">LowerBound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Computes the lower bound of the trce of the inverse of the one-parameter function ``A+tB``.</span>
+<span class="sd">        Lower bound of the function :math:`t \mapsto \mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)`.</span>
 
 <span class="sd">        The lower bound is given by Remark 2.2 of [Ameli-2020]_ as</span>
 
@@ -378,7 +403,7 @@
 
 <div class="viewcode-block" id="InterpolantBaseClass.UpperBound"><a class="viewcode-back" href="../../TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.UpperBound">[docs]</a>    <span class="k">def</span> <span class="nf">UpperBound</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Computes the upper bound of the trace of the inverse of the one-parameter function ``A+tB``.</span>
+<span class="sd">        Upper bound of the function :math:`t \mapsto \mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)`.</span>
 
 <span class="sd">        The upper bound is given by Theorem 1 of [Ameli-2020]_ as</span>
 

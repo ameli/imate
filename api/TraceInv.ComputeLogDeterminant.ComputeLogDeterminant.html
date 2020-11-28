@@ -194,7 +194,7 @@
 <dl class="py function">
 <dt id="TraceInv.ComputeLogDeterminant.ComputeLogDeterminant">
 <code class="sig-prename descclassname">TraceInv.ComputeLogDeterminant.</code><code class="sig-name descname">ComputeLogDeterminant</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">ComputeMethod</span><span class="o">=</span><span class="default_value">'cholesky'</span></em>, <em class="sig-param"><span class="n">NumIterations</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">LanczosDegree</span><span class="o">=</span><span class="default_value">20</span></em>, <em class="sig-param"><span class="n">UseLanczosTridiagonalization</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/ComputeLogDeterminant/ComputeLogDeterminant.html#ComputeLogDeterminant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.ComputeLogDeterminant.ComputeLogDeterminant" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes the log-determinan of full-rank matrix <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
+<dd><p>Computes the log-determinant of full-rank matrix <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -214,11 +214,11 @@ If <code class="docutils literal notranslate"><span class="pre">False</span></co
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For computing the <em>trace of inverse</em> with the sothcastic Lanczos quadrature method 
+<p>For computing the <em>trace of inverse</em> with the stochastic Lanczos quadrature method 
 (see <code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadrature</span></code>), the preferred algorithm is
 the Lanczos tri-diagonalization, as opposed to Golub-Kahn bi-diagonalization.</p>
 <p>In contrast to the above, the preferred SLQ method for computing <em>log-determinant</em> is
-the Golu-Kahn bi-diagonalization. The reason is that if the matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> 
+the Golub-Kahn bi-diagonalization. The reason is that if the matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> 
 has many singular values close to zero, bi-diagonalization performs better, 
 and this matters when we compute determinant.</p>
 </div>
@@ -245,7 +245,7 @@ Fast estimation of <span class="math notranslate nohighlight">\(\mathrm{tr}(f(A)
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant with stochastic Lanczos quadrature method</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">LogDet_1</span> <span class="o">=</span> <span class="n">ComputeLogDeterminant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;SLQ&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant with stochastic Lanczos quadrature method with Golub-Khan bi-diagonaliation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant with stochastic Lanczos quadrature method with Golub-Khan bi-diagonalization</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">LogDet_1</span> <span class="o">=</span> <span class="n">ComputeLogDeterminant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;SLQ&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> 
 <span class="gp">... </span>                <span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">Tridiagonalization</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
