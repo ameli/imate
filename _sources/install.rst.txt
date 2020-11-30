@@ -35,6 +35,13 @@ TraceInv can be installed on Linux, macOS, and Windows platforms and supports bo
 
 
 * **Method 3: Build source locally.**
+
+  First, install ``setuptools``:
+
+  ::
+      
+      python -m pip install setuptools 
+
   Clone the source code, build locally, and install by
   
   ::
@@ -46,7 +53,7 @@ TraceInv can be installed on Linux, macOS, and Windows platforms and supports bo
 
   Note that the last line in the above many need to be run with ``sudo``.
 
-  The third installation method does not install the dependencies automatically and they should be installed separately such as with ``pip`` below. In the same root directory of the package (where the file ``requirements.txt`` can be found) run
+  The third installation method does not install the dependencies automatically. The dependencies should be installed separately such as with ``pip`` below. In the same root directory of the package (where the file ``requirements.txt`` can be found) run
 
   ::
 

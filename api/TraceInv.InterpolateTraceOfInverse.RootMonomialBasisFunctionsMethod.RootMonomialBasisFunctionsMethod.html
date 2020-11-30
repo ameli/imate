@@ -200,13 +200,14 @@
 <dt id="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod">
 <em class="property">class </em><code class="sig-prename descclassname">TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.</code><code class="sig-name descname">RootMonomialBasisFunctionsMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">InterpolantPoints</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ComputeOptions</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">Verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">BasisFunctionsType</span><span class="o">=</span><span class="default_value">'Orthogonal2'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/RootMonomialBasisFunctionsMethod.html#RootMonomialBasisFunctionsMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" title="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass</span></code></a></p>
-<div class="graphviz"><img src="../_images/inheritance-ff581957eb5c981e447f64d9edddce934e502cc3.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod" usemap="#inheritance4504cd62b7" class="inheritance graphviz" /></div>
+<p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using 
+an interpolation scheme based on root monomial basis functions (see details below).</p>
+<p><strong>Class Inheritance:</strong></p>
+<div class="graphviz"><img src="../_images/inheritance-a4569d92201505e83c9efa58cd9d84d99ca6ff0e.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod" usemap="#inheritance4504cd62b7" class="inheritance graphviz" /></div>
 <map id="inheritance4504cd62b7" name="inheritance4504cd62b7">
 <area shape="rect" id="node1" href="../_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
-<area shape="rect" id="node2" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod" alt="" coords="213,5,472,31"/>
-</map><p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using 
-an interpolation scheme based on root monomial basis functions (see details below).</p>
-<dl class="field-list simple">
+<area shape="rect" id="node2" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod" target="_top" title="Computes the trace of inverse of an invertible matrix :math:`mathbf{A} + t mathbf{B}` using " alt="" coords="213,5,472,31"/>
+</map><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
@@ -288,7 +289,7 @@ using <code class="docutils literal notranslate"><span class="pre">Interpolation
 <tr class="row-even"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.InitializeInterpolator" title="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.InitializeInterpolator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeInterpolator</span></code></a>()</p></td>
 <td><p>Internal function that is called by the class constructor.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.Interpolate" title="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.Interpolate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Interpolate</span></code></a>(t)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.Interpolate" title="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.Interpolate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Interpolate</span></code></a>(t[, CompareWithExact, Plot])</p></td>
 <td><p>Interpolates <span class="math notranslate nohighlight">\(\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span> at <span class="math notranslate nohighlight">\(t\)</span>.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.OrthogonalBasisFunctionCoefficients" title="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.OrthogonalBasisFunctionCoefficients"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OrthogonalBasisFunctionCoefficients</span></code></a>()</p></td>
@@ -355,13 +356,22 @@ they are not orthogonal to <span class="math notranslate nohighlight">\(\phi_1(t
 
 <dl class="py method">
 <dt id="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.Interpolate">
-<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/RootMonomialBasisFunctionsMethod.html#RootMonomialBasisFunctionsMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">CompareWithExact</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">Plot</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/RootMonomialBasisFunctionsMethod.html#RootMonomialBasisFunctionsMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interpolates <span class="math notranslate nohighlight">\(\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span> at <span class="math notranslate nohighlight">\(t\)</span>.</p>
 <p>This is the main interface function of this module and it is used after the interpolation
 object is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>t</strong> (<em>float</em><em>, </em><em>list</em><em>, or </em><em>numpy.array</em>) – The inquiry point(s).</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>float</em><em>, </em><em>list</em><em>, or </em><em>numpy.array</em>) – The inquiry point(s).</p></li>
+<li><p><strong>CompareWithExact</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it computes the trace with exact solution, then compares it with the interpolated 
+solution. The return values of the <code class="docutils literal notranslate"><span class="pre">Interpolate()</span></code> functions become interpolated trace, exact solution, 
+and relative error. <strong>Note:</strong> When this option is enabled, the exact solution will be computed for all inquiry points, 
+which can take a very long time. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>Plot</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it plots the interpolated trace versus the inquiry points. In addition, if the option
+<code class="docutils literal notranslate"><span class="pre">CompareWithExact</span></code> is also set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the plotted diagram contains both interpolated and exact solutions
+and the relative error of interpolated solution with respect to the exact solution.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The interpolated value of the trace.</p>

@@ -313,7 +313,8 @@
     <span class="c1"># Init</span>
     <span class="c1"># ----</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">InterpolationMethod</span><span class="o">=</span><span class="s1">&#39;RMBF&#39;</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ComputeMethod&#39;</span><span class="p">:</span> <span class="s1">&#39;cholesky&#39;</span><span class="p">},</span><span class="n">Verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">InterpolationMethod</span><span class="o">=</span><span class="s1">&#39;RMBF&#39;</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ComputeMethod&#39;</span><span class="p">:</span> <span class="s1">&#39;cholesky&#39;</span><span class="p">},</span>
+            <span class="n">Verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the object depending on the method.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -328,27 +329,33 @@
         <span class="c1"># Define an interpolation object depending on the given method</span>
         <span class="k">if</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;EXT&#39;</span><span class="p">:</span>
             <span class="c1"># Exact computation, not interpolation</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">ExactMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">ExactMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span>
+                    <span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;EIG&#39;</span><span class="p">:</span>
             <span class="c1"># Eigenvalues method</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">EigenvaluesMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">EigenvaluesMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span>
+                    <span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;MBF&#39;</span><span class="p">:</span>
             <span class="c1"># Monomial Basis Functions method</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">MonomialBasisFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">MonomialBasisFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span>
+                    <span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;RMBF&#39;</span><span class="p">:</span>
             <span class="c1"># Root Monomial Basis Functions method</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">RootMonomialBasisFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">RootMonomialBasisFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span>
+                    <span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;RBF&#39;</span><span class="p">:</span>
             <span class="c1"># Radial Basis Functions method</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">RadialBasisFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">RadialBasisFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span>
+                    <span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">InterpolationMethod</span> <span class="o">==</span> <span class="s1">&#39;RPF&#39;</span><span class="p">:</span>
             <span class="c1"># Rational Polynomial Functions method</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">RationalPolynomialFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span> <span class="o">=</span> <span class="n">RationalPolynomialFunctionsMethod</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">InterpolantPoints</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span>
+                    <span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">,</span><span class="o">**</span><span class="n">InterpolationOptions</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;InterpolationMethod&#39; is invalid. Select one of &#39;EXT&#39;, &#39;EIG&#39;, &#39;MBF&#39;, &#39;RMBF&#39;, &#39;RBF&#39;, or &#39;RPF&#39;.&quot;</span><span class="p">)</span>
@@ -388,7 +395,7 @@
     <span class="c1"># Interpolate</span>
     <span class="c1"># -----------</span>
 
-<div class="viewcode-block" id="InterpolateTraceOfInverse.Interpolate"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+<div class="viewcode-block" id="InterpolateTraceOfInverse.Interpolate"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">CompareWithExact</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">Plot</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Interpolates :math:`\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)` at :math:`t`.</span>
 
@@ -398,19 +405,30 @@
 <span class="sd">        :param t: The inquiry point(s).</span>
 <span class="sd">        :type t: float, list, or numpy.array</span>
 
+<span class="sd">        :param CompareWithExact: If ``True``, it computes the trace with exact solution, then compares it with the interpolated </span>
+<span class="sd">            solution. The return values of the ``Interpolate()`` functions become interpolated trace, exact solution, </span>
+<span class="sd">            and relative error. **Note:** When this option is enabled, the exact solution will be computed for all inquiry points, </span>
+<span class="sd">            which can take a very long time. Default is ``False``.</span>
+<span class="sd">        :type CompareWithExact: bool</span>
+
+<span class="sd">        :param Plot: If ``True``, it plots the interpolated trace versus the inquiry points. In addition, if the option</span>
+<span class="sd">            ``CompareWithExact`` is also set to ``True``, the plotted diagram contains both interpolated and exact solutions</span>
+<span class="sd">            and the relative error of interpolated solution with respect to the exact solution.</span>
+<span class="sd">        :type Plot: bool</span>
+
 <span class="sd">        :return: The interpolated value of the trace.</span>
 <span class="sd">        :rtype: float or numpy.array</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Number</span><span class="p">):</span>
             <span class="c1"># Single number</span>
-            <span class="n">T</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="n">T</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">CompareWithExact</span><span class="o">=</span><span class="n">CompareWithExact</span><span class="p">,</span><span class="n">Plot</span><span class="o">=</span><span class="n">Plot</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># An array of points</span>
             <span class="n">T</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">),),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
-                <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">Interpolator</span><span class="o">.</span><span class="n">Interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">CompareWithExact</span><span class="o">=</span><span class="n">CompareWithExact</span><span class="p">,</span><span class="n">Plot</span><span class="o">=</span><span class="n">Plot</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">T</span></div>
 

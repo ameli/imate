@@ -186,11 +186,10 @@
 
 <div class="viewcode-block" id="EigenvaluesMethod"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.html#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod">[docs]</a><span class="k">class</span> <span class="nc">EigenvaluesMethod</span><span class="p">(</span><span class="n">InterpolantBaseClass</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod</span>
-<span class="sd">        :parts: 1</span>
-
 <span class="sd">    Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A} + t \\mathbf{B}` using eigenvalues of </span>
-<span class="sd">    :math:`\\mathbf{A}`  and :math:`\mathbf{B}` by</span>
+<span class="sd">    :math:`\\mathbf{A}`  and :math:`\mathbf{B}`.</span>
+<span class="sd">    </span>
+<span class="sd">    The trace of computed by</span>
 
 <span class="sd">    .. math::</span>
 
@@ -199,6 +198,11 @@
 <span class="sd">    where :math:`\\lambda_i` is the eigenvalue of :math:`\\mathbf{A}` </span>
 <span class="sd">    and :math:`\\mu_i` is the eigenvalue of :math:`\mathbf{B}`. </span>
 <span class="sd">    This class does not accept interpolant points as the result is not interpolated.</span>
+
+<span class="sd">    **Class Inheritance:**</span>
+
+<span class="sd">    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod</span>
+<span class="sd">        :parts: 1</span>
 
 <span class="sd">    :param A: Invertible matrix, can be either dense or sparse matrix.</span>
 <span class="sd">    :type A: numpy.ndarray</span>
@@ -232,7 +236,7 @@
 <span class="sd">        the total number of eigenvalues can be set by ``NonZeroRatio``.</span>
 <span class="sd">        The tolerance at which the eigenvalues are computed can be set by ``Tolerance``.</span>
 
-<span class="sd">    :example:</span>
+<span class="sd">    **Example:**</span>
 
 <span class="sd">    This class can be invoked from :class:`TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse` module </span>
 <span class="sd">    using ``InterpolationMethod=&#39;EIG&#39;`` argument.</span>
@@ -342,7 +346,7 @@
     <span class="c1"># Interpolate</span>
     <span class="c1"># -----------</span>
 
-<div class="viewcode-block" id="EigenvaluesMethod.Interpolate"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.html#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
+<div class="viewcode-block" id="EigenvaluesMethod.Interpolate"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.html#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">CompareWithExact</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">Plot</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes the function :math:`\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)` </span>
 <span class="sd">        at the input point :math:`t` by</span>
@@ -357,13 +361,40 @@
 <span class="sd">        :param: t: An inquiry point, which can be a single number, or an array of numbers.</span>
 <span class="sd">        :type t: float or numpy.array</span>
 
+<span class="sd">        :param CompareWithExact: If ``True``, it computes the trace with exact solution, then compares it with the interpolated </span>
+<span class="sd">            solution. The return values of the ``Interpolate()`` functions become interpolated trace, exact solution, </span>
+<span class="sd">            and relative error. **Note:** When this option is enabled, the exact solution will be computed for all inquiry points, </span>
+<span class="sd">            which can take a very long time. Default is ``False``.</span>
+<span class="sd">        :type CompareWithExact: bool</span>
+
+<span class="sd">        :param Plot: If ``True``, it plots the interpolated trace versus the inquiry points. In addition, if the option</span>
+<span class="sd">            ``CompareWithExact`` is also set to ``True``, the plotted diagram contains both interpolated and exact solutions</span>
+<span class="sd">            and the relative error of interpolated solution with respect to the exact solution.</span>
+<span class="sd">        :type Plot: bool</span>
+
 <span class="sd">        :return: The exact value of the trace of inverse of ``A + tB``.</span>
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        
-        <span class="n">trace</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">A_eigenvalues</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">B_eigenvalues</span><span class="p">))</span>
+       
+        <span class="c1"># Compute trace using eigenvalues</span>
+        <span class="n">Trace</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">A_eigenvalues</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">B_eigenvalues</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="n">trace</span></div></div>
+        <span class="c1"># Compare with exact solution</span>
+        <span class="k">if</span> <span class="n">CompareWithExact</span><span class="p">:</span>
+            <span class="n">Trace_Exact</span><span class="p">,</span><span class="n">Trace_RelativeError</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CompareWithExactSolution</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Trace</span><span class="p">)</span>
+
+        <span class="c1"># Plot</span>
+        <span class="k">if</span> <span class="n">Plot</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">CompareWithExact</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">PlotInterpolation</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Trace</span><span class="p">,</span><span class="n">Trace_Exact</span><span class="p">,</span><span class="n">Trace_RelativeError</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">PlotInterpolation</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Trace</span><span class="p">)</span>
+
+        <span class="c1"># Return</span>
+        <span class="k">if</span> <span class="n">CompareWithExact</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Trace</span><span class="p">,</span><span class="n">Trace_Exact</span><span class="p">,</span><span class="n">Trace_RelativeError</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Trace</span></div></div>
 </pre></div>
 
            </div>

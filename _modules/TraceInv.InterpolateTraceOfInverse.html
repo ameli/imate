@@ -201,18 +201,20 @@
 <dt id="TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod">
 <em class="property">class </em><code class="sig-prename descclassname">TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.</code><code class="sig-name descname">EigenvaluesMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ComputeOptions</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">NonZeroRatio</span><span class="o">=</span><span class="default_value">0.9</span></em>, <em class="sig-param"><span class="n">Tolerance</span><span class="o">=</span><span class="default_value">0.001</span></em>, <em class="sig-param"><span class="n">Verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/EigenvaluesMethod.html#EigenvaluesMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" title="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass</span></code></a></p>
-<div class="graphviz"><img src="../_images/inheritance-e620bb9e7016e45802975610c689a37cf1bd8adb.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod" usemap="#inheritance73058d984f" class="inheritance graphviz" /></div>
-<map id="inheritance73058d984f" name="inheritance73058d984f">
-<area shape="rect" id="node1" href="../api/TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.html#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod" alt="" coords="213,5,363,31"/>
-<area shape="rect" id="node2" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
-</map><p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using eigenvalues of 
-<span class="math notranslate nohighlight">\(\mathbf{A}\)</span>  and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> by</p>
+<p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using eigenvalues of 
+<span class="math notranslate nohighlight">\(\mathbf{A}\)</span>  and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span>.</p>
+<p>The trace of computed by</p>
 <div class="math notranslate nohighlight">
 \[\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \right) = \sum_{i = 1}^n \frac{1}{\lambda_i + t \mu_i}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\lambda_i\)</span> is the eigenvalue of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> 
 and <span class="math notranslate nohighlight">\(\mu_i\)</span> is the eigenvalue of <span class="math notranslate nohighlight">\(\mathbf{B}\)</span>. 
 This class does not accept interpolant points as the result is not interpolated.</p>
-<dl class="field-list simple">
+<p><strong>Class Inheritance:</strong></p>
+<div class="graphviz"><img src="../_images/inheritance-774ac9d0f7048025d604d5952f9488307dd912d6.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod" usemap="#inheritance73058d984f" class="inheritance graphviz" /></div>
+<map id="inheritance73058d984f" name="inheritance73058d984f">
+<area shape="rect" id="node1" href="../api/TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.html#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod" target="_top" title="Computes the trace of inverse of an invertible matrix :math:`mathbf{A} + t mathbf{B}` using eigenvalues of " alt="" coords="213,5,363,31"/>
+<area shape="rect" id="node2" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
+</map><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
@@ -238,10 +240,7 @@ and the rest of its eigenvalues is assumed to be negligible. The ratio of comput
 the total number of eigenvalues can be set by <code class="docutils literal notranslate"><span class="pre">NonZeroRatio</span></code>.
 The tolerance at which the eigenvalues are computed can be set by <code class="docutils literal notranslate"><span class="pre">Tolerance</span></code>.</p>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Example</dt>
-<dd class="field-odd"><p></p></dd>
-</dl>
+<p><strong>Example:</strong></p>
 <p>This class can be invoked from <a class="reference internal" href="../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse</span></code></a> module 
 using <code class="docutils literal notranslate"><span class="pre">InterpolationMethod='EIG'</span></code> argument.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
@@ -277,7 +276,7 @@ we assume the rest of the eigenvalues are close to zero.</p>
 
 <dl class="py method">
 <dt id="TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate">
-<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/EigenvaluesMethod.html#EigenvaluesMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">CompareWithExact</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">Plot</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/EigenvaluesMethod.html#EigenvaluesMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the function <span class="math notranslate nohighlight">\(\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span> 
 at the input point <span class="math notranslate nohighlight">\(t\)</span> by</p>
 <div class="math notranslate nohighlight">
@@ -288,11 +287,22 @@ and  <span class="math notranslate nohighlight">\(\mu_i\)</span> is the eigenval
 <dt class="field-odd">Param</dt>
 <dd class="field-odd"><p>t: An inquiry point, which can be a single number, or an array of numbers.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The exact value of the trace of inverse of <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">+</span> <span class="pre">tB</span></code>.</p>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>CompareWithExact</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it computes the trace with exact solution, then compares it with the interpolated 
+solution. The return values of the <code class="docutils literal notranslate"><span class="pre">Interpolate()</span></code> functions become interpolated trace, exact solution, 
+and relative error. <strong>Note:</strong> When this option is enabled, the exact solution will be computed for all inquiry points, 
+which can take a very long time. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>Plot</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it plots the interpolated trace versus the inquiry points. In addition, if the option
+<code class="docutils literal notranslate"><span class="pre">CompareWithExact</span></code> is also set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the plotted diagram contains both interpolated and exact solutions
+and the relative error of interpolated solution with respect to the exact solution.</p></li>
+</ul>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The exact value of the trace of inverse of <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">+</span> <span class="pre">tB</span></code>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -306,15 +316,16 @@ and  <span class="math notranslate nohighlight">\(\mu_i\)</span> is the eigenval
 <dt id="TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod">
 <em class="property">class </em><code class="sig-prename descclassname">TraceInv.InterpolateTraceOfInverse.ExactMethod.</code><code class="sig-name descname">ExactMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ComputeOptions</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">Verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/ExactMethod.html#ExactMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" title="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass</span></code></a></p>
-<div class="graphviz"><img src="../_images/inheritance-605feef0a4d6ddc0c9c1d23d96d41ded36022a6e.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.ExactMethod" usemap="#inheritancebbaf9648af" class="inheritance graphviz" /></div>
-<map id="inheritancebbaf9648af" name="inheritancebbaf9648af">
-<area shape="rect" id="node1" href="../api/TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod.html#TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.ExactMethod" alt="" coords="213,5,320,31"/>
-<area shape="rect" id="node2" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
-</map><p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using 
+<p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using 
 exact method (no interpolation is performed).
 This class does not accept interpolant points as the result is not interpolated, rather, used
 as a benchmark to compare the exact versus the interpolated solution of the other classes.</p>
-<dl class="field-list simple">
+<p><strong>Class Inheritance:</strong></p>
+<div class="graphviz"><img src="../_images/inheritance-2d6900359c08c505aaf8bcf5d0b65a636c4e829f.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.ExactMethod" usemap="#inheritancebbaf9648af" class="inheritance graphviz" /></div>
+<map id="inheritancebbaf9648af" name="inheritancebbaf9648af">
+<area shape="rect" id="node1" href="../api/TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod.html#TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod" target="_top" title="Computes the trace of inverse of an invertible matrix :math:`mathbf{A} + t mathbf{B}` using " alt="" coords="213,5,320,31"/>
+<area shape="rect" id="node2" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
+</map><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> (<em>numpy.ndarray</em><em> or </em><em>scipy.sparse.csc_matrix</em>) – A positive-definite matrix. Matrix can be dense or sparse.</p></li>
@@ -350,9 +361,10 @@ which is given by <a class="reference internal" href="#module-TraceInv.Interpola
 </div>
 <dl class="py method">
 <dt id="TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod.Interpolate">
-<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/ExactMethod.html#ExactMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">CompareWithExact</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">Plot</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/ExactMethod.html#ExactMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
 <dd><blockquote>
-<div><p>This function does not interpolate, rather exactly computes :math:<a href="#id1"><span class="problematic" id="id2">`</span></a>mathrm{trace} left( (mathbf{A} + t mathbf{B})^{-1}</p>
+<div><p>This function does not interpolate, rather exactly computes 
+:math:<a href="#id1"><span class="problematic" id="id2">`</span></a>mathrm{trace} left( (mathbf{A} + t mathbf{B})^{-1}</p>
 </div></blockquote>
 <p>right)`</p>
 <blockquote>
@@ -362,6 +374,23 @@ which is given by <a class="reference internal" href="#module-TraceInv.Interpola
 </dd>
 <dt class="field-even">type t</dt>
 <dd class="field-even"><p>float, list, or numpy.array</p>
+</dd>
+<dt class="field-odd">param CompareWithExact</dt>
+<dd class="field-odd"><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it computes the trace with exact solution, then compares it with the interpolated 
+solution. The return values of the <code class="docutils literal notranslate"><span class="pre">Interpolate()</span></code> functions become interpolated trace, exact solution, 
+and relative error. <strong>Note:</strong> When this option is enabled, the exact solution will be computed for all inquiry points, 
+which can take a very long time. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+</dd>
+<dt class="field-even">type CompareWithExact</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">param Plot</dt>
+<dd class="field-odd"><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it plots the interpolated trace versus the inquiry points. In addition, if the option
+<code class="docutils literal notranslate"><span class="pre">CompareWithExact</span></code> is also set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the plotted diagram contains both interpolated and exact solutions
+and the relative error of interpolated solution with respect to the exact solution.</p>
+</dd>
+<dt class="field-even">type Plot</dt>
+<dd class="field-even"><p>bool</p>
 </dd>
 <dt class="field-odd">return</dt>
 <dd class="field-odd"><p>The exact value of the trace.</p>
@@ -407,6 +436,35 @@ Default is <code class="docutils literal notranslate"><span class="pre">'RMBF'</
 </dd>
 </dl>
 <dl class="py method">
+<dt id="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.CompareWithExactSolution">
+<code class="sig-name descname">CompareWithExactSolution</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">InquiryPoints</span></em>, <em class="sig-param"><span class="n">Trace_Interpolated</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/InterpolantBaseClass.html#InterpolantBaseClass.CompareWithExactSolution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.CompareWithExactSolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the trace with exact method (no interpolation), then compares it with 
+the interpolated solution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>InquiryPoints</strong> (<em>numpy.ndarray</em>) – Inquiry points</p></li>
+<li><p><strong>Trace_Interpolated</strong> (<em>float</em><em> or </em><em>numpy.ndarray</em>) – The interpolated computation of trace.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>Exact solution of trace.</p></li>
+<li><p>Relative error of interpolated solution compared to the exact solution.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>float or numpy.ndarray</p></li>
+<li><p>float or numpy.ndarray</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.Compute">
 <code class="sig-name descname">Compute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/InterpolantBaseClass.html#InterpolantBaseClass.Compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.Compute" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes <span class="math notranslate nohighlight">\(\mathrm{trace}\left( (\mathbf{A}+t \mathbf{B})^{-1} \right)\)</span> at point <span class="math notranslate nohighlight">\(t\)</span> with exact method, that is,
@@ -414,14 +472,33 @@ no interpolation is used and the result is exact.</p>
 <p>This function is primarily used internally to compute trace of inverse at <em>interpolant points</em>. 
 This function uses <a class="reference internal" href="TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse</span></code></a> class with options described by
 <code class="docutils literal notranslate"><span class="pre">self.ComputeOptions</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Trace of inverse at input point <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.ComputeTraceAtInterpolantPoints">
-<code class="sig-name descname">ComputeTraceAtInterpolantPoints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/InterpolantBaseClass.html#InterpolantBaseClass.ComputeTraceAtInterpolantPoints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.ComputeTraceAtInterpolantPoints" title="Permalink to this definition">¶</a></dt>
+<dt id="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.ComputeTraceForArrayOfPoints">
+<code class="sig-name descname">ComputeTraceForArrayOfPoints</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t_i</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/InterpolantBaseClass.html#InterpolantBaseClass.ComputeTraceForArrayOfPoints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.ComputeTraceForArrayOfPoints" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes <span class="math notranslate nohighlight">\(\mathrm{trace} \left( (\mathbf{A}+ t \mathbf{B})^{-1} \right)\)</span> at interpolant points 
 <code class="docutils literal notranslate"><span class="pre">self.InterpolantPoints</span></code>. At interpolant points, the trace is computed exactly 
 using <a class="reference internal" href="TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t_i</strong> (<em>float</em><em>, </em><em>numpy.ndarray</em><em>, or </em><em>list</em><em>(</em><em>float</em><em>)</em>) – An array if inquiry points.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Trace of inverse at inquiry points</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float or numpy.ndarray</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -446,6 +523,37 @@ defined by</p>
 <p>The lower bound is given by Remark 2.2 of <a class="reference internal" href="../references.html#ameli-2020" id="id3"><span>[Ameli-2020]</span></a> as</p>
 <div class="math notranslate nohighlight">
 \[\mathrm{trace}((\mathbf{A}+t\mathbf{B})^{-1}) \geq \frac{n^2}{\mathrm{trace}(\mathbf{A}) + \mathrm{trace}(t \mathbf{B})}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> (<em>float</em><em> or </em><em>numpy.ndarray</em>) – Inquiry points</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Lower bound of the trace of inverse at inquiry points.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float or numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.PlotInterpolation">
+<code class="sig-name descname">PlotInterpolation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">InquiryPoints</span></em>, <em class="sig-param"><span class="n">Trace_Interpolated</span></em>, <em class="sig-param"><span class="n">Trace_Exact</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">Trace_RelativeError</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/InterpolantBaseClass.html#InterpolantBaseClass.PlotInterpolation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass.PlotInterpolation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots the interpolation results, together with the comparison with the exact solution and
+the relative error of the interpolation.</p>
+<p>To plot, set <code class="docutils literal notranslate"><span class="pre">Plot=True</span></code> argument in <a class="reference internal" href="#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>InquiryPoints</strong> (<em>numpy.ndarray</em>) – Inquiry points</p></li>
+<li><p><strong>Trace_Interpolated</strong> (<em>numpy.ndarray</em>) – Interpolation of the trace at inquiry points.</p></li>
+<li><p><strong>Trace_Exact</strong> (<em>numpy.ndarray</em>) – Exact solutions of the trace at inquiry points. 
+If this variable is not None, it will be plotted together with the interpolated results.</p></li>
+<li><p><strong>Trace_RelativeError</strong> (<em>numpy.ndarray</em>) – Relative errors of the interpolation with respect to the exact solution.
+If not None, the relative errors will be plotted on a second axis.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -469,6 +577,17 @@ in the range <span class="math notranslate nohighlight">\(t \in [0,1]\)</span>.<
 <div class="math notranslate nohighlight">
 \[\tau(t) = \frac{\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1}  \right)}{\mathrm{trace}(\mathbf{B}^{-1})}\]</div>
 <p>and <span class="math notranslate nohighlight">\(\tau_0 = \tau(0)\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>t</strong> (<em>float</em><em> or </em><em>numpy.ndarray</em>) – Inquiry points</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Upper bound of the trace of inverse at inquiry points.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float or numpy.ndarray</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -633,13 +752,22 @@ is primarily used to compute trace on the <em>interpolant points</em>.</p>
 
 <dl class="py method">
 <dt id="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Interpolate">
-<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/InterpolateTraceOfInverse.html#InterpolateTraceOfInverse.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Interpolate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">CompareWithExact</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">Plot</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/InterpolateTraceOfInverse.html#InterpolateTraceOfInverse.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Interpolate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interpolates <span class="math notranslate nohighlight">\(\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span> at <span class="math notranslate nohighlight">\(t\)</span>.</p>
 <p>This is the main interface function of this module and it is used after the interpolation
 object is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>t</strong> (<em>float</em><em>, </em><em>list</em><em>, or </em><em>numpy.array</em>) – The inquiry point(s).</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>float</em><em>, </em><em>list</em><em>, or </em><em>numpy.array</em>) – The inquiry point(s).</p></li>
+<li><p><strong>CompareWithExact</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it computes the trace with exact solution, then compares it with the interpolated 
+solution. The return values of the <code class="docutils literal notranslate"><span class="pre">Interpolate()</span></code> functions become interpolated trace, exact solution, 
+and relative error. <strong>Note:</strong> When this option is enabled, the exact solution will be computed for all inquiry points, 
+which can take a very long time. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>Plot</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it plots the interpolated trace versus the inquiry points. In addition, if the option
+<code class="docutils literal notranslate"><span class="pre">CompareWithExact</span></code> is also set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the plotted diagram contains both interpolated and exact solutions
+and the relative error of interpolated solution with respect to the exact solution.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The interpolated value of the trace.</p>
@@ -711,11 +839,7 @@ object is initialized.</p>
 <dt id="TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod">
 <em class="property">class </em><code class="sig-prename descclassname">TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.</code><code class="sig-name descname">MonomialBasisFunctionsMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">InterpolantPoint</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ComputeOptions</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">Verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/MonomialBasisFunctionsMethod.html#MonomialBasisFunctionsMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" title="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass</span></code></a></p>
-<div class="graphviz"><img src="../_images/inheritance-a1c348c9bb8f878a0d69877a1fe14f719d524e06.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod" usemap="#inheritance7b38cd99f7" class="inheritance graphviz" /></div>
-<map id="inheritance7b38cd99f7" name="inheritance7b38cd99f7">
-<area shape="rect" id="node1" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
-<area shape="rect" id="node2" href="../api/TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod" alt="" coords="213,5,444,31"/>
-</map><p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using</p>
+<p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using</p>
 <div class="math notranslate nohighlight">
 \[\frac{1}{(\tau(t))^{p+1}} = \frac{1}{(\tau_0)^{p+1}} + \sum_{i=1}^{p+1} w_i t^i,\]</div>
 <p>where</p>
@@ -734,7 +858,12 @@ the interpolation function becomes</p>
 <p>This class accepts only <em>one</em> interpolant point (<span class="math notranslate nohighlight">\(p = 1\)</span>). That is, the argument
 <code class="docutils literal notranslate"><span class="pre">InterpolantPoint</span></code> should be only one number or a list of the length 1.</p>
 </div>
-<dl class="field-list simple">
+<p><strong>Class Inheritance:</strong></p>
+<div class="graphviz"><img src="../_images/inheritance-01887e1ca385569c44bf1b3493d08357899cc56d.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod" usemap="#inheritance7b38cd99f7" class="inheritance graphviz" /></div>
+<map id="inheritance7b38cd99f7" name="inheritance7b38cd99f7">
+<area shape="rect" id="node1" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
+<area shape="rect" id="node2" href="../api/TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod" target="_top" title="Computes the trace of inverse of an invertible matrix :math:`mathbf{A} + t mathbf{B}` using" alt="" coords="213,5,444,31"/>
+</map><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
@@ -776,13 +905,22 @@ accepts arbitrary number of interpolant points. It is recommended to use the
 
 <dl class="py method">
 <dt id="TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.Interpolate">
-<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/MonomialBasisFunctionsMethod.html#MonomialBasisFunctionsMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">CompareWithExact</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">Plot</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/MonomialBasisFunctionsMethod.html#MonomialBasisFunctionsMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod.MonomialBasisFunctionsMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interpolates <span class="math notranslate nohighlight">\(\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span> at <span class="math notranslate nohighlight">\(t\)</span>.</p>
 <p>This is the main interface function of this module and it is used after the interpolation
 object is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>t</strong> (<em>float</em><em>, </em><em>list</em><em>, or </em><em>numpy.array</em>) – The inquiry point(s).</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>float</em><em>, </em><em>list</em><em>, or </em><em>numpy.array</em>) – The inquiry point(s).</p></li>
+<li><p><strong>CompareWithExact</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it computes the trace with exact solution, then compares it with the interpolated 
+solution. The return values of the <code class="docutils literal notranslate"><span class="pre">Interpolate()</span></code> functions become interpolated trace, exact solution, 
+and relative error. <strong>Note:</strong> When this option is enabled, the exact solution will be computed for all inquiry points, 
+which can take a very long time. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>Plot</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it plots the interpolated trace versus the inquiry points. In addition, if the option
+<code class="docutils literal notranslate"><span class="pre">CompareWithExact</span></code> is also set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the plotted diagram contains both interpolated and exact solutions
+and the relative error of interpolated solution with respect to the exact solution.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The interpolated value of the trace.</p>
@@ -802,13 +940,14 @@ object is initialized.</p>
 <dt id="TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod">
 <em class="property">class </em><code class="sig-prename descclassname">TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.</code><code class="sig-name descname">RadialBasisFunctionsMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">InterpolantPoints</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ComputeOptions</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">Verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">FunctionType</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/RadialBasisFunctionsMethod.html#RadialBasisFunctionsMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" title="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass</span></code></a></p>
-<div class="graphviz"><img src="../_images/inheritance-57f1890d9995c943c03f0e5517e02037901f8ba5.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod" usemap="#inheritancefd824eb8e1" class="inheritance graphviz" /></div>
+<p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using 
+an interpolation scheme based on rational polynomial functions (see details below).</p>
+<p><strong>Class Inheritance:</strong></p>
+<div class="graphviz"><img src="../_images/inheritance-30dbe917df5003179c96286a796745734e34d069.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod" usemap="#inheritancefd824eb8e1" class="inheritance graphviz" /></div>
 <map id="inheritancefd824eb8e1" name="inheritancefd824eb8e1">
 <area shape="rect" id="node1" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
-<area shape="rect" id="node2" href="../api/TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod" alt="" coords="213,5,420,31"/>
-</map><p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using 
-an interpolation scheme based on rational polynomial functions (see details below).</p>
-<dl class="field-list simple">
+<area shape="rect" id="node2" href="../api/TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod" target="_top" title="Computes the trace of inverse of an invertible matrix :math:`mathbf{A} + t mathbf{B}` using " alt="" coords="213,5,420,31"/>
+</map><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
@@ -861,13 +1000,22 @@ using <code class="docutils literal notranslate"><span class="pre">Interpolation
 
 <dl class="py method">
 <dt id="TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod.Interpolate">
-<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/RadialBasisFunctionsMethod.html#RadialBasisFunctionsMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">CompareWithExact</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">Plot</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/RadialBasisFunctionsMethod.html#RadialBasisFunctionsMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod.RadialBasisFunctionsMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interpolates <span class="math notranslate nohighlight">\(\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span> at <span class="math notranslate nohighlight">\(t\)</span>.</p>
 <p>This is the main interface function of this module and it is used after the interpolation
 object is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>t</strong> (<em>float</em><em>, </em><em>list</em><em>, or </em><em>numpy.array</em>) – The inquiry point(s).</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>float</em><em>, </em><em>list</em><em>, or </em><em>numpy.array</em>) – The inquiry point(s).</p></li>
+<li><p><strong>CompareWithExact</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it computes the trace with exact solution, then compares it with the interpolated 
+solution. The return values of the <code class="docutils literal notranslate"><span class="pre">Interpolate()</span></code> functions become interpolated trace, exact solution, 
+and relative error. <strong>Note:</strong> When this option is enabled, the exact solution will be computed for all inquiry points, 
+which can take a very long time. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>Plot</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it plots the interpolated trace versus the inquiry points. In addition, if the option
+<code class="docutils literal notranslate"><span class="pre">CompareWithExact</span></code> is also set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the plotted diagram contains both interpolated and exact solutions
+and the relative error of interpolated solution with respect to the exact solution.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The interpolated value of the trace.</p>
@@ -887,13 +1035,14 @@ object is initialized.</p>
 <dt id="TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod">
 <em class="property">class </em><code class="sig-prename descclassname">TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.</code><code class="sig-name descname">RationalPolynomialFunctionsMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">InterpolantPoints</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ComputeOptions</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">Verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/RationalPolynomialFunctionsMethod.html#RationalPolynomialFunctionsMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" title="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass</span></code></a></p>
-<div class="graphviz"><img src="../_images/inheritance-0f4d3c46b7cc31c65d5751f95cdb3b53b6ba8cbb.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod" usemap="#inheritance555c48ff52" class="inheritance graphviz" /></div>
+<p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using 
+an interpolation scheme based on rational polynomial functions (see details below).</p>
+<p><strong>Class Inheritance:</strong></p>
+<div class="graphviz"><img src="../_images/inheritance-881329c272787f82b32bbf6ddfc4c17f1f0d707f.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod" usemap="#inheritance555c48ff52" class="inheritance graphviz" /></div>
 <map id="inheritance555c48ff52" name="inheritance555c48ff52">
 <area shape="rect" id="node1" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
-<area shape="rect" id="node2" href="../api/TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod" alt="" coords="213,5,472,31"/>
-</map><p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using 
-an interpolation scheme based on rational polynomial functions (see details below).</p>
-<dl class="field-list simple">
+<area shape="rect" id="node2" href="../api/TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod" target="_top" title="Computes the trace of inverse of an invertible matrix :math:`mathbf{A} + t mathbf{B}` using " alt="" coords="213,5,472,31"/>
+</map><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
@@ -942,13 +1091,22 @@ numerator and denominator of the rational polynomial.</p>
 
 <dl class="py method">
 <dt id="TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.Interpolate">
-<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/RationalPolynomialFunctionsMethod.html#RationalPolynomialFunctionsMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">CompareWithExact</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">Plot</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/RationalPolynomialFunctionsMethod.html#RationalPolynomialFunctionsMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod.RationalPolynomialFunctionsMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interpolates <span class="math notranslate nohighlight">\(\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span> at <span class="math notranslate nohighlight">\(t\)</span>.</p>
 <p>This is the main interface function of this module and it is used after the interpolation
 object is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>t</strong> (<em>float</em><em>, </em><em>list</em><em>, or </em><em>numpy.array</em>) – The inquiry point(s).</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>float</em><em>, </em><em>list</em><em>, or </em><em>numpy.array</em>) – The inquiry point(s).</p></li>
+<li><p><strong>CompareWithExact</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it computes the trace with exact solution, then compares it with the interpolated 
+solution. The return values of the <code class="docutils literal notranslate"><span class="pre">Interpolate()</span></code> functions become interpolated trace, exact solution, 
+and relative error. <strong>Note:</strong> When this option is enabled, the exact solution will be computed for all inquiry points, 
+which can take a very long time. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>Plot</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it plots the interpolated trace versus the inquiry points. In addition, if the option
+<code class="docutils literal notranslate"><span class="pre">CompareWithExact</span></code> is also set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the plotted diagram contains both interpolated and exact solutions
+and the relative error of interpolated solution with respect to the exact solution.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The interpolated value of the trace.</p>
@@ -1019,13 +1177,14 @@ object is initialized.</p>
 <dt id="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod">
 <em class="property">class </em><code class="sig-prename descclassname">TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.</code><code class="sig-name descname">RootMonomialBasisFunctionsMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">InterpolantPoints</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ComputeOptions</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">Verbose</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">BasisFunctionsType</span><span class="o">=</span><span class="default_value">'Orthogonal2'</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/RootMonomialBasisFunctionsMethod.html#RootMonomialBasisFunctionsMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" title="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass</span></code></a></p>
-<div class="graphviz"><img src="../_images/inheritance-12031eb594e8ea46c9af0365c48a56ab7b4cceb2.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod" usemap="#inheritance4504cd62b7" class="inheritance graphviz" /></div>
+<p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using 
+an interpolation scheme based on root monomial basis functions (see details below).</p>
+<p><strong>Class Inheritance:</strong></p>
+<div class="graphviz"><img src="../_images/inheritance-ed54f8423ea51761d3d4699e00a9a27975252f26.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod" usemap="#inheritance4504cd62b7" class="inheritance graphviz" /></div>
 <map id="inheritance4504cd62b7" name="inheritance4504cd62b7">
 <area shape="rect" id="node1" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
-<area shape="rect" id="node2" href="../api/TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod" alt="" coords="213,5,472,31"/>
-</map><p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using 
-an interpolation scheme based on root monomial basis functions (see details below).</p>
-<dl class="field-list simple">
+<area shape="rect" id="node2" href="../api/TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.html#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod" target="_top" title="Computes the trace of inverse of an invertible matrix :math:`mathbf{A} + t mathbf{B}` using " alt="" coords="213,5,472,31"/>
+</map><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
@@ -1149,13 +1308,22 @@ they are not orthogonal to <span class="math notranslate nohighlight">\(\phi_1(t
 
 <dl class="py method">
 <dt id="TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.Interpolate">
-<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/RootMonomialBasisFunctionsMethod.html#RootMonomialBasisFunctionsMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">CompareWithExact</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">Plot</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/InterpolateTraceOfInverse/RootMonomialBasisFunctionsMethod.html#RootMonomialBasisFunctionsMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod.RootMonomialBasisFunctionsMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Interpolates <span class="math notranslate nohighlight">\(\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span> at <span class="math notranslate nohighlight">\(t\)</span>.</p>
 <p>This is the main interface function of this module and it is used after the interpolation
 object is initialized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>t</strong> (<em>float</em><em>, </em><em>list</em><em>, or </em><em>numpy.array</em>) – The inquiry point(s).</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t</strong> (<em>float</em><em>, </em><em>list</em><em>, or </em><em>numpy.array</em>) – The inquiry point(s).</p></li>
+<li><p><strong>CompareWithExact</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it computes the trace with exact solution, then compares it with the interpolated 
+solution. The return values of the <code class="docutils literal notranslate"><span class="pre">Interpolate()</span></code> functions become interpolated trace, exact solution, 
+and relative error. <strong>Note:</strong> When this option is enabled, the exact solution will be computed for all inquiry points, 
+which can take a very long time. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>Plot</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it plots the interpolated trace versus the inquiry points. In addition, if the option
+<code class="docutils literal notranslate"><span class="pre">CompareWithExact</span></code> is also set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the plotted diagram contains both interpolated and exact solutions
+and the relative error of interpolated solution with respect to the exact solution.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The interpolated value of the trace.</p>

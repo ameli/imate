@@ -470,7 +470,7 @@
 <span class="c1"># Correlation Matrix</span>
 <span class="c1"># ==================</span>
 
-<div class="viewcode-block" id="CorrelationMatrix"><a class="viewcode-back" href="../../TraceInv.GenerateMatrix.html#TraceInv.GenerateMatrix.CorrelationMatrix.CorrelationMatrix">[docs]</a><span class="k">def</span> <span class="nf">CorrelationMatrix</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">DecorrelationScale</span><span class="p">,</span><span class="n">nu</span><span class="p">,</span><span class="n">UseSparse</span><span class="p">,</span><span class="n">KernelThreshold</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span><span class="n">RunInParallel</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="CorrelationMatrix"><a class="viewcode-back" href="../../TraceInv.GenerateMatrix.html#TraceInv.GenerateMatrix.CorrelationMatrix.CorrelationMatrix">[docs]</a><span class="k">def</span> <span class="nf">CorrelationMatrix</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">DecorrelationScale</span><span class="p">,</span><span class="n">nu</span><span class="p">,</span><span class="n">UseSparse</span><span class="p">,</span><span class="n">KernelThreshold</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span><span class="n">RunInParallel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generates correlation matrix :math:`\\mathbf{K}`.</span>
 
@@ -502,6 +502,9 @@
 
 <span class="sd">    :param RunInParallel: Runs the code in parallel. Note that the ``ray`` module should be uncommented.</span>
 <span class="sd">    :type RunInParallel: bool</span>
+
+<span class="sd">    :param Verbose: If ``True``, prints some information during the process. Default is ``False``.</span>
+<span class="sd">    :type Verbose: bool</span>
 
 <span class="sd">    :return: Correlation matrix. If ``x`` and ``y`` are ``n*1`` arrays, the correlation ``K`` is ``n*n`` matrix.</span>
 <span class="sd">    :rtype: ndarray or sparse array</span>
@@ -587,7 +590,9 @@
     <span class="k">if</span> <span class="n">UseSparse</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
 
         <span class="n">Density</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">nnz</span> <span class="o">/</span> <span class="n">numpy</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Using sparse correlation matrix with kernel threshold: </span><span class="si">%0.4f</span><span class="s1"> and sparsity: </span><span class="si">%0.4f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">KernelThreshold</span><span class="p">,</span><span class="n">Density</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">Verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Using sparse correlation matrix with kernel threshold: </span><span class="si">%0.4f</span><span class="s1"> and sparsity: </span><span class="si">%0.4f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">KernelThreshold</span><span class="p">,</span><span class="n">Density</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">K</span></div>
 </pre></div>

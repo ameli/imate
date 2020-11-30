@@ -190,7 +190,8 @@
         <span class="n">GridOfPoints</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">KernelThreshold</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span>
         <span class="n">RunInParallel</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">Plot</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">Plot</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">Verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generates symmetric and positive-definite matrix for test purposes.</span>
 <span class="sd">    </span>
@@ -243,6 +244,9 @@
 
 <span class="sd">    :param Plot: If ``True``, the matrix will be plotted.</span>
 <span class="sd">    :type Plot: bool</span>
+
+<span class="sd">    :param Verbose: If ``True``, prints some information during the process. Default is ``False``.</span>
+<span class="sd">    :type Verbose: bool</span>
 
 <span class="sd">    :return: Correlation matrix. If ``x`` and ``y`` are ``n*1`` arrays, the correlation ``K`` is ``n*n`` matrix.</span>
 <span class="sd">    :rtype: numpy.ndarray or sparse array</span>
@@ -298,11 +302,11 @@
     <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">GeneratePoints</span><span class="p">(</span><span class="n">NumPoints</span><span class="p">,</span><span class="n">GridOfPoints</span><span class="p">)</span>
 
     <span class="c1"># Compute the correlation between the set of points</span>
-    <span class="n">K</span> <span class="o">=</span> <span class="n">CorrelationMatrix</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">DecorrelationScale</span><span class="p">,</span><span class="n">nu</span><span class="p">,</span><span class="n">UseSparse</span><span class="p">,</span><span class="n">KernelThreshold</span><span class="p">,</span><span class="n">RunInParallel</span><span class="p">)</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">CorrelationMatrix</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">DecorrelationScale</span><span class="p">,</span><span class="n">nu</span><span class="p">,</span><span class="n">UseSparse</span><span class="p">,</span><span class="n">KernelThreshold</span><span class="p">,</span><span class="n">RunInParallel</span><span class="p">,</span><span class="n">Verbose</span><span class="p">)</span>
 
     <span class="c1"># Plot Correlation Matrix</span>
     <span class="k">if</span> <span class="n">Plot</span><span class="p">:</span>
-        <span class="n">PlotMatrix</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">UseSparse</span><span class="p">)</span>
+        <span class="n">PlotMatrix</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">UseSparse</span><span class="p">,</span><span class="n">Verbose</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">K</span></div>
 
@@ -310,11 +314,11 @@
 <span class="c1"># Plot Matrix</span>
 <span class="c1"># ===========</span>
 
-<span class="k">def</span> <span class="nf">PlotMatrix</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">UseSparse</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">PlotMatrix</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">UseSparse</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots the matrix ``K``. </span>
 
-<span class="sd">    If ``K`` is a sparse matrix, it plots all non-zero elements with single:w color</span>
+<span class="sd">    If ``K`` is a sparse matrix, it plots all non-zero elements with single color</span>
 <span class="sd">    regardless of their values, and leaves the zero elements white.</span>
 
 <span class="sd">    Whereas, if ``K`` is not a sparse matrix, the colormap of the plot</span>
@@ -328,6 +332,9 @@
 
 <span class="sd">    :param UseSparse: Determine whether the matrix is dense or sparse</span>
 <span class="sd">    :type UseSparse: bool</span>
+
+<span class="sd">    :param Verbose: If ``True``, prints some information during the process. Default is ``False``.</span>
+<span class="sd">    :type Verbose: bool</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Imports</span>
@@ -337,7 +344,8 @@
 
     <span class="c1"># Check if the graphic backend exists</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;DISPLAY&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No display found. Using non-interactive Agg backend.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">Verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No display found. Using non-interactive Agg backend.&#39;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">switch_backend</span><span class="p">(</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
 
     <span class="c1"># Font settings</span>
@@ -351,15 +359,15 @@
         <span class="n">p</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">spy</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">markersize</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># Plot dense matrix</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">matshow</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">)</span>
         <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
 
     <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Correlation Matrix&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Index i&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Index j&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Index $i$&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Index $j$&#39;</span><span class="p">)</span>
     
     <span class="c1"># Check if the graphical backend exists</span>
-    <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">test</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">get_backend</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;agg&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">get_backend</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;agg&#39;</span><span class="p">:</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># write the plot as SVG file in the current working directory</span>

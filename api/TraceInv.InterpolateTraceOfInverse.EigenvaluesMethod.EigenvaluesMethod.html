@@ -200,18 +200,20 @@
 <dt id="TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod">
 <em class="property">class </em><code class="sig-prename descclassname">TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.</code><code class="sig-name descname">EigenvaluesMethod</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">B</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ComputeOptions</span><span class="o">=</span><span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">NonZeroRatio</span><span class="o">=</span><span class="default_value">0.9</span></em>, <em class="sig-param"><span class="n">Tolerance</span><span class="o">=</span><span class="default_value">0.001</span></em>, <em class="sig-param"><span class="n">Verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/EigenvaluesMethod.html#EigenvaluesMethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" title="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass</span></code></a></p>
-<div class="graphviz"><img src="../_images/inheritance-46e4296f867c6abdfd58728634dc8582c14927ce.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod" usemap="#inheritance73058d984f" class="inheritance graphviz" /></div>
-<map id="inheritance73058d984f" name="inheritance73058d984f">
-<area shape="rect" id="node1" href="#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod" target="_top" title=".. inheritance&#45;diagram:: TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod" alt="" coords="213,5,363,31"/>
-<area shape="rect" id="node2" href="../_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
-</map><p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using eigenvalues of 
-<span class="math notranslate nohighlight">\(\mathbf{A}\)</span>  and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> by</p>
+<p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using eigenvalues of 
+<span class="math notranslate nohighlight">\(\mathbf{A}\)</span>  and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span>.</p>
+<p>The trace of computed by</p>
 <div class="math notranslate nohighlight">
 \[\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \right) = \sum_{i = 1}^n \frac{1}{\lambda_i + t \mu_i}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\lambda_i\)</span> is the eigenvalue of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> 
 and <span class="math notranslate nohighlight">\(\mu_i\)</span> is the eigenvalue of <span class="math notranslate nohighlight">\(\mathbf{B}\)</span>. 
 This class does not accept interpolant points as the result is not interpolated.</p>
-<dl class="field-list simple">
+<p><strong>Class Inheritance:</strong></p>
+<div class="graphviz"><img src="../_images/inheritance-7f59719e2f3c6211f1a642c231a64de4e579ad03.png" alt="Inheritance diagram of TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod" usemap="#inheritance73058d984f" class="inheritance graphviz" /></div>
+<map id="inheritance73058d984f" name="inheritance73058d984f">
+<area shape="rect" id="node1" href="#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod" target="_top" title="Computes the trace of inverse of an invertible matrix :math:`mathbf{A} + t mathbf{B}` using eigenvalues of " alt="" coords="213,5,363,31"/>
+<area shape="rect" id="node2" href="../_modules/TraceInv.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" target="_top" title="This is the base class for the following derived classes:" alt="" coords="5,5,165,31"/>
+</map><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
@@ -237,10 +239,7 @@ and the rest of its eigenvalues is assumed to be negligible. The ratio of comput
 the total number of eigenvalues can be set by <code class="docutils literal notranslate"><span class="pre">NonZeroRatio</span></code>.
 The tolerance at which the eigenvalues are computed can be set by <code class="docutils literal notranslate"><span class="pre">Tolerance</span></code>.</p>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Example</dt>
-<dd class="field-odd"><p></p></dd>
-</dl>
+<p><strong>Example:</strong></p>
 <p>This class can be invoked from <a class="reference internal" href="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse</span></code></a> module 
 using <code class="docutils literal notranslate"><span class="pre">InterpolationMethod='EIG'</span></code> argument.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
@@ -272,7 +271,7 @@ which is given by <a class="reference internal" href="../_modules/TraceInv.Inter
 <tr class="row-odd"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.InitializeInterpolator" title="TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.InitializeInterpolator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeInterpolator</span></code></a>()</p></td>
 <td><p>Initializes the <code class="docutils literal notranslate"><span class="pre">A_eigenvalues</span></code> and <code class="docutils literal notranslate"><span class="pre">B_eigenvalues</span></code>  member data of the class.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate" title="TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Interpolate</span></code></a>(t)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate" title="TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Interpolate</span></code></a>(t[, CompareWithExact, Plot])</p></td>
 <td><p>Computes the function <span class="math notranslate nohighlight">\(\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span>  at the input point <span class="math notranslate nohighlight">\(t\)</span> by</p></td>
 </tr>
 </tbody>
@@ -292,7 +291,7 @@ we assume the rest of the eigenvalues are close to zero.</p>
 
 <dl class="py method">
 <dt id="TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate">
-<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/EigenvaluesMethod.html#EigenvaluesMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">CompareWithExact</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">Plot</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/EigenvaluesMethod.html#EigenvaluesMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the function <span class="math notranslate nohighlight">\(\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span> 
 at the input point <span class="math notranslate nohighlight">\(t\)</span> by</p>
 <div class="math notranslate nohighlight">
@@ -303,11 +302,22 @@ and  <span class="math notranslate nohighlight">\(\mu_i\)</span> is the eigenval
 <dt class="field-odd">Param</dt>
 <dd class="field-odd"><p>t: An inquiry point, which can be a single number, or an array of numbers.</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The exact value of the trace of inverse of <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">+</span> <span class="pre">tB</span></code>.</p>
+<dt class="field-even">Parameters</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>CompareWithExact</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it computes the trace with exact solution, then compares it with the interpolated 
+solution. The return values of the <code class="docutils literal notranslate"><span class="pre">Interpolate()</span></code> functions become interpolated trace, exact solution, 
+and relative error. <strong>Note:</strong> When this option is enabled, the exact solution will be computed for all inquiry points, 
+which can take a very long time. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
+<li><p><strong>Plot</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it plots the interpolated trace versus the inquiry points. In addition, if the option
+<code class="docutils literal notranslate"><span class="pre">CompareWithExact</span></code> is also set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the plotted diagram contains both interpolated and exact solutions
+and the relative error of interpolated solution with respect to the exact solution.</p></li>
+</ul>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>float</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The exact value of the trace of inverse of <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">+</span> <span class="pre">tB</span></code>.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
 </dd>
 </dl>
 </dd></dl>

@@ -97,6 +97,11 @@ The :mod:`TraceInv.GenerateMatrix` module accepts the following attributes as in
 
    If set to ``True``, it plots the generated matrix.
 
+.. attribute:: Verbose:
+   :type: bool
+   :value: False
+   If ``True``, prints some information during the process.
+
 ====================
 Mathematical Details
 ====================
