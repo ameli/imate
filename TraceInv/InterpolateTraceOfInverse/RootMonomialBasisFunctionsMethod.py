@@ -13,11 +13,13 @@ import numpy
 
 class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
     """
-    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod
-        :parts: 1
-
     Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A} + t \\mathbf{B}` using 
     an interpolation scheme based on root monomial basis functions (see details below).
+
+    **Class Inheritance:**
+
+    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod
+        :parts: 1
 
     :param A: Invertible matrix, can be either dense or sparse matrix.
     :type A: numpy.ndarray
@@ -118,13 +120,15 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
     # Init
     # ----
 
-    def __init__(self,A,B=None,InterpolantPoints=None,ComputeOptions={},Verbose=False,BasisFunctionsType='Orthogonal2'):
+    def __init__(self,A,B=None,InterpolantPoints=None,ComputeOptions={},
+            Verbose=False,BasisFunctionsType='Orthogonal2'):
         """
         Initializes the base class and the attributes, namely, the computes the trace at interpolant points.
         """
 
         # Base class constructor
-        super(RootMonomialBasisFunctionsMethod,self).__init__(A,B=B,InterpolantPoints=InterpolantPoints,ComputeOptions=ComputeOptions,Verbose=Verbose)
+        super(RootMonomialBasisFunctionsMethod,self).__init__(A,B=B,InterpolantPoints=InterpolantPoints,
+                ComputeOptions=ComputeOptions,Verbose=Verbose)
 
         self.BasisFunctionsType = BasisFunctionsType
 
@@ -403,7 +407,7 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
     # Interpolate
     # -----------
 
-    def Interpolate(self,t):
+    def Interpolate(self,t,CompareWithExact=False,Plot=False):
         """
         Interpolates :math:`\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)` at :math:`t`.
 
@@ -412,6 +416,17 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
 
         :param t: The inquiry point(s).
         :type t: float, list, or numpy.array
+
+        :param CompareWithExact: If ``True``, it computes the trace with exact solution, then compares it with the interpolated 
+            solution. The return values of the ``Interpolate()`` functions become interpolated trace, exact solution, 
+            and relative error. **Note:** When this option is enabled, the exact solution will be computed for all inquiry points, 
+            which can take a very long time. Default is ``False``.
+        :type CompareWithExact: bool
+
+        :param Plot: If ``True``, it plots the interpolated trace versus the inquiry points. In addition, if the option
+            ``CompareWithExact`` is also set to ``True``, the plotted diagram contains both interpolated and exact solutions
+            and the relative error of interpolated solution with respect to the exact solution.
+        :type Plot: bool
 
         :return: The interpolated value of the trace.
         :rtype: float or numpy.array
@@ -432,6 +447,9 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
 
             \\frac{1}{\\tau(t)} = \\frac{1}{\\tau_0} + t + \sum_{j=1}^p w_j \\phi_j(t).
         """
+
+        print('qqqqqqqq')
+        print(t)
         
         if self.BasisFunctionsType == 'NonOrthogonal':
 
@@ -455,6 +473,23 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
             tau = 1.0 / (1.0/self.tau0+S+t)
 
         # Compute trace from tau
-        trace = tau * self.trace_Binv
+        Trace = tau * self.trace_Binv
 
-        return trace
+        # Compare with exact solution
+        if CompareWithExact:
+            Trace_Exact,Trace_RelativeError = self.CompareWithExactSolution(t,Trace)
+
+        # Plot
+        if Plot: 
+            if CompareWithExact:
+                print('wwwwwwwww')
+                print(t)
+                self.PlotInterpolation(t,Trace,Trace_Exact,Trace_RelativeError)
+            else:
+                self.PlotInterpolation(t,Trace)
+
+        # Return
+        if CompareWithExact:
+            return Trace,Trace_Exact,Trace_RelativeError
+        else:
+            return Trace

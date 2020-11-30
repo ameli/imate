@@ -11,6 +11,30 @@ from scipy import sparse
 from TraceInv import GenerateMatrix
 from TraceInv import InterpolateTraceOfInverse
 
+# =================
+# Remove Saved Plot
+# =================
+
+def RemoveSavedPlot():
+    """
+    When the option ``Plot=True`` is used in :mod:`TraceInv.GenerateMatrix`, a file named
+    ``CorrelationMatrix.svg`` is saved in the current directory. Call this function
+    to delete this file.
+    """
+
+    from os import path
+    SaveDir = os.getcwd()
+    Filename_SVG = 'InterpolationResults' + '.svg'
+    SaveFullname_SVG = os.path.join(SaveDir,Filename_SVG)
+
+    if os.path.exists(SaveFullname_SVG):
+        try:
+            os.remove(SaveFullname_SVG)
+        except:
+            pass
+
+    print('File %s is deleted.'%SaveFullname_SVG)
+
 # =================================
 # Test Interpolate Trace Of Inverse
 # =================================
@@ -104,6 +128,14 @@ def test_InterpolateTraceOfInverse():
     print("RPF     4-Points        %0.4f  %0.2f%%"%(Trace10,Error10))
     print("---------------------------------------")
     print("")
+
+    # Test Plot
+    InquiryPoints = numpy.logspace(numpy.log10(InterpolantPoints[0]),numpy.log10(InterpolantPoints[-1]),5)
+    print(InquiryPoints)
+    Trace_Interpolated,Trace_Exact,Trace_RelativeError = TI05.Interpolate(InquiryPoints,CompareWithExact=True,Plot=True)
+
+    # Remove saved plot
+    RemoveSavedPlot()
 
 # ===========
 # System Main

@@ -12,13 +12,15 @@ from .InterpolantBaseClass import InterpolantBaseClass
 
 class ExactMethod(InterpolantBaseClass):
     """
-    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.ExactMethod
-        :parts: 1
-
     Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A} + t \\mathbf{B}` using 
     exact method (no interpolation is performed).
     This class does not accept interpolant points as the result is not interpolated, rather, used
     as a benchmark to compare the exact versus the interpolated solution of the other classes.
+
+    **Class Inheritance:**
+
+    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.ExactMethod
+        :parts: 1
 
     :param A: A positive-definite matrix. Matrix can be dense or sparse.
     :type A: numpy.ndarray or scipy.sparse.csc_matrix
@@ -75,18 +77,48 @@ class ExactMethod(InterpolantBaseClass):
     # Interpolate
     # -----------
 
-    def Interpolate(self,t):
+    def Interpolate(self,t,CompareWithExact=False,Plot=False):
         """
-        This function does not interpolate, rather exactly computes :math:`\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1}  \rright)`
+        This function does not interpolate, rather exactly computes 
+        :math:`\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1}  \rright)`
 
         :param t: The inquiry point(s).
         :type t: float, list, or numpy.array
+
+        :param CompareWithExact: If ``True``, it computes the trace with exact solution, then compares it with the interpolated 
+            solution. The return values of the ``Interpolate()`` functions become interpolated trace, exact solution, 
+            and relative error. **Note:** When this option is enabled, the exact solution will be computed for all inquiry points, 
+            which can take a very long time. Default is ``False``.
+        :type CompareWithExact: bool
+
+        :param Plot: If ``True``, it plots the interpolated trace versus the inquiry points. In addition, if the option
+            ``CompareWithExact`` is also set to ``True``, the plotted diagram contains both interpolated and exact solutions
+            and the relative error of interpolated solution with respect to the exact solution.
+        :type Plot: bool
 
         :return: The exact value of the trace.
         :rtype: float or numpy.array
         """
  
         # Do not interpolate, instead compute the exact value
-        T = self.Compute(t)
+        Trace = self.Compute(t)
 
-        return T
+        # Compare with exact solution
+        if CompareWithExact:
+
+            # Since this method is exact, there is no need to compute exact again.
+            Trace_Exact = Trace
+            Trace_RelativeError = numpy.zeros(t.shape)
+
+        # Plot
+        if Plot:
+            if CompareWithExact:
+                self.PlotInterpolation(t,Trace,Trace_Exact,Trace_RelativeError)
+            else:
+                self.PlotInterpolation(t,Trace)
+
+        # Return
+        if CompareWithExact:
+            return Trace,Trace_Exact,Trace_RelativeError
+        else:
+            return Trace

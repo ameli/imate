@@ -15,11 +15,10 @@ from .InterpolantBaseClass import InterpolantBaseClass
 
 class EigenvaluesMethod(InterpolantBaseClass):
     """
-    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod
-        :parts: 1
-
     Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A} + t \\mathbf{B}` using eigenvalues of 
-    :math:`\\mathbf{A}`  and :math:`\mathbf{B}` by
+    :math:`\\mathbf{A}`  and :math:`\mathbf{B}`.
+    
+    The trace of computed by
 
     .. math::
 
@@ -28,6 +27,11 @@ class EigenvaluesMethod(InterpolantBaseClass):
     where :math:`\\lambda_i` is the eigenvalue of :math:`\\mathbf{A}` 
     and :math:`\\mu_i` is the eigenvalue of :math:`\mathbf{B}`. 
     This class does not accept interpolant points as the result is not interpolated.
+
+    **Class Inheritance:**
+
+    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod
+        :parts: 1
 
     :param A: Invertible matrix, can be either dense or sparse matrix.
     :type A: numpy.ndarray
@@ -61,7 +65,7 @@ class EigenvaluesMethod(InterpolantBaseClass):
         the total number of eigenvalues can be set by ``NonZeroRatio``.
         The tolerance at which the eigenvalues are computed can be set by ``Tolerance``.
 
-    :example:
+    **Example:**
 
     This class can be invoked from :class:`TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse` module 
     using ``InterpolationMethod='EIG'`` argument.
@@ -171,7 +175,7 @@ class EigenvaluesMethod(InterpolantBaseClass):
     # Interpolate
     # -----------
 
-    def Interpolate(self,t):
+    def Interpolate(self,t,CompareWithExact=False,Plot=False):
         """
         Computes the function :math:`\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)` 
         at the input point :math:`t` by
@@ -186,10 +190,37 @@ class EigenvaluesMethod(InterpolantBaseClass):
         :param: t: An inquiry point, which can be a single number, or an array of numbers.
         :type t: float or numpy.array
 
+        :param CompareWithExact: If ``True``, it computes the trace with exact solution, then compares it with the interpolated 
+            solution. The return values of the ``Interpolate()`` functions become interpolated trace, exact solution, 
+            and relative error. **Note:** When this option is enabled, the exact solution will be computed for all inquiry points, 
+            which can take a very long time. Default is ``False``.
+        :type CompareWithExact: bool
+
+        :param Plot: If ``True``, it plots the interpolated trace versus the inquiry points. In addition, if the option
+            ``CompareWithExact`` is also set to ``True``, the plotted diagram contains both interpolated and exact solutions
+            and the relative error of interpolated solution with respect to the exact solution.
+        :type Plot: bool
+
         :return: The exact value of the trace of inverse of ``A + tB``.
         :rtype: float
         """
-        
-        trace = numpy.sum(1.0/(self.A_eigenvalues + t * self.B_eigenvalues))
+       
+        # Compute trace using eigenvalues
+        Trace = numpy.sum(1.0/(self.A_eigenvalues + t * self.B_eigenvalues))
 
-        return trace
+        # Compare with exact solution
+        if CompareWithExact:
+            Trace_Exact,Trace_RelativeError = self.CompareWithExactSolution(t,Trace)
+
+        # Plot
+        if Plot:
+            if CompareWithExact:
+                self.PlotInterpolation(t,Trace,Trace_Exact,Trace_RelativeError)
+            else:
+                self.PlotInterpolation(t,Trace)
+
+        # Return
+        if CompareWithExact:
+            return Trace,Trace_Exact,Trace_RelativeError
+        else:
+            return Trace

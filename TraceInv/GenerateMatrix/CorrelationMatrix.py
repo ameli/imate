@@ -299,7 +299,7 @@ if RayInstalled:
 # Correlation Matrix
 # ==================
 
-def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,RunInParallel=False):
+def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,RunInParallel=False,Verbose=False):
     """
     Generates correlation matrix :math:`\\mathbf{K}`.
 
@@ -331,6 +331,9 @@ def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,R
 
     :param RunInParallel: Runs the code in parallel. Note that the ``ray`` module should be uncommented.
     :type RunInParallel: bool
+
+    :param Verbose: If ``True``, prints some information during the process. Default is ``False``.
+    :type Verbose: bool
 
     :return: Correlation matrix. If ``x`` and ``y`` are ``n*1`` arrays, the correlation ``K`` is ``n*n`` matrix.
     :rtype: ndarray or sparse array
@@ -416,6 +419,8 @@ def CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold=0.03,R
     if UseSparse == True:
 
         Density = K.nnz / numpy.prod(K.shape)
-        print('Using sparse correlation matrix with kernel threshold: %0.4f and sparsity: %0.4f'%(KernelThreshold,Density))
+
+        if Verbose:
+            print('Using sparse correlation matrix with kernel threshold: %0.4f and sparsity: %0.4f'%(KernelThreshold,Density))
 
     return K

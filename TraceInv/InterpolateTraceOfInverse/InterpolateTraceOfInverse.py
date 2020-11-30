@@ -142,7 +142,8 @@ class InterpolateTraceOfInverse(object):
     # Init
     # ----
 
-    def __init__(self,A,B=None,InterpolantPoints=None,InterpolationMethod='RMBF',ComputeOptions={'ComputeMethod': 'cholesky'},Verbose=False,**InterpolationOptions):
+    def __init__(self,A,B=None,InterpolantPoints=None,InterpolationMethod='RMBF',ComputeOptions={'ComputeMethod': 'cholesky'},
+            Verbose=False,**InterpolationOptions):
         """
         Initializes the object depending on the method.
         """
@@ -157,27 +158,33 @@ class InterpolateTraceOfInverse(object):
         # Define an interpolation object depending on the given method
         if InterpolationMethod == 'EXT':
             # Exact computation, not interpolation
-            self.Interpolator = ExactMethod(A,B,ComputeOptions=ComputeOptions,Verbose=Verbose,**InterpolationOptions)
+            self.Interpolator = ExactMethod(A,B,ComputeOptions=ComputeOptions,
+                    Verbose=Verbose,**InterpolationOptions)
 
         elif InterpolationMethod == 'EIG':
             # Eigenvalues method
-            self.Interpolator = EigenvaluesMethod(A,B,ComputeOptions=ComputeOptions,Verbose=Verbose,**InterpolationOptions)
+            self.Interpolator = EigenvaluesMethod(A,B,ComputeOptions=ComputeOptions,
+                    Verbose=Verbose,**InterpolationOptions)
 
         elif InterpolationMethod == 'MBF':
             # Monomial Basis Functions method
-            self.Interpolator = MonomialBasisFunctionsMethod(A,B,InterpolantPoints,ComputeOptions=ComputeOptions,Verbose=Verbose,**InterpolationOptions)
+            self.Interpolator = MonomialBasisFunctionsMethod(A,B,InterpolantPoints,ComputeOptions=ComputeOptions,
+                    Verbose=Verbose,**InterpolationOptions)
 
         elif InterpolationMethod == 'RMBF':
             # Root Monomial Basis Functions method
-            self.Interpolator = RootMonomialBasisFunctionsMethod(A,B,InterpolantPoints,ComputeOptions=ComputeOptions,Verbose=Verbose,**InterpolationOptions)
+            self.Interpolator = RootMonomialBasisFunctionsMethod(A,B,InterpolantPoints,ComputeOptions=ComputeOptions,
+                    Verbose=Verbose,**InterpolationOptions)
 
         elif InterpolationMethod == 'RBF':
             # Radial Basis Functions method
-            self.Interpolator = RadialBasisFunctionsMethod(A,B,InterpolantPoints,ComputeOptions=ComputeOptions,Verbose=Verbose,**InterpolationOptions)
+            self.Interpolator = RadialBasisFunctionsMethod(A,B,InterpolantPoints,ComputeOptions=ComputeOptions,
+                    Verbose=Verbose,**InterpolationOptions)
 
         elif InterpolationMethod == 'RPF':
             # Rational Polynomial Functions method
-            self.Interpolator = RationalPolynomialFunctionsMethod(A,B,InterpolantPoints,ComputeOptions=ComputeOptions,Verbose=Verbose,**InterpolationOptions)
+            self.Interpolator = RationalPolynomialFunctionsMethod(A,B,InterpolantPoints,ComputeOptions=ComputeOptions,
+                    Verbose=Verbose,**InterpolationOptions)
 
         else:
             raise ValueError("'InterpolationMethod' is invalid. Select one of 'EXT', 'EIG', 'MBF', 'RMBF', 'RBF', or 'RPF'.")
@@ -217,7 +224,7 @@ class InterpolateTraceOfInverse(object):
     # Interpolate
     # -----------
 
-    def Interpolate(self,t):
+    def Interpolate(self,t,CompareWithExact=False,Plot=False):
         """
         Interpolates :math:`\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)` at :math:`t`.
 
@@ -227,19 +234,30 @@ class InterpolateTraceOfInverse(object):
         :param t: The inquiry point(s).
         :type t: float, list, or numpy.array
 
+        :param CompareWithExact: If ``True``, it computes the trace with exact solution, then compares it with the interpolated 
+            solution. The return values of the ``Interpolate()`` functions become interpolated trace, exact solution, 
+            and relative error. **Note:** When this option is enabled, the exact solution will be computed for all inquiry points, 
+            which can take a very long time. Default is ``False``.
+        :type CompareWithExact: bool
+
+        :param Plot: If ``True``, it plots the interpolated trace versus the inquiry points. In addition, if the option
+            ``CompareWithExact`` is also set to ``True``, the plotted diagram contains both interpolated and exact solutions
+            and the relative error of interpolated solution with respect to the exact solution.
+        :type Plot: bool
+
         :return: The interpolated value of the trace.
         :rtype: float or numpy.array
         """
         
         if isinstance(t,Number):
             # Single number
-            T =  self.Interpolator.Interpolate(t)
+            T =  self.Interpolator.Interpolate(t,CompareWithExact=CompareWithExact,Plot=Plot)
 
         else:
             # An array of points
             T = numpy.empty((len(t),),dtype=float)
             for i in range(len(t)):
-                T[i] =  self.Interpolator.Interpolate(t[i])
+                T[i] =  self.Interpolator.Interpolate(t[i],CompareWithExact=CompareWithExact,Plot=Plot)
 
         return T
 

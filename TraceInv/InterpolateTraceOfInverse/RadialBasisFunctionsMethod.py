@@ -15,11 +15,13 @@ from scipy import interpolate
 
 class RadialBasisFunctionsMethod(InterpolantBaseClass):
     """
-    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod
-        :parts: 1
-
     Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A} + t \\mathbf{B}` using 
     an interpolation scheme based on rational polynomial functions (see details below).
+
+    **Class Inheritance:**
+
+    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod
+        :parts: 1
 
     :param A: Invertible matrix, can be either dense or sparse matrix.
     :type A: numpy.ndarray
@@ -95,7 +97,8 @@ class RadialBasisFunctionsMethod(InterpolantBaseClass):
         """
 
         # Base class constructor
-        super(RadialBasisFunctionsMethod,self).__init__(A,B=B,InterpolantPoints=InterpolantPoints,ComputeOptions=ComputeOptions,Verbose=Verbose)
+        super(RadialBasisFunctionsMethod,self).__init__(A,B=B,InterpolantPoints=InterpolantPoints,
+                ComputeOptions=ComputeOptions,Verbose=Verbose)
 
         # Initialize Interpolator
         self.RBF = None
@@ -190,7 +193,7 @@ class RadialBasisFunctionsMethod(InterpolantBaseClass):
     # Interpolate
     # -----------
 
-    def Interpolate(self,t):
+    def Interpolate(self,t,CompareWithExact=False,Plot=False):
         """
         Interpolates :math:`\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)` at :math:`t`.
 
@@ -199,6 +202,17 @@ class RadialBasisFunctionsMethod(InterpolantBaseClass):
 
         :param t: The inquiry point(s).
         :type t: float, list, or numpy.array
+
+        :param CompareWithExact: If ``True``, it computes the trace with exact solution, then compares it with the interpolated 
+            solution. The return values of the ``Interpolate()`` functions become interpolated trace, exact solution, 
+            and relative error. **Note:** When this option is enabled, the exact solution will be computed for all inquiry points, 
+            which can take a very long time. Default is ``False``.
+        :type CompareWithExact: bool
+
+        :param Plot: If ``True``, it plots the interpolated trace versus the inquiry points. In addition, if the option
+            ``CompareWithExact`` is also set to ``True``, the plotted diagram contains both interpolated and exact solutions
+            and the relative error of interpolated solution with respect to the exact solution.
+        :type Plot: bool
 
         :return: The interpolated value of the trace.
         :rtype: float or numpy.array
@@ -219,6 +233,21 @@ class RadialBasisFunctionsMethod(InterpolantBaseClass):
         else:
             raise ValueError('Invalid function type.')
 
-        trace = self.trace_Binv*tau
+        Trace = self.trace_Binv*tau
         
-        return trace
+        # Compare with exact solution
+        if CompareWithExact:
+            Trace_Exact,Trace_RelativeError = self.CompareWithExactSolution(t,Trace)
+
+        # Plot
+        if Plot:
+            if CompareWithExact:
+                self.PlotInterpolation(t,Trace,Trace_Exact,Trace_RelativeError)
+            else:
+                self.PlotInterpolation(t,Trace)
+
+        # Return
+        if CompareWithExact:
+            return Trace,Trace_Exact,Trace_RelativeError
+        else:
+            return Trace

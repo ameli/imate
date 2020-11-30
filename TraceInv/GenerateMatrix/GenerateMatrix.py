@@ -19,7 +19,8 @@ def GenerateMatrix(
         GridOfPoints=True,
         KernelThreshold=0.03,
         RunInParallel=False,
-        Plot=False):
+        Plot=False,
+        Verbose=False):
     """
     Generates symmetric and positive-definite matrix for test purposes.
     
@@ -72,6 +73,9 @@ def GenerateMatrix(
 
     :param Plot: If ``True``, the matrix will be plotted.
     :type Plot: bool
+
+    :param Verbose: If ``True``, prints some information during the process. Default is ``False``.
+    :type Verbose: bool
 
     :return: Correlation matrix. If ``x`` and ``y`` are ``n*1`` arrays, the correlation ``K`` is ``n*n`` matrix.
     :rtype: numpy.ndarray or sparse array
@@ -127,11 +131,11 @@ def GenerateMatrix(
     x,y = GeneratePoints(NumPoints,GridOfPoints)
 
     # Compute the correlation between the set of points
-    K = CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold,RunInParallel)
+    K = CorrelationMatrix(x,y,DecorrelationScale,nu,UseSparse,KernelThreshold,RunInParallel,Verbose)
 
     # Plot Correlation Matrix
     if Plot:
-        PlotMatrix(K,UseSparse)
+        PlotMatrix(K,UseSparse,Verbose)
 
     return K
 
@@ -139,11 +143,11 @@ def GenerateMatrix(
 # Plot Matrix
 # ===========
 
-def PlotMatrix(K,UseSparse):
+def PlotMatrix(K,UseSparse,Verbose=False):
     """
     Plots the matrix ``K``. 
 
-    If ``K`` is a sparse matrix, it plots all non-zero elements with single:w color
+    If ``K`` is a sparse matrix, it plots all non-zero elements with single color
     regardless of their values, and leaves the zero elements white.
 
     Whereas, if ``K`` is not a sparse matrix, the colormap of the plot
@@ -157,6 +161,9 @@ def PlotMatrix(K,UseSparse):
 
     :param UseSparse: Determine whether the matrix is dense or sparse
     :type UseSparse: bool
+
+    :param Verbose: If ``True``, prints some information during the process. Default is ``False``.
+    :type Verbose: bool
     """
 
     # Imports
@@ -166,7 +173,8 @@ def PlotMatrix(K,UseSparse):
 
     # Check if the graphic backend exists
     if os.environ.get('DISPLAY','') == '':
-        print('No display found. Using non-interactive Agg backend.')
+        if Verbose:
+            print('No display found. Using non-interactive Agg backend.')
         plt.switch_backend('agg')
 
     # Font settings
@@ -180,15 +188,15 @@ def PlotMatrix(K,UseSparse):
         p = ax.spy(K,markersize=1,color='blue',rasterized=True)
     else:
         # Plot dense matrix
-        p = ax.matshow(K,cmap='Blue')
+        p = ax.matshow(K,cmap='Blues')
         fig.colorbar(p,ax=ax)
 
     ax.set_title('Correlation Matrix')
-    ax.set_xlabel('Index i')
-    ax.set_ylabel('Index j')
+    ax.set_xlabel('Index $i$')
+    ax.set_ylabel('Index $j$')
     
     # Check if the graphical backend exists
-    if (not test) and (matplotlib.get_backend() != 'agg'):
+    if matplotlib.get_backend() != 'agg':
         plt.show()
     else:
         # write the plot as SVG file in the current working directory
