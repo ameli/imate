@@ -8,7 +8,7 @@ on:
 jobs:
     build:
 
-        runs-on: ubuntu-latest
+        runs-on: macos-latest
         strategy:
             matrix:
                 python-version: [2.7, 3.5, 3.6, 3.7, 3.8]
@@ -21,8 +21,7 @@ jobs:
                   python-version: ${{ matrix.python-version }}
             - name: Install prerequisits
               run: |
-                  sudo apt-get update
-                  sudo apt-get install libsuitesparse-dev
+                  sudo brew install suite-sparse
             - name: Install package and dependencies
               run: |
                   python -m pip install --upgrade pip
