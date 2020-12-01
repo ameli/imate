@@ -9,7 +9,7 @@ from TraceInv import GenerateMatrix
 
 # For plotting matrix, we disable interactive display
 import os
-os.environ['DISPLAY'] = ''
+os.environ['DISPLAY'] = ':0.0'
 
 # =================
 # Remove Saved Plot

@@ -4,12 +4,17 @@
 # Imports
 # =======
 
+import os
+from os import path
 import sys
 import numpy
 import scipy
 from scipy import sparse
 from TraceInv import GenerateMatrix
 from TraceInv import InterpolateTraceOfInverse
+
+# For plotting, we disable interactive display
+os.environ['DISPLAY'] = ':0.0'
 
 # =================
 # Remove Saved Plot
@@ -22,7 +27,6 @@ def RemoveSavedPlot():
     to delete this file.
     """
 
-    from os import path
     SaveDir = os.getcwd()
     Filename_SVG = 'InterpolationResults' + '.svg'
     SaveFullname_SVG = os.path.join(SaveDir,Filename_SVG)
@@ -129,10 +133,14 @@ def test_InterpolateTraceOfInverse():
     print("---------------------------------------")
     print("")
 
-    # Test Plot
+    # Compare with exact soluton and plot results
     InquiryPoints = numpy.logspace(numpy.log10(InterpolantPoints[0]),numpy.log10(InterpolantPoints[-1]),5)
-    print(InquiryPoints)
+    Trace_Interpolated,Trace_Exact,Trace_RelativeError = TI00.Interpolate(InquiryPoints,CompareWithExact=True,Plot=True)
+    Trace_Interpolated,Trace_Exact,Trace_RelativeError = TI01.Interpolate(InquiryPoints,CompareWithExact=True,Plot=True)
+    Trace_Interpolated,Trace_Exact,Trace_RelativeError = TI02.Interpolate(InquiryPoints,CompareWithExact=True,Plot=True)
     Trace_Interpolated,Trace_Exact,Trace_RelativeError = TI05.Interpolate(InquiryPoints,CompareWithExact=True,Plot=True)
+    Trace_Interpolated,Trace_Exact,Trace_RelativeError = TI08.Interpolate(InquiryPoints,CompareWithExact=True,Plot=True)
+    Trace_Interpolated,Trace_Exact,Trace_RelativeError = TI09.Interpolate(InquiryPoints,CompareWithExact=True,Plot=True)
 
     # Remove saved plot
     RemoveSavedPlot()

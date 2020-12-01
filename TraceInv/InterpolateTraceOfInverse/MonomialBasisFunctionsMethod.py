@@ -117,6 +117,11 @@ class MonomialBasisFunctionsMethod(InterpolantBaseClass):
         self.tau1 = None
         self.InitializeInterpolator() 
 
+        # Attributes
+        self.t_i = numpy.array([self.t1])
+        self.trace_i = self.T1
+        self.p = self.t_i.size
+
     # -----------------------
     # Initialize Interpolator
     # -----------------------
@@ -130,8 +135,8 @@ class MonomialBasisFunctionsMethod(InterpolantBaseClass):
             print('Initialize interpolator ...')
         
         An = self.A + self.t1*self.B
-        T1 = ComputeTraceOfInverse(An,**self.ComputeOptions)
-        self.tau1 = T1 / self.trace_Binv
+        self.T1 = ComputeTraceOfInverse(An,**self.ComputeOptions)
+        self.tau1 = self.T1 / self.trace_Binv
 
         if self.Verbose:
             print('Done.')
@@ -140,7 +145,7 @@ class MonomialBasisFunctionsMethod(InterpolantBaseClass):
     # Interpolate
     # -----------
 
-    def Interpolate(self,t,CompareWithExact=False,Plot=False):
+    def Interpolate(self,t):
         """
         Interpolates :math:`\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)` at :math:`t`.
 
@@ -150,17 +155,6 @@ class MonomialBasisFunctionsMethod(InterpolantBaseClass):
         :param t: The inquiry point(s).
         :type t: float, list, or numpy.array
 
-        :param CompareWithExact: If ``True``, it computes the trace with exact solution, then compares it with the interpolated 
-            solution. The return values of the ``Interpolate()`` functions become interpolated trace, exact solution, 
-            and relative error. **Note:** When this option is enabled, the exact solution will be computed for all inquiry points, 
-            which can take a very long time. Default is ``False``.
-        :type CompareWithExact: bool
-
-        :param Plot: If ``True``, it plots the interpolated trace versus the inquiry points. In addition, if the option
-            ``CompareWithExact`` is also set to ``True``, the plotted diagram contains both interpolated and exact solutions
-            and the relative error of interpolated solution with respect to the exact solution.
-        :type Plot: bool
-
         :return: The interpolated value of the trace.
         :rtype: float or numpy.array
         """
@@ -169,19 +163,4 @@ class MonomialBasisFunctionsMethod(InterpolantBaseClass):
         tau = 1.0 / (numpy.sqrt(t**2 + ((1.0/self.tau1)**2 - (1.0/self.tau0)**2 - self.t1**2)*(t/self.t1) + (1.0/self.tau0)**2))
         Trace = tau*self.trace_Binv
 
-        # Compare with exact solution
-        if CompareWithExact:
-            Trace_Exact,Trace_RelativeError = self.CompareWithExactSolution(t,Trace)
-
-        # Plot
-        if Plot:
-            if CompareWithExact:
-                self.PlotInterpolation(t,Trace,Trace_Exact,Trace_RelativeError)
-            else:
-                self.PlotInterpolation(t,Trace)
-
-        # Return
-        if CompareWithExact:
-            return Trace,Trace_Exact,Trace_RelativeError
-        else:
-            return Trace
+        return Trace

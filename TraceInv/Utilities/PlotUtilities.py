@@ -10,11 +10,12 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes,InsetPosition,mark_
 import matplotlib.ticker
 from matplotlib.ticker import ScalarFormatter,NullFormatter,FormatStrFormatter
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
 from distutils.spawn import find_executable
 
 # Check DISPLAY
-if os.environ.get('DISPLAY','') == '':
-    print('No display found. Using non-interactive Agg backend.')
+if os.environ.get('DISPLAY','') == ':0.0':
+    # No display found. Using non-interactive Agg backend.
     plt.switch_backend('agg')
 
 # Remove plt.tight_layout() warning
@@ -97,15 +98,10 @@ def SavePlot(plt,Filename,TransparentBackground=True):
         SaveDir = os.getcwd()
 
     # Save plot in both svg and pdf format
-    Filename_PDF = Filename + '.pdf'
     Filename_SVG = Filename + '.svg'
     if os.access(SaveDir,os.W_OK):
         SaveFullname_SVG = os.path.join(SaveDir,Filename_SVG)
-        SaveFullname_PDF = os.path.join(SaveDir,Filename_PDF)
         plt.savefig(SaveFullname_SVG,transparent=TransparentBackground,bbox_inches='tight')
-        plt.savefig(SaveFullname_PDF,transparent=TransparentBackground,bbox_inches='tight')
-        print('')
         print('Plot saved to "%s".'%(SaveFullname_SVG))
-        print('Plot saved to "%s".'%(SaveFullname_PDF))
     else:
         print('Cannot save plot to %s. Directory is not writable.'%SaveDir)

@@ -5,6 +5,14 @@
 from .GeneratePoints import GeneratePoints
 from .CorrelationMatrix import CorrelationMatrix
 
+try:
+    from ..Utilities.PlotUtilities import *
+    from ..Utilities.PlotUtilities import LoadPlotSettings
+    from ..Utilities.PlotUtilities import SavePlot
+    PlotModulesExist = True
+except:
+    PlotModulesExist = False
+
 __all__ = ['GenerateMatrix']
 
 # ===============
@@ -166,19 +174,11 @@ def PlotMatrix(K,UseSparse,Verbose=False):
     :type Verbose: bool
     """
 
-    # Imports
-    import os
-    import matplotlib
-    import matplotlib.pyplot as plt
-
-    # Check if the graphic backend exists
-    if os.environ.get('DISPLAY','') == '':
-        if Verbose:
-            print('No display found. Using non-interactive Agg backend.')
-        plt.switch_backend('agg')
-
-    # Font settings
-    plt.rcParams['svg.fonttype'] = 'none'  # text in svg file will be text not path.
+    # Load plot settings
+    if PlotModulesExist:
+        LoadPlotSettings()
+    else:
+        raise ImportError("'matplotlib' or 'seaborn' is either not installed or cannot be imported.")
 
     # Figure
     fig,ax = plt.subplots(figsize=(6,4))
@@ -200,8 +200,4 @@ def PlotMatrix(K,UseSparse,Verbose=False):
         plt.show()
     else:
         # write the plot as SVG file in the current working directory
-        SaveDir = os.getcwd()
-        Filename_SVG = 'CorrelationMatrix' + '.svg'
-        SaveFullname_SVG = os.path.join(SaveDir,Filename_SVG)
-        plt.savefig(SaveFullname_SVG,transparent=True,bbox_inches='tight')
-        print('Plot saved to "%s".'%(SaveFullname_SVG))
+        SavePlot(plt,'CorrelationMatrix',TransparentBackground=True)

@@ -16,6 +16,14 @@ from .RootMonomialBasisFunctionsMethod import RootMonomialBasisFunctionsMethod
 from .RadialBasisFunctionsMethod import RadialBasisFunctionsMethod
 from .RationalPolynomialFunctionsMethod import RationalPolynomialFunctionsMethod
 
+try:
+    from ..Utilities.PlotUtilities import *
+    from ..Utilities.PlotUtilities import LoadPlotSettings
+    from ..Utilities.PlotUtilities import SavePlot
+    PlotModulesExist = True
+except:
+    PlotModulesExist = False
+
 # ======================
 # Trace Estimation Class
 # ======================
@@ -149,6 +157,8 @@ class InterpolateTraceOfInverse(object):
         """
 
         # Attributes
+        self.InterpolationMethod = InterpolationMethod
+        self.Verbose = Verbose
         self.n = A.shape[0]
         if InterpolantPoints is not None:
             self.p = len(InterpolantPoints)
@@ -220,6 +230,43 @@ class InterpolateTraceOfInverse(object):
 
         return T
 
+    # ---------------------------
+    # Compare With Exact Solution
+    # ---------------------------
+
+    def CompareWithExactSolution(self,t,Trace):
+        """
+        Computes the trace with exact method (no interpolation), then compares it with 
+        the interpolated solution.
+
+        :param t: Inquiry points
+        :type t: numpy.ndarray
+
+        :param Trace: The interpolated computation of trace.
+        :type Trace: float or numpy.ndarray
+
+        :returns:
+            - Exact solution of trace.
+            - Relative error of interpolated solution compared to the exact solution.
+        :rtype:
+            - float or numpy.ndarray
+            - float or numpy.ndarray
+        """
+
+        if self.InterpolationMethod == 'EXT':
+
+            # The Trace results are already exact. No need to recompute them again.
+            Trace_Exact = Trace
+            Trace_RelativeError = numpy.zeros(t.shape)
+
+        else:
+
+            # Compute exact solution
+            Trace_Exact = self.Compute(t)
+            Trace_RelativeError = (Trace - Trace_Exact) / (Trace_Exact)
+
+        return Trace_Exact,Trace_RelativeError
+
     # -----------
     # Interpolate
     # -----------
@@ -251,15 +298,32 @@ class InterpolateTraceOfInverse(object):
         
         if isinstance(t,Number):
             # Single number
-            T =  self.Interpolator.Interpolate(t,CompareWithExact=CompareWithExact,Plot=Plot)
+            Trace =  self.Interpolator.Interpolate(t)
 
         else:
             # An array of points
-            T = numpy.empty((len(t),),dtype=float)
+            Trace = numpy.empty((len(t),),dtype=float)
             for i in range(len(t)):
-                T[i] =  self.Interpolator.Interpolate(t[i],CompareWithExact=CompareWithExact,Plot=Plot)
+                Trace[i] =  self.Interpolator.Interpolate(t[i])
 
-        return T
+        # Compare with exact solution
+        if CompareWithExact:
+
+            # Since this method is exact, there is no need to compute exact again.
+            Trace_Exact,Trace_RelativeError = self.CompareWithExactSolution(t,Trace)
+
+        # Plot
+        if Plot:
+            if CompareWithExact:
+                self.PlotInterpolation(t,Trace,Trace_Exact,Trace_RelativeError)
+            else:
+                self.PlotInterpolation(t,Trace)
+
+        # Return
+        if CompareWithExact:
+            return Trace,Trace_Exact,Trace_RelativeError
+        else:
+            return Trace
 
     # -----------
     # Lower Bound
@@ -342,3 +406,91 @@ class InterpolateTraceOfInverse(object):
                 T_ub[i] =  self.Interpolator.UpperBound(t[i])
 
         return T_ub
+
+    # ------------------
+    # Plot Interpolation
+    # ------------------
+
+    def PlotInterpolation(self,InquiryPoints,Trace_Interpolated,Trace_Exact=None,Trace_RelativeError=None):
+        """
+        Plots the interpolation results, together with the comparison with the exact solution and
+        the relative error of the interpolation.
+
+        To plot, set ``Plot=True`` argument in :mod:`TraceInv.InterpolateTraceOfInverse`.
+
+        :param InquiryPoints: Inquiry points
+        :type InquiryPoints: numpy.ndarray
+
+        :param Trace_Interpolated: Interpolation of the trace at inquiry points.
+        :type Trace_Interpolated: numpy.ndarray
+
+        :param Trace_Exact: Exact solutions of the trace at inquiry points. 
+            If this variable is not None, it will be plotted together with the interpolated results.
+        :type Trace_Exact: numpy.ndarray
+
+        :param Trace_RelativeError: Relative errors of the interpolation with respect to the exact solution.
+            If not None, the relative errors will be plotted on a second axis.
+        :type Trace_RelativeError: numpy.ndarray
+        """
+
+        # Check t should be an array
+        if numpy.isscalar(InquiryPoints) or (InquiryPoints.size == 1):
+            raise ValueError("Argument 'InquiryPoints' should be an array of length greater than one to be able to plot results.")
+
+        # Load plot settings
+        if PlotModulesExist:
+            LoadPlotSettings()
+        else:
+            raise ImportError("'matplotlib' or 'seaborn' is either not installed or cannot be imported.")
+
+        # Plot results
+        if Trace_RelativeError is None:
+            # One subplot
+            fig,ax = plt.subplots(figsize=(5,4))
+            ax = [ax]
+        else:
+            # Two subplots
+            fig,ax = plt.subplots(ncols=2,figsize=(9,4))
+
+        # Plot interpolant points with their exact values
+        if self.Interpolator.p > 0:
+            ax[0].semilogx(self.Interpolator.t_i,self.Interpolator.trace_i,'o',color='red',label='Interpolant points')
+
+        # Plot exact values
+        if Trace_Exact is not None:
+            ax[0].semilogx(InquiryPoints,Trace_Exact,color='red',label='Exact')
+
+        # Plot interpolated results
+        ax[0].semilogx(InquiryPoints,Trace_Interpolated,color='black',label='Interpolated')
+
+        ax[0].grid(True)
+        ax[0].set_xlim([InquiryPoints[0],InquiryPoints[-1]])
+        ax[0].set_xlabel('$t$')
+        if self.Interpolator.BIsIdentity:
+            ax[0].set_ylabel('trace$(A + t I)^{-1}$')
+        else:
+            ax[0].set_ylabel('trace$(A + t B)^{-1}$')
+        ax[0].set_title('Trace of Inverse')
+        ax[0].legend()
+
+        # Plot relative error in percent
+        if Trace_RelativeError is not None:
+            ax[1].semilogx(InquiryPoints,100.0*Trace_RelativeError,color='black',label='Interpolated')
+            if self.Interpolator.p > 0:
+                ax[1].semilogx(self.Interpolator.t_i,numpy.zeros(self.Interpolator.p),'o',color='red',label='Interpolant points')
+            ax[1].grid(True)
+            ax[1].set_xlim([InquiryPoints[0],InquiryPoints[-1]])
+            ax[1].set_xlabel('$t$')
+            ax[1].set_ylabel('Relative Error (in Percent)')
+            ax[1].set_title('Relative Error')
+            ax[1].yaxis.set_major_formatter(mtick.PercentFormatter())
+            ax[1].legend()
+
+        plt.tight_layout()
+
+        # Check if the graphical backend exists
+        if matplotlib.get_backend() != 'agg':
+            plt.show()
+        else:
+            # Save the plot as SVG file in the current directory
+            SavePlot(plt,'InterpolationResults',TransparentBackground=True)

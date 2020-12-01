@@ -73,28 +73,20 @@ class ExactMethod(InterpolantBaseClass):
         # Base class constructor
         super(ExactMethod,self).__init__(A,B=B,ComputeOptions=ComputeOptions,Verbose=Verbose)
 
+        # Attributes
+        self.p = 0
+
     # -----------
     # Interpolate
     # -----------
 
-    def Interpolate(self,t,CompareWithExact=False,Plot=False):
+    def Interpolate(self,t):
         """
         This function does not interpolate, rather exactly computes 
         :math:`\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1}  \rright)`
 
         :param t: The inquiry point(s).
         :type t: float, list, or numpy.array
-
-        :param CompareWithExact: If ``True``, it computes the trace with exact solution, then compares it with the interpolated 
-            solution. The return values of the ``Interpolate()`` functions become interpolated trace, exact solution, 
-            and relative error. **Note:** When this option is enabled, the exact solution will be computed for all inquiry points, 
-            which can take a very long time. Default is ``False``.
-        :type CompareWithExact: bool
-
-        :param Plot: If ``True``, it plots the interpolated trace versus the inquiry points. In addition, if the option
-            ``CompareWithExact`` is also set to ``True``, the plotted diagram contains both interpolated and exact solutions
-            and the relative error of interpolated solution with respect to the exact solution.
-        :type Plot: bool
 
         :return: The exact value of the trace.
         :rtype: float or numpy.array
@@ -103,22 +95,4 @@ class ExactMethod(InterpolantBaseClass):
         # Do not interpolate, instead compute the exact value
         Trace = self.Compute(t)
 
-        # Compare with exact solution
-        if CompareWithExact:
-
-            # Since this method is exact, there is no need to compute exact again.
-            Trace_Exact = Trace
-            Trace_RelativeError = numpy.zeros(t.shape)
-
-        # Plot
-        if Plot:
-            if CompareWithExact:
-                self.PlotInterpolation(t,Trace,Trace_Exact,Trace_RelativeError)
-            else:
-                self.PlotInterpolation(t,Trace)
-
-        # Return
-        if CompareWithExact:
-            return Trace,Trace_Exact,Trace_RelativeError
-        else:
-            return Trace
+        return Trace

@@ -407,7 +407,7 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
     # Interpolate
     # -----------
 
-    def Interpolate(self,t,CompareWithExact=False,Plot=False):
+    def Interpolate(self,t):
         """
         Interpolates :math:`\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1} \\right)` at :math:`t`.
 
@@ -416,17 +416,6 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
 
         :param t: The inquiry point(s).
         :type t: float, list, or numpy.array
-
-        :param CompareWithExact: If ``True``, it computes the trace with exact solution, then compares it with the interpolated 
-            solution. The return values of the ``Interpolate()`` functions become interpolated trace, exact solution, 
-            and relative error. **Note:** When this option is enabled, the exact solution will be computed for all inquiry points, 
-            which can take a very long time. Default is ``False``.
-        :type CompareWithExact: bool
-
-        :param Plot: If ``True``, it plots the interpolated trace versus the inquiry points. In addition, if the option
-            ``CompareWithExact`` is also set to ``True``, the plotted diagram contains both interpolated and exact solutions
-            and the relative error of interpolated solution with respect to the exact solution.
-        :type Plot: bool
 
         :return: The interpolated value of the trace.
         :rtype: float or numpy.array
@@ -448,9 +437,6 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
             \\frac{1}{\\tau(t)} = \\frac{1}{\\tau_0} + t + \sum_{j=1}^p w_j \\phi_j(t).
         """
 
-        print('qqqqqqqq')
-        print(t)
-        
         if self.BasisFunctionsType == 'NonOrthogonal':
 
             S = 0.0
@@ -475,21 +461,4 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
         # Compute trace from tau
         Trace = tau * self.trace_Binv
 
-        # Compare with exact solution
-        if CompareWithExact:
-            Trace_Exact,Trace_RelativeError = self.CompareWithExactSolution(t,Trace)
-
-        # Plot
-        if Plot: 
-            if CompareWithExact:
-                print('wwwwwwwww')
-                print(t)
-                self.PlotInterpolation(t,Trace,Trace_Exact,Trace_RelativeError)
-            else:
-                self.PlotInterpolation(t,Trace)
-
-        # Return
-        if CompareWithExact:
-            return Trace,Trace_Exact,Trace_RelativeError
-        else:
-            return Trace
+        return Trace
