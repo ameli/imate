@@ -21,8 +21,8 @@ jobs:
                   python-version: ${{ matrix.python-version }}
             - name: Install prerequisits
               run: |
-                  apt-get update
-                  apt-get install libsuitesparse-dev
+                  sudo apt-get update
+                  sudo apt-get install libsuitesparse-dev
             - name: Install package and dependencies
               run: |
                   python --version
