@@ -659,13 +659,12 @@
 
         <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
-        <span class="c1"># # Check if the graphical backend exists</span>
-        <span class="c1"># if matplotlib.get_backend() != &#39;agg&#39;:</span>
-        <span class="c1">#     plt.show()</span>
-        <span class="c1"># else:</span>
-        <span class="c1">#     # Save the plot as SVG file in the current directory</span>
-        <span class="c1">#     SavePlot(plt,&#39;InterpolationResults&#39;,TransparentBackground=True)</span>
-        <span class="n">SavePlot</span><span class="p">(</span><span class="n">plt</span><span class="p">,</span><span class="s1">&#39;InterpolationResults&#39;</span><span class="p">,</span><span class="n">TransparentBackground</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div></div>
+        <span class="c1"># Check if the graphical backend exists</span>
+        <span class="k">if</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">get_backend</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;agg&#39;</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Save the plot as SVG file in the current directory</span>
+            <span class="n">SavePlot</span><span class="p">(</span><span class="n">plt</span><span class="p">,</span><span class="s1">&#39;InterpolationResults&#39;</span><span class="p">,</span><span class="n">TransparentBackground</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>
