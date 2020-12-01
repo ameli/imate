@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 from distutils.spawn import find_executable
 
 # Check DISPLAY
-if os.environ.get('DISPLAY','') == '':
+if bool(os.environ.get('DISPLAY',None)):
     print('No display found. Using non-interactive Agg backend.')
     plt.switch_backend('agg')
 

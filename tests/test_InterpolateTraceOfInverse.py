@@ -10,11 +10,12 @@ import sys
 import numpy
 import scipy
 from scipy import sparse
-from TraceInv import GenerateMatrix
-from TraceInv import InterpolateTraceOfInverse
 
 # For plotting, we disable interactive display
-os.environ['DISPLAY'] = ':0.0'
+os.environ['DISPLAY'] = ''  # This should be before importing TraceInv packages
+
+from TraceInv import GenerateMatrix
+from TraceInv import InterpolateTraceOfInverse
 
 # =================
 # Remove Saved Plot

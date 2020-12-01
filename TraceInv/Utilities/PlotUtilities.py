@@ -14,7 +14,7 @@ import matplotlib.ticker as mtick
 from distutils.spawn import find_executable
 
 # Check DISPLAY
-if os.environ.get('DISPLAY','') == ':0.0':
+if not bool(os.environ.get('DISPLAY',None)):
     # No display found. Using non-interactive Agg backend.
     plt.switch_backend('agg')
 
@@ -39,17 +39,17 @@ def LoadPlotSettings():
     # sns.set()
 
     # LaTeX
-    if find_executable('latex'):
-        try:
-            # plt.rc('text',usetex=True)
-            matplotlib.rcParams['text.usetex'] = True
-            matplotlib.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
-            matplotlib.font_manager._rebuild()
-
-            # LaTeX font is a bit small. Increaset axes font size
-            sns.set(font_scale=1.2)
-        except:
-            pass
+    # if find_executable('latex'):
+    #     try:
+    #         # plt.rc('text',usetex=True)
+    #         matplotlib.rcParams['text.usetex'] = True
+    #         matplotlib.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+    #         matplotlib.font_manager._rebuild()
+    #
+    #         # LaTeX font is a bit small. Increaset axes font size
+    #         sns.set(font_scale=1.2)
+    #     except:
+    #         pass
 
     # Style sheet
     sns.set_style("white")
