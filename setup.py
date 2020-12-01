@@ -94,7 +94,7 @@ def main(argv):
         packages = setuptools.find_packages(exclude=("tests","examples",)),
         install_requires = Requirements,
         python_requires = '>=2.7',
-        setup_requires = ['pytest-runner'],
+        setup_requires = ['pytest-runner','numpy'],
         tests_require = ['pytest'],
         include_package_data=True,
         # cmdclass=cmdclass,
