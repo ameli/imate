@@ -488,10 +488,9 @@ class InterpolateTraceOfInverse(object):
 
         plt.tight_layout()
 
-        # # Check if the graphical backend exists
-        # if matplotlib.get_backend() != 'agg':
-        #     plt.show()
-        # else:
-        #     # Save the plot as SVG file in the current directory
-        #     SavePlot(plt,'InterpolationResults',TransparentBackground=True)
-        SavePlot(plt,'InterpolationResults',TransparentBackground=True)
+        # Check if the graphical backend exists
+        if matplotlib.get_backend() != 'agg':
+            plt.show()
+        else:
+            # Save the plot as SVG file in the current directory
+            SavePlot(plt,'InterpolationResults',TransparentBackground=True)

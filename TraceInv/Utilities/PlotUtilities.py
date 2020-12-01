@@ -13,10 +13,11 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 from distutils.spawn import find_executable
 
-# Check DISPLAY
-if not bool(os.environ.get('DISPLAY',None)):
-    # No display found. Using non-interactive Agg backend.
-    plt.switch_backend('agg')
+# # Check DISPLAY
+# if not bool(os.environ.get('DISPLAY',None)):
+#     # No display found. Using non-interactive Agg backend.
+#     plt.switch_backend('agg')
+plt.switch_backend('agg')
 
 # Remove plt.tight_layout() warning
 import logging

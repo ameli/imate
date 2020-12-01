@@ -195,10 +195,9 @@ def PlotMatrix(K,UseSparse,Verbose=False):
     ax.set_xlabel('Index $i$')
     ax.set_ylabel('Index $j$')
     
-    # # Check if the graphical backend exists
-    # if matplotlib.get_backend() != 'agg':
-    #     plt.show()
-    # else:
-    #     # write the plot as SVG file in the current working directory
-    #     SavePlot(plt,'CorrelationMatrix',TransparentBackground=True)
-    SavePlot(plt,'CorrelationMatrix',TransparentBackground=True)
+    # Check if the graphical backend exists
+    if matplotlib.get_backend() != 'agg':
+        plt.show()
+    else:
+        # write the plot as SVG file in the current working directory
+        SavePlot(plt,'CorrelationMatrix',TransparentBackground=True)
