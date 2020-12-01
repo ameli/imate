@@ -494,3 +494,4 @@ class InterpolateTraceOfInverse(object):
         # else:
         #     # Save the plot as SVG file in the current directory
         #     SavePlot(plt,'InterpolationResults',TransparentBackground=True)
+        SavePlot(plt,'InterpolationResults',TransparentBackground=True)
