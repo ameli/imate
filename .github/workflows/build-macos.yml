@@ -1,4 +1,4 @@
-name: build
+name: build-macos
 
 on:
     push:
@@ -21,7 +21,7 @@ jobs:
                   python-version: ${{ matrix.python-version }}
             - name: Install prerequisits
               run: |
-                  sudo brew install suite-sparse
+                  brew install suite-sparse
             - name: Install package and dependencies
               run: |
                   python -m pip install --upgrade pip

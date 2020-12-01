@@ -1,4 +1,4 @@
-name: build
+name: build-windows
 
 on:
     push:
@@ -23,7 +23,7 @@ jobs:
               run: |
                   python -m pip install --upgrade pip
                   python -m pip install --upgrade numpy
-                  python -m pip install --upgrade -e .[extra]
+                  python -m pip install --upgrade -e .
             - name: Test
               run: |
                   python -m pip install --upgrade pytest
