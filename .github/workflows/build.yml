@@ -25,9 +25,8 @@ jobs:
                   sudo apt-get install libsuitesparse-dev
             - name: Install package and dependencies
               run: |
-                  python --version
-                  python -m pip install --upgrade pip
-                  python -m pip install --upgrade -e .[full]
+                  pip install --upgrade pip
+                  pip install --upgrade -e .[full]
             - name: Test
               run: |
                   python -m pip install --upgrade pytest
