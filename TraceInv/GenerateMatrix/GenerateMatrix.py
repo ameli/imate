@@ -201,4 +201,3 @@ def PlotMatrix(K,UseSparse,Verbose=False):
     # else:
     #     # write the plot as SVG file in the current working directory
     #     SavePlot(plt,'CorrelationMatrix',TransparentBackground=True)
-    SavePlot(plt,'CorrelationMatrix',TransparentBackground=True)
