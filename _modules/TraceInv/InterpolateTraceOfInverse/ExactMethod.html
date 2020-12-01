@@ -244,28 +244,20 @@
         <span class="c1"># Base class constructor</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ExactMethod</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span><span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">,</span><span class="n">Verbose</span><span class="o">=</span><span class="n">Verbose</span><span class="p">)</span>
 
+        <span class="c1"># Attributes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="mi">0</span>
+
     <span class="c1"># -----------</span>
     <span class="c1"># Interpolate</span>
     <span class="c1"># -----------</span>
 
-<div class="viewcode-block" id="ExactMethod.Interpolate"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod.html#TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">CompareWithExact</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">Plot</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="ExactMethod.Interpolate"><a class="viewcode-back" href="../../../api/TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod.html#TraceInv.InterpolateTraceOfInverse.ExactMethod.ExactMethod.Interpolate">[docs]</a>    <span class="k">def</span> <span class="nf">Interpolate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">t</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function does not interpolate, rather exactly computes </span>
 <span class="sd">        :math:`\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1}  \rright)`</span>
 
 <span class="sd">        :param t: The inquiry point(s).</span>
 <span class="sd">        :type t: float, list, or numpy.array</span>
-
-<span class="sd">        :param CompareWithExact: If ``True``, it computes the trace with exact solution, then compares it with the interpolated </span>
-<span class="sd">            solution. The return values of the ``Interpolate()`` functions become interpolated trace, exact solution, </span>
-<span class="sd">            and relative error. **Note:** When this option is enabled, the exact solution will be computed for all inquiry points, </span>
-<span class="sd">            which can take a very long time. Default is ``False``.</span>
-<span class="sd">        :type CompareWithExact: bool</span>
-
-<span class="sd">        :param Plot: If ``True``, it plots the interpolated trace versus the inquiry points. In addition, if the option</span>
-<span class="sd">            ``CompareWithExact`` is also set to ``True``, the plotted diagram contains both interpolated and exact solutions</span>
-<span class="sd">            and the relative error of interpolated solution with respect to the exact solution.</span>
-<span class="sd">        :type Plot: bool</span>
 
 <span class="sd">        :return: The exact value of the trace.</span>
 <span class="sd">        :rtype: float or numpy.array</span>
@@ -274,25 +266,7 @@
         <span class="c1"># Do not interpolate, instead compute the exact value</span>
         <span class="n">Trace</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Compute</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 
-        <span class="c1"># Compare with exact solution</span>
-        <span class="k">if</span> <span class="n">CompareWithExact</span><span class="p">:</span>
-
-            <span class="c1"># Since this method is exact, there is no need to compute exact again.</span>
-            <span class="n">Trace_Exact</span> <span class="o">=</span> <span class="n">Trace</span>
-            <span class="n">Trace_RelativeError</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-
-        <span class="c1"># Plot</span>
-        <span class="k">if</span> <span class="n">Plot</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">CompareWithExact</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">PlotInterpolation</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Trace</span><span class="p">,</span><span class="n">Trace_Exact</span><span class="p">,</span><span class="n">Trace_RelativeError</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">PlotInterpolation</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">Trace</span><span class="p">)</span>
-
-        <span class="c1"># Return</span>
-        <span class="k">if</span> <span class="n">CompareWithExact</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Trace</span><span class="p">,</span><span class="n">Trace_Exact</span><span class="p">,</span><span class="n">Trace_RelativeError</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">Trace</span></div></div>
+        <span class="k">return</span> <span class="n">Trace</span></div></div>
 </pre></div>
 
            </div>

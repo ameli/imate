@@ -271,7 +271,7 @@ which is given by <a class="reference internal" href="../_modules/TraceInv.Inter
 <tr class="row-odd"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.InitializeInterpolator" title="TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.InitializeInterpolator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InitializeInterpolator</span></code></a>()</p></td>
 <td><p>Initializes the <code class="docutils literal notranslate"><span class="pre">A_eigenvalues</span></code> and <code class="docutils literal notranslate"><span class="pre">B_eigenvalues</span></code>  member data of the class.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate" title="TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Interpolate</span></code></a>(t[, CompareWithExact, Plot])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate" title="TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Interpolate</span></code></a>(t)</p></td>
 <td><p>Computes the function <span class="math notranslate nohighlight">\(\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span>  at the input point <span class="math notranslate nohighlight">\(t\)</span> by</p></td>
 </tr>
 </tbody>
@@ -291,7 +291,7 @@ we assume the rest of the eigenvalues are close to zero.</p>
 
 <dl class="py method">
 <dt id="TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate">
-<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em>, <em class="sig-param"><span class="n">CompareWithExact</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">Plot</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/EigenvaluesMethod.html#EigenvaluesMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">Interpolate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/InterpolateTraceOfInverse/EigenvaluesMethod.html#EigenvaluesMethod.Interpolate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod.EigenvaluesMethod.Interpolate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the function <span class="math notranslate nohighlight">\(\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span> 
 at the input point <span class="math notranslate nohighlight">\(t\)</span> by</p>
 <div class="math notranslate nohighlight">
@@ -302,22 +302,11 @@ and  <span class="math notranslate nohighlight">\(\mu_i\)</span> is the eigenval
 <dt class="field-odd">Param</dt>
 <dd class="field-odd"><p>t: An inquiry point, which can be a single number, or an array of numbers.</p>
 </dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>CompareWithExact</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it computes the trace with exact solution, then compares it with the interpolated 
-solution. The return values of the <code class="docutils literal notranslate"><span class="pre">Interpolate()</span></code> functions become interpolated trace, exact solution, 
-and relative error. <strong>Note:</strong> When this option is enabled, the exact solution will be computed for all inquiry points, 
-which can take a very long time. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-<li><p><strong>Plot</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it plots the interpolated trace versus the inquiry points. In addition, if the option
-<code class="docutils literal notranslate"><span class="pre">CompareWithExact</span></code> is also set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, the plotted diagram contains both interpolated and exact solutions
-and the relative error of interpolated solution with respect to the exact solution.</p></li>
-</ul>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The exact value of the trace of inverse of <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">+</span> <span class="pre">tB</span></code>.</p>
 </dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>The exact value of the trace of inverse of <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">+</span> <span class="pre">tB</span></code>.</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>float</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>

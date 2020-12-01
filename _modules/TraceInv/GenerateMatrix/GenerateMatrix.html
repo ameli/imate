@@ -176,6 +176,14 @@
 <span class="kn">from</span> <span class="nn">.GeneratePoints</span> <span class="kn">import</span> <span class="n">GeneratePoints</span>
 <span class="kn">from</span> <span class="nn">.CorrelationMatrix</span> <span class="kn">import</span> <span class="n">CorrelationMatrix</span>
 
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">..Utilities.PlotUtilities</span> <span class="kn">import</span> <span class="o">*</span>
+    <span class="kn">from</span> <span class="nn">..Utilities.PlotUtilities</span> <span class="kn">import</span> <span class="n">LoadPlotSettings</span>
+    <span class="kn">from</span> <span class="nn">..Utilities.PlotUtilities</span> <span class="kn">import</span> <span class="n">SavePlot</span>
+    <span class="n">PlotModulesExist</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">PlotModulesExist</span> <span class="o">=</span> <span class="kc">False</span>
+
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;GenerateMatrix&#39;</span><span class="p">]</span>
 
 <span class="c1"># ===============</span>
@@ -337,19 +345,11 @@
 <span class="sd">    :type Verbose: bool</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># Imports</span>
-    <span class="kn">import</span> <span class="nn">os</span>
-    <span class="kn">import</span> <span class="nn">matplotlib</span>
-    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-    <span class="c1"># Check if the graphic backend exists</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;DISPLAY&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">Verbose</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No display found. Using non-interactive Agg backend.&#39;</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">switch_backend</span><span class="p">(</span><span class="s1">&#39;agg&#39;</span><span class="p">)</span>
-
-    <span class="c1"># Font settings</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;svg.fonttype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;none&#39;</span>  <span class="c1"># text in svg file will be text not path.</span>
+    <span class="c1"># Load plot settings</span>
+    <span class="k">if</span> <span class="n">PlotModulesExist</span><span class="p">:</span>
+        <span class="n">LoadPlotSettings</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;&#39;matplotlib&#39; or &#39;seaborn&#39; is either not installed or cannot be imported.&quot;</span><span class="p">)</span>
 
     <span class="c1"># Figure</span>
     <span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
@@ -371,11 +371,7 @@
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># write the plot as SVG file in the current working directory</span>
-        <span class="n">SaveDir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
-        <span class="n">Filename_SVG</span> <span class="o">=</span> <span class="s1">&#39;CorrelationMatrix&#39;</span> <span class="o">+</span> <span class="s1">&#39;.svg&#39;</span>
-        <span class="n">SaveFullname_SVG</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">SaveDir</span><span class="p">,</span><span class="n">Filename_SVG</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">SaveFullname_SVG</span><span class="p">,</span><span class="n">transparent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Plot saved to &quot;</span><span class="si">%s</span><span class="s1">&quot;.&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">SaveFullname_SVG</span><span class="p">))</span>
+        <span class="n">SavePlot</span><span class="p">(</span><span class="n">plt</span><span class="p">,</span><span class="s1">&#39;CorrelationMatrix&#39;</span><span class="p">,</span><span class="n">TransparentBackground</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
            </div>
