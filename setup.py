@@ -110,7 +110,6 @@ def main(argv):
                 'ray'
                 ],
             'full': [
-                'scikit-sparse',
                 'ray'
                 ],
             'test': [
