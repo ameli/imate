@@ -454,7 +454,7 @@ class InterpolateTraceOfInverse(object):
 
         # Plot interpolant points with their exact values
         if self.Interpolator.p > 0:
-            ax[0].semilogx(self.Interpolator.t_i,self.Interpolator.trace_i,'o',color='red',label='Interpolant points')
+            ax[0].semilogx(self.Interpolator.t_i,self.Interpolator.trace_i,'o',color='red',label='Interpolant points',zorder=20)
 
         # Plot exact values
         if Trace_Exact is not None:
@@ -475,9 +475,9 @@ class InterpolateTraceOfInverse(object):
 
         # Plot relative error in percent
         if Trace_RelativeError is not None:
-            ax[1].semilogx(InquiryPoints,100.0*Trace_RelativeError,color='black',label='Interpolated')
             if self.Interpolator.p > 0:
-                ax[1].semilogx(self.Interpolator.t_i,numpy.zeros(self.Interpolator.p),'o',color='red',label='Interpolant points')
+                ax[1].semilogx(self.Interpolator.t_i,numpy.zeros(self.Interpolator.p),'o',color='red',label='Interpolant points',zorder=20)
+            ax[1].semilogx(InquiryPoints,100.0*Trace_RelativeError,color='black',label='Interpolated')
             ax[1].grid(True)
             ax[1].set_xlim([InquiryPoints[0],InquiryPoints[-1]])
             ax[1].set_xlabel('$t$')
