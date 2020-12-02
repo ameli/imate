@@ -17,7 +17,7 @@ from distutils.spawn import find_executable
 if not bool(os.environ.get('DISPLAY',None)):
 
     if platform.system() == 'Darwin':
-        matplotlib.use('macos')
+        matplotlib.use('agg')
         import matplotlib.pyplot as plt
     else:
         # No display found. Using non-interactive Agg backend.
