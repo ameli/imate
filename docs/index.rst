@@ -54,6 +54,12 @@ A common difficulty in such application is that the matrices are generally large
 ..    TraceInv.InterpolateTraceOfInverse
 ..    TraceInv.GenerateMatrix
 
+=========
+Tutorials
+=========
+
+|binder|
+
 ============
 Useful Links
 ============
@@ -162,3 +168,5 @@ Indices and tables
    :target: https://anaconda.org/s-ameli/traceinv
 .. |conda-version| image:: https://img.shields.io/conda/v/s-ameli/traceinv
    :target: https://anaconda.org/s-ameli/traceinv
+.. |binder| image:: https://mybinder.org/badge_logo.svg
+   :target: https://mybinder.org/v2/gh/ameli/TraceInv/HEAD?filepath=notebooks

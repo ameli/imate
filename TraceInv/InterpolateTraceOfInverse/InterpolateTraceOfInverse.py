@@ -465,11 +465,11 @@ class InterpolateTraceOfInverse(object):
 
         ax[0].grid(True)
         ax[0].set_xlim([InquiryPoints[0],InquiryPoints[-1]])
-        ax[0].set_xlabel('$t$')
+        ax[0].set_xlabel(r'$t$')
         if self.Interpolator.BIsIdentity:
-            ax[0].set_ylabel('trace$(A + t I)^{-1}$')
+            ax[0].set_ylabel(r'trace$(\mathbf{A} + t \mathbf{I})^{-1}$')
         else:
-            ax[0].set_ylabel('trace$(A + t B)^{-1}$')
+            ax[0].set_ylabel(r'trace$(\mathbf{A} + t \mathbf{B})^{-1}$')
         ax[0].set_title('Trace of Inverse')
         ax[0].legend()
 

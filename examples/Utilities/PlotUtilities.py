@@ -9,13 +9,23 @@ from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes,InsetPosition,mark_inset
 import matplotlib.ticker
 from matplotlib.ticker import ScalarFormatter,NullFormatter,FormatStrFormatter
-import matplotlib.pyplot as plt
 from distutils.spawn import find_executable
 
 # Check DISPLAY
-if bool(os.environ.get('DISPLAY',None)):
-    print('No display found. Using non-interactive Agg backend.')
-    plt.switch_backend('agg')
+if not bool(os.environ.get('DISPLAY',None)):
+
+    # No display found (often used during test phase on servers). Using non-interactive backend.
+    if platform.system() == 'Darwin':
+        # For MacOS, first, use macos baclend, "then" import pyplot 
+        matplotlib.use('agg')
+        import matplotlib.pyplot as plt
+    else:
+        # For Linux and Windows, "first" import pyplot, then use Agg backend.
+        import matplotlib.pyplot as plt
+        plt.switch_backend('agg')
+else:
+    # Display exists. Import pyplot without changing any backend.
+    import matplotlib.pyplot as plt
 
 # Remove plt.tight_layout() warning
 import logging

@@ -14,16 +14,20 @@ import matplotlib.ticker as mtick
 from distutils.spawn import find_executable
 
 # Check DISPLAY
-if not bool(os.environ.get('DISPLAY',None)):
+# if not bool(os.environ.get('DISPLAY',None)):
+if False:
 
+    # No display found (often used during test phase on servers). Using non-interactive backend.
     if platform.system() == 'Darwin':
+        # For MacOS, first, use macos baclend, "then" import pyplot 
         matplotlib.use('agg')
         import matplotlib.pyplot as plt
     else:
-        # No display found. Using non-interactive Agg backend.
+        # For Linux and Windows, "first" import pyplot, then use Agg backend.
         import matplotlib.pyplot as plt
         plt.switch_backend('agg')
 else:
+    # Display exists. Import pyplot without changing any backend.
     import matplotlib.pyplot as plt
 
 # Remove plt.tight_layout() warning
@@ -47,17 +51,17 @@ def LoadPlotSettings():
     # sns.set()
 
     # LaTeX
-    # if find_executable('latex'):
-    #     try:
-    #         # plt.rc('text',usetex=True)
-    #         matplotlib.rcParams['text.usetex'] = True
-    #         matplotlib.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
-    #         matplotlib.font_manager._rebuild()
-    #
-    #         # LaTeX font is a bit small. Increaset axes font size
-    #         sns.set(font_scale=1.2)
-    #     except:
-    #         pass
+    if find_executable('latex'):
+        try:
+            # plt.rc('text',usetex=True)
+            matplotlib.rcParams['text.usetex'] = True
+            matplotlib.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+            matplotlib.font_manager._rebuild()
+
+            # LaTeX font is a bit small. Increaset axes font size
+            sns.set(font_scale=1.2)
+        except:
+            pass
 
     # Style sheet
     sns.set_style("white")
