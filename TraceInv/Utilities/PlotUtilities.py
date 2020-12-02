@@ -3,21 +3,28 @@
 # =======
 
 import os
+import platform
 import matplotlib
 from matplotlib.ticker import PercentFormatter
 from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes,InsetPosition,mark_inset
 import matplotlib.ticker
 from matplotlib.ticker import ScalarFormatter,NullFormatter,FormatStrFormatter
-import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 from distutils.spawn import find_executable
 
-# # Check DISPLAY
-# if not bool(os.environ.get('DISPLAY',None)):
-#     # No display found. Using non-interactive Agg backend.
-#     plt.switch_backend('agg')
-plt.switch_backend('agg')
+# Check DISPLAY
+if not bool(os.environ.get('DISPLAY',None)):
+
+    if platform.system() == 'Darwin':
+        matplotlib.use('macos')
+        import matplotlib.pyplot as plt
+    else:
+        # No display found. Using non-interactive Agg backend.
+        import matplotlib.pyplot as plt
+        plt.switch_backend('agg')
+else:
+    import matplotlib.pyplot as plt
 
 # Remove plt.tight_layout() warning
 import logging
