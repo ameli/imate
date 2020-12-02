@@ -21,49 +21,65 @@ Install TraceInv
 
 TraceInv can be installed on Linux, macOS, and Windows platforms and supports both python 2 and 3. Install by either of the following ways:
 
-* **Method 1: Through Conda package.** Install TraceInv and its dependencies through the package available at `Conda <https://anaconda.org/s-ameli/traceinv>`_ by
+----------------------
+Through Anaconda Cloud
+----------------------
+
+|conda| |conda-version| |conda-platform|
+
+Install TraceInv and its dependencies through the package available at `Conda <https://anaconda.org/s-ameli/traceinv>`_ by
 
   ::
 
       conda install -c s-ameli traceinv
 
-* **Method 2: Through PyPi package.** The recommended way to install TraceInv and its dependencies is through the package available at `PyPi <https://pypi.org/project/TraceInv>`_ by
+------------
+Through PyPi
+------------
+
+|pypi| |format| |implementation| |pyversions|
+
+The recommended way to install TraceInv and its dependencies is through the package available at `PyPi <https://pypi.org/project/TraceInv>`_ by
 
   ::
       
       python -m pip install TraceInv
 
 
-* **Method 3: Build source locally.**
+--------------------
+Build Source Locally
+--------------------
 
-  First, install ``setuptools``:
+|release|
 
-  ::
+First, install ``setuptools``:
+
+::
       
-      python -m pip install setuptools 
+    python -m pip install setuptools 
 
-  Clone the source code, build locally, and install by
+Clone the source code, build locally, and install by
   
-  ::
+::
 
-      git clone https://github.com/ameli/TraceInv.git
-      cd TraceInv
-      python setup build
-      python setup install
+    git clone https://github.com/ameli/TraceInv.git
+    cd TraceInv
+    python setup build
+    python setup install
 
-  Note that the last line in the above many need to be run with ``sudo``.
+Note that the last line in the above many need to be run with ``sudo``.
 
-  The third installation method does not install the dependencies automatically. The dependencies should be installed separately such as with ``pip`` below. In the same root directory of the package (where the file ``requirements.txt`` can be found) run
+The third installation method does not install the dependencies automatically. The dependencies should be installed separately such as with ``pip`` below. In the same root directory of the package (where the file ``requirements.txt`` can be found) run
 
-  ::
+::
 
-      python -m pip install -r requirements.txt
+    python -m pip install -r requirements.txt
 
-  Alternatively, the dependencies can be installed with ``conda`` by
+Alternatively, the dependencies can be installed with ``conda`` by
 
-  ::
+::
 
-      conda install --file requirements.txt
+    conda install --file requirements.txt
 
 =======================================
 Install TraceInv in Virtual Environment
@@ -125,15 +141,24 @@ When ``ray`` is needed:
 Install ``scikit-sparse``
 -------------------------
 
-1. Install `Suite Sarse <https://people.engr.tamu.edu/davis/suitesparse.html>`_ development library ``libsuitesparse-dev`` using ``apt`` package manager in Debian-based Linux distros (such as *Debian, Ubuntu, Mint*) by
+1. Install `Suite Sarse <https://people.engr.tamu.edu/davis/suitesparse.html>`_ development library.
    
-   ::
+   * **In Linux:** Install ``libsuitesparse-dev`` using ``apt`` package manager in Debian-based Linux distros (such as *Debian, Ubuntu, Mint*) by
+   
+     ::
+         
+         sudo apt install libsuitesparse-dev  
 
-       sudo apt install libsuitesparse-dev  
+   Replace ``apt`` in the above with the native package manager of your operating system, such as ``yum`` for  *Redhat, Fedora, and CentOS Linux*, ``pacman`` for *Arch Linux*.
+   
+   * **In MacOS:** To install ``suite-sparse`` with ``brew``:
 
-   Replace ``apt`` in the above with the native package manager of your operating system, such as ``yum`` for  *Redhat, Fedora, and CentOS Linux*, ``pacman`` for *Arch Linux*, and ``brew`` for *macOS*.
+     ::
+         
+         sudo brew install suite-sparse
 
-   Alternatively, if you are using *Anaconda* python distribution (on either of the operating systems), install Suite Sparse by:
+
+   * **Using Anaconda:** Alternatively, if you are using *Anaconda* python distribution (on either of the operating systems), install Suite Sparse by:
 
    ::
 
@@ -147,3 +172,18 @@ Install ``scikit-sparse``
 
 When ``scikit-sparse`` is needed:
     In ``TraceInv`` package, one of the methods to compute the trace of a matrix is by the *Cholesky decomposition*. If the input matrix is *sparse*, the Cholesky decomposition is computed using ``scikit-sparse``. But if this package is not installed, the ``scipy`` package is used instead.
+
+.. |implementation| image:: https://img.shields.io/pypi/implementation/TraceInv
+.. |pyversions| image:: https://img.shields.io/pypi/pyversions/TraceInv
+.. |format| image:: https://img.shields.io/pypi/format/TraceInv
+.. |pypi| image:: https://img.shields.io/pypi/v/TraceInv
+.. |conda| image:: https://anaconda.org/s-ameli/traceinv/badges/installer/conda.svg
+   :target: https://anaconda.org/s-ameli/traceinv
+.. |platforms| image:: https://img.shields.io/conda/pn/s-ameli/traceinv?color=orange?label=platforms
+   :target: https://anaconda.org/s-ameli/traceinv
+.. |conda-version| image:: https://img.shields.io/conda/v/s-ameli/traceinv
+   :target: https://anaconda.org/s-ameli/traceinv
+.. |release| image:: https://img.shields.io/github/v/tag/ameli/TraceInv
+   :target: https://github.com/ameli/TraceInv/releases/
+.. |conda-platform| image:: https://anaconda.org/s-ameli/traceinv/badges/platforms.svg
+   :target: https://anaconda.org/s-ameli/traceinv

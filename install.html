@@ -92,7 +92,12 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Install</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#python-dependencies">Python Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#install-traceinv">Install TraceInv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-traceinv">Install TraceInv</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#through-anaconda-cloud">Through Anaconda Cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#through-pypi">Through PyPi</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-source-locally">Build Source Locally</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#install-traceinv-in-virtual-environment">Install TraceInv in Virtual Environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#install-optional-packages">Install Optional Packages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#install-ray">Install <code class="docutils literal notranslate"><span class="pre">ray</span></code></a></li>
@@ -200,18 +205,29 @@
 <div class="section" id="install-traceinv">
 <h2>Install TraceInv<a class="headerlink" href="#install-traceinv" title="Permalink to this headline">¶</a></h2>
 <p>TraceInv can be installed on Linux, macOS, and Windows platforms and supports both python 2 and 3. Install by either of the following ways:</p>
-<ul>
-<li><p><strong>Method 1: Through Conda package.</strong> Install TraceInv and its dependencies through the package available at <a class="reference external" href="https://anaconda.org/s-ameli/traceinv">Conda</a> by</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">s</span><span class="o">-</span><span class="n">ameli</span> <span class="n">traceinv</span>
+<div class="section" id="through-anaconda-cloud">
+<h3>Through Anaconda Cloud<a class="headerlink" href="#through-anaconda-cloud" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://anaconda.org/s-ameli/traceinv"><img alt="conda" src="https://anaconda.org/s-ameli/traceinv/badges/installer/conda.svg" /></a> <a class="reference external" href="https://anaconda.org/s-ameli/traceinv"><img alt="conda-version" src="https://img.shields.io/conda/v/s-ameli/traceinv" /></a> <a class="reference external" href="https://anaconda.org/s-ameli/traceinv"><img alt="conda-platform" src="https://anaconda.org/s-ameli/traceinv/badges/platforms.svg" /></a></p>
+<p>Install TraceInv and its dependencies through the package available at <a class="reference external" href="https://anaconda.org/s-ameli/traceinv">Conda</a> by</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">s</span><span class="o">-</span><span class="n">ameli</span> <span class="n">traceinv</span>
 </pre></div>
 </div>
-</li>
-<li><p><strong>Method 2: Through PyPi package.</strong> The recommended way to install TraceInv and its dependencies is through the package available at <a class="reference external" href="https://pypi.org/project/TraceInv">PyPi</a> by</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">TraceInv</span>
+</div></blockquote>
+</div>
+<div class="section" id="through-pypi">
+<h3>Through PyPi<a class="headerlink" href="#through-pypi" title="Permalink to this headline">¶</a></h3>
+<p><img alt="pypi" src="https://img.shields.io/pypi/v/TraceInv" /> <img alt="format" src="https://img.shields.io/pypi/format/TraceInv" /> <img alt="implementation" src="https://img.shields.io/pypi/implementation/TraceInv" /> <img alt="pyversions" src="https://img.shields.io/pypi/pyversions/TraceInv" /></p>
+<p>The recommended way to install TraceInv and its dependencies is through the package available at <a class="reference external" href="https://pypi.org/project/TraceInv">PyPi</a> by</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">TraceInv</span>
 </pre></div>
 </div>
-</li>
-<li><p><strong>Method 3: Build source locally.</strong></p>
+</div></blockquote>
+</div>
+<div class="section" id="build-source-locally">
+<h3>Build Source Locally<a class="headerlink" href="#build-source-locally" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/ameli/TraceInv/releases/"><img alt="release" src="https://img.shields.io/github/v/tag/ameli/TraceInv" /></a></p>
 <p>First, install <code class="docutils literal notranslate"><span class="pre">setuptools</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">setuptools</span>
 </pre></div>
@@ -232,8 +248,7 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">--</span><span class="n">file</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
-</li>
-</ul>
+</div>
 </div>
 <div class="section" id="install-traceinv-in-virtual-environment">
 <h2>Install TraceInv in Virtual Environment<a class="headerlink" href="#install-traceinv-in-virtual-environment" title="Permalink to this headline">¶</a></h2>
@@ -279,12 +294,23 @@
 <div class="section" id="install-scikit-sparse">
 <span id="installscikitsparse"></span><h3>Install <code class="docutils literal notranslate"><span class="pre">scikit-sparse</span></code><a class="headerlink" href="#install-scikit-sparse" title="Permalink to this headline">¶</a></h3>
 <ol class="arabic">
-<li><p>Install <a class="reference external" href="https://people.engr.tamu.edu/davis/suitesparse.html">Suite Sarse</a> development library <code class="docutils literal notranslate"><span class="pre">libsuitesparse-dev</span></code> using <code class="docutils literal notranslate"><span class="pre">apt</span></code> package manager in Debian-based Linux distros (such as <em>Debian, Ubuntu, Mint</em>) by</p>
+<li><p>Install <a class="reference external" href="https://people.engr.tamu.edu/davis/suitesparse.html">Suite Sarse</a> development library.</p>
+<ul>
+<li><p><strong>In Linux:</strong> Install <code class="docutils literal notranslate"><span class="pre">libsuitesparse-dev</span></code> using <code class="docutils literal notranslate"><span class="pre">apt</span></code> package manager in Debian-based Linux distros (such as <em>Debian, Ubuntu, Mint</em>) by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">libsuitesparse</span><span class="o">-</span><span class="n">dev</span>
 </pre></div>
 </div>
-<p>Replace <code class="docutils literal notranslate"><span class="pre">apt</span></code> in the above with the native package manager of your operating system, such as <code class="docutils literal notranslate"><span class="pre">yum</span></code> for  <em>Redhat, Fedora, and CentOS Linux</em>, <code class="docutils literal notranslate"><span class="pre">pacman</span></code> for <em>Arch Linux</em>, and <code class="docutils literal notranslate"><span class="pre">brew</span></code> for <em>macOS</em>.</p>
-<p>Alternatively, if you are using <em>Anaconda</em> python distribution (on either of the operating systems), install Suite Sparse by:</p>
+</li>
+</ul>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">apt</span></code> in the above with the native package manager of your operating system, such as <code class="docutils literal notranslate"><span class="pre">yum</span></code> for  <em>Redhat, Fedora, and CentOS Linux</em>, <code class="docutils literal notranslate"><span class="pre">pacman</span></code> for <em>Arch Linux</em>.</p>
+<ul>
+<li><p><strong>In MacOS:</strong> To install <code class="docutils literal notranslate"><span class="pre">suite-sparse</span></code> with <code class="docutils literal notranslate"><span class="pre">brew</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">brew</span> <span class="n">install</span> <span class="n">suite</span><span class="o">-</span><span class="n">sparse</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Using Anaconda:</strong> Alternatively, if you are using <em>Anaconda</em> python distribution (on either of the operating systems), install Suite Sparse by:</p></li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">suitesparse</span>
 </pre></div>
 </div>
