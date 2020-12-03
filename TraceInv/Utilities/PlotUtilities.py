@@ -12,10 +12,11 @@ import matplotlib.ticker
 from matplotlib.ticker import ScalarFormatter,NullFormatter,FormatStrFormatter
 import matplotlib.ticker as mtick
 from distutils.spawn import find_executable
+from .DisplayUtilities import IsNotebook
 
 # Check DISPLAY
-# if not bool(os.environ.get('DISPLAY',None)):
-if False:
+if ((not bool(os.environ.get('DISPLAY',None))) or (not bool(os.environ.get('TRACEINV_DISPLAY',None)))) \
+    and (not IsNotebook()):
 
     # No display found (often used during test phase on servers). Using non-interactive backend.
     if platform.system() == 'Darwin':

@@ -178,7 +178,7 @@ def PlotMatrix(K,UseSparse,Verbose=False):
     if PlotModulesExist:
         LoadPlotSettings()
     else:
-        raise ImportError("'matplotlib' or 'seaborn' is either not installed or cannot be imported.")
+        raise ImportError("Cannot load plot settings.")
 
     # Figure
     fig,ax = plt.subplots(figsize=(6,4))
