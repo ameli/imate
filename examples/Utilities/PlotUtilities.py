@@ -3,6 +3,7 @@
 # =======
 
 import os
+import platform
 import matplotlib
 from matplotlib.ticker import PercentFormatter
 from mpl_toolkits.mplot3d import Axes3D
@@ -10,9 +11,11 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes,InsetPosition,mark_
 import matplotlib.ticker
 from matplotlib.ticker import ScalarFormatter,NullFormatter,FormatStrFormatter
 from distutils.spawn import find_executable
+from .DisplayUtilities import IsNotebook
 
 # Check DISPLAY
-if not bool(os.environ.get('DISPLAY',None)):
+if ((not bool(os.environ.get('DISPLAY',None))) or (not bool(os.environ.get('TRACEINV_DISPLAY',None)))) \
+    and (not IsNotebook()):
 
     # No display found (often used during test phase on servers). Using non-interactive backend.
     if platform.system() == 'Darwin':
