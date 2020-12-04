@@ -49,6 +49,11 @@ Parameters
 
 The :mod:`TraceInv.ComputeLogDeterminant` module accepts the following attributes as input argument.
 
+.. attribute:: A
+   :type: numpy.ndarray, or scipy.sparse.csc_matrix
+   
+   An invertible sparse or dense matrix.
+
 .. attribute:: ComputeMethod
    :type: string
    :value: 'cholesky'
@@ -214,7 +219,7 @@ In the code below, we compare the three computing methods for a large sparse mat
    >>> A = GenerateMatrix(NumPoints=50,KernelThreshold=0.03,DecorrelationScale=0.03,UseSparse=True,RunInParallel=True)
 
    >>> # Try various methods
-   >>> D1 = ComputeLogDeterminant(A,ComputeMethod='cholesky',UseInverseMatrix=False)
+   >>> D1 = ComputeLogDeterminant(A,ComputeMethod='cholesky')
    >>> D2 = ComputeLogDeterminant(A,ComputeMethod='SLQ',NumIterations=50,LanczosDegree=30,UseLanczosTridiagonalization=True)
    >>> D3 = ComputeLogDeterminant(A,ComputeMethod='SLQ',NumIterations=50,LanczosDegree=30,UseLanczosTridiagonalization=False)
 

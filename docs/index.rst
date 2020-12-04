@@ -22,11 +22,10 @@ A common difficulty in such application is that the matrices are generally large
     Install <install>
     Quick Start <quickstart>
     Examples <examples>
-    References <references>
 
 .. toctree::
     :maxdepth: 1
-    :caption: Sub-packages
+    :caption: Sub-packages User Guide
 
     Compute Log Determinant <ComputeLogDeterminant>
     Compute Trace of Inverse <ComputeTraceOfInverse>
@@ -59,6 +58,8 @@ Tutorials
 =========
 
 |binder|
+
+A tutorial and demonstration of examples can be found with `online interactive Jupyter notebook <https://mybinder.org/v2/gh/ameli/TraceInv/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb>`_.
 
 ============
 Useful Links
@@ -101,7 +102,7 @@ Attribution
 
 If you make use of this package, please consider citing the following manuscript.
 
-.. [Ameli-2020] Ameli, S., and Shadden. S. C. (2020). Interpolating the Trace of the Inverse of Matrix **A** + t **B**. `arXiv:2009.07385 <https://arxiv.org/abs/2009.07385>`__ [math.NA]
+.. [Ameli-2020] Ameli, S., and Shadden. S. C. (2020). Interpolating the Trace of the Inverse of Matrix :math:`\mathbf{A} + t \mathbf{B}`. `arXiv:2009.07385 <https://arxiv.org/abs/2009.07385>`__ [math.NA]
 
 ::
 
@@ -169,4 +170,4 @@ Indices and tables
 .. |conda-version| image:: https://img.shields.io/conda/v/s-ameli/traceinv
    :target: https://anaconda.org/s-ameli/traceinv
 .. |binder| image:: https://mybinder.org/badge_logo.svg
-   :target: https://mybinder.org/v2/gh/ameli/TraceInv/HEAD?filepath=notebooks
+   :target: https://mybinder.org/v2/gh/ameli/TraceInv/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb

@@ -471,7 +471,7 @@ class InterpolateTraceOfInverse(object):
         else:
             ax[0].set_ylabel(r'trace$(\mathbf{A} + t \mathbf{B})^{-1}$')
         ax[0].set_title('Trace of Inverse')
-        ax[0].legend()
+        ax[0].legend(fontsize='small')
 
         # Plot relative error in percent
         if Trace_RelativeError is not None:
@@ -484,7 +484,7 @@ class InterpolateTraceOfInverse(object):
             ax[1].set_ylabel('Relative Error (in Percent)')
             ax[1].set_title('Relative Error')
             ax[1].yaxis.set_major_formatter(mtick.PercentFormatter())
-            ax[1].legend()
+            ax[1].legend(fontsize='small')
 
         plt.tight_layout()
 

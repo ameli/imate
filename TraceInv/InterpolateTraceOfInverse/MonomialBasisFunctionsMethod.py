@@ -18,7 +18,7 @@ class MonomialBasisFunctionsMethod(InterpolantBaseClass):
 
     .. math::
 
-        \\frac{1}{(\\tau(t))^{p+1}} = \\frac{1}{(\\tau_0)^{p+1}} + \sum_{i=1}^{p+1} w_i t^i,
+        \\frac{1}{(\\tau(t))^{p+1}} \\approx \\frac{1}{(\\tau_0)^{p+1}} + \sum_{i=1}^{p+1} w_i t^i,
 
     where
 

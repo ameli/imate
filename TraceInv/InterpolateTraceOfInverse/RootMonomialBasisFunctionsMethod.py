@@ -66,7 +66,7 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
 
         \\phi_i(t) = t^{\\frac{1}{i+1}}, \qquad i = 0,\dots,p.
 
-    When ``BasisFunctionsType`` is set to ``'Orthogonal'`` or ``'Orthogonal2'``, the orthogoanl form of the
+    When ``BasisFunctionsType`` is set to ``'Orthogonal'`` or ``'Orthogonal2'``, the orthogonal form of the
     above basis functions are used. Orthogonal basis functions are formed by the above non-orthogonal functions
     as
 
@@ -81,13 +81,13 @@ class RootMonomialBasisFunctionsMethod(InterpolantBaseClass):
 
     .. warning::
 
-        The non-orhtogonal basis functions can lead to ill-conditioned system of equations for finding the weight
+        The non-orthogonal basis functions can lead to ill-conditioned system of equations for finding the weight
         coefficients :math:`w_i`. When the number of interpolating points is large (such as :math:`p > 6`), 
         it is recommended to use the orthogonalized set of basis functions.
 
     .. note::
 
-        The recommended basis function type is ``'Orthogonal2'`.`
+        The recommended basis function type is ``'Orthogonal2'``.
 
 
     **Example**

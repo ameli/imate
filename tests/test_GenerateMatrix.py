@@ -6,7 +6,7 @@
 
 # For plotting matrix, we disable interactive display
 import os
-os.environ['TRACEINV_DISPLAY'] = ''  # This should be before importing TraceInv packages
+os.environ['TRACEINV_NO_DISPLAY'] = 'True'  # This should be before importing TraceInv packages
 
 import sys
 from TraceInv import GenerateMatrix

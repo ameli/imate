@@ -12,7 +12,7 @@ import scipy
 from scipy import sparse
 
 # For plotting, we disable interactive display
-os.environ['TRACEINV_DISPLAY'] = ''  # This should be before importing TraceInv packages
+os.environ['TRACEINV_NO_DISPLAY'] = 'True'  # This should be before importing TraceInv packages
 
 from TraceInv import GenerateMatrix
 from TraceInv import InterpolateTraceOfInverse

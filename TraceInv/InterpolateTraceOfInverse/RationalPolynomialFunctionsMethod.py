@@ -52,7 +52,7 @@ class RationalPolynomialFunctionsMethod(InterpolantBaseClass):
 
     .. note::
 
-        The number of interpolant points :math:`p` in this module can be only :math:`p = 2` or :math:`p = 4`.
+        The number of interpolant points :math:`p` in this module can only be either :math:`p = 2` or :math:`p = 4`.
 
     **Example**
 
