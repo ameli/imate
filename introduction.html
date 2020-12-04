@@ -101,9 +101,8 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<p class="caption"><span class="caption-text">Sub-packages User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ComputeLogDeterminant.html">Compute Log Determinant</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
@@ -199,12 +198,9 @@
 <div class="section" id="one-parameter-affine-matrix-function">
 <h2>2. One-Parameter Affine Matrix Function<a class="headerlink" href="#one-parameter-affine-matrix-function" title="Permalink to this headline">¶</a></h2>
 <p>Consider the matrix function <span class="math notranslate nohighlight">\(t\mapsto\mathbf{A}+t\mathbf{B}\)</span>, where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> are symmetric and positive-definite matrices and <span class="math notranslate nohighlight">\(t\)</span> is a real parameter. This package can interpolate the function</p>
-<p><div class="math notranslate nohighlight">
-\[t\mapsto\mathrm{trace}\left((\mathbf{A}+t\mathbf{B})^{-1}\right)\]</div>
-</p>
+<div class="math notranslate nohighlight" id="equation-map">
+<span class="eqno">(1)<a class="headerlink" href="#equation-map" title="Permalink to this equation">¶</a></span>\[t \mapsto \mathrm{trace}\left((\mathbf{A}+t\mathbf{B})^{-1}\right).\]</div>
 <dl>
-<dt><strong>Application:</strong></dt><dd><p>The above function is featured in a wide range of applications in statistics and machine learning. Particular applications are in model selection and optimizing hyperparameters with gradient-based maximum likelihood methods. In such applications, computing the above function is often a computational challenge for large matrices. Often, this function is evaluated for a wide range of the parameter <span class="math notranslate nohighlight">\(t\)</span> while <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> remain fixed. As such, an interpolation scheme enables fast computation of the function.</p>
-</dd>
 <dt><strong>Interpolation Methods</strong></dt><dd><p>Various interpolation methods of the above function are implemented in this package, namely</p>
 <ol class="arabic simple">
 <li><p><strong>Eigenvalues Method</strong></p></li>
@@ -219,11 +215,15 @@
 </div>
 <div class="section" id="some-potential-applications">
 <h2>Some Potential Applications<a class="headerlink" href="#some-potential-applications" title="Permalink to this headline">¶</a></h2>
+<p>The above function is featured in a wide range of applications in statistics and machine learning. Particular applications are in model selection and optimizing hyperparameters with gradient-based maximum likelihood methods. In such applications, computing the above function is often a computational challenge for large matrices. Often, this function is evaluated for a wide range of the parameter <span class="math notranslate nohighlight">\(t\)</span> while <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> remain fixed. As such, an interpolation scheme enables fast computation of the function.</p>
+<p>A common example of such an application can be found in regularization techniques applied to inverse problems and supervised learning. For instance, in ridge regression by generalized cross-validation (see <a class="reference internal" href="#golub-1997" id="id2"><span>[Golub-1997]</span></a>), the optimal regularization parameter <span class="math notranslate nohighlight">\(t\)</span> is sought by minimizing a function that involves <a class="reference internal" href="#equation-map">(1)</a> (see <a class="reference internal" href="examples.html#allexamples"><span class="std std-ref">Examples</span></a>). Another common usage of <a class="reference internal" href="#equation-map">(1)</a>, for instance, is the mixed covariance functions of the form <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{I}\)</span> that appear frequently in Gaussian processes with additive noise <span id="id3">[AMELI-2020]</span> (see also <a class="reference internal" href="examples.html#allexamples"><span class="std std-ref">Examples</span></a>). In most of these applications, the log-determinant of the covariance matrix is ubiquitous, particularly in likelihood functions or related variants. Namely, if one aims to maximize the likelihood by its derivative with respect to the parameter, the expression,</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial}{\partial t} \log \det (\mathbf{A} + t \mathbf{I}) = \mathrm{trace} \left( (\mathbf{A} + t \mathbf{I})^{-1} \right).\]</div>
+<p>frequently appears. Other examples of <code class="xref eq docutils literal notranslate"><span class="pre">eq.map</span></code> are in the optimal design of experiment, probabilistic principal component analysis (see Sec. 12.2 of <a class="reference internal" href="#bishop-2006" id="id4"><span>[Bishop-2006]</span></a>), relevance vector machines <a class="reference internal" href="#tipping-2001" id="id5"><span>[Tipping-2001]</span></a> and <a class="reference internal" href="#bishop-2006" id="id6"><span>[Bishop-2006]</span></a>, kernel smoothing (see Sec. 2.6 of <a class="reference internal" href="#rasmussen-2006" id="id7"><span>[Rasmussen-2006]</span></a>, and Bayesian linear models (see Sec. 3.3 of <a class="reference internal" href="#bishop-2006" id="id8"><span>[Bishop-2006]</span></a>.</p>
 </div>
 <div class="section" id="benefits-of-traceinv-package">
 <h2>Benefits of TraceInv Package<a class="headerlink" href="#benefits-of-traceinv-package" title="Permalink to this headline">¶</a></h2>
 <p>The greatest benefit that TraceInv offers is its ability to interpolate the trace of the inverse of <em>affine matrix functions</em>, which is implemented in <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse</span></code></a> module based.</p>
-<p>Mention Examples</p>
 </div>
 <div class="section" id="other-useful-packages">
 <h2>Other Useful Packages<a class="headerlink" href="#other-useful-packages" title="Permalink to this headline">¶</a></h2>
@@ -232,8 +232,20 @@
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <dl class="citation">
-<dt class="label" id="ameli-2020"><span class="brackets"><a class="fn-backref" href="#id1">Ameli-2020</a></span></dt>
-<dd><p>Ameli, S., and Shadden. S. C. (2020). Interpolating the Trace of the Inverse of Matrix <strong>A</strong> + t <strong>B</strong>. <a class="reference external" href="https://arxiv.org/abs/2009.07385">arXiv:2009.07385</a> [math.NA]</p>
+<dt class="label" id="ameli-2020"><span class="brackets">Ameli-2020</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id3">2</a>)</span></dt>
+<dd><p>Ameli, S., and Shadden. S. C. (2020). Interpolating the Trace of the Inverse of Matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span>. <a class="reference external" href="https://arxiv.org/abs/2009.07385">arXiv:2009.07385</a> [math.NA]</p>
+</dd>
+<dt class="label" id="golub-1997"><span class="brackets"><a class="fn-backref" href="#id2">Golub-1997</a></span></dt>
+<dd><p>Golub, G. H. &amp; von Matt, U. (1997). Generalized cross-validation for large-scale problems. Journal of Computational and Graphical Statistics, 6(1), 1-34. <a class="reference external" href="https://www.jstor.org/stable/1390722">doi: 10.2307/1390722</a></p>
+</dd>
+<dt class="label" id="tipping-2001"><span class="brackets"><a class="fn-backref" href="#id5">Tipping-2001</a></span></dt>
+<dd><p>Michael E. Tipping. (2001). Sparse bayesian learning and the relevance vector machine. J. Mach. Learn. Res. 1, 211-244. <a class="reference external" href="https://dl.acm.org/doi/10.1162/15324430152748236">doi: 10.1162/15324430152748236</a></p>
+</dd>
+<dt class="label" id="bishop-2006"><span class="brackets">Bishop-2006</span><span class="fn-backref">(<a href="#id4">1</a>,<a href="#id6">2</a>,<a href="#id8">3</a>)</span></dt>
+<dd><p>Bishop, C. M. (2006). Pattern Recognition and Machine Learning (Information Science and Statistics). Berlin, Heidelberg: Springer-Verlag, <a class="reference external" href="https://www.springer.com/gp/book/9780387310732">ISBN: 978-0-387-31073-2</a></p>
+</dd>
+<dt class="label" id="rasmussen-2006"><span class="brackets"><a class="fn-backref" href="#id7">Rasmussen-2006</a></span></dt>
+<dd><p>Rasmussen, C. E. &amp; Williams, C. K. I. (2006). Gaussian Processes for Machine Learning. Adaptive Computation and Machine Learning. Cambridge, MA, USA: MIT Press. <a class="reference external" href="http://www.gaussianprocess.org/gpml/">ISBN 0-262-18253-X</a>.</p>
 </dd>
 </dl>
 </div>

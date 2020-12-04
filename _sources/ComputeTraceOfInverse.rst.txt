@@ -48,6 +48,11 @@ Parameters
 
 The :mod:`TraceInv.ComputeTraceOfInverse` module accepts the following attributes as input argument.
 
+.. attribute:: A
+   :type: numpy.ndarray, or scipy.sparse.csc_matrix
+   
+   An invertible sparse or dense matrix.
+
 .. attribute:: ComputeMethod
    :type: string
    :value: 'cholesky'

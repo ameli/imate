@@ -93,9 +93,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<p class="caption"><span class="caption-text">Sub-packages User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
@@ -814,7 +813,7 @@ If not None, the relative errors will be plotted on a second axis.</p></li>
 <dd><p>Bases: <a class="reference internal" href="#TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass" title="TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolantBaseClass.InterpolantBaseClass</span></code></a></p>
 <p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using</p>
 <div class="math notranslate nohighlight">
-\[\frac{1}{(\tau(t))^{p+1}} = \frac{1}{(\tau_0)^{p+1}} + \sum_{i=1}^{p+1} w_i t^i,\]</div>
+\[\frac{1}{(\tau(t))^{p+1}} \approx \frac{1}{(\tau_0)^{p+1}} + \sum_{i=1}^{p+1} w_i t^i,\]</div>
 <p>where</p>
 <div class="math notranslate nohighlight">
 \[\tau(t) = \frac{\mathrm{trace}\left( (\mathbf{A} + t \mathbf{B})^{-1} \right)}{\mathrm{trace \left( \mathbf{B}^{-1} \right)}}\]</div>
@@ -1018,7 +1017,7 @@ an interpolation scheme based on rational polynomial functions (see details belo
 function value at the interpolant points <span class="math notranslate nohighlight">\(\tau_i = \tau(t_i)\)</span>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The number of interpolant points <span class="math notranslate nohighlight">\(p\)</span> in this module can be only <span class="math notranslate nohighlight">\(p = 2\)</span> or <span class="math notranslate nohighlight">\(p = 4\)</span>.</p>
+<p>The number of interpolant points <span class="math notranslate nohighlight">\(p\)</span> in this module can only be either <span class="math notranslate nohighlight">\(p = 2\)</span> or <span class="math notranslate nohighlight">\(p = 4\)</span>.</p>
 </div>
 <p><strong>Example</strong></p>
 <p>This class can be invoked from <a class="reference internal" href="../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse</span></code></a> module 
@@ -1158,7 +1157,7 @@ are to be found form the known function values <span class="math notranslate noh
 root of the monomial functions defined by</p>
 <div class="math notranslate nohighlight">
 \[\phi_i(t) = t^{\frac{1}{i+1}}, \qquad i = 0,\dots,p.\]</div>
-<p>When <code class="docutils literal notranslate"><span class="pre">BasisFunctionsType</span></code> is set to <code class="docutils literal notranslate"><span class="pre">'Orthogonal'</span></code> or <code class="docutils literal notranslate"><span class="pre">'Orthogonal2'</span></code>, the orthogoanl form of the
+<p>When <code class="docutils literal notranslate"><span class="pre">BasisFunctionsType</span></code> is set to <code class="docutils literal notranslate"><span class="pre">'Orthogonal'</span></code> or <code class="docutils literal notranslate"><span class="pre">'Orthogonal2'</span></code>, the orthogonal form of the
 above basis functions are used. Orthogonal basis functions are formed by the above non-orthogonal functions
 as</p>
 <div class="math notranslate nohighlight">
@@ -1169,13 +1168,13 @@ hard-coded in this function up to <span class="math notranslate nohighlight">\(i
 are supported.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The non-orhtogonal basis functions can lead to ill-conditioned system of equations for finding the weight
+<p>The non-orthogonal basis functions can lead to ill-conditioned system of equations for finding the weight
 coefficients <span class="math notranslate nohighlight">\(w_i\)</span>. When the number of interpolating points is large (such as <span class="math notranslate nohighlight">\(p &gt; 6\)</span>), 
 it is recommended to use the orthogonalized set of basis functions.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The recommended basis function type is <a href="#id5"><span class="problematic" id="id6">``</span></a>’Orthogonal2’<cite>.</cite></p>
+<p>The recommended basis function type is <code class="docutils literal notranslate"><span class="pre">'Orthogonal2'</span></code>.</p>
 </div>
 <p><strong>Example</strong></p>
 <p>This class can be invoked from <a class="reference internal" href="../api/TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.html#TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse</span></code></a> module 

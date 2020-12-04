@@ -42,7 +42,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="ComputeLogDeterminant" href="api/TraceInv.ComputeLogDeterminant.ComputeLogDeterminant.html" />
-    <link rel="prev" title="References" href="references.html" /> 
+    <link rel="prev" title="Examples" href="examples.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,9 +93,8 @@
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Sub-packages</span></p>
+<p class="caption"><span class="caption-text">Sub-packages User Guide</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Compute Log Determinant</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
@@ -258,6 +257,12 @@
 <span id="parameters-logdet"></span><h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
 <p>The <a class="reference internal" href="_modules/TraceInv.ComputeLogDeterminant.html#module-TraceInv.ComputeLogDeterminant" title="TraceInv.ComputeLogDeterminant"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeLogDeterminant</span></code></a> module accepts the following attributes as input argument.</p>
 <dl class="py attribute">
+<dt id="A">
+<code class="sig-name descname">A</code><em class="property">: numpy.ndarray, or scipy.sparse.csc_matrix</em><a class="headerlink" href="#A" title="Permalink to this definition">¶</a></dt>
+<dd><p>An invertible sparse or dense matrix.</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt id="ComputeMethod">
 <code class="sig-name descname">ComputeMethod</code><em class="property">: string</em><em class="property"> = 'cholesky'</em><a class="headerlink" href="#ComputeMethod" title="Permalink to this definition">¶</a></dt>
 <dd><p>Specifies the method of computation. The methods are one of <code class="docutils literal notranslate"><span class="pre">'cholsky'</span></code> and <code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code> (see <span class="xref std std-ref">Mathematical Details &lt;MathDetails_LogDet</span>).</p>
@@ -410,7 +415,7 @@ is implementd in this module is unstable.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">KernelThreshold</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span><span class="n">DecorrelationScale</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span><span class="n">UseSparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">RunInParallel</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Try various methods</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">D1</span> <span class="o">=</span> <span class="n">ComputeLogDeterminant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;cholesky&#39;</span><span class="p">,</span><span class="n">UseInverseMatrix</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">D1</span> <span class="o">=</span> <span class="n">ComputeLogDeterminant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;cholesky&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">D2</span> <span class="o">=</span> <span class="n">ComputeLogDeterminant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;SLQ&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">UseLanczosTridiagonalization</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">D3</span> <span class="o">=</span> <span class="n">ComputeLogDeterminant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;SLQ&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="n">LanczosDegree</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">UseLanczosTridiagonalization</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
@@ -563,7 +568,7 @@ is implementd in this module is unstable.</p>
         <a href="api/TraceInv.ComputeLogDeterminant.ComputeLogDeterminant.html" class="btn btn-neutral float-right" title="ComputeLogDeterminant" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="references.html" class="btn btn-neutral float-left" title="References" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="examples.html" class="btn btn-neutral float-left" title="Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
