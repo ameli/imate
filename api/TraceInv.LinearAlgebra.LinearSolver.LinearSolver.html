@@ -40,9 +40,7 @@
 
     
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="GolubKahnLanczosBidiagonalization" href="TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization.html" />
-    <link rel="prev" title="ComputeLogDeterminant" href="TraceInv.ComputeLogDeterminant.ComputeLogDeterminant.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -95,28 +93,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Sub-packages User Guide</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../ComputeTraceOfInverse.html">Compute Trace of Inverse</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../ComputeTraceOfInverse.html#usage">Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ComputeTraceOfInverse.html#parameters">Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ComputeTraceOfInverse.html#mathematical-details">Mathematical Details</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ComputeTraceOfInverse.html#examples">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ComputeTraceOfInverse.html#references">References</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../ComputeTraceOfInverse.html#api">API</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../ComputeTraceOfInverse.html#main-interface">Main Interface</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="../ComputeTraceOfInverse.html#modules">Modules</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="../ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse.CholeskyMethod">TraceInv.ComputeTraceOfInverse.CholeskyMethod Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse.HutchinsonMethod">TraceInv.ComputeTraceOfInverse.HutchinsonMethod Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod">TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod Module</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="../ComputeTraceOfInverse.html#module-TraceInv.LinearAlgebra.LinearSolver">TraceInv.LinearAlgebra.LinearSolver Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ComputeTraceOfInverse.html#module-TraceInv.LinearAlgebra.MatrixReduction">TraceInv.LinearAlgebra.MatrixReduction Module</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GenerateMatrix.html">Generate Matrix</a></li>
 </ul>
@@ -171,8 +150,6 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../ComputeLogDeterminant.html">Compute Log-Determinant (<code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeLogDeterminant</span></code>)</a> &raquo;</li>
-        
       <li>LinearSolver</li>
     
     
@@ -194,27 +171,6 @@
             
   <div class="section" id="linearsolver">
 <h1>LinearSolver<a class="headerlink" href="#linearsolver" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt id="TraceInv.LinearAlgebra.LinearSolver.LinearSolver">
-<code class="sig-prename descclassname">TraceInv.LinearAlgebra.LinearSolver.</code><code class="sig-name descname">LinearSolver</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">Tol</span><span class="o">=</span><span class="default_value">1e-05</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/LinearAlgebra/LinearSolver.html#LinearSolver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.LinearAlgebra.LinearSolver.LinearSolver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Solves the linear system <span class="math notranslate nohighlight">\(Ax = b\)</span> where <span class="math notranslate nohighlight">\(A\)</span> can be either sparse or dense.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – matrix of coefficients, two-dimensional array, can be either sparse or dense</p></li>
-<li><p><strong>b</strong> (<em>array</em>) – column vector of the right hand side of the linear system, one-dimensional array</p></li>
-<li><p><strong>Tol</strong> (<em>float</em>) – Tolerance for the error of solving linear system. This is only applicable if <code class="docutils literal notranslate"><span class="pre">A</span></code> is sparse.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>one-dimensional array of the solution of the linear system</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.array</p>
-</dd>
-</dl>
-</dd></dl>
-
 </div>
 
 
@@ -222,15 +178,6 @@
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization.html" class="btn btn-neutral float-right" title="GolubKahnLanczosBidiagonalization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="TraceInv.ComputeLogDeterminant.ComputeLogDeterminant.html" class="btn btn-neutral float-left" title="ComputeLogDeterminant" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

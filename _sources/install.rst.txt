@@ -67,7 +67,7 @@ Clone the source code, build locally, and install by
     python setup build
     python setup install
 
-Note that the last line in the above many need to be run with ``sudo``.
+Note that the last line in the above may need to be run with ``sudo``.
 
 The third installation method does not install the dependencies automatically. The dependencies should be installed separately such as with ``pip`` below. In the same root directory of the package (where the file ``requirements.txt`` can be found) run
 
@@ -132,7 +132,7 @@ Install ``ray``
     python -m pip install ray
 
 When ``ray`` is needed:
-    To run the :ref:`examples <Examples>`, you may install the ``ray`` package to leverage the parallel processing used to generate large sparse matrices. However, the examples produce results without installing ``ray``.
+    To generate large sparse matrices with :mod:`TraceInv.GeneratreMatrix` module (particularly to run :ref:`examples <Examples>`), you may install the ``ray`` package to leverage the parallel processing. However, the code and examples can be run without installing ``ray``.
 
 
 .. _InstallScikitSparse:

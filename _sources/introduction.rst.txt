@@ -23,10 +23,10 @@ For an invertible matrix :math:`\mathbf{A}`, this package computes :math:`\mathr
 
 Consider the matrix function :math:`t\mapsto\mathbf{A}+t\mathbf{B}`, where :math:`\mathbf{A}` and :math:`\mathbf{B}` are symmetric and positive-definite matrices and :math:`t` is a real parameter. This package can interpolate the function
 
-.. math::
-    :label: map
+.. math:: 
+   :label: map
 
-    t \mapsto \mathrm{trace}\left((\mathbf{A}+t\mathbf{B})^{-1}\right).
+   t \mapsto \mathrm{trace}\left((\mathbf{A}+t\mathbf{B})^{-1}\right).
 
 **Interpolation Methods**
     Various interpolation methods of the above function are implemented in this package, namely
@@ -39,19 +39,19 @@ Consider the matrix function :math:`t\mapsto\mathbf{A}+t\mathbf{B}`, where :math
 
     These interpolation methods are described in [Ameli-2020]_. 
 
-===========================
-Some Potential Applications
-===========================
+============
+Applications
+============
 
 The above function is featured in a wide range of applications in statistics and machine learning. Particular applications are in model selection and optimizing hyperparameters with gradient-based maximum likelihood methods. In such applications, computing the above function is often a computational challenge for large matrices. Often, this function is evaluated for a wide range of the parameter :math:`t` while :math:`\mathbf{A}` and :math:`\mathbf{B}` remain fixed. As such, an interpolation scheme enables fast computation of the function.
 
-A common example of such an application can be found in regularization techniques applied to inverse problems and supervised learning. For instance, in ridge regression by generalized cross-validation (see [Golub-1997]_), the optimal regularization parameter :math:`t` is sought by minimizing a function that involves :eq:`map` (see :ref:`AllExamples`). Another common usage of :eq:`map`, for instance, is the mixed covariance functions of the form :math:`\mathbf{A} + t \mathbf{I}` that appear frequently in Gaussian processes with additive noise [AMELI-2020]_ (see also :ref:`AllExamples`). In most of these applications, the log-determinant of the covariance matrix is ubiquitous, particularly in likelihood functions or related variants. Namely, if one aims to maximize the likelihood by its derivative with respect to the parameter, the expression,
+A common example of such an application can be found in regularization techniques applied to inverse problems and supervised learning. For instance, in ridge regression by generalized cross-validation (see [Golub-1997]_), the optimal regularization parameter :math:`t` is sought by minimizing a function that involves :eq:`map` (see :ref:`Example 3 <Example_Three>`). Another common usage of :eq:`map`, for instance, is the mixed covariance functions of the form :math:`\mathbf{A} + t \mathbf{I}` that appear frequently in Gaussian processes with additive noise [Ameli-2020]_ (see :ref:`Example 1 <Example_One>`). In most of these applications, the log-determinant of the covariance matrix is ubiquitous, particularly in likelihood functions or related variants. Namely, if one aims to maximize the likelihood by its derivative with respect to the parameter, the expression
 
 .. math::
 
-    \frac{\partial}{\partial t} \log \det (\mathbf{A} + t \mathbf{I}) = \mathrm{trace} \left( (\mathbf{A} + t \mathbf{I})^{-1} \right).
+    \frac{\partial}{\partial t} \log \det (\mathbf{A} + t \mathbf{I}) = \mathrm{trace} \left( (\mathbf{A} + t \mathbf{I})^{-1} \right),
 
-frequently appears. Other examples of :eq:`eq.map` are in the optimal design of experiment, probabilistic principal component analysis (see Sec. 12.2 of [Bishop-2006]_), relevance vector machines [Tipping-2001]_ and [Bishop-2006]_, kernel smoothing (see Sec. 2.6 of [Rasmussen-2006]_, and Bayesian linear models (see Sec. 3.3 of [Bishop-2006]_.
+frequently appears. Other examples of :eq:`map` are in the optimal design of experiment, probabilistic principal component analysis (see Sec. 12.2 of [Bishop-2006]_), relevance vector machines [Tipping-2001]_ and [Bishop-2006]_, kernel smoothing (see Sec. 2.6 of [Rasmussen-2006]_, and Bayesian linear models (see Sec. 3.3 of [Bishop-2006]_.
 
 ============================
 Benefits of TraceInv Package

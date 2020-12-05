@@ -336,5 +336,5 @@ Modules
 .. automodapi:: TraceInv.ComputeTraceOfInverse.CholeskyMethod
 .. automodapi:: TraceInv.ComputeTraceOfInverse.HutchinsonMethod
 .. automodapi:: TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod
-.. automodapi:: TraceInv.LinearAlgebra.LinearSolver
-.. automodapi:: TraceInv.LinearAlgebra.MatrixReduction
+.. automodapi:: TraceInv._LinearAlgebra.LinearSolver
+.. automodapi:: TraceInv._LinearAlgebra.MatrixReduction

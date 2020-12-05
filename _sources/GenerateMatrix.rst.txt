@@ -1,4 +1,4 @@
-.. _GenerateMatrix:
+.. _GenerateMatrix_UserGuide:
 
 ************************************************
 Generate Matirx (:mod:`TraceInv.GenerateMatrix`)

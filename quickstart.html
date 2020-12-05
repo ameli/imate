@@ -92,8 +92,9 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="install.html">Install</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#usage-for-fixed-matrix">1. Usage for Fixed Matrix</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#usage-for-one-parameter-affine-matrix-function">2. Usage for One-Parameter Affine Matrix Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compute-log-determinant-of-matrix">1. Compute Log-Determinant of Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compute-trace-of-inverse-of-fixed-matrix">2. Compute Trace of Inverse of Fixed Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interpolate-trace-of-inverse-of-affine-matrix-function">3. Interpolate Trace of Inverse of Affine Matrix Function</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
@@ -192,40 +193,44 @@
 <tr class="row-even"><td><p><a class="reference internal" href="_modules/TraceInv.GenerateMatrix.html#module-TraceInv.GenerateMatrix" title="TraceInv.GenerateMatrix"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.GenerateMatrix</span></code></a></p></td>
 <td><p>Generates symmetric and positive-definite matrices for test purposes.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse</span></code></a></p></td>
-<td><p>Computes trace of inverse for a fixed matrix.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="_modules/TraceInv.ComputeLogDeterminant.html#module-TraceInv.ComputeLogDeterminant" title="TraceInv.ComputeLogDeterminant"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeLogDeterminant</span></code></a></p></td>
+<td><p>Computes log-determinant for a sparse or dense matrix.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse</span></code></a></p></td>
-<td><p>Interpolates trace of inverse for a linear matrix function.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeTraceOfInverse</span></code></a></p></td>
+<td><p>Computes trace of inverse for a fixed sparse or dense matrix.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.InterpolateTraceOfInverse</span></code></a></p></td>
+<td><p>Interpolates trace of inverse for an affine matrix function.</p></td>
 </tr>
 </tbody>
 </table>
 <p>The next two sections presents minimalistic examples respectively for:</p>
 <ol class="arabic simple">
-<li><p><a class="reference internal" href="#fixed-matrix"><span class="std std-ref">Fixed matrix</span></a> using <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a> module.</p></li>
-<li><p><a class="reference internal" href="#affine-matrix"><span class="std std-ref">One-parameter affine matrix function</span></a> using <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a> module.</p></li>
+<li><p><a class="reference internal" href="#qs-logdet"><span class="std std-ref">Compute log-determinant of fixed matrix</span></a> using <a class="reference internal" href="_modules/TraceInv.ComputeLogDeterminant.html#module-TraceInv.ComputeLogDeterminant" title="TraceInv.ComputeLogDeterminant"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a> module.</p></li>
+<li><p><a class="reference internal" href="#qs-ti-fix"><span class="std std-ref">Compute trace of inverse of fixed matrix</span></a> using <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a> module.</p></li>
+<li><p><a class="reference internal" href="#qs-ti-affine"><span class="std std-ref">One-parameter affine matrix function</span></a> using <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a> module.</p></li>
 </ol>
-<div class="section" id="usage-for-fixed-matrix">
-<span id="fixed-matrix"></span><h2>1. Usage for Fixed Matrix<a class="headerlink" href="#usage-for-fixed-matrix" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="compute-log-determinant-of-matrix">
+<span id="qs-logdet"></span><h2>1. Compute Log-Determinant of Matrix<a class="headerlink" href="#compute-log-determinant-of-matrix" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">ComputeTraceOfInverse</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">ComputeLogDeterminant</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a symmetric positive-definite matrix of the shape (20**2,20**2)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute trace of inverse</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span> <span class="o">=</span> <span class="n">ComputeLogDeterminant</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In the above, the class <a class="reference internal" href="_modules/TraceInv.GenerateMatrix.html#module-TraceInv.GenerateMatrix" title="TraceInv.GenerateMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenerateMatrix</span></code></a> produces a sample matrix for test purposes. Specifically, this class produces a correlation matrix from the mutual Euclidean distance of a set of points. By default, the set of points are generated on an equally spaced rectangular grid in the unit square. The produced matrix is symmetric and positive-definite, hence, invertible. The sample matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> in the above code is of the size <span class="math notranslate nohighlight">\(20^2 \times 20^2\)</span> corresponding to a rectangular grid of <span class="math notranslate nohighlight">\(20 \times 20\)</span> points.</p>
-<p>The <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a> class in the above code employs the Cholesky method by default to compute the trace of inverse. However, the user may choose other methods given in the table below.</p>
+<p>In the above, the class <a class="reference internal" href="_modules/TraceInv.GenerateMatrix.html#module-TraceInv.GenerateMatrix" title="TraceInv.GenerateMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenerateMatrix</span></code></a> produces a sample matrix for test purposes. The sample matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> in the above code is symmetric and positive-definite with the size <span class="math notranslate nohighlight">\(20^2 \times 20^2\)</span>. For more details on the <a class="reference internal" href="_modules/TraceInv.GenerateMatrix.html#module-TraceInv.GenerateMatrix" title="TraceInv.GenerateMatrix"><code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.GenerateMatrix</span></code></a> see user guide for <a class="reference internal" href="GenerateMatrix.html#generatematrix-userguide"><span class="std std-ref">Generate Matrix user guide</span></a>.</p>
+<p>The <a class="reference internal" href="_modules/TraceInv.ComputeLogDeterminant.html#module-TraceInv.ComputeLogDeterminant" title="TraceInv.ComputeLogDeterminant"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ComputeLogDeterminant</span></code></a> module in the above code employs the Cholesky method by default to compute the log-determinant. However, the user may choose other methods given in the table below.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 38%" />
-<col style="width: 15%" />
-<col style="width: 14%" />
-<col style="width: 14%" />
+<col style="width: 16%" />
+<col style="width: 51%" />
+<col style="width: 12%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">ComputeMethod</span></code></p></th>
@@ -237,19 +242,70 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'cholesky'</span></code></p></td>
-<td><p>Cholesky decomposition</p></td>
+<td><p><a class="reference internal" href="ComputeLogDeterminant.html#mathdetails-cholesky"><span class="std std-ref">Cholesky decomposition</span></a></p></td>
+<td><p>small</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>exact</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code></p></td>
+<td><p><a class="reference internal" href="ComputeLogDeterminant.html#mathdetails-slq"><span class="std std-ref">Stochastic Lanczos Quadrature method</span></a></p></td>
+<td><p>small or large</p></td>
+<td><p>dense, sparse</p></td>
+<td><p>approximation</p></td>
+</tr>
+</tbody>
+</table>
+<p>The desired method of computation can be passed through the <code class="docutils literal notranslate"><span class="pre">ComputeMethod</span></code> argument when calling <a class="reference internal" href="_modules/TraceInv.ComputeLogDeterminant.html#module-TraceInv.ComputeLogDeterminant" title="TraceInv.ComputeLogDeterminant"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ComputeLogDeterminant</span></code></a>. For instance, in the following example, we apply the <em>SLQ randomized estimator</em> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using SLQ method with 20 Monte-Carlo iterations</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span> <span class="o">=</span> <span class="n">ComputeLogDeterminant</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;SLQ&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Each of the methods in the above accepts some options. For instance, the SLQ method accepts <a class="reference internal" href="ComputeTraceOfInverse.html#NumIterations" title="NumIterations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">NumIterations</span></code></a> argument, which sets the number of Monte-Carlo trials. To see the detailed list of all arguments for each method, see <a class="reference internal" href="ComputeLogDeterminant.html#computelogdeterminant-userguide"><span class="std std-ref">Compute Log-Determinant user guide</span></a> and the <a class="reference external" href="https://ameli.github.io/TraceInv/_modules/modules.html">API</a> of the package.</p>
+</div>
+<div class="section" id="compute-trace-of-inverse-of-fixed-matrix">
+<span id="qs-ti-fix"></span><h2>2. Compute Trace of Inverse of Fixed Matrix<a class="headerlink" href="#compute-trace-of-inverse-of-fixed-matrix" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">ComputeTraceOfInverse</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a symmetric positive-definite matrix of the shape (20**2,20**2)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">GenerateMatrix</span><span class="p">(</span><span class="n">NumPoints</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute trace of inverse</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a> class in the above code employs the Cholesky method by default to compute the trace of inverse. However, the user may choose other methods given in the table below.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 58%" />
+<col style="width: 10%" />
+<col style="width: 9%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">ComputeMethod</span></code></p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Matrix size</p></th>
+<th class="head"><p>Matrix type</p></th>
+<th class="head"><p>Results</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'cholesky'</span></code></p></td>
+<td><p><a class="reference internal" href="ComputeTraceOfInverse.html#cholesky-decomposition-method"><span class="std std-ref">Cholesky decomposition</span></a></p></td>
 <td><p>small</p></td>
 <td><p>dense, sparse</p></td>
 <td><p>exact</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'hutchinson'</span></code></p></td>
-<td><p>Hutchinson’s randomized method</p></td>
+<td><p><a class="reference internal" href="ComputeTraceOfInverse.html#hutchinson-randomized-method"><span class="std std-ref">Hutchinson’s randomized method</span></a></p></td>
 <td><p>small or large</p></td>
 <td><p>dense, sparse</p></td>
 <td><p>approximation</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'SLQ'</span></code></p></td>
-<td><p>Stochastic Lanczos Quadrature method</p></td>
+<td><p><a class="reference internal" href="ComputeTraceOfInverse.html#stochastic-lanczos-quadrature-method"><span class="std std-ref">Stochastic Lanczos Quadrature method</span></a></p></td>
 <td><p>small or large</p></td>
 <td><p>dense, sparse</p></td>
 <td><p>approximation</p></td>
@@ -261,10 +317,10 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">ComputeTraceOfInverse</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">ComputeMethod</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">,</span><span class="n">NumIterations</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Each of the methods in the above accept some options. For instance, the Hutchinson’s method accepts <code class="docutils literal notranslate"><span class="pre">NumIterations</span></code> argument, which sets the number of Monte-Carlo trials. To see the detailed list of all arguments for each method, see the <a class="reference external" href="https://ameli.github.io/TraceInv/_modules/modules.html">API</a> of the package.</p>
+<p>Each of the methods in the above accept some options. For instance, the Hutchinson’s method accepts <code class="docutils literal notranslate"><span class="pre">NumIterations</span></code> argument, which sets the number of Monte-Carlo trials. To see the detailed list of all arguments for each method, see <a class="reference internal" href="ComputeTraceOfInverse.html#computetraceofinverse-userguide"><span class="std std-ref">Compute Trace of Inverse user guide</span></a> and the <a class="reference external" href="https://ameli.github.io/TraceInv/_modules/modules.html">API</a> of the package.</p>
 </div>
-<div class="section" id="usage-for-one-parameter-affine-matrix-function">
-<span id="affine-matrix"></span><h2>2. Usage for One-Parameter Affine Matrix Function<a class="headerlink" href="#usage-for-one-parameter-affine-matrix-function" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="interpolate-trace-of-inverse-of-affine-matrix-function">
+<span id="qs-ti-affine"></span><h2>3. Interpolate Trace of Inverse of Affine Matrix Function<a class="headerlink" href="#interpolate-trace-of-inverse-of-affine-matrix-function" title="Permalink to this headline">¶</a></h2>
 <p>The module <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a> interpolates the trace of the inverse of <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span>, as shown by the example below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">GenerateMatrix</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">TraceInv</span> <span class="kn">import</span> <span class="n">InterpolateTraceOfInverse</span>
@@ -303,8 +359,8 @@
 <p>The module <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a> can employ various interpolation methods listed in the table below. The method of interpolation can be set by <code class="docutils literal notranslate"><span class="pre">InterpolationMethod</span></code> argument when calling <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a>. The default method is <code class="docutils literal notranslate"><span class="pre">RMBF</span></code>.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 23%" />
-<col style="width: 41%" />
+<col style="width: 22%" />
+<col style="width: 42%" />
 <col style="width: 12%" />
 <col style="width: 13%" />
 <col style="width: 12%" />
@@ -319,44 +375,44 @@
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'EXT'</span></code></p></td>
-<td><p>Computes trace directly, no interpolation</p></td>
+<td><p><a class="reference internal" href="InterpolateTraceOfInverse.html#exact-method"><span class="std std-ref">Exact Method</span></a> (no interpolation)</p></td>
 <td><p>Small</p></td>
 <td><p>dense, sparse</p></td>
 <td><p>exact</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'EIG'</span></code></p></td>
-<td><p>Uses Eigenvalues of matrix</p></td>
+<td><p><a class="reference internal" href="InterpolateTraceOfInverse.html#eigenvalue-method"><span class="std std-ref">Eigenvalue Method</span></a></p></td>
 <td><p>Small</p></td>
 <td><p>dense, sparse</p></td>
 <td><p>exact</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'MBF'</span></code></p></td>
-<td><p>Monomial Basis Functions</p></td>
+<td><p><a class="reference internal" href="InterpolateTraceOfInverse.html#monomial-basis-functions-method"><span class="std std-ref">Monomial Basis Functions Method</span></a></p></td>
 <td><p>Small, large</p></td>
 <td><p>dense, sparse</p></td>
 <td><p>interpolated</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'RMBF'</span></code></p></td>
-<td><p>Root monomial basis functions</p></td>
+<td><p><a class="reference internal" href="InterpolateTraceOfInverse.html#root-monomial-basis-functions-method"><span class="std std-ref">Root Monomial Basis Functions Method</span></a></p></td>
 <td><p>small, large</p></td>
 <td><p>dense, sparse</p></td>
 <td><p>interpolated</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">'RBF'</span></code></p></td>
-<td><p>Radial basis functions</p></td>
+<td><p><a class="reference internal" href="InterpolateTraceOfInverse.html#radial-basis-functions-method"><span class="std std-ref">Radial Basis Functions Method</span></a></p></td>
 <td><p>small, large</p></td>
 <td><p>dense, sparse</p></td>
 <td><p>interpolated</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">'RPF'</span></code></p></td>
-<td><p>Rational polynomial functions</p></td>
+<td><p><a class="reference internal" href="InterpolateTraceOfInverse.html#rational-polynomial-functions-method"><span class="std std-ref">Rational Polynomial Functions Method</span></a></p></td>
 <td><p>small, large</p></td>
 <td><p>dense, sparse</p></td>
 <td><p>interpolated</p></td>
 </tr>
 </tbody>
 </table>
-<p>The <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a> module internally defines an object of <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a> (see <a class="reference internal" href="#fixed-matrix"><span class="std std-ref">Fixed Matrix</span></a>) to evaluate the trace of inverse at the given interpolant points <code class="docutils literal notranslate"><span class="pre">InterpolantPoints</span></code>. You can pass the options for this internal <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a> object by <code class="docutils literal notranslate"><span class="pre">ComputeOptions</span></code> argument when initializing  <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a>, such as in the example below.</p>
+<p>The <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a> module internally defines an object of <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a> (see <span class="xref std std-ref">Fixed Matrix</span>) to evaluate the trace of inverse at the given interpolant points <code class="docutils literal notranslate"><span class="pre">InterpolantPoints</span></code>. You can pass the options for this internal <a class="reference internal" href="_modules/TraceInv.ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse" title="TraceInv.ComputeTraceOfInverse"><code class="xref py py-class docutils literal notranslate"><span class="pre">ComputeTraceOfInverse</span></code></a> object by <code class="docutils literal notranslate"><span class="pre">ComputeOptions</span></code> argument when initializing  <a class="reference internal" href="_modules/TraceInv.InterpolateTraceOfInverse.html#module-TraceInv.InterpolateTraceOfInverse" title="TraceInv.InterpolateTraceOfInverse"><code class="xref py py-mod docutils literal notranslate"><span class="pre">InterpolateTraceOfInverse</span></code></a>, such as in the example below.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Specify options of the internal ComputeTraceOfInverse object in a dictionary</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ComputeOptions</span> <span class="o">=</span> \
 <span class="gp">... </span><span class="p">{</span>
@@ -371,6 +427,7 @@
 <span class="hll"><span class="gp">... </span>            <span class="n">ComputeOptions</span><span class="o">=</span><span class="n">ComputeOptions</span><span class="p">)</span>
 </span></pre></div>
 </div>
+<p>For more details about this module, see <a class="reference internal" href="InterpolateTraceOfInverse.html#interpolatetraceofinverse-userguide"><span class="std std-ref">Interpolate Trace of Inverse user guide</span></a> and the <a class="reference external" href="https://ameli.github.io/TraceInv/_modules/modules.html">API</a> of the package.</p>
 <span class="target" id="ref-examples"></span></div>
 </div>
 

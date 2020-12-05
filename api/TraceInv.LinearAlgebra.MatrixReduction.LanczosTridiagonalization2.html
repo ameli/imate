@@ -40,9 +40,7 @@
 
     
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Compute Trace of Inverse (TraceInv.ComputeTraceOfInverse)" href="../ComputeTraceOfInverse.html" />
-    <link rel="prev" title="LanczosTridiagonalization" href="TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -95,28 +93,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Sub-packages User Guide</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../ComputeLogDeterminant.html">Compute Log Determinant</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../ComputeTraceOfInverse.html">Compute Trace of Inverse</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../ComputeTraceOfInverse.html#usage">Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ComputeTraceOfInverse.html#parameters">Parameters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ComputeTraceOfInverse.html#mathematical-details">Mathematical Details</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ComputeTraceOfInverse.html#examples">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../ComputeTraceOfInverse.html#references">References</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../ComputeTraceOfInverse.html#api">API</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../ComputeTraceOfInverse.html#main-interface">Main Interface</a></li>
-<li class="toctree-l3 current"><a class="reference internal" href="../ComputeTraceOfInverse.html#modules">Modules</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="../ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse.CholeskyMethod">TraceInv.ComputeTraceOfInverse.CholeskyMethod Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse.HutchinsonMethod">TraceInv.ComputeTraceOfInverse.HutchinsonMethod Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ComputeTraceOfInverse.html#module-TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod">TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod Module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ComputeTraceOfInverse.html#module-TraceInv.LinearAlgebra.LinearSolver">TraceInv.LinearAlgebra.LinearSolver Module</a></li>
-<li class="toctree-l4 current"><a class="reference internal" href="../ComputeTraceOfInverse.html#module-TraceInv.LinearAlgebra.MatrixReduction">TraceInv.LinearAlgebra.MatrixReduction Module</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../ComputeTraceOfInverse.html">Compute Trace of Inverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../InterpolateTraceOfInverse.html">Interpolate Trace of Inverse</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GenerateMatrix.html">Generate Matrix</a></li>
 </ul>
@@ -171,8 +150,6 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../ComputeLogDeterminant.html">Compute Log-Determinant (<code class="xref py py-mod docutils literal notranslate"><span class="pre">TraceInv.ComputeLogDeterminant</span></code>)</a> &raquo;</li>
-        
       <li>LanczosTridiagonalization2</li>
     
     
@@ -194,43 +171,6 @@
             
   <div class="section" id="lanczostridiagonalization2">
 <h1>LanczosTridiagonalization2<a class="headerlink" href="#lanczostridiagonalization2" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt id="TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2">
-<code class="sig-prename descclassname">TraceInv.LinearAlgebra.MatrixReduction.</code><code class="sig-name descname">LanczosTridiagonalization2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">v</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">Tolerance</span><span class="o">=</span><span class="default_value">1e-08</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/TraceInv/LinearAlgebra/MatrixReduction.html#LanczosTridiagonalization2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tri-diagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">v</span></code>. <code class="docutils literal notranslate"><span class="pre">m</span></code> is the Lanczos
-degree, which will be the size of square matrix <code class="docutils literal notranslate"><span class="pre">T</span></code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code> should be symmetric and positive-definite matrix size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code> will be symmetric and positive-definite matrix of size <code class="docutils literal notranslate"><span class="pre">(m+1,m+1)</span></code>.</p></li>
-</ul>
-</div>
-<dl class="simple">
-<dt>Reference:</dt><dd><ul class="simple">
-<li><p>Templates for solution of Algebraic Eigenvalue Problems*, James Demmel, p.57</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Input matrix of the size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>. Matrix should be positive-definite and symmetric.</p></li>
-<li><p><strong>v</strong> (<em>array</em>) – Start vector for the Lanczos tri-diagonalization. Column vector of size <code class="docutils literal notranslate"><span class="pre">n</span></code>.
-It could be generated randomly. Often it is generated by the Rademacher distribution with entries <code class="docutils literal notranslate"><span class="pre">+1</span></code> and <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p></li>
-<li><p><strong>m</strong> (<em>int</em>) – Lanczos degree, which is the number of Lanczos iterations.</p></li>
-<li><p><strong>Tolerance</strong> (<em>float</em>) – The tolerance of the residual error of the Lanczos iteration.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Symmetric positive-definite matrix <code class="docutils literal notranslate"><span class="pre">T</span></code> of the size <code class="docutils literal notranslate"><span class="pre">(m+1)*(m+1)</span></code>.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
 </div>
 
 
@@ -238,15 +178,6 @@ It could be generated randomly. Often it is generated by the Rademacher distribu
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../ComputeTraceOfInverse.html" class="btn btn-neutral float-right" title="Compute Trace of Inverse (TraceInv.ComputeTraceOfInverse)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization.html" class="btn btn-neutral float-left" title="LanczosTridiagonalization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

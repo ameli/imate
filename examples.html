@@ -198,7 +198,7 @@
 </dd>
 </dl>
 <div class="section" id="example-1">
-<h2>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h2>
+<span id="example-one"></span><h2>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">¶</a></h2>
 <p>The script <a class="reference external" href="https://github.com/ameli/TraceInv/blob/master/examples/Plot_TraceInv_FullRank.py"><code class="docutils literal notranslate"><span class="pre">/examples/Plot_TraceInv_FullRank.py</span></code></a> plots the interpolation of the function</p>
 <div class="math notranslate nohighlight">
 \[\tau(t) = \mathrm{trace} \left( (\mathbf{A} + t \mathbf{I})^{-1} \right)\]</div>
@@ -211,7 +211,7 @@
 <img alt="_images/Example1.svg" class="align-center" src="_images/Example1.svg" /><p>The plot on the left shows the interpolation of <span class="math notranslate nohighlight">\(\tau(t)\)</span>. Each colored curve is obtained using different number of interpolant points <span class="math notranslate nohighlight">\(p\)</span>. The plot on the right represents the relative error  of interpolation compared to the accurate computation when no interpolation is applied. Clearly, employing more interpolant points (such as the red curve with <span class="math notranslate nohighlight">\(p = 9\)</span> interpolant points) yield smaller interpolation error.</p>
 </div>
 <div class="section" id="example-2">
-<h2>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h2>
+<span id="example-two"></span><h2>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">¶</a></h2>
 <p>The script <a class="reference external" href="https://github.com/ameli/TraceInv/blob/master/examples/Plot_TraceInv_IllConditioned.py"><code class="docutils literal notranslate"><span class="pre">/examples/Plot_TraceInv_IllConditioned.py</span></code></a> plots the interpolation of the function <span class="math notranslate nohighlight">\(\tau(t)\)</span> as defined in <a class="reference internal" href="#example-1"><span class="std std-ref">Example 1</span></a>, however, here, the matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is defined by</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{A} = \mathbf{X}^{\intercal} \mathbf{X} + s \mathbf{I}\]</div>
@@ -224,7 +224,7 @@
 <p>The script generates the figure below (see also  Figure 3 of <a class="reference internal" href="references.html#ameli-2020" id="id3"><span>[Ameli-2020]</span></a>).</p>
 <img alt="_images/Example2.svg" class="align-center" src="_images/Example2.svg" /></div>
 <div class="section" id="example-3">
-<h2>Example 3<a class="headerlink" href="#example-3" title="Permalink to this headline">¶</a></h2>
+<span id="example-three"></span><h2>Example 3<a class="headerlink" href="#example-3" title="Permalink to this headline">¶</a></h2>
 <p>The script <a class="reference external" href="https://github.com/ameli/TraceInv/blob/master/examples/Plot_GeneralizedCrossValidation.py"><code class="docutils literal notranslate"><span class="pre">/examples/Plot_GeneralizedCorssValidation.py</span></code></a> plots the <a class="reference external" href="https://www.jstor.org/stable/1390722?seq=1">Generalized Cross-validation</a> function</p>
 <div class="math notranslate nohighlight">
 \[V(\theta) = \frac{\frac{1}{n} \| \mathbf{I} - \mathbf{X} (\mathbf{X}^{\intercal} \mathbf{X} + n \theta \mathbf{I})^{-1} \mathbf{X}^{\intercal} \boldsymbol{z} \|_2^2}{\left( \frac{1}{n} \mathrm{trace}\left( (\mathbf{I} - \mathbf{X}(\mathbf{X}^{\intercal} \mathbf{X} + n \theta \mathbf{I})^{-1})\mathbf{X}^{\intercal} \right) \right)^2}\]</div>

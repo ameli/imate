@@ -265,5 +265,5 @@ Main Interface
 Modules
 -------
 
-.. automodapi:: TraceInv.LinearAlgebra.LinearSolver
-.. automodapi:: TraceInv.LinearAlgebra.MatrixReduction
+.. automodapi:: TraceInv._LinearAlgebra.LinearSolver
+.. automodapi:: TraceInv._LinearAlgebra.MatrixReduction

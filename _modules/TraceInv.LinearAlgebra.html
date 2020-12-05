@@ -40,9 +40,7 @@
 
     
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="TraceInv.Utilities package" href="TraceInv.Utilities.html" />
-    <link rel="prev" title="TraceInv.InterpolateTraceOfInverse package" href="TraceInv.InterpolateTraceOfInverse.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -102,23 +100,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../GenerateMatrix.html">Generate Matrix</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Development</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Package API</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="TraceInv.html">TraceInv package</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="TraceInv.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="TraceInv.ComputeLogDeterminant.html">TraceInv.ComputeLogDeterminant package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="TraceInv.ComputeTraceOfInverse.html">TraceInv.ComputeTraceOfInverse package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="TraceInv.GenerateMatrix.html">TraceInv.GenerateMatrix package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="TraceInv.InterpolateTraceOfInverse.html">TraceInv.InterpolateTraceOfInverse package</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">TraceInv.LinearAlgebra package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="TraceInv.Utilities.html">TraceInv.Utilities package</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="TraceInv.html#module-TraceInv">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Package API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../tests.html">Running Tests</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Change Log</a></li>
 </ul>
@@ -167,10 +150,6 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="modules.html">TraceInv</a> &raquo;</li>
-        
-          <li><a href="TraceInv.html">TraceInv package</a> &raquo;</li>
-        
       <li>TraceInv.LinearAlgebra package</li>
     
     
@@ -195,180 +174,17 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-TraceInv.LinearAlgebra.LinearSolver">
-<span id="traceinv-linearalgebra-linearsolver-module"></span><h2>TraceInv.LinearAlgebra.LinearSolver module<a class="headerlink" href="#module-TraceInv.LinearAlgebra.LinearSolver" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
-<dt id="TraceInv.LinearAlgebra.LinearSolver.LinearSolver">
-<code class="sig-prename descclassname">TraceInv.LinearAlgebra.LinearSolver.</code><code class="sig-name descname">LinearSolver</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">Tol</span><span class="o">=</span><span class="default_value">1e-05</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/LinearAlgebra/LinearSolver.html#LinearSolver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.LinearAlgebra.LinearSolver.LinearSolver" title="Permalink to this definition">¶</a></dt>
-<dd><p>Solves the linear system <span class="math notranslate nohighlight">\(Ax = b\)</span> where <span class="math notranslate nohighlight">\(A\)</span> can be either sparse or dense.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – matrix of coefficients, two-dimensional array, can be either sparse or dense</p></li>
-<li><p><strong>b</strong> (<em>array</em>) – column vector of the right hand side of the linear system, one-dimensional array</p></li>
-<li><p><strong>Tol</strong> (<em>float</em>) – Tolerance for the error of solving linear system. This is only applicable if <code class="docutils literal notranslate"><span class="pre">A</span></code> is sparse.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>one-dimensional array of the solution of the linear system</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.array</p>
-</dd>
-</dl>
-</dd></dl>
-
+<div class="section" id="traceinv-linearalgebra-linearsolver-module">
+<h2>TraceInv.LinearAlgebra.LinearSolver module<a class="headerlink" href="#traceinv-linearalgebra-linearsolver-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-TraceInv.LinearAlgebra.MatrixReduction">
-<span id="traceinv-linearalgebra-matrixreduction-module"></span><h2>TraceInv.LinearAlgebra.MatrixReduction module<a class="headerlink" href="#module-TraceInv.LinearAlgebra.MatrixReduction" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
-<dt id="TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization">
-<code class="sig-prename descclassname">TraceInv.LinearAlgebra.MatrixReduction.</code><code class="sig-name descname">GolubKahnLanczosBidiagonalization</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">Tolerance</span><span class="o">=</span><span class="default_value">1e-08</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/LinearAlgebra/MatrixReduction.html#GolubKahnLanczosBidiagonalization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.LinearAlgebra.MatrixReduction.GolubKahnLanczosBidiagonalization" title="Permalink to this definition">¶</a></dt>
-<dd><p>B-diagonalizes the positive-definite matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> using Golub-Kahn-Lanczos method.</p>
-<p>This method bi-diagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">B</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">w</span></code>. <code class="docutils literal notranslate"><span class="pre">m</span></code> is the Lanczos
-degree, which will be the size of square matrix <code class="docutils literal notranslate"><span class="pre">B</span></code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code> should be positive-definite matrix size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">B</span></code> will be positive-definite matrix of size <code class="docutils literal notranslate"><span class="pre">(m+1,m+1)</span></code>.</p></li>
-</ul>
+<div class="section" id="traceinv-linearalgebra-matrixreduction-module">
+<h2>TraceInv.LinearAlgebra.MatrixReduction module<a class="headerlink" href="#traceinv-linearalgebra-matrixreduction-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>When matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> is very close to the identity matrix, the Golub-Kahn bi-doagonalization method can not 
-find <span class="math notranslate nohighlight">\(\beta\)</span>, as <span class="math notranslate nohighlight">\(\beta\)</span> becomes zero. If <code class="docutils literal notranslate"><span class="pre">A</span></code> is not exactly identity, you may decrease the Tolerance
-to a very small number. However, if <code class="docutils literal notranslate"><span class="pre">A</span></code> is almost identity matrix, decreasing tolerance will not 
-help, and this function cannot be used.</p>
+<div class="section" id="traceinv-linearalgebra-sparsecholesky-module">
+<h2>TraceInv.LinearAlgebra.SparseCholesky module<a class="headerlink" href="#traceinv-linearalgebra-sparsecholesky-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Input matrix of the size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>. Matrix should be positive-definite and symmetric.</p></li>
-<li><p><strong>w</strong> (<em>array</em>) – Start vector for the Lanczos tri-diagonalization. Column vector of size <code class="docutils literal notranslate"><span class="pre">n</span></code>.
-It could be generated randomly. Often it is generated by the Rademacher distribution with entries <code class="docutils literal notranslate"><span class="pre">+1</span></code> and <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p></li>
-<li><p><strong>m</strong> (<em>int</em>) – Lanczos degree, which is the number of Lanczos iterations.</p></li>
-<li><p><strong>Tolerance</strong> (<em>float</em>) – The tolerance of the residual error of the Lanczos iteration.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Symmetric positive-definite matrix <code class="docutils literal notranslate"><span class="pre">B</span></code> of the size <code class="docutils literal notranslate"><span class="pre">(m+1)*(m+1)</span></code>.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-<dl class="simple">
-<dt>Reference:</dt><dd><ul class="simple">
-<li><p>NetLib <a class="reference external" href="http://www.netlib.org/utk/people/JackDongarra/etemplates/node198.html">Algorithm 6.27</a></p></li>
-<li><p>Matrix Computations, Golub, p. 495</p></li>
-<li><p>Templates for Solution of Algebraic Eigenvalue Problem, Demmel, p. 143</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization">
-<code class="sig-prename descclassname">TraceInv.LinearAlgebra.MatrixReduction.</code><code class="sig-name descname">LanczosTridiagonalization</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">w</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">Tolerance</span><span class="o">=</span><span class="default_value">1e-08</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/LinearAlgebra/MatrixReduction.html#LanczosTridiagonalization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tri-diagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">w</span></code>. <code class="docutils literal notranslate"><span class="pre">m</span></code> is the Lanczos
-degree, which will be the size of square matrix <code class="docutils literal notranslate"><span class="pre">T</span></code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code> should be symmetric and positive-definite matrix size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code> will be symmetric and positve-definite matrix of size <code class="docutils literal notranslate"><span class="pre">(m+1,m+1)</span></code>.</p></li>
-</ul>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Input matrix of the size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>. Matrix should be positive-definite and symmetric.</p></li>
-<li><p><strong>w</strong> (<em>array</em>) – Start vector for the Lanczos tri-diagonalization. Column vector of size <code class="docutils literal notranslate"><span class="pre">n</span></code>.
-It could be generated randomly. Often it is generated by the Rademacher distribution with entries <code class="docutils literal notranslate"><span class="pre">+1</span></code> and <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p></li>
-<li><p><strong>m</strong> (<em>int</em>) – Lanczos degree, which is the number of Lanczos iterations.</p></li>
-<li><p><strong>Tolerance</strong> (<em>float</em>) – The tolerance of the residual error of the Lanczos iteration.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Symmetric positive-definite matrix <code class="docutils literal notranslate"><span class="pre">T</span></code> of the size <code class="docutils literal notranslate"><span class="pre">(m+1)*(m+1)</span></code>.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2">
-<code class="sig-prename descclassname">TraceInv.LinearAlgebra.MatrixReduction.</code><code class="sig-name descname">LanczosTridiagonalization2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">v</span></em>, <em class="sig-param"><span class="n">m</span></em>, <em class="sig-param"><span class="n">Tolerance</span><span class="o">=</span><span class="default_value">1e-08</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/LinearAlgebra/MatrixReduction.html#LanczosTridiagonalization2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.LinearAlgebra.MatrixReduction.LanczosTridiagonalization2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tri-diagonalizes matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code> using the start vector <code class="docutils literal notranslate"><span class="pre">v</span></code>. <code class="docutils literal notranslate"><span class="pre">m</span></code> is the Lanczos
-degree, which will be the size of square matrix <code class="docutils literal notranslate"><span class="pre">T</span></code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">A</span></code> should be symmetric and positive-definite matrix size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">T</span></code> will be symmetric and positive-definite matrix of size <code class="docutils literal notranslate"><span class="pre">(m+1,m+1)</span></code>.</p></li>
-</ul>
-</div>
-<dl class="simple">
-<dt>Reference:</dt><dd><ul class="simple">
-<li><p>Templates for solution of Algebraic Eigenvalue Problems*, James Demmel, p.57</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Input matrix of the size <code class="docutils literal notranslate"><span class="pre">n*n</span></code>. Matrix should be positive-definite and symmetric.</p></li>
-<li><p><strong>v</strong> (<em>array</em>) – Start vector for the Lanczos tri-diagonalization. Column vector of size <code class="docutils literal notranslate"><span class="pre">n</span></code>.
-It could be generated randomly. Often it is generated by the Rademacher distribution with entries <code class="docutils literal notranslate"><span class="pre">+1</span></code> and <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p></li>
-<li><p><strong>m</strong> (<em>int</em>) – Lanczos degree, which is the number of Lanczos iterations.</p></li>
-<li><p><strong>Tolerance</strong> (<em>float</em>) – The tolerance of the residual error of the Lanczos iteration.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Symmetric positive-definite matrix <code class="docutils literal notranslate"><span class="pre">T</span></code> of the size <code class="docutils literal notranslate"><span class="pre">(m+1)*(m+1)</span></code>.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-TraceInv.LinearAlgebra.SparseCholesky">
-<span id="traceinv-linearalgebra-sparsecholesky-module"></span><h2>TraceInv.LinearAlgebra.SparseCholesky module<a class="headerlink" href="#module-TraceInv.LinearAlgebra.SparseCholesky" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
-<dt id="TraceInv.LinearAlgebra.SparseCholesky.SparseCholesky">
-<code class="sig-prename descclassname">TraceInv.LinearAlgebra.SparseCholesky.</code><code class="sig-name descname">SparseCholesky</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">A</span></em>, <em class="sig-param"><span class="n">DiagonalOnly</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="TraceInv/LinearAlgebra/SparseCholesky.html#SparseCholesky"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#TraceInv.LinearAlgebra.SparseCholesky.SparseCholesky" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function uses LU decomposition assuming that <code class="docutils literal notranslate"><span class="pre">A</span></code> is symmetric and positive-definite.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This function does not check if <code class="docutils literal notranslate"><span class="pre">A</span></code> is positive-definite. If the input matrix is 
-not positive-definite, the Cholesky decomposition does not exist and the return value
-is misleadingly wrong.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Symmetric and positive-definite matrix.</p></li>
-<li><p><strong>DiagonalOnly</strong> – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, returns a column array of the diagonals of the Cholesky decomposition.
-If <code class="docutils literal notranslate"><span class="pre">False</span></code>, returns the full Cholesky matrix as scipy.sparse.csc_matrix.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Cholesky decomposition of <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Super.LU</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-TraceInv.LinearAlgebra">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-TraceInv.LinearAlgebra" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -377,15 +193,6 @@ If <code class="docutils literal notranslate"><span class="pre">False</span></co
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="TraceInv.Utilities.html" class="btn btn-neutral float-right" title="TraceInv.Utilities package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="TraceInv.InterpolateTraceOfInverse.html" class="btn btn-neutral float-left" title="TraceInv.InterpolateTraceOfInverse package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
