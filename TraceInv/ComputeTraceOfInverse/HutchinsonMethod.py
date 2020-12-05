@@ -7,7 +7,7 @@ import scipy
 from scipy import linalg
 
 # Package
-from ..LinearAlgebra import LinearSolver
+from .._LinearAlgebra import LinearSolver
 
 # =================
 # Hutchinson Method

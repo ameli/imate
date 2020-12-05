@@ -6,9 +6,9 @@ from .GeneratePoints import GeneratePoints
 from .CorrelationMatrix import CorrelationMatrix
 
 try:
-    from ..Utilities.PlotUtilities import *
-    from ..Utilities.PlotUtilities import LoadPlotSettings
-    from ..Utilities.PlotUtilities import SavePlot
+    from .._Utilities.PlotUtilities import *
+    from .._Utilities.PlotUtilities import LoadPlotSettings
+    from .._Utilities.PlotUtilities import SavePlot
     PlotModulesExist = True
 except:
     PlotModulesExist = False
@@ -189,11 +189,14 @@ def PlotMatrix(K,UseSparse,Verbose=False):
     else:
         # Plot dense matrix
         p = ax.matshow(K,cmap='Blues')
-        fig.colorbar(p,ax=ax)
+        cbar = fig.colorbar(p,ax=ax)
+        cbar.set_label('Correlation')
 
-    ax.set_title('Correlation Matrix')
+    ax.set_title('Correlation Matrix',y=1.11)
     ax.set_xlabel('Index $i$')
     ax.set_ylabel('Index $j$')
+
+    plt.tight_layout()
     
     # Check if the graphical backend exists
     if matplotlib.get_backend() != 'agg':

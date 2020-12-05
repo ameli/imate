@@ -94,7 +94,7 @@ Related Projects
 ================
 
 * `Orthogonal Functions <https://ameli.github.io/Orthogonal-Functions/>`_: A python package that generates set of orthogonal basis functions used for :ref:`interpolation schemes <InterpolateTraceOfInverse>` in TraceInv.
-* `Gaussian Process Parameter Estimation <https://github.com/ameli/gaussian-process-param-estimation>`_: A python package that makes use of TraceInv expensively to efficiently compute the parameters of Gaussian process regression.
+* `Gaussian Process Regression <https://github.com/ameli/gaussian-process-param-estimation>`_: A python package that makes use of TraceInv expensively to efficiently compute the parameters of Gaussian process regression.
 
 ===========
 Attribution

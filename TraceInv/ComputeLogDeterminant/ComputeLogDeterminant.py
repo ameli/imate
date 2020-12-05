@@ -15,11 +15,11 @@ except:
     SuiteSparseInstalled = False
 SuiteSparseInstalled = False
 
-from ..LinearAlgebra import LinearSolver
-from ..LinearAlgebra import SparseCholesky
-from ..LinearAlgebra import LanczosTridiagonalization
-from ..LinearAlgebra import LanczosTridiagonalization2
-from ..LinearAlgebra import GolubKahnLanczosBidiagonalization
+from .._LinearAlgebra import LinearSolver
+from .._LinearAlgebra import SparseCholesky
+from .._LinearAlgebra import LanczosTridiagonalization
+from .._LinearAlgebra import LanczosTridiagonalization2
+from .._LinearAlgebra import GolubKahnLanczosBidiagonalization
 
 # __all__ = ['ComputeLogDeterminant']
 

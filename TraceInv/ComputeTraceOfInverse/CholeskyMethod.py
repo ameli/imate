@@ -16,8 +16,8 @@ except:
     SuiteSparseInstalled = False
 
 # Package
-from ..LinearAlgebra import LinearSolver
-from ..LinearAlgebra import SparseCholesky
+from .._LinearAlgebra import LinearSolver
+from .._LinearAlgebra import SparseCholesky
 
 # ========================================
 # Compute Trace Inv By Inverse of Cholesky

@@ -72,7 +72,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # Good themes
 html_theme = 'sphinx_rtd_theme'
 # html_theme = 'pydata_sphinx_theme'
-# html_theme = 'nature'               # <-- I used this one
+# html_theme = 'nature'
 # html_theme = 'bizstyle'
 # html_theme = 'haiku'
 # html_theme = 'classic'

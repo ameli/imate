@@ -5,9 +5,9 @@
 import numpy
 from numpy import linalg
 
-from ..LinearAlgebra import LanczosTridiagonalization
-from ..LinearAlgebra import LanczosTridiagonalization2
-from ..LinearAlgebra import GolubKahnLanczosBidiagonalization
+from .._LinearAlgebra import LanczosTridiagonalization
+from .._LinearAlgebra import LanczosTridiagonalization2
+from .._LinearAlgebra import GolubKahnLanczosBidiagonalization
 
 # ====================================
 # Stochastic Lanczos Quadrature Method

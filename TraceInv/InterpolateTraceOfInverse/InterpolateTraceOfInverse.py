@@ -17,9 +17,9 @@ from .RadialBasisFunctionsMethod import RadialBasisFunctionsMethod
 from .RationalPolynomialFunctionsMethod import RationalPolynomialFunctionsMethod
 
 try:
-    from ..Utilities.PlotUtilities import *
-    from ..Utilities.PlotUtilities import LoadPlotSettings
-    from ..Utilities.PlotUtilities import SavePlot
+    from .._Utilities.PlotUtilities import *
+    from .._Utilities.PlotUtilities import LoadPlotSettings
+    from .._Utilities.PlotUtilities import SavePlot
     PlotModulesExist = True
 except:
     PlotModulesExist = False

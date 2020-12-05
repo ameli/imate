@@ -14,6 +14,9 @@ import matplotlib.ticker as mtick
 from distutils.spawn import find_executable
 from .DisplayUtilities import IsNotebook
 
+# Test
+print(bool(os.environ.get('TRACEINV_NO_DISPLAY',None)))
+
 # Check DISPLAY
 if ((not bool(os.environ.get('DISPLAY',None))) or (bool(os.environ.get('TRACEINV_NO_DISPLAY',None)))) \
     and (not IsNotebook()):
@@ -93,22 +96,12 @@ def SavePlot(plt,Filename,TransparentBackground=True):
         The file is saved in both ``svg`` and ``pdf`` format.
     
     Directory:
-        The plot is saved in the directory ``/docs/images/`` with respect to the package root,
-        if this directory is exists and writable. Otherwise, the plot is saved in the *current*
-        directory of the user.
+        the plot is saved in the *current* directory of the user,
+        if this directory is exists and writable. Otherwise, 
     """
 
-    # Get the root directory of the package (parent directory of this script)
-    FileDirectory = os.path.dirname(os.path.realpath(__file__))
-    ParentDirectory = os.path.dirname(FileDirectory)
-    SecondParentDirectory = os.path.dirname(ParentDirectory)
-
-    # Try to save in the docs/images directory. Check if exists and writable
-    SaveDir = os.path.join(SecondParentDirectory,'docs','images')
-    if (not os.path.isdir(SaveDir)) or (not os.access(SaveDir,os.W_OK)):
-
-        # Write in the current working directory
-        SaveDir = os.getcwd()
+    # Write in the current working directory
+    SaveDir = os.getcwd()
 
     # Save plot in both svg and pdf format
     Filename_SVG = Filename + '.svg'

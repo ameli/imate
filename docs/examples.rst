@@ -24,6 +24,7 @@ Before running examples:
     
    Then, run either of the examples as described below.
 
+.. _Example_One:
 
 =========
 Example 1
@@ -49,6 +50,8 @@ The script generates the figure below (see Figure 2 of [Ameli-2020]_).
    :align: center
 
 The plot on the left shows the interpolation of :math:`\tau(t)`. Each colored curve is obtained using different number of interpolant points :math:`p`. The plot on the right represents the relative error  of interpolation compared to the accurate computation when no interpolation is applied. Clearly, employing more interpolant points (such as the red curve with :math:`p = 9` interpolant points) yield smaller interpolation error.
+
+.. _Example_Two:
 
 =========
 Example 2
@@ -76,6 +79,8 @@ The script generates the figure below (see also  Figure 3 of [Ameli-2020]_).
 
 .. image:: images/Example2.svg
    :align: center
+
+.. _Example_Three:
 
 =========
 Example 3

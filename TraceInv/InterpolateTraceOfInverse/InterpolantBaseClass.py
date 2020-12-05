@@ -15,14 +15,10 @@ from scipy import sparse
 
 class InterpolantBaseClass(object):
     """
-    This is the base class for the following derived classes:
+    This is the base class for the interpolation methods.
 
-    * :class:`TraceInv.InterpolateTraceOfInverse.ExactMethod`
-    * :class:`TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod`
-    * :class:`TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod`
-    * :class:`TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod`
-    * :class:`TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod`
-    * :class:`TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod`
+    .. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.ExactMethod TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod
+        :parts: 1
 
     :param A: A positive-definite matrix. Matrix can be dense or sparse.
     :type A: numpy.ndarray or scipy.sparse.csc_matrix

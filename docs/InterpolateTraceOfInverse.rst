@@ -1,4 +1,4 @@
-.. _InterpolateTraceOfInverse:
+.. _InterpolateTraceOfInverse_UserGuide:
 
 ************************************************************************
 Interpolate Trace of Inverse (:mod:`TraceInv.InterpolateTraceOfInverse`)
@@ -489,6 +489,13 @@ Main Interface
 
 .. automodapi:: TraceInv.InterpolateTraceOfInverse
    :no-inheritance-diagram:
+
+-------------------
+Inheritance Diagram
+-------------------
+
+.. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.ExactMethod TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod
+    :parts: 1
 
 -------
 Modules
