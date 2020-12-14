@@ -71,7 +71,9 @@ class BuildExt(build_ext):
 
         print('NNNNNNNNNNNNNN')
         print(ct)
-        # print(opts)
+        for ext in self.extensions:
+            print(ext.extra_compile_args)
+            print(ext.extra_link_args)
         print('NNNNNNNNNNNNNN')
 
         # if ct == 'unix':
@@ -153,11 +155,15 @@ def CreateCythonExtension(PackageName,SubPackageNames):
         ExtraLinkArgs = [] 
 
         if sys.platform == 'darwin':
-            ExtraCompileArgs += ['-Xpreprocessor','-fopenmp','-lomp']
-            ExtraLinkArgs += ['-Xpreprocessor','-fopenmp','-lomp']
+            # ExtraCompileArgs += ['-Xpreprocessor','-fopenmp','-lomp']
+            # ExtraLinkArgs += ['-Xpreprocessor','-fopenmp','-lomp']
+            ExtraCompileArgs += ['-Xpreprocessor','-fopenmp']
+            ExtraLinkArgs += ['-Xpreprocessor','-fopenmp']
         else:
-            ExtraCompileArgs += ['-fopenmp']
-            ExtraLinkArgs += ['-fopenmp']
+            # ExtraCompileArgs += ['-fopenmp']
+            # ExtraLinkArgs += ['-fopenmp']
+            ExtraCompileArgs += ['-Xpreprocessor','-fopenmp']
+            ExtraLinkArgs += ['-Xpreprocessor','-fopenmp']
 
         # Create an extension
         AnExtension = Extension(
