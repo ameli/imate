@@ -1,0 +1,17 @@
+# .coveragerc to control coverage
+[run]
+source = TraceInv
+omit = setup.py, TraceInv/__version__.py
+
+[report]
+# Regexes for lines to exclude from consideration
+exclude_lines =
+    # Don't complain if tests don't hit defensive assertion code:
+    raise
+    except
+    pass
+
+    # Don't complain if non-runnable code isn't run:
+    if __name__ == .__main__.:
+
+ignore_errors = True

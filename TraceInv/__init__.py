@@ -12,42 +12,25 @@ ExecutableDirectory = os.path.dirname(ExecutableFile)
 PackageDirectory = os.path.dirname(os.path.realpath(__file__))   # This means: ../
 ProjectDirectory = os.path.dirname(PackageDirectory)             # This means: ../../
 
-if (UserCurrentDirectory == ProjectDirectory) or (ExecutableDirectory == ProjectDirectory):
-
-    # In such case, either the current directory or executable directory is on sys.path prior to the built package.
-    # sys.path.insert(0,os.path.abspath(os.path.join(ProjectDirectory,'lib','TraceInv')))
-    # sys.path.insert(0,os.path.abspath(os.path.join(ProjectDirectory,'build','lib.linux-x86_64-3.8')))
-    # sys.path.insert(0,'/home/sia/work/ADCP/Noise-Estimation/code/TraceInv/build/lib.linux-x86_64-3.8')
-    print('ADDED')
-    # sys.path.remove(ProjectDirectory)
-
-# sys.path.insert(0,os.path.abspath('../build/lib.linux-x86_64-3.8'))
-# sys.path.insert(0,'/home/sia/work/ADCP/Noise-Estimation/code/TraceInv/build/lib.linux-x86_64-3.8')
-# sys.path.insert(0,'/home/sia/work/ADCP/Noise-Estimation/code/TraceInv/build')
-# sys.path.insert(0,'/opt/miniconda3/lib/python3.8/site-packages/TraceInv-0.0.8-py3.8-linux-x86_64.egg')
-
-for i in sys.path:
-    print(i)
-
-# # The RecursiveGolb.py should be located in '/docs'.
-# import RecursiveGlob
+# Note: the following two issues (see if conditions below) only happen in a cython package and if the package is build without --inplace option.
+# This is because without the --inplace option, the *.so files will be built inside the /build directory (not in the same directory of the source
+# code where *.pyx files are). On the other hand, when the user's directory is in the parent directory of the package, this path will be
+# the first path on the sys.path. Thus, it looks for the package in the source-code directory, not where it was built or installed. But
+# because the built is outside of the source (recall no --inplace), it cannot find the *.so files.
 #
-# # Build (assuming we build cython WITHOUT '--inplace', that is: 'python setup.py build_ext' only.
-# BuildDirectory = os.path.join('..','build')
-#
-# # Regex for pattern of lib files. Note: this is OS dependant. macos: *.dylib. Windows: *.dll
-# LibFilePatterns = ['*.so','*.dylib','*.dll']
-#
-# # Find list of subdirectories of the build directory that have files with the pattern
-# BuildSubDirectories = RecursiveGlob.RecursiveGlob(BuildDirectory,LibFilePatterns)
-#
-# # Append the subdirectories to the path
-# for BuildSubDirectory in BuildSubDirectories:
-#
-#     # Note: the subdirectory is *relative* to the BuildDirectory.
-#     Path = os.path.join(BuildDirectory,BuildSubDirectory)
-#     sys.path.insert(0,os.path.abspath(Path))
+# To resolve this issue:
+# 1. Either build the package with --inplace option.
+# 2. Change the current directory, or the directory of the script that you are running out of the source code.
+if (UserCurrentDirectory == ProjectDirectory):
+    print('You are in the source-code directory of the package. Importing the package will probably fail.:')
+    print('To resolve the issue, consider changing the current directory outside of the parent directory of the source-code.')
+    print('Your current directory is: %s'%UserCurrentDirectory)
 
+if (ExecutableDirectory == ProjectDirectory):
+
+    print('You are running a script in the source-code directory of the package. Importing the package will probably fail.')
+    print('To resolve the issue, consider changing the executable directory.')
+    print('The executable directory is: %s'%ExecutableDirectory)
 
 # Import sub-packages
 from .ComputeLogDeterminant import ComputeLogDeterminant

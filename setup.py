@@ -221,7 +221,7 @@ def main(argv):
             'setuptools',
             'cython',
             'pytest-runner'],
-        tests_require = ['pytest'],
+        tests_require = ['pytest-cov'],
         include_package_data=True,
         cmdclass = {'build_ext': build_ext},
         # cmdclass=cmdclass,
