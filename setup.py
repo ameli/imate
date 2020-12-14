@@ -127,7 +127,7 @@ def CreateCythonExtension(PackageName,SubPackageNames):
             Name,
             sources=Sources,
             include_dirs=IncludeDirs,
-            extra_compile_args=['-O3','-march=native','-fopenmp','-fno-stack-protector','-Wall','-Wunused'],
+            extra_compile_args=['-O3','-march=native','-fopenmp','-fno-stack-protector','-Wall'],
             extra_link_args=['-fopenmp'],
             define_macros=[('NPY_NO_DEPRECATED_API','NPY_1_7_API_VERSION')],
         )
