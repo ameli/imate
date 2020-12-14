@@ -60,6 +60,17 @@ try:
 except ImportError:
     from distutils.command import build_ext
 
+def has_flag(compiler, flagname):
+    import tempfile
+    from distutils.errors import CompileError
+    with tempfile.NamedTemporaryFile('w', suffix='.cpp') as f:
+        f.write('int main (int argc, char **argv) { return 0; }')
+        try:
+            compiler.compile([f.name], extra_postargs=[flagname])
+        except CompileError:
+            return False
+    return True
+
 # Test
 class BuildExt(build_ext):
     # these flags are not checked and always added
@@ -68,12 +79,14 @@ class BuildExt(build_ext):
     def build_extensions(self):
         ct = self.compiler.compiler_type
         # opts = self.compile_flags.get(ct, [])
+        HF = has_flag(self.compiler,'-fopenmp')
 
         print('NNNNNNNNNNNNNN')
         print(ct)
         for ext in self.extensions:
             print(ext.extra_compile_args)
             print(ext.extra_link_args)
+            print(HF)
         print('NNNNNNNNNNNNNN')
 
         # if ct == 'unix':
@@ -83,6 +96,7 @@ class BuildExt(build_ext):
         # for ext in self.extensions:
         #     ext.extra_compile_args = opts
         build_ext.build_extensions(self)
+
 
 # =========
 # Read File
@@ -155,14 +169,10 @@ def CreateCythonExtension(PackageName,SubPackageNames):
         ExtraLinkArgs = [] 
 
         if sys.platform == 'darwin':
-            # ExtraCompileArgs += ['-Xpreprocessor','-fopenmp','-lomp']
-            # ExtraLinkArgs += ['-Xpreprocessor','-fopenmp','-lomp']
             ExtraCompileArgs += ['-Xpreprocessor','-fopenmp','-lomp']
-            ExtraLinkArgs += ['-fopenmp']
+            ExtraLinkArgs += ['-Xpreprocessor','-fopenmp']
         else:
-            # ExtraCompileArgs += ['-fopenmp']
-            # ExtraLinkArgs += ['-fopenmp']
-            ExtraCompileArgs += ['-Xpreprocessor','-fopenmp','-lomp']
+            ExtraCompileArgs += ['-fopenmp']
             ExtraLinkArgs += ['-fopenmp']
 
         # Create an extension
