@@ -126,12 +126,10 @@ def CreateCythonExtension(PackageName,SubPackageNames):
 
         if sys.platform == 'darwin':
             print('AAAAAAAAAAAAA')
-            print(os.environ['CC'])
             ExtraCompileArgs.append('-Xpreprocessor')
             ExtraLinkArgs.append('-lomp')
         else:
             print('BBBBBBBBBBBB')
-            print
 
         # Create an extension
         AnExtension = Extension(
