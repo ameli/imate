@@ -14,9 +14,6 @@ import matplotlib.ticker as mtick
 from distutils.spawn import find_executable
 from .DisplayUtilities import IsNotebook
 
-# Test
-print(bool(os.environ.get('TRACEINV_NO_DISPLAY',None)))
-
 # Check DISPLAY
 if ((not bool(os.environ.get('DISPLAY',None))) or (bool(os.environ.get('TRACEINV_NO_DISPLAY',None)))) \
     and (not IsNotebook()):

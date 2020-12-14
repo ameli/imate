@@ -23,16 +23,16 @@ Usage
 
 In the above, the class :class:`GenerateMatrix <TraceInv.GenerateMatrix>` produces a sample matrix for test purposes (see :ref:`Generate Matrix <GenerateMatrix>` for details).
 
-The :mod:`ComputeLogDeterminant <TraceInv.ComputeLogDeterminant>` module in the above code employs the Cholesky method by default to compute the log-determinant. However, the user may choose other methods given in the table below.
+The :mod:`ComputeLogDeterminant <TraceInv.ComputeLogDeterminant>` module in the above code employs the *Cholesky method* by default to compute the log-determinant. However, other methods can be employed by setting :attr:`ComputeMethod` argument according to the table below.
 
-===================  =============================================================  ==============  =============  =============
-``ComputeMethod``    Description                                                    Matrix size     Matrix type    Results       
-===================  =============================================================  ==============  =============  =============
-``'cholesky'``       :ref:`Cholesky decomposition <MathDetails_Cholesky>`           small           dense, sparse  exact          
-``'SLQ'``            :ref:`Stochastic Lanczos Quadrature method <MathDetails_SLQ>`  small or large  dense, sparse  approximation
-===================  =============================================================  ==============  =============  =============
+=====================  ======================================================  ============  =============  =============
+:attr:`ComputeMethod`  Description                                             Matrix size   Matrix type    Results       
+=====================  ======================================================  ============  =============  =============
+``'cholesky'``         :ref:`Cholesky decomposition <MathDetails_Cholesky>`    small         dense, sparse  exact          
+``'SLQ'``              :ref:`Stochastic Lanczos Quadrature <MathDetails_SLQ>`  small, large  dense, sparse  approximation
+=====================  ======================================================  ============  =============  =============
 
-The desired method of computation can be passed through the ``ComputeMethod`` argument when calling :mod:`ComputeLogDeterminant <TraceInv.ComputeLogDeterminant>`. For instance, in the following example, we apply the *SLQ randomized estimator* method:
+In the following example, we apply the *SLQ randomized estimator* method:
 
 .. code-block:: python
 
@@ -58,7 +58,7 @@ The :mod:`TraceInv.ComputeLogDeterminant` module accepts the following attribute
    :type: string
    :value: 'cholesky'
 
-   Specifies the method of computation. The methods are one of ``'cholsky'`` and ``'SLQ'`` (see :ref:`Mathematical Details <MathDetails_LogDet`).
+   Specifies the method of computation. The methods are one of ``'cholsky'`` and ``'SLQ'`` (see :ref:`Mathematical Details <MathDetails_LogDet>`).
 
 .. attribute:: NumIterations
    :type: int
@@ -109,6 +109,20 @@ The three methods of computing the log-determinant is described below. These met
 1. **Exact:** The :ref:`Cholesky decomposition method <MathDetails_Cholesky>` aims to compute the log-determinant of a matrix exactly. The exact method is expensive and suitable for only small matrices.
 2. **Aproximation:** The :ref:`stochastic Lanczos quadrature method <MathDetails_SLQ>` are *randomized estimation algorithms* that estimate the log-determinant with *Monte-Carlo sampling*. These methods do not compute the determinant exactly, but over the iterations, their approximation converges to the true solution. These methods are very suitable for large matrices.
 
+The table below describes which method is suitable for **symmetric** (sym) and/or **positive-definite** (PD) matrices.
+
++-----------------------+-------------------------------------------------------------------------------------+-----+-----+
+| :attr:`ComputeMethod` | Description                                                                         | Sym | PD  |
++=======================+=====================================================================================+=====+=====+
+| ``'cholesky'``        | :ref:`Cholesky decomposition <MathDetails_Cholesky>`                                | Yes | Yes |
++-----------------------+-------------------------------------------------------------------------------------+-----+-----+
+| ``'SLQ'``             | :ref:`Stochastic Lanczos Quadrature <MathDetails_SLQ>` (using Lanczos Algorithm)    | Yes | Yes |
++-----------------------+-------------------------------------------------------------------------------------+-----+-----+
+|                       | :ref:`Stochastic Lanczos Quadrature <MathDetails_SLQ>` (using Golub-Kahn Algorithm) | No  | Yes |
++-----------------------+-------------------------------------------------------------------------------------+-----+-----+
+
+Also, in the above table, we recall that the *Lanczos* and *Golub-khan* algorithms can be selected by setting :attr:`UseLanczosTridiagonalizaton` to ``True`` or ``False``, respectively.
+
 .. _MathDetails_Cholesky:
 
 -----------------------------
@@ -158,11 +172,13 @@ where here :math:`\phi_j` is the :math:`j`:sup:`th` singular value of :math:`\ma
 
 In this module, by setting :attr:`UseLanczosTridiagonalization` to ``True``, the Lanczos tri-diagonalization method is applied. Whereas if this parameter is set to ``False``, the Golub-Kahn-Lanczos bi-diagonalization is used.
 
-The Golub-Kahn bi-diagonalization method is suitable for non-symmetric matrices. For the symmetric matrices, the Lanczos tri-diagonalization is preferred.
+Comparison of Lanczos and Golub-Kahn methods:
+    + The Lanczos tri-diagonalization method can only be applied to **symmetric** matrices. Whereas the Golub-Kahn bi-diagonalization method can be used for **non-symmetric** matrices.
+    + The Lanczos tri-diagonalization method is almost **twice faster** than the Golub-Kahn bi-diagonalization method on symmetric matrices. This is because the former has one matrix-vector multiplication per iterations, whereas the latter has two.
 
 .. warning::
-    When the matrix :math:`\mathbf{A}` is very close to the identity matrix, the Golub-Kahn bidoagonalization method that
-    is implementd in this module is unstable.
+
+    When the matrix :math:`\mathbf{A}` is very close to the identity matrix, the Golub-Kahn bi-diagonalization method that is implemented in this module is unstable.
 
 ========
 Examples
@@ -266,4 +282,3 @@ Modules
 -------
 
 .. automodapi:: TraceInv._LinearAlgebra.LinearSolver
-.. automodapi:: TraceInv._LinearAlgebra.MatrixReduction

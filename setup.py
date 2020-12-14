@@ -7,9 +7,58 @@
 from __future__ import print_function
 import os
 import sys
-import setuptools
 import codecs
 # from sphinx.setup_command import BuildDoc
+
+# Import numpy
+try:
+    import numpy
+except ImportError:
+    # Install numpy
+    try:
+        import pip
+        from pip import main
+        pip.main(['install','numpy'])
+        import numpy
+    except:
+        raise ImportError('Cannot import numpy.')
+
+# Import setuptools
+try:
+    import setuptools
+    from setuptools.extension import Extension
+except ImportError:
+    # Install setuptools
+    try:
+        import pip
+        from pip import main
+        pip.main(['install','setuptools'])
+        import setuptools
+        from setuptools.extension import Extension
+    except:
+        raise ImportError('Cannot import setuptools.')
+
+# Import Cython (to convert pyx to C code)
+try:
+    from Cython.Build import cythonize
+    UseCython = True
+except ImportError:
+    # Install Cython
+    try:
+        import pip
+        from pip import main
+        pip.main(['install','cython'])
+        from Cython.Build import cythonize
+        UseCython = True
+    except:
+        print('Cannot import cython. Setup proceeds withput cython.')
+        UseCython = False
+
+# Import build_ext module (to build C code)
+try:
+    from Cython.Distutils import build_ext
+except ImportError:
+    from distutils.command import build_ext
 
 # =========
 # Read File
@@ -29,7 +78,7 @@ def ReadFile(Filename):
 
 def ReadFileToRST(Filename):
     """
-    Reads atext file and converts it to RST file using pandas.
+    Reads a text file and converts it to RST file using pandas.
     """
 
     try:
@@ -41,6 +90,63 @@ def ReadFileToRST(Filename):
         return rststr
     except ImportError:
         return ReadFile(Filename)
+
+# =======================
+# Create Cython Extension
+# =======================
+
+def CreateCythonExtension(PackageName,SubPackageNames):
+    """
+    Creates a cython extention for each of the sub-packages that contain
+    ``pyx`` files.
+
+    .. note:
+
+        Only include those subpackages in the input list that have cython's
+        *.pyx files. If a sub-package is purely python, it should not be included
+        in the input list of this function.
+
+    :param SubPackageNames: A list of subpackages.
+    :type SubPackageNames: list(string)
+
+    :return: Cythonized extentions object
+    :rtype: dict
+    """
+
+    Extensions = []
+
+    # Make extension from each of the sub-package names
+    for SubPackageName in SubPackageNames:
+
+        Name = PackageName + '.' + SubPackageName + '.*'
+        Sources=[os.path.join('.',PackageName,SubPackageName,'*.pyx')]
+        IncludeDirs=[os.path.join('.',PackageName,SubPackageName)]
+
+        # Create an extension
+        AnExtension = Extension(
+            Name,
+            sources=Sources,
+            include_dirs=IncludeDirs,
+            extra_compile_args=['-O3','-march=native','-fopenmp','-fno-stack-protector','-Wall','-Wextra','-Wunused'],
+            extra_link_args=['-fopenmp'],
+            define_macros=[('NPY_NO_DEPRECATED_API','NPY_1_7_API_VERSION')],
+        )
+
+        # Append
+        Extensions.append(AnExtension)
+
+    # Add cython signatures for sphinx
+    for extension in Extensions:
+        extension.cython_directives = {"embedsignature": True}
+
+    # Cythonize
+    CythonizedExtensions = cythonize(
+        Extensions,
+        build_dir="build",
+        include_path=[numpy.get_include(),"."],
+        compiler_directives={'boundscheck':False,'cdivision':True,'wraparound':False,'nonecheck':False})
+
+    return CythonizedExtensions
 
 # ====
 # Main
@@ -70,6 +176,21 @@ def main(argv):
     # Build documentation
     # cmdclass = {'build_sphinx': BuildDoc}
 
+    # External Modules
+    if UseCython:
+
+        # List of cython sub-package that will be built with cython as extension
+        SubPackageNames = [
+            'ComputeTraceOfInverse',
+            'ComputeLogDeterminant',
+            '_LinearAlgebra']
+
+        # Cythonize
+        ExternalModules = CreateCythonExtension(PackageName,SubPackageNames)
+    else:
+        # Package will not be built with cython
+        ExternalModules = []
+
     # Setup
     setuptools.setup(
         name = PackageName,
@@ -91,12 +212,18 @@ def main(argv):
             "Tracker": "https://github.com/ameli/TraceInv/issues",
         },
         platforms = ['Linux','OSX','Windows'],
-        packages = setuptools.find_packages(exclude=("tests","examples",)),
+        packages = setuptools.find_packages(exclude=['tests.*','tests','examples.*','examples']),
+        ext_modules = ExternalModules,
+        include_dirs=[numpy.get_include()],
         install_requires = Requirements,
         python_requires = '>=2.7',
-        setup_requires = ['pytest-runner'],
+        setup_requires = [
+            'setuptools',
+            'cython',
+            'pytest-runner'],
         tests_require = ['pytest'],
         include_package_data=True,
+        cmdclass = {'build_ext': build_ext},
         # cmdclass=cmdclass,
         # command_options = {
         #     'build_sphinx': {
@@ -123,7 +250,8 @@ def main(argv):
                 'sphinx-toggleprompt',
                 'sphinx_rtd_theme',
                 'graphviz',
-                'sphinx-automodapi'
+                'sphinx-automodapi',
+                'sphinxcontrib-apidoc'
             ]
         },
         classifiers = [

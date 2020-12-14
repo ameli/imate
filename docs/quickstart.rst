@@ -40,12 +40,12 @@ In the above, the class :class:`GenerateMatrix <TraceInv.GenerateMatrix>` produc
 
 The :mod:`ComputeLogDeterminant <TraceInv.ComputeLogDeterminant>` module in the above code employs the Cholesky method by default to compute the log-determinant. However, the user may choose other methods given in the table below.
 
-===================  =============================================================  ==============  =============  =============
-``ComputeMethod``    Description                                                    Matrix size     Matrix type    Results       
-===================  =============================================================  ==============  =============  =============
-``'cholesky'``       :ref:`Cholesky decomposition <MathDetails_Cholesky>`           small           dense, sparse  exact          
-``'SLQ'``            :ref:`Stochastic Lanczos Quadrature method <MathDetails_SLQ>`  small or large  dense, sparse  approximation
-===================  =============================================================  ==============  =============  =============
+=====================  ======================================================  ============  =============  =============
+:attr:`ComputeMethod`  Description                                             Matrix size   Matrix type    Results       
+=====================  ======================================================  ============  =============  =============
+``'cholesky'``         :ref:`Cholesky decomposition <MathDetails_Cholesky>`    small         dense, sparse  exact          
+``'SLQ'``              :ref:`Stochastic Lanczos Quadrature <MathDetails_SLQ>`  small, large  dense, sparse  approximation
+=====================  ======================================================  ============  =============  =============
 
 The desired method of computation can be passed through the ``ComputeMethod`` argument when calling :mod:`ComputeLogDeterminant <TraceInv.ComputeLogDeterminant>`. For instance, in the following example, we apply the *SLQ randomized estimator* method:
 
@@ -75,13 +75,13 @@ Each of the methods in the above accepts some options. For instance, the SLQ met
 
 The :mod:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` class in the above code employs the Cholesky method by default to compute the trace of inverse. However, the user may choose other methods given in the table below.
 
-===================  ==================================================================================  ==============  =============  =============
-``ComputeMethod``    Description                                                                         Matrix size     Matrix type    Results       
-===================  ==================================================================================  ==============  =============  =============
-``'cholesky'``       :ref:`Cholesky decomposition <Cholesky Decomposition Method>`                       small           dense, sparse  exact          
-``'hutchinson'``     :ref:`Hutchinson's randomized method <Hutchinson Randomized Method>`                small or large  dense, sparse  approximation
-``'SLQ'``            :ref:`Stochastic Lanczos Quadrature method <Stochastic Lanczos Quadrature Method>`  small or large  dense, sparse  approximation
-===================  ==================================================================================  ==============  =============  =============
+=====================  ==================================================================================  ==============  =============  =============
+:attr:`ComputeMethod`  Description                                                                         Matrix size     Matrix type    Results       
+=====================  ==================================================================================  ==============  =============  =============
+``'cholesky'``         :ref:`Cholesky decomposition <Cholesky Decomposition Method>`                       small           dense, sparse  exact          
+``'hutchinson'``       :ref:`Hutchinson's randomized method <Hutchinson Randomized Method>`                small or large  dense, sparse  approximation
+``'SLQ'``              :ref:`Stochastic Lanczos Quadrature method <Stochastic Lanczos Quadrature Method>`  small or large  dense, sparse  approximation
+=====================  ==================================================================================  ==============  =============  =============
 
 The desired method of computation can be passed through the ``ComputeMethod`` argument when calling :mod:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>`. For instance, in the following example, we apply the *Hutchinson's randomized estimator* method:
 
@@ -143,18 +143,18 @@ Interpolation for an array of inquiries points can be made by:
 
 The module :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>` can employ various interpolation methods listed in the table below. The method of interpolation can be set by ``InterpolationMethod`` argument when calling :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>`. The default method is ``RMBF``.
 
-=======================  ===========================================  ============  =============  ============
-``InterpolationMethod``  Description                                  Matrix size   Matrix type    Results
-=======================  ===========================================  ============  =============  ============
-``'EXT'``                :ref:`Exact Method` (no interpolation)       Small         dense, sparse  exact
-``'EIG'``                :ref:`Eigenvalue Method`                     Small         dense, sparse  exact
-``'MBF'``                :ref:`Monomial Basis Functions Method`       Small, large  dense, sparse  interpolated
-``'RMBF'``               :ref:`Root Monomial Basis Functions Method`  small, large  dense, sparse  interpolated
-``'RBF'``                :ref:`Radial Basis Functions Method`         small, large  dense, sparse  interpolated
-``'RPF'``                :ref:`Rational Polynomial Functions Method`  small, large  dense, sparse  interpolated
-=======================  ===========================================  ============  =============  ============
+===========================  ===========================================  ============  =============  ============
+:attr:`InterpolationMethod`  Description                                  Matrix size   Matrix type    Results
+===========================  ===========================================  ============  =============  ============
+``'EXT'``                    :ref:`Exact Method` (no interpolation)       Small         dense, sparse  exact
+``'EIG'``                    :ref:`Eigenvalue Method`                     Small         dense, sparse  exact
+``'MBF'``                    :ref:`Monomial Basis Functions Method`       Small, large  dense, sparse  interpolated
+``'RMBF'``                   :ref:`Root Monomial Basis Functions Method`  small, large  dense, sparse  interpolated
+``'RBF'``                    :ref:`Radial Basis Functions Method`         small, large  dense, sparse  interpolated
+``'RPF'``                    :ref:`Rational Polynomial Functions Method`  small, large  dense, sparse  interpolated
+===========================  ===========================================  ============  =============  ============
 
-The :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>` module internally defines an object of :class:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` (see :ref:`Fixed Matrix <Fixed-Matrix>`) to evaluate the trace of inverse at the given interpolant points ``InterpolantPoints``. You can pass the options for this internal :class:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` object by ``ComputeOptions`` argument when initializing  :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>`, such as in the example below.
+The :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>` module internally defines an object of :class:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` (see :ref:`Fixed Matrix <QS_TI_Fix>`) to evaluate the trace of inverse at the given interpolant points ``InterpolantPoints``. You can pass the options for this internal :class:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` object by ``ComputeOptions`` argument when initializing  :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>`, such as in the example below.
 
 .. code-block:: python
    :emphasize-lines: 12

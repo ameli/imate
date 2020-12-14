@@ -129,7 +129,7 @@ Acknowledgements
 Credit
 ======
 
-* The algorithms are build on python packages `numpy <https://numpy.org/>`_, `scipy <https://www.scipy.org/>`_, `ray <https://github.com/ray-project/ray>`_, and `scikit-sparse <https://github.com/scikit-sparse/scikit-sparse>`_.
+* Some of the algorithms are build on python packages `numpy <https://numpy.org/>`_, `scipy <https://www.scipy.org/>`_, `ray <https://github.com/ray-project/ray>`_, and `scikit-sparse <https://github.com/scikit-sparse/scikit-sparse>`_.
 
 ==================
 Indices and tables

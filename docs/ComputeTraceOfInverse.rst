@@ -23,17 +23,17 @@ Usage
 
 In the above, the class :class:`GenerateMatrix <TraceInv.GenerateMatrix>` produces a sample matrix for test purposes (see :ref:`Generate Matrix <GenerateMatrix>` for details).
 
-The :mod:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` module in the above code employs the Cholesky method by default to compute the trace of inverse. However, the user may choose other methods given in the table below.
+The :mod:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` module in the above code employs the *Cholesky method* by default to compute the trace of inverse. However, other methods can be employed by setting :attr:`ComputeMethod` argument according to the table below.
 
-===================  ==================================================================================  ==============  =============  =============
-``ComputeMethod``    Description                                                                         Matrix size     Matrix type    Results       
-===================  ==================================================================================  ==============  =============  =============
-``'cholesky'``       :ref:`Cholesky decomposition <Cholesky Decomposition Method>`                       small           dense, sparse  exact          
-``'hutchinson'``     :ref:`Hutchinson's randomized method <Hutchinson Randomized Method>`                small or large  dense, sparse  approximation
-``'SLQ'``            :ref:`Stochastic Lanczos Quadrature method <Stochastic Lanczos Quadrature Method>`  small or large  dense, sparse  approximation
-===================  ==================================================================================  ==============  =============  =============
+=====================  ===========================================================================  ============  =============  =============
+:attr:`ComputeMethod`  Description                                                                  Matrix size   Structure      Results       
+=====================  ===========================================================================  ============  =============  =============
+``'cholesky'``         :ref:`Cholesky decomposition <Cholesky Decomposition Method>`                small         dense, sparse  exact          
+``'hutchinson'``       :ref:`Hutchinson's randomized method <Hutchinson Randomized Method>`         small, large  dense, sparse  approximation
+``'SLQ'``              :ref:`Stochastic Lanczos Quadrature <Stochastic Lanczos Quadrature Method>`  small, large  dense, sparse  approximation
+=====================  ===========================================================================  ============  =============  =============
 
-The desired method of computation can be passed through the ``ComputeMethod`` argument when calling :mod:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>`. For instance, in the following example, we apply the *Hutchinson's randomized estimator* method:
+In the following example, we apply the *Hutchinson's randomized estimator* method:
 
 .. code-block:: python
 
@@ -107,14 +107,32 @@ The :mod:`TraceInv.ComputeTraceOfInverse` module accepts the following attribute
    :type: bool
    :value: False
 
+   If ``True``, prints some information during the process.
+
 ====================
 Mathematical Details
 ====================
 
 The three methods of computing the trace is described below. These methods are categorized into two groups:
 
-1. **Exact:** The :ref:`Cholesky decomposition method <Choleshy Decomposition Method>` aims to compute the trace of inverse of a matrix exactly. The exact method is expensive and suitable for only small matrices.
+1. **Exact:** The :ref:`Cholesky decomposition method <Cholesky Decomposition Method>` aims to compute the trace of inverse of a matrix exactly. The exact method is expensive and suitable for only small matrices.
 2. **Aproximation:** The :ref:`Hutchinson method <Hutchinson Randomized Method>` and the :ref:`stochastic Lanczos quadrature method <Stochastic Lanczos Quadrature Method>` are *randomized estimation algorithms* that estimate the trace with *Monte-Carlo sampling*. These methods do not compute the trace exactly, but over the iterations, their approximation converges to the true solution. These methods are very suitable for large matrices.
+
+The table below describes which method is suitable for **symmetric** (sym) and/or **positive-definite** (PD) matrices.
+
++---------------------+--------------------------------------------------------------------------------------------------------+---+---+
+|:attr:`ComputeMethod`| Description                                                                                            |Sym|PD |
++=====================+========================================================================================================+===+===+
+|``'cholesky'``       |:ref:`Cholesky decomposition <Cholesky Decomposition Method>`                                           |Yes|Yes| 
++---------------------+--------------------------------------------------------------------------------------------------------+---+---+
+|``'hutchinson'``     |:ref:`Hutchinson's randomized method <Hutchinson Randomized Method>`                                    |No |No |
++---------------------+--------------------------------------------------------------------------------------------------------+---+---+
+|``'SLQ'``            |:ref:`Stochastic Lanczos Quadrature <Stochastic Lanczos Quadrature Method>` (using Lanczos Algorithm)   |Yes|Yes|
++                     +--------------------------------------------------------------------------------------------------------+---+---+
+|                     |:ref:`Stochastic Lanczos Quadrature <Stochastic Lanczos Quadrature Method>` (using Golub-Kahn Algorithm)|No |Yes|
++---------------------+--------------------------------------------------------------------------------------------------------+---+---+
+
+Also, in the above table, we recall that the *Lanczos* and *Golub-khan* algorithms can be selected by setting :attr:`UseLanczosTridiagonalizaton` to ``True`` or ``False``, respectively.
 
 -----------------------------
 Cholesky Decomposition Method
@@ -212,11 +230,13 @@ where here :math:`\phi_j` is the :math:`j`:sup:`th` singular value of :math:`\ma
 
 In this module, by setting :attr:`UseLanczosTridiagonalization` to ``True``, the Lanczos tri-diagonalization method is applied. Whereas if this parameter is set to ``False``, the Golub-Kahn-Lanczos bi-diagonalization is used.
 
-The Golub-Kahn bi-diagonalization method is suitable for non-symmetric matrices. For the symmetric matrices, the Lanczos tri-diagonalization is preferred.
+Comparison of Lanczos and Golub-Kahn methods:
+    + The Lanczos tri-diagonalization method can only be applied to **symmetric** matrices. Whereas the Golub-Kahn bi-diagonalization method can be used for **non-symmetric** matrices.
+    + The Lanczos tri-diagonalization method is almost **twice faster** than the Golub-Kahn bi-diagonalization method on symmetric matrices. This is because the former has one matrix-vector multiplication per iterations, whereas the latter has two.
 
 .. warning::
-    When the matrix :math:`\mathbf{A}` is very close to the identity matrix, the Golub-Kahn bidoagonalization method that
-    is implementd in this module is unstable.
+
+    When the matrix :math:`\mathbf{A}` is very close to the identity matrix, the Golub-Kahn bi-diagonalization method that is implemented in this module is unstable.
 
 ========
 Examples
@@ -337,4 +357,3 @@ Modules
 .. automodapi:: TraceInv.ComputeTraceOfInverse.HutchinsonMethod
 .. automodapi:: TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod
 .. automodapi:: TraceInv._LinearAlgebra.LinearSolver
-.. automodapi:: TraceInv._LinearAlgebra.MatrixReduction

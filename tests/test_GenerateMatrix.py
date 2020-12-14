@@ -47,7 +47,7 @@ def test_GenerateMatrix():
     # Generate a dense matrix using points on a grid
     K1 = GenerateMatrix(NumPoints=20,UseSparse=False,Plot=True)
 
-    # Generate a dense matric using random set of points
+    # Generate a dense matrix using random set of points
     K2 = GenerateMatrix(NumPoints=20,GridOfPoints=False,UseSparse=False,Plot=True)
 
     # Generate sparse matrix and run in parallel

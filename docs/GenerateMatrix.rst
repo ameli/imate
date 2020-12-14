@@ -84,7 +84,7 @@ The :mod:`TraceInv.GenerateMatrix` module accepts the following attributes as in
    (see parameter :math:`\kappa` in :ref:`Sparse Matrix`).
    Increasing the threshold yields a more sparse matrix.
 
-.. attribte:: RunInParallel
+.. attribute:: RunInParallel
    :type: bool
    :value: False
 
@@ -97,9 +97,24 @@ The :mod:`TraceInv.GenerateMatrix` module accepts the following attributes as in
 
    If set to ``True``, it plots the generated matrix.
 
+   * If no graphical backend exists (such as running the code on a remote server or manually disabling the X11 backend), the plot will not be shown, rather, it will ve saved as an ``svg`` file in the current directory. 
+   * If the executable ``latex`` is on the path, the plot is rendered using :math:`\rm\LaTeX`, which then, it takes a bit longer to produce the plot. 
+   * If :math:`\rm\LaTeX` is not installed, it uses any available San-Serif font to render the plot.
+
+   .. note::
+
+       To manually disable interactive plot display, and save the plot as ``SVG`` instead, add the following in the
+       very begining of your code before importing ``TraceInv``:
+
+       .. code-block:: python
+         
+           >>> import os
+           >>> os.environ['TRACEINV_NO_DISPLAY'] = 'True'
+
 .. attribute:: Verbose:
    :type: bool
    :value: False
+
    If ``True``, prints some information during the process.
 
 ====================
@@ -218,26 +233,26 @@ The *sparse density* :math:`d` of the sparse matrix (ratio of non-zero elements 
 Example
 =======
 
-Generate a matrix of the shape ``(20**2,20**2)`` based on mutual correlation of a grid of :math:`20^2` points on unit square
+Generate a matrix of the size :math:`20^2 \times 20^2` based on mutual correlation of a rectangular grid of :math:`20 \times 20` points in the unit square
 
 .. code-block:: python
 
   >>> from TraceInv import GenerateMatrix
   >>> A = GenerateMatrix(NumPoints=20)
 
-Generate a correlation matrix of shape ``(20,20)`` based on 20 random points in unit square. Default for :attr:`GridOfPoints` is ``True``.
+Generate a correlation matrix of the size :math:`20 \times 20` based on :math:`20` random points in unit square. Default for :attr:`GridOfPoints` is ``True``.
 
 .. code-block:: python
 
   >>> A = GenerateMatrix(NumPoints=20,GridOfPoints=False)
 
-Generate a matrix of shape ``(20**2,20**2)`` with stronger spatial correlation. Default for :attr:`DecorrelationScale` is ``0.1``.
+Generate a matrix of the size :math:`20^2 \times 20^2` with stronger spatial correlation.
 
 .. code-block:: python
 
   >>> A = GenerateMatrix(NumPoints=20,DecorrelationScale=0.3)
 
-Generate a correlation matrix with more smoothness.. Default for ``nu`` is ``0.5``.
+Generate a correlation matrix with more smoothness.
 
 .. code-block:: python
 
@@ -256,7 +271,7 @@ To use :attr:`RunInParallel` option, the package ``ray`` should be installed.
 
   >>> A = GenerateMatrix(NumPoints=100,UseSparse=True,RunInParallel=True)
 
-Plot the matrix by :attr:`Plot`
+Plot the matrix using :attr:`Plot` option:
 
 .. code-block:: python
    
@@ -264,8 +279,6 @@ Plot the matrix by :attr:`Plot`
 
 .. image:: ./images/CorrelationMatrix.svg
    :align: center
-
-If no graphical backend exists, the plot is not shown, and saved as an ``svg`` files instead.
 
 ==========
 References

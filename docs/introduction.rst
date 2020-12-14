@@ -53,15 +53,29 @@ A common example of such an application can be found in regularization technique
 
 frequently appears. Other examples of :eq:`map` are in the optimal design of experiment, probabilistic principal component analysis (see Sec. 12.2 of [Bishop-2006]_), relevance vector machines [Tipping-2001]_ and [Bishop-2006]_, kernel smoothing (see Sec. 2.6 of [Rasmussen-2006]_, and Bayesian linear models (see Sec. 3.3 of [Bishop-2006]_.
 
-============================
-Benefits of TraceInv Package
-============================
+==============================
+Advantages of TraceInv Package
+==============================
+
+TODO
+
+**Interpolation**
 
 The greatest benefit that TraceInv offers is its ability to interpolate the trace of the inverse of *affine matrix functions*, which is implemented in :mod:`TraceInv.InterpolateTraceOfInverse` module based.
+
+**Speed**
+
+In a table, compare single core performance between pure python and pure cython of logdet and traceinv, also 20 core on the cluster, to show the scalability.
+
+Explain the pure cythonic code is free of gil, and explain what gil free code is. In this package, gil is completely released for all high-performance parts of the code (often not easy task). Without completely releasing gil-lock, a cython program cannot achieve a pure C++ performance.
+
+If Interpolate() function can also be called within a n gil environment, create a tutorial page on how to call it within cython.
 
 =====================
 Other Useful Packages
 =====================
+
+TODO
 
 TraceInv does not replace many sophisticated computational packages in linear algebra and machine learning. Rather, some if its features were implemented on top of other packages. 
 

@@ -36,11 +36,11 @@ def LinearSolver(A,b,Tol=1e-5):
 
         # Use iterative method
         if b.ndim == 1:
-            x = scipy.sparse.linalg.cg(A,b,tol=Tol)[0]
+            x = scipy.sparse.linalg.cg(A,b,atol=Tol)[0]
         else:
             x = numpy.zeros(b.shape)
             for i in range(x.shape[1]):
-                x[:,i] = scipy.sparse.linalg.cg(A,b[:,i],tol=Tol)[0]
+                x[:,i] = scipy.sparse.linalg.cg(A,b[:,i],atol=Tol)[0]
     else:
         # Dense matrix
         x = scipy.linalg.solve(A,b,sym_pos=True)

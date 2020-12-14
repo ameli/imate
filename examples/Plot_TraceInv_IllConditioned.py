@@ -83,7 +83,7 @@ def Plot(TI,test):
         if j == 0:
             q[0].set_zorder(20)
 
-    ax[0].set_xscale('symlog',linthreshx=1e-8)
+    ax[0].set_xscale('symlog',linthresh=1e-8)
     ax[0].set_yscale('log')
     ax[0].set_xlim([eta[0],eta[-1]])
     ax[0].set_ylim([1e-3,1e4])
@@ -141,7 +141,7 @@ def Plot(TI,test):
             q[0].set_zorder(20)
     # ax[1].semilogx(eta,tau_estimate_alt-tau_exact,label=r'Alt. estimation',zorder=-20)   # Absolute error
     # ax[1].semilogx(eta,tau_estimate_alt/tau_exact-1,label=r'Alt. estimation',zorder=-20)   # Relative error
-    ax[1].set_xscale('symlog',linthreshx=1e-8)
+    ax[1].set_xscale('symlog',linthresh=1e-8)
     ax[1].set_yscale('linear')
     ax[1].set_xlim([eta[0],eta[-1]])
     ax[1].set_ylim([-0.5,2.5])

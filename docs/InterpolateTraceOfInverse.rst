@@ -59,18 +59,18 @@ Interpolation for an array of inquiries points can be made by:
 
 The module :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>` can employ various interpolation methods listed in the table below. The method of interpolation can be set by ``InterpolationMethod`` argument when calling :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>`. The default method is ``RMBF``.
 
-=======================  ===========================================  ============  =============  ============
-``InterpolationMethod``  Description                                  Matrix size   Matrix type    Results
-=======================  ===========================================  ============  =============  ============
-``'EXT'``                :ref:`Exact Method` (no interpolation)       Small         dense, sparse  exact
-``'EIG'``                :ref:`Eigenvalue Method`                     Small         dense, sparse  exact
-``'MBF'``                :ref:`Monomial Basis Functions Method`       Small, large  dense, sparse  interpolated
-``'RMBF'``               :ref:`Root Monomial Basis Functions Method`  small, large  dense, sparse  interpolated
-``'RBF'``                :ref:`Radial Basis Functions Method`         small, large  dense, sparse  interpolated
-``'RPF'``                :ref:`Rational Polynomial Functions Method`  small, large  dense, sparse  interpolated
-=======================  ===========================================  ============  =============  ============
+===========================  ===========================================  ============  =============  ============
+:attr:`InterpolationMethod`  Description                                  Matrix size   Matrix type    Results
+===========================  ===========================================  ============  =============  ============
+``'EXT'``                    :ref:`Exact Method` (no interpolation)       Small         dense, sparse  exact
+``'EIG'``                    :ref:`Eigenvalue Method`                     Small         dense, sparse  exact
+``'MBF'``                    :ref:`Monomial Basis Functions Method`       Small, large  dense, sparse  interpolated
+``'RMBF'``                   :ref:`Root Monomial Basis Functions Method`  small, large  dense, sparse  interpolated
+``'RBF'``                    :ref:`Radial Basis Functions Method`         small, large  dense, sparse  interpolated
+``'RPF'``                    :ref:`Rational Polynomial Functions Method`  small, large  dense, sparse  interpolated
+===========================  ===========================================  ============  =============  ============
 
-The :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>` module internally defines an object of :class:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` (see :ref:`Fixed Matrix <Fixed-Matrix>`) to evaluate the trace of inverse at the given interpolant points ``InterpolantPoints``. You can pass the options for this internal :class:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` object by ``ComputeOptions`` argument when initializing  :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>`, such as in the example below.
+The :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>` module internally defines an object of :class:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` (see :ref:`Compute Trace of Inverse user guide <ComputeTraceOfInverse_UserGuide>`) to evaluate the trace of inverse at the given interpolant points ``InterpolantPoints``. You can pass the options for this internal :class:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` object by ``ComputeOptions`` argument when initializing  :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>`, such as in the example below.
 
 .. code-block:: python
    :emphasize-lines: 12
@@ -145,6 +145,8 @@ The :mod:`TraceInv.InterpolateTraceOfInverse` class accepts the following attrib
    :type: bool
    :value: False
 
+   If ``True``, prints some information during the process.
+
 .. attribute:: NonZeroRatio
    :type: float
    :value: 0.9
@@ -194,17 +196,42 @@ The :func:`TraceInv.InterpolateTraceOfInverse.Interpolate() <TraceInv.Interpolat
    :value: False
    
    If ``True``, it computes the trace with exact solution, then compares it with the interpolated 
-   solution. The return values of the ``Interpolate()`` functions become interpolated trace, exact solution, 
-   and relative error. **Note:** When this option is enabled, the exact solution will be computed for all inquiry points, 
-   which can take a very long time. Default is ``False``.
+   solution. When this option is enabled, the function :func:`Interpolate() <TraceInv.InterpolateTraceOfInverse.Interpolate>` 
+   returns a tuple with the following three quantities:
+   
+       1. interpolated trace (single number or array)
+       2. exact solution (sngle number or array)
+       3. Relative error of interpolated trace compared with the exact solution
+
+   .. warning::
+   
+       When the option :attr:`CompareWithExact` is enabled, depending on the matrix size and the length of the input array :attr:`t`, 
+       the processing time will be significantly longer. This is becase the solution will be computed for all inquiry points 
+       using the exact method (besides the interpolation). Use this option only for test purposes (benchmarking) on small matrices.
 
 .. attribute:: Plot
    :type: bool
    :value: False
         
-   If ``True``, it plots the interpolated trace versus the inquiry points. In addition, if the option
-   ``CompareWithExact`` is also set to ``True``, the plotted diagram contains both interpolated and exact solutions
-   and the relative error of interpolated solution with respect to the exact solution.
+   If ``True``, it plots the interpolated trace versus the inquiry points.
+   
+   * If the option :attr:`CompareWithExact` is also set to ``True``, the plotted diagram contains both interpolated 
+     and exact solutions, together with the *relative error* of interpolated solution with respect to the exact solution.
+   * If no graphical backend exists (such as running the code on a remote server or manually disabling the X11 backend), 
+     the plot will not be shown, rather, it will be saved as an ``svg`` file in the current directory. 
+   * If the executable ``latex`` can be found on the path, the plot is rendered using :math:`\rm\LaTeX`, which then, 
+     it takes a bit longer to produce the plot. 
+   * If :math:`\rm\LaTeX` is not installed, it uses any available San-Serif font to render the plot.
+
+   .. note::
+
+       To manually disable interactive plot display, and save the plot as ``SVG`` instead, add the following in the
+       very begining of your code before importing ``TraceInv``:
+
+       .. code-block:: python
+         
+           >>> import os
+           >>> os.environ['TRACEINV_NO_DISPLAY'] = 'True'
 
 ====================
 Mathematical Details
@@ -231,7 +258,7 @@ Exact Method
 The exact method (by setting :attr:`InterpolationMethod` to ``'EXT'``) do not perform any interpolation on the inquiry 
 point. Rather, it computes the trace of inverse directly via the :mod:`TraceInv.ComputeTraceOfInverse` module. This method 
 is primarily used for comparing the result of other methods with a benchmark solution. For details of computation, 
-see `Compute Trace of Inverse <ComputeTraceOfInverse_UserGuide`_ user guide.
+see :ref:`Compute Trace of Inverse <ComputeTraceOfInverse_UserGuide>` user guide.
 
 .. warning::
 
@@ -256,11 +283,11 @@ eigenvalues are assumed to be zero, Hence, the results are very close, yet not t
 
 .. note::
 
-    For small matrices, this is the fastest and most accurate interpolation method.
+    This is the fastest and most accurate interpolation method, but can only be applied on small matrices.
 
 .. warning::
 
-    For large matrices, this method is not suitable, and practically, may stall and never return output. 
+    This method is not suitable for large matrices, and practically, may stall and never return output. 
 
 -------------------------------
 Monomial Basis Functions Method
@@ -274,7 +301,7 @@ Computes the trace of inverse of an invertible matrix :math:`\mathbf{A} + t \mat
     \frac{1}{(\tau(t))^{p+1}} \approx \frac{1}{(\tau_0)^{p+1}} + \sum_{i=1}^{p+1} w_i t^i,
 
 where :math:`w_{p+1} = 1`. To find the weight coefficient :math:`w_1`, the trace is computed at the given interpolant point :math:`t_1` 
-(see :attr:``InterpolantPoints` argument).
+(see :attr:`InterpolantPoints` argument).
 
 When :math:`p = 1`, meaning that there is only one interpolant point :math:`t_1` with the function value :math:`\tau_1 = \tau(t_1)`, the 
 weight coefficient :math:`w_1` can be solved easily. In this case, the interpolation function becomes
@@ -466,9 +493,9 @@ In this example, we use the default method (``RMBF``), but interpolate for an ar
    >>> # Specify an array of inquiry points, then interpolate at inquiry points
    >>> import numpy
    >>> t = numpy.logspace(-3,3,100)
-   >>> trace = TI.Interpolate(t,CompareWithExact=True,Plot=True)
+   >>> trace_interpolated, trace_exact, relative_error = TI.Interpolate(t,CompareWithExact=True,Plot=True)
 
-The above code produces the following plot. The interpolant points are shown by the red dots. The red curve on the left plot is behind the black curve, since the interpolation is very close to the exact values. Note that because of setting ``CompareWithExact=True`` option, the above code takes more processing time since it also computes the exact values for all array ``t``. Without enabling this option, the interpolation takes significantly less processing time.
+The above code produces the following plot. The interpolant points are shown by the red dots. The red curve on the left plot is behind the black curve, since the interpolation is very close to the exact values. Note that because of setting :attr:`CompareWithExact` to ``True``, the above code takes more processing time since it also computes the exact values for all elements of the array ``t``. Without enabling this option, the interpolation takes significantly less processing time.
 
 .. image:: images/InterpolationResults.svg
    :align: center

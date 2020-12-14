@@ -12,8 +12,46 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../'))
+sys.path.insert(0,os.path.abspath('../'))
 
+# The following is treatment exclusively for CYTHON. Since I build cython 
+# into '/build' directory, the lib files (*.so) are generated in the subfolder
+# '/build/lib.linux-x86_64.3.8/'. To properly build sphinx, this directory should
+# be included. Because this name of this subdirectory depends on the Linux platform,
+# the architecture and the python version, in the following, we search for (glob)
+# all subdirectories of '/build' and find which subdirectories contain '*.so' files.
+# We then include all of those subdirectories to the path.
+
+# Here as assumed that the '*.so' files are built inside the build directory. To do so,
+# 1. Make sure cython package is built without '--inplace'. That is: 
+#    'python setup.py build_ext'.
+# 2. Make sure in 'setup.cfg', the '[build_ext]' section does not have 'inplace=1' entry
+#    (if yes, comment it).
+
+# If the build is make with '--inplace', then the '*.so' files are written inside the 
+# source code where '*.pyx' files are. In this case, you do not need to include the 
+# subdirectories of '/build' on the path.
+
+# The RecursiveGolb.py should be located in '/docs'.
+sys.path.insert(0,os.path.abspath('./'))
+import RecursiveGlob
+
+# Build (assuming we build cython WITHOUT '--inplace', that is: 'python setup.py build_ext' only.
+BuildDirectory = os.path.join('..','build')
+
+# Regex for pattern of lib files. Note: this is OS dependant. macos: *.dylib. Windows: *.dll
+LibFilePatterns = ['*.so','*.dylib','*.dll']
+
+# Find list of subdirectories of the build directory that have files with the pattern
+BuildSubDirectories = RecursiveGlob.RecursiveGlob(BuildDirectory,LibFilePatterns)
+
+# Append the subdirectories to the path
+for BuildSubDirectory in BuildSubDirectories:
+
+    # Note: the subdirectory is *relative* to the BuildDirectory.
+    Path = os.path.join(BuildDirectory,BuildSubDirectory)
+    sys.path.insert(0,os.path.abspath(Path))
+    print(os.path.abspath(Path))
 
 # -- Project information -----------------------------------------------------
 
@@ -117,5 +155,5 @@ html_static_path = ['_static']
 # ]
 
 def setup (app):
-    app.add_stylesheet('css/custom.css')                  # relative to /docs/_static/
-    # app.add_stylesheet('css/custom-anaconda-doc.css')   # relative to /docs/_static/
+    app.add_css_file('css/custom.css')                  # relative to /docs/_static/
+    # app.add_css_file('css/custom-anaconda-doc.css')   # relative to /docs/_static/

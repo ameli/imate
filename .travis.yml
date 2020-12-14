@@ -35,7 +35,7 @@ matrix:
         #     - pypy -m pip install codecov
         #   install:
         #     - pypy -m pip install -r requirements.txt
-        #     - pypy -m pip install -e .
+        #     - pypy -m pip install .
 
         - name: "macOSX with Python: 2.7"
           os: osx
@@ -51,7 +51,7 @@ matrix:
             - python -m pip install --upgrade pytest-cov
             - python -m pip install codecov
           install:
-            - python -m pip install -e .[extra]
+            - python -m pip install .[extra]
 
         - name: 'macOSX with Python: 3.7'
           os: osx
@@ -66,7 +66,7 @@ matrix:
             - python3 -m pip install --upgrade pytest-cov
             - python3 -m pip install codecov
           install:
-            - python3 -m pip install -e .
+            - python3 -m pip install .
           script:
             - python3 -m pytest --cov-report=xml --cov=tests/
 
@@ -80,7 +80,7 @@ matrix:
             - python -m pip install --upgrade pytest-cov
             - python -m pip install codecov
           install:
-            - python -m pip install -e .[extra]
+            - python -m pip install .[extra]
           env:
             - PATH=/c/Python38:/c/Python38/Scripts:$PATH
             - BADGE=windows
@@ -92,8 +92,8 @@ matrix:
         #     - python -m pip install --upgrade pip
         #   install:
         #     - python -m pip install -r requirements.txt
-        #     - python -m pip install -e .[test]
-        #     - python -m pip install -e .[docs]
+        #     - python -m pip install .[test]
+        #     - python -m pip install .[docs]
         #   script:
         #     - python -m pytest --cov-report=xml --cov=tests/
         #     - make -C docs/ html
@@ -121,7 +121,7 @@ before_install:
 
 # These only apply to the above jobs that install is not declared for them in the above.
 install:
-  - python -m pip install --upgrade -e .[full]
+  - python -m pip install --upgrade .[full]
 
 # These only apply to the above jobs that script is not declared for them in the above.
 script:

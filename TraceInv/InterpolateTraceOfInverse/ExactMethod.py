@@ -83,7 +83,7 @@ class ExactMethod(InterpolantBaseClass):
     def Interpolate(self,t):
         """
         This function does not interpolate, rather exactly computes 
-        :math:`\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1}  \rright)`
+        :math:`\mathrm{trace} \left( (\mathbf{A} + t \mathbf{B})^{-1}  \\right)`
 
         :param t: The inquiry point(s).
         :type t: float, list, or numpy.array

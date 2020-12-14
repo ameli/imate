@@ -12,9 +12,21 @@ and this project adheres to `Semantic Versioning <https://semver.org/spec/v2.0.0
 ============
 
 --------------------
+[0.0.8] - 2020-12-09
+--------------------
+
+~~~~~~~
+Removed
+~~~~~~~
+
+* Remove edit mode ``-e`` from ``pip install`` from all workfows and travis.
+
+
+--------------------
 [0.0.1] - 2020-10-28
 --------------------
 
+~~~~~
 Added
 ~~~~~
 

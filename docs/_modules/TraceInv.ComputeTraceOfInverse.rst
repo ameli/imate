@@ -36,6 +36,22 @@ TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod module
    :undoc-members:
    :show-inheritance:
 
+TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod\_Parallel module
+---------------------------------------------------------------------------------
+
+.. automodule:: TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod_Parallel
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod\_Parallel module
+---------------------------------------------------------------------------------
+
+.. automodule:: TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod_Parallel
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

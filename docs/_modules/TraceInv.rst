@@ -11,7 +11,6 @@ Subpackages
    TraceInv.ComputeTraceOfInverse
    TraceInv.GenerateMatrix
    TraceInv.InterpolateTraceOfInverse
-   TraceInv.LinearAlgebra
 
 Module contents
 ---------------

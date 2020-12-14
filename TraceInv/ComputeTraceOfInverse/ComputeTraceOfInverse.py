@@ -4,7 +4,9 @@
 
 from .CholeskyMethod import CholeskyMethod
 from .HutchinsonMethod import HutchinsonMethod
-from .StochasticLanczosQuadratureMethod import StochasticLanczosQuadratureMethod
+# from .StochasticLanczosQuadratureMethod import StochasticLanczosQuadratureMethod
+from .StochasticLanczosQuadratureMethod_Parallel import StochasticLanczosQuadratureMethod
+# from TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod_Parallel import StochasticLanczosQuadratureMethod
 
 # ========================
 # Compute Trace Of Inverse

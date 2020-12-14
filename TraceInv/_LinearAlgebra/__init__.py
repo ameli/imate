@@ -1,5 +1,4 @@
 from .LinearSolver import LinearSolver
-from .MatrixReduction import LanczosTridiagonalization
-from .MatrixReduction import LanczosTridiagonalization2
-from .MatrixReduction import GolubKahnLanczosBidiagonalization
 from .SparseCholesky import SparseCholesky
+from .LanczosTridiagonalization import LanczosTridiagonalization
+from .GolubKahnBidiagonalization import GolubKahnBidiagonalization
