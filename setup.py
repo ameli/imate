@@ -157,13 +157,13 @@ def CreateCythonExtension(PackageName,SubPackageNames):
         if sys.platform == 'darwin':
             # ExtraCompileArgs += ['-Xpreprocessor','-fopenmp','-lomp']
             # ExtraLinkArgs += ['-Xpreprocessor','-fopenmp','-lomp']
-            ExtraCompileArgs += ['-Xpreprocessor','-fopenmp']
-            ExtraLinkArgs += ['-Xpreprocessor','-fopenmp']
+            ExtraCompileArgs += ['-Xpreprocessor','-fopenmp','-lomp']
+            ExtraLinkArgs += ['-fopenmp']
         else:
             # ExtraCompileArgs += ['-fopenmp']
             # ExtraLinkArgs += ['-fopenmp']
-            ExtraCompileArgs += ['-Xpreprocessor','-fopenmp']
-            ExtraLinkArgs += ['-Xpreprocessor','-fopenmp']
+            ExtraCompileArgs += ['-Xpreprocessor','-fopenmp','-lomp']
+            ExtraLinkArgs += ['-fopenmp']
 
         # Create an extension
         AnExtension = Extension(
