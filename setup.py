@@ -125,9 +125,12 @@ def CreateCythonExtension(PackageName,SubPackageNames):
         ExtraLinkArgs=['-fopenmp']
 
         if sys.prefix == 'darwin':
+            print('AAAAAAAAAAAAA')
             print(os.environ['CC'])
             ExtraCompileArgs.append('-Xpreprocessor')
             ExtraLinkArgs.append('-lomp')
+        else:
+            print('BBBBBBBBBBBB')
 
         # Create an extension
         AnExtension = Extension(
