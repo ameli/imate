@@ -119,16 +119,23 @@ def CreateCythonExtension(PackageName,SubPackageNames):
     for SubPackageName in SubPackageNames:
 
         Name = PackageName + '.' + SubPackageName + '.*'
-        Sources=[os.path.join('.',PackageName,SubPackageName,'*.pyx')]
-        IncludeDirs=[os.path.join('.',PackageName,SubPackageName)]
+        Sources  =[os.path.join('.',PackageName,SubPackageName,'*.pyx')]
+        IncludeDirs = [os.path.join('.',PackageName,SubPackageName)]
+        ExtraCompileArgs = ['-O3','-march=native','-fopenmp','-fno-stack-protector','-Wall']
+        ExtraLinkArgs=['-fopenmp']
+
+        if sys.prefix == 'darwin':
+            print(os.environ['CC'])
+            ExtraCompileArgs.append('-Xpreprocessor')
+            ExtraLinkArgs.append('-lomp')
 
         # Create an extension
         AnExtension = Extension(
             Name,
             sources=Sources,
             include_dirs=IncludeDirs,
-            extra_compile_args=['-O3','-march=native','-fopenmp','-fno-stack-protector','-Wall'],
-            extra_link_args=['-fopenmp'],
+            extra_compile_args=ExtraCompileArgs,
+            extra_link_args=ExtraLinkArgs,
             define_macros=[('NPY_NO_DEPRECATED_API','NPY_1_7_API_VERSION')],
         )
 
