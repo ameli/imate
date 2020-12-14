@@ -22,14 +22,12 @@ jobs:
             - name: Install prerequisits
               run: |
                   brew install suite-sparse
-                  brew reinstall gcc
+                  brew install llvm
             - name: Install package and dependencies
               run: |
                   python -m pip install --upgrade pip
                   python -m pip install --upgrade numpy
                   python -m pip install --upgrade .[full]
-              env:
-                  CC: gcc
             - name: Test
               run: |
                   python -m pip install --upgrade pytest
