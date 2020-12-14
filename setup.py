@@ -60,6 +60,28 @@ try:
 except ImportError:
     from distutils.command import build_ext
 
+# Test
+class BuildExt(build_ext):
+    # these flags are not checked and always added
+    # compile_flags = {"msvc": ['/EHsc'], "unix": ["-std=c++11"]}
+
+    def build_extensions(self):
+        ct = self.compiler.compiler_type
+        # opts = self.compile_flags.get(ct, [])
+
+        print('NNNNNNNNNNNNNN')
+        print(ct)
+        # print(opts)
+        print('NNNNNNNNNNNNNN')
+
+        # if ct == 'unix':
+        #     # only add flags which pass the flag_filter
+        #     opts += flag_filter(self.compiler,
+        #                         '-fvisibility=hidden', '-stdlib=libc++', '-std=c++14')
+        # for ext in self.extensions:
+        #     ext.extra_compile_args = opts
+        build_ext.build_extensions(self)
+
 # =========
 # Read File
 # =========
@@ -112,6 +134,12 @@ def CreateCythonExtension(PackageName,SubPackageNames):
     :return: Cythonized extentions object
     :rtype: dict
     """
+
+    import distutils.ccompiler
+    print('QQQQQQQQQQQQQQQQ')
+    print(distutils.ccompiler.get_default_compiler())
+    print('QQQQQQQQQQQQQQQQ')
+
 
     Extensions = []
 
@@ -232,7 +260,9 @@ def main(argv):
             'pytest-runner'],
         tests_require = ['pytest-cov'],
         include_package_data=True,
-        cmdclass = {'build_ext': build_ext},
+        # cmdclass = {'build_ext': build_ext},
+        cmdclass = {'build_ext': BuildExt},
+        zip_safe=False,
         # cmdclass=cmdclass,
         # command_options = {
         #     'build_sphinx': {
