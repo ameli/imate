@@ -121,15 +121,14 @@ def CreateCythonExtension(PackageName,SubPackageNames):
         Name = PackageName + '.' + SubPackageName + '.*'
         Sources  =[os.path.join('.',PackageName,SubPackageName,'*.pyx')]
         IncludeDirs = [os.path.join('.',PackageName,SubPackageName)]
-        ExtraCompileArgs = ['-O3','-march=native','-fopenmp','-fno-stack-protector','-Wall']
+        ExtraCompileArgs = ['-O3','-march=native','-fno-stack-protector','-Wall']
         ExtraLinkArgs=['-fopenmp']
 
         if sys.platform == 'darwin':
-            print('AAAAAAAAAAAAA')
-            ExtraCompileArgs.append('-Xpreprocessor')
+            ExtraCompileArgs += ['-Xpreprocessor','-fopenmp']
             ExtraLinkArgs.append('-lomp')
         else:
-            print('BBBBBBBBBBBB')
+            ExtraCompileArgs += ['-fopenmp']
 
         # Create an extension
         AnExtension = Extension(
