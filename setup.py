@@ -64,16 +64,16 @@ except ImportError:
 # Check Compiler Has Flag
 # =======================
 
-def CheckCompilerHasFlag(compiler,flagname):
+def CheckCompilerHasFlag(Compiler,FlagName):
     """
-    Checks if the C compiler has the given flag. The motivation for this function is that
+    Checks if the C compiler has a given flag. The motivation for this function is that:
     
-    * In linux, the gcc compiler has the '-fopenmp' flag, which enables compiling with OpenMP.
-    * In MacOS, the clang compiler does not recognize '-fopenmp' flag, rather, it should be passed through the
-      preprocessor using '-Xpreprocessor -fopenmp -lomp'.
+    * In Linux, the gcc compiler has the '-fopenmp' flag, which enables compiling with OpenMP.
+    * In macOS, the clang compiler does not recognize '-fopenmp' flag, rather, it should be passed through the
+      preprocessor using '-Xpreprocessor -fopenmp'.
 
-    Thus, we should know in advance which compiler is used to provide correct flags.
-    The problem is that in the setup.py script, we cannot figure determine the compiler is gcc or clang. 
+    Thus, we should know in advance which compiler is used to provide the correct flags.
+    The problem is that in the setup.py script, we cannot determine if the compiler is gcc or clang. 
     The closet we can get is to call 
         
     .. code-block:: python
@@ -81,19 +81,29 @@ def CheckCompilerHasFlag(compiler,flagname):
         >>> import distutils.ccompiler
         >>> print(distutils.ccompiler.get_default_compiler())
 
-    In linux and mac, the above line yields 'unix', which again we cannot figure which compiler is being used.
-    The safest work-around is this function, which compilers a simple c code with a given flagname 
-    (such as '-fopenmp') and checks if it compiles. If yes, it is gcc, or not, it is clang.
+    In both Linux and macOS, the above line yields 'unix', and in windows it returns 'msvc' for Microsoft Visual
+    C++. In case of Linux and macOS, we cannot figure which compiler is being used as both outputs are the same. 
+    The safest solution so far is this function, which compilers a small c code with a given 
+    FlagName and checks if it compiles. In case of 'unix', if it compiles with '-fopenmp', it is gcc on Linux,
+    otherwise it is clang on macOS.
     """
+
     import tempfile
     from distutils.errors import CompileError
-    with tempfile.NamedTemporaryFile('w', suffix='.cpp') as f:
-        f.write('int main (int argc, char **argv) { return 0; }')
+
+    with tempfile.NamedTemporaryFile('w',suffix='.cpp') as File:
+
+        # Write a small c code
+        File.write('int main (int argc, char **argv) { return 0; }')
+
+        # Try to compile with given Compiler and FlagName
         try:
-            compiler.compile([f.name], extra_postargs=[flagname])
+            Compiler.compile([f.name], extra_postargs=[FlagName])
+            FlagNameExists = True
         except CompileError:
-            return False
-    return True
+            FlagNameExists = False
+
+    return FlagNameExists
 
 # ======================
 # Custom Build Extension
@@ -103,6 +113,34 @@ class CustomBuildExtension(build_ext):
     """
     Customized build_ext that provides correct compile and linker flags to the extensions
     depending on the compiler and the platform.
+
+    Default compiler names depending on platform:
+        * linux: gcc
+        * mac: clang (llvm)
+        * windows: msvc (Microsoft Visual C++)
+
+    Compiler flags:
+        * gcc   : -O3 -march=native -fno-stack-protector -Wall -fopenmp
+        * clang : -O3 -march=native -fno-stack-protector -Wall -Xpreprocessor -fopenmp
+        * msvc  : /O2 /Wall /openmp 
+
+    Linker flags:
+        * gcc   : -fopenmp
+        * clang : -Xpreproessor -fopenmp -lomp
+        * msvc  : (none)
+
+    Usage:
+
+    This class is a child of the ``build_ext`` class. To use this class, add it to the ``cmdclass`` by:
+
+    .. code-block: python
+
+        >>> setup(
+        ...     ...
+        ...     # cmdclass = {'build_ext' : }                     # uses the default build_ext class
+        ...     cmdclass = {'build_ext' : CustomBuildExtention}   # uses this class, which is a child class of build_ext
+        ...     ...
+        ... )
     """
 
     # ---------------
@@ -110,6 +148,9 @@ class CustomBuildExtension(build_ext):
     # ---------------
 
     def build_extensions(self):
+        """
+        Speficies compiler and linker flags depending on the compiler.
+        """
 
         # Get compiler type (this is either "unix" (in linux and mac) or "msvc" in windows)
         CompilerType = self.compiler.compiler_type
@@ -136,27 +177,19 @@ class CustomBuildExtension(build_ext):
 
                 # This is mac's clag. Add '-fopenmp' through preprocessor
                 ExtraCompileArgs += ['-Xpreprocessor','-fopenmp']
-                # ExtraLinkArgs += ['-Xpreprocessor','-fopenmp','-lomp']
-                ExtraLinkArgs += ['-lomp']
+                ExtraLinkArgs += ['-Xpreprocessor','-fopenmp','-lomp']
 
         elif CompilerType == 'msvc':
 
             # This is Microsoft Windows Visual C++ compiler
-            ExtraCompileArgs += ['/O2','/Wall','/openmp']
-                
-
-        print('NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN')
-        print(CompilerType)
-        print(ExtraCompileArgs)
-        print(ExtraLinkArgs)
-        print('NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN')
+            ExtraCompileArgs += ['/O2','/Wall','/openmp'] 
 
         # Add the flags to all extensions
         for ext in self.extensions:
             ext.extra_compile_args = ExtraCompileArgs
             ext.extra_link_args = ExtraLinkArgs
 
-        # Cal parent class to build
+        # Call parent class to build
         build_ext.build_extensions(self)
 
 # =========
@@ -199,11 +232,17 @@ def CreateCythonExtension(PackageName,SubPackageNames):
     Creates a cython extention for each of the sub-packages that contain
     ``pyx`` files.
 
-    .. note:
+    .. note::
 
         Only include those subpackages in the input list that have cython's
         *.pyx files. If a sub-package is purely python, it should not be included
         in the input list of this function.
+
+    .. note::
+
+        The compiler and linker flags (``extra_compile_args`` and ``extra_link_args``) 
+        are set to an empty list. We will fill them using ``CustomBuildExtension`` class,
+        which depend on the compiler and platform, it sets correct flags.
 
     :param SubPackageNames: A list of subpackages.
     :type SubPackageNames: list(string)
@@ -211,12 +250,6 @@ def CreateCythonExtension(PackageName,SubPackageNames):
     :return: Cythonized extentions object
     :rtype: dict
     """
-
-    import distutils.ccompiler
-    print('QQQQQQQQQQQQQQQQ')
-    print(distutils.ccompiler.get_default_compiler())
-    print('QQQQQQQQQQQQQQQQ')
-
 
     Extensions = []
 
@@ -226,15 +259,8 @@ def CreateCythonExtension(PackageName,SubPackageNames):
         Name = PackageName + '.' + SubPackageName + '.*'
         Sources  =[os.path.join('.',PackageName,SubPackageName,'*.pyx')]
         IncludeDirs = [os.path.join('.',PackageName,SubPackageName)]
-        ExtraCompileArgs = ['-O3','-march=native','-fno-stack-protector','-Wall']
-        ExtraLinkArgs = [] 
-
-        if sys.platform == 'darwin':
-            ExtraCompileArgs += ['-Xpreprocessor','-fopenmp']
-            ExtraLinkArgs += ['-Xpreprocessor','-fopenmp','-lomp']
-        else:
-            ExtraCompileArgs += ['-fopenmp']
-            ExtraLinkArgs += ['-fopenmp']
+        ExtraCompileArgs = []             # This will be filled by CustomBuildExtension class
+        ExtraLinkArgs = []                # This will be filled by CustomBuildExtension class
 
         # Create an extension
         AnExtension = Extension(
@@ -287,9 +313,6 @@ def main(argv):
     # ReadMe
     LongDescription = open(os.path.join(Directory,'README.rst'),'r').read()
 
-    # Build documentation
-    # cmdclass = {'build_sphinx': BuildDoc}
-
     # External Modules
     if UseCython:
 
@@ -337,17 +360,8 @@ def main(argv):
             'pytest-runner'],
         tests_require = ['pytest-cov'],
         include_package_data=True,
-        # cmdclass = {'build_ext': build_ext},
         cmdclass = {'build_ext': CustomBuildExtension},
         zip_safe=False,
-        # cmdclass=cmdclass,
-        # command_options = {
-        #     'build_sphinx': {
-        #         'project':    ('setup.py',PackageNameForDoc),
-        #         'version':    ('setup.py',Version),
-        #         'source_dir': ('setup.py','docs')
-        #     }
-        # },
         extras_require = {
             'extra': [
                 'ray'
