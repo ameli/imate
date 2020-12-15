@@ -141,7 +141,7 @@ class CustomBuildExtension(build_ext):
         elif CompilerType == 'msvc':
 
             # This is Microsoft Windows Visual C++ compiler
-            ExtraCompilerArgs += ['/O2','/Wall','/openmp']
+            ExtraCompileArgs += ['/O2','/Wall','/openmp']
                 
 
         print('NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN')
