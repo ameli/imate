@@ -60,7 +60,31 @@ try:
 except ImportError:
     from distutils.command import build_ext
 
-def has_flag(compiler, flagname):
+# =======================
+# Check Compiler Has Flag
+# =======================
+
+def CheckCompilerHasFlag(compiler,flagname):
+    """
+    Checks if the C compiler has the given flag. The motivation for this function is that
+    
+    * In linux, the gcc compiler has the '-fopenmp' flag, which enables compiling with OpenMP.
+    * In MacOS, the clang compiler does not recognize '-fopenmp' flag, rather, it should be passed through the
+      preprocessor using '-Xpreprocessor -fopenmp -lomp'.
+
+    Thus, we should know in advance which compiler is used to provide correct flags.
+    The problem is that in the setup.py script, we cannot figure determine the compiler is gcc or clang. 
+    The closet we can get is to call 
+        
+    .. code-block:: python
+
+        >>> import distutils.ccompiler
+        >>> print(distutils.ccompiler.get_default_compiler())
+
+    In linux and mac, the above line yields 'unix', which again we cannot figure which compiler is being used.
+    The safest work-around is this function, which compilers a simple c code with a given flagname 
+    (such as '-fopenmp') and checks if it compiles. If yes, it is gcc, or not, it is clang.
+    """
     import tempfile
     from distutils.errors import CompileError
     with tempfile.NamedTemporaryFile('w', suffix='.cpp') as f:
@@ -71,32 +95,69 @@ def has_flag(compiler, flagname):
             return False
     return True
 
-# Test
-class BuildExt(build_ext):
-    # these flags are not checked and always added
-    # compile_flags = {"msvc": ['/EHsc'], "unix": ["-std=c++11"]}
+# ======================
+# Custom Build Extension
+# ======================
+
+class CustomBuildExtension(build_ext):
+    """
+    Customized build_ext that provides correct compile and linker flags to the extensions
+    depending on the compiler and the platform.
+    """
+
+    # ---------------
+    # Build Extension
+    # ---------------
 
     def build_extensions(self):
-        ct = self.compiler.compiler_type
-        # opts = self.compile_flags.get(ct, [])
-        HF = has_flag(self.compiler,'-fopenmp')
 
-        print('NNNNNNNNNNNNNN')
-        print(ct)
+        # Get compiler type (this is either "unix" (in linux and mac) or "msvc" in windows)
+        CompilerType = self.compiler.compiler_type
+
+        # Initialize flags
+        ExtraCompileArgs = []
+        ExtraLinkArgs = []
+
+        if CompilerType == 'unix':
+            
+            # This is either linux or mac. We add flags that work both for gcc and mac's clang
+            ExtraCompileArgs += ['-O3','-march=native','-fno-stack-protector','-Wall']
+
+            # Check if the compiler accepts '-fopenmp' flag (clang in mac does not, but gcc does)
+            HasOpenMPFlag = CheckCompilerHasFlag(self.compiler,'-fopenmp')
+
+            if HasOpenMPFlag:
+
+                # This is gcc. Add '-fopenmp' safely.
+                ExtraCompileArgs += ['-fopenmp']
+                ExtraLinkArgs += ['-fopenmp']
+
+            else:
+
+                # This is mac's clag. Add '-fopenmp' through preprocessor
+                ExtraCompileArgs += ['-Xpreprocessor','-fopenmp']
+                ExtraLinkArgs += ['-Xpreprocessor','-fopenmp','-lomp']
+
+        elif CompilerType == 'msvc':
+
+            # This is Microsoft Windows Visual C++ compiler
+            ExtraCompilerArgs += ['/O2','/Wall','/openmp']
+                
+
+        print('NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN')
+        print(CompilerType)
+        print(HasOpenMPFlag)
+        print(ExtraCompileArgs)
+        print(ExtraLinkArgs)
+        print('NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN')
+
+        # Add the flags to all extensions
         for ext in self.extensions:
-            print(ext.extra_compile_args)
-            print(ext.extra_link_args)
-            print(HF)
-        print('NNNNNNNNNNNNNN')
+            ext.extra_compile_args = ExtraCompileArgs
+            ext.extra_link_args = ExtraLinkArgs
 
-        # if ct == 'unix':
-        #     # only add flags which pass the flag_filter
-        #     opts += flag_filter(self.compiler,
-        #                         '-fvisibility=hidden', '-stdlib=libc++', '-std=c++14')
-        # for ext in self.extensions:
-        #     ext.extra_compile_args = opts
+        # Cal parent class to build
         build_ext.build_extensions(self)
-
 
 # =========
 # Read File
@@ -169,8 +230,8 @@ def CreateCythonExtension(PackageName,SubPackageNames):
         ExtraLinkArgs = [] 
 
         if sys.platform == 'darwin':
-            ExtraCompileArgs += ['-Xpreprocessor','-fopenmp','-lomp']
-            ExtraLinkArgs += ['-Xpreprocessor','-fopenmp']
+            ExtraCompileArgs += ['-Xpreprocessor','-fopenmp']
+            ExtraLinkArgs += ['-Xpreprocessor','-fopenmp','-lomp']
         else:
             ExtraCompileArgs += ['-fopenmp']
             ExtraLinkArgs += ['-fopenmp']
@@ -277,7 +338,7 @@ def main(argv):
         tests_require = ['pytest-cov'],
         include_package_data=True,
         # cmdclass = {'build_ext': build_ext},
-        cmdclass = {'build_ext': BuildExt},
+        cmdclass = {'build_ext': CustomBuildExtension},
         zip_safe=False,
         # cmdclass=cmdclass,
         # command_options = {
