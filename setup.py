@@ -136,7 +136,8 @@ class CustomBuildExtension(build_ext):
 
                 # This is mac's clag. Add '-fopenmp' through preprocessor
                 ExtraCompileArgs += ['-Xpreprocessor','-fopenmp']
-                ExtraLinkArgs += ['-Xpreprocessor','-fopenmp','-lomp']
+                # ExtraLinkArgs += ['-Xpreprocessor','-fopenmp','-lomp']
+                ExtraLinkArgs += ['-lomp']
 
         elif CompilerType == 'msvc':
 
@@ -146,7 +147,6 @@ class CustomBuildExtension(build_ext):
 
         print('NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN')
         print(CompilerType)
-        print(HasOpenMPFlag)
         print(ExtraCompileArgs)
         print(ExtraLinkArgs)
         print('NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN')
