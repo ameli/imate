@@ -98,7 +98,7 @@ def CheckCompilerHasFlag(Compiler,FlagName):
 
         # Try to compile with given Compiler and FlagName
         try:
-            Compiler.compile([f.name], extra_postargs=[FlagName])
+            Compiler.compile([File.name], extra_postargs=[FlagName])
             FlagNameExists = True
         except CompileError:
             FlagNameExists = False
