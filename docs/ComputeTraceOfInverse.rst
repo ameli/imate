@@ -279,7 +279,7 @@ Variable  Method      Options                                              Resul
 The above table can be produced by running the test script |test_script|_, although, the results might be slightly difference due to the random number generator.
 
 .. |test_script| replace:: ``/test/test_ComputeTraceOfInverse.py``
-.. _test_script: https://github.com/ameli/TraceInv/blob/master/tests/test_ComputeTraceOfInverse.py
+.. _test_script: https://github.com/ameli/TraceInv/blob/main/tests/test_ComputeTraceOfInverse.py
 
 -------------
 Sparse Matrix

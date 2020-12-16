@@ -283,7 +283,7 @@ def main(test=False):
     The script generates the figure below and prints the processing times of the computations. 
     See more details in Figure 3 and results of Table 2 of [Ameli-2020]_.
 
-    .. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/GeneralizedCrossValidation.svg
+    .. image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/GeneralizedCrossValidation.svg
        :width: 550
        :align: center
 

@@ -108,10 +108,10 @@ The script generates the figure below and prints the processing times of the com
 
 
 .. |examplesdir| replace:: ``/examples`` 
-.. _examplesdir: https://github.com/ameli/TraceInv/blob/master/examples
+.. _examplesdir: https://github.com/ameli/TraceInv/blob/main/examples
 .. |example1| replace:: ``/examples/Plot_TraceInv_FullRank.py``
-.. _example1: https://github.com/ameli/TraceInv/blob/master/examples/Plot_TraceInv_FullRank.py
+.. _example1: https://github.com/ameli/TraceInv/blob/main/examples/Plot_TraceInv_FullRank.py
 .. |example2| replace:: ``/examples/Plot_TraceInv_IllConditioned.py``
-.. _example2: https://github.com/ameli/TraceInv/blob/master/examples/Plot_TraceInv_IllConditioned.py
+.. _example2: https://github.com/ameli/TraceInv/blob/main/examples/Plot_TraceInv_IllConditioned.py
 .. |example3| replace:: ``/examples/Plot_GeneralizedCorssValidation.py``
-.. _example3: https://github.com/ameli/TraceInv/blob/master/examples/Plot_GeneralizedCrossValidation.py
+.. _example3: https://github.com/ameli/TraceInv/blob/main/examples/Plot_GeneralizedCrossValidation.py

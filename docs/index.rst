@@ -153,11 +153,11 @@ Indices and tables
    :target: https://github.com/ameli/TraceInv/actions?query=workflow%3Adeploy-docs
 .. |licence| image:: https://img.shields.io/github/license/ameli/TraceInv
    :target: https://opensource.org/licenses/MIT
-.. |travis-devel-linux| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=linux&label=build&branch=master
+.. |travis-devel-linux| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=linux&label=build&branch=main
    :target: https://travis-ci.com/github/ameli/TraceInv
-.. |travis-devel-osx| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=osx&label=build&branch=master
+.. |travis-devel-osx| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=osx&label=build&branch=main
    :target: https://travis-ci.com/github/ameli/TraceInv
-.. |travis-devel-windows| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=windows&label=build&branch=master
+.. |travis-devel-windows| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=windows&label=build&branch=main
    :target: https://travis-ci.com/github/ameli/TraceInv
 .. |implementation| image:: https://img.shields.io/pypi/implementation/TraceInv
 .. |pyversions| image:: https://img.shields.io/pypi/pyversions/TraceInv

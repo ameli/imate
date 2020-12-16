@@ -217,7 +217,7 @@ Variable  Method      Options                                              Resul
 The above table can be produced by running the test script |test_script2|_, although, the results might be slightly difference due to the random number generator.
 
 .. |test_script2| replace:: ``/test/test_ComputeLogDeterminant.py``
-.. _test_script2: https://github.com/ameli/TraceInv/blob/master/tests/test_ComputeLogDeterminant.py
+.. _test_script2: https://github.com/ameli/TraceInv/blob/main/tests/test_ComputeLogDeterminant.py
 
 -------------
 Sparse Matrix

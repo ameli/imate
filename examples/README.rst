@@ -31,7 +31,7 @@ Run the script |example1|_ by
 
 The script generates the figure below (see Figure 2 of [Ameli-2020]_).
 
-.. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/Example1.svg
+.. image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/Example1.svg
    :align: center
 
 =========
@@ -46,7 +46,7 @@ Run the script |example2|_ by
 
 The script generates the figure below (see also  Figure 3 of [Ameli-2020]_).
 
-.. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/Example2.svg
+.. image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/Example2.svg
    :align: center
 
 =========
@@ -61,7 +61,7 @@ Run the script |example3|_ by
 
 The script generates the figure below and prints the processing times of the computations. See more details in Figure 3 and results of Table 2 of [Ameli-2020]_.
 
-.. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/GeneralizedCrossValidation.svg
+.. image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/GeneralizedCrossValidation.svg
    :width: 550
    :align: center
 
@@ -72,10 +72,10 @@ References
 .. [Ameli-2020] Ameli, S., and Shadden. S. C. (2020). Interpolating the Trace of the Inverse of Matrix **A** + t **B**. `arXiv:2009.07385 <https://arxiv.org/abs/2009.07385>`__ [math.NA]
 
 .. |examplesdir| replace:: ``/examples`` 
-.. _examplesdir: https://github.com/ameli/TraceInv/blob/master/examples
+.. _examplesdir: https://github.com/ameli/TraceInv/blob/main/examples
 .. |example1| replace:: ``/examples/Plot_TraceInv_FullRank.py``
-.. _example1: https://github.com/ameli/TraceInv/blob/master/examples/Plot_TraceInv_FullRank.py
+.. _example1: https://github.com/ameli/TraceInv/blob/main/examples/Plot_TraceInv_FullRank.py
 .. |example2| replace:: ``/examples/Plot_TraceInv_IllConditioned.py``
-.. _example2: https://github.com/ameli/TraceInv/blob/master/examples/Plot_TraceInv_IllConditioned.py
+.. _example2: https://github.com/ameli/TraceInv/blob/main/examples/Plot_TraceInv_IllConditioned.py
 .. |example3| replace:: ``/examples/Plot_GeneralizedCorssValidation.py``
-.. _example3: https://github.com/ameli/TraceInv/blob/master/examples/Plot_GeneralizedCrossValidation.py
+.. _example3: https://github.com/ameli/TraceInv/blob/main/examples/Plot_GeneralizedCrossValidation.py

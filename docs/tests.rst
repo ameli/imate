@@ -2,7 +2,7 @@
 Running Tests
 *************
 
-The package can be tested by running the `test scripts <https://github.com/ameli/TraceInv/tree/master/tests>`_, which tests all `sub-packages <https://github.com/ameli/TraceInv/tree/master/TraceInv>`_ and the `examples <https://github.com/ameli/TraceInv/tree/master/examples>`_.
+The package can be tested by running the `test scripts <https://github.com/ameli/TraceInv/tree/main/tests>`_, which tests all `sub-packages <https://github.com/ameli/TraceInv/tree/main/TraceInv>`_ and the `examples <https://github.com/ameli/TraceInv/tree/main/examples>`_.
 
 =====================
 Running Tests Locally

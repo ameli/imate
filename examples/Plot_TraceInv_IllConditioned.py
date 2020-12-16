@@ -182,7 +182,7 @@ def main(test=False):
 
     The script generates the figure below (see also  Figure 3 of [Ameli-2020]_).
 
-    .. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/Example2.svg
+    .. image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/Example2.svg
        :align: center
 
     **References**

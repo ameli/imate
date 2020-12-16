@@ -342,9 +342,9 @@ def main(argv):
                 parameter-estimation radial-basis-function polynomial-bases 
                 orthogonal-polynomials cross-validation""",
         url = 'https://github.com/ameli/TraceInv',
-        download_url = 'https://github.com/ameli/TraceInv/archive/master.zip',
+        download_url = 'https://github.com/ameli/TraceInv/archive/main.zip',
         project_urls = {
-            "Documentation": "https://github.com/ameli/TraceInv/blob/master/README.rst",
+            "Documentation": "https://github.com/ameli/TraceInv/blob/main/README.rst",
             "Source": "https://github.com/ameli/TraceInv",
             "Tracker": "https://github.com/ameli/TraceInv/issues",
         },

@@ -33,7 +33,7 @@ This package computes the trace of inverse of two forms of matrices:
 1. **Fixed Matrix:** For an invertible matrix |image01| (sparse of dense), this package computes |image02|.
 2. **One-Parameter Affine Matrix Function:** |image05|, where |image01| and |image03| are symmetric and positive-definite matrices and ``t`` is a real parameter. This package can interpolate the function
 
-.. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/image06.svg
+.. image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/image06.svg
    :align: center
 
 **Application:**
@@ -41,13 +41,13 @@ This package computes the trace of inverse of two forms of matrices:
 
 These interpolation methods are described in [Ameli-2020]_. 
 
-.. |image00| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/image00.svg
-.. |image01| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/image01.svg
-.. |image02| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/image02.svg
-.. |image03| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/image03.svg
-.. |image04| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/image04.svg
-.. |image05| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/image05.svg
-.. |image06| image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/image06.svg
+.. |image00| image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/image00.svg
+.. |image01| image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/image01.svg
+.. |image02| image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/image02.svg
+.. |image03| image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/image03.svg
+.. |image04| image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/image04.svg
+.. |image05| image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/image05.svg
+.. |image06| image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/image06.svg
 
 *******
 Install
@@ -298,7 +298,7 @@ Run the script |example1|_ by
 
 The script generates the figure below (see Figure 2 of [Ameli-2020]_).
 
-.. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/Example1.svg
+.. image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/Example1.svg
    :align: center
 
 =========
@@ -313,7 +313,7 @@ Run the script |example2|_ by
 
 The script generates the figure below (see also  Figure 3 of [Ameli-2020]_).
 
-.. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/Example2.svg
+.. image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/Example2.svg
    :align: center
 
 =========
@@ -328,7 +328,7 @@ Run the script |example3|_ by
 
 The script generates the figure below and prints the processing times of the computations. See more details in Figure 3 and results of Table 2 of [Ameli-2020]_.
 
-.. image:: https://raw.githubusercontent.com/ameli/TraceInv/master/docs/images/GeneralizedCrossValidation.svg
+.. image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/GeneralizedCrossValidation.svg
    :width: 550
    :align: center
 
@@ -360,13 +360,13 @@ Acknowledgements
 * American Heart Association #18EIA33900046
 
 .. |examplesdir| replace:: ``/examples`` 
-.. _examplesdir: https://github.com/ameli/TraceInv/blob/master/examples
+.. _examplesdir: https://github.com/ameli/TraceInv/blob/main/examples
 .. |example1| replace:: ``/examples/Plot_TraceInv_FullRank.py``
-.. _example1: https://github.com/ameli/TraceInv/blob/master/examples/Plot_TraceInv_FullRank.py
+.. _example1: https://github.com/ameli/TraceInv/blob/main/examples/Plot_TraceInv_FullRank.py
 .. |example2| replace:: ``/examples/Plot_TraceInv_IllConditioned.py``
-.. _example2: https://github.com/ameli/TraceInv/blob/master/examples/Plot_TraceInv_IllConditioned.py
+.. _example2: https://github.com/ameli/TraceInv/blob/main/examples/Plot_TraceInv_IllConditioned.py
 .. |example3| replace:: ``/examples/Plot_GeneralizedCorssValidation.py``
-.. _example3: https://github.com/ameli/TraceInv/blob/master/examples/Plot_GeneralizedCrossValidation.py
+.. _example3: https://github.com/ameli/TraceInv/blob/main/examples/Plot_GeneralizedCrossValidation.py
 
 .. |travis-devel| image:: https://img.shields.io/travis/com/ameli/TraceInv
    :target: https://travis-ci.com/github/ameli/TraceInv
@@ -374,11 +374,11 @@ Acknowledgements
    :target: https://codecov.io/gh/ameli/TraceInv
 .. |licence| image:: https://img.shields.io/github/license/ameli/TraceInv
    :target: https://opensource.org/licenses/MIT
-.. |travis-devel-linux| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=linux&label=build&branch=master
+.. |travis-devel-linux| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=linux&label=build&branch=main
    :target: https://travis-ci.com/github/ameli/TraceInv
-.. |travis-devel-osx| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=osx&label=build&branch=master
+.. |travis-devel-osx| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=osx&label=build&branch=main
    :target: https://travis-ci.com/github/ameli/TraceInv
-.. |travis-devel-windows| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=windows&label=build&branch=master
+.. |travis-devel-windows| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=windows&label=build&branch=main
    :target: https://travis-ci.com/github/ameli/TraceInv
 .. |implementation| image:: https://img.shields.io/pypi/implementation/TraceInv
 .. |pyversions| image:: https://img.shields.io/pypi/pyversions/TraceInv

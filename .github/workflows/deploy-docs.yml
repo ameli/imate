@@ -3,10 +3,10 @@ name: docs
 on:
     push:
         branches:
-            - master
+            - main
     pull_request:
         branches:
-            - master
+            - main
 
 jobs:
     build-and-deploy:
@@ -19,7 +19,7 @@ jobs:
               uses: JacksonMaxfield/github-pages-deploy-action-python@master
               env:
                   ACCESS_TOKEN: ${{ secrets.TRACEINV_DOCS }}
-                  BASE_BRANCH: master
+                  BASE_BRANCH: main
                   BRANCH: gh-pages
                   FOLDER: docs/_build/html
                   BUILD_SCRIPT: |
