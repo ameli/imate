@@ -1,9 +1,41 @@
 global-include *.pyx
 global-include *.pxd
+
 global-exclude *.py[cod] __pycache__
+global-exclude *.so *.dll *.dylib
+global-exclude *.o
+
+recursive-include docs *.bat
+recursive-include docs *.css
+recursive-include docs *.py
+recursive-include docs *.rst
+recursive-include docs *.svg
+recursive-include docs Makefile
+recursive-exclude docs/images *.pdf
+
+recursive-include TraceInv *.rst
+recursive-include examples *.py
+recursive-include examples *.rst
+recursive-include notebooks *.ipynb
+recursive-include tests *.py
+recursive-include tests *.rst
 
 include CHANGELOG.rst
 include README.rst
 include AUTHORS.txt
 include LICENSE.txt
 include requirements.txt
+include pyproject.toml
+include .coveragerc
+include tox.ini
+
+exclude TODO.rst
+exclude .travis.yml
+exclude .coverage
+exclude .gitattributes
+
+prune .git
+prune tmp
+prune .tox
+prune .github
+prune conda
