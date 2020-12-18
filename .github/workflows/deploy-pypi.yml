@@ -30,6 +30,11 @@ jobs:
               if: runner.os == 'Windows'
               run: |
                   choco install vcpython27 -f -y
+
+            - name: Install OpenMP for mac
+              if: runner.os == 'macos'
+              run: |
+                  brew install libomp
             
             - name: Build wheels
               run: |
