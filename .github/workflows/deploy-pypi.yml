@@ -99,7 +99,7 @@ jobs:
         runs-on: ubuntu-latest
         name: Publish to Anaconda
         
-        # upload to PyPI on every tag starting with 'v'
+        # upload to anacnda on every tag starting with 'v'
         # if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
         # alternatively, to publish when a GitHub Release is created, use the following rule:
         # if: github.event_name == 'release' && github.event.action == 'published'
@@ -120,10 +120,7 @@ jobs:
               run: pip install anaconda-client
             
             - name: Upload artifacts
-              with:
-                  verbose: true
-                  anacondatoken: ${{ secrets.ANACONDA_TOKEN }}
-                  user: __token__
-                  password: ${{ secrets.pypi_password }}
-              run: |
-                  anaconda -t $ANACONDA_TOKEN upload --force -u $ANACONDA_ORG dist/artifact/*
+              env:
+                  ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+                  ANACONDA_USERNAME: "s-ameli"
+              run: anaconda -t $ANACONDA_TOKEN upload --force -u $ANACONDA_USERNAME dist/artifact/*
