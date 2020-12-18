@@ -37,7 +37,7 @@ jobs:
                   brew install libomp
 
                   # This is needed to import numpy in pypy (but not needed for CPython)
-                  pip cache remove numpy
+                  # pip cache remove numpy
                   brew install openblas
                   OPENBLAS="$(brew --prefix openblas)" pip install numpy
             
