@@ -21,9 +21,9 @@ Install TraceInv
 
 TraceInv can be installed on Linux, macOS, and Windows platforms and supports both python 2 and 3. Install by either of the following ways:
 
-----------------------
-Through Anaconda Cloud
-----------------------
+---------------------------
+Install from Anaconda Cloud
+---------------------------
 
 |conda| |conda-version| |conda-platform|
 
@@ -33,9 +33,9 @@ Install TraceInv and its dependencies through the package available at `Conda <h
 
       conda install -c s-ameli traceinv
 
-------------
-Through PyPi
-------------
+-----------------
+Install from PyPi
+-----------------
 
 |pypi| |format| |implementation| |pyversions|
 
@@ -44,7 +44,6 @@ The recommended way to install TraceInv and its dependencies is through the pack
   ::
       
       python -m pip install TraceInv
-
 
 --------------------
 Build Source Locally

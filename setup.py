@@ -8,7 +8,6 @@ from __future__ import print_function
 import os
 import sys
 import codecs
-# from sphinx.setup_command import BuildDoc
 
 # Import numpy
 try:
@@ -358,7 +357,9 @@ def main(argv):
             'setuptools',
             'cython',
             'pytest-runner'],
-        tests_require = ['pytest-cov'],
+        tests_require = [
+            'pytest',
+            'pytest-cov'],
         include_package_data=True,
         cmdclass = {'build_ext': CustomBuildExtension},
         zip_safe=False,
@@ -381,7 +382,6 @@ def main(argv):
                 'sphinx_rtd_theme',
                 'graphviz',
                 'sphinx-automodapi',
-                'sphinxcontrib-apidoc'
             ]
         },
         classifiers = [

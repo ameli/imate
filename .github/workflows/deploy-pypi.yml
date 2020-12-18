@@ -6,33 +6,72 @@ on:
             - main
 
 jobs:
-    build-and-deploy:
-        runs-on: ubuntu-latest
-        name: Publish to PyPi
+    build_wheels:
+        name: Build wheels on ${{ matrix.os }}
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-18.04, windows-latest, macos-latest]
+                
         steps:
-            - name: Setup python
-              uses: actions/setup-python@v1
-              with:
-                  python-version: 3.8
-
-            - name: Install dependencies
-              run: |
-                  python -m pip install --upgrade pip
-                  python -m pip install --upgrade twine
-                  python -m pip install --upgrade wheel
-
             - name: Checkout
               uses: actions/checkout@v2
-
-            - name: Build manylinux Python wheels
-              uses: RalfG/python-wheels-manylinux-build@v0.3.3-manylinux2014_x86_64
+            
+            - name: Setup Python 
+              uses: actions/setup-python@v2
               with:
-                python-versions: 'cp36-cp36m cp37-cp37m'
-                build-requirements: 'cython numpy'
+                  python-version: '3.7'
 
-            - name: Publish wheels to PyPI
-              env:
-                TWINE_USERNAME: __token__
-                TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+            - name: Install cibuildwheel
               run: |
-                twine upload dist/*-manylinux*.whl
+                  python -m pip install cibuildwheel==1.7.1
+            
+            - name: Install Visual C++ for Python 2.7
+              if: runner.os == 'Windows'
+              run: |
+                  choco install vcpython27 -f -y
+            
+            - name: Build wheels
+              run: |
+                  python -m cibuildwheel --output-dir wheelhouse
+            
+            - uses: actions/upload-artifact@v2
+              with:
+                  path: ./wheelhouse/*.whl
+                  
+    build_sdist:
+        name: Build source distribution
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Install Python
+              uses: actions/setup-python@v2
+              with:
+                  python-version: '3.7'
+            
+            - name: Build sdist
+              run: python setup.py sdist
+            
+            - uses: actions/upload-artifact@v2
+              with:
+                  path: dist/*.tar.gz
+
+    upload_pypi:
+        needs: [build_wheels, build_sdist]
+        runs-on: ubuntu-latest
+        
+        # upload to PyPI on every tag starting with 'v'
+        # if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
+        # alternatively, to publish when a GitHub Release is created, use the following rule:
+        # if: github.event_name == 'release' && github.event.action == 'published'
+        steps:
+            - uses: actions/download-artifact@v2
+              with:
+                  name: artifact
+                  path: dist
+            
+            - uses: pypa/gh-action-pypi-publish@master
+              with:
+                  user: __token__
+                  password: ${{ secrets.pypi_password }}
