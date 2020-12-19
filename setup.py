@@ -168,15 +168,25 @@ class CustomBuildExtension(build_ext):
 
             if HasOpenMPFlag:
 
-                # This is gcc. Add '-fopenmp' safely.
+                # Assuming this is gcc. Add '-fopenmp' safely.
                 ExtraCompileArgs += ['-fopenmp']
                 ExtraLinkArgs += ['-fopenmp']
 
             else:
 
-                # This is mac's clag. Add '-fopenmp' through preprocessor
-                ExtraCompileArgs += ['-Xpreprocessor','-fopenmp']
-                ExtraLinkArgs += ['-Xpreprocessor','-fopenmp','-lomp']
+                # Check if -fopenmp can be passed thtough preprocessor (this is how clang compiler accepts -fopenmp)
+                HasXOpenMPFlag = CheckCompilerHasFlag(self.compiler,'-Xprocessor -fopenmp')
+
+                if HasXOpenMP:
+
+                    # Assuming this is mac's clag. Add '-fopenmp' through preprocessor
+                    ExtraCompileArgs += ['-Xpreprocessor','-fopenmp']
+                    ExtraLinkArgs += ['-Xpreprocessor','-fopenmp','-lomp']
+
+                else:
+
+                    # It does not seem that either gcc or clang accept -fopenmp flag.
+                    raise RuntimeError('OpenMP seems not to be available.')
 
         elif CompilerType == 'msvc':
 
