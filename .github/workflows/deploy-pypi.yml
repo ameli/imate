@@ -123,4 +123,4 @@ jobs:
               env:
                   ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
                   ANACONDA_USERNAME: "s-ameli"
-              run: anaconda -t $ANACONDA_TOKEN upload --force -u $ANACONDA_USERNAME dist/*
+              run: anaconda -t $ANACONDA_TOKEN upload --force -u $ANACONDA_USERNAME --package traceinv dist/*
