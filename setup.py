@@ -175,7 +175,7 @@ class CustomBuildExtension(build_ext):
             else:
 
                 # Check if -fopenmp can be passed thtough preprocessor (this is how clang compiler accepts -fopenmp)
-                HasXOpenMPFlag = CheckCompilerHasFlag(self.compiler,'-Xprocessor -fopenmp')
+                HasXOpenMPFlag = CheckCompilerHasFlag(self.compiler,'-Xpreprocessor -fopenmp')
 
                 if HasXOpenMPFlag:
 

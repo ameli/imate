@@ -19,7 +19,7 @@ requirements:
     build:
         - {{ compiler('c') }}
     host:
-        - openmp
+        - libgomp
         - python {{ python }}
         - setuptools
         - numpy
@@ -27,7 +27,7 @@ requirements:
         - pip
         - pytest-runner
     run:
-        - openmp
+        - libgomp
         - python {{ python }}
         - suitesparse
         - numpy
