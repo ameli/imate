@@ -18,11 +18,10 @@ build:
 requirements:
     build:
         - {{ compiler('c') }}
-        - gcc
-        - libgomp1
+        - libgomp
         - llvm-openmp
     host:
-        - libgomp1
+        - libgomp
         - llvm-openmp
         - python {{ python }}
         - setuptools
@@ -31,7 +30,7 @@ requirements:
         - pip
         - pytest-runner
     run:
-        - libgomp1
+        - libgomp
         - llvm-openmp
         - python {{ python }}
         - suitesparse
