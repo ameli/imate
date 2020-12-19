@@ -166,8 +166,7 @@ class CustomBuildExtension(build_ext):
             # Check if the compiler accepts '-fopenmp' flag (clang in mac does not, but gcc does)
             HasOpenMPFlag = CheckCompilerHasFlag(self.compiler,'-fopenmp')
 
-            # if HasOpenMPFlag:
-            if True:
+            if HasOpenMPFlag:
 
                 # This is gcc. Add '-fopenmp' safely.
                 ExtraCompileArgs += ['-fopenmp']

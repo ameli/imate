@@ -16,7 +16,10 @@ build:
     script: "{{ PYTHON }} -m pip install . -vv"
 
 requirements:
+    build:
+        - {{ compiler('c') }}
     host:
+        - openmp
         - python {{ python }}
         - setuptools
         - numpy
@@ -25,6 +28,7 @@ requirements:
         - pytest-runner
     run:
         - python {{ python }}
+        - suitesparse
         - numpy
         - scipy
         - matplotlib
