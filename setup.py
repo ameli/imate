@@ -177,7 +177,7 @@ class CustomBuildExtension(build_ext):
                 # Check if -fopenmp can be passed thtough preprocessor (this is how clang compiler accepts -fopenmp)
                 HasXOpenMPFlag = CheckCompilerHasFlag(self.compiler,'-Xprocessor -fopenmp')
 
-                if HasXOpenMP:
+                if HasXOpenMPFlag:
 
                     # Assuming this is mac's clag. Add '-fopenmp' through preprocessor
                     ExtraCompileArgs += ['-Xpreprocessor','-fopenmp']
