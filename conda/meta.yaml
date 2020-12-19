@@ -13,15 +13,16 @@ source:
 
 build:
     number: 0
-    script: "{{ PYTHON }} -m pip install . -vv"
+    script: "CC=gcc; {{ PYTHON }} -m pip install . -vv"
 
 requirements:
     build:
         - {{ compiler('c') }}
-        - libgomp
+        - gcc
+        - libgomp1
         - llvm-openmp
     host:
-        - libgomp
+        - libgomp1
         - llvm-openmp
         - python {{ python }}
         - setuptools
@@ -30,7 +31,7 @@ requirements:
         - pip
         - pytest-runner
     run:
-        - libgomp
+        - libgomp1
         - llvm-openmp
         - python {{ python }}
         - suitesparse
