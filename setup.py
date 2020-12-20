@@ -169,9 +169,8 @@ class CustomBuildExtension(build_ext):
             if HasOpenMPFlag:
 
                 # Assuming this is gcc. Add '-fopenmp' safely.
-                # ExtraCompileArgs += ['-fopenmp']
-                # ExtraLinkArgs += ['-fopenmp']
-                pass
+                ExtraCompileArgs += ['-fopenmp']
+                ExtraLinkArgs += ['-fopenmp']
 
             else:
 
