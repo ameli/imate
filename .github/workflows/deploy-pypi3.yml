@@ -20,7 +20,7 @@ jobs:
               run: |
                   pwd
                   ls
-                  docker run -i -t -v `pwd`:/io quay.io/pypa/manylinux1_x86_64 /bin/bash /io/.github/build_wheel.sh
+                  docker run -v `pwd`:/io quay.io/pypa/manylinux1_x86_64 /bin/bash /io/.github/build_wheel.sh
                   ls dist
                   ls dist/wheelhouse
 
