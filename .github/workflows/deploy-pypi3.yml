@@ -17,17 +17,22 @@ jobs:
               uses: actions/checkout@v2
 
             - name: build and repair manylinux wheels
-              run: |
-                  pwd
-                  ls
-                  docker run -v `pwd`:/io quay.io/pypa/manylinux1_x86_64 /bin/bash /io/.github/build_wheel.sh
-                  ls dist
-                  ls dist/wheelhouse
+              run: docker run -v `pwd`:/io quay.io/pypa/manylinux1_x86_64 /bin/bash /io/.github/build_wheel.sh
 
             - name: Upload artifacts
               uses: actions/upload-artifact@v2
               with:
                   path: dist/*.whl
+
+            - name: Install Python
+              uses: actions/setup-python@v2
+              with:
+                  python-version: '3.8'
+
+            - name: Test
+              run: |
+                  python -m pip install dist/*cp38-cp38-manylinux1_x86_64.whl
+                  python .github/slq.py
 
     build_sdist:
         name: Build source distribution
