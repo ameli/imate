@@ -8,6 +8,9 @@ from __future__ import print_function
 import os
 import sys
 import codecs
+import tempfile
+import shutil
+from distutils.errors import CompileError, LinkError
 
 # Import numpy
 try:
@@ -63,7 +66,7 @@ except ImportError:
 # Check Compiler Has Flag
 # =======================
 
-def CheckCompilerHasFlag(Compiler,FlagName):
+def CheckCompilerHasFlag(Compiler,CompileFlags,LinkFlags):
     """
     Checks if the C compiler has a given flag. The motivation for this function is that:
     
@@ -85,24 +88,62 @@ def CheckCompilerHasFlag(Compiler,FlagName):
     The safest solution so far is this function, which compilers a small c code with a given 
     FlagName and checks if it compiles. In case of 'unix', if it compiles with '-fopenmp', it is gcc on Linux,
     otherwise it is clang on macOS.
+
+    :param Compiler: The compiler object from build_ext.compiler
+    :type Compiler: build_ext.compiler
+
+    :param CompileFlags: A list of compile flags, such as ['-Xpreprocessor','-fopenmp']
+    :type CompileFlags: list(string)
+
+    :param LinkFlags: A list of linker flags, such as ['-Xpreprocessor','-fopenmp']
+    :type LinkFlags: list(string)
     """
 
-    import tempfile
-    from distutils.errors import CompileError
+    if "PYODIDE_PACKAGE_ABI" in os.environ:
+        
+        # pyodide doesn't support OpenMP
+        return False
 
-    with tempfile.NamedTemporaryFile('w',suffix='.cpp') as File:
+    CompileSuccess = True
+    CurrentWorkingDirectory = os.getcwd()
+    TempDirectory = tempfile.mkdtemp()
+    Filename = 'test.c'
+    Code = ("#include <omp.h>" 
+            "int main(int argc, char** argv) { return(0); }")
 
-        # Write a small c code
-        File.write('int main (int argc, char **argv) { return 0; }')
+    # Considerations for Microsoft visual C++ compiler
+    if Compiler.compiler_type == "msvc":
+        LinkFlags = LinkFlags + ['/DLL']
 
-        # Try to compile with given Compiler and FlagName
+    try:
+        # Write a code in temp directory
+        os.chdir(TempDirectory)
+        with open(Filename,'wt') as File:
+            File.write(Code)
+
         try:
-            Compiler.compile([File.name], extra_postargs=[FlagName])
-            FlagNameExists = True
-        except CompileError:
-            FlagNameExists = False
+            # Try to compile
+            Objects = Compiler.compile([Filename],extra_postargs=CompileFlags)
 
-    return FlagNameExists
+            try:
+                # Try to link
+                Compiler.link_shared_lib(Objects,"testlib",extra_postargs=LinkFlags)
+
+            except (LinkError,TypeError):
+                # Linker was not successful
+                CompileSuccess = False
+
+        except CompileError:
+            # Compile was not successful
+            CompileSuccess = False
+
+    except:
+        raise RuntimeError('Cannot write to the file %s in %s.'%(Filename,TempDirectory))
+
+    os.chdir(CurrentWorkingDirectory)
+    shutil.rmtree(TempDirectory)
+
+    return CompileSuccess
 
 # ======================
 # Custom Build Extension
@@ -148,7 +189,7 @@ class CustomBuildExtension(build_ext):
 
     def build_extensions(self):
         """
-        Speficies compiler and linker flags depending on the compiler.
+        Specifies compiler and linker flags depending on the compiler.
         """
 
         # Get compiler type (this is either "unix" (in linux and mac) or "msvc" in windows)
@@ -158,40 +199,57 @@ class CustomBuildExtension(build_ext):
         ExtraCompileArgs = []
         ExtraLinkArgs = []
 
-        if CompilerType == 'unix':
-            
-            # This is either linux or mac. We add flags that work both for gcc and mac's clang
-            ExtraCompileArgs += ['-O3','-march=native','-fno-stack-protector','-Wall']
+        if CompilerType == 'msvc':
 
-            # Check if the compiler accepts '-fopenmp' flag (clang in mac does not, but gcc does)
-            HasOpenMPFlag = CheckCompilerHasFlag(self.compiler,'-fopenmp')
+            # This is Microsoft Windows Visual C++ compiler
+            MSVC_CompileArgs = ['/O2','/Wall','/openmp']
+            MSVC_LinkArgs = []
+            MSVC_HasOpenMPFlag = CheckCompilerHasFlag(self.compiler,MSVC_CompileArgs,MSVC_LinkArgs)
 
-            if HasOpenMPFlag:
+            if MSVC_HasOpenMPFlag:
 
-                # Assuming this is gcc. Add '-fopenmp' safely.
-                ExtraCompileArgs += ['-fopenmp']
-                ExtraLinkArgs += ['-fopenmp']
+                # Add flags
+                ExtraCompileArgs += MSVC_CompileArgs
+                ExtraLinkArgs += MSVC_LinkArgs
 
             else:
 
-                # Check if -fopenmp can be passed through preprocessor (this is how clang compiler accepts -fopenmp)
-                HasXOpenMPFlag = CheckCompilerHasFlag(self.compiler,'-Xpreprocessor -fopenmp')
+                # It does not seem msvc accept -fopenmp flag.
+                raise RuntimeError('OpenMP does not seem to be available on the compiler %s.'%CompilerType)
 
-                if HasXOpenMPFlag:
+        else:
+            
+            # The CompileType is 'unix'. This is either linux or mac. We add common flags that work both for gcc and mac's clang
+            ExtraCompileArgs += ['-O3','-march=native','-fno-stack-protector','-Wall']
+
+            # Assume compiler is gcc (we do not know yet). Check if the compiler accepts '-fopenmp' flag (clang in mac does not, but gcc does)
+            GCC_CompileArgs = ['-fopenmp']
+            GCC_LinkArgs = ['-fopenmp']
+            GCC_HasOpenMPFlag = CheckCompilerHasFlag(self.compiler,GCC_CompileArgs,GCC_LinkArgs)
+
+            if GCC_HasOpenMPFlag:
+
+                # Assuming this is gcc. Add '-fopenmp' safely.
+                ExtraCompileArgs += GCC_CompileArgs
+                ExtraLinkArgs += GCC_LinkArgs
+
+            else:
+
+                # Assume compiler is clang (we do not know yet). Check if -fopenmp can be passed through preprocessor (this is how clang compiler accepts -fopenmp)
+                Clang_CompileArgs = ['-Xpreprocessor','-fopenmp']
+                Clang_LinkArgs = ['-Xpreprocessor','-fopenmp','-lomp']
+                Clang_HasOpenMPFlag = CheckCompilerHasFlag(self.compiler,Clang_CompileArgs,Clang_LinkArgs)
+
+                if Clang_HasOpenMPFlag:
 
                     # Assuming this is mac's clag. Add '-fopenmp' through preprocessor
-                    ExtraCompileArgs += ['-Xpreprocessor','-fopenmp']
-                    ExtraLinkArgs += ['-Xpreprocessor','-fopenmp','-lomp']
+                    ExtraCompileArgs += Clang_CompileArgs
+                    ExtraLinkArgs += Clang_LinkArgs
 
                 else:
 
                     # It does not seem that either gcc or clang accept -fopenmp flag.
-                    raise RuntimeError('OpenMP seems not to be available.')
-
-        elif CompilerType == 'msvc':
-
-            # This is Microsoft Windows Visual C++ compiler
-            ExtraCompileArgs += ['/O2','/Wall','/openmp'] 
+                    raise RuntimeError('OpenMP does not seem to be available on the compiler %s.'%CompilerType)
 
         # Add the flags to all extensions
         for ext in self.extensions:
