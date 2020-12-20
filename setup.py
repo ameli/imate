@@ -169,8 +169,9 @@ class CustomBuildExtension(build_ext):
             if HasOpenMPFlag:
 
                 # Assuming this is gcc. Add '-fopenmp' safely.
-                ExtraCompileArgs += ['-fopenmp']
-                ExtraLinkArgs += ['-fopenmp']
+                # ExtraCompileArgs += ['-fopenmp']
+                # ExtraLinkArgs += ['-fopenmp']
+                pass
 
             else:
 
@@ -372,7 +373,7 @@ def main(argv):
             'pytest-cov'],
         include_package_data=True,
         cmdclass = {'build_ext': CustomBuildExtension},
-        zip_safe=False,
+        zip_safe=False,    # the package can run out of an .egg file
         extras_require = {
             'extra': [
                 'ray'

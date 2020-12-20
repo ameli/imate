@@ -7,11 +7,16 @@ cimport numpy
 from numpy import linalg
 import scipy.sparse
 import multiprocessing
-cimport openmp
 cimport cython
 from cython import boundscheck,wraparound
 from cython.parallel import parallel, prange
 from libc.stdio cimport fflush,stdout,printf
+
+try:
+    cimport openmp
+    OpenMPInstalled = True
+except ImportError:
+    OpenMPInstalled = False
 
 from .._LinearAlgebra cimport LanczosTridiagonalization
 from .._LinearAlgebra cimport GolubKahnBidiagonalization
@@ -173,7 +178,8 @@ cpdef double _StochasticLanczosQuadratureMethod(
 
     # Set the number of threads
     cdef int NumberOfParallelThreads = multiprocessing.cpu_count()
-    openmp.omp_set_num_threads(NumberOfParallelThreads)
+    # if OpenMPInstalled:
+    #     openmp.omp_set_num_threads(NumberOfParallelThreads)
 
     # Chunk size for parallel schedule, using square root of max possible chunk size
     cdef int ChunkSize = int(NumIterations / NumberOfParallelThreads)
