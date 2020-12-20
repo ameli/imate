@@ -7,27 +7,27 @@ on:
 
 jobs:
     build_wheels:
-    runs-on: ubuntu-latest
-    env:
-        TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
-        TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+        runs-on: ubuntu-latest
+        env:
+            TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+            TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
 
-    steps:
-        - name: Checkout
-          uses: actions/checkout@v2
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
 
-        - name: build and repair manylinux wheels
-          run: |
-              pwd
-              ls
-              docker run -i -t -v `pwd`:/io quay.io/pypa/manylinux1_x86_64 /bin/bash /io/.github/build_wheel.sh
-              ls dist
-              ls dist/wheelhouse
+            - name: build and repair manylinux wheels
+              run: |
+                  pwd
+                  ls
+                  docker run -i -t -v `pwd`:/io quay.io/pypa/manylinux1_x86_64 /bin/bash /io/.github/build_wheel.sh
+                  ls dist
+                  ls dist/wheelhouse
 
-        - name: Upload artifacts
-          uses: actions/upload-artifact@v2
-          with:
-              path: ./wheelhouse/*.whl
+            - name: Upload artifacts
+              uses: actions/upload-artifact@v2
+              with:
+                  path: ./wheelhouse/*.whl
 
     build_sdist:
         name: Build source distribution
