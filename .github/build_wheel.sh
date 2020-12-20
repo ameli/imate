@@ -6,3 +6,5 @@ cd /io
 /opt/python/cp38-cp38/bin/python setup.py bdist_wheel
 cd dist
 ls *.whl | xargs -L1 auditwheel repair 
+rm *.whl
+mv wheelhouse/*.whl .
