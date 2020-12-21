@@ -323,6 +323,49 @@ def CreateCythonExtension(PackageName,SubPackageNames):
         are set to an empty list. We will fill them using ``CustomBuildExtension`` class,
         which depend on the compiler and platform, it sets correct flags.
 
+    .. note::
+
+        If the code is build using "conda-build" to be uploaded on anacnda cloud, consider
+        setting this environmental variable:
+            
+        ::
+
+            export CYTHON_BUILD_IN_SOURCE='true'
+
+        By setting this, this function sets the build directory ``build_dir`` to ``None``, 
+        which then the ``*.c`` files will be written in the source code alongside with the
+        source (where ``*.pyx`` are). If this environmental variable does not exist, this
+        function sets ``build_dir`` to ``/build``, which builds the cython files outside of
+        the source code.
+
+        Why this matters?
+
+        Apparently, ``conda-build`` has a bug that emerges if the folowing two conditions are set:
+
+        1. conda builds over multiple variants of the conda recipe (by defining jinja variables
+           in the file ``/conda/conda_build_config.yaml``), such as defining multiple python
+           versions and them using the jinja variable ``{{ python }}`` in ``/conda/meta.yaml``.
+
+        2. Cython builds the ``*.c`` files outside of the source. That is, when we set ``build_dir``
+           to anything but its default in ``cythonize(build_dir='some_directory')``. When 
+           ``build_dir`` is set to ``None``, cython builds the ``*.c`` files in source. But when
+           ``build_dir`` is set to a directory, the ``*.c`` files will be written there.
+
+        Now, when the two above are set, ``conda-build`` faces a race condition to build multiple
+        versions of the package for variants of python versions (if this is the variant variable),
+        and crashes. Either conda-build should build only one variant of the ``meta.yaml`` file (
+        that is, denining no variant in ``/conda/conda_build.config.yaml``), or cython should 
+        build in source.
+
+        To reoslve this, set ``CYTHON_BUILD_IN_SOURCE`` whenever the package is build with build-conda.
+        Also see the github action ``./github/workflow/deploy-conda/yaml`` 
+
+        ::
+        
+            env:
+                CYTHON_BUILD_IN_SOURCE: 'true'
+                
+
     :param SubPackageNames: A list of subpackages.
     :type SubPackageNames: list(string)
 
@@ -358,18 +401,12 @@ def CreateCythonExtension(PackageName,SubPackageNames):
     for extension in Extensions:
         extension.cython_directives = {"embedsignature": True}
 
-    # If env CYTHON_BUILD_IN_SOURCE exists, cython will build *.c files in source code, otherwise in /build.
+    # If envirinment var "CYTHON_BUILD_IN_SOURCE" exists, cython builds *.c files in the source code, otherwise in /build.
     CythonBuildInSource = bool(os.environ.get('CYTHON_BUILD_IN_SOURCE',None))
     if CythonBuildInSource:
-        CythonBuildDir = None
+        CythonBuildDir = None   # builds *.c in source alongside the *.pyx files
     else:
         CythonBuildDir = 'build'
-
-    # Test
-    print('==================================================================================================')
-    print(CythonBuildInSource)
-    print(CythonBuildDir)
-    print('==================================================================================================')
 
     # Cythonize
     CythonizedExtensions = cythonize(
