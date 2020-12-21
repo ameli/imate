@@ -5,6 +5,7 @@
 from cython import boundscheck,wraparound
 from libc.stdlib cimport malloc, free
 from libc.stdio cimport fflush,stdout,printf
+from libc.stdlib cimport exit
 
 from .MatrixOperations cimport CopyVector
 from .MatrixOperations cimport EuclideanNorm
@@ -133,7 +134,9 @@ cdef int GolubKahnBidiagonalization(
     # Check if the input matrix is sparse
     if A is None:
         if (A_Data is None) or (A_ColumnIndices is None) or (A_IndexPointer is None):
-            raise ValueError('All components of sparse matrix are not provided.')
+            printf('ERROR: All components of sparse matrix are not provided.\n')
+            fflush(stdout)
+            exit(1)
         else:
             UseSparse = 1
     else:
