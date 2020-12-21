@@ -358,10 +358,17 @@ def CreateCythonExtension(PackageName,SubPackageNames):
     for extension in Extensions:
         extension.cython_directives = {"embedsignature": True}
 
+    # If env CYTHON_BUILD_IN_SOURCE exists, cython will build *.c files in source code, otherwise in /build.
+    CythonBuildInSource = bool(os.environ.get('CYTHON_BUILD_IN_SOURCE',None))
+    if CythonBuildInSource:
+        CythonBuildDir = None
+    else:
+        CythonBuildDir = 'build'
+
     # Cythonize
     CythonizedExtensions = cythonize(
         Extensions,
-        build_dir="build",
+        build_dir=CythonBuildDir,
         include_path=[numpy.get_include(),"."],
         compiler_directives={'boundscheck':False,'cdivision':True,'wraparound':False,'nonecheck':False})
 
