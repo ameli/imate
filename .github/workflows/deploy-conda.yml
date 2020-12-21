@@ -21,6 +21,8 @@ jobs:
                   subdir: 'conda'
                   anacondatoken: ${{ secrets.ANACONDA_TOKEN }}
                   platforms: 'win osx linux'
+              env:
+                  CYTHON_BUILD_IN_SOURCE: 'true'
 
 # name: deploy-conda
 #

@@ -365,6 +365,12 @@ def CreateCythonExtension(PackageName,SubPackageNames):
     else:
         CythonBuildDir = 'build'
 
+    # Test
+    print('==================================================================================================')
+    print(CythonBuildInSource)
+    print(CythonBuildDir)
+    print('==================================================================================================')
+
     # Cythonize
     CythonizedExtensions = cythonize(
         Extensions,
