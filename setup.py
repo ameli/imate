@@ -190,6 +190,18 @@ class CustomBuildExtension(build_ext):
     def build_extensions(self):
         """
         Specifies compiler and linker flags depending on the compiler.
+
+        .. warning::
+
+            DO NOT USE '-march=native' flag. By using this flag, the compiler optimizes the instructions
+            for the native machine of the build time, and the executable will not be backward compatible
+            to older CPUs. As a result, the package will not be distributable on other machines as the instalation
+            witrh the binary wheel crashes on other machines with this error:
+
+                'illegal instructions (core dumped).'
+
+            An alternative optimization flag is '-mtune=native', which is backward compatible and the package
+            can insatlled using its wheel binary file.
         """
 
         # Get compiler type (this is either "unix" (in linux and mac) or "msvc" in windows)
@@ -220,7 +232,7 @@ class CustomBuildExtension(build_ext):
         else:
             
             # The CompileType is 'unix'. This is either linux or mac. We add common flags that work both for gcc and mac's clang
-            ExtraCompileArgs += ['-O3','-march=native','-fno-stack-protector','-Wall']
+            ExtraCompileArgs += ['-O3','-fno-stack-protector','-Wall']
 
             # Assume compiler is gcc (we do not know yet). Check if the compiler accepts '-fopenmp' flag (clang in mac does not, but gcc does)
             GCC_CompileArgs = ['-fopenmp']
