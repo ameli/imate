@@ -93,34 +93,3 @@ jobs:
                   verbose: true
                   user: __token__
                   password: ${{ secrets.pypi_password }}
-
-    upload_conda:
-        needs: [build_wheels, build_sdist]
-        runs-on: ubuntu-latest
-        name: Publish to Anaconda
-        
-        # upload to anacnda on every tag starting with 'v'
-        # if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
-        # alternatively, to publish when a GitHub Release is created, use the following rule:
-        # if: github.event_name == 'release' && github.event.action == 'published'
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v1
-
-            - name: Download artifacts
-              uses: actions/download-artifact@v2
-              with:
-                  name: artifact
-                  path: dist
-
-            - name: Setup Python
-              uses: actions/setup-python@v2
-
-            - name: Install anaconda client
-              run: pip install anaconda-client
-            
-            - name: Upload artifacts
-              env:
-                  ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
-                  ANACONDA_USERNAME: "s-ameli"
-              run: anaconda -t $ANACONDA_TOKEN upload --force -u $ANACONDA_USERNAME --package traceinv --version 0.0.13 dist/*
