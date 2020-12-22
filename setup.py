@@ -108,8 +108,7 @@ def CheckCompilerHasFlag(Compiler,CompileFlags,LinkFlags):
     CurrentWorkingDirectory = os.getcwd()
     TempDirectory = tempfile.mkdtemp()
     Filename = 'test.c'
-    Code = ("#include <omp.h>" 
-            "int main(int argc, char** argv) { return(0); }")
+    Code = "#include <omp.h>\nint main(int argc, char** argv) { return(0); }"
 
     # Considerations for Microsoft visual C++ compiler
     if Compiler.compiler_type == "msvc":
