@@ -95,7 +95,7 @@ jobs:
                   password: ${{ secrets.pypi_password }}
 
     test_pypi:
-        needs: [upload_pupi]
+        needs: [upload_pypi]
         name: Test on ${{ matrix.os }} and Pyhton ${{ matrix.python-version }}
         runs-on: ${{ matrix.os }}
         strategy:
