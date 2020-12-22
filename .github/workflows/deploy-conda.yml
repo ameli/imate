@@ -75,9 +75,8 @@ jobs:
 
             - name: Build and upload to Anaconda cloud
               run: |
-                  anaconda login --token ${{ secrets.ANACONDA_TOKEN }} 
                   conda config --set anaconda_upload yes
-                  conda-build .
+                  conda-build --token ${{ secrets.ANACONDA_TOKEN }} .
               env:
                   CYTHON_BUILD_IN_SOURCE: 'true'
 
