@@ -79,13 +79,20 @@ jobs:
                   export PATH="$HOME/miniconda/bin:$PATH"
                   # conda-build --token ${{ secrets.ANACONDA_TOKEN }} .
                   conda-build --output-folder . .
-                  conda convert -p osx-64 linux-64/*.tar.bz2
-                  conda convert -p win-64 linux-64/*.tar.bz2
+              env:
+                  CYTHON_BUILD_IN_SOURCE: 'true'
+
+            - name: Convert to mac and winsows
+              run: |
+                  conda convert -f -p osx-64 linux-64/*.tar.bz2
+                  conda convert -f -p win-64 linux-64/*.tar.bz2
+
+            - name: Upload to Anaconda Cloud
+              run: |
                   anaconda upload --label main linux-64/*.tar.bz2
                   anaconda upload --label main osx-64/*.tar.bz2
                   anaconda upload --label main win-64/*.tar.bz2
               env:
-                  CYTHON_BUILD_IN_SOURCE: 'true'
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
 
               # $(conda info --root)/conda-bld
