@@ -84,11 +84,13 @@ jobs:
 
             - name: Convert to mac and winsows
               run: |
+                  export PATH="$HOME/miniconda/bin:$PATH"
                   conda convert -f -p osx-64 linux-64/*.tar.bz2
                   conda convert -f -p win-64 linux-64/*.tar.bz2
 
             - name: Upload to Anaconda Cloud
               run: |
+                  export PATH="$HOME/miniconda/bin:$PATH"
                   anaconda upload --label main linux-64/*.tar.bz2
                   anaconda upload --label main osx-64/*.tar.bz2
                   anaconda upload --label main win-64/*.tar.bz2
