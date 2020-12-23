@@ -130,12 +130,15 @@ jobs:
               run: |
                   # python -m pip install pytest-cov
                   mv TraceInv TraceInv-DoNotImport
-                  conda install -c conda-forge pytest pytest-cov -y
                   # conda init
                   conda info
                   python --version
                   # python -m pytest
                   # $CONDA/bin/pytest
+                  conda install pytest
+                  which python
+                  which conda
+                  which pytest
                   pytest
 
             # - name: Test (in Windows)
