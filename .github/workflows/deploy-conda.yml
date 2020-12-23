@@ -112,7 +112,7 @@ jobs:
 
             - name: Install package
               run: |
-                  conda install pytest-cov -y
+                  conda install pytest pytest-cov -y
                   conda install -c s-ameli traceinv -y
 
             - name: Checkout
@@ -120,6 +120,8 @@ jobs:
 
             - name: Test
               run: |
+                  conda install pytest pytest-cov -y
+                  conda install -c s-ameli traceinv -y
                   mv TraceInv TraceInv-DoNotImport
                   pytest
 
