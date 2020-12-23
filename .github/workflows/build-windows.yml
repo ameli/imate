@@ -23,7 +23,7 @@ jobs:
                   python-version: ${{ matrix.python-version }}
 
             - name: Install Visual C++ for Python 2.7
-              if: windows.python-version == '2.7'
+              if: matrix.python-version == '2.7'
               run: choco install vcpython27 -f -y
 
             - name: Install package and dependencies
