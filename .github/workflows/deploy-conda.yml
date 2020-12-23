@@ -116,17 +116,19 @@ jobs:
                   conda config --set channel_priority strict
                   conda install -c conda-forge pytest pytest-cov -y
                   conda install -c conda-forge -c s-ameli traceinv -y
+                  conda init
 
             - name: Checkout
               uses: actions/checkout@v2
 
             - name: Test
               run: |
-                  python -m pip install pytest-cov
+                  # python -m pip install pytest-cov
                   mv TraceInv TraceInv-DoNotImport
                   conda info
                   python --version
-                  python -m pytest
+                  # python -m pytest
+                  pytest
 
             # - name: Test (in Windows)
             #   if: runner.os == 'Windows'
