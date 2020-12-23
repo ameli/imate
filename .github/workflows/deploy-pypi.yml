@@ -121,7 +121,7 @@ jobs:
             - name: Install Visual C++ for Python 2.7
               if: |
                   runner.os == 'Windows' &&
-                  runner.python-version == 2.7
+                  matrix.python-version == '2.7'
               run: choco install vcpython27 -f -y
 
             - name: Test
