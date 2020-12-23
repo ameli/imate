@@ -122,7 +122,10 @@ jobs:
 
             - name: Test
               run: |
+                  python -m pip install pytest-cov
                   mv TraceInv TraceInv-DoNotImport
+                  conda info
+                  python --version
                   python -m pytest
 
             # - name: Test (in Windows)
