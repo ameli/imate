@@ -119,9 +119,19 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
 
-            - name: Test
-              run: |
+            - name: Copy test files outside source (Unix)
+              if: runner.os != 'Windows'
                   mkdir ~/tmp
                   cp -r tests/ examples ~/tmp
                   cd ~/tmp
+
+            - name: Copy test files outside source (Windows)
+              if: runner.os == 'Windows'
+                  mkdir ~\tmp
+                  Copy-Item -Path tests -Destination ~\tmp -Recurse
+                  Copy-Item -Path examples -Destination ~\tmp -Recurse
+                  cd ~\tmp
+
+            - name: Test
+              run: |
                   pytest
