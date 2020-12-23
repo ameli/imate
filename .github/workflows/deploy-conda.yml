@@ -54,23 +54,23 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                # os: [ubuntu-latest, windows-latest, macos-latest]
-                os: [ubuntu-latest, macos-latest]
-
-        # steps:
-        #     - name: Setup Miniconda
-        #       uses: conda-incubator/setup-miniconda@v2
-        #       with:
-        #           auto-update-conda: true
+                os: [ubuntu-latest, windows-latest, macos-latest]
 
         steps:
-            - name: Download conda in Linux
-              if: runner.os == 'linux'
-              run: wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+            - name: Setup Miniconda
+              uses: conda-incubator/setup-miniconda@v2
+              with:
+                  auto-update-conda: true
+                  python-version: ${{ matrix.python-version }}
 
-            - name: Download conda in macOS
-              if: runner.os == 'macos'
-              run: curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh
+        # steps:
+        #     - name: Download conda in Linux
+        #       if: runner.os == 'linux'
+        #       run: wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+        #
+        #     - name: Download conda in macOS
+        #       if: runner.os == 'macos'
+        #       run: curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh
 
             # - name: Download conda in Windows
             #   if: runner.os == 'Windows'
@@ -78,33 +78,44 @@ jobs:
             #       python -m pip install wget
             #       wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe -O miniconda.sh
 
-            - name: Install conda
-              run: |
-                  sh miniconda.sh -b -p $HOME/miniconda
-                  export PATH="$HOME/miniconda/bin:$PATH"
-                  hash -r
-                  conda config --set always_yes yes --set changeps1 no
-                  conda update -q conda
+            # - name: Install conda
+            #   run: |
+            #       sh miniconda.sh -b -p $HOME/miniconda
+            #       export PATH="$HOME/miniconda/bin:$PATH"
+            #       hash -r
+            #       conda config --set always_yes yes --set changeps1 no
+            #       conda update -q conda
 
             - name: Checkout
               uses: actions/checkout@v2
 
-            - name: Test (in Unix)
-              if: runner.os != 'Windows'
+            # - name: Test (in Unix)
+            #   if: runner.os != 'Windows'
+            #   run: |
+            #       mv TraceInv TraceInv-DoNotImport
+            #       export PATH="$HOME/miniconda/bin:$PATH"
+            #       source $(conda info --root)/etc/profile.d/conda.sh
+            #       
+            #       PythonVersions="2.7 3.6 3.7 3.8 3.9"
+            #       for PythonVersion in $PythonVersions
+            #       do
+            #           conda create --name env-${PythonVersion} -c s-ameli python=${PythonVersion} traceinv pytest-cov -y
+            #           conda activate env-${PythonVersion}
+            #           pytest
+            #           conda deactivate
+            #           conda remove --name env-${PythonVersion} --all -y
+            #       done
+
+            - name: Install Visual C++ for Python 2.7
+              if: |
+                  runner.os == 'Windows' &&
+                  matrix.python-version == '2.7'
+              run: choco install vcpython27 -f -y
+
+            - name: Test
               run: |
                   mv TraceInv TraceInv-DoNotImport
-                  export PATH="$HOME/miniconda/bin:$PATH"
-                  source $(conda info --root)/etc/profile.d/conda.sh
-                  
-                  PythonVersions="2.7 3.6 3.7 3.8 3.9"
-                  for PythonVersion in $PythonVersions
-                  do
-                      conda create --name env-${PythonVersion} -c s-ameli python=${PythonVersion} traceinv pytest-cov -y
-                      conda activate env-${PythonVersion}
-                      pytest
-                      conda deactivate
-                      conda remove --name env-${PythonVersion} --all -y
-                  done
+                  pytest
 
             # - name: Test (in Windows)
             #   if: runner.os == 'Windows'
