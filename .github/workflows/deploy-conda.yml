@@ -56,32 +56,34 @@ jobs:
             matrix:
                 os: [ubuntu-latest, windows-latest, macos-latest]
 
-        steps:
-            - name: Setup Miniconda
-              uses: conda-incubator/setup-miniconda@v2
-              with:
-                  auto-update-conda: true
-
         # steps:
-        #     - name: Download conda in Linux
-        #       if: runner.os == 'linux'
-        #       run: wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-        #
-        #     - name: Download conda in macOS
-        #       if: runner.os == 'macos'
-        #       run: curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh
-        #
-        #     - name: Download conda in Windows
-        #       if: runner.os == 'Windows'
-        #       run: wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe -O miniconda.sh
-        #
-        #     - name: Install conda
-        #       run: |
-        #           sh miniconda.sh -b -p $HOME/miniconda
-        #           export PATH="$HOME/miniconda/bin:$PATH"
-        #           hash -r
-        #           conda config --set always_yes yes --set changeps1 no
-        #           conda update -q conda
+        #     - name: Setup Miniconda
+        #       uses: conda-incubator/setup-miniconda@v2
+        #       with:
+        #           auto-update-conda: true
+
+        steps:
+            - name: Download conda in Linux
+              if: runner.os == 'linux'
+              run: wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+
+            - name: Download conda in macOS
+              if: runner.os == 'macos'
+              run: curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh
+
+            # - name: Download conda in Windows
+            #   if: runner.os == 'Windows'
+            #   run: |
+            #       python -m pip install wget
+            #       wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe -O miniconda.sh
+
+            - name: Install conda
+              run: |
+                  sh miniconda.sh -b -p $HOME/miniconda
+                  export PATH="$HOME/miniconda/bin:$PATH"
+                  hash -r
+                  conda config --set always_yes yes --set changeps1 no
+                  conda update -q conda
 
             - name: Checkout
               uses: actions/checkout@v2
@@ -92,35 +94,35 @@ jobs:
                   mkdir ~/tmp
                   cp -r tests/ examples ~/tmp
                   cd ~/tmp
-                  # export PATH="$HOME/miniconda/bin:$PATH"
+                  export PATH="$HOME/miniconda/bin:$PATH"
                   source $(conda info --root)/etc/profile.d/conda.sh
                   
                   PythonVersions="2.7 3.6 3.7 3.8 3.9"
                   for PythonVersion in $PythonVersions
                   do
-                      conda create --name env-${PythonVersion} -c s-ameli python=${PythonVersion} traceinv pytest -y
+                      conda create --name env-${PythonVersion} -c s-ameli python=${PythonVersion} traceinv pytest-cov -y
                       conda activate env-${PythonVersion}
-                      pytest
+                      pytest-cov
                       conda deactivate
                       conda remove --name env-${PythonVersion} --all -y
                   done
 
-            - name: Test (in Windows)
-              if: runner.os == 'Windows'
-              run: |
-                  mkdir ~\tmp
-                  Copy-Item -Path tests -Destination ~\tmp -Recurse
-                  Copy-Item -Path examples -Destination ~\tmp -Recurse
-                  cd ~\tmp
-                  $RootDir=$(conda info --root)
-                  . $RootDir\etc\profile.d\conda.sh
-                  $PythonVersions="2.7","3.6","3.7","3.8","3.9"
-                  foreach ($PythonVersion in $PythonVersions)
-                  {
-                      conda create --name env-$PythonVersion -c s-ameli python=$PythonVersion pytest -y
-                      conda activate env-$PythonVersion
-                      conda install -c s-ameli traceinv -y
-                      pytest
-                      conda deactivate
-                      conda remove --name env-$PythonVersion --all -y
-                  }
+            # - name: Test (in Windows)
+            #   if: runner.os == 'Windows'
+            #   run: |
+            #       mkdir ~\tmp
+            #       Copy-Item -Path tests -Destination ~\tmp -Recurse
+            #       Copy-Item -Path examples -Destination ~\tmp -Recurse
+            #       cd ~\tmp
+            #       $RootDir=$(conda info --root)
+            #       . $RootDir\etc\profile.d\conda.sh
+            #       $PythonVersions="2.7","3.6","3.7","3.8","3.9"
+            #       foreach ($PythonVersion in $PythonVersions)
+            #       {
+            #           conda create --name env-$PythonVersion -c s-ameli python=$PythonVersion pytest-cov -y
+            #           conda activate env-$PythonVersion
+            #           conda install -c s-ameli traceinv -y
+            #           pytest-cov
+            #           conda deactivate
+            #           conda remove --name env-$PythonVersion --all -y
+            #       }
