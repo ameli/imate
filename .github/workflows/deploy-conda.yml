@@ -118,7 +118,7 @@ jobs:
             - name: Install package
               run: |
                   # conda config --set channel_priority strict
-                  conda install -c conda-forge pytest pytest-cov -y
+                  # conda install -c conda-forge pytest pytest-cov -y
                   conda install -c conda-forge -c s-ameli traceinv -y
                   conda init
 
@@ -135,7 +135,8 @@ jobs:
                   python --version
                   # python -m pytest
                   # $CONDA/bin/pytest
-                  conda install pytest-cov
+                  # conda install pytest-cov
+                  conda install -c s-ameli traceinv pytest-cov -y
                   which python
                   which conda
                   which pytest
