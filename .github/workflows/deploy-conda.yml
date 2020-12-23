@@ -49,7 +49,7 @@ jobs:
 
     test_conda:
         needs: [build_conda]
-        name: Test on ${{ matrix.os }}
+        name: Test on ${{ matrix.os }} and Python ${{ matrix.python-version }}
         runs-on: ${{ matrix.os }}
         strategy:
             fail-fast: false
@@ -111,7 +111,9 @@ jobs:
               run: choco install vcpython27 -f -y
 
             - name: Install package
-              run: conda install -c s-ameli traceinv -y
+              run: |
+                  conda install pytest-cov -y
+                  conda install -c s-ameli traceinv -y
 
             - name: Checkout
               uses: actions/checkout@v2
