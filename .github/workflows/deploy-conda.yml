@@ -8,7 +8,7 @@ on:
         types: [published]
 
 jobs:
-    build_conda:
+    build_upload_conda:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
@@ -35,20 +35,24 @@ jobs:
             - name: Convert linux builds to mac and winsows
               run: |
                   export PATH="$HOME/miniconda/bin:$PATH"
+                  conda convert -f -p linux-aarch64 linux-64/*.tar.bz2
                   conda convert -f -p osx-64 linux-64/*.tar.bz2
                   conda convert -f -p win-64 linux-64/*.tar.bz2
+                  conda convert -f -p win-32 linux-64/*.tar.bz2
 
             - name: Upload to Anaconda Cloud
               run: |
                   export PATH="$HOME/miniconda/bin:$PATH"
                   anaconda upload --force --label main linux-64/*.tar.bz2
+                  anaconda upload --force --label main linux-aarch64/*.tar.bz2
                   anaconda upload --force --label main osx-64/*.tar.bz2
                   anaconda upload --force --label main win-64/*.tar.bz2
+                  anaconda upload --force --label main win-32/*.tar.bz2
               env:
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
 
     test_conda:
-        needs: [build_conda]
+        needs: [build_upload_conda]
         name: Test on ${{ matrix.os }} and Python ${{ matrix.python-version }}
         runs-on: ${{ matrix.os }}
         strategy:
@@ -113,7 +117,7 @@ jobs:
 
             - name: Install package
               run: |
-                  conda config --set channel_priority strict
+                  # conda config --set channel_priority strict
                   conda install -c conda-forge pytest pytest-cov -y
                   conda install -c conda-forge -c s-ameli traceinv -y
                   conda init
@@ -122,12 +126,16 @@ jobs:
               uses: actions/checkout@v2
 
             - name: Test
+              shell: bash -l {0}
               run: |
                   # python -m pip install pytest-cov
                   mv TraceInv TraceInv-DoNotImport
+                  conda install -c conda-forge pytest pytest-cov -y
+                  # conda init
                   conda info
                   python --version
                   # python -m pytest
+                  # $CONDA/bin/pytest
                   pytest
 
             # - name: Test (in Windows)

@@ -12,3 +12,6 @@ ImportError: DLL load failed: The application has failed to start because its si
 Open powershell (run as administrator)
 choco install vcpython27 -f -y
 
+
+
+Put seaborn in try catch so it it is not installed, the package still work.
