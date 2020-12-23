@@ -86,9 +86,6 @@ jobs:
             #       conda config --set always_yes yes --set changeps1 no
             #       conda update -q conda
 
-            - name: Checkout
-              uses: actions/checkout@v2
-
             # - name: Test (in Unix)
             #   if: runner.os != 'Windows'
             #   run: |
@@ -111,6 +108,12 @@ jobs:
                   runner.os == 'Windows' &&
                   matrix.python-version == '2.7'
               run: choco install vcpython27 -f -y
+
+            - name: Install package
+              run: conda install -c s-ameli -y
+
+            - name: Checkout
+              uses: actions/checkout@v2
 
             - name: Test
               run: |
