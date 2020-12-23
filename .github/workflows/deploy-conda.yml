@@ -93,7 +93,7 @@ jobs:
                   cp -r tests/ examples ~/tmp
                   cd ~/tmp
                   # export PATH="$HOME/miniconda/bin:$PATH"
-                  # source $(conda info --root)/etc/profile.d/conda.sh
+                  source $(conda info --root)/etc/profile.d/conda.sh
                   
                   PythonVersions="2.7 3.6 3.7 3.8 3.9"
                   for PythonVersion in $PythonVersions
@@ -112,11 +112,14 @@ jobs:
                   Copy-Item -Path tests -Destination ~\tmp -Recurse
                   Copy-Item -Path examples -Destination ~\tmp -Recurse
                   cd ~\tmp
+                  $RootDir=$(conda info --root)
+                  . $RootDir\etc\profile.d\conda.sh
                   $PythonVersions="2.7","3.6","3.7","3.8","3.9"
-                  foreach $PythonVersion in $PythonVersions
+                  foreach ($PythonVersion in $PythonVersions)
                   {
-                      conda create --name env-$PythonVersion -c s-ameli python=$PythonVersion traceinv pytest -y
+                      conda create --name env-$PythonVersion -c s-ameli python=$PythonVersion pytest -y
                       conda activate env-$PythonVersion
+                      conda install -c s-ameli traceinv -y
                       pytest
                       conda deactivate
                       conda remove --name env-$PythonVersion --all -y
