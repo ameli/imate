@@ -63,6 +63,7 @@ jobs:
               with:
                   auto-update-conda: true
                   python-version: ${{ matrix.python-version }}
+                  activate-environment: myenv
 
         # steps:
         #     - name: Download conda in Linux
@@ -112,18 +113,17 @@ jobs:
 
             - name: Install package
               run: |
-                  conda install pytest pytest-cov -y
-                  conda install -c s-ameli traceinv -y
+                  conda config --set channel_priority strict
+                  conda install -c conda-forge pytest pytest-cov -y
+                  conda install -c conda-forge -c s-ameli traceinv -y
 
             - name: Checkout
               uses: actions/checkout@v2
 
             - name: Test
               run: |
-                  conda install pytest pytest-cov -y
-                  conda install -c s-ameli traceinv -y
                   mv TraceInv TraceInv-DoNotImport
-                  pytest
+                  python -m pytest
 
             # - name: Test (in Windows)
             #   if: runner.os == 'Windows'
