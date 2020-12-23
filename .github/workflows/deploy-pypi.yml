@@ -27,8 +27,7 @@ jobs:
             
             - name: Install Visual C++ for Python 2.7
               if: runner.os == 'Windows'
-              run: |
-                  choco install vcpython27 -f -y
+              run: choco install vcpython27 -f -y
 
             - name: Install OpenMP and numpy for mac
               if: runner.os == 'macos'
@@ -119,20 +118,11 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
 
-            # - name: Copy test files outside source (Unix)
-            #   if: runner.os != 'Windows'
-            #   run: |
-            #       mkdir ~/tmp
-            #       cp -r tests examples ~/tmp
-            #       cd ~/tmp
-            #
-            # - name: Copy test files outside source (Windows)
-            #   if: runner.os == 'Windows'
-            #   run: |
-            #       mkdir ~\tmp
-            #       Copy-Item -Path tests -Destination ~\tmp -Recurse
-            #       Copy-Item -Path examples -Destination ~\tmp -Recurse
-            #       cd ~\tmp
+            - name: Install Visual C++ for Python 2.7
+              if: |
+                  runner.os == 'Windows' &&
+                  runner.python-version == "2.7"
+              run: choco install vcpython27 -f -y
 
             - name: Test
               run: |

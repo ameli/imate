@@ -102,7 +102,7 @@ jobs:
                   do
                       conda create --name env-${PythonVersion} -c s-ameli python=${PythonVersion} traceinv pytest-cov -y
                       conda activate env-${PythonVersion}
-                      pytest-cov
+                      pytest
                       conda deactivate
                       conda remove --name env-${PythonVersion} --all -y
                   done
