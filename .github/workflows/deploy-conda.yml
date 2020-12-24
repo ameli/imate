@@ -129,7 +129,9 @@ jobs:
               shell: bash -l {0}
               run: |
                   mv TraceInv TraceInv-DoNotImport
-                  conda install -c s-ameli traceinv pytest-cov -y
+                  rm setup.cfg
+                  conda install -c s-ameli traceinv -y
+                  conda install pytest -y
                   pytest
 
             # - name: Test (in Windows)
