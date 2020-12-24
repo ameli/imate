@@ -14,7 +14,6 @@ source:
 build:
     number: 0
     script: "{{ PYTHON }} -m pip install . -vv"
-    pin_depends: strict
 
 requirements:
     build:
@@ -27,7 +26,7 @@ requirements:
         - pip
         - pytest-runner
     run:
-        - python {{ python }}
+        - python
         - numpy
         - scipy
         - matplotlib
