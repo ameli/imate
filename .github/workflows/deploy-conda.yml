@@ -115,12 +115,12 @@ jobs:
                   matrix.python-version == '2.7'
               run: choco install vcpython27 -f -y
 
-            - name: Install package
-              run: |
+            # - name: Install package
+              # run: |
                   # conda config --set channel_priority strict
                   # conda install -c conda-forge pytest pytest-cov -y
-                  conda install -c conda-forge -c s-ameli traceinv -y
-                  conda init
+                  # conda install -c conda-forge -c s-ameli traceinv -y
+                  # conda init
 
             - name: Checkout
               uses: actions/checkout@v2
@@ -128,18 +128,8 @@ jobs:
             - name: Test
               shell: bash -l {0}
               run: |
-                  # python -m pip install pytest-cov
                   mv TraceInv TraceInv-DoNotImport
-                  # conda init
-                  conda info
-                  python --version
-                  # python -m pytest
-                  # $CONDA/bin/pytest
-                  # conda install pytest-cov
                   conda install -c s-ameli traceinv pytest-cov -y
-                  which python
-                  which conda
-                  which pytest
                   pytest
 
             # - name: Test (in Windows)

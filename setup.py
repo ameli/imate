@@ -114,30 +114,26 @@ def CheckCompilerHasFlag(Compiler,CompileFlags,LinkFlags):
     if Compiler.compiler_type == "msvc":
         LinkFlags = LinkFlags + ['/DLL']
 
+    # Write a code in temp directory
+    os.chdir(TempDirectory)
+    with open(Filename,'wt') as File:
+        File.write(Code)
+
     try:
-        # Write a code in temp directory
-        os.chdir(TempDirectory)
-        with open(Filename,'wt') as File:
-            File.write(Code)
+        # Try to compile
+        Objects = Compiler.compile([Filename],extra_postargs=CompileFlags)
 
         try:
-            # Try to compile
-            Objects = Compiler.compile([Filename],extra_postargs=CompileFlags)
+            # Try to link
+            Compiler.link_shared_lib(Objects,"testlib",extra_postargs=LinkFlags)
 
-            try:
-                # Try to link
-                Compiler.link_shared_lib(Objects,"testlib",extra_postargs=LinkFlags)
-
-            except (LinkError,TypeError):
-                # Linker was not successful
-                CompileSuccess = False
-
-        except CompileError:
-            # Compile was not successful
+        except (LinkError,TypeError):
+            # Linker was not successful
             CompileSuccess = False
 
-    except:
-        raise RuntimeError('Cannot write to the file %s in %s.'%(Filename,TempDirectory))
+    except CompileError:
+        # Compile was not successful
+        CompileSuccess = False
 
     os.chdir(CurrentWorkingDirectory)
     shutil.rmtree(TempDirectory)

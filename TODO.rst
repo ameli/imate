@@ -17,3 +17,8 @@ choco install vcpython27 -f -y
 Put seaborn in try catch so it it is not installed, the package still work.
 
 before building the package: install numpy (conda install -c conda-forge numpy -y)
+
+before building package in windows
+choco install -y visualstudio2019buildtools
+choco install -y vcbuildtools
+Or downsload Microsoft C++ Build Tools.
