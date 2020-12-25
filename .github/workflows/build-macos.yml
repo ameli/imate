@@ -1,9 +1,12 @@
 name: build-macos
 
 on:
-    push:
-        branches:
-            - main
+    # push:
+    #     branches:
+    #         - main
+    release:
+        types: 
+            - published
     
 jobs:
     build:

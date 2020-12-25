@@ -1,9 +1,12 @@
 name: deploy-pypi
 
 on:
-    push:
-        branches:
-            - main
+    # push:
+    #     branches:
+    #         - main
+    release:
+        types:
+            - published
 
 jobs:
     build_wheels:

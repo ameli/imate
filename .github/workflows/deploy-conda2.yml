@@ -5,7 +5,8 @@ on:
         branches:
             - main
     release:
-        types: [published]
+        types: 
+            - published
 
 jobs:
     build_upload_conda:
@@ -20,8 +21,6 @@ jobs:
               uses: conda-incubator/setup-miniconda@v2
               with:
                   auto-update-conda: true
-                  python-version: ${{ matrix.python-version }}
-                  activate-environment: myenv
 
             - name: Checkout
               uses: actions/checkout@v2
