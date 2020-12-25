@@ -13,48 +13,52 @@ import shutil
 from distutils.errors import CompileError, LinkError
 
 # Import numpy
-try:
-    import numpy
-except ImportError:
-    # Install numpy
-    try:
-        import pip
-        from pip import main
-        pip.main(['install','numpy'])
-        import numpy
-    except:
-        raise ImportError('Cannot import numpy.')
+import numpy
+# try:
+#     import numpy
+# except ImportError:
+#     # Install numpy
+#     try:
+#         import pip
+#         from pip import main
+#         pip.main(['install','numpy'])
+#         import numpy
+#     except:
+#         raise ImportError('Cannot import numpy.')
 
 # Import setuptools
-try:
-    import setuptools
-    from setuptools.extension import Extension
-except ImportError:
-    # Install setuptools
-    try:
-        import pip
-        from pip import main
-        pip.main(['install','setuptools'])
-        import setuptools
-        from setuptools.extension import Extension
-    except:
-        raise ImportError('Cannot import setuptools.')
+import setuptools
+# try:
+#     import setuptools
+#     from setuptools.extension import Extension
+# except ImportError:
+#     # Install setuptools
+#     try:
+#         import pip
+#         from pip import main
+#         pip.main(['install','setuptools'])
+#         import setuptools
+#         from setuptools.extension import Extension
+#     except:
+#         raise ImportError('Cannot import setuptools.')
 
 # Import Cython (to convert pyx to C code)
-try:
-    from Cython.Build import cythonize
-    UseCython = True
-except ImportError:
-    # Install Cython
-    try:
-        import pip
-        from pip import main
-        pip.main(['install','cython'])
-        from Cython.Build import cythonize
-        UseCython = True
-    except:
-        print('Cannot import cython. Setup proceeds withput cython.')
-        UseCython = False
+from Cython.Build import cythonize
+UseCython = True
+# try:
+#     from Cython.Build import cythonize
+#     UseCython = True
+# except ImportError:
+#     # Install Cython
+#     try:
+#         import pip
+#         from pip import main
+#         pip.main(['install','cython'])
+#         from Cython.Build import cythonize
+#         UseCython = True
+#     except:
+#         print('Cannot import cython. Setup proceeds withput cython.')
+#         UseCython = False
 
 # Import build_ext module (to build C code)
 try:
