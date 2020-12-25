@@ -43,22 +43,22 @@ except ImportError:
         raise ImportError('Cannot import numpy.')
 
 # Import Cython (to convert pyx to C code)
-from Cython.Build import cythonize
-UseCython = True
-# try:
-#     from Cython.Build import cythonize
-#     UseCython = True
-# except ImportError:
-#     # Install Cython
-#     try:
-#         import pip
-#         from pip import main
-#         pip.main(['install','cython'])
-#         from Cython.Build import cythonize
-#         UseCython = True
-#     except:
-#         print('Cannot import cython. Setup proceeds withput cython.')
-#         UseCython = False
+# from Cython.Build import cythonize
+# UseCython = True
+try:
+    from Cython.Build import cythonize
+    UseCython = True
+except ImportError:
+    # Install Cython
+    try:
+        import pip
+        from pip import main
+        pip.main(['install','cython'])
+        from Cython.Build import cythonize
+        UseCython = True
+    except:
+        print('Cannot import cython. Setup proceeds withput cython.')
+        UseCython = False
 
 # Import build_ext module (to build C code)
 try:
