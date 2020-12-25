@@ -9,47 +9,49 @@ on:
 
 jobs:
     build_upload_conda:
-        runs-on: ubuntu-latest
+        name: Test on ${{ matrix.os }}
+        runs-on: ${{ matrix.os }}
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [ubuntu-latest, windows-latest, macos-latest]
         steps:
+            - name: Setup Miniconda
+              uses: conda-incubator/setup-miniconda@v2
+              with:
+                  auto-update-conda: true
+                  python-version: ${{ matrix.python-version }}
+                  activate-environment: myenv
+
             - name: Checkout
               uses: actions/checkout@v2
 
-            - name: Install conda, conda-build, and conda-client
-              run: |
-                  wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-                  bash miniconda.sh -b -p $HOME/miniconda
-                  export PATH="$HOME/miniconda/bin:$PATH"
-                  hash -r
-                  conda config --set always_yes yes --set changeps1 no
-                  conda update -q conda
-                  conda install conda-build
-                  conda install anaconda-client
-
             - name: Build package
               run: |
-                  export PATH="$HOME/miniconda/bin:$PATH"
+                  conda config --set anaconda_upload yes
                   conda-build --output-folder . .
               env:
                   CYTHON_BUILD_IN_SOURCE: 'true'  # see setup.py. Avoids a bug when building with multiple python variants
-
-            - name: Convert linux builds to mac and winsows
-              run: |
-                  export PATH="$HOME/miniconda/bin:$PATH"
-                  conda convert -f -p linux-aarch64 linux-64/*.tar.bz2
-                  conda convert -f -p osx-64 linux-64/*.tar.bz2
-                  conda convert -f -p win-64 linux-64/*.tar.bz2
-                  conda convert -f -p win-32 linux-64/*.tar.bz2
-
-            - name: Upload to Anaconda Cloud
-              run: |
-                  export PATH="$HOME/miniconda/bin:$PATH"
-                  anaconda upload --force --label main linux-64/*.tar.bz2
-                  anaconda upload --force --label main linux-aarch64/*.tar.bz2
-                  anaconda upload --force --label main osx-64/*.tar.bz2
-                  anaconda upload --force --label main win-64/*.tar.bz2
-                  anaconda upload --force --label main win-32/*.tar.bz2
-              env:
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+
+            # - name: Convert linux builds to mac and winsows
+            #   run: |
+            #       export PATH="$HOME/miniconda/bin:$PATH"
+            #       conda convert -f -p linux-aarch64 linux-64/*.tar.bz2
+            #       conda convert -f -p osx-64 linux-64/*.tar.bz2
+            #       conda convert -f -p win-64 linux-64/*.tar.bz2
+            #       conda convert -f -p win-32 linux-64/*.tar.bz2
+
+            # - name: Upload to Anaconda Cloud
+            #   run: |
+            #       export PATH="$HOME/miniconda/bin:$PATH"
+            #       anaconda upload --force --label main linux-64/*.tar.bz2
+            #       anaconda upload --force --label main linux-aarch64/*.tar.bz2
+            #       anaconda upload --force --label main osx-64/*.tar.bz2
+            #       anaconda upload --force --label main win-64/*.tar.bz2
+            #       anaconda upload --force --label main win-32/*.tar.bz2
+            #   env:
+            #       ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
 
     test_conda:
         needs: [build_upload_conda]
