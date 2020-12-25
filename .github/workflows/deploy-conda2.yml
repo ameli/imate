@@ -29,9 +29,12 @@ jobs:
             - name: Build package
               shell: bash -l {0}
               run: |
-                  conda install -c conda-forge conda-build anaconda-client
+                  conda install -y conda-build anaconda-client
                   conda config --set anaconda_upload yes
-                  $(conda info --root)/bin/conda-build --output-folder . .
+                  export PATH=$(conda info --root):$PATH
+                  export PATH=$(conda info --root)/bin:$PATH
+                  ls $(conda info --root)
+                  conda-build --output-folder . .
               env:
                   CYTHON_BUILD_IN_SOURCE: 'true'  # see setup.py. Avoids a bug when building with multiple python variants
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
