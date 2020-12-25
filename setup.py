@@ -12,20 +12,6 @@ import tempfile
 import shutil
 from distutils.errors import CompileError, LinkError
 
-# Import numpy
-import numpy
-# try:
-#     import numpy
-# except ImportError:
-#     # Install numpy
-#     try:
-#         import pip
-#         from pip import main
-#         pip.main(['install','numpy'])
-#         import numpy
-#     except:
-#         raise ImportError('Cannot import numpy.')
-
 # Import setuptools
 import setuptools
 # try:
@@ -41,6 +27,20 @@ import setuptools
 #         from setuptools.extension import Extension
 #     except:
 #         raise ImportError('Cannot import setuptools.')
+
+# Import numpy
+import numpy
+# try:
+#     import numpy
+# except ImportError:
+#     # Install numpy
+#     try:
+#         import pip
+#         from pip import main
+#         pip.main(['install','numpy'])
+#         import numpy
+#     except:
+#         raise ImportError('Cannot import numpy.')
 
 # Import Cython (to convert pyx to C code)
 from Cython.Build import cythonize
