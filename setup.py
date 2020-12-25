@@ -29,18 +29,18 @@ import setuptools
 #         raise ImportError('Cannot import setuptools.')
 
 # Import numpy
-import numpy
-# try:
-#     import numpy
-# except ImportError:
-#     # Install numpy
-#     try:
-#         import pip
-#         from pip import main
-#         pip.main(['install','numpy'])
-#         import numpy
-#     except:
-#         raise ImportError('Cannot import numpy.')
+# import numpy
+try:
+    import numpy
+except ImportError:
+    # Install numpy
+    try:
+        import pip
+        from pip import main
+        pip.main(['install','numpy'])
+        import numpy
+    except:
+        raise ImportError('Cannot import numpy.')
 
 # Import Cython (to convert pyx to C code)
 from Cython.Build import cythonize
