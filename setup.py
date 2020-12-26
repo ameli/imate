@@ -256,8 +256,10 @@ class CustomBuildExtension(build_ext):
             else:
 
                 # Assume compiler is clang (we do not know yet). Check if -fopenmp can be passed through preprocessor (this is how clang compiler accepts -fopenmp)
-                Clang_CompileArgs = ['-Xpreprocessor','-fopenmp']
-                Clang_LinkArgs = ['-Xpreprocessor','-fopenmp','-lomp']
+                # Clang_CompileArgs = ['-Xpreprocessor','-fopenmp']
+                # Clang_LinkArgs = ['-Xpreprocessor','-fopenmp','-lomp']
+                Clang_CompileArgs = ['-I/usr/local/opt/llvm/include','-Xpreprocessor','-fopenmp']
+                Clang_LinkArgs = ['-L/usr/local/opt/llvm/lib','-Xpreprocessor','-fopenmp','-lomp']
                 Clang_HasOpenMPFlag = CheckCompilerHasFlag(self.compiler,Clang_CompileArgs,Clang_LinkArgs)
 
                 if Clang_HasOpenMPFlag:
