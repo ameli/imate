@@ -31,7 +31,10 @@ jobs:
 
             - name: Install OpenMP for MacOS
               if: runner.os == 'macos'
-              run: brew install libomp
+              run: |
+                - brew install libomp
+                - brew install llvm
+                - ln -s /usr/local/opt/llvm/bin/clang /usr/local/bin/clang-omp
 
             - name: Checkout
               uses: actions/checkout@v2
