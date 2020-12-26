@@ -44,29 +44,17 @@ try:
     from setuptools.extension import Extension
 except ImportError:
     # Install setuptools
-    try:
-        # import pip
-        # from pip import main
-        # pip.main(['install','setuptools'])
-        InstallPackage('setuptools')
-        import setuptools
-        from setuptools.extension import Extension
-    except:
-        raise ImportError('Cannot import setuptools.')
+    InstallPackage('setuptools')
+    import setuptools
+    from setuptools.extension import Extension
 
 # Import numpy
 try:
     import numpy
 except ImportError:
     # Install numpy
-    try:
-        # import pip
-        # from pip import main
-        # pip.main(['install','numpy'])
-        InstallPackage('numpy>1.11')
-        import numpy
-    except:
-        raise ImportError('Cannot import numpy.')
+    InstallPackage('numpy>1.11')
+    import numpy
 
 # Import Cython (to convert pyx to C code)
 try:
@@ -75,9 +63,6 @@ try:
 except ImportError:
     # Install Cython
     try:
-        # import pip
-        # from pip import main
-        # pip.main(['install','cython'])
         InstallPackage('cython')
         from Cython.Build import cythonize
         UseCython = True
