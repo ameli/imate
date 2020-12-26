@@ -501,27 +501,27 @@ def main(argv):
         include_package_data=True,
         cmdclass = {'build_ext': CustomBuildExtension},
         zip_safe=False,    # the package can run out of an .egg file
-        extras_require = {
-            'extra': [
-                'ray'
-                ],
-            'full': [
-                'scikit-sparse',
-                'ray'
-                ],
-            'test': [
-                'pytest-cov',
-                'codecov'
-            ],
-            'docs': [
-                'sphinx',
-                'sphinx-math-dollar',
-                'sphinx-toggleprompt',
-                'sphinx_rtd_theme',
-                'graphviz',
-                'sphinx-automodapi',
-            ]
-        },
+        # extras_require = {
+        #     'extra': [
+        #         'ray'
+        #         ],
+        #     'full': [
+        #         'scikit-sparse',
+        #         'ray'
+        #         ],
+        #     'test': [
+        #         'pytest-cov',
+        #         'codecov'
+        #     ],
+        #     'docs': [
+        #         'sphinx',
+        #         'sphinx-math-dollar',
+        #         'sphinx-toggleprompt',
+        #         'sphinx_rtd_theme',
+        #         'graphviz',
+        #         'sphinx-automodapi',
+        #     ]
+        # },
         classifiers = [
             'Programming Language :: Python :: 2.7',
             'Programming Language :: Python :: 3.5',
