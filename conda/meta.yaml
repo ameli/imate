@@ -25,12 +25,11 @@ requirements:
     build:
         - {{ compiler('c') }}
         - llvm-openmp  # [osx]
-        - numpy
 
     host:
         - python {{ python }}
         - setuptools
-        - numpy
+        - numpy>1.11
         - cython
         - pip
         - pytest-runner
@@ -40,7 +39,7 @@ requirements:
         - seaborn
     run:
         - python {{ python }}
-        - numpy
+        - numpy>1.11
         - scipy
         # - suitesparse
         - matplotlib

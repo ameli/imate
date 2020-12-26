@@ -11,56 +11,80 @@ import codecs
 import tempfile
 import shutil
 from distutils.errors import CompileError, LinkError
+import subprocess
+
+# ===============
+# Install Package
+# ===============
+
+def InstallPackage(Package):
+    """
+    Installs packages using pip.
+
+    Example:
+
+    .. code-block:: python
+
+        >>> InstallPackage('numpy>1.11')
+
+    :param Package: Name of pakcage with or without its version pin.
+    :type Package: string
+    """
+
+    subprocess.check_call([sys.executable, "-m", "pip", "install", Package])
+
+# =====================
+# Import Setup Packages
+# =====================
 
 # Import setuptools
 import setuptools
-# try:
-#     import setuptools
-#     from setuptools.extension import Extension
-# except ImportError:
-#     # Install setuptools
-#     try:
-#         import pip
-#         from pip import main
-#         pip.main(['install','setuptools'])
-#         import setuptools
-#         from setuptools.extension import Extension
-#     except:
-#         raise ImportError('Cannot import setuptools.')
+try:
+    import setuptools
+    from setuptools.extension import Extension
+except ImportError:
+    # Install setuptools
+    try:
+        # import pip
+        # from pip import main
+        # pip.main(['install','setuptools'])
+        InstallPackage('setuptools')
+        import setuptools
+        from setuptools.extension import Extension
+    except:
+        raise ImportError('Cannot import setuptools.')
 
 # Import numpy
-# import numpy
 try:
     import numpy
 except ImportError:
     # Install numpy
     try:
-        import pip
-        from pip import main
-        pip.main(['install','numpy'])
+        # import pip
+        # from pip import main
+        # pip.main(['install','numpy'])
+        InstallPackage('numpy>1.11')
         import numpy
     except:
         raise ImportError('Cannot import numpy.')
 
 # Import Cython (to convert pyx to C code)
-# from Cython.Build import cythonize
-# UseCython = True
 try:
     from Cython.Build import cythonize
     UseCython = True
 except ImportError:
     # Install Cython
     try:
-        import pip
-        from pip import main
-        pip.main(['install','cython'])
+        # import pip
+        # from pip import main
+        # pip.main(['install','cython'])
+        InstallPackage('cython')
         from Cython.Build import cythonize
         UseCython = True
     except:
         print('Cannot import cython. Setup proceeds withput cython.')
         UseCython = False
 
-# Import build_ext module (to build C code)
 try:
     from Cython.Distutils import build_ext
 except ImportError:
