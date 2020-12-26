@@ -493,8 +493,9 @@ def main(argv):
         python_requires = '>=2.7',
         setup_requires = [
             'setuptools',
-            'cython',
-            'pytest-runner'],
+            'numpy>1.11',
+            'cython'],
+            # 'pytest-runner'],
         tests_require = [
             'pytest',
             'pytest-cov'],
