@@ -30,8 +30,9 @@ build:
 
 requirements:
     build:
-        - {{ compiler('c') }}
-        - llvm-openmp  # [osx]
+        - {{ compiler('c') }} # [not osx]
+        - gcc # [osx]
+        # - llvm-openmp  # [osx]
 
     host:
         - python {{ python }}
