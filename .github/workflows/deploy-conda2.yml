@@ -44,6 +44,7 @@ jobs:
                   cd /opt
                   sudo tar -xf MacOSX10.9.sdk.tar.xz
                   sudo chmod -R a+rX /opt
+                  sudo xcode-select --install /opt/MacOSX10.9.sdk.tar.xz
 
             - name: Checkout
               uses: actions/checkout@v2
@@ -60,6 +61,7 @@ jobs:
               env:
                   CYTHON_BUILD_IN_SOURCE: 'true'  # see setup.py. Avoids a bug when building with multiple python variants
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+                  CONDA_BUILD_SYSROOT: /
 
             # - name: Convert linux builds to mac and winsows
             #   run: |
