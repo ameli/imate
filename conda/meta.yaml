@@ -21,6 +21,10 @@ build:
     # script: # - python setup.py install . --single-version-externally-managed --record=record.txt -vvv
     # script: {{ PYTHON }} -m pip install . --single-version-externally-managed --record=record.txt --no-deps --ignore-installed --no-cache-dir -vvv
     # script: "{{ PYTHON }} -m pip install . -vv"
+    features:
+        - vc9               [win and py27]
+        - vc10              [win and py34]
+        - vc14              [win and py35]
 
 requirements:
     build:
