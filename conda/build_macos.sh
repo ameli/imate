@@ -3,8 +3,9 @@ set -x
 
 
 # brew install libomp
-export CFLAGS="${CFLAGS} -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk"
-export SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk
+# export CFLAGS="${CFLAGS} -isysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk -rpath ${PREFIX}/lib -L${PREFIX}/lib"
+export CFLAGS="-isysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk -rpath ${PREFIX}/lib -L${PREFIX}/lib"
+export SDKROOT="/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk"
 
 {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt -vvv
 
