@@ -1,68 +1,56 @@
-name: deploy-conda-2
+name: deploy-conda-3
 
 on:
-    # push:
-        # branches:
-            # - main
+    push:
+        branches:
+            - main
     release:
         types: 
             - published
 
 jobs:
     build_upload_conda:
-        name: Test on ${{ matrix.os }}
-        runs-on: ${{ matrix.os }}
-        strategy:
-            fail-fast: false
-            matrix:
-                os: [ubuntu-latest, windows-latest, macos-latest]
+        runs-on: macos-latest
         steps:
-            - name: Setup Miniconda
-              uses: conda-incubator/setup-miniconda@v2
-              with:
-                  auto-update-conda: true
-
-            - name: Install Visual C++ for Python 2.7
-              if: runner.os == 'Windows'
-              # if: |
-              #     runner.os == 'Windows' &&
-              #     matrix.python-version == '2.7'
-              run: choco install vcpython27 -f -y
+            - name: Install conda, conda-build, and conda-client
+              run: |
+                  brew install wget
+                  wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh
+                  bash miniconda.sh -b -p $HOME/miniconda
+                  export PATH="$HOME/miniconda/bin:$PATH"
+                  hash -r
+                  conda config --set always_yes yes --set changeps1 no
+                  conda update -q conda
+                  conda install conda-build
+                  conda install anaconda-client
 
             - name: Install OpenMP for MacOS
-              if: runner.os == 'macos'
               run: |
                   brew install libomp
-                  brew install llvm
+                  # brew install llvm
 
-            - name: SDK for MacOS
-              if: runner.os == 'macos'
-              run: |
-                  ls /opt -all
-                  brew install wget
-                  wget https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.9.sdk.tar.xz
-                  sudo mv MacOSX10.9.sdk.tar.xz /opt
-                  cd /opt
-                  sudo tar -xf MacOSX10.9.sdk.tar.xz
-                  sudo chmod -R a+rX /opt
-                  ls /opt -all
+            # - name: SDK for MacOS
+            #   if: runner.os == 'macos'
+            #   run: |
+            #       brew install wget
+            #       wget https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.9.sdk.tar.xz
+            #       sudo mv MacOSX10.9.sdk.tar.xz /opt
+            #       cd /opt
+            #       sudo tar -xf MacOSX10.9.sdk.tar.xz
+            #       sudo chmod -R a+rX /opt
+            #       ls /opt -all
 
             - name: Checkout
               uses: actions/checkout@v2
 
             - name: Build package
-              shell: bash -l {0}
               run: |
                   # xcrun --show-sdk-path
-                  conda install -y conda-build anaconda-client
-                  conda config --set anaconda_upload yes
-                  export PATH=$(conda info --root):$PATH
-                  export PATH=$(conda info --root)/bin:$PATH
+                  export PATH="$HOME/miniconda/bin:$PATH"
                   conda-build --output-folder . .
               env:
                   CYTHON_BUILD_IN_SOURCE: 'true'  # see setup.py. Avoids a bug when building with multiple python variants
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
-                  CONDA_BUILD_SYSROOT: "/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk"
 
             # - name: Convert linux builds to mac and winsows
             #   run: |
