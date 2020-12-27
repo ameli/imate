@@ -14,7 +14,7 @@ source:
 build:
     number: 0
     script: 
-        - python setup.py install --single-version-externally-managed --record=record.txt
+        - {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
         # - python setup.py install
         # - brew install libomp   # [osx]
         # - export LDFLAGS=-L/usr/local/opt/libomp/lib   # [osx]
@@ -22,14 +22,17 @@ build:
     # script: {{ PYTHON }} -m pip install . --single-version-externally-managed --record=record.txt --no-deps --ignore-installed --no-cache-dir -vvv
     # script: "{{ PYTHON }} -m pip install . -vv"
     features:
-        - vc9               [win and py27]
-        - vc10              [win and py34]
-        - vc14              [win and py35]
+        - vc9               # [win and py27]
+        - vc10              # [win and py34]
+        - vc14              # [win and py35]
 
 requirements:
     build:
         - {{ compiler('c') }}
         - llvm-openmp  # [osx]
+        - vc9               # [win and py27]
+        - vc10              # [win and py34]
+        - vc14              # [win and py35]
 
     host:
         - python {{ python }}
