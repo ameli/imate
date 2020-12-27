@@ -258,8 +258,8 @@ class CustomBuildExtension(build_ext):
                 # Assume compiler is clang (we do not know yet). Check if -fopenmp can be passed through preprocessor (this is how clang compiler accepts -fopenmp)
                 # Clang_CompileArgs = ['-Xpreprocessor','-fopenmp']
                 # Clang_LinkArgs = ['-Xpreprocessor','-fopenmp','-lomp']
-                Clang_CompileArgs = ['-isysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk ','-Xpreprocessor','-fopenmp']
-                Clang_LinkArgs = ['-isysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk ','-Xpreprocessor','-fopenmp','-lomp']
+                Clang_CompileArgs = ['-isysroot=/','-Xpreprocessor','-fopenmp']
+                Clang_LinkArgs = ['-isysroot=/','-Xpreprocessor','-fopenmp','-lomp']
                 Clang_HasOpenMPFlag = CheckCompilerHasFlag(self.compiler,Clang_CompileArgs,Clang_LinkArgs)
 
                 # if Clang_HasOpenMPFlag:
