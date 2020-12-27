@@ -35,6 +35,14 @@ jobs:
                   brew install libomp
                   brew install llvm
 
+            - name: SDK for MacOS
+              if: runner.os == 'macos'
+              run: |
+                  curl https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.9.sdk.tar.xz -o /opt/MacOSX10.9.sdk.tar.xz
+                  cd /opt
+                  tar -xzf MacOSX10.9.sdk.tar.xz
+                  ls
+
             - name: Checkout
               uses: actions/checkout@v2
 
