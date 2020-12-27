@@ -39,14 +39,11 @@ jobs:
               if: runner.os == 'macos'
               run: |
                   brew install wget
-                  # sudo curl https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.9.sdk.tar.xz -o /opt/MacOSX10.9.sdk.tar.xz
                   wget https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.9.sdk.tar.xz
-                  ls -all
                   sudo mv MacOSX10.9.sdk.tar.xz /opt
                   cd /opt
-                  ls -all
                   sudo tar -xf MacOSX10.9.sdk.tar.xz
-                  ls
+                  sudo chmod -R a+rX /opt
 
             - name: Checkout
               uses: actions/checkout@v2
@@ -59,7 +56,6 @@ jobs:
                   conda config --set anaconda_upload yes
                   export PATH=$(conda info --root):$PATH
                   export PATH=$(conda info --root)/bin:$PATH
-                  # export CONDA_BUILD_SYSROOT=/                      # New
                   conda-build --output-folder . .
               env:
                   CYTHON_BUILD_IN_SOURCE: 'true'  # see setup.py. Avoids a bug when building with multiple python variants
