@@ -20,6 +20,11 @@ jobs:
               with:
                   python-version: 3.8
 
+            - name: Install OpenMP for MacOS
+              run: |
+                  brew install libomp
+                  # brew install llvm
+
             - name: Build wheel
               run: |
                   python -m pip install --upgrade pip
@@ -38,11 +43,6 @@ jobs:
                   conda update -q conda
                   conda install conda-build
                   conda install anaconda-client
-
-            - name: Install OpenMP for MacOS
-              run: |
-                  brew install libomp
-                  # brew install llvm
 
             # - name: SDK for MacOS
             #   if: runner.os == 'macos'
