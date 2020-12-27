@@ -262,7 +262,8 @@ class CustomBuildExtension(build_ext):
                 Clang_LinkArgs = ['-isysroot=/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk ','-Xpreprocessor','-fopenmp','-lomp']
                 Clang_HasOpenMPFlag = CheckCompilerHasFlag(self.compiler,Clang_CompileArgs,Clang_LinkArgs)
 
-                if Clang_HasOpenMPFlag:
+                # if Clang_HasOpenMPFlag:
+                if True:
 
                     # Assuming this is mac's clag. Add '-fopenmp' through preprocessor
                     ExtraCompileArgs += Clang_CompileArgs
@@ -271,8 +272,7 @@ class CustomBuildExtension(build_ext):
                 else:
 
                     # It does not seem that either gcc or clang accept -fopenmp flag.
-                    # raise RuntimeError('OpenMP does not seem to be available on the compiler %s.'%CompilerType)
-                    print('OpenMP does not seem to be available on the compiler %s.'%CompilerType)
+                    raise RuntimeError('OpenMP does not seem to be available on the compiler %s.'%CompilerType)
 
         # Add the flags to all extensions
         for ext in self.extensions:
