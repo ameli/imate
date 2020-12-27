@@ -26,13 +26,12 @@ build:
         - vc10              [win and py34]
         - vc14              [win and py35]
     script_env:
-        CONDA_BUILD_SYSROOT  # [mac]
+        CONDA_BUILD_SYSROOT  # [osx]
 
 requirements:
     build:
-        - {{ compiler('c') }} # [not osx]
-        - gcc # [osx]
-        # - llvm-openmp  # [osx]
+        - {{ compiler('c') }}
+        - llvm-openmp  # [osx]
 
     host:
         - python {{ python }}
