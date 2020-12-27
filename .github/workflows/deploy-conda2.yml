@@ -41,7 +41,7 @@ jobs:
             - name: Build package
               shell: bash -l {0}
               run: |
-                  xcrun --show-sdk-path
+                  # xcrun --show-sdk-path
                   conda install -y conda-build anaconda-client
                   conda config --set anaconda_upload yes
                   export PATH=$(conda info --root):$PATH
