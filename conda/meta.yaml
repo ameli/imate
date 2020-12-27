@@ -14,10 +14,11 @@ source:
 build:
     number: 0
     script: 
-        - export CFLAGS="${CFLAGS} -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk"; {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
+        # - export CFLAGS="${CFLAGS} -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk"; {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
         # - export SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk; {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
         # - export CFLAGS="${CFLAGS} -isysroot ${CONDA_BUILD_SYSROOT}"; {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
-        # - {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
+        - {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt  # [not mac]
+        - sh ./build_macos.sh     # [mac]
         # - python setup.py install
         # - brew install libomp   # [osx]
         # - export LDFLAGS=-L/usr/local/opt/libomp/lib   # [osx]
