@@ -38,12 +38,14 @@ jobs:
             - name: SDK for MacOS
               if: runner.os == 'macos'
               run: |
+                  ls /opt -all
                   brew install wget
                   wget https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.9.sdk.tar.xz
                   sudo mv MacOSX10.9.sdk.tar.xz /opt
                   cd /opt
                   sudo tar -xf MacOSX10.9.sdk.tar.xz
                   sudo chmod -R a+rX /opt
+                  ls /opt -all
 
             - name: Checkout
               uses: actions/checkout@v2
