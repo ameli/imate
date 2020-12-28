@@ -62,7 +62,7 @@ jobs:
               run: |
                   # xcrun --show-sdk-path
                   export PATH="$HOME/miniconda/bin:$PATH"
-                  conda-build --output-folder . .
+                  conda-build --output-folder . conda/meta2.yaml
               env:
                   CYTHON_BUILD_IN_SOURCE: 'true'  # see setup.py. Avoids a bug when building with multiple python variants
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}

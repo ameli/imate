@@ -2,31 +2,33 @@
 {% set data = load_setup_py_data() %}
 
 package:
-    name: "{{ name|lower }}"
-    version: "{{ data['version'] }}"
+    name: "TraceInv"
+    version: "0.0.1"
+    # name: "{{ name|lower }}"
+    # version: "{{ data['version'] }}"
 
-source:
-    path: ..
+# source:
+    # path: ..
 
 # source:
 #   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
 
 build:
     number: 0
-    script: {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt -vvv  # [not mac]
-    script: sh ./build_macos.sh     # [mac]
+    script: {{ PYTHON }} -m pip install --no-deps dist/*.whl
+    # script: sh ./build_macos.sh     # [mac]
         # - export CFLAGS="${CFLAGS} -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk"; {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
         # - export SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk; {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
         # - export CFLAGS="${CFLAGS} -isysroot ${CONDA_BUILD_SYSROOT}"; {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
     # script: # - python setup.py install . --single-version-externally-managed --record=record.txt -vvv
     # script: {{ PYTHON }} -m pip install . --single-version-externally-managed --record=record.txt --no-deps --ignore-installed --no-cache-dir -vvv
     # script: "{{ PYTHON }} -m pip install . -vv"
-    features:
-        - vc9               [win and py27]
-        - vc10              [win and py34]
-        - vc14              [win and py35]
-    script_env:
-        CONDA_BUILD_SYSROOT  # [osx]
+    # features:
+    #     - vc9               [win and py27]
+    #     - vc10              [win and py34]
+    #     - vc14              [win and py35]
+    # script_env:
+    #     CONDA_BUILD_SYSROOT  # [osx]
 
 requirements:
     build:
