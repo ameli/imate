@@ -7,15 +7,15 @@ package:
     # name: "{{ name|lower }}"
     # version: "{{ data['version'] }}"
 
-# source:
-    # path: ..
+source:
+    path: ..
 
 # source:
 #   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
 
 build:
     number: 0
-    script: {{ PYTHON }} -m pip install --no-deps dist/*.whl
+    script: {{ PYTHON }} -m pip install dist/*.whl
     # script: sh ./build_macos.sh     # [mac]
         # - export CFLAGS="${CFLAGS} -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk"; {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
         # - export SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk; {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
