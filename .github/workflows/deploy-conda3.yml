@@ -47,17 +47,6 @@ jobs:
                   conda install conda-build
                   conda install anaconda-client
 
-            # - name: SDK for MacOS
-            #   if: runner.os == 'macos'
-            #   run: |
-            #       brew install wget
-            #       wget https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.9.sdk.tar.xz
-            #       sudo mv MacOSX10.9.sdk.tar.xz /opt
-            #       cd /opt
-            #       sudo tar -xf MacOSX10.9.sdk.tar.xz
-            #       sudo chmod -R a+rX /opt
-            #       ls /opt -all
-
             - name: Build package
               run: |
                   # xcrun --show-sdk-path
@@ -67,24 +56,16 @@ jobs:
                   CYTHON_BUILD_IN_SOURCE: 'true'  # see setup.py. Avoids a bug when building with multiple python variants
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
 
-            # - name: Convert linux builds to mac and winsows
-            #   run: |
-            #       export PATH="$HOME/miniconda/bin:$PATH"
-            #       conda convert -f -p linux-aarch64 linux-64/*.tar.bz2
-            #       conda convert -f -p osx-64 linux-64/*.tar.bz2
-            #       conda convert -f -p win-64 linux-64/*.tar.bz2
-            #       conda convert -f -p win-32 linux-64/*.tar.bz2
-
-            # - name: Upload to Anaconda Cloud
-            #   run: |
-            #       export PATH="$HOME/miniconda/bin:$PATH"
-            #       anaconda upload --force --label main linux-64/*.tar.bz2
-            #       anaconda upload --force --label main linux-aarch64/*.tar.bz2
-            #       anaconda upload --force --label main osx-64/*.tar.bz2
-            #       anaconda upload --force --label main win-64/*.tar.bz2
-            #       anaconda upload --force --label main win-32/*.tar.bz2
-            #   env:
-            #       ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+            - name: Upload to Anaconda Cloud
+              run: |
+                  export PATH="$HOME/miniconda/bin:$PATH"
+                  anaconda upload --force --label main linux-64/*.tar.bz2
+                  anaconda upload --force --label main linux-aarch64/*.tar.bz2
+                  anaconda upload --force --label main osx-64/*.tar.bz2
+                  anaconda upload --force --label main win-64/*.tar.bz2
+                  anaconda upload --force --label main win-32/*.tar.bz2
+              env:
+                  ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
 
     test_conda:
         needs: [build_upload_conda]
