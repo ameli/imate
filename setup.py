@@ -498,7 +498,8 @@ def main(argv):
             # 'pytest-runner'],
         tests_require = [
             'pytest',
-            'pytest-cov'],
+            'pytest-cov',
+            'pytest-runner'],
         include_package_data=True,
         cmdclass = {'build_ext': CustomBuildExtension},
         zip_safe=False,    # the package can run out of an .egg file

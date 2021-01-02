@@ -29,7 +29,7 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v2
 
-            - name: Build package
+            - name: Build and upload package
               shell: bash -l {0}
               run: |
                   conda install -y conda-build anaconda-client
@@ -78,25 +78,26 @@ jobs:
                   conda install conda-build
                   conda install anaconda-client
 
-            - name: Build package
+            - name: Build and upload package
               run: |
                   # xcrun --show-sdk-path
                   export PATH="$HOME/miniconda/bin:$PATH"
+                  conda config --set anaconda_upload yes
                   conda-build --output-folder . .
               env:
                   CYTHON_BUILD_IN_SOURCE: 'true'  # see setup.py. Avoids a bug when building with multiple python variants
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
 
-            - name: Upload to Anaconda Cloud
-              run: |
-                  export PATH="$HOME/miniconda/bin:$PATH"
-                  anaconda upload --force --label main linux-64/*.tar.bz2
-                  anaconda upload --force --label main linux-aarch64/*.tar.bz2
-                  anaconda upload --force --label main osx-64/*.tar.bz2
-                  anaconda upload --force --label main win-64/*.tar.bz2
-                  anaconda upload --force --label main win-32/*.tar.bz2
-              env:
-                  ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+            # - name: Upload to Anaconda Cloud
+            #   run: |
+            #       export PATH="$HOME/miniconda/bin:$PATH"
+            #       anaconda upload --force --label main linux-64/*.tar.bz2
+            #       anaconda upload --force --label main linux-aarch64/*.tar.bz2
+            #       anaconda upload --force --label main osx-64/*.tar.bz2
+            #       anaconda upload --force --label main win-64/*.tar.bz2
+            #       anaconda upload --force --label main win-32/*.tar.bz2
+            #   env:
+            #       ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
 
     test_conda:
         needs: [build_upload_conda_for_linux_windows,build_upload_conda_for_mac]
