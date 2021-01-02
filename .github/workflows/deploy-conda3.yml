@@ -81,7 +81,7 @@ jobs:
                   conda install conda-build
                   conda install anaconda-client
 
-            - name: Build and upload package
+            - name: Build conda package based on already compiled wheel and upload package
               run: |
                   # xcrun --show-sdk-path
                   export PATH="$HOME/miniconda/bin:$PATH"
