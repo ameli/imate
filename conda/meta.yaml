@@ -2,20 +2,17 @@
 {% set data = load_setup_py_data() %}
 
 package:
-    name: "traceinv"
-    version: "0.0.1"
-    # name: "{{ name|lower }}"
-    # version: "{{ data['version'] }}"
+    name: "{{ name|lower }}"
+    version: "{{ data['version'] }}"
 
 source:
     path: ..
 
-# source:
-#   url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
-
 build:
     number: 0
-    script: {{ PYTHON }} -m pip install dist/*.whl
+    script: 
+        - {{ PYTHON }} -m pip install dist/*.whl -vvv  # [osx]
+        - {{ PYTHON }} -m pip install . --single-version-externally-managed --record=record.txt --ignore-installed --no-cache-dir -vvv  #[not osx]
     # script: sh ./build_macos.sh     # [mac]
         # - export CFLAGS="${CFLAGS} -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk"; {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
         # - export SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk; {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
@@ -23,12 +20,6 @@ build:
     # script: # - python setup.py install . --single-version-externally-managed --record=record.txt -vvv
     # script: {{ PYTHON }} -m pip install . --single-version-externally-managed --record=record.txt --no-deps --ignore-installed --no-cache-dir -vvv
     # script: "{{ PYTHON }} -m pip install . -vv"
-    # features:
-    #     - vc9               [win and py27]
-    #     - vc10              [win and py34]
-    #     - vc14              [win and py35]
-    # script_env:
-    #     CONDA_BUILD_SYSROOT  # [osx]
 
 requirements:
     build:
@@ -41,21 +32,16 @@ requirements:
         - numpy>1.11
         - cython>0.29
         - pip
-        # - pytest-runner
-        # - suitesparse
-        # - scipy
-        # - matplotlib
-        # - seaborn
+        - llvm-openmp  # [osx]
     run:
         - python {{ python }}
-        - numpy>1.11
+        # - numpy>1.11
+        - {{ pin_compatible('numpy') }}
         - scipy
-        # - suitesparse
+        - suitesparse
         - matplotlib
         - seaborn
-        # - cython
-        # - setuptools
-        # - llvm-openmp  # [osx]
+        - llvm-openmp  # [osx]
 
 test:
     imports:
