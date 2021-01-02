@@ -99,7 +99,7 @@ jobs:
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
 
     test_conda:
-        needs: [build_upload_conda]
+        needs: [build_upload_conda_for_linux_windows,build_upload_conda_for_mac]
         name: Test on ${{ matrix.os }} and Python ${{ matrix.python-version }}
         runs-on: ${{ matrix.os }}
         strategy:
