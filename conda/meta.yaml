@@ -12,7 +12,8 @@ build:
     number: 0
     script: 
         - {{ PYTHON }} -m pip install dist/*.whl -vvv  # [osx]
-        - {{ PYTHON }} -m pip install . --single-version-externally-managed --record=record.txt -vvv  # [not osx]
+        - {{ PYTHON }} -m pip install . -vv  # [not osx]
+        # - {{ PYTHON }} -m pip install . --single-version-externally-managed --record=record.txt -vvv  # [not osx]
         # - {{ PYTHON }} -m pip install . --single-version-externally-managed --record=record.txt --ignore-installed --no-cache-dir -vvv  # [not osx]
     # script: sh ./build_macos.sh     # [mac]
         # - export CFLAGS="${CFLAGS} -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk"; {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
