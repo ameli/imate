@@ -29,14 +29,16 @@ requirements:
         - llvm-openmp  # [osx]
 
     host:
-        - python {{ python }}
+        # - python {{ python }}
+        - python
         - setuptools
         - numpy>1.11
         - cython>=0.29
         - pip
         - llvm-openmp  # [osx]
     run:
-        - python {{ python }}
+        # - python {{ python }}
+        - python
         - numpy>1.11
         # - {{ pin_compatible('numpy') }}
         - scipy
