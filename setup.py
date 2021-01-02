@@ -494,12 +494,12 @@ def main(argv):
         setup_requires = [
             'setuptools',
             'numpy>1.11',
-            'cython'],
-            # 'pytest-runner'],
+            'cython',
+            'pytest-runner'],
         tests_require = [
             'pytest',
-            'pytest-cov',
-            'pytest-runner'],
+            'pytest-cov'],
+            # 'pytest-runner'],
         include_package_data=True,
         cmdclass = {'build_ext': CustomBuildExtension},
         zip_safe=False,    # the package can run out of an .egg file
