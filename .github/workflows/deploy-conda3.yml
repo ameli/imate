@@ -9,6 +9,7 @@ on:
             - published
 
 jobs:
+    # On linux and windows, package is built directly from the source code
     build_upload_conda_for_linux_windows:
         name: Build on ${{ matrix.os }}
         runs-on: ${{ matrix.os }}
@@ -41,7 +42,9 @@ jobs:
                   CYTHON_BUILD_IN_SOURCE: 'true'  # see setup.py. Avoids a bug when building with multiple python variants
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
 
+    # On MacOS, package is built from wheels, not directly from the source code
     build_upload_conda_for_mac:
+        name: Build on macos-latest
         runs-on: macos-latest
         steps:
             - name: Checkout

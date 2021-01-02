@@ -31,13 +31,13 @@ requirements:
         - python {{ python }}
         - setuptools
         - numpy>1.11
-        - cython>0.29
+        - cython>=0.29
         - pip
         - llvm-openmp  # [osx]
     run:
         - python {{ python }}
-        # - numpy>1.11
-        - {{ pin_compatible('numpy') }}
+        - numpy>1.11
+        # - {{ pin_compatible('numpy') }}
         - scipy
         - suitesparse
         - matplotlib
