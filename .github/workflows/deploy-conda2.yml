@@ -127,7 +127,7 @@ jobs:
             # - name: Test (in Unix)
             #   if: runner.os != 'Windows'
             #   run: |
-            #       mv TraceInv TraceInv-DoNotImport
+            #       mv imate imate-DoNotImport
             #       export PATH="$HOME/miniconda/bin:$PATH"
             #       source $(conda info --root)/etc/profile.d/conda.sh
             #       
@@ -160,7 +160,7 @@ jobs:
             - name: Test
               shell: bash -l {0}
               run: |
-                  mv TraceInv TraceInv-DoNotImport
+                  mv imate imate-DoNotImport
                   rm setup.cfg
                   conda install -c s-ameli traceinv -y
                   conda install pytest -y

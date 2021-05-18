@@ -1,5 +1,5 @@
 ********
-TraceInv
+imate
 ********
 
 |travis-devel| |codecov-devel| |docs| |licence| |platforms| |conda-version| |conda| |format| |pypi| |implementation| |pyversions|
@@ -22,6 +22,7 @@ A common difficulty in such application is that the matrices are generally large
     Install <install>
     Quick Start <quickstart>
     Examples <examples>
+    Notes <notes>
 
 .. toctree::
     :maxdepth: 1
@@ -30,7 +31,7 @@ A common difficulty in such application is that the matrices are generally large
     Compute Log Determinant <ComputeLogDeterminant>
     Compute Trace of Inverse <ComputeTraceOfInverse>
     Interpolate Trace of Inverse <InterpolateTraceOfInverse>
-    Generate Matrix <GenerateMatrix>
+    generate_matrix <generate_matrix>
 
 .. toctree::
     :maxdepth: 1
@@ -49,9 +50,9 @@ A common difficulty in such application is that the matrices are generally large
 ..    :recursive:
 ..    :nosignatures:
 ..
-..    TraceInv.ComputeTraceOfInverse
-..    TraceInv.InterpolateTraceOfInverse
-..    TraceInv.GenerateMatrix
+..    imate.ComputeTraceOfInverse
+..    imate.InterpolateTraceOfInverse
+..    imate.generate_matrix
 
 =========
 Tutorials
@@ -59,42 +60,42 @@ Tutorials
 
 |binder|
 
-A tutorial and demonstration of examples can be found with `online interactive Jupyter notebook <https://mybinder.org/v2/gh/ameli/TraceInv/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb>`_.
+A tutorial and demonstration of examples can be found with `online interactive Jupyter notebook <https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb>`_.
 
 ============
 Useful Links
 ============
 
 .. For users
-..     * `Documentation <https://ameli.github.io/TraceInv/index.html>`_
-..     * `PyPi package <https://pypi.org/project/TraceInv/>`_
-..     * `Source code <https://github.com/ameli/TraceInv>`_
+..     * `Documentation <https://ameli.github.io/imate/index.html>`_
+..     * `PyPi package <https://pypi.org/project/imate/>`_
+..     * `Source code <https://github.com/ameli/imate>`_
 ..
 .. For developers
-..     * `API <https://ameli.github.io/TraceInv/_modules/modules.html>`_
-..     * `Travis-CI <https://travis-ci.com/github/ameli/TraceInv>`_
-..     * `Codecov <https://codecov.io/gh/ameli/TraceInv>`_
+..     * `API <https://ameli.github.io/imate/_modules/modules.html>`_
+..     * `Travis-CI <https://travis-ci.com/github/ameli/imate>`_
+..     * `Codecov <https://codecov.io/gh/ameli/imate>`_
 
 +---------------------------------------------------------------+-------------------------------------------------------------------+
 |    For users                                                  | For developers                                                    |
 +===============================================================+===================================================================+
-| * `Anaconda package <https://anaconda.org/s-ameli/traceinv>`_ | * `API <https://ameli.github.io/TraceInv/_modules/modules.html>`_ |
-| * `PyPi package <https://pypi.org/project/TraceInv/>`_        | * `Travis-CI <https://travis-ci.com/github/ameli/TraceInv>`_      |
-| * `Source code <https://github.com/ameli/TraceInv>`_          | * `Codecov <https://codecov.io/gh/ameli/TraceInv>`_               |
+| * `Anaconda package <https://anaconda.org/s-ameli/traceinv>`_ | * `API <https://ameli.github.io/imate/_modules/modules.html>`_ |
+| * `PyPi package <https://pypi.org/project/imate/>`_        | * `Travis-CI <https://travis-ci.com/github/ameli/imate>`_      |
+| * `Source code <https://github.com/ameli/imate>`_          | * `Codecov <https://codecov.io/gh/ameli/imate>`_               |
 +---------------------------------------------------------------+-------------------------------------------------------------------+
 
 =================
 How to Contribute
 =================
 
-We welcome contributions via `Github's pull request <https://github.com/ameli/TraceInv/pulls>`_. If you do not feel comfortable modifying the code, we also welcome feature request and bug report as `Github issues <https://github.com/ameli/TraceInv/issues>`_.
+We welcome contributions via `Github's pull request <https://github.com/ameli/imate/pulls>`_. If you do not feel comfortable modifying the code, we also welcome feature request and bug report as `Github issues <https://github.com/ameli/imate/issues>`_.
 
 ================
 Related Projects
 ================
 
-* `Orthogonal Functions <https://ameli.github.io/Orthogonal-Functions/>`_: A python package that generates set of orthogonal basis functions used for :ref:`interpolation schemes <InterpolateTraceOfInverse>` in TraceInv.
-* `Gaussian Process Regression <https://github.com/ameli/gaussian-process-param-estimation>`_: A python package that makes use of TraceInv expensively to efficiently compute the parameters of Gaussian process regression.
+* `Orthogonal Functions <https://ameli.github.io/Orthogonal-Functions/>`_: A python package that generates set of orthogonal basis functions used for :ref:`interpolation schemes <InterpolateTraceOfInverse>` in imate.
+* `Gaussian Process Regression <https://github.com/ameli/gaussian-process-param-estimation>`_: A python package that makes use of imate expensively to efficiently compute the parameters of Gaussian process regression.
 
 ===========
 Attribution
@@ -141,28 +142,28 @@ Indices and tables
 
 .. .. autosummary::
 ..
-..    TraceInv.GenerateMatrix
-..    TraceInv.ComputeTraceOfInverse
-..    TraceInv.InterpolateTraceOfInverse
+..    imate.generate_matrix
+..    imate.ComputeTraceOfInverse
+..    imate.InterpolateTraceOfInverse
 
-.. |travis-devel| image:: https://img.shields.io/travis/com/ameli/TraceInv
-   :target: https://travis-ci.com/github/ameli/TraceInv
-.. |codecov-devel| image:: https://img.shields.io/codecov/c/github/ameli/TraceInv
-   :target: https://codecov.io/gh/ameli/TraceInv
-.. |docs| image:: https://github.com/ameli/TraceInv/workflows/deploy-docs/badge.svg
-   :target: https://github.com/ameli/TraceInv/actions?query=workflow%3Adeploy-docs
-.. |licence| image:: https://img.shields.io/github/license/ameli/TraceInv
+.. |travis-devel| image:: https://img.shields.io/travis/com/ameli/imate
+   :target: https://travis-ci.com/github/ameli/imate
+.. |codecov-devel| image:: https://img.shields.io/codecov/c/github/ameli/imate
+   :target: https://codecov.io/gh/ameli/imate
+.. |docs| image:: https://github.com/ameli/imate/workflows/deploy-docs/badge.svg
+   :target: https://github.com/ameli/imate/actions?query=workflow%3Adeploy-docs
+.. |licence| image:: https://img.shields.io/github/license/ameli/imate
    :target: https://opensource.org/licenses/MIT
-.. |travis-devel-linux| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=linux&label=build&branch=main
-   :target: https://travis-ci.com/github/ameli/TraceInv
-.. |travis-devel-osx| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=osx&label=build&branch=main
-   :target: https://travis-ci.com/github/ameli/TraceInv
-.. |travis-devel-windows| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=windows&label=build&branch=main
-   :target: https://travis-ci.com/github/ameli/TraceInv
-.. |implementation| image:: https://img.shields.io/pypi/implementation/TraceInv
-.. |pyversions| image:: https://img.shields.io/pypi/pyversions/TraceInv
-.. |format| image:: https://img.shields.io/pypi/format/TraceInv
-.. |pypi| image:: https://img.shields.io/pypi/v/TraceInv
+.. |travis-devel-linux| image:: https://img.shields.io/travis/com/ameli/imate?env=BADGE=linux&label=build&branch=main
+   :target: https://travis-ci.com/github/ameli/imate
+.. |travis-devel-osx| image:: https://img.shields.io/travis/com/ameli/imate?env=BADGE=osx&label=build&branch=main
+   :target: https://travis-ci.com/github/ameli/imate
+.. |travis-devel-windows| image:: https://img.shields.io/travis/com/ameli/imate?env=BADGE=windows&label=build&branch=main
+   :target: https://travis-ci.com/github/ameli/imate
+.. |implementation| image:: https://img.shields.io/pypi/implementation/imate
+.. |pyversions| image:: https://img.shields.io/pypi/pyversions/imate
+.. |format| image:: https://img.shields.io/pypi/format/imate
+.. |pypi| image:: https://img.shields.io/pypi/v/imate
 .. |conda| image:: https://anaconda.org/s-ameli/traceinv/badges/installer/conda.svg
    :target: https://anaconda.org/s-ameli/traceinv
 .. |platforms| image:: https://img.shields.io/conda/pn/s-ameli/traceinv?color=orange?label=platforms
@@ -170,4 +171,4 @@ Indices and tables
 .. |conda-version| image:: https://img.shields.io/conda/v/s-ameli/traceinv
    :target: https://anaconda.org/s-ameli/traceinv
 .. |binder| image:: https://mybinder.org/badge_logo.svg
-   :target: https://mybinder.org/v2/gh/ameli/TraceInv/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb
+   :target: https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb

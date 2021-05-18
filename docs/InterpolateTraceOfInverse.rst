@@ -1,10 +1,10 @@
 .. _InterpolateTraceOfInverse_UserGuide:
 
 ************************************************************************
-Interpolate Trace of Inverse (:mod:`TraceInv.InterpolateTraceOfInverse`)
+Interpolate Trace of Inverse (:mod:`imate.InterpolateTraceOfInverse`)
 ************************************************************************
 
-The sub-package :mod:`TraceInv.InterpolateTraceOfInverse` interpolates the trace of inverse of an affine matrix function :math:`\mathbf{A} + t \mathbf{B}`, that is the following function is interpolated for the parameter :math:`t`:
+The sub-package :mod:`imate.InterpolateTraceOfInverse` interpolates the trace of inverse of an affine matrix function :math:`\mathbf{A} + t \mathbf{B}`, that is the following function is interpolated for the parameter :math:`t`:
 
 .. math::
 
@@ -14,13 +14,13 @@ The sub-package :mod:`TraceInv.InterpolateTraceOfInverse` interpolates the trace
 Usage
 =====
 
-In the code below, we create an object of the class :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>`, and then interpolate at an inquiry point :math:`t`.
+In the code below, we create an object of the class :mod:`InterpolateTraceOfInverse <imate.InterpolateTraceOfInverse>`, and then interpolate at an inquiry point :math:`t`.
 
 .. code-block:: python
    :emphasize-lines: 11,15
     
-   >>> from TraceInv import GenerateMatrix
-   >>> from TraceInv import InterpolateTraceOfInverse
+   >>> from imate import GenerateMatrix
+   >>> from imate import InterpolateTraceOfInverse
    
    >>> # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)
    >>> A = GenerateMatrix(NumPoints=20)
@@ -28,14 +28,14 @@ In the code below, we create an object of the class :mod:`InterpolateTraceOfInve
    >>> # Define some interpolant points
    >>> InterpolantPoints = [1e-2,1e-1,1,1e+1]
    
-   >>> # Create an interpolating TraceInv object
+   >>> # Create an interpolating imate object
    >>> TI = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints)
    
    >>> # Interpolate A+tI at some inquiry point t
    >>> t = 4e-1
    >>> trace = TI.Interpolate(t)
 
-In the above code, we only provided the matrix ``A`` to the module :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>`, which then it assumes ``B`` is identity matrix by default. To compute the trace of the inverse of :math:`\mathbf{A} + t \mathbf{B}` where :math:`\mathbf{B}` is not identity matrix, pass both ``A`` and ``B`` to :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>` as follows.
+In the above code, we only provided the matrix ``A`` to the module :mod:`InterpolateTraceOfInverse <imate.InterpolateTraceOfInverse>`, which then it assumes ``B`` is identity matrix by default. To compute the trace of the inverse of :math:`\mathbf{A} + t \mathbf{B}` where :math:`\mathbf{B}` is not identity matrix, pass both ``A`` and ``B`` to :mod:`InterpolateTraceOfInverse <imate.InterpolateTraceOfInverse>` as follows.
 
 .. code-block:: python
 
@@ -43,10 +43,10 @@ In the above code, we only provided the matrix ``A`` to the module :mod:`Interpo
    >>> A = GenerateMatrix(NumPoints=20,DecorrelationScale=1e-1)
    >>> B = GenerateMatrix(NumPoints=20,DecorrelationScale=2e-2)
    
-   >>> # Create an interpolating TraceInv object
+   >>> # Create an interpolating imate object
    >>> TI = InterpolateTraceOfInverse(A,B,InterpolantPoints=InterpolantPoints)
 
-The parameter ``DecorrelationScale`` of the class :mod:`GenerateMatrix <TraceInv.GenerateMatrix>` in the above specifies the scale of correlation function used to form a positive-definite matrix. We specified two correlation scales to generate different matrices ``A`` and ``B``. The user may use their own matrix data.
+The parameter ``DecorrelationScale`` of the class :mod:`GenerateMatrix <imate.GenerateMatrix>` in the above specifies the scale of correlation function used to form a positive-definite matrix. We specified two correlation scales to generate different matrices ``A`` and ``B``. The user may use their own matrix data.
 
 Interpolation for an array of inquiries points can be made by:
 
@@ -57,7 +57,7 @@ Interpolation for an array of inquiries points can be made by:
    >>> t_array = numpy.logspace(-3,+3,5)
    >>> traces = TI.Interpolate(t_array,InterpolantPoints=InterpolantPoints)
 
-The module :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>` can employ various interpolation methods listed in the table below. The method of interpolation can be set by ``InterpolationMethod`` argument when calling :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>`. The default method is ``RMBF``.
+The module :mod:`InterpolateTraceOfInverse <imate.InterpolateTraceOfInverse>` can employ various interpolation methods listed in the table below. The method of interpolation can be set by ``InterpolationMethod`` argument when calling :mod:`InterpolateTraceOfInverse <imate.InterpolateTraceOfInverse>`. The default method is ``RMBF``.
 
 ===========================  ===========================================  ============  =============  ============
 :attr:`InterpolationMethod`  Description                                  Matrix size   Matrix type    Results
@@ -70,7 +70,7 @@ The module :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>`
 ``'RPF'``                    :ref:`Rational Polynomial Functions Method`  small, large  dense, sparse  interpolated
 ===========================  ===========================================  ============  =============  ============
 
-The :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>` module internally defines an object of :class:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` (see :ref:`Compute Trace of Inverse user guide <ComputeTraceOfInverse_UserGuide>`) to evaluate the trace of inverse at the given interpolant points ``InterpolantPoints``. You can pass the options for this internal :class:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` object by ``ComputeOptions`` argument when initializing  :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>`, such as in the example below.
+The :mod:`InterpolateTraceOfInverse <imate.InterpolateTraceOfInverse>` module internally defines an object of :class:`ComputeTraceOfInverse <imate.ComputeTraceOfInverse>` (see :ref:`Compute Trace of Inverse user guide <ComputeTraceOfInverse_UserGuide>`) to evaluate the trace of inverse at the given interpolant points ``InterpolantPoints``. You can pass the options for this internal :class:`ComputeTraceOfInverse <imate.ComputeTraceOfInverse>` object by ``ComputeOptions`` argument when initializing  :mod:`InterpolateTraceOfInverse <imate.InterpolateTraceOfInverse>`, such as in the example below.
 
 .. code-block:: python
    :emphasize-lines: 12
@@ -93,10 +93,10 @@ Parameters
 ==========
 
 ------------------------------------------------------------------------------------------
-Parameters for :mod:`InterpolateTraceOfInverse <TraceInv.InterpolateTraceOfInverse>` Class
+Parameters for :mod:`InterpolateTraceOfInverse <imate.InterpolateTraceOfInverse>` Class
 ------------------------------------------------------------------------------------------
 
-The :mod:`TraceInv.InterpolateTraceOfInverse` class accepts the following attributes as input argument.
+The :mod:`imate.InterpolateTraceOfInverse` class accepts the following attributes as input argument.
 
 .. attribute:: A
    :type: numpy.ndarray, or scipy.sparse.csc_matrix
@@ -114,7 +114,7 @@ The :mod:`TraceInv.InterpolateTraceOfInverse` class accepts the following attrib
    :value: None
 
    List of interpolant points. The trace of inverse at the interpolant points are computed via the exact method using 
-   :mod:`TraceInv.ComputeTraceOfInverse` module. For each :attr:`InterpolationMethod`, the interpolant points should be as follows:
+   :mod:`imate.ComputeTraceOfInverse` module. For each :attr:`InterpolationMethod`, the interpolant points should be as follows:
 
    ===========================  ========================================
    :attr:`InterpolationMethod`  :attr:`InterpolantPoints`
@@ -138,7 +138,7 @@ The :mod:`TraceInv.InterpolateTraceOfInverse` class accepts the following attrib
    :value: {}
 
    Recall that the trace of inverse at the interpolant points are computed via the exact method using an internal
-   :mod:`TraceInv.ComputeTraceOfInverse` object within this class. The parameters of this internal object can be passed
+   :mod:`imate.ComputeTraceOfInverse` object within this class. The parameters of this internal object can be passed
    by the :attr:`ComputeOptions` disctionary. For instance, to 
 
 .. attribute:: Verbose
@@ -181,10 +181,10 @@ The :mod:`TraceInv.InterpolateTraceOfInverse` class accepts the following attrib
    of basis functions used in the interpolation.
 
 ------------------------------------------------------------------------------------------------------------------------
-Parameters for :func:`Interpolate() <TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Interpolate>` Function
+Parameters for :func:`Interpolate() <imate.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Interpolate>` Function
 ------------------------------------------------------------------------------------------------------------------------
 
-The :func:`TraceInv.InterpolateTraceOfInverse.Interpolate() <TraceInv.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Interpolate>` function accepts the following attributes as input argument.
+The :func:`imate.InterpolateTraceOfInverse.Interpolate() <imate.InterpolateTraceOfInverse.InterpolateTraceOfInverse.Interpolate>` function accepts the following attributes as input argument.
 
 .. attribute:: t
    :type: scalar, or numpy.array
@@ -196,7 +196,7 @@ The :func:`TraceInv.InterpolateTraceOfInverse.Interpolate() <TraceInv.Interpolat
    :value: False
    
    If ``True``, it computes the trace with exact solution, then compares it with the interpolated 
-   solution. When this option is enabled, the function :func:`Interpolate() <TraceInv.InterpolateTraceOfInverse.Interpolate>` 
+   solution. When this option is enabled, the function :func:`Interpolate() <imate.InterpolateTraceOfInverse.Interpolate>` 
    returns a tuple with the following three quantities:
    
        1. interpolated trace (single number or array)
@@ -226,12 +226,12 @@ The :func:`TraceInv.InterpolateTraceOfInverse.Interpolate() <TraceInv.Interpolat
    .. note::
 
        To manually disable interactive plot display, and save the plot as ``SVG`` instead, add the following in the
-       very begining of your code before importing ``TraceInv``:
+       very begining of your code before importing ``imate``:
 
        .. code-block:: python
          
            >>> import os
-           >>> os.environ['TRACEINV_NO_DISPLAY'] = 'True'
+           >>> os.environ['IMATE_NO_DISPLAY'] = 'True'
 
 ====================
 Mathematical Details
@@ -256,7 +256,7 @@ Exact Method
 ------------
 
 The exact method (by setting :attr:`InterpolationMethod` to ``'EXT'``) do not perform any interpolation on the inquiry 
-point. Rather, it computes the trace of inverse directly via the :mod:`TraceInv.ComputeTraceOfInverse` module. This method 
+point. Rather, it computes the trace of inverse directly via the :mod:`imate.ComputeTraceOfInverse` module. This method 
 is primarily used for comparing the result of other methods with a benchmark solution. For details of computation, 
 see :ref:`Compute Trace of Inverse <ComputeTraceOfInverse_UserGuide>` user guide.
 
@@ -420,8 +420,8 @@ The following code compares the methods ``'EXT'``, ``'EIG'``, ``'MBF'``, ``'RMBF
 .. code-block:: python
 
    >>> # Import packages
-   >>> from TraceInv import GenerateMatrix
-   >>> from TraceInv import InterpolateTraceOfInverse
+   >>> from imate import GenerateMatrix
+   >>> from imate import InterpolateTraceOfInverse
 
    >>> # Generate two symmetric and positive-definite matrices
    >>> A = GenerateMatrix(NumPoints=20,UseSparse=False)
@@ -431,7 +431,7 @@ The following code compares the methods ``'EXT'``, ``'EIG'``, ``'MBF'``, ``'RMBF
    >>> InterpolantPoints = [1e-4,1e-3,1e-2,1e-1,1,1e+1]
    >>> InquiryPoint = 0.4
 
-   >>> # Specify options to pass to the internal TraceInv.ComputeTraceOfInverse module
+   >>> # Specify options to pass to the internal imate.ComputeTraceOfInverse module
    >>> ComputeOptions={'ComputeMethod':'cholesky','UseInverseMatrix':True}
 
    >>> # Compute exact trace without interpolation
@@ -481,12 +481,12 @@ In this example, we use the default method (``RMBF``), but interpolate for an ar
 .. code-block:: python
 
    >>> # Generate symmetric and positive-definite matrices
-   >>> from TraceInv import GenerateMatrix
+   >>> from imate import GenerateMatrix
    >>> A = GenerateMatrix(NumPoints=20,DecorrelationScale=0.20)
    >>> B = GenerateMatrix(NumPoints=20,DecorrelationScale=0.05)
 
    >>> # Specify interpolation points, and create interpolating object
-   >>> from TraceInv import InterpolateTraceOfInverse
+   >>> from imate import InterpolateTraceOfInverse
    >>> InterpolantPoints = [1e-3,1e-2,1e-1,1,1e+1,1e+2,1e+3]
    >>> TI = InterpolateTraceOfInverse(A,B,InterpolantPoints)
 
@@ -514,23 +514,23 @@ API
 Main Interface
 --------------
 
-.. automodapi:: TraceInv.InterpolateTraceOfInverse
+.. automodapi:: imate.InterpolateTraceOfInverse
    :no-inheritance-diagram:
 
 -------------------
 Inheritance Diagram
 -------------------
 
-.. inheritance-diagram:: TraceInv.InterpolateTraceOfInverse.ExactMethod TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod
+.. inheritance-diagram:: imate.InterpolateTraceOfInverse.ExactMethod imate.InterpolateTraceOfInverse.EigenvaluesMethod imate.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod imate.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod imate.InterpolateTraceOfInverse.RadialBasisFunctionsMethod imate.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod
     :parts: 1
 
 -------
 Modules
 -------
 
-.. automodapi:: TraceInv.InterpolateTraceOfInverse.ExactMethod
-.. automodapi:: TraceInv.InterpolateTraceOfInverse.EigenvaluesMethod
-.. automodapi:: TraceInv.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod
-.. automodapi:: TraceInv.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod
-.. automodapi:: TraceInv.InterpolateTraceOfInverse.RadialBasisFunctionsMethod
-.. automodapi:: TraceInv.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod
+.. automodapi:: imate.InterpolateTraceOfInverse.ExactMethod
+.. automodapi:: imate.InterpolateTraceOfInverse.EigenvaluesMethod
+.. automodapi:: imate.InterpolateTraceOfInverse.MonomialBasisFunctionsMethod
+.. automodapi:: imate.InterpolateTraceOfInverse.RootMonomialBasisFunctionsMethod
+.. automodapi:: imate.InterpolateTraceOfInverse.RadialBasisFunctionsMethod
+.. automodapi:: imate.InterpolateTraceOfInverse.RationalPolynomialFunctionsMethod

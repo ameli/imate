@@ -11,15 +11,15 @@ Three examples are provided in |examplesdir|_, which aim to reproduce the figure
 * **Example 3:** Script |example3|_ reproduces Figure 4 and generates the results of Table 2.
 
 Before running examples:
-   To run the examples, you may not need to install the ``TraceInv`` package. Rather, download the source code and install requirements:
+   To run the examples, you may not need to install the ``imate`` package. Rather, download the source code and install requirements:
 
    ::
     
        # Download
-       git clone https://github.com/ameli/TraceInv.git
+       git clone https://github.com/ameli/imate.git
 
        # Install prerequisite packages
-       cd TraceInv
+       cd imate
        python -m pip install --upgrade -r requirements.txt
     
    Then, run either of the examples as described below.
@@ -42,7 +42,7 @@ Run this example by
 
 ::
 
-    python examples/Plot_TraceInv_FullRank.py
+    python examples/Plot_imate_FullRank.py
 
 The script generates the figure below (see Figure 2 of [Ameli-2020]_).
 
@@ -73,7 +73,7 @@ Run this example by
 
 ::
 
-    python examples/Plot_TraceInv_IllConditioned.py
+    python examples/Plot_imate_IllConditioned.py
 
 The script generates the figure below (see also  Figure 3 of [Ameli-2020]_).
 
@@ -108,10 +108,10 @@ The script generates the figure below and prints the processing times of the com
 
 
 .. |examplesdir| replace:: ``/examples`` 
-.. _examplesdir: https://github.com/ameli/TraceInv/blob/main/examples
-.. |example1| replace:: ``/examples/Plot_TraceInv_FullRank.py``
-.. _example1: https://github.com/ameli/TraceInv/blob/main/examples/Plot_TraceInv_FullRank.py
-.. |example2| replace:: ``/examples/Plot_TraceInv_IllConditioned.py``
-.. _example2: https://github.com/ameli/TraceInv/blob/main/examples/Plot_TraceInv_IllConditioned.py
+.. _examplesdir: https://github.com/ameli/imate/blob/main/examples
+.. |example1| replace:: ``/examples/Plot_imate_FullRank.py``
+.. _example1: https://github.com/ameli/imate/blob/main/examples/Plot_imate_FullRank.py
+.. |example2| replace:: ``/examples/Plot_imate_IllConditioned.py``
+.. _example2: https://github.com/ameli/imate/blob/main/examples/Plot_imate_IllConditioned.py
 .. |example3| replace:: ``/examples/Plot_GeneralizedCorssValidation.py``
-.. _example3: https://github.com/ameli/TraceInv/blob/main/examples/Plot_GeneralizedCrossValidation.py
+.. _example3: https://github.com/ameli/imate/blob/main/examples/Plot_GeneralizedCrossValidation.py

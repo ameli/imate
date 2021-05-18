@@ -54,14 +54,14 @@ A common example of such an application can be found in regularization technique
 frequently appears. Other examples of :eq:`map` are in the optimal design of experiment, probabilistic principal component analysis (see Sec. 12.2 of [Bishop-2006]_), relevance vector machines [Tipping-2001]_ and [Bishop-2006]_, kernel smoothing (see Sec. 2.6 of [Rasmussen-2006]_, and Bayesian linear models (see Sec. 3.3 of [Bishop-2006]_.
 
 ==============================
-Advantages of TraceInv Package
+Advantages of imate Package
 ==============================
 
 TODO
 
 **Interpolation**
 
-The greatest benefit that TraceInv offers is its ability to interpolate the trace of the inverse of *affine matrix functions*, which is implemented in :mod:`TraceInv.InterpolateTraceOfInverse` module based.
+The greatest benefit that imate offers is its ability to interpolate the trace of the inverse of *affine matrix functions*, which is implemented in :mod:`imate.InterpolateTraceOfInverse` module based.
 
 **Speed**
 
@@ -77,7 +77,7 @@ Other Useful Packages
 
 TODO
 
-TraceInv does not replace many sophisticated computational packages in linear algebra and machine learning. Rather, some if its features were implemented on top of other packages. 
+imate does not replace many sophisticated computational packages in linear algebra and machine learning. Rather, some if its features were implemented on top of other packages. 
 
 ==========
 References

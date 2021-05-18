@@ -1,10 +1,10 @@
 .. _ComputeTraceOfInverse_UserGuide:
 
 ****************************************************************
-Compute Trace of Inverse (:mod:`TraceInv.ComputeTraceOfInverse`)
+Compute Trace of Inverse (:mod:`imate.ComputeTraceOfInverse`)
 ****************************************************************
 
-The sub-package :mod:`TraceInv.ComputeTraceOfInverse` computes the trace of inverse of an invertible matrix. 
+The sub-package :mod:`imate.ComputeTraceOfInverse` computes the trace of inverse of an invertible matrix. 
 
 =====
 Usage
@@ -12,8 +12,8 @@ Usage
 
 .. code-block:: python
 
-   >>> from TraceInv import GenerateMatrix
-   >>> from TraceInv import ComputeTraceOfInverse
+   >>> from imate import GenerateMatrix
+   >>> from imate import ComputeTraceOfInverse
    
    >>> # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)
    >>> A = GenerateMatrix(NumPoints=20)
@@ -21,9 +21,9 @@ Usage
    >>> # Compute trace of inverse
    >>> trace = ComputeTraceOfInverse(A)
 
-In the above, the class :class:`GenerateMatrix <TraceInv.GenerateMatrix>` produces a sample matrix for test purposes (see :ref:`Generate Matrix <GenerateMatrix>` for details).
+In the above, the class :class:`GenerateMatrix <imate.GenerateMatrix>` produces a sample matrix for test purposes (see :ref:`Generate Matrix <GenerateMatrix>` for details).
 
-The :mod:`ComputeTraceOfInverse <TraceInv.ComputeTraceOfInverse>` module in the above code employs the *Cholesky method* by default to compute the trace of inverse. However, other methods can be employed by setting :attr:`ComputeMethod` argument according to the table below.
+The :mod:`ComputeTraceOfInverse <imate.ComputeTraceOfInverse>` module in the above code employs the *Cholesky method* by default to compute the trace of inverse. However, other methods can be employed by setting :attr:`ComputeMethod` argument according to the table below.
 
 =====================  ===========================================================================  ============  =============  =============
 :attr:`ComputeMethod`  Description                                                                  Matrix size   Structure      Results       
@@ -40,13 +40,13 @@ In the following example, we apply the *Hutchinson's randomized estimator* metho
    >>> # Using Hutchinson method with 20 Monte-Carlo iterations
    >>> trace = ComputeTraceOfInverse(A,ComputeMethod='hutchinson',NumIterations=20)
 
-Each of the methods in the above accepts some options. For instance, the Hutchinson's method accepts :attr:`NumIterations` argument, which sets the number of Monte-Carlo trials. To see the detailed list of all arguments for each method, see :ref:`Parameters` and the `API <https://ameli.github.io/TraceInv/_modules/modules.html>`__ of the package.
+Each of the methods in the above accepts some options. For instance, the Hutchinson's method accepts :attr:`NumIterations` argument, which sets the number of Monte-Carlo trials. To see the detailed list of all arguments for each method, see :ref:`Parameters` and the `API <https://ameli.github.io/imate/_modules/modules.html>`__ of the package.
 
 ==========
 Parameters
 ==========
 
-The :mod:`TraceInv.ComputeTraceOfInverse` module accepts the following attributes as input argument.
+The :mod:`imate.ComputeTraceOfInverse` module accepts the following attributes as input argument.
 
 .. attribute:: A
    :type: numpy.ndarray, or scipy.sparse.csc_matrix
@@ -251,8 +251,8 @@ In the code below, we compare the three computing methods for a small dense matr
 .. code-block:: python
 
    >>> # Import modules
-   >>> from TraceInv import GenerateMatrix
-   >>> from TraceInv import ComputeTraceOfInverse
+   >>> from imate import GenerateMatrix
+   >>> from imate import ComputeTraceOfInverse
 
    >>> # Generate a matrix
    >>> A = GenerateMatrix(NumPoints=20)
@@ -279,7 +279,7 @@ Variable  Method      Options                                              Resul
 The above table can be produced by running the test script |test_script|_, although, the results might be slightly difference due to the random number generator.
 
 .. |test_script| replace:: ``/test/test_ComputeTraceOfInverse.py``
-.. _test_script: https://github.com/ameli/TraceInv/blob/main/tests/test_ComputeTraceOfInverse.py
+.. _test_script: https://github.com/ameli/imate/blob/main/tests/test_ComputeTraceOfInverse.py
 
 -------------
 Sparse Matrix
@@ -290,8 +290,8 @@ In the code below, we compare the three computing methods for a large sparse mat
 .. code-block:: python
 
    >>> # Import modules
-   >>> from TraceInv import GenerateMatrix
-   >>> from TraceInv import ComputeTraceOfInverse
+   >>> from imate import GenerateMatrix
+   >>> from imate import ComputeTraceOfInverse
 
    >>> # Generate a matrix
    >>> A = GenerateMatrix(NumPoints=80,KernelThreshold=0.05,DecorrelationScale=0.02,UseSparse=True,RunInParallel=True)
@@ -347,13 +347,13 @@ API
 Main Interface
 --------------
 
-.. automodapi:: TraceInv.ComputeTraceOfInverse
+.. automodapi:: imate.ComputeTraceOfInverse
 
 -------
 Modules
 -------
 
-.. automodapi:: TraceInv.ComputeTraceOfInverse.CholeskyMethod
-.. automodapi:: TraceInv.ComputeTraceOfInverse.HutchinsonMethod
-.. automodapi:: TraceInv.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod
-.. automodapi:: TraceInv._LinearAlgebra.LinearSolver
+.. automodapi:: imate.ComputeTraceOfInverse.CholeskyMethod
+.. automodapi:: imate.ComputeTraceOfInverse.HutchinsonMethod
+.. automodapi:: imate.ComputeTraceOfInverse.StochasticLanczosQuadratureMethod
+.. automodapi:: imate._LinearAlgebra.LinearSolver

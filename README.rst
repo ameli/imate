@@ -1,5 +1,5 @@
 ********
-TraceInv
+imate
 ********
 
 |travis-devel| |codecov-devel| |licence| |format| |pypi| |implementation| |pyversions|
@@ -7,21 +7,21 @@ TraceInv
 A python package to compute the trace of the inverse of a matrix or a linear matrix function.
 
 .. For users
-..     * `Documentation <https://ameli.github.io/TraceInv/index.html>`_
-..     * `PyPi package <https://pypi.org/project/TraceInv/>`_
-..     * `Source code <https://github.com/ameli/TraceInv>`_
+..     * `Documentation <https://ameli.github.io/imate/index.html>`_
+..     * `PyPi package <https://pypi.org/project/imate/>`_
+..     * `Source code <https://github.com/ameli/imate>`_
 ..
 .. For developers
-..     * `API <https://ameli.github.io/TraceInv/_modules/modules.html>`_
-..     * `Travis-CI <https://travis-ci.com/github/ameli/TraceInv>`_
-..     * `Codecov <https://codecov.io/gh/ameli/TraceInv>`_
+..     * `API <https://ameli.github.io/imate/_modules/modules.html>`_
+..     * `Travis-CI <https://travis-ci.com/github/ameli/imate>`_
+..     * `Codecov <https://codecov.io/gh/ameli/imate>`_
 
 +------------------------------------------------------------------+-------------------------------------------------------------------+
 |    For users                                                     | For developers                                                    |
 +==================================================================+===================================================================+
-| * `Documentation <https://ameli.github.io/TraceInv/index.html>`_ | * `API <https://ameli.github.io/TraceInv/_modules/modules.html>`_ |
-| * `PyPi package <https://pypi.org/project/TraceInv/>`_           | * `Travis-CI <https://travis-ci.com/github/ameli/TraceInv>`_      |
-| * `Anaconda Cloud <https://anaconda.org/s-ameli/traceinv>`_      | * `Codecov <https://codecov.io/gh/ameli/TraceInv>`_               |
+| * `Documentation <https://ameli.github.io/imate/index.html>`_ | * `API <https://ameli.github.io/imate/_modules/modules.html>`_ |
+| * `PyPi package <https://pypi.org/project/imate/>`_           | * `Travis-CI <https://travis-ci.com/github/ameli/imate>`_      |
+| * `Anaconda Cloud <https://anaconda.org/s-ameli/traceinv>`_      | * `Codecov <https://codecov.io/gh/ameli/imate>`_               |
 +------------------------------------------------------------------+-------------------------------------------------------------------+
 
 ***********
@@ -33,7 +33,7 @@ This package computes the trace of inverse of two forms of matrices:
 1. **Fixed Matrix:** For an invertible matrix |image01| (sparse of dense), this package computes |image02|.
 2. **One-Parameter Affine Matrix Function:** |image05|, where |image01| and |image03| are symmetric and positive-definite matrices and ``t`` is a real parameter. This package can interpolate the function
 
-.. image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/image06.svg
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/image06.svg
    :align: center
 
 **Application:**
@@ -41,13 +41,13 @@ This package computes the trace of inverse of two forms of matrices:
 
 These interpolation methods are described in [Ameli-2020]_. 
 
-.. |image00| image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/image00.svg
-.. |image01| image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/image01.svg
-.. |image02| image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/image02.svg
-.. |image03| image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/image03.svg
-.. |image04| image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/image04.svg
-.. |image05| image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/image05.svg
-.. |image06| image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/image06.svg
+.. |image00| image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/image00.svg
+.. |image01| image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/image01.svg
+.. |image02| image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/image02.svg
+.. |image03| image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/image03.svg
+.. |image04| image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/image04.svg
+.. |image05| image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/image05.svg
+.. |image06| image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/image06.svg
 
 *******
 Install
@@ -60,30 +60,30 @@ Prerequisites
 The prerequisite packages are:
 
 * **Required:** ``numpy`` and ``scipy``.
-* **Required:** ``matplotlib`` and ``seaborn``, but only required to run the `examples <https://github.com/ameli/TraceInv#examples>`_.
+* **Required:** ``matplotlib`` and ``seaborn``, but only required to run the `examples <https://github.com/ameli/imate#examples>`_.
 * **Optional:** ``ray`` and ``scikit-sparse`` can improve performance, but not required.
 
-By installing TraceInv `below <https://github.com/ameli/TraceInv#install>`_, the *required* prerequisite packages (but not the *optional* packages) in the above will be installed automatically and no other action is needed. However, if desired, the *optional* packages should be installed `manually <https://github.com/ameli/TraceInv#install-optional-packages>`_.
+By installing imate `below <https://github.com/ameli/imate#install>`_, the *required* prerequisite packages (but not the *optional* packages) in the above will be installed automatically and no other action is needed. However, if desired, the *optional* packages should be installed `manually <https://github.com/ameli/imate#install-optional-packages>`_.
 
 ================
-Install TraceInv
+Install imate
 ================
 
 Install by either of the following ways:
 
-* **Method 1:** The recommended way is to install through the package available at `PyPi <https://pypi.org/project/TraceInv>`_:
+* **Method 1:** The recommended way is to install through the package available at `PyPi <https://pypi.org/project/imate>`_:
 
   ::
 
-    python -m pip install TraceInv
+    python -m pip install imate
 
 
 * **Method 2:** download the source code and install by:
 
   ::
 
-    git clone https://github.com/ameli/TraceInv.git
-    cd TraceInv
+    git clone https://github.com/ameli/imate.git
+    cd imate
     python -m pip install -e .
 
 =========================
@@ -101,7 +101,7 @@ Install ``ray``
     python -m pip install ray
 
 When ``ray`` is needed:
-    To run the `examples <https://github.com/ameli/TraceInv#examples>`_, you may install the ``ray`` package to leverage the parallel processing used in generate large sparse matrices. However, the examples can still produce results without installing ``ray``.
+    To run the `examples <https://github.com/ameli/imate#examples>`_, you may install the ``ray`` package to leverage the parallel processing used in generate large sparse matrices. However, the examples can still produce results without installing ``ray``.
 
 -------------------------
 Install ``scikit-sparse``
@@ -128,20 +128,20 @@ Install ``scikit-sparse``
        python -m pip install scikit-sparse
 
 When ``scikit-sparse`` is needed:
-    In ``TraceInv`` package, one of the methods to compute the trace of a matrix is by the *Cholesky decomposition*. If the input matrix is *sparse*, the Cholesky decomposition is computed using ``scikit-sparse`` if available. But if this package is not available, the ``scipy`` package is used instead.
+    In ``imate`` package, one of the methods to compute the trace of a matrix is by the *Cholesky decomposition*. If the input matrix is *sparse*, the Cholesky decomposition is computed using ``scikit-sparse`` if available. But if this package is not available, the ``scipy`` package is used instead.
 
 *****
 Usage
 *****
 
-The package TraceInv provides three sub-packages:
+The package imate provides three sub-packages:
 
 ======================================  =====================================================================
 Sub-Package                             Description
 ======================================  =====================================================================
-``TraceInv.GenerateMatrix``             Generates symmetric and positive-definite matrices for test purposes.
-``TraceInv.ComputeTraceOfInverse``      Computes trace of inverse for a fixed matrix.
-``TraceInv.InterpolateTraceOfInverse``  Interpolates trace of inverse for a linear matrix function.
+``imate.GenerateMatrix``             Generates symmetric and positive-definite matrices for test purposes.
+``imate.ComputeTraceOfInverse``      Computes trace of inverse for a fixed matrix.
+``imate.InterpolateTraceOfInverse``  Interpolates trace of inverse for a linear matrix function.
 ======================================  =====================================================================
 
 The next two sections presents minimalistic examples respectively for:
@@ -155,8 +155,8 @@ The next two sections presents minimalistic examples respectively for:
 
 .. code-block:: python
 
-   >>> from TraceInv import GenerateMatrix
-   >>> from TraceInv import ComputeTraceOfInverse
+   >>> from imate import GenerateMatrix
+   >>> from imate import ComputeTraceOfInverse
    
    >>> # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)
    >>> A = GenerateMatrix(NumPoints=20)
@@ -183,7 +183,7 @@ The desired method of computation can be passed through the ``ComputeMethod`` ar
    >>> # Using hutchinson method with 20 Monte-Carlo iterations
    >>> trace = ComputeTraceOfInverse(A,ComputeMethod='hutchinson',NumIterations=20)
 
-Each of the methods in the above accept some options. For instance, the Hutchinson's method accepts ``NumIterations`` argument, which sets the number of Monte-Carlo trials. To see the detailed list of all arguments for each method, see the `API <https://ameli.github.io/TraceInv/_modules/modules.html>`__ of the package.
+Each of the methods in the above accept some options. For instance, the Hutchinson's method accepts ``NumIterations`` argument, which sets the number of Monte-Carlo trials. To see the detailed list of all arguments for each method, see the `API <https://ameli.github.io/imate/_modules/modules.html>`__ of the package.
 
 .. _Affine-Matrix:
 
@@ -195,8 +195,8 @@ The module ``InterpolateTraceOfInverse`` interpolates the trace of the inverse o
 
 .. code-block:: python
     
-   >>> from TraceInv import GenerateMatrix
-   >>> from TraceInv import InterpolateTraceOfInverse
+   >>> from imate import GenerateMatrix
+   >>> from imate import InterpolateTraceOfInverse
    
    >>> # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)
    >>> A = GenerateMatrix(NumPoints=20)
@@ -204,7 +204,7 @@ The module ``InterpolateTraceOfInverse`` interpolates the trace of the inverse o
    >>> # Define some interpolant points
    >>> InterpolantPoints = [1e-2,1e-1,1,1e+1]
    
-   >>> # Create an interpolating TraceInv object
+   >>> # Create an interpolating imate object
    >>> TI = InterpolateTraceOfInverse(A,InterpolantPoints=InterpolantPoints)
    
    >>> # Interpolate A+tI at some inquiry point t
@@ -219,7 +219,7 @@ In the above code, we only provided the matrix ``A`` to the module ``Interpolate
    >>> A = GenerateMatrix(NumPoints=20,DecorrelationScale=1e-1)
    >>> B = GenerateMatrix(NumPoints=20,DecorrelationScale=2e-2)
    
-   >>> # Create an interpolating TraceInv object
+   >>> # Create an interpolating imate object
    >>> TI = InterpolateTraceOfInverse(A,B,InterpolantPoints=InterpolantPoints)
 
 The parameter ``DecorrelationScale`` of the class ``GenerateMatrix`` in the above specifies the scale of correlation function used to form a positive-definite matrix. We specified two correlation scales to generate different matrices ``A`` and ``B``. The user may use their own matrix data.
@@ -272,15 +272,15 @@ Examples
 Three examples are provided in |examplesdir|_, which aim to reproduce the figures presented in [Ameli-2020]_. Namely, in that reference,
 
 Before running examples:
-   To run the examples, you may not need to install the ``TraceInv`` package. Rather, download the source code and install requirements:
+   To run the examples, you may not need to install the ``imate`` package. Rather, download the source code and install requirements:
 
    ::
     
        # Download
-       git clone https://github.com/ameli/TraceInv.git
+       git clone https://github.com/ameli/imate.git
 
        # Install prerequisite packages
-       cd TraceInv
+       cd imate
        python -m pip install --upgrade -r requirements.txt
     
    Then, run either of the examples as described below.
@@ -294,11 +294,11 @@ Run the script |example1|_ by
 
 ::
 
-    python examples/Plot_TraceInv_FullRank.py
+    python examples/Plot_imate_FullRank.py
 
 The script generates the figure below (see Figure 2 of [Ameli-2020]_).
 
-.. image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/Example1.svg
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/Example1.svg
    :align: center
 
 =========
@@ -309,11 +309,11 @@ Run the script |example2|_ by
 
 ::
 
-    python examples/Plot_TraceInv_IllConditioned.py
+    python examples/Plot_imate_IllConditioned.py
 
 The script generates the figure below (see also  Figure 3 of [Ameli-2020]_).
 
-.. image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/Example2.svg
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/Example2.svg
    :align: center
 
 =========
@@ -328,7 +328,7 @@ Run the script |example3|_ by
 
 The script generates the figure below and prints the processing times of the computations. See more details in Figure 3 and results of Table 2 of [Ameli-2020]_.
 
-.. image:: https://raw.githubusercontent.com/ameli/TraceInv/main/docs/images/GeneralizedCrossValidation.svg
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/GeneralizedCrossValidation.svg
    :width: 550
    :align: center
 
@@ -360,27 +360,27 @@ Acknowledgements
 * American Heart Association #18EIA33900046
 
 .. |examplesdir| replace:: ``/examples`` 
-.. _examplesdir: https://github.com/ameli/TraceInv/blob/main/examples
-.. |example1| replace:: ``/examples/Plot_TraceInv_FullRank.py``
-.. _example1: https://github.com/ameli/TraceInv/blob/main/examples/Plot_TraceInv_FullRank.py
-.. |example2| replace:: ``/examples/Plot_TraceInv_IllConditioned.py``
-.. _example2: https://github.com/ameli/TraceInv/blob/main/examples/Plot_TraceInv_IllConditioned.py
+.. _examplesdir: https://github.com/ameli/imate/blob/main/examples
+.. |example1| replace:: ``/examples/Plot_imate_FullRank.py``
+.. _example1: https://github.com/ameli/imate/blob/main/examples/Plot_imate_FullRank.py
+.. |example2| replace:: ``/examples/Plot_imate_IllConditioned.py``
+.. _example2: https://github.com/ameli/imate/blob/main/examples/Plot_imate_IllConditioned.py
 .. |example3| replace:: ``/examples/Plot_GeneralizedCorssValidation.py``
-.. _example3: https://github.com/ameli/TraceInv/blob/main/examples/Plot_GeneralizedCrossValidation.py
+.. _example3: https://github.com/ameli/imate/blob/main/examples/Plot_GeneralizedCrossValidation.py
 
-.. |travis-devel| image:: https://img.shields.io/travis/com/ameli/TraceInv
-   :target: https://travis-ci.com/github/ameli/TraceInv
-.. |codecov-devel| image:: https://img.shields.io/codecov/c/github/ameli/TraceInv
-   :target: https://codecov.io/gh/ameli/TraceInv
-.. |licence| image:: https://img.shields.io/github/license/ameli/TraceInv
+.. |travis-devel| image:: https://img.shields.io/travis/com/ameli/imate
+   :target: https://travis-ci.com/github/ameli/imate
+.. |codecov-devel| image:: https://img.shields.io/codecov/c/github/ameli/imate
+   :target: https://codecov.io/gh/ameli/imate
+.. |licence| image:: https://img.shields.io/github/license/ameli/imate
    :target: https://opensource.org/licenses/MIT
-.. |travis-devel-linux| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=linux&label=build&branch=main
-   :target: https://travis-ci.com/github/ameli/TraceInv
-.. |travis-devel-osx| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=osx&label=build&branch=main
-   :target: https://travis-ci.com/github/ameli/TraceInv
-.. |travis-devel-windows| image:: https://img.shields.io/travis/com/ameli/TraceInv?env=BADGE=windows&label=build&branch=main
-   :target: https://travis-ci.com/github/ameli/TraceInv
-.. |implementation| image:: https://img.shields.io/pypi/implementation/TraceInv
-.. |pyversions| image:: https://img.shields.io/pypi/pyversions/TraceInv
-.. |format| image:: https://img.shields.io/pypi/format/TraceInv
-.. |pypi| image:: https://img.shields.io/pypi/v/TraceInv
+.. |travis-devel-linux| image:: https://img.shields.io/travis/com/ameli/imate?env=BADGE=linux&label=build&branch=main
+   :target: https://travis-ci.com/github/ameli/imate
+.. |travis-devel-osx| image:: https://img.shields.io/travis/com/ameli/imate?env=BADGE=osx&label=build&branch=main
+   :target: https://travis-ci.com/github/ameli/imate
+.. |travis-devel-windows| image:: https://img.shields.io/travis/com/ameli/imate?env=BADGE=windows&label=build&branch=main
+   :target: https://travis-ci.com/github/ameli/imate
+.. |implementation| image:: https://img.shields.io/pypi/implementation/imate
+.. |pyversions| image:: https://img.shields.io/pypi/pyversions/imate
+.. |format| image:: https://img.shields.io/pypi/format/imate
+.. |pypi| image:: https://img.shields.io/pypi/v/imate

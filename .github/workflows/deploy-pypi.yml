@@ -116,7 +116,7 @@ jobs:
               run: |
                   python -m pip install --upgrade pip
                   python -m pip install pytest-cov
-                  python -m pip install TraceInv
+                  python -m pip install imate
 
             - name: Checkout
               uses: actions/checkout@v2
@@ -129,5 +129,5 @@ jobs:
 
             - name: Test
               run: |
-                  mv TraceInv TraceInv-DoNotImport
+                  mv imate imate-DoNotImport
                   pytest

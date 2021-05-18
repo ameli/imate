@@ -1,4 +1,4 @@
-{% set name = "TraceInv" %}
+{% set name = "imate" %}
 {% set data = load_setup_py_data() %}
 
 package:
@@ -49,11 +49,11 @@ requirements:
 
 test:
     imports:
-        - TraceInv
-        - TraceInv.ComputeLogDeterminant
-        - TraceInv.ComputeTraceOfInverse
-        - TraceInv.GenerateMatrix
-        - TraceInv.InterpolateTraceOfInverse
+        - imate
+        - imate.ComputeLogDeterminant
+        - imate.ComputeTraceOfInverse
+        - imate.GenerateMatrix
+        - imate.InterpolateTraceOfInverse
     requires:
         - pytest
         - pytest-cov
@@ -66,9 +66,9 @@ about:
     license_file: LICENSE.txt
     summary: {{ data['description'] }}
     description: {{ data['description'] }}
-    doc_url: https://ameli.github.io/TraceInv/index.html
-    doc_source_url: https://github.com/ameli/TraceInv/blob/main/README.rst
-    dev_url: https://github.com/ameli/TraceInv
+    doc_url: https://ameli.github.io/imate/index.html
+    doc_source_url: https://github.com/ameli/imate/blob/main/README.rst
+    dev_url: https://github.com/ameli/imate
 
 extra:
     recipe-maintainers:

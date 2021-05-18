@@ -1,10 +1,10 @@
 .. _ComputeLogDeterminant_UserGuide:
 
 ****************************************************************
-Compute Log-Determinant (:mod:`TraceInv.ComputeLogDeterminant`)
+Compute Log-Determinant (:mod:`imate.ComputeLogDeterminant`)
 ****************************************************************
 
-The sub-package :mod:`TraceInv.ComputeLogDeterminant` computes the log-determinant of an invertible matrix. 
+The sub-package :mod:`imate.ComputeLogDeterminant` computes the log-determinant of an invertible matrix. 
 
 =====
 Usage
@@ -12,8 +12,8 @@ Usage
 
 .. code-block:: python
 
-   >>> from TraceInv import GenerateMatrix
-   >>> from TraceInv import ComputeLogDeterminant
+   >>> from imate import GenerateMatrix
+   >>> from imate import ComputeLogDeterminant
    
    >>> # Generate a symmetric positive-definite matrix of the shape (20**2,20**2)
    >>> A = GenerateMatrix(NumPoints=20)
@@ -21,9 +21,9 @@ Usage
    >>> # Compute trace of inverse
    >>> logdet = ComputeLogDeterminant(A)
 
-In the above, the class :class:`GenerateMatrix <TraceInv.GenerateMatrix>` produces a sample matrix for test purposes (see :ref:`Generate Matrix <GenerateMatrix>` for details).
+In the above, the class :class:`GenerateMatrix <imate.GenerateMatrix>` produces a sample matrix for test purposes (see :ref:`Generate Matrix <GenerateMatrix>` for details).
 
-The :mod:`ComputeLogDeterminant <TraceInv.ComputeLogDeterminant>` module in the above code employs the *Cholesky method* by default to compute the log-determinant. However, other methods can be employed by setting :attr:`ComputeMethod` argument according to the table below.
+The :mod:`ComputeLogDeterminant <imate.ComputeLogDeterminant>` module in the above code employs the *Cholesky method* by default to compute the log-determinant. However, other methods can be employed by setting :attr:`ComputeMethod` argument according to the table below.
 
 =====================  ======================================================  ============  =============  =============
 :attr:`ComputeMethod`  Description                                             Matrix size   Matrix type    Results       
@@ -39,7 +39,7 @@ In the following example, we apply the *SLQ randomized estimator* method:
    >>> # Using SLQ method with 20 Monte-Carlo iterations
    >>> logdet = ComputeLogDeterminant(A,ComputeMethod='SLQ',NumIterations=20)
 
-Each of the methods in the above accepts some options. For instance, the SLQ method accepts :attr:`NumIterations` argument, which sets the number of Monte-Carlo trials. To see the detailed list of all arguments for each method, see :ref:`Parameters <Parameters_LogDet>` and the `API <https://ameli.github.io/TraceInv/_modules/modules.html>`__ of the package.
+Each of the methods in the above accepts some options. For instance, the SLQ method accepts :attr:`NumIterations` argument, which sets the number of Monte-Carlo trials. To see the detailed list of all arguments for each method, see :ref:`Parameters <Parameters_LogDet>` and the `API <https://ameli.github.io/imate/_modules/modules.html>`__ of the package.
 
 .. _Parameters_LogDet:
 
@@ -47,7 +47,7 @@ Each of the methods in the above accepts some options. For instance, the SLQ met
 Parameters
 ==========
 
-The :mod:`TraceInv.ComputeLogDeterminant` module accepts the following attributes as input argument.
+The :mod:`imate.ComputeLogDeterminant` module accepts the following attributes as input argument.
 
 .. attribute:: A
    :type: numpy.ndarray, or scipy.sparse.csc_matrix
@@ -193,8 +193,8 @@ In the code below, we compare the three computing methods for a small dense matr
 .. code-block:: python
 
    >>> # Import modules
-   >>> from TraceInv import GenerateMatrix
-   >>> from TraceInv import ComputeLogDeterminant
+   >>> from imate import GenerateMatrix
+   >>> from imate import ComputeLogDeterminant
 
    >>> # Generate a matrix
    >>> A = GenerateMatrix(NumPoints=20)
@@ -217,7 +217,7 @@ Variable  Method      Options                                              Resul
 The above table can be produced by running the test script |test_script2|_, although, the results might be slightly difference due to the random number generator.
 
 .. |test_script2| replace:: ``/test/test_ComputeLogDeterminant.py``
-.. _test_script2: https://github.com/ameli/TraceInv/blob/main/tests/test_ComputeLogDeterminant.py
+.. _test_script2: https://github.com/ameli/imate/blob/main/tests/test_ComputeLogDeterminant.py
 
 -------------
 Sparse Matrix
@@ -228,8 +228,8 @@ In the code below, we compare the three computing methods for a large sparse mat
 .. code-block:: python
 
    >>> # Import modules
-   >>> from TraceInv import GenerateMatrix
-   >>> from TraceInv import ComputeLogDeterminant
+   >>> from imate import GenerateMatrix
+   >>> from imate import ComputeLogDeterminant
 
    >>> # Generate a matrix
    >>> A = GenerateMatrix(NumPoints=50,KernelThreshold=0.03,DecorrelationScale=0.03,UseSparse=True,RunInParallel=True)
@@ -275,10 +275,10 @@ API
 Main Interface
 --------------
 
-.. automodapi:: TraceInv.ComputeLogDeterminant
+.. automodapi:: imate.ComputeLogDeterminant
 
 -------
 Modules
 -------
 
-.. automodapi:: TraceInv._LinearAlgebra.LinearSolver
+.. automodapi:: imate._LinearAlgebra.LinearSolver
