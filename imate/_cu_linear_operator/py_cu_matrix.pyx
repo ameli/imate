@@ -172,18 +172,18 @@ cdef class pycuMatrix(pycuLinearOperator):
             else:
 
                 # If A is neither CSR or CSC, convert A to CSR
-                A_csr = csr_matrix(A)
+                self.A_csr = csr_matrix(A)
 
                 # Check sorted indices
-                if not A_csr.has_sorted_indices:
-                    A_csr.sort_indices()
+                if not self.A_csr.has_sorted_indices:
+                    self.A_csr.sort_indices()
 
                 # CSR matrix
                 if self.data_type_name == b'float32':
-                    self.set_csr_matrix_float(A_csr)
+                    self.set_csr_matrix_float(self.A_csr)
 
                 elif self.data_type_name == b'float64':
-                    self.set_csr_matrix_double(A_csr)
+                    self.set_csr_matrix_double(self.A_csr)
 
         else:
 

@@ -21,7 +21,7 @@ import numpy
 # Rational Polynomial Functions Method
 # ====================================
 
-class rational_polynomialFunctionsMethod(InterpolantBase):
+class RationalPolynomialFunctionsMethod(InterpolantBase):
     """
     Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A} +
     t \\mathbf{B}` using an interpolation scheme based on rational polynomial
@@ -30,7 +30,7 @@ class rational_polynomialFunctionsMethod(InterpolantBase):
     **Class Inheritance:**
 
     .. inheritance-diagram::
-    imate.InterpolateTraceinv.rational_polynomialFunctionsMethod
+    imate.InterpolateTraceinv.RationalPolynomialFunctionsMethod
         :parts: 1
 
     :param A: Invertible matrix, can be either dense or sparse matrix.
@@ -107,7 +107,7 @@ class rational_polynomialFunctionsMethod(InterpolantBase):
         """
 
         # Base class constructor
-        super(rational_polynomialFunctionsMethod, self).__init__(
+        super(RationalPolynomialFunctionsMethod, self).__init__(
                 A, B=B, interpolant_points=interpolant_points,
                 traceinv_options=traceinv_options, verbose=verbose)
 

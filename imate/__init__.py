@@ -72,7 +72,7 @@ _check_import()
 from .logdet import logdet                                         # noqa: E402
 from .traceinv import traceinv                                     # noqa: E402
 from .linear_operator import Matrix, AffineMatrixFunction          # noqa: E402
-# from .interpolate_traceinv import interpolate_traceinv           # noqa: E402
+from .interpolate_traceinv import InterpolateTraceinv              # noqa: E402
 from .generate_matrix import generate_matrix                       # noqa: E402
 
 __all__ = [
@@ -80,7 +80,7 @@ __all__ = [
         'traceinv',
         'Matrix',
         'AffineMatrixFunction',
-        # 'interpolate_traceinv',
+        'InterpolateTraceinv',
         'generate_matrix']
 
 from.__version__ import __version__                                # noqa: F401

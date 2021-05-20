@@ -252,26 +252,28 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
             else:
 
                 # If A is neither CSR or CSC, convert A to CSR
-                A_csr = csr_matrix(A)
+                self.A_csr = csr_matrix(A)
 
                 if not B_is_identity:
-                    B_csr = csr_matrix(B)
+                    self.B_csr = csr_matrix(B)
                 else:
-                    B_csr = B
+                    self.B_csr = B
 
                 # Check sorted indices
-                if not A_csr.has_sorted_indices:
-                    A_csr.sort_indices()
+                if not self.A_csr.has_sorted_indices:
+                    self.A_csr.sort_indices()
 
-                if (not B_is_identity) and (not B_csr.has_sorted_indices):
-                    B_csr.sort_indices()
+                if (not B_is_identity) and (not self.B_csr.has_sorted_indices):
+                    self.B_csr.sort_indices()
 
                 # CSR matrix
                 if self.data_type_name == b'float32':
-                    self.set_csr_matrix_float(A_csr, B_csr, B_is_identity)
+                    self.set_csr_matrix_float(self.A_csr, self.B_csr,
+                                              B_is_identity)
 
                 elif self.data_type_name == b'float64':
-                    self.set_csr_matrix_double(A_csr, B_csr, B_is_identity)
+                    self.set_csr_matrix_double(self.A_csr, self.B_csr,
+                                               B_is_identity)
 
         else:
 

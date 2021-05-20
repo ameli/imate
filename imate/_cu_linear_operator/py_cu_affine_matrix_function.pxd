@@ -18,4 +18,5 @@ from .py_cu_linear_operator cimport pycuLinearOperator
 # ===========================
 
 cdef class pycuAffineMatrixFunction(pycuLinearOperator):
-    pass
+    cdef A_csr
+    cdef B_csr

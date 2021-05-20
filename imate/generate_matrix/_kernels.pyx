@@ -3,6 +3,7 @@
 # =======
 
 from cython import boundscheck, wraparound
+from scipy.special.cython_special cimport gamma, kv
 from libc.math cimport sqrt, exp, isnan, isinf
 from libc.stdio cimport printf
 
@@ -13,11 +14,10 @@ __all__ = ['matern_kernel', 'euclidean-distance']
 # matern kernel
 # =============
 
-@boundscheck(False)
-@wraparound(False)
 cdef double matern_kernel(
         const double x,
-        const double correlation_scale) nogil:
+        const double correlation_scale,
+        const double nu) nogil:
     """
     Computes the Matern class correlation function for a given Euclidean
     distance of two spatial points.
@@ -79,8 +79,24 @@ cdef double matern_kernel(
     if x == 0:
         correlation = 1.0
     else:
-        correlation = (1.0 + sqrt(5.0) * y + (5.0 / 3.0) * (y**2)) * \
-                exp(-sqrt(5.0) * y)
+        if nu == 0.5:
+            correlation = exp(-y)
+        elif nu == 1.5:
+            correlation = (1.0 + sqrt(3.0) * y) * exp(-sqrt(3.0) * y)
+        elif nu == 2.5:
+            correlation = (1.0 + sqrt(5.0) * y + (5.0 / 3.0) * (y**2)) * \
+                    exp(-sqrt(5.0) * y)
+        elif nu < 100:
+
+            # Change zero elements of y to a dummy number, to avoid
+            # multiplication of zero by Inf in Bessel function below
+            correlation = ((2.0**(1.0-nu)) / gamma(nu)) * \
+                    ((sqrt(2.0*nu) * y)**nu) * kv(nu, sqrt(2.0*nu)*y)
+
+        else:
+            # For nu > 100, assume nu is Inf. In this case, Matern function
+            # approaches Gaussian kernel
+            correlation = exp(-0.5*y**2)
 
         if isnan(correlation):
             printf('correlation is nan. corelation_scale: %f\n',

@@ -128,9 +128,6 @@ cdef class pycMatrix(pycLinearOperator):
         if A.ndim != 2:
             raise ValueError('Input matrix should be a 2-dimensional array.')
 
-        elif A.shape[0] != A.shape[1]:
-            raise ValueError('Input matrix should be a square matrix.')
-
         # Data type
         if A.dtype == b'float32':
             self.data_type_name = b'float32'
@@ -184,21 +181,21 @@ cdef class pycMatrix(pycLinearOperator):
             else:
 
                 # If A is neither CSR or CSC, convert A to CSR
-                A_csr = csr_matrix(A)
+                self.A_csr = csr_matrix(A)
 
                 # Check sorted indices
-                if not A_csr.has_sorted_indices:
-                    A_csr.sort_indices()
+                if not self.A_csr.has_sorted_indices:
+                    self.A_csr.sort_indices()
 
                 # CSR matrix
                 if self.data_type_name == b'float32':
-                    self.set_csr_matrix_float(A_csr)
+                    self.set_csr_matrix_float(self.A_csr)
 
                 elif self.data_type_name == b'float64':
-                    self.set_csr_matrix_double(A_csr)
+                    self.set_csr_matrix_double(self.A_csr)
 
                 elif self.data_type_name == b'float128':
-                    self.set_csr_matrix_long_double(A_csr)
+                    self.set_csr_matrix_long_double(self.A_csr)
 
         else:
 

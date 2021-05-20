@@ -21,7 +21,7 @@ import numpy
 # Root Monomial Basis Functions Method
 # ====================================
 
-class RootMonomialbasis_functionsMethod(InterpolantBase):
+class RootMonomialBasisFunctionsMethod(InterpolantBase):
     """
     Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A} +
     t \\mathbf{B}` using an interpolation scheme based on root monomial basis
@@ -30,7 +30,7 @@ class RootMonomialbasis_functionsMethod(InterpolantBase):
     **Class Inheritance:**
 
     .. inheritance-diagram::
-        imate.InterpolateTraceinv.RootMonomialbasis_functionsMethod
+        imate.InterpolateTraceinv.RootMonomialBasisFunctionsMethod
         :parts: 1
 
     :param A: Invertible matrix, can be either dense or sparse matrix.
@@ -153,7 +153,7 @@ class RootMonomialbasis_functionsMethod(InterpolantBase):
         """
 
         # Base class constructor
-        super(RootMonomialbasis_functionsMethod, self).__init__(
+        super(RootMonomialBasisFunctionsMethod, self).__init__(
                 A, B=B, interpolant_points=interpolant_points,
                 traceinv_options=traceinv_options, verbose=verbose)
 
@@ -320,7 +320,7 @@ class RootMonomialbasis_functionsMethod(InterpolantBase):
         """
 
         if self.basis_functions_type == 'NonOrthogonal':
-            return RootMonomialbasis_functionsMethod.phi(j+2, t)
+            return RootMonomialBasisFunctionsMethod.phi(j+2, t)
 
         elif self.basis_functions_type == 'Orthogonal':
 
@@ -330,7 +330,7 @@ class RootMonomialbasis_functionsMethod(InterpolantBase):
             phi_perp = 0
             for i in range(a.shape[1]):
                 phi_perp += alpha[j]*a[j, i] * \
-                        RootMonomialbasis_functionsMethod.phi(i+1, t)
+                        RootMonomialBasisFunctionsMethod.phi(i+1, t)
 
             return phi_perp
 
@@ -342,7 +342,7 @@ class RootMonomialbasis_functionsMethod(InterpolantBase):
             phi_perp = 0
             for i in range(a.shape[1]):
                 phi_perp += alpha[j]*a[j, i] * \
-                    RootMonomialbasis_functionsMethod.phi(i+2, t)
+                    RootMonomialBasisFunctionsMethod.phi(i+2, t)
 
             return phi_perp
 

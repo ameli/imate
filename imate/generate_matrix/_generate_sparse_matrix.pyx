@@ -1,3 +1,12 @@
+# SPDX-FileCopyrightText: Copyright 2021, Siavash Ameli <sameli@berkeley.edu>
+# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileType: SOURCE
+#
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the license found in the LICENSE.txt file in the root
+# directory of this source tree.
+
+
 # =======
 # Imports
 # =======
@@ -30,6 +39,7 @@ cdef int _generate_correlation_matrix(
         const int matrix_size,
         const int dimension,
         const double correlation_scale,
+        const double nu,
         const double kernel_threshold,
         const int num_threads,
         const long max_nnz,
@@ -63,6 +73,9 @@ cdef int _generate_correlation_matrix(
     :param correlation_scale: A parameter of the correlation function that
         scales distances.
     :type correlation_scale: double
+
+    :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
+    :type nu: float
 
     :param kernel_threshold: The parameter tapers the correlation kernel. The
         kernel values below kernel threshold are assumed to be zero, which
@@ -140,7 +153,7 @@ cdef int _generate_correlation_matrix(
                             coords[i][:],
                             coords[j][:],
                             dimension),
-                        correlation_scale)
+                        correlation_scale, nu)
 
                 # Check with kernel threshold to taper out or store
                 if thread_data[openmp.omp_get_thread_num()] > kernel_threshold:
@@ -233,7 +246,8 @@ def _estimate_kernel_threshold(
         matrix_size,
         dimension,
         density,
-        correlation_scale):
+        correlation_scale,
+        nu):
     """
     Estimates the kernel's tapering threshold to sparsify a dense matrix into a
     sparse matrix with the requested density.
@@ -300,6 +314,9 @@ def _estimate_kernel_threshold(
         distance.
     :type correlation_scale: float
 
+    :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
+    :type nu: float
+
     :return: Kernel threshold level
     :rtype: double
     """
@@ -331,7 +348,7 @@ def _estimate_kernel_threshold(
     kernel_radius = grid_size * adjacency_radius
 
     # Threshold of kernel to perform tapering
-    kernel_threshold = matern_kernel(kernel_radius, correlation_scale)
+    kernel_threshold = matern_kernel(kernel_radius, correlation_scale, nu)
 
     return kernel_threshold
 
@@ -384,6 +401,7 @@ def _estimate_max_nnz(
 def generate_sparse_matrix(
         coords,
         correlation_scale=0.1,
+        nu=0.5,
         density=0.001,
         verbose=False):
     """
@@ -407,6 +425,9 @@ def generate_sparse_matrix(
     :param correlation_scale: A parameter of correlation function that scales
         distance.
     :type correlation_scale: float
+
+    :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
+    :type nu: float
 
     :param density: The desired density of the non-zero elements of the sparse
         matrix. Note that the actual density of the generated matrix may not be
@@ -443,7 +464,8 @@ def generate_sparse_matrix(
             matrix_size,
             dimension,
             density,
-            correlation_scale)
+            correlation_scale,
+            nu)
 
     # maximum nnz
     max_nnz = _estimate_max_nnz(
@@ -468,6 +490,7 @@ def generate_sparse_matrix(
                 matrix_size,
                 dimension,
                 correlation_scale,
+                nu,
                 kernel_threshold,
                 num_threads,
                 max_nnz,

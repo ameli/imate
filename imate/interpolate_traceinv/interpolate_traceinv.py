@@ -310,7 +310,7 @@ class InterpolateTraceinv(object):
     # interpolate
     # ===========
 
-    def Interpolate(self, t, compare_with_exact=False, plot=False):
+    def interpolate(self, t, compare_with_exact=False, plot=False):
         """
         Interpolates :math:`\\mathrm{trace} \\left( (\\mathbf{A} +
         t \\mathbf{B})^{-1} \\right)` at :math:`t`.
@@ -429,13 +429,13 @@ class InterpolateTraceinv(object):
 
         if isinstance(t, Number):
             # Single number
-            T_lb = self.interpolator.g(t)
+            T_lb = self.interpolator.lower_bound(t)
 
         else:
             # An array of points
             T_lb = numpy.empty((len(t), ), dtype=float)
             for i in range(len(t)):
-                T_lb[i] = self.interpolator.g(t[i])
+                T_lb[i] = self.interpolator.lower_bound(t[i])
 
         return T_lb
 

@@ -4,7 +4,8 @@
 
 cdef double matern_kernel(
         const double x,
-        const double correlation_scale) nogil
+        const double correlation_scale,
+        const double nu) nogil
 
 cdef double euclidean_distance(
         const double[:] point1,

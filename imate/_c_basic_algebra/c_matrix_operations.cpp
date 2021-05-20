@@ -213,7 +213,7 @@ void cMatrixOperations<DataType>::dense_transposed_matvec(
             {
                 sum += A[i*num_columns + j] * b[i];
             }
-            c[i] = sum;
+            c[j] = sum;
         }
     }
     else
@@ -226,7 +226,7 @@ void cMatrixOperations<DataType>::dense_transposed_matvec(
             {
                 sum += A[i + num_rows*j] * b[i];
             }
-            c[i] = sum;
+            c[j] = sum;
         }
     }
 }
@@ -291,7 +291,7 @@ void cMatrixOperations<DataType>::dense_transposed_matvec_plus(
             {
                 sum += A[i*num_columns + j] * b[i];
             }
-            c[i] += alpha * sum;
+            c[j] += alpha * sum;
         }
     }
     else
@@ -304,7 +304,7 @@ void cMatrixOperations<DataType>::dense_transposed_matvec_plus(
             {
                 sum += A[i + num_rows*j] * b[i];
             }
-            c[i] += alpha * sum;
+            c[j] += alpha * sum;
         }
     }
 }

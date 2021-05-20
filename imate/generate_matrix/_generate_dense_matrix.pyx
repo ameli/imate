@@ -27,6 +27,7 @@ cdef void _generate_correlation_matrix(
         const int matrix_size,
         const int dimension,
         const double correlation_scale,
+        const double nu,
         const int num_threads,
         double[:, ::1] correlation_matrix) nogil:
     """
@@ -48,6 +49,9 @@ cdef void _generate_correlation_matrix(
     :param correlation_scale: A parameter of the correlation function that
         scales distances.
     :type correlation_scale: double
+
+    :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
+    :type nu: float
 
     :param num_threads: Number of parallel threads in openmp.
     :type num_threads: int
@@ -79,7 +83,7 @@ cdef void _generate_correlation_matrix(
                             coords[i][:],
                             coords[j][:],
                             dimension),
-                        correlation_scale)
+                        correlation_scale, nu)
 
                 # Use symmetry of the correlation matrix
                 if i != j:
@@ -93,6 +97,7 @@ cdef void _generate_correlation_matrix(
 def generate_dense_matrix(
         coords,
         correlation_scale=0.1,
+        nu=0.5,
         verbose=False):
     """
     Generates a dense correlation matrix.
@@ -122,6 +127,9 @@ def generate_dense_matrix(
     :return: Correlation matrix. If ``coords`` is ``n*m`` array, the
         correlation matrix has ``n*n`` shape.
     :rtype: numpy.ndarray
+
+    :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
+    :type nu: float
     """
 
     # size of data and the correlation matrix
@@ -142,6 +150,7 @@ def generate_dense_matrix(
             matrix_size,
             dimension,
             correlation_scale,
+            nu,
             num_threads,
             correlation_matrix)
 

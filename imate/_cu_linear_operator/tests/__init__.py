@@ -7,17 +7,7 @@
 # directory of this source tree.
 
 
-# =======
-# Imports
-# =======
+from .test_cu_matrix import test_cu_matrix
+from .test_cu_affine_matrix_function import test_cu_affine_matrix_function
 
-from .py_c_linear_operator cimport pycLinearOperator
-
-
-# ==========================
-# pyc Affine Matrix Function
-# ==========================
-
-cdef class pycAffineMatrixFunction(pycLinearOperator):
-    cdef A_csr
-    cdef B_csr
+__all__ = ['test_cu_matrix', 'test_cu_affine_matrix_function']

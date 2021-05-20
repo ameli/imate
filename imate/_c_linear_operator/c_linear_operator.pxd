@@ -28,4 +28,15 @@ cdef extern from "c_linear_operator.h":
                 const LongIndexType num_rows_,
                 const LongIndexType num_columns_) except +
 
+        LongIndexType get_num_rows() nogil
+        LongIndexType get_num_columns() nogil
+        void set_parameters(DataType* parameters_) nogil
         IndexType get_num_parameters() nogil
+
+        void dot(
+                const DataType* vector,
+                DataType* product) nogil
+
+        void transpose_dot(
+                const DataType* vector,
+                DataType* product) nogil

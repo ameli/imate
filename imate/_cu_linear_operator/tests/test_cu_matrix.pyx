@@ -1,3 +1,12 @@
+# SPDX-FileCopyrightText: Copyright 2021, Siavash Ameli <sameli@berkeley.edu>
+# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileType: SOURCE
+#
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the license found in the LICENSE.txt file in the root
+# directory of this source tree.
+
+
 # =======
 # Imports
 # =======
@@ -5,10 +14,9 @@
 import sys
 import numpy
 import scipy.sparse
-from ..._linear_algebra.types cimport data_type
-from ..constant_matrix cimport ConstantMatrix
+from ..py_cu_matrix cimport pycuMatrix
 
-__all__ = ['test_constant_matrix']
+__all__ = ['test_cu_matrix']
 
 
 # ==================
@@ -44,20 +52,19 @@ cdef int _test_dot(A):
     """
 
     # Define linear operator object
-    cdef ConstantMatrix Aop = ConstantMatrix(A)
+    cdef pycuMatrix Aop = pycuMatrix(A)
 
     # Matrix shape
     num_rows, num_columns = A.shape
 
     # Input random vectors
-    cdef double[:] vector = numpy.random.randn(num_columns)
+    vector = numpy.random.randn(num_columns)
 
     # Output product
-    cdef double[:] product = numpy.empty((num_rows), dtype=float)
+    product = numpy.empty((num_rows), dtype=float)
 
     # The nogil environment is arbitrary
-    with nogil:
-        Aop.dot(&vector[0], &product[0])
+    Aop.dot(vector, product)
 
     # Benchmark product
     benchmark = _benchmark_solution(A, numpy.asarray(vector))
@@ -76,6 +83,8 @@ cdef int _test_dot(A):
         for i in range(error.size):
             print('error: %e' % error[i])
 
+            print(error[i])
+
     return success
 
 
@@ -88,23 +97,22 @@ cdef int _test_transpose_dot(A):
     """
 
     # Define linear operator object
-    cdef ConstantMatrix Aop = ConstantMatrix(A)
+    cdef pycuMatrix Aop = pycuMatrix(A)
 
     # Matrix shape
     num_rows, num_columns = A.shape
 
     # Input random vectors
-    cdef double[:] vector = numpy.random.randn(num_columns)
+    vector = numpy.random.randn(num_rows)
 
     # Output product
-    cdef double[:] product = numpy.empty((num_rows), dtype=float)
+    product = numpy.empty((num_columns), dtype=float)
 
     # The nogil environment is arbitrary
-    with nogil:
-        Aop.dot(&vector[0], &product[0])
+    Aop.transpose_dot(vector, product)
 
     # Benchmark product
-    benchmark = _benchmark_solution(A, numpy.asarray(vector))
+    benchmark = _benchmark_solution(A.T, numpy.asarray(vector))
 
     # Error
     error = numpy.abs(numpy.asarray(product) - benchmark)
@@ -131,10 +139,10 @@ cpdef int _test(A) except *:
     """
     """
 
-    # Test for ConstantMatrix.dot()
+    # Test for pyciuMatrix.dot()
     success1 = _test_dot(A)
 
-    # Test for ConstantMatrix.transpose_dot()
+    # Test for pycuMatrix.transpose_dot()
     success2 = _test_transpose_dot(A)
 
     if success1 and success2:
@@ -143,11 +151,11 @@ cpdef int _test(A) except *:
         return 0
 
 
-# ====================
-# test constant matrix
-# ====================
+# ==============
+# test cu matrix
+# ==============
 
-def test_constant_matrix():
+def test_cu_matrix():
     """
     Test for :mod:`imate.linear_operator.constant_matrix` module.
     """

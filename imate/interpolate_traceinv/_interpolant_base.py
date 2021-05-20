@@ -11,9 +11,7 @@
 # Imports
 # =======
 
-from __future__ import print_function
 from ..traceinv import traceinv
-
 import numpy
 import scipy
 
@@ -121,7 +119,7 @@ class InterpolantBase(object):
 
             # Scale interpolant points
             self.scale_t = None
-            self.Scaleinterpolant_points()
+            self.scale_interpolant_points()
 
     # ===============================
     # Compute imate of Input Matrices
@@ -225,13 +223,13 @@ class InterpolantBase(object):
 
         if numpy.isscalar(t_i):
             # Compute for scalar input
-            trace_i = self.Compute(t_i)
+            trace_i = self.compute(t_i)
 
         else:
             # Compute for an array
             trace_i = numpy.zeros(self.p)
             for i in range(self.p):
-                trace_i[i] = self.Compute(t_i[i])
+                trace_i[i] = self.compute(t_i[i])
 
         if self.verbose:
             print(' Done.')

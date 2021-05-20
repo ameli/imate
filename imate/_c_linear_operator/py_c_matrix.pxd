@@ -19,4 +19,4 @@ from .py_c_linear_operator cimport pycLinearOperator
 # =========
 
 cdef class pycMatrix(pycLinearOperator):
-    pass
+    cdef A_csr

@@ -1,3 +1,12 @@
+# SPDX-FileCopyrightText: Copyright 2021, Siavash Ameli <sameli@berkeley.edu>
+# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileType: SOURCE
+#
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the license found in the LICENSE.txt file in the root
+# directory of this source tree.
+
+
 # =======
 # Imports
 # =======
@@ -24,6 +33,7 @@ def generate_matrix(
         size=20,
         dimension=1,
         correlation_scale=0.1,
+        nu=0.5,
         grid=True,
         sparse=False,
         density=0.001,
@@ -100,6 +110,9 @@ def generate_matrix(
     :param correlation_scale: A parameter of correlation function that scales
         distance.
     :type correlation_scale: float
+
+    :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
+    :type nu: float
 
     :param grid: Determines if the generated set of points are on a structured
         grid or randomly generated.
@@ -186,6 +199,7 @@ def generate_matrix(
         correlation_matrix = generate_sparse_matrix(
             coords,
             correlation_scale,
+            nu,
             density,
             verbose)
 
@@ -195,6 +209,7 @@ def generate_matrix(
         correlation_matrix = generate_dense_matrix(
             coords,
             correlation_scale,
+            nu,
             verbose)
 
     # Plot Correlation Matrix

@@ -1,3 +1,12 @@
+# SPDX-FileCopyrightText: Copyright 2021, Siavash Ameli <sameli@berkeley.edu>
+# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileType: SOURCE
+#
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the license found in the LICENSE.txt file in the root
+# directory of this source tree.
+
+
 # =======
 # Imports
 # =======
@@ -5,10 +14,9 @@
 import sys
 import numpy
 import scipy.sparse
-from ..._linear_algebra.types cimport data_type
-from ..affine_matrix_function cimport AffineMatrixFunction
+from ..py_cu_affine_matrix_function cimport pycuAffineMatrixFunction
 
-__all__ = ['test_affine_matrix_function']
+__all__ = ['test_cu_affine_matrix_function']
 
 
 # ==================
@@ -26,7 +34,7 @@ def _benchmark_solution(A, B, t, vector):
     :type B: numpy.ndarray, or any scipy.sparse array
 
     :param t: The parameter of the affine matrix function
-    :type t: data_type
+    :type t: DataType
 
     :param vector: The input vector to multiply with, with the size of ``m``.
     :type vector: numpy.array
@@ -38,16 +46,11 @@ def _benchmark_solution(A, B, t, vector):
 
     n, m = A.shape
 
-    if (t is None) or (B is None):
-        K = A
-    elif numpy.isscalar(B):
-        if B == 0:
-            K = A
-        elif B == 1:
-            if scipy.sparse.issparse(B):
-                K = A + t * scipy.sparse.eye(n, m, dtype=float)
-            else:
-                K = A + t * numpy.eye(n, m, dtype=float)
+    if B is None:
+        if scipy.sparse.issparse(A):
+            K = A + t * scipy.sparse.eye(n, m, dtype=float)
+        else:
+            K = A + t * numpy.eye(n, m, dtype=float)
     else:
         K = A + t * B
 
@@ -66,26 +69,25 @@ cdef int _test_dot(A, B, t):
     """
 
     # Define linear operator object
-    cdef AffineMatrixFunction Aop = AffineMatrixFunction(A, B)
+    cdef pycuAffineMatrixFunction Aop = pycuAffineMatrixFunction(A, B)
 
     # Set parameter
-    cdef data_type parameters
+    cdef double parameters
     if t is not None:
         parameters = t
-        Aop.set_parameters(&parameters)
+        Aop.set_parameters(parameters)
 
     # Matrix shape
     num_rows, num_columns = A.shape
 
     # Input random vectors
-    cdef double[:] vector = numpy.random.randn(num_columns)
+    vector = numpy.random.randn(num_columns)
 
     # Output product
-    cdef double[:] product = numpy.empty((num_rows), dtype=float)
+    product = numpy.empty((num_rows), dtype=float)
 
     # The nogil environment is arbitrary
-    with nogil:
-        Aop.dot(&vector[0], &product[0])
+    Aop.dot(vector, product)
 
     # Benchmark product
     benchmark = _benchmark_solution(A, B, t, numpy.asarray(vector))
@@ -116,29 +118,31 @@ cdef int _test_transpose_dot(A, B, t):
     """
 
     # Define linear operator object
-    cdef AffineMatrixFunction Aop = AffineMatrixFunction(A, B)
+    cdef pycuAffineMatrixFunction Aop = pycuAffineMatrixFunction(A, B)
 
     # Set parameter
-    cdef data_type parameters
+    cdef double parameters
     if t is not None:
         parameters = t
-        Aop.set_parameters(&parameters)
+        Aop.set_parameters(parameters)
 
     # Matrix shape
     num_rows, num_columns = A.shape
 
     # Input random vectors
-    cdef double[:] vector = numpy.random.randn(num_columns)
+    vector = numpy.random.randn(num_rows)
 
     # Output product
-    cdef double[:] product = numpy.empty((num_rows), dtype=float)
+    product = numpy.empty((num_columns), dtype=float)
 
     # The nogil environment is arbitrary
-    with nogil:
-        Aop.dot(&vector[0], &product[0])
+    Aop.transpose_dot(vector, product)
 
     # Benchmark product
-    benchmark = _benchmark_solution(A, B, t, numpy.asarray(vector))
+    if B is None:
+        benchmark = _benchmark_solution(A.T, B, t, numpy.asarray(vector))
+    else:
+        benchmark = _benchmark_solution(A.T, B.T, t, numpy.asarray(vector))
 
     # Error
     error = numpy.abs(numpy.asarray(product) - benchmark)
@@ -177,11 +181,11 @@ cpdef int _test(A, B, t) except *:
         return 0
 
 
-# ===========================
-# test affine matrix function
-# ===========================
+# =============================
+# test c affine matrix function
+# =============================
 
-def test_affine_matrix_function():
+def test_cu_affine_matrix_function():
     """
     Test for :mod:`imate.linear_operator.affine_matrix_function` module.
     """
@@ -204,18 +208,6 @@ def test_affine_matrix_function():
     success.append(_test(
             numpy.random.randn(n, m),
             None,
-            None))
-
-    # B as zero matrix
-    success.append(_test(
-            numpy.random.randn(n, m),
-            0,
-            None))
-
-    # B as identity matrix
-    success.append(_test(
-            numpy.random.randn(n, m),
-            1,
             t))
 
     # Sparse CSR

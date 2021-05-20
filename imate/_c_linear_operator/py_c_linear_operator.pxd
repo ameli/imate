@@ -11,7 +11,8 @@
 # Imports
 # =======
 
-from .._definitions.types cimport DataType, IndexType, LongIndexType, FlagType
+from .._definitions.types cimport DataType, ConstDataType, IndexType, \
+        LongIndexType, FlagType
 from .c_linear_operator cimport cLinearOperator
 
 
@@ -27,9 +28,13 @@ cdef class pycLinearOperator(object):
     cdef cLinearOperator[long double]* Aop_long_double
     cdef char* data_type_name
     cdef IndexType num_parameters
+    cdef parameters
 
     # Cython methods
-    # cdef char* get_data_type_name(self)
+    cdef LongIndexType get_num_rows(self)
+    cdef LongIndexType get_num_columns(self)
     cdef cLinearOperator[float]* get_linear_operator_float(self)
     cdef cLinearOperator[double]* get_linear_operator_double(self)
     cdef cLinearOperator[long double]* get_linear_operator_long_double(self)
+    cpdef void dot(self, vector, product)
+    cpdef void transpose_dot(self, vector, product)

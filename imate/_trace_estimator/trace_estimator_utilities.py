@@ -40,6 +40,9 @@ def get_operator(A):
         return Matrix(A)
 
     elif isinstance(A, LinearOperator):
+        if A.get_num_rows() != A.get_num_columns():
+            raise ValueError('Input operator should have the same number ' +
+                             'of rows and columns.')
 
         # A is already an object of LinearOperator
         return A
@@ -218,11 +221,11 @@ def check_arguments(
         raise ValueError('"lanczos_degree" should be at least one.')
 
     # Check lanczos tolerance
-    if not numpy.isscalar(lanczos_tol):
+    if lanczos_tol is not None and not numpy.isscalar(lanczos_tol):
         raise TypeError('"lanczos_tol" should be a scalar value.')
-    elif not isinstance(lanczos_tol, (int, float)):
+    elif lanczos_tol is not None and not isinstance(lanczos_tol, (int, float)):
         raise TypeError('"lanczos_tol" should be a float number.')
-    elif lanczos_tol < 0.0:
+    elif lanczos_tol is not None and lanczos_tol < 0.0:
         raise ValueError('"lancozs_tol" cannot be negative.')
 
     # Check reorthogonalize

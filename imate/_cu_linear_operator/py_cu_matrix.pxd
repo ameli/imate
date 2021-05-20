@@ -19,4 +19,4 @@ from .py_cu_linear_operator cimport pycuLinearOperator
 # ==========
 
 cdef class pycuMatrix(pycuLinearOperator):
-    pass
+    cdef A_csr

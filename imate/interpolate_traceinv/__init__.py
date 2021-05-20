@@ -7,6 +7,6 @@
 # of this source tree.
 
 
-from .interpolate_traceinv import interpolate_traceinv
+from .interpolate_traceinv import InterpolateTraceinv
 
-__all__ = ['interpolate_traceinv']
+__all__ = ['InterpolateTraceinv']

@@ -165,7 +165,7 @@ void cuCSCMatrix<DataType>::copy_host_to_device()
 ///          reallocated if the buffer size is the same.
 
 template <typename DataType>
-void cuCSRMatrix<DataType>::allocate_buffer(
+void cuCSCMatrix<DataType>::allocate_buffer(
         cusparseOperation_t cusparse_operation,
         const DataType alpha,
         const DataType beta,
