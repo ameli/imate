@@ -19,9 +19,9 @@ A python package to compute the trace of the inverse of a matrix or a linear mat
 +------------------------------------------------------------------+-------------------------------------------------------------------+
 |    For users                                                     | For developers                                                    |
 +==================================================================+===================================================================+
-| * `Documentation <https://ameli.github.io/imate/index.html>`_ | * `API <https://ameli.github.io/imate/_modules/modules.html>`_ |
-| * `PyPi package <https://pypi.org/project/imate/>`_           | * `Travis-CI <https://travis-ci.com/github/ameli/imate>`_      |
-| * `Anaconda Cloud <https://anaconda.org/s-ameli/traceinv>`_      | * `Codecov <https://codecov.io/gh/ameli/imate>`_               |
+| * `Documentation <https://ameli.github.io/imate/index.html>`_ | * `API <https://ameli.github.io/imate/_modules/modules.html>`_       |
+| * `PyPi package <https://pypi.org/project/imate/>`_           | * `Travis-CI <https://travis-ci.com/github/ameli/imate>`_            |
+| * `Anaconda Cloud <https://anaconda.org/s-ameli/traceinv>`_      | * `Codecov <https://codecov.io/gh/ameli/imate>`_                  |
 +------------------------------------------------------------------+-------------------------------------------------------------------+
 
 ***********
@@ -139,9 +139,9 @@ The package imate provides three sub-packages:
 ======================================  =====================================================================
 Sub-Package                             Description
 ======================================  =====================================================================
-``imate.GenerateMatrix``             Generates symmetric and positive-definite matrices for test purposes.
-``imate.ComputeTraceOfInverse``      Computes trace of inverse for a fixed matrix.
-``imate.InterpolateTraceOfInverse``  Interpolates trace of inverse for a linear matrix function.
+``imate.GenerateMatrix``                Generates symmetric and positive-definite matrices for test purposes.
+``imate.ComputeTraceOfInverse``         Computes trace of inverse for a fixed matrix.
+``imate.InterpolateTraceOfInverse``     Interpolates trace of inverse for a linear matrix function.
 ======================================  =====================================================================
 
 The next two sections presents minimalistic examples respectively for:
@@ -373,7 +373,7 @@ Acknowledgements
 .. |codecov-devel| image:: https://img.shields.io/codecov/c/github/ameli/imate
    :target: https://codecov.io/gh/ameli/imate
 .. |licence| image:: https://img.shields.io/github/license/ameli/imate
-   :target: https://opensource.org/licenses/MIT
+   :target: https://opensource.org/licenses/BSD-3-Clause
 .. |travis-devel-linux| image:: https://img.shields.io/travis/com/ameli/imate?env=BADGE=linux&label=build&branch=main
    :target: https://travis-ci.com/github/ameli/imate
 .. |travis-devel-osx| image:: https://img.shields.io/travis/com/ameli/imate?env=BADGE=osx&label=build&branch=main

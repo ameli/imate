@@ -153,7 +153,7 @@ Indices and tables
 .. |docs| image:: https://github.com/ameli/imate/workflows/deploy-docs/badge.svg
    :target: https://github.com/ameli/imate/actions?query=workflow%3Adeploy-docs
 .. |licence| image:: https://img.shields.io/github/license/ameli/imate
-   :target: https://opensource.org/licenses/MIT
+   :target: https://opensource.org/licenses/BSD-3-Clause
 .. |travis-devel-linux| image:: https://img.shields.io/travis/com/ameli/imate?env=BADGE=linux&label=build&branch=main
    :target: https://travis-ci.com/github/ameli/imate
 .. |travis-devel-osx| image:: https://img.shields.io/travis/com/ameli/imate?env=BADGE=osx&label=build&branch=main
