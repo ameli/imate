@@ -1,5 +1,14 @@
 #! /usr/bin/env python
 
+# SPDX-FileCopyrightText: Copyright 2021, Siavash Ameli <sameli@berkeley.edu>
+# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileType: SOURCE
+#
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the license found in the LICENSE.txt file in the root
+# directory of this source tree.
+
+
 # =======
 # Imports
 # =======
@@ -51,16 +60,16 @@ def test_traceinv_methods(K):
 
     # Use Stochastic Lanczos Quadrature method, with tridiagonalization
     time40 = time.time()
-    trace4 = traceinv(K, method='SLQ', num_samples=num_samples,
-                      lanczos_degree=lanczos_degree, reorthogonalize=-1,
-                      symmetric=True)
+    trace4, _ = traceinv(K, method='slq', max_num_samples=num_samples,
+                         lanczos_degree=lanczos_degree, reorthogonalize=-1,
+                         symmetric=True)
     time41 = time.time()
 
     # Use Stochastic Lanczos Quadrature method, with bidiagonalization
     time50 = time.time()
-    trace5 = traceinv(K, method='SLQ', num_samples=num_samples,
-                      lanczos_degree=lanczos_degree, reorthogonalize=-1,
-                      symmetric=False)
+    trace5, _ = traceinv(K, method='slq', max_num_samples=num_samples,
+                         lanczos_degree=lanczos_degree, reorthogonalize=-1,
+                         symmetric=False)
     time51 = time.time()
 
     # Elapsed times
@@ -83,18 +92,18 @@ def test_traceinv_methods(K):
     print('------------------------------------------------------------')
     print('Method      Options                   traceinv   error  time')
     print('----------  ------------------------  --------  ------  ----')
-    print('Cholesky    without using inverse     %8.3f  %5.2f%%  %0.2f'
+    print('cholesky    without using inverse     %8.3f  %5.2f%%  %4.2f'
           % (trace1, error1, elapsed_time1))
     if trace2 is not None:
-        print('Cholesky    using inverse             %8.3f  %5.2f%%  %0.2f'
+        print('cholesky    using inverse             %8.3f  %5.2f%%  %4.2f'
               % (trace2, error2, elapsed_time2))
     else:
-        print('Cholesky    using inverse             N/A          N/A   N/A')
-    print('Hutchinson  N/A                       %8.3f  %5.2f%%  %0.2f'
+        print('cholesky    using inverse             N/A          N/A   N/A')
+    print('hutchinson  N/A                       %8.3f  %5.2f%%  %4.2f'
           % (trace3, error3, elapsed_time3))
-    print('SLQ         with tri-diagonalization  %8.3f  %5.2f%%  %0.2f'
+    print('slq         with tri-diagonalization  %8.3f  %5.2f%%  %4.2f'
           % (trace4, error4, elapsed_time4))
-    print('SLQ         with bi-diagonalization   %8.3f  %5.2f%%  %0.2f'
+    print('slq         with bi-diagonalization   %8.3f  %5.2f%%  %4.2f'
           % (trace5, error5, elapsed_time5))
     print('------------------------------------------------------------')
     print('')

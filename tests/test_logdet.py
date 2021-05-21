@@ -1,5 +1,14 @@
 #! /usr/bin/env python
 
+# SPDX-FileCopyrightText: Copyright 2021, Siavash Ameli <sameli@berkeley.edu>
+# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileType: SOURCE
+#
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the license found in the LICENSE.txt file in the root
+# directory of this source tree.
+
+
 # =======
 # Imports
 # =======
@@ -31,14 +40,14 @@ def test_logdet_methods(K):
 
     # Use Stochastic Lanczos Quadrature method, with tri-diagonalization
     time20 = time.time()
-    logdet2 = logdet(K, method='SLQ', num_iterations=50, lanczos_degree=30,
-                     symmetric=True)
+    logdet2, _ = logdet(K, method='slq', max_num_samples=50, lanczos_degree=30,
+                        symmetric=True)
     time21 = time.time()
 
     # Use Stochastic Lanczos Quadrature method, with bi-diagonalization
     time30 = time.time()
-    logdet3 = logdet(K, method='SLQ', num_iterations=50, lanczos_degree=30,
-                     symmetric=False)
+    logdet3, _ = logdet(K, method='slq', max_num_samples=50, lanczos_degree=30,
+                        symmetric=False)
     time31 = time.time()
 
     # Elapsed times
@@ -54,13 +63,13 @@ def test_logdet_methods(K):
     # Print results
     print('')
     print('---------------------------------------------------------')
-    print('Method      Options                   LogDet  error  time')
+    print('Method      Options                   logdet  error  time')
     print('----------  ------------------------  ------  -----  ----')
-    print('Cholesky    N/A                       %0.3f  %0.2f%%  %0.2f'
+    print('cholesky    N/A                       %6.3f  %4.1f%%  %3.2f'
           % (logdet1, error1, elapsed_time1))
-    print('SLQ         with tri-diagonalization  %0.3f  %0.2f%%  %0.2f'
+    print('slq         with tri-diagonalization  %6.3f  %4.1f%%  %3.2f'
           % (logdet2, error2, elapsed_time2))
-    print('SLQ         with bi-diagonalization   %0.3f  %0.2f%%  %0.2f'
+    print('slq         with bi-diagonalization   %6.3f  %4.1f%%  %3.2f'
           % (logdet3, error3, elapsed_time3))
     print('---------------------------------------------------------')
     print('')
@@ -83,8 +92,8 @@ def test_logdet():
 
     # Compute trace of inverse of K using sparse matrix
     print('Using sparse matrix')
-    K2 = generate_matrix(size=20, sparse=True)
-    # K2 = generate_matrix(size=50, correlation_scale=0.03, sparse=True)
+    K2 = generate_matrix(size=50, correlation_scale=0.03, density=5e-2,
+                         sparse=True)
     K2 = K2 + 0.35*scipy.sparse.eye(K2.shape[0])
     test_logdet_methods(K2)
 

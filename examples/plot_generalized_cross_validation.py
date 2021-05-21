@@ -15,7 +15,7 @@
 
 import sys
 import numpy
-import scipy
+import scipy.optimize
 from functools import partial
 
 # Package Modules
@@ -26,7 +26,7 @@ from _utilities.processing_time_utilities import TimeCounter, process_time, \
         restrict_computation_to_single_processor
 from _utilities.data_utilities import generate_matrix, generate_noisy_data, \
         generate_basis_functions
-from imate import InterpolateTraceInv
+from imate import InterpolateTraceinv
 from imate import traceinv
 
 
@@ -137,7 +137,7 @@ def generalized_cross_validation(X, K, z, TI, shift, time_counter,
             time0 = process_time()
             # Ainv = numpy.linalg.inv(A)
             # trace = n - m + mu * numpy.trace(Ainv)
-            trace = n - m + mu * traceinv(A)
+            trace = n - m + mu * traceinv(A, method='cholesky')
             time1 = process_time()
             if time_counter is not None:
                 time_counter.add(time1 - time0)
@@ -151,7 +151,7 @@ def generalized_cross_validation(X, K, z, TI, shift, time_counter,
             B = X.dot(X.T) + mu * In
             # Binv = numpy.linalg.inv(B)
             # trace = mu * numpy.trace(Binv)
-            trace = mu * traceinv(B)
+            trace = mu * traceinv(B, method='cholesky')
             time1 = process_time()
             if time_counter is not None:
                 time_counter.add(time1 - time0)
@@ -193,40 +193,36 @@ def minimize_gcv(X, K, z, TI, shift, lambda_bounds, initial_elapsed_time,
 
     # Local optimization method (use for both direct and presented method)
     # Method = 'Nelder-Mead'
-    # Res = scipy.optimize.minimize(gcv_partial_function, guess_log_lambda_,
-    #       method=Method, tol=tolerance,
+    # results = scipy.optimize.minimize(gcv_partial_function,
+    #       guess_log_lambda_, method=Method, tol=tolerance,
     #       options={'maxiter':1000, 'xatol':tolerance, 'fatol':tolerance,
     #                'disp':True})
     #       callback=MinimizeTerminatorObj.__call__,
 
     # Global optimization methods (use for direct method)
     numpy.random.seed(31)   # for repeatability of results
-    Res = scipy.optimize.differential_evolution(gcv_partial_function, bounds,
-                                                workers=1, tol=tolerance,
-                                                atol=tolerance,
-                                                updating='deferred',
-                                                polish=True,
-                                                strategy='best1bin',
-                                                popsize=40,
-                                                maxiter=200)  # Works well
-    # Res = scipy.optimize.dual_annealing(gcv_partial_function, bounds,
+    results = scipy.optimize.differential_evolution(
+            gcv_partial_function, bounds, workers=1,
+            tol=tolerance, atol=tolerance, updating='deferred', polish=True,
+            strategy='best1bin', popsize=40, maxiter=200)  # Works well
+    # results = scipy.optimize.dual_annealing(gcv_partial_function, bounds,
     #                                     maxiter=500)
-    # Res = scipy.optimize.shgo(gcv_partial_function, bounds,
+    # results = scipy.optimize.shgo(gcv_partial_function, bounds,
     #             options={'minimize_every_iter': True, 'local_iter': True,
     #                      'minimizer_kwargs':{'method': 'Nelder-Mead'}})
-    # Res = scipy.optimize.basinhopping(gcv_partial_function,
+    # results = scipy.optimize.basinhopping(gcv_partial_function,
     #                                   x0=guess_log_lambda_)
 
-    print(Res)
+    print(results)
 
     # Brute Force optimization method (use for direct method)
     # rranges = ((0.1, 0.3), (0.5, 25))
-    # Res = scipy.optimize.brute(gcv_partial_function, ranges=rranges,
+    # results = scipy.optimize.brute(gcv_partial_function, ranges=rranges,
     #                            full_output=True, finish=scipy.optimize.fmin,
     #                            workers=-1, Ns=30)
-    # Optimal_DecorrelationScale = Res[0][0]
-    # Optimal_nu = Res[0][1]
-    # max_lp = -Res[1]
+    # Optimal_DecorrelationScale = results[0][0]
+    # Optimal_nu = results[0][1]
+    # max_lp = -results[1]
     # Iterations = None
     # Message = "Using brute force"
     # Success = True
@@ -236,10 +232,10 @@ def minimize_gcv(X, K, z, TI, shift, lambda_bounds, initial_elapsed_time,
     print('Elapsed time: %f\n' % elapsed_time)
 
     results = {
-        'min_gcv': Res.fun,
-        'min_log_lambda_': Res.x[0],
-        'min_lambda_': 10.0**Res.x[0],
-        'fun_evaluations': Res.nfev,
+        'min_gcv': results.fun,
+        'min_log_lambda_': results.x[0],
+        'min_lambda_': 10.0**results.x[0],
+        'fun_evaluations': results.nfev,
         'elapsed_time': elapsed_time
     }
 
@@ -334,7 +330,7 @@ def main(test=False):
 
     .. note::
         To *plot* GCV and trace estimations, compute trace with ``cholesky``,
-        and *with* matrix inverse. That is, set ``UseInverseMatrix=True``.
+        and *with* matrix inverse. That is, set ``invert_cholesky=True``.
 
     .. note::
         To properly *measure the elapsed-time* of minimizing GCV, do the
@@ -353,7 +349,7 @@ def main(test=False):
         4. Trace should be computed by either:
             * Hutchinson method
             * Cholesky factorization and without computing Inverse (set
-            ``UseInverseMatrix=False``).
+            ``invert_cholesky=False``).
 
     .. warning::
         To compute the elapsed-time, do not compute trace with *stochastic
@@ -403,18 +399,18 @@ def main(test=False):
 
     # Interpolating method
     # Use this for plotting GCV and traces
-    traceinv_options = {'ComputeMethod': 'cholesky', 'UseInverseMatrix': True}
+    traceinv_options = {'method': 'cholesky', 'invert_cholesky': True}
 
     # use this to measure elapsed time of optimizing GCV
-    # traceinv_options = {'ComputeMethod':'cholesky', 'UseInverseMatrix':False}
+    # traceinv_options = {'method':'cholesky', 'invert_cholesky':False}
 
     # Use this to measure elapsed time of optimizing GCV
-    # traceinv_options = {'ComputeMethod':'hutchinson', 'NumIterations':20}
+    # traceinv_options = {'method':'hutchinson', 'num_samples':20}
     method = 'RPF'
 
     # Interpolation with 4 interpolant points
     time0 = process_time()
-    TI_1 = InterpolateTraceInv(K, interpolant_points=interpolant_points_1,
+    TI_1 = InterpolateTraceinv(K, interpolant_points=interpolant_points_1,
                                method=method,
                                traceinv_options=traceinv_options)
     time1 = process_time()
@@ -422,7 +418,7 @@ def main(test=False):
 
     # Interpolation with 2 interpolant points
     time2 = process_time()
-    TI_2 = InterpolateTraceInv(K, interpolant_points=interpolant_points_2,
+    TI_2 = InterpolateTraceinv(K, interpolant_points=interpolant_points_2,
                                method=method,
                                traceinv_options=traceinv_options)
     time3 = process_time()

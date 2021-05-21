@@ -100,14 +100,18 @@ To compile with cuda, set ``USE_CUDA`` environment variable.
 
 ::
 
+    # In Unix
     export USE_CUDA=1
+
+    # In Windows
+    $env:USE_CUDA = "1"
+
     python setup.py install
 
 If you are using ``sudo``, to pass the environment variable, use ``-E`` option:
 
 ::
 
-    export USE_CUDA=1
     sudo -E python setup.py install
 
 """
@@ -612,7 +616,10 @@ class CustomBuildExtension(build_ext):
             ext.extra_link_args = extra_link_args
 
         # Parallel compilation (can also be set via build_ext -j or --parallel)
-        self.parallel = multiprocessing.cpu_count()
+        # Note: parallel build fails in windows since object files are accessed
+        # by race condition.
+        if sys.platform != 'win32':
+            self.parallel = multiprocessing.cpu_count()
 
         # Modify compiler for cuda
         if use_cuda:
@@ -1017,22 +1024,15 @@ def main(argv):
     readme_file = join(directory, 'README.rst')
     long_description = open(readme_file, 'r').read()
 
-    # List of cython sub-package to built with cython as extension
-    # subpackage_names = [
-    #     # 'traceinv',
-    #     # 'logdet',
-    #     'generate_matrix',
-    #     # 'functions',
-    #     # '_linear_algebra',
-    #     'linear_operator'
-    #     # join('linear_operator', 'tests')
-    # ]
-
+    # Cyhton cpp extentions
     extensions = []
     extensions.append(create_extension(package_name, 'generate_matrix'))
     extensions.append(create_extension(package_name, 'functions'))
     extensions.append(create_extension(package_name, '_linear_algebra'))
     extensions.append(create_extension(package_name, '_c_linear_operator',
+                                       other_source_dirs=['_c_basic_algebra']))
+    extensions.append(create_extension(package_name,
+                                       join('_c_linear_operator', 'tests'),
                                        other_source_dirs=['_c_basic_algebra']))
     extensions.append(create_extension(package_name, '_trace_estimator'))
     extensions.append(create_extension(package_name, '_c_trace_estimator',
@@ -1043,6 +1043,7 @@ def main(argv):
     extensions.append(create_extension(package_name, 'logdet',
                                        other_source_dirs=['functions']))
 
+    # Cyhton CUDA extentions
     if use_cuda:
         extensions.append(create_extension(package_name, '_cuda_utilities'))
         extensions.append(create_extension(package_name, '_cu_linear_operator',
@@ -1060,6 +1061,12 @@ def main(argv):
                                                '_cuda_utilities',
                                                '_cu_basic_algebra',
                                                '_c_basic_algebra']))
+
+        extensions.append(create_extension(package_name,
+                                           join(
+                                               '_cu_linear_operator', 'tests'),
+                                           other_source_dirs=[
+                                               '_cu_basic_algebra']))
 
     # Cythonize
     external_modules = cythonize_extensions(extensions)

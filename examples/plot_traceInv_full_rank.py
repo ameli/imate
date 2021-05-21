@@ -18,7 +18,7 @@ import numpy
 
 # Package modules
 from imate import generate_matrix
-from imate import InterpolateTraceInv
+from imate import InterpolateTraceinv
 from _utilities.plot_utilities import *                      # noqa: F401, F403
 from _utilities.plot_utilities import load_plot_settings, save_plot, plt, \
         matplotlib, InsetPosition, mark_inset, NullFormatter,  \
@@ -170,7 +170,7 @@ def plot(TI, test):
     filename = 'Example1'
     if test:
         filename = "test_" + filename
-    save_plot(plt, filename, TransparentBackground=False)
+    save_plot(plt, filename, transparent_background=False)
 
     # If no display backend is enabled, do not plot in the interactive mode
     if (not test) and (matplotlib.get_backend() != 'agg'):
@@ -224,6 +224,7 @@ def main(test=False):
     # Generate matrix
     A = generate_matrix(
         size,
+        dimension=2,
         correlation_scale=0.1,
         nu=0.5,
         sparse=False,
@@ -237,21 +238,25 @@ def main(test=False):
     interpolant_points_5 = [1e-1]
 
     # Interpolating objects
-    traceinv_options = {'ComputeMethod': 'cholesky', 'UseInverseMatrix': True}
+    traceinv_options = {'method': 'cholesky', 'invert_cholesky': True}
     method = 'RMBF'
-    TI_1 = InterpolateTraceInv(A, interpolant_points=interpolant_points_1,
+    TI_1 = InterpolateTraceinv(A, interpolant_points=interpolant_points_1,
                                method=method,
                                traceinv_options=traceinv_options)
-    TI_2 = InterpolateTraceInv(A, interpolant_points=interpolant_points_2,
+
+    TI_2 = InterpolateTraceinv(A, interpolant_points=interpolant_points_2,
                                method=method,
                                traceinv_options=traceinv_options)
-    TI_3 = InterpolateTraceInv(A, interpolant_points=interpolant_points_3,
+
+    TI_3 = InterpolateTraceinv(A, interpolant_points=interpolant_points_3,
                                method=method,
                                traceinv_options=traceinv_options)
-    TI_4 = InterpolateTraceInv(A, interpolant_points=interpolant_points_4,
+
+    TI_4 = InterpolateTraceinv(A, interpolant_points=interpolant_points_4,
                                method=method,
                                traceinv_options=traceinv_options)
-    TI_5 = InterpolateTraceInv(A, interpolant_points=interpolant_points_5,
+
+    TI_5 = InterpolateTraceinv(A, interpolant_points=interpolant_points_5,
                                method=method,
                                traceinv_options=traceinv_options)
 

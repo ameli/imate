@@ -17,7 +17,7 @@ import sys
 import numpy
 
 # Package modules
-from imate import InterpolateTraceInv
+from imate import InterpolateTraceinv
 from _utilities.data_utilities import generate_matrix
 from _utilities.plot_utilities import *                      # noqa: F401, F403
 from _utilities.plot_utilities import load_plot_settings, save_plot, plt, \
@@ -195,7 +195,7 @@ def plot(TI, test):
     filename = 'Example2'
     if test:
         filename = "test_" + filename
-    save_plot(plt, filename, TransparentBackground=False)
+    save_plot(plt, filename, transparent_background=False)
 
     # If no display backend is enabled, do not plot in the interactive mode
     if (not test) and (matplotlib.get_backend() != 'agg'):
@@ -247,12 +247,13 @@ def main(test=False):
     interpolant_points_2 = [1e-3, 1e-1]
 
     # Interpolating objects
-    traceinv_options = {'ComputeMethod': 'cholesky', 'UseInverseMatrix': True}
+    traceinv_options = {'method': 'cholesky', 'invert_cholesky': True}
     method = 'RPF'
-    TI_1 = InterpolateTraceInv(K, interpolant_points=interpolant_points_1,
+    TI_1 = InterpolateTraceinv(K, interpolant_points=interpolant_points_1,
                                method=method,
                                traceinv_options=traceinv_options)
-    TI_2 = InterpolateTraceInv(K, interpolant_points=interpolant_points_2,
+
+    TI_2 = InterpolateTraceinv(K, interpolant_points=interpolant_points_2,
                                method=method,
                                traceinv_options=traceinv_options)
 

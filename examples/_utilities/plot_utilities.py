@@ -22,7 +22,7 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes       # noqa: F401
 from mpl_toolkits.axes_grid1.inset_locator import InsetPosition    # noqa: F401
 from mpl_toolkits.axes_grid1.inset_locator import mark_inset       # noqa: F401
 from distutils.spawn import find_executable
-from .DisplayUtilities import is_notebook
+from .display_utilities import is_notebook
 
 # Check DISPLAY
 if ((not bool(os.environ.get('DISPLAY', None))) or
