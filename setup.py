@@ -1026,26 +1026,36 @@ def main(argv):
 
     # Cyhton cpp extentions
     extensions = []
+
     extensions.append(create_extension(package_name, 'generate_matrix'))
+
     extensions.append(create_extension(package_name, 'functions'))
+
     extensions.append(create_extension(package_name, '_linear_algebra'))
+
     extensions.append(create_extension(package_name, '_c_linear_operator',
                                        other_source_dirs=['_c_basic_algebra']))
+
     extensions.append(create_extension(package_name,
                                        join('_c_linear_operator', 'tests'),
                                        other_source_dirs=['_c_basic_algebra']))
+
     extensions.append(create_extension(package_name, '_trace_estimator'))
+
     extensions.append(create_extension(package_name, '_c_trace_estimator',
                                        other_source_dirs=['_c_linear_operator',
                                                           '_c_basic_algebra']))
+
     extensions.append(create_extension(package_name, 'traceinv',
                                        other_source_dirs=['functions']))
+
     extensions.append(create_extension(package_name, 'logdet',
                                        other_source_dirs=['functions']))
 
     # Cyhton CUDA extentions
     if use_cuda:
         extensions.append(create_extension(package_name, '_cuda_utilities'))
+
         extensions.append(create_extension(package_name, '_cu_linear_operator',
                                            other_source_dirs=[
                                                '_c_linear_operator',
@@ -1116,8 +1126,9 @@ def main(argv):
         python_requires='>=2.7',
         setup_requires=[
             'setuptools',
+            'wheel',
             'numpy>1.11',
-            'scipy>=1.2.3',
+            'scipy',
             'cython',
             'pytest-runner'],
         tests_require=[
