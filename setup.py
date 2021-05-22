@@ -1117,7 +1117,7 @@ def main(argv):
         setup_requires=[
             'setuptools',
             'numpy>1.11',
-            'scipy>=1.6',
+            'scipy>=1.2.3',
             'cython',
             'pytest-runner'],
         tests_require=[
