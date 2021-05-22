@@ -1128,7 +1128,7 @@ def main(argv):
             'setuptools',
             'wheel',
             'numpy>1.11',
-            'scipy',
+            'scipy>=1.5',
             'cython',
             'pytest-runner'],
         tests_require=[
