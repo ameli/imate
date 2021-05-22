@@ -31,19 +31,19 @@ jobs:
                   brew install suite-sparse
                   brew install libomp
                   
-            - name: Install CUDA
-              uses: Jimver/cuda-toolkit@v0.2.1
-              id: cuda-toolkit
-              with:
-                  cuda: '11.2.2'
+            # - name: Install CUDA
+            #   uses: Jimver/cuda-toolkit@v0.2.1
+            #   id: cuda-toolkit
+            #   with:
+            #       cuda: '11.2.2'
 
             - name: Install package and dependencies
               run: |
                   python -m pip install --upgrade pip
                   python -m pip install --upgrade numpy
                   python -m pip install --upgrade .[extra]
-              env:
-                  USE_CUDA: 1
+              # env:
+              #     USE_CUDA: 1
 
             - name: Test
               run: |

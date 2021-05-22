@@ -83,6 +83,47 @@ as ``dot()`` cannot be ``const``. So, either
        maybe in the constructors, or
     3. the namespaces be removed.
 
+
+========================
+Compile and Build Issues
+========================
+
+------------------
+Local Installation
+------------------
+
+- Python 2.7:
+  I dropped support for python 2.7, since
+  ``scipy.special.cython_special.erfinv`` is not defined in the latest scipy
+  that can be installed in python 2.7, which is scipy 1.2.3. The function
+  ``erfinv`` exists in scipy as *python* function, but not as a *cyhton*
+  function in ``cython_special``. The first version of scipy that includes
+  ``erfinv`` as cython function is scipy 1.5.0.
+
+- Pythn 3.5:
+  For some reasons, this package cannot be installed on python 3.5. However,
+  py35 is deprecated as of last year.
+
+- CUDA support:
+  Currently, it can be only enabled for linux and macos. CUDA support cannot be
+  compiled in windows, since the funciton
+  ``customize_windows_compiler_for_nvcc`` is not complete.
+
+----
+PyPi
+----
+
+- The CUDA installation on githib workflow is only available for linux and
+  windows (I use ``Jimver@cuda-toolkit``). This github action does not support
+  macos. Also, my package cannot be compiled with CUDA on windows. Thus, the
+  my package on pypi supports CUDA only on linux at the moment.
+
+-----
+Conda
+-----
+
+- For some reasosn, conda cannot build the package and this needs to be fixed.
+
 =====
 Ideas
 =====

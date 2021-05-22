@@ -43,6 +43,13 @@ jobs:
                   brew install openblas
                   OPENBLAS="$(brew --prefix openblas)"
                   pip3 install numpy
+
+            - name: Install CUDA
+              if: runner.os == 'linux'
+              uses: Jimver/cuda-toolkit@v0.2.1
+              id: cuda-toolkit
+              with:
+                  cuda: '11.2.2'
             
             - name: Build wheels
               run: python -m cibuildwheel --output-dir wheelhouse
@@ -51,6 +58,9 @@ jobs:
                   CIBW_SKIP: "pp* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_MANYLINUX_X86_64_IMAGE: manylinux1
+              if: runner.os == 'linux'
+              env:
+                  USE_CUDA: 1
             
             - name: Upload artifacts
               uses: actions/upload-artifact@v2
