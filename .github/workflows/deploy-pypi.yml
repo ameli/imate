@@ -50,17 +50,27 @@ jobs:
               id: cuda-toolkit
               with:
                   cuda: '11.2.2'
-            
+           
+            # Enable compiling with CUDA, only for linux
             - name: Build wheels
+              if: runner.os == 'linux'
               run: python -m cibuildwheel --output-dir wheelhouse
               env:
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
                   CIBW_SKIP: "pp* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_MANYLINUX_X86_64_IMAGE: manylinux1
-              if: runner.os == 'linux'
-              env:
                   USE_CUDA: 1
+
+            # Do not enable compiling with CUDA for windows and macos
+            - name: Build wheels
+              if: runner.os != 'linux'
+              run: python -m cibuildwheel --output-dir wheelhouse
+              env:
+                  CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
+                  CIBW_SKIP: "pp* cp27-* cp35-*"
+                  CIBW_BUILD_VERBOSITY: 1
+                  CIBW_MANYLINUX_X86_64_IMAGE: manylinux1
             
             - name: Upload artifacts
               uses: actions/upload-artifact@v2
