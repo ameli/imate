@@ -23,10 +23,6 @@ jobs:
               with:
                   auto-update-conda: true
 
-            - name: Install Visual C++ for Python 2.7
-              if: runner.os == 'Windows'
-              run: choco install vcpython27 -f -y
-
             - name: Checkout
               uses: actions/checkout@v2
 
