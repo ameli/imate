@@ -17,8 +17,8 @@ Some notes to myself when completing the documentation later.
   https://docs.nvidia.com/cuda/cusparse/index.html#cusparse-generic-function-spmv
   says that:
 
-      "The routine requires extra storage for CSR format (all algorithms) and for
-      COO format with CUSPARSE_SPMM_COO_ALG2 algorithm."
+      "The routine requires extra storage for CSR format (all algorithms) and
+      for COO format with CUSPARSE_SPMM_COO_ALG2 algorithm."
 
   However, it seems the ``this->buffer_size`` (see ``cu_csr_matrix.cu``) is
   always zero even for various algorithms (currently I use
@@ -62,6 +62,10 @@ TODO
 * other functions (besides traceinv and logdet)
 * interpolate_traceinv
 * tests of traceinv
+* rename the argument ``reorthogonalize`` on ``slq`` method to
+  ``orthogonalize``. In ``hutchinson`` method, we have ``orthogonalize``
+  argument, and it is better to make these two arguments have the same name,
+  despite by orhtogonalize for the ``slq`` method, we mean re-orthogonalize.
 
 * generate_matrix add analytic dense and sparse matrices
 * generate_matrix add dtype argument
