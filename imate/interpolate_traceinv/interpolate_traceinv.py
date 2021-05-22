@@ -560,9 +560,15 @@ class InterpolateTraceinv(object):
         ax[0].set_xlim([inquiry_points[0], inquiry_points[-1]])
         ax[0].set_xlabel(r'$t$')
         if self.interpolator.B_is_identity:
-            ax[0].set_ylabel(r'trace$(\\mathbf{A} + t \\mathbf{I})^{-1}$')
+            if matplotlib.rcParams['text.usetex'] is True:
+                ax[0].set_ylabel(r'trace$(\\mathbf{A} + t \\mathbf{I})^{-1}$')
+            else:
+                ax[0].set_ylabel(r'trace$(\mathbf{A} + t \mathbf{I})^{-1}$')
         else:
-            ax[0].set_ylabel(r'trace$(\\mathbf{A} + t \\mathbf{B})^{-1}$')
+            if matplotlib.rcParams['text.usetex'] is True:
+                ax[0].set_ylabel(r'trace$(\\mathbf{A} + t \\mathbf{B})^{-1}$')
+            else:
+                ax[0].set_ylabel(r'trace$(\mathbf{A} + t \mathbf{B})^{-1}$')
         ax[0].set_title('Trace of Inverse')
         ax[0].legend(fontsize='small')
 

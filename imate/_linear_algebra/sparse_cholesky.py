@@ -46,7 +46,8 @@ def sparse_cholesky(A, diagonal_only=False):
     n = A.shape[0]
 
     # sparse LU decomposition
-    LU = scipy.sparse.linalg.splu(A.tocsc(), diag_pivot_thresh=0, permc_spec='NATURAL')
+    LU = scipy.sparse.linalg.splu(A.tocsc(), diag_pivot_thresh=0,
+                                  permc_spec='NATURAL')
 
     if diagonal_only:
 

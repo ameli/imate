@@ -618,8 +618,8 @@ class CustomBuildExtension(build_ext):
         # Parallel compilation (can also be set via build_ext -j or --parallel)
         # Note: parallel build fails in windows since object files are accessed
         # by race condition.
-        if sys.platform != 'win32':
-            self.parallel = multiprocessing.cpu_count()
+        # if sys.platform != 'win32':
+        #     self.parallel = multiprocessing.cpu_count()
 
         # Modify compiler for cuda
         if use_cuda:

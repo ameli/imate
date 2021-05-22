@@ -15,7 +15,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                python-version: [2.7, 3.6, 3.7, 3.8, 3.9]
+                python-version: [3.6, 3.7, 3.8, 3.9]
 
         steps:
             - name: Checkout
@@ -25,10 +25,6 @@ jobs:
               uses: actions/setup-python@v2
               with:
                   python-version: ${{ matrix.python-version }}
-
-            - name: Install Visual C++ for Python 2.7
-              if: matrix.python-version == '2.7'
-              run: choco install vcpython27 -f -y
 
             - name: Install package and dependencies
               run: |
