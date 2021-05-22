@@ -65,7 +65,7 @@ def linear_solver(A, b, assume_matrix, tol=1e-6):
         else:
             x = numpy.zeros(b.shape, order='F')
             for i in range(x.shape[1]):
-                x[:, i] = solver(A, b[:, i], tol=tol)[0]
+                x[:, i] = solver(A, b[:, i], tol=tol, atol=0)[0]
     else:
         # Dense matrix
         x = scipy.linalg.solve(A, b, assume_a=assume_matrix)

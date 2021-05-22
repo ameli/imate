@@ -25,7 +25,7 @@ from imate import traceinv
 # test traceinv methods
 # =====================
 
-def test_traceinv_methods(K):
+def _test_traceinv_methods(K):
     """
     Computes the trace of the inverse of matrix ``K`` with multiple method.
 
@@ -39,13 +39,13 @@ def test_traceinv_methods(K):
 
     # Use Cholesky method with direct inverse
     time10 = time.time()
-    trace1 = traceinv(K, method='cholesky', invert_cholesky=False)
+    trace1, _ = traceinv(K, method='cholesky', invert_cholesky=False)
     time11 = time.time()
 
     # Use Cholesky method without direct inverse
     if not scipy.sparse.isspmatrix(K):
         time20 = time.time()
-        trace2 = traceinv(K, method='cholesky', invert_cholesky=True)
+        trace2, _ = traceinv(K, method='cholesky', invert_cholesky=True)
         time21 = time.time()
     else:
         # Do not use Cholesky with inverse method if K is sparse.
@@ -55,7 +55,7 @@ def test_traceinv_methods(K):
 
     # Use Hutchinson method
     time30 = time.time()
-    trace3 = traceinv(K, method='hutchinson', num_samples=num_samples)
+    trace3, _ = traceinv(K, method='hutchinson', num_samples=num_samples)
     time31 = time.time()
 
     # Use Stochastic Lanczos Quadrature method, with tridiagonalization
@@ -124,13 +124,13 @@ def test_traceinv():
                          sparse=False)
 
     # print(K1)
-    test_traceinv_methods(K1)
+    _test_traceinv_methods(K1)
 
     # # Compute trace of inverse of K using sparse matrix
     print('Using sparse matrix')
     K2 = generate_matrix(size=30, dimension=2, correlation_scale=0.05,
                          sparse=True, density=2e-1, verbose=True)
-    test_traceinv_methods(K2)
+    _test_traceinv_methods(K2)
 
 
 # ===========

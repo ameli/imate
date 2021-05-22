@@ -11,6 +11,7 @@
 # Imports
 # =======
 
+import time
 import numpy
 import scipy
 import scipy.linalg
@@ -233,6 +234,9 @@ def cholesky_method(A, invert_cholesky=True):
     if scipy.sparse.isspmatrix(A):
         sparse = True
 
+    init_wall_time = time.perf_counter()
+    init_proc_time = time.process_time()
+
     # Cholesky factorization
     if sparse:
         if suitesparse_installed:
@@ -257,4 +261,20 @@ def cholesky_method(A, invert_cholesky=True):
         trace = compute_traceinv_invert_cholesky_indirectly(
                 L, A.shape[0], sparse)
 
-    return trace
+    wall_time = time.perf_counter() - init_wall_time
+    proc_time = time.process_time() - init_proc_time
+
+    # Dictionary of output info
+    info = {
+        'cpu':
+        {
+            'wall_time': wall_time,
+            'proc_time': proc_time,
+        },
+        'solver':
+        {
+            'method': 'cholesky',
+        }
+    }
+
+    return trace, info

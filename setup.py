@@ -1117,6 +1117,7 @@ def main(argv):
         setup_requires=[
             'setuptools',
             'numpy>1.11',
+            'scipy>=1.6',
             'cython',
             'pytest-runner'],
         tests_require=[
@@ -1127,11 +1128,7 @@ def main(argv):
         zip_safe=False,    # the package can run out of an .egg file
         extras_require={
             'extra': [
-                'ray'
-                ],
-            'full': [
                 'scikit-sparse',
-                'ray'
                 ],
             'test': [
                 'pytest-cov',

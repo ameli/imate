@@ -137,7 +137,7 @@ def generalized_cross_validation(X, K, z, TI, shift, time_counter,
             time0 = process_time()
             # Ainv = numpy.linalg.inv(A)
             # trace = n - m + mu * numpy.trace(Ainv)
-            trace = n - m + mu * traceinv(A, method='cholesky')
+            trace = n - m + mu * traceinv(A, method='cholesky')[0]
             time1 = process_time()
             if time_counter is not None:
                 time_counter.add(time1 - time0)
@@ -151,7 +151,7 @@ def generalized_cross_validation(X, K, z, TI, shift, time_counter,
             B = X.dot(X.T) + mu * In
             # Binv = numpy.linalg.inv(B)
             # trace = mu * numpy.trace(Binv)
-            trace = mu * traceinv(B, method='cholesky')
+            trace = mu * traceinv(B, method='cholesky')[0]
             time1 = process_time()
             if time_counter is not None:
                 time_counter.add(time1 - time0)

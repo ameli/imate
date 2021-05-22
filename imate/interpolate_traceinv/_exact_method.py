@@ -97,7 +97,7 @@ class ExactMethod(InterpolantBase):
     # Interpolate
     # ===========
 
-    def Interpolate(self, t):
+    def interpolate(self, t):
         """
         This function does not interpolate, rather exactly computes
         :math:`\\mathrm{trace} \\left( (\\mathbf{A} + t \\mathbf{B})^{-1}
@@ -111,6 +111,6 @@ class ExactMethod(InterpolantBase):
         """
 
         # Do not interpolate, instead compute the exact value
-        trace = self.Compute(t)
+        trace = self.compute(t)
 
         return trace

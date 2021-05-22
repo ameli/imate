@@ -189,7 +189,8 @@ def plot(TI, test):
 
     ax[1].yaxis.set_major_formatter(PercentFormatter(decimals=1))
 
-    plt.tight_layout()
+    if not test:
+        plt.tight_layout()
 
     # Save Plot
     filename = 'Example2'

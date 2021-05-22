@@ -307,7 +307,7 @@ cpdef trace_estimator(
             'lanczos_degree': lanczos_degree,
             'lanczos_tol': lanczos_tol,
             'reorthogonalize': reorthogonalize,
-            'method': 'SLQ',
+            'method': 'slq',
         }
     }
 

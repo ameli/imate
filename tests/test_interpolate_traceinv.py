@@ -20,7 +20,7 @@ import numpy
 # For plotting matrix, we disable interactive display
 os.environ['IMATE_NO_DISPLAY'] = 'True'  # define before importing imate
 from imate import generate_matrix                                  # noqa: E402
-from imate import InterpolateTraceInv                              # noqa: E402
+from imate import InterpolateTraceinv                              # noqa: E402
 
 
 # =================
@@ -53,7 +53,7 @@ def remove_saved_plot():
 
 def test_interpolate_traceinv():
     """
-    Test for :mod:`imate.interpolateTraceInv` sub-package.
+    Test for :mod:`imate.interpolateTraceinv` sub-package.
     """
 
     # Compute trace of inverse of K using dense matrix
@@ -64,31 +64,32 @@ def test_interpolate_traceinv():
     verbose = True
     interpolant_points = [1e-4, 1e-3, 1e-2, 1e-1, 1, 1e+1]
     inquiry_point = 0.4
-    traceinv_options = {'ComputeMethod': 'cholesky', 'UseInverseMatrix': True}
+    traceinv_options = {'method': 'cholesky', 'invert_cholesky': True}
 
     # Compute exact trace without interpolation
-    TI00 = InterpolateTraceInv(A, B=B, method='EXT',
+    TI00 = InterpolateTraceinv(A, B=B, method='EXT',
                                traceinv_options=traceinv_options,
                                verbose=verbose)
+
     Trace00 = TI00.interpolate(inquiry_point)
     Error00 = 0
 
     # Eigenvalues Method
-    TI01 = InterpolateTraceInv(A, B=B, method='EIG',
+    TI01 = InterpolateTraceinv(A, B=B, method='EIG',
                                traceinv_options=traceinv_options,
                                verbose=verbose)
     Trace01 = TI01.interpolate(inquiry_point)
     Error01 = 100.0 * numpy.abs(Trace01 - Trace00) / Trace00
 
     # Monomial Basis Functions
-    TI02 = InterpolateTraceInv(A, B=B, method='MBF',
+    TI02 = InterpolateTraceinv(A, B=B, method='MBF',
                                traceinv_options=traceinv_options,
                                verbose=verbose)
     Trace02 = TI02.interpolate(inquiry_point)
     Error02 = 100.0 * numpy.abs(Trace02 - Trace00) / Trace00
 
     # Root Monomial Basis Functions, basis type: NonOrthogonal
-    TI03 = InterpolateTraceInv(A, B=B, interpolant_points=interpolant_points,
+    TI03 = InterpolateTraceinv(A, B=B, interpolant_points=interpolant_points,
                                method='RMBF',
                                basis_functions_type='NonOrthogonal',
                                traceinv_options=traceinv_options,
@@ -97,7 +98,7 @@ def test_interpolate_traceinv():
     Error03 = 100.0 * numpy.abs(Trace03 - Trace00) / Trace00
 
     # Root Monomial Basis Functions, basis type: Orthogonal
-    TI04 = InterpolateTraceInv(A, B=B, interpolant_points=interpolant_points,
+    TI04 = InterpolateTraceinv(A, B=B, interpolant_points=interpolant_points,
                                method='RMBF',
                                basis_functions_type='Orthogonal',
                                traceinv_options=traceinv_options,
@@ -106,7 +107,7 @@ def test_interpolate_traceinv():
     Error04 = 100.0 * numpy.abs(Trace04 - Trace00) / Trace00
 
     # Root Monomial Basis Functions, basis type: Orthogonal2
-    TI05 = InterpolateTraceInv(A, B=B, interpolant_points=interpolant_points,
+    TI05 = InterpolateTraceinv(A, B=B, interpolant_points=interpolant_points,
                                method='RMBF',
                                basis_functions_type='Orthogonal2',
                                traceinv_options=traceinv_options,
@@ -115,7 +116,7 @@ def test_interpolate_traceinv():
     Error05 = 100.0 * numpy.abs(Trace05 - Trace00) / Trace00
 
     # Radial Basis Functions, function_type 1
-    TI06 = InterpolateTraceInv(A, B=B, interpolant_points=interpolant_points,
+    TI06 = InterpolateTraceinv(A, B=B, interpolant_points=interpolant_points,
                                method='RBF', function_type=1,
                                traceinv_options=traceinv_options,
                                verbose=verbose)
@@ -123,7 +124,7 @@ def test_interpolate_traceinv():
     Error06 = 100.0 * numpy.abs(Trace06 - Trace00) / Trace00
 
     # Radial Basis Functions, function_type 2
-    TI07 = InterpolateTraceInv(A, B=B, interpolant_points=interpolant_points,
+    TI07 = InterpolateTraceinv(A, B=B, interpolant_points=interpolant_points,
                                method='RBF', function_type=2,
                                traceinv_options=traceinv_options,
                                verbose=verbose)
@@ -131,7 +132,7 @@ def test_interpolate_traceinv():
     Error07 = 100.0 * numpy.abs(Trace07 - Trace00) / Trace00
 
     # Radial Basis Functions, function_type 3
-    TI08 = InterpolateTraceInv(A, B=B, interpolant_points=interpolant_points,
+    TI08 = InterpolateTraceinv(A, B=B, interpolant_points=interpolant_points,
                                method='RBF', function_type=3,
                                traceinv_options=traceinv_options,
                                verbose=verbose)
@@ -140,7 +141,7 @@ def test_interpolate_traceinv():
 
     # Rational Polynomial with two interpolating points
     interpolant_points = [1e-1, 1e+1]
-    TI09 = InterpolateTraceInv(A, B=B, interpolant_points=interpolant_points,
+    TI09 = InterpolateTraceinv(A, B=B, interpolant_points=interpolant_points,
                                method='RPF', traceinv_options=traceinv_options,
                                verbose=verbose)
     Trace09 = TI09.interpolate(inquiry_point)
@@ -148,28 +149,28 @@ def test_interpolate_traceinv():
 
     # Rational Polynomial with four interpolating points
     interpolant_points = [1e-2, 1e-1, 1, 1e+1]
-    TI10 = InterpolateTraceInv(A, B=B, interpolant_points=interpolant_points,
+    TI10 = InterpolateTraceinv(A, B=B, interpolant_points=interpolant_points,
                                method='RPF', traceinv_options=traceinv_options,
                                verbose=verbose)
     Trace10 = TI10.interpolate(inquiry_point)
     Error10 = 100.0 * numpy.abs(Trace10 - Trace00) / Trace00
 
     print("")
-    print("---------------------------------------")
-    print("Method  Options         imate  Error")
-    print("------  -------------   --------  -----")
-    print("EXT     N/A             %0.4f  %0.2f%%" % (Trace00, Error00))
-    print("EIG     N/A             %0.4f  %0.2f%%" % (Trace01, Error01))
-    print("MBF     N/A             %0.4f  %0.2f%%" % (Trace02, Error02))
-    print("RMBF    NonOrthogonal   %0.4f  %0.2f%%" % (Trace03, Error03))
-    print("RMBF    Orthogonal      %0.4f  %0.2f%%" % (Trace04, Error04))
-    print("RMBF    Orthogonal2     %0.4f  %0.2f%%" % (Trace05, Error05))
-    print("RBF     Type 1          %0.4f  %0.2f%%" % (Trace06, Error06))
-    print("RBF     Type 2          %0.4f  %0.2f%%" % (Trace07, Error07))
-    print("RBF     Type 3          %0.4f  %0.2f%%" % (Trace08, Error08))
-    print("RPF     2-Points        %0.4f  %0.2f%%" % (Trace09, Error09))
-    print("RPF     4-Points        %0.4f  %0.2f%%" % (Trace10, Error10))
-    print("---------------------------------------")
+    print("----------------------------------------")
+    print("Method  Options         imate     Error")
+    print("------  -------------   --------  ------")
+    print("EXT     N/A             %8.4f  %5.2f%%" % (Trace00, Error00))
+    print("EIG     N/A             %8.4f  %5.2f%%" % (Trace01, Error01))
+    print("MBF     N/A             %8.4f  %5.2f%%" % (Trace02, Error02))
+    print("RMBF    NonOrthogonal   %8.4f  %5.2f%%" % (Trace03, Error03))
+    print("RMBF    Orthogonal      %8.4f  %5.2f%%" % (Trace04, Error04))
+    print("RMBF    Orthogonal2     %8.4f  %5.2f%%" % (Trace05, Error05))
+    print("RBF     Type 1          %8.4f  %5.2f%%" % (Trace06, Error06))
+    print("RBF     Type 2          %8.4f  %5.2f%%" % (Trace07, Error07))
+    print("RBF     Type 3          %8.4f  %5.2f%%" % (Trace08, Error08))
+    print("RPF     2-Points        %8.4f  %5.2f%%" % (Trace09, Error09))
+    print("RPF     4-Points        %8.4f  %5.2f%%" % (Trace10, Error10))
+    print("----------------------------------------")
     print("")
 
     # Compare with exact soluton and plot results

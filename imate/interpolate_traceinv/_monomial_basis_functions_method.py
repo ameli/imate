@@ -167,7 +167,7 @@ class MonomialBasisFunctionsMethod(InterpolantBase):
             print('Initialize interpolator ...')
 
         An = self.A + self.t1*self.B
-        self.T1 = traceinv(An, **self.traceinv_options)
+        self.T1, _ = traceinv(An, **self.traceinv_options)
         self.tau1 = self.T1 / self.trace_Binv
 
         if self.verbose:

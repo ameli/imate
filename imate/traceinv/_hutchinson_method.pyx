@@ -3,6 +3,7 @@
 # =======
 
 # Python
+import time
 import numpy
 import scipy.sparse
 from .._linear_algebra import linear_solver
@@ -23,7 +24,8 @@ cimport openmp
 # hutchinson method
 # =================
 
-def hutchinson_method(A, assume_matrix='gen', num_samples=20):
+def hutchinson_method(A, assume_matrix='gen', num_samples=20,
+                      orthogonalize=True):
     """
     Computes the trace of inverse of a matrix by Hutchinson method.
 
@@ -50,6 +52,11 @@ def hutchinson_method(A, assume_matrix='gen', num_samples=20):
     :param num_samples: number of Monte-Carlo random samples
     :type num_samples: int
 
+    :param orthogonalize: A flag to indicate whether the set of initial random
+        vectors be orthogonalized. If not, the distribution of the initial
+        random vectors follows the Rademacher distribution.
+    :type orthogonalize: bool
+
     :return: Trace of matrix ``A``.
     :rtype: float
     """
@@ -65,7 +72,7 @@ def hutchinson_method(A, assume_matrix='gen', num_samples=20):
     if assume_matrix is None:
         raise ValueError('"assume_matrix" cannot be None.')
     elif not isinstance(assume_matrix, basestring):
-        raise TypeError('"assue_matrix" must be a string.')
+        raise TypeError('"assume_matrix" must be a string.')
     elif assume_matrix != 'gen' and assume_matrix != "pos" and \
             assume_matrix != "sym" and assume_matrix != "sym_pos":
         raise ValueError('"assume_matrix" should be either "gen", "pos", ' +
@@ -94,10 +101,12 @@ def hutchinson_method(A, assume_matrix='gen', num_samples=20):
     cdef double[::1, :] memoryview_E = E
     cdef double* cE = &memoryview_E[0, 0]
 
+    init_wall_time = time.perf_counter()
+    init_proc_time = time.process_time()
+
     # Generate orthogonalized random vectors with unit norm
-    orthogonalize = 1
     generate_random_column_vectors[double](cE, vector_size, num_samples,
-                                           orthogonalize, num_threads)
+                                           int(orthogonalize), num_threads)
 
     # Perform inv(A) * E. This requires GIL
     AinvE = linear_solver(A, E, assume_matrix)
@@ -114,7 +123,46 @@ def hutchinson_method(A, assume_matrix='gen', num_samples=20):
     cdef double trace = _stochastic_trace_estimator[double](
             cE, cAinvE, vector_size, num_samples, num_threads)
 
-    return trace
+    wall_time = time.perf_counter() - init_wall_time
+    proc_time = time.process_time() - init_proc_time
+
+    # Dictionary of output info
+    info = {
+        'error':
+        {
+            'absolute_error': None,
+            'relative_error': None,
+            'error_atol': None,
+            'error_rtol': None,
+            'confidence_level': None,
+            'outlier_significance_level': None
+        },
+        'convergence':
+        {
+            'converged': None,
+            'all_converged': None,
+            'min_num_samples': None,
+            'max_num_samples': None,
+            'num_samples_used': None,
+            'num_outliers': None,
+            'samples': None,
+            'samples_mean': trace,
+            'samples_processed_order': None
+        },
+        'cpu':
+        {
+            'wall_time': wall_time,
+            'proc_time': proc_time,
+            'num_threads': num_threads,
+        },
+        'solver':
+        {
+            'orthogonalize': orthogonalize,
+            'method': 'hutchinson',
+        }
+    }
+
+    return trace, info
 
 
 # ==========================

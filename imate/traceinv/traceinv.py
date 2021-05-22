@@ -101,16 +101,15 @@ def traceinv(A, method='slq', **options):
     """
 
     if method == 'cholesky':
-        trace = cholesky_method(A, **options)
-        return trace
+        trace, info = cholesky_method(A, **options)
 
     elif method == 'hutchinson':
-        trace = hutchinson_method(A, **options)
-        return trace
+        trace, info = hutchinson_method(A, **options)
 
     elif method == 'slq':
         trace, info = slq_method(A, **options)
-        return trace, info
 
     else:
         raise RuntimeError('Method "%s" is not recognized.' % method)
+
+    return trace, info

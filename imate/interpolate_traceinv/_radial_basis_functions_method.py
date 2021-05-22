@@ -16,6 +16,7 @@ from ._interpolant_base import InterpolantBase
 
 import numpy
 import scipy
+import scipy.interpolate
 
 
 # =============================

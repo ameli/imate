@@ -25,7 +25,7 @@ from imate import logdet
 # test logdet methods
 # ===================
 
-def test_logdet_methods(K):
+def _test_logdet_methods(K):
     """
     Computes the log-determinant of matrix ``K`` with multiple method.
 
@@ -88,14 +88,14 @@ def test_logdet():
     print('Using dense matrix')
     K1 = generate_matrix(size=20, sparse=False)
     K1 = K1 + 0.5*numpy.eye(K1.shape[0])
-    test_logdet_methods(K1)
+    _test_logdet_methods(K1)
 
     # Compute trace of inverse of K using sparse matrix
     print('Using sparse matrix')
     K2 = generate_matrix(size=50, correlation_scale=0.03, density=5e-2,
                          sparse=True)
     K2 = K2 + 0.35*scipy.sparse.eye(K2.shape[0])
-    test_logdet_methods(K2)
+    _test_logdet_methods(K2)
 
 
 # ===========

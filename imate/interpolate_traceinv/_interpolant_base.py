@@ -121,9 +121,9 @@ class InterpolantBase(object):
             self.scale_t = None
             self.scale_interpolant_points()
 
-    # ===============================
-    # Compute imate of Input Matrices
-    # ===============================
+    # ==================================
+    # compute traceinv of input matrices
+    # ==================================
 
     def compute_traceinv_of_input_matrices(self):
         """
@@ -144,13 +144,14 @@ class InterpolantBase(object):
         """
 
         # trace of Ainv
-        self.trace_Ainv = traceinv(self.A, **self.traceinv_options)
+        self.trace_Ainv, _ = traceinv(self.A, **self.traceinv_options)
+        print(self.trace_Ainv)
 
         # trace of Binv
         if self.B_is_identity:
             self.trace_Binv = self.n
         else:
-            self.trace_Binv = traceinv(self.B, **self.traceinv_options)
+            self.trace_Binv, _ = traceinv(self.B, **self.traceinv_options)
 
         # tau0
         self.tau0 = self.trace_Ainv / self.trace_Binv
@@ -196,7 +197,7 @@ class InterpolantBase(object):
         """
 
         An = self.A + t * self.B
-        T = traceinv(An, **self.traceinv_options)
+        T, _ = traceinv(An, **self.traceinv_options)
 
         return T
 

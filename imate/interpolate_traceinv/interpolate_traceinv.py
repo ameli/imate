@@ -27,7 +27,7 @@ from ._rational_polynomial_functions_method import \
 try:
     from .._utilities.plot_utilities import *                # noqa: F401, F403
     from .._utilities.plot_utilities import load_plot_settings, save_plot, \
-        matplotlib, plt, mtick
+        matplotlib, plt
     plot_modules_exist = True
 except ImportError:
     plot_modules_exist = False
@@ -559,7 +559,7 @@ class InterpolateTraceinv(object):
         ax[0].grid(True)
         ax[0].set_xlim([inquiry_points[0], inquiry_points[-1]])
         ax[0].set_xlabel(r'$t$')
-        if self.interpolator.BIsIdentity:
+        if self.interpolator.B_is_identity:
             ax[0].set_ylabel(r'trace$(\\mathbf{A} + t \\mathbf{I})^{-1}$')
         else:
             ax[0].set_ylabel(r'trace$(\\mathbf{A} + t \\mathbf{B})^{-1}$')
@@ -580,7 +580,8 @@ class InterpolateTraceinv(object):
             ax[1].set_xlabel('$t$')
             ax[1].set_ylabel('Relative Error (in Percent)')
             ax[1].set_title('Relative Error')
-            ax[1].yaxis.set_major_formatter(mtick.PercentFormatter())
+            ax[1].yaxis.set_major_formatter(
+                    matplotlib.ticker.PercentFormatter())
             ax[1].legend(fontsize='small')
 
         plt.tight_layout()

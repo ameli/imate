@@ -14,8 +14,14 @@
 # =======
 
 import sys
-from imate._cu_linear_operator.tests import test_cu_matrix, \
-        test_cu_affine_matrix_function
+
+# This package might not be compiled with the cuda support.
+try:
+    from imate._cu_linear_operator.tests import test_cu_matrix, \
+            test_cu_affine_matrix_function
+    subpackage_exists = True
+except ImportError:
+    subpackage_exists = False
 
 
 # =======================
@@ -28,8 +34,9 @@ def test_cu_linear_operator():
     """
 
     # Test linear operator
-    test_cu_matrix()
-    test_cu_affine_matrix_function()
+    if subpackage_exists:
+        test_cu_matrix()
+        test_cu_affine_matrix_function()
 
 
 # ===========
