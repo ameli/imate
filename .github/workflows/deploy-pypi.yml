@@ -59,18 +59,18 @@ jobs:
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
                   CIBW_SKIP: "pp* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
-                  CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
+                  CIBW_MANYLINUX_X86_64_IMAGE: manylinux1
 
             # Enable compiling with CUDA, only for linux
             - name: Build wheels with CUDA support
               if: matrix.os == 'ubuntu-latest'
               run: python -m cibuildwheel --output-dir wheelhouse
               env:
-                  CIBW_BEFORE_ALL_LINUX: yum install -y yum-utils && chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
+                  CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
                   CIBW_SKIP: "pp* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
-                  CIBW_MANYLINUX_X86_64_IMAGE: manylinux1
+                  CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
                   USE_CUDA: 1
             
             - name: Upload artifacts
