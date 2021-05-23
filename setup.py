@@ -188,7 +188,7 @@ def locate_cuda():
         if nvcc is None:
             raise EnvironmentError('The "nvcc" binary could not be located '
                                    'located in $PATH. Either add it to '
-                                   'path or set $CUDA_HOME, or $CUDA_ROOT'
+                                   'path or set $CUDA_HOME, or $CUDA_ROOT, '
                                    'or $CUDA_PATH.')
 
         home = os.path.dirname(os.path.dirname(nvcc))
