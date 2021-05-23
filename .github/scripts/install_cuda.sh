@@ -19,8 +19,6 @@ ARCH=x86_64
 
 yum-config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-rhel7.repo
 
-# yum install --setopt=obsoletes=0 -y cuda-nvcc-$VERSION.$ARCH cuda-cudart-devel-$VERSION.$ARCH libcublas-$VERSION.$ARCH libcublas-devel-$VERSION.$ARCH libcusparse-$VERSION.$ARCH libcusparse-devel-$VERSION.$ARCH
-
 yum install --setopt=obsoletes=0 -y \
     cuda-nvcc-$VERSION.$ARCH \
     cuda-cudart-devel-$VERSION.$ARCH \
