@@ -118,9 +118,13 @@ PyPi
 ----
 
 - The CUDA installation on githib workflow is only available for linux and
-  windows (I use ``Jimver@cuda-toolkit``). This github action does not support
+  windows (using ``Jimver@cuda-toolkit``). This github action does not support
   macos. Also, my package cannot be compiled with CUDA on windows. Thus, the
   my package on pypi supports CUDA only on linux at the moment.
+
+- Manylinux seems to halt compiling when CUDA compilation is enabled. The
+  github workflow takes over 40 minutes to buuld manylinux, and finally
+  ends with error.
 
 -----
 Conda

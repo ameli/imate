@@ -45,7 +45,7 @@ jobs:
                   pip3 install numpy
 
             - name: Install CUDA
-              if: runner.os == 'linux'
+              if: matrix.os == 'ubuntu-latest'
               uses: Jimver/cuda-toolkit@v0.2.1
               id: cuda-toolkit
               with:
@@ -53,7 +53,7 @@ jobs:
            
             # Do not enable compiling with CUDA for windows and macos
             - name: Build wheels without CUDA support
-              if: runner.os != 'linux'
+              if: matrix.os != 'ubuntu-latest'
               run: python -m cibuildwheel --output-dir wheelhouse
               env:
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
@@ -63,7 +63,7 @@ jobs:
 
             # Enable compiling with CUDA, only for linux
             - name: Build wheels with CUDA support
-              if: runner.os == 'linux'
+              if: matrix.os == 'ubuntu-latest'
               run: python -m cibuildwheel --output-dir wheelhouse
               env:
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
