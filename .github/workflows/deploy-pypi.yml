@@ -66,9 +66,7 @@ jobs:
               if: matrix.os == 'ubuntu-latest'
               run: python -m cibuildwheel --output-dir wheelhouse
               env:
-                  CIBW_BEFORE_ALL_LINUX: |
-                      chmod +x .github/scripts/install_cuda.sh
-                      .github/scripts/install_cuda.sh
+                  CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
                   CIBW_SKIP: "pp* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
