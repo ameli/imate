@@ -122,10 +122,18 @@ PyPi
   macos. Also, my package cannot be compiled with CUDA on windows. Thus, the
   my package on pypi supports CUDA only on linux at the moment.
 
-- Manylinux seems to halt compiling when CUDA compilation is enabled. The
-  github workflow takes over 40 minutes to buuld manylinux, and finally
-  ends with error. I guess inside the manylinux virtual docker, the nvcc
-  and cuda instllation is not available.
+- For the linux build, I use ``Jimver@cuda-toolkit`` for ``build-linux.yaml``
+  only, but not in ``deploy-pypi.yaml``. That is becase in pypi, we should
+  build linux in ``manylinux`` docker image, and cuda should be installed
+  inside the docker image. There is a script in ``.github/scripts`` that
+  installs cuda 11-3 inside the CentOS linux of the ``manylinux2104`` image.
+
+  Unfortunately, the size of manylinux wheel when this package is compiled
+  with cuda is 407MB (without cuda, it is 8MB). The limit of upload size to
+  pypi is 100MB, thus, the manylinux wheels cannot be uploaded to pypi at the
+  moment. The problem is probabely the inclusion of cuda static libraries. One
+  solution is to use ``--cudart shared`` in the linker arguments for nvcc. But
+  I do not know how to add this to thee nvcc linker.
 
 -----
 Conda
