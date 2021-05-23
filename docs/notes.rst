@@ -124,7 +124,8 @@ PyPi
 
 - Manylinux seems to halt compiling when CUDA compilation is enabled. The
   github workflow takes over 40 minutes to buuld manylinux, and finally
-  ends with error.
+  ends with error. I guess inside the manylinux virtual docker, the nvcc
+  and cuda instllation is not available.
 
 -----
 Conda

@@ -44,12 +44,12 @@ jobs:
                   OPENBLAS="$(brew --prefix openblas)"
                   pip3 install numpy
 
-            - name: Install CUDA
-              if: matrix.os == 'ubuntu-latest'
-              uses: Jimver/cuda-toolkit@v0.2.1
-              id: cuda-toolkit
-              with:
-                  cuda: '11.2.2'
+            # - name: Install CUDA
+            #   if: matrix.os == 'ubuntu-latest'
+            #   uses: Jimver/cuda-toolkit@v0.2.1
+            #   id: cuda-toolkit
+            #   with:
+            #       cuda: '11.2.2'
            
             # Do not enable compiling with CUDA for windows and macos
             - name: Build wheels without CUDA support
@@ -59,13 +59,14 @@ jobs:
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
                   CIBW_SKIP: "pp* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
-                  CIBW_MANYLINUX_X86_64_IMAGE: manylinux1
+                  CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
 
             # Enable compiling with CUDA, only for linux
             - name: Build wheels with CUDA support
               if: matrix.os == 'ubuntu-latest'
               run: python -m cibuildwheel --output-dir wheelhouse
               env:
+                  CIBW_BEFORE_ALL_LINUX: .github/scripts/install_cuda.sh
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
                   CIBW_SKIP: "pp* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
