@@ -61,19 +61,24 @@ def cholesky_method(A):
 
     if scipy.sparse.issparse(A):
 
+        # Sparse matrix
         if suitesparse_installed:
             # Use Suite Sparse
             Factor = sksparse.cholmod.cholesky(A)
-            logdet_ = Factor.logdet()
+            logdet_A = Factor.logdet()
         else:
             # Use scipy
-            L_diag = sparse_cholesky(A, diagonal_only=True)
-            logdet_ = 2.0 * numpy.sum(numpy.log(L_diag))
+            diag_L = sparse_cholesky(
+                    A, diagonal_only=True).astype(numpy.complex128)
+            logdet_L = numpy.real(numpy.sum(numpy.log(diag_L)))
+            logdet_A = 2.0*logdet_L
 
     else:
 
-        # Use scipy
+        # Dense matrix. Use scipy
         L = scipy.linalg.cholesky(A, lower=True)
-        logdet_ = 2.0 * numpy.sum(numpy.log(numpy.diag(L)))
+        diag_L = numpy.diag(L).astype(numpy.complex128)
+        logdet_L = numpy.real(numpy.sum(numpy.log(diag_L)))
+        logdet_A = 2.0*logdet_L
 
-    return logdet_
+    return logdet_A

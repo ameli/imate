@@ -135,6 +135,23 @@ PyPi
   solution is to use ``--cudart shared`` in the linker arguments for nvcc. But
   I do not know how to add this to thee nvcc linker.
 
+  Some possible solutions:
+
+  - In ``setup.py``, change ``zip_safe`` to ``True``. The zip safe option will
+    compress the package. The down side is that we cannot ``cimport`` this
+    package from another dependent package.
+
+  - Accordng to: https://towardsdatascience.com/how-to-shrink-numpy-scipy-pandas-and-matplotlib-for-your-data-product-4ec8d7e86ee4
+    There are compiler flags like ``-Os -g0 -Wl, --strip-all``, which can be
+    used for the *Release* version of the package.
+
+  - An other solution is to host the package elsewhere and instrcut
+    ``setup.py`` to download it. This way, ths package can still be installed
+    from pypi.
+
+  - However, the best solution is to figure out why manylinux2014 appends
+    so many cuda libraries to the package binary.
+
 -----
 Conda
 -----
@@ -213,3 +230,21 @@ Add convergence methods to the Hutchinson method, such as ``min_num_samples``,
 (currently they are orthogonalized). Also an option for ``verbose`` to print
 the results in a table just like the slq method, and an option for ``plot`` to
 plot the convergence and samples.
+
+==================
+Method Limitations
+==================
+
+- Matrices where their eigenvalue spectra cannot be represented by a limited
+  eigenvalues. If the lanczos degree is ``m``, and it the input matrix's
+  eigenvalues have at most ``m`` significant eigenvalues, then the SLQ method
+  performs well. Covariance matrices usually have such property, where most of
+  their eigenvalues are zero zero, but a small number of them are significant.
+
+=========================
+Implementation Techniques
+=========================
+
+- Lazy evaluation in linear operator and copy data to gpu device.
+- dynamic polymorphism to dispatch to linear operator derived classes.
+- Static template to support float, double, and long double data types.

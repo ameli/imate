@@ -97,14 +97,17 @@ except ImportError:
 
 """
 To compile with cuda, set ``USE_CUDA`` environment variable.
+To compile for debugging, set ``DEBUG_MODE`` environment variable.
 
 ::
 
     # In Unix
     export USE_CUDA=1
+    export DEBUG_MODE=1
 
     # In Windows
     $env:USE_CUDA = "1"
+    $env:DEBUG_MODE = "1"
 
     python setup.py install
 
@@ -120,6 +123,11 @@ If you are using ``sudo``, to pass the environment variable, use ``-E`` option:
 use_cuda = False
 if 'USE_CUDA' in os.environ and os.environ.get('USE_CUDA') == '1':
     use_cuda = True
+
+# If DEBUG_MODE is set to "1", the package is compiled with debug mode.
+debug_mode = False
+if 'DEBUG_MODE' in os.environ and os.environ.get('DEBUG_MODE') == '1':
+    debug_mode = True
 
 
 # ============
@@ -550,6 +558,11 @@ class CustomBuildExtension(build_ext):
             # We add common flags that work both for gcc and mac's clang
             extra_compile_args += ['-O3', '-fno-stack-protector', '-Wall']
 
+            # The option '-Wl, ..' will send arguments ot the linker. Here,
+            # '--strip-all' will remove all symbols from the shared library.
+            if not debug_mode:
+                extra_compile_args += ['-g0', '-Wl, --strip-all']
+
             # Assume compiler is gcc (we do not know yet). Check if the
             # compiler accepts '-fopenmp' flag. Note: clang in mac does not
             # accept this flag alone, but gcc does.
@@ -602,7 +615,14 @@ class CustomBuildExtension(build_ext):
             else:
                 extra_compile_args_nvcc = ['-arch=sm_35', '--ptxas-options=-v',
                                            '-c', '--compiler-options', '-fPIC',
-                                           '-O3', '--verbose']
+                                           '-O3', '--verbose', '--shared']
+
+            # The option '-Wl, ..' will send arguments ot the linker. Here,
+            # '--strip-all' will remove all symbols from the shared library.
+            if debug_mode:
+                extra_compile_args_nvcc += ['-g', '-G']
+            else:
+                extra_compile_args_nvcc += ['--linker-options', '--strip-all']
 
             # Redefine extra_compile_args list to be a dictionary
             extra_compile_args = {
@@ -1082,9 +1102,8 @@ def main(argv):
     external_modules = cythonize_extensions(extensions)
 
     # Description
-    description = 'Implicit matrix trace estimator (IMATE). Computes the ' + \
-        'trace of function of linear operators and implicit matrices of ' + \
-        'possible very large size. Accelerated both on CPU and ' + \
+    description = 'Implicit Matrix Trace Estimator. Computes the trace of ' + \
+        'functions of implicit matrices. Accelerated on CPU and ' + \
         'CUDA-capable GPU devices.'
 
     # URLs
@@ -1136,7 +1155,7 @@ def main(argv):
             'pytest-cov'],
         include_package_data=True,
         cmdclass={'build_ext': CustomBuildExtension},
-        zip_safe=False,    # the package can run out of an .egg file
+        zip_safe=True,  # False: package can be "cimported" by another package
         extras_require={
             'extra': [
                 'scikit-sparse',
