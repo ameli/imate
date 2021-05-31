@@ -30,6 +30,13 @@ jobs:
               run: |
                   brew install suite-sparse
                   brew install libomp
+
+                  # This is needed to import numpy in pypy3 (but not needed for
+                  # pypy2 and CPython)
+                  brew install openblas
+                  OPENBLAS="$(brew --prefix openblas)"
+                  brew install lapack
+                  pip3 install numpy
                   
             # - name: Install CUDA
             #   uses: Jimver/cuda-toolkit@v0.2.1

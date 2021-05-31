@@ -122,8 +122,6 @@ def test_traceinv():
     print('Using dense matrix')
     K1 = generate_matrix(size=30, dimension=2, correlation_scale=0.05,
                          sparse=False)
-
-    # print(K1)
     _test_traceinv_methods(K1)
 
     # # Compute trace of inverse of K using sparse matrix

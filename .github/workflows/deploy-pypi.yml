@@ -42,6 +42,7 @@ jobs:
                   # pypy2 and CPython)
                   brew install openblas
                   OPENBLAS="$(brew --prefix openblas)"
+                  brew install lapack
                   pip3 install numpy
 
             # To install CUDA in windows, uncomment the following lines. Note
@@ -68,7 +69,7 @@ jobs:
               run: python -m cibuildwheel --output-dir wheelhouse
               env:
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
-                  CIBW_SKIP: "pp27-* cp27-* cp35-*"
+                  CIBW_SKIP: "pp* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_CUDA=1"
            
