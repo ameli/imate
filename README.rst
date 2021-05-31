@@ -16,13 +16,13 @@ A python package to compute the trace of the inverse of a matrix or a linear mat
 ..     * `Travis-CI <https://travis-ci.com/github/ameli/imate>`_
 ..     * `Codecov <https://codecov.io/gh/ameli/imate>`_
 
-+------------------------------------------------------------------+-------------------------------------------------------------------+
-|    For users                                                     | For developers                                                    |
-+==================================================================+===================================================================+
-| * `Documentation <https://ameli.github.io/imate/index.html>`_ | * `API <https://ameli.github.io/imate/_modules/modules.html>`_       |
-| * `PyPi package <https://pypi.org/project/imate/>`_           | * `Travis-CI <https://travis-ci.com/github/ameli/imate>`_            |
-| * `Anaconda Cloud <https://anaconda.org/s-ameli/traceinv>`_      | * `Codecov <https://codecov.io/gh/ameli/imate>`_                  |
-+------------------------------------------------------------------+-------------------------------------------------------------------+
++---------------------------------------------------------------+----------------------------------------------------------------+
+|    For users                                                  | For developers                                                 |
++===============================================================+================================================================+
+| * `Documentation <https://ameli.github.io/imate/index.html>`_ | * `API <https://ameli.github.io/imate/_modules/modules.html>`_ |
+| * `PyPi package <https://pypi.org/project/imate/>`_           | * `Travis-CI <https://travis-ci.com/github/ameli/imate>`_      |
+| * `Anaconda Cloud <https://anaconda.org/s-ameli/traceinv>`_   | * `Codecov <https://codecov.io/gh/ameli/imate>`_               |
++---------------------------------------------------------------+----------------------------------------------------------------+
 
 ***********
 Description

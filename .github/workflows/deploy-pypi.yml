@@ -68,7 +68,7 @@ jobs:
               run: python -m cibuildwheel --output-dir wheelhouse
               env:
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
-                  CIBW_SKIP: "pp* cp27-* cp35-*"
+                  CIBW_SKIP: "pp27-* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_CUDA=1"
            
@@ -79,7 +79,7 @@ jobs:
               run: python -m cibuildwheel --output-dir wheelhouse
               env:
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
-                  CIBW_SKIP: "pp* cp27-* cp35-*"
+                  CIBW_SKIP: "pp27-* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_CUDA=0"
 
@@ -95,10 +95,10 @@ jobs:
               env:
                   CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
-                  CIBW_SKIP: "pp* cp27-* cp35-*"
+                  CIBW_SKIP: "pp27-* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
-                  CIBW_ENVIRONMENT: "USE_CUDA=1 CUDA_HOME=/usr/local/cuda"
+                  CIBW_ENVIRONMENT: "USE_CUDA=0 CUDA_HOME=/usr/local/cuda"
             
             - name: Upload artifacts
               uses: actions/upload-artifact@v2
@@ -154,7 +154,7 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest, windows-latest, macos-latest]
-                python-version: [3.6, 3.7, 3.8, 3.9]
+                python-version: ['3.6', '3.7', '3.8', '3.9', 'pypy-3.6', 'pypy-3.7']
 
         steps:
             - name: Setup Python ${{ matrix.python-version }}
