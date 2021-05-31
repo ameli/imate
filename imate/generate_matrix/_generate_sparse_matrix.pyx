@@ -276,7 +276,7 @@ def _estimate_kernel_threshold(
         * :math:`\\tau` is the kernel threshold (output of this function).
 
     The adjacency :math:`a` is the number of points on an integer lattice
-    and inside a b-ball. This quantity can be approximated by the volume of a
+    and inside a d-ball. This quantity can be approximated by the volume of a
     d-ball, see for instance
     `Gauss circle problem<https://en.wikipedia.org/wiki/Gauss_circle_problem>`_
      in 2D.

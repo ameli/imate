@@ -52,33 +52,43 @@ jobs:
             # only apply to windows, not linux and macos. To install cuda in
             # linux, see the second next actions below "Build wheel with cuda
             # support".
-            # - name: Install CUDA
-            #   if: matrix.os == 'ubuntu-latest'
-            #   uses: Jimver/cuda-toolkit@v0.2.1
-            #   id: cuda-toolkit
-            #   with:
-            #       cuda: '11.2.2'
-           
-            # Do not enable compiling with CUDA for windows and macos. Note
-            # that the manylinux1 docker image here is irrelevant, becase it
-            # is only used for linux. To enable cuda, just uncomment the
-            # USE_CUDA environment variable, install CUDA in windows (see the
-            # action above with Jimver@cuda-ttolkit), and manually install
-            # cuda in macos.
-            - name: Build wheels in windows and mac without CUDA support
-              if: matrix.os != 'ubuntu-latest'
+            - name: Install CUDA
+              if: matrix.os == 'windows-latest'
+              uses: Jimver/cuda-toolkit@v0.2.1
+              id: cuda-toolkit
+              with:
+                  cuda: '11.2.2'
+
+            # Build wheel for windows with CUDA enabled. Note that cibuildwheel
+            # does not need manylinux docker, thuns, CUDA can be installed in
+            # the github action's virtual machine using the Jimver's action
+            # in the previous action (see above).
+            - name: Build wheels in windows with CUDA support
+              if: matrix.os == 'windows-latest'
               run: python -m cibuildwheel --output-dir wheelhouse
               env:
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
                   CIBW_SKIP: "pp* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
-                  CIBW_MANYLINUX_X86_64_IMAGE: manylinux1
-                  # USE_CUDA: 1
+                  CIBW_ENVIRONMENT: "USE_CUDA=1"
+           
+            # Do not enable compiling with CUDA for macos since NIVDIA no
+            # longer supports CUDA in the macos.
+            - name: Build wheels in mac without CUDA support
+              if: matrix.os == 'macos-latest'
+              run: python -m cibuildwheel --output-dir wheelhouse
+              env:
+                  CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
+                  CIBW_SKIP: "pp* cp27-* cp35-*"
+                  CIBW_BUILD_VERBOSITY: 1
+                  CIBW_ENVIRONMENT: "USE_CUDA=0"
 
             # Enable compiling with CUDA, only for linux. Note that cuda must
             # be installed "inside" the manylinux docker image, not in the main
             # github virtual machine. Also, we should use manylinux2014, but
-            # not manylinux1.
+            # not manylinux1. Becase of this, we will not install CUDA with
+            # the Jimver's action (unlike we did so for the windows wheel in
+            # the above).
             - name: Build wheels in linux with CUDA support
               if: matrix.os == 'ubuntu-latest'
               run: python -m cibuildwheel --output-dir wheelhouse

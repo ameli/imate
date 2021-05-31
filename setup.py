@@ -16,12 +16,13 @@ from __future__ import print_function
 import os
 from os.path import join
 import sys
+import platform
 from glob import glob
 import subprocess
 import codecs
 import tempfile
 import shutil
-from distutils.errors import CompileError, LinkError
+from distutils.errors import CompileError, LinkError, DistutilsExecError
 import textwrap
 import multiprocessing
 
@@ -216,6 +217,19 @@ def locate_cuda():
                                    "located in %s or %s." % (lib, lib64))
         lib = lib64
 
+    # For windows, add "x64" or "x86" to the end of lib path
+    if sys.platform == "win32":
+
+        # Detect architecture is 64bit or 32bit
+        if platform.machine().endswith('64'):
+            lib = join(lib, 'x64')
+        else:
+            lib = join(lib, 'x86')
+
+        if not os.path.exists(lib):
+            raise EnvironmentError("The CUDA's lib sub-directory could not " +
+                                   "be located in %s." % lib)
+
     # Output dictionary of set of paths
     cuda = {
         'home': home,
@@ -310,61 +324,128 @@ def customize_windows_compiler_for_nvcc(self, cuda):
         This function should be called when ``USE_CUDA`` is enabled.
     """
 
-    if not self.initialized:
-        self.initialize()
-
     self.src_extensions.append('.cu')
-
-    # Backup default compiler
-    # default_compiler_so = self.compiler_so
-    default_cc = self.cc
-    super = self.compile
 
     # =======
     # compile
     # =======
 
-    # def compile(obj, src, ext, cc_args, extra_compile_args_dict, pp_opts):
-    def compile(sources,
-                output_dir=None, macros=None, include_dirs=None, debug=0,
-                extra_preargs=None, extra_postargs=None, depends=None):
+    def compile(sources, output_dir=None, macros=None, include_dirs=None,
+                debug=0, extra_preargs=None, extra_postargs=None,
+                depends=None):
         """
-        Redefine ``_compile`` method to dispatch relevant compiler for each
-        file extension. For ``.cu`` files, the ``nvcc`` compiler will be used.
+        This method is copied from ``cpython/Lib/distutils/msvccompiler.py``.
+        See: github.com/python/cpython/blob/main/Lib/distutils/msvccompiler.py
 
-        Note: ``extra_compile_args_dict`` is a dictionary with two keys
-        ``"nvcc"`` and ``"gcc"``. Respectively, the values of each are lists of
-        extra_compile_args for nvcc (to compile .cu files) and other compile
-        args to compile other files. This dictionary was created in the
-        extra_compile_args when each extension is created (see later in this
-        script).
+        This compile method is modified below to allow the ``.cu`` files to be
+        compiled with the cuda's nvcc compiler.
         """
 
-        # if os.path.splitext(src)[1] == '.cu':
-        if True:
+        # We altered extra_compile_args (or here, extra_postargs) to be a dict
+        # of two keys: 'nvcc' and 'not_nvcc'. Here we extract them.
+        extra_postargs_nvcc = extra_postargs['nvcc']
+        extra_postargs = extra_postargs['not_nvcc']   # keeping the same name
 
-            # Use nvcc for *.cu files.
-            # self.set_executable('compiler_so', cuda['nvcc'])
-            # self.set_executable('cc', cuda['nvcc'])
-            self.cc = cuda['nvcc']
+        if not self.initialized:
+            self.initialize()
+        compile_info = self._setup_compile(output_dir, macros, include_dirs,
+                                           sources, depends, extra_postargs)
+        macros, objects, extra_postargs, pp_opts, build = compile_info
 
-            # Use only a part of extra_postargs dictionary with the key "nvcc"
-            extra_postargs = extra_postargs['nvcc']
-
+        compile_opts = extra_preargs or []
+        compile_opts.append('/c')
+        if debug:
+            compile_opts.extend(self.compile_options_debug)
         else:
-            # for any other file extension, use the defaukt compiler. Also, for
-            # the extra compile args, use args in "gcc" key of extra_postargs
-            extra_postargs = extra_postargs['gcc']
+            compile_opts.extend(self.compile_options)
 
-        # Pass back to the default compiler
-        # super(obj, src, ext, cc_args, extra_compile_args, pp_opts)
-        super(sources, output_dir, macros, include_dirs, debug,
-              extra_preargs, extra_postargs, depends)
+        for obj in objects:
+            try:
+                src, ext = build[obj]
+            except KeyError:
+                continue
+            if debug:
+                # pass the full pathname to MSVC in debug mode,
+                # this allows the debugger to find the source file
+                # without asking the user to browse for it
+                src = os.path.abspath(src)
 
-        # Return back the previous default compiler to self.compiler_so
-        # self.compiler_so = default_compiler_so
-        self.cc = default_cc
+            if ext in self._c_extensions:
+                input_opt = "/Tc" + src
+            elif ext in self._cpp_extensions:
+                input_opt = "/Tp" + src
+            elif ext in self._rc_extensions:
+                # compile .RC to .RES file
+                input_opt = src
+                output_opt = "/fo" + obj
+                try:
+                    self.spawn([self.rc] + pp_opts +
+                               [output_opt] + [input_opt])
+                except DistutilsExecError as msg:
+                    raise CompileError(msg)
+                continue
+            elif ext in self._mc_extensions:
+                # Compile .MC to .RC file to .RES file.
+                #   * '-h dir' specifies the directory for the
+                #     generated include file
+                #   * '-r dir' specifies the target directory of the
+                #     generated RC file and the binary message resource
+                #     it includes
+                #
+                # For now (since there are no options to change this),
+                # we use the source-directory for the include file and
+                # the build directory for the RC file and message
+                # resources. This works at least for win32all.
+                h_dir = os.path.dirname(src)
+                rc_dir = os.path.dirname(obj)
+                try:
+                    # first compile .MC to .RC and .H file
+                    self.spawn([self.mc] +
+                               ['-h', h_dir, '-r', rc_dir] + [src])
+                    base, _ = os.path.splitext(os.path.basename(src))
+                    rc_file = os.path.join(rc_dir, base + '.rc')
+                    # then compile .RC to .RES file
+                    self.spawn([self.rc] +
+                               ["/fo" + obj] + [rc_file])
 
+                except DistutilsExecError as msg:
+                    raise CompileError(msg)
+                continue
+            elif ext in ['.cu']:
+                # Adding this elif condtion to avoid the else statement below
+                pass
+            else:
+                # how to handle this file?
+                raise CompileError("Don't know how to compile %s to %s"
+                                   % (src, obj))
+
+            try:
+                if ext == '.cu':
+                    # Compile with nvcc
+                    input_opt = ['-c', src]
+                    output_opt = ['-o', obj]
+
+                    # Note: the compile_opts is removed below. All necessary
+                    # options for nvcc compiler is in extra_postargs_nvcc
+                    self.spawn([cuda['nvcc']] + pp_opts +
+                               input_opt + output_opt +
+                               extra_postargs_nvcc)
+                else:
+                    # Compile with msvc
+                    output_opt = "/Fo" + obj
+                    self.spawn([self.cc] + compile_opts + pp_opts +
+                               [input_opt, output_opt] +
+                               extra_postargs)
+
+            except DistutilsExecError as msg:
+                raise CompileError(msg)
+
+        return objects
+
+    # Replace the previous comoile function of distutils.ccompiler with the
+    # above modified function. Here, the object ``self`` is ``MVSCCompiler``
+    # which is a dderived class from ``CCompiler`` in the ``distutils`` package
+    # in ``cpython`` package.
     self.compile = compile
 
 
@@ -531,7 +612,7 @@ class CustomBuildExtension(build_ext):
         if compiler_type == 'msvc':
 
             # This is Microsoft Windows Visual C++ compiler
-            msvc_compile_args = ['/O2', '/Wall', '/openmp']
+            msvc_compile_args = ['/O2', '/W4', '/openmp']
             msvc_link_args = []
             msvc_has_openmp_flag = check_compiler_has_flag(
                     self.compiler,
@@ -609,13 +690,27 @@ class CustomBuildExtension(build_ext):
         # Modify compiler flags for cuda
         if use_cuda:
 
-            # Compile flags for nvcc
+            # Code generations for various device architectures
+            gencodes = ['-gencode', 'arch=compute_35,code=sm_35',
+                        '-gencode', 'arch=compute_50,code=sm_50',
+                        '-gencode', 'arch=compute_52,code=sm_52',
+                        '-gencode', 'arch=compute_60,code=sm_60',
+                        '-gencode', 'arch=compute_61,code=sm_61',
+                        '-gencode', 'arch=compute_70,code=sm_70',
+                        '-gencode', 'arch=compute_75,code=sm_75',
+                        '-gencode', 'arch=compute_80,code=sm_80',
+                        '-gencode', 'arch=compute_86,code=sm_86',
+                        '-gencode', 'arch=compute_86,code=compute_86']
+
+            extra_compile_args_nvcc = gencodes + ['--ptxas-options=-v', '-c',
+                                                  '--verbose', '--shared',
+                                                  '-O3', '--compiler-options']
+
+            # Continuing adding compiler options
             if sys.platform == 'win32':
-                extra_compile_args_nvcc = ['/Ox']
+                extra_compile_args_nvcc += ['-MD']  # Creates shared library
             else:
-                extra_compile_args_nvcc = ['-arch=sm_35', '--ptxas-options=-v',
-                                           '-c', '--compiler-options', '-fPIC',
-                                           '-O3', '--verbose', '--shared']
+                extra_compile_args_nvcc += ['-fPIC']  # only for gcc
 
             # The option '-Wl, ..' will send arguments ot the linker. Here,
             # '--strip-all' will remove all symbols from the shared library.
@@ -870,8 +965,11 @@ def create_extension(
         if has_cuda_source:
             include_dirs += [cuda['include']]
             library_dirs += [cuda['lib']]
-            runtime_library_dirs += [cuda['lib']]
             libraries += ['cudart', 'cublas', 'cusparse']
+
+            # msvc compiler does ndot what to do with the runtime library
+            if sys.platform != 'win32':
+                runtime_library_dirs += [cuda['lib']]
 
     # Create an extension
     extension = Extension(
@@ -1142,7 +1240,7 @@ def main(argv):
         ext_modules=external_modules,
         include_dirs=[numpy.get_include()],
         install_requires=requirements,
-        python_requires='>=2.7',
+        python_requires='>=3.6',
         setup_requires=[
             'setuptools',
             'wheel',
@@ -1155,7 +1253,7 @@ def main(argv):
             'pytest-cov'],
         include_package_data=True,
         cmdclass={'build_ext': CustomBuildExtension},
-        zip_safe=True,  # False: package can be "cimported" by another package
+        zip_safe=False,  # False: package can be "cimported" by another package
         extras_require={
             'extra': [
                 'scikit-sparse',
@@ -1175,7 +1273,6 @@ def main(argv):
         },
         classifiers=[
             'Programming Language :: Cython',
-            'Programming Language :: Python :: 2.7',
             'Programming Language :: Python :: 3.6',
             'Programming Language :: Python :: 3.7',
             'Programming Language :: Python :: 3.8',

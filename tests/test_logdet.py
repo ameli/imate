@@ -45,8 +45,8 @@ def _test_logdet_methods(K):
     # Use direct method
     time00 = time.time()
     if scipy.sparse.issparse(K):
-        logdet0 = numpy.log(
-            numpy.linalg.det(K.toarray()).astype(numpy.complex128))
+        logdet0 = numpy.real(numpy.log(
+            numpy.linalg.det(K.toarray()).astype(numpy.complex128)))
     else:
         logdet0 = numpy.log(numpy.linalg.det(K).astype(numpy.complex128))
     time01 = time.time()

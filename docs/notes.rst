@@ -55,13 +55,39 @@ Some notes to myself when completing the documentation later.
      functions. Now they are not const.
 
 
+  Problem found:
+
+  The huge wheel file size is originated from the ``auditwheel repair`` command
+  inside the manylinux. Once a wheel file is created, weh should check which
+  libraries the wheel depends on. We can check this by
+
+      auditwheel show package.whl
+
+  To include these libraries with the wheel, we run
+
+      auditwheel repair package.whl -w pakcage-manylinux.whl
+
+  For my package, this process adds all cuda libraries, and the package size
+  jumps from 2.8MB to 400MB. If I unzip the wheel file:
+
+      unzip package-manylinux.whl
+
+  and list the files in ``imate.libs``:
+
+  117M libcublas-c38bd442.so.11.5.1.109     <<< large
+  252M libcublasLt-17d45838.so.11.5.1.109   <<< large
+  622K libcudart-a7b20f20.so.11.3.109
+  225M libcusparse-aae971d3.so.11.6.0.109   <<< large
+  165K libgomp-a34b3233.so.1.0.0
+
+
+
+
 ====
 TODO
 ====
 
 * other functions (besides traceinv and logdet)
-* interpolate_traceinv
-* tests of traceinv
 * rename the argument ``reorthogonalize`` on ``slq`` method to
   ``orthogonalize``. In ``hutchinson`` method, we have ``orthogonalize``
   argument, and it is better to make these two arguments have the same name,
@@ -71,6 +97,12 @@ TODO
 * generate_matrix add dtype argument
 
 * doxygen for c_linear_operator and its derived classes
+* compile with ``pypy`` and if not possible, update `setup.py`` metadata about
+  pypy.
+* I made some optimization compiler flags for ``gcc`` and ``nvcc``. But these
+  are not yet added to the ``msvc`` compiler.
+* Implement convergence for ``hutchinson`` method and use the same arguments
+  that exists for ``slq`` method.
 
 ======
 Issues
@@ -82,6 +114,7 @@ with clang.
 
 If ``this->device_buffer`` has to be set in sparse classes, the functions such
 as ``dot()`` cannot be ``const``. So, either
+
     1. the constness should be removed from all base classes, or,
     2. somehow setting the buffer should be done outside of these functions,
        maybe in the constructors, or
@@ -109,9 +142,8 @@ Local Installation
   py35 is deprecated as of last year.
 
 - CUDA support:
-  Currently, it can be only enabled for linux and macos. CUDA support cannot be
-  compiled in windows, since the funciton
-  ``customize_windows_compiler_for_nvcc`` is not complete.
+  CUDA is only availble in linux and windows. NVIDIA no longer supports CUDA in
+  macos, and Apple does not include NVIDA in apple products either.
 
 ----
 PyPi
@@ -119,8 +151,7 @@ PyPi
 
 - The CUDA installation on githib workflow is only available for linux and
   windows (using ``Jimver@cuda-toolkit``). This github action does not support
-  macos. Also, my package cannot be compiled with CUDA on windows. Thus, the
-  my package on pypi supports CUDA only on linux at the moment.
+  macos.
 
 - For the linux build, I use ``Jimver@cuda-toolkit`` for ``build-linux.yaml``
   only, but not in ``deploy-pypi.yaml``. That is becase in pypi, we should

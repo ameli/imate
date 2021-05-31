@@ -12,10 +12,10 @@
 set -e
 set -x
 
-yum install -y yum-utils
-
 VERSION=11-3
 ARCH=x86_64
+
+yum install -y yum-utils
 
 yum-config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-rhel7.repo
 
