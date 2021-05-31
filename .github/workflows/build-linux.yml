@@ -45,6 +45,9 @@ jobs:
               env:
                   USE_CUDA: 1
 
+            # Despite the package is built on both cpython and pypy, here we
+            # only test it on cpython, not on pypy, since many other required
+            # dependencies (like matplotlib, etc) need to be compiled on pypy.
             - name: Test
               if: matrix.python-version != 'pypy-3.6' && matrix.python-version != 'pypy-3.7'
               run: |
@@ -52,14 +55,6 @@ jobs:
                   python -m pip install --upgrade pytest-cov
                   mv imate imate-DoNotImport
                   pytest
-
-            - name: Test2
-              if: matrix.python-version == 'pypy-3.6' || matrix.python-version == 'pypy-3.7'
-              run: |
-                  pypy -m pip install --upgrade pytest
-                  pypy -m pip install --upgrade pytest-cov
-                  mv imate imate-DoNotImport
-                  pypy -m pytest
 
             - name: Coverage
               run: |

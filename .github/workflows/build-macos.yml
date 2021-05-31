@@ -15,7 +15,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                python-version: ['3.6', '3.7', '3.8', '3.9', 'pypy-3.6', 'pypy-3.7']
+                python-version: ['3.6', '3.7', '3.8', '3.9']
 
         steps:
             - name: Checkout
@@ -33,10 +33,10 @@ jobs:
 
                   # This is needed to import numpy in pypy3 (but not needed for
                   # pypy2 and CPython)
-                  brew install openblas
-                  OPENBLAS="$(brew --prefix openblas)"
-                  brew install lapack
-                  pip3 install numpy
+                  # brew install openblas
+                  # OPENBLAS="$(brew --prefix openblas)"
+                  # brew install lapack
+                  # pip3 install numpy
                   
             # - name: Install CUDA
             #   uses: Jimver/cuda-toolkit@v0.2.1

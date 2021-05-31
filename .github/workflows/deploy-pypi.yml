@@ -40,10 +40,10 @@ jobs:
 
                   # This is needed to import numpy in pypy3 (but not needed for
                   # pypy2 and CPython)
-                  brew install openblas
-                  OPENBLAS="$(brew --prefix openblas)"
-                  brew install lapack
-                  pip3 install numpy
+                  # brew install openblas
+                  # OPENBLAS="$(brew --prefix openblas)"
+                  # brew install lapack
+                  # pip3 install numpy
 
             # To install CUDA in windows, uncomment the following lines. Note
             # that the Jimver@cuda-toolkit action (below) can only install cuda
@@ -80,7 +80,7 @@ jobs:
               run: python -m cibuildwheel --output-dir wheelhouse
               env:
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
-                  CIBW_SKIP: "pp27-* cp27-* cp35-*"
+                  CIBW_SKIP: "pp* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_CUDA=0"
 
@@ -155,7 +155,11 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest, windows-latest, macos-latest]
-                python-version: ['3.6', '3.7', '3.8', '3.9', 'pypy-3.6', 'pypy-3.7']
+                # Despite the package is built on both cpython and pypy in
+                # linux, we only test it on cpython, not on pypy, since many
+                # other required dependencies (like matplotlib, etc) need to be
+                # compiled on pypy.
+                python-version: ['3.6', '3.7', '3.8', '3.9']
 
         steps:
             - name: Setup Python ${{ matrix.python-version }}

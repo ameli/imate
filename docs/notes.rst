@@ -97,8 +97,6 @@ TODO
 * generate_matrix add dtype argument
 
 * doxygen for c_linear_operator and its derived classes
-* compile with ``pypy`` and if not possible, update `setup.py`` metadata about
-  pypy.
 * I made some optimization compiler flags for ``gcc`` and ``nvcc``. But these
   are not yet added to the ``msvc`` compiler.
 * Implement convergence for ``hutchinson`` method and use the same arguments
@@ -140,6 +138,10 @@ Local Installation
 - Pythn 3.5:
   For some reasons, this package cannot be installed on python 3.5. However,
   py35 is deprecated as of last year.
+
+- pypy:
+  Build on pypy is only suppported on Linux. The package cannot be built on
+  pypy on windows and macos. On Linux, pypy-3.6 and pypy-3.7 is supported.
 
 - CUDA support:
   CUDA is only availble in linux and windows. NVIDIA no longer supports CUDA in
