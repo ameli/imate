@@ -27,4 +27,5 @@ yum install --setopt=obsoletes=0 -y \
     libcusparse-$VERSION.$ARCH \
     libcusparse-devel-$VERSION.$ARCH
 
+pip3 install --upgrade pip
 ln -s cuda-$VERSION /usr/local/cuda
