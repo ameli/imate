@@ -106,6 +106,7 @@ def get_operator_parameters(parameters, data_type_name):
 # ===============
 
 def check_arguments(
+        exponent,
         symmetric,
         min_num_samples,
         max_num_samples,
@@ -115,7 +116,7 @@ def check_arguments(
         outlier_significance_level,
         lanczos_degree,
         lanczos_tol,
-        reorthogonalize,
+        orthogonalize,
         num_threads,
         verbose,
         plot,
@@ -128,6 +129,14 @@ def check_arguments(
         converts them to ``0`` and returns them.
     :rtype: data_type
     """
+
+    # Check exponent
+    if exponent is None:
+        raise TypeError('"exponent" cannot be None.')
+    elif not numpy.isscalar(exponent):
+        raise TypeError('"exponent" should be a scalar value.')
+    elif isinstance(exponent, complex):
+        TypeError('"exponent" cannot be a complex number.')
 
     # Check symmetric
     if symmetric is None:
@@ -228,15 +237,15 @@ def check_arguments(
     elif lanczos_tol is not None and lanczos_tol < 0.0:
         raise ValueError('"lancozs_tol" cannot be negative.')
 
-    # Check reorthogonalize
-    if reorthogonalize is None:
-        raise TypeError('"reorthogonalize" cannot be None.')
-    elif not numpy.isscalar(reorthogonalize):
-        raise TypeError('"reorthogonalize" should be a scalar value.')
-    elif not isinstance(reorthogonalize, int):
-        raise TypeError('"reorthogonaliz" should be an integer.')
-    elif reorthogonalize > lanczos_degree:
-        raise ValueError('"reorthogonalize", if positive, should be at most ' +
+    # Check orthogonalize
+    if orthogonalize is None:
+        raise TypeError('"orthogonalize" cannot be None.')
+    elif not numpy.isscalar(orthogonalize):
+        raise TypeError('"orthogonalize" should be a scalar value.')
+    elif not isinstance(orthogonalize, int):
+        raise TypeError('"orthogonalize" should be an integer.')
+    elif orthogonalize > lanczos_degree:
+        raise ValueError('"orthogonalize", if positive, should be at most ' +
                          'equal to "lanczos_degree".')
 
     # Check num_threads
@@ -390,15 +399,15 @@ def print_summary(info):
     # Solver info
     lanczos_degree = info['solver']['lanczos_degree']
     lanczos_tol = info['solver']['lanczos_tol']
-    reorthogonalize = info['solver']['reorthogonalize']
+    orthogonalize = info['solver']['orthogonalize']
 
-    # Convert reorthogonalize to "full" or "none" strings
-    if reorthogonalize < 0 or reorthogonalize >= lanczos_degree:
-        reorthogonalize = 'full'
-    elif reorthogonalize == 0:
-        reorthogonalize = 'none'
+    # Convert orthogonalize to "full" or "none" strings
+    if orthogonalize < 0 or orthogonalize >= lanczos_degree:
+        orthogonalize = 'full'
+    elif orthogonalize == 0:
+        orthogonalize = 'none'
     else:
-        reorthogonalize = "%4d" % reorthogonalize
+        orthogonalize = "%4d" % orthogonalize
 
     # Print results
     print('                                    results                      ' +
@@ -487,7 +496,7 @@ def print_summary(info):
     print('lanczos tol:                %8.3e' % lanczos_tol)
     print('num matrix parameters:             %2d' % num_operator_parameters,
           end="    ")
-    print('reorthogonalization:             %4s' % reorthogonalize)
+    print('orthogonalization:               %4s' % orthogonalize)
     print('')
 
     # Prints convergence and error

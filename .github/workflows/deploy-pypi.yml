@@ -96,7 +96,7 @@ jobs:
               env:
                   CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
-                  CIBW_SKIP: "pp27-* cp27-* cp35-*"
+                  CIBW_SKIP: "pp* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
                   CIBW_ENVIRONMENT: "USE_CUDA=0 CUDA_HOME=/usr/local/cuda"
@@ -129,9 +129,9 @@ jobs:
         runs-on: ubuntu-latest
         name: Publish to PyPi
         
-        # upload to PyPI on every tag starting with 'v'
+        # To upload to PyPI on every tag starting with 'v', use the following:
         # if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
-        # alternatively, to publish when a GitHub Release is created, use the following rule:
+        # To publish to pypi on each GitHub Release, use the following:
         # if: github.event_name == 'release' && github.event.action == 'published'
         steps:
             - name: Download artifacts

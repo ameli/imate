@@ -15,7 +15,7 @@
 
 #include "./cu_trace_estimator.h"
 #include <omp.h>  // omp_set_num_threads
-#include <cmath>  // sqrt
+#include <cmath>  // sqrt, pow
 #include <cstddef>  // NULL
 #include "./cu_lanczos_tridiagonalization.h"  // cu_lanczos_tridiagonalization
 #include "./cu_golub_kahn_bidiagonalization.h"  // cu_golub_kahn_bidiagonali...
@@ -67,6 +67,10 @@
 ///             An instance of \c Function class which has the function
 ///             \c function. This function defines the matrix function, and
 ///             operates on scalar eigenvalues of the matrix.
+/// \param[in]  exponent
+///             The exponent parameter \c p in the trace of the expression
+///             $f((\mathbf{A} + t \mathbf{B})^p)$. The exponent is a real
+///             number and by default it is set to \c 1.0.
 /// \param[in]  symmetric
 ///             Flag indicating whether the linear operator \c A is symmetric.
 ///             If the linear operator is:
@@ -76,9 +80,9 @@
 ///             * non-symmetric, then, Golub-Kahn bidiagonalization method is
 ///               employed. This method requires both matrix and
 ///               transposed-matrix vector multiplications.
-/// \param[in]  reorthogonalize
-///             Indicates whether to reorthogonalize the orthogonal
-///             eigenvectors during Lanczos recursive iterations.
+/// \param[in]  orthogonalize
+///             Indicates whether to orthogonalize the orthogonal eigenvectors
+///             during Lanczos recursive iterations.
 ///             * If set to \c 0, no orthogonalization is performed.
 ///             * If set to a negative integer, a newly computed eigenvector is
 ///               orthogonalized against all the previous eigenvectors (full
@@ -88,7 +92,7 @@
 ///               orthogonalized against the last \c q previous eigenvectors
 ///               (partial reorthogonalization).
 ///             * If set to an integer larger than \c lanczos_degree, it is cut
-///               to \c lanczos_degree, which effectively reorthogonalizes
+///               to \c lanczos_degree, which effectively orthogonalizes
 ///               against all previous eigenvectors (full reorthogonalization).
 /// \param[in]  lanczos_degree
 ///             The number of Lanczos recursive iterations. The operator \c A
@@ -182,8 +186,9 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
         DataType* parameters,
         const IndexType num_inquiries,
         const Function* matrix_function,
+        const DataType exponent,
         const FlagType symmetric,
-        const FlagType reorthogonalize,
+        const FlagType orthogonalize,
         const IndexType lanczos_degree,
         const DataType lanczos_tol,
         const IndexType min_num_samples,
@@ -242,9 +247,9 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
         {
             // Perform one Monte-Carlo sampling to estimate trace
             cuTraceEstimator<DataType>::_cu_stochastic_lanczos_quadrature(
-                    A, parameters, num_inquiries, matrix_function, symmetric,
-                    random_vectors[i], reorthogonalize, lanczos_degree,
-                    lanczos_tol, converged, samples[i]);
+                    A, parameters, num_inquiries, matrix_function, exponent,
+                    symmetric, random_vectors[i], orthogonalize,
+                    lanczos_degree, lanczos_tol, converged, samples[i]);
 
             // Store the index of processed samples
             processed_samples_indices[num_processed_samples] = i;
@@ -319,6 +324,10 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
 ///             An instance of \c Function class which has the function \c
 ///             function. This function defines the matrix function, and
 ///             operates on scalar eigenvalues of the matrix.
+/// \param[in]  exponent
+///             The exponent parameter \c p in the trace of the expression
+///             $f((\mathbf{A} + t \mathbf{B})^p)$. The exponent is a real
+///             number and by default it is set to \c 1.0.
 /// \param[in]  symmetric
 ///             Flag indicating whether the linear operator \c A is symmetric.
 ///             If the linear operator is:
@@ -334,9 +343,9 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
 ///             used per a Monte-Carlo computation of the SLQ method. In the
 ///             Lanczos iterations, other vectors are generated orthogonal to
 ///             this initial random vector.
-/// \param[in]  reorthogonalize
-///             Indicates whether to reorthogonalize the orthogonal
-///             eigenvectors during Lanczos recursive iterations.
+/// \param[in]  orthogonalize
+///             Indicates whether to orthogonalize the orthogonal eigenvectors
+///             during Lanczos recursive iterations.
 ///             * If set to \c 0, no orthogonalization is performed.
 ///             * If set to a negative integer, a newly computed eigenvector is
 ///               orthogonalized against all the previous eigenvectors (full
@@ -346,7 +355,7 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
 ///               orthogonalized against the last \c q previous eigenvectors
 ///               (partial reorthogonalization).
 ///             * If set to an integer larger than \c lanczos_degree, it is cut
-///               to \c lanczos_degree, which effectively reorthogonalizes
+///               to \c lanczos_degree, which effectively orthogonalizes
 ///               against all previous eigenvectors (full reorthogonalization).
 /// \param[in]  lanczos_degree
 ///             The number of Lanczos recursive iterations. The operator \c A
@@ -379,9 +388,10 @@ void cuTraceEstimator<DataType>::_cu_stochastic_lanczos_quadrature(
         DataType* parameters,
         const IndexType num_inquiries,
         const Function* matrix_function,
+        const DataType exponent,
         const FlagType symmetric,
         const DataType* random_vector,
-        const FlagType reorthogonalize,
+        const FlagType orthogonalize,
         const IndexType lanczos_degree,
         const DataType lanczos_tol,
         FlagType* converged,
@@ -469,7 +479,7 @@ void cuTraceEstimator<DataType>::_cu_stochastic_lanczos_quadrature(
             // Use Lanczos Tri-diagonalization
             lanczos_size[j] = cu_lanczos_tridiagonalization(
                     A, random_vector, matrix_size, lanczos_degree, lanczos_tol,
-                    reorthogonalize, alpha, beta);
+                    orthogonalize, alpha, beta);
 
             // Allocate eigenvectors matrix (1D array with Fortran ordering)
             eigenvectors = new DataType[lanczos_size[j] * lanczos_size[j]];
@@ -490,7 +500,7 @@ void cuTraceEstimator<DataType>::_cu_stochastic_lanczos_quadrature(
             // Use Golub-Kahn-Lanczos Bi-diagonalization
             lanczos_size[j] = cu_golub_kahn_bidiagonalization(
                     A, random_vector, matrix_size, lanczos_degree, lanczos_tol,
-                    reorthogonalize, alpha, beta);
+                    orthogonalize, alpha, beta);
 
             // Allocate matrix of singular vectors (1D array, Fortran ordering)
             left_singularvectors = \
@@ -570,7 +580,7 @@ void cuTraceEstimator<DataType>::_cu_stochastic_lanczos_quadrature(
         for (i=0; i < lanczos_size[j]; ++i)
         {
             quadrature_sum += tau[j][i] * tau[j][i] * \
-                    matrix_function->function(theta[j][i]);
+                    matrix_function->function(pow(theta[j][i], exponent));
         }
 
         trace_estimate[j] = matrix_size * quadrature_sum;

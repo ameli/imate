@@ -38,6 +38,7 @@ cpdef trace_estimator(
         A,
         parameters,
         pyFunction py_matrix_function,
+        exponent,
         symmetric,
         min_num_samples,
         max_num_samples,
@@ -47,7 +48,7 @@ cpdef trace_estimator(
         outlier_significance_level,
         lanczos_degree,
         lanczos_tol,
-        reorthogonalize,
+        orthogonalize,
         num_threads,
         verbose,
         plot,
@@ -130,9 +131,9 @@ cpdef trace_estimator(
 
     # Check input arguments have proper type and values
     error_atol, error_rtol = check_arguments(
-            symmetric, min_num_samples, max_num_samples, error_atol,
+            exponent, symmetric, min_num_samples, max_num_samples, error_atol,
             error_rtol, confidence_level, outlier_significance_level,
-            lanczos_degree, lanczos_tol, reorthogonalize, num_threads, verbose,
+            lanczos_degree, lanczos_tol, orthogonalize, num_threads, verbose,
             plot, gpu)
 
     # Set the default value for the "epsilon" of the slq algorithm
@@ -195,8 +196,9 @@ cpdef trace_estimator(
             parameters,
             num_inquiries,
             py_matrix_function,
+            exponent,
             int(symmetric),
-            reorthogonalize,
+            orthogonalize,
             lanczos_degree,
             lanczos_tol,
             min_num_samples,
@@ -233,8 +235,9 @@ cpdef trace_estimator(
             parameters,
             num_inquiries,
             py_matrix_function,
+            exponent,
             int(symmetric),
-            reorthogonalize,
+            orthogonalize,
             lanczos_degree,
             lanczos_tol,
             min_num_samples,
@@ -306,7 +309,7 @@ cpdef trace_estimator(
         {
             'lanczos_degree': lanczos_degree,
             'lanczos_tol': lanczos_tol,
-            'reorthogonalize': reorthogonalize,
+            'orthogonalize': orthogonalize,
             'method': 'slq',
         }
     }

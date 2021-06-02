@@ -11,6 +11,7 @@
 # Imports
 # =======
 
+from ._eigenvalue_method import eigenvalue_method
 from ._cholesky_method import cholesky_method
 from ._slq_method import slq_method
 
@@ -77,17 +78,16 @@ def logdet(A, method='cholesky', **options):
         ...     lanczos_degree=20, symmetric=False)
     """
 
-    if method == 'cholesky':
+    if method == 'eigenvalue':
+        trace, info = eigenvalue_method(A, **options)
 
-        # Cholesky method
-        trace = cholesky_method(A)
-        return trace
+    elif method == 'cholesky':
+        trace, info = cholesky_method(A, **options)
 
     elif method == 'slq':
-
-        # Stochastic Lanczos Quadrature method (by Monte-Carlo sampling)
         trace, info = slq_method(A, **options)
-        return trace, info
 
     else:
         raise ValueError('Method "%s" is invalid.' % (method))
+
+    return trace, info

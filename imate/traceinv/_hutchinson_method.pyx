@@ -1,3 +1,12 @@
+# SPDX-FileCopyrightText: Copyright 2021, Siavash Ameli <sameli@berkeley.edu>
+# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileType: SOURCE
+#
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the license found in the LICENSE.txt file in the root
+# directory of this source tree.
+
+
 # =======
 # Imports
 # =======
@@ -24,8 +33,13 @@ cimport openmp
 # hutchinson method
 # =================
 
-def hutchinson_method(A, assume_matrix='gen', num_samples=20,
-                      orthogonalize=True):
+def hutchinson_method(
+        A,
+        exponent=1,
+        assume_matrix='gen',
+        num_samples=20,
+        orthogonalize=True,
+        num_threads=0):
     """
     Computes the trace of inverse of a matrix by Hutchinson method.
 
@@ -61,35 +75,13 @@ def hutchinson_method(A, assume_matrix='gen', num_samples=20,
     :rtype: float
     """
 
-    # Check A
-    if (not isinstance(A, numpy.ndarray)) and (not scipy.sparse.issparse(A)):
-        raise TypeError('Input matrix should be either a "numpy.ndarray" or ' +
-                        'a "scipy.sparse" matrix.')
-    elif A.shape[0] != A.shape[1]:
-        raise ValueError('Input matrix should be a square matrix.')
-
-    # Check assume_matrix
-    if assume_matrix is None:
-        raise ValueError('"assume_matrix" cannot be None.')
-    elif not isinstance(assume_matrix, basestring):
-        raise TypeError('"assume_matrix" must be a string.')
-    elif assume_matrix != 'gen' and assume_matrix != "pos" and \
-            assume_matrix != "sym" and assume_matrix != "sym_pos":
-        raise ValueError('"assume_matrix" should be either "gen", "pos", ' +
-                         '"sym, or "sym_pos".')
-
-    # Check num_samples
-    if not numpy.isscalar(num_samples):
-        raise TypeError('"num_samples" should be a scalar value.')
-    elif num_samples is None:
-        raise ValueError('"num_samples" cannot be None.')
-    elif not isinstance(num_samples, int):
-        raise TypeError('"num_samples" should be an integer.')
-    elif num_samples < 1:
-        raise ValueError('"num_samples" should be at least one.')
+    # Checking input arguments
+    check_arguments(A, exponent, assume_matrix, num_samples, orthogonalize,
+                    num_threads)
 
     # Parallel processing
-    num_threads = multiprocessing.cpu_count()
+    if num_threads < 1:
+        num_threads = multiprocessing.cpu_count()
 
     vector_size = A.shape[0]
 
@@ -108,20 +100,45 @@ def hutchinson_method(A, assume_matrix='gen', num_samples=20,
     generate_random_column_vectors[double](cE, vector_size, num_samples,
                                            int(orthogonalize), num_threads)
 
-    # Perform inv(A) * E. This requires GIL
-    AinvE = linear_solver(A, E, assume_matrix)
+    # In the following, AinvpE is the action of the operator A**(-p) to the
+    # vector E. The exponent "p" is the "exponent" argument which is default
+    # to one. Ainv means the inverse of A.
+    if exponent == 0:
+        # Ainvp is the identity matrix
+        AinvpE = E
 
-    # To proceed in the following, AinvE should be in Fortran ordering
-    if not AinvE.flags['F_CONTIGUOUS']:
-        AinvE = numpy.asfortranarray(AinvE)
+    elif exponent == 1:
+        # Perform inv(A) * E. This requires GIL
+        AinvpE = linear_solver(A, E, assume_matrix)
 
-    # Get c pointer to AinvE.
-    cdef double[::1, :] memoryview_AinvE = AinvE
-    cdef double* cAinvE = &memoryview_AinvE[0, 0]
+    elif exponent > 1:
+        # Perform Ainv * Ainv * ... Ainv * E where Ainv is repeated p times
+        # where p is the exponent.
+        AinvpE = E
+        for i in range(exponent):
+            AinvpE = linear_solver(A, AinvpE, assume_matrix)
+
+    elif exponent == -1:
+        # Performing Ainv**(-1) E, where Ainv**(-1) it A itself.
+        AinvpE = A @ E
+
+    elif exponent < -1:
+        # Performing Ainv**(-p) E where Ainv**(-p) = A**p.
+        AinvpE = E
+        for i in range(numpy.abs(exponent)):
+            AinvpE = A @ AinvpE
+
+    # To proceed in the following, AinvpE should be in Fortran ordering
+    if not AinvpE.flags['F_CONTIGUOUS']:
+        AinvpE = numpy.asfortranarray(AinvpE)
+
+    # Get c pointer to AinvpE.
+    cdef double[::1, :] memoryview_AinvpE = AinvpE
+    cdef double* cAinvpE = &memoryview_AinvpE[0, 0]
 
     # Stochastic estimator of trace
     cdef double trace = _stochastic_trace_estimator[double](
-            cE, cAinvE, vector_size, num_samples, num_threads)
+            cE, cAinvpE, vector_size, num_samples, num_threads)
 
     wall_time = time.perf_counter() - init_wall_time
     proc_time = time.process_time() - init_proc_time
@@ -165,18 +182,82 @@ def hutchinson_method(A, assume_matrix='gen', num_samples=20,
     return trace, info
 
 
+# ===============
+# check arguments
+# ===============
+
+def check_arguments(A, exponent, assume_matrix, num_samples, orthogonalize,
+                    num_threads):
+    """
+    Checks the type and value of the parameters.
+    """
+
+    # Check A
+    if (not isinstance(A, numpy.ndarray)) and (not scipy.sparse.issparse(A)):
+        raise TypeError('Input matrix should be either a "numpy.ndarray" or ' +
+                        'a "scipy.sparse" matrix.')
+    elif A.shape[0] != A.shape[1]:
+        raise ValueError('Input matrix should be a square matrix.')
+
+    # Check exponent
+    if exponent is None:
+        raise TypeError('"exponent" cannot be None.')
+    elif not numpy.isscalar(exponent):
+        raise TypeError('"exponent" should be a scalar value.')
+    elif not isinstance(exponent, int):
+        TypeError('"exponent" cannot be an integer.')
+
+    # Check assume_matrix
+    if assume_matrix is None:
+        raise ValueError('"assume_matrix" cannot be None.')
+    elif not isinstance(assume_matrix, basestring):
+        raise TypeError('"assume_matrix" must be a string.')
+    elif assume_matrix != 'gen' and assume_matrix != "pos" and \
+            assume_matrix != "sym" and assume_matrix != "sym_pos":
+        raise ValueError('"assume_matrix" should be either "gen", "pos", ' +
+                         '"sym, or "sym_pos".')
+
+    # Check num_samples
+    if not numpy.isscalar(num_samples):
+        raise TypeError('"num_samples" should be a scalar value.')
+    elif num_samples is None:
+        raise ValueError('"num_samples" cannot be None.')
+    elif not isinstance(num_samples, int):
+        raise TypeError('"num_samples" should be an integer.')
+    elif num_samples < 1:
+        raise ValueError('"num_samples" should be at least one.')
+
+    # Check orthogonalize
+    if orthogonalize is None:
+        raise TypeError('"orthogonalize" cannot be None.')
+    elif not numpy.isscalar(orthogonalize):
+        raise TypeError('"orthogonalize" should be a scalar value.')
+    elif not isinstance(orthogonalize, bool):
+        raise TypeError('"orthogonalize" should be boolean.')
+
+    # Check num_threads
+    if num_threads is None:
+        raise TypeError('"num_threads" cannot be None.')
+    elif not numpy.isscalar(num_threads):
+        raise TypeError('"num_threads" should be a scalar value.')
+    elif not isinstance(num_threads, int):
+        raise TypeError('"num_threads" should be an integer.')
+    elif num_threads < 0:
+        raise ValueError('"num_threads" should be a non-negative integer.')
+
+
 # ==========================
 # stochastic trace estimator
 # ==========================
 
 cdef DataType _stochastic_trace_estimator(
         DataType* E,
-        DataType* AinvE,
+        DataType* AinvpE,
         const IndexType vector_size,
         const IndexType num_vectors,
         const IndexType num_parallel_threads) nogil:
     """
-    Stochastic trace estimator based on set of vectors E and AinvE.
+    Stochastic trace estimator based on set of vectors E and AinvpE.
 
     :param E: Set of random vectors of shape ``(vector_size, num_vectors)``.
         Note this is Fortran ordering, meaning that the first index is
@@ -184,11 +265,11 @@ cdef DataType _stochastic_trace_estimator(
         Here, iteration over the first index is continuous.
     :type E: cython memoryview (double)
 
-    :param AinvE: Set of random vectors of the same shape as ``E``.
+    :param AinvpE: Set of random vectors of the same shape as ``E``.
         Note this is Fortran ordering, meaning that the first index is
-        contiguous. Hence, to call the i-th vector, use ``&AinvE[0][i]``.
+        contiguous. Hence, to call the i-th vector, use ``&AinvpE[0][i]``.
         Here, iteration over the first index is continuous.
-    :type AinvE: cython memoryview (double)
+    :type AinvpE: cython memoryview (double)
 
     :param num_vectors: Number of columns of vectors array.
     :type num_vectors: int
@@ -219,9 +300,9 @@ cdef DataType _stochastic_trace_estimator(
     with nogil, parallel():
         for i in prange(num_vectors, schedule='static'):
 
-            # Inner product of i-th column of E and AinvE (Fortran contiguous)
+            # Inner product of i-th column of E and AinvpE (Fortran contiguous)
             inner_prod[i] = cVectorOperations[DataType].inner_product(
-                    &E[i*vector_size], &AinvE[i*vector_size], vector_size)
+                    &E[i*vector_size], &AinvpE[i*vector_size], vector_size)
 
             # Critical section
             openmp.omp_set_lock(&lock)

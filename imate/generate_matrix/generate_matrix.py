@@ -11,6 +11,7 @@
 # Imports
 # =======
 
+import numpy
 from ._generate_points import generate_points
 from ._generate_dense_matrix import generate_dense_matrix
 from ._generate_sparse_matrix import generate_sparse_matrix
@@ -37,6 +38,7 @@ def generate_matrix(
         grid=True,
         sparse=False,
         density=0.001,
+        dtype=r'float64',
         plot=False,
         verbose=False):
     """
@@ -189,6 +191,10 @@ def generate_matrix(
         >>> A = generate_matrix(size=30, dimension=2, plot=True)
     """
 
+    # Check input arguments
+    check_arguments(size, dimension, correlation_scale, nu, grid, sparse,
+                    density, dtype, plot, verbose)
+
     # Generate a set of points in the unit square
     coords = generate_points(size, dimension, grid)
 
@@ -201,6 +207,7 @@ def generate_matrix(
             correlation_scale,
             nu,
             density,
+            dtype,
             verbose)
 
     else:
@@ -210,6 +217,7 @@ def generate_matrix(
             coords,
             correlation_scale,
             nu,
+            dtype,
             verbose)
 
     # Plot Correlation Matrix
@@ -219,8 +227,121 @@ def generate_matrix(
     return correlation_matrix
 
 
+# ===============
+# check arguments
+# ===============
+
+def check_arguments(
+        size,
+        dimension,
+        correlation_scale,
+        nu,
+        grid,
+        sparse,
+        density,
+        dtype,
+        plot,
+        verbose):
+    """
+    Checks the type and values of the input arguments.
+    """
+
+    # Check size
+    if size is None:
+        raise TypeError('"size" cannot be None.')
+    elif not numpy.isscalar(size):
+        raise TypeError('"size" should be a scalar value.')
+    elif not isinstance(size, int):
+        TypeError('"size" should be an integer.')
+    elif size < 1:
+        raise ValueError('"size" should be a positive integer.')
+
+    # Check dimension
+    if dimension is None:
+        raise TypeError('"dimension" cannot be None.')
+    elif not numpy.isscalar(dimension):
+        raise TypeError('"dimension" should be a scalar value.')
+    elif not isinstance(dimension, int):
+        TypeError('"dimension" should be an integer.')
+    elif dimension < 1:
+        raise ValueError('"dimension" should be a positive integer.')
+
+    # Check correlation_scale
+    if correlation_scale is None:
+        raise TypeError('"correlation_scale" cannot be None.')
+    elif not numpy.isscalar(correlation_scale):
+        raise TypeError('"correlation_scale" should be a scalar value.')
+    elif isinstance(correlation_scale, complex):
+        TypeError('"correlation_scale" should be a float number.')
+    elif correlation_scale <= 0.0:
+        raise ValueError('"correlation_scale" should be a positive number.')
+
+    # Check nu
+    if nu is None:
+        raise TypeError('"nu" cannot be None.')
+    elif not numpy.isscalar(nu):
+        raise TypeError('"nu" should be a scalar value.')
+    elif isinstance(nu, complex):
+        TypeError('"nu" should be an float number.')
+    elif nu <= 0.0:
+        raise ValueError('"nu" should be a positive number.')
+
+    # Check grid
+    if grid is None:
+        raise TypeError('"grid" cannot be None.')
+    elif not numpy.isscalar(grid):
+        raise TypeError('"grid" should be a scalar value.')
+    elif not isinstance(grid, bool):
+        TypeError('"grid" should be boolean.')
+
+    # Check sparse
+    if sparse is None:
+        raise TypeError('"sparse" cannot be None.')
+    elif not numpy.isscalar(sparse):
+        raise TypeError('"sparse" should be a scalar value.')
+    elif not isinstance(sparse, bool):
+        TypeError('"sparse" should be boolean.')
+
+    # Check density
+    if density is None:
+        raise TypeError('"density" cannot be None.')
+    elif not numpy.isscalar(density):
+        raise TypeError('"density" should be a scalar value.')
+    elif isinstance(density, complex):
+        TypeError('"density" should be a float number.')
+    elif density <= 0.0 or density >= 1.0:
+        raise ValueError('"density" hshould be between "0.0" and "1.0".')
+
+    # Check dtype
+    if dtype is None:
+        raise TypeError('"dtype" cannot be None.')
+    elif not numpy.isscalar(dtype):
+        raise TypeError('"dtype" should be a scalar value.')
+    elif not isinstance(dtype, str):
+        raise TypeError('"dtype" should be a string')
+    elif dtype not in [r'float32', r'float64', r'float128']:
+        raise TypeError('"dtype" should be either "float32", "float64", or ' +
+                        '"float128".')
+
+    # Check plot
+    if plot is None:
+        raise TypeError('"plot" cannot be None.')
+    elif not numpy.isscalar(plot):
+        raise TypeError('"plot" should be a scalar value.')
+    elif not isinstance(plot, bool):
+        TypeError('"plot" should be boolean.')
+
+    # Check verbose
+    if verbose is None:
+        raise TypeError('"verbose" cannot be None.')
+    elif not numpy.isscalar(verbose):
+        raise TypeError('"verbose" should be a scalar value.')
+    elif not isinstance(verbose, bool):
+        TypeError('"verbose" should be boolean.')
+
+
 # ===========
-# Plot Matrix
+# plot Matrix
 # ===========
 
 def plot_matrix(matrix, sparse, verbose=False):

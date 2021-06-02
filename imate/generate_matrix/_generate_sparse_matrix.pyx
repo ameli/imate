@@ -22,10 +22,15 @@ from cython.parallel cimport parallel, prange
 from ._kernels cimport matern_kernel, euclidean_distance
 from libc.stdio cimport printf
 from libc.stdlib cimport exit, malloc, free
+from .._definitions.types cimport DataType
 cimport cython
 cimport openmp
 
 __all__ = ['generate_sparse_matrix']
+
+# To avoid a bug where cython does not recognize long doubler as a type in the
+# template functions, we define long_double as an alias
+ctypedef long double long_double
 
 
 # ===========================
@@ -42,11 +47,12 @@ cdef int _generate_correlation_matrix(
         const double nu,
         const double kernel_threshold,
         const int num_threads,
+        const int verbose,
         const long max_nnz,
         long[:] nnz,
         long[:] matrix_row_indices,
         long[:] matrix_column_indices,
-        double[:] matrix_data) nogil:
+        DataType* c_matrix_data) nogil:
     """
     Generates a sparse correlation matrix.
 
@@ -105,9 +111,9 @@ cdef int _generate_correlation_matrix(
         practice, the matrix may have smaller nnz.
     :type matrix_column_indices: cython memoryview (long)
 
-    :param matrix_data: The non-zero data of sparse matrix in COO format. The
+    :param c_matrix_data: The non-zero data of sparse matrix in COO format. The
         size of this array is max_nnz.
-    :type matrix_data: cython memoryview (double)
+    :type c_matrix_data: cython memoryview (double)
 
     :return: success of the process. If the required nnz to generate the sparse
         matrix needs to be larger than the preassigned max_nnz, this function
@@ -121,6 +127,21 @@ cdef int _generate_correlation_matrix(
     cdef int dim
     cdef double *thread_data = <double *> malloc(num_threads * sizeof(double))
     cdef int[1] success
+    cdef int[1] counter
+    cdef int percent_update
+    cdef int progress
+
+    # percent_update determines how often a progress is being printed
+    if matrix_size <= 50:
+        percent_update = 20
+    elif matrix_size <= 1000:
+        percent_update = 10
+    elif matrix_size <= 10000:
+        percent_update = 5
+    elif matrix_size <= 50000:
+        percent_update = 2
+    else:
+        percent_update = 1
 
     # Set number of parallel threads
     openmp.omp_set_num_threads(num_threads)
@@ -128,6 +149,10 @@ cdef int _generate_correlation_matrix(
     # Initialize openmp lock to setup a critical section
     cdef openmp.omp_lock_t lock
     openmp.omp_init_lock(&lock)
+
+    # Initialize an openmp lock for the counter and printing the progress
+    cdef openmp.omp_lock_t lock_counter
+    openmp.omp_init_lock(&lock_counter)
 
     # Using max possible chunk size for parallel threads
     cdef int chunk_size = int((<double> matrix_size) / num_threads)
@@ -137,6 +162,7 @@ cdef int _generate_correlation_matrix(
     # Iterate over rows of matrix
     nnz[0] = 0
     success[0] = 1
+    counter[0] = 0
     with nogil, parallel():
         for i in prange(matrix_size, schedule='dynamic', chunksize=chunk_size):
 
@@ -170,6 +196,7 @@ cdef int _generate_correlation_matrix(
                             printf('nnz: %ld. Terminate operation.\n', max_nnz)
                             success[0] = 0
 
+                        # Release lock to end the openmp critical section
                         openmp.omp_unset_lock(&lock)
 
                         # The inner loop is not an openmp loop, so we can break
@@ -181,7 +208,7 @@ cdef int _generate_correlation_matrix(
                     nnz[0] += 1
                     matrix_row_indices[nnz[0]-1] = i
                     matrix_column_indices[nnz[0]-1] = j
-                    matrix_data[nnz[0]-1] = \
+                    c_matrix_data[nnz[0]-1] = \
                         thread_data[openmp.omp_get_thread_num()]
 
                     # Use symmetry of the matrix
@@ -189,11 +216,27 @@ cdef int _generate_correlation_matrix(
                         nnz[0] += 1
                         matrix_row_indices[nnz[0]-1] = j
                         matrix_column_indices[nnz[0]-1] = i
-                        matrix_data[nnz[0]-1] = \
+                        c_matrix_data[nnz[0]-1] = \
                             thread_data[openmp.omp_get_thread_num()]
 
                     # Release lock to end the openmp critical section
                     openmp.omp_unset_lock(&lock)
+
+            # Critical section
+            openmp.omp_set_lock(&lock_counter)
+
+            # Update counter
+            counter[0] = counter[0] + 1
+
+            # Print progress on every percent_update
+            if verbose and (matrix_size * percent_update >= 100):
+                if (counter[0] % (matrix_size*percent_update//100) == 0):
+                    progress = percent_update * counter[0] // \
+                        (matrix_size*percent_update//100)
+                    printf('Generate matrix progress: %3d%%\n', progress)
+
+            # Release lock to end the openmp critical section
+            openmp.omp_unset_lock(&lock_counter)
 
     free(thread_data)
 
@@ -403,6 +446,7 @@ def generate_sparse_matrix(
         correlation_scale=0.1,
         nu=0.5,
         density=0.001,
+        dtype=r'float64',
         verbose=False):
     """
     Generates either a sparse correlation matrix in CSR format.
@@ -473,6 +517,16 @@ def generate_sparse_matrix(
             dimension,
             density)
 
+    # Memory view of the correlation matrix
+    cdef float[:] mv_matrix_data_float
+    cdef double[:] mv_matrix_data_double
+    cdef long double[:] mv_matrix_data_long_double
+
+    # C pointer to the correlation matrix
+    cdef float* c_matrix_data_float
+    cdef double* c_matrix_data_double
+    cdef long double* c_matrix_data_long_double
+
     # Try with the estimated nnz. If not enough, we will double and retry
     success = 0
 
@@ -481,29 +535,86 @@ def generate_sparse_matrix(
         # Allocate sparse arrays
         matrix_row_indices = numpy.zeros((max_nnz,), dtype=int)
         matrix_column_indices = numpy.zeros((max_nnz,), dtype=int)
-        matrix_data = numpy.zeros((max_nnz,), dtype=float)
+        matrix_data = numpy.zeros((max_nnz,), dtype=dtype)
         nnz = numpy.zeros((1,), dtype=int)
 
-        # Generate matrix assuming the estimated nnz is enough
-        success = _generate_correlation_matrix(
-                coords,
-                matrix_size,
-                dimension,
-                correlation_scale,
-                nu,
-                kernel_threshold,
-                num_threads,
-                max_nnz,
-                nnz,
-                matrix_row_indices,
-                matrix_column_indices,
-                matrix_data)
+        if dtype == r'float32':
+
+            # Get pointer to the correlation matrix
+            mv_matrix_data_float = matrix_data
+            c_matrix_data_float = &mv_matrix_data_float[0]
+
+            # Generate matrix assuming the estimated nnz is enough
+            success = _generate_correlation_matrix[float](
+                    coords,
+                    matrix_size,
+                    dimension,
+                    correlation_scale,
+                    nu,
+                    kernel_threshold,
+                    num_threads,
+                    int(verbose),
+                    max_nnz,
+                    nnz,
+                    matrix_row_indices,
+                    matrix_column_indices,
+                    c_matrix_data_float)
+
+        elif dtype == r'float64':
+
+            # Get pointer to the correlation matrix
+            mv_matrix_data_double = matrix_data
+            c_matrix_data_double = &mv_matrix_data_double[0]
+
+            # Generate matrix assuming the estimated nnz is enough
+            success = _generate_correlation_matrix[double](
+                    coords,
+                    matrix_size,
+                    dimension,
+                    correlation_scale,
+                    nu,
+                    kernel_threshold,
+                    num_threads,
+                    int(verbose),
+                    max_nnz,
+                    nnz,
+                    matrix_row_indices,
+                    matrix_column_indices,
+                    c_matrix_data_double)
+
+        elif dtype == r'float128':
+
+            # Get pointer to the correlation matrix
+            mv_matrix_data_long_double = matrix_data
+            c_matrix_data_long_double = &mv_matrix_data_long_double[0]
+
+            # Generate matrix assuming the estimated nnz is enough
+            success = _generate_correlation_matrix[long_double](
+                    coords,
+                    matrix_size,
+                    dimension,
+                    correlation_scale,
+                    nu,
+                    kernel_threshold,
+                    num_threads,
+                    int(verbose),
+                    max_nnz,
+                    nnz,
+                    matrix_row_indices,
+                    matrix_column_indices,
+                    c_matrix_data_long_double)
+
+        else:
+            raise TypeError('"dtype" should be either "float32", "float64" ' +
+                            ', or "float128".')
 
         # Double the number of pre-allocated nnz and try again
         if not bool(success):
             max_nnz = 2 * max_nnz
-            print('Retry generation of sparse matrix with max_nnz: %d'
-                  % (max_nnz))
+
+            if verbose:
+                print('Retry generation of sparse matrix with max_nnz: %d'
+                      % (max_nnz))
 
     # Construct scipy.sparse.coo_matrix, then convert it to CSR matrix.
     correlation_matrix = scipy.sparse.coo_matrix(

@@ -30,6 +30,7 @@ cdef extern from "c_trace_estimator.h":
                 DataType* parameters,
                 const IndexType num_inquiries,
                 const Function* matrix_function,
+                const DataType exponent,
                 const FlagType symmetric,
                 const FlagType reorthogonalize,
                 const IndexType lanczos_degree,

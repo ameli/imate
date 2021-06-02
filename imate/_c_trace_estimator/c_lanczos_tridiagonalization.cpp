@@ -84,6 +84,20 @@
 ///             Lanczos degree, which is the number of Lanczos iterations.
 /// \param[in]  lanczos_tol
 ///             The tolerance of the residual error of the Lanczos iteration.
+/// \param[in]  orthogonalize
+///             Indicates whether to orthogonalize the orthogonal eigenvectors
+///             during Lanczos recursive iterations.
+///             * If set to \c 0, no orthogonalization is performed.
+///             * If set to a negative integer, a newly computed eigenvector is
+///               orthogonalized against all the previous eigenvectors (full
+///               reorthogonalization).
+///             * If set to a positive integer, say \c q less than
+///               \c lanczos_degree, the newly computed eigenvector is
+///               orthogonalized against the last \c q previous eigenvectors
+///               (partial reorthogonalization).
+///             * If set to an integer larger than \c lanczos_degree, it is cut
+///               to \c lanczos_degree, which effectively orthogonalizes
+///               against all previous eigenvectors (full reorthogonalization).
 /// \param[out] alpha
 ///             This is a 1D array of size \c m. The array \c alpha[:]
 ///             constitute the diagonal elements of the tri-diagonal matrix \c
@@ -106,27 +120,27 @@ IndexType c_lanczos_tridiagonalization(
         const LongIndexType n,
         const IndexType m,
         const DataType lanczos_tol,
-        const FlagType reorthogonalize,
+        const FlagType orthogonalize,
         DataType* alpha,
         DataType* beta)
 {
     // buffer_size is number of last orthogonal vectors to keep in the buffer V
     IndexType buffer_size;
-    if (reorthogonalize == 0 || reorthogonalize == 1)
+    if (orthogonalize == 0 || orthogonalize == 1)
     {
         // At least two vectors must be stored in buffer for Lanczos recursion
         buffer_size = 2;
     }
-    else if ((reorthogonalize < 0) ||
-             (reorthogonalize > static_cast<FlagType>(m)))
+    else if ((orthogonalize < 0) ||
+             (orthogonalize > static_cast<FlagType>(m)))
     {
         // Using full reorthogonalization, keep all of the m vectors in buffer
         buffer_size = m;
     }
     else
     {
-        // Reorthogonalize with less than m vectors (0 < orthogonalize < m)
-        buffer_size = reorthogonalize;
+        // Orthogonalize with less than m vectors (0 < orthogonalize < m)
+        buffer_size = orthogonalize;
     }
 
     // Allocate 2D array (as 1D array, and coalesced row-wise) to store
@@ -185,7 +199,7 @@ IndexType c_lanczos_tridiagonalization(
         }
 
         // Gram-Schmidt process (full re-orthogonalization)
-        if (reorthogonalize != 0)
+        if (orthogonalize != 0)
         {
             // Find how many column vectors are filled so far in the buffer V
             if (j < buffer_size)
@@ -233,7 +247,7 @@ template IndexType c_lanczos_tridiagonalization<float>(
         const LongIndexType n,
         const IndexType m,
         const float lanczos_tol,
-        const FlagType reorthogonalize,
+        const FlagType orthogonalize,
         float* alpha,
         float* beta);
 
@@ -243,7 +257,7 @@ template IndexType c_lanczos_tridiagonalization<double>(
         const LongIndexType n,
         const IndexType m,
         const double lanczos_tol,
-        const FlagType reorthogonalize,
+        const FlagType orthogonalize,
         double* alpha,
         double* beta);
 
@@ -253,6 +267,6 @@ template IndexType c_lanczos_tridiagonalization<long double>(
         const LongIndexType n,
         const IndexType m,
         const long double lanczos_tol,
-        const FlagType reorthogonalize,
+        const FlagType orthogonalize,
         long double* alpha,
         long double* beta);

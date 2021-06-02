@@ -174,7 +174,7 @@ class InterpolateTraceinv(object):
     # ====
 
     def __init__(self, A, B=None, interpolant_points=None, method='RMBF',
-                 traceinv_options={'ComputeMethod': 'cholesky'}, verbose=False,
+                 traceinv_options={'method': 'cholesky'}, verbose=False,
                  **interpolation_options):
         """
         Initializes the object depending on the method.

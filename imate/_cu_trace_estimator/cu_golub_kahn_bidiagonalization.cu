@@ -80,6 +80,20 @@
 ///             Lanczos degree, which is the number of Lanczos iterations.
 /// \param[in]  lanczos_tol
 ///             The tolerance of the residual error of the Lanczos iteration.
+/// \param[in]  orthogonalize
+///             Indicates whether to orthogonalize the orthogonal eigenvectors
+///             during Lanczos recursive iterations.
+///             * If set to \c 0, no orthogonalization is performed.
+///             * If set to a negative integer, a newly computed eigenvector is
+///               orthogonalized against all the previous eigenvectors (full
+///               reorthogonalization).
+///             * If set to a positive integer, say \c q less than
+///               \c lanczos_degree, the newly computed eigenvector is
+///               orthogonalized against the last \c q previous eigenvectors
+///               (partial reorthogonalization).
+///             * If set to an integer larger than \c lanczos_degree, it is cut
+///               to \c lanczos_degree, which effectively orthogonalizes
+///               against all previous eigenvectors (full reorthogonalization).
 /// \param[out] alpha
 ///             This is a 1D array of size \c m and \c alpha[:] constitute the
 ///             diagonal elements of the bi-diagonal matrix \c B. This is the
@@ -102,7 +116,7 @@ IndexType cu_golub_kahn_bidiagonalization(
         const LongIndexType n,
         const IndexType m,
         const DataType lanczos_tol,
-        const FlagType reorthogonalize,
+        const FlagType orthogonalize,
         DataType* alpha,
         DataType* beta)
 {
@@ -111,22 +125,22 @@ IndexType cu_golub_kahn_bidiagonalization(
 
     // buffer_size is number of last orthogonal vectors to keep in buffers U, V
     IndexType buffer_size;
-    if (reorthogonalize == 0)
+    if (orthogonalize == 0)
     {
         // At least two vectors must be stored in buffer for Lanczos recursion
         buffer_size = 2;
     }
-    else if ((reorthogonalize < 0) ||
-             (reorthogonalize > static_cast<FlagType>(m) - 1))
+    else if ((orthogonalize < 0) ||
+             (orthogonalize > static_cast<FlagType>(m) - 1))
     {
         // Using full reorthogonalization, keep all of the m vectors in buffer
         buffer_size = m;
     }
     else
     {
-        // Reorthogonalize with less than m vectors (0 < reorthogonalize < m-1)
+        // Orthogonalize with less than m vectors (0 < orthogonalize < m-1)
         // plus one vector for the latest (the j-th) vector
-        buffer_size = reorthogonalize + 1;
+        buffer_size = orthogonalize + 1;
     }
 
     // Allocate 2D array (as 1D array, and coalesced row-wise) to store
@@ -163,8 +177,8 @@ IndexType cu_golub_kahn_bidiagonalization(
                     &device_U[(j % buffer_size)*n]);
         }
 
-        // Reorthogonalize u_new against previous vectors
-        if (reorthogonalize != 0)
+        // orthogonalize u_new against previous vectors
+        if (orthogonalize != 0)
         {
             // Find how many column vectors are filled so far in the buffer V
             if (j < buffer_size)
@@ -199,8 +213,8 @@ IndexType cu_golub_kahn_bidiagonalization(
                 cublas_handle, &device_V[(j % buffer_size)*n], n, alpha[j],
                 &device_V[((j+1) % buffer_size)*n]);
 
-        // Reorthogonalize v_new against previous vectors
-        if (reorthogonalize != 0)
+        // orthogonalize v_new against previous vectors
+        if (orthogonalize != 0)
         {
             cuOrthogonalization<DataType>::gram_schmidt_process(
                     cublas_handle, &device_V[0], n, buffer_size, j%buffer_size,
@@ -239,7 +253,7 @@ template IndexType cu_golub_kahn_bidiagonalization<float>(
         const LongIndexType n,
         const IndexType m,
         const float lanczos_tol,
-        const FlagType reorthogonalize,
+        const FlagType orthogonalize,
         float* alpha,
         float* beta);
 
@@ -249,6 +263,6 @@ template IndexType cu_golub_kahn_bidiagonalization<double>(
         const LongIndexType n,
         const IndexType m,
         const double lanczos_tol,
-        const FlagType reorthogonalize,
+        const FlagType orthogonalize,
         double* alpha,
         double* beta);

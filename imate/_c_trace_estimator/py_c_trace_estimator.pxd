@@ -22,6 +22,7 @@ cpdef FlagType pyc_trace_estimator(
         parameters,
         num_inquiries,
         pyFunction py_matrix_function,
+        exponent,
         symmetric,
         reorthogonalize,
         lanczos_degree,

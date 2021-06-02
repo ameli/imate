@@ -11,6 +11,7 @@
 # Imports
 # =======
 
+from ._eigenvalue_method import eigenvalue_method
 from ._cholesky_method import cholesky_method
 from ._hutchinson_method import hutchinson_method
 from ._slq_method import slq_method
@@ -48,6 +49,7 @@ def traceinv(A, method='slq', **options):
     ================  =============================  =============
     ``'method'``       Description                    Type
     ================  =============================  =============
+    ``eigenvalue``    Eigenvalue method              exact
     ``'cholesky'``    Cholesky method                exact
     ``'hutchinson'``  Hutchinson method              approximation
     ``'slq'``         Stochastic Lanczos Quadrature  approximation
@@ -100,7 +102,10 @@ def traceinv(A, method='slq', **options):
     in the above examples is symmetric.
     """
 
-    if method == 'cholesky':
+    if method == 'eigenvalue':
+        trace, info = eigenvalue_method(A, **options)
+
+    elif method == 'cholesky':
         trace, info = cholesky_method(A, **options)
 
     elif method == 'hutchinson':

@@ -32,7 +32,7 @@ IndexType c_golub_kahn_bidiagonalization(
         const LongIndexType n,
         const IndexType m,
         const DataType lanczos_tol,
-        const FlagType reorthogonalize,
+        const FlagType orthogonalize,
         DataType* alpha,
         DataType* beta);
 

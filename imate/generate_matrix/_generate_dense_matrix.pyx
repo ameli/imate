@@ -1,3 +1,12 @@
+# SPDX-FileCopyrightText: Copyright 2021, Siavash Ameli <sameli@berkeley.edu>
+# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileType: SOURCE
+#
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the license found in the LICENSE.txt file in the root
+# directory of this source tree.
+
+
 # =======
 # Imports
 # =======
@@ -10,10 +19,16 @@ import multiprocessing
 from cython.parallel cimport parallel, prange
 from ._kernels cimport matern_kernel, euclidean_distance
 from libc.stdlib cimport exit, malloc, free
+from libc.stdio cimport printf
+from .._definitions.types cimport DataType
 cimport cython
 cimport openmp
 
 __all__ = ['generate_dense_matrix']
+
+# To avoid a bug where cython does not recognize long doubler as a type in the
+# template functions, we define long_double as an alias
+ctypedef long double long_double
 
 
 # ===========================
@@ -29,7 +44,8 @@ cdef void _generate_correlation_matrix(
         const double correlation_scale,
         const double nu,
         const int num_threads,
-        double[:, ::1] correlation_matrix) nogil:
+        const int verbose,
+        DataType* c_correlation_matrix) nogil:
     """
     Generates a dense correlation matrix.
 
@@ -63,9 +79,28 @@ cdef void _generate_correlation_matrix(
 
     cdef int i, j
     cdef int dim
+    cdef int[1] counter
+    cdef int percent_update
+    cdef int progress
+
+    # percent_update determines how often a progress is being printed
+    if matrix_size <= 50:
+        percent_update = 20
+    elif matrix_size <= 1000:
+        percent_update = 10
+    elif matrix_size <= 10000:
+        percent_update = 5
+    elif matrix_size <= 50000:
+        percent_update = 2
+    else:
+        percent_update = 1
 
     # Set number of parallel threads
     openmp.omp_set_num_threads(num_threads)
+
+    # Initialize openmp lock to setup a critical section
+    cdef openmp.omp_lock_t lock_counter
+    openmp.omp_init_lock(&lock_counter)
 
     # Using max possible chunk size for parallel threads
     cdef int chunk_size = int((<double> matrix_size) / num_threads)
@@ -73,12 +108,14 @@ cdef void _generate_correlation_matrix(
         chunk_size = 1
 
     # Iterate over rows of correlation matrix
+    counter[0] = 0
     with nogil, parallel():
         for i in prange(matrix_size, schedule='static', chunksize=chunk_size):
             for j in range(i, matrix_size):
 
                 # Compute correlation
-                correlation_matrix[i][j] = matern_kernel(
+                c_correlation_matrix[i*matrix_size + j] = \
+                    <DataType> matern_kernel(
                         euclidean_distance(
                             coords[i][:],
                             coords[j][:],
@@ -87,7 +124,24 @@ cdef void _generate_correlation_matrix(
 
                 # Use symmetry of the correlation matrix
                 if i != j:
-                    correlation_matrix[j][i] = correlation_matrix[i][j]
+                    c_correlation_matrix[j*matrix_size + i] = \
+                        c_correlation_matrix[i*matrix_size + j]
+
+            # Critical section
+            openmp.omp_set_lock(&lock_counter)
+
+            # Update counter
+            counter[0] = counter[0] + 1
+
+            # Print progress on every percent_update
+            if verbose and (matrix_size * percent_update >= 100):
+                if (counter[0] % (matrix_size*percent_update//100) == 0):
+                    progress = percent_update * counter[0] // \
+                        (matrix_size*percent_update//100)
+                    printf('Generate matrix progress: %3d%%\n', progress)
+
+            # Release lock to end the openmp critical section
+            openmp.omp_unset_lock(&lock_counter)
 
 
 # =====================
@@ -98,6 +152,7 @@ def generate_dense_matrix(
         coords,
         correlation_scale=0.1,
         nu=0.5,
+        dtype=r'float64',
         verbose=False):
     """
     Generates a dense correlation matrix.
@@ -140,22 +195,77 @@ def generate_dense_matrix(
     num_threads = multiprocessing.cpu_count()
 
     # Initialize matrix
-    correlation_matrix = numpy.zeros(
-            (matrix_size, matrix_size),
-            dtype=float)
+    correlation_matrix = numpy.zeros((matrix_size, matrix_size), dtype=dtype,
+                                     order='C')
 
-    # Dense correlation matrix
-    _generate_correlation_matrix(
-            coords,
-            matrix_size,
-            dimension,
-            correlation_scale,
-            nu,
-            num_threads,
-            correlation_matrix)
+    # Memory view of the correlation matrix
+    cdef float[:, ::1] mv_correlation_matrix_float
+    cdef double[:, ::1] mv_correlation_matrix_double
+    cdef long double[:, ::1] mv_correlation_matrix_long_double
+
+    # C pointer to the correlation matrix
+    cdef float* c_correlation_matrix_float
+    cdef double* c_correlation_matrix_double
+    cdef long double* c_correlation_matrix_long_double
+
+    if dtype == r'float32':
+
+        # Get pointer to the correlation matrix
+        mv_correlation_matrix_float = correlation_matrix
+        c_correlation_matrix_float = &mv_correlation_matrix_float[0, 0]
+
+        # Dense correlation matrix
+        _generate_correlation_matrix[float](
+                coords,
+                matrix_size,
+                dimension,
+                correlation_scale,
+                nu,
+                num_threads,
+                int(verbose),
+                c_correlation_matrix_float)
+
+    elif dtype == r'float64':
+
+        # Get pointer to the correlation matrix
+        mv_correlation_matrix_double = correlation_matrix
+        c_correlation_matrix_double = &mv_correlation_matrix_double[0, 0]
+
+        # Dense correlation matrix
+        _generate_correlation_matrix[double](
+                coords,
+                matrix_size,
+                dimension,
+                correlation_scale,
+                nu,
+                num_threads,
+                int(verbose),
+                c_correlation_matrix_double)
+
+    elif dtype == r'float128':
+
+        # Get pointer to the correlation matrix
+        mv_correlation_matrix_long_double = correlation_matrix
+        c_correlation_matrix_long_double = \
+            &mv_correlation_matrix_long_double[0, 0]
+
+        # Dense correlation matrix
+        _generate_correlation_matrix[long_double](
+                coords,
+                matrix_size,
+                dimension,
+                correlation_scale,
+                nu,
+                num_threads,
+                int(verbose),
+                c_correlation_matrix_long_double)
+
+    else:
+        raise TypeError('"dtype" should be either "float32", "float64", or ' +
+                        '"float128".')
 
     if verbose:
-        print('Generated dense correlation matirx of size: %d.'
+        print('Generated dense correlation matrix of size: %d.'
               % (matrix_size))
 
     return correlation_matrix
