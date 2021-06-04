@@ -37,7 +37,7 @@ def hutchinson_method(
         A,
         exponent=1,
         assume_matrix='gen',
-        num_samples=20,
+        min_num_samples=20,
         orthogonalize=True,
         num_threads=0):
     """
@@ -63,8 +63,8 @@ def hutchinson_method(
         definite matrix.
     :type assume_matrix: string
 
-    :param num_samples: number of Monte-Carlo random samples
-    :type num_samples: int
+    :param min_num_samples: number of Monte-Carlo random samples
+    :type min_num_samples: int
 
     :param orthogonalize: A flag to indicate whether the set of initial random
         vectors be orthogonalized. If not, the distribution of the initial
@@ -76,7 +76,7 @@ def hutchinson_method(
     """
 
     # Checking input arguments
-    check_arguments(A, exponent, assume_matrix, num_samples, orthogonalize,
+    check_arguments(A, exponent, assume_matrix, min_num_samples, orthogonalize,
                     num_threads)
 
     # Parallel processing
@@ -87,7 +87,7 @@ def hutchinson_method(
 
     # Allocate random array with Fortran ordering (first index is contiguous)
     # 2D array E should be treated as a matrix, random vectors are columns of E
-    E = numpy.empty((vector_size, num_samples), dtype=float, order='F')
+    E = numpy.empty((vector_size, min_num_samples), dtype=float, order='F')
 
     # Get c pointer to E
     cdef double[::1, :] memoryview_E = E
@@ -97,7 +97,7 @@ def hutchinson_method(
     init_proc_time = time.process_time()
 
     # Generate orthogonalized random vectors with unit norm
-    generate_random_column_vectors[double](cE, vector_size, num_samples,
+    generate_random_column_vectors[double](cE, vector_size, min_num_samples,
                                            int(orthogonalize), num_threads)
 
     # In the following, AinvpE is the action of the operator A**(-p) to the
@@ -138,7 +138,7 @@ def hutchinson_method(
 
     # Stochastic estimator of trace
     cdef double trace = _stochastic_trace_estimator[double](
-            cE, cAinvpE, vector_size, num_samples, num_threads)
+            cE, cAinvpE, vector_size, min_num_samples, num_threads)
 
     wall_time = time.perf_counter() - init_wall_time
     proc_time = time.process_time() - init_proc_time
@@ -158,9 +158,9 @@ def hutchinson_method(
         {
             'converged': None,
             'all_converged': None,
-            'min_num_samples': None,
-            'max_num_samples': None,
-            'num_samples_used': None,
+            'min_min_num_samples': None,
+            'max_min_num_samples': None,
+            'min_num_samples_used': None,
             'num_outliers': None,
             'samples': None,
             'samples_mean': trace,
@@ -186,7 +186,7 @@ def hutchinson_method(
 # check arguments
 # ===============
 
-def check_arguments(A, exponent, assume_matrix, num_samples, orthogonalize,
+def check_arguments(A, exponent, assume_matrix, min_num_samples, orthogonalize,
                     num_threads):
     """
     Checks the type and value of the parameters.
@@ -217,15 +217,15 @@ def check_arguments(A, exponent, assume_matrix, num_samples, orthogonalize,
         raise ValueError('"assume_matrix" should be either "gen", "pos", ' +
                          '"sym, or "sym_pos".')
 
-    # Check num_samples
-    if not numpy.isscalar(num_samples):
-        raise TypeError('"num_samples" should be a scalar value.')
-    elif num_samples is None:
-        raise ValueError('"num_samples" cannot be None.')
-    elif not isinstance(num_samples, int):
-        raise TypeError('"num_samples" should be an integer.')
-    elif num_samples < 1:
-        raise ValueError('"num_samples" should be at least one.')
+    # Check min_num_samples
+    if not numpy.isscalar(min_num_samples):
+        raise TypeError('"min_num_samples" should be a scalar value.')
+    elif min_num_samples is None:
+        raise ValueError('"min_num_samples" cannot be None.')
+    elif not isinstance(min_num_samples, int):
+        raise TypeError('"min_num_samples" should be an integer.')
+    elif min_num_samples < 1:
+        raise ValueError('"min_num_samples" should be at least one.')
 
     # Check orthogonalize
     if orthogonalize is None:

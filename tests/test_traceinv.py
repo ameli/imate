@@ -64,7 +64,7 @@ def _test_traceinv_methods(K):
 
     # Use Hutchinson method
     time40 = time.time()
-    trace4, _ = traceinv(K, method='hutchinson', num_samples=num_samples,
+    trace4, _ = traceinv(K, method='hutchinson', min_num_samples=num_samples,
                          exponent=exponent)
     time41 = time.time()
 

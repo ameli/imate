@@ -74,7 +74,6 @@ class Matrix(LinearOperator):
 
         return self.A.shape[0]
 
-
     # ===============
     # get num columns
     # ===============

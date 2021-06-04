@@ -26,7 +26,7 @@ import scipy.sparse.linalg
 
 def eigenvalue_method(
         A,
-        A_eigenvalues=None,
+        eigenvalues=None,
         exponent=1.0,
         symmetric=True,
         non_zero_eig_fraction=0.9):
@@ -34,19 +34,19 @@ def eigenvalue_method(
     """
 
     # Checking input arguments
-    check_arguments(A, A_eigenvalues, exponent, symmetric,
+    check_arguments(A, eigenvalues, exponent, symmetric,
                     non_zero_eig_fraction)
 
     init_wall_time = time.perf_counter()
     init_proc_time = time.process_time()
 
-    if A_eigenvalues is None:
-        A_eigenvalues = compute_eigenvalues(A, symmetric,
-                                            non_zero_eig_fraction)
+    if eigenvalues is None:
+        eigenvalues = compute_eigenvalues(A, symmetric,
+                                          non_zero_eig_fraction)
 
     # Compute trace of inverse of matrix
-    not_nan = numpy.logical_not(numpy.isnan(A_eigenvalues))
-    trace = numpy.sum(numpy.log((A_eigenvalues[not_nan]**exponent)))
+    not_nan = numpy.logical_not(numpy.isnan(eigenvalues))
+    trace = numpy.sum(numpy.log((eigenvalues[not_nan]**exponent)))
 
     wall_time = time.perf_counter() - init_wall_time
     proc_time = time.process_time() - init_proc_time
@@ -73,7 +73,7 @@ def eigenvalue_method(
 
 def check_arguments(
         A,
-        A_eigenvalues,
+        eigenvalues,
         exponent,
         symmetric,
         non_zero_eig_fraction):
@@ -88,12 +88,12 @@ def check_arguments(
     elif A.shape[0] != A.shape[1]:
         raise ValueError('Input matrix should be a square matrix.')
 
-    # Check A_eigenvalues
-    if A_eigenvalues is not None:
-        if not isinstance(A_eigenvalues, numpy.ndarray):
-            raise TypeError('"A_eigenvalues" should be a numpy.ndarray.')
-        if A.eigenvalues.size != A.shape[0]:
-            raise ValueError('The length of "A_eigenvalues" does not match ' +
+    # Check eigenvalues
+    if eigenvalues is not None:
+        if not isinstance(eigenvalues, numpy.ndarray):
+            raise TypeError('"eigenvalues" should be a numpy.ndarray.')
+        if eigenvalues.size != A.shape[0]:
+            raise ValueError('The length of "eigenvalues" does not match ' +
                              'the size of matrix "A".')
 
     # Check exponent
@@ -140,8 +140,8 @@ def compute_eigenvalues(
 
         # Sparse matrix
         n = A.shape[0]
-        A_eigenvalues = numpy.empty(n)
-        A_eigenvalues[:] = numpy.nan
+        eigenvalues = numpy.empty(n)
+        eigenvalues[:] = numpy.nan
 
         # find 90% of eigenvalues, assume the rest are very close to zero.
         num_none_zero_eig = int(n*non_zero_eig_fraction)
@@ -157,34 +157,34 @@ def compute_eigenvalues(
             # is what exactly we need here.
             which_eigenvalues = 'BE'
 
-            A_eigenvalues[:num_none_zero_eig] = \
+            eigenvalues[:num_none_zero_eig] = \
                 scipy.sparse.linalg.eigsh(A, num_none_zero_eig,
                                           which=which_eigenvalues,
                                           return_eigenvectors=False,
                                           tol=tol)
         else:
             # Computing half of eigenvalues from the largest magnitude
-            A_eigenvalues_large = scipy.sparse.linalg.eigs(
+            eigenvalues_large = scipy.sparse.linalg.eigs(
                     A, num_none_zero_eig//2, which='LM',
                     return_eigenvectors=False, tol=tol)
 
             # Computing half of eigenvalues from the smallest magnitude
-            A_eigenvalues_small = scipy.sparse.linalg.eigs(
+            eigenvalues_small = scipy.sparse.linalg.eigs(
                     A, num_none_zero_eig//2, which='SM',
                     return_eigenvectors=False, tol=tol)
 
             # Combine large and small eigenvalues into one array
-            num_eigenvalues = A_eigenvalues_large.size + \
-                A_eigenvalues_small.size
-            A_eigenvalues[:num_eigenvalues] = numpy.c_[A_eigenvalues_large,
-                                                       A_eigenvalues_small]
+            num_eigenvalues = eigenvalues_large.size + \
+                eigenvalues_small.size
+            eigenvalues[:num_eigenvalues] = numpy.c_[eigenvalues_large,
+                                                     eigenvalues_small]
     else:
 
         # Dense matrix
         if symmetric:
-            A_eigenvalues = scipy.linalg.eigh(A, check_finite=False,
-                                              eigvals_only=True)
+            eigenvalues = scipy.linalg.eigh(A, check_finite=False,
+                                            eigvals_only=True)
         else:
-            A_eigenvalues = scipy.linalg.eig(A, check_finite=False)[0]
+            eigenvalues = scipy.linalg.eig(A, check_finite=False)[0]
 
-    return A_eigenvalues
+    return eigenvalues
