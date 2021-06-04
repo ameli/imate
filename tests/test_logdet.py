@@ -33,9 +33,6 @@ def _test_logdet_methods(K):
     :type K: numpy.ndarray
     """
 
-    # cholesky method settings
-    invert_cholesky = False
-
     # slq method settings
     min_num_samples = 10
     max_num_samples = 100
@@ -62,7 +59,7 @@ def _test_logdet_methods(K):
 
     # Use Cholesky method
     time20 = time.time()
-    logdet2,_ = logdet(K, method='cholesky', exponent=exponent)
+    logdet2, _ = logdet(K, method='cholesky', exponent=exponent)
     time21 = time.time()
 
     # Use Stochastic Lanczos Quadrature method, with tri-diagonalization

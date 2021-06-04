@@ -63,3 +63,24 @@ class Matrix(LinearOperator):
                 from .._c_linear_operator import pycMatrix
                 self.cpu_Aop = pycMatrix(self.A)
                 self.initialized_on_cpu = True
+
+    # ============
+    # get num rows
+    # ============
+
+    def get_num_rows(self):
+        """
+        """
+
+        return self.A.shape[0]
+
+
+    # ===============
+    # get num columns
+    # ===============
+
+    def get_num_columns(self):
+        """
+        """
+
+        return self.A.shape[1]

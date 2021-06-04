@@ -64,3 +64,24 @@ class AffineMatrixFunction(LinearOperator):
                 from .._c_linear_operator import pycAffineMatrixFunction
                 self.cpu_Aop = pycAffineMatrixFunction(self.A, self.B)
                 self.initialized_on_cpu = True
+
+    # ============
+    # get num rows
+    # ============
+
+    def get_num_rows(self):
+        """
+        """
+
+        return self.A.shape[0]
+
+
+    # ===============
+    # get num columns
+    # ===============
+
+    def get_num_columns(self):
+        """
+        """
+
+        return self.A.shape[1]

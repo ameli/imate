@@ -42,6 +42,26 @@ class LinearOperator(object):
 
         raise RuntimeError('This method should be called by a derived class.')
 
+    # ============
+    # get num rows
+    # ============
+
+    def get_num_rows(self):
+        """
+        """
+
+        raise RuntimeError('This method should be called by a derived class.')
+
+    # ===============
+    # get num columns
+    # ===============
+
+    def get_num_columns(self):
+        """
+        """
+
+        raise RuntimeError('This method should be called by a derived class.')
+
     # ===================
     # get linear operator
     # ===================
