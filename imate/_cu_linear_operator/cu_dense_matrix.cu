@@ -16,6 +16,7 @@
 #include "./cu_dense_matrix.h"
 #include <cstddef>  // NULL
 #include <cassert>  // assert
+#include <omp.h>  // omp_set_num_threads
 #include "../_cu_basic_algebra/cu_matrix_operations.h"  // cuMatrixOperations
 #include "../_cuda_utilities/cuda_interface.h"  // alloc, copy_to_device, del
 
@@ -40,11 +41,13 @@ cuDenseMatrix<DataType>::cuDenseMatrix(
         const DataType* A_,
         const LongIndexType num_rows_,
         const LongIndexType num_columns_,
-        const FlagType A_is_row_major_):
+        const FlagType A_is_row_major_,
+        const int num_gpu_devices_):
 
     // Base class constructor
     cLinearOperator<DataType>(num_rows_, num_columns_),
     cDenseMatrix<DataType>(A_, num_rows_, num_columns_, A_is_row_major_),
+    cuMatrix<DataType>(num_gpu_devices_),
 
     // Initializer list
     device_A(NULL)
@@ -62,7 +65,22 @@ cuDenseMatrix<DataType>::cuDenseMatrix(
 template <typename DataType>
 cuDenseMatrix<DataType>::~cuDenseMatrix()
 {
-    CudaInterface<DataType>::del(this->device_A);
+    // Deallocate arrays of data on gpu
+    for (int device_id = 0; device_id < this->num_gpu_devices; ++device_id)
+    {
+        // Switch to a device
+        CudaInterface<DataType>::set_device(device_id);
+
+        // Deallocate
+        CudaInterface<DataType>::del(this->device_A[device_id]);
+    }
+
+    // Deallocate arrays of pointers on cpu
+    if (this->device_A != NULL)
+    {
+        delete[] this->device_A;
+        this->device_A = NULL;
+    }
 }
 
 
@@ -78,11 +96,26 @@ void cuDenseMatrix<DataType>::copy_host_to_device()
 {
     if (!this->copied_host_to_device)
     {
-        // Allocate device memory and copy data from host
+        // Set the number of threads
+        omp_set_num_threads(this->num_gpu_devices);
+
+        // Create array of pointers for data on each gpu device
+        this->device_A = new DataType*[this->num_gpu_devices];
+
+        // Size of data
         LongIndexType A_size = this->num_rows * this->num_columns;
-        CudaInterface<DataType>::alloc(this->device_A, A_size);
-        CudaInterface<DataType>::copy_to_device(this->A, A_size,
-                                                this->device_A);
+
+        #pragma omp parallel
+        {
+            // Switch to a device with the same device id as the cpu thread id
+            unsigned int thread_id = omp_get_thread_num();
+            CudaInterface<DataType>::set_device(thread_id);
+
+            // Allocate device memory and copy data from host
+            CudaInterface<DataType>::alloc(this->device_A[thread_id], A_size);
+            CudaInterface<DataType>::copy_to_device(this->A, A_size,
+                                                    this->device_A[thread_id]);
+        }
 
         // Flag to prevent reinitialization
         this->copied_host_to_device = true;
@@ -101,9 +134,12 @@ void cuDenseMatrix<DataType>::dot(
 {
     assert(this->copied_host_to_device);
 
+    // Get device id
+    int device_id = CudaInterface<DataType>::get_device();
+
     cuMatrixOperations<DataType>::dense_matvec(
-            this->cublas_handle,
-            this->device_A,
+            this->cublas_handle[device_id],
+            this->device_A[device_id],
             device_vector,
             this->num_rows,
             this->num_columns,
@@ -124,9 +160,12 @@ void cuDenseMatrix<DataType>::dot_plus(
 {
     assert(this->copied_host_to_device);
 
+    // Get device id
+    int device_id = CudaInterface<DataType>::get_device();
+
     cuMatrixOperations<DataType>::dense_matvec_plus(
-            this->cublas_handle,
-            this->device_A,
+            this->cublas_handle[device_id],
+            this->device_A[device_id],
             device_vector,
             alpha,
             this->num_rows,
@@ -147,9 +186,12 @@ void cuDenseMatrix<DataType>::transpose_dot(
 {
     assert(this->copied_host_to_device);
 
+    // Get device id
+    int device_id = CudaInterface<DataType>::get_device();
+
     cuMatrixOperations<DataType>::dense_transposed_matvec(
-            this->cublas_handle,
-            this->device_A,
+            this->cublas_handle[device_id],
+            this->device_A[device_id],
             device_vector,
             this->num_rows,
             this->num_columns,
@@ -170,9 +212,12 @@ void cuDenseMatrix<DataType>::transpose_dot_plus(
 {
     assert(this->copied_host_to_device);
 
+    // Get device id
+    int device_id = CudaInterface<DataType>::get_device();
+
     cuMatrixOperations<DataType>::dense_transposed_matvec_plus(
-            this->cublas_handle,
-            this->device_A,
+            this->cublas_handle[device_id],
+            this->device_A[device_id],
             device_vector,
             alpha,
             this->num_rows,

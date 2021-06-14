@@ -115,10 +115,15 @@ cdef class pycuMatrix(pycuLinearOperator):
     # __cinit__
     # =========
 
-    def __cinit__(self, A):
+    def __cinit__(self, A, num_gpu_devices=0):
         """
         Sets the matrix A.
         """
+
+        # Number of gpu devices to use. This might be different (less) than the
+        # number of gpu devices that are avalable. If set to 0, all available
+        # devices will be used.
+        self.num_gpu_devices = num_gpu_devices
 
         # Check A
         if A is None:
@@ -248,7 +253,8 @@ cdef class pycuMatrix(pycuLinearOperator):
                 A_data_float,
                 A_num_rows,
                 A_num_columns,
-                A_is_row_major)
+                A_is_row_major,
+                self.num_gpu_devices)
 
     # =======================
     # set dense matrix double
@@ -304,7 +310,8 @@ cdef class pycuMatrix(pycuLinearOperator):
                 A_data_double,
                 A_num_rows,
                 A_num_columns,
-                A_is_row_major)
+                A_is_row_major,
+                self.num_gpu_devices)
 
     # ====================
     # set csr matrix float
@@ -344,7 +351,8 @@ cdef class pycuMatrix(pycuLinearOperator):
                 A_indices,
                 A_index_pointer,
                 A_num_rows,
-                A_num_columns)
+                A_num_columns,
+                self.num_gpu_devices)
 
     # =====================
     # set csr matrix double
@@ -384,7 +392,8 @@ cdef class pycuMatrix(pycuLinearOperator):
                 A_indices,
                 A_index_pointer,
                 A_num_rows,
-                A_num_columns)
+                A_num_columns,
+                self.num_gpu_devices)
 
     # ====================
     # set csc matrix float
@@ -424,7 +433,8 @@ cdef class pycuMatrix(pycuLinearOperator):
                 A_indices,
                 A_index_pointer,
                 A_num_rows,
-                A_num_columns)
+                A_num_columns,
+                self.num_gpu_devices)
 
     # =====================
     # set csc matrix double
@@ -464,4 +474,5 @@ cdef class pycuMatrix(pycuLinearOperator):
                 A_indices,
                 A_index_pointer,
                 A_num_rows,
-                A_num_columns)
+                A_num_columns,
+                self.num_gpu_devices)

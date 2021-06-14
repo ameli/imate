@@ -57,6 +57,7 @@ class cuTraceEstimator
                 const DataType confidence_level,
                 const DataType outlier_significance_level,
                 const IndexType num_threads,
+                const IndexType num_gpu_devices,
                 DataType* trace,
                 DataType* error,
                 DataType** samples,
@@ -76,10 +77,10 @@ class cuTraceEstimator
                 const Function* matrix_function,
                 const DataType exponent,
                 const FlagType symmetric,
-                const DataType* random_vector,
                 const FlagType orthogonalize,
                 const IndexType lanczos_degree,
                 const DataType lanczos_tol,
+                DataType* random_vector,
                 FlagType* converged,
                 DataType* trace_estimate);
 };

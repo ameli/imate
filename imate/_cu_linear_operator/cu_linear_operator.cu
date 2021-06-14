@@ -17,7 +17,9 @@
 #include <cstddef>  // NULL
 #include <cassert>  // assert
 #include <cstdlib>  // abort
+#include <omp.h>  // omp_set_num_threads
 #include <iostream>
+#include "../_cuda_utilities/cuda_interface.h"  // CudaInterface
 
 
 // =============
@@ -26,12 +28,15 @@
 
 template <typename DataType>
 cuLinearOperator<DataType>::cuLinearOperator():
+
+    // Initializer list
+    num_gpu_devices(0),
     copied_host_to_device(false),
     cublas_handle(NULL),
     cusparse_handle(NULL)
 {
     // Check any gpu device exists
-    this->query_gpu_devices();
+    this->num_gpu_devices = this->query_gpu_devices();
 
     // Regardless of using dense (cublas) or sparse (cusparse) matrices, the
     // cublas handle should be initialized, since it is needed for the methods
@@ -53,19 +58,40 @@ cuLinearOperator<DataType>::cuLinearOperator():
 
 template <typename DataType>
 cuLinearOperator<DataType>::cuLinearOperator(
-        const LongIndexType num_rows_,
-        const LongIndexType num_columns_):
+        // const LongIndexType num_rows_,
+        // const LongIndexType num_columns_,
+        const IndexType num_gpu_devices_):
 
     // Base class constructor
-    cLinearOperator<DataType>(num_rows_, num_columns_),
+    // cLinearOperator<DataType>(num_rows_, num_columns_),
 
     // Initializer list
+    num_gpu_devices(0),
     copied_host_to_device(false),
     cublas_handle(NULL),
     cusparse_handle(NULL)
 {
     // Check any gpu device exists
-    this->query_gpu_devices();
+    int device_count = this->query_gpu_devices();
+
+    // Set number of gpu devices
+    if (num_gpu_devices_ == 0)
+    {
+        this->num_gpu_devices = device_count;
+    }
+    else if (num_gpu_devices_ > device_count)
+    {
+        std::cerr << "ERROR: Number of requested gpu devices exceeds the " \
+                  << "number of available gpu devices. Nummber of detected " \
+                  << "devices are " << device_count << " while the " \
+                  << "requested number of devices are " << num_gpu_devices_ \
+                  << "." << std::endl;
+        abort();
+    }
+    else
+    {
+        this->num_gpu_devices = num_gpu_devices_;
+    }
 
     // Regardless of using dense (cublas) or sparse (cusparse) matrices, the
     // cublas handle should be initialized, since it is needed for the methods
@@ -81,17 +107,51 @@ cuLinearOperator<DataType>::cuLinearOperator(
 template <typename DataType>
 cuLinearOperator<DataType>::~cuLinearOperator()
 {
+    // cublas handle
     if (this->cublas_handle != NULL)
     {
-        cublasStatus_t status = cublasDestroy(this->cublas_handle);
-        assert(status == CUBLAS_STATUS_SUCCESS);
+        // Set the number of threads
+        omp_set_num_threads(this->num_gpu_devices);
+        
+        #pragma omp parallel
+        {
+            // Switch to a device with the same device id as the cpu thread id
+            unsigned int thread_id = omp_get_thread_num();
+            CudaInterface<DataType>::set_device(thread_id);
+
+            cublasStatus_t status = cublasDestroy(
+                    this->cublas_handle[thread_id]);
+            assert(status == CUBLAS_STATUS_SUCCESS);
+        }
+    }
+
+    if (this->cublas_handle != NULL)
+    {
+        delete[] this->cublas_handle;
         this->cublas_handle = NULL;
+    }
+
+    // cusparse handle
+    if (this->cusparse_handle != NULL)
+    {
+        // Set the number of threads
+        omp_set_num_threads(this->num_gpu_devices);
+
+        #pragma omp parallel
+        {
+            // Switch to a device with the same device id as the cpu thread id
+            unsigned int thread_id = omp_get_thread_num();
+            CudaInterface<DataType>::set_device(thread_id);
+
+            cusparseStatus_t status = cusparseDestroy(
+                    this->cusparse_handle[thread_id]);
+            assert(status == CUSPARSE_STATUS_SUCCESS);
+        }
     }
 
     if (this->cusparse_handle != NULL)
     {
-        cusparseStatus_t status = cusparseDestroy(this->cusparse_handle);
-        assert(status == CUSPARSE_STATUS_SUCCESS);
+        delete[] this->cusparse_handle;
         this->cusparse_handle = NULL;
     }
 }
@@ -116,7 +176,10 @@ cuLinearOperator<DataType>::~cuLinearOperator()
 template <typename DataType>
 cublasHandle_t cuLinearOperator<DataType>::get_cublas_handle() const
 {
-    return this->cublas_handle;
+    // Get device id
+    int device_id = CudaInterface<DataType>::get_device();
+    
+    return this->cublas_handle[device_id];
 }
 
 
@@ -132,8 +195,22 @@ void cuLinearOperator<DataType>::initialize_cublas_handle()
 {
     if (this->cublas_handle == NULL)
     {
-        cublasStatus_t status = cublasCreate(&this->cublas_handle);
-        assert(status == CUBLAS_STATUS_SUCCESS);
+        // Allocate pointers for each gpu device
+        this->cublas_handle = new cublasHandle_t[this->num_gpu_devices];
+
+        // Set the number of threads
+        omp_set_num_threads(this->num_gpu_devices);
+        
+        #pragma omp parallel
+        {
+            // Switch to a device with the same device id as the cpu thread id
+            unsigned int thread_id = omp_get_thread_num();
+            CudaInterface<DataType>::set_device(thread_id);
+
+            cublasStatus_t status = cublasCreate(
+                    &this->cublas_handle[thread_id]);
+            assert(status == CUBLAS_STATUS_SUCCESS);
+        }
     }
 }
 
@@ -150,8 +227,22 @@ void cuLinearOperator<DataType>::initialize_cusparse_handle()
 {
     if (this->cusparse_handle == NULL)
     {
-        cusparseStatus_t status = cusparseCreate(&this->cusparse_handle);
-        assert(status == CUSPARSE_STATUS_SUCCESS);
+        // Allocate pointers for each gpu device
+        this->cusparse_handle = new cusparseHandle_t[this->num_gpu_devices];
+
+        // Set the number of threads
+        omp_set_num_threads(this->num_gpu_devices);
+        
+        #pragma omp parallel
+        {
+            // Switch to a device with the same device id as the cpu thread id
+            unsigned int thread_id = omp_get_thread_num();
+            CudaInterface<DataType>::set_device(thread_id);
+
+            cusparseStatus_t status = cusparseCreate(
+                    &this->cusparse_handle[thread_id]);
+            assert(status == CUSPARSE_STATUS_SUCCESS);
+        }
     }
 }
 
@@ -173,7 +264,7 @@ int cuLinearOperator<DataType>::query_gpu_devices() const
     cudaError_t error = cudaGetDeviceCount(&device_count);
 
     // Error code 38 means no cuda-capable device was detected.
-    if (error != cudaSuccess)
+    if ((error != cudaSuccess) || (device_count < 1))
     {
         std::cerr << "ERROR: No cuda-capable GPU device was detected on " \
                   << "this machine. If a cuda-capable GPU device exists, " \

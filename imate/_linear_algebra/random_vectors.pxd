@@ -25,10 +25,3 @@ cdef void generate_random_column_vectors(
         const IndexType num_vectors,
         const IndexType orthogonalize,
         const IndexType num_parallel_threads) nogil
-
-# generate random row vectors
-cdef void generate_random_row_vectors(
-        DataType** vectors,
-        const LongIndexType vector_size,
-        const IndexType num_vectors,
-        const IndexType num_parallel_threads) nogil

@@ -135,6 +135,45 @@ void CudaInterface<ArrayType>::del(void* device_array)
 }
 
 
+// ==========
+// set device
+// ==========
+
+/// \brief     Sets the current device in multi-gpu applications.
+///
+/// \param[in] device_id
+///            The id of the device to switch to. The id is a number from \c 0 
+///            to \c num_gpu_devices-1
+
+template<typename ArrayType>
+void CudaInterface<ArrayType>::set_device(int device_id)
+{
+    cudaError_t error = cudaSetDevice(device_id);
+    assert(error == cudaSuccess);
+}
+
+
+// ==========
+// get device
+// ==========
+
+/// \brief  Gets the current device in multi-gpu applications.
+///
+/// \return device_id
+///         The id of the current device. The id is a number from \c 0 to
+///         \c num_gpu_devices-1
+
+template<typename ArrayType>
+int CudaInterface<ArrayType>::get_device()
+{
+    int device_id = -1;
+    cudaError_t error = cudaGetDevice(&device_id);
+    assert(error == cudaSuccess);
+
+    return device_id;
+}
+
+
 // ===============================
 // Explicit template instantiation
 // ===============================

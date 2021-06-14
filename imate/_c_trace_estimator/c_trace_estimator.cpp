@@ -19,7 +19,8 @@
 #include <cstddef>  // NULL
 #include "./c_lanczos_tridiagonalization.h"  // c_lanczos_tridiagonalization
 #include "./c_golub_kahn_bidiagonalization.h"  // c_golub_kahn_bidiagonaliza...
-#include "./random_vectors.h"  // RandomVectors
+#include "../_random_generator/random_number_generator.h" // RandomNumberGen...
+#include "../_random_generator/random_array_generator.h"  // RandomArrayGene...
 #include "./diagonalization.h"  // Diagonalization
 #include "./convergence_tools.h"  // check_convergence, average_estimates
 
@@ -207,15 +208,17 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
     // Set the number of threads
     omp_set_num_threads(num_threads);
 
-    // Allocate 2D array of random vectors with Fortran ordering, resembling an
-    // array of the shape (matrix_size, max_num_samples). Columns of this array
-    // are the random vectors which are memory contiguous.
-    DataType** random_vectors = new DataType*[max_num_samples];
-    IndexType i;
-    for (i=0; i < max_num_samples; ++i)
-    {
-        random_vectors[i] = new DataType[matrix_size];
-    }
+    // Allocate 1D array of random vectors We only allocate a random vector
+    // per parallel thread. Thus, the total size of the random vectors is
+    // matrix_size*num_threads. On each iteration in parallel threads, the
+    // alocated memory is resued. That is, in each iteration, a new random
+    // vector is generated for that specific thread id.
+    IndexType random_vectors_size = matrix_size * num_threads;
+    DataType* random_vectors = new DataType[random_vectors_size];
+
+    // Initialize random number generator to generate in parallel threads
+    // independently. Note this is a call to a static function.
+    RandomNumberGenerator::initialize(num_threads);
 
     // The counter of filled size of processed_samples_indices array
     // This scalar variable is defined as array to be shared among al threads
@@ -225,30 +228,29 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
     // This scalar variable is defined as array to be shared among al threads
     FlagType all_converged = 0;
 
-    // Fill random vectors with Rademacher distribution (+1, -1), normalized
-    // but not orthogonalized
-    RandomVectors<DataType>::generate_random_row_vectors(
-        random_vectors, matrix_size, max_num_samples, num_threads);
-
     // Using square-root of max possible chunk size for parallel schedules
     unsigned int chunk_size = static_cast<int>(
-                sqrt(static_cast<DataType>(max_num_samples) / num_threads));
+            sqrt(static_cast<DataType>(max_num_samples) / num_threads));
     if (chunk_size < 1)
     {
         chunk_size = 1;
     }
 
     // Shared-memory parallelism over Monte-Carlo ensemble sampling
+    IndexType i;
     #pragma omp parallel for schedule(dynamic, chunk_size)
     for (i=0; i < max_num_samples; ++i)
     {
         if (!static_cast<bool>(all_converged))
         {
+            int thread_id = omp_get_thread_num();
+            
             // Perform one Monte-Carlo sampling to estimate trace
             cTraceEstimator<DataType>::_c_stochastic_lanczos_quadrature(
                     A, parameters, num_inquiries, matrix_function, exponent,
-                    symmetric, random_vectors[i], orthogonalize,
-                    lanczos_degree, lanczos_tol, converged, samples[i]);
+                    symmetric, orthogonalize, lanczos_degree, lanczos_tol,
+                    &random_vectors[matrix_size*thread_id], converged,
+                    samples[i]);
 
             // Critical section
             #pragma omp critical
@@ -276,11 +278,8 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
             samples, num_outliers, trace, error);
 
     // Deallocate memory
-    for (i=0; i < max_num_samples; ++i)
-    {
-        delete[] random_vectors[i];
-    }
     delete[] random_vectors;
+    RandomNumberGenerator::deallocate();
 
     return all_converged;
 }
@@ -336,12 +335,6 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
 ///             * non-symmetric, then, Golub-Kahn bidiagonalization method is
 ///               employed. This method requires both matrix and
 ///               transposed-matrix vector multiplications.
-/// \param[in]  random_vector
-///             A 1D vector of the size of matrix \c A. The Lanczos iterations
-///             start off from this random vector. Each given random vector is
-///             used per a Monte-Carlo computation of the SLQ method. In the
-///             Lanczos iterations, other vectors are generated orthogonal to
-///             this initial random vector.
 /// \param[in]  orthogonalize
 ///             Indicates whether to orthogonalize the orthogonal eigenvectors
 ///             during Lanczos recursive iterations.
@@ -369,6 +362,13 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
 ///             the end of iterations reached. If the tolerance is not met, the
 ///             iterations (total of \c lanczos_degree iterations) continue
 ///             till end.
+/// \param[in]  random_vector
+///             A 1D vector of the size of matrix \c A. The Lanczos iterations
+///             start off from this random vector. Each given random vector is
+///             used per a Monte-Carlo computation of the SLQ method. In the
+///             Lanczos iterations, other vectors are generated orthogonal to
+///             this initial random vector. This array is filled inside this
+///             function.
 /// \param[out] converged
 ///             1D array of the size of the number of columns of \c samples.
 ///             Each element indicates which column of \c samples has converged
@@ -389,15 +389,23 @@ void cTraceEstimator<DataType>::_c_stochastic_lanczos_quadrature(
         const Function* matrix_function,
         const DataType exponent,
         const FlagType symmetric,
-        const DataType* random_vector,
         const FlagType orthogonalize,
         const IndexType lanczos_degree,
         const DataType lanczos_tol,
+        DataType* random_vector,
         FlagType* converged,
         DataType* trace_estimate)
 {
     // Matrix size
     IndexType matrix_size = A->get_num_rows();
+
+    // Fill random vectors with Rademacher distribution (+1, -1), normalized
+    // but not orthogonalized. Settng num_threads to zero indicates to not
+    // create any new threads in RandomNumbrGenerator since the current
+    // function is inside a parallel thread.
+    IndexType num_threads = 0;
+    RandomArrayGenerator<DataType>::generate_random_array(
+        random_vector, matrix_size, num_threads);
 
     // Allocate diagonals (alpha) and supdiagonals (beta) of Lanczos matrix
     DataType* alpha = new DataType[lanczos_degree];

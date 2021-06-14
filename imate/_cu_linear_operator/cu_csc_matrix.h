@@ -41,7 +41,8 @@ class cuCSCMatrix :
                 const LongIndexType* A_indices_,
                 const LongIndexType* A_index_pointer_,
                 const LongIndexType num_rows_,
-                const LongIndexType num_columns_);
+                const LongIndexType num_columns_,
+                const int num_gpu_devices_);
 
         virtual ~cuCSCMatrix();
 
@@ -69,6 +70,7 @@ class cuCSCMatrix :
         virtual void copy_host_to_device();
 
         void allocate_buffer(
+                const int device_id,
                 cusparseOperation_t cusparse_operation,
                 const DataType alpha,
                 const DataType beta,
@@ -77,12 +79,12 @@ class cuCSCMatrix :
                 cusparseSpMVAlg_t algorithm);
 
         // Member data
-        DataType* device_A_data;
-        LongIndexType* device_A_indices;
-        LongIndexType* device_A_index_pointer;
-        void* device_buffer;
-        size_t device_buffer_num_bytes;
-        cusparseSpMatDescr_t cusparse_matrix_A;
+        DataType** device_A_data;
+        LongIndexType** device_A_indices;
+        LongIndexType** device_A_index_pointer;
+        void** device_buffer;
+        size_t* device_buffer_num_bytes;
+        cusparseSpMatDescr_t* cusparse_matrix_A;
 };
 
 #endif  // _CU_LINEAR_OPERATOR_CU_CSC_MATRIX_H_

@@ -31,13 +31,14 @@ cuDenseAffineMatrixFunction<DataType>::cuDenseAffineMatrixFunction(
         const DataType* A_,
         const FlagType A_is_row_major_,
         const LongIndexType num_rows_,
-        const LongIndexType num_columns_):
+        const LongIndexType num_columns_,
+        const int num_gpu_devices_):
 
     // Base class constructor
     cLinearOperator<DataType>(num_rows_, num_columns_),
 
     // Initializer list
-    A(A_, num_rows_, num_columns_, A_is_row_major_)
+    A(A_, num_rows_, num_columns_, A_is_row_major_, num_gpu_devices_)
 {
     // This constructor is called assuming B is identity
     this->B_is_identity = true;
@@ -61,14 +62,15 @@ cuDenseAffineMatrixFunction<DataType>::cuDenseAffineMatrixFunction(
         const LongIndexType num_rows_,
         const LongIndexType num_columns_,
         const DataType* B_,
-        const FlagType B_is_row_major_):
+        const FlagType B_is_row_major_,
+        const int num_gpu_devices_):
 
     // Base class constructor
     cLinearOperator<DataType>(num_rows_, num_columns_),
 
     // Initializer list
-    A(A_, num_rows_, num_columns_, A_is_row_major_),
-    B(B_, num_rows_, num_columns_, B_is_row_major_)
+    A(A_, num_rows_, num_columns_, A_is_row_major_, num_gpu_devices_),
+    B(B_, num_rows_, num_columns_, B_is_row_major_, num_gpu_devices_)
 {
     // Matrix B is assumed to be non-zero. Check if it is identity or generic
     if (this->B.is_identity_matrix())

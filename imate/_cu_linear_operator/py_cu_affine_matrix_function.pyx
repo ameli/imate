@@ -168,10 +168,15 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
     # __cinit__
     # =========
 
-    def __cinit__(self, A, B=None):
+    def __cinit__(self, A, B=None, num_gpu_devices=0):
         """
         Sets matrices A and B.
         """
+
+        # Number of gpu devices to use. This might be different (less) than the
+        # number of gpu devices that are avalable. If set to 0, all available
+        # devices will be used.
+        self.num_gpu_devices = num_gpu_devices
 
         # Check A
         if A is None:
@@ -370,7 +375,8 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
                     A_data,
                     A_is_row_major,
                     A_num_rows,
-                    A_num_columns)
+                    A_num_columns,
+                    self.num_gpu_devices)
         else:
             self.Aop_float = new cuDenseAffineMatrixFunction[float](
                     A_data,
@@ -378,7 +384,8 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
                     A_num_rows,
                     A_num_columns,
                     B_data,
-                    B_is_row_major)
+                    B_is_row_major,
+                    self.num_gpu_devices)
 
     # =======================
     # set dense matrix double
@@ -466,7 +473,8 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
                     A_data,
                     A_is_row_major,
                     A_num_rows,
-                    A_num_columns)
+                    A_num_columns,
+                    self.num_gpu_devices)
         else:
             self.Aop_double = new cuDenseAffineMatrixFunction[double](
                     A_data,
@@ -474,7 +482,8 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
                     A_num_rows,
                     A_num_columns,
                     B_data,
-                    B_is_row_major)
+                    B_is_row_major,
+                    self.num_gpu_devices)
 
     # ====================
     # set csr matrix float
@@ -521,7 +530,8 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
                     A_indices,
                     A_index_pointer,
                     A_num_rows,
-                    A_num_columns)
+                    A_num_columns,
+                    self.num_gpu_devices)
         else:
             self.Aop_float = new cuCSRAffineMatrixFunction[float](
                     A_data,
@@ -531,7 +541,8 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
                     A_num_columns,
                     B_data,
                     B_indices,
-                    B_index_pointer)
+                    B_index_pointer,
+                    self.num_gpu_devices)
 
     # =====================
     # set csr matrix double
@@ -578,7 +589,8 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
                     A_indices,
                     A_index_pointer,
                     A_num_rows,
-                    A_num_columns)
+                    A_num_columns,
+                    self.num_gpu_devices)
         else:
             self.Aop_double = new cuCSRAffineMatrixFunction[double](
                     A_data,
@@ -588,7 +600,8 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
                     A_num_columns,
                     B_data,
                     B_indices,
-                    B_index_pointer)
+                    B_index_pointer,
+                    self.num_gpu_devices)
 
     # ====================
     # set csc matrix float
@@ -635,7 +648,8 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
                     A_indices,
                     A_index_pointer,
                     A_num_rows,
-                    A_num_columns)
+                    A_num_columns,
+                    self.num_gpu_devices)
         else:
             self.Aop_float = new cuCSCAffineMatrixFunction[float](
                     A_data,
@@ -645,7 +659,8 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
                     A_num_columns,
                     B_data,
                     B_indices,
-                    B_index_pointer)
+                    B_index_pointer,
+                    self.num_gpu_devices)
 
     # =====================
     # set csc matrix double
@@ -692,7 +707,8 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
                     A_indices,
                     A_index_pointer,
                     A_num_rows,
-                    A_num_columns)
+                    A_num_columns,
+                    self.num_gpu_devices)
         else:
             self.Aop_double = new cuCSCAffineMatrixFunction[double](
                     A_data,
@@ -702,4 +718,5 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
                     A_num_columns,
                     B_data,
                     B_indices,
-                    B_index_pointer)
+                    B_index_pointer,
+                    self.num_gpu_devices)

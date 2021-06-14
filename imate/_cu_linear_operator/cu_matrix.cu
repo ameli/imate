@@ -16,12 +16,23 @@
 #include "./cu_matrix.h"
 
 
-// ===========
-// constructor
-// ===========
+// =============
+// constructor 1
+// =============
 
 template <typename DataType>
 cuMatrix<DataType>::cuMatrix()
+{
+}
+
+
+// =============
+// constructor 2
+// =============
+
+template <typename DataType>
+cuMatrix<DataType>::cuMatrix(int num_gpu_devices_):
+    cuLinearOperator<DataType>(num_gpu_devices_)
 {
 }
 

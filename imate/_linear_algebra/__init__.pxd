@@ -11,5 +11,4 @@ from imate._linear_algebra.orthogonalization cimport \
         orthogonalize_vectors
 
 from imate._linear_algebra.random_vectors cimport \
-        generate_random_column_vectors, \
-        generate_random_row_vectors
+        generate_random_column_vectors

@@ -75,10 +75,10 @@ class cTraceEstimator
                 const Function* matrix_function,
                 const DataType exponent,
                 const FlagType symmetric,
-                const DataType* random_vector,
                 const FlagType orthogonalize,
                 const IndexType lanczos_degree,
                 const DataType lanczos_tol,
+                DataType* random_vector,
                 FlagType* converged,
                 DataType* trace_estimate);
 };

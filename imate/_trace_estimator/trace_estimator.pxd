@@ -34,6 +34,7 @@ cpdef trace_estimator(
         lanczos_tol,
         orthogonalize,
         num_threads,
+        num_gpu_devices,
         verbose,
         plot,
         gpu)

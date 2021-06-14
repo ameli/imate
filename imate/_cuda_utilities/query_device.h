@@ -11,24 +11,12 @@
 #ifndef _CUDA_UTILITIES_QUERY_DEVICE_H_
 #define _CUDA_UTILITIES_QUERY_DEVICE_H_
 
-// =================
-// Device Properties
-// =================
 
-/// \class DeviceProperties
-///
-/// \brief Properties of GPU device.
+// =======
+// Headers
+// =======
 
-struct DeviceProperties
-{
-    // Methods
-    DeviceProperties();
-
-    // Data
-    int num_devices;
-    int num_multiprocessors;
-    int num_threads_per_multiprocessor;
-};
+#include "./device_properties.h"
 
 
 // ============

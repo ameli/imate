@@ -27,6 +27,7 @@ class LinearOperator(object):
         self.cpu_Aop = None
         self.gpu_Aop = None
         self.gpu = False
+        self.num_gpu_devices = 0
         self.initialized_on_cpu = False
         self.initialized_on_gpu = False
         self.data_type_name = None
@@ -66,16 +67,14 @@ class LinearOperator(object):
     # get linear operator
     # ===================
 
-    def get_linear_operator(self, gpu=False):
+    def get_linear_operator(self, gpu=False, num_gpu_devices=0):
         """
         """
 
-        self.gpu = gpu
+        # Initialize matrix either on cpu or gpu (implemented in sub-classes)
+        self.initialize(gpu, num_gpu_devices)
 
-        # Initialize matrix either on cpu or gpu
-        self.initialize()
-
-        if self.gpu:
+        if gpu:
             if self.gpu_Aop is None or not self.initialized_on_gpu:
                 raise RuntimeError('Matrix is not initialized on gpu.')
             self.Aop = self.gpu_Aop

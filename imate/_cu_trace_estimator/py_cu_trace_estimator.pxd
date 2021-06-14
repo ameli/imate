@@ -34,6 +34,7 @@ cpdef tuple pycu_trace_estimator(
         confidence_level,
         outlier_significance_level,
         num_threads,
+        num_gpu_devices,
         data_type_name,
         trace,
         error,

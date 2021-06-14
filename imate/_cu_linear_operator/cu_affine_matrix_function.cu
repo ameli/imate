@@ -17,6 +17,7 @@
 #include <cassert>  // assert
 #include "../_definitions/debugging.h"  // ASSERT
 #include "../_cu_basic_algebra/cu_vector_operations.h"  // cuVectorOperations
+#include "../_cuda_utilities/cuda_interface.h"  // CudaInterface
 
 
 // ===========
@@ -133,9 +134,12 @@ void cuAffineMatrixFunction<DataType>::_add_scaled_vector(
         const DataType scale,
         DataType* output_vector) const
 {
+    // Get device id
+    int device_id = CudaInterface<DataType>::get_device();
+
     // Subtracting two vectors with minus scale sign, which is adding.
     cuVectorOperations<DataType>::subtract_scaled_vector(
-            this->cublas_handle, input_vector, vector_size, -scale,
+            this->cublas_handle[device_id], input_vector, vector_size, -scale,
             output_vector);
 }
 

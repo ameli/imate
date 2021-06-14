@@ -50,6 +50,7 @@ cpdef trace_estimator(
         lanczos_tol,
         orthogonalize,
         num_threads,
+        num_gpu_devices,
         verbose,
         plot,
         gpu):
@@ -133,8 +134,8 @@ cpdef trace_estimator(
     error_atol, error_rtol = check_arguments(
             exponent, symmetric, min_num_samples, max_num_samples, error_atol,
             error_rtol, confidence_level, outlier_significance_level,
-            lanczos_degree, lanczos_tol, orthogonalize, num_threads, verbose,
-            plot, gpu)
+            lanczos_degree, lanczos_tol, orthogonalize, num_threads,
+            num_gpu_devices, verbose, plot, gpu)
 
     # Set the default value for the "epsilon" of the slq algorithm
     if lanczos_tol is None:
@@ -166,7 +167,6 @@ cpdef trace_estimator(
     converged = numpy.zeros((num_inquiries,), dtype=flag_type_name)
 
     # Initialize gpu device properties
-    num_gpu_devices = 0
     num_gpu_multiprocessors = 0
     num_gpu_threads_per_multiprocessor = 0
 
@@ -189,7 +189,24 @@ cpdef trace_estimator(
                               'environment variable "USE_CUDA=1" and ' +
                               'recompile the source code of the package.')
 
-        pycuAop = Aop.get_linear_operator(gpu=True)
+        pycuAop = Aop.get_linear_operator(gpu=True,
+                                          num_gpu_devices=num_gpu_devices)
+
+        # Get device properties
+        device_properties_dict = pycuAop.get_device_properties()
+
+        # We get the properties of the first device (device 0), assuming the
+        # other gpu devices have the same specs
+        device_id = 0
+        num_all_gpu_devices = device_properties_dict['num_devices']
+        num_gpu_multiprocessors = \
+            device_properties_dict['num_multiprocessors'][device_id]
+        num_gpu_threads_per_multiprocessor = \
+            device_properties_dict['num_threads_per_multiprocessor'][device_id]
+
+        # Zero indicates that all gpu devices were used
+        if num_gpu_devices == 0:
+            num_gpu_devices = num_all_gpu_devices
 
         all_converged, gpu_proc_time = pycu_trace_estimator(
             pycuAop,
@@ -208,6 +225,7 @@ cpdef trace_estimator(
             confidence_level,
             outlier_significance_level,
             num_threads,
+            num_gpu_devices,
             data_type_name,
             trace,
             error,
@@ -216,13 +234,6 @@ cpdef trace_estimator(
             num_samples_used,
             num_outliers,
             converged)
-
-        # Get device properties
-        device_properties_dict = pycuAop.get_device_properties()
-        num_gpu_devices = device_properties_dict['num_devices']
-        num_gpu_multiprocessors = device_properties_dict['num_multiprocessors']
-        num_gpu_threads_per_multiprocessor = \
-            device_properties_dict['num_threads_per_multiprocessor']
 
     else:
 

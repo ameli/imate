@@ -31,4 +31,5 @@ cdef extern from "cu_csr_matrix.h":
                 const LongIndexType* A_indices_,
                 const LongIndexType* A_index_pointer_,
                 const LongIndexType num_rows_,
-                const LongIndexType num_columns_) except +
+                const LongIndexType num_columns_,
+                const int num_gpu_devices_) except +

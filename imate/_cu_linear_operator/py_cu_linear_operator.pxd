@@ -25,9 +25,9 @@ cdef class pycuLinearOperator(object):
     # Attributes
     cdef cuLinearOperator[float]* Aop_float
     cdef cuLinearOperator[double]* Aop_double
-    cdef cuLinearOperator[long double]* Aop_long_double
     cdef char* data_type_name
     cdef IndexType num_parameters
+    cdef int num_gpu_devices
     cdef dict device_properties_dict
 
     # Cython methods

@@ -58,6 +58,12 @@ class CudaInterface
 
         // del
         static void del(void* device_array);
+
+        // set device
+        static void set_device(int device_id);
+
+        // get device
+        static int get_device();
 };
 
 #endif  // _CUDA_UTILITIES_CUDA_INTERFACE_H_

@@ -56,8 +56,8 @@ def eigenvalue_method(
 
         # Compute eigenvalues of A
         eigenvalues = compute_eigenvalues(A, symmetric,
-                                            non_zero_eig_fraction,
-                                            which_eigenvalues)
+                                          non_zero_eig_fraction,
+                                          which_eigenvalues)
 
     # Compute trace of inverse of matrix
     not_nan = numpy.logical_not(numpy.isnan(eigenvalues))
@@ -179,7 +179,7 @@ def compute_eigenvalues(
         # Dense matrix
         if symmetric:
             eigenvalues = scipy.linalg.eigh(A, check_finite=False,
-                                              eigvals_only=True)
+                                            eigvals_only=True)
         else:
             eigenvalues = scipy.linalg.eig(A, check_finite=False)[0]
 

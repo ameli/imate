@@ -8,16 +8,13 @@
 
 
 # =======
-# Imports
-# =======
-
-from .device_properties cimport DeviceProperties
-
-
-# =======
 # Externs
 # =======
 
-cdef extern from "query_device.h":
+cdef extern from "device_properties.h":
 
-    cdef void query_device(DeviceProperties& device_properties) nogil
+    cdef struct DeviceProperties:
+
+        int num_devices
+        int* num_multiprocessors
+        int* num_threads_per_multiprocessor

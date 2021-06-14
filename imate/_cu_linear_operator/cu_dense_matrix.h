@@ -19,7 +19,6 @@
 
 #include "../_definitions/types.h"  // FlagType, LongIndexType
 #include "../_c_linear_operator/c_dense_matrix.h"  // cDenseMatrix
-// #include "./cu_linear_operator.h"  // cuLinearOperator
 #include "./cu_matrix.h"  // cuMatrix
 
 
@@ -29,7 +28,6 @@
 
 template <typename DataType>
 class cuDenseMatrix :
-    // public cuLinearOperator<DataType>,
     public cuMatrix<DataType>,
     public cDenseMatrix<DataType>
 {
@@ -42,7 +40,8 @@ class cuDenseMatrix :
                 const DataType* A_,
                 const LongIndexType num_rows_,
                 const LongIndexType num_columns_,
-                const FlagType A_is_row_major_);
+                const FlagType A_is_row_major_,
+                const int num_gpu_devices_);
 
         virtual ~cuDenseMatrix();
 
@@ -70,7 +69,7 @@ class cuDenseMatrix :
         virtual void copy_host_to_device();
 
         // Member data
-        DataType* device_A;
+        DataType** device_A;
 };
 
 #endif  // _CU_LINEAR_OPERATOR_CU_DENSE_MATRIX_H_

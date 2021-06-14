@@ -36,6 +36,7 @@ def slq_method(
         lanczos_tol=None,
         orthogonalize=0,
         num_threads=0,
+        num_gpu_devices=0,
         verbose=False,
         plot=False,
         gpu=False):
@@ -119,6 +120,7 @@ def slq_method(
         lanczos_tol,
         orthogonalize,
         num_threads,
+        num_gpu_devices,
         verbose,
         plot,
         gpu)

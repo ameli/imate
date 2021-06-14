@@ -46,10 +46,11 @@ class cuLinearOperator: virtual public cLinearOperator<DataType>
 
         // Member methods
         cuLinearOperator();
+        cuLinearOperator(int num_gpu_devices_);
 
-        cuLinearOperator(
-                const LongIndexType num_rows_,
-                const LongIndexType num_columns_);
+        // cuLinearOperator(
+        //         const LongIndexType num_rows_,
+        //         const LongIndexType num_columns_);
 
         virtual ~cuLinearOperator();
 
@@ -63,9 +64,10 @@ class cuLinearOperator: virtual public cLinearOperator<DataType>
         void initialize_cusparse_handle();
 
         // Member data
+        int num_gpu_devices;
         bool copied_host_to_device;
-        cublasHandle_t cublas_handle;
-        cusparseHandle_t cusparse_handle;
+        cublasHandle_t* cublas_handle;
+        cusparseHandle_t* cusparse_handle;
 };
 
 #endif  // _CU_LINEAR_OPERATOR_CU_LINEAR_OPERATOR_H_

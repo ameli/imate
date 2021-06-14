@@ -16,21 +16,6 @@
 #include "./query_device.h"
 
 
-// =================
-// Device Properties
-// =================
-
-/// \brief Constructor
-///
-
-DeviceProperties::DeviceProperties():
-    num_devices(0),
-    num_multiprocessors(0),
-    num_threads_per_multiprocessor(0)
-{
-}
-
-
 // ============
 // query device
 // ============
@@ -45,29 +30,38 @@ DeviceProperties::DeviceProperties():
 
 void query_device(DeviceProperties& device_properties)
 {
-    cudaError_t error = cudaGetDeviceCount(&device_properties.num_devices);
+    // Query number of devices
+    int num_devices;
+    cudaError_t error = cudaGetDeviceCount(&num_devices);
     if (error != cudaSuccess)
     {
         return;
     }
 
-    // Machines with no GPUs may still report one emulation device
+    // Set number of devices
+    device_properties.set_num_devices(num_devices);
+
+    // Read properties of each device
     struct cudaDeviceProp properties;
-    for (int device = 0; device < device_properties.num_devices; ++device)
+    for (int device = 0; device < num_devices; ++device)
     {
         cudaGetDeviceProperties(&properties, device);
 
-        // exclude gpu emulation
-        if (properties.major != 9999)
+        // Machines with no GPUs may still report one emulation device
+        if (properties.major == 9999)
         {
-            if (device == 0)
-            {
-                device_properties.num_multiprocessors = \
-                    properties.multiProcessorCount;
+            // This is a gpu emulation not an actual device
+            device_properties.num_multiprocessors[device] = 0;
 
-                device_properties.num_threads_per_multiprocessor = \
-                    properties.maxThreadsPerMultiProcessor;
-            }
+            device_properties.num_threads_per_multiprocessor[device] = 0;
+        }
+        else
+        {
+            device_properties.num_multiprocessors[device] = \
+                properties.multiProcessorCount;
+
+            device_properties.num_threads_per_multiprocessor[device] = \
+                properties.maxThreadsPerMultiProcessor;
         }
     }
 }

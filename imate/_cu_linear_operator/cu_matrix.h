@@ -43,6 +43,7 @@ class cuMatrix : public cuLinearOperator<DataType>
 
         // Member methods
         cuMatrix();
+        cuMatrix(int num_gpu_devices_);
 
         virtual ~cuMatrix();
 

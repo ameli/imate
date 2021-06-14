@@ -40,9 +40,9 @@ cdef class pycuLinearOperator(object):
         # Initialize member data
         self.Aop_float = NULL
         self.Aop_double = NULL
-        self.Aop_long_double = NULL
         self.data_type_name = NULL
-        self.device_properties_dict = None
+        self.num_gpu_devices = 0
+        self.device_properties_dict = py_query_device()
 
     # ===========
     # __dealloc__
@@ -60,10 +60,6 @@ cdef class pycuLinearOperator(object):
             del self.Aop_double
             self.Aop_double = NULL
 
-        if self.Aop_long_double != NULL:
-            del self.Aop_long_double
-            self.Aop_long_double = NULL
-
     # ============
     # get num rows
     # ============
@@ -78,9 +74,6 @@ cdef class pycuLinearOperator(object):
             return self.Aop_float.get_num_rows()
         elif self.data_type_name == b'float64' and self.Aop_double != NULL:
             return self.Aop_double.get_num_rows()
-        elif self.data_type_name == b'float128' and \
-                self.Aop_long_double != NULL:
-            return self.Aop_long_double.get_num_rows()
         else:
             raise ValueError('Linear operator is not set.')
 
@@ -98,9 +91,6 @@ cdef class pycuLinearOperator(object):
             return self.Aop_float.get_num_columns()
         elif self.data_type_name == b'float64' and self.Aop_double != NULL:
             return self.Aop_double.get_num_columns()
-        elif self.data_type_name == b'float128' and \
-                self.Aop_long_double != NULL:
-            return self.Aop_long_double.get_num_columns()
         else:
             raise ValueError('Linear operator is not set.')
 
@@ -118,9 +108,6 @@ cdef class pycuLinearOperator(object):
             return self.Aop_float.get_num_parameters()
         elif self.data_type_name == b'float64' and self.Aop_double != NULL:
             return self.Aop_double.get_num_parameters()
-        elif self.data_type_name == b'float128' and \
-                self.Aop_long_double != NULL:
-            return self.Aop_long_double.get_num_parameters()
         else:
             raise ValueError('Linear operator is not set.')
 
@@ -215,32 +202,26 @@ cdef class pycuLinearOperator(object):
         # Declare memory views for input vector
         cdef float[:] mv_vector_float
         cdef double[:] mv_vector_double
-        cdef long double[:] mv_vector_long_double
 
         # Declare memory views for output product
         cdef float[:] mv_product_float
         cdef double[:] mv_product_double
-        cdef long double[:] mv_product_long_double
 
         # Declare memoryviews for parameters
         cdef float[:] mv_parameters_float
         cdef double[:] mv_parameters_double
-        cdef long double[:] mv_parameters_long_double
 
         # Declare c pointers for input vector
         cdef float* c_vector_float
         cdef double* c_vector_double
-        cdef long double* c_vector_long_double
 
         # Declare c pointers for output product
         cdef float* c_product_float
         cdef double* c_product_double
-        cdef long double* c_product_long_double
 
         # Declare c pointers for parameters
         cdef float* c_parameters_float
         cdef double* c_parameters_double
-        cdef long double* c_parameters_long_double
 
         # Dispatch to single, double or quadro precision
         if vector.dtype == 'float32':
@@ -281,29 +262,9 @@ cdef class pycuLinearOperator(object):
             # Call c object
             self.Aop_double.dot(c_vector_double, c_product_double)
 
-        elif vector.dtype == 'float128':
-
-            # input vector
-            mv_vector_long_double = vector
-            c_vector_long_double = &mv_vector_long_double[0]
-
-            # output product
-            mv_product_long_double = product
-            c_product_long_double = &mv_product_long_double[0]
-
-            # Set parameters
-            if self.parameters is not None:
-                mv_parameters_long_double = self.parameters.astype('float128')
-                c_parameters_long_double = &mv_parameters_long_double[0]
-                self.Aop_long_double.set_parameters(c_parameters_long_double)
-
-            # Call c object
-            self.Aop_long_double.dot(c_vector_long_double,
-                                     c_product_long_double)
-
         else:
-            raise TypeError('Vector type should be either "float32", ' +
-                            '"float64", or "float128".')
+            raise TypeError('Vector type should be either "float32", or ' +
+                            '"float64".')
 
     # =============
     # transpose dot
@@ -319,32 +280,26 @@ cdef class pycuLinearOperator(object):
         # Declare memory views for input vector
         cdef float[:] mv_vector_float
         cdef double[:] mv_vector_double
-        cdef long double[:] mv_vector_long_double
 
         # Declare memory views for output product
         cdef float[:] mv_product_float
         cdef double[:] mv_product_double
-        cdef long double[:] mv_product_long_double
 
         # Declare memoryviews for parameters
         cdef float[:] mv_parameters_float
         cdef double[:] mv_parameters_double
-        cdef long double[:] mv_parameters_long_double
 
         # Declare c pointers for input vector
         cdef float* c_vector_float
         cdef double* c_vector_double
-        cdef long double* c_vector_long_double
 
         # Declare c pointers for output product
         cdef float* c_product_float
         cdef double* c_product_double
-        cdef long double* c_product_long_double
 
         # Declare c pointers for parameters
         cdef float* c_parameters_float
         cdef double* c_parameters_double
-        cdef long double* c_parameters_long_double
 
         # Dispatch to single, double or quadro precision
         if vector.dtype == 'float32':
@@ -385,26 +340,6 @@ cdef class pycuLinearOperator(object):
             # Call c object
             self.Aop_double.transpose_dot(c_vector_double, c_product_double)
 
-        elif vector.dtype == 'float128':
-
-            # input vector
-            mv_vector_long_double = vector
-            c_vector_long_double = &mv_vector_long_double[0]
-
-            # output product
-            mv_product_long_double = product
-            c_product_long_double = &mv_product_long_double[0]
-
-            # Set parameters
-            if self.parameters is not None:
-                mv_parameters_long_double = self.parameters.astype('float128')
-                c_parameters_long_double = &mv_parameters_long_double[0]
-                self.Aop_long_double.set_parameters(c_parameters_long_double)
-
-            # Call c object
-            self.Aop_long_double.transpose_dot(c_vector_long_double,
-                                               c_product_long_double)
-
         else:
-            raise TypeError('Vector type should be either "float32", ' +
-                            '"float64", or "float128".')
+            raise TypeError('Vector type should be either "float32", or ' +
+                            '"float64".')

@@ -42,6 +42,7 @@ cdef extern from "cu_trace_estimator.h":
                 const DataType confidence_level,
                 const DataType outlier_significance_level,
                 const IndexType num_threads,
+                const IndexType num_gpu_devices,
                 DataType* trace,
                 DataType* error,
                 DataType** samples,

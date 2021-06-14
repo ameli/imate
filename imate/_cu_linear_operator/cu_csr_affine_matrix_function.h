@@ -37,7 +37,8 @@ class cuCSRAffineMatrixFunction : public cuAffineMatrixFunction<DataType>
                 const LongIndexType* A_indices_,
                 const LongIndexType* A_index_pointer_,
                 const LongIndexType num_rows_,
-                const LongIndexType num_columns_);
+                const LongIndexType num_columns_,
+                const int num_gpu_devices_);
 
         cuCSRAffineMatrixFunction(
                 const DataType* A_data_,
@@ -47,7 +48,8 @@ class cuCSRAffineMatrixFunction : public cuAffineMatrixFunction<DataType>
                 const LongIndexType num_colums_,
                 const DataType* B_data_,
                 const LongIndexType* B_indices_,
-                const LongIndexType* B_index_pointer_);
+                const LongIndexType* B_index_pointer_,
+                const int num_gpu_devices_);
 
         virtual ~cuCSRAffineMatrixFunction();
 

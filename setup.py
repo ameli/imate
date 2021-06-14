@@ -16,6 +16,7 @@ from __future__ import print_function
 import os
 from os.path import join
 import sys
+import json
 import platform
 from glob import glob
 import subprocess
@@ -41,7 +42,7 @@ def install_package(package):
 
         >>> install_package('numpy>1.11')
 
-    :param package: Name of pakcage with or without its version pin.
+    :param package: Name of package with or without its version pin.
     :type package: string
     """
 
@@ -230,15 +231,78 @@ def locate_cuda():
             raise EnvironmentError("The CUDA's lib sub-directory could not " +
                                    "be located in %s." % lib)
 
+    # Get a dictionary of cuda version with keys 'major', 'minor', and 'patch'.
+    version = get_cuda_version(home)
+
     # Output dictionary of set of paths
     cuda = {
         'home': home,
         'nvcc': nvcc,
         'include': include,
-        'lib': lib
+        'lib': lib,
+        'version': version
     }
 
     return cuda
+
+
+# ================
+# get cuda version
+# ================
+
+def get_cuda_version(cuda_home):
+    """
+    Gets the version of CUDA library.
+
+    :param cuda_home: The CUDA home paths.
+    :type cuda_home: str
+
+    :return: A dictionary with version info containing the keys 'major',
+        'minor', and 'patch'.
+    :rtype: dict
+    """
+
+    version_txt_file = join(cuda_home, 'version.txt')
+    version_json_file = join(cuda_home, 'version.json')
+    if os.path.isfile(version_txt_file):
+
+        # txt version file is used in CUDA 10 and earlier.
+        with open(version_txt_file, 'r') as file:
+            version_string = file.read()
+
+    elif os.path.isfile(version_json_file):
+
+        # json version file is used in CUDA 11 and newer
+        with open(version_json_file, 'r') as file:
+            info = json.load(file)
+            version_string = info['cuda']['version']
+
+    else:
+        raise FileNotFoundError('Cannot find CUDA "version.txt" file or' +
+                                '"version.json" file in %s.' % cuda_home)
+
+    # Convert string to a list of int
+    version_string_list = version_string.split(' ')[-1].split('.')
+    version_int = [int(v) for v in version_string_list]
+
+    # Output dictionary
+    version = {
+            'major': None,
+            'minor': None,
+            'patch': None
+    }
+
+    # Fill output dictionary
+    if len(version_int) == 0:
+        raise ValueError('Cannot detect CUDA major version.')
+    else:
+        version['major'] = version_int[0]
+    if len(version_int) > 1:
+        version['minor'] = version_int[1]
+    if len(version_int) > 2:
+        version['patch'] = version_int[2]
+
+    return version
 
 
 # ================================
@@ -314,10 +378,13 @@ def customize_unix_compiler_for_nvcc(self, cuda):
 
 def customize_windows_compiler_for_nvcc(self, cuda):
     """
-    TODO: This function is not yet fully implemented. There is an issue with
-    the self.compile of distutil for windows. The issue is that the ``sources``
-    argument in ``compile`` method is NOT a single file, rather is a list of
-    all files.
+    Sets compiler to treat 'cpp' and 'cu' file extensions differently. Namely:
+    1. A 'cpp' file is treated as usual with the default compiler and the same
+       compiler and linker flags as before.
+    2. For a 'cu' file, the compiler is switched to 'nvcc' with other compiler
+       flags that suites GPU machine.
+
+    This function only should be called for 'msvc' compiler.
 
     .. note::
 
@@ -442,9 +509,9 @@ def customize_windows_compiler_for_nvcc(self, cuda):
 
         return objects
 
-    # Replace the previous comoile function of distutils.ccompiler with the
+    # Replace the previous compile function of distutils.ccompiler with the
     # above modified function. Here, the object ``self`` is ``MVSCCompiler``
-    # which is a dderived class from ``CCompiler`` in the ``distutils`` package
+    # which is a derived class from ``CCompiler`` in the ``distutils`` package
     # in ``cpython`` package.
     self.compile = compile
 
@@ -639,7 +706,7 @@ class CustomBuildExtension(build_ext):
             # We add common flags that work both for gcc and mac's clang
             extra_compile_args += ['-O3', '-fno-stack-protector', '-Wall']
 
-            # The option '-Wl, ..' will send arguments ot the linker. Here,
+            # The option '-Wl, ..' will send arguments to the linker. Here,
             # '--strip-all' will remove all symbols from the shared library.
             if not debug_mode:
                 extra_compile_args += ['-g0', '-Wl, --strip-all']
@@ -674,7 +741,7 @@ class CustomBuildExtension(build_ext):
 
                 if clang_has_openmp_flag:
 
-                    # Assuming this is mac's clag. Add '-fopenmp' through
+                    # Assuming this is mac's clang. Add '-fopenmp' through
                     # preprocessor
                     extra_compile_args += clang_compile_args
                     extra_link_args += clang_link_args
@@ -689,6 +756,7 @@ class CustomBuildExtension(build_ext):
 
         # Modify compiler flags for cuda
         if use_cuda:
+            cuda = locate_cuda()
 
             # Code generations for various device architectures
             gencodes = ['-gencode', 'arch=compute_35,code=sm_35',
@@ -697,27 +765,40 @@ class CustomBuildExtension(build_ext):
                         '-gencode', 'arch=compute_60,code=sm_60',
                         '-gencode', 'arch=compute_61,code=sm_61',
                         '-gencode', 'arch=compute_70,code=sm_70',
-                        '-gencode', 'arch=compute_75,code=sm_75',
-                        '-gencode', 'arch=compute_80,code=sm_80',
-                        '-gencode', 'arch=compute_86,code=sm_86',
-                        '-gencode', 'arch=compute_86,code=compute_86']
+                        '-gencode', 'arch=compute_75,code=sm_75']
+
+            if cuda['version']['major'] < 11:
+                gencodes += \
+                        ['-gencode', 'arch=compute_75,code=compute_75']
+            else:
+                gencodes += \
+                        ['-gencode', 'arch=compute_80,code=sm_80',
+                         '-gencode', 'arch=compute_86,code=sm_86',
+                         '-gencode', 'arch=compute_86,code=compute_86']
 
             extra_compile_args_nvcc = gencodes + ['--ptxas-options=-v', '-c',
                                                   '--verbose', '--shared',
-                                                  '-O3', '--compiler-options']
+                                                  '-O3']
 
-            # Continuing adding compiler options
+            # Adding compiler options
             if sys.platform == 'win32':
-                extra_compile_args_nvcc += ['-MD']  # Creates shared library
+                extra_compile_args_nvcc += [
+                        '--compiler-options', '-MD',  # Creates shared library
+                        '--compiler-options', '-openmp']
             else:
-                extra_compile_args_nvcc += ['-fPIC']  # only for gcc
+                # There are for linux (macos is not supported in CUDA)
+                extra_compile_args_nvcc += [
+                        '--compiler-options', '-fPIC',  # only for gcc
+                        '--compiler-options', '-fopenmp',
+                        '--linker-options', '-lgomp']
 
-            # The option '-Wl, ..' will send arguments ot the linker. Here,
+            # The option '-Wl, ..' will send arguments to the linker. Here,
             # '--strip-all' will remove all symbols from the shared library.
             if debug_mode:
                 extra_compile_args_nvcc += ['-g', '-G']
             else:
-                extra_compile_args_nvcc += ['--linker-options', '--strip-all']
+                extra_compile_args_nvcc += [
+                        '--linker-options', '--strip-all']
 
             # Redefine extra_compile_args list to be a dictionary
             extra_compile_args = {
@@ -731,15 +812,13 @@ class CustomBuildExtension(build_ext):
             ext.extra_link_args = extra_link_args
 
         # Parallel compilation (can also be set via build_ext -j or --parallel)
-        # Note: parallel build fails in windows since object files are accessed
-        # by race condition.
+        # Note: parallel build often fails (especially in windows) since object
+        # files are accessed by race condition.
         # if sys.platform != 'win32':
         #     self.parallel = multiprocessing.cpu_count()
 
         # Modify compiler for cuda
         if use_cuda:
-            cuda = locate_cuda()
-
             if sys.platform == 'win32':
                 customize_windows_compiler_for_nvcc(self.compiler, cuda)
             else:
@@ -866,7 +945,7 @@ def create_extension(
         to add all of the ``c``, ``cpp``, and ``cu`` files to ``sources``.
         Note that the ``pyx`` files in these other directories will not be
         added. To add a ``pyx`` file, use ``subpackage_name`` argument, which
-        creates a separate moule extension for each ``pyx`` file.
+        creates a separate module extension for each ``pyx`` file.
     :type other_source_dirs: list(string)
 
     :param other_source_files: A list of fullpath names of other source files
@@ -1161,8 +1240,12 @@ def main(argv):
     extensions.append(create_extension(package_name, '_trace_estimator'))
 
     extensions.append(create_extension(package_name, '_c_trace_estimator',
-                                       other_source_dirs=['_c_linear_operator',
-                                                          '_c_basic_algebra']))
+                                       other_source_dirs=[
+                                           '_c_linear_operator',
+                                           '_c_basic_algebra',
+                                           '_random_generator']))
+
+    extensions.append(create_extension(package_name, '_random_generator'))
 
     extensions.append(create_extension(package_name, 'traceinv',
                                        other_source_dirs=['functions']))
@@ -1170,7 +1253,7 @@ def main(argv):
     extensions.append(create_extension(package_name, 'logdet',
                                        other_source_dirs=['functions']))
 
-    # Cyhton CUDA extentions
+    # Cyhton CUDA extensions
     if use_cuda:
         extensions.append(create_extension(package_name, '_cuda_utilities'))
 
@@ -1184,6 +1267,7 @@ def main(argv):
         extensions.append(create_extension(package_name, '_cu_trace_estimator',
                                            other_source_dirs=[
                                                '_c_trace_estimator',
+                                               '_random_generator',
                                                '_cu_linear_operator',
                                                '_c_linear_operator',
                                                '_cuda_utilities',

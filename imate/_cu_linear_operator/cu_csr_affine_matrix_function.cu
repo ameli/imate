@@ -32,13 +32,15 @@ cuCSRAffineMatrixFunction<DataType>::cuCSRAffineMatrixFunction(
         const LongIndexType* A_indices_,
         const LongIndexType* A_index_pointer_,
         const LongIndexType num_rows_,
-        const LongIndexType num_columns_):
+        const LongIndexType num_columns_,
+        const int num_gpu_devices_):
 
     // Base class constructor
     cLinearOperator<DataType>(num_rows_, num_columns_),
 
     // Initializer list
-    A(A_data_, A_indices_, A_index_pointer_, num_rows_, num_columns_)
+    A(A_data_, A_indices_, A_index_pointer_, num_rows_, num_columns_,
+      num_gpu_devices_)
 {
     // This constructor is called assuming B is identity
     this->B_is_identity = true;
@@ -64,14 +66,17 @@ cuCSRAffineMatrixFunction<DataType>::cuCSRAffineMatrixFunction(
         const LongIndexType num_columns_,
         const DataType* B_data_,
         const LongIndexType* B_indices_,
-        const LongIndexType* B_index_pointer_):
+        const LongIndexType* B_index_pointer_,
+        const int num_gpu_devices_):
 
     // Base class constructor
     cLinearOperator<DataType>(num_rows_, num_columns_),
 
     // Initializer list
-    A(A_data_, A_indices_, A_index_pointer_, num_rows_, num_columns_),
-    B(B_data_, B_indices_, B_index_pointer_, num_rows_, num_columns_)
+    A(A_data_, A_indices_, A_index_pointer_, num_rows_, num_columns_,
+      num_gpu_devices_),
+    B(B_data_, B_indices_, B_index_pointer_, num_rows_, num_columns_,
+      num_gpu_devices_)
 {
     // Matrix B is assumed to be non-zero. Check if it is identity or generic
     if (this->B.is_identity_matrix())

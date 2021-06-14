@@ -118,6 +118,7 @@ def check_arguments(
         lanczos_tol,
         orthogonalize,
         num_threads,
+        num_gpu_devices,
         verbose,
         plot,
         gpu):
@@ -257,6 +258,16 @@ def check_arguments(
         raise TypeError('"num_threads" should be an integer.')
     elif num_threads < 0:
         raise ValueError('"num_threads" should be a non-negative integer.')
+
+    # Check num_gpu_devices
+    if num_gpu_devices is None:
+        raise TypeError('"num_gpu_devices" cannot be None.')
+    elif not numpy.isscalar(num_gpu_devices):
+        raise TypeError('"num_gpu_devices" should be a scalar value.')
+    elif not isinstance(num_gpu_devices, int):
+        raise TypeError('"num_gpu_devices" should be an integer.')
+    elif num_gpu_devices < 0:
+        raise ValueError('"num_gpu_devices" should be a non-negative integer.')
 
     # Check print summary
     if verbose is None:

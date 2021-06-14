@@ -30,4 +30,5 @@ cdef extern from "cu_dense_matrix.h":
                 const DataType* A_,
                 const LongIndexType num_rows_,
                 const LongIndexType num_columns_,
-                const FlagType A_is_row_major_) except +
+                const FlagType A_is_row_major_,
+                const int num_gpu_devices_) except +
