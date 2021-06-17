@@ -14,9 +14,9 @@
 // =======
 
 #include "./cu_csr_matrix.h"
+#include <omp.h>  // omp_set_num_threads
 #include <cstddef>  // NULL
 #include <cassert>  // assert
-#include <omp.h>  // omp_set_num_threads
 #include "../_cu_basic_algebra/cu_matrix_operations.h"  // cuMatrixOperations
 #include "../_cu_basic_algebra/cusparse_interface.h"  // cusparse_interface
 #include "../_cuda_utilities/cuda_interface.h"  // CudaInterface
@@ -94,22 +94,22 @@ cuCSRMatrix<DataType>::cuCSRMatrix(
 template <typename DataType>
 cuCSRMatrix<DataType>::~cuCSRMatrix()
 {
-    // Deallocate arrays of data on gpu
-    for (int device_id=0; device_id < this->num_gpu_devices; ++device_id)
+    // Member objects exist if the second constructor was called.
+    if (this->copied_host_to_device)
     {
-        // Switch to a device
-        CudaInterface<DataType>::set_device(device_id);
-
-        // Deallocate
-        CudaInterface<DataType>::del(this->device_A_data[device_id]);
-        CudaInterface<LongIndexType>::del(this->device_A_indices[device_id]);
-        CudaInterface<LongIndexType>::del(
-                this->device_A_index_pointer[device_id]);
-        CudaInterface<LongIndexType>::del(this->device_buffer[device_id]);
-
-        // Cusparse matrix object exists if the second constructor was called.
-        if (this->copied_host_to_device)
+        // Deallocate arrays of data on gpu
+        for (int device_id=0; device_id < this->num_gpu_devices; ++device_id)
         {
+            // Switch to a device
+            CudaInterface<DataType>::set_device(device_id);
+
+            // Deallocate
+            CudaInterface<DataType>::del(this->device_A_data[device_id]);
+            CudaInterface<LongIndexType>::del(
+                    this->device_A_indices[device_id]);
+            CudaInterface<LongIndexType>::del(
+                    this->device_A_index_pointer[device_id]);
+            CudaInterface<LongIndexType>::del(this->device_buffer[device_id]);
             cusparse_interface::destroy_cusparse_matrix(
                     this->cusparse_matrix_A[device_id]);
         }

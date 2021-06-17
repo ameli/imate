@@ -14,7 +14,7 @@
 // =======
 
 #include "./c_csc_affine_matrix_function.h"
-#include <cassert> //  assert
+#include <cassert>  // assert
 #include <cstddef>  // NULL
 
 

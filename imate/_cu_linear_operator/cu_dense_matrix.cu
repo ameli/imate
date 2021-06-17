@@ -14,9 +14,9 @@
 // =======
 
 #include "./cu_dense_matrix.h"
+#include <omp.h>  // omp_set_num_threads
 #include <cstddef>  // NULL
 #include <cassert>  // assert
-#include <omp.h>  // omp_set_num_threads
 #include "../_cu_basic_algebra/cu_matrix_operations.h"  // cuMatrixOperations
 #include "../_cuda_utilities/cuda_interface.h"  // alloc, copy_to_device, del
 
@@ -65,19 +65,19 @@ cuDenseMatrix<DataType>::cuDenseMatrix(
 template <typename DataType>
 cuDenseMatrix<DataType>::~cuDenseMatrix()
 {
-    // Deallocate arrays of data on gpu
-    for (int device_id = 0; device_id < this->num_gpu_devices; ++device_id)
+    // Member objects exist if the second constructor was called.
+    if (this->copied_host_to_device)
     {
-        // Switch to a device
-        CudaInterface<DataType>::set_device(device_id);
+        // Deallocate arrays of data on gpu
+        for (int device_id = 0; device_id < this->num_gpu_devices; ++device_id)
+        {
+            // Switch to a device
+            CudaInterface<DataType>::set_device(device_id);
 
-        // Deallocate
-        CudaInterface<DataType>::del(this->device_A[device_id]);
-    }
+            // Deallocate
+            CudaInterface<DataType>::del(this->device_A[device_id]);
+        }
 
-    // Deallocate arrays of pointers on cpu
-    if (this->device_A != NULL)
-    {
         delete[] this->device_A;
         this->device_A = NULL;
     }

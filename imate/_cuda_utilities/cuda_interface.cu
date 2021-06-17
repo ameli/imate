@@ -142,7 +142,7 @@ void CudaInterface<ArrayType>::del(void* device_array)
 /// \brief     Sets the current device in multi-gpu applications.
 ///
 /// \param[in] device_id
-///            The id of the device to switch to. The id is a number from \c 0 
+///            The id of the device to switch to. The id is a number from \c 0
 ///            to \c num_gpu_devices-1
 
 template<typename ArrayType>

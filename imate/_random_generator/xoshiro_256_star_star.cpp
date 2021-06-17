@@ -144,15 +144,15 @@ void Xoshiro256StarStar::long_jump()
         0xc5004e441c522fb3,
         0x77710069854ee241,
         0x39109bb02acbe635};
-    
+
     uint64_t s0 = 0;
     uint64_t s1 = 0;
     uint64_t s2 = 0;
     uint64_t s3 = 0;
-    
+
     for (unsigned int i = 0; i < sizeof(LONG_JUMP) / sizeof(*LONG_JUMP); ++i)
     {
-        for(int b = 0; b < 64; ++b)
+        for (int b = 0; b < 64; ++b)
         {
             if (LONG_JUMP[i] & UINT64_C(1) << b)
             {
@@ -161,11 +161,11 @@ void Xoshiro256StarStar::long_jump()
                 s2 ^= this->state[2];
                 s3 ^= this->state[3];
             }
-            
+
             this->next();
         }
     }
-    
+
     this->state[0] = s0;
     this->state[1] = s1;
     this->state[2] = s2;

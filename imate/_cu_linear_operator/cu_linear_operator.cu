@@ -14,10 +14,10 @@
 // =======
 
 #include "./cu_linear_operator.h"
+#include <omp.h>  // omp_set_num_threads
 #include <cstddef>  // NULL
 #include <cassert>  // assert
 #include <cstdlib>  // abort
-#include <omp.h>  // omp_set_num_threads
 #include <iostream>
 #include "../_cuda_utilities/cuda_interface.h"  // CudaInterface
 
@@ -58,12 +58,7 @@ cuLinearOperator<DataType>::cuLinearOperator():
 
 template <typename DataType>
 cuLinearOperator<DataType>::cuLinearOperator(
-        // const LongIndexType num_rows_,
-        // const LongIndexType num_columns_,
         const IndexType num_gpu_devices_):
-
-    // Base class constructor
-    // cLinearOperator<DataType>(num_rows_, num_columns_),
 
     // Initializer list
     num_gpu_devices(0),
@@ -112,7 +107,7 @@ cuLinearOperator<DataType>::~cuLinearOperator()
     {
         // Set the number of threads
         omp_set_num_threads(this->num_gpu_devices);
-        
+
         #pragma omp parallel
         {
             // Switch to a device with the same device id as the cpu thread id
@@ -123,10 +118,8 @@ cuLinearOperator<DataType>::~cuLinearOperator()
                     this->cublas_handle[thread_id]);
             assert(status == CUBLAS_STATUS_SUCCESS);
         }
-    }
 
-    if (this->cublas_handle != NULL)
-    {
+        // Deallocate arrays of pointers on cpu
         delete[] this->cublas_handle;
         this->cublas_handle = NULL;
     }
@@ -147,10 +140,8 @@ cuLinearOperator<DataType>::~cuLinearOperator()
                     this->cusparse_handle[thread_id]);
             assert(status == CUSPARSE_STATUS_SUCCESS);
         }
-    }
 
-    if (this->cusparse_handle != NULL)
-    {
+        // Deallocate arrays of pointers on cpu
         delete[] this->cusparse_handle;
         this->cusparse_handle = NULL;
     }
@@ -178,7 +169,7 @@ cublasHandle_t cuLinearOperator<DataType>::get_cublas_handle() const
 {
     // Get device id
     int device_id = CudaInterface<DataType>::get_device();
-    
+
     return this->cublas_handle[device_id];
 }
 
@@ -200,7 +191,7 @@ void cuLinearOperator<DataType>::initialize_cublas_handle()
 
         // Set the number of threads
         omp_set_num_threads(this->num_gpu_devices);
-        
+
         #pragma omp parallel
         {
             // Switch to a device with the same device id as the cpu thread id
@@ -232,7 +223,7 @@ void cuLinearOperator<DataType>::initialize_cusparse_handle()
 
         // Set the number of threads
         omp_set_num_threads(this->num_gpu_devices);
-        
+
         #pragma omp parallel
         {
             // Switch to a device with the same device id as the cpu thread id

@@ -244,7 +244,7 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
         if (!static_cast<bool>(all_converged))
         {
             int thread_id = omp_get_thread_num();
-            
+
             // Perform one Monte-Carlo sampling to estimate trace
             cTraceEstimator<DataType>::_c_stochastic_lanczos_quadrature(
                     A, parameters, num_inquiries, matrix_function, exponent,

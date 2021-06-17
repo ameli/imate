@@ -82,7 +82,7 @@ class Matrix(LinearOperator):
                     # number of gpu devices changes and gpu_Aop needs to be
                     # reallocated.
                     if self.gpu_Aop is not None:
-                        self.gpu_Aop.__dealloc__()
+                        del self.gpu_Aop
 
                     self.gpu_Aop = pycuMatrix(self.A, num_gpu_devices)
                     self.initialized_on_gpu = True

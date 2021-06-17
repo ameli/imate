@@ -46,11 +46,7 @@ class cuLinearOperator: virtual public cLinearOperator<DataType>
 
         // Member methods
         cuLinearOperator();
-        cuLinearOperator(int num_gpu_devices_);
-
-        // cuLinearOperator(
-        //         const LongIndexType num_rows_,
-        //         const LongIndexType num_columns_);
+        explicit cuLinearOperator(int num_gpu_devices_);
 
         virtual ~cuLinearOperator();
 

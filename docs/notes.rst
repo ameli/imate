@@ -13,6 +13,27 @@ Some notes to myself when completing the documentation later.
   avoid this, either use double precision, or enable *reorthogonalization* in
   Lancozs process. 
 
+  Problem was found:
+
+  When num_gpu_devices and num_threads are the same, both cpu and gpu codes
+  give identical results. This is due to the random number generator. For each
+  thread, the random generator jumps the initial seed. Also, when an iteration
+  on a single thread finishes, the next iteration continutes with the next
+  random number in the previous sequence in the memory of the generator.
+
+  To make the result of both cpu and gpu exactly identical, do the followings:
+  1. Set num_threads and num_gpu_devices to 1.
+  2. In imate/_random_generator/split_mix_64.cpp, and in the constructor,
+     initialize the seed with a fixed number, say 1234567890, not with time.
+     This allows to run both the cpu code and gpu codes to start off by the
+     same sequence of random numbers.
+
+  If we set num_thread and num_gpu_devices to anything greater than one, the
+  results might be different, since after each thread iteration, it is not
+  guaranteed which thread continues the seqnece of the previous random
+  generator. But if min_num_samples is a large number, the results of both
+  cpu and gpu should be very close.
+
 * The ``cusparse`` documentation here:
   https://docs.nvidia.com/cuda/cusparse/index.html#cusparse-generic-function-spmv
   says that:
@@ -55,7 +76,7 @@ Some notes to myself when completing the documentation later.
      functions. Now they are not const.
 
 
-  Problem found:
+  Problem was found:
 
   The huge wheel file size is originated from the ``auditwheel repair`` command
   inside the manylinux. Once a wheel file is created, weh should check which
@@ -80,25 +101,13 @@ Some notes to myself when completing the documentation later.
   225M libcusparse-aae971d3.so.11.6.0.109   <<< large
   165K libgomp-a34b3233.so.1.0.0
 
-
-
-
 ====
 TODO
 ====
 
 * other functions (besides traceinv and logdet)
-* rename the argument ``reorthogonalize`` on ``slq`` method to
-  ``orthogonalize``. In ``hutchinson`` method, we have ``orthogonalize``
-  argument, and it is better to make these two arguments have the same name,
-  despite by orhtogonalize for the ``slq`` method, we mean re-orthogonalize.
-
 * generate_matrix add analytic dense and sparse matrices
-* generate_matrix add dtype argument
-
 * doxygen for c_linear_operator and its derived classes
-* I made some optimization compiler flags for ``gcc`` and ``nvcc``. But these
-  are not yet added to the ``msvc`` compiler.
 * Implement convergence for ``hutchinson`` method and use the same arguments
   that exists for ``slq`` method.
 
@@ -106,18 +115,25 @@ TODO
 Issues
 ======
 
-Template functions for the namespaces ``cublas_interface`` and
-``cusparse_interface`` only work with gcc>7, which is a gcc bug. This is fine
-with clang.
+* Code compiles on mac and the tests fail with segfault. This is caused in
+  ``/imate/_random_generator/xoshiro_256_star_star.cpp`` in ``next()`` function
+  where the ``this->state`` variable is inaccessible. Despite it was allocated
+  before, its pointer is et to NULL again. The problem goes back to
+  initializing the static variables in``random_number_generator``. Here is how:
 
-If ``this->device_buffer`` has to be set in sparse classes, the functions such
-as ``dot()`` cannot be ``const``. So, either
+  In ``c_trace_estimator.cpp``, the ``RandomNumberGenerator`` is initialized.
+  For example ``RandomNumberGenerator::thread_num`` is set. In other function
+  in ``random_number_generotor``, when we print
+  ``RandomNumberGenerator::thread_num``, it resets back to zero! This is
+  because the static member data of this class are re-initialized.
 
-    1. the constness should be removed from all base classes, or,
-    2. somehow setting the buffer should be done outside of these functions,
-       maybe in the constructors, or
-    3. the namespaces be removed.
+  The solution is to not use static member variables. Create an ordinary class
+  ``RandomNumberGenerator`` without static member data and pass this class in
+  ``c_trase_estmator`` to the subsequence functions.
 
+  To do this, we also need a ``py`` wrapper for ``RandomNumberGenerator`` that
+  contains a member ``cdef RandomNumberGenerator*`` object. This is needed in
+  ``hutchinson`` method where it calls ``RandomArrayGenerator``.
 
 ========================
 Compile and Build Issues

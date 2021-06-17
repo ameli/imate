@@ -235,7 +235,7 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
     // Criterion for early termination of iterations if convergence reached
     // This scalar variable is defined as array to be shared among al threads
     FlagType all_converged = 0;
-    
+
     // Using square-root of max possible chunk size for parallel schedules
     unsigned int chunk_size = static_cast<int>(
             sqrt(static_cast<DataType>(max_num_samples) / num_gpu_devices));
@@ -258,11 +258,11 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
             // Switch to a device with the same device id as the cpu thread id
             unsigned int thread_id = omp_get_thread_num();
             CudaInterface<DataType>::set_device(thread_id);
-            
+
             // Perform one Monte-Carlo sampling to estimate trace
             cuTraceEstimator<DataType>::_cu_stochastic_lanczos_quadrature(
                     A, parameters, num_inquiries, matrix_function, exponent,
-                    symmetric, orthogonalize, lanczos_degree, lanczos_tol, 
+                    symmetric, orthogonalize, lanczos_degree, lanczos_tol,
                     &random_vectors[matrix_size*thread_id], converged,
                     samples[i]);
 

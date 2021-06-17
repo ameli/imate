@@ -105,11 +105,11 @@ void RandomNumberGenerator::deallocate()
 void RandomNumberGenerator::initialize(int num_threads_)
 {
     assert(num_threads_ > 0);
-    RandomNumberGenerator::num_threads = num_threads_;
 
     // Deallocate previous allocation if exists
     RandomNumberGenerator::deallocate();
 
+    RandomNumberGenerator::num_threads = num_threads_;
     RandomNumberGenerator::xoshiro_256_star_star = \
         new Xoshiro256StarStar[RandomNumberGenerator::num_threads];
 
