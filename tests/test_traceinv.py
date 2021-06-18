@@ -56,7 +56,7 @@ def _test_traceinv_methods(K):
         time20 = 0
         time21 = 0
 
-    # Use Cholesky method with direct inverse
+    # Use eigenvalue method
     time30 = time.time()
     trace3, _ = traceinv(K, method='eigenvalue', symmetric=True,
                          exponent=exponent)

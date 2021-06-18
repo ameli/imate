@@ -1247,6 +1247,9 @@ def main(argv):
 
     extensions.append(create_extension(package_name, '_random_generator'))
 
+    extensions.append(create_extension(package_name, 'trace',
+                                       other_source_dirs=['functions']))
+
     extensions.append(create_extension(package_name, 'traceinv',
                                        other_source_dirs=['functions']))
 

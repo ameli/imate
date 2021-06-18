@@ -70,14 +70,16 @@ _check_import()
 
 # Import sub-packages
 from .logdet import logdet                                         # noqa: E402
+from .trace import trace                                           # noqa: E402
 from .traceinv import traceinv                                     # noqa: E402
 from .linear_operator import Matrix, AffineMatrixFunction          # noqa: E402
 from .interpolate_traceinv import InterpolateTraceinv              # noqa: E402
 from .generate_matrix import generate_matrix                       # noqa: E402
 
 __all__ = [
-        'logdet',
+        'trace',
         'traceinv',
+        'logdet',
         'Matrix',
         'AffineMatrixFunction',
         'InterpolateTraceinv',
