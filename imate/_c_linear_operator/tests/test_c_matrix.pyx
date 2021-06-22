@@ -139,10 +139,10 @@ cpdef int _test(A) except *:
     """
     """
 
-    # Test for pycMatrix.dot()
+    # Dot test for pycMatrix.dot()
     success1 = _test_dot(A)
 
-    # Test for pycMatrix.transpose_dot()
+    # Transose dot est for pycMatrix.transpose_dot()
     success2 = _test_transpose_dot(A)
 
     if success1 and success2:
@@ -157,7 +157,7 @@ cpdef int _test(A) except *:
 
 def test_c_matrix():
     """
-    Test for :mod:`imate.linear_operator.constant_matrix` module.
+    A test for :mod:`imate.linear_operator.constant_matrix` module.
     """
 
     success = []

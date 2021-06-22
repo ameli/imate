@@ -16,15 +16,7 @@
 #include "./random_number_generator.h"
 #include <cassert>  // assert
 #include <cstdlib>  // NULL
-
-
-// =========================
-// Initialize static members
-// =========================
-
-int RandomNumberGenerator::num_threads = 0;
-Xoshiro256StarStar* RandomNumberGenerator::xoshiro_256_star_star = NULL;
-int RandomNumberGenerator::reference_counter = 0;
+#include "./xoshiro_256_star_star.h"  // Xoshiro256StarStar
 
 
 // =============
@@ -37,14 +29,7 @@ int RandomNumberGenerator::reference_counter = 0;
 RandomNumberGenerator::RandomNumberGenerator()
 {
     int num_threads_ = 1;
-    if ((RandomNumberGenerator::reference_counter == 0) ||
-        (RandomNumberGenerator::num_threads < num_threads_))
-    {
-        RandomNumberGenerator::initialize(num_threads_);
-    }
-
-    // Increment the reference counter
-    RandomNumberGenerator::reference_counter++;
+    this->initialize(num_threads_);
 }
 
 
@@ -57,30 +42,23 @@ RandomNumberGenerator::RandomNumberGenerator()
 
 RandomNumberGenerator::RandomNumberGenerator(int num_threads_)
 {
-    if ((RandomNumberGenerator::reference_counter == 0) ||
-        (RandomNumberGenerator::num_threads < num_threads_))
-    {
-        RandomNumberGenerator::initialize(num_threads_);
-    }
-
-    // Increment the reference counter
-    RandomNumberGenerator::reference_counter++;
+    this->initialize(num_threads_);
 }
 
 
 // ==========
-// deallocate
+// Destructor
 // ==========
 
 /// \brief Deallocates the array of \c xoshiro_256_star_star.
 ///
 
-void RandomNumberGenerator::deallocate()
+RandomNumberGenerator::~RandomNumberGenerator()
 {
-    if (RandomNumberGenerator::xoshiro_256_star_star != NULL)
+    if (this->xoshiro_256_star_star != NULL)
     {
-        delete[] RandomNumberGenerator::xoshiro_256_star_star;
-        RandomNumberGenerator::xoshiro_256_star_star = NULL;
+        delete[] this->xoshiro_256_star_star;
+        this->xoshiro_256_star_star = NULL;
     }
 }
 
@@ -106,20 +84,16 @@ void RandomNumberGenerator::initialize(int num_threads_)
 {
     assert(num_threads_ > 0);
 
-    // Deallocate previous allocation if exists
-    RandomNumberGenerator::deallocate();
+    this->num_threads = num_threads_;
+    this->xoshiro_256_star_star = new Xoshiro256StarStar[this->num_threads];
 
-    RandomNumberGenerator::num_threads = num_threads_;
-    RandomNumberGenerator::xoshiro_256_star_star = \
-        new Xoshiro256StarStar[RandomNumberGenerator::num_threads];
-
-    for (int i=0; i < RandomNumberGenerator::num_threads; ++i)
+    for (int i=0; i < this->num_threads; ++i)
     {
         // Repeate jump j times to have different initial state for each thread
         // This is the main purpose of this class.
         for (int j=0; j < i+1; ++j)
         {
-            RandomNumberGenerator::xoshiro_256_star_star[i].jump();
+            this->xoshiro_256_star_star[i].jump();
         }
     }
 }
@@ -137,5 +111,5 @@ void RandomNumberGenerator::initialize(int num_threads_)
 
 uint64_t RandomNumberGenerator::next(int thread_id)
 {
-    return RandomNumberGenerator::xoshiro_256_star_star[thread_id].next();
+    return this->xoshiro_256_star_star[thread_id].next();
 }

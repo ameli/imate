@@ -27,10 +27,10 @@ def exact_method(A, exponent=1.0):
     """
     # Checking input arguments
     check_arguments(A, exponent)
-    
+
     init_wall_time = time.perf_counter()
     init_proc_time = time.process_time()
-    
+
     if exponent == 0.0:
         trace = numpy.min(A.shape)
 
@@ -48,11 +48,11 @@ def exact_method(A, exponent=1.0):
     else:
         raise ValueError('For "exponent" other than "0", "1", and "2", use ' +
                          '"eigenvalue" or "slq" method.')
-        
+
     wall_time = time.perf_counter() - init_wall_time
     proc_time = time.process_time() - init_proc_time
 
-    info = { 
+    info = {
         'cpu':
         {
             'wall_time': wall_time,

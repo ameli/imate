@@ -16,7 +16,6 @@
 #include "./random_array_generator.h"
 #include <omp.h>  // omp_set_num_threads
 #include <stdint.h>  // uint64_t
-#include "./random_number_generator.h"  // RandomNumberGenerator
 #include "../_c_trace_estimator/c_orthogonalization.h"  // cOrthogonalization
 #include "../_c_basic_algebra/c_vector_operations.h"  // cVectorOperations
 
@@ -25,39 +24,44 @@
 // generate random array
 // =====================
 
-/// \brief         Generates a pseudo-random array with Rademacher distribution
-///                where elements are either \c +1 or \c -1.
+/// \brief      Generates a pseudo-random array with Rademacher distribution
+///             where elements are either \c +1 or \c -1.
 ///
-/// \details       The Rademacher distribution is obtained from the Bernoulli
-///                distribution consisting of \c 0 and \c 1. To generate such
-///                distribution, a sequence of \c array_size/64 intergers, each
-///                with 64-bit, is generated using Xoshiro256** algorithm. The
-///                64 bits of each integer are used to fill 64 elements of the
-///                array as follows. If the bit is \c 0, the array element is
-///                set to \c -1, and if the bit is \c 1, the array element is
-///                set to \c +1.
+/// \details    The Rademacher distribution is obtained from the Bernoulli
+///             distribution consisting of \c 0 and \c 1. To generate such
+///             distribution, a sequence of \c array_size/64 intergers, each
+///             with 64-bit, is generated using Xoshiro256** algorithm. The 64
+///             bits of each integer are used to fill 64 elements of the array
+///             as follows. If the bit is \c 0, the array element is set to \c
+///             -1, and if the bit is \c 1, the array element is set to \c +1.
 ///
-///                Thus, in this function, we use Xoshiro256** algorithm to
-///                generate 64 bits and use bits, not the integer itself. This
-///                approach is about ten times faster than convertng the random
-///                integer to double between \c [0,1] and then map them to
-///                \c +1 and \c -1.
+///             Thus, in this function, we use Xoshiro256** algorithm to
+///             generate 64 bits and use bits, not the integer itself. This
+///             approach is about ten times faster than convertng the random
+///             integer to double between \c [0,1] and then map them to \c +1
+///             and \c -1.
 ///
-///                Also, this function is more than a hundered times faster
-///                than using \c rand() function.
+///             Also, this function is more than a hundered times faster than
+///             using \c rand() function.
 ///
-/// \param[in,out] array
-///                1D array of the size \c array_size.
-/// \param[out]    array_size
-///                The size of the array.
-/// \param[in]     num_threads
-///                Number of OpenMP parallel threads. If \c num_threads is zero
-///                then no paralel thread is created inside this function,
-///                rather it is assumed that this functon is called inside a
-///                parallel region from the caller.
+/// \param[in]  random_number_generator
+///             The random number generator object. This object should be
+///             initialized with \c num_threads by its constructor. On each
+///             parallel thread, an independent sequence of random numbers are
+///             generated.
+/// \param[out] array
+///             1D array of the size \c array_size.
+/// \param[out] array_size
+///             The size of the array.
+/// \param[in]  num_threads
+///             Number of OpenMP parallel threads. If \c num_threads is zero
+///             then no paralel thread is created inside this function, rather
+///             it is assumed that this functon is called inside a parallel
+///             region from the caller.
 
 template <typename DataType>
 void RandomArrayGenerator<DataType>::generate_random_array(
+        RandomNumberGenerator& random_number_generator,
         DataType* array,
         const LongIndexType array_size,
         const IndexType num_threads)
@@ -71,9 +75,6 @@ void RandomArrayGenerator<DataType>::generate_random_array(
     {
         // num_threads parallel threads will be created in this function.
         omp_set_num_threads(num_threads);
-
-        // Initialize RandomNumberGenerator for num_thread parallel threads.
-        RandomNumberGenerator::initialize(num_threads);
     }
 
     // Finding the thread id. It depends where we call omp_get_thread_num. If
@@ -112,7 +113,7 @@ void RandomArrayGenerator<DataType>::generate_random_array(
              ++i)
         {
             // Generate 64 bits (one integer)
-            uint64_t bits = RandomNumberGenerator::next(thread_id);
+            uint64_t bits = random_number_generator.next(thread_id);
 
             // Fill 64 elements of array with +1 or -1 depending on the bits
             for (int j =0; j < num_bits; ++j)
@@ -137,7 +138,7 @@ void RandomArrayGenerator<DataType>::generate_random_array(
     // rest of the array. There are less than 64 elements remained to fill. So,
     // it suffice to generate only 64 bits (one integer) for the rest of the
     // elements of the array
-    uint64_t bits = RandomNumberGenerator::next(thread_id);
+    uint64_t bits = random_number_generator.next(thread_id);
 
     // This loop should have less than 64 iterations.
     for (IndexType j = static_cast<IndexType>(array_size/num_bits) * num_bits;
@@ -154,14 +155,6 @@ void RandomArrayGenerator<DataType>::generate_random_array(
             // Bit is 0. Write -1.0 in array
             array[j] = -1.0;
         }
-    }
-
-    // Deallocate random generator, only if it was initialized in this function
-    // but if num_threads is zero, we do not deallocate since we assume it will
-    // be deallocated form the caller function.
-    if (num_threads > 0)
-    {
-        RandomNumberGenerator::deallocate();
     }
 }
 

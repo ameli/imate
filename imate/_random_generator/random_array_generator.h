@@ -18,6 +18,7 @@
 // =======
 
 #include "../_definitions/types.h"  // IndexType, LongIndexType
+#include "./random_number_generator.h"  // RandomNumberGenerator
 
 
 // ==============
@@ -39,6 +40,7 @@ class RandomArrayGenerator
 
         // generate random array
         static void generate_random_array(
+                RandomNumberGenerator& random_number_generator,
                 DataType* array,
                 const LongIndexType array_size,
                 const IndexType num_threads);

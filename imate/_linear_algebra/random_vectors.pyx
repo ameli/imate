@@ -28,7 +28,7 @@ cdef void generate_random_column_vectors(
         const LongIndexType vector_size,
         const IndexType num_vectors,
         const IndexType orthogonalize,
-        const IndexType num_threads) nogil:
+        const IndexType num_threads):
     """
     Generates a set of random column vectors using Rademacher distribution. The
     column vectors are normalized to unit norm. If desired, the vectors can

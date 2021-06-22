@@ -169,10 +169,10 @@ cpdef int _test(A, B, t) except *:
     """
     """
 
-    # Test for AffineMatrixFunction.dot()
+    # Dot test for AffineMatrixFunction.dot()
     success1 = _test_dot(A, B, t)
 
-    # Test for AffineMatrixFunction.transpose_dot()
+    # TTranspose dot test for AffineMatrixFunction.transpose_dot()
     success2 = _test_transpose_dot(A, B, t)
 
     if success1 and success2:
@@ -187,7 +187,7 @@ cpdef int _test(A, B, t) except *:
 
 def test_c_affine_matrix_function():
     """
-    Test for :mod:`imate.linear_operator.affine_matrix_function` module.
+    A test for :mod:`imate.linear_operator.affine_matrix_function` module.
     """
 
     success = []

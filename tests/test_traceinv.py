@@ -129,7 +129,7 @@ def _test_traceinv_methods(K):
 
 def test_traceinv():
     """
-    Test for :mod:`imate.traceinv` sub-package.
+    A test for :mod:`imate.traceinv` sub-package.
     """
 
     dtype = r'float32'

@@ -7,7 +7,9 @@
 # directory of this source tree.
 
 
+from imate._random_generator.py_random_number_generator cimport \
+        pyRandomNumberGenerator
 from imate._random_generator.py_random_array_generator cimport \
         py_generate_random_array
 
-__all__ = ['py_generate_random_array']
+__all__ = ['pyRandomNumberGenerator', 'py_generate_random_array']

@@ -97,7 +97,7 @@ def _test_trace_methods(K):
 
 def test_trace():
     """
-    Test for :mod:`imate.trace` sub-package.
+    A test for :mod:`imate.trace` sub-package.
     """
 
     dtype = r'float32'

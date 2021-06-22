@@ -34,4 +34,4 @@ struct DeviceProperties
     int* num_threads_per_multiprocessor;
 };
 
-#endif // _CUDA_UTILITIES_DEVICE_PROPERTIES_H_
+#endif  // _CUDA_UTILITIES_DEVICE_PROPERTIES_H_

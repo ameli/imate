@@ -19,7 +19,6 @@
 #include <cstddef>  // NULL
 #include "./cu_lanczos_tridiagonalization.h"  // cu_lanczos_tridiagonalization
 #include "./cu_golub_kahn_bidiagonalization.h"  // cu_golub_kahn_bidiagonali...
-#include "../_random_generator/random_number_generator.h" // RandomNumberGen...
 #include "../_random_generator/random_array_generator.h"  // RandomArrayGene...
 #include "../_c_trace_estimator/diagonalization.h"  // Diagonalization
 #include "../_c_trace_estimator/convergence_tools.h"  // check_convergence, ...
@@ -225,8 +224,8 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
     DataType* random_vectors = new DataType[random_vectors_size];
 
     // Initialize random number generator to generate in parallel threads
-    // independently. Note this is a call to a static function.
-    RandomNumberGenerator::initialize(num_gpu_devices);
+    // independently.
+    RandomNumberGenerator random_number_generator(num_gpu_devices);
 
     // The counter of filled size of processed_samples_indices array
     // This scalar variable is defined as array to be shared among al threads
@@ -263,6 +262,7 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
             cuTraceEstimator<DataType>::_cu_stochastic_lanczos_quadrature(
                     A, parameters, num_inquiries, matrix_function, exponent,
                     symmetric, orthogonalize, lanczos_degree, lanczos_tol,
+                    random_number_generator,
                     &random_vectors[matrix_size*thread_id], converged,
                     samples[i]);
 
@@ -297,7 +297,6 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
 
     // Deallocate memory
     delete[] random_vectors;
-    RandomNumberGenerator::deallocate();
 
     return all_converged;
 }
@@ -380,6 +379,10 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
 ///             the end of iterations reached. If the tolerance is not met, the
 ///             iterations (total of \c lanczos_degree iterations) continue
 ///             till end.
+/// \param[in]  random_number_generator
+///             Generates random numbers that fills \c random_vector. In each
+///             parallel thread, an independent sequence of random numbers are
+///             generated. This object should be initialized by \c num_threads.
 /// \param[in]  random_vector
 ///             A 1D vector of the size of matrix \c A. The Lanczos iterations
 ///             start off from this random vector. Each given random vector is
@@ -410,6 +413,7 @@ void cuTraceEstimator<DataType>::_cu_stochastic_lanczos_quadrature(
         const FlagType orthogonalize,
         const IndexType lanczos_degree,
         const DataType lanczos_tol,
+        RandomNumberGenerator& random_number_generator,
         DataType* random_vector,
         FlagType* converged,
         DataType* trace_estimate)
@@ -423,7 +427,7 @@ void cuTraceEstimator<DataType>::_cu_stochastic_lanczos_quadrature(
     // function is inside a parallel thread.
     IndexType num_threads = 0;
     RandomArrayGenerator<DataType>::generate_random_array(
-        random_vector, matrix_size, num_threads);
+            random_number_generator, random_vector, matrix_size, num_threads);
 
     // Allocate diagonals (alpha) and supdiagonals (beta) of Lanczos matrix
     DataType* alpha = new DataType[lanczos_degree];

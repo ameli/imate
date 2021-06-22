@@ -139,10 +139,10 @@ cpdef int _test(A) except *:
     """
     """
 
-    # Test for pyciuMatrix.dot()
+    # Dot test for pyciuMatrix.dot()
     success1 = _test_dot(A)
 
-    # Test for pycuMatrix.transpose_dot()
+    # Transpose dot test for pycuMatrix.transpose_dot()
     success2 = _test_transpose_dot(A)
 
     if success1 and success2:
@@ -157,7 +157,7 @@ cpdef int _test(A) except *:
 
 def test_cu_matrix():
     """
-    Test for :mod:`imate.linear_operator.constant_matrix` module.
+    A test for :mod:`imate.linear_operator.constant_matrix` module.
     """
 
     success = []

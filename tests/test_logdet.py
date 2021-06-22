@@ -117,7 +117,7 @@ def _test_logdet_methods(K):
 
 def test_logdet():
     """
-    Test for :mod:`logdetInv.logdet` sub-package.
+    A test for :mod:`logdetInv.logdet` sub-package.
     """
 
     dtype = r'float32'

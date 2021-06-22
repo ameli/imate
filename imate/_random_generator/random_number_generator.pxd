@@ -11,14 +11,17 @@
 # Imports
 # =======
 
-from .._definitions.types cimport DataType, LongIndexType, IndexType
+from libc.stdint cimport uint64_t
 
 
-# ============
-# Declarations
-# ============
+# =======
+# Externs
+# =======
 
-cdef void py_generate_random_array(
-        DataType* array,
-        const LongIndexType array_size,
-        const IndexType num_threads)
+cdef extern from "random_number_generator.h":
+
+    cdef cppclass RandomNumberGenerator:
+
+        RandomNumberGenerator() except +
+        RandomNumberGenerator(int num_threads_) except +
+        uint64_t next(int thread_id) nogil

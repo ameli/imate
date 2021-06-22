@@ -13,6 +13,8 @@
 
 from .._definitions.types cimport DataType, LongIndexType, IndexType
 from .random_array_generator cimport RandomArrayGenerator
+from .random_number_generator cimport RandomNumberGenerator
+from .py_random_number_generator cimport pyRandomNumberGenerator
 
 
 # =====================
@@ -22,7 +24,7 @@ from .random_array_generator cimport RandomArrayGenerator
 cdef void py_generate_random_array(
         DataType* array,
         const LongIndexType array_size,
-        const IndexType num_threads) nogil:
+        const IndexType num_threads):
     """
     A python wrapper for ``RandomArrayGenerator.generate_random_array()``.
 
@@ -36,5 +38,11 @@ cdef void py_generate_random_array(
     :type num_threads: int
     """
 
-    RandomArrayGenerator[DataType].generate_random_array(array, array_size,
-                                                         num_threads)
+    # Get the C object that is wrapped by py_random_number_generator
+    cdef pyRandomNumberGenerator py_random_number_generator = \
+        pyRandomNumberGenerator(num_threads)
+    cdef RandomNumberGenerator* random_number_generator = \
+        py_random_number_generator.get_random_number_generator()
+
+    RandomArrayGenerator[DataType].generate_random_array(
+            random_number_generator[0], array, array_size, num_threads)

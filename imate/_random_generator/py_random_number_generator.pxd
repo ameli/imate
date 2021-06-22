@@ -11,14 +11,17 @@
 # Imports
 # =======
 
-from .._definitions.types cimport DataType, LongIndexType, IndexType
+from .random_number_generator cimport RandomNumberGenerator
 
 
-# ============
-# Declarations
-# ============
+# ==========================
+# py Random Number Generator
+# ==========================
 
-cdef void py_generate_random_array(
-        DataType* array,
-        const LongIndexType array_size,
-        const IndexType num_threads)
+cdef class pyRandomNumberGenerator(object):
+
+    # Member data
+    cdef RandomNumberGenerator* random_number_generator
+
+    # Member methods
+    cdef RandomNumberGenerator* get_random_number_generator(self) nogil

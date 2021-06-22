@@ -19,6 +19,7 @@
 #include "../functions/functions.h"  // Function
 #include "../_cu_linear_operator/cu_linear_operator.h"  // cuLinearOperator
 #include "../_definitions/types.h"  // IndexType, FlagType
+#include "../_random_generator/random_number_generator.h"  // RandomNumberGe...
 
 
 // =================
@@ -80,6 +81,7 @@ class cuTraceEstimator
                 const FlagType orthogonalize,
                 const IndexType lanczos_degree,
                 const DataType lanczos_tol,
+                RandomNumberGenerator& random_number_generator,
                 DataType* random_vector,
                 FlagType* converged,
                 DataType* trace_estimate);

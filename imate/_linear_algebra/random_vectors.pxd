@@ -24,4 +24,4 @@ cdef void generate_random_column_vectors(
         const LongIndexType vector_size,
         const IndexType num_vectors,
         const IndexType orthogonalize,
-        const IndexType num_parallel_threads) nogil
+        const IndexType num_parallel_threads)

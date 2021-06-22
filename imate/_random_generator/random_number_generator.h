@@ -18,7 +18,7 @@
 // =======
 
 #include <stdint.h>  // uint64_t
-#include "./xoshiro_256_star_star.h"  // Xoshiro256StarStar
+class Xoshiro256StarStar;
 
 
 // =======================
@@ -105,17 +105,17 @@ class RandomNumberGenerator
     public:
         // Member methods
         RandomNumberGenerator();
-        RandomNumberGenerator(int num_threads_);
+        explicit RandomNumberGenerator(int num_threads_);
         ~RandomNumberGenerator();
-        static void initialize(int num_threads_);
-        static void deallocate();
-        static uint64_t next(int thread_id);
+        uint64_t next(int thread_id);
 
     protected:
+        // Member methods
+        void initialize(int num_threads_);
+
         // Member data
-        static int num_threads;
-        static Xoshiro256StarStar* xoshiro_256_star_star;
-        static int reference_counter;
+        int num_threads;
+        Xoshiro256StarStar* xoshiro_256_star_star;
 };
 
 

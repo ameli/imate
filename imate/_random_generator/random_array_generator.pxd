@@ -11,6 +11,7 @@
 # =======
 
 from .._definitions.types cimport IndexType, LongIndexType
+from .random_number_generator cimport RandomNumberGenerator
 
 
 # =======
@@ -24,6 +25,7 @@ cdef extern from "random_array_generator.h":
         # generate random array
         @staticmethod
         void generate_random_array(
+                RandomNumberGenerator& random_number_generator,
                 DataType* array,
                 const LongIndexType array_size,
                 const IndexType num_threads) nogil

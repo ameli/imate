@@ -190,7 +190,7 @@ class Power : public Function
 ///          standard deviation of the Gaussian function and should be set by
 ///          \c this->mu and \c this->sigma members, respectively.
 ///
-/// \details The matrix function 
+/// \details The matrix function
 ///          \f$ f: \mathbb{R}^{n \times n} \to \mathbb{R}^{n \times n} \f$ is
 ///          used in
 ///
