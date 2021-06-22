@@ -134,7 +134,7 @@ jobs:
             #       PythonVersions="2.7 3.6 3.7 3.8 3.9"
             #       for PythonVersion in $PythonVersions
             #       do
-            #           conda create --name env-${PythonVersion} -c s-ameli python=${PythonVersion} traceinv pytest-cov -y
+            #           conda create --name env-${PythonVersion} -c s-ameli python=${PythonVersion} imate pytest-cov -y
             #           conda activate env-${PythonVersion}
             #           pytest
             #           conda deactivate
@@ -151,7 +151,7 @@ jobs:
               # run: |
                   # conda config --set channel_priority strict
                   # conda install -c conda-forge pytest pytest-cov -y
-                  # conda install -c conda-forge -c s-ameli traceinv -y
+                  # conda install -c conda-forge -c s-ameli imate -y
                   # conda init
 
             - name: Checkout
@@ -162,7 +162,7 @@ jobs:
               run: |
                   mv imate imate-DoNotImport
                   rm setup.cfg
-                  conda install -c s-ameli traceinv -y
+                  conda install -c s-ameli imate -y
                   conda install pytest -y
                   pytest
 
@@ -181,7 +181,7 @@ jobs:
             #       {
             #           conda create --name env-$PythonVersion -c s-ameli python=$PythonVersion pytest-cov -y
             #           conda activate env-$PythonVersion
-            #           conda install -c s-ameli traceinv -y
+            #           conda install -c s-ameli imate -y
             #           pytest-cov
             #           conda deactivate
             #           conda remove --name env-$PythonVersion --all -y

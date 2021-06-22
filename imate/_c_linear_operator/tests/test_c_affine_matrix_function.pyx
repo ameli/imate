@@ -172,7 +172,7 @@ cpdef int _test(A, B, t) except *:
     # Dot test for AffineMatrixFunction.dot()
     success1 = _test_dot(A, B, t)
 
-    # TTranspose dot test for AffineMatrixFunction.transpose_dot()
+    # Transpose dot test for AffineMatrixFunction.transpose_dot()
     success2 = _test_transpose_dot(A, B, t)
 
     if success1 and success2:

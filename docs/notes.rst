@@ -102,6 +102,15 @@ Some notes to myself when completing the documentation later.
   165K libgomp-a34b3233.so.1.0.0
 
 ====
+Name
+====
+
+Implicit Matrix Trace Estimator: imte, >>"imate"<<, imtraes, "imtrest",
+    "tracest", "imtest"
+Fast Trace Estimator
+"scikit-trace"
+
+====
 TODO
 ====
 
@@ -110,30 +119,7 @@ TODO
 * doxygen for c_linear_operator and its derived classes
 * Implement convergence for ``hutchinson`` method and use the same arguments
   that exists for ``slq`` method.
-
-======
-Issues
-======
-
-* Code compiles on mac and the tests fail with segfault. This is caused in
-  ``/imate/_random_generator/xoshiro_256_star_star.cpp`` in ``next()`` function
-  where the ``this->state`` variable is inaccessible. Despite it was allocated
-  before, its pointer is et to NULL again. The problem goes back to
-  initializing the static variables in``random_number_generator``. Here is how:
-
-  In ``c_trace_estimator.cpp``, the ``RandomNumberGenerator`` is initialized.
-  For example ``RandomNumberGenerator::thread_num`` is set. In other function
-  in ``random_number_generotor``, when we print
-  ``RandomNumberGenerator::thread_num``, it resets back to zero! This is
-  because the static member data of this class are re-initialized.
-
-  The solution is to not use static member variables. Create an ordinary class
-  ``RandomNumberGenerator`` without static member data and pass this class in
-  ``c_trase_estmator`` to the subsequence functions.
-
-  To do this, we also need a ``py`` wrapper for ``RandomNumberGenerator`` that
-  contains a member ``cdef RandomNumberGenerator*`` object. This is needed in
-  ``hutchinson`` method where it calls ``RandomArrayGenerator``.
+* Put seaborn in try catch so it it is not installed, the package still work.
 
 ========================
 Compile and Build Issues
@@ -210,6 +196,13 @@ Conda
 =====
 Ideas
 =====
+
+---------
+functions
+---------
+
+Encapsulate functions in a cdef class so that they can be passed from python to
+slq method.
 
 --------------------------------------------
 ``keep`` option for ``AffineMatrixFunction``
