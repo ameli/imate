@@ -98,18 +98,30 @@ except ImportError:
 # ===========================
 
 """
-To compile with cuda, set ``USE_CUDA`` environment variable.
-To compile for debugging, set ``DEBUG_MODE`` environment variable.
+* To compile with cuda, set ``USE_CUDA`` environment variable.
+* To load cuda library at runtime dynamically, set ``CUDA_DYNAMIC_LOADING`` to
+  ``1``. When this package wheel is created in *manylinux* environment, the
+  cuda's dynamic library files (``libcudart.so``, ``libcublas.so``,
+  ``libcusparse.so``) will not bundle to the package, hence the size of the
+  wheel remain low. Without the cuda dynamic loading option, the size of the
+  wheel package increases to 450MB and cannot be uploaded to PyPi. When the
+  cuda dynamic loading is enabled, the end user should install cuda toolkit,
+  since the cuda library files are not included in the package anymore, rather,
+  they are loaded dynamically at the run time.
+* To compile for debugging, set ``DEBUG_MODE`` environment variable. This will
+  increase the executable size.
 
 ::
 
     # In Unix
     export USE_CUDA=1
     export DEBUG_MODE=1
+    export CUDA_DYNAMIC_LOADING=1
 
     # In Windows
     $env:USE_CUDA = "1"
     $env:DEBUG_MODE = "1"
+    $env:CUDA_DYNAMIC_LOADDING=1
 
     python setup.py install
 
@@ -125,6 +137,12 @@ If you are using ``sudo``, to pass the environment variable, use ``-E`` option:
 use_cuda = False
 if 'USE_CUDA' in os.environ and os.environ.get('USE_CUDA') == '1':
     use_cuda = True
+
+# If CUDA_DYNAMIC_LOADING is set to "1", the cuda library is loaded dynamically
+cuda_dynamic_loading = False
+if 'CUDA_DYNAMIC_LOADING' in os.environ and \
+   os.environ.get('CUDA_DYNAMIC_LOADING') == '1':
+    cuda_dynamic_loading = True
 
 # If DEBUG_MODE is set to "1", the package is compiled with debug mode.
 debug_mode = False
@@ -1044,9 +1062,25 @@ def create_extension(
         if has_cuda_source:
             include_dirs += [cuda['include']]
             library_dirs += [cuda['lib']]
-            libraries += ['cudart', 'cublas', 'cusparse']
 
-            # msvc compiler does ndot what to do with the runtime library
+            if cuda_dynamic_loading:
+
+                # Link with dl library (dlopen and dlsym). MSVC doesn't need it
+                if sys.platform == 'win32':
+                    libraries += ['dl']
+
+                # Use source code that "extern C" the cuda's API that are
+                # loaded dynamically at the runtime.
+                sources += glob(join('.', package_name,
+                                     '_cuda_dynamic_loading', '*.cpp'))
+                include_dirs += glob(join('.', package_name,
+                                          '_cuda_dynamic_loading'))
+            else:
+                # Do not load cuda dynamically. Rather, bind cuda library so
+                # files with the package wheel in manylinux platform.
+                libraries += ['cudart', 'cublas', 'cusparse']
+
+            # msvc compiler does not know what to do with the runtime library
             if sys.platform != 'win32':
                 runtime_library_dirs += [cuda['lib']]
 

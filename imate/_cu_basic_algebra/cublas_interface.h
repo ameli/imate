@@ -19,6 +19,7 @@
 #include <cublas_v2.h>  // cublasSgemv, cublasDgemv, cublasScopy, cublasDcopy,
                         // cublasSaxpy, cublasDaxpy, cublasSdot, cublasDdot,
                         // cublasSnrm2, cublasDnrm2, cublasSscal, cublasDscal
+                        // cublasHandle_t, cublasStatus_t
 
 
 // ================

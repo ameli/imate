@@ -87,9 +87,15 @@ jobs:
             # Enable compiling with CUDA, only for linux. Note that cuda must
             # be installed "inside" the manylinux docker image, not in the main
             # github virtual machine. Also, we should use manylinux2014, but
-            # not manylinux1. Becase of this, we will not install CUDA with
+            # not manylinux1. Because of this, we will not install CUDA with
             # the Jimver's action (unlike we did so for the windows wheel in
-            # the above).
+            # the above). The ``CUDA_DYNAMIC_LOADING=1`` enables dynamic loading of CUDA
+            # library. Base of this, when the wheels are created in manylinux platform,
+            # the cuda's libraries (libcudart.so, libcublas.so, libcusparse.so) will NOT
+            # bundle to the wheel. This is very good since the size of the wheel does not
+            # increase (cuda libs are large), and the  manylinux wheel can be uploaded to
+            # pypi (pypi has 100MB upload limit). On the down side, the user has to
+            # install cuda library themselves.
             - name: Build wheels in linux with CUDA support
               if: matrix.os == 'ubuntu-latest'
               run: python -m cibuildwheel --output-dir wheelhouse
@@ -99,7 +105,7 @@ jobs:
                   CIBW_SKIP: "pp* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
-                  CIBW_ENVIRONMENT: "USE_CUDA=0 CUDA_HOME=/usr/local/cuda"
+                  CIBW_ENVIRONMENT: "USE_CUDA=1 CUDA_DYNAMIC_LOADING=1 CUDA_HOME=/usr/local/cuda"
             
             - name: Upload artifacts
               uses: actions/upload-artifact@v2
