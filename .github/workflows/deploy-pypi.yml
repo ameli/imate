@@ -54,7 +54,7 @@ jobs:
             # linux, see the second next actions below "Build wheel with cuda
             # support".
             - name: Install CUDA
-              if: matrix.os == 'windows-latest'
+              if: matrix.os == 'windows-latest' || matrix.os == 'ubuntu-latest'
               uses: Jimver/cuda-toolkit@v0.2.1
               id: cuda-toolkit
               with:

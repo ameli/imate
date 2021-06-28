@@ -44,6 +44,7 @@ jobs:
                   python -m pip install --upgrade .[extra]
               env:
                   USE_CUDA: 1
+                  CUDA_DYNAMIC_LOADING: 1
 
             # Despite the package is built on both cpython and pypy, here we
             # only test it on cpython, not on pypy, since many other required
