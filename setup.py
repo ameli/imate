@@ -26,10 +26,11 @@ import shutil
 from distutils.errors import CompileError, LinkError, DistutilsExecError
 import textwrap
 import multiprocessing
+import re
 
 
 # ===============
-# Install Package
+# install package
 # ===============
 
 def install_package(package):
@@ -286,6 +287,8 @@ def get_cuda_version(cuda_home):
 
         # txt version file is used in CUDA 10 and earlier.
         with open(version_txt_file, 'r') as file:
+
+            # Version_string is like "11.3.1"
             version_string = file.read()
 
     elif os.path.isfile(version_json_file):
@@ -293,11 +296,40 @@ def get_cuda_version(cuda_home):
         # json version file is used in CUDA 11 and newer
         with open(version_json_file, 'r') as file:
             info = json.load(file)
+
+            # Version_string is like "11.3.1"
             version_string = info['cuda']['version']
 
     else:
-        raise FileNotFoundError('Cannot find CUDA "version.txt" file or' +
-                                '"version.json" file in %s.' % cuda_home)
+        # Find cuda version directly by grep-ing include/cuda.h file
+        cuda_filename = join(cuda_home, 'include', 'cuda.h')
+
+        # Regex pattern finds a match like "#define CUDA_VERSION 11030"
+        regex_pattern = '^#define CUDA_VERSION.\d+$'
+        match = ''
+
+        with open(cuda_filename, 'r') as file:
+            for line in file:
+                if re.match(regex_pattern, line):
+                    match = line
+                    break
+
+        if match != '':
+
+            # version_string is like "11030"
+            version_string = match.split()[-1]
+
+            # Place a dot to separate major and minor version to parse them
+            # later. Here, version_string becomes something like "11.03.0"
+            version_string = version_string[:-3] + "." + version_string[-3:]
+            version_string = version_string[:-1] + "." + version_string[-1:]
+
+        else:
+            error_message_1 = 'Cannot find CUDA "version.txt" or ' + \
+                              '"version.json" file in %s. ' % cuda_home
+            error_message_2 = 'Cannot find "CUDA_VERSION" in header file %s.' \
+                              % cuda_filename
+            raise FileNotFoundError(error_message_1 + error_message_2)
 
     # Convert string to a list of int
     version_string_list = version_string.split(' ')[-1].split('.')
@@ -916,7 +948,7 @@ def does_cuda_source_exist(sources):
 
 
 # ================
-# Create Extension
+# create Extension
 # ================
 
 def create_extension(
@@ -1066,11 +1098,11 @@ def create_extension(
             if cuda_dynamic_loading:
 
                 # Link with dl library (dlopen and dlsym). MSVC doesn't need it
-                if sys.platform == 'win32':
+                if sys.platform != 'win32':
                     libraries += ['dl']
 
-                # Use source code that "extern C" the cuda's API that are
-                # loaded dynamically at the runtime.
+                # Use source code that uses "extern C" to externally define
+                # cuda's API that will be loaded dynamically at the runtime.
                 sources += glob(join('.', package_name,
                                      '_cuda_dynamic_loading', '*.cpp'))
                 include_dirs += glob(join('.', package_name,
@@ -1227,7 +1259,7 @@ def cythonize_extensions(extensions):
 
 
 # ====
-# Main
+# main
 # ====
 
 def main(argv):
@@ -1418,7 +1450,7 @@ def main(argv):
 
 
 # =============
-# Script's Main
+# script's main
 # =============
 
 if __name__ == "__main__":

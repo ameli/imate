@@ -54,7 +54,7 @@ jobs:
             # linux, see the second next actions below "Build wheel with cuda
             # support".
             - name: Install CUDA
-              if: matrix.os == 'windows-latest' || matrix.os == 'ubuntu-latest'
+              if: matrix.os == 'windows-latest'
               uses: Jimver/cuda-toolkit@v0.2.1
               id: cuda-toolkit
               with:
@@ -89,13 +89,14 @@ jobs:
             # github virtual machine. Also, we should use manylinux2014, but
             # not manylinux1. Because of this, we will not install CUDA with
             # the Jimver's action (unlike we did so for the windows wheel in
-            # the above). The ``CUDA_DYNAMIC_LOADING=1`` enables dynamic loading of CUDA
-            # library. Base of this, when the wheels are created in manylinux platform,
-            # the cuda's libraries (libcudart.so, libcublas.so, libcusparse.so) will NOT
-            # bundle to the wheel. This is very good since the size of the wheel does not
-            # increase (cuda libs are large), and the  manylinux wheel can be uploaded to
-            # pypi (pypi has 100MB upload limit). On the down side, the user has to
-            # install cuda library themselves.
+            # the above). The ``CUDA_DYNAMIC_LOADING=1`` enables dynamic
+            # loading of CUDA library. Base of this, when the wheels are
+            # created in manylinux platform, the cuda's libraries
+            # (libcudart.so, libcublas.so, libcusparse.so) will NOT bundle to
+            # the wheel. This is very good since the size of the wheel does not
+            # increase (cuda libs are large), and the  manylinux wheel can be
+            # uploaded to pypi (pypi has 100MB upload limit). On the down side,
+            # the user has to install cuda library themselves.
             - name: Build wheels in linux with CUDA support
               if: matrix.os == 'ubuntu-latest'
               run: python -m cibuildwheel --output-dir wheelhouse
