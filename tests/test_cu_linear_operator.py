@@ -13,15 +13,15 @@
 # Imports
 # =======
 
-# import sys
-#
-# # This package might not be compiled with the cuda support.
-# try:
-#     from imate._cu_linear_operator.tests import test_cu_matrix, \
-#             test_cu_affine_matrix_function
-#     subpackage_exists = True
-# except ImportError:
-#     subpackage_exists = False
+import sys
+
+# This package might not be compiled with the cuda support.
+try:
+    from imate._cu_linear_operator.tests import test_cu_matrix, \
+            test_cu_affine_matrix_function
+    subpackage_exists = True
+except ModuleNotFoundError:
+    subpackage_exists = False
 
 
 # =======================
@@ -33,13 +33,10 @@ def test_cu_linear_operator():
     A wrapper for :mod:`imate._linear_operator.tests` test sub-module.
     """
 
-    # Test
-    pass
-
     # A test for linear operator
-    # if subpackage_exists:
-    #     test_cu_matrix()
-    #     test_cu_affine_matrix_function()
+    if subpackage_exists:
+        test_cu_matrix()
+        test_cu_affine_matrix_function()
 
 
 # ===========
