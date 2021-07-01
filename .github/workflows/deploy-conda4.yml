@@ -10,7 +10,8 @@ on:
 
 jobs:
     # On linux and windows, package is built directly from the source code
-    build_upload_conda_for_linux_windows:
+    # build_upload_conda_for_linux_windows:
+    build_wheels:
         name: Build on ${{ matrix.os }}
         runs-on: ${{ matrix.os }}
         strategy:
@@ -49,6 +50,22 @@ jobs:
               uses: actions/upload-artifact@v2
               with:
                   path: ./wheelhouse/*.whl
+
+    build_conda:
+        needs: [build_wheels]
+        runs-on: ubuntu-latest
+        name: Build conda
+        
+        # To upload to PyPI on every tag starting with 'v', use the following:
+        # if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
+        # To publish to pypi on each GitHub Release, use the following:
+        # if: github.event_name == 'release' && github.event.action == 'published'
+        steps:
+            - name: Download artifacts
+              uses: actions/download-artifact@v2
+              with:
+                  name: artifact
+                  path: dist
 
             - name: Setup Miniconda
               uses: conda-incubator/setup-miniconda@v2

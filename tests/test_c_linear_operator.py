@@ -27,7 +27,7 @@ def test_c_linear_operator():
     A wrapper for :mod:`imate._linear_operator.tests` test sub-module.
     """
 
-    # Test linear operator
+    # A test for linear operator
     test_c_matrix()
     test_c_affine_matrix_function()
 
