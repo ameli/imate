@@ -60,7 +60,7 @@ jobs:
                   export PATH=$(conda info --root)/bin:$PATH
                   conda-build --output-folder . .
               env:
-                  CYTHON_BUILD_IN_SOURCE: 'true'  # see setup.py. Avoids a bug when building with multiple python variants
+                  CYTHON_BUILD_IN_SOURCE: '1'  # see setup.py. Avoids a bug when building with multiple python variants
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
                   CONDA_BUILD_SYSROOT: "/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk"
 

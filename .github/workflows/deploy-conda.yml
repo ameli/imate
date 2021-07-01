@@ -31,7 +31,7 @@ jobs:
                   export PATH="$HOME/miniconda/bin:$PATH"
                   conda-build --output-folder . .
               env:
-                  CYTHON_BUILD_IN_SOURCE: 'true'  # see setup.py. Avoids a bug when building with multiple python variants
+                  CYTHON_BUILD_IN_SOURCE: '1'  # see setup.py. Avoids a bug when building with multiple python variants
 
             - name: Convert linux builds to mac and windows
               run: |
