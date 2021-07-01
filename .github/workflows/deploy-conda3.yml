@@ -16,8 +16,8 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                # os: [ubuntu-latest, windows-latest]
-                os: [ubuntu-latest]
+                os: [ubuntu-latest, windows-latest]
+                # os: [ubuntu-latest]
         steps:
             - name: Setup Miniconda
               uses: conda-incubator/setup-miniconda@v2
@@ -108,7 +108,8 @@ jobs:
             fail-fast: false
             matrix:
                 # os: [ubuntu-latest, windows-latest, macos-latest]
-                os: [ubuntu-latest]
+                os: [ubuntu-latest, windows-latest]
+                # os: [ubuntu-latest]
                 # python-version: [2.7, 3.6, 3.7, 3.8, 3.9]
                 python-version: [3.9]
 

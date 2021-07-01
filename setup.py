@@ -160,10 +160,6 @@ if 'DEBUG_MODE' in os.environ and os.environ.get('DEBUG_MODE') == '1':
 
 # If environment var "CYTHON_BUILD_IN_SOURCE" exists, cython builds *.c files
 # in the source code, otherwise in "/build" directory
-print('----')
-print(os.environ.get('CYTHON_BUILD_IN_SOURCE'))
-print(os.environ.get('USE_CUDA'))
-print('----')
 cython_build_in_source = False
 if 'CYTHON_BUILD_IN_SOURCE' in os.environ and \
    os.environ.get('CYTHON_BUILD_IN_SOURCE') == '1':
