@@ -1,9 +1,9 @@
-name: deploy-conda-3
+name: deploy-conda-4
 
 on:
     push:
-        # branches:
-        #     - main
+        branches:
+            - main
     release:
         types: 
             - published
@@ -16,16 +16,44 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                os: [ubuntu-latest, windows-latest]
-                # os: [ubuntu-latest]
+                # os: [ubuntu-latest, windows-latest]
+                os: [ubuntu-latest]
         steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            
+            - name: Setup Python 
+              uses: actions/setup-python@v2
+
+            - name: Install cibuildwheel
+              run: |
+                  python -m pip install cibuildwheel==1.11.0
+
+            - name: Install numpy
+              run: |
+                  python -m pip install --upgrade pip
+                  python -m pip install --upgrade numpy
+
+            - name: Build wheels in linux with CUDA support
+              if: matrix.os == 'ubuntu-latest'
+              run: python -m cibuildwheel --output-dir wheelhouse
+              env:
+                  CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
+                  CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
+                  CIBW_SKIP: "pp* cp27-* cp35-*"
+                  CIBW_BUILD_VERBOSITY: 1
+                  CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
+                  CIBW_ENVIRONMENT: "USE_CUDA=1 CUDA_DYNAMIC_LOADING=1 CUDA_HOME=/usr/local/cuda"
+            
+            - name: Upload artifacts
+              uses: actions/upload-artifact@v2
+              with:
+                  path: ./wheelhouse/*.whl
+
             - name: Setup Miniconda
               uses: conda-incubator/setup-miniconda@v2
               with:
                   auto-update-conda: true
-
-            - name: Checkout
-              uses: actions/checkout@v2
 
             - name: Build and upload package
               shell: bash -l {0}
@@ -108,8 +136,8 @@ jobs:
             fail-fast: false
             matrix:
                 # os: [ubuntu-latest, windows-latest, macos-latest]
-                os: [ubuntu-latest, windows-latest]
-                # os: [ubuntu-latest]
+                # os: [ubuntu-latest, windows-latest]
+                os: [ubuntu-latest]
                 # python-version: [2.7, 3.6, 3.7, 3.8, 3.9]
                 # python-version: [3.9]
                 python-version: [3.6, 3.7, 3.8, 3.9]

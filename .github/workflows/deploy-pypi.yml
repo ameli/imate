@@ -106,7 +106,7 @@ jobs:
                   CIBW_SKIP: "pp* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
-                  CIBW_ENVIRONMENT: "USE_CUDA=1 CUDA_DYNAMIC_LOADING=1 CUDA_HOME=/usr/local/cuda"
+                  CIBW_ENVIRONMENT: "USE_CUDA=1 CUDA_DYNAMIC_LOADING=0 CUDA_HOME=/usr/local/cuda"
             
             - name: Upload artifacts
               uses: actions/upload-artifact@v2

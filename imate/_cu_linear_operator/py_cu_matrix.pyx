@@ -132,9 +132,6 @@ cdef class pycuMatrix(pycuLinearOperator):
         if A.ndim != 2:
             raise ValueError('Input matrix should be a 2-dimensional array.')
 
-        elif A.shape[0] != A.shape[1]:
-            raise ValueError('Input matrix should be a square matrix.')
-
         # Data type
         if A.dtype == b'float32':
             self.data_type_name = b'float32'
