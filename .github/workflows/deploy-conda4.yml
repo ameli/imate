@@ -157,7 +157,7 @@ jobs:
                   conda-build --output-folder . .
                   # conda-build --output-folder . conda-recipe
               env:
-                  CYTHON_BUILD_IN_SOURCE: '0'  # see setup.py. Avoids a bug when building with multiple python variants
+                  CYTHON_BUILD_IN_SOURCE: '1'  # see setup.py. Avoids a bug when building with multiple python variants
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
 
     # On MacOS, package is built from wheels, not directly from the source code
