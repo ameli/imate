@@ -407,7 +407,7 @@ cdef FlagType _pyc_trace_estimator_long_double(
         MemoryViewIndexType processed_samples_indices,
         MemoryViewIndexType num_samples_used,
         MemoryViewIndexType num_outliers,
-        MemoryViewFlagType converged) excpet *:
+        MemoryViewFlagType converged) except *:
     """
     """
 

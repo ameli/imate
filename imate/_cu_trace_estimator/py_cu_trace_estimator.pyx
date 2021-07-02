@@ -33,7 +33,7 @@ include "../_c_trace_estimator/special_functions.pxi"
 # pycu trace estimator
 # ====================
 
-cpdef tuple pycu_trace_estimator(
+cpdef FlagType pycu_trace_estimator(
         pycuLinearOperator Aop,
         parameters,
         num_inquiries,
@@ -58,7 +58,8 @@ cpdef tuple pycu_trace_estimator(
         processed_samples_indices,
         num_samples_used,
         num_outliers,
-        converged) except *:
+        converged,
+        gpu_proc_times) except *:
     """
     """
 
@@ -127,7 +128,10 @@ cpdef tuple pycu_trace_estimator(
         raise TypeError('Data type when gpu is enabled should be "float32"' +
                         'or "float64"')
 
-    return all_converged, gpu_proc_time
+    # Return gpu proc time via a numpy array of size 1
+    gpu_proc_times[0] = gpu_proc_time
+
+    return all_converged
 
 
 # ==========================

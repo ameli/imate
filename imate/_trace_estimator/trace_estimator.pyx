@@ -175,7 +175,7 @@ cpdef trace_estimator(
     init_proc_time = time.process_time()
 
     cdef FlagType all_converged
-    cdef float gpu_proc_time = 0.0
+    gpu_proc_times = numpy.zeros((1, ), dtype=float)
 
     if gpu:
 
@@ -208,7 +208,7 @@ cpdef trace_estimator(
         if num_gpu_devices == 0:
             num_gpu_devices = num_all_gpu_devices
 
-        all_converged, gpu_proc_time = pycu_trace_estimator(
+        all_converged = pycu_trace_estimator(
             pycuAop,
             parameters,
             num_inquiries,
@@ -233,7 +233,8 @@ cpdef trace_estimator(
             processed_samples_indices,
             num_samples_used,
             num_outliers,
-            converged)
+            converged,
+            gpu_proc_times)
 
     else:
 
@@ -314,7 +315,7 @@ cpdef trace_estimator(
             'num_gpu_multiprocessors': num_gpu_multiprocessors,
             'num_gpu_threads_per_multiprocessor':
                 num_gpu_threads_per_multiprocessor,
-            'proc_time': gpu_proc_time
+            'proc_time': gpu_proc_times[0]
         },
         'solver':
         {

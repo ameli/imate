@@ -17,7 +17,7 @@ from ..functions cimport pyFunction
 # ============
 
 # pycu trace estimator
-cpdef tuple pycu_trace_estimator(
+cpdef FlagType pycu_trace_estimator(
         pycuLinearOperator Aop,
         parameters,
         num_inquiries,
@@ -42,4 +42,5 @@ cpdef tuple pycu_trace_estimator(
         processed_samples_indices,
         num_samples_used,
         num_outliers,
-        converged) except *
+        converged,
+        gpu_proc_times) except *
