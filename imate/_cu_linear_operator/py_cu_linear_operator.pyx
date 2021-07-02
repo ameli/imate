@@ -70,7 +70,7 @@ cdef class pycuLinearOperator(object):
     # get num rows
     # ============
 
-    cdef LongIndexType get_num_rows(self):
+    cdef LongIndexType get_num_rows(self) except *:
         """
         :return Number of rows of matrix.
         :rtype: LongIdexType
@@ -87,7 +87,7 @@ cdef class pycuLinearOperator(object):
     # get num columns
     # ===============
 
-    cdef LongIndexType get_num_columns(self):
+    cdef LongIndexType get_num_columns(self) except *:
         """
         :return Number of rows of matrix.
         :rtype: LongIdexType
@@ -121,7 +121,7 @@ cdef class pycuLinearOperator(object):
     # get data type name
     # ==================
 
-    cdef char* get_data_type_name(self):
+    cdef char* get_data_type_name(self) except *:
         """
         """
 
@@ -134,7 +134,7 @@ cdef class pycuLinearOperator(object):
     # get linear operator float
     # =========================
 
-    cdef cuLinearOperator[float]* get_linear_operator_float(self):
+    cdef cuLinearOperator[float]* get_linear_operator_float(self) except *:
         """
         """
 
@@ -152,7 +152,7 @@ cdef class pycuLinearOperator(object):
     # get linear operator double
     # ==========================
 
-    cdef cuLinearOperator[double]* get_linear_operator_double(self):
+    cdef cuLinearOperator[double]* get_linear_operator_double(self) except *:
         """
         """
 
@@ -198,7 +198,7 @@ cdef class pycuLinearOperator(object):
     # dot
     # ===
 
-    cpdef void dot(self, vector, product):
+    cpdef void dot(self, vector, product) except *:
         """
         """
 
@@ -276,7 +276,7 @@ cdef class pycuLinearOperator(object):
     # transpose dot
     # =============
 
-    cpdef void transpose_dot(self, vector, product):
+    cpdef void transpose_dot(self, vector, product) except *:
         """
         """
 

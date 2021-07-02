@@ -31,10 +31,10 @@ cdef class pycuLinearOperator(object):
     cdef dict device_properties_dict
 
     # Cython methods
-    cdef LongIndexType get_num_rows(self)
-    cdef LongIndexType get_num_columns(self)
-    cdef char* get_data_type_name(self)
-    cdef cuLinearOperator[float]* get_linear_operator_float(self)
-    cdef cuLinearOperator[double]* get_linear_operator_double(self)
-    cpdef void dot(self, vector, product)
-    cpdef void transpose_dot(self, vector, product)
+    cdef LongIndexType get_num_rows(self) except *
+    cdef LongIndexType get_num_columns(self) except *
+    cdef char* get_data_type_name(self) except *
+    cdef cuLinearOperator[float]* get_linear_operator_float(self) except *
+    cdef cuLinearOperator[double]* get_linear_operator_double(self) except *
+    cpdef void dot(self, vector, product) except *
+    cpdef void transpose_dot(self, vector, product) except *

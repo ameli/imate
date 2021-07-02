@@ -9,8 +9,7 @@ do
     if [ "$wheel_installed" != true ];
     then
         echo "Try installing ${filename} ...";
-        # python -m pip install --no-deps --force-reinstall $filename 2> /dev/null;
-        python -m pip install --no-deps --force-reinstall $filename;
+        python -m pip install --no-deps --force-reinstall $filename 2> /dev/null;
         error_code=$?;
 
         if [ "${error_code}" -eq 0 ];

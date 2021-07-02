@@ -68,7 +68,7 @@ cdef class pycLinearOperator(object):
     # get num rows
     # ============
 
-    cdef LongIndexType get_num_rows(self):
+    cdef LongIndexType get_num_rows(self) except *:
         """
         :return Number of rows of matrix.
         :rtype: LongIdexType
@@ -88,7 +88,7 @@ cdef class pycLinearOperator(object):
     # get num columns
     # ===============
 
-    cdef LongIndexType get_num_columns(self):
+    cdef LongIndexType get_num_columns(self) except *:
         """
         :return Number of rows of matrix.
         :rtype: LongIdexType
@@ -128,7 +128,6 @@ cdef class pycLinearOperator(object):
     # get data type name
     # ==================
 
-    # cdef char* get_data_type_name(self):
     def get_data_type_name(self):
         """
         """
@@ -142,7 +141,7 @@ cdef class pycLinearOperator(object):
     # get linear operator float
     # =========================
 
-    cdef cLinearOperator[float]* get_linear_operator_float(self):
+    cdef cLinearOperator[float]* get_linear_operator_float(self) except *:
         """
         """
 
@@ -160,7 +159,7 @@ cdef class pycLinearOperator(object):
     # get linear operator double
     # ==========================
 
-    cdef cLinearOperator[double]* get_linear_operator_double(self):
+    cdef cLinearOperator[double]* get_linear_operator_double(self) except *:
         """
         """
 
@@ -178,7 +177,8 @@ cdef class pycLinearOperator(object):
     # get linear operator long double
     # ===============================
 
-    cdef cLinearOperator[long double]* get_linear_operator_long_double(self):
+    cdef cLinearOperator[long double]* get_linear_operator_long_double(
+            self) except*:
         """
         """
 
@@ -213,7 +213,7 @@ cdef class pycLinearOperator(object):
     # dot
     # ===
 
-    cpdef void dot(self, vector, product):
+    cpdef void dot(self, vector, product) except *:
         """
         """
 
@@ -317,7 +317,7 @@ cdef class pycLinearOperator(object):
     # transpose dot
     # =============
 
-    cpdef void transpose_dot(self, vector, product):
+    cpdef void transpose_dot(self, vector, product) except *:
         """
         """
 
