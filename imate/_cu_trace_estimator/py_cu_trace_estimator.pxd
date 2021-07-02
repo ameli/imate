@@ -42,4 +42,4 @@ cpdef tuple pycu_trace_estimator(
         processed_samples_indices,
         num_samples_used,
         num_outliers,
-        converged)
+        converged) except *

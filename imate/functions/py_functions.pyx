@@ -28,7 +28,7 @@ cdef class pyFunction(object):
 
         self.matrix_function = NULL
 
-    cdef void set_function(self, Function* matrix_function_):
+    cdef void set_function(self, Function* matrix_function_) except *:
         """
         """
         self.matrix_function = matrix_function_

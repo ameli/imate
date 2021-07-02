@@ -24,7 +24,7 @@ from .py_random_number_generator cimport pyRandomNumberGenerator
 cdef void py_generate_random_array(
         DataType* array,
         const LongIndexType array_size,
-        const IndexType num_threads):
+        const IndexType num_threads) except *:
     """
     A python wrapper for ``RandomArrayGenerator.generate_random_array()``.
 

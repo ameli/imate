@@ -58,7 +58,7 @@ cpdef tuple pycu_trace_estimator(
         processed_samples_indices,
         num_samples_used,
         num_outliers,
-        converged):
+        converged) except *:
     """
     """
 
@@ -159,7 +159,7 @@ cdef FlagType _pycu_trace_estimator_float(
         MemoryViewIndexType num_samples_used,
         MemoryViewIndexType num_outliers,
         MemoryViewFlagType converged,
-        float& gpu_proc_time):
+        float& gpu_proc_time) except *:
     """
     """
 
@@ -276,7 +276,7 @@ cdef FlagType _pycu_trace_estimator_double(
         MemoryViewIndexType num_samples_used,
         MemoryViewIndexType num_outliers,
         MemoryViewFlagType converged,
-        float& gpu_proc_time):
+        float& gpu_proc_time) except *:
     """
     """
 

@@ -19,7 +19,7 @@ from .query_device cimport query_device, DeviceProperties
 # py query device
 # ===============
 
-cdef py_query_device():
+cdef py_query_device() except *:
     """
     A python wrapper for ``query_device()`` function. This function queries
     the gpu device(s) and returns a dictionary.

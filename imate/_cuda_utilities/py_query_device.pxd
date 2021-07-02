@@ -11,4 +11,4 @@
 # Declarations
 # ============
 
-cdef py_query_device()
+cdef py_query_device() except *

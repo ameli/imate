@@ -60,7 +60,7 @@ cpdef FlagType pyc_trace_estimator(
         processed_samples_indices,
         num_samples_used,
         num_outliers,
-        converged):
+        converged) except *:
     """
     """
 
@@ -181,7 +181,7 @@ cdef FlagType _pyc_trace_estimator_float(
         MemoryViewIndexType processed_samples_indices,
         MemoryViewIndexType num_samples_used,
         MemoryViewIndexType num_outliers,
-        MemoryViewFlagType converged):
+        MemoryViewFlagType converged) except *:
     """
     """
 
@@ -294,7 +294,7 @@ cdef FlagType _pyc_trace_estimator_double(
         MemoryViewIndexType processed_samples_indices,
         MemoryViewIndexType num_samples_used,
         MemoryViewIndexType num_outliers,
-        MemoryViewFlagType converged):
+        MemoryViewFlagType converged) except *:
     """
     """
 
@@ -407,7 +407,7 @@ cdef FlagType _pyc_trace_estimator_long_double(
         MemoryViewIndexType processed_samples_indices,
         MemoryViewIndexType num_samples_used,
         MemoryViewIndexType num_outliers,
-        MemoryViewFlagType converged):
+        MemoryViewFlagType converged) excpet *:
     """
     """
 
