@@ -108,7 +108,7 @@ jobs:
                   CIBW_SKIP: "pp* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
-                  CIBW_ENVIRONMENT: "USE_CUDA=1 CUDA_DYNAMIC_LOADING=0 CUDA_HOME=/usr/local/cuda"
+                  CIBW_ENVIRONMENT: "USE_CUDA=0 CUDA_DYNAMIC_LOADING=0 CUDA_HOME=/usr/local/cuda"
             
             - name: Upload artifacts
               uses: actions/upload-artifact@v2
@@ -131,6 +131,9 @@ jobs:
         # To publish to pypi on each GitHub Release, use the following:
         # if: github.event_name == 'release' && github.event.action == 'published'
         steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
             - name: Download artifacts
               uses: actions/download-artifact@v2
               with:
@@ -150,8 +153,8 @@ jobs:
                   conda config --set anaconda_upload yes
                   export PATH=$(conda info --root):$PATH
                   export PATH=$(conda info --root)/bin:$PATH
-                  # conda-build --output-folder . .
-                  conda-build --output-folder . conda-recipe
+                  conda-build --output-folder . .
+                  # conda-build --output-folder . conda-recipe
               env:
                   CYTHON_BUILD_IN_SOURCE: '0'  # see setup.py. Avoids a bug when building with multiple python variants
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
