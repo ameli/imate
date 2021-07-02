@@ -8,11 +8,11 @@ package:
 source:
     path: ..
 
-build:
-    number: 0
-    script:  
-        - sh conda/build_unix.sh  # [unix]
-        - conda/build_windows.sh  # [win]
+# build:
+#     number: 0
+    # script:  
+    #     - sh conda/build.sh   # [unix]
+    #     - conda/bld.bat       # [win]
         # - {{ PYTHON }} -m pip install dist/*.whl --no-deps -vvv
         # - {{ PYTHON }} -m pip install dist/*.whl -vvv  # [osx]
         # - {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv  # [not osx]

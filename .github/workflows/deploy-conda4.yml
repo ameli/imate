@@ -143,7 +143,7 @@ jobs:
             - name: Build and upload package
               shell: bash -l {0}
               run: |
-                  ls dist
+                  ls
                   conda install -y conda-build anaconda-client
                   conda config --set anaconda_upload yes
                   export PATH=$(conda info --root):$PATH
