@@ -10,8 +10,10 @@ source:
 
 build:
     number: 0
-    script: 
-        - {{ PYTHON }} -m pip install dist/*.whl --no-deps -vvv
+    script:  
+        - sh conda/build_unix.sh  # [unix]
+        - conda/build_windows.sh  # [win]
+        # - {{ PYTHON }} -m pip install dist/*.whl --no-deps -vvv
         # - {{ PYTHON }} -m pip install dist/*.whl -vvv  # [osx]
         # - {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv  # [not osx]
         # - {{ PYTHON }} setup.py install  # [not osx]

@@ -47,7 +47,7 @@ def _benchmark_solution(A, vector):
 # test dot
 # ========
 
-cdef int _test_dot(A):
+cdef int _test_dot(A) except *:
     """
     """
 
@@ -92,7 +92,7 @@ cdef int _test_dot(A):
 # test transpose dot
 # ==================
 
-cdef int _test_transpose_dot(A):
+cdef int _test_transpose_dot(A) except *:
     """
     """
 

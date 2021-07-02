@@ -177,7 +177,7 @@ cdef class pycAffineMatrixFunction(pycLinearOperator):
         # Check A
         if A is None:
             raise ValueError('A cannot be None.')
-        
+
         if A.ndim != 2:
             raise ValueError('Input matrix should be a 2-dimensional array.')
 

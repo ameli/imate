@@ -44,6 +44,12 @@ cdef class pycuLinearOperator(object):
         self.num_gpu_devices = 0
         self.device_properties_dict = py_query_device()
 
+        # Check if GPU device is found. If not, this will raise exception
+        # sooner than the C++ code aborting the whole process.
+        num_all_gpu_devices = self.device_properties_dict['num_devices']
+        if num_all_gpu_devices == 0:
+            raise RuntimeError('No cuda-capable gpu device was found.')
+
     # ===========
     # __dealloc__
     # ===========

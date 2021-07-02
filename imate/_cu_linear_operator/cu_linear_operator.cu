@@ -262,6 +262,7 @@ int cuLinearOperator<DataType>::query_gpu_devices() const
                   << "install its cuda driver. Alternatively, set " \
                   << "'gpu=False' to use cpu instead." \
                   << std::endl;
+
         abort();
     }
 
