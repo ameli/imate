@@ -105,8 +105,7 @@ jobs:
               env:
                   CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
-                  # CIBW_SKIP: "pp* cp27-* cp35-*"
-                  CIBW_SKIP: "pp* cp27-* cp35-* cp36-* cp37-* cp38-*"
+                  CIBW_SKIP: "pp* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
                   CIBW_ENVIRONMENT: "USE_CUDA=0 CUDA_DYNAMIC_LOADING=0 CUDA_HOME=/usr/local/cuda"
