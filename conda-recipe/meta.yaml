@@ -10,22 +10,8 @@ source:
 
 # build:
 #     number: 0
-    # script:  
-    #     - sh conda/build.sh   # [unix]
-    #     - conda/bld.bat       # [win]
-        # - {{ PYTHON }} -m pip install dist/*.whl --no-deps -vvv
-        # - {{ PYTHON }} -m pip install dist/*.whl -vvv  # [osx]
-        # - {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv  # [not osx]
-        # - {{ PYTHON }} setup.py install  # [not osx]
-        # - {{ PYTHON }} -m pip install . --single-version-externally-managed --record=record.txt -vvv  # [not osx]
-        # - {{ PYTHON }} -m pip install . --single-version-externally-managed --record=record.txt --ignore-installed --no-cache-dir -vvv  # [not osx]
-    # script: sh ./build_macos.sh     # [mac]
-        # - export CFLAGS="${CFLAGS} -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk"; {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
-        # - export SDKROOT=/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk; {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
-        # - export CFLAGS="${CFLAGS} -isysroot ${CONDA_BUILD_SYSROOT}"; {{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt
-    # script: # - python setup.py install . --single-version-externally-managed --record=record.txt -vvv
-    # script: {{ PYTHON }} -m pip install . --single-version-externally-managed --record=record.txt --no-deps --ignore-installed --no-cache-dir -vvv
-    # script: "{{ PYTHON }} -m pip install . -vv"
+#     script:  
+#         - {{ PYTHON }} -m pip install . --single-version-externally-managed --record=record.txt --ignore-installed --no-cache-dir -vvv
 
 requirements:
     build:
@@ -35,7 +21,6 @@ requirements:
 
     host:
         - python {{ python }}
-        # - python
         - setuptools
         - numpy>1.11
         - scipy>=1.5
@@ -44,9 +29,7 @@ requirements:
         - llvm-openmp  # [osx]
     run:
         - python {{ python }}
-        # - python
         - numpy>1.11
-        # - {{ pin_compatible('numpy') }}
         - scipy>=1.5
         - suitesparse
         - matplotlib

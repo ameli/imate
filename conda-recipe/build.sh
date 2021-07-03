@@ -25,6 +25,7 @@ do
 
         # Matched. Install with pip
         echo "Try installing wheel file '${wheel_filename}'.";
+        python -m pip install --upgrade pip
         python -m pip install --no-deps --force-reinstall $wheel_filename;
 
         # Check last error code

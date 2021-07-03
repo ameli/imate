@@ -39,13 +39,6 @@ jobs:
               run: |
                   brew install libomp
 
-                  # This is needed to import numpy in pypy3 (but not needed for
-                  # pypy2 and CPython)
-                  # brew install openblas
-                  # OPENBLAS="$(brew --prefix openblas)"
-                  # brew install lapack
-                  # pip3 install numpy
-
             # To install CUDA in windows, uncomment the following lines. Note
             # that the Jimver@cuda-toolkit action (below) can only install cuda
             # on linux and windows, but not macos. Also, for linux, we should
@@ -112,7 +105,9 @@ jobs:
             - name: Upload artifacts
               uses: actions/upload-artifact@v2
               with:
+                  name: wheel-artifacts
                   path: ./wheelhouse/*.whl
+                  retention-days: 1
 
     build_conda:
         needs: [build_wheels]
@@ -135,7 +130,7 @@ jobs:
             - name: Download artifacts
               uses: actions/download-artifact@v2
               with:
-                  name: artifact
+                  name: wheel-artifacts
                   path: dist
 
             - name: Setup Miniconda
@@ -156,70 +151,17 @@ jobs:
               env:
                   CYTHON_BUILD_IN_SOURCE: '1'  # see setup.py. Avoids a bug when building with multiple python variants
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
-
-    # On MacOS, package is built from wheels, not directly from the source code
-    # build_upload_conda_for_mac:
-    #     name: Build on macos-latest
-    #     runs-on: macos-latest
-    #     steps:
-    #         - name: Checkout
-    #           uses: actions/checkout@v2
-    #
-    #         - name: Set up Python ${{ matrix.python-version }}
-    #           uses: actions/setup-python@v2
-    #           with:
-    #               python-version: 3.8
-    #
-    #         - name: Install OpenMP for MacOS
-    #           run: |
-    #               brew install libomp
-    #               brew install suite-sparse
-    #               # brew install llvm
-    #
-    #         - name: Build wheel
-    #           run: |
-    #               python -m pip install --upgrade pip
-    #               python -m pip install --upgrade wheel
-    #               python -m pip install --upgrade numpy
-    #               python -m pip install --upgrade .[full]
-    #               python setup.py bdist_wheel
-    #
-    #         - name: Install conda, conda-build, and conda-client
-    #           run: |
-    #               brew install wget
-    #               wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh
-    #               bash miniconda.sh -b -p $HOME/miniconda
-    #               export PATH="$HOME/miniconda/bin:$PATH"
-    #               hash -r
-    #               conda config --set always_yes yes --set changeps1 no
-    #               conda update -q conda
-    #               conda install conda-build
-    #               conda install anaconda-client
-    #
-    #         - name: Build conda package based on already compiled wheel and upload package
-    #           run: |
-    #               # xcrun --show-sdk-path
-    #               export PATH="$HOME/miniconda/bin:$PATH"
-    #               conda config --set anaconda_upload yes
-    #               conda-build --output-folder . .
-    #           env:
-    #               CYTHON_BUILD_IN_SOURCE: '1'  # see setup.py. Avoids a bug when building with multiple python variants
-    #               ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
-    #
-    #         # - name: Upload to Anaconda Cloud
-    #         #   run: |
-    #         #       export PATH="$HOME/miniconda/bin:$PATH"
-    #         #       anaconda upload --force --label main linux-64/*.tar.bz2
-    #         #       anaconda upload --force --label main linux-aarch64/*.tar.bz2
-    #         #       anaconda upload --force --label main osx-64/*.tar.bz2
-    #         #       anaconda upload --force --label main win-64/*.tar.bz2
-    #         #       anaconda upload --force --label main win-32/*.tar.bz2
-    #         #   env:
-    #         #       ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+                 
+            # The manylinux wheels (after repaired with auditwheel) are very
+            # large in size. It is better to delete them. If we do not delete
+            # them, however, they will be deleted after the retension days,
+            # which I set to one day.
+            - name: Delete artifacts
+              uses: geekyeggo/delete-artifact@v1
+              with:
+                  name: wheel-artifacts
 
     test_conda:
-        # needs: [build_upload_conda_for_linux_windows, build_upload_conda_for_mac]
-        # needs: [build_upload_conda_for_linux_windows]
         needs: [build_conda]
         name: Test on ${{ matrix.os }} and Python ${{ matrix.python-version }}
         runs-on: ${{ matrix.os }}
@@ -238,53 +180,6 @@ jobs:
                   python-version: ${{ matrix.python-version }}
                   activate-environment: myenv
 
-        # steps:
-        #     - name: Download conda in Linux
-        #       if: runner.os == 'linux'
-        #       run: wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-        #
-        #     - name: Download conda in macOS
-        #       if: runner.os == 'macos'
-        #       run: curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh
-
-            # - name: Download conda in Windows
-            #   if: runner.os == 'Windows'
-            #   run: |
-            #       python -m pip install wget
-            #       wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe -O miniconda.sh
-
-            # - name: Install conda
-            #   run: |
-            #       sh miniconda.sh -b -p $HOME/miniconda
-            #       export PATH="$HOME/miniconda/bin:$PATH"
-            #       hash -r
-            #       conda config --set always_yes yes --set changeps1 no
-            #       conda update -q conda
-
-            # - name: Test (in Unix)
-            #   if: runner.os != 'Windows'
-            #   run: |
-            #       mv imate imate-DoNotImport
-            #       export PATH="$HOME/miniconda/bin:$PATH"
-            #       source $(conda info --root)/etc/profile.d/conda.sh
-            #       
-            #       PythonVersions="2.7 3.6 3.7 3.8 3.9"
-            #       for PythonVersion in $PythonVersions
-            #       do
-            #           conda create --name env-${PythonVersion} -c s-ameli python=${PythonVersion} imate pytest-cov -y
-            #           conda activate env-${PythonVersion}
-            #           pytest
-            #           conda deactivate
-            #           conda remove --name env-${PythonVersion} --all -y
-            #       done
-
-            # - name: Install package
-              # run: |
-                  # conda config --set channel_priority strict
-                  # conda install -c conda-forge pytest pytest-cov -y
-                  # conda install -c conda-forge -c s-ameli imate -y
-                  # conda init
-
             - name: Checkout
               uses: actions/checkout@v2
 
@@ -296,24 +191,3 @@ jobs:
                   conda install -c s-ameli imate -y
                   conda install pytest -y
                   pytest
-
-            # - name: Test (in Windows)
-            #   if: runner.os == 'Windows'
-            #   run: |
-            #       mkdir ~\tmp
-            #       Copy-Item -Path tests -Destination ~\tmp -Recurse
-            #       Copy-Item -Path examples -Destination ~\tmp -Recurse
-            #       cd ~\tmp
-            #       choco install vcpython27 -f -y
-            #       $RootDir=$(conda info --root)
-            #       . $RootDir\etc\profile.d\conda.sh
-            #       $PythonVersions="2.7","3.6","3.7","3.8","3.9"
-            #       foreach ($PythonVersion in $PythonVersions)
-            #       {
-            #           conda create --name env-$PythonVersion -c s-ameli python=$PythonVersion pytest-cov -y
-            #           conda activate env-$PythonVersion
-            #           conda install -c s-ameli imate -y
-            #           pytest-cov
-            #           conda deactivate
-            #           conda remove --name env-$PythonVersion --all -y
-            #       }
