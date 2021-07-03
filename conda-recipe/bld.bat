@@ -17,7 +17,7 @@ for /R %root_dir% %%i in (*.txt) do (
 			set wheel_installed=true
 		)
 	)
-	echo Wheel insatlled: !wheel_installed!
+	echo Wheel installed: !wheel_installed!
 )
 
 if %wheel_installed% equ false (

@@ -16,7 +16,7 @@ case "$os" in
     *) echo "Invalid operating system. os: $os."; exit 1;;
 esac
 
-# Iterate throug all wheel files in /dist/* directory.
+# Iterate through all wheel files in /dist/* directory.
 wheel_installed=false;
 for wheel_filename in dist/*.whl;
 do

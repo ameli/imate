@@ -16,8 +16,7 @@ jobs:
             fail-fast: false
             matrix:
                 # os: [ubuntu-latest, windows-latest, macos-latest]
-                # os: [ubuntu-latest, macos-latest]
-                os: [ubuntu-latest]
+                os: [ubuntu-latest, macos-latest]
                 
         steps:
             - name: Checkout
@@ -108,7 +107,7 @@ jobs:
                   CIBW_SKIP: "pp* cp27-* cp35-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
-                  CIBW_ENVIRONMENT: "USE_CUDA=0 CUDA_DYNAMIC_LOADING=0 CUDA_HOME=/usr/local/cuda"
+                  CIBW_ENVIRONMENT: "USE_CUDA=1 CUDA_DYNAMIC_LOADING=0 CUDA_HOME=/usr/local/cuda"
             
             - name: Upload artifacts
               uses: actions/upload-artifact@v2
@@ -123,8 +122,7 @@ jobs:
             fail-fast: false
             matrix:
                 # os: [ubuntu-latest, windows-latest, macos-latest]
-                # os: [ubuntu-latest, macos-latest]
-                os: [ubuntu-latest]
+                os: [ubuntu-latest, macos-latest]
         
         # To upload to PyPI on every tag starting with 'v', use the following:
         # if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
@@ -155,7 +153,6 @@ jobs:
                   export PATH=$(conda info --root):$PATH
                   export PATH=$(conda info --root)/bin:$PATH
                   conda-build --output-folder . .
-                  # conda-build --output-folder . conda-recipe
               env:
                   CYTHON_BUILD_IN_SOURCE: '1'  # see setup.py. Avoids a bug when building with multiple python variants
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
@@ -230,8 +227,7 @@ jobs:
             fail-fast: false
             matrix:
                 # os: [ubuntu-latest, windows-latest, macos-latest]
-                # os: [ubuntu-latest, macos-latest]
-                os: [ubuntu-latest]
+                os: [ubuntu-latest, macos-latest]
                 python-version: [3.6, 3.7, 3.8, 3.9]
 
         steps:
