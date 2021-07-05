@@ -82,7 +82,7 @@ namespace dynamic_loading
     // get library handle (unix)
     // ==================
 
-    #elif defined(__unix__) || defined(__unix) || \
+    #if defined(__unix__) || defined(__unix) || \
         (defined(__APPLE__) && defined(__MACH__))
         /// \brief     Loads a library and returns its handle. This function is
         ///            compiled only on unix-like compiler.

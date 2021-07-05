@@ -777,9 +777,12 @@ class CustomBuildExtension(build_ext):
         else:
 
             # The compile_type is 'unix'. This is either linux or mac.
-            # We add common flags that work both for gcc and mac's clang
+            # We add common flags that work both for gcc and clang
             extra_compile_args += ['-O3', '-fno-stack-protector', '-Wall',
-                                   '-Wextra']
+                                   '-Wextra', '-Wundef', '-Wcast-align',
+                                   '-Wunreachable-code', '-Wswitch-enum',
+                                   '-Wpointer-arith', '-Wcast-align',
+                                   '-Wwrite-strings']
 
             # The option '-Wl, ..' will send arguments to the linker. Here,
             # '--strip-all' will remove all symbols from the shared library.

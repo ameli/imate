@@ -34,19 +34,19 @@ jobs:
 
             - name: Install package and dependencies
               run: |
-                  python -m pip install --upgrade pip setuptools wheel
+                  python -m pip install --upgrade
                   python -m pip install --upgrade numpy
                   python -m pip install --upgrade .
               env:
                   USE_CUDA: 1
-                  CUDA_DYNAMIC_LOADING: 0
+                  CUDA_DYNAMIC_LOADING: 1
 
             - name: Test
               run: |
                   python -m pip install --upgrade pytest
                   python -m pip install --upgrade pytest-cov
                   mv imate imate-DoNotImport
-                  rm test/test_cu_linear_operator.py  # this raises ImportError in windows and py >= 37
+                  rm tests/test_cu_linear_operator.py  # this raises ImportError in windows and py >= 37
                   pytest
 
             - name: Coverage
