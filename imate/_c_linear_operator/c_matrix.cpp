@@ -44,10 +44,10 @@ cMatrix<DataType>::~cMatrix()
 // get eigenvalue
 // ==============
 
-/// \brief     This virtualfunction is implemented from its pure virtual
+/// \brief     This virtual function is implemented from its pure virtual
 ///            function of the base class. In this class, this functio has no
 ///            use and was only implemented so that this class be able to
-///            be instantiated (due t the pure virtual function).
+///            be instantiated (due to the pure virtual function).
 ///
 /// \param[in] known_parameters
 ///            A set of parameters of the operator where the corresponding
@@ -67,6 +67,12 @@ DataType cMatrix<DataType>::get_eigenvalue(
         const DataType* inquiry_parameters) const
 {
     assert((false) && "This function should no be called within this class");
+
+    // Mark unused variables to avoid compiler warnings (-Wno-unused-parameter)
+    (void) known_parameters;
+    (void) known_eigenvalue;
+    (void) inquiry_parameters;
+
     return 0;
 }
 

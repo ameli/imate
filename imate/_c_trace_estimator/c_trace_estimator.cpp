@@ -272,10 +272,10 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
                 // This check can also be done after another parallel thread
                 // set all_converged to "1", but we continue to update error.
                 all_converged = ConvergenceTools<DataType>::check_convergence(
-                        samples, min_num_samples, max_num_samples,
-                        num_inquiries, processed_samples_indices,
-                        num_processed_samples, confidence_level, error_atol,
-                        error_rtol, error, num_samples_used, converged);
+                        samples, min_num_samples, num_inquiries,
+                        processed_samples_indices, num_processed_samples,
+                        confidence_level, error_atol, error_rtol, error,
+                        num_samples_used, converged);
             }
         }
     }

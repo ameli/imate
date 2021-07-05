@@ -19,8 +19,8 @@ set wheel_installed=false
 
 rem Iterate through all wheel files in /dist/* directory.
 for /R %root_dir% %%i in (*.whl) do (
-
-	rem Check if wheel filename matches python version
+    
+    rem Check if wheel filename matches python version
     	echo %%i | findstr /C:"%python_version%">nul && (
 	    	set python_version_matched=true
 	) || (
@@ -40,9 +40,9 @@ for /R %root_dir% %%i in (*.whl) do (
 			if "!platform_matched!"=="true" (
 
 				echo Try installing %%i
-				python -m pip install --upgrade pip
-				python -m pip install --force-reinstall %%i
-				
+                python -m pip install --upgrade pip setuptools wheel
+                python -m pip install --force-reinstall %%i
+
 				rem Check last error
 				if errorlevel==0 (
 					set wheel_installed=true

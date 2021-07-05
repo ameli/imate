@@ -46,9 +46,6 @@
 ///             stored in \c processed_sample_indices.
 /// \param[in]  min_num_samples
 ///             Minimum number of sample iterations.
-/// \param[in]  max_num_samples
-///             Maximum number of sample iterations, which is also the number
-///             of rows of \c samples array.
 /// \param[in]  num_inquiries
 ///             Number of columns of \c samples array.
 /// \param[in]  processed_sample_indices
@@ -59,12 +56,6 @@
 ///             A 1D array indicating the processing order of rows of the
 ///             \c samples. In paralleli processing, this order of processing
 ///             the rows of \c samples is not necessarly sequential.
-/// \param[in]  num_samples_used
-///             1D array of the size of the number of columns of \c samples.
-///             Each element indicates how many iterations were used till
-///             convergence is reached for each column of the \c samples. The
-///             number of iterations should be a number between
-///             \c min_num_samples and \c max_num_samples.
 /// \param[in]  confidence_level
 ///             The confidence level of the error, which is a number between
 ///             \c 0 and \c 1. This affects the scale of \c error.
@@ -89,7 +80,7 @@
 /// \param[out] converged
 ///             1D array of the size of the number of columns of \c samples.
 ///             Each element indicates which column of \c samples has converged
-///             to the tolerance criteria. Normally, if the \c num_samples used
+///             to the tolerance criteria. Normally, if the \c num_samples_used
 ///             is less than \c max_num_samples, it indicates that the
 ///             convergence has reached. the rows of \c samples array. The size
 ///             of this array is \c num_inquiries.
@@ -105,7 +96,6 @@ template <typename DataType>
 FlagType ConvergenceTools<DataType>::check_convergence(
         DataType** samples,
         const IndexType min_num_samples,
-        const IndexType max_num_samples,
         const IndexType num_inquiries,
         const IndexType* processed_samples_indices,
         const IndexType num_processed_samples,

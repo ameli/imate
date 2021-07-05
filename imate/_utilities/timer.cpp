@@ -19,7 +19,8 @@
     !defined(__CYGWIN__)
     #include <windows.h>  // LARGE_INTEGER, QueryPerformanceFrequency,
                           // QueryPerformanceCounter
-#elif __unix__
+#elif defined(__unix__) || defined(__unix) || \
+    (defined(__APPLE__) && defined(__MACH__))
     #include <sys/time.h>  // timeval, gettimeofday
 #else
     #error "Unknown compiler"
@@ -122,7 +123,8 @@ double Timer::get_wall_time()
         return static_cast<double>(time.QuadPart) / \
                static_cast<double>(freq.QuadPart);
 
-    #elif __unix__
+    #elif defined(__unix__) || defined(__unix) || \
+        (defined(__APPLE__) && defined(__MACH__))
 
         struct timeval time;
         if (gettimeofday(&time, NULL))

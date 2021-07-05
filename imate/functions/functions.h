@@ -38,10 +38,11 @@ class Function
 {
     public:
         virtual ~Function();
-        virtual float function(const float lambda_) const;
-        virtual double function(const double lambda_) const;
-        virtual long double function(const long double lambda_) const;
+        virtual float function(const float lambda_) const = 0;
+        virtual double function(const double lambda_) const = 0;
+        virtual long double function(const long double lambda_) const = 0;
 };
+
 
 // ========
 // Identity
@@ -69,6 +70,7 @@ class Identity : public Function
         virtual long double function(const long double lambda_) const;
 };
 
+
 // =======
 // Inverse
 // =======
@@ -94,6 +96,7 @@ class Inverse : public Function
         virtual double function(const double lambda_) const;
         virtual long double function(const long double lambda_) const;
 };
+
 
 // =========
 // Logarithm
@@ -121,6 +124,7 @@ class Logarithm : public Function
         virtual long double function(const long double lambda_) const;
 };
 
+
 // ===========
 // Exponential
 // ===========
@@ -146,6 +150,7 @@ class Exponential : public Function
         virtual double function(const double lambda_) const;
         virtual long double function(const long double lambda_) const;
 };
+
 
 // =====
 // Power
@@ -176,6 +181,7 @@ class Power : public Function
         virtual long double function(const long double lambda_) const;
         double exponent;
 };
+
 
 // ========
 // Gaussian
@@ -212,6 +218,7 @@ class Gaussian : public Function
         double mu;
         double sigma;
 };
+
 
 // ===========
 // Smooth Step
@@ -250,5 +257,6 @@ class SmoothStep : public Function
         virtual long double function(const long double lambda_) const;
         double alpha;
 };
+
 
 #endif  // FUNCTIONS_FUNCTIONS_H_

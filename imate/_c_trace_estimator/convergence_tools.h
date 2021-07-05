@@ -41,7 +41,6 @@ class ConvergenceTools
         static FlagType check_convergence(
                 DataType** samples,
                 const IndexType min_num_samples,
-                const IndexType max_num_samples,
                 const IndexType num_inquiries,
                 const IndexType* processed_samples_indices,
                 const IndexType num_processed_samples,

@@ -132,7 +132,6 @@ class cMatrixOperations
                 const DataType* b,
                 const DataType alpha,
                 const LongIndexType num_rows,
-                const LongIndexType num_columns,
                 DataType* c);
 
         // CSC matvec
@@ -152,7 +151,6 @@ class cMatrixOperations
                 const LongIndexType* A_index_pointer,
                 const DataType* b,
                 const DataType alpha,
-                const LongIndexType num_rows,
                 const LongIndexType num_columns,
                 DataType* c);
 

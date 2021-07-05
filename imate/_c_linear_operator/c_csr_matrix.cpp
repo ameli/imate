@@ -207,7 +207,6 @@ void cCSRMatrix<DataType>::transpose_dot_plus(
             vector,
             alpha,
             this->num_rows,
-            this->num_columns,
             product);
 }
 

@@ -20,7 +20,8 @@
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && \
     !defined(__CYGWIN__)
     #include <windows.h>  // HMODULE, TEXT, LoadLibrary, GetProcAddress
-#elif __unix__
+#elif defined(__unix__) || defined(__unix) || \
+    (defined(__APPLE__) && defined(__MACH__))
     #include <dlfcn.h>  // dlopen, dlsym
 #else
     #error "Unknown compiler"
@@ -81,7 +82,8 @@ namespace dynamic_loading
     // get library handle (unix)
     // ==================
 
-    #if __unix__
+    #elif defined(__unix__) || defined(__unix) || \
+        (defined(__APPLE__) && defined(__MACH__))
         /// \brief     Loads a library and returns its handle. This function is
         ///            compiled only on unix-like compiler.
         ///
@@ -179,7 +181,8 @@ namespace dynamic_loading
                 throw std::runtime_error(message);
             }
 
-        #elif __unix__
+        #elif defined(__unix__) || defined(__unix) || \
+            (defined(__APPLE__) && defined(__MACH__))
 
             void* handle = get_library_handle_unix(lib_name);
             void* symbol = dlsym(handle, symbol_name);

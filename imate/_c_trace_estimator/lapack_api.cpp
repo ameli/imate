@@ -68,6 +68,9 @@ void lapack_xstev<long double>(char* jobz, int* n, long double* d,
                                long double* e, long double* z, int* ldz,
                                long double* work, int* info)
 {
+    // Mark unused variables to avoid compiler warnings (-Wno-unused-parameter)
+    (void) work;
+
     // Deep copy long double diagonal array to double
     double *d_ = new double[(*n)];
     for (int i=0; i < (*n); ++i)
@@ -166,6 +169,10 @@ void lapack_xbdsdc<long double>(char* uplo, char* compq, int* n,
                                 long double* q, int* iq, long double* work,
                                 int* iwork, int* info)
 {
+    // Mark unused variables to avoid compiler warnings (-Wno-unused-parameter)
+    (void) q;
+    (void) work;
+
     // Deep copy long double diagonal array to double
     double *d_ = new double[(*n)];
     for (int i=0; i < (*n); ++i)

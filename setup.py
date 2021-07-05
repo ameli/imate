@@ -778,7 +778,8 @@ class CustomBuildExtension(build_ext):
 
             # The compile_type is 'unix'. This is either linux or mac.
             # We add common flags that work both for gcc and mac's clang
-            extra_compile_args += ['-O3', '-fno-stack-protector', '-Wall']
+            extra_compile_args += ['-O3', '-fno-stack-protector', '-Wall',
+                                   '-Wextra']
 
             # The option '-Wl, ..' will send arguments to the linker. Here,
             # '--strip-all' will remove all symbols from the shared library.
@@ -1355,6 +1356,7 @@ def main(argv):
                                                '_cu_linear_operator',
                                                '_c_linear_operator',
                                                '_cuda_utilities',
+                                               '_utilities',
                                                '_cu_basic_algebra',
                                                '_c_basic_algebra']))
 

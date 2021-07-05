@@ -529,8 +529,6 @@ void cMatrixOperations<DataType>::csr_transposed_matvec(
 /// \param[in]     num_rows
 ///                Number of rows of the matrix \c A. This is essentially the
 ///                size of \c A_index_pointer array minus one.
-/// \param[in]     num_columns
-///                Number of columns of the matrix \c A.
 /// \param[in,out] c
 ///                Output column vector with the same size as \c b. This array
 ///                is written in-place.
@@ -543,7 +541,6 @@ void cMatrixOperations<DataType>::csr_transposed_matvec_plus(
         const DataType* b,
         const DataType alpha,
         const LongIndexType num_rows,
-        const LongIndexType num_columns,
         DataType* c)
 {
     if (alpha == 0.0)
@@ -658,8 +655,6 @@ void cMatrixOperations<DataType>::csc_matvec(
 ///                \c A.
 /// \param[in]     alpha
 ///                A scalar that scales the matrix vector multiplication.
-/// \param[in]     num_rows
-///                Number of rows of the matrix \c A.
 /// \param[in]     num_columns
 ///                Number of columns of the matrix \c A. This is essentially
 ///                the size of \c A_index_pointer array minus one.
@@ -674,7 +669,6 @@ void cMatrixOperations<DataType>::csc_matvec_plus(
         const LongIndexType* A_index_pointer,
         const DataType* b,
         const DataType alpha,
-        const LongIndexType num_rows,
         const LongIndexType num_columns,
         DataType* c)
 {

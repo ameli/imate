@@ -22,7 +22,6 @@
 
 #include "./functions.h"
 #include <cmath>  // log, exp, pow, tanh, M_SQRT1_2, M_2_SQRTPI, NAN
-#include <cassert>  // assert
 
 
 // ===================
@@ -34,54 +33,6 @@
 
 Function::~Function()
 {
-}
-
-
-// =================
-// Function function (float)
-// =================
-
-/// \param[in] lambda_
-///            Eigenvalue (or singular value) of matrix.
-/// \return    The value of matrix function for the given eigenvalue.
-
-float Function::function(const float lambda_) const
-{
-    assert(false && "The function of 'float' type should be implemented by "
-           "the user before calling this function.");
-    return NAN;
-}
-
-
-// =================
-// Function function (double)
-// =================
-
-/// \param[in] lambda_
-///            Eigenvalue (or singular value) of matrix.
-/// \return    The value of matrix function for the given eigenvalue.
-
-double Function::function(const double lambda_) const
-{
-    assert(false && "The function of 'double' type should be implemented by "
-           "the user before calling this function.");
-    return NAN;
-}
-
-
-// =================
-// Function function (long double)
-// =================
-
-/// \param[in] lambda_
-///            Eigenvalue (or singular value) of matrix.
-/// \return    The value of matrix function for the given eigenvalue.
-
-long double Function::function(const long double lambda_) const
-{
-    assert(false && "The function of 'long double' type should be implemented "
-           "by the user before calling this function.");
-    return NAN;
 }
 
 

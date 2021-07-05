@@ -167,7 +167,6 @@ void cCSCMatrix<DataType>::dot_plus(
             this->A_index_pointer,
             vector,
             alpha,
-            this->num_rows,
             this->num_columns,
             product);
 }
