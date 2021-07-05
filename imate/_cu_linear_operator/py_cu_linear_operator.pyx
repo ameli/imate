@@ -13,7 +13,6 @@
 
 import numpy
 from libc.stdlib cimport exit
-from libc.stdio cimport printf
 
 from .._definitions.types cimport DataType, IndexType, LongIndexType, FlagType
 from .cu_linear_operator cimport cuLinearOperator

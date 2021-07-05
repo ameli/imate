@@ -188,4 +188,5 @@ jobs:
             - name: Test
               run: |
                   mv imate imate-DoNotImport
+                  rm tests/test_cu_linear_operator.py  # this raises ImportError
                   pytest

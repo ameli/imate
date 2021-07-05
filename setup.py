@@ -553,7 +553,7 @@ def customize_windows_compiler_for_nvcc(self, cuda):
                     raise CompileError(msg)
                 continue
             elif ext in ['.cu']:
-                # Adding this elif condtion to avoid the else statement below
+                # Adding this elif condition to avoid the else statement below
                 pass
             else:
                 # how to handle this file?
@@ -1445,7 +1445,9 @@ def main(argv):
             ]
         },
         classifiers=[
+            'Programming Language :: C++',
             'Programming Language :: Cython',
+            'Programming Language :: Python',
             'Programming Language :: Python :: 3.6',
             'Programming Language :: Python :: 3.7',
             'Programming Language :: Python :: 3.8',
@@ -1462,6 +1464,9 @@ def main(argv):
             'Intended Audience :: Developers',
             'Topic :: Software Development',
             'Topic :: Software Development :: Libraries :: Python Modules',
+            'Topic :: Scientific/Engineering',
+            'Topic :: Scientific/Engineering :: Mathematics',
+            'Topic :: Scientific/Engineering :: Artificial Intelligence',
         ],
     )
 
