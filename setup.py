@@ -1323,7 +1323,8 @@ def main(argv):
                                        other_source_dirs=[
                                            '_c_linear_operator',
                                            '_c_basic_algebra',
-                                           '_random_generator']))
+                                           '_random_generator',
+                                           '_utilities']))
 
     extensions.append(create_extension(package_name, '_random_generator'))
 

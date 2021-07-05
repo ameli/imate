@@ -43,4 +43,4 @@ cpdef FlagType pycu_trace_estimator(
         num_samples_used,
         num_outliers,
         converged,
-        gpu_proc_times) except *
+        alg_wall_times) except *

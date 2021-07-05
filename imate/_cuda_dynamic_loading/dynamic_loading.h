@@ -36,6 +36,44 @@
 /// \namespace dynamic_loading
 ///
 /// \brief     Dynamic loading of shared libraries using \c dlopen tool.
+///
+/// \details   The dynamic loading is compiled with \c CUDA_DYNAMIC_LOADING set
+///            to \c 1. When enabeld, the CUDA libraries are loaded at the run-
+///            time. This method has an advantage and a disadvatage:
+///
+///            * Advantage: when dynamic loading is enabled, this package can
+///              be distributed withoput bundling the large cuda libraris.
+///              That is, when the wheel of this package is repaired with
+///              \c auditwheel tool in manylinux platform, the cuda libraries
+///              will not be bundled to the wheel, so the size of the wheel
+///              does not increase. In contrast, if this package is not
+///              compiled with dynamic loading, the cuda \c *.so (or \c *.dll)
+///              shared library files will be bundled with the wheel and
+///              increase the size of the wheel upto 400MB. Such a large wheel
+///              file cannot be uploaded to PyPi due to the 100MB size limit.
+///              But with dynamic loading, the package requires these libraries
+///              only at the run-time, not at the compile time.
+///            * Disadvantage: The end-user must install the *same* cuda
+///              version that this package is compiled with. For example, if
+///              this package is compiled with cuda 11.x, the user must install
+///              cuda 11.x (such as 11.0, 11.1, etc), but not cuda 10.x.
+///
+///            The run time with/withput dynamic loading is the same. That is,
+///            using the dynamic loading doesn't affect the performance at all.
+///
+///            The functions in this namespace load any generic libraries.
+///            We use them to load \c libcudart, \c libcublas, and \c
+///            libcusparse.
+///
+/// \note      When this package is compiled with dynamic loading enabled, make
+///            sure that cuda toolkit is available at run-time. For instance
+///            on a linux cluster, run:
+///
+///                module load cuda
+///
+/// \s         cudartSymbols,
+///            cublasSymbols,
+///            cusparseSymbols
 
 namespace dynamic_loading
 {

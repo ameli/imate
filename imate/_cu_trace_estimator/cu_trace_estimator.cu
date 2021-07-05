@@ -169,10 +169,9 @@
 ///             to the tolerance criteria. Normally, if the \c num_samples used
 ///             is less than \c max_num_samples, it indicates that the
 ///             convergence has reached.
-/// \param[out] gpu_proc_time
-///             The process time that the gpu computation takes. This is
-///             essentially the *wall time* of the portion of the code that is
-///             executed by gpu.
+/// \param[out] alg_wall_time
+///             The elapsed time that takes for the SLQ algorithm. This does
+///             not include array allocation/deallocation.
 /// \return     A signal to indicate the status of computation:
 ///             * \c 1 indicates successful convergence within the given
 ///               tolerances was met. Convergence is achieved when all elements
@@ -207,7 +206,7 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
         IndexType* num_samples_used,
         IndexType* num_outliers,
         FlagType* converged,
-        float& gpu_proc_time)
+        float& alg_wall_time)
 {
     // Matrix size
     IndexType matrix_size = A->get_num_rows();
@@ -243,7 +242,7 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
         chunk_size = 1;
     }
 
-    // Timing process on gpu
+    // Timing elapsed time of algorithm
     CudaTimer cuda_timer;
     cuda_timer.start();
 
@@ -285,9 +284,9 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
         }
     }
 
-    // Cuda elapsed time. Note this is essentally the same as cpu wall time
+    // Elapsed wall time of the algorithm (computation only, not array i/o)
     cuda_timer.stop();
-    gpu_proc_time = cuda_timer.elapsed();
+    alg_wall_time = cuda_timer.elapsed();
 
     // Remove outliers from trace estimates and average trace estimates
     ConvergenceTools<DataType>::average_estimates(

@@ -22,6 +22,7 @@
 #include "../_random_generator/random_array_generator.h"  // RandomArrayGene...
 #include "./diagonalization.h"  // Diagonalization
 #include "./convergence_tools.h"  // check_convergence, average_estimates
+#include "../_utilities/timer.h"  // Timer
 
 
 // =================
@@ -167,6 +168,9 @@
 ///             to the tolerance criteria. Normally, if the \c num_samples used
 ///             is less than \c max_num_samples, it indicates that the
 ///             convergence has reached.
+/// \param[out] alg_wall_time
+///             The elapsed time that takes for the SLQ algorithm. This does
+///             not include array allocation/deallocation.
 /// \return     A signal to indicate the status of computation:
 ///             * \c 1 indicates successful convergence within the given
 ///               tolerances was met. Convergence is achieved when all elements
@@ -199,7 +203,8 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
         IndexType* processed_samples_indices,
         IndexType* num_samples_used,
         IndexType* num_outliers,
-        FlagType* converged)
+        FlagType* converged,
+        float& alg_wall_time)
 {
     // Matrix size
     IndexType matrix_size = A->get_num_rows();
@@ -234,6 +239,10 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
     {
         chunk_size = 1;
     }
+
+    // Timing elapsed time of algorithm
+    Timer timer;
+    timer.start();
 
     // Shared-memory parallelism over Monte-Carlo ensemble sampling
     IndexType i;
@@ -270,6 +279,10 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
             }
         }
     }
+
+    // Elapsed wall time of the algorithm (computation only, not array i/o)
+    timer.stop();
+    alg_wall_time = timer.elapsed();
 
     // Remove outliers from trace estimates and average trace estimates
     ConvergenceTools<DataType>::average_estimates(

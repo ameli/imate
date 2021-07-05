@@ -50,4 +50,4 @@ cdef extern from "cu_trace_estimator.h":
                 IndexType* num_samples_used,
                 IndexType* num_outliers,
                 FlagType* converged,
-                float& gpu_proc_time) nogil
+                float& alg_wall_time) nogil

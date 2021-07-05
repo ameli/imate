@@ -33,8 +33,16 @@
 /// \class cusparseSymbols
 ///
 /// \brief A static container to store symbols of loaded cusparse library.
+/// 
+/// \note      When this package is compiled with dynamic loading enabled, make
+///            sure that cuda toolkit is available at run-time. For instance
+///            on a linux cluster, run:
 ///
-/// \sa    cublasSymbols
+///                module load cuda
+///
+/// \sa    dynamic_loading
+///        cublasSymbols,
+///        cudartSymbols
 
 class cusparseSymbols
 {

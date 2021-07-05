@@ -60,11 +60,13 @@ cpdef FlagType pyc_trace_estimator(
         processed_samples_indices,
         num_samples_used,
         num_outliers,
-        converged) except *:
+        converged,
+        alg_wall_times) except *:
     """
     """
 
     cdef FlagType all_converged = 0
+    cdef float alg_wall_time = 0.0
 
     if data_type_name == b'float32':
 
@@ -91,7 +93,8 @@ cpdef FlagType pyc_trace_estimator(
             processed_samples_indices,
             num_samples_used,
             num_outliers,
-            converged)
+            converged,
+            alg_wall_time)
 
     elif data_type_name == b'float64':
 
@@ -118,7 +121,8 @@ cpdef FlagType pyc_trace_estimator(
             processed_samples_indices,
             num_samples_used,
             num_outliers,
-            converged)
+            converged,
+            alg_wall_time)
 
     elif data_type_name == b'float128':
 
@@ -145,11 +149,15 @@ cpdef FlagType pyc_trace_estimator(
             processed_samples_indices,
             num_samples_used,
             num_outliers,
-            converged)
+            converged,
+            alg_wall_time)
 
     else:
         raise TypeError('Data type should be "float32", "float64", or ' +
                         '"float128".')
+
+    # Return gpu proc time via a numpy array of size 1
+    alg_wall_times[0] = alg_wall_time
 
     return all_converged
 
@@ -181,7 +189,8 @@ cdef FlagType _pyc_trace_estimator_float(
         MemoryViewIndexType processed_samples_indices,
         MemoryViewIndexType num_samples_used,
         MemoryViewIndexType num_outliers,
-        MemoryViewFlagType converged) except *:
+        MemoryViewFlagType converged,
+        float& alg_wall_time) except *:
     """
     """
 
@@ -249,7 +258,8 @@ cdef FlagType _pyc_trace_estimator_float(
             c_processed_samples_indices,
             c_num_samples_used,
             c_num_outliers,
-            c_converged)
+            c_converged,
+            alg_wall_time)
 
     # Write the processed samples to samples to a numpy array. The unprocessed
     # elements of samples array is nan.
@@ -294,7 +304,8 @@ cdef FlagType _pyc_trace_estimator_double(
         MemoryViewIndexType processed_samples_indices,
         MemoryViewIndexType num_samples_used,
         MemoryViewIndexType num_outliers,
-        MemoryViewFlagType converged) except *:
+        MemoryViewFlagType converged,
+        float& alg_wall_time) except *:
     """
     """
 
@@ -362,7 +373,8 @@ cdef FlagType _pyc_trace_estimator_double(
             c_processed_samples_indices,
             c_num_samples_used,
             c_num_outliers,
-            c_converged)
+            c_converged,
+            alg_wall_time)
 
     # Write the processed samples to samples to a numpy array. The unprocessed
     # elements of samples array is nan.
@@ -407,7 +419,8 @@ cdef FlagType _pyc_trace_estimator_long_double(
         MemoryViewIndexType processed_samples_indices,
         MemoryViewIndexType num_samples_used,
         MemoryViewIndexType num_outliers,
-        MemoryViewFlagType converged) except *:
+        MemoryViewFlagType converged,
+        float& alg_wall_time) except *:
     """
     """
 
@@ -477,7 +490,8 @@ cdef FlagType _pyc_trace_estimator_long_double(
             c_processed_samples_indices,
             c_num_samples_used,
             c_num_outliers,
-            c_converged)
+            c_converged,
+            alg_wall_time)
 
     # Write the processed samples to samples to a numpy array. The unprocessed
     # elements of samples array is nan.

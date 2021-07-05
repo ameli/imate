@@ -175,7 +175,7 @@ cpdef trace_estimator(
     init_proc_time = time.process_time()
 
     cdef FlagType all_converged
-    gpu_proc_times = numpy.zeros((1, ), dtype=float)
+    alg_wall_times = numpy.zeros((1, ), dtype=float)
 
     if gpu:
 
@@ -234,7 +234,7 @@ cpdef trace_estimator(
             num_samples_used,
             num_outliers,
             converged,
-            gpu_proc_times)
+            alg_wall_times)
 
     else:
 
@@ -266,10 +266,11 @@ cpdef trace_estimator(
             processed_samples_indices,
             num_samples_used,
             num_outliers,
-            converged)
+            converged,
+            alg_wall_times)
 
-    wall_time = time.perf_counter() - init_wall_time
-    proc_time = time.process_time() - init_proc_time
+    tot_wall_time = time.perf_counter() - init_wall_time
+    cpu_proc_time = time.process_time() - init_proc_time
 
     # Dictionary of output info
     info = {
@@ -303,19 +304,19 @@ cpdef trace_estimator(
             'samples_mean': None,
             'samples_processed_order': processed_samples_indices
         },
-        'cpu':
+        'time':
         {
-            'wall_time': wall_time,
-            'proc_time': proc_time,
-            'num_threads': num_threads,
+            'tot_wall_time': tot_wall_time,
+            'alg_wall_time': alg_wall_times[0],
+            'cpu_proc_time': cpu_proc_time
         },
-        'gpu':
+        'device':
         {
+            'num_cpu_threads': num_threads,
             'num_gpu_devices': num_gpu_devices,
             'num_gpu_multiprocessors': num_gpu_multiprocessors,
             'num_gpu_threads_per_multiprocessor':
-                num_gpu_threads_per_multiprocessor,
-            'proc_time': gpu_proc_times[0]
+                num_gpu_threads_per_multiprocessor
         },
         'solver':
         {

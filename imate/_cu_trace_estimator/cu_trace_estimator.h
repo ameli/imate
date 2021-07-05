@@ -66,7 +66,7 @@ class cuTraceEstimator
                 IndexType* num_samples_used,
                 IndexType* num_outliers,
                 FlagType* converged,
-                float& gpu_proc_time);
+                float& alg_wall_time);
 
     private:
 

@@ -64,7 +64,8 @@ class cTraceEstimator
                 IndexType* processed_samples_indices,
                 IndexType* num_samples_used,
                 IndexType* num_outliers,
-                FlagType* converged);
+                FlagType* converged,
+                float& alg_wall_time);
 
     private:
 

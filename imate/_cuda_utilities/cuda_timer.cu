@@ -34,7 +34,7 @@ CudaTimer::CudaTimer()
 // Destructor
 // ==========
 
-/// \brief Destructor for \c CudaTiemr
+/// \brief Destructor for \c CudaTimer
 ///
 
 CudaTimer::~CudaTimer()

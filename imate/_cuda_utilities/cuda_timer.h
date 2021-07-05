@@ -8,6 +8,7 @@
  *  directory of this source tree.
  */
 
+
 #ifndef _CUDA_UTILITIES_CUDA_TIMER_H_
 #define _CUDA_UTILITIES_CUDA_TIMER_H_
 
@@ -21,11 +22,11 @@
                                // cudaEventSynchronize, cudaEventElapsedTime
 
 
-// ============
-// Declarations
-// ============
+// ==========
+// Cuda Timer
+// ==========
 
-/// \class    CudaTime
+/// \class    CudaTimer
 ///
 /// \brief    Records elasped time between two CUDA events.
 ///
@@ -54,6 +55,8 @@
 ///
 ///               cuda_timer.stop();
 ///               float elapsed_time = cuda_timer.elapsed();
+///
+/// \sa       Timer
 
 class CudaTimer
 {

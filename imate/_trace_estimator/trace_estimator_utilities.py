@@ -395,17 +395,17 @@ def print_summary(info):
     converged = info['convergence']['converged']
     trace = info['convergence']['samples_mean']
 
-    # cpu info
-    wall_time = info['cpu']['wall_time']
-    cpu_proc_time = info['cpu']['proc_time']
-    num_cpu_threads = info['cpu']['num_threads']
+    # time
+    tot_wall_time = info['time']['tot_wall_time']
+    alg_wall_time = info['time']['alg_wall_time']
+    cpu_proc_time = info['time']['cpu_proc_time']
 
-    # gpu info
-    num_gpu_devices = info['gpu']['num_gpu_devices']
-    num_gpu_multiprocessors = info['gpu']['num_gpu_multiprocessors']
+    # device
+    num_cpu_threads = info['device']['num_cpu_threads']
+    num_gpu_devices = info['device']['num_gpu_devices']
+    num_gpu_multiprocessors = info['device']['num_gpu_multiprocessors']
     num_gpu_threads_per_multiprocessor = \
-        info['gpu']['num_gpu_threads_per_multiprocessor']
-    gpu_proc_time = info['gpu']['proc_time']
+        info['device']['num_gpu_threads_per_multiprocessor']
 
     # Solver info
     lanczos_degree = info['solver']['lanczos_degree']
@@ -529,17 +529,16 @@ def print_summary(info):
           '             ')
     print('=================================================================' +
           '=============')
-    print('                 cpu                                      gpu    ' +
-          '             ')
+    print('                 time                                   device   ' +
+          '               ')
     print('-------------------------------------    ------------------------' +
           '-------------')
-    print('num threads:                      %3d' % num_cpu_threads,
-          end="    ")
-    print('num threads per multiprocessor:  %4d'
-          % num_gpu_threads_per_multiprocessor)
-    print('wall time (sec):            %8.3e' % wall_time, end="    ")
-    print('num devices, multiprocessors:  %2d, %2d'
+    print('tot wall time (sec):        %8.3e' % tot_wall_time, end="    ")
+    print('num cpu threads:                  %3d' % num_cpu_threads)
+    print('alg wall time (sec):        %8.3e' % alg_wall_time, end="    ")
+    print('num gpu devices, multiproc:    %2d, %2d'
           % (num_gpu_devices, num_gpu_multiprocessors))
-    print('proc time (sec):            %8.3e' % cpu_proc_time, end="    ")
-    print('proc time (sec):            %8.3e' % gpu_proc_time)
+    print('cpu proc time (sec):        %8.3e' % cpu_proc_time, end="    ")
+    print('num gpu threads per multiproc:   %4d'
+          % num_gpu_threads_per_multiprocessor)
     print('')

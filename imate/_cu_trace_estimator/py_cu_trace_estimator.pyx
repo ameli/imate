@@ -59,12 +59,12 @@ cpdef FlagType pycu_trace_estimator(
         num_samples_used,
         num_outliers,
         converged,
-        gpu_proc_times) except *:
+        alg_wall_times) except *:
     """
     """
 
     cdef FlagType all_converged = 0
-    cdef float gpu_proc_time = 0.0
+    cdef float alg_wall_time = 0.0
 
     if data_type_name == b'float32':
 
@@ -93,7 +93,7 @@ cpdef FlagType pycu_trace_estimator(
             num_samples_used,
             num_outliers,
             converged,
-            gpu_proc_time)
+            alg_wall_time)
 
     elif data_type_name == b'float64':
 
@@ -122,14 +122,14 @@ cpdef FlagType pycu_trace_estimator(
             num_samples_used,
             num_outliers,
             converged,
-            gpu_proc_time)
+            alg_wall_time)
 
     else:
         raise TypeError('Data type when gpu is enabled should be "float32"' +
                         'or "float64"')
 
     # Return gpu proc time via a numpy array of size 1
-    gpu_proc_times[0] = gpu_proc_time
+    alg_wall_times[0] = alg_wall_time
 
     return all_converged
 
@@ -163,7 +163,7 @@ cdef FlagType _pycu_trace_estimator_float(
         MemoryViewIndexType num_samples_used,
         MemoryViewIndexType num_outliers,
         MemoryViewFlagType converged,
-        float& gpu_proc_time) except *:
+        float& alg_wall_time) except *:
     """
     """
 
@@ -233,7 +233,7 @@ cdef FlagType _pycu_trace_estimator_float(
             c_num_samples_used,
             c_num_outliers,
             c_converged,
-            gpu_proc_time)
+            alg_wall_time)
 
     # Write the processed samples to samples to a numpy array. The unprocessed
     # elements of samples array is nan.
@@ -280,7 +280,7 @@ cdef FlagType _pycu_trace_estimator_double(
         MemoryViewIndexType num_samples_used,
         MemoryViewIndexType num_outliers,
         MemoryViewFlagType converged,
-        float& gpu_proc_time) except *:
+        float& alg_wall_time) except *:
     """
     """
 
@@ -351,7 +351,7 @@ cdef FlagType _pycu_trace_estimator_double(
             c_num_samples_used,
             c_num_outliers,
             c_converged,
-            gpu_proc_time)
+            alg_wall_time)
 
     # Write the processed samples to samples to a numpy array. The unprocessed
     # elements of samples array is nan.
