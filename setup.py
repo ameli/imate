@@ -95,7 +95,7 @@ except ImportError:
 
 
 # =========================
-# Get environment variables
+# get environment variables
 # =========================
 
 """
@@ -591,7 +591,7 @@ def customize_windows_compiler_for_nvcc(self, cuda):
 
 
 # =======================
-# Check Compiler Has Flag
+# check compiler has flag
 # =======================
 
 def check_compiler_has_flag(compiler, compile_flags, link_flags):
