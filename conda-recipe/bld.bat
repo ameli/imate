@@ -40,7 +40,6 @@ for /R %root_dir% %%i in (*.whl) do (
 			if "!platform_matched!"=="true" (
 
 				echo Try installing %%i for python version %python_version%
-                rem python -m pip install --upgrade pip
                 python -m pip install --force-reinstall %%i --verbose
 
 				rem Check last error
