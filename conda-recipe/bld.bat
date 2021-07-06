@@ -1,4 +1,4 @@
-@echo off
+rem @echo off
 setlocal EnableDelayedExpansion
 
 rem Get Python major and minor version
@@ -39,7 +39,7 @@ for /R %root_dir% %%i in (*.whl) do (
 		if "!python_version_matched!"=="true" (
 			if "!platform_matched!"=="true" (
 
-				echo Try installing %%i
+				echo Try installing %%i for python version %python_version%
                 rem python -m pip install --upgrade pip
                 python -m pip install --force-reinstall %%i --verbose
 
