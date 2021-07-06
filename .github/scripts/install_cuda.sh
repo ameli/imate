@@ -13,7 +13,7 @@ set -e
 set -x
 
 # VERSION=11-3
-VERSION=10-2
+VERSION=10-1
 ARCH=x86_64
 
 yum install -y yum-utils
