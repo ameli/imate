@@ -1,4 +1,4 @@
-rem @echo off
+@echo off
 setlocal EnableDelayedExpansion
 
 rem Get Python major and minor version
@@ -6,7 +6,7 @@ for /f %%i in ('python -c "import sys; print(sys.version_info.major)"') do set p
 for /f %%i in ('python -c "import sys; print(sys.version_info.minor)"') do set python_version_minor=%%i
 
 rem Concatenate major and minor versions
-set python_version="%python_version_major%%python_version_minor%"
+set python_version="cp%python_version_major%%python_version_minor%"
 
 rem Platform
 set platform="win"

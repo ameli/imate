@@ -6,7 +6,7 @@ set -x
 # Get python version
 python_version_major=`python -c 'import sys; print(sys.version_info.major)'`
 python_version_minor=`python -c 'import sys; print(sys.version_info.minor)'`
-python_version="${python_version_major}${python_version_minor}"
+python_version="cp${python_version_major}${python_version_minor}"
 
 # Detect operating system
 os=`uname`;
