@@ -64,18 +64,18 @@ std::string cublasSymbols::get_lib_name()
     #endif
 
     // Check cublas version
-    // #ifndef CUBLAS_VER_MAJOR
-    //     #error "CUBLAS_VER_MAJOR is not defined."
-    // #endif
+    #ifndef CUBLAS_VER_MAJOR
+        #error "CUBLAS_VER_MAJOR is not defined."
+    #endif
 
     // cublas shared library base name
     std::string lib_base_name = "libcublas";
 
     // Construct the lib name
     std::ostringstream oss;
-    oss << lib_base_name << "." << lib_extension;
-    // oss << lib_base_name << "." << lib_extension << "."
-    //     << CUBLAS_VER_MAJOR;
+    // oss << lib_base_name << "." << lib_extension;
+    oss << lib_base_name << "." << lib_extension << "." \
+        << CUBLAS_VER_MAJOR;
 
     std::string lib_name = oss.str();
     return lib_name;

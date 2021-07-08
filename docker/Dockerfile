@@ -49,6 +49,10 @@ RUN apt-get update && \
         libcusparse-11-4 \
         python3-pip \
         libgomp1 \
+        libsuitesparse-dev \
+        vim \
+        texlive-latex-recommended \
+        cm-super \
         && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -62,6 +66,12 @@ RUN rm /tmp/*.whl
 # Create a startup file to auto-import package when python starts
 RUN echo "import imate" > /home/.start_python.py
 ENV PYTHONSTARTUP=/home/.start_python.py
+ENV PATH=$PATH:/usr/bin/
+RUN /usr/bin/python3 -m pip install --upgrade pip ipython jupyter
+
+# Change working directory for entrypoint
+VOLUME ["/root"]
+WORKDIR /root
 
 # ENTRYPOINT ["/bin/bash"]
 CMD ["/usr/bin/python3"]

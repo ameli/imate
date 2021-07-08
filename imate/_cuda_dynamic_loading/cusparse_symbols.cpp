@@ -58,18 +58,18 @@ std::string cusparseSymbols::get_lib_name()
     #endif
 
     // Check cusparse version
-    // #ifndef CUSPARSE_VER_MAJOR
-    //     #error "CUSPARSE_VER_MAJOR is not defined."
-    // #endif
+    #ifndef CUSPARSE_VER_MAJOR
+        #error "CUSPARSE_VER_MAJOR is not defined."
+    #endif
 
     // cusparse shared library base name
     std::string lib_base_name = "libcusparse";
 
     // Construct the lib name
     std::ostringstream oss;
-    oss << lib_base_name << "." << lib_extension;
-    // oss << lib_base_name << "." << lib_extension << "."
-    //     << CUSPARSE_VER_MAJOR;
+    // oss << lib_base_name << "." << lib_extension;
+    oss << lib_base_name << "." << lib_extension << "." \
+        << CUSPARSE_VER_MAJOR;
 
     std::string lib_name = oss.str();
 
