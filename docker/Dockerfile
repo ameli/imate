@@ -44,6 +44,7 @@ FROM nvidia/cuda:11.2.2-base-ubuntu20.04
 # Install python3 and libcudablas, libcusparse, since they are not in the NVIDA
 # cuda's "base" image.
 RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive \
     apt-get install -y --no-install-recommends \
         libcublas-11-4 \
         libcusparse-11-4 \
