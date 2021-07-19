@@ -14,6 +14,7 @@
 # Python
 import numpy
 import time
+from scipy.sparse import isspmatrix
 from .trace_estimator_plot_utilities import plot_convergence
 from .trace_estimator_utilities import get_operator, \
         get_operator_parameters, check_arguments, get_machine_precision, \
@@ -272,12 +273,27 @@ cpdef trace_estimator(
     tot_wall_time = time.perf_counter() - init_wall_time
     cpu_proc_time = time.process_time() - init_proc_time
 
+    # Matrix size info
+    matrix_size = A.shape[0]
+    if isspmatrix(A):
+        matrix_nnz = A.nnz
+        matrix_density = matrix_nnz / matrix_size**2
+        sparse = True
+    else:
+        matrix_nnz = matrix_size **2
+        matrix_density = 1.0
+        sparse = False
+
     # Dictionary of output info
     info = {
         'matrix':
         {
             'data_type': data_type_name,
             'symmetric': symmetric,
+            'size': matrix_size,
+            'sparse': sparse,
+            'nnz': matrix_nnz,
+            'density': matrix_density,
             'num_inquiries': num_inquiries,
             'num_operator_parameters': Aop.get_num_parameters(),
             'parameters': parameters

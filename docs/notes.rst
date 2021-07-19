@@ -101,6 +101,58 @@ Some notes to myself when completing the documentation later.
   225M libcusparse-aae971d3.so.11.6.0.109   <<< large
   165K libgomp-a34b3233.so.1.0.0
 
+* Anaconda wheels are build without dynamic loading (so the wheels bundle the
+  cuda libraries). PyPi wheels are build with dynamic loading (so the wheels
+  do not bundle with cuda libraries). In the following, I only talk about
+  dynamic loading, meaning that only those wheels uploaded to PyPi.
+  
+  With dynamic loading (pypi wheels), the running machine should have the exact
+  same CUDA version as the build machine. I thought this version match is only
+  for the "major" cuda version. But apparently, the "minor" version should also
+  match. For example, if the manylinux wheel is compiled on CUDA 10.2, it can
+  only run on CUDA 10.2, but not 11, or even 10.1. I did not expect the later,
+  since both 10.2 and 10.1 have the same SONAME (lib ABI), which is 10.
+
+  Version 10.0 is quite different story, since it does not have the LT libs,
+  such as libcublasLt.so. So, it make sense that it wheel build on 10.2 cannot
+  run on 10.0.
+
+  For 10.1, I get the some std::logic_error about some return string is NULL.
+  I suspect this is one of the functions in _cuda_dynamic_loading/*.cpp.
+
+* Anaconda wheels are build without dynamic loading, so they bundle with the
+  cuda libraries. But, they still do not work fine. Here is how.
+
+  An anaconda wheel that was built on cuda 10.2, can run fine on savio when
+  cuda module is not loaded, or loaded. 
+
+  An anaconda wheel that was built on cuda 11, can NOT run on savio when
+  cuda module is not loaded, or loaded. I did not excpet this, since it should
+  run without needing to load any module in savio. Could this be the cuda
+  "driver"? Becase the device driver is not bundled with the wheel, and it
+  should be installed with the machine. Cuda driver 11 is not available on
+  savio.
+
+* Results between float32 and float64 differs on CPU (but not GPU). For the
+  matrix StocF-1465, we the traceinv result are:
+  float32: CPU: +1.361e+00, GPU: +3.574e+00
+  float64: CPU: +3.572e+00, GPU: +3.579e+00
+  Also, if I do astype(float64) on the 32-bit data, the 32-bit algorithm
+  results on CPU chages to +3.574e+00. Thus, it shows the 32-bit data on CPU is
+  not flawed, rather the CPU algorithm itelf has some issues.
+
+  Clearly 32-bit does not have enough prev=cision for large matrix-vector
+  operations. But why the GPU gets it right?
+
+  One possible explanation (which I found not to be the case) is that maybe it
+  actually casts the process to 64 bit, an that might be why 32-bit GPU is
+  actually 64-bit and gives right answers. But it turns out this is not the
+  case. Here is why:
+
+  The runtime of float64 is nearly twice the runtime of float32, either on CPU
+  or GPU. Thus, it shows the 32-bit algorithm on GPU actually does 32-bit
+  calculation, and not 64-bit.
+
 ====
 Name
 ====
@@ -120,6 +172,12 @@ TODO
 * Implement convergence for ``hutchinson`` method and use the same arguments
   that exists for ``slq`` method.
 * Put seaborn in try catch so it it is not installed, the package still work.
+* Check why flot32 bit on CPU gives wrong results, but on GPU the results are
+  correct. See details in one of the notes above.
+* Get memory usage info for GPU. See for example:
+  https://stackoverflow.com/questions/15966046/cudamemgetinfo-returns-same-amount-of-free-memory-on-both-devices-of-gtx-690
+* Test Queen_4147 data on 1080ti. The 64-bit and 32-bit version cannot run on
+  tesla K80, I guss due to memory limit.
 
 ========================
 Compile and Build Issues
@@ -186,12 +244,6 @@ PyPi
 
   - However, the best solution is to figure out why manylinux2014 appends
     so many cuda libraries to the package binary.
-
------
-Conda
------
-
-- For some reasosn, conda cannot build the package and this needs to be fixed.
 
 =====
 Ideas
@@ -290,3 +342,4 @@ Implementation Techniques
 - Lazy evaluation in linear operator and copy data to gpu device.
 - dynamic polymorphism to dispatch to linear operator derived classes.
 - Static template to support float, double, and long double data types.
+- Dynamic loading of CUDA libraries.

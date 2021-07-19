@@ -121,6 +121,26 @@ void cVectorOperations<DataType>::subtract_scaled_vector(
 
 /// \brief     Computes Euclidean inner product of two vectors.
 ///
+/// \details   The reduction variable (here, \c inner_prod ) is of the type
+///            \c{long double}. This is becase when \c DataType is \c float,
+///            the summation loses the precision, especially when the vector
+///            size is large. It seems that using \c{long double} is slightly
+///            faster than using \c double. The advantage of using a type
+///            with larger bits for the reduction variable is only sensible
+///            if the compiler is optimized with \c -O2 or \c -O3 flags.
+///
+///            Using a larger bit type for the reduction variable is very
+///            important for this function. If \c DataType is \c float,
+///            without such consideration, the result of estimation of trace
+///            can be completely wrong, just becase of the wrong inner product
+///            results. For large array sizes, even libraries such as openblas
+///            does not compute the dot product accurately.
+///
+///            The chunk computation of the dot product (as seen in the code
+///            with \c chunk=5) improves the preformance with gaining twice
+///            speedup. This result is not much dependet on \c chunk. For
+///            example, \c chunk=10 also yields a similar result.
+///
 /// \param[in] vector1
 ///            1D array
 /// \param[in] vector2
@@ -134,14 +154,25 @@ DataType cVectorOperations<DataType>::inner_product(
         const DataType* vector2,
         const LongIndexType vector_size)
 {
-    DataType inner_prod = 0.0;
+    long double inner_prod = 0.0;
+    LongIndexType chunk = 5;
+    LongIndexType vector_size_chunked = vector_size - (vector_size % chunk);
 
-    for (LongIndexType i=0; i < vector_size; ++i)
+    for (LongIndexType i=0; i < vector_size_chunked; i += chunk)
+    {
+        inner_prod += vector1[i] * vector2[i] +
+                      vector1[i+1] * vector2[i+1] +
+                      vector1[i+2] * vector2[i+2] +
+                      vector1[i+3] * vector2[i+3] +
+                      vector1[i+4] * vector2[i+4];
+    }
+
+    for (LongIndexType i=vector_size_chunked; i < vector_size; ++i)
     {
         inner_prod += vector1[i] * vector2[i];
     }
 
-    return inner_prod;
+    return static_cast<DataType>(inner_prod);
 }
 
 
@@ -150,6 +181,26 @@ DataType cVectorOperations<DataType>::inner_product(
 // ==============
 
 /// \brief     Computes the Euclidean norm of a 1D array.
+///
+/// \details   The reduction variable (here, \c inner_prod ) is of the type
+///            \c{long double}. This is becase when \c DataType is \c float,
+///            the summation loses the precision, especially when the vector
+///            size is large. It seems that using \c{long double} is slightly
+///            faster than using \c double. The advantage of using a type
+///            with larger bits for the reduction variable is only sensible
+///            if the compiler is optimized with \c -O2 or \c -O3 flags.
+///
+///            Using a larger bit type for the reduction variable is very
+///            important for this function. If \c DataType is \c float,
+///            without such consideration, the result of estimation of trace
+///            can be completely wrong, just becase of the wrong norm results.
+///            For large array sizes, even libraries such as openblas does not
+///            compute the dot product accurately.
+///
+///            The chunk computation of the dot product (as seen in the code
+///            with \c chunk=5) improves the preformance with gaining twice
+///            speedup. This result is not much dependet on \c chunk. For
+///            example, \c chunk=10 also yields a similar result.
 ///
 /// \param[in] vector
 ///            A pointer to 1D array
@@ -163,15 +214,26 @@ DataType cVectorOperations<DataType>::euclidean_norm(
         const LongIndexType vector_size)
 {
     // Compute norm squared
-    DataType norm2 = 0.0;
+    long double norm2 = 0.0;
+    LongIndexType chunk = 5;
+    LongIndexType vector_size_chunked = vector_size - (vector_size % chunk);
 
-    for (LongIndexType i=0; i < vector_size; ++i)
+    for (LongIndexType i=0; i < vector_size_chunked; i += chunk)
+    {
+        norm2 += vector[i] * vector[i] +
+                 vector[i+1] * vector[i+1] +
+                 vector[i+2] * vector[i+2] +
+                 vector[i+3] * vector[i+3] +
+                 vector[i+4] * vector[i+4];
+    }
+
+    for (LongIndexType i=vector_size_chunked; i < vector_size; ++i)
     {
         norm2 += vector[i] * vector[i];
     }
 
     // Norm
-    DataType norm = sqrt(norm2);
+    DataType norm = sqrt(static_cast<DataType>(norm2));
 
     return norm;
 }

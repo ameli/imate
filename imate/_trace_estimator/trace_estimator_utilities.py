@@ -458,7 +458,7 @@ def print_summary(info):
             else:
                 print('%+7.3e   ' % trace, end="")
             if numpy.isnan(absolute_error) or numpy.isinf(absolute_error):
-                print('%10e  ' % absolute_error, end="")
+                print('%9e  ' % absolute_error, end="")
             else:
                 print('%7.3e  ' % absolute_error, end="")
             if numpy.isnan(relative_error) or numpy.isinf(relative_error):
@@ -477,7 +477,7 @@ def print_summary(info):
                 print('%+7.3e   ' % trace[i], end="")
             if numpy.isnan(absolute_error[i]) or \
                numpy.isinf(absolute_error[i]):
-                print('%10e  ' % absolute_error[i], end="")
+                print('%9e  ' % absolute_error[i], end="")
             else:
                 print('%7.3e  ' % absolute_error[i], end="")
             if numpy.isnan(relative_error[i]) or \

@@ -24,6 +24,14 @@
 ///             \mathbf{A} \boldsymbol{b} \f$ where \f$ \mathbf{A} \f$ is a
 ///             dense matrix.
 ///
+/// \details    The reduction variable (here, \c sum ) is of the type
+///             \c{long double}. This is becase when \c DataType is \c float,
+///             the summation loses the precision, especially when the vector
+///             size is large. It seems that using \c{long double} is slightly
+///             faster than using \c double. The advantage of using a type
+///             with larger bits for the reduction variable is only sensible
+///             if the compiler is optimized with \c -O2 or \c -O3 flags.
+///
 /// \param[in]  A
 ///             1D array that represents a 2D dense array with either C (row)
 ///             major ordering or Fortran (column) major ordering. The major
@@ -53,7 +61,7 @@ void cMatrixOperations<DataType>::dense_matvec(
         DataType* c)
 {
     LongIndexType j;
-    DataType sum;
+    long double sum;
 
     // Determine major order of A
     if (A_is_row_major)
@@ -66,7 +74,7 @@ void cMatrixOperations<DataType>::dense_matvec(
             {
                 sum += A[i*num_columns + j] * b[j];
             }
-            c[i] = sum;
+            c[i] = static_cast<DataType>(sum);
         }
     }
     else
@@ -79,7 +87,7 @@ void cMatrixOperations<DataType>::dense_matvec(
             {
                 sum += A[i + num_rows*j] * b[j];
             }
-            c[i] = sum;
+            c[i] = static_cast<DataType>(sum);
         }
     }
 }
@@ -92,6 +100,15 @@ void cMatrixOperations<DataType>::dense_matvec(
 /// \brief         Computes the operation \f$ \boldsymbol{c} = \boldsymbol{c} +
 ///                \alpha \mathbf{A} \boldsymbol{b} \f$ where \f$ \mathbf{A}
 ///                \f$ is a dense matrix.
+///
+/// \details       The reduction variable (here, \c sum ) is of the type
+///                \c{long double}. This is becase when \c DataType is \c
+///                float the summation loses the precision, especially when the
+///                vector size is large. It seems that using \c{long double} is
+///                slightly faster than using \c double. The advantage of using
+///                a type with larger bits for the reduction variable is only
+///                sensible if the compiler is optimized with \c -O2 or \c -O3
+///                flags.
 ///
 /// \param[in]     A
 ///                1D array that represents a 2D dense array with either C
@@ -130,7 +147,7 @@ void cMatrixOperations<DataType>::dense_matvec_plus(
     }
 
     LongIndexType j;
-    DataType sum;
+    long double sum;
 
     // Determine major order of A
     if (A_is_row_major)
@@ -143,7 +160,7 @@ void cMatrixOperations<DataType>::dense_matvec_plus(
             {
                 sum += A[i*num_columns + j] * b[j];
             }
-            c[i] += alpha * sum;
+            c[i] += alpha * static_cast<DataType>(sum);
         }
     }
     else
@@ -156,7 +173,7 @@ void cMatrixOperations<DataType>::dense_matvec_plus(
             {
                 sum += A[i + num_rows*j] * b[j];
             }
-            c[i] += alpha * sum;
+            c[i] += alpha* static_cast<DataType>(sum);
         }
     }
 }
@@ -170,6 +187,14 @@ void cMatrixOperations<DataType>::dense_matvec_plus(
 ///             \mathbf{A}^{\intercal} \boldsymbol{b} \f$ where \f$ \mathbf{A}
 ///             \f$ is dense, and \f$ \mathbf{A}^{\intercal} \f$ is the
 ///             transpose of the matrix \f$ \mathbf{A} \f$.
+///
+/// \details    The reduction variable (here, \c sum ) is of the type
+///             \c{long double}. This is becase when \c DataType is \c float,
+///             the summation loses the precision, especially when the vector
+///             size is large. It seems that using \c{long double} is slightly
+///             faster than using \c double. The advantage of using a type
+///             with larger bits for the reduction variable is only sensible
+///             if the compiler is optimized with \c -O2 or \c -O3 flags.
 ///
 /// \param[in]  A
 ///             1D array that represents a 2D dense array with either C (row)
@@ -200,7 +225,7 @@ void cMatrixOperations<DataType>::dense_transposed_matvec(
         DataType* c)
 {
     LongIndexType i;
-    DataType sum;
+    long double sum;
 
     // Determine major order of A
     if (A_is_row_major)
@@ -213,7 +238,7 @@ void cMatrixOperations<DataType>::dense_transposed_matvec(
             {
                 sum += A[i*num_columns + j] * b[i];
             }
-            c[j] = sum;
+            c[j] = static_cast<DataType>(sum);
         }
     }
     else
@@ -226,7 +251,7 @@ void cMatrixOperations<DataType>::dense_transposed_matvec(
             {
                 sum += A[i + num_rows*j] * b[i];
             }
-            c[j] = sum;
+            c[j] = static_cast<DataType>(sum);
         }
     }
 }
@@ -240,6 +265,15 @@ void cMatrixOperations<DataType>::dense_transposed_matvec(
 ///                \mathbf{A}^{\intercal} \boldsymbol{b} \f$ where \f$
 ///                \mathbf{A} \f$ is dense, and \f$ \mathbf{A}^{\intercal} \f$
 ///                is the transpose of the matrix \f$ \mathbf{A} \f$.
+///
+/// \details       The reduction variable (here, \c sum ) is of the type
+///                \c{long double}. This is becase when \c DataType is \c
+///                float the summation loses the precision, especially when the
+///                vector size is large. It seems that using \c{long double} is
+///                slightly faster than using \c double. The advantage of using
+///                a type with larger bits for the reduction variable is only
+///                sensible if the compiler is optimized with \c -O2 or \c -O3
+///                flags.
 ///
 /// \param[in]     A
 ///                1D array that represents a 2D dense array with either C
@@ -278,7 +312,7 @@ void cMatrixOperations<DataType>::dense_transposed_matvec_plus(
     }
 
     LongIndexType i;
-    DataType sum;
+    long double sum;
 
     // Determine major order of A
     if (A_is_row_major)
@@ -291,7 +325,7 @@ void cMatrixOperations<DataType>::dense_transposed_matvec_plus(
             {
                 sum += A[i*num_columns + j] * b[i];
             }
-            c[j] += alpha * sum;
+            c[j] += alpha * static_cast<DataType>(sum);
         }
     }
     else
@@ -304,7 +338,7 @@ void cMatrixOperations<DataType>::dense_transposed_matvec_plus(
             {
                 sum += A[i + num_rows*j] * b[i];
             }
-            c[j] += alpha * sum;
+            c[j] += alpha * static_cast<DataType>(sum);
         }
     }
 }
@@ -318,6 +352,14 @@ void cMatrixOperations<DataType>::dense_transposed_matvec_plus(
 ///             where \f$ \mathbf{A}\ f$ is compressed sparse row (CSR) matrix
 ///             and \f$ \boldsymbol{b} \f$ is a dense vector. The output \f$
 ///             \boldsymbol{c} \f$ is a dense vector.
+///
+/// \details    The reduction variable (here, \c sum ) is of the type
+///             \c{long double}. This is becase when \c DataType is \c float,
+///             the summation loses the precision, especially when the vector
+///             size is large. It seems that using \c{long double} is slightly
+///             faster than using \c double. The advantage of using a type
+///             with larger bits for the reduction variable is only sensible
+///             if the compiler is optimized with \c -O2 or \c -O3 flags.
 ///
 /// \param[in]  A_data
 ///             CSR format data array of the sparse matrix. The length of this
@@ -351,7 +393,7 @@ void cMatrixOperations<DataType>::csr_matvec(
     LongIndexType index_pointer;
     LongIndexType row;
     LongIndexType column;
-    DataType sum;
+    long double sum;
 
     for (row=0; row < num_rows; ++row)
     {
@@ -363,7 +405,7 @@ void cMatrixOperations<DataType>::csr_matvec(
             column = A_column_indices[index_pointer];
             sum += A_data[index_pointer] * b[column];
         }
-        c[row] = sum;
+        c[row] = static_cast<DataType>(sum);
     }
 }
 
@@ -377,6 +419,15 @@ void cMatrixOperations<DataType>::csr_matvec(
 ///                compressed sparse row (CSR) matrix and \f$ \boldsymbol{b}
 ///                \f$ is a dense vector. The output \f$ \boldsymbol{c} \f$ is
 ///                a dense vector.
+///
+/// \details       The reduction variable (here, \c sum ) is of the type
+///                \c{long double}. This is becase when \c DataType is \c
+///                float the summation loses the precision, especially when the
+///                vector size is large. It seems that using \c{long double} is
+///                slightly faster than using \c double. The advantage of using
+///                a type with larger bits for the reduction variable is only
+///                sensible if the compiler is optimized with \c -O2 or \c -O3
+///                flags.
 ///
 /// \param[in]     A_data
 ///                CSR format data array of the sparse matrix. The length of
@@ -419,7 +470,7 @@ void cMatrixOperations<DataType>::csr_matvec_plus(
     LongIndexType index_pointer;
     LongIndexType row;
     LongIndexType column;
-    DataType sum;
+    long double sum;
 
     for (row=0; row < num_rows; ++row)
     {
@@ -431,7 +482,7 @@ void cMatrixOperations<DataType>::csr_matvec_plus(
             column = A_column_indices[index_pointer];
             sum += A_data[index_pointer] * b[column];
         }
-        c[row] += alpha * sum;
+        c[row] += alpha * static_cast<DataType>(sum);
     }
 }
 
@@ -704,6 +755,14 @@ void cMatrixOperations<DataType>::csc_matvec_plus(
 ///             dense vector. The output \f$ \boldsymbol{c} \f$ is a dense
 ///             vector.
 ///
+/// \details    The reduction variable (here, \c sum ) is of the type
+///             \c{long double}. This is becase when \c DataType is \c float,
+///             the summation loses the precision, especially when the vector
+///             size is large. It seems that using \c{long double} is slightly
+///             faster than using \c double. The advantage of using a type
+///             with larger bits for the reduction variable is only sensible
+///             if the compiler is optimized with \c -O2 or \c -O3 flags.
+///
 /// \param[in]  A_data
 ///             CSC format data array of the sparse matrix. The length of this
 ///             array is the nnz of the matrix.
@@ -736,7 +795,7 @@ void cMatrixOperations<DataType>::csc_transposed_matvec(
     LongIndexType index_pointer;
     LongIndexType row;
     LongIndexType column;
-    DataType sum;
+    long double sum;
 
     for (column=0; column < num_columns; ++column)
     {
@@ -748,7 +807,7 @@ void cMatrixOperations<DataType>::csc_transposed_matvec(
             row = A_row_indices[index_pointer];
             sum += A_data[index_pointer] * b[row];
         }
-        c[column] = sum;
+        c[column] = static_cast<DataType>(sum);
     }
 }
 
@@ -762,6 +821,15 @@ void cMatrixOperations<DataType>::csc_transposed_matvec(
 ///                \mathbf{A} \f$ is compressed sparse column (CSC) matrix and
 ///                \f$ \boldsymbol{b} \f$ is a dense vector. The output \f$
 ///                \boldsymbol{c} \f$ is a dense vector.
+///
+/// \details       The reduction variable (here, \c sum ) is of the type
+///                \c{long double}. This is becase when \c DataType is \c
+///                float the summation loses the precision, especially when the
+///                vector size is large. It seems that using \c{long double} is
+///                slightly faster than using \c double. The advantage of using
+///                a type with larger bits for the reduction variable is only
+///                sensible if the compiler is optimized with \c -O2 or \c -O3
+///                flags.
 ///
 /// \param[in]     A_data
 ///                CSC format data array of the sparse matrix. The length of
@@ -804,7 +872,7 @@ void cMatrixOperations<DataType>::csc_transposed_matvec_plus(
     LongIndexType index_pointer;
     LongIndexType row;
     LongIndexType column;
-    DataType sum;
+    long double sum;
 
     for (column=0; column < num_columns; ++column)
     {
@@ -816,7 +884,7 @@ void cMatrixOperations<DataType>::csc_transposed_matvec_plus(
             row = A_row_indices[index_pointer];
             sum += A_data[index_pointer] * b[row];
         }
-        c[column] += alpha * sum;
+        c[column] += static_cast<DataType>(alpha * sum);
     }
 }
 
