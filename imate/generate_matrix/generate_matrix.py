@@ -331,6 +331,17 @@ def check_arguments(
     elif not isinstance(plot, bool):
         TypeError('"plot" should be boolean.')
 
+    # Check if plot modules exist
+    if plot is True:
+        try:
+            from .._utilities.plot_utilities import matplotlib      # noqa F401
+            from .._utilities.plot_utilities import load_plot_settings
+            load_plot_settings()
+        except ImportError:
+            raise ImportError('Cannot import modules for plotting. Either ' +
+                              'install "matplotlib" and "seaborn" packages, ' +
+                              'or set "plot=False".')
+
     # Check verbose
     if verbose is None:
         raise TypeError('"verbose" cannot be None.')
@@ -367,11 +378,18 @@ def plot_matrix(matrix, sparse, verbose=False):
     :type verbose: bool
     """
 
+    if not plot_modules_exist:
+        raise ImportError('Cannot import modules for plotting. Either ' +
+                          'install "matplotlib" and "seaborn" packages, ' +
+                          'or set "plot=False".')
+
     # Load plot settings
-    if plot_modules_exist:
+    try:
         load_plot_settings()
-    else:
-        raise ImportError("Cannot load plot settings.")
+    except ImportError:
+        raise ImportError('Cannot import modules for plotting. Either ' +
+                          'install "matplotlib" and "seaborn" packages, ' +
+                          'or set "plot=False".')
 
     # Figure
     fig, ax = plt.subplots(figsize=(6, 4))

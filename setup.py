@@ -1428,6 +1428,10 @@ def main(argv):
         cmdclass={'build_ext': CustomBuildExtension},
         zip_safe=False,  # False: package can be "cimported" by another package
         extras_require={
+            'plot': [
+                'matplotlib>=2.0',
+                'seaborn'
+                ],
             'extra': [
                 'scikit-sparse',
                 ],

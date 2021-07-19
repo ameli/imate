@@ -248,6 +248,19 @@ def _plot_samples(
     :type cumulative_abs_error: numpy.ndarray
     """
 
+    if not plot_modules_exist:
+        raise ImportError('Cannot import modules for plotting. Either ' +
+                          'install "matplotlib" and "seaborn" packages, ' +
+                          'or set "plot=False".')
+
+    # Load plot settings
+    try:
+        load_plot_settings()
+    except ImportError:
+        raise ImportError('Cannot import modules for plotting. Either ' +
+                          'install "matplotlib" and "seaborn" packages, ' +
+                          'or set "plot=False".')
+
     # If samples has multiple columns, only the first column (inquiry) plotted.
     inquiry = 0
 
@@ -345,6 +358,19 @@ def _plot_error(
         num_inqiries).
     :type cumulative_rel_error: numpy.ndarray
     """
+
+    if not plot_modules_exist:
+        raise ImportError('Cannot import modules for plotting. Either ' +
+                          'install "matplotlib" and "seaborn" packages, ' +
+                          'or set "plot=False".')
+
+    # Load plot settings
+    try:
+        load_plot_settings()
+    except ImportError:
+        raise ImportError('Cannot import modules for plotting. Either ' +
+                          'install "matplotlib" and "seaborn" packages, ' +
+                          'or set "plot=False".')
 
     relative_color = 'black'
     absolute_color = 'darkgrey'
@@ -491,6 +517,19 @@ def plot_convergence(info):
     :type: dict
     """
 
+    if not plot_modules_exist:
+        raise ImportError('Cannot import modules for plotting. Either ' +
+                          'install "matplotlib" and "seaborn" packages, ' +
+                          'or set "plot=False".')
+
+    # Load plot settings
+    try:
+        load_plot_settings()
+    except ImportError:
+        raise ImportError('Cannot import modules for plotting. Either ' +
+                          'install "matplotlib" and "seaborn" packages, ' +
+                          'or set "plot=False".')
+
     # Extract variables from info dictionary
     num_inquiries = info['matrix']['num_inquiries']
 
@@ -531,12 +570,6 @@ def plot_convergence(info):
                 samples_processed_order,
                 num_samples_used,
                 confidence_level)
-
-    # Load plot settings
-    if plot_modules_exist:
-        load_plot_settings()
-    else:
-        raise ImportError("Cannot load plot settings.")
 
     # Different plots depending on number of inquiries
     if num_inquiries == 1:

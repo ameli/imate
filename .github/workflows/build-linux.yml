@@ -37,7 +37,20 @@ jobs:
               with:
                   cuda: '11.2.2'
 
-            - name: Install package and dependencies
+            - name: Install package and dependencies (CPython)
+              if: matrix.python-version != 'pypy-3.6' && matrix.python-version != 'pypy-3.7'
+              run: |
+                  python -m pip install --upgrade pip
+                  python -m pip install --upgrade numpy
+                  python -m pip install --upgrade .[extra,plot]
+              env:
+                  USE_CUDA: 1
+                  CUDA_DYNAMIC_LOADING: 1
+
+            # Do not install plot packages (matplotlib) when using pypy, since on pypy37,
+            # the kiwisolver (a dependency of matlotlib) has no wheel candicate.
+            - name: Install package and dependencies (PyPy)
+              if: matrix.python-version == 'pypy-3.6' || matrix.python-version == 'pypy-3.7'
               run: |
                   python -m pip install --upgrade pip
                   python -m pip install --upgrade numpy

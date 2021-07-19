@@ -285,6 +285,17 @@ def check_arguments(
     elif not isinstance(plot, bool):
         raise TypeError('"plot" should be boolean.')
 
+    # Check if plot modules exist
+    if plot is True:
+        try:
+            from .._utilities.plot_utilities import matplotlib      # noqa F401
+            from .._utilities.plot_utilities import load_plot_settings
+            load_plot_settings()
+        except ImportError:
+            raise ImportError('Cannot import modules for plotting. Either ' +
+                              'install "matplotlib" and "seaborn" packages, ' +
+                              'or set "plot=False".')
+
     # Check gpu
     if gpu is None:
         raise TypeError('"gpu" cannot be None.')

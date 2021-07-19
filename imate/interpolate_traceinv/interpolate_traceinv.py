@@ -519,18 +519,24 @@ class InterpolateTraceinv(object):
         :type trace_relative_error: numpy.ndarray
         """
 
+        if not plot_modules_exist:
+            raise ImportError('Cannot import modules for plotting. Either ' +
+                              'install "matplotlib" and "seaborn" packages, ' +
+                              'or set "plot=False".')
+
+        # Load plot settings
+        try:
+            load_plot_settings()
+        except ImportError:
+            raise ImportError('Cannot import modules for plotting. Either ' +
+                              'install "matplotlib" and "seaborn" packages, ' +
+                              'or set "plot=False".')
+
         # Check t should be an array
         if numpy.isscalar(inquiry_points) or (inquiry_points.size == 1):
             raise ValueError("Argument 'inquiry_points' should be an " +
                              "array of length greater than one to be able " +
                              " to plot results.")
-
-        # Load plot settings
-        if plot_modules_exist:
-            load_plot_settings()
-        else:
-            raise ImportError("'matplotlib' or 'seaborn' is either not " +
-                              "installed or cannot be imported.")
 
         # Plot results
         if trace_relative_error is None:
