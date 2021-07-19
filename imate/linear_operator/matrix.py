@@ -12,6 +12,7 @@
 # =======
 
 from .linear_operator import LinearOperator
+from scipy.sparse import isspmatrix
 
 
 # ======
@@ -118,3 +119,40 @@ class Matrix(LinearOperator):
         """
 
         return self.A.shape[1]
+
+    # =========
+    # is sparse
+    # =========
+
+    def is_sparse(self):
+        """
+        """
+
+        return isspmatrix(self.A)
+
+    # =======
+    # get nnz
+    # =======
+
+    def get_nnz(self):
+        """
+        """
+
+        if self.is_sparse():
+            return self.A.nnz
+        else:
+            return self.get_num_rows() * self.get_num_columns()
+
+    # ===========
+    # get density
+    # ===========
+
+    def get_density(self):
+        """
+        """
+
+        if self.is_sparse():
+            return self.get_nnz() / \
+                (self.get_num_rows() * self.get_num_columns())
+        else:
+            return 1.0

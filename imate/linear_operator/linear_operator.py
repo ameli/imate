@@ -41,7 +41,8 @@ class LinearOperator(object):
         """
         """
 
-        raise RuntimeError('This method should be called by a derived class.')
+        raise NotImplementedError('This method should be called by a derived' +
+                                  ' class.')
 
     # ============
     # get num rows
@@ -51,7 +52,8 @@ class LinearOperator(object):
         """
         """
 
-        raise RuntimeError('This method should be called by a derived class.')
+        raise NotImplementedError('This method should be called by a derived' +
+                                  ' class.')
 
     # ===============
     # get num columns
@@ -61,7 +63,41 @@ class LinearOperator(object):
         """
         """
 
-        raise RuntimeError('This method should be called by a derived class.')
+        raise NotImplementedError('This method should be called by a derived' +
+                                  ' class.')
+
+    # =========
+    # is sparse
+    # =========
+
+    def is_sparse(self):
+        """
+        """
+
+        raise NotImplementedError('This method should be called by a derived' +
+                                  ' class.')
+
+    # =======
+    # get nnz
+    # =======
+
+    def get_nnz(self):
+        """
+        """
+
+        raise NotImplementedError('This method should be called by a derived' +
+                                  ' class.')
+
+    # ===========
+    # get density
+    # ===========
+
+    def get_density(self):
+        """
+        """
+
+        raise NotImplementedError('This method should be called by a derived' +
+                                  ' class.')
 
     # ===================
     # get linear operator
