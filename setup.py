@@ -1428,7 +1428,7 @@ def main(argv):
         cmdclass={'build_ext': CustomBuildExtension},
         zip_safe=False,  # False: package can be "cimported" by another package
         extras_require={
-            'plot': [
+            ':implementation_name == "cpython"': [
                 'matplotlib>=2.0',
                 'seaborn'
                 ],
