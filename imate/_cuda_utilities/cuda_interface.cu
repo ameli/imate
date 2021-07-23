@@ -15,6 +15,9 @@
 
 #include "./cuda_interface.h"
 #include <cassert>  // assert
+#include <iostream>  // std::cerr
+#include <cstdlib>  // abort
+#include <limits>  // std::numeric_limits
 
 
 // =======
@@ -32,6 +35,25 @@
 template <typename ArrayType>
 ArrayType* CudaInterface<ArrayType>::alloc(const LongIndexType array_size)
 {
+    // Check if over flowing might make array_size negative if LongIndexType is
+    // a signed type. For unsigned type, we have no clue at this point.
+    assert(array_size > 0);
+
+    // Check if computing num_bytes will not overflow LongIndexType
+    LongIndexType max_index = std::numeric_limits<LongIndexType>::max();
+    if (max_index / sizeof(ArrayType) < array_size)
+    {
+        std::cerr << "The size of array in bytes exceeds the maximum " \
+                  << "integer limit. The array size is: " << array_size \
+                  << ". The size of data type is: " << sizeof(ArrayType) \
+                  << "bytes. The maximum integer can be: " << max_index \
+                  << ". One solution is to enable UNSIGNED_LONG_INT and/or " \
+                  << "LONG_INT macro variable and recompile the package to " \
+                  <<" increase the maximum integer limit." \
+                  << std::endl;
+        abort();
+    }
+
     ArrayType* device_array;
     LongIndexType num_bytes = array_size * sizeof(ArrayType);
     cudaError_t error = cudaMalloc(&device_array, num_bytes);
@@ -58,6 +80,25 @@ void CudaInterface<ArrayType>::alloc(
         ArrayType*& device_array,
         const LongIndexType array_size)
 {
+    // Check if over flowing might make array_size negative if LongIndexType is
+    // a signed type. For unsigned type, we have no clue at this point.
+    assert(array_size > 0);
+
+    // Check if computing num_bytes will not overflow LongIndexType
+    LongIndexType max_index = std::numeric_limits<LongIndexType>::max();
+    if (max_index / sizeof(ArrayType) < array_size)
+    {
+        std::cerr << "The size of array in bytes exceeds the maximum " \
+                  << "integer limit. The array size is: " << array_size \
+                  << ". The size of data type is: " << sizeof(ArrayType) \
+                  << "bytes. The maximum integer can be: " << max_index \
+                  << ". One solution is to enable UNSIGNED_LONG_INT and/or " \
+                  << "LONG_INT macro variable and recompile the package to " \
+                  <<" increase the maximum integer limit." \
+                  << std::endl;
+        abort();
+    }
+
     LongIndexType num_bytes = array_size * sizeof(ArrayType);
     cudaError_t error = cudaMalloc(&device_array, num_bytes);
     assert(error == cudaSuccess);
@@ -81,6 +122,10 @@ void CudaInterface<ArrayType>::alloc_bytes(
         void*& device_array,
         const LongIndexType num_bytes)
 {
+    // Check if over flowing might make num_bytes negative if LongIndexType is
+    // a signed type. For unsigned type, we have no clue at this point.
+    assert(num_bytes > 0);
+
     cudaError_t error = cudaMalloc(&device_array, num_bytes);
     assert(error == cudaSuccess);
 }

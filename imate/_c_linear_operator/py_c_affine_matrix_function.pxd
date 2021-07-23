@@ -21,3 +21,7 @@ from .py_c_linear_operator cimport pycLinearOperator
 cdef class pycAffineMatrixFunction(pycLinearOperator):
     cdef A_csr
     cdef B_csr
+    cdef A_indices_copy
+    cdef A_index_pointer_copy
+    cdef B_indices_copy
+    cdef B_index_pointer_copy

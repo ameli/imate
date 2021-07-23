@@ -173,7 +173,7 @@ cdef void orthogonalize_vectors(
     for i in range(num_vectors):
 
         # j iterates on previous vectors in a window of at most ``vector_size``
-        if i > vector_size:
+        if <LongIndexType>i > vector_size:
             start_j = i - vector_size
         else:
             start_j = 0

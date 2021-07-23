@@ -125,7 +125,7 @@ cpdef FlagType pycu_trace_estimator(
             alg_wall_time)
 
     else:
-        raise TypeError('Data type when gpu is enabled should be "float32"' +
+        raise TypeError('When gpu is enabled, data typ should be "float32"' +
                         'or "float64"')
 
     # Return gpu proc time via a numpy array of size 1

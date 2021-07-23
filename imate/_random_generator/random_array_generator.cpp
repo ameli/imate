@@ -109,14 +109,14 @@ void RandomArrayGenerator<DataType>::generate_random_array(
         }
 
         #pragma omp for schedule(static)
-        for (IndexType i=0; i < static_cast<IndexType>(array_size/num_bits);
-             ++i)
+        for (LongIndexType i=0;
+             i < static_cast<LongIndexType>(array_size/num_bits); ++i)
         {
             // Generate 64 bits (one integer)
             uint64_t bits = random_number_generator.next(thread_id);
 
             // Fill 64 elements of array with +1 or -1 depending on the bits
-            for (int j =0; j < num_bits; ++j)
+            for (IndexType j=0; j < num_bits; ++j)
             {
                 // Check if the j-th bit (from right to left) is 1 or 0
                 if (bits & ( uint64_t(1) << j))
@@ -141,7 +141,8 @@ void RandomArrayGenerator<DataType>::generate_random_array(
     uint64_t bits = random_number_generator.next(thread_id);
 
     // This loop should have less than 64 iterations.
-    for (IndexType j = static_cast<IndexType>(array_size/num_bits) * num_bits;
+    for (LongIndexType j = \
+            static_cast<LongIndexType>(array_size/num_bits) * num_bits;
          j < array_size; ++j)
     {
         // Check if the j-th bit (from right to left) is 1 or 0

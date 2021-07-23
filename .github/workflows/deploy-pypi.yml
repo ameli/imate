@@ -185,8 +185,9 @@ jobs:
                   python -m pip install pytest-cov
                   python -m pip install imate
 
-            # Do not install plot packages (matplotlib) when using pypy, since on pypy37,
-            # the kiwisolver (a dependency of matlotlib) has no wheel candicate.
+            # This does not install plot packages (matplotlib, seaborn) when
+            # using pypy, since on pypy37, the kiwisolver (a dependency of
+            # matlotlib) has no wheel candicate.
             # - name: Install packages
             #   if: matrix.python-version == 'pypy-3.6' || matrix.python-version == 'pypy-3.7'
             #   run: |

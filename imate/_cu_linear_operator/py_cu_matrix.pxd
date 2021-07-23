@@ -20,3 +20,5 @@ from .py_cu_linear_operator cimport pycuLinearOperator
 
 cdef class pycuMatrix(pycuLinearOperator):
     cdef A_csr
+    cdef A_indices_copy
+    cdef A_index_pointer_copy

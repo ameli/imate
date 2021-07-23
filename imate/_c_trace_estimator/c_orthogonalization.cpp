@@ -14,7 +14,6 @@
 // =======
 
 #include "./c_orthogonalization.h"
-#include <algorithm>  // std::max
 #include "../_c_basic_algebra/c_vector_operations.h"  // cVectorOperations
 
 
@@ -219,13 +218,20 @@ void cOrthogonalization<DataType>::orthogonalize_vectors(
 
     IndexType i;
     IndexType j;
+    IndexType start = 0;
     DataType inner_prod;
     DataType norm;
 
     for (i=0; i < num_vectors; ++i)
     {
         // j iterates on previous vectors in a window of at most vector_size
-        for (j=std::max(0, i - vector_size); j < i; ++j)
+        if (static_cast<LongIndexType>(i) > vector_size)
+        {
+            // When vector_size is smaller than i, it is fine to cast to signed
+            start = i - static_cast<IndexType>(vector_size);
+        }
+
+        for (j=start; j < i; ++j)
         {
             // Projecting i-th vector to j-th vector
             inner_prod = cVectorOperations<DataType>::inner_product(

@@ -20,3 +20,7 @@ from .py_cu_linear_operator cimport pycuLinearOperator
 cdef class pycuAffineMatrixFunction(pycuLinearOperator):
     cdef A_csr
     cdef B_csr
+    cdef A_indices_copy
+    cdef A_index_pointer_copy
+    cdef B_indices_copy
+    cdef B_index_pointer_copy

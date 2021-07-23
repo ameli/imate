@@ -13,3 +13,4 @@
 
 # Define long indices by short 32 bit type (set to 0) or long 64 bit (set to 1)
 DEF LONG_INT = 0                                                    # noqa E999
+DEF UNSIGNED_LONG_INT = 0                                           # noqa E999

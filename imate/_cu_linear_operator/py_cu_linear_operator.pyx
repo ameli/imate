@@ -40,6 +40,7 @@ cdef class pycuLinearOperator(object):
         self.Aop_float = NULL
         self.Aop_double = NULL
         self.data_type_name = NULL
+        self.long_index_type_name = NULL
         self.num_gpu_devices = 0
         self.device_properties_dict = py_query_device()
 
@@ -48,6 +49,28 @@ cdef class pycuLinearOperator(object):
         num_all_gpu_devices = self.device_properties_dict['num_devices']
         if num_all_gpu_devices == 0:
             raise RuntimeError('No cuda-capable gpu device was found.')
+
+        # Check LongIndexType is a signed or unsigned type. If -1 overflows,
+        # the type is unsigned.
+        cdef LongIndexType long_index = -1
+        if long_index < 0:
+            unsigned_type = False
+        else:
+            unsigned_type = True
+
+        # Set the long index type name
+        if sizeof(LongIndexType) == 4:
+            if unsigned_type:
+                self.long_index_type_name = r'uint32'
+            else:
+                self.long_index_type_name = r'int32'
+        elif sizeof(LongIndexType) == 8:
+            if unsigned_type:
+                self.long_index_type_name = r'uint64'
+            else:
+                self.long_index_type_name = r'int64'
+        else:
+            raise TypeError('"LongIndexType" has Unconventional byte size.')
 
     # ===========
     # __dealloc__

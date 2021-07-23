@@ -12,13 +12,21 @@
 #ifndef _DEFINITIONS_DEFINITIONS_H_
 #define _DEFINITIONS_DEFINITIONS_H_
 
+
 // ===========
 // Definitions
 // ===========
 
-// Define long indices by short 32 bit type (set 0) or long 64 bit (set 1)
+// If set to 0, the LongIndexType is declared as 32-bit integer. Whereas if set
+// to 1, the LongIndexType is declared as 64-bit integer.
 #ifndef LONG_INT
     #define LONG_INT 0
+#endif
+
+// If set to 0, the LongIndexType is declared as signed integer, whereas if set
+// to 1, the LongIndexType is declared as unsigned integer.
+#ifndef UNSIGNED_LONG_INT
+    #define UNSIGNED_LONG_INT 0
 #endif
 
 

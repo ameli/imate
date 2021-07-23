@@ -27,6 +27,7 @@ cdef class pycLinearOperator(object):
     cdef cLinearOperator[double]* Aop_double
     cdef cLinearOperator[long double]* Aop_long_double
     cdef char* data_type_name
+    cdef char* long_index_type_name
     cdef IndexType num_parameters
     cdef parameters
 

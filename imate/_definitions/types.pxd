@@ -80,13 +80,23 @@ ctypedef fused MemoryView2DFDataType:
 
 # Long index types is used for data indices, such a matrix and vectors indices
 IF LONG_INT:
-    ctypedef long LongIndexType
-    ctypedef const long ConstLongIndexType
-    ctypedef long[:] MemoryViewLongIndexType
+    IF UNSIGNED_LONG_INT:
+        ctypedef unsigned long LongIndexType
+        ctypedef const unsigned long ConstLongIndexType
+        ctypedef unsigned long[:] MemoryViewLongIndexType
+    ELSE:
+        ctypedef long LongIndexType
+        ctypedef const long ConstLongIndexType
+        ctypedef long[:] MemoryViewLongIndexType
 ELSE:
-    ctypedef int LongIndexType
-    ctypedef const int ConstLongIndexType
-    ctypedef int[:] MemoryViewLongIndexType
+    IF UNSIGNED_LONG_INT:
+        ctypedef unsigned int LongIndexType
+        ctypedef const unsigned int ConstLongIndexType
+        ctypedef unsigned int[:] MemoryViewLongIndexType
+    ELSE:
+        ctypedef int LongIndexType
+        ctypedef const int ConstLongIndexType
+        ctypedef int[:] MemoryViewLongIndexType
 
 # Used for indices of small matrices, or small size iterators
 ctypedef int IndexType

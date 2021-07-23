@@ -138,8 +138,8 @@ cdef class pycuMatrix(pycuLinearOperator):
         elif A.dtype == b'float64':
             self.data_type_name = b'float64'
         else:
-            raise TypeError('Data type when gpu is enabled should be ' +
-                            'float32 or float64.')
+            raise TypeError('When gpu is enabled, data type should be ' +
+                            '"float32" or "float64".')
 
         # Determine A is sparse or dense
         if issparse(A):
@@ -328,9 +328,16 @@ cdef class pycuMatrix(pycuLinearOperator):
         # Declare pointer for A.data
         cdef float* A_data_float
 
+        # If the input type is the same as LongIndexType, no copy is performed.
+        self.A_indices_copy = \
+            A.indices.astype(self.long_index_type_name, copy=False)
+        self.A_index_pointer_copy = \
+            A.indptr.astype(self.long_index_type_name, copy=False)
+
         # Declare memoryviews to get pointer of A.indices and A.indptr
-        cdef MemoryViewLongIndexType A_indices_mv = A.indices
-        cdef MemoryViewLongIndexType A_index_pointer_mv = A.indptr
+        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
+        cdef MemoryViewLongIndexType A_index_pointer_mv = \
+            self.A_index_pointer_copy
 
         # Declare pointers to A.indices ans A.indptr
         cdef LongIndexType* A_indices = &A_indices_mv[0]
@@ -369,9 +376,16 @@ cdef class pycuMatrix(pycuLinearOperator):
         # Declare pointer for A.data
         cdef double* A_data_double
 
+        # If the input type is the same as LongIndexType, no copy is performed.
+        self.A_indices_copy = \
+            A.indices.astype(self.long_index_type_name, copy=False)
+        self.A_index_pointer_copy = \
+            A.indptr.astype(self.long_index_type_name, copy=False)
+
         # Declare memoryviews to get pointer of A.indices and A.indptr
-        cdef MemoryViewLongIndexType A_indices_mv = A.indices
-        cdef MemoryViewLongIndexType A_index_pointer_mv = A.indptr
+        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
+        cdef MemoryViewLongIndexType A_index_pointer_mv = \
+            self.A_index_pointer_copy
 
         # Declare pointers to A.indices ans A.indptr
         cdef LongIndexType* A_indices = &A_indices_mv[0]
@@ -410,9 +424,16 @@ cdef class pycuMatrix(pycuLinearOperator):
         # Declare pointer for A.data
         cdef float* A_data_float
 
+        # If the input type is the same as LongIndexType, no copy is performed.
+        self.A_indices_copy = \
+            A.indices.astype(self.long_index_type_name, copy=False)
+        self.A_index_pointer_copy = \
+            A.indptr.astype(self.long_index_type_name, copy=False)
+
         # Declare memoryviews to get pointer of A.indices and A.indptr
-        cdef MemoryViewLongIndexType A_indices_mv = A.indices
-        cdef MemoryViewLongIndexType A_index_pointer_mv = A.indptr
+        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
+        cdef MemoryViewLongIndexType A_index_pointer_mv = \
+            self.A_index_pointer_copy
 
         # Declare pointers to A.indices ans A.indptr
         cdef LongIndexType* A_indices = &A_indices_mv[0]
@@ -451,9 +472,16 @@ cdef class pycuMatrix(pycuLinearOperator):
         # Declare pointer for A.data
         cdef double* A_data_double
 
+        # If the input type is the same as LongIndexType, no copy is performed.
+        self.A_indices_copy = \
+            A.indices.astype(self.long_index_type_name, copy=False)
+        self.A_index_pointer_copy = \
+            A.indptr.astype(self.long_index_type_name, copy=False)
+
         # Declare memoryviews to get pointer of A.indices and A.indptr
-        cdef MemoryViewLongIndexType A_indices_mv = A.indices
-        cdef MemoryViewLongIndexType A_index_pointer_mv = A.indptr
+        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
+        cdef MemoryViewLongIndexType A_index_pointer_mv = \
+            self.A_index_pointer_copy
 
         # Declare pointers to A.indices ans A.indptr
         cdef LongIndexType* A_indices = &A_indices_mv[0]

@@ -48,9 +48,17 @@
 /// \c uint32.
 
 #if (LONG_INT == 1)
-    typedef long int LongIndexType;
+    #if (UNSIGNED_LONG_INT == 1)
+        typedef unsigned long int LongIndexType;
+    #else
+        typedef long int LongIndexType;
+    #endif
 #else
-    typedef int LongIndexType;
+    #if (UNSIGNED_LONG_INT == 1)
+        typedef unsigned int LongIndexType;
+    #else
+        typedef int LongIndexType;
+    #endif
 #endif
 
 // Used for indices of short row of matrices

@@ -20,3 +20,5 @@ from .py_c_linear_operator cimport pycLinearOperator
 
 cdef class pycMatrix(pycLinearOperator):
     cdef A_csr
+    cdef A_indices_copy
+    cdef A_index_pointer_copy

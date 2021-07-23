@@ -599,18 +599,32 @@ cdef class pycAffineMatrixFunction(pycLinearOperator):
         cdef LongIndexType A_num_rows = A.shape[0]
         cdef LongIndexType A_num_columns = A.shape[1]
 
+        # If the input type is the same as LongIndexType, no copy is performed.
+        self.A_indices_copy = \
+            A.indices.astype(self.long_index_type_name, copy=False)
+        self.A_index_pointer_copy = \
+            A.indptr.astype(self.long_index_type_name, copy=False)
+
         # Declare memoryviews to get pointers
         cdef float[:] A_data_mv = A.data
-        cdef MemoryViewLongIndexType A_indices_mv = A.indices
-        cdef MemoryViewLongIndexType A_index_pointer_mv = A.indptr
+        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
+        cdef MemoryViewLongIndexType A_index_pointer_mv = \
+            self.A_index_pointer_copy
         cdef float[:] B_data_mv = None
         cdef MemoryViewLongIndexType B_indices_mv = None
         cdef MemoryViewLongIndexType B_index_pointer_mv = None
 
         if not B_is_identity:
+
+            # If input type is the same as LongIndexType, no copy is performed.
+            self.B_indices_copy = \
+                B.indices.astype(self.long_index_type_name, copy=False)
+            self.B_index_pointer_copy = \
+                B.indptr.astype(self.long_index_type_name, copy=False)
+
             B_data_mv = B.data
-            B_indices_mv = B.indices
-            B_index_pointer_mv = B.indptr
+            B_indices_mv = self.B_indices_copy
+            B_index_pointer_mv = self.B_index_pointer_copy
 
         # Declare pointers
         cdef float* A_data = &A_data_mv[0]
@@ -656,18 +670,32 @@ cdef class pycAffineMatrixFunction(pycLinearOperator):
         cdef LongIndexType A_num_rows = A.shape[0]
         cdef LongIndexType A_num_columns = A.shape[1]
 
+        # If the input type is the same as LongIndexType, no copy is performed.
+        self.A_indices_copy = \
+            A.indices.astype(self.long_index_type_name, copy=False)
+        self.A_index_pointer_copy = \
+            A.indptr.astype(self.long_index_type_name, copy=False)
+
         # Declare memoryviews to get pointers
         cdef double[:] A_data_mv = A.data
-        cdef MemoryViewLongIndexType A_indices_mv = A.indices
-        cdef MemoryViewLongIndexType A_index_pointer_mv = A.indptr
+        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
+        cdef MemoryViewLongIndexType A_index_pointer_mv = \
+            self.A_index_pointer_copy
         cdef double[:] B_data_mv = None
         cdef MemoryViewLongIndexType B_indices_mv = None
         cdef MemoryViewLongIndexType B_index_pointer_mv = None
 
         if not B_is_identity:
+
+            # If input type is the same as LongIndexType, no copy is performed.
+            self.B_indices_copy = \
+                B.indices.astype(self.long_index_type_name, copy=False)
+            self.B_index_pointer_copy = \
+                B.indptr.astype(self.long_index_type_name, copy=False)
+
             B_data_mv = B.data
-            B_indices_mv = B.indices
-            B_index_pointer_mv = B.indptr
+            B_indices_mv = self.B_indices_copy
+            B_index_pointer_mv = self.B_index_pointer_copy
 
         # Declare pointers
         cdef double* A_data = &A_data_mv[0]
@@ -713,18 +741,32 @@ cdef class pycAffineMatrixFunction(pycLinearOperator):
         cdef LongIndexType A_num_rows = A.shape[0]
         cdef LongIndexType A_num_columns = A.shape[1]
 
+        # If the input type is the same as LongIndexType, no copy is performed.
+        self.A_indices_copy = \
+            A.indices.astype(self.long_index_type_name, copy=False)
+        self.A_index_pointer_copy = \
+            A.indptr.astype(self.long_index_type_name, copy=False)
+
         # Declare memoryviews to get pointers
         cdef long double[:] A_data_mv = A.data
-        cdef MemoryViewLongIndexType A_indices_mv = A.indices
-        cdef MemoryViewLongIndexType A_index_pointer_mv = A.indptr
+        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
+        cdef MemoryViewLongIndexType A_index_pointer_mv = \
+            self.A_index_pointer_copy
         cdef long double[:] B_data_mv = None
         cdef MemoryViewLongIndexType B_indices_mv = None
         cdef MemoryViewLongIndexType B_index_pointer_mv = None
 
         if not B_is_identity:
+
+            # If input type is the same as LongIndexType, no copy is performed.
+            self.B_indices_copy = \
+                B.indices.astype(self.long_index_type_name, copy=False)
+            self.B_index_pointer_copy = \
+                B.indptr.astype(self.long_index_type_name, copy=False)
+
             B_data_mv = B.data
-            B_indices_mv = B.indices
-            B_index_pointer_mv = B.indptr
+            B_indices_mv = self.B_indices_copy
+            B_index_pointer_mv = self.B_index_pointer_copy
 
         # Declare pointers
         cdef long double* A_data = &A_data_mv[0]
@@ -770,18 +812,32 @@ cdef class pycAffineMatrixFunction(pycLinearOperator):
         cdef LongIndexType A_num_rows = A.shape[0]
         cdef LongIndexType A_num_columns = A.shape[1]
 
+        # If the input type is the same as LongIndexType, no copy is performed.
+        self.A_indices_copy = \
+            A.indices.astype(self.long_index_type_name, copy=False)
+        self.A_index_pointer_copy = \
+            A.indptr.astype(self.long_index_type_name, copy=False)
+
         # Declare memoryviews to get pointers
         cdef float[:] A_data_mv = A.data
-        cdef MemoryViewLongIndexType A_indices_mv = A.indices
-        cdef MemoryViewLongIndexType A_index_pointer_mv = A.indptr
+        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
+        cdef MemoryViewLongIndexType A_index_pointer_mv = \
+            self.A_index_pointer_copy
         cdef float[:] B_data_mv = None
         cdef MemoryViewLongIndexType B_indices_mv = None
         cdef MemoryViewLongIndexType B_index_pointer_mv = None
 
         if not B_is_identity:
+
+            # If input type is the same as LongIndexType, no copy is performed.
+            self.B_indices_copy = \
+                B.indices.astype(self.long_index_type_name, copy=False)
+            self.B_index_pointer_copy = \
+                B.indptr.astype(self.long_index_type_name, copy=False)
+
             B_data_mv = B.data
-            B_indices_mv = B.indices
-            B_index_pointer_mv = B.indptr
+            B_indices_mv = self.B_indices_copy
+            B_index_pointer_mv = self.B_index_pointer_copy
 
         # Declare pointers
         cdef float* A_data = &A_data_mv[0]
@@ -827,18 +883,32 @@ cdef class pycAffineMatrixFunction(pycLinearOperator):
         cdef LongIndexType A_num_rows = A.shape[0]
         cdef LongIndexType A_num_columns = A.shape[1]
 
+        # If the input type is the same as LongIndexType, no copy is performed.
+        self.A_indices_copy = \
+            A.indices.astype(self.long_index_type_name, copy=False)
+        self.A_index_pointer_copy = \
+            A.indptr.astype(self.long_index_type_name, copy=False)
+
         # Declare memoryviews to get pointers
         cdef double[:] A_data_mv = A.data
-        cdef MemoryViewLongIndexType A_indices_mv = A.indices
-        cdef MemoryViewLongIndexType A_index_pointer_mv = A.indptr
+        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
+        cdef MemoryViewLongIndexType A_index_pointer_mv = \
+            self.A_index_pointer_copy
         cdef double[:] B_data_mv = None
         cdef MemoryViewLongIndexType B_indices_mv = None
         cdef MemoryViewLongIndexType B_index_pointer_mv = None
 
         if not B_is_identity:
+
+            # If input type is the same as LongIndexType, no copy is performed.
+            self.B_indices_copy = \
+                B.indices.astype(self.long_index_type_name, copy=False)
+            self.B_index_pointer_copy = \
+                B.indptr.astype(self.long_index_type_name, copy=False)
+
             B_data_mv = B.data
-            B_indices_mv = B.indices
-            B_index_pointer_mv = B.indptr
+            B_indices_mv = self.B_indices_copy
+            B_index_pointer_mv = self.B_index_pointer_copy
 
         # Declare pointers
         cdef double* A_data = &A_data_mv[0]
@@ -884,18 +954,32 @@ cdef class pycAffineMatrixFunction(pycLinearOperator):
         cdef LongIndexType A_num_rows = A.shape[0]
         cdef LongIndexType A_num_columns = A.shape[1]
 
+        # If the input type is the same as LongIndexType, no copy is performed.
+        self.A_indices_copy = \
+            A.indices.astype(self.long_index_type_name, copy=False)
+        self.A_index_pointer_copy = \
+            A.indptr.astype(self.long_index_type_name, copy=False)
+
         # Declare memoryviews to get pointers
         cdef long double[:] A_data_mv = A.data
-        cdef MemoryViewLongIndexType A_indices_mv = A.indices
-        cdef MemoryViewLongIndexType A_index_pointer_mv = A.indptr
+        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
+        cdef MemoryViewLongIndexType A_index_pointer_mv = \
+            self.A_index_pointer_copy
         cdef long double[:] B_data_mv = None
         cdef MemoryViewLongIndexType B_indices_mv = None
         cdef MemoryViewLongIndexType B_index_pointer_mv = None
 
         if not B_is_identity:
+
+            # If input type is the same as LongIndexType, no copy is performed.
+            self.B_indices_copy = \
+                B.indices.astype(self.long_index_type_name, copy=False)
+            self.B_index_pointer_copy = \
+                B.indptr.astype(self.long_index_type_name, copy=False)
+
             B_data_mv = B.data
-            B_indices_mv = B.indices
-            B_index_pointer_mv = B.indptr
+            B_indices_mv = self.B_indices_copy
+            B_index_pointer_mv = self.B_index_pointer_copy
 
         # Declare pointers
         cdef long double* A_data = &A_data_mv[0]

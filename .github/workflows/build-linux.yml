@@ -47,8 +47,9 @@ jobs:
                   USE_CUDA: 1
                   CUDA_DYNAMIC_LOADING: 1
 
-            # Do not install plot packages (matplotlib) when using pypy, since on pypy37,
-            # the kiwisolver (a dependency of matlotlib) has no wheel candicate.
+            # This does not install plot packages (matplotlib, seaborn) when
+            # using pypy, since on pypy37, the kiwisolver (a dependency of
+            # matlotlib) has no wheel candicate.
             - name: Install package and dependencies (PyPy)
               if: matrix.python-version == 'pypy-3.6' || matrix.python-version == 'pypy-3.7'
               run: |

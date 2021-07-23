@@ -41,7 +41,30 @@ cdef class pycLinearOperator(object):
         self.Aop_double = NULL
         self.Aop_long_double = NULL
         self.data_type_name = NULL
+        self.long_index_type_name = NULL
         self.parameters = None
+
+        # Check LongIndexType is a signed or unsigned type. If -1 overflows,
+        # the type is unsigned.
+        cdef LongIndexType long_index = -1
+        if long_index < 1:
+            unsigned_type = False
+        else:
+            unsigned_type = True
+
+        # Set the long index type name
+        if sizeof(LongIndexType) == 4:
+            if unsigned_type:
+                self.long_index_type_name = r'uint32'
+            else:
+                self.long_index_type_name = r'int32'
+        elif sizeof(LongIndexType) == 8:
+            if unsigned_type:
+                self.long_index_type_name = r'uint64'
+            else:
+                self.long_index_type_name = r'int64'
+        else:
+            raise TypeError('"LongIndexType" has an unconventional byte size.')
 
     # ===========
     # __dealloc__

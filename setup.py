@@ -782,7 +782,8 @@ class CustomBuildExtension(build_ext):
                                    '-Wextra', '-Wundef', '-Wcast-align',
                                    '-Wunreachable-code', '-Wswitch-enum',
                                    '-Wpointer-arith', '-Wcast-align',
-                                   '-Wwrite-strings']
+                                   '-Wwrite-strings', '-Wsign-compare',
+                                   '-pedantic', '-fno-common', '-Wundef']
 
             # The option '-Wl, ..' will send arguments to the linker. Here,
             # '--strip-all' will remove all symbols from the shared library.
