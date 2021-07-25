@@ -1348,8 +1348,6 @@ def main(argv):
 
     extensions.append(create_extension(package_name, 'functions'))
 
-    extensions.append(create_extension(package_name, '_c_basic_algebra'))
-
     extensions.append(create_extension(package_name, '_linear_algebra',
                                        other_source_dirs=['_c_basic_algebra']))
 
