@@ -15,6 +15,11 @@
 
 #include "./c_vector_operations.h"
 #include <cmath>  // sqrt
+#include "../_definitions/definitions.h"  // USE_CBLAS
+
+#if (USE_CBLAS == 1)
+    #include "./cblas_interface.h"
+#endif
 
 
 // ===========
@@ -36,10 +41,24 @@ void cVectorOperations<DataType>::copy_vector(
         const LongIndexType vector_size,
         DataType* output_vector)
 {
+    #if (USE_CBLAS == 1)
+
+    // Using Openblas
+    int incx = 1;
+    int incy = 1;
+
+    cblas_interface::xcopy(vector_size, input_vector, incx, output_vector,
+                           incy);
+
+    #else
+
+    // Not using OpenBlas
     for (LongIndexType i=0; i < vector_size; ++i)
     {
         output_vector[i] = input_vector[i];
     }
+
+    #endif
 }
 
 // ==================
@@ -65,10 +84,26 @@ void cVectorOperations<DataType>::copy_scaled_vector(
         const DataType scale,
         DataType* output_vector)
 {
+    #if (USE_CBLAS == 1)
+
+    // Using OpenBlas
+    int incx = 1;
+    int incy = 1;
+
+    cblas_interface::xcopy(vector_size, input_vector, incx, output_vector,
+                           incy);
+
+    cblas_interface::xscal(vector_size, scale, output_vector, incy); 
+
+    #else
+
+    // Not using OpenBlas
     for (LongIndexType i=0; i < vector_size; ++i)
     {
         output_vector[i] = scale * input_vector[i];
     }
+
+    #endif
 }
 
 
@@ -103,6 +138,20 @@ void cVectorOperations<DataType>::subtract_scaled_vector(
         const DataType scale,
         DataType* output_vector)
 {
+
+    #if (USE_CBLAS == 1)
+
+    // Using OpenBlas
+    int incx = 1;
+    int incy = 1;
+
+    DataType neg_scale = -scale;
+    cblas_interface::xaxpy(vector_size, neg_scale, input_vector, incx,
+                           output_vector, incy);
+
+    #else
+
+    // Not using OpenBlas
     if (scale == 0.0)
     {
         return;
@@ -112,6 +161,8 @@ void cVectorOperations<DataType>::subtract_scaled_vector(
     {
         output_vector[i] -= scale * input_vector[i];
     }
+
+    #endif
 }
 
 
@@ -154,6 +205,20 @@ DataType cVectorOperations<DataType>::inner_product(
         const DataType* vector2,
         const LongIndexType vector_size)
 {
+    #if (USE_CBLAS == 1)
+
+    // Using OpenBlas
+    int incx = 1;
+    int incy = 1;
+
+    DataType inner_prod = cblas_interface::xdot(vector_size, vector1, incx,
+                                                vector2, incy);
+
+    return inner_prod;
+
+    #else
+
+    // Not using OpenBlas
     long double inner_prod = 0.0;
     LongIndexType chunk = 5;
     LongIndexType vector_size_chunked = vector_size - (vector_size % chunk);
@@ -173,6 +238,8 @@ DataType cVectorOperations<DataType>::inner_product(
     }
 
     return static_cast<DataType>(inner_prod);
+
+    #endif
 }
 
 
@@ -213,6 +280,17 @@ DataType cVectorOperations<DataType>::euclidean_norm(
         const DataType* vector,
         const LongIndexType vector_size)
 {
+    #if (USE_CBLAS == 1)
+
+    // Using OpenBlas
+    int incx = 1;
+
+    DataType norm = cblas_interface::xnrm2(vector_size, vector, incx);
+
+    return norm;
+
+    #else
+
     // Compute norm squared
     long double norm2 = 0.0;
     LongIndexType chunk = 5;
@@ -236,6 +314,8 @@ DataType cVectorOperations<DataType>::euclidean_norm(
     DataType norm = sqrt(static_cast<DataType>(norm2));
 
     return norm;
+
+    #endif
 }
 
 
@@ -257,6 +337,21 @@ DataType cVectorOperations<DataType>::normalize_vector_in_place(
         DataType* vector,
         const LongIndexType vector_size)
 {
+    #if (USE_CBLAS == 1)
+
+    // Norm of vector
+    DataType norm = cVectorOperations<DataType>::euclidean_norm(
+            vector, vector_size);
+
+    // Normalize in place
+    DataType scale = 1.0 / norm;
+    int incx = 1;
+    cblas_interface::xscal(vector_size, scale, vector, incx);
+
+    return norm;
+
+    #else
+
     // Norm of vector
     DataType norm = cVectorOperations<DataType>::euclidean_norm(vector,
                                                                 vector_size);
@@ -268,6 +363,8 @@ DataType cVectorOperations<DataType>::normalize_vector_in_place(
     }
 
     return norm;
+
+    #endif
 }
 
 
@@ -292,6 +389,21 @@ DataType cVectorOperations<DataType>::normalize_vector_and_copy(
         const LongIndexType vector_size,
         DataType* output_vector)
 {
+    #if (USE_CBLAS == 1)
+
+    // Norm of vector
+    DataType norm = cVectorOperations<DataType>::euclidean_norm(
+            vector, vector_size);
+
+    // Normalize to output
+    DataType scale = 1.0 / norm;
+    cVectorOperations<DataType>::copy_scaled_vector(vector, vector_size, scale,
+                                                    output_vector);
+
+    return norm;
+
+    #else
+
     // Norm of vector
     DataType norm = cVectorOperations<DataType>::euclidean_norm(vector,
                                                                 vector_size);
@@ -303,6 +415,8 @@ DataType cVectorOperations<DataType>::normalize_vector_and_copy(
     }
 
     return norm;
+
+    #endif
 }
 
 

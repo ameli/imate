@@ -28,7 +28,7 @@ cdef public void lapack_sstev(char* jobz, int* n, float* d, float* e, float* z,
     .. note::
 
         To generate cython's api, this file should be included in the cython's
-        pyx module. See ``stochastic_lanczos_quadrature.pyx``.
+        pyx module. See ``py_c_trace_estimator.pyx``.
     """
 
     sstev(jobz, n, d, e, z, ldz, work, info)
@@ -49,7 +49,7 @@ cdef public void lapack_dstev(char* jobz, int* n, double* d, double* e,
     .. note::
 
         To generate cython's api, this file should be included in the cython's
-        pyx module. See ``stochastic_lanczos_quadrature.pyx``.
+        pyx module. See ``py_c_trace_estimator.pyx``.
     """
 
     dstev(jobz, n, d, e, z, ldz, work, info)
@@ -71,7 +71,7 @@ cdef public void lapack_sbdsdc(char* uplo, char* compq, int* n, float* d,
     .. note::
 
         To generate cython's api, this file should be included in the cython's
-        pyx module. See ``stochastic_lanczos_quadrature.pyx``.
+        pyx module. See ``py_c_trace_estimator.pyx``.
     """
 
     sbdsdc(uplo, compq, n, d, e, u, ldu, vt, ldvt, q, iq, work, iwork, info)
@@ -93,7 +93,7 @@ cdef public void lapack_dbdsdc(char* uplo, char* compq, int* n, double* d,
     .. note::
 
         To generate cython's api, this file should be included in the cython's
-        pyx module. See ``stochastic_lanczos_quadrature.pyx``.
+        pyx module. See ``py_c_trace_estimator.pyx``.
     """
 
     dbdsdc(uplo, compq, n, d, e, u, ldu, vt, ldvt, q, iq, work, iwork, info)

@@ -32,7 +32,7 @@
 
 namespace cublas_interface
 {
-    // cublasXfemv
+    // cublasXgemv
     template <typename DataType>
     cublasStatus_t cublasXgemv(
             cublasHandle_t handle,

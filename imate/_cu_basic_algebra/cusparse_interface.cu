@@ -21,7 +21,7 @@
 // ==================
 
 /// \note      The implementation in the \c cu file is wrapped inside the
-///            namepsace clause. This is not necessary ingeneral, however, it
+///            namepsace clause. This is not necessary in general, however, it
 ///            is needed to avoid the old gcc compiler error (this is a gcc
 ///            bug) which complains "no instance of function template matches
 ///            the argument list const float".

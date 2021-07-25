@@ -121,6 +121,7 @@ except ImportError:
     # In Unix
     export CYTHON_BUILD_IN_SOURCE=1
     export CYTHON_BUILD_FOR_DOC=1
+    export USE_CBLAS=0
     export USE_CUDA=1
     export DEBUG_MODE=1
     export CUDA_DYNAMIC_LOADING=1
@@ -128,6 +129,7 @@ except ImportError:
     # In Windows
     $env:export CYTHON_BUILD_IN_SOURCE = "1"
     $env:export CYTHON_BUILD_FOR_DOC = "1"
+    $env:USE_CBLA = "0"
     $env:USE_CUDA = "1"
     $env:DEBUG_MODE = "1"
     $env:CUDA_DYNAMIC_LOADDING= "1"
@@ -173,6 +175,26 @@ cython_build_for_doc = False
 if 'CYTHON_BUILD_FOR_DOC' in os.environ and \
    os.environ.get('CYTHON_BUILD_FOR_DOC') == '1':
     cython_build_for_doc = True
+
+# If USE_CBLAS is defined and set to 1, it uses OpenBlas library for dense
+# vector and matrix operations. In this case, openblas-dev sld be installed.
+use_cblas = False
+if 'USE_CBLAS' in os.environ and os.environ.get('USE_CBLAS') == '1':
+    use_cblas = True
+
+# If USE_LONG_INT is set to 1, 64-bit integers are used for LongIndexType.
+# Otherwise, 32-bit integers are used.
+use_long_int = False
+if 'USE_LONG_INT' in os.environ and os.environ.get('USE_LONG_INT') == '1':
+    use_long_int = True
+
+# If USE_UNSIGNED_LONG_INT is set to 1, unsigned integers are used for the type
+# LongIndexType, which doubles the maximum limit of integers. Otherwise, signed
+# integers are used.
+use_unsigned_long_int = False
+if 'USE_UNSIGNED_LONG_INT' in os.environ and \
+        os.environ.get('USE_UNSIGNED_LONG_INT') == '1':
+    use_unsigned_long_int = True
 
 
 # ============
@@ -1071,6 +1093,7 @@ def create_extension(
     runtime_library_dirs = []
     libraries = []
     language = 'c++'
+    define_macros = [('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')]
 
     # Include any additional source files
     if other_source_files is not None:
@@ -1111,6 +1134,11 @@ def create_extension(
                 sources += \
                     glob(join(other_source_dirname, '*.cu'))
 
+    # Using OpenBlas
+    if use_cblas:
+        libraries += ['openblas']
+        define_macros += [('USE_CBLAS', '1')]
+
     # Add cuda info
     if use_cuda:
         cuda = locate_cuda()
@@ -1145,6 +1173,13 @@ def create_extension(
             if sys.platform != 'win32':
                 runtime_library_dirs += [cuda['lib']]
 
+    # Define macros if they are set as environment variables (see the header
+    # file ./imate/_definitions/definitions.h)
+    if use_long_int:
+        define_macros += [('LONG_INT', '1')]
+    if use_unsigned_long_int:
+        define_macros += [('UNSIGNED_LONG_INT', '1')]
+
     # Create an extension
     extension = Extension(
         name,
@@ -1156,7 +1191,7 @@ def create_extension(
         extra_compile_args=extra_compile_args,
         extra_link_args=extra_link_args,
         language=language,
-        define_macros=[('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')],
+        define_macros=define_macros
     )
 
     return extension
@@ -1313,7 +1348,10 @@ def main(argv):
 
     extensions.append(create_extension(package_name, 'functions'))
 
-    extensions.append(create_extension(package_name, '_linear_algebra'))
+    extensions.append(create_extension(package_name, '_c_basic_algebra'))
+
+    extensions.append(create_extension(package_name, '_linear_algebra',
+                                       other_source_dirs=['_c_basic_algebra']))
 
     extensions.append(create_extension(package_name, '_c_linear_operator',
                                        other_source_dirs=['_c_basic_algebra']))
@@ -1337,7 +1375,8 @@ def main(argv):
                                        other_source_dirs=['functions']))
 
     extensions.append(create_extension(package_name, 'traceinv',
-                                       other_source_dirs=['functions']))
+                                       other_source_dirs=['functions',
+                                                          '_c_basic_algebra']))
 
     extensions.append(create_extension(package_name, 'logdet',
                                        other_source_dirs=['functions']))

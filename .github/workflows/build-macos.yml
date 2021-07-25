@@ -50,6 +50,9 @@ jobs:
                   python -m pip install --upgrade numpy
                   python -m pip install --upgrade .[extra]
               env:
+                  USE_LONG_INT: 0
+                  USE_UNSIGNED_LONG_INT: 0
+                  USE_CBLAS: 0
                   USE_CUDA: 0
 
             - name: Test

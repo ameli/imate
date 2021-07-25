@@ -14,6 +14,11 @@
 // =======
 
 #include "./c_matrix_operations.h"
+#include "../_definitions/definitions.h"  // USE_CBLAS
+
+#if (USE_CBLAS == 1)
+    #include "./cblas_interface.h"
+#endif
 
 
 // ============
@@ -60,8 +65,36 @@ void cMatrixOperations<DataType>::dense_matvec(
         const FlagType A_is_row_major,
         DataType* c)
 {
+    #if (USE_CBLAS == 1)
+
+    // Using OpenBlas
+    CBLAS_LAYOUT layout;
+    if (A_is_row_major)
+    {
+        layout = CblasRowMajor;
+    }
+    else
+    {
+        layout = CblasColMajor;
+    }
+
+    CBLAS_TRANSPOSE transpose = CblasNoTrans;
+    int lda = num_rows;
+    int incb = 1;
+    int incc = 1;
+    DataType alpha = 1.0;
+    DataType beta = 0.0;
+
+    cblas_interface::xgemv(layout, transpose, num_rows, num_columns, alpha, A,
+                           lda, b, incb, beta, c, incc);
+
+    #else
+
+    // Not using OpenBlas
     LongIndexType j;
     long double sum;
+    LongIndexType chunk = 5;
+    LongIndexType num_columns_chunked = num_columns - (num_columns % chunk);
 
     // Determine major order of A
     if (A_is_row_major)
@@ -70,10 +103,20 @@ void cMatrixOperations<DataType>::dense_matvec(
         for (LongIndexType i=0; i < num_rows; ++i)
         {
             sum = 0.0;
-            for (j=0; j < num_columns; ++j)
+            for (j=0; j < num_columns_chunked; j+= chunk)
+            {
+                sum += A[i*num_columns + j] * b[j] +
+                       A[i*num_columns + j+1] * b[j+1] +
+                       A[i*num_columns + j+2] * b[j+2] +
+                       A[i*num_columns + j+3] * b[j+3] +
+                       A[i*num_columns + j+4] * b[j+4];
+            }
+
+            for (j= num_columns_chunked; j < num_columns; ++j)
             {
                 sum += A[i*num_columns + j] * b[j];
             }
+
             c[i] = static_cast<DataType>(sum);
         }
     }
@@ -90,6 +133,8 @@ void cMatrixOperations<DataType>::dense_matvec(
             c[i] = static_cast<DataType>(sum);
         }
     }
+
+    #endif
 }
 
 
@@ -148,6 +193,8 @@ void cMatrixOperations<DataType>::dense_matvec_plus(
 
     LongIndexType j;
     long double sum;
+    LongIndexType chunk = 5;
+    LongIndexType num_columns_chunked = num_columns - (num_columns % chunk);
 
     // Determine major order of A
     if (A_is_row_major)
@@ -156,10 +203,20 @@ void cMatrixOperations<DataType>::dense_matvec_plus(
         for (LongIndexType i=0; i < num_rows; ++i)
         {
             sum = 0.0;
-            for (j=0; j < num_columns; ++j)
+            for (j=0; j < num_columns_chunked; j+= chunk)
+            {
+                sum += A[i*num_columns + j] * b[j] +
+                       A[i*num_columns + j+1] * b[j+1] +
+                       A[i*num_columns + j+2] * b[j+2] +
+                       A[i*num_columns + j+3] * b[j+3] +
+                       A[i*num_columns + j+4] * b[j+4];
+            }
+
+            for (j= num_columns_chunked; j < num_columns; ++j)
             {
                 sum += A[i*num_columns + j] * b[j];
             }
+
             c[i] += alpha * static_cast<DataType>(sum);
         }
     }
@@ -226,6 +283,8 @@ void cMatrixOperations<DataType>::dense_transposed_matvec(
 {
     LongIndexType i;
     long double sum;
+    LongIndexType chunk = 5;
+    LongIndexType num_rows_chunked = num_rows - (num_rows % chunk);
 
     // Determine major order of A
     if (A_is_row_major)
@@ -247,10 +306,20 @@ void cMatrixOperations<DataType>::dense_transposed_matvec(
         for (LongIndexType j=0; j < num_columns; ++j)
         {
             sum = 0.0;
-            for (i=0; i < num_rows; ++i)
+            for (i=0; i < num_rows_chunked; i += chunk)
+            {
+                sum += A[i + num_rows*j] * b[i] +
+                       A[i+1 + num_rows*j] * b[i+1] +
+                       A[i+2 + num_rows*j] * b[i+2] +
+                       A[i+3 + num_rows*j] * b[i+3] +
+                       A[i+4 + num_rows*j] * b[i+4];
+            }
+
+            for (i=num_rows_chunked; i < num_rows; ++i)
             {
                 sum += A[i + num_rows*j] * b[i];
             }
+
             c[j] = static_cast<DataType>(sum);
         }
     }
@@ -313,6 +382,8 @@ void cMatrixOperations<DataType>::dense_transposed_matvec_plus(
 
     LongIndexType i;
     long double sum;
+    LongIndexType chunk = 5;
+    LongIndexType num_rows_chunked = num_rows - (num_rows % chunk);
 
     // Determine major order of A
     if (A_is_row_major)
@@ -334,10 +405,20 @@ void cMatrixOperations<DataType>::dense_transposed_matvec_plus(
         for (LongIndexType j=0; j < num_columns; ++j)
         {
             sum = 0.0;
-            for (i=0; i < num_rows; ++i)
+            for (i=0; i < num_rows_chunked; i += chunk)
+            {
+                sum += A[i + num_rows*j] * b[i] +
+                       A[i+1 + num_rows*j] * b[i+1] +
+                       A[i+2 + num_rows*j] * b[i+2] +
+                       A[i+3 + num_rows*j] * b[i+3] +
+                       A[i+4 + num_rows*j] * b[i+4];
+            }
+
+            for (i=num_rows_chunked; i < num_rows; ++i)
             {
                 sum += A[i + num_rows*j] * b[i];
             }
+
             c[j] += alpha * static_cast<DataType>(sum);
         }
     }
