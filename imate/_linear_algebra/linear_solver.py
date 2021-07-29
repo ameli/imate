@@ -52,10 +52,13 @@ def linear_solver(A, b, assume_matrix, tol=1e-6):
         # x = scipy.sparse.linalg.spsolve(A,b)
         if assume_matrix == "sym":
             solver = scipy.sparse.linalg.minres
+            options = {}
         elif assume_matrix == "pos":
             solver = scipy.sparse.linalg.cg
+            options = {'atol': 0}
         elif assume_matrix == "gen":
             solver = scipy.sparse.linalg.gmres
+            options = {'atol': 0}
         else:
             raise ValueError('"assume_matrix" is invalid.')
 
@@ -65,7 +68,7 @@ def linear_solver(A, b, assume_matrix, tol=1e-6):
         else:
             x = numpy.zeros(b.shape, order='F')
             for i in range(x.shape[1]):
-                x[:, i] = solver(A, b[:, i], tol=tol, atol=0)[0]
+                x[:, i] = solver(A, b[:, i], tol=tol, **options)[0]
     else:
         # Dense matrix
         x = scipy.linalg.solve(A, b, assume_a=assume_matrix)
