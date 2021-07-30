@@ -269,7 +269,7 @@ def check_arguments(
     elif num_gpu_devices < 0:
         raise ValueError('"num_gpu_devices" should be a non-negative integer.')
 
-    # Check print summary
+    # Check verbose
     if verbose is None:
         raise TypeError('"verbose" cannot be None.')
     elif not numpy.isscalar(verbose):

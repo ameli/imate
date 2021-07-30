@@ -4,21 +4,15 @@ Notes
 
 Some notes to myself when completing the documentation later.
 
-* It seems there is a difference of results when gpu is enabled or disabled.
-  When the data is double precision, this difference is very small, almost
-  unimportant.But for single precision data, the difference of cublas and cpu
-  based computation for float precision is more pronounced. In particular, the
-  Lanczos iterations quickly lose their orthogonality. This issue is in
-  particular more observed when single precision data ``float32``` is used. To
-  avoid this, either use double precision, or enable *reorthogonalization* in
-  Lancozs process. 
+* To run Qeen_4147 data on GPU, recompile the source code with
+  `USE_UNSIGNED_LONG_INT=1` to double the limit of integers.
 
-  Problem was found:
+* How to make the results of GPU and CPU identical fro testing purposes:
 
   When num_gpu_devices and num_threads are the same, both cpu and gpu codes
   give identical results. This is due to the random number generator. For each
   thread, the random generator jumps the initial seed. Also, when an iteration
-  on a single thread finishes, the next iteration continutes with the next
+  on a single thread finishes, the next iteration continues with the next
   random number in the previous sequence in the memory of the generator.
 
   To make the result of both cpu and gpu exactly identical, do the followings:
@@ -30,7 +24,7 @@ Some notes to myself when completing the documentation later.
 
   If we set num_thread and num_gpu_devices to anything greater than one, the
   results might be different, since after each thread iteration, it is not
-  guaranteed which thread continues the seqnece of the previous random
+  guaranteed which thread continues the sequence of the previous random
   generator. But if min_num_samples is a large number, the results of both
   cpu and gpu should be very close.
 
@@ -75,35 +69,9 @@ Some notes to myself when completing the documentation later.
      classes of ``cLinearOperator`` and ``cuLinearOperator`` were const
      functions. Now they are not const.
 
-
-  Problem was found:
-
-  The huge wheel file size is originated from the ``auditwheel repair`` command
-  inside the manylinux. Once a wheel file is created, weh should check which
-  libraries the wheel depends on. We can check this by
-
-      auditwheel show package.whl
-
-  To include these libraries with the wheel, we run
-
-      auditwheel repair package.whl -w pakcage-manylinux.whl
-
-  For my package, this process adds all cuda libraries, and the package size
-  jumps from 2.8MB to 400MB. If I unzip the wheel file:
-
-      unzip package-manylinux.whl
-
-  and list the files in ``imate.libs``:
-
-  117M libcublas-c38bd442.so.11.5.1.109     <<< large
-  252M libcublasLt-17d45838.so.11.5.1.109   <<< large
-  622K libcudart-a7b20f20.so.11.3.109
-  225M libcusparse-aae971d3.so.11.6.0.109   <<< large
-  165K libgomp-a34b3233.so.1.0.0
-
 * Anaconda wheels are build without dynamic loading (so the wheels bundle the
   cuda libraries). PyPi wheels are build with dynamic loading (so the wheels
-  do not bundle with cuda libraries). In the following, I only talk about
+  do not bundle with cuda libraries). The following is only related to the
   dynamic loading, meaning that only those wheels uploaded to PyPi.
   
   With dynamic loading (pypi wheels), the running machine should have the exact
@@ -118,7 +86,7 @@ Some notes to myself when completing the documentation later.
   run on 10.0.
 
   For 10.1, I get the some std::logic_error about some return string is NULL.
-  I suspect this is one of the functions in _cuda_dynamic_loading/*.cpp.
+  I suspect this is one of the functions in `_cuda_dynamic_loading/*.cpp`.
 
 * Anaconda wheels are build without dynamic loading, so they bundle with the
   cuda libraries. But, they still do not work fine. Here is how.
@@ -127,31 +95,11 @@ Some notes to myself when completing the documentation later.
   cuda module is not loaded, or loaded. 
 
   An anaconda wheel that was built on cuda 11, can NOT run on savio when
-  cuda module is not loaded, or loaded. I did not excpet this, since it should
+  cuda module is not loaded, or loaded. I did not expect this, since it should
   run without needing to load any module in savio. Could this be the cuda
-  "driver"? Becase the device driver is not bundled with the wheel, and it
+  "driver"? Because the device driver is not bundled with the wheel, and it
   should be installed with the machine. Cuda driver 11 is not available on
   savio.
-
-* Results between float32 and float64 differs on CPU (but not GPU). For the
-  matrix StocF-1465, we the traceinv result are:
-  float32: CPU: +1.361e+00, GPU: +3.574e+00
-  float64: CPU: +3.572e+00, GPU: +3.579e+00
-  Also, if I do astype(float64) on the 32-bit data, the 32-bit algorithm
-  results on CPU chages to +3.574e+00. Thus, it shows the 32-bit data on CPU is
-  not flawed, rather the CPU algorithm itelf has some issues.
-
-  Clearly 32-bit does not have enough prev=cision for large matrix-vector
-  operations. But why the GPU gets it right?
-
-  One possible explanation (which I found not to be the case) is that maybe it
-  actually casts the process to 64 bit, an that might be why 32-bit GPU is
-  actually 64-bit and gives right answers. But it turns out this is not the
-  case. Here is why:
-
-  The runtime of float64 is nearly twice the runtime of float32, either on CPU
-  or GPU. Thus, it shows the 32-bit algorithm on GPU actually does 32-bit
-  calculation, and not 64-bit.
 
 ====
 Name
@@ -172,12 +120,8 @@ TODO
 * Implement convergence for ``hutchinson`` method and use the same arguments
   that exists for ``slq`` method.
 * Put seaborn in try catch so it it is not installed, the package still work.
-* Check why flot32 bit on CPU gives wrong results, but on GPU the results are
-  correct. See details in one of the notes above.
 * Get memory usage info for GPU. See for example:
   https://stackoverflow.com/questions/15966046/cudamemgetinfo-returns-same-amount-of-free-memory-on-both-devices-of-gtx-690
-* Test Queen_4147 data on 1080ti. The 64-bit and 32-bit version cannot run on
-  tesla K80, I guss due to memory limit.
 
 ========================
 Compile and Build Issues
@@ -206,44 +150,6 @@ Local Installation
 - CUDA support:
   CUDA is only availble in linux and windows. NVIDIA no longer supports CUDA in
   macos, and Apple does not include NVIDA in apple products either.
-
-----
-PyPi
-----
-
-- The CUDA installation on githib workflow is only available for linux and
-  windows (using ``Jimver@cuda-toolkit``). This github action does not support
-  macos.
-
-- For the linux build, I use ``Jimver@cuda-toolkit`` for ``build-linux.yaml``
-  only, but not in ``deploy-pypi.yaml``. That is becase in pypi, we should
-  build linux in ``manylinux`` docker image, and cuda should be installed
-  inside the docker image. There is a script in ``.github/scripts`` that
-  installs cuda 11-3 inside the CentOS linux of the ``manylinux2104`` image.
-
-  Unfortunately, the size of manylinux wheel when this package is compiled
-  with cuda is 407MB (without cuda, it is 8MB). The limit of upload size to
-  pypi is 100MB, thus, the manylinux wheels cannot be uploaded to pypi at the
-  moment. The problem is probabely the inclusion of cuda static libraries. One
-  solution is to use ``--cudart shared`` in the linker arguments for nvcc. But
-  I do not know how to add this to thee nvcc linker.
-
-  Some possible solutions:
-
-  - In ``setup.py``, change ``zip_safe`` to ``True``. The zip safe option will
-    compress the package. The down side is that we cannot ``cimport`` this
-    package from another dependent package.
-
-  - Accordng to: https://towardsdatascience.com/how-to-shrink-numpy-scipy-pandas-and-matplotlib-for-your-data-product-4ec8d7e86ee4
-    There are compiler flags like ``-Os -g0 -Wl, --strip-all``, which can be
-    used for the *Release* version of the package.
-
-  - An other solution is to host the package elsewhere and instrcut
-    ``setup.py`` to download it. This way, ths package can still be installed
-    from pypi.
-
-  - However, the best solution is to figure out why manylinux2014 appends
-    so many cuda libraries to the package binary.
 
 =====
 Ideas
@@ -320,7 +226,7 @@ Hutchinson Method
 
 Add convergence methods to the Hutchinson method, such as ``min_num_samples``,
 ``max_num_samples``, ``error_rtol``, ``error_atol``. Also add an option for
-``reorthogonalization`` where the initial random vectors to be orthogonalizaed
+``reorthogonalization`` where the initial random vectors to be orthogonalized
 (currently they are orthogonalized). Also an option for ``verbose`` to print
 the results in a table just like the slq method, and an option for ``plot`` to
 plot the convergence and samples.
@@ -343,3 +249,6 @@ Implementation Techniques
 - dynamic polymorphism to dispatch to linear operator derived classes.
 - Static template to support float, double, and long double data types.
 - Dynamic loading of CUDA libraries.
+- The basic algebra module seems to perform faster than OpenBlas. Not only
+  that, for very large arrays, the dot product is more accurate than OpenBlas,
+  since the reduction variable is cast to long double.

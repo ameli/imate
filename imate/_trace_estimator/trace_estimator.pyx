@@ -283,6 +283,7 @@ cpdef trace_estimator(
         'matrix':
         {
             'data_type': data_type_name,
+            'exponent': exponent,
             'symmetric': symmetric,
             'size': matrix_size,
             'sparse': sparse,

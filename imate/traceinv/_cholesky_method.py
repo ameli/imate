@@ -17,6 +17,7 @@ import scipy
 import scipy.linalg
 import scipy.sparse
 import scipy.sparse.linalg
+from scipy.sparse import isspmatrix
 
 try:
     import sksparse
@@ -144,7 +145,7 @@ def compute_traceinv_invert_cholesky_indirectly(L, n, sparse):
                         e.tocsc(),
                         use_LDLt_decomposition=False).toarray()
 
-            elif scipy.sparse.issparse(L):
+            elif scipy.sparse.isspmatrix(L):
 
                 # Using scipy
                 x = scipy.sparse.linalg.spsolve_triangular(
@@ -222,8 +223,8 @@ def cholesky_method(A, exponent=1, invert_cholesky=True):
     if scipy.sparse.isspmatrix(A):
         sparse = True
 
-    init_wall_time = time.perf_counter()
-    init_proc_time = time.process_time()
+    init_tot_wall_time = time.perf_counter()
+    init_cpu_proc_time = time.process_time()
 
     # Ap is the power of A to the exponent p
     if exponent != 0:
@@ -275,19 +276,29 @@ def cholesky_method(A, exponent=1, invert_cholesky=True):
             trace = compute_traceinv_invert_cholesky_indirectly(
                     L, Ap.shape[0], sparse)
 
-    wall_time = time.perf_counter() - init_wall_time
-    proc_time = time.process_time() - init_proc_time
+    tot_wall_time = time.perf_counter() - init_tot_wall_time
+    cpu_proc_time = time.process_time() - init_cpu_proc_time
 
     # Dictionary of output info
     info = {
-        'cpu':
+        'matrix':
         {
-            'wall_time': wall_time,
-            'proc_time': proc_time,
+            'data_type': get_data_type_name(A),
+            'exponent': exponent,
+            'size': A.shape[0],
+            'sparse': isspmatrix(A),
+            'nnz': get_nnz(A),
+            'density': get_density(A),
+        },
+        'time':
+        {
+            'tot_wall_time': tot_wall_time,
+            'cpu_proc_time': cpu_proc_time,
         },
         'solver':
         {
             'method': 'cholesky',
+            'invert_cholesky': invert_cholesky
         }
     }
 
@@ -304,7 +315,7 @@ def check_arguments(A, exponent, invert_cholesky):
     """
 
     # Check A
-    if (not isinstance(A, numpy.ndarray)) and (not scipy.sparse.issparse(A)):
+    if (not isinstance(A, numpy.ndarray)) and (not isspmatrix(A)):
         raise TypeError('Input matrix should be either a "numpy.ndarray" or ' +
                         'a "scipy.sparse" matrix.')
     elif A.shape[0] != A.shape[1]:
@@ -325,3 +336,58 @@ def check_arguments(A, exponent, invert_cholesky):
         raise ValueError('"invert_cholesky" cannot be None.')
     elif not isinstance(invert_cholesky, bool):
         raise TypeError('"invert_cholesky" should be an integer.')
+
+
+# ==================
+# get data type name
+# ==================
+
+def get_data_type_name(A):
+    """
+    Returns the dtype as string.
+    """
+
+    if A.dtype != b'float32':
+        data_type_name = b'float32'
+
+    elif A.dtype == b'float64':
+        data_type_name = b'float64'
+
+    elif A.dtype == b'float128':
+        data_type_name = b'float128'
+
+    else:
+        raise TypeError('Data type should be "float32", "float64", or ' +
+                        '"float128".')
+
+    return data_type_name
+
+
+# =======
+# get nnz
+# =======
+
+def get_nnz(A):
+    """
+    Returns the number of non-zero elements of a matrix.
+    """
+
+    if isspmatrix(A):
+        return A.nnz
+    else:
+        return A.shape[0] * A.shape[1]
+
+
+# ===========
+# get density
+# ===========
+
+def get_density(A):
+    """
+    Returns the density of non-zero elements of a matrix.
+    """
+
+    if isspmatrix(A):
+        return get_nnz(A) / (A.shape[0] * A.shape[1])
+    else:
+        return 1.0

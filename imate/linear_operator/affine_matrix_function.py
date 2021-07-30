@@ -139,6 +139,7 @@ class AffineMatrixFunction(LinearOperator):
 
     def get_nnz(self):
         """
+        Returns the number of non-zero elements of a matrix.
         """
 
         if self.is_sparse():
@@ -152,6 +153,7 @@ class AffineMatrixFunction(LinearOperator):
 
     def get_density(self):
         """
+        Returns the density of non-zero elements of a matrix.
         """
 
         if self.is_sparse():
