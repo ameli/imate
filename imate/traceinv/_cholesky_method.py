@@ -18,6 +18,8 @@ import scipy.linalg
 import scipy.sparse
 import scipy.sparse.linalg
 from scipy.sparse import isspmatrix
+import multiprocessing
+from ._utilities import get_data_type_name, get_nnz, get_density
 
 try:
     import sksparse
@@ -289,6 +291,11 @@ def cholesky_method(A, exponent=1, invert_cholesky=True):
             'sparse': isspmatrix(A),
             'nnz': get_nnz(A),
             'density': get_density(A),
+            'num_inquiries': 1
+        },
+        'device':
+        {
+            'num_cpu_threads': multiprocessing.cpu_count()
         },
         'time':
         {
@@ -336,58 +343,3 @@ def check_arguments(A, exponent, invert_cholesky):
         raise ValueError('"invert_cholesky" cannot be None.')
     elif not isinstance(invert_cholesky, bool):
         raise TypeError('"invert_cholesky" should be an integer.')
-
-
-# ==================
-# get data type name
-# ==================
-
-def get_data_type_name(A):
-    """
-    Returns the dtype as string.
-    """
-
-    if A.dtype != b'float32':
-        data_type_name = b'float32'
-
-    elif A.dtype == b'float64':
-        data_type_name = b'float64'
-
-    elif A.dtype == b'float128':
-        data_type_name = b'float128'
-
-    else:
-        raise TypeError('Data type should be "float32", "float64", or ' +
-                        '"float128".')
-
-    return data_type_name
-
-
-# =======
-# get nnz
-# =======
-
-def get_nnz(A):
-    """
-    Returns the number of non-zero elements of a matrix.
-    """
-
-    if isspmatrix(A):
-        return A.nnz
-    else:
-        return A.shape[0] * A.shape[1]
-
-
-# ===========
-# get density
-# ===========
-
-def get_density(A):
-    """
-    Returns the density of non-zero elements of a matrix.
-    """
-
-    if isspmatrix(A):
-        return get_nnz(A) / (A.shape[0] * A.shape[1])
-    else:
-        return 1.0

@@ -27,9 +27,15 @@
 
 SplitMix64::SplitMix64()
 {
-    // Seeding by std::time only fills the first 32 bits of the 64-bit integer
-    uint64_t seed = static_cast<uint64_t>(std::time(0));
+    // std::time gives the second since epoch. This, if this function is called
+    // multiple times a second, the std::time() results the same number. To
+    // make it differ between each milliseconds, the std::clock is added, which
+    // is the cpu time (in POSIX) or wall time (in windows) and in the unit of
+    // system's clocks per second.
+    uint64_t seed = static_cast<uint64_t>(std::time(0)) +
+                    static_cast<uint64_t>(std::clock());
 
+    // Seeding as follow only fills the first 32 bits of the 64-bit integer.
     // Repeat the first 32 bits on the second 32-bits to create a better 64-bit
     // random number
     this->state = (seed << 32) | seed;

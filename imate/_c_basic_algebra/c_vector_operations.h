@@ -36,43 +36,43 @@ class cVectorOperations
 {
     public:
 
-        // Copy Vector
+        // copy vector
         static void copy_vector(
                 const DataType* input_vector,
                 const LongIndexType vector_size,
                 DataType* output_vector);
 
-        // Copy Scaled Vector
+        // copy scaled vector
         static void copy_scaled_vector(
                 const DataType* input_vector,
                 const LongIndexType vector_size,
                 const DataType scale,
                 DataType* output_vector);
 
-        // Subtract Scaled Vector
+        // subtract scaled vector
         static void subtract_scaled_vector(
                 const DataType* input_vector,
                 const LongIndexType vector_size,
                 const DataType scale,
                 DataType* output_vector);
 
-        // Inner Product
+        // inner product
         static DataType inner_product(
                 const DataType* vector1,
                 const DataType* vector2,
                 const LongIndexType vector_size);
 
-        // Euclidean Norm
+        // euclidean norm
         static DataType euclidean_norm(
                 const DataType* vector,
                 const LongIndexType vector_size);
 
-        // Normalize Vector In Place
+        // normalize vector in place
         static DataType normalize_vector_in_place(
                 DataType* vector,
                 const LongIndexType vector_size);
 
-        // Normalize Vector And Copy
+        // normalize vector and copy
         static DataType normalize_vector_and_copy(
                 const DataType* vector,
                 const LongIndexType vector_size,

@@ -48,7 +48,7 @@ class CudaInterface
         // alloc bytes
         static void alloc_bytes(
                 void*& device_array,
-                const LongIndexType num_bytes);
+                const size_t num_bytes);
 
         // copy to device
         static void copy_to_device(

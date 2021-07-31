@@ -16,19 +16,15 @@ import time
 import numpy
 import scipy.sparse
 from scipy.sparse import isspmatrix
-from .._linear_algebra import linear_solver
 import multiprocessing
-from .convergence_tools import check_convergence, average_estimates
+from .._linear_algebra import linear_solver
+from ._convergence_tools import check_convergence, average_estimates
+from .._trace_estimator.trace_estimator_plot_utilities import plot_convergence
+from ._utilities import get_data_type_name, get_nnz, get_density, print_summary
 
 # Cython
-from libc.stdlib cimport malloc, free
-# from cython.parallel cimport parallel, prange
-# from .._definitions.types cimport IndexType, LongIndexType, DataType
 from .._c_basic_algebra cimport cVectorOperations
 from .._linear_algebra cimport generate_random_column_vectors
-
-cimport numpy
-cimport openmp
 
 
 # =================
@@ -45,6 +41,7 @@ def hutchinson_method(
         error_rtol=1e-2,
         confidence_level=0.95,
         outlier_significance_level=0.001,
+        solver_tol=1e-6,
         orthogonalize=True,
         num_threads=0,
         verbose=False,
@@ -88,8 +85,8 @@ def hutchinson_method(
     error_atol, error_rtol = check_arguments(
             A, exponent, assume_matrix, min_num_samples, max_num_samples,
             error_atol, error_rtol, confidence_level,
-            outlier_significance_level, orthogonalize, num_threads, verbose,
-            plot)
+            outlier_significance_level, solver_tol, orthogonalize, num_threads,
+            verbose, plot)
 
     # Parallel processing
     if num_threads < 1:
@@ -119,6 +116,8 @@ def hutchinson_method(
     cdef int num_samples_used = 0
     cdef int converged = 0
 
+    init_alg_wall_time = time.perf_counter()
+
     # Monte-Carlo sampling
     for i in range(max_num_samples):
 
@@ -126,10 +125,10 @@ def hutchinson_method(
 
             # Stochastic estimator of trace using the i-th column of E
             samples[i] = _stochastic_trace_estimator(A, E[:, i], exponent,
-                                                     assume_matrix)
+                                                     assume_matrix, solver_tol)
 
             # Store the index of processed samples
-            processed_samples_indices[num_processed_samples] = i;
+            processed_samples_indices[num_processed_samples] = i
             num_processed_samples += 1
 
             # Check whether convergence criterion has been met to stop.
@@ -139,6 +138,8 @@ def hutchinson_method(
                     samples, min_num_samples, processed_samples_indices,
                     num_processed_samples, confidence_level, error_atol,
                     error_rtol)
+
+    alg_wall_time = time.perf_counter() - init_alg_wall_time
 
     trace, error, num_outliers = average_estimates(
             confidence_level, outlier_significance_level, max_num_samples,
@@ -153,10 +154,12 @@ def hutchinson_method(
         {
             'data_type': get_data_type_name(A),
             'exponent': exponent,
+            'assume_matrix': assume_matrix,
             'size': A.shape[0],
             'sparse': isspmatrix(A),
             'nnz': get_nnz(A),
             'density': get_density(A),
+            'num_inquiries': 1
         },
         'error':
         {
@@ -181,18 +184,31 @@ def hutchinson_method(
         'device':
         {
             'num_cpu_threads': num_threads,
+            'num_gpu_devices': 0,
+            'num_gpu_multiprocessors': 0,
+            'num_gpu_threads_per_multiprocessor': 0
         },
         'time':
         {
             'tot_wall_time': tot_wall_time,
+            'alg_wall_time': alg_wall_time,
             'cpu_proc_time': cpu_proc_time,
         },
         'solver':
         {
             'orthogonalize': orthogonalize,
+            'solver_tol': solver_tol,
             'method': 'hutchinson',
         }
     }
+
+    # print summary
+    if verbose:
+        print_summary(info)
+
+    # Plot results
+    if plot:
+        plot_convergence(info)
 
     return trace, info
 
@@ -211,6 +227,7 @@ def check_arguments(
         error_rtol,
         confidence_level,
         outlier_significance_level,
+        solver_tol,
         orthogonalize,
         num_threads,
         verbose,
@@ -315,6 +332,14 @@ def check_arguments(
         raise ValueError('The sum of "confidence_level" and ' +
                          '"outlier_significance_level" should be less than 1.')
 
+    # Check solver tol
+    if solver_tol is not None and not numpy.isscalar(solver_tol):
+        raise TypeError('"solver_tol" should be a scalar value.')
+    elif solver_tol is not None and not isinstance(solver_tol, (int, float)):
+        raise TypeError('"solver_tol" should be a float number.')
+    elif solver_tol is not None and solver_tol < 0.0:
+        raise ValueError('"lancozs_tol" cannot be negative.')
+
     # Check orthogonalize
     if orthogonalize is None:
         raise TypeError('"orthogonalize" cannot be None.')
@@ -332,7 +357,7 @@ def check_arguments(
         raise TypeError('"num_threads" should be an integer.')
     elif num_threads < 0:
         raise ValueError('"num_threads" should be a non-negative integer.')
-    
+
     # Check verbose
     if verbose is None:
         raise TypeError('"verbose" cannot be None.')
@@ -367,7 +392,12 @@ def check_arguments(
 # stochastic trace estimator
 # ==========================
 
-cdef _stochastic_trace_estimator(A, E, exponent, assume_matrix):
+cdef double _stochastic_trace_estimator(
+        A,
+        E,
+        exponent,
+        assume_matrix,
+        solver_tol) except *:
     """
     Stochastic trace estimator based on set of vectors E and AinvpE.
 
@@ -405,14 +435,14 @@ cdef _stochastic_trace_estimator(A, E, exponent, assume_matrix):
 
     elif exponent == 1:
         # Perform inv(A) * E. This requires GIL
-        AinvpE = linear_solver(A, E, assume_matrix)
+        AinvpE = linear_solver(A, E, assume_matrix, solver_tol)
 
     elif exponent > 1:
         # Perform Ainv * Ainv * ... Ainv * E where Ainv is repeated p times
         # where p is the exponent.
         AinvpE = E
         for i in range(exponent):
-            AinvpE = linear_solver(A, AinvpE, assume_matrix)
+            AinvpE = linear_solver(A, AinvpE, assume_matrix, solver_tol)
 
     elif exponent == -1:
         # Performing Ainv**(-1) E, where Ainv**(-1) it A itself.
@@ -437,62 +467,7 @@ cdef _stochastic_trace_estimator(A, E, exponent, assume_matrix):
     cdef double inner_prod = cVectorOperations[double].inner_product(
                     cE, cAinvpE, vector_size)
 
-    # Hutcinsons trace estimate
+    # Hutcinson trace estimate
     cdef double trace_estimate = vector_size * inner_prod
 
     return trace_estimate
-
-
-# ==================
-# get data type name
-# ==================
-
-def get_data_type_name(A):
-    """
-    Returns the dtype as string.
-    """
-
-    if A.dtype != b'float32':
-        data_type_name = b'float32'
-
-    elif A.dtype == b'float64':
-        data_type_name = b'float64'
-
-    elif A.dtype == b'float128':
-        data_type_name = b'float128'
-
-    else:
-        raise TypeError('Data type should be "float32", "float64", or ' +
-                        '"float128".')
-
-    return data_type_name
-
-
-# =======
-# get nnz
-# =======
-
-def get_nnz(A):
-    """
-    Returns the number of non-zero elements of a matrix.
-    """
-
-    if isspmatrix(A):
-        return A.nnz
-    else:
-        return A.shape[0] * A.shape[1]
-
-
-# ===========
-# get density
-# ===========
-
-def get_density(A):
-    """
-    Returns the density of non-zero elements of a matrix.
-    """
-
-    if isspmatrix(A):
-        return get_nnz(A) / (A.shape[0] * A.shape[1])
-    else:
-        return 1.0

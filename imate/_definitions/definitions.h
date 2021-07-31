@@ -25,6 +25,11 @@
 // rather than "long int". The "long long" is indeed 64-bit. Currently, the
 // long type in "./types.h" is defined as "long int". Hence, setting LONG_INT
 // to 1 will not make any difference unless "long long" is used.
+//
+// Note: The malloc and cudaMalloc can only allocate at maximum, an array of
+// the limit size of "size_t" (unsigned int). So, using "long long int" is
+// not indeed practical for malloc. Thus, it is better to set the type of array
+// indices as just "signed int".
 #ifndef LONG_INT
     #define LONG_INT 0
 #endif
@@ -39,7 +44,15 @@
 // scipy.sparse.csr_matrix.indptr) from "int" to "unsigned int". This overhead
 // is only one-time and should be around half a second for moderate to large
 // arrays. But, on the positive side, the unsigned int can handle arrays of
-// upto twice the index size.
+// up to twice the index size.
+//
+// Note: The malloc and cudaMalloc can only allocate at maximum, an array of
+// the limit size of "size_t" (unsigned int). So, using "unsigned int" for
+// index is not indeed practical since the array size in bytes is the size of
+// array times sizeof(DataType). That is, if DataType is double for instance,
+// the maximum array size could potentially be 8 times the size of maximum
+// of "size_t" (unsigned int) which is not possible for malloc. Thus, it is
+// better to set the type of array indices as just "signed int".
 #ifndef UNSIGNED_LONG_INT
     #define UNSIGNED_LONG_INT 0
 #endif

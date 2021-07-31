@@ -230,7 +230,7 @@ def check_arguments(
     elif lanczos_degree < 1:
         raise ValueError('"lanczos_degree" should be at least one.')
 
-    # Check lanczos tolerance
+    # Check lanczos tol
     if lanczos_tol is not None and not numpy.isscalar(lanczos_tol):
         raise TypeError('"lanczos_tol" should be a scalar value.')
     elif lanczos_tol is not None and not isinstance(lanczos_tol, (int, float)):
@@ -385,6 +385,7 @@ def print_summary(info):
 
     # Matrix info
     data_type = info['matrix']['data_type'].decode("utf-8")
+    exponent = info['matrix']['exponent']
     symmetric = info['matrix']['symmetric']
     num_inquiries = info['matrix']['num_inquiries']
     num_operator_parameters = info['matrix']['num_operator_parameters']
@@ -465,7 +466,7 @@ def print_summary(info):
 
             # will print one row
             if numpy.isnan(trace) or numpy.isinf(trace):
-                print('%10e  ' % trace, end="")
+                print('%10e   ' % trace, end="")
             else:
                 print('%+7.3e   ' % trace, end="")
             if numpy.isnan(absolute_error) or numpy.isinf(absolute_error):
@@ -513,11 +514,17 @@ def print_summary(info):
     print('-------------------------------------    ------------------------' +
           '-------------')
     print('symmetric:                      %5s' % symmetric, end="    ")
-    print('lanczos degree:                  %4d' % lanczos_degree)
+    print('method:                           slq')
     print('float precision:             %8s' % data_type, end="    ")
-    print('lanczos tol:                %8.3e' % lanczos_tol)
+    print('lanczos degree:                  %4d' % lanczos_degree)
     print('num matrix parameters:             %2d' % num_operator_parameters,
           end="    ")
+    print('lanczos tol:                %8.3e' % lanczos_tol)
+    if int(exponent) == exponent:
+        print('exponent:                         %3d' % int(exponent),
+              end="    ")
+    else:
+        print('exponent:                      %6.2f' % exponent, end="    ")
     print('orthogonalization:               %4s' % orthogonalize)
     print('')
 

@@ -33,11 +33,11 @@ def check_convergence(
 
     The convergence criterion for each trace inquiry is if:
 
-                standard_deviation < max(rtol * average[i], atol)
+        standard_deviation < max(rtol * average[i], atol)
 
-    where \c rtol and \c atol are relative and absolute tolerances,
+    where `error_rtol` and `error_atol` are relative and absolute tolerances,
     respectively. If this criterion is satisfied for *all* trace inquiries,
-    this function returns \c 1, otherwise \c 0.
+    this function returns `1`, otherwise `0`.
     """
 
     # If number of processed samples are not enough, set to not converged yet.
