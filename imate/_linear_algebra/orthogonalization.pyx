@@ -122,39 +122,40 @@ cdef void gram_schmidt_process(
     # Iterate over vectors
     for i in range(num_vectors-1, num_vectors-num_steps-1, -1):
 
+        # Norm of j-th vector
+        norm = cVectorOperations[DataType].euclidean_norm(
+                &V[vector_size*i], vector_size)
+
+        if norm < epsilon * sqrt(vector_size):
+            printf('WARNING: norm of the given vector is too small. Cannot ')
+            printf('reorthogonalize against zero vector. Skipping\n')
+            break
+
         # Projection
         inner_prod = cVectorOperations[DataType].inner_product(
                 &V[vector_size*i], v, vector_size)
 
-        norm = cVectorOperations[DataType].euclidean_norm(
-                &V[vector_size*i], vector_size)
-
-        if norm < epsilon:
-            printf('ERROR: norm of the given vector is too small. Cannot ')
-            printf('reorthogonalize against zero vector.\n')
-            abort()
-
-        # Subtraction
+        # scale for subtraction
         scale = inner_prod / (norm**2)
 
-        # If scale is is 1, it is possible that i-th and j-th vectors are
-        # identical (or close). So, instead of subtracting them, regenerate
-        # a new i-th vector.
-        if fabs(scale - 1.0) <= epsilon:
+        # If scale is is 1, it is possible that vector v and j-th vector are
+        # identical (or close).
+        if fabs(scale - 1.0) <= 2.0 * epsilon:
 
-            # Norm of the i-th vector
+            # Norm of the vector v
             norm_v = cVectorOperations[DataType].euclidean_norm(v, vector_size)
 
-            # Compute distance between i-th and j-th vector
+            # Compute distance between the j-th vector and vector v
             distance = sqrt(norm_v**2 - 2.0*inner_prod + norm**2)
 
             # If distance is zero, do not reorthogonalize i-th against
-            # vector j-th and the subsequent vectors after j-th.
-            if distance < 2.0 * epsilon:
+            # the j-th vector.
+            if distance < 2.0 * epsilon * sqrt(vector_size):
 
                 # Skip orthogonalizing against j-th vector
-                break
+                continue
 
+        # Subtraction
         cVectorOperations[DataType].subtract_scaled_vector(
                 &V[vector_size*i], vector_size, scale, v)
 
@@ -215,9 +216,9 @@ cdef void orthogonalize_vectors(
     cdef DataType scale
     cdef DataType epsilon = 1e-15
     cdef IndexType success = 1
-    cdef IndexType num_threads = 1
     cdef IndexType max_num_trials = 20
     cdef IndexType num_trials = 0
+    cdef IndexType num_threads = 1
 
     while i < num_vectors:
 
@@ -248,18 +249,20 @@ cdef void orthogonalize_vectors(
             norm = cVectorOperations[DataType].euclidean_norm(
                     &vectors[j*vector_size], vector_size)
 
-            if norm < epsilon:
-                printf('ERROR: norm of the given vector is too small. ')
-                printf('Cannot reorthogonalize against zero vector.\n')
-                abort()
+            # Check norm
+            if norm < epsilon * sqrt(vector_size):
+                printf('WARNING: norm of the given vector is too small. ')
+                printf('Cannot reorthogonalize against zero vector. ')
+                printf('Skipping.\n')
+                continue
 
-            # Subtraction
+            # Scale of subtraction
             scale = inner_prod / (norm**2)
 
             # If scale is is 1, it is possible that i-th and j-th vectors are
             # identical (or close). So, instead of subtracting them, regenerate
             # a new i-th vector.
-            if fabs(scale - 1.0) <= epsilon:
+            if fabs(scale - 1.0) <= 2.0 * epsilon:
 
                 # Norm of the i-th vector
                 norm_i = cVectorOperations[DataType].euclidean_norm(
@@ -270,7 +273,7 @@ cdef void orthogonalize_vectors(
 
                 # If distance is zero, do not reorthogonalize i-th against
                 # vector j-th and the subsequent vectors after j-th.
-                if distance < 2.0 * epsilon:
+                if distance < 2.0 * epsilon * sqrt(vector_size):
 
                     # Regenerate new random vector for i-th vector
                     with gil:
@@ -283,16 +286,17 @@ cdef void orthogonalize_vectors(
                     num_trials += 1
                     break
 
+            # Subtraction
             cVectorOperations[DataType].subtract_scaled_vector(
                     &vectors[vector_size*j], vector_size, scale,
                     &vectors[vector_size*i])
 
-            # Norm of the i-th vector
+            # Check norm of the i-th vector
             norm_i = cVectorOperations[DataType].euclidean_norm(
                     &vectors[i*vector_size], vector_size)
 
             # If the norm is too small, regenerate the i-th vector randomly
-            if norm_i < epsilon:
+            if norm_i < epsilon * sqrt(vector_size):
 
                 # Regenerate new random vector for i-th vector
                 with gil:

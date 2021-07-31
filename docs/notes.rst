@@ -117,11 +117,9 @@ TODO
 * other functions (besides traceinv and logdet)
 * generate_matrix add analytic dense and sparse matrices
 * doxygen for c_linear_operator and its derived classes
-* Implement convergence for ``hutchinson`` method and use the same arguments
-  that exists for ``slq`` method.
-* Put seaborn in try catch so it it is not installed, the package still work.
 * Get memory usage info for GPU. See for example:
   https://stackoverflow.com/questions/15966046/cudamemgetinfo-returns-same-amount-of-free-memory-on-both-devices-of-gtx-690
+* implement ``keep`` functionality for slq method.
 
 ========================
 Compile and Build Issues
@@ -219,17 +217,6 @@ Here is how it should work:
    >>> # Runtime: 10 seconds
     >>> Aop.traceinv(method='slq', parameters=[9, 10], lanczos_degree=60,
                      min_num_samples=10, max_num_samples=100, error_rtol=1e-3)
-
------------------
-Hutchinson Method
------------------
-
-Add convergence methods to the Hutchinson method, such as ``min_num_samples``,
-``max_num_samples``, ``error_rtol``, ``error_atol``. Also add an option for
-``reorthogonalization`` where the initial random vectors to be orthogonalized
-(currently they are orthogonalized). Also an option for ``verbose`` to print
-the results in a table just like the slq method, and an option for ``plot`` to
-plot the convergence and samples.
 
 ==================
 Method Limitations
