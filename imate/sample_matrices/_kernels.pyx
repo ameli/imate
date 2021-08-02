@@ -44,17 +44,18 @@ cdef kernel_type get_kernel(const char* kernel):
     cdef kernel_type kernel_function
     cdef Kernels kernels
 
-    if strcmp(kernel, 'matern'):
+    if strcmp(kernel, b'matern') == 0:
         kernels.kernel_function = _matern_kernel
 
-    elif strcmp(kernel, 'exponential'):
+    elif strcmp(kernel, b'exponential') == 0:
         kernels.kernel_function = _exponential_kernel
 
-    elif strcmp(kernel, 'square-exponential'):
+    elif strcmp(kernel, b'square-exponential') == 0:
         kernels.kernel_function = _square_exponential_kernel
 
-    elif strcmp(kernel, 'rational-quadratic'):
+    elif strcmp(kernel, b'rational-quadratic') == 0:
         kernels.kernel_function = _rational_quadratic_kernel
+
     else:
         printf('ERROR: invalid kernel type.\n')
         abort()
@@ -175,8 +176,6 @@ cdef double _exponential_kernel(
     :return: Matern correlation
     :rtype: double
     """
-
-    printf('E1\n')
 
     return _matern_kernel(x, 0.5)
 

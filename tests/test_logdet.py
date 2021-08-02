@@ -17,7 +17,7 @@ import sys
 import time
 import numpy
 import scipy.sparse
-from imate import generate_matrix
+from imate.sample_matrices import correlation_matrix
 from imate import logdet
 
 
@@ -124,14 +124,14 @@ def test_logdet():
 
     # Compute trace of inverse of K using dense matrix
     print('Using dense matrix')
-    K1 = generate_matrix(size=20, dimension=2, dtype=dtype, sparse=False)
+    K1 = correlation_matrix(size=20, dimension=2, dtype=dtype, sparse=False)
     K1 = K1 + 0.5*numpy.eye(K1.shape[0])
     _test_logdet_methods(K1)
 
     # Compute trace of inverse of K using sparse matrix
     print('Using sparse matrix')
-    K2 = generate_matrix(size=50, dimension=2, correlation_scale=0.03,
-                         density=8e-3, dtype=dtype, sparse=True)
+    K2 = correlation_matrix(size=50, dimension=2, distance_scale=0.03,
+                            density=8e-3, dtype=dtype, sparse=True)
     K2 = K2 + 0.35*scipy.sparse.eye(K2.shape[0])
     _test_logdet_methods(K2)
 

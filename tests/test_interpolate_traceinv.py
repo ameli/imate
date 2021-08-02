@@ -19,7 +19,7 @@ import numpy
 
 # For plotting matrix, we disable interactive display
 os.environ['IMATE_NO_DISPLAY'] = 'True'  # define before importing imate
-from imate import generate_matrix                                  # noqa: E402
+from imate.sample_matrices import correlation_matrix               # noqa: E402
 from imate import InterpolateTraceinv                              # noqa: E402
 
 
@@ -29,13 +29,13 @@ from imate import InterpolateTraceinv                              # noqa: E402
 
 def remove_saved_plot():
     """
-    When the option ``plot=True`` is used in :mod:`imate.generate_matrix`, a
+    When the option ``plot=True`` is used in :mod:`imate.correlation_matrix`, a
     file named ``CorrelationMatrix.svg`` is saved in the current directory.
     Call this function to delete this file.
     """
 
     save_dir = os.getcwd()
-    filename_svg = 'CorrelationMatrix' + '.svg'
+    filename_svg = 'interpolation_results' + '.svg'
     save_fullname_svg = os.path.join(save_dir, filename_svg)
 
     if os.path.exists(save_fullname_svg):
@@ -58,8 +58,8 @@ def test_interpolate_traceinv():
 
     # Compute trace of inverse of K using dense matrix
     print('Using dense matrix')
-    A = generate_matrix(size=20, sparse=False)
-    B = generate_matrix(size=20, sparse=False, correlation_scale=0.05)
+    A = correlation_matrix(size=20, sparse=False)
+    B = correlation_matrix(size=20, sparse=False, distance_scale=0.05)
 
     verbose = True
     interpolant_points = [1e-4, 1e-3, 1e-2, 1e-1, 1, 1e+1]

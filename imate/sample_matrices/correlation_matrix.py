@@ -34,7 +34,7 @@ def correlation_matrix(
         size=20,
         dimension=1,
         distance_scale=0.1,
-        kernel_type='exponential',
+        kernel='exponential',
         kernel_param=None,
         grid=True,
         sparse=False,
@@ -194,11 +194,18 @@ def correlation_matrix(
     """
 
     # Check input arguments
-    _check_arguments(size, dimension, distance_scale, kernel_type,
+    _check_arguments(size, dimension, distance_scale, kernel,
                      kernel_param, grid, sparse, density, dtype, plot, verbose)
 
+    # Default for kernel parameter
+    if kernel_param is None:
+        if kernel == 'matern':
+            kernel_param = 0.5
+        elif kernel == 'rational-quadratic':
+            kernel_param = 1.0
+
     # Convert string to binary
-    kernel_type = kernel_type.encode('utf-8')
+    kernel = kernel.encode('utf-8')
 
     # correlation a set of points in the unit square
     coords = generate_points(size, dimension, grid)
@@ -210,7 +217,7 @@ def correlation_matrix(
         correlation_matrix = sparse_correlation_matrix(
             coords,
             distance_scale,
-            kernel_type,
+            kernel,
             kernel_param,
             density,
             dtype,
@@ -222,7 +229,7 @@ def correlation_matrix(
         correlation_matrix = dense_correlation_matrix(
             coords,
             distance_scale,
-            kernel_type,
+            kernel,
             kernel_param,
             dtype,
             verbose)
@@ -242,7 +249,7 @@ def _check_arguments(
         size,
         dimension,
         distance_scale,
-        kernel_type,
+        kernel,
         kernel_param,
         grid,
         sparse,
@@ -284,12 +291,12 @@ def _check_arguments(
     elif distance_scale <= 0.0:
         raise ValueError('"distance_scale" should be a positive number.')
 
-    # Check kernel_type
-    if not isinstance(kernel_type, str):
-        raise TypeError('"kernel_type" should be a string.')
-    elif kernel_type not in ['matern', 'exponential', 'square_exponential',
-                             'rational_quadratic']:
-        raise ValueError('"kernel_type" should be one of "matern", ' +
+    # Check kernel
+    if not isinstance(kernel, str):
+        raise TypeError('"kernel" should be a string.')
+    elif kernel not in ['matern', 'exponential', 'square_exponential',
+                        'rational_quadratic']:
+        raise ValueError('"kernel" should be one of "matern", ' +
                          '"exponential", "square-exponential", or ' +
                          '"ratioanl_quadratic".')
 
@@ -299,11 +306,11 @@ def _check_arguments(
             raise TypeError('"kernel_param" should be a scalar value.')
         elif isinstance(kernel_param, complex):
             TypeError('"kernel_param" should be an float number.')
-        elif kernel_type == 'exponental' and kernel_param is not None:
-            raise ValueError('When "kernel_type" is "exponential", ' +
+        elif kernel == 'exponental' and kernel_param is not None:
+            raise ValueError('When "kernel" is "exponential", ' +
                              '"kernel_param" should be "None".')
-        elif kernel_type == 'square-exponental' and kernel_param is not None:
-            raise ValueError('When "kernel_type" is "-square-exponential", ' +
+        elif kernel == 'square-exponental' and kernel_param is not None:
+            raise ValueError('When "kernel" is "-square-exponential", ' +
                              '"kernel_param" should be "None".')
 
     # Check grid

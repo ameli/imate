@@ -21,7 +21,7 @@ interactive plot, and instead, the plots are saved as ``SVG`` files.
 
 Currently, the following test files produce figures:
 
-    * ``test_generate_matrix.py``
+    * ``test_correlation_matrix.py``
     * ``test_interpolate_traceinv.py``.
 
 In the beginning of the above test files, and before importing ``imate``,

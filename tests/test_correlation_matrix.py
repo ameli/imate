@@ -58,11 +58,11 @@ def test_correlation_matrix():
 
     # Generate a dense matrix using random set of points
     correlation_matrix(size=20, dimension=2, grid=False, sparse=False,
-                      plot=True)
+                       plot=True)
 
     # Generate sparse matrix
     correlation_matrix(size=20, dimension=2, sparse=True, density=1e-2,
-                      plot=True)
+                       plot=True)
 
     # Remove saved plot
     remove_saved_plot()
