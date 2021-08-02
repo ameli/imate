@@ -17,32 +17,34 @@ import multiprocessing
 
 # Cython
 from cython.parallel cimport parallel, prange
-from ._kernels cimport matern_kernel, euclidean_distance
+from ._kernels cimport get_kernel, euclidean_distance, _exponential_kernel
 from libc.stdlib cimport exit, malloc, free
 from libc.stdio cimport printf
-from .._definitions.types cimport DataType
+from libc.math cimport NAN
+from .._definitions.types cimport DataType, kernel_type
 cimport cython
 cimport openmp
 
-__all__ = ['generate_dense_matrix']
+__all__ = ['dense_correlation_matrix']
 
 # To avoid a bug where cython does not recognize long doubler as a type in the
 # template functions, we define long_double as an alias
 ctypedef long double long_double
 
 
-# ===========================
-# generate correlation matrix
-# ===========================
+# ===============
+# generate matrix
+# ===============
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cdef void _generate_correlation_matrix(
+cdef void _generate_matrix(
         const double[:, ::1] coords,
         const int matrix_size,
         const int dimension,
-        const double correlation_scale,
-        const double nu,
+        const double distance_scale,
+        const kernel_type kernel_function,
+        const double kernel_param,
         const int num_threads,
         const int verbose,
         DataType* c_correlation_matrix) nogil:
@@ -62,9 +64,9 @@ cdef void _generate_correlation_matrix(
         is the dimension of the spatial points.
     :type dimension: int
 
-    :param correlation_scale: A parameter of the correlation function that
+    :param distance_scale: A parameter of the correlation function that
         scales distances.
-    :type correlation_scale: double
+    :type distance_scale: double
 
     :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
     :type nu: float
@@ -115,12 +117,13 @@ cdef void _generate_correlation_matrix(
 
                 # Compute correlation
                 c_correlation_matrix[i*matrix_size + j] = \
-                    <DataType> matern_kernel(
+                    <DataType> kernel_function(
                         euclidean_distance(
                             coords[i][:],
                             coords[j][:],
+                            distance_scale,
                             dimension),
-                        correlation_scale, nu)
+                        kernel_param)
 
                 # Use symmetry of the correlation matrix
                 if i != j:
@@ -144,14 +147,15 @@ cdef void _generate_correlation_matrix(
             openmp.omp_unset_lock(&lock_counter)
 
 
-# =====================
-# generate dense matrix
-# =====================
+# ========================
+# dense correlation matrix
+# ========================
 
-def generate_dense_matrix(
+def dense_correlation_matrix(
         coords,
-        correlation_scale=0.1,
-        nu=0.5,
+        distance_scale=0.1,
+        kernel='exponential',
+        kernel_param=None,
         dtype=r'float64',
         verbose=False):
     """
@@ -172,9 +176,9 @@ def generate_dense_matrix(
         the dimension of the spatial points.
     :type coords: numpy.ndarray
 
-    :param correlation_scale: A parameter of correlation function that scales
+    :param distance_scale: A parameter of correlation function that scales
         distance.
-    :type correlation_scale: float
+    :type distance_scale: float
 
     :param verbose: If ``True``, prints some information during the process.
     :type verbose: bool
@@ -186,6 +190,10 @@ def generate_dense_matrix(
     :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
     :type nu: float
     """
+
+    # Makes kernel paramerter a C-type NAN
+    if kernel_param is None:
+        kernel_param = NAN
 
     # size of data and the correlation matrix
     matrix_size = coords.shape[0]
@@ -208,6 +216,9 @@ def generate_dense_matrix(
     cdef double* c_correlation_matrix_double
     cdef long double* c_correlation_matrix_long_double
 
+    # Get the kernel functon
+    cdef kernel_type kernel_function = get_kernel(kernel)
+
     if dtype == r'float32':
 
         # Get pointer to the correlation matrix
@@ -215,12 +226,13 @@ def generate_dense_matrix(
         c_correlation_matrix_float = &mv_correlation_matrix_float[0, 0]
 
         # Dense correlation matrix
-        _generate_correlation_matrix[float](
+        _generate_matrix[float](
                 coords,
                 matrix_size,
                 dimension,
-                correlation_scale,
-                nu,
+                distance_scale,
+                kernel_function,
+                kernel_param,
                 num_threads,
                 int(verbose),
                 c_correlation_matrix_float)
@@ -232,12 +244,13 @@ def generate_dense_matrix(
         c_correlation_matrix_double = &mv_correlation_matrix_double[0, 0]
 
         # Dense correlation matrix
-        _generate_correlation_matrix[double](
+        _generate_matrix[double](
                 coords,
                 matrix_size,
                 dimension,
-                correlation_scale,
-                nu,
+                distance_scale,
+                kernel_function,
+                kernel_param,
                 num_threads,
                 int(verbose),
                 c_correlation_matrix_double)
@@ -250,12 +263,13 @@ def generate_dense_matrix(
             &mv_correlation_matrix_long_double[0, 0]
 
         # Dense correlation matrix
-        _generate_correlation_matrix[long_double](
+        _generate_matrix[long_double](
                 coords,
                 matrix_size,
                 dimension,
-                correlation_scale,
-                nu,
+                distance_scale,
+                kernel_function,
+                kernel_param,
                 num_threads,
                 int(verbose),
                 c_correlation_matrix_long_double)

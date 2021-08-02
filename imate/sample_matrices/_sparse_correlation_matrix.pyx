@@ -19,32 +19,34 @@ import multiprocessing
 
 # Cython
 from cython.parallel cimport parallel, prange
-from ._kernels cimport matern_kernel, euclidean_distance
+from ._kernels cimport get_kernel, euclidean_distance
 from libc.stdio cimport printf
 from libc.stdlib cimport exit, malloc, free
-from .._definitions.types cimport DataType
+from libc.math cimport NAN
+from .._definitions.types cimport DataType, kernel_type
 cimport cython
 cimport openmp
 
-__all__ = ['generate_sparse_matrix']
+__all__ = ['sparse_correlation_matrix']
 
 # To avoid a bug where cython does not recognize long doubler as a type in the
 # template functions, we define long_double as an alias
 ctypedef long double long_double
 
 
-# ===========================
-# generate correlation matrix
-# ===========================
+# ===============
+# generate matrix
+# ===============
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cdef int _generate_correlation_matrix(
+cdef int _generate_matrix(
         const double[:, ::1] coords,
         const int matrix_size,
         const int dimension,
-        const double correlation_scale,
-        const double nu,
+        const double distance_scale,
+        const kernel_type kernel_function,
+        const double kernel_param,
         const double kernel_threshold,
         const int num_threads,
         const int verbose,
@@ -76,9 +78,9 @@ cdef int _generate_correlation_matrix(
         is the dimension of the spatial points.
     :type dimension: int
 
-    :param correlation_scale: A parameter of the correlation function that
+    :param distance_scale: A parameter of the correlation function that
         scales distances.
-    :type correlation_scale: double
+    :type distance_scale: double
 
     :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
     :type nu: float
@@ -174,12 +176,13 @@ cdef int _generate_correlation_matrix(
             for j in range(i, matrix_size):
 
                 # Compute an element of the matrix
-                thread_data[openmp.omp_get_thread_num()] = matern_kernel(
+                thread_data[openmp.omp_get_thread_num()] = kernel_function(
                         euclidean_distance(
                             coords[i][:],
                             coords[j][:],
+                            distance_scale,
                             dimension),
-                        correlation_scale, nu)
+                        kernel_param)
 
                 # Check with kernel threshold to taper out or store
                 if thread_data[openmp.omp_get_thread_num()] > kernel_threshold:
@@ -289,8 +292,9 @@ def _estimate_kernel_threshold(
         matrix_size,
         dimension,
         density,
-        correlation_scale,
-        nu):
+        distance_scale,
+        kernel,
+        kernel_param):
     """
     Estimates the kernel's tapering threshold to sparsify a dense matrix into a
     sparse matrix with the requested density.
@@ -353,9 +357,9 @@ def _estimate_kernel_threshold(
         actual matrix density.
     :type sparse_density: int
 
-    :param correlation_scale: A parameter of correlation function that scales
+    :param distance_scale: A parameter of correlation function that scales
         distance.
-    :type correlation_scale: float
+    :type distance_scale: float
 
     :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
     :type nu: float
@@ -374,7 +378,7 @@ def _estimate_kernel_threshold(
                 'Adjacency: %0.2f. Correlation matrix will become identity '
                 % (adjacency_volume) +
                 'since kernel radius is less than grid size. To increase ' +
-                'adjacency, consider increasing density or correlation_scale.')
+                'adjacency, consider increasing density or distance_scale.')
 
     # Approximate radius of n-sphere containing the above number of adjacent
     # points, assuming adjacent points are distanced on integer lattice.
@@ -390,8 +394,12 @@ def _estimate_kernel_threshold(
     # This is the tapering radius of the kernel
     kernel_radius = grid_size * adjacency_radius
 
+    # Get the kernel functon
+    cdef kernel_type kernel_function = get_kernel(kernel)
+
     # Threshold of kernel to perform tapering
-    kernel_threshold = matern_kernel(kernel_radius, correlation_scale, nu)
+    kernel_threshold = kernel_function(kernel_radius/distance_scale,
+                                       kernel_param)
 
     return kernel_threshold
 
@@ -437,14 +445,15 @@ def _estimate_max_nnz(
     return max_nnz
 
 
-# ======================
-# generate sparse matrix
-# ======================
+# =========================
+# sparse correlation matrix
+# =========================
 
-def generate_sparse_matrix(
+def sparse_correlation_matrix(
         coords,
-        correlation_scale=0.1,
-        nu=0.5,
+        distance_scale=0.1,
+        kernel='exponential',
+        kernel_param=None,
         density=0.001,
         dtype=r'float64',
         verbose=False):
@@ -466,9 +475,9 @@ def generate_sparse_matrix(
         the dimension of the spatial points.
     :type coords: numpy.ndarray
 
-    :param correlation_scale: A parameter of correlation function that scales
+    :param distance_scale: A parameter of correlation function that scales
         distance.
-    :type correlation_scale: float
+    :type distance_scale: float
 
     :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
     :type nu: float
@@ -496,6 +505,10 @@ def generate_sparse_matrix(
         function and the user should be aware of it.
     """
 
+    # Makes kernel paramerter a C-type NAN
+    if kernel_param is None:
+        kernel_param = NAN
+
     # size of data and the correlation matrix
     matrix_size = coords.shape[0]
     dimension = coords.shape[1]
@@ -503,13 +516,17 @@ def generate_sparse_matrix(
     # Get number of CPU threads
     num_threads = multiprocessing.cpu_count()
 
+    # Get the kernel functon
+    cdef kernel_type kernel_function = get_kernel(kernel)
+
     # kernel threshold
     kernel_threshold = _estimate_kernel_threshold(
             matrix_size,
             dimension,
             density,
-            correlation_scale,
-            nu)
+            distance_scale,
+            kernel,
+            kernel_param)
 
     # maximum nnz
     max_nnz = _estimate_max_nnz(
@@ -545,12 +562,13 @@ def generate_sparse_matrix(
             c_matrix_data_float = &mv_matrix_data_float[0]
 
             # Generate matrix assuming the estimated nnz is enough
-            success = _generate_correlation_matrix[float](
+            success = _generate_matrix[float](
                     coords,
                     matrix_size,
                     dimension,
-                    correlation_scale,
-                    nu,
+                    distance_scale,
+                    kernel_function,
+                    kernel_param,
                     kernel_threshold,
                     num_threads,
                     int(verbose),
@@ -567,12 +585,13 @@ def generate_sparse_matrix(
             c_matrix_data_double = &mv_matrix_data_double[0]
 
             # Generate matrix assuming the estimated nnz is enough
-            success = _generate_correlation_matrix[double](
+            success = _generate_matrix[double](
                     coords,
                     matrix_size,
                     dimension,
-                    correlation_scale,
-                    nu,
+                    distance_scale,
+                    kernel_function,
+                    kernel_param,
                     kernel_threshold,
                     num_threads,
                     int(verbose),
@@ -589,12 +608,13 @@ def generate_sparse_matrix(
             c_matrix_data_long_double = &mv_matrix_data_long_double[0]
 
             # Generate matrix assuming the estimated nnz is enough
-            success = _generate_correlation_matrix[long_double](
+            success = _generate_matrix[long_double](
                     coords,
                     matrix_size,
                     dimension,
-                    correlation_scale,
-                    nu,
+                    distance_scale,
+                    kernel_function,
+                    kernel_param,
                     kernel_threshold,
                     num_threads,
                     int(verbose),

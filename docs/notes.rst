@@ -4,10 +4,7 @@ Notes
 
 Some notes to myself when completing the documentation later.
 
-* To run Qeen_4147 data on GPU, recompile the source code with
-  `USE_UNSIGNED_LONG_INT=1` to double the limit of integers.
-
-* How to make the results of GPU and CPU identical fro testing purposes:
+* How to make the results of GPU and CPU identical for testing purposes:
 
   When num_gpu_devices and num_threads are the same, both cpu and gpu codes
   give identical results. This is due to the random number generator. For each
@@ -114,12 +111,12 @@ Fast Trace Estimator
 TODO
 ====
 
-* other functions (besides traceinv and logdet)
 * generate_matrix add analytic dense and sparse matrices
+* implement ``keep`` functionality for slq method.
+* other functions (besides traceinv and logdet)
 * doxygen for c_linear_operator and its derived classes
 * Get memory usage info for GPU. See for example:
   https://stackoverflow.com/questions/15966046/cudamemgetinfo-returns-same-amount-of-free-memory-on-both-devices-of-gtx-690
-* implement ``keep`` functionality for slq method.
 
 ========================
 Compile and Build Issues

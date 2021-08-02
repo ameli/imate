@@ -18,7 +18,7 @@ import os
 
 # For plotting matrix, we disable interactive display
 os.environ['IMATE_NO_DISPLAY'] = 'True'   # define before importing imate
-from imate import generate_matrix                                  # noqa: E402
+from imate.sample_matrices import correlation_matrix               # noqa: E402
 
 
 # =================
@@ -27,7 +27,7 @@ from imate import generate_matrix                                  # noqa: E402
 
 def remove_saved_plot():
     """
-    When the option ``plot=True`` is used in :mod:`imate.generate_matrix`, a
+    When the option ``plot=True`` is used in :mod:`imate.correlationmatrix`, a
     file named ``CorrelationMatrix.svg`` is saved in the current directory.
     Call this function to delete this file.
     """
@@ -45,22 +45,24 @@ def remove_saved_plot():
     print('File %s is deleted.' % save_fullname_svg)
 
 
-# ====================
-# test generate matrix
-# ====================
+# =======================
+# test correlation matrix
+# =======================
 
-def test_generate_matrix():
+def test_correlation_matrix():
     """
-    Test for :mod:`imate.generate_matrix` sub-package.
+    Test for :mod:`imate.sample_matrices.correlation_matrix` sub-package.
     """
     # Generate a dense matrix using points on a grid
-    generate_matrix(size=20, dimension=2, sparse=False, plot=True)
+    correlation_matrix(size=20, dimension=2, sparse=False, plot=True)
 
     # Generate a dense matrix using random set of points
-    generate_matrix(size=20, dimension=2, grid=False, sparse=False, plot=True)
+    correlation_matrix(size=20, dimension=2, grid=False, sparse=False,
+                      plot=True)
 
     # Generate sparse matrix
-    generate_matrix(size=20, dimension=2, sparse=True, density=1e-2, plot=True)
+    correlation_matrix(size=20, dimension=2, sparse=True, density=1e-2,
+                      plot=True)
 
     # Remove saved plot
     remove_saved_plot()
@@ -71,4 +73,4 @@ def test_generate_matrix():
 # ===========
 
 if __name__ == "__main__":
-    sys.exit(test_generate_matrix())
+    sys.exit(test_correlation_matrix())

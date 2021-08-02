@@ -107,3 +107,12 @@ ctypedef int[:] MemoryViewIndexType
 ctypedef int FlagType
 ctypedef const int ConstFlagType
 ctypedef int[:] MemoryViewFlagType
+
+
+# ==============
+# Function Types
+# ==============
+
+ctypedef double (*kernel_type)(                                    # noqa: E211
+        const double x,
+        const double kernel_param) nogil

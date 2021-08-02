@@ -13,8 +13,8 @@
 
 import numpy
 from ._generate_points import generate_points
-from ._generate_dense_matrix import generate_dense_matrix
-from ._generate_sparse_matrix import generate_sparse_matrix
+from ._dense_correlation_matrix import dense_correlation_matrix
+from ._sparse_correlation_matrix import sparse_correlation_matrix
 
 try:
     from .._utilities.plot_utilities import matplotlib, plt
@@ -23,18 +23,19 @@ try:
 except ImportError:
     plot_modules_exist = False
 
-__all__ = ['generate_matrix']
+__all__ = ['correlation_matrix']
 
 
-# ===============
-# Generate Matrix
-# ===============
+# ==================
+# correlation matrix
+# ==================
 
-def generate_matrix(
+def correlation_matrix(
         size=20,
         dimension=1,
-        correlation_scale=0.1,
-        nu=0.5,
+        distance_scale=0.1,
+        kernel_type='exponential',
+        kernel_param=None,
         grid=True,
         sparse=False,
         density=0.001,
@@ -109,9 +110,9 @@ def generate_matrix(
         correlation matrix.
     :type dimension: int
 
-    :param correlation_scale: A parameter of correlation function that scales
+    :param distance_scale: A parameter of correlation function that scales
         distance.
-    :type correlation_scale: float
+    :type distance_scale: float
 
     :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
     :type nu: float
@@ -152,60 +153,65 @@ def generate_matrix(
 
     .. code-block:: python
 
-       >>> from imate import generate_matrix
-       >>> A = generate_matrix(20)
+       >>> from imate.sample_matrices import correlation_matrix
+       >>> A = correlation_matrix(20)
 
     Generate a matrix of the shape :math:`(20^2, 20^2)` by mutual correlation
     of a grid of :math:`20 \\times 20` points in the unit square:
 
     .. code-block:: python
 
-       >>> from imate import generate_matrix
-       >>> A = generate_matrix(20, dimension=20)
+       >>> from imate.sample_matrices import correlation_matrix
+       >>> A = correlation_matrix(20, dimension=20)
 
-    Generate a correlation matrix of shape ``(20, 20)`` based on 20 random
+    correlation a correlation matrix of shape ``(20, 20)`` based on 20 random
     points in unit square:
 
     .. code-block:: python
 
-       >>> A = generate_matrix(size=20, dimension=20, grid=False)
+       >>> A = correlation_matrix(size=20, dimension=20, grid=False)
 
-    Generate a matrix of shape ``(20, 20)`` with spatial :math:`20` points that
-    are more correlated:
+    correlation a matrix of shape ``(20, 20)`` with spatial :math:`20` points
+    that are more correlated:
 
     .. code-block:: python
 
-       >>> A = generate_matrix(size=20, correlation_scale=0.3)
+       >>> A = correlation_matrix(size=20, distance_scale=0.3)
 
     Sparsify correlation matrix of size :math:`(20^2, 20^2)` with approximate
     density of :math:`1e-3`
 
     .. code-block:: python
 
-       >>> A = generate_matrix(size=20, dimension=2, sparse=True, density=1e-3)
+       >>> A = correlation_matrix(size=20, dimension=2, sparse=True,
+       ...                        density=1e-3)
 
     Plot a dense matrix of size :math:`(30^2, 30^2)` by
 
     .. code-block:: python
 
-        >>> A = generate_matrix(size=30, dimension=2, plot=True)
+        >>> A = correlation_matrix(size=30, dimension=2, plot=True)
     """
 
     # Check input arguments
-    check_arguments(size, dimension, correlation_scale, nu, grid, sparse,
-                    density, dtype, plot, verbose)
+    _check_arguments(size, dimension, distance_scale, kernel_type,
+                     kernel_param, grid, sparse, density, dtype, plot, verbose)
 
-    # Generate a set of points in the unit square
+    # Convert string to binary
+    kernel_type = kernel_type.encode('utf-8')
+
+    # correlation a set of points in the unit square
     coords = generate_points(size, dimension, grid)
 
     # Compute the correlation between the set of points
     if sparse:
 
         # Generate as sparse matrix
-        correlation_matrix = generate_sparse_matrix(
+        correlation_matrix = sparse_correlation_matrix(
             coords,
-            correlation_scale,
-            nu,
+            distance_scale,
+            kernel_type,
+            kernel_param,
             density,
             dtype,
             verbose)
@@ -213,10 +219,11 @@ def generate_matrix(
     else:
 
         # Generate a dense matrix
-        correlation_matrix = generate_dense_matrix(
+        correlation_matrix = dense_correlation_matrix(
             coords,
-            correlation_scale,
-            nu,
+            distance_scale,
+            kernel_type,
+            kernel_param,
             dtype,
             verbose)
 
@@ -231,11 +238,12 @@ def generate_matrix(
 # check arguments
 # ===============
 
-def check_arguments(
+def _check_arguments(
         size,
         dimension,
-        correlation_scale,
-        nu,
+        distance_scale,
+        kernel_type,
+        kernel_param,
         grid,
         sparse,
         density,
@@ -266,25 +274,37 @@ def check_arguments(
     elif dimension < 1:
         raise ValueError('"dimension" should be a positive integer.')
 
-    # Check correlation_scale
-    if correlation_scale is None:
-        raise TypeError('"correlation_scale" cannot be None.')
-    elif not numpy.isscalar(correlation_scale):
-        raise TypeError('"correlation_scale" should be a scalar value.')
-    elif isinstance(correlation_scale, complex):
-        TypeError('"correlation_scale" should be a float number.')
-    elif correlation_scale <= 0.0:
-        raise ValueError('"correlation_scale" should be a positive number.')
+    # Check distance_scale
+    if distance_scale is None:
+        raise TypeError('"distance_scale" cannot be None.')
+    elif not numpy.isscalar(distance_scale):
+        raise TypeError('"distance_scale" should be a scalar value.')
+    elif isinstance(distance_scale, complex):
+        TypeError('"distance_scale" should be a float number.')
+    elif distance_scale <= 0.0:
+        raise ValueError('"distance_scale" should be a positive number.')
 
-    # Check nu
-    if nu is None:
-        raise TypeError('"nu" cannot be None.')
-    elif not numpy.isscalar(nu):
-        raise TypeError('"nu" should be a scalar value.')
-    elif isinstance(nu, complex):
-        TypeError('"nu" should be an float number.')
-    elif nu <= 0.0:
-        raise ValueError('"nu" should be a positive number.')
+    # Check kernel_type
+    if not isinstance(kernel_type, str):
+        raise TypeError('"kernel_type" should be a string.')
+    elif kernel_type not in ['matern', 'exponential', 'square_exponential',
+                             'rational_quadratic']:
+        raise ValueError('"kernel_type" should be one of "matern", ' +
+                         '"exponential", "square-exponential", or ' +
+                         '"ratioanl_quadratic".')
+
+    # Check kernel_param
+    if kernel_param is not None:
+        if not numpy.isscalar(kernel_param):
+            raise TypeError('"kernel_param" should be a scalar value.')
+        elif isinstance(kernel_param, complex):
+            TypeError('"kernel_param" should be an float number.')
+        elif kernel_type == 'exponental' and kernel_param is not None:
+            raise ValueError('When "kernel_type" is "exponential", ' +
+                             '"kernel_param" should be "None".')
+        elif kernel_type == 'square-exponental' and kernel_param is not None:
+            raise ValueError('When "kernel_type" is "-square-exponential", ' +
+                             '"kernel_param" should be "None".')
 
     # Check grid
     if grid is None:

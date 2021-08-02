@@ -1344,7 +1344,7 @@ def main(argv):
     # Cyhton cpp extentions
     extensions = []
 
-    extensions.append(create_extension(package_name, 'generate_matrix'))
+    extensions.append(create_extension(package_name, 'sample_matrices'))
 
     extensions.append(create_extension(package_name, 'functions'))
 

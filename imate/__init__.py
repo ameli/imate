@@ -74,7 +74,8 @@ from .trace import trace                                           # noqa: E402
 from .traceinv import traceinv                                     # noqa: E402
 from .linear_operator import Matrix, AffineMatrixFunction          # noqa: E402
 from .interpolate_traceinv import InterpolateTraceinv              # noqa: E402
-from .generate_matrix import generate_matrix                       # noqa: E402
+from .sample_matrices import correlation_matrix                    # noqa: E402
+from .sample_matrices import band_matrix                           # noqa: E402
 
 __all__ = [
         'trace',
@@ -83,6 +84,7 @@ __all__ = [
         'Matrix',
         'AffineMatrixFunction',
         'InterpolateTraceinv',
-        'generate_matrix']
+        'correlation_matrix',
+        'band_matrix']
 
 from.__version__ import __version__                                # noqa: F401
