@@ -227,7 +227,7 @@ def main(test=False):
         size,
         dimension=2,
         distance_scale=0.1,
-        nu=0.5,
+        kernel='exponential',
         sparse=False,
         grid=True)
 
