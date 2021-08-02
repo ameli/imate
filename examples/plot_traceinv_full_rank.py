@@ -17,7 +17,7 @@ import sys
 import numpy
 
 # Package modules
-from imate import generate_matrix
+from imate.sample_matrices import correlation_matrix
 from imate import InterpolateTraceinv
 from _utilities.plot_utilities import *                      # noqa: F401, F403
 from _utilities.plot_utilities import load_plot_settings, save_plot, plt, \
@@ -223,10 +223,10 @@ def main(test=False):
         size = 50
 
     # Generate matrix
-    A = generate_matrix(
+    A = correlation_matrix(
         size,
         dimension=2,
-        correlation_scale=0.1,
+        distance_scale=0.1,
         nu=0.5,
         sparse=False,
         grid=True)
