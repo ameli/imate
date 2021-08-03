@@ -20,7 +20,8 @@ import multiprocessing
 from .._linear_algebra import linear_solver
 from ._convergence_tools import check_convergence, average_estimates
 from .._trace_estimator.trace_estimator_plot_utilities import plot_convergence
-from ._utilities import get_data_type_name, get_nnz, get_density, print_summary
+from ._hutchinson_method_utilities import get_data_type_name, get_nnz, \
+        get_density, check_arguments, print_summary
 
 # Cython
 from .._c_basic_algebra cimport cVectorOperations
@@ -92,67 +93,39 @@ def hutchinson_method(
     if num_threads < 1:
         num_threads = multiprocessing.cpu_count()
 
-    vector_size = A.shape[0]
+    # Dispatch depending on 32-bit or 64-bit
+    data_type_name = get_data_type_name(A)
+    if data_type_name == b'float32':
+        trace, error, num_outliers, samples, processed_samples_indices, \
+                num_processed_samples, num_samples_used, converged, \
+                tot_wall_time, alg_wall_time, cpu_proc_time = \
+                _hutchinson_method_float(A, exponent, assume_matrix,
+                                         min_num_samples, max_num_samples,
+                                         error_atol, error_rtol,
+                                         confidence_level,
+                                         outlier_significance_level,
+                                         solver_tol, orthogonalize,
+                                         num_threads)
 
-    # Allocate random array with Fortran ordering (first index is contiguous)
-    # 2D array E should be treated as a matrix, random vectors are columns of E
-    E = numpy.empty((vector_size, max_num_samples), dtype=float, order='F')
-
-    # Get c pointer to E
-    cdef double[::1, :] memoryview_E = E
-    cdef double* cE = &memoryview_E[0, 0]
-
-    init_tot_wall_time = time.perf_counter()
-    init_cpu_proc_time = time.process_time()
-
-    # Generate orthogonalized random vectors with unit norm
-    generate_random_column_vectors[double](cE, vector_size, max_num_samples,
-                                           int(orthogonalize), num_threads)
-
-    samples = numpy.zeros((max_num_samples, ), dtype=float)
-    processed_samples_indices = numpy.zeros((max_num_samples, ), dtype=int)
-    samples[:] = numpy.nan
-    cdef int num_processed_samples = 0
-    cdef int num_samples_used = 0
-    cdef int converged = 0
-
-    init_alg_wall_time = time.perf_counter()
-
-    # Monte-Carlo sampling
-    for i in range(max_num_samples):
-
-        if converged == 0:
-
-            # Stochastic estimator of trace using the i-th column of E
-            samples[i] = _stochastic_trace_estimator(A, E[:, i], exponent,
-                                                     assume_matrix, solver_tol)
-
-            # Store the index of processed samples
-            processed_samples_indices[num_processed_samples] = i
-            num_processed_samples += 1
-
-            # Check whether convergence criterion has been met to stop.
-            # This check can also be done after another parallel thread
-            # set all_converged to "1", but we continue to update error.
-            converged, num_samples_used = check_convergence(
-                    samples, min_num_samples, processed_samples_indices,
-                    num_processed_samples, confidence_level, error_atol,
-                    error_rtol)
-
-    alg_wall_time = time.perf_counter() - init_alg_wall_time
-
-    trace, error, num_outliers = average_estimates(
-            confidence_level, outlier_significance_level, max_num_samples,
-            num_samples_used, processed_samples_indices, samples)
-
-    tot_wall_time = time.perf_counter() - init_tot_wall_time
-    cpu_proc_time = time.process_time() - init_cpu_proc_time
+    elif data_type_name == b'float64':
+        trace, error, num_outliers, samples, processed_samples_indices, \
+                num_processed_samples, num_samples_used, converged, \
+                tot_wall_time, alg_wall_time, cpu_proc_time = \
+                _hutchinson_method_double(A, exponent, assume_matrix,
+                                          min_num_samples, max_num_samples,
+                                          error_atol, error_rtol,
+                                          confidence_level,
+                                          outlier_significance_level,
+                                          solver_tol, orthogonalize,
+                                          num_threads)
+    else:
+        raise TypeError('Data type should be either "float32" or "float64"')
 
     # Dictionary of output info
     info = {
         'matrix':
         {
-            'data_type': get_data_type_name(A),
+            'data_type': data_type_name,
             'exponent': exponent,
             'assume_matrix': assume_matrix,
             'size': A.shape[0],
@@ -213,11 +186,11 @@ def hutchinson_method(
     return trace, info
 
 
-# ===============
-# check arguments
-# ===============
+# =======================
+# hutchinson method float
+# =======================
 
-def check_arguments(
+def _hutchinson_method_float(
         A,
         exponent,
         assume_matrix,
@@ -229,170 +202,246 @@ def check_arguments(
         outlier_significance_level,
         solver_tol,
         orthogonalize,
-        num_threads,
-        verbose,
-        plot):
+        num_threads):
     """
-    Checks the type and value of the parameters.
+    This method processes single precision (32-bit) matrix ``A``.
     """
 
-    # Check A
-    if (not isinstance(A, numpy.ndarray)) and (not isspmatrix(A)):
-        raise TypeError('Input matrix should be either a "numpy.ndarray" or ' +
-                        'a "scipy.sparse" matrix.')
-    elif A.shape[0] != A.shape[1]:
-        raise ValueError('Input matrix should be a square matrix.')
+    vector_size = A.shape[0]
 
-    # Check exponent
-    if exponent is None:
-        raise TypeError('"exponent" cannot be None.')
-    elif not numpy.isscalar(exponent):
-        raise TypeError('"exponent" should be a scalar value.')
-    elif not isinstance(exponent, int):
-        TypeError('"exponent" cannot be an integer.')
+    # Allocate random array with Fortran ordering (first index is contiguous)
+    # 2D array E should be treated as a matrix, random vectors are columns of E
+    E = numpy.empty((vector_size, max_num_samples), dtype=numpy.float32,
+                    order='F')
 
-    # Check assume_matrix
-    if assume_matrix is None:
-        raise ValueError('"assume_matrix" cannot be None.')
-    elif not isinstance(assume_matrix, basestring):
-        raise TypeError('"assume_matrix" must be a string.')
-    elif assume_matrix != 'gen' and assume_matrix != "pos" and \
-            assume_matrix != "sym" and assume_matrix != "sym_pos":
-        raise ValueError('"assume_matrix" should be either "gen", "pos", ' +
-                         '"sym, or "sym_pos".')
+    # Get c pointer to E
+    cdef float[::1, :] memoryview_E = E
+    cdef float* cE = &memoryview_E[0, 0]
 
-    # Check min_num_samples
-    if min_num_samples is None:
-        raise ValueError('"min_num_samples" cannot be None.')
-    elif not numpy.isscalar(min_num_samples):
-        raise TypeError('"min_num_samples" should be a scalar value.')
-    elif not isinstance(min_num_samples, int):
-        raise TypeError('"min_num_samples" should be an integer.')
-    elif min_num_samples < 1:
-        raise ValueError('"min_num_samples" should be at least one.')
+    init_tot_wall_time = time.perf_counter()
+    init_cpu_proc_time = time.process_time()
 
-    # Check max_num_samples
-    if max_num_samples is None:
-        raise ValueError('"max_num_samples" cannot be None.')
-    elif not numpy.isscalar(max_num_samples):
-        raise TypeError('"max_num_samples" should be a scalar value.')
-    elif not isinstance(max_num_samples, int):
-        raise TypeError('"max_num_samples" should be an integer.')
-    elif max_num_samples < 1:
-        raise ValueError('"max_num_samples" should be at least one.')
+    # Generate orthogonalized random vectors with unit norm
+    generate_random_column_vectors[float](cE, vector_size, max_num_samples,
+                                          int(orthogonalize), num_threads)
 
-    # Check min and max num samples
-    if min_num_samples > max_num_samples:
-        raise ValueError('"min_num_samples" cannot be greater than ' +
-                         '"max_num_samples".')
+    samples = numpy.zeros((max_num_samples, ), dtype=numpy.float32)
+    processed_samples_indices = numpy.zeros((max_num_samples, ), dtype=int)
+    samples[:] = numpy.nan
+    cdef int num_processed_samples = 0
+    cdef int num_samples_used = 0
+    cdef int converged = 0
 
-    # Check convergence absolute tolerance
-    if error_atol is None:
-        error_atol = 0.0
-    elif not numpy.isscalar(error_atol):
-        raise TypeError('"error_atol" should be a scalar value.')
-    elif not isinstance(error_atol, (int, float)):
-        raise TypeError('"error_atol" should be a float number.')
-    elif error_atol < 0.0:
-        raise ValueError('"error_atol" cannot be negative.')
+    init_alg_wall_time = time.perf_counter()
 
-    # Check error relative tolerance
-    if error_rtol is None:
-        error_rtol = 0.0
-    elif not numpy.isscalar(error_rtol):
-        raise TypeError('"error_rtol" should be a scalar value.')
-    elif not isinstance(error_rtol, (int, float)):
-        raise TypeError('"error_rtol" should be a float number.')
-    elif error_rtol < 0.0:
-        raise ValueError('"error_rtol" cannot be negative.')
+    # Monte-Carlo sampling
+    for i in range(max_num_samples):
 
-    # Check confidence level
-    if confidence_level is None:
-        raise TypeError('"confidence_level" cannot be None.')
-    elif not numpy.isscalar(confidence_level):
-        raise TypeError('"confidence_level" should be a scalar.')
-    elif not isinstance(confidence_level, (int, float)):
-        raise TypeError('"confidence_level" should be a float number.')
-    elif confidence_level < 0.0 or confidence_level > 1.0:
-        raise ValueError('"confidence_level" should be between 0 and 1.')
+        if converged == 0:
 
-    # Check outlier significance level
-    if outlier_significance_level is None:
-        raise TypeError('"outlier_significance_level" cannot be None.')
-    elif not numpy.isscalar(outlier_significance_level):
-        raise TypeError('"outlier_significance_level" should be a scalar.')
-    elif not isinstance(outlier_significance_level, (int, float)):
-        raise TypeError('"outlier_significance_level" must be a float number.')
-    elif outlier_significance_level < 0.0 or outlier_significance_level > 1.0:
-        raise ValueError(
-                '"outlier_significance_level" must be in [0, 1] interval.')
+            # Stochastic estimator of trace using the i-th column of E
+            samples[i] = _stochastic_trace_estimator_float(
+                    A, E[:, i], exponent, assume_matrix, solver_tol)
 
-    # Compare outlier significance level and confidence level
-    if outlier_significance_level > 1.0 - confidence_level:
-        raise ValueError('The sum of "confidence_level" and ' +
-                         '"outlier_significance_level" should be less than 1.')
+            # Store the index of processed samples
+            processed_samples_indices[num_processed_samples] = i
+            num_processed_samples += 1
 
-    # Check solver tol
-    if solver_tol is not None and not numpy.isscalar(solver_tol):
-        raise TypeError('"solver_tol" should be a scalar value.')
-    elif solver_tol is not None and not isinstance(solver_tol, (int, float)):
-        raise TypeError('"solver_tol" should be a float number.')
-    elif solver_tol is not None and solver_tol < 0.0:
-        raise ValueError('"lancozs_tol" cannot be negative.')
+            # Check whether convergence criterion has been met to stop.
+            # This check can also be done after another parallel thread
+            # set all_converged to "1", but we continue to update error.
+            converged, num_samples_used = check_convergence(
+                    samples, min_num_samples, processed_samples_indices,
+                    num_processed_samples, confidence_level, error_atol,
+                    error_rtol)
 
-    # Check orthogonalize
-    if orthogonalize is None:
-        raise TypeError('"orthogonalize" cannot be None.')
-    elif not numpy.isscalar(orthogonalize):
-        raise TypeError('"orthogonalize" should be a scalar value.')
-    elif not isinstance(orthogonalize, bool):
-        raise TypeError('"orthogonalize" should be boolean.')
+    alg_wall_time = time.perf_counter() - init_alg_wall_time
 
-    # Check num_threads
-    if num_threads is None:
-        raise TypeError('"num_threads" cannot be None.')
-    elif not numpy.isscalar(num_threads):
-        raise TypeError('"num_threads" should be a scalar value.')
-    elif not isinstance(num_threads, int):
-        raise TypeError('"num_threads" should be an integer.')
-    elif num_threads < 0:
-        raise ValueError('"num_threads" should be a non-negative integer.')
+    trace, error, num_outliers = average_estimates(
+            confidence_level, outlier_significance_level, max_num_samples,
+            num_samples_used, processed_samples_indices, samples)
 
-    # Check verbose
-    if verbose is None:
-        raise TypeError('"verbose" cannot be None.')
-    elif not numpy.isscalar(verbose):
-        raise TypeError('"verbose" should be a scalar value.')
-    elif not isinstance(verbose, bool):
-        raise TypeError('"verbose" should be boolean.')
+    tot_wall_time = time.perf_counter() - init_tot_wall_time
+    cpu_proc_time = time.process_time() - init_cpu_proc_time
 
-    # Check plot
-    if plot is None:
-        raise TypeError('"plot" cannot be None.')
-    elif not numpy.isscalar(plot):
-        raise TypeError('"plot" should be a scalar value.')
-    elif not isinstance(plot, bool):
-        raise TypeError('"plot" should be boolean.')
-
-    # Check if plot modules exist
-    if plot is True:
-        try:
-            from .._utilities.plot_utilities import matplotlib      # noqa F401
-            from .._utilities.plot_utilities import load_plot_settings
-            load_plot_settings()
-        except ImportError:
-            raise ImportError('Cannot import modules for plotting. Either ' +
-                              'install "matplotlib" and "seaborn" packages, ' +
-                              'or set "plot=False".')
-
-    return error_atol, error_rtol
+    return trace, error, num_outliers, samples, processed_samples_indices, \
+        num_processed_samples, num_samples_used, converged, tot_wall_time, \
+        alg_wall_time, cpu_proc_time
 
 
-# ==========================
-# stochastic trace estimator
-# ==========================
+# ========================
+# hutchinson method double
+# ========================
 
-cdef double _stochastic_trace_estimator(
+def _hutchinson_method_double(
+        A,
+        exponent,
+        assume_matrix,
+        min_num_samples,
+        max_num_samples,
+        error_atol,
+        error_rtol,
+        confidence_level,
+        outlier_significance_level,
+        solver_tol,
+        orthogonalize,
+        num_threads):
+    """
+    This method processes double precision (64-bit) matrix ``A``.
+    """
+
+    vector_size = A.shape[0]
+
+    # Allocate random array with Fortran ordering (first index is contiguous)
+    # 2D array E should be treated as a matrix, random vectors are columns of E
+    E = numpy.empty((vector_size, max_num_samples), dtype=numpy.float64,
+                    order='F')
+
+    # Get c pointer to E
+    cdef double[::1, :] memoryview_E = E
+    cdef double* cE = &memoryview_E[0, 0]
+
+    init_tot_wall_time = time.perf_counter()
+    init_cpu_proc_time = time.process_time()
+
+    # Generate orthogonalized random vectors with unit norm
+    generate_random_column_vectors[double](cE, vector_size, max_num_samples,
+                                           int(orthogonalize), num_threads)
+
+    samples = numpy.zeros((max_num_samples, ), dtype=numpy.float64)
+    processed_samples_indices = numpy.zeros((max_num_samples, ), dtype=int)
+    samples[:] = numpy.nan
+    cdef int num_processed_samples = 0
+    cdef int num_samples_used = 0
+    cdef int converged = 0
+
+    init_alg_wall_time = time.perf_counter()
+
+    # Monte-Carlo sampling
+    for i in range(max_num_samples):
+
+        if converged == 0:
+
+            # Stochastic estimator of trace using the i-th column of E
+            samples[i] = _stochastic_trace_estimator_double(
+                    A, E[:, i], exponent, assume_matrix, solver_tol)
+
+            # Store the index of processed samples
+            processed_samples_indices[num_processed_samples] = i
+            num_processed_samples += 1
+
+            # Check whether convergence criterion has been met to stop.
+            # This check can also be done after another parallel thread
+            # set all_converged to "1", but we continue to update error.
+            converged, num_samples_used = check_convergence(
+                    samples, min_num_samples, processed_samples_indices,
+                    num_processed_samples, confidence_level, error_atol,
+                    error_rtol)
+
+    alg_wall_time = time.perf_counter() - init_alg_wall_time
+
+    trace, error, num_outliers = average_estimates(
+            confidence_level, outlier_significance_level, max_num_samples,
+            num_samples_used, processed_samples_indices, samples)
+
+    tot_wall_time = time.perf_counter() - init_tot_wall_time
+    cpu_proc_time = time.process_time() - init_cpu_proc_time
+
+    return trace, error, num_outliers, samples, processed_samples_indices, \
+        num_processed_samples, num_samples_used, converged, tot_wall_time, \
+        alg_wall_time, cpu_proc_time
+
+
+# ================================
+# stochastic trace estimator float
+# ================================
+
+cdef float _stochastic_trace_estimator_float(
+        A,
+        E,
+        exponent,
+        assume_matrix,
+        solver_tol) except *:
+    """
+    Stochastic trace estimator based on set of vectors E and AinvpE.
+
+    :param E: Set of random vectors of shape ``(vector_size, num_vectors)``.
+        Note this is Fortran ordering, meaning that the first index is
+        contiguous. Hence, to call the i-th vector, use ``&E[0][i]``.
+        Here, iteration over the first index is continuous.
+    :type E: cython memoryview (float)
+
+    :param AinvpE: Set of random vectors of the same shape as ``E``.
+        Note this is Fortran ordering, meaning that the first index is
+        contiguous. Hence, to call the i-th vector, use ``&AinvpE[0][i]``.
+        Here, iteration over the first index is continuous.
+    :type AinvpE: cython memoryview (float)
+
+    :param num_vectors: Number of columns of vectors array.
+    :type num_vectors: int
+
+    :param vector_size: Number of rows of vectors array.
+    :type vector_size: int
+
+    :param num_parallel_threads: Number of OpenMP parallel threads
+    :type num_parallel_threads: int
+
+    :return: Trace estimation.
+    :rtype: float
+    """
+
+    # In the following, AinvpE is the action of the operator A**(-p) to the
+    # vector E. The exponent "p" is the "exponent" argument which is default
+    # to one. Ainv means the inverse of A.
+    if exponent == 0:
+        # Ainvp is the identity matrix
+        AinvpE = E
+
+    elif exponent == 1:
+        # Perform inv(A) * E. This requires GIL
+        AinvpE = linear_solver(A, E, assume_matrix, solver_tol)
+
+    elif exponent > 1:
+        # Perform Ainv * Ainv * ... Ainv * E where Ainv is repeated p times
+        # where p is the exponent.
+        AinvpE = E
+        for i in range(exponent):
+            AinvpE = linear_solver(A, AinvpE, assume_matrix, solver_tol)
+
+    elif exponent == -1:
+        # Performing Ainv**(-1) E, where Ainv**(-1) it A itself.
+        AinvpE = A @ E
+
+    elif exponent < -1:
+        # Performing Ainv**(-p) E where Ainv**(-p) = A**p.
+        AinvpE = E
+        for i in range(numpy.abs(exponent)):
+            AinvpE = A @ AinvpE
+
+    # Get c pointer to E
+    cdef float[:] memoryview_E = E
+    cdef float* cE = &memoryview_E[0]
+
+    # Get c pointer to AinvpE.
+    cdef float[:] memoryview_AinvpE = AinvpE
+    cdef float* cAinvpE = &memoryview_AinvpE[0]
+
+    # Inner product of E and AinvpE
+    cdef int vector_size = A.shape[0]
+    cdef float inner_prod = cVectorOperations[float].inner_product(
+                    cE, cAinvpE, vector_size)
+
+    # Hutcinson trace estimate
+    cdef float trace_estimate = vector_size * inner_prod
+
+    return trace_estimate
+
+
+# =================================
+# stochastic trace estimator double
+# =================================
+
+cdef double _stochastic_trace_estimator_double(
         A,
         E,
         exponent,

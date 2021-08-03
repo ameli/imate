@@ -40,7 +40,7 @@ class Xoshiro256StarStar;
 ///          numbers. To avoid this issue, this class jumps the sequence of
 ///          each instance of \c Xoshiro256StarStar. Thus, even if their
 ///          initial state seed is the same, the jump in the state variable
-///          makes it different by 2^126 on the sequence.
+///          makes it different by 2^128 on the sequence.
 ///
 ///          All member variables of this class aer static and they can be used
 ///          without declaring an instance of this class. Also, in the same

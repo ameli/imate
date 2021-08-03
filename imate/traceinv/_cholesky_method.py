@@ -19,7 +19,8 @@ import scipy.sparse
 import scipy.sparse.linalg
 from scipy.sparse import isspmatrix
 import multiprocessing
-from ._utilities import get_data_type_name, get_nnz, get_density
+from ._hutchinson_method_utilities import get_data_type_name, get_nnz, \
+        get_density
 
 try:
     import sksparse

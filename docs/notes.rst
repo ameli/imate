@@ -111,7 +111,6 @@ Fast Trace Estimator
 TODO
 ====
 
-* generate_matrix add analytic dense and sparse matrices
 * implement ``keep`` functionality for slq method.
 * other functions (besides traceinv and logdet)
 * doxygen for c_linear_operator and its derived classes
@@ -161,18 +160,20 @@ slq method.
 ``keep`` option for ``AffineMatrixFunction``
 --------------------------------------------
 
-For ``AffineMatrixFunction``, have an option to store all theta and tau to be
-reused to next parameters. One way to do so is to bring the ``traceinv``
+For ``AffineMatrixFunction``, have an option to store all ``theta`` and ``tau``
+to be reused to next parameters. One way to do so is to bring the ``traceinv``
 computation from the ``traceinv()`` function to be a member of
 ``LinearOperator`` class.
 
 Here is how it should work:
 
-1. On first run of `AffineMatrixFunction.traceinv()`` (or any other function
-   such as ``logdet()``), all theta and tau are stored as member data of ``Aop``.
+1. On the first run of `AffineMatrixFunction.traceinv()`` (or any other
+   function such as ``logdet()``), all theta and tau are stored as member data
+   of ``Aop``.
 2. On the second call of the function (which the second function can be
-   different than the previous function, as long as both used ``method='slq'``),
-   the previous sample data (that and theta) are used. To case emerge:
+   different than the previous function, as long as both of the calls used
+   ``method='slq'``), the previous sample data (that and theta) are used. To
+   case emerge:
 
    2.1. If within the existing samples, the results of the desired function
         converged within the given tolerance limit, no newer samples are needed.
@@ -183,7 +184,7 @@ Here is how it should work:
 
 .. code-block:: python
 
-   >>> # keep argument lets the theta and tau to be stored with the cost of
+   >>> # keep argument allows the theta and tau to be stored with the cost of
    >>> # taking memory. Default is True.
    >>> Aop = AffineMatrixFunction(A, keep=True)
 
@@ -197,8 +198,8 @@ Here is how it should work:
    >>> Aop.traceinv(method='slq', parameters=[3, 4], lanczos_degree=50,
                     min_num_samples=10, max_num_samples=100, error_rtol=1e-2)
 
-   >>> # Because error_rtol is smaller, we might need to generate new samples
-   >>> # and append to the previous samples
+   >>> # Because here the error_rtol is smaller, we might need to generate new
+   >>> # samples, and append to the previous samples
    >>> # Runtime: 5 seconds
    >>> Aop.traceinv(method='slq', parameters=[5, 6], lanczos_degree=50,
                     min_num_samples=10, max_num_samples=100, error_rtol=1e-3)
@@ -233,6 +234,15 @@ Implementation Techniques
 - dynamic polymorphism to dispatch to linear operator derived classes.
 - Static template to support float, double, and long double data types.
 - Dynamic loading of CUDA libraries.
+- Random generator for Rademacher distribution is implemented. This is near
+  a hundred times faster than C's ``rand()`` function. The implementation uses
+  xoshiro_265_star_star algorithm to generate 64-bit integers, which feeds to
+  64 elements of array as +1 and -1 values. The initial seed uses split_mix
+  random generator and itself is seeded by cpu time in microseconds.
+  The random array generator can generate is thread-safe and can generate
+  independent sequences of random numbers on each thread. The random array
+  generator can be used on 2^64 parallel threads, each generating a sequence
+  of 2^128 long.
 - The basic algebra module seems to perform faster than OpenBlas. Not only
   that, for very large arrays, the dot product is more accurate than OpenBlas,
   since the reduction variable is cast to long double.
