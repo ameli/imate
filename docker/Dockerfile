@@ -14,7 +14,7 @@
 # Build
 # -----
 
-FROM nvidia/cuda:11.4.0-devel-ubuntu20.04 as builder
+FROM nvidia/cuda:11.4.1-devel-ubuntu20.04 as builder
 MAINTAINER Siavash Ameli <samei@berkeley.edu>
 LABEL Description="imate python package with cuda-11 support"
 
@@ -39,7 +39,7 @@ RUN /usr/bin/python3 setup.py bdist_wheel
 # Runtime
 # -------
 
-FROM nvidia/cuda:11.2.2-base-ubuntu20.04
+FROM nvidia/cuda:11.4.1-base-ubuntu20.04
 
 # Install python3 and libcudablas, libcusparse, since they are not in the NVIDA
 # cuda's "base" image.
