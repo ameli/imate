@@ -48,34 +48,40 @@ def _check_import():
                            'package. Importing the package will fail. To ' +
                            'resolve this issue, consider changing the ' +
                            'current directory outside of the directory of ' +
-                           'the source-code of this package. Your current ' +
+                           'the source-code of this package. Your current' +
                            'directory is: %s.' % _user_current_dir)
 
-    if (_executable_dir == _project_dir):
+    elif (_executable_dir == _project_dir):
         raise RuntimeError('You are running a script in the source-code ' +
                            'directory of this package. Importing the ' +
                            'package will fail. To resolve this issue, ' +
-                           'consider changing the script directory outside ' +
-                           'of the directory of the source-code of this ' +
+                           'consider changing the script directory outside' +
+                           'of the directory of the source-code of this' +
                            'package. Your current directory is: %s.'
                            % _executable_dir)
 
-
-# Check import
-_check_import()
 
 # =======
 # Imports
 # =======
 
-# Import sub-packages
-from .logdet import logdet                                         # noqa: E402
-from .trace import trace                                           # noqa: E402
-from .traceinv import traceinv                                     # noqa: E402
-from .linear_operator import Matrix, AffineMatrixFunction          # noqa: E402
-from .interpolate_traceinv import InterpolateTraceinv              # noqa: E402
-from .sample_matrices import correlation_matrix                    # noqa: E402
-from .sample_matrices import band_matrix                           # noqa: E402
+try:
+    # Import sub-packages
+    from .logdet import logdet                                     # noqa: E402
+    from .trace import trace                                       # noqa: E402
+    from .traceinv import traceinv                                 # noqa: E402
+    from .linear_operator import Matrix, AffineMatrixFunction      # noqa: E402
+    from .interpolate_traceinv import InterpolateTraceinv          # noqa: E402
+    from .sample_matrices import correlation_matrix                # noqa: E402
+    from .sample_matrices import band_matrix                       # noqa: E402
+
+except Exception as e:
+
+    # Before printing the exception, check if the exception is raised due to
+    # being on the wrong directory.
+    _check_import()
+
+    raise e
 
 __all__ = [
         'trace',

@@ -111,8 +111,8 @@ Fast Trace Estimator
 TODO
 ====
 
-* implement ``keep`` functionality for slq method.
-* other functions (besides traceinv and logdet)
+* Implement ``keep`` functionality for slq method.
+* Other functions (besides traceinv and logdet)
 * doxygen for c_linear_operator and its derived classes
 * Get memory usage info for GPU. See for example:
   https://stackoverflow.com/questions/15966046/cudamemgetinfo-returns-same-amount-of-free-memory-on-both-devices-of-gtx-690
@@ -246,3 +246,30 @@ Implementation Techniques
 - The basic algebra module seems to perform faster than OpenBlas. Not only
   that, for very large arrays, the dot product is more accurate than OpenBlas,
   since the reduction variable is cast to long double.
+
+
+==================
+Installation Notes
+==================
+
+--------
+OpenBlas
+--------
+
+Install Openblas with conda. This is especially useful if you don't have admin access to install with apt.
+
+.. code::
+
+    conda install -c anaconda openblas
+
+or with ``apt`` (needs admin access)
+
+.. code::
+
+    sudo apt-get install libopenblas-dev
+
+Or in macos with brew by:
+
+.. code::
+
+    brew install openblas
