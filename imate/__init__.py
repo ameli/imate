@@ -76,7 +76,6 @@ try:
     from .sample_matrices import band_matrix                       # noqa: E402
 
 except Exception as e:
-
     # Before printing the exception, check if the exception is raised due to
     # being on the wrong directory.
     _check_import()

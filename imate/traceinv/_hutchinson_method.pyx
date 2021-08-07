@@ -89,6 +89,14 @@ def hutchinson_method(
             outlier_significance_level, solver_tol, orthogonalize, num_threads,
             verbose, plot)
 
+    # If the number of random vectors exceed the size of the vectors they
+    # cannot be linearly independent and extra calculation with them will be
+    # redundant.
+    if A.shape[0] < max_num_samples:
+        max_num_samples = A.shape[0]
+    if A.shape[0] < min_num_samples:
+        min_num_samples = A.shape[0]
+
     # Parallel processing
     if num_threads < 1:
         num_threads = multiprocessing.cpu_count()
