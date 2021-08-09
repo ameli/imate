@@ -24,7 +24,7 @@ from ._hutchinson_method_utilities import get_data_type_name, get_nnz, \
 
 try:
     import sksparse
-    import sksparse.cholmod.cholesky
+    from sksparse.cholmod import cholesky as sk_cholesky
     suitesparse_installed = True
 except ImportError:
     suitesparse_installed = False
@@ -49,6 +49,12 @@ def compute_traceinv_invert_cholesky_directly(L, sparse):
         * For large matrices: This method is very slow and results are
           unstable.
 
+    .. warning::
+
+        If scikit-sparse package is used to compute Cholesky decompisition,
+        all computations are done using ``float64`` data type. The 32-bit type
+        is not available in that package.
+
     :param L: Cholesky matrix
     :type L: numpy.ndarray
 
@@ -63,8 +69,8 @@ def compute_traceinv_invert_cholesky_directly(L, sparse):
     if sparse:
 
         raise ValueError(
-                'Do not use sksparse.cholmod.inv, as it computes LDLt ' +
-                'decomposition and the computed trace becomes incorrect. ' +
+                'Cannot use sksparse.cholmod.inv, as it computes LDLt ' +
+                'decomposition and the computed trace is incorrect. ' +
                 'Either set "invert_cholesky" to "False" when using sparse ' +
                 'matrices, or use "hutchinson" or "slq" method.')
 
@@ -83,7 +89,7 @@ def compute_traceinv_invert_cholesky_directly(L, sparse):
 # compute traceinv invert cholesky indirectly
 # ===========================================
 
-def compute_traceinv_invert_cholesky_indirectly(L, n, sparse):
+def compute_traceinv_invert_cholesky_indirectly(L, n, sparse, dtype):
     """
     Computes the trace of inverse by solving a linear system for Cholesky
     matrix and each column of the identity matrix to obtain the inverse of
@@ -116,6 +122,12 @@ def compute_traceinv_invert_cholesky_indirectly(L, n, sparse):
         This method is slow, and it should be used only if the direct matrix
         inversion can not be computed (such as for large matrices).
 
+    .. warning::
+
+        If scikit-sparse package is used to compute Cholesky decompisition,
+        all computations are done using ``float64`` data type. The 32-bit type
+        is not available in that package.
+
     :param L: Cholesky matrix
     :type L: numpy.ndarray
 
@@ -136,7 +148,7 @@ def compute_traceinv_invert_cholesky_indirectly(L, n, sparse):
         if sparse:
 
             # e is a zero vector with its i-th element is one
-            e = scipy.sparse.lil_matrix((n, 1), dtype=float)
+            e = scipy.sparse.lil_matrix((n, 1), dtype=dtype)
             e[i] = 1.0
 
             # x solves of L x = e. Thus, x is the i-th column of L inverse.
@@ -165,7 +177,7 @@ def compute_traceinv_invert_cholesky_indirectly(L, n, sparse):
         else:
 
             # e is a zero vector with its i-th element is one
-            e = numpy.zeros(n)
+            e = numpy.zeros(n, dtype=dtype)
             e[i] = 1.0
 
             # x solves L * x = e. Thus, x is the i-th column of L inverse
@@ -259,7 +271,7 @@ def cholesky_method(A, exponent=1, invert_cholesky=True):
         if sparse:
             if suitesparse_installed:
                 # Using Sparse Suite package
-                L = sksparse.cholmod.cholesky(Ap)
+                L = sk_cholesky(Ap)
             else:
                 # Using scipy, but with LU instead of Cholesky directly.
                 L = sparse_cholesky(Ap)
@@ -277,7 +289,7 @@ def cholesky_method(A, exponent=1, invert_cholesky=True):
             # Instead of inverting L directly, solve linear system for each
             # column of identity matrix to find columns of the inverse of L
             trace = compute_traceinv_invert_cholesky_indirectly(
-                    L, Ap.shape[0], sparse)
+                    L, Ap.shape[0], sparse, A.dtype)
 
     tot_wall_time = time.perf_counter() - init_tot_wall_time
     cpu_proc_time = time.process_time() - init_cpu_proc_time
@@ -301,6 +313,7 @@ def cholesky_method(A, exponent=1, invert_cholesky=True):
         'time':
         {
             'tot_wall_time': tot_wall_time,
+            'alg_wall_time': tot_wall_time,
             'cpu_proc_time': cpu_proc_time,
         },
         'solver':
