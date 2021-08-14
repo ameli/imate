@@ -101,7 +101,7 @@ def check_arguments(
         raise TypeError('"exponent" cannot be None.')
     elif not numpy.isscalar(exponent):
         raise TypeError('"exponent" should be a scalar value.')
-    elif not isinstance(exponent, int):
+    elif not isinstance(exponent, numpy.ionteger):
         TypeError('"exponent" cannot be an integer.')
 
     # Check symmetric
