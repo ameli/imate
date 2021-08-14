@@ -266,7 +266,7 @@ def _check_arguments(
         raise TypeError('"size" cannot be None.')
     elif not numpy.isscalar(size):
         raise TypeError('"size" should be a scalar value.')
-    elif not isinstance(size, numpy.integer):
+    elif not isinstance(size, (int, numpy.integer)):
         TypeError('"size" should be an integer.')
     elif size < 1:
         raise ValueError('"size" should be a positive integer.')
@@ -276,7 +276,7 @@ def _check_arguments(
         raise TypeError('"dimension" cannot be None.')
     elif not numpy.isscalar(dimension):
         raise TypeError('"dimension" should be a scalar value.')
-    elif not isinstance(dimension, numpy.integer):
+    elif not isinstance(dimension, (int, numpy.integer)):
         TypeError('"dimension" should be an integer.')
     elif dimension < 1:
         raise ValueError('"dimension" should be a positive integer.')

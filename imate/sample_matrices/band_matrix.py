@@ -78,13 +78,13 @@ def _check_arguments(
     # Check a
     if a is None:
         raise ValueError('"a" cannot be None.')
-    elif not (isinstance(a, numpy.integer) or isinstance(a, float)):
+    elif not isinstance(a, (int, numpy.integer, float)):
         raise TypeError('"a" should be integer or float.')
 
     # Check b
     if b is None:
         raise ValueError('"b" cannot be None.')
-    elif not (isinstance(b, numpy.integer) or isinstance(b, float)):
+    elif not isinstance(b, (int, numpy.integer, float)):
         raise TypeError('"b" should be integer or float.')
 
     # Check size
@@ -92,7 +92,7 @@ def _check_arguments(
         raise TypeError('"size" cannot be None.')
     elif not numpy.isscalar(size):
         raise TypeError('"size" should be a scalar value.')
-    elif not isinstance(size, numpy.integer):
+    elif not isinstance(size, (int, numpy.integer)):
         TypeError('"size" should be an integer.')
     elif size < 1:
         raise ValueError('"size" should be a positive integer.')

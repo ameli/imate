@@ -152,7 +152,7 @@ def check_arguments(
         raise ValueError('"min_num_samples" cannot be None.')
     elif not numpy.isscalar(min_num_samples):
         raise TypeError('"min_num_samples" should be a scalar value.')
-    elif not isinstance(min_num_samples, numpy.integer):
+    elif not isinstance(min_num_samples, (int, numpy.integer)):
         raise TypeError('"min_num_samples" should be an integer.')
     elif min_num_samples < 1:
         raise ValueError('"min_num_samples" should be at least one.')
@@ -162,7 +162,7 @@ def check_arguments(
         raise ValueError('"max_num_samples" cannot be None.')
     elif not numpy.isscalar(max_num_samples):
         raise TypeError('"max_num_samples" should be a scalar value.')
-    elif not isinstance(max_num_samples, numpy.integer):
+    elif not isinstance(max_num_samples, (int, numpy.integer)):
         raise TypeError('"max_num_samples" should be an integer.')
     elif max_num_samples < 1:
         raise ValueError('"max_num_samples" should be at least one.')
@@ -207,7 +207,8 @@ def check_arguments(
         raise TypeError('"outlier_significance_level" cannot be None.')
     elif not numpy.isscalar(outlier_significance_level):
         raise TypeError('"outlier_significance_level" should be a scalar.')
-    elif not isinstance(outlier_significance_level, (numpy.integer, float)):
+    elif not isinstance(outlier_significance_level,
+                        (int, numpy.integer, float)):
         raise TypeError('"outlier_significance_level" must be a float number.')
     elif outlier_significance_level < 0.0 or outlier_significance_level > 1.0:
         raise ValueError(
@@ -223,7 +224,7 @@ def check_arguments(
         raise TypeError('"lanczos_degree" cannot be None.')
     elif not numpy.isscalar(lanczos_degree):
         raise TypeError('"lanczos_degree" should be a scalar value.')
-    elif not isinstance(lanczos_degree, numpy.integer):
+    elif not isinstance(lanczos_degree, (int, numpy.integer)):
         raise TypeError('"lanczos_degree" should be an integer.')
     elif lanczos_degree is None:
         raise ValueError('"lanczos_degree" cannot be None.')
@@ -234,7 +235,7 @@ def check_arguments(
     if lanczos_tol is not None and not numpy.isscalar(lanczos_tol):
         raise TypeError('"lanczos_tol" should be a scalar value.')
     elif lanczos_tol is not None and not isinstance(
-            lanczos_tol, (numpy.integer, float)):
+            lanczos_tol, (int, numpy.integer, float)):
         raise TypeError('"lanczos_tol" should be a float number.')
     elif lanczos_tol is not None and lanczos_tol < 0.0:
         raise ValueError('"lancozs_tol" cannot be negative.')
@@ -244,7 +245,7 @@ def check_arguments(
         raise TypeError('"orthogonalize" cannot be None.')
     elif not numpy.isscalar(orthogonalize):
         raise TypeError('"orthogonalize" should be a scalar value.')
-    elif not isinstance(orthogonalize, numpy.integer):
+    elif not isinstance(orthogonalize, (int, numpy.integer)):
         raise TypeError('"orthogonalize" should be an integer.')
     elif orthogonalize > lanczos_degree:
         raise ValueError('"orthogonalize", if positive, should be at most ' +
@@ -255,7 +256,7 @@ def check_arguments(
         raise TypeError('"num_threads" cannot be None.')
     elif not numpy.isscalar(num_threads):
         raise TypeError('"num_threads" should be a scalar value.')
-    elif not isinstance(num_threads, numpy.integer):
+    elif not isinstance(num_threads, (int, numpy.integer)):
         raise TypeError('"num_threads" should be an integer.')
     elif num_threads < 0:
         raise ValueError('"num_threads" should be a non-negative integer.')
@@ -265,7 +266,7 @@ def check_arguments(
         raise TypeError('"num_gpu_devices" cannot be None.')
     elif not numpy.isscalar(num_gpu_devices):
         raise TypeError('"num_gpu_devices" should be a scalar value.')
-    elif not isinstance(num_gpu_devices, numpy.integer):
+    elif not isinstance(num_gpu_devices, (int, numpy.integer)):
         raise TypeError('"num_gpu_devices" should be an integer.')
     elif num_gpu_devices < 0:
         raise ValueError('"num_gpu_devices" should be a non-negative integer.')

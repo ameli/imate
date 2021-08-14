@@ -80,6 +80,8 @@ except Exception as e:
     # being on the wrong directory.
     _check_import()
 
+    # If the error was not due to being in the source directory, raise previous
+    # error.
     raise e
 
 __all__ = [

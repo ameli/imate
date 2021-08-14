@@ -8,10 +8,11 @@ Subpackages
    :maxdepth: 4
 
    imate.functions
-   imate.generate_matrix
    imate.interpolate_traceinv
    imate.linear_operator
    imate.logdet
+   imate.sample_matrices
+   imate.trace
    imate.traceinv
 
 Module contents

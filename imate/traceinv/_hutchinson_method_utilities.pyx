@@ -104,7 +104,7 @@ def check_arguments(
         raise TypeError('"exponent" cannot be None.')
     elif not numpy.isscalar(exponent):
         raise TypeError('"exponent" should be a scalar value.')
-    elif not isinstance(exponent, numpy.integer):
+    elif not isinstance(exponent, (int, numpy.integer)):
         TypeError('"exponent" cannot be an integer.')
 
     # Check assume_matrix
@@ -122,7 +122,7 @@ def check_arguments(
         raise ValueError('"min_num_samples" cannot be None.')
     elif not numpy.isscalar(min_num_samples):
         raise TypeError('"min_num_samples" should be a scalar value.')
-    elif not isinstance(min_num_samples, numpy.integer):
+    elif not isinstance(min_num_samples, (int, numpy.integer)):
         raise TypeError('"min_num_samples" should be an integer.')
     elif min_num_samples < 1:
         raise ValueError('"min_num_samples" should be at least one.')
@@ -132,7 +132,7 @@ def check_arguments(
         raise ValueError('"max_num_samples" cannot be None.')
     elif not numpy.isscalar(max_num_samples):
         raise TypeError('"max_num_samples" should be a scalar value.')
-    elif not isinstance(max_num_samples, numpy.integer):
+    elif not isinstance(max_num_samples, (int, numpy.integer)):
         raise TypeError('"max_num_samples" should be an integer.')
     elif max_num_samples < 1:
         raise ValueError('"max_num_samples" should be at least one.')
@@ -147,7 +147,7 @@ def check_arguments(
         error_atol = 0.0
     elif not numpy.isscalar(error_atol):
         raise TypeError('"error_atol" should be a scalar value.')
-    elif not isinstance(error_atol, (numpy.integer, float)):
+    elif not isinstance(error_atol, (int, numpy.integer, float)):
         raise TypeError('"error_atol" should be a float number.')
     elif error_atol < 0.0:
         raise ValueError('"error_atol" cannot be negative.')
@@ -157,7 +157,7 @@ def check_arguments(
         error_rtol = 0.0
     elif not numpy.isscalar(error_rtol):
         raise TypeError('"error_rtol" should be a scalar value.')
-    elif not isinstance(error_rtol, (numpy.integer, float)):
+    elif not isinstance(error_rtol, (int, numpy.integer, float)):
         raise TypeError('"error_rtol" should be a float number.')
     elif error_rtol < 0.0:
         raise ValueError('"error_rtol" cannot be negative.')
@@ -167,7 +167,7 @@ def check_arguments(
         raise TypeError('"confidence_level" cannot be None.')
     elif not numpy.isscalar(confidence_level):
         raise TypeError('"confidence_level" should be a scalar.')
-    elif not isinstance(confidence_level, (numpy.integer, float)):
+    elif not isinstance(confidence_level, (int, numpy.integer, float)):
         raise TypeError('"confidence_level" should be a float number.')
     elif confidence_level < 0.0 or confidence_level > 1.0:
         raise ValueError('"confidence_level" should be between 0 and 1.')
@@ -177,7 +177,8 @@ def check_arguments(
         raise TypeError('"outlier_significance_level" cannot be None.')
     elif not numpy.isscalar(outlier_significance_level):
         raise TypeError('"outlier_significance_level" should be a scalar.')
-    elif not isinstance(outlier_significance_level, (numpy.integer, float)):
+    elif not isinstance(outlier_significance_level,
+                        (int, numpy.integer, float)):
         raise TypeError('"outlier_significance_level" must be a float number.')
     elif outlier_significance_level < 0.0 or outlier_significance_level > 1.0:
         raise ValueError(
@@ -192,7 +193,7 @@ def check_arguments(
     if solver_tol is not None and not numpy.isscalar(solver_tol):
         raise TypeError('"solver_tol" should be a scalar value.')
     elif solver_tol is not None and \
-            not isinstance(solver_tol, (numpy.integer, float)):
+            not isinstance(solver_tol, (int, numpy.integer, float)):
         raise TypeError('"solver_tol" should be a float number.')
     elif solver_tol is not None and solver_tol < 0.0:
         raise ValueError('"lancozs_tol" cannot be negative.')
@@ -210,7 +211,7 @@ def check_arguments(
         raise TypeError('"num_threads" cannot be None.')
     elif not numpy.isscalar(num_threads):
         raise TypeError('"num_threads" should be a scalar value.')
-    elif not isinstance(num_threads, numpy.integer):
+    elif not isinstance(num_threads, (int, numpy.integer)):
         raise TypeError('"num_threads" should be an integer.')
     elif num_threads < 0:
         raise ValueError('"num_threads" should be a non-negative integer.')
