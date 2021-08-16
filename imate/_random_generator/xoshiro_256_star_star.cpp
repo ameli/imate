@@ -17,6 +17,11 @@
 #include <cstdlib>  // NULL
 #include "./split_mix_64.h"  // SplitMix64
 
+// stdint.h in old compilers (e.g. gcc 4.4.7) does not declare UINT64_C macro.
+#ifndef UINT64_C
+    #define UINT64_C(c) static_cast<uint64_t>(c)
+#endif
+
 
 // ===========
 // Constructor

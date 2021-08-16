@@ -17,7 +17,7 @@
 // Headers
 // =======
 
-#include <stdint.h>  // uint64_t
+#include <stdint.h>  // uint64_t, UINT64_C
 
 
 // =====================
