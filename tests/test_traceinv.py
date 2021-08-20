@@ -41,14 +41,14 @@ def _test_traceinv_methods(K):
     # Use Cholesky method with direct inverse
     time10 = time.time()
     trace1, _ = traceinv(K, method='cholesky', invert_cholesky=False,
-                         exponent=exponent)
+                         exponent=exponent, cholmod=None)
     time11 = time.time()
 
     # Use Cholesky method without direct inverse
     if not scipy.sparse.isspmatrix(K):
         time20 = time.time()
         trace2, _ = traceinv(K, method='cholesky', invert_cholesky=True,
-                             exponent=exponent)
+                             exponent=exponent, cholmod=None)
         time21 = time.time()
     else:
         # Do not use Cholesky with inverse method if K is sparse.

@@ -29,9 +29,6 @@ except ImportError:
 from .._linear_algebra import sparse_cholesky
 from ..__version__ import __version__
 
-# Test
-suitesparse_installed = False
-
 
 # ===============
 # cholesky method
@@ -75,6 +72,12 @@ def cholesky_method(A, exponent=1.0, cholmod=None):
     if scipy.sparse.isspmatrix(A):
         sparse = True
 
+    # Determine to use suitesparse or scipy.sparse to compute cholesky
+    if suitesparse_installed and cholmod is not False and sparse:
+        use_cholmod = True
+    else:
+        use_cholmod = False
+
     init_tot_wall_time = time.perf_counter()
     init_cpu_proc_time = time.process_time()
 
@@ -89,7 +92,7 @@ def cholesky_method(A, exponent=1.0, cholmod=None):
         if sparse:
 
             # Sparse matrix
-            if suitesparse_installed and cholmod is not False:
+            if use_cholmod:
                 # Use Suite Sparse
                 Factor = sk_cholesky(A)
                 trace = Factor.logdet()
@@ -113,12 +116,6 @@ def cholesky_method(A, exponent=1.0, cholmod=None):
 
     tot_wall_time = time.perf_counter() - init_tot_wall_time
     cpu_proc_time = time.process_time() - init_cpu_proc_time
-
-    # Determine if suitesparse was used
-    if suitesparse_installed and cholmod is not False and sparse:
-        cholmod_used = True
-    else:
-        cholmod_used = False
 
     # Dictionary of output info
     info = {
@@ -146,7 +143,7 @@ def cholesky_method(A, exponent=1.0, cholmod=None):
         {
             'version': __version__,
             'method': 'cholesky',
-            'cholmod_used': cholmod_used
+            'cholmod_used': use_cholmod
         }
     }
 
@@ -182,6 +179,8 @@ def check_arguments(A, exponent, cholmod):
         if not isinstance(cholmod, bool):
             raise TypeError('"cholmod" should be either "None", or boolean.')
         elif cholmod is True and suitesparse_installed is False:
+            print(cholmod)
+            print(suitesparse_installed)
             raise RuntimeError('"cholmod" method is not available. Either ' +
                                'install "scikit-sparse" package, or set ' +
                                '"cholmod" to "False" or "None".')

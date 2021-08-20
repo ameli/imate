@@ -235,6 +235,10 @@ def compare_methods(M, config, matrix, arguments):
                     method='cholesky',
                     exponent=config['exponent'],
                     invert_cholesky=False)
+
+            trace_c2 = numpy.nan
+            info_c2 = {}
+
         elif arguments['function'] == 'logdet':
 
             # This uses cholmod (if scikit-sparse is installed), otherwise
@@ -242,16 +246,16 @@ def compare_methods(M, config, matrix, arguments):
             trace_c, info_c = function(
                     M,
                     method='cholesky',
-                    colmod=None,
+                    cholmod=None,
                     exponent=config['exponent'])
 
-            # Is cholmod is used, also compute once more without cholmod
+            # If cholmod is used, also compute once more without cholmod
             if info_c['solver']['cholmod_used'] is True and \
                     M.shape[0] <= matrix['max_cholesky_size_2']:
                 trace_c2, info_c2 = function(
                         M,
                         method='cholesky',
-                        colmod=False,
+                        cholmod=False,
                         exponent=config['exponent'])
             else:
                 trace_c2 = numpy.nan
@@ -312,8 +316,8 @@ def main(argv):
 
     matrix = {
         'max_hutchinson_size': 2**22,
-        'max_cholesky_size': 2**18,
-        'max_cholesky_size_2': 2**16,
+        'max_cholesky_size': 2**18,     # for using cholmod
+        'max_cholesky_size_2': 2**16,   # for not using cholmod (logdet only)
         'band_alpha': 2.0,
         'band_beta': 1.0,
         'symmetric': True,

@@ -77,7 +77,8 @@ def benchmark(argv):
         'outlier_significance_level': 0.01,
         'verbose': False,
         'plot': False,
-        'num_threads': 0
+        'num_threads': 0,
+        'invert_cholesky': True
     }
 
     matrix = {
@@ -139,7 +140,9 @@ def benchmark(argv):
         trace_exact[i], _ = traceinv(
                 Mt.tocsr(),
                 method='cholesky',
-                invert_cholesky=False)
+                cholmod=False,
+                invert_cholesky=config['invert_cholesky'])
+                # invert_cholesky=False)
         print(' done.')
 
     now = datetime.now()

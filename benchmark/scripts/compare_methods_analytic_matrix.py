@@ -235,27 +235,48 @@ def compare_methods(M, config, matrix, arguments):
                     M,
                     method='cholesky',
                     exponent=config['exponent'],
+                    cholmod=None,
                     invert_cholesky=False)
+
+            trace_c2 = numpy.nan
+            info_c2 = {}
+
         elif arguments['function'] == 'logdet':
             trace_c, info_c = function(
                     M,
                     method='cholesky',
                     exponent=config['exponent'])
+
+            # Is cholmod is used, also compute once more without cholmod
+            if info_c['solver']['cholmod_used'] is True and \
+                    M.shape[0] <= matrix['max_cholesky_size_2']:
+                trace_c2, info_c2 = function(
+                        M,
+                        method='cholesky',
+                        cholmod=False,
+                        exponent=config['exponent'])
+            else:
+                trace_c2 = numpy.nan
+                info_c2 = {}
         print(' done.')
 
     else:
         # Takes a long time, do not compute
+        trace_c2 = numpy.nan
         trace_c = numpy.nan
         info_c = {}
+        info_c2 = {}
 
     # Save all results in a dictionary
     result = {
         'trace_s': trace_s,
         'trace_h': trace_h,
         'trace_c': trace_c,
+        'trace_c2': trace_c2,
         'info_s': info_s,
         'info_h': info_h,
-        'info_c': info_c
+        'info_c': info_c,
+        'info_c2': info_c2
     }
 
     return result
@@ -294,7 +315,8 @@ def main(argv):
     matrix = {
         'sizes': 2**numpy.arange(4, 26),
         'max_hutchinson_size': 2**22,
-        'max_cholesky_size': 2**13,
+        'max_cholesky_size': 2**13,      # for using cholmod
+        'max_cholesky_size_2': 2**16,    # for not using cholmod (logdet only)
         'band_alpha': 2.0,
         'band_beta': 1.0,
         'symmetric': True,
@@ -311,10 +333,11 @@ def main(argv):
     data_results_128bit = []
     arguments = parse_arguments(argv)
 
-    # Computing logdet with chlesky method is very efficient. So, do not limit
+    # Computing logdet with cholesky method is very efficient. So, do not limit
     # the matrix size for cholesky method of function is logdet.
     if arguments['function'] == 'logdet':
-        matrix['max_cholesky_size'] = numpy.inf
+        matrix['max_cholesky_size'] = 2*23
+        matrix['max_cholesky_size_2'] = 2*16
 
     # 32-bit
     if arguments['32-bit']:

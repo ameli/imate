@@ -88,6 +88,12 @@ def cholesky_method(A, exponent=1, invert_cholesky=True, cholmod=None):
     if scipy.sparse.isspmatrix(A):
         sparse = True
 
+    # Determine to use suitesparse or scipy.sparse to compute cholesky
+    if suitesparse_installed and cholmod is not False and sparse:
+        use_cholmod = True
+    else:
+        use_cholmod = False
+
     init_tot_wall_time = time.perf_counter()
     init_cpu_proc_time = time.process_time()
 
@@ -119,7 +125,7 @@ def cholesky_method(A, exponent=1, invert_cholesky=True, cholmod=None):
         # Trace of inverse of matrix to the power of a positive exponent
         # Cholesky factorization
         if sparse:
-            if suitesparse_installed and cholmod is not False:
+            if use_cholmod:
                 # Using Sparse Suite package
                 L = sk_cholesky(Ap)
             else:
@@ -133,22 +139,17 @@ def cholesky_method(A, exponent=1, invert_cholesky=True, cholmod=None):
         if invert_cholesky:
 
             # Invert L directly (better for small matrices)
-            trace = compute_traceinv_invert_cholesky_directly(L, sparse)
+            trace = compute_traceinv_invert_cholesky_directly(
+                    L, sparse, use_cholmod)
 
         else:
             # Instead of inverting L directly, solve linear system for each
             # column of identity matrix to find columns of the inverse of L
             trace = compute_traceinv_invert_cholesky_indirectly(
-                    L, Ap.shape[0], sparse, A.dtype)
+                    L, Ap.shape[0], sparse, use_cholmod, A.dtype)
 
     tot_wall_time = time.perf_counter() - init_tot_wall_time
     cpu_proc_time = time.process_time() - init_cpu_proc_time
-
-    # Determine if suitesparse was used
-    if suitesparse_installed and cholmod is not False and sparse:
-        cholmod_used = True
-    else:
-        cholmod_used = False
 
     # Dictionary of output info
     info = {
@@ -177,7 +178,7 @@ def cholesky_method(A, exponent=1, invert_cholesky=True, cholmod=None):
             'version': __version__,
             'method': 'cholesky',
             'invert_cholesky': invert_cholesky,
-            'cholmod_used': cholmod_used
+            'cholmod_used': use_cholmod
         }
     }
 
@@ -230,7 +231,7 @@ def check_arguments(A, exponent, invert_cholesky, cholmod):
 # compute traceinv invert cholesky directly
 # =========================================
 
-def compute_traceinv_invert_cholesky_directly(L, sparse):
+def compute_traceinv_invert_cholesky_directly(L, sparse, use_cholmod):
     """
     Compute the trace of inverse by directly inverting the Cholesky matrix
     :math:`\\mathbb{L}`.
@@ -244,7 +245,7 @@ def compute_traceinv_invert_cholesky_directly(L, sparse):
 
     .. warning::
 
-        If scikit-sparse package is used to compute Cholesky decompisition,
+        If scikit-sparse package is used to compute Cholesky decomposition,
         all computations are done using ``float64`` data type. The 32-bit type
         is not available in that package.
 
@@ -261,17 +262,20 @@ def compute_traceinv_invert_cholesky_directly(L, sparse):
     # Direct method. Take inverse of L, then compute its Frobenius norm.
     if sparse:
 
-        raise ValueError(
-                'Cannot use sksparse.cholmod.inv, as it computes LDLt ' +
-                'decomposition and the computed trace is incorrect. ' +
-                'Either set "invert_cholesky" to "False" when using sparse ' +
-                'matrices, or use "hutchinson" or "slq" method.')
+        if use_cholmod:
 
-        # Note: the L.inv() uses LDLt decomposition, not LLt, which then the
-        # computed Trace becomes incorrect.
-        Linv = L.inv()
+            # Using cholmod. Note, here L_ is the decomposition L_ L_.T = A,
+            # not L_ D L_.T = A.
+            L_ = L.L()
+            Linv = scipy.sparse.linalg.inv(L_)
+
+        else:
+            # Using scipy to compute inv of cholesky
+            Linv = scipy.sparse.linalg.inv(L)
+
         trace = scipy.sparse.linalg.norm(Linv, ord='fro')**2
     else:
+        # Dense matrix
         Linv = scipy.linalg.inv(L)
         trace = numpy.linalg.norm(Linv, ord='fro')**2
 
@@ -282,7 +286,8 @@ def compute_traceinv_invert_cholesky_directly(L, sparse):
 # compute traceinv invert cholesky indirectly
 # ===========================================
 
-def compute_traceinv_invert_cholesky_indirectly(L, n, sparse, dtype):
+def compute_traceinv_invert_cholesky_indirectly(
+        L, n, sparse, use_cholmod, dtype):
     """
     Computes the trace of inverse by solving a linear system for Cholesky
     matrix and each column of the identity matrix to obtain the inverse of
@@ -317,7 +322,7 @@ def compute_traceinv_invert_cholesky_indirectly(L, n, sparse, dtype):
 
     .. warning::
 
-        If scikit-sparse package is used to compute Cholesky decompisition,
+        If scikit-sparse package is used to compute Cholesky decomposition,
         all computations are done using ``float64`` data type. The 32-bit type
         is not available in that package.
 
@@ -345,7 +350,7 @@ def compute_traceinv_invert_cholesky_indirectly(L, n, sparse, dtype):
             e[i] = 1.0
 
             # x solves of L x = e. Thus, x is the i-th column of L inverse.
-            if suitesparse_installed and \
+            if use_cholmod and \
                isinstance(L, sksparse.cholmod.Factor):
 
                 # Using cholmod.Note: LDL SHOULD be disabled.

@@ -59,7 +59,7 @@ def _test_logdet_methods(K):
 
     # Use Cholesky method
     time20 = time.time()
-    logdet2, _ = logdet(K, method='cholesky', exponent=exponent)
+    logdet2, _ = logdet(K, method='cholesky', exponent=exponent, cholmod=None)
     time21 = time.time()
 
     # Use Stochastic Lanczos Quadrature method, with tri-diagonalization
