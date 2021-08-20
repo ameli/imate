@@ -16,7 +16,6 @@ import subprocess
 import multiprocessing
 from datetime import datetime
 from imate import traceinv, logdet
-from imate.sample_matrices import band_matrix
 
 
 # ===============
@@ -237,25 +236,45 @@ def compare_methods(M, config, matrix, arguments):
                     exponent=config['exponent'],
                     invert_cholesky=False)
         elif arguments['function'] == 'logdet':
+
+            # This uses cholmod (if scikit-sparse is installed), otherwise
+            # it only uses scipy.sparse.cholesky
             trace_c, info_c = function(
                     M,
                     method='cholesky',
+                    colmod=None,
                     exponent=config['exponent'])
+
+            # Is cholmod is used, also compute once more without cholmod
+            if info_c['solver']['cholmod_used'] is True and \
+                    M.shape[0] <= matrix['max_cholesky_size_2']:
+                trace_c2, info_c2 = function(
+                        M,
+                        method='cholesky',
+                        colmod=False,
+                        exponent=config['exponent'])
+            else:
+                trace_c2 = numpy.nan
+                info_c2 = {}
         print(' done.')
 
     else:
         # Takes a long time, do not compute
         trace_c = numpy.nan
+        trace_c2 = numpy.nan
         info_c = {}
+        info_c2 = {}
 
     # Save all results in a dictionary
     result = {
         'trace_s': trace_s,
         'trace_h': trace_h,
         'trace_c': trace_c,
+        'trace_c2': trace_c2,
         'info_s': info_s,
         'info_h': info_h,
-        'info_c': info_c
+        'info_c': info_c,
+        'info_c2': info_c2
     }
 
     return result
@@ -278,7 +297,7 @@ def main(argv):
         'exponent': 1,
         'min_num_samples': 200,
         'max_num_samples': 200,
-        'lanczos_degree': 30,
+        'lanczos_degree': 80,
         'lanczos_tol':  None,
         'solver_tol': 1e-6,
         'orthogonalize': 0,
@@ -292,9 +311,9 @@ def main(argv):
     }
 
     matrix = {
-        'sizes': 2**numpy.arange(4, 26),
         'max_hutchinson_size': 2**22,
-        'max_cholesky_size': 2**13,
+        'max_cholesky_size': 2**18,
+        'max_cholesky_size_2': 2**16,
         'band_alpha': 2.0,
         'band_beta': 1.0,
         'symmetric': True,
@@ -306,69 +325,51 @@ def main(argv):
         'num_all_cpu_threads': multiprocessing.cpu_count(),
     }
 
-    data_results_32bit = []
-    data_results_64bit = []
-    data_results_128bit = []
+    benchmark_dir = '..'
+    directory = join(benchmark_dir, 'matrices')
+    # data_names = ['Queen_4147', 'G3_circuit', 'Flan_1565', 'Bump_2911',
+    #              'cvxbqp1', 'StocF-1465', 'G2_circuit', 'gridgena',
+    #              'parabolic_fem']
+    data_names = ['nos5', 'mhd4800b', 'bodyy6', 'G2_circuit', 'parabolic_fem',
+                  'StocF-1465', 'Bump_2911', 'Queen_4147']
+    # data_names = ['nos7', 'nos5', 'plat362', 'bcsstk21', 'mhd4800b', 'aft01',
+    #               'bodyy6', 'ted_B', 'G2_circuit', 'parabolic_fem',
+    #               'StocF-1465', 'Bump_2911', 'Queen_4147']
+    data_types = ['32', '64', '128']
+
+    data_results = []
     arguments = parse_arguments(argv)
 
-    # Computing logdet with chlesky method is very efficient. So, do not limit
-    # the matrix size for cholesky method of function is logdet.
-    if arguments['function'] == 'logdet':
-        matrix['max_cholesky_size'] = numpy.inf
+    # Loop over data filenames
+    for data_name in data_names:
 
-    # 32-bit
-    if arguments['32-bit']:
-        for size in matrix['sizes']:
-            print('Processing %s matrix size: %d ...' % ('32-bit', size))
+        data_result = {
+            'data_name': data_name,
+            'type_results': [],
+        }
 
-            # Generate matrix
-            M = band_matrix(matrix['band_alpha'], matrix['band_beta'], size,
-                            symmetric=matrix['symmetric'],
-                            format=matrix['format'], dtype=r'float32')
+        # For each data, loop over float type, such as 32-bit, 64-bit, 128-bit
+        for data_type in data_types:
 
-            # Run a benchmark for all algorithms
-            result = compare_methods(M, config, matrix, arguments)
-
-            # Store results
-            data_results_32bit.append(result)
-
-            print('')
-
-    # 64-bit
-    if arguments['64-bit']:
-        for size in matrix['sizes']:
-            print('Processing %s matrix size: %d ...' % ('64-bit', size))
-
-            # Generate matrix
-            M = band_matrix(matrix['band_alpha'], matrix['band_beta'], size,
-                            symmetric=matrix['symmetric'],
-                            format=matrix['format'], dtype=r'float64')
+            filename = data_name + '_float' + data_type + '.pickle'
+            filepath = join(directory, filename)
+            with open(filepath, 'rb') as h:
+                M = pickle.load(h)
+            print('loaded %s.' % filename)
 
             # Run a benchmark for all algorithms
             result = compare_methods(M, config, matrix, arguments)
 
-            # Store results
-            data_results_64bit.append(result)
+            type_result = {
+                'data_type': data_type,
+                'result': result
+            }
 
+            data_result['type_results'].append(type_result)
             print('')
 
-    # 128-bit
-    if arguments['64-bit']:
-        for size in matrix['sizes']:
-            print('Processing %s matrix size: %d ...' % ('128-bit', size))
-
-            # Generate matrix
-            M = band_matrix(matrix['band_alpha'], matrix['band_beta'], size,
-                            symmetric=matrix['symmetric'],
-                            format=matrix['format'], dtype=r'float128')
-
-            # Run a benchmark for all algorithms
-            result = compare_methods(M, config, matrix, arguments)
-
-            # Store results
-            data_results_128bit.append(result)
-
-            print('')
+        data_results.append(data_result)
+        print('')
 
     now = datetime.now()
 
@@ -377,9 +378,7 @@ def main(argv):
         'config': config,
         'matrix': matrix,
         'devices': devices,
-        'data_results-32bit': data_results_32bit,
-        'data_results-64bit': data_results_64bit,
-        'data_results-128bit': data_results_128bit,
+        'data_results': data_results,
         'date': now.strftime("%d/%m/%Y %H:%M:%S")
     }
 
@@ -387,9 +386,9 @@ def main(argv):
     benchmark_dir = '..'
     pickle_dir = 'pickle_results'
     if arguments['function'] == 'traceinv':
-        output_filename = 'compare_methods_analytic_matrix_traceinv'
+        output_filename = 'compare_methods_practical_matrix_traceinv'
     elif arguments['function'] == 'logdet':
-        output_filename = 'compare_methods_analytic_matrix_logdet'
+        output_filename = 'compare_methods_practical_matrix_logdet'
     else:
         raise ValueError("'function' should be either 'traceinv' or 'logdet'.")
 

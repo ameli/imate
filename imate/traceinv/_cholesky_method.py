@@ -34,6 +34,198 @@ except ImportError:
 from .._linear_algebra import sparse_cholesky
 
 
+# ===============
+# cholesky method
+# ===============
+
+def cholesky_method(A, exponent=1, invert_cholesky=True, cholmod=None):
+    """
+    Computes trace of inverse of matrix using Cholesky factorization by
+
+    .. math::
+
+        \\mathrm{trace}(\\mathbf{A}^{-1}) = \\| \\mathbf{L}^{-1} \\|_F^2
+
+    where :math:`\\mathbf{L}` is the Cholesky factorization of
+    :math:`\\mathbf{A}` and :math:`\\| \\cdot \\|_F` is the Frobenius norm.
+
+    .. note::
+
+        This function does not produce correct results when ``'A'`` is sparse.
+        It seems ``sksparse.cholmod`` has a problem.
+
+        When :math:`\\mathbf{A} = \\mathbf{K}` for some positive-definite
+        matrix :math:`\\mathbf{K}`, it produces correct result. However, when
+        :math:`\\mathbf{A} = \\mathbf{K} + \\eta \\mathbf{I}``, its result is
+        different than Hurtchinson and Lanczos stochastic quadrature methods.
+        Also its result becomes correct when :math:`\\mathbf{A}` is converted
+        to dense matrix, and if we do not use ``skspase.cholmod``.
+
+    :param A: Invertible matrix
+    :type A: numpy.ndarray
+
+    :param invert_cholesky: Flag to invert Cholesky matrix.
+        If ``false``, the inverse of Cholesky is not directly computed, but a
+        linear system is solved for each column of the inverse of the Cholesky.
+    :type invert_cholesky: bool
+
+    :param cholmod: If set to ``True``, it uses cholmod library from
+        scikit-sparse package to compute the Chlesky decomposition. If set to
+        ``False``, it uses `scipy.sparse.cholesky`` method. If set to ``None``,
+        first, it tries to use cholmod library,  but if cholmod is not
+        available, it uses ``scipy.sparse.cholesky`` method without raising any
+        warning.
+
+    :return: Trace of matrix ``A``.
+    :rtype: float
+    """
+
+    # Check input arguments
+    check_arguments(A, exponent, invert_cholesky, cholmod)
+
+    # Determine to use Sparse
+    sparse = False
+    if scipy.sparse.isspmatrix(A):
+        sparse = True
+
+    init_tot_wall_time = time.perf_counter()
+    init_cpu_proc_time = time.process_time()
+
+    # Ap is the power of A to the exponent p
+    if exponent != 0:
+
+        # Initialize Ap
+        Ap = A
+
+        # Directly compute power of A by successive matrix multiplication
+        if exponent > 1 or exponent < -1:
+            for i in range(1, numpy.abs(exponent)):
+                Ap = Ap @ A
+
+    if exponent == 0:
+        trace = A.shape[0]
+    elif exponent < 0:
+
+        # Trace of the inverse of a matrix to the power of a negative exponent
+        if sparse:
+            trace = 0.0
+            for i in range(A.shape[0]):
+                trace += Ap[i, i]
+        else:
+            trace = numpy.trace(Ap)
+
+    else:
+
+        # Trace of inverse of matrix to the power of a positive exponent
+        # Cholesky factorization
+        if sparse:
+            if suitesparse_installed and cholmod is not False:
+                # Using Sparse Suite package
+                L = sk_cholesky(Ap)
+            else:
+                # Using scipy, but with LU instead of Cholesky directly.
+                L = sparse_cholesky(Ap)
+
+        else:
+            L = scipy.linalg.cholesky(Ap, lower=True)
+
+        # Find Frobenius norm of L inverse
+        if invert_cholesky:
+
+            # Invert L directly (better for small matrices)
+            trace = compute_traceinv_invert_cholesky_directly(L, sparse)
+
+        else:
+            # Instead of inverting L directly, solve linear system for each
+            # column of identity matrix to find columns of the inverse of L
+            trace = compute_traceinv_invert_cholesky_indirectly(
+                    L, Ap.shape[0], sparse, A.dtype)
+
+    tot_wall_time = time.perf_counter() - init_tot_wall_time
+    cpu_proc_time = time.process_time() - init_cpu_proc_time
+
+    # Determine if suitesparse was used
+    if suitesparse_installed and cholmod is not False and sparse:
+        cholmod_used = True
+    else:
+        cholmod_used = False
+
+    # Dictionary of output info
+    info = {
+        'matrix':
+        {
+            'data_type': get_data_type_name(A),
+            'exponent': exponent,
+            'size': A.shape[0],
+            'sparse': isspmatrix(A),
+            'nnz': get_nnz(A),
+            'density': get_density(A),
+            'num_inquiries': 1
+        },
+        'device':
+        {
+            'num_cpu_threads': multiprocessing.cpu_count()
+        },
+        'time':
+        {
+            'tot_wall_time': tot_wall_time,
+            'alg_wall_time': tot_wall_time,
+            'cpu_proc_time': cpu_proc_time,
+        },
+        'solver':
+        {
+            'version': __version__,
+            'method': 'cholesky',
+            'invert_cholesky': invert_cholesky,
+            'cholmod_used': cholmod_used
+        }
+    }
+
+    return trace, info
+
+
+# ===============
+# check arguments
+# ===============
+
+def check_arguments(A, exponent, invert_cholesky, cholmod):
+    """
+    Checks the type and value of the parameters.
+    """
+
+    # Check A
+    if (not isinstance(A, numpy.ndarray)) and (not isspmatrix(A)):
+        raise TypeError('Input matrix should be either a "numpy.ndarray" or ' +
+                        'a "scipy.sparse" matrix.')
+    elif A.shape[0] != A.shape[1]:
+        raise ValueError('Input matrix should be a square matrix.')
+
+    # Check exponent
+    if exponent is None:
+        raise TypeError('"exponent" cannot be None.')
+    elif not numpy.isscalar(exponent):
+        raise TypeError('"exponent" should be a scalar value.')
+    elif not isinstance(exponent, (int, numpy.integer)):
+        TypeError('"exponent" cannot be an integer.')
+
+    # Check invert_cholesky
+    if not numpy.isscalar(invert_cholesky):
+        raise TypeError('"invert_cholesky" should be a scalar value.')
+    elif invert_cholesky is None:
+        raise ValueError('"invert_cholesky" cannot be None.')
+    elif not isinstance(invert_cholesky, bool):
+        raise TypeError('"invert_cholesky" should be an integer.')
+
+    # Check cholmod
+    if cholmod is not None:
+        if not isinstance(cholmod, bool):
+            raise TypeError('"cholmod" should be either "None", or boolean.')
+        elif cholmod is True and suitesparse_installed is False:
+            raise RuntimeError('"cholmod" method is not available. Either ' +
+                               'install "scikit-sparse" package, or set ' +
+                               '"cholmod" to "False" or "None".')
+
+
 # =========================================
 # compute traceinv invert cholesky directly
 # =========================================
@@ -190,173 +382,3 @@ def compute_traceinv_invert_cholesky_indirectly(L, n, sparse, dtype):
     trace = norm2
 
     return trace
-
-
-# ===============
-# cholesky method
-# ===============
-
-def cholesky_method(A, exponent=1, invert_cholesky=True):
-    """
-    Computes trace of inverse of matrix using Cholesky factorization by
-
-    .. math::
-
-        \\mathrm{trace}(\\mathbf{A}^{-1}) = \\| \\mathbf{L}^{-1} \\|_F^2
-
-    where :math:`\\mathbf{L}` is the Cholesky factorization of
-    :math:`\\mathbf{A}` and :math:`\\| \\cdot \\|_F` is the Frobenius norm.
-
-    .. note::
-
-        This function does not produce correct results when ``'A'`` is sparse.
-        It seems ``sksparse.cholmod`` has a problem.
-
-        When :math:`\\mathbf{A} = \\mathbf{K}` for some positive-definite
-        matrix :math:`\\mathbf{K}`, it produces correct result. However, when
-        :math:`\\mathbf{A} = \\mathbf{K} + \\eta \\mathbf{I}``, its result is
-        different than Hurtchinson and Lanczos stochastic quadrature methods.
-        Also its result becomes correct when :math:`\\mathbf{A}` is converted
-        to dense matrix, and if we do not use ``skspase.cholmod``.
-
-    :param A: Invertible matrix
-    :type A: numpy.ndarray
-
-    :param invert_cholesky: Flag to invert Cholesky matrix.
-        If ``false``, the inverse of Cholesky is not directly computed, but a
-        linear system is solved for each column of the inverse of the Cholesky.
-    :type invert_cholesky: bool
-
-    :return: Trace of matrix ``A``.
-    :rtype: float
-    """
-
-    # Check input arguments
-    check_arguments(A, exponent, invert_cholesky)
-
-    # Determine to use Sparse
-    sparse = False
-    if scipy.sparse.isspmatrix(A):
-        sparse = True
-
-    init_tot_wall_time = time.perf_counter()
-    init_cpu_proc_time = time.process_time()
-
-    # Ap is the power of A to the exponent p
-    if exponent != 0:
-
-        # Initialize Ap
-        Ap = A
-
-        # Directly compute power of A by successive matrix multiplication
-        if exponent > 1 or exponent < -1:
-            for i in range(1, numpy.abs(exponent)):
-                Ap = Ap @ A
-
-    if exponent == 0:
-        trace = A.shape[0]
-    elif exponent < 0:
-
-        # Trace of the inverse of a matrix to the power of a negative exponent
-        if sparse:
-            trace = 0.0
-            for i in range(A.shape[0]):
-                trace += Ap[i, i]
-        else:
-            trace = numpy.trace(Ap)
-
-    else:
-
-        # Trace of inverse of matrix to the power of a positive exponent
-        # Cholesky factorization
-        if sparse:
-            if suitesparse_installed:
-                # Using Sparse Suite package
-                L = sk_cholesky(Ap)
-            else:
-                # Using scipy, but with LU instead of Cholesky directly.
-                L = sparse_cholesky(Ap)
-
-        else:
-            L = scipy.linalg.cholesky(Ap, lower=True)
-
-        # Find Frobenius norm of L inverse
-        if invert_cholesky:
-
-            # Invert L directly (better for small matrices)
-            trace = compute_traceinv_invert_cholesky_directly(L, sparse)
-
-        else:
-            # Instead of inverting L directly, solve linear system for each
-            # column of identity matrix to find columns of the inverse of L
-            trace = compute_traceinv_invert_cholesky_indirectly(
-                    L, Ap.shape[0], sparse, A.dtype)
-
-    tot_wall_time = time.perf_counter() - init_tot_wall_time
-    cpu_proc_time = time.process_time() - init_cpu_proc_time
-
-    # Dictionary of output info
-    info = {
-        'matrix':
-        {
-            'data_type': get_data_type_name(A),
-            'exponent': exponent,
-            'size': A.shape[0],
-            'sparse': isspmatrix(A),
-            'nnz': get_nnz(A),
-            'density': get_density(A),
-            'num_inquiries': 1
-        },
-        'device':
-        {
-            'num_cpu_threads': multiprocessing.cpu_count()
-        },
-        'time':
-        {
-            'tot_wall_time': tot_wall_time,
-            'alg_wall_time': tot_wall_time,
-            'cpu_proc_time': cpu_proc_time,
-        },
-        'solver':
-        {
-            'version': __version__,
-            'method': 'cholesky',
-            'invert_cholesky': invert_cholesky,
-            'use_scikit_sparse': suitesparse_installed
-        }
-    }
-
-    return trace, info
-
-
-# ===============
-# check arguments
-# ===============
-
-def check_arguments(A, exponent, invert_cholesky):
-    """
-    Checks the type and value of the parameters.
-    """
-
-    # Check A
-    if (not isinstance(A, numpy.ndarray)) and (not isspmatrix(A)):
-        raise TypeError('Input matrix should be either a "numpy.ndarray" or ' +
-                        'a "scipy.sparse" matrix.')
-    elif A.shape[0] != A.shape[1]:
-        raise ValueError('Input matrix should be a square matrix.')
-
-    # Check exponent
-    if exponent is None:
-        raise TypeError('"exponent" cannot be None.')
-    elif not numpy.isscalar(exponent):
-        raise TypeError('"exponent" should be a scalar value.')
-    elif not isinstance(exponent, (int, numpy.integer)):
-        TypeError('"exponent" cannot be an integer.')
-
-    # Check invert_cholesky
-    if not numpy.isscalar(invert_cholesky):
-        raise TypeError('"invert_cholesky" should be a scalar value.')
-    elif invert_cholesky is None:
-        raise ValueError('"invert_cholesky" cannot be None.')
-    elif not isinstance(invert_cholesky, bool):
-        raise TypeError('"invert_cholesky" should be an integer.')

@@ -156,6 +156,17 @@ functions
 Encapsulate functions in a cdef class so that they can be passed from python to
 slq method.
 
+--------------------
+Chebychev Hutchinson
+--------------------
+
+See trace estimation using Chebychev Hutchinson method:
+https://nextjournal.com/akshayjain/traceEstimator02/
+
+It can also be used to compute logdet:
+https://nextjournal.com/akshayjain/logdet-via-chebyhutch
+
+
 --------------------------------------------
 ``keep`` option for ``AffineMatrixFunction``
 --------------------------------------------

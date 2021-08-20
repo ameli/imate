@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=comp-traceinv
+#SBATCH --job-name=comp_analyt_traceinv
 #SBATCH --mail-type=ALL                         # (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=sameli@berkeley.edu
 #SBATCH --partition=savio2

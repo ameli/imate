@@ -29,12 +29,15 @@ except ImportError:
 from .._linear_algebra import sparse_cholesky
 from ..__version__ import __version__
 
+# Test
+suitesparse_installed = False
+
 
 # ===============
 # cholesky method
 # ===============
 
-def cholesky_method(A, exponent=1.0):
+def cholesky_method(A, exponent=1.0, cholmod=None):
     """
     Computes log-determinant using Cholesky decomposition.
 
@@ -65,7 +68,12 @@ def cholesky_method(A, exponent=1.0):
     """
 
     # Check input arguments
-    check_arguments(A, exponent)
+    check_arguments(A, exponent, cholmod)
+
+    # Determine to use Sparse
+    sparse = False
+    if scipy.sparse.isspmatrix(A):
+        sparse = True
 
     init_tot_wall_time = time.perf_counter()
     init_cpu_proc_time = time.process_time()
@@ -78,10 +86,10 @@ def cholesky_method(A, exponent=1.0):
     else:
 
         # Compute logdet of A without the exponent
-        if scipy.sparse.issparse(A):
+        if sparse:
 
             # Sparse matrix
-            if suitesparse_installed:
+            if suitesparse_installed and cholmod is not False:
                 # Use Suite Sparse
                 Factor = sk_cholesky(A)
                 trace = Factor.logdet()
@@ -105,6 +113,12 @@ def cholesky_method(A, exponent=1.0):
 
     tot_wall_time = time.perf_counter() - init_tot_wall_time
     cpu_proc_time = time.process_time() - init_cpu_proc_time
+
+    # Determine if suitesparse was used
+    if suitesparse_installed and cholmod is not False and sparse:
+        cholmod_used = True
+    else:
+        cholmod_used = False
 
     # Dictionary of output info
     info = {
@@ -132,7 +146,7 @@ def cholesky_method(A, exponent=1.0):
         {
             'version': __version__,
             'method': 'cholesky',
-            'use_scikit_sparse': suitesparse_installed
+            'cholmod_used': cholmod_used
         }
     }
 
@@ -143,7 +157,7 @@ def cholesky_method(A, exponent=1.0):
 # check arguments
 # ===============
 
-def check_arguments(A, exponent):
+def check_arguments(A, exponent, cholmod):
     """
     Checks the type and value of the parameters.
     """
@@ -162,3 +176,12 @@ def check_arguments(A, exponent):
         raise TypeError('"exponent" should be a scalar value.')
     elif isinstance(exponent, complex):
         TypeError('"exponent" cannot be an integer or a float number.')
+
+    # Check cholmod
+    if cholmod is not None:
+        if not isinstance(cholmod, bool):
+            raise TypeError('"cholmod" should be either "None", or boolean.')
+        elif cholmod is True and suitesparse_installed is False:
+            raise RuntimeError('"cholmod" method is not available. Either ' +
+                               'install "scikit-sparse" package, or set ' +
+                               '"cholmod" to "False" or "None".')

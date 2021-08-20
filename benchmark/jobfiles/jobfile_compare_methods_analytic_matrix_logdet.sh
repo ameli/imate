@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=comp-logdet
+#SBATCH --job-name=comp_analyt_logdet
 #SBATCH --mail-type=ALL                         # (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=sameli@berkeley.edu
 #SBATCH --partition=savio2
