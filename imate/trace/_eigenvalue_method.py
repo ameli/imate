@@ -18,6 +18,11 @@ import scipy
 import scipy.linalg
 import scipy.sparse
 import scipy.sparse.linalg
+from scipy.sparse import isspmatrix
+import multiprocessing
+from .._linear_algebra.matrix_utilities import get_data_type_name, get_nnz, \
+        get_density
+from ..__version__ import __version__
 
 
 # =================
@@ -37,8 +42,8 @@ def eigenvalue_method(
     check_arguments(A, eigenvalues, exponent, symmetric,
                     non_zero_eig_fraction)
 
-    init_wall_time = time.perf_counter()
-    init_proc_time = time.process_time()
+    init_tot_wall_time = time.perf_counter()
+    init_cpu_proc_time = time.process_time()
 
     if eigenvalues is None:
 
@@ -60,18 +65,34 @@ def eigenvalue_method(
     not_nan = numpy.logical_not(numpy.isnan(eigenvalues))
     trace = numpy.sum(eigenvalues[not_nan]**exponent)
 
-    wall_time = time.perf_counter() - init_wall_time
-    proc_time = time.process_time() - init_proc_time
+    tot_wall_time = time.perf_counter() - init_tot_wall_time
+    cpu_proc_time = time.process_time() - init_cpu_proc_time
 
     # Dictionary of output info
     info = {
-        'cpu':
+        'matrix':
         {
-            'wall_time': wall_time,
-            'proc_time': proc_time,
+            'data_type': get_data_type_name(A),
+            'exponent': exponent,
+            'size': A.shape[0],
+            'sparse': isspmatrix(A),
+            'nnz': get_nnz(A),
+            'density': get_density(A),
+            'num_inquiries': 1
+        },
+        'device':
+        {
+            'num_cpu_threads': multiprocessing.cpu_count()
+        },
+        'time':
+        {
+            'tot_wall_time': tot_wall_time,
+            'alg_wall_time': tot_wall_time,
+            'cpu_proc_time': cpu_proc_time,
         },
         'solver':
         {
+            'version': __version__,
             'method': 'eigenvalue',
         }
     }

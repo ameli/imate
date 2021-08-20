@@ -13,7 +13,6 @@ import numpy
 from imate import traceinv
 from imate import Matrix
 from imate import AffineMatrixFunction                             # noqa: F401
-from imate.sample_matrices import band_matrix
 import subprocess
 import multiprocessing
 import platform
@@ -118,7 +117,7 @@ def benchmark(argv):
 
     # Settings
     config = {
-        'num_repeats': 10,
+        'num_repeats': 20,
         'symmetric': True,
         'exponent': 1,
         'min_num_samples': 200,
@@ -136,15 +135,6 @@ def benchmark(argv):
         'num_threads': 0
     }
 
-    matrix = {
-        'size': 2**12,
-        'band_alpha': 2.0,
-        'band_beta': 1.0,
-        'symmetric': True,
-        'format': 'csr',
-        'dtype': r'float64'
-    }
-
     devices = {
         'cpu_name': get_processor_name(),
         'num_all_cpu_threads': multiprocessing.cpu_count(),
@@ -157,11 +147,41 @@ def benchmark(argv):
     if arguments['orthogonalize']:
         config['orthogonalize'].append(-1)
 
-    # Generate matrix
-    M = band_matrix(matrix['band_alpha'], matrix['band_beta'], matrix['size'],
-                    symmetric=matrix['symmetric'],
-                    format=matrix['format'], dtype=matrix['dtype'])
-    Mop = Matrix(M.toarray())
+    benchmark_dir = '..'
+    # data_name = 'nos5'         # Matrix size: about 500
+    # data_name = 'mhd4800b'     # matrix size: about 5K
+    # data_name = 'bodyy6'       # matrix size: about 20K
+    data_name = 'jnlbrng1'       # matrix size: about 40K
+    # data_name = 'G2_circuit'   # matrix size: about 150K
+
+    data_type = '64'
+    filename = data_name + '_float' + data_type + '.pickle'
+    filepath = join(benchmark_dir, 'matrices', filename)
+    with open(filepath, 'rb') as h:
+        M = pickle.load(h)
+    print('loaded %s.' % filename)
+
+    Mop = Matrix(M)
+
+    matrix = {
+        'data_name': data_name,
+        'data_type': data_type,
+        'matrix_size': M.shape[0],
+        'matrix_nnz': M.nnz
+    }
+
+    # Exact soluton using Cholesky maethod
+    print('Exact solution ...', end='')
+    trace_c, info_c = traceinv(
+            M,
+            method='cholesky',
+            invert_cholesky=False)
+    print(' done.')
+
+    exact_results = {
+        'trace': trace_c,
+        'info': info_c
+    }
 
     data_results = {
         'not-orthogonalize': [],
@@ -246,13 +266,14 @@ def benchmark(argv):
         'matrix': matrix,
         'devices': devices,
         'data_results': data_results,
+        'exact_results': exact_results,
         'date': now.strftime("%d/%m/%Y %H:%M:%S")
     }
 
     # Save to file (orth)
     benchmark_dir = '..'
     pickle_dir = 'pickle_results'
-    output_filename_base = 'vary_lanczos_degree'
+    output_filename_base = 'vary_lanczos_degree_practical_matrix'
     if arguments['orthogonalize']:
         output_filename = output_filename_base + '_ortho'
         output_filename += '.pickle'

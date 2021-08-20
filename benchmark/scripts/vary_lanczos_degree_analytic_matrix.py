@@ -1,0 +1,281 @@
+#! /usr/bin/env python
+
+# =======
+# Imports
+# =======
+
+import os
+from os.path import join
+import sys
+import getopt
+import pickle
+import numpy
+from imate import traceinv
+from imate import Matrix
+from imate import AffineMatrixFunction                             # noqa: F401
+from imate.sample_matrices import band_matrix
+import subprocess
+import multiprocessing
+import platform
+import re
+from datetime import datetime
+
+
+# ===============
+# parse arguments
+# ===============
+
+def parse_arguments(argv):
+    """
+    Parses the argument.
+    """
+
+    # -----------
+    # print usage
+    # -----------
+
+    def print_usage(exec_name):
+        usage_string = "Usage: " + exec_name + " <arguments>"
+        options_string = """
+At last one (or both) of the followings should be provided:
+
+    -o --orthogonalize      Computes Lanczos iterations with orthogonalization.
+    -n --not-orthogonalize  Computes Lanczos iterations without
+                            orthogonalization.
+        """
+
+        print(usage_string)
+        print(options_string)
+
+    # -----------------
+
+    # Initialize variables (defaults)
+    arguments = {
+        'orthogonalize': False,
+        'not-orthogonalize': False
+    }
+
+    # Get options
+    try:
+        opts, args = getopt.getopt(
+            argv[1:], "on", ["northogonalize", "not-orthognalize"])
+    except getopt.GetoptError:
+        print_usage(argv[0])
+        sys.exit(2)
+
+    # Assign options
+    for opt, arg in opts:
+        if opt in ('-o', '--orthogonalize'):
+            arguments['orthogonalize'] = True
+        elif opt in ('-n', '--not-orthogonalize'):
+            arguments['not-orthogonalize'] = True
+
+    if len(argv) < 2:
+        print_usage(argv[0])
+        sys.exit()
+
+    return arguments
+
+
+# ==================
+# get processor name
+# ==================
+
+def get_processor_name():
+    """
+    Gets the name of CPU.
+
+    For windows operating system, this function still does not get the full
+    brand name of the cpu.
+    """
+
+    if platform.system() == "Windows":
+        return platform.processor()
+
+    elif platform.system() == "Darwin":
+        os.environ['PATH'] = os.environ['PATH'] + os.pathsep + '/usr/sbin'
+        command = "sysctl -n machdep.cpu.brand_string"
+        return subprocess.getoutput(command).strip()
+
+    elif platform.system() == "Linux":
+        command = "cat /proc/cpuinfo"
+        all_info = subprocess.getoutput(command).strip()
+        for line in all_info.split("\n"):
+            if "model name" in line:
+                return re.sub(".*model name.*:", "", line, 1)[1:]
+
+    return ""
+
+
+# =========
+# benchmark
+# =========
+
+def benchmark(argv):
+    """
+    Test for :mod:`imate.traceinv` sub-package.
+    """
+
+    # Settings
+    config = {
+        'num_repeats': 20,
+        'symmetric': True,
+        'exponent': 1,
+        'min_num_samples': 200,
+        'max_num_samples': 200,
+        'lanczos_degree': numpy.logspace(1, 3, 30).astype(int),
+        'lanczos_tol':  None,
+        'orthogonalize': [],
+        'solver_tol': 1e-6,
+        'error_rtol': 1e-3,
+        'error_atol': 0,
+        'confidence_level': 0.95,
+        'outlier_significance_level': 0.01,
+        'verbose': False,
+        'plot': False,
+        'num_threads': 0
+    }
+
+    matrix = {
+        'size': 2**16,
+        'band_alpha': 2.0,
+        'band_beta': 1.0,
+        'symmetric': True,
+        'format': 'csr',
+        'dtype': r'float64'
+    }
+
+    devices = {
+        'cpu_name': get_processor_name(),
+        'num_all_cpu_threads': multiprocessing.cpu_count(),
+    }
+
+    # Parse arguments
+    arguments = parse_arguments(argv)
+    if arguments['not-orthogonalize']:
+        config['orthogonalize'].append(0)
+    if arguments['orthogonalize']:
+        config['orthogonalize'].append(-1)
+
+    # Generate matrix
+    M = band_matrix(matrix['band_alpha'], matrix['band_beta'], matrix['size'],
+                    symmetric=matrix['symmetric'],
+                    format=matrix['format'], dtype=matrix['dtype'])
+    Mop = Matrix(M)
+
+    data_results = {
+        'not-orthogonalize': [],
+        'orthogonalize': []
+    }
+
+    for orthogonalize in config['orthogonalize']:
+
+        print('orthogonalize: %d' % orthogonalize)
+
+        # Loop over data filenames
+        for lanczos_degree in config['lanczos_degree']:
+
+            print('\tlancos_degree: %d ...' % lanczos_degree)
+
+            trace = numpy.zeros((config['num_repeats'], ), dtype=float)
+            absolute_error = numpy.zeros((config['num_repeats'], ),
+                                         dtype=float)
+            tot_wall_time = numpy.zeros((config['num_repeats'], ), dtype=float)
+            alg_wall_time = numpy.zeros((config['num_repeats'], ), dtype=float)
+            cpu_proc_time = numpy.zeros((config['num_repeats'], ), dtype=float)
+
+            for i in range(config['num_repeats']):
+                print('\t\trepeat %d ...' % (i+1), end="")
+                trace[i], info = traceinv(
+                        Mop,
+                        method='slq',
+                        exponent=config['exponent'],
+                        symmetric=config['symmetric'],
+                        min_num_samples=config['min_num_samples'],
+                        max_num_samples=config['max_num_samples'],
+                        error_rtol=config['error_rtol'],
+                        error_atol=config['error_atol'],
+                        confidence_level=config['confidence_level'],
+                        outlier_significance_level=config[
+                            'outlier_significance_level'],
+                        lanczos_degree=int(lanczos_degree),
+                        lanczos_tol=config['lanczos_tol'],
+                        orthogonalize=orthogonalize,
+                        num_threads=config['num_threads'],
+                        verbose=config['verbose'],
+                        plot=config['plot'],
+                        gpu=False)
+                print(' done.')
+
+                absolute_error[i] = info['error']['absolute_error']
+                tot_wall_time[i] = info['time']['tot_wall_time']
+                alg_wall_time[i] = info['time']['alg_wall_time']
+                cpu_proc_time[i] = info['time']['cpu_proc_time']
+
+            # Taking average of repeated values
+            # trace = numpy.mean(trace)
+            # trace = trace[-1]
+            # absolute_error = numpy.mean(absolute_error)
+            # absolute_error = absolute_error[-1]
+            # tot_wall_time = numpy.mean(tot_wall_time)
+            # alg_wall_time = numpy.mean(alg_wall_time)
+            # cpu_proc_time = numpy.mean(cpu_proc_time)
+
+            # Reset values with array of repeated experiment
+            info['error']['absolute_error'] = absolute_error
+            info['time']['tot_wall_time'] = tot_wall_time
+            info['time']['alg_wall_time'] = alg_wall_time
+            info['time']['cpu_proc_time'] = cpu_proc_time
+
+            result = {
+                'trace': trace,
+                'info': info
+            }
+
+            print('')
+            if orthogonalize:
+                data_results['orthogonalize'].append(result)
+            else:
+                data_results['not-orthogonalize'].append(result)
+
+    now = datetime.now()
+
+    # Final object of all results
+    benchmark_results = {
+        'config': config,
+        'matrix': matrix,
+        'devices': devices,
+        'data_results': data_results,
+        'date': now.strftime("%d/%m/%Y %H:%M:%S")
+    }
+
+    # Save to file (orth)
+    benchmark_dir = '..'
+    pickle_dir = 'pickle_results'
+    output_filename_base = 'vary_lanczos_degree_analytic_matrix'
+    if arguments['orthogonalize']:
+        output_filename = output_filename_base + '_ortho'
+        output_filename += '.pickle'
+        output_full_filename = join(benchmark_dir, pickle_dir, output_filename)
+        with open(output_full_filename, 'wb') as file_:
+            pickle.dump(benchmark_results, file_,
+                        protocol=pickle.HIGHEST_PROTOCOL)
+        print('Results saved to %s.' % output_full_filename)
+
+    # Save to file (not orth)
+    if arguments['not-orthogonalize']:
+        output_filename = output_filename_base + '_not_ortho'
+        output_filename += '.pickle'
+        output_full_filename = join(benchmark_dir, pickle_dir, output_filename)
+        with open(output_full_filename, 'wb') as file_:
+            pickle.dump(benchmark_results, file_,
+                        protocol=pickle.HIGHEST_PROTOCOL)
+        print('Results saved to %s.' % output_full_filename)
+
+
+# ===========
+# script main
+# ===========
+
+if __name__ == "__main__":
+    sys.exit(benchmark(sys.argv))

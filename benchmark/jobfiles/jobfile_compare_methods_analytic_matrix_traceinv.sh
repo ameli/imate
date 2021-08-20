@@ -14,10 +14,9 @@
 #SBATCH --output=output_compare_method_traceinv.log
 
 PYTHON_DIR=$HOME/programs/miniconda3
-PACKAGE_DIR=$(dirname $PWD)
-BENCHMARK_DIR=$PACKAGE_DIR/benchmark
-LOG_DIR=$BENCHMARK_DIR
+SCRIPTS_DIR=$(dirname $PWD)/scripts
+LOG_DIR=$PWD
 
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-$PYTHON_DIR/bin/python ${BENCHMARK_DIR}/compare_methods.py -a -f traceinv > ${LOG_DIR}/stream_output_compare_methods_traceinv.txt
-# $PYTHON_DIR/bin/python ${BENCHMARK_DIR}/compare_methods.py -a -f logdet > ${LOG_DIR}/stream_output_compare_methods_logdet.txt
+$PYTHON_DIR/bin/python ${SCRIPTS_DIR}/compare_methods_analytic_matrix.py -a -f traceinv > ${LOG_DIR}/stream_output_compare_methods_analytic_matrix_traceinv.txt
+# $PYTHON_DIR/bin/python ${SCRIPTS_DIR}/compare_methods_analytic_matrix.py -a -f logdet > ${LOG_DIR}/stream_output_compare_methods_analytic_matrix_logdet.txt

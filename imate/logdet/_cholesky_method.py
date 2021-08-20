@@ -15,15 +15,19 @@ import time
 import numpy
 import scipy
 import scipy.linalg
+from scipy.sparse import isspmatrix
+import multiprocessing
+from .._linear_algebra.matrix_utilities import get_data_type_name, get_nnz, \
+        get_density
 
 try:
-    import sksparse
-    import sksparse.cholmod.cholesky
+    from sksparse.cholmod import cholesky as sk_cholesky
     suitesparse_installed = True
 except ImportError:
     suitesparse_installed = False
 
 from .._linear_algebra import sparse_cholesky
+from ..__version__ import __version__
 
 
 # ===============
@@ -63,8 +67,8 @@ def cholesky_method(A, exponent=1.0):
     # Check input arguments
     check_arguments(A, exponent)
 
-    init_wall_time = time.perf_counter()
-    init_proc_time = time.process_time()
+    init_tot_wall_time = time.perf_counter()
+    init_cpu_proc_time = time.process_time()
 
     if exponent == 0:
 
@@ -79,7 +83,7 @@ def cholesky_method(A, exponent=1.0):
             # Sparse matrix
             if suitesparse_installed:
                 # Use Suite Sparse
-                Factor = sksparse.cholmod.cholesky(A)
+                Factor = sk_cholesky(A)
                 trace = Factor.logdet()
             else:
                 # Use scipy
@@ -99,19 +103,36 @@ def cholesky_method(A, exponent=1.0):
         # Taking into account of the exponent
         trace = trace*exponent
 
-    wall_time = time.perf_counter() - init_wall_time
-    proc_time = time.process_time() - init_proc_time
+    tot_wall_time = time.perf_counter() - init_tot_wall_time
+    cpu_proc_time = time.process_time() - init_cpu_proc_time
 
     # Dictionary of output info
     info = {
-        'cpu':
+        'matrix':
         {
-            'wall_time': wall_time,
-            'proc_time': proc_time,
+            'data_type': get_data_type_name(A),
+            'exponent': exponent,
+            'size': A.shape[0],
+            'sparse': isspmatrix(A),
+            'nnz': get_nnz(A),
+            'density': get_density(A),
+            'num_inquiries': 1
+        },
+        'device':
+        {
+            'num_cpu_threads': multiprocessing.cpu_count()
+        },
+        'time':
+        {
+            'tot_wall_time': tot_wall_time,
+            'alg_wall_time': tot_wall_time,
+            'cpu_proc_time': cpu_proc_time,
         },
         'solver':
         {
+            'version': __version__,
             'method': 'cholesky',
+            'use_scikit_sparse': suitesparse_installed
         }
     }
 

@@ -14,9 +14,8 @@
 #SBATCH --output=output_cpu.log
 
 PYTHON_DIR=$HOME/programs/miniconda3
-PACKAGE_DIR=$(dirname $PWD)
-BENCHMARK_DIR=$PACKAGE_DIR/benchmark
-LOG_DIR=$BENCHMARK_DIR
+SCRIPTS_DIR=$(dirname $PWD)/scripts
+LOG_DIR=$PWD
 
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-$PYTHON_DIR/bin/python ${BENCHMARK_DIR}/benchmark.py -c > ${LOG_DIR}/stream_output_cpu.txt
+$PYTHON_DIR/bin/python ${SCRIPTS_DIR}/benchmark.py -c > ${LOG_DIR}/stream_output_cpu.txt

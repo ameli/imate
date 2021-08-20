@@ -17,11 +17,13 @@ import numpy
 import scipy.sparse
 from scipy.sparse import isspmatrix
 import multiprocessing
+from ..__version__ import __version__
 from .._linear_algebra import linear_solver
 from ._convergence_tools import check_convergence, average_estimates
 from .._trace_estimator.trace_estimator_plot_utilities import plot_convergence
-from ._hutchinson_method_utilities import get_data_type_name, get_nnz, \
-        get_density, check_arguments, print_summary
+from ._hutchinson_method_utilities import check_arguments, print_summary
+from .._linear_algebra.matrix_utilities import get_data_type_name, get_nnz, \
+        get_density
 
 # Cython
 from .._c_basic_algebra cimport cVectorOperations
@@ -177,6 +179,7 @@ def hutchinson_method(
         },
         'solver':
         {
+            'version': __version__,
             'orthogonalize': orthogonalize,
             'solver_tol': solver_tol,
             'method': 'hutchinson',

@@ -16,6 +16,11 @@ import numpy
 import numpy.linalg
 import scipy
 import scipy.sparse
+from scipy.sparse import isspmatrix
+import multiprocessing
+from .._linear_algebra.matrix_utilities import get_data_type_name, get_nnz, \
+        get_density
+from ..__version__ import __version__
 
 
 # ============
@@ -28,8 +33,8 @@ def exact_method(A, exponent=1.0):
     # Checking input arguments
     check_arguments(A, exponent)
 
-    init_wall_time = time.perf_counter()
-    init_proc_time = time.process_time()
+    init_tot_wall_time = time.perf_counter()
+    init_cpu_proc_time = time.process_time()
 
     if exponent == 0.0:
         trace = numpy.min(A.shape)
@@ -49,17 +54,33 @@ def exact_method(A, exponent=1.0):
         raise ValueError('For "exponent" other than "0", "1", and "2", use ' +
                          '"eigenvalue" or "slq" method.')
 
-    wall_time = time.perf_counter() - init_wall_time
-    proc_time = time.process_time() - init_proc_time
+    tot_wall_time = time.perf_counter() - init_tot_wall_time
+    cpu_proc_time = time.process_time() - init_cpu_proc_time
 
     info = {
-        'cpu':
+        'matrix':
         {
-            'wall_time': wall_time,
-            'proc_time': proc_time,
+            'data_type': get_data_type_name(A),
+            'exponent': exponent,
+            'size': A.shape[0],
+            'sparse': isspmatrix(A),
+            'nnz': get_nnz(A),
+            'density': get_density(A),
+            'num_inquiries': 1
+        },
+        'device':
+        {
+            'num_cpu_threads': multiprocessing.cpu_count()
+        },
+        'time':
+        {
+            'tot_wall_time': tot_wall_time,
+            'alg_wall_time': tot_wall_time,
+            'cpu_proc_time': cpu_proc_time,
         },
         'solver':
         {
+            'version': __version__,
             'method': 'exact'
         }
     }

@@ -1,7 +1,7 @@
 #! /bin/bash
 
 #PBS -k o
-#PBS -N lanc_deg
+#PBS -N lanc_prac_ortho
 #PBS -o localhost:$PBS_O_WORKDIR/Log_ortho.log
 #PBS -e localhost:$PBS_O_WORKDIR/Err_ortho.err
 ###PBS -j oe
@@ -16,9 +16,7 @@
 cd $PBS_O_WORKDIR
 
 PYTHON_DIR=$HOME/programs/miniconda3
-PACKAGE_DIR=$(dirname $PWD))
-BENCHMARK_DIR=$PACKAGE_DIR/benchmark
-LOG_DIR=$BENCHMARK_DIR
+SCRIPTS_DIR=$(dirname $PWD)/scripts
+LOG_DIR=$PWD
 
-export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-$PYTHON_DIR/bin/python ${BENCHMARK_DIR}/vary_lanczos_degree.py -o > ${LOG_DIR}/stream_output_vary_lanczos_degree_ortho.txt
+$PYTHON_DIR/bin/python ${SCRIPTS_DIR}/vary_lanczos_degree_practical_matrix.py -o > ${LOG_DIR}/stream_output_vary_lanczos_degree_practical_matrix_ortho.txt

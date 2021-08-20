@@ -15,6 +15,7 @@ from .._trace_estimator import trace_estimator
 from .._trace_estimator cimport trace_estimator
 from ..functions import pyFunction
 from ..functions cimport pyFunction, Function, Identity
+from ..__version__ import __version__
 
 
 # ==========

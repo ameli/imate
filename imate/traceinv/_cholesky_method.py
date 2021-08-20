@@ -19,7 +19,8 @@ import scipy.sparse
 import scipy.sparse.linalg
 from scipy.sparse import isspmatrix
 import multiprocessing
-from ._hutchinson_method_utilities import get_data_type_name, get_nnz, \
+from ..__version__ import __version__
+from .._linear_algebra.matrix_utilities import get_data_type_name, get_nnz, \
         get_density
 
 try:
@@ -318,8 +319,10 @@ def cholesky_method(A, exponent=1, invert_cholesky=True):
         },
         'solver':
         {
+            'version': __version__,
             'method': 'cholesky',
-            'invert_cholesky': invert_cholesky
+            'invert_cholesky': invert_cholesky,
+            'use_scikit_sparse': suitesparse_installed
         }
     }
 

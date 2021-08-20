@@ -15,10 +15,9 @@
 #SBATCH --output=output_gpu.log
 
 PYTHON_DIR=$HOME/programs/miniconda3
-PACKAGE_DIR=$(dirname $PWD)
-BENCHMARK_DIR=$PACKAGE_DIR/benchmark
-LOG_DIR=$BENCHMARK_DIR
+SCRIPTS_DIR=$(dirname $PWD)/scripts
+LOG_DIR=$PWD
 
 module load cuda/11.2
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-$PYTHON_DIR/bin/python ${BENCHMARK_DIR}/benchmark.py -g > ${LOG_DIR}/stream_output_gpu.txt
+$PYTHON_DIR/bin/python ${SCRIPTS_DIR}/benchmark.py -g > ${LOG_DIR}/stream_output_gpu.txt

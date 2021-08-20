@@ -14,6 +14,7 @@
 # Python
 import numpy
 import time
+from ..__version__ import __version__
 from .trace_estimator_plot_utilities import plot_convergence
 from .trace_estimator_utilities import get_operator, \
         get_operator_parameters, check_arguments, get_machine_precision, \
@@ -330,6 +331,7 @@ cpdef trace_estimator(
         },
         'solver':
         {
+            'version': __version__,
             'lanczos_degree': lanczos_degree,
             'lanczos_tol': lanczos_tol,
             'orthogonalize': orthogonalize,

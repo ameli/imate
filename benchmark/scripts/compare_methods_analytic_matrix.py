@@ -311,6 +311,11 @@ def main(argv):
     data_results_128bit = []
     arguments = parse_arguments(argv)
 
+    # Computing logdet with chlesky method is very efficient. So, do not limit
+    # the matrix size for cholesky method of function is logdet.
+    if arguments['function'] == 'logdet':
+        matrix['max_cholesky_size'] = numpy.inf
+
     # 32-bit
     if arguments['32-bit']:
         for size in matrix['sizes']:
@@ -382,9 +387,9 @@ def main(argv):
     benchmark_dir = '..'
     pickle_dir = 'pickle_results'
     if arguments['function'] == 'traceinv':
-        output_filename = 'compare_methods_traceinv'
+        output_filename = 'compare_methods_analytic_matrix_traceinv'
     elif arguments['function'] == 'logdet':
-        output_filename = 'compare_methods_logdet'
+        output_filename = 'compare_methods_analytic_matrix_logdet'
     else:
         raise ValueError("'function' should be either 'traceinv' or 'logdet'.")
 
