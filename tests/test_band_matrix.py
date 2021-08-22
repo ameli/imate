@@ -26,10 +26,10 @@ def test_band_matrix():
     Test for :mod:`imate.sample_matrices.band_matrix` sub-package.
     """
 
-    A = band_matrix(2, 1, size=20, symmetric=False, format='csr',  # noqa: F841
+    A = band_matrix(2, 1, size=20, gram=False, format='csr',  # noqa: F841
                     dtype='float32')
 
-    B = band_matrix(3, 1, size=20, symmetric=True, format='csc',   # noqa: F841
+    B = band_matrix(3, 1, size=20, gram=True, format='csc',   # noqa: F841
                     dtype='float64')
 
 
