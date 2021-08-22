@@ -21,6 +21,7 @@ from scipy.sparse import isspmatrix
 
 def check_arguments(
         A,
+        gram,
         exponent,
         assume_matrix,
         min_num_samples,
@@ -44,6 +45,14 @@ def check_arguments(
                         'a "scipy.sparse" matrix.')
     elif A.shape[0] != A.shape[1]:
         raise ValueError('Input matrix should be a square matrix.')
+
+    # Check gram
+    if gram is None:
+        raise TypeError('"gram" cannot be None.')
+    elif not numpy.isscalar(gram):
+        raise TypeError('"gram" should be a scalar value.')
+    elif not isinstance(gram, bool):
+        raise TypeError('"gram" should be boolean.')
 
     # Check exponent
     if exponent is None:

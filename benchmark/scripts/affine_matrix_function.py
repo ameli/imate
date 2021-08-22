@@ -65,9 +65,9 @@ def benchmark(argv):
         'num_repeats': 10,
         'symmetric': False,
         'exponent': 1,
-        'min_num_samples': 500,
-        'max_num_samples': 500,
-        'lanczos_degree': 100,
+        'min_num_samples': 200,
+        'max_num_samples': 200,
+        'lanczos_degree': 80,
         'lanczos_tol':  None,
         'orthogonalize': -1,
         'solver_tol': 1e-6,
@@ -82,7 +82,7 @@ def benchmark(argv):
     }
 
     matrix = {
-        'size': 2**11,
+        'size': 2**8,
         't': numpy.logspace(-3, 3, 50),
         'band_alpha': 2.0,
         'band_beta': 1.0,
@@ -100,6 +100,8 @@ def benchmark(argv):
     M = band_matrix(matrix['band_alpha'], matrix['band_beta'], matrix['size'],
                     symmetric=matrix['symmetric'],
                     format=matrix['format'], dtype=matrix['dtype'])
+
+    # filename = '/home/sia/Downloads/imate-results/matrices/'
     Mop = AffineMatrixFunction(M)
 
     print('SLQ method ...', end='')

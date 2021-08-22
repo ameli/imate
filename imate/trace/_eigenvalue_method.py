@@ -32,14 +32,15 @@ from ..__version__ import __version__
 def eigenvalue_method(
         A,
         eigenvalues=None,
+        gram=False,
         exponent=1.0,
-        symmetric=True,
+        assume_matrix='gen',
         non_zero_eig_fraction=0.9):
     """
     """
 
     # Checking input arguments
-    check_arguments(A, eigenvalues, exponent, symmetric,
+    check_arguments(A, eigenvalues, gram, exponent, assume_matrix,
                     non_zero_eig_fraction)
 
     init_tot_wall_time = time.perf_counter()
@@ -56,8 +57,8 @@ def eigenvalue_method(
             # when exponent is negative, the smallest eigenvalues weight more
             which_eigenvalues = 'SM'
 
-        # Compute eigenvalues of A
-        eigenvalues = compute_eigenvalues(A, symmetric,
+        # Compute eigenvalues of A (or A.T @ A is gram is True)
+        eigenvalues = compute_eigenvalues(A, gram, assume_matrix,
                                           non_zero_eig_fraction,
                                           which_eigenvalues)
 
@@ -73,7 +74,9 @@ def eigenvalue_method(
         'matrix':
         {
             'data_type': get_data_type_name(A),
+            'gram': gram,
             'exponent': exponent,
+            'assume_matrix': assume_matrix,
             'size': A.shape[0],
             'sparse': isspmatrix(A),
             'nnz': get_nnz(A),
@@ -107,8 +110,9 @@ def eigenvalue_method(
 def check_arguments(
         A,
         eigenvalues,
+        gram,
         exponent,
-        symmetric,
+        assume_matrix,
         non_zero_eig_fraction):
     """
     Checks the type and value of the parameters.
@@ -129,6 +133,14 @@ def check_arguments(
             raise ValueError('The length of "eigenvalues" does not match ' +
                              'the size of matrix "A".')
 
+    # Check gram
+    if gram is None:
+        raise TypeError('"gram" cannot be None.')
+    elif not numpy.isscalar(gram):
+        raise TypeError('"gram" should be a scalar value.')
+    elif not isinstance(gram, bool):
+        raise TypeError('"gram" should be boolean.')
+
     # Check exponent
     if exponent is None:
         raise TypeError('"exponent" cannot be None.')
@@ -137,13 +149,13 @@ def check_arguments(
     elif not isinstance(exponent, (int, numpy.integer)):
         TypeError('"exponent" cannot be an integer.')
 
-    # Check symmetric
-    if symmetric is None:
-        raise TypeError('"symmetric" cannot be None.')
-    elif not numpy.isscalar(symmetric):
-        raise TypeError('"symmetric" should be a scalar value.')
-    elif not isinstance(symmetric, bool):
-        raise TypeError('"symmetric" should be boolean.')
+    # Check assume_matrix
+    if assume_matrix is None:
+        raise TypeError('"assume_matrix" cannot be None.')
+    elif not isinstance(assume_matrix, str):
+        raise TypeError('"assume_matrix" should be a string.')
+    elif assume_matrix not in ['gen', 'sym']:
+        raise ValueError('"assume_matrix" should be either "gen" or "sym".')
 
     # Check non_zero_eig_fraction
     if non_zero_eig_fraction is None:
@@ -163,42 +175,74 @@ def check_arguments(
 
 def compute_eigenvalues(
         A,
-        symmetric,
+        gram,
+        assume_matrix,
         non_zero_eig_fraction,
         which_eigenvalues,
         tol=1e-4):
     """
     """
 
-    if scipy.sparse.isspmatrix(A):
+    if gram:
+        # Gram matrix. Compute singular values of A.
+        if scipy.sparse.isspmatrix(A):
 
-        # Sparse matrix
-        n = A.shape[0]
-        eigenvalues = numpy.empty(n)
-        eigenvalues[:] = numpy.nan
+            # Sparse matrix
+            n = A.shape[0]
+            eigenvalues = numpy.empty(n)
+            eigenvalues[:] = numpy.nan
 
-        # find 90% of eigenvalues, assume the rest are very close to zero.
-        num_none_zero_eig = int(n*non_zero_eig_fraction)
+            # find 90% of eigenvalues, assume the rest are very close to zero.
+            num_none_zero_eig = int(n*non_zero_eig_fraction)
 
-        if symmetric:
-            eigenvalues[:num_none_zero_eig] = \
-                scipy.sparse.linalg.eigsh(A, num_none_zero_eig,
-                                          which=which_eigenvalues,
-                                          return_eigenvectors=False,
-                                          tol=tol)
-        else:
-            eigenvalues[:num_none_zero_eig] = \
-                scipy.sparse.linalg.eigs(A, num_none_zero_eig,
+            singularvalues = \
+                scipy.sparse.linalg.svds(A, num_none_zero_eig,
                                          which=which_eigenvalues,
-                                         return_eigenvectors=False,
+                                         return_singular_vectors=False,
                                          tol=tol)
-    else:
-
-        # Dense matrix
-        if symmetric:
-            eigenvalues = scipy.linalg.eigh(A, check_finite=False,
-                                            eigvals_only=True)
+            eigenvalues[:num_none_zero_eig] = singularvalues**2
         else:
-            eigenvalues = scipy.linalg.eig(A, check_finite=False)[0]
+
+            # Dense matrix
+            if assume_matrix == 'sym':
+                singularvalues = numpy.linalg.svd(A, compute_uv=False,
+                                                  hermitian=True)
+            else:
+                singularvalues = numpy.linalg.svd(A, compute_uv=False,
+                                                  hermitian=False)
+            eigenvalues = singularvalues**2
+
+    else:
+        # Not Gram matrix. Compute eigenvalues directly
+        if scipy.sparse.isspmatrix(A):
+
+            # Sparse matrix
+            n = A.shape[0]
+            eigenvalues = numpy.empty(n)
+            eigenvalues[:] = numpy.nan
+
+            # find 90% of eigenvalues, assume the rest are very close to zero.
+            num_none_zero_eig = int(n*non_zero_eig_fraction)
+
+            if assume_matrix == 'sym':
+                eigenvalues[:num_none_zero_eig] = \
+                    scipy.sparse.linalg.eigsh(A, num_none_zero_eig,
+                                              which=which_eigenvalues,
+                                              return_eigenvectors=False,
+                                              tol=tol)
+            else:
+                eigenvalues[:num_none_zero_eig] = \
+                    scipy.sparse.linalg.eigs(A, num_none_zero_eig,
+                                             which=which_eigenvalues,
+                                             return_eigenvectors=False,
+                                             tol=tol)
+        else:
+
+            # Dense matrix
+            if assume_matrix == 'sym':
+                eigenvalues = scipy.linalg.eigh(A, check_finite=False,
+                                                eigvals_only=True)
+            else:
+                eigenvalues = scipy.linalg.eig(A, check_finite=False)[0]
 
     return eigenvalues

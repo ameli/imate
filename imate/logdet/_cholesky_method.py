@@ -34,7 +34,11 @@ from ..__version__ import __version__
 # cholesky method
 # ===============
 
-def cholesky_method(A, exponent=1.0, cholmod=None):
+def cholesky_method(
+        A,
+        gram=False,
+        exponent=1.0,
+        cholmod=None):
     """
     Computes log-determinant using Cholesky decomposition.
 
@@ -62,10 +66,26 @@ def cholesky_method(A, exponent=1.0, cholmod=None):
 
     The result is exact (no approximation) and should be used as benchmark to
     test other methods.
+
+    :param A: A square matrix
+    :type A: numpy.ndarray
+
+    :param exponent: Exponent :math:`p` in :math:`\\mathbf{A}^{p}`.
+    :param exponent: float
+
+    :param cholmod: If set to ``True``, it uses cholmod library from
+        scikit-sparse package to compute the Chlesky decomposition. If set to
+        ``False``, it uses `scipy.sparse.cholesky`` method. If set to ``None``,
+        first, it tries to use cholmod library,  but if cholmod is not
+        available, it uses ``scipy.sparse.cholesky`` method without raising any
+        warning.
+
+    :return: log-determinant of matrix ``A``.
+    :rtype: float
     """
 
     # Check input arguments
-    check_arguments(A, exponent, cholmod)
+    check_arguments(A, gram, exponent, cholmod)
 
     # Determine to use Sparse
     sparse = False
@@ -114,6 +134,10 @@ def cholesky_method(A, exponent=1.0, cholmod=None):
         # Taking into account of the exponent
         trace = trace*exponent
 
+    # Gramian matrix
+    if gram:
+        trace = 2.0 * trace
+
     tot_wall_time = time.perf_counter() - init_tot_wall_time
     cpu_proc_time = time.process_time() - init_cpu_proc_time
 
@@ -122,6 +146,7 @@ def cholesky_method(A, exponent=1.0, cholmod=None):
         'matrix':
         {
             'data_type': get_data_type_name(A),
+            'gram': gram,
             'exponent': exponent,
             'size': A.shape[0],
             'sparse': isspmatrix(A),
@@ -154,7 +179,11 @@ def cholesky_method(A, exponent=1.0, cholmod=None):
 # check arguments
 # ===============
 
-def check_arguments(A, exponent, cholmod):
+def check_arguments(
+        A,
+        gram,
+        exponent,
+        cholmod):
     """
     Checks the type and value of the parameters.
     """
@@ -165,6 +194,14 @@ def check_arguments(A, exponent, cholmod):
                         'a "scipy.sparse" matrix.')
     elif A.shape[0] != A.shape[1]:
         raise ValueError('Input matrix should be a square matrix.')
+
+    # Check gram
+    if gram is None:
+        raise TypeError('"gram" cannot be None.')
+    elif not numpy.isscalar(gram):
+        raise TypeError('"gram" should be a scalar value.')
+    elif not isinstance(gram, bool):
+        raise TypeError('"gram" should be boolean.')
 
     # Check exponent
     if exponent is None:

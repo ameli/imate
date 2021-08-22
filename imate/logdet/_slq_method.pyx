@@ -24,8 +24,8 @@ from ..functions cimport pyFunction, Function, Logarithm
 def slq_method(
         A,
         parameters=None,
+        gram=False,
         exponent=1.0,
-        symmetric=True,
         min_num_samples=10,
         max_num_samples=50,
         error_atol=None,
@@ -53,11 +53,11 @@ def slq_method(
     :param lanczos_degree: Lanczos degree
     :type lanczos_degree: unsigned int
 
-    :param symmetric: If ``True``, the Lanczos tri-diagonalization method is
-        used. This is suitable for symmetric matrices. If ``False``, the
-        Golub-Kahn bi-diagonalization is used. This should only be used for
-        non-symmetric matrices.
-    :type symmetric: bool
+    :param gram: If ``True``, the Gram matrix ``A.T @ A`` is considered instead
+        of ``A`` itself. In this case, ``A`` itself can be a generic, but
+        square, matrix. If ``False``, matrix ``A`` is used, which then it has
+        to be symmetric and positive semi-definite.
+    :type gram: bool
 
     :param lanczos_tol: The tolerance used for inner-computation of Lanczos
         stochastic quadrature method. If the tolerance is ``None`` (default
@@ -108,8 +108,8 @@ def slq_method(
         A,
         parameters,
         py_matrix_function,
+        gram,
         exponent,
-        symmetric,
         min_num_samples,
         max_num_samples,
         error_atol,

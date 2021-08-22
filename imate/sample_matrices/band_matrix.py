@@ -14,7 +14,8 @@
 import numpy
 from scipy.sparse import coo_matrix
 
-__all__ = ['band_matrix']
+__all__ = ['band_matrix', 'band_matrix_trace', 'band_matrix_traceinv',
+           'band_matrix_logdet']
 
 
 # ===========
@@ -25,13 +26,13 @@ def band_matrix(
         a,
         b,
         size=20,
-        symmetric=True,
+        gram=True,
         format='csr',
         dtype=r'float64'):
     """
     """
 
-    _check_arguments(a, b, size, symmetric, format, dtype)
+    _check_arguments(a, b, size, gram, format, dtype)
 
     data = numpy.empty((2*size-1, ), dtype=dtype)
     row = numpy.empty((2*size-1, ), dtype=int)
@@ -49,7 +50,7 @@ def band_matrix(
 
     A = coo_matrix((data, (row, col)), shape=(size, size))
 
-    if symmetric:
+    if gram:
         A = A.T @ A
 
     if format == 'csc':
@@ -68,7 +69,7 @@ def _check_arguments(
         a,
         b,
         size,
-        symmetric,
+        gram,
         format,
         dtype):
     """
@@ -97,13 +98,13 @@ def _check_arguments(
     elif size < 1:
         raise ValueError('"size" should be a positive integer.')
 
-    # Check symmetric
-    if symmetric is None:
-        raise TypeError('"symmetric" cannot be None.')
-    elif not numpy.isscalar(symmetric):
-        raise TypeError('"symmetric" should be a scalar value.')
-    elif not isinstance(symmetric, bool):
-        raise TypeError('"symmetric" should be boolean.')
+    # Check gram
+    if gram is None:
+        raise TypeError('"gram" cannot be None.')
+    elif not numpy.isscalar(gram):
+        raise TypeError('"gram" should be a scalar value.')
+    elif not isinstance(gram, bool):
+        raise TypeError('"gram" should be boolean.')
 
     # Check format
     if format is not None:
@@ -122,3 +123,64 @@ def _check_arguments(
     elif dtype not in [r'float32', r'float64', r'float128']:
         raise TypeError('"dtype" should be either "float32", "float64", or ' +
                         '"float128".')
+
+
+# =================
+# band matrix trace
+# =================
+
+def band_matrix_trace(a, b, size, gram=True):
+    """
+    Computes the trace of band matrix based on known formula.
+    """
+
+    if gram:
+        trace_ = a**2 + (size-1) * (a**2 + b**2)
+
+    else:
+        trace_ = size * a
+
+    return trace_
+
+
+# ====================
+# band matrix traceinv
+# ====================
+
+def band_matrix_traceinv(a, b, size, gram=True):
+    """
+    Computes the trace of inverse band matrix based on known formula.
+    """
+
+    if gram:
+        if a == b:
+            traceinv_ = size * (size+1) / (2.0 * a**2)
+        else:
+            q = b / a
+            if size < 200:
+                traceinv_ = (1.0 / (a**2 - b**2)) * \
+                    (size - (q**2) * ((q**(2.0*size) - 1.0) / (q**2 - 1.0)))
+            else:
+                # Using asymptotic approximation of large sums
+                traceinv_ = (1.0 / (a**2 - b**2)) * \
+                            (size - ((q**2) / (1.0 - q**2)))
+    else:
+        traceinv_ = size / a
+
+    return traceinv_
+
+
+# ==================
+# band matrix logdet
+# ==================
+
+def band_matrix_logdet(a, b, size, gram=True):
+    """
+    Computes the log-determinant of band matrix based on known formula.
+    """
+
+    logdet_ = size * numpy.log(a)
+    if gram:
+        logdet_ = 2.0 * logdet_
+
+    return logdet_

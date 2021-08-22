@@ -8,6 +8,8 @@
 
 
 from .correlation_matrix import correlation_matrix
-from .band_matrix import band_matrix
+from .band_matrix import band_matrix, band_matrix_trace, \
+        band_matrix_traceinv, band_matrix_logdet
 
-__all__ = ['correlation_matrix', 'band_matrix']
+__all__ = ['correlation_matrix', 'band_matrix', 'band_matrix_trace',
+           'band_matrix_traceinv', 'band_matrix_logdet']

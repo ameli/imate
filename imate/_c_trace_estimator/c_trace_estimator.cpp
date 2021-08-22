@@ -67,19 +67,19 @@
 ///             An instance of \c Function class which has the function
 ///             \c function. This function defines the matrix function, and
 ///             operates on scalar eigenvalues of the matrix.
+/// \param[in]  gram
+///             Flag indicating whether the linear operator \c A is Gramian.
+///             If the linear operator is:
+///             * Gramian, then, Lanczos tridiagonalization method is
+///               employed. This method requires only matrix-vector
+///               multiplication.
+///             * not Gramian, then, Golub-Kahn bidiagonalization method is
+///               employed. This method requires both matrix and
+///               transposed-matrix vector multiplications.
 /// \param[in]  exponent
 ///             The exponent parameter \c p in the trace of the expression
 ///             $f((\mathbf{A} + t \mathbf{B})^p)$. The exponent is a real
 ///             number and by default it is set to \c 1.0.
-/// \param[in]  symmetric
-///             Flag indicating whether the linear operator \c A is symmetric.
-///             If the linear operator is:
-///             * symmetric, then, Lanczos tridiagonalization method is
-///               employed. This method requires only matrix-vector
-///               multiplication.
-///             * non-symmetric, then, Golub-Kahn bidiagonalization method is
-///               employed. This method requires both matrix and
-///               transposed-matrix vector multiplications.
 /// \param[in]  orthogonalize
 ///             Indicates whether to orthogonalize the orthogonal eigenvectors
 ///             during Lanczos recursive iterations.
@@ -185,8 +185,8 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
         DataType* parameters,
         const IndexType num_inquiries,
         const Function* matrix_function,
+        const FlagType gram,
         const DataType exponent,
-        const FlagType symmetric,
         const FlagType orthogonalize,
         const IndexType lanczos_degree,
         const DataType lanczos_tol,
@@ -255,8 +255,8 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
 
             // Perform one Monte-Carlo sampling to estimate trace
             cTraceEstimator<DataType>::_c_stochastic_lanczos_quadrature(
-                    A, parameters, num_inquiries, matrix_function, exponent,
-                    symmetric, orthogonalize, lanczos_degree, lanczos_tol,
+                    A, parameters, num_inquiries, matrix_function, gram,
+                    exponent, orthogonalize, lanczos_degree, lanczos_tol,
                     random_number_generator,
                     &random_vectors[matrix_size*thread_id], converged,
                     samples[i]);
@@ -334,19 +334,19 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
 ///             An instance of \c Function class which has the function \c
 ///             function. This function defines the matrix function, and
 ///             operates on scalar eigenvalues of the matrix.
+/// \param[in]  gram
+///             Flag indicating whether the linear operator \c A is Gramian.
+///             If the linear operator is:
+///             * Gramian, then, Lanczos tridiagonalization method is
+///               employed. This method requires only matrix-vector
+///               multiplication.
+///             * not Gramian, then, Golub-Kahn bidiagonalization method is
+///               employed. This method requires both matrix and
+///               transposed-matrix vector multiplications.
 /// \param[in]  exponent
 ///             The exponent parameter \c p in the trace of the expression
 ///             $f((\mathbf{A} + t \mathbf{B})^p)$. The exponent is a real
 ///             number and by default it is set to \c 1.0.
-/// \param[in]  symmetric
-///             Flag indicating whether the linear operator \c A is symmetric.
-///             If the linear operator is:
-///             * symmetric, then, Lanczos tridiagonalization method is
-///               employed. This method requires only matrix-vector
-///               multiplication.
-///             * non-symmetric, then, Golub-Kahn bidiagonalization method is
-///               employed. This method requires both matrix and
-///               transposed-matrix vector multiplications.
 /// \param[in]  orthogonalize
 ///             Indicates whether to orthogonalize the orthogonal eigenvectors
 ///             during Lanczos recursive iterations.
@@ -403,8 +403,8 @@ void cTraceEstimator<DataType>::_c_stochastic_lanczos_quadrature(
         DataType* parameters,
         const IndexType num_inquiries,
         const Function* matrix_function,
+        const FlagType gram,
         const DataType exponent,
-        const FlagType symmetric,
         const FlagType orthogonalize,
         const IndexType lanczos_degree,
         const DataType lanczos_tol,
@@ -498,28 +498,7 @@ void cTraceEstimator<DataType>::_c_stochastic_lanczos_quadrature(
         // Set parameter of linear operator A
         A->set_parameters(&parameters[j*num_parameters]);
 
-        if (symmetric)
-        {
-            // Use Lanczos Tri-diagonalization
-            lanczos_size[j] = c_lanczos_tridiagonalization(
-                    A, random_vector, matrix_size, lanczos_degree, lanczos_tol,
-                    orthogonalize, alpha, beta);
-
-            // Allocate eigenvectors matrix (1D array with Fortran ordering)
-            eigenvectors = new DataType[lanczos_size[j] * lanczos_size[j]];
-
-            // Note: alpha is written in-place with eigenvalues
-            Diagonalization<DataType>::eigh_tridiagonal(
-                    alpha, beta, eigenvectors, lanczos_size[j]);
-
-            // theta and tau from singular values and vectors
-            for (i=0; i < lanczos_size[j]; ++i)
-            {
-                theta[j][i] = alpha[i];
-                tau[j][i] = eigenvectors[i * lanczos_size[j]];
-            }
-        }
-        else
+        if (gram)
         {
             // Use Golub-Kahn-Lanczos Bi-diagonalization
             lanczos_size[j] = c_golub_kahn_bidiagonalization(
@@ -540,8 +519,29 @@ void cTraceEstimator<DataType>::_c_stochastic_lanczos_quadrature(
             // theta and tau from singular values and vectors
             for (i=0; i < lanczos_size[j]; ++i)
             {
-                theta[j][i] = alpha[i];
+                theta[j][i] = alpha[i] * alpha[i];
                 tau[j][i] = right_singularvectors_transposed[i];
+            }
+        }
+        else
+        {
+            // Use Lanczos Tri-diagonalization
+            lanczos_size[j] = c_lanczos_tridiagonalization(
+                    A, random_vector, matrix_size, lanczos_degree, lanczos_tol,
+                    orthogonalize, alpha, beta);
+
+            // Allocate eigenvectors matrix (1D array with Fortran ordering)
+            eigenvectors = new DataType[lanczos_size[j] * lanczos_size[j]];
+
+            // Note: alpha is written in-place with eigenvalues
+            Diagonalization<DataType>::eigh_tridiagonal(
+                    alpha, beta, eigenvectors, lanczos_size[j]);
+
+            // theta and tau from singular values and vectors
+            for (i=0; i < lanczos_size[j]; ++i)
+            {
+                theta[j][i] = alpha[i];
+                tau[j][i] = eigenvectors[i * lanczos_size[j]];
             }
         }
     }
@@ -574,7 +574,7 @@ void cTraceEstimator<DataType>::_c_stochastic_lanczos_quadrature(
                 // Shift eigenvalues by the old and new parameters
                 theta[j][i] = A->get_eigenvalue(
                         &parameters[0],
-                        alpha[i],
+                        theta[0][i],
                         &parameters[j*num_parameters]);
 
                 // tau is the same (at least for the affine operator)

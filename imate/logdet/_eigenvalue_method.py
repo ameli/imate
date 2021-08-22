@@ -32,26 +32,31 @@ from ..__version__ import __version__
 def eigenvalue_method(
         A,
         eigenvalues=None,
+        gram=False,
         exponent=1.0,
-        symmetric=True,
+        assume_matrix='gen',
         non_zero_eig_fraction=0.9):
     """
     """
 
     # Checking input arguments
-    check_arguments(A, eigenvalues, exponent, symmetric,
+    check_arguments(A, eigenvalues, gram, exponent, assume_matrix,
                     non_zero_eig_fraction)
 
     init_tot_wall_time = time.perf_counter()
     init_cpu_proc_time = time.process_time()
 
     if eigenvalues is None:
-        eigenvalues = compute_eigenvalues(A, symmetric,
+        eigenvalues = compute_eigenvalues(A, assume_matrix,
                                           non_zero_eig_fraction)
 
     # Compute trace of inverse of matrix
     not_nan = numpy.logical_not(numpy.isnan(eigenvalues))
     trace = numpy.sum(numpy.log((eigenvalues[not_nan]**exponent)))
+
+    # Gramian matrix
+    if gram:
+        trace = 2.0 * trace
 
     tot_wall_time = time.perf_counter() - init_tot_wall_time
     cpu_proc_time = time.process_time() - init_cpu_proc_time
@@ -61,7 +66,9 @@ def eigenvalue_method(
         'matrix':
         {
             'data_type': get_data_type_name(A),
+            'gram': gram,
             'exponent': exponent,
+            'assume_matrix': assume_matrix,
             'size': A.shape[0],
             'sparse': isspmatrix(A),
             'nnz': get_nnz(A),
@@ -95,8 +102,9 @@ def eigenvalue_method(
 def check_arguments(
         A,
         eigenvalues,
+        gram,
         exponent,
-        symmetric,
+        assume_matrix,
         non_zero_eig_fraction):
     """
     Checks the type and value of the parameters.
@@ -117,6 +125,14 @@ def check_arguments(
             raise ValueError('The length of "eigenvalues" does not match ' +
                              'the size of matrix "A".')
 
+    # Check gram
+    if gram is None:
+        raise TypeError('"gram" cannot be None.')
+    elif not numpy.isscalar(gram):
+        raise TypeError('"gram" should be a scalar value.')
+    elif not isinstance(gram, bool):
+        raise TypeError('"gram" should be boolean.')
+
     # Check exponent
     if exponent is None:
         raise TypeError('"exponent" cannot be None.')
@@ -125,13 +141,13 @@ def check_arguments(
     elif not isinstance(exponent, numpy.integer):
         TypeError('"exponent" cannot be an integer.')
 
-    # Check symmetric
-    if symmetric is None:
-        raise TypeError('"symmetric" cannot be None.')
-    elif not numpy.isscalar(symmetric):
-        raise TypeError('"symmetric" should be a scalar value.')
-    elif not isinstance(symmetric, bool):
-        raise TypeError('"symmetric" should be boolean.')
+    # Check assume_matrix
+    if assume_matrix is None:
+        raise TypeError('"assume_matrix" cannot be None.')
+    elif not isinstance(assume_matrix, str):
+        raise TypeError('"assume_matrix" should be a string.')
+    elif assume_matrix not in ['gen', 'sym']:
+        raise ValueError('"assume_matrix" should be either "gen" or "sym".')
 
     # Check non_zero_eig_fraction
     if non_zero_eig_fraction is None:
@@ -151,7 +167,7 @@ def check_arguments(
 
 def compute_eigenvalues(
         A,
-        symmetric,
+        assume_matrix,
         non_zero_eig_fraction,
         tol=1e-4):
     """
@@ -167,7 +183,7 @@ def compute_eigenvalues(
         # find 90% of eigenvalues, assume the rest are very close to zero.
         num_none_zero_eig = int(n*non_zero_eig_fraction)
 
-        if symmetric:
+        if assume_matrix == 'sym':
 
             # The logarithm function on the eigenvalues (for computing logdet)
             # takes the greatest effet from both the smallest and largest
@@ -197,12 +213,12 @@ def compute_eigenvalues(
             # Combine large and small eigenvalues into one array
             num_eigenvalues = eigenvalues_large.size + \
                 eigenvalues_small.size
-            eigenvalues[:num_eigenvalues] = numpy.c_[eigenvalues_large,
+            eigenvalues[:num_eigenvalues] = numpy.r_[eigenvalues_large,
                                                      eigenvalues_small]
     else:
 
         # Dense matrix
-        if symmetric:
+        if assume_matrix == 'sym':
             eigenvalues = scipy.linalg.eigh(A, check_finite=False,
                                             eigvals_only=True)
         else:

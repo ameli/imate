@@ -27,11 +27,14 @@ from ..__version__ import __version__
 # exact method
 # ============
 
-def exact_method(A, exponent=1.0):
+def exact_method(
+        A,
+        gram=False,
+        exponent=1.0):
     """
     """
     # Checking input arguments
-    check_arguments(A, exponent)
+    check_arguments(A, gram, exponent)
 
     init_tot_wall_time = time.perf_counter()
     init_cpu_proc_time = time.process_time()
@@ -40,19 +43,35 @@ def exact_method(A, exponent=1.0):
         trace = numpy.min(A.shape)
 
     elif exponent == 1:
-        if scipy.sparse.issparse(A):
-            trace = numpy.sum(A.diagonal())
+        if gram:
+            # Compute Frobenius norm
+            if scipy.sparse.issparse(A):
+                trace = numpy.sum(A.data**2)
+            else:
+                trace = numpy.linalg.norm(A, ord='fro')**2
         else:
-            trace = numpy.trace(A)
+            if scipy.sparse.issparse(A):
+                trace = numpy.sum(A.diagonal())
+            else:
+                trace = numpy.trace(A)
 
-    elif exponent == 2:
-        if scipy.sparse.issparse(A):
-            trace = numpy.sum(A.data**2)
-        else:
-            trace = numpy.linalg.norm(A, ord='fro')**2
     else:
-        raise ValueError('For "exponent" other than "0", "1", and "2", use ' +
-                         '"eigenvalue" or "slq" method.')
+        # Initialize Ap
+        if gram:
+            Ap = A.T @ A
+            A1 = Ap.copy()
+        else:
+            Ap = A.copy()
+            A1 = A
+
+        # Directly compute power of A by successive matrix multiplication
+        for i in range(1, numpy.abs(exponent)):
+            Ap = Ap @ A1
+
+        if scipy.sparse.issparse(A):
+            trace = numpy.sum(Ap.diagonal())
+        else:
+            trace = numpy.trace(Ap)
 
     tot_wall_time = time.perf_counter() - init_tot_wall_time
     cpu_proc_time = time.process_time() - init_cpu_proc_time
@@ -61,6 +80,7 @@ def exact_method(A, exponent=1.0):
         'matrix':
         {
             'data_type': get_data_type_name(A),
+            'gram': gram,
             'exponent': exponent,
             'size': A.shape[0],
             'sparse': isspmatrix(A),
@@ -92,7 +112,7 @@ def exact_method(A, exponent=1.0):
 # check arguments
 # ===============
 
-def check_arguments(A, exponent):
+def check_arguments(A, gram, exponent):
     """
     Checks the type and value of the parameters.
     """
@@ -104,6 +124,14 @@ def check_arguments(A, exponent):
     elif A.shape[0] != A.shape[1]:
         raise ValueError('Input matrix should be a square matrix.')
 
+    # Check gram
+    if gram is None:
+        raise TypeError('"gram" cannot be None.')
+    elif not numpy.isscalar(gram):
+        raise TypeError('"gram" should be a scalar value.')
+    elif not isinstance(gram, bool):
+        raise TypeError('"gram" should be boolean.')
+
     # Check exponent
     if exponent is None:
         raise TypeError('"exponent" cannot be None.')
@@ -111,3 +139,5 @@ def check_arguments(A, exponent):
         raise TypeError('"exponent" should be a scalar value.')
     elif not isinstance(exponent, (int, numpy.integer)):
         TypeError('"exponent" cannot be an integer.')
+    elif exponent < 0:
+        ValueError('"exponent" should be a non-negative integer.')

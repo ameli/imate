@@ -16,15 +16,36 @@
 import sys
 import time
 import numpy
-from imate.sample_matrices import correlation_matrix
+from imate.sample_matrices import band_matrix, band_matrix_trace
 from imate import trace
+
+
+# ==============
+# relative error
+# ==============
+
+def relative_error(estimate, exact):
+    """
+    Compute the relative error of an estimate, in percent.
+    """
+
+    tol = 1e-15
+    if numpy.abs(exact) < tol:
+        if numpy.abs(estimate - exact) < tol:
+            relative_error = 0.0
+        else:
+            relative_error = numpy.inf
+    else:
+        relative_error = numpy.abs((estimate - exact) / exact) * 100.0
+
+    return relative_error
 
 
 # ==================
 # test trace methods
 # ==================
 
-def _test_trace_methods(K):
+def _test_trace_methods(K, matrix, gram, exponent, assume_matrix):
     """
     Computes the trace of matrix ``K`` with multiple method.
 
@@ -33,60 +54,59 @@ def _test_trace_methods(K):
     """
 
     # Settings
-    num_samples = 30
+    min_num_samples = 100
+    max_num_samples = 200
     lanczos_degree = 30
-    exponent = 2
+    error_rtol = 1e-2
 
     # Use exact method
     time10 = time.time()
-    trace1, _ = trace(K, method='exact', exponent=exponent)
+    trace1, _ = trace(K, method='exact', gram=gram, exponent=exponent)
     time11 = time.time()
 
     # Use eigenvalue method
     time20 = time.time()
-    trace2, _ = trace(K, method='eigenvalue', symmetric=True,
-                      exponent=exponent)
+    trace2, _ = trace(K, method='eigenvalue', gram=gram,
+                      assume_matrix=assume_matrix, exponent=exponent,
+                      non_zero_eig_fraction=0.95)
     time21 = time.time()
 
-    # Use Stochastic Lanczos Quadrature method, with tridiagonalization
+    # Use Stochastic Lanczos Quadrature method
     time30 = time.time()
-    trace3, _ = trace(K, method='slq', max_num_samples=num_samples,
-                      lanczos_degree=lanczos_degree, orthogonalize=-1,
-                      exponent=exponent, symmetric=True)
+    trace3, _ = trace(K, method='slq', min_num_samples=min_num_samples,
+                      max_num_samples=max_num_samples, orthogonalize=-1,
+                      lanczos_degree=lanczos_degree, error_rtol=error_rtol,
+                      gram=gram, exponent=exponent, verbose=False)
     time31 = time.time()
-
-    # Use Stochastic Lanczos Quadrature method, with bidiagonalization
-    time40 = time.time()
-    trace4, _ = trace(K, method='slq', max_num_samples=num_samples,
-                      lanczos_degree=lanczos_degree, orthogonalize=-1,
-                      exponent=exponent, symmetric=False)
-    time41 = time.time()
 
     # Elapsed times
     elapsed_time1 = time11 - time10
     elapsed_time2 = time21 - time20
     elapsed_time3 = time31 - time30
-    elapsed_time4 = time41 - time40
+
+    # Exact solution of logdet for band matrix
+    if exponent == 1:
+        trace_exact = band_matrix_trace(matrix['a'], matrix['b'],
+                                        matrix['size'], True)
+    else:
+        trace_exact = trace1
 
     # error
-    error1 = 0.0
-    error2 = 100.0 * numpy.abs(trace2 - trace1) / trace1
-    error3 = 100.0 * numpy.abs(trace3 - trace1) / trace1
-    error4 = 100.0 * numpy.abs(trace4 - trace1) / trace1
+    error1 = relative_error(trace1, trace_exact)
+    error2 = relative_error(trace2, trace_exact)
+    error3 = relative_error(trace3, trace_exact)
 
     # Print results
     print('')
     print('-------------------------------------------------------------')
-    print('Method      Options                   traceinv   error   time')
+    print('Method      Options                      trace   error   time')
     print('----------  ------------------------  --------  ------  -----')
     print('exact       N/A                       %8.3f  %5.2f%%  %5.2f'
           % (trace1, error1, elapsed_time1))
     print('eigenvalue  N/A                       %8.3f  %5.2f%%  %5.2f'
           % (trace2, error2, elapsed_time2))
-    print('slq         with tri-diagonalization  %8.3f  %5.2f%%  %5.2f'
+    print('slq         N/A                       %8.3f  %5.2f%%  %5.2f'
           % (trace3, error3, elapsed_time3))
-    print('slq         with bi-diagonalization   %8.3f  %5.2f%%  %5.2f'
-          % (trace4, error4, elapsed_time4))
     print('-------------------------------------------------------------')
     print('')
 
@@ -100,20 +120,52 @@ def test_trace():
     A test for :mod:`imate.trace` sub-package.
     """
 
-    dtype = r'float32'
+    matrix = {
+        'a': 2.0,
+        'b': 1.0,
+        'size': 50
+    }
 
-    # Compute trace of K using dense matrix
-    print('Using dense matrix')
-    K1 = correlation_matrix(size=30, dimension=2, distance_scale=0.05,
-                            dtype=dtype, sparse=False)
-    _test_trace_methods(K1)
+    exponents = [0, 1, 2]
+    dtypes = [r'float32', r'float64']
+    grams = [True, False]
+    sparses = [True, False]
 
-    # # Compute trace of K using sparse matrix
-    print('Using sparse matrix')
-    K2 = correlation_matrix(size=30, dimension=2, distance_scale=0.05,
-                            dtype=dtype, sparse=True, density=2e-1,
-                            verbose=False)
-    _test_trace_methods(K2)
+    for dtype in dtypes:
+        for gram in grams:
+
+            if gram:
+                assume_matrix = 'gen'
+            else:
+                assume_matrix = 'sym'
+
+            # When gram is True:
+            #     1. We generate a 2-band nonsymmetric matrix K (hence we set
+            #        gram=False in band_matrix).
+            #     2. We compute trace of K.T @ K using only K (hence we set
+            #        gram=True in trace method).
+            #
+            # When gram is False:
+            #     1. We generate a 3-band symmetric matrix K (hence we set
+            #        gram=True in band_matrix).
+            #     2. We compute trace of K using K (hence we set
+            #        gram=False in trace method).
+            K = band_matrix(matrix['a'], matrix['b'], matrix['size'],
+                            gram=(not gram), dtype=dtype)
+
+            for sparse in sparses:
+                if not sparse:
+                    K = K.toarray()
+
+                for exponent in exponents:
+                    print('dtype: %s, ' % (dtype) +
+                          ' sparse: %s, ' % (sparse) +
+                          'gram: %s, ' % (gram) +
+                          'exponent: %f, ' % (exponent) +
+                          'assume_matrix: %s.' % (assume_matrix))
+
+                    _test_trace_methods(K, matrix, gram, exponent,
+                                        assume_matrix)
 
 
 # ===========

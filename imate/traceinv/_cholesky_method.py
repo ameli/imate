@@ -38,7 +38,12 @@ from .._linear_algebra import sparse_cholesky
 # cholesky method
 # ===============
 
-def cholesky_method(A, exponent=1, invert_cholesky=True, cholmod=None):
+def cholesky_method(
+        A,
+        gram=False,
+        exponent=1,
+        invert_cholesky=True,
+        cholmod=None):
     """
     Computes trace of inverse of matrix using Cholesky factorization by
 
@@ -64,6 +69,9 @@ def cholesky_method(A, exponent=1, invert_cholesky=True, cholmod=None):
     :param A: Invertible matrix
     :type A: numpy.ndarray
 
+    :param exponent: Exponent :math:`p` in :math:`\\mathbf{A}^{p}`.
+    :param exponent: int
+
     :param invert_cholesky: Flag to invert Cholesky matrix.
         If ``false``, the inverse of Cholesky is not directly computed, but a
         linear system is solved for each column of the inverse of the Cholesky.
@@ -81,7 +89,7 @@ def cholesky_method(A, exponent=1, invert_cholesky=True, cholmod=None):
     """
 
     # Check input arguments
-    check_arguments(A, exponent, invert_cholesky, cholmod)
+    check_arguments(A, gram, exponent, invert_cholesky, cholmod)
 
     # Determine to use Sparse
     sparse = False
@@ -98,15 +106,25 @@ def cholesky_method(A, exponent=1, invert_cholesky=True, cholmod=None):
     init_cpu_proc_time = time.process_time()
 
     # Ap is the power of A to the exponent p
-    if exponent != 0:
+    if (exponent == 1) or (exponent == -1):
+        if gram:
+            Ap = A.T @ A
+        else:
+            Ap = A
+
+    elif exponent != 0:
 
         # Initialize Ap
-        Ap = A
+        if gram:
+            Ap = A.T @ A
+            A1 = Ap.copy()
+        else:
+            Ap = A.copy()
+            A1 = A
 
         # Directly compute power of A by successive matrix multiplication
-        if exponent > 1 or exponent < -1:
-            for i in range(1, numpy.abs(exponent)):
-                Ap = Ap @ A
+        for i in range(1, numpy.abs(exponent)):
+            Ap = Ap @ A1
 
     if exponent == 0:
         trace = A.shape[0]
@@ -156,6 +174,7 @@ def cholesky_method(A, exponent=1, invert_cholesky=True, cholmod=None):
         'matrix':
         {
             'data_type': get_data_type_name(A),
+            'gram': gram,
             'exponent': exponent,
             'size': A.shape[0],
             'sparse': isspmatrix(A),
@@ -189,7 +208,7 @@ def cholesky_method(A, exponent=1, invert_cholesky=True, cholmod=None):
 # check arguments
 # ===============
 
-def check_arguments(A, exponent, invert_cholesky, cholmod):
+def check_arguments(A, gram, exponent, invert_cholesky, cholmod):
     """
     Checks the type and value of the parameters.
     """
@@ -200,6 +219,14 @@ def check_arguments(A, exponent, invert_cholesky, cholmod):
                         'a "scipy.sparse" matrix.')
     elif A.shape[0] != A.shape[1]:
         raise ValueError('Input matrix should be a square matrix.')
+
+    # Check gram
+    if gram is None:
+        raise TypeError('"gram" cannot be None.')
+    elif not numpy.isscalar(gram):
+        raise TypeError('"gram" should be a scalar value.')
+    elif not isinstance(gram, bool):
+        raise TypeError('"gram" should be boolean.')
 
     # Check exponent
     if exponent is None:
@@ -254,6 +281,11 @@ def compute_traceinv_invert_cholesky_directly(L, sparse, use_cholmod):
 
     :param sparse: Flag, if ``true``, the matrix `L`` is considered as sparse.
     :type sparse: bool
+
+    :param use_cholmod: If ``True``, uses ``scikit-sparse`` package to compute
+        the Cholesky decomposition. If ``False``, uses ``scipy.sparse``
+        package.
+    :type use_cholmod: bool
 
     :return: Trace of matrix ``A``.
     :rtype: float
@@ -331,6 +363,14 @@ def compute_traceinv_invert_cholesky_indirectly(
 
     :param sparse: Flag, if ``true``, the matrix ``L`` is considered as sparse.
     :type sparse: bool
+
+    :param use_cholmod: If ``True``, uses ``scikit-sparse`` package to compute
+        the Cholesky decomposition. If ``False``, uses ``scipy.sparse``
+        package.
+    :type use_cholmod: bool
+
+    :param dtype: The data type of matrix.
+    :type dtype: string or numpy.dtype
 
     :return: Trace of matrix ``A``.
     :rtype: float

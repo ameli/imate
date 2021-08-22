@@ -106,8 +106,8 @@ def get_operator_parameters(parameters, data_type_name):
 # ===============
 
 def check_arguments(
+        gram,
         exponent,
-        symmetric,
         min_num_samples,
         max_num_samples,
         error_atol,
@@ -131,6 +131,14 @@ def check_arguments(
     :rtype: data_type
     """
 
+    # Check gram
+    if gram is None:
+        raise TypeError('"gram" cannot be None.')
+    elif not numpy.isscalar(gram):
+        raise TypeError('"gram" should be a scalar value.')
+    elif not isinstance(gram, bool):
+        raise TypeError('"gram" should be boolean.')
+
     # Check exponent
     if exponent is None:
         raise TypeError('"exponent" cannot be None.')
@@ -138,14 +146,6 @@ def check_arguments(
         raise TypeError('"exponent" should be a scalar value.')
     elif isinstance(exponent, complex):
         TypeError('"exponent" cannot be a complex number.')
-
-    # Check symmetric
-    if symmetric is None:
-        raise TypeError('"symmetric" cannot be None.')
-    elif not numpy.isscalar(symmetric):
-        raise TypeError('"symmetric" should be a scalar value.')
-    elif not isinstance(symmetric, bool):
-        raise TypeError('"symmetric" should be boolean.')
 
     # Check min_num_samples
     if min_num_samples is None:
@@ -387,8 +387,8 @@ def print_summary(info):
 
     # Matrix info
     data_type = info['matrix']['data_type'].decode("utf-8")
+    gram = info['matrix']['gram']
     exponent = info['matrix']['exponent']
-    symmetric = info['matrix']['symmetric']
     num_inquiries = info['matrix']['num_inquiries']
     num_operator_parameters = info['matrix']['num_operator_parameters']
     parameters = info['matrix']['parameters']
@@ -515,7 +515,7 @@ def print_summary(info):
           'stochastic estimator        ')
     print('-------------------------------------    ------------------------' +
           '-------------')
-    print('symmetric:                      %5s' % symmetric, end="    ")
+    print('gram:                           %5s' % gram, end="    ")
     print('method:                           slq')
     print('float precision:             %8s' % data_type, end="    ")
     print('lanczos degree:                  %4d' % lanczos_degree)

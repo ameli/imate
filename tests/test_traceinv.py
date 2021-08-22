@@ -17,15 +17,36 @@ import sys
 import time
 import numpy
 import scipy.sparse
-from imate.sample_matrices import correlation_matrix
+from imate.sample_matrices import band_matrix, band_matrix_traceinv
 from imate import traceinv
+
+
+# ==============
+# relative error
+# ==============
+
+def relative_error(estimate, exact):
+    """
+    Compute the relative error of an estimate, in percent.
+    """
+
+    tol = 1e-15
+    if numpy.abs(exact) < tol:
+        if numpy.abs(estimate - exact) < tol:
+            relative_error = 0.0
+        else:
+            relative_error = numpy.inf
+    else:
+        relative_error = numpy.abs((estimate - exact) / exact) * 100.0
+
+    return relative_error
 
 
 # =====================
 # test traceinv methods
 # =====================
 
-def _test_traceinv_methods(K):
+def _test_traceinv_methods(K, matrix, gram, exponent, assume_matrix):
     """
     Computes the trace of the inverse of matrix ``K`` with multiple method.
 
@@ -34,21 +55,22 @@ def _test_traceinv_methods(K):
     """
 
     # Settings
-    num_samples = 30
+    min_num_samples = 100
+    max_num_samples = 200
     lanczos_degree = 30
-    exponent = 2
+    error_rtol = 1e-2
 
     # Use Cholesky method with direct inverse
     time10 = time.time()
     trace1, _ = traceinv(K, method='cholesky', invert_cholesky=False,
-                         exponent=exponent, cholmod=None)
+                         gram=gram, exponent=exponent, cholmod=None)
     time11 = time.time()
 
     # Use Cholesky method without direct inverse
     if not scipy.sparse.isspmatrix(K):
         time20 = time.time()
         trace2, _ = traceinv(K, method='cholesky', invert_cholesky=True,
-                             exponent=exponent, cholmod=None)
+                             gram=gram, exponent=exponent, cholmod=None)
         time21 = time.time()
     else:
         # Do not use Cholesky with inverse method if K is sparse.
@@ -58,29 +80,27 @@ def _test_traceinv_methods(K):
 
     # Use eigenvalue method
     time30 = time.time()
-    trace3, _ = traceinv(K, method='eigenvalue', symmetric=True,
-                         exponent=exponent)
+    trace3, _ = traceinv(K, method='eigenvalue', gram=gram,
+                         assume_matrix=assume_matrix, exponent=exponent,
+                         non_zero_eig_fraction=0.95)
     time31 = time.time()
 
     # Use Hutchinson method
     time40 = time.time()
-    trace4, _ = traceinv(K, method='hutchinson', min_num_samples=num_samples,
-                         exponent=exponent)
+    trace4, _ = traceinv(K, method='hutchinson',
+                         min_num_samples=min_num_samples,
+                         max_num_samples=max_num_samples, orthogonalize=True,
+                         error_rtol=error_rtol, gram=gram, exponent=exponent,
+                         verbose=False)
     time41 = time.time()
 
-    # Use Stochastic Lanczos Quadrature method, with tridiagonalization
+    # Use Stochastic Lanczos Quadrature method
     time50 = time.time()
-    trace5, _ = traceinv(K, method='slq', max_num_samples=num_samples,
-                         lanczos_degree=lanczos_degree, orthogonalize=-1,
-                         exponent=exponent, symmetric=True)
+    trace5, _ = traceinv(K, method='slq', min_num_samples=min_num_samples,
+                         max_num_samples=max_num_samples, orthogonalize=-1,
+                         lanczos_degree=lanczos_degree, error_rtol=error_rtol,
+                         gram=gram, exponent=exponent, verbose=False)
     time51 = time.time()
-
-    # Use Stochastic Lanczos Quadrature method, with bidiagonalization
-    time60 = time.time()
-    trace6, _ = traceinv(K, method='slq', max_num_samples=num_samples,
-                         lanczos_degree=lanczos_degree, orthogonalize=-1,
-                         exponent=exponent, symmetric=False)
-    time61 = time.time()
 
     # Elapsed times
     elapsed_time1 = time11 - time10
@@ -88,16 +108,21 @@ def _test_traceinv_methods(K):
     elapsed_time3 = time31 - time30
     elapsed_time4 = time41 - time40
     elapsed_time5 = time51 - time50
-    elapsed_time6 = time61 - time60
+
+    # Exact solution of logdet for band matrix
+    if exponent == 1 and not gram:
+        traceinv_exact = band_matrix_traceinv(matrix['a'], matrix['b'],
+                                              matrix['size'], True)
+    else:
+        traceinv_exact = trace1
 
     # error
-    error1 = 0.0
+    error1 = relative_error(trace1, traceinv_exact)
     if trace2 is not None:
-        error2 = 100.0 * numpy.abs(trace2 - trace1) / trace1
-    error3 = 100.0 * numpy.abs(trace3 - trace1) / trace1
-    error4 = 100.0 * numpy.abs(trace4 - trace1) / trace1
-    error5 = 100.0 * numpy.abs(trace5 - trace1) / trace1
-    error6 = 100.0 * numpy.abs(trace6 - trace1) / trace1
+        error2 = relative_error(trace2, traceinv_exact)
+    error3 = relative_error(trace3, traceinv_exact)
+    error4 = relative_error(trace4, traceinv_exact)
+    error5 = relative_error(trace5, traceinv_exact)
 
     # Print results
     print('')
@@ -110,15 +135,13 @@ def _test_traceinv_methods(K):
         print('cholesky    using inverse             %8.3f  %5.2f%%  %5.2f'
               % (trace2, error2, elapsed_time2))
     else:
-        print('cholesky    using inverse             N/A          N/A    N/A')
+        print('cholesky    using inverse                  N/A     N/A    N/A')
     print('eigenvalue  N/A                       %8.3f  %5.2f%%  %5.2f'
           % (trace3, error3, elapsed_time3))
     print('hutchinson  N/A                       %8.3f  %5.2f%%  %5.2f'
           % (trace4, error4, elapsed_time4))
-    print('slq         with tri-diagonalization  %8.3f  %5.2f%%  %5.2f'
+    print('slq         N/A                       %8.3f  %5.2f%%  %5.2f'
           % (trace5, error5, elapsed_time5))
-    print('slq         with bi-diagonalization   %8.3f  %5.2f%%  %5.2f'
-          % (trace6, error6, elapsed_time6))
     print('-------------------------------------------------------------')
     print('')
 
@@ -132,20 +155,56 @@ def test_traceinv():
     A test for :mod:`imate.traceinv` sub-package.
     """
 
-    dtype = r'float32'
+    matrix = {
+        'a': 2.0,
+        'b': 1.0,
+        'size': 50
+    }
 
-    # Compute trace of inverse of K using dense matrix
-    print('Using dense matrix')
-    K1 = correlation_matrix(size=30, dimension=2, distance_scale=0.05,
-                            dtype=dtype, sparse=False)
-    _test_traceinv_methods(K1)
+    exponents = [0, 1, 2]
+    dtypes = [r'float32', r'float64']
+    grams = [True, False]
+    sparses = [True, False]
 
-    # # Compute trace of inverse of K using sparse matrix
-    print('Using sparse matrix')
-    K2 = correlation_matrix(size=30, dimension=2, distance_scale=0.05,
-                            dtype=dtype, sparse=True, density=2e-1,
-                            verbose=False)
-    _test_traceinv_methods(K2)
+    for dtype in dtypes:
+        for gram in grams:
+
+            if gram:
+                assume_matrix = 'gen'
+            else:
+                assume_matrix = 'sym'
+
+            # When gram is True:
+            #     1. We generate a 3-band symmetric matrix K (hence we set
+            #        gram=True in band_matrix). Note: this is different than
+            #        what we test in test_logdet.py and test_trace.py.
+            #        Becase, the golub-kahn method cannot estimate traceinv
+            #        of K.T @ K if K is 2-banded. Thus, we input a symmetric
+            #        matrix K (itself is gramian).
+            #     2. We compute traceinv of K.T @ K using only K (hence we set
+            #        gram=True in traceinv method).
+            #
+            # When gram is False:
+            #     1. We generate a 3-band symmetric matrix K (hence we set
+            #        gram=True in band_matrix).
+            #     2. We compute traceinv of K using K (hence we set
+            #        gram=False in traceinv method).
+            K = band_matrix(matrix['a'], matrix['b'], matrix['size'],
+                            gram=True, dtype=dtype)
+
+            for sparse in sparses:
+                if not sparse:
+                    K = K.toarray()
+
+                for exponent in exponents:
+                    print('dtype: %s, ' % (dtype) +
+                          ' sparse: %s, ' % (sparse) +
+                          'gram: %s, ' % (gram) +
+                          'exponent: %f, ' % (exponent) +
+                          'assume_matrix: %s.' % (assume_matrix))
+
+                    _test_traceinv_methods(K, matrix, gram, exponent,
+                                           assume_matrix)
 
 
 # ===========

@@ -39,8 +39,8 @@ cpdef trace_estimator(
         A,
         parameters,
         pyFunction py_matrix_function,
+        gram,
         exponent,
-        symmetric,
         min_num_samples,
         max_num_samples,
         error_atol,
@@ -68,11 +68,11 @@ cpdef trace_estimator(
     :param lanczos_degree: Lanczos degree
     :type lanczos_degree: unsigned int
 
-    :param symmetric: If ``True``, the Lanczos tri-diagonalization method is
-        used. This is suitable for symmetric matrices. If ``False``, the
-        Golub-Kahn bi-diagonalization is used. This should only be used for
-        non-symmetric matrices.
-    :type symmetric: bool
+    :param gram: If ``True``, the Gram matrix ``A.T @ A`` is considered instead
+        of ``A`` itself. In this case, ``A`` itself can be a generic, but
+        square, matrix. If ``False``, matrix ``A`` is used, which then it has
+        to be symmetric and positive semi-definite.
+    :type gram: bool
 
     :param tolerance: The tolerance for the acceptable error of Lanczos
         tri-diagonalization, or Golub-Kahn bi-diagonalization.
@@ -133,7 +133,7 @@ cpdef trace_estimator(
 
     # Check input arguments have proper type and values
     error_atol, error_rtol = check_arguments(
-            exponent, symmetric, min_num_samples, max_num_samples, error_atol,
+            gram, exponent, min_num_samples, max_num_samples, error_atol,
             error_rtol, confidence_level, outlier_significance_level,
             lanczos_degree, lanczos_tol, orthogonalize, num_threads,
             num_gpu_devices, verbose, plot, gpu)
@@ -214,8 +214,8 @@ cpdef trace_estimator(
             parameters,
             num_inquiries,
             py_matrix_function,
+            int(gram),
             exponent,
-            int(symmetric),
             orthogonalize,
             lanczos_degree,
             lanczos_tol,
@@ -248,8 +248,8 @@ cpdef trace_estimator(
             parameters,
             num_inquiries,
             py_matrix_function,
+            int(gram),
             exponent,
-            int(symmetric),
             orthogonalize,
             lanczos_degree,
             lanczos_tol,
@@ -284,8 +284,8 @@ cpdef trace_estimator(
         'matrix':
         {
             'data_type': data_type_name,
+            'gram': gram,
             'exponent': exponent,
-            'symmetric': symmetric,
             'size': matrix_size,
             'sparse': sparse,
             'nnz': matrix_nnz,
