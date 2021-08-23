@@ -196,7 +196,7 @@ IndexType c_golub_kahn_bidiagonalization(
                 &U[(j % buffer_size)*n], n);
 
         // Performing: v_new = A.T.dot(u_new) - alpha[j] * v_old
-        A->dot(&U[(j % buffer_size)*n], &V[((j+1) % buffer_size)*n]);
+        A->transpose_dot(&U[(j % buffer_size)*n], &V[((j+1) % buffer_size)*n]);
 
         // Performing: v_new[i] = v_new[i] - alpha[j] * v_old[i]
         cVectorOperations<DataType>::subtract_scaled_vector(

@@ -8,17 +8,74 @@ import os
 from os.path import join
 import sys
 import pickle
+import getopt
 import numpy
 import scipy
 import scipy.sparse
-from imate import traceinv
+from imate import traceinv, logdet
 from imate import AffineMatrixFunction                             # noqa: F401
 from imate.sample_matrices import band_matrix
 import subprocess
 import multiprocessing
 import platform
 import re
+from time import process_time
 from datetime import datetime
+
+
+# ===============
+# parse arguments
+# ===============
+
+def parse_arguments(argv):
+    """
+    Parses the argument.
+    """
+
+    # -----------
+    # print usage
+    # -----------
+
+    def print_usage(exec_name):
+        usage_string = "Usage: " + exec_name + " <arguments>"
+        options_string = """
+Required arguments:
+
+    -f --function=string  Function can be 'logdet' or 'traceinv' (default).
+    -g --gram             Uses Gramian matrix instead of the matrix itself.
+        """
+
+        print(usage_string)
+        print(options_string)
+
+    # -----------------
+
+    # Initialize variables (defaults)
+    arguments = {
+        'function': 'traceinv',
+        'gram': False,
+    }
+
+    # Get options
+    try:
+        opts, args = getopt.getopt(
+                argv[1:], "f:g", ["function=", "gram"])
+    except getopt.GetoptError:
+        print_usage(argv[0])
+        sys.exit(2)
+
+    # Assign options
+    for opt, arg in opts:
+        if opt in ('-f', '--function'):
+            arguments['function'] = arg
+        elif opt in ('-g', '--gram'):
+            arguments['gram'] = True
+
+    if len(argv) < 3:
+        print_usage(argv[0])
+        sys.exit()
+
+    return arguments
 
 
 # ==================
@@ -60,14 +117,16 @@ def benchmark(argv):
     Test for :mod:`imate.traceinv` sub-package.
     """
 
+    arguments = parse_arguments(argv)
+
     # Settings
     config = {
         'num_repeats': 10,
-        'symmetric': False,
+        'gram': arguments['gram'],
         'exponent': 1,
         'min_num_samples': 200,
         'max_num_samples': 200,
-        'lanczos_degree': 80,
+        'lanczos_degree': 50,
         'lanczos_tol':  None,
         'orthogonalize': -1,
         'solver_tol': 1e-6,
@@ -82,11 +141,11 @@ def benchmark(argv):
     }
 
     matrix = {
-        'size': 2**8,
-        't': numpy.logspace(-3, 3, 50),
+        'size': 2**14,
+        't': numpy.logspace(-3, 3, 100),
         'band_alpha': 2.0,
         'band_beta': 1.0,
-        'symmetric': False,
+        'gram': not config['gram'],
         'format': 'csr',
         'dtype': r'float64'
     }
@@ -98,19 +157,25 @@ def benchmark(argv):
 
     # Generate matrix
     M = band_matrix(matrix['band_alpha'], matrix['band_beta'], matrix['size'],
-                    symmetric=matrix['symmetric'],
-                    format=matrix['format'], dtype=matrix['dtype'])
+                    gram=matrix['gram'], format=matrix['format'],
+                    dtype=matrix['dtype'])
 
-    # filename = '/home/sia/Downloads/imate-results/matrices/'
     Mop = AffineMatrixFunction(M)
 
+    if arguments['function'] == 'traceinv':
+        function = traceinv
+    elif arguments['function'] == 'logdet':
+        function = logdet
+    else:
+        raise ValueError("'function' should be either 'traceinv' or 'logdet'.")
+
     print('SLQ method ...', end='')
-    trace, info = traceinv(
+    trace, info = function(
             Mop,
             parameters=matrix['t'],
             method='slq',
             exponent=config['exponent'],
-            symmetric=config['symmetric'],
+            gram=config['gram'],
             min_num_samples=config['min_num_samples'],
             max_num_samples=config['max_num_samples'],
             error_rtol=config['error_rtol'],
@@ -135,17 +200,37 @@ def benchmark(argv):
     # Exact solution using Cholesky method
     trace_exact = numpy.zeros((matrix['t'].size, ), dtype=float)
     Identity = scipy.sparse.eye(matrix['size'], format='csr')
+
+    initial_cholesky_cpu_proc_time = process_time()
     for i in range(trace_exact.size):
         print('Processing cholesky %d/%d ...'
               % (i+1, trace_exact.size), end='')
-        Mt = M + matrix['t'][i] * Identity
-        trace_exact[i], _ = traceinv(
-                Mt.tocsr(),
-                method='cholesky',
-                cholmod=False,
-                invert_cholesky=config['invert_cholesky'])
-                # invert_cholesky=False)
+        if config['gram']:
+            M_ = M.T @ M
+        else:
+            M_ = M
+        Mt = M_ + matrix['t'][i] * Identity
+        if arguments['function'] == 'traceinv':
+            trace_exact[i], _ = function(
+                    Mt.tocsr(),
+                    method='cholesky',
+                    exponent=config['exponent'],
+                    cholmod=None,
+                    gram=False,
+                    invert_cholesky=config['invert_cholesky'])
+
+        elif arguments['function'] == 'logdet':
+            trace_exact[i], _ = function(
+                    Mt.tocsr(),
+                    method='cholesky',
+                    exponent=config['exponent'],
+                    cholmod=None,
+                    gram=False)
+
         print(' done.')
+
+    # Process time of cholesky method
+    cholesky_cpu_proc_time = process_time() - initial_cholesky_cpu_proc_time
 
     now = datetime.now()
 
@@ -156,13 +241,21 @@ def benchmark(argv):
         'devices': devices,
         'data_result': data_result,
         'trace_exact': trace_exact,
-        'date': now.strftime("%d/%m/%Y %H:%M:%S")
+        'date': now.strftime("%d/%m/%Y %H:%M:%S"),
+        'cholesky_cpu_proc_time': cholesky_cpu_proc_time,
+        'function': arguments['function']
     }
 
     # Save to file (orth)
     benchmark_dir = '..'
     pickle_dir = 'pickle_results'
     output_filename = 'affine_matrix_function'
+    if arguments['function'] == 'traceinv':
+        output_filename += '_traceinv'
+    else:
+        output_filename += '_logdet'
+    if arguments['gram']:
+        output_filename += '_gram'
     output_filename += '.pickle'
     output_full_filename = join(benchmark_dir, pickle_dir, output_filename)
     with open(output_full_filename, 'wb') as file_:

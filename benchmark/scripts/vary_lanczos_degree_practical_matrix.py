@@ -118,7 +118,7 @@ def benchmark(argv):
     # Settings
     config = {
         'num_repeats': 20,
-        'symmetric': True,
+        'gram': False,
         'exponent': 1,
         'min_num_samples': 200,
         'max_num_samples': 200,
@@ -210,7 +210,7 @@ def benchmark(argv):
                         Mop,
                         method='slq',
                         exponent=config['exponent'],
-                        symmetric=config['symmetric'],
+                        gram=config['gram'],
                         min_num_samples=config['min_num_samples'],
                         max_num_samples=config['max_num_samples'],
                         error_rtol=config['error_rtol'],

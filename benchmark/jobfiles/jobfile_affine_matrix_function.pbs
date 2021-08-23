@@ -19,4 +19,7 @@ PYTHON_DIR=$HOME/programs/miniconda3
 SCRIPTS_DIR=$(dirname $PWD)/scripts
 LOG_DIR=$PWD
 
-$PYTHON_DIR/bin/python ${SCRIPTS_DIR}/affine_matrix_function.py > ${LOG_DIR}/affine_matrix_function.txt
+$PYTHON_DIR/bin/python ${SCRIPTS_DIR}/affine_matrix_function.py -f traceinv > ${LOG_DIR}/affine_matrix_function_traceinv.txt
+# $PYTHON_DIR/bin/python ${SCRIPTS_DIR}/affine_matrix_function.py -f traceinv -g > ${LOG_DIR}/affine_matrix_function_traceinv_gram.txt
+# $PYTHON_DIR/bin/python ${SCRIPTS_DIR}/affine_matrix_function.py -f logdet > ${LOG_DIR}/affine_matrix_function_logdet.txt
+# $PYTHON_DIR/bin/python ${SCRIPTS_DIR}/affine_matrix_function.py -f logdet -g > ${LOG_DIR}/affine_matrix_function_logdet_gram.txt

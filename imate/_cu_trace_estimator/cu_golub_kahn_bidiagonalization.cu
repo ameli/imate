@@ -205,7 +205,7 @@ IndexType cu_golub_kahn_bidiagonalization(
                 cublas_handle, &device_U[(j % buffer_size)*n], n);
 
         // Performing: v_new = A.T.dot(u_new) - alpha[j] * v_old
-        A->dot(&device_U[(j % buffer_size)*n],
+        A->transpose_dot(&device_U[(j % buffer_size)*n],
                &device_V[((j+1) % buffer_size)*n]);
 
         // Performing: v_new[i] = v_new[i] - alpha[j] * v_old[i]

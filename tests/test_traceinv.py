@@ -175,12 +175,8 @@ def test_traceinv():
                 assume_matrix = 'sym'
 
             # When gram is True:
-            #     1. We generate a 3-band symmetric matrix K (hence we set
-            #        gram=True in band_matrix). Note: this is different than
-            #        what we test in test_logdet.py and test_trace.py.
-            #        Becase, the golub-kahn method cannot estimate traceinv
-            #        of K.T @ K if K is 2-banded. Thus, we input a symmetric
-            #        matrix K (itself is gramian).
+            #     1. We generate a 2-band nonsymmetric matrix K (hence we set
+            #        gram=False in band_matrix).
             #     2. We compute traceinv of K.T @ K using only K (hence we set
             #        gram=True in traceinv method).
             #
@@ -190,7 +186,7 @@ def test_traceinv():
             #     2. We compute traceinv of K using K (hence we set
             #        gram=False in traceinv method).
             K = band_matrix(matrix['a'], matrix['b'], matrix['size'],
-                            gram=True, dtype=dtype)
+                            gram=(not gram), dtype=dtype)
 
             for sparse in sparses:
                 if not sparse:

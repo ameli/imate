@@ -119,7 +119,7 @@ def benchmark(argv):
     # Settings
     config = {
         'num_repeats': 20,
-        'symmetric': True,
+        'gram': False
         'exponent': 1,
         'min_num_samples': 200,
         'max_num_samples': 200,
@@ -140,7 +140,7 @@ def benchmark(argv):
         'size': 2**16,
         'band_alpha': 2.0,
         'band_beta': 1.0,
-        'symmetric': True,
+        'gram': True,
         'format': 'csr',
         'dtype': r'float64'
     }
@@ -159,7 +159,7 @@ def benchmark(argv):
 
     # Generate matrix
     M = band_matrix(matrix['band_alpha'], matrix['band_beta'], matrix['size'],
-                    symmetric=matrix['symmetric'],
+                    gram=matrix['gram'],
                     format=matrix['format'], dtype=matrix['dtype'])
     Mop = Matrix(M)
 
@@ -190,7 +190,7 @@ def benchmark(argv):
                         Mop,
                         method='slq',
                         exponent=config['exponent'],
-                        symmetric=config['symmetric'],
+                        gram=config['gram'],
                         min_num_samples=config['min_num_samples'],
                         max_num_samples=config['max_num_samples'],
                         error_rtol=config['error_rtol'],

@@ -158,7 +158,7 @@ def benchmark(argv):
     data_types = ['32', '64']  # OpenBlas does not support 128-bit
 
     config = {
-        'symmetric': True,
+        'gram': False,
         'num_samples': 200,
         'lanczos_degree': 80,
         'lanczos_tol':  None,
@@ -231,7 +231,7 @@ def benchmark(argv):
                             orthogonalize=config['orthogonalize'],
                             error_rtol=config['error_rtol'],
                             error_atol=config['error_atol'],
-                            symmetric=config['symmetric'],
+                            gram=config['gram'],
                             outlier_significance_level=config[
                                 'outlier_significance_level'],
                             verbose=config['verbose'],
@@ -273,7 +273,7 @@ def benchmark(argv):
                                 orthogonalize=config['orthogonalize'],
                                 error_rtol=config['error_rtol'],
                                 error_atol=config['error_atol'],
-                                symmetric=config['symmetric'],
+                                gram=config['gram'],
                                 outlier_significance_level=config[
                                     'outlier_significance_level'],
                                 verbose=config['verbose'],

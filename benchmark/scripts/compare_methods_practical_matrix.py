@@ -147,7 +147,7 @@ def compare_methods(M, config, matrix, arguments):
                 M,
                 method='slq',
                 exponent=config['exponent'],
-                symmetric=config['symmetric'],
+                gram=config['gram'],
                 min_num_samples=config['min_num_samples'],
                 max_num_samples=config['max_num_samples'],
                 error_rtol=config['error_rtol'],
@@ -297,7 +297,7 @@ def main(argv):
     # Settings
     config = {
         'num_repeats': 10,
-        'symmetric': True,
+        'gram': False,
         'exponent': 1,
         'min_num_samples': 200,
         'max_num_samples': 200,
@@ -320,7 +320,7 @@ def main(argv):
         'max_cholesky_size_2': 2**16,   # for not using cholmod (logdet only)
         'band_alpha': 2.0,
         'band_beta': 1.0,
-        'symmetric': True,
+        'gram': True,
         'format': 'csr',
     }
 
