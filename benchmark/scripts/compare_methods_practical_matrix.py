@@ -141,7 +141,13 @@ def compare_methods(M, config, matrix, arguments):
     absolute_error_s = numpy.zeros((config['num_repeats'], ), dtype=float)
     alg_wall_time_s = numpy.zeros((config['num_repeats'], ), dtype=float)
 
-    for i in range(config['num_repeats']):
+    # When computing traceinv on practical matrices, if the matrix is very
+    # large, reduce the number of repeats.
+    num_repeats = config['num_repeats']
+    if arguments['function'] == 'traceinv' and M.shape[0] > 2**17:
+        num_repeats = 2
+
+    for i in range(num_repeats):
         print('\tslq, repeat %d ...' % (i+1), end="")
         trace_s[i], info_s = function(
                 M,
@@ -186,7 +192,7 @@ def compare_methods(M, config, matrix, arguments):
         absolute_error_h = numpy.zeros((config['num_repeats'], ), dtype=float)
         alg_wall_time_h = numpy.zeros((config['num_repeats'], ), dtype=float)
 
-        for i in range(config['num_repeats']):
+        for i in range(num_repeats):
             print('\thutchinson, repeat %d ...' % (i+1), end="")
             trace_h[i], info_h = function(
                     M,
@@ -234,6 +240,7 @@ def compare_methods(M, config, matrix, arguments):
                     M,
                     method='cholesky',
                     exponent=config['exponent'],
+                    cholmod=None,
                     invert_cholesky=False)
 
             trace_c2 = numpy.nan
@@ -316,7 +323,7 @@ def main(argv):
 
     matrix = {
         'max_hutchinson_size': 2**22,
-        'max_cholesky_size': 2**18,     # for using cholmod
+        'max_cholesky_size': 2**16,     # for using cholmod
         'max_cholesky_size_2': 2**16,   # for not using cholmod (logdet only)
         'band_alpha': 2.0,
         'band_beta': 1.0,
@@ -343,6 +350,12 @@ def main(argv):
 
     data_results = []
     arguments = parse_arguments(argv)
+
+    # Computing logdet with cholesky method is very efficient. So, do not limit
+    # the matrix size for cholesky method of function is logdet.
+    if arguments['function'] == 'logdet':
+        matrix['max_cholesky_size'] = 2**23
+        matrix['max_cholesky_size_2'] = 2**23
 
     # Loop over data filenames
     for data_name in data_names:

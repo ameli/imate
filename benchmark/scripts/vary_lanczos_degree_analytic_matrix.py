@@ -119,7 +119,7 @@ def benchmark(argv):
     # Settings
     config = {
         'num_repeats': 20,
-        'gram': False
+        'gram': False,
         'exponent': 1,
         'min_num_samples': 200,
         'max_num_samples': 200,

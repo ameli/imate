@@ -242,9 +242,13 @@ def compare_methods(M, config, matrix, arguments):
             info_c2 = {}
 
         elif arguments['function'] == 'logdet':
+
+            # This uses cholmod (if scikit-sparse is installed), otherwise
+            # it only uses scipy.sparse.cholesky
             trace_c, info_c = function(
                     M,
                     method='cholesky',
+                    cholmod=None,
                     exponent=config['exponent'])
 
             # Is cholmod is used, also compute once more without cholmod
@@ -313,7 +317,7 @@ def main(argv):
     }
 
     matrix = {
-        'sizes': 2**numpy.arange(4, 26),
+        'sizes': 2**numpy.arange(5, 26),
         'max_hutchinson_size': 2**22,
         'max_cholesky_size': 2**13,      # for using cholmod
         'max_cholesky_size_2': 2**16,    # for not using cholmod (logdet only)
@@ -336,8 +340,8 @@ def main(argv):
     # Computing logdet with cholesky method is very efficient. So, do not limit
     # the matrix size for cholesky method of function is logdet.
     if arguments['function'] == 'logdet':
-        matrix['max_cholesky_size'] = 2*23
-        matrix['max_cholesky_size_2'] = 2*16
+        matrix['max_cholesky_size'] = 2**26
+        matrix['max_cholesky_size_2'] = 2**23
 
     # 32-bit
     if arguments['32-bit']:
@@ -376,7 +380,7 @@ def main(argv):
             print('')
 
     # 128-bit
-    if arguments['64-bit']:
+    if arguments['128-bit']:
         for size in matrix['sizes']:
             print('Processing %s matrix size: %d ...' % ('128-bit', size))
 

@@ -211,6 +211,7 @@ def print_summary(info):
 
     # Matrix info
     data_type = info['matrix']['data_type'].decode("utf-8")
+    gram = info['matrix']['gram']
     exponent = info['matrix']['exponent']
     assume_matrix = info['matrix']['assume_matrix']
     num_inquiries = info['matrix']['num_inquiries']
@@ -256,6 +257,14 @@ def print_summary(info):
         assume_matrix = "symmetric-positive"
     else:
         raise ValueError('"assume_matrix" is invalid.')
+
+    # Convert data type to x-bit format
+    if data_type == 'float32':
+        data_type_ = '32-bit'
+    elif data_type == 'float64':
+        data_type_ = '64-bit'
+    else:
+        raise TypeError('"data_type" should be "float32" or "float64".')
 
     # Print results
     print('                                    results                      ' +
@@ -332,9 +341,9 @@ def print_summary(info):
           'stochastic estimator        ')
     print('-------------------------------------    ------------------------' +
           '-------------')
-    print('assumption:        %18s' % assume_matrix, end="    ")
+    print('gram:                           %5s' % gram, end="    ")
     print('method:                    hutchinson')
-    print('float precision:             %8s' % data_type, end="    ")
+    print('assumption:        %18s' % assume_matrix, end="    ")
     print('solver tol:                 %8.3e' % solver_tol)
     if int(exponent) == exponent:
         print('exponent:                         %3d' % int(exponent),
@@ -342,6 +351,8 @@ def print_summary(info):
     else:
         print('exponent:                      %6.2f' % exponent, end="    ")
     print('orthogonalization:               %4s' % orthogonalize)
+    print('data type:                   %8s' % data_type_, end="    ")
+    print('                                     ')
     print('')
 
     # Prints convergence and error

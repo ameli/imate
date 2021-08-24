@@ -434,6 +434,17 @@ def print_summary(info):
     else:
         orthogonalize = "%4d" % orthogonalize
 
+    # Convert data type to x-bit format
+    if data_type == 'float32':
+        data_type_ = '32-bit'
+    elif data_type == 'float64':
+        data_type_ = '64-bit'
+    elif data_type == 'float128':
+        data_type_ = '128-bit'
+    else:
+        raise TypeError('"data_type" should be "float32", "float64", or' +
+                        '"float128".')
+
     # Print results
     print('                                    results                      ' +
           '             ')
@@ -517,16 +528,16 @@ def print_summary(info):
           '-------------')
     print('gram:                           %5s' % gram, end="    ")
     print('method:                           slq')
-    print('float precision:             %8s' % data_type, end="    ")
-    print('lanczos degree:                  %4d' % lanczos_degree)
-    print('num matrix parameters:             %2d' % num_operator_parameters,
-          end="    ")
-    print('lanczos tol:                %8.3e' % lanczos_tol)
     if int(exponent) == exponent:
         print('exponent:                         %3d' % int(exponent),
               end="    ")
     else:
         print('exponent:                      %6.2f' % exponent, end="    ")
+    print('lanczos degree:                  %4d' % lanczos_degree)
+    print('num matrix parameters:             %2d' % num_operator_parameters,
+          end="    ")
+    print('lanczos tol:                %8.3e' % lanczos_tol)
+    print('data type:                   %8s' % data_type_, end="    ")
     print('orthogonalization:               %4s' % orthogonalize)
     print('')
 

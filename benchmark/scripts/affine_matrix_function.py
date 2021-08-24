@@ -121,7 +121,6 @@ def benchmark(argv):
 
     # Settings
     config = {
-        'num_repeats': 10,
         'gram': arguments['gram'],
         'exponent': 1,
         'min_num_samples': 200,
@@ -137,12 +136,12 @@ def benchmark(argv):
         'verbose': False,
         'plot': False,
         'num_threads': 0,
-        'invert_cholesky': True
+        'invert_cholesky': False
     }
 
     matrix = {
-        'size': 2**14,
-        't': numpy.logspace(-3, 3, 100),
+        'size': 2**16,
+        't': numpy.logspace(-3, 3, 1000),
         'band_alpha': 2.0,
         'band_beta': 1.0,
         'gram': not config['gram'],
