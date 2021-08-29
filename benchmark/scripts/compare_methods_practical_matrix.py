@@ -257,16 +257,18 @@ def compare_methods(M, config, matrix, arguments):
                     exponent=config['exponent'])
 
             # If cholmod is used, also compute once more without cholmod
-            if info_c['solver']['cholmod_used'] is True and \
-                    M.shape[0] <= matrix['max_cholesky_size_2']:
-                trace_c2, info_c2 = function(
-                        M,
-                        method='cholesky',
-                        cholmod=False,
-                        exponent=config['exponent'])
-            else:
-                trace_c2 = numpy.nan
-                info_c2 = {}
+            # if info_c['solver']['cholmod_used'] is True and \
+            #         M.shape[0] <= matrix['max_cholesky_size_2']:
+            #     trace_c2, info_c2 = function(
+            #             M,
+            #             method='cholesky',
+            #             cholmod=False,
+            #             exponent=config['exponent'])
+            # else:
+            #     trace_c2 = numpy.nan
+            #     info_c2 = {}
+            trace_c2 = numpy.nan
+            info_c2 = {}
         print(' done.')
 
     else:
@@ -308,7 +310,7 @@ def main(argv):
         'exponent': 1,
         'min_num_samples': 200,
         'max_num_samples': 200,
-        'lanczos_degree': 80,
+        'lanczos_degree': 100,
         'lanczos_tol':  None,
         'solver_tol': 1e-6,
         'orthogonalize': 0,
@@ -353,9 +355,12 @@ def main(argv):
 
     # Computing logdet with cholesky method is very efficient. So, do not limit
     # the matrix size for cholesky method of function is logdet.
+    # Note: in computing logdet with cholesky, matrix of size 2.9e+6 raises
+    # memory error. scikit-sparse requires more memory than SLQ. So, here, we
+    # liomit the matrix size for logdet to 2e+6.
     if arguments['function'] == 'logdet':
-        matrix['max_cholesky_size'] = 2**23
-        matrix['max_cholesky_size_2'] = 2**23
+        matrix['max_cholesky_size'] = 2e+6
+        matrix['max_cholesky_size_2'] = 2e+6
 
     # Loop over data filenames
     for data_name in data_names:

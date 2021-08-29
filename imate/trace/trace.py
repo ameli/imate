@@ -20,7 +20,7 @@ from ._slq_method import slq_method
 # trace
 # =====
 
-def trace(A, method='slq', **options):
+def trace(A, method='exact', **options):
     """
     Computes the trace of a matrix.
     See :ref:`Compute Trace User Guide<trace_UserGuide>` for details.
