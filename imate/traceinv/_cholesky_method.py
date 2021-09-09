@@ -40,6 +40,7 @@ from .._linear_algebra import sparse_cholesky
 
 def cholesky_method(
         A,
+        B=None,
         gram=False,
         exponent=1,
         invert_cholesky=True,
@@ -89,7 +90,7 @@ def cholesky_method(
     """
 
     # Check input arguments
-    check_arguments(A, gram, exponent, invert_cholesky, cholmod)
+    check_arguments(A, B, gram, exponent, invert_cholesky, cholmod)
 
     # Determine to use Sparse
     sparse = False
@@ -105,10 +106,13 @@ def cholesky_method(
     init_tot_wall_time = time.perf_counter()
     init_cpu_proc_time = time.process_time()
 
-    # Ap is the power of A to the exponent p
+    # Form A**p (or (AtA)**p), that is the p-th power of A or (A.T * A)
     if (exponent == 1) or (exponent == -1):
         if gram:
-            Ap = A.T @ A
+            if sparse:
+                Ap = A.T.multiply(A)
+            else:
+                Ap = numpy.matmul(A.T, A)
         else:
             Ap = A
 
@@ -116,7 +120,10 @@ def cholesky_method(
 
         # Initialize Ap
         if gram:
-            Ap = A.T @ A
+            if sparse:
+                Ap = A.T.multiply(A)
+            else:
+                Ap = numpy.matmul(A.T, A)
             A1 = Ap.copy()
         else:
             Ap = A.copy()
@@ -124,19 +131,39 @@ def cholesky_method(
 
         # Directly compute power of A by successive matrix multiplication
         for i in range(1, numpy.abs(exponent)):
-            Ap = Ap @ A1
+            if sparse:
+                Ap = Ap.multiply(A1)
+            else:
+                Ap = numpy.matmul(Ap, A1)
 
+    # Compute traceinv
     if exponent == 0:
-        trace = A.shape[0]
+        if B is None:
+            trace = A.shape[0]
+        else:
+            if isspmatrix(B):
+                trace = 0
+                for i in range(B.shape[0]):
+                    trace += B[i, i]
+            else:
+                trace = numpy.trace(B)
     elif exponent < 0:
+
+        if B is None:
+            C = Ap
+        else:
+            if sparse:
+                C = Ap.multiply(B)
+            else:
+                C = numpy.matmul(Ap, B)
 
         # Trace of the inverse of a matrix to the power of a negative exponent
         if sparse:
             trace = 0.0
-            for i in range(A.shape[0]):
-                trace += Ap[i, i]
+            for i in range(C.shape[0]):
+                trace += C[i, i]
         else:
-            trace = numpy.trace(Ap)
+            trace = numpy.trace(C)
 
     else:
 
@@ -145,26 +172,44 @@ def cholesky_method(
         if sparse:
             if use_cholmod:
                 # Using Sparse Suite package
-                L = sk_cholesky(Ap)
+                L_A = sk_cholesky(Ap)
+
+                # Cholesky of B
+                if B is not None:
+                    L_B = sk_cholesky(B).L()
+                else:
+                    L_B = None
             else:
                 # Using scipy, but with LU instead of Cholesky directly.
-                L = sparse_cholesky(Ap)
+                L_A = sparse_cholesky(Ap)
+
+                # Cholesky of B
+                if B is not None:
+                    L_B = sparse_cholesky(B)
+                else:
+                    L_B = None
 
         else:
-            L = scipy.linalg.cholesky(Ap, lower=True)
+            L_A = scipy.linalg.cholesky(Ap, lower=True)
 
-        # Find Frobenius norm of L inverse
+            # Cholesky of B
+            if B is not None:
+                L_B = scipy.linalg.cholesky(B, lower=True)
+            else:
+                L_B = None
+
+        # Find Frobenius norm of L_A inverse
         if invert_cholesky:
 
-            # Invert L directly (better for small matrices)
+            # Invert L_A directly (better for small matrices)
             trace = compute_traceinv_invert_cholesky_directly(
-                    L, sparse, use_cholmod)
+                    L_A, L_B, sparse, use_cholmod)
 
         else:
-            # Instead of inverting L directly, solve linear system for each
-            # column of identity matrix to find columns of the inverse of L
+            # Instead of inverting L_A directly, solve linear system for each
+            # column of identity matrix to find columns of the inverse of L_A
             trace = compute_traceinv_invert_cholesky_indirectly(
-                    L, Ap.shape[0], sparse, use_cholmod, A.dtype)
+                    L_A, L_B, Ap.shape[0], sparse, use_cholmod, A.dtype)
 
     tot_wall_time = time.perf_counter() - init_tot_wall_time
     cpu_proc_time = time.process_time() - init_cpu_proc_time
@@ -208,7 +253,7 @@ def cholesky_method(
 # check arguments
 # ===============
 
-def check_arguments(A, gram, exponent, invert_cholesky, cholmod):
+def check_arguments(A, B, gram, exponent, invert_cholesky, cholmod):
     """
     Checks the type and value of the parameters.
     """
@@ -219,6 +264,21 @@ def check_arguments(A, gram, exponent, invert_cholesky, cholmod):
                         'a "scipy.sparse" matrix.')
     elif A.shape[0] != A.shape[1]:
         raise ValueError('Input matrix should be a square matrix.')
+
+    # Check B
+    if B is not None:
+        if (isinstance(A, numpy.ndarray)) and \
+                (not isinstance(B, numpy.ndarray)):
+            raise TypeError('When the input matrix "A" is of type ' +
+                            '"numpy.ndarray", matrix "B" should also be of ' +
+                            'the same type.')
+        if isspmatrix(A) and not isspmatrix(B):
+            raise TypeError('When the input matrix "A" is of type ' +
+                            '"scipy.sparse", matrix "B" should also be of ' +
+                            'the same type.')
+        elif A.shape != B.shape:
+            raise ValueError('Matrix "B" should have the same size as ' +
+                             'matrix "A".')
 
     # Check gram
     if gram is None:
@@ -258,7 +318,7 @@ def check_arguments(A, gram, exponent, invert_cholesky, cholmod):
 # compute traceinv invert cholesky directly
 # =========================================
 
-def compute_traceinv_invert_cholesky_directly(L, sparse, use_cholmod):
+def compute_traceinv_invert_cholesky_directly(L_A, L_B, sparse, use_cholmod):
     """
     Compute the trace of inverse by directly inverting the Cholesky matrix
     :math:`\\mathbb{L}`.
@@ -276,8 +336,12 @@ def compute_traceinv_invert_cholesky_directly(L, sparse, use_cholmod):
         all computations are done using ``float64`` data type. The 32-bit type
         is not available in that package.
 
-    :param L: Cholesky matrix
-    :type L: numpy.ndarray
+    :param L_A: Cholesky factorization of matrix A
+    :type L_A: numpy.ndarray, scipy.sprase matrix, or sksparse.cholmod.Factor
+
+    :param L_B: Cholesky factorization of matrix B. If set to None, it is
+        assumed that matrix B, and hence L_B, is identify.
+    :type L_B: numpy.ndarray, scipy.sprase matrix, or sksparse.cholmod.Factor
 
     :param sparse: Flag, if ``true``, the matrix `L`` is considered as sparse.
     :type sparse: bool
@@ -291,25 +355,44 @@ def compute_traceinv_invert_cholesky_directly(L, sparse, use_cholmod):
     :rtype: float
     """
 
-    # Direct method. Take inverse of L, then compute its Frobenius norm.
+    # Direct method. Take inverse of L_A, then compute its Frobenius norm.
     if sparse:
 
         if use_cholmod:
 
-            # Using cholmod. Note, here L_ is the decomposition L_ L_.T = A,
-            # not L_ D L_.T = A.
-            L_ = L.L()
-            Linv = scipy.sparse.linalg.inv(L_)
+            # Using cholmod. Note, here L_A_ is the Cholesky decomposition of
+            # the form L_A_ * L_A_.T = A, and not L_A_ * D * L_A_.T = A.
+            L_A_ = L_A.L()
+            L_A_inv = scipy.sparse.linalg.inv(L_A_)
 
         else:
             # Using scipy to compute inv of cholesky
-            Linv = scipy.sparse.linalg.inv(L)
+            L_A_inv = scipy.sparse.linalg.inv(L_A)
 
-        trace = scipy.sparse.linalg.norm(Linv, ord='fro')**2
+        # Multiply by L_B
+        if L_B is not None:
+            if sparse:
+                C = L_A_inv.multiply(L_B)
+            else:
+                C = numpy.matmul(L_A_inv, L_B)
+        else:
+            C = L_A_inv
+
+        trace = scipy.sparse.linalg.norm(C, ord='fro')**2
     else:
         # Dense matrix
-        Linv = scipy.linalg.inv(L)
-        trace = numpy.linalg.norm(Linv, ord='fro')**2
+        L_A_inv = scipy.linalg.inv(L_A)
+
+        # Multiply by L_B
+        if L_B is not None:
+            if sparse:
+                C = L_A_inv.multiply(L_B)
+            else:
+                C = numpy.matmul(L_A_inv, L_B)
+        else:
+            C = L_A_inv
+
+        trace = numpy.linalg.norm(C, ord='fro')**2
 
     return trace
 
@@ -319,7 +402,7 @@ def compute_traceinv_invert_cholesky_directly(L, sparse, use_cholmod):
 # ===========================================
 
 def compute_traceinv_invert_cholesky_indirectly(
-        L, n, sparse, use_cholmod, dtype):
+        L_A, L_B, n, sparse, use_cholmod, dtype):
     """
     Computes the trace of inverse by solving a linear system for Cholesky
     matrix and each column of the identity matrix to obtain the inverse of
@@ -358,8 +441,12 @@ def compute_traceinv_invert_cholesky_indirectly(
         all computations are done using ``float64`` data type. The 32-bit type
         is not available in that package.
 
-    :param L: Cholesky matrix
-    :type L: numpy.ndarray
+    :param L_A: Cholesky factorization of matrix A
+    :type L_A: numpy.ndarray, scipy.sprase matrix, or sksparse.cholmod.Factor
+
+    :param L_B: Cholesky factorization of matrix B. If set to None, it is
+        assumed that matrix B, and hence L_B, is identify.
+    :type L_B: numpy.ndarray, scipy.sprase matrix, or sksparse.cholmod.Factor
 
     :param sparse: Flag, if ``true``, the matrix ``L`` is considered as sparse.
     :type sparse: bool
@@ -376,52 +463,61 @@ def compute_traceinv_invert_cholesky_indirectly(
     :rtype: float
     """
 
-    # Instead of finding L inverse, and then its norm, we directly find norm
+    # Instead of finding L_A inverse, and then its norm, we directly find norm
     norm2 = 0
 
-    # Solve a linear system that finds each of the columns of L inverse
+    # Solve a linear system that finds each of the columns of L_A inverse
     for i in range(n):
 
         # Handle sparse matrices
         if sparse:
 
-            # e is a zero vector with its i-th element is one
-            e = scipy.sparse.lil_matrix((n, 1), dtype=dtype)
-            e[i] = 1.0
+            # Vector e is the i-th column of L_B
+            if L_B is not None:
+                e = L_B[:, i]
 
-            # x solves of L x = e. Thus, x is the i-th column of L inverse.
+            else:
+                # Assume L_B is identity.
+                e = scipy.sparse.lil_matrix((n, 1), dtype=dtype)
+                e[i] = 1.0
+
+            # x solves of L_A x = e. Thus, x is the i-th column of L_A inverse.
             if use_cholmod and \
-               isinstance(L, sksparse.cholmod.Factor):
+               isinstance(L_A, sksparse.cholmod.Factor):
 
-                # Using cholmod.Note: LDL SHOULD be disabled.
-                x = L.solve_L(
+                # Using cholmod. Note: LDL SHOULD be disabled.
+                x = L_A.solve_L(
                         e.tocsc(),
                         use_LDLt_decomposition=False).toarray()
 
-            elif scipy.sparse.isspmatrix(L):
+            elif scipy.sparse.isspmatrix(L_A):
 
                 # Using scipy
                 x = scipy.sparse.linalg.spsolve_triangular(
-                        L.tocsr(),
+                        L_A.tocsr(),
                         e.toarray(),
                         lower=True)
 
             else:
                 raise RuntimeError('Unknown sparse matrix type.')
 
-            # Append to the Frobenius norm of L inverse
+            # Append to the Frobenius norm of L_A inverse
             norm2 += numpy.sum(x**2)
 
         else:
 
-            # e is a zero vector with its i-th element is one
-            e = numpy.zeros(n, dtype=dtype)
-            e[i] = 1.0
+            # Vector e is the i-th column of L_B
+            if L_B is not None:
+                e = L_B[:, i]
+            else:
+                # Assuming L_B is identity
+                e = numpy.zeros(n, dtype=dtype)
+                e[i] = 1.0
 
-            # x solves L * x = e. Thus, x is the i-th column of L inverse
-            x = scipy.linalg.solve_triangular(L, e, lower=True)
+            # x solves L_A * x = e. Thus, x is the i-th column of L_A inverse
+            x = scipy.linalg.solve_triangular(L_A, e, lower=True)
 
-            # Append to the Frobenius norm of L inverse
+            # Append to the Frobenius norm of L_A inverse
             norm2 += numpy.sum(x**2)
 
     trace = norm2

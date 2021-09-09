@@ -84,7 +84,7 @@ def _test_trace_methods(K, matrix, gram, exponent, assume_matrix):
     elapsed_time2 = time21 - time20
     elapsed_time3 = time31 - time30
 
-    # Exact solution of logdet for band matrix
+    # Exact solution of trace for band matrix
     if exponent == 1:
         trace_exact = band_matrix_trace(matrix['a'], matrix['b'],
                                         matrix['size'], True)
@@ -159,7 +159,7 @@ def test_trace():
 
                 for exponent in exponents:
                     print('dtype: %s, ' % (dtype) +
-                          ' sparse: %s, ' % (sparse) +
+                          'sparse: %s, ' % (sparse) +
                           'gram: %s, ' % (gram) +
                           'exponent: %f, ' % (exponent) +
                           'assume_matrix: %s.' % (assume_matrix))

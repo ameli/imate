@@ -112,6 +112,7 @@ TODO
 ====
 
 * Implement ``keep`` functionality for slq method.
+* Hutchinson methed can be implemented in C++ and also in CUDA on GPU.
 * Other functions (besides traceinv and logdet)
 * doxygen for c_linear_operator and its derived classes
 * Get memory usage info for GPU. See for example:

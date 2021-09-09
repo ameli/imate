@@ -46,7 +46,7 @@ def relative_error(estimate, exact):
 # test traceinv methods
 # =====================
 
-def _test_traceinv_methods(K, matrix, gram, exponent, assume_matrix):
+def _test_traceinv_methods(K, B, matrix, gram, exponent, assume_matrix):
     """
     Computes the trace of the inverse of matrix ``K`` with multiple method.
 
@@ -62,14 +62,14 @@ def _test_traceinv_methods(K, matrix, gram, exponent, assume_matrix):
 
     # Use Cholesky method with direct inverse
     time10 = time.time()
-    trace1, _ = traceinv(K, method='cholesky', invert_cholesky=False,
+    trace1, _ = traceinv(K, B, method='cholesky', invert_cholesky=False,
                          gram=gram, exponent=exponent, cholmod=None)
     time11 = time.time()
 
     # Use Cholesky method without direct inverse
     if not scipy.sparse.isspmatrix(K):
         time20 = time.time()
-        trace2, _ = traceinv(K, method='cholesky', invert_cholesky=True,
+        trace2, _ = traceinv(K, B, method='cholesky', invert_cholesky=True,
                              gram=gram, exponent=exponent, cholmod=None)
         time21 = time.time()
     else:
@@ -79,15 +79,20 @@ def _test_traceinv_methods(K, matrix, gram, exponent, assume_matrix):
         time21 = 0
 
     # Use eigenvalue method
-    time30 = time.time()
-    trace3, _ = traceinv(K, method='eigenvalue', gram=gram,
-                         assume_matrix=assume_matrix, exponent=exponent,
-                         non_zero_eig_fraction=0.95)
-    time31 = time.time()
+    if B is None:
+        time30 = time.time()
+        trace3, _ = traceinv(K, method='eigenvalue', gram=gram,
+                             assume_matrix=assume_matrix, exponent=exponent,
+                             non_zero_eig_fraction=0.95)
+        time31 = time.time()
+    else:
+        trace3 = None
+        time30 = numpy.nan
+        time31 = numpy.nan
 
     # Use Hutchinson method
     time40 = time.time()
-    trace4, _ = traceinv(K, method='hutchinson',
+    trace4, _ = traceinv(K, B, method='hutchinson',
                          min_num_samples=min_num_samples,
                          max_num_samples=max_num_samples, orthogonalize=True,
                          error_rtol=error_rtol, gram=gram, exponent=exponent,
@@ -95,12 +100,18 @@ def _test_traceinv_methods(K, matrix, gram, exponent, assume_matrix):
     time41 = time.time()
 
     # Use Stochastic Lanczos Quadrature method
-    time50 = time.time()
-    trace5, _ = traceinv(K, method='slq', min_num_samples=min_num_samples,
-                         max_num_samples=max_num_samples, orthogonalize=-1,
-                         lanczos_degree=lanczos_degree, error_rtol=error_rtol,
-                         gram=gram, exponent=exponent, verbose=False)
-    time51 = time.time()
+    if B is None:
+        time50 = time.time()
+        trace5, _ = traceinv(K, method='slq', min_num_samples=min_num_samples,
+                             max_num_samples=max_num_samples, orthogonalize=-1,
+                             lanczos_degree=lanczos_degree,
+                             error_rtol=error_rtol, gram=gram,
+                             exponent=exponent, verbose=False)
+        time51 = time.time()
+    else:
+        trace5 = None
+        time50 = numpy.nan
+        time51 = numpy.nan
 
     # Elapsed times
     elapsed_time1 = time11 - time10
@@ -109,8 +120,31 @@ def _test_traceinv_methods(K, matrix, gram, exponent, assume_matrix):
     elapsed_time4 = time41 - time40
     elapsed_time5 = time51 - time50
 
-    # Exact solution of logdet for band matrix
-    if exponent == 1 and not gram:
+    # Exact solution of traceinv for band matrix
+    if B is not None:
+
+        if scipy.sparse.isspmatrix(K):
+            K_ = K.toarray()
+            B_ = B.toarray()
+        else:
+            K_ = K
+            B_ = B
+
+        if exponent == 0:
+            traceinv_exact = numpy.trace(B_)
+        else:
+            if gram:
+                K_ = numpy.matmul(K_.T, K_)
+
+            K_temp = K_.copy()
+            for i in range(1, exponent):
+                    K_ = numpy.matmul(K_, K_temp)
+
+            Kinv = numpy.linalg.inv(K_)
+            KinvB = numpy.matmul(Kinv, B_)
+            traceinv_exact = numpy.trace(KinvB)
+
+    elif exponent == 1 and not gram:
         traceinv_exact = band_matrix_traceinv(matrix['a'], matrix['b'],
                                               matrix['size'], True)
     else:
@@ -120,9 +154,12 @@ def _test_traceinv_methods(K, matrix, gram, exponent, assume_matrix):
     error1 = relative_error(trace1, traceinv_exact)
     if trace2 is not None:
         error2 = relative_error(trace2, traceinv_exact)
-    error3 = relative_error(trace3, traceinv_exact)
-    error4 = relative_error(trace4, traceinv_exact)
-    error5 = relative_error(trace5, traceinv_exact)
+    if trace3 is not None:
+        error3 = relative_error(trace3, traceinv_exact)
+    if trace4 is not None:
+        error4 = relative_error(trace4, traceinv_exact)
+    if trace5 is not None:
+        error5 = relative_error(trace5, traceinv_exact)
 
     # Print results
     print('')
@@ -136,12 +173,21 @@ def _test_traceinv_methods(K, matrix, gram, exponent, assume_matrix):
               % (trace2, error2, elapsed_time2))
     else:
         print('cholesky    using inverse                  N/A     N/A    N/A')
-    print('eigenvalue  N/A                       %8.3f  %5.2f%%  %5.2f'
-          % (trace3, error3, elapsed_time3))
-    print('hutchinson  N/A                       %8.3f  %5.2f%%  %5.2f'
-          % (trace4, error4, elapsed_time4))
-    print('slq         N/A                       %8.3f  %5.2f%%  %5.2f'
-          % (trace5, error5, elapsed_time5))
+    if trace3 is not None:
+        print('eigenvalue  N/A                       %8.3f  %5.2f%%  %5.2f'
+              % (trace3, error3, elapsed_time3))
+    else:
+        print('eigenvalue  N/A                            N/A     N/A    N/A')
+    if trace4 is not None:
+        print('hutchinson  N/A                       %8.3f  %5.2f%%  %5.2f'
+              % (trace4, error4, elapsed_time4))
+    else:
+        print('hutchinson  N/A                            N/A     N/A    N/A')
+    if trace5 is not None:
+        print('slq         N/A                       %8.3f  %5.2f%%  %5.2f'
+              % (trace5, error5, elapsed_time5))
+    else:
+        print('slq         N/A                            N/A     N/A    N/A')
     print('-------------------------------------------------------------')
     print('')
 
@@ -155,10 +201,16 @@ def test_traceinv():
     A test for :mod:`imate.traceinv` sub-package.
     """
 
-    matrix = {
+    matrix_K = {
         'a': 2.0,
         'b': 1.0,
         'size': 50
+    }
+
+    matrix_B = {
+        'a': 3.0,
+        'b': 2.0,
+        'size': matrix_K['size']
     }
 
     exponents = [0, 1, 2]
@@ -185,21 +237,26 @@ def test_traceinv():
             #        gram=True in band_matrix).
             #     2. We compute traceinv of K using K (hence we set
             #        gram=False in traceinv method).
-            K = band_matrix(matrix['a'], matrix['b'], matrix['size'],
+            K = band_matrix(matrix_K['a'], matrix_K['b'], matrix_K['size'],
                             gram=(not gram), dtype=dtype)
+            B = band_matrix(matrix_B['a'], matrix_B['b'], matrix_B['size'],
+                            gram=True, dtype=dtype)
+            # B = None
 
             for sparse in sparses:
                 if not sparse:
                     K = K.toarray()
+                    if B is not None:
+                        B = B.toarray()
 
                 for exponent in exponents:
                     print('dtype: %s, ' % (dtype) +
-                          ' sparse: %s, ' % (sparse) +
+                          'sparse: %s, ' % (sparse) +
                           'gram: %s, ' % (gram) +
                           'exponent: %f, ' % (exponent) +
                           'assume_matrix: %s.' % (assume_matrix))
 
-                    _test_traceinv_methods(K, matrix, gram, exponent,
+                    _test_traceinv_methods(K, B, matrix_K, gram, exponent,
                                            assume_matrix)
 
 

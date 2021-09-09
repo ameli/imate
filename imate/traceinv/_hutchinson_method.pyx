@@ -36,6 +36,7 @@ from .._linear_algebra cimport generate_random_column_vectors
 
 def hutchinson_method(
         A,
+        B=None,
         exponent=1,
         gram=False,
         assume_matrix='gen',

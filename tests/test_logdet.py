@@ -180,7 +180,7 @@ def test_logdet():
 
                 for exponent in exponents:
                     print('dtype: %s, ' % (dtype) +
-                          ' sparse: %s, ' % (sparse) +
+                          'sparse: %s, ' % (sparse) +
                           'gram: %s, ' % (gram) +
                           'exponent: %f, ' % (exponent) +
                           'assume_matrix: %s.' % (assume_matrix))
