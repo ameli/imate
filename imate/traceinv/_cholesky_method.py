@@ -109,10 +109,7 @@ def cholesky_method(
     # Form A**p (or (AtA)**p), that is the p-th power of A or (A.T * A)
     if (exponent == 1) or (exponent == -1):
         if gram:
-            if sparse:
-                Ap = A.T.multiply(A)
-            else:
-                Ap = numpy.matmul(A.T, A)
+            Ap = A.T @ A
         else:
             Ap = A
 
@@ -120,10 +117,7 @@ def cholesky_method(
 
         # Initialize Ap
         if gram:
-            if sparse:
-                Ap = A.T.multiply(A)
-            else:
-                Ap = numpy.matmul(A.T, A)
+            Ap = A.T @ A
             A1 = Ap.copy()
         else:
             Ap = A.copy()
@@ -131,10 +125,7 @@ def cholesky_method(
 
         # Directly compute power of A by successive matrix multiplication
         for i in range(1, numpy.abs(exponent)):
-            if sparse:
-                Ap = Ap.multiply(A1)
-            else:
-                Ap = numpy.matmul(Ap, A1)
+            Ap = Ap @ A1
 
     # Compute traceinv
     if exponent == 0:
@@ -152,10 +143,7 @@ def cholesky_method(
         if B is None:
             C = Ap
         else:
-            if sparse:
-                C = Ap.multiply(B)
-            else:
-                C = numpy.matmul(Ap, B)
+            C = Ap @ B
 
         # Trace of the inverse of a matrix to the power of a negative exponent
         if sparse:
@@ -170,33 +158,39 @@ def cholesky_method(
         # Trace of inverse of matrix to the power of a positive exponent
         # Cholesky factorization
         if sparse:
-            if use_cholmod:
-                # Using Sparse Suite package
-                L_A = sk_cholesky(Ap)
 
-                # Cholesky of B
-                if B is not None:
-                    L_B = sk_cholesky(B).L()
-                else:
+            if use_cholmod:
+                # Using Sparse Suite package. Using default ordering mode.
+                # There is a non-trivial permutation matrix P associated with
+                # the Cholesky decomposition L_A.
+                L_A = sk_cholesky(Ap, ordering_method='default')
+
+                # L_B is the Cholesky decomposition of B
+                if B is None:
                     L_B = None
+                else:
+                    # Using natural ordering mode, hence there is no
+                    # permutation matrix P associated with the Cholesky
+                    # decomposition L_B.
+                    L_B = sk_cholesky(B, ordering_method='natural').L()
             else:
                 # Using scipy, but with LU instead of Cholesky directly.
                 L_A = sparse_cholesky(Ap)
 
                 # Cholesky of B
-                if B is not None:
-                    L_B = sparse_cholesky(B)
-                else:
+                if B is None:
                     L_B = None
+                else:
+                    L_B = sparse_cholesky(B)
 
         else:
             L_A = scipy.linalg.cholesky(Ap, lower=True)
 
             # Cholesky of B
-            if B is not None:
-                L_B = scipy.linalg.cholesky(B, lower=True)
-            else:
+            if B is None:
                 L_B = None
+            else:
+                L_B = scipy.linalg.cholesky(B, lower=True)
 
         # Find Frobenius norm of L_A inverse
         if invert_cholesky:
@@ -360,8 +354,8 @@ def compute_traceinv_invert_cholesky_directly(L_A, L_B, sparse, use_cholmod):
 
         if use_cholmod:
 
-            # Using cholmod. Note, here L_A_ is the Cholesky decomposition of
-            # the form L_A_ * L_A_.T = A, and not L_A_ * D * L_A_.T = A.
+            # Note: here, L_A_ is the Cholesky decomposition of A in the form
+            # of L_A_ * L_A_.T = A, and not L_A_ * D * L_A_.T = A.
             L_A_ = L_A.L()
             L_A_inv = scipy.sparse.linalg.inv(L_A_)
 
@@ -371,10 +365,18 @@ def compute_traceinv_invert_cholesky_directly(L_A, L_B, sparse, use_cholmod):
 
         # Multiply by L_B
         if L_B is not None:
-            if sparse:
-                C = L_A_inv.multiply(L_B)
+
+            # Cholesky decomposition with scikit-sparse has non-trivial
+            # permutation matrix P. Left multiplication by P permutes the rows
+            # of matrix. P is a row vector.
+            if sparse and use_cholmod and \
+                    isinstance(L_A, sksparse.cholmod.Factor):
+                P = L_A.P()
+                C = L_A_inv @ L_B[P, :]
             else:
-                C = numpy.matmul(L_A_inv, L_B)
+                # No cholmod is used. Cholesky decomposition of A does has the
+                # natural permutation (no permutation).
+                C = L_A_inv @ L_B
         else:
             C = L_A_inv
 
@@ -385,10 +387,7 @@ def compute_traceinv_invert_cholesky_directly(L_A, L_B, sparse, use_cholmod):
 
         # Multiply by L_B
         if L_B is not None:
-            if sparse:
-                C = L_A_inv.multiply(L_B)
-            else:
-                C = numpy.matmul(L_A_inv, L_B)
+            C = L_A_inv @ L_B
         else:
             C = L_A_inv
 
@@ -466,6 +465,14 @@ def compute_traceinv_invert_cholesky_indirectly(
     # Instead of finding L_A inverse, and then its norm, we directly find norm
     norm2 = 0
 
+    # Cholesky decomposition with scikit-sparse has non-trivial permutation
+    # matrix P. Left multiplication by P permutes the rows of matrix. P is a
+    # row vector.
+    if sparse and use_cholmod and isinstance(L_A, sksparse.cholmod.Factor):
+        P = L_A.P()
+    else:
+        P = None
+
     # Solve a linear system that finds each of the columns of L_A inverse
     for i in range(n):
 
@@ -474,7 +481,10 @@ def compute_traceinv_invert_cholesky_indirectly(
 
             # Vector e is the i-th column of L_B
             if L_B is not None:
-                e = L_B[:, i]
+                if P is None:
+                    e = L_B[:, i]
+                else:
+                    e = L_B[P, i]
 
             else:
                 # Assume L_B is identity.

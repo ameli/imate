@@ -42,6 +42,68 @@ def relative_error(estimate, exact):
     return relative_error
 
 
+# ==============
+# traceinv exact
+# ==============
+
+def _traceinv_exact(K, B, matrix, gram, exponent):
+    """
+    Finds traceinv directly for the purpose of comparison.
+    """
+
+    # Exact solution of traceinv for band matrix
+    if B is not None:
+
+        if scipy.sparse.isspmatrix(K):
+            K_ = K.toarray()
+            B_ = B.toarray()
+        else:
+            K_ = K
+            B_ = B
+
+        if exponent == 0:
+            traceinv_exact = numpy.trace(B_)
+        else:
+            if gram:
+                K_ = numpy.matmul(K_.T, K_)
+
+            if exponent > 1:
+                K1 = K_.copy()
+                for i in range(1, exponent):
+                    K_ = numpy.matmul(K_, K1)
+
+            Kinv = numpy.linalg.inv(K_)
+            KinvB = numpy.matmul(Kinv, B_)
+            traceinv_exact = numpy.trace(KinvB)
+
+    elif exponent == 1 and not gram:
+
+        # B is identity. Using analytic formula.
+        traceinv_exact = band_matrix_traceinv(matrix['a'], matrix['b'],
+                                              matrix['size'], True)
+    else:
+        # B is identity. Compute traceinv directly.
+        if scipy.sparse.isspmatrix(K):
+            K_ = K.toarray()
+        else:
+            K_ = K
+
+        if exponent == 0:
+            traceinv_exact = K_.shape[0]
+        else:
+            if gram:
+                K_ = numpy.matmul(K_.T, K_)
+
+            K_temp = K_.copy()
+            for i in range(1, exponent):
+                K_ = numpy.matmul(K_, K_temp)
+
+            Kinv = numpy.linalg.inv(K_)
+            traceinv_exact = numpy.trace(Kinv)
+
+    return traceinv_exact
+
+
 # =====================
 # test traceinv methods
 # =====================
@@ -67,16 +129,10 @@ def _test_traceinv_methods(K, B, matrix, gram, exponent, assume_matrix):
     time11 = time.time()
 
     # Use Cholesky method without direct inverse
-    if not scipy.sparse.isspmatrix(K):
-        time20 = time.time()
-        trace2, _ = traceinv(K, B, method='cholesky', invert_cholesky=True,
-                             gram=gram, exponent=exponent, cholmod=None)
-        time21 = time.time()
-    else:
-        # Do not use Cholesky with inverse method if K is sparse.
-        trace2 = None
-        time20 = 0
-        time21 = 0
+    time20 = time.time()
+    trace2, _ = traceinv(K, B, method='cholesky', invert_cholesky=True,
+                         gram=gram, exponent=exponent, cholmod=None)
+    time21 = time.time()
 
     # Use eigenvalue method
     if B is None:
@@ -120,35 +176,8 @@ def _test_traceinv_methods(K, B, matrix, gram, exponent, assume_matrix):
     elapsed_time4 = time41 - time40
     elapsed_time5 = time51 - time50
 
-    # Exact solution of traceinv for band matrix
-    if B is not None:
-
-        if scipy.sparse.isspmatrix(K):
-            K_ = K.toarray()
-            B_ = B.toarray()
-        else:
-            K_ = K
-            B_ = B
-
-        if exponent == 0:
-            traceinv_exact = numpy.trace(B_)
-        else:
-            if gram:
-                K_ = numpy.matmul(K_.T, K_)
-
-            K_temp = K_.copy()
-            for i in range(1, exponent):
-                    K_ = numpy.matmul(K_, K_temp)
-
-            Kinv = numpy.linalg.inv(K_)
-            KinvB = numpy.matmul(Kinv, B_)
-            traceinv_exact = numpy.trace(KinvB)
-
-    elif exponent == 1 and not gram:
-        traceinv_exact = band_matrix_traceinv(matrix['a'], matrix['b'],
-                                              matrix['size'], True)
-    else:
-        traceinv_exact = trace1
+    # Exact value of traceinv computed directly
+    traceinv_exact = _traceinv_exact(K, B, matrix, gram, exponent)
 
     # error
     error1 = relative_error(trace1, traceinv_exact)
@@ -217,47 +246,53 @@ def test_traceinv():
     dtypes = [r'float32', r'float64']
     grams = [True, False]
     sparses = [True, False]
+    B_identities = [False, True]
 
     for dtype in dtypes:
         for gram in grams:
+            for B_identity in B_identities:
 
-            if gram:
-                assume_matrix = 'gen'
-            else:
-                assume_matrix = 'sym'
+                if gram:
+                    assume_matrix = 'gen'
+                else:
+                    assume_matrix = 'sym'
 
-            # When gram is True:
-            #     1. We generate a 2-band nonsymmetric matrix K (hence we set
-            #        gram=False in band_matrix).
-            #     2. We compute traceinv of K.T @ K using only K (hence we set
-            #        gram=True in traceinv method).
-            #
-            # When gram is False:
-            #     1. We generate a 3-band symmetric matrix K (hence we set
-            #        gram=True in band_matrix).
-            #     2. We compute traceinv of K using K (hence we set
-            #        gram=False in traceinv method).
-            K = band_matrix(matrix_K['a'], matrix_K['b'], matrix_K['size'],
-                            gram=(not gram), dtype=dtype)
-            B = band_matrix(matrix_B['a'], matrix_B['b'], matrix_B['size'],
-                            gram=True, dtype=dtype)
-            # B = None
+                # When gram is True:
+                #     1. We generate a 2-band non symmetric matrix K (hence we
+                #        set gram=False in band_matrix).
+                #     2. We compute traceinv of K.T @ K using only K (hence we
+                #        set gram=True in traceinv method).
+                #
+                # When gram is False:
+                #     1. We generate a 3-band symmetric matrix K (hence we set
+                #        gram=True in band_matrix).
+                #     2. We compute traceinv of K using K (hence we set
+                #        gram=False in traceinv method).
+                K = band_matrix(matrix_K['a'], matrix_K['b'], matrix_K['size'],
+                                gram=(not gram), dtype=dtype)
 
-            for sparse in sparses:
-                if not sparse:
-                    K = K.toarray()
-                    if B is not None:
-                        B = B.toarray()
+                if B_identity:
+                    B = None
+                else:
+                    B = band_matrix(matrix_B['a'], matrix_B['b'],
+                                    matrix_B['size'], gram=True, dtype=dtype)
 
-                for exponent in exponents:
-                    print('dtype: %s, ' % (dtype) +
-                          'sparse: %s, ' % (sparse) +
-                          'gram: %s, ' % (gram) +
-                          'exponent: %f, ' % (exponent) +
-                          'assume_matrix: %s.' % (assume_matrix))
+                for sparse in sparses:
+                    if not sparse:
+                        K = K.toarray()
+                        if B is not None:
+                            B = B.toarray()
 
-                    _test_traceinv_methods(K, B, matrix_K, gram, exponent,
-                                           assume_matrix)
+                    for exponent in exponents:
+                        print('dtype: %s, ' % (dtype) +
+                              'sparse: %s, ' % (sparse) +
+                              'gram: %s, ' % (gram) +
+                              'exponent: %f, ' % (exponent) +
+                              'assume_matrix: %s, ' % (assume_matrix) +
+                              'B_identity: %s.' % (B_identity))
+
+                        _test_traceinv_methods(K, B, matrix_K, gram, exponent,
+                                               assume_matrix)
 
 
 # ===========
