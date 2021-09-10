@@ -21,6 +21,7 @@ from scipy.sparse import isspmatrix
 
 def check_arguments(
         A,
+        B,
         gram,
         exponent,
         assume_matrix,
@@ -45,6 +46,21 @@ def check_arguments(
                         'a "scipy.sparse" matrix.')
     elif A.shape[0] != A.shape[1]:
         raise ValueError('Input matrix should be a square matrix.')
+
+    # Check B
+    if B is not None:
+        if (isinstance(A, numpy.ndarray)) and \
+                (not isinstance(B, numpy.ndarray)):
+            raise TypeError('When the input matrix "A" is of type ' +
+                            '"numpy.ndarray", matrix "B" should also be of ' +
+                            'the same type.')
+        if isspmatrix(A) and not isspmatrix(B):
+            raise TypeError('When the input matrix "A" is of type ' +
+                            '"scipy.sparse", matrix "B" should also be of ' +
+                            'the same type.')
+        elif A.shape != B.shape:
+            raise ValueError('Matrix "B" should have the same size as ' +
+                             'matrix "A".')
 
     # Check gram
     if gram is None:

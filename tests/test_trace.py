@@ -159,9 +159,9 @@ def test_trace():
 
                 for exponent in exponents:
                     print('dtype: %s, ' % (dtype) +
-                          'sparse: %s, ' % (sparse) +
-                          'gram: %s, ' % (gram) +
-                          'exponent: %f, ' % (exponent) +
+                          'sparse: %5s, ' % (sparse) +
+                          'gram: %5s, ' % (gram) +
+                          'exponent: %0.4f,\n' % (exponent) +
                           'assume_matrix: %s.' % (assume_matrix))
 
                     _test_trace_methods(K, matrix, gram, exponent,

@@ -117,18 +117,18 @@ def _test_logdet_methods(K, matrix, gram, exponent, assume_matrix):
 
     # Print results
     print('')
-    print('------------------------------------------------------------')
-    print('Method      Options                     logdet  error   time')
-    print('----------  ------------------------  --------  -----  -----')
-    print('direct      N/A                       %+8.3f  %4.1f%%  %5.2f'
+    print('-------------------------------------------------------------')
+    print('Method      Options                     logdet   error   time')
+    print('----------  ------------------------  --------  ------  -----')
+    print('direct      N/A                       %+8.3f  %5.2f%%  %5.2f'
           % (logdet0, error0, elapsed_time0))
-    print('eigenvalue  N/A                       %+8.3f  %4.1f%%  %5.2f'
+    print('eigenvalue  N/A                       %+8.3f  %5.2f%%  %5.2f'
           % (logdet1, error1, elapsed_time1))
-    print('cholesky    N/A                       %+8.3f  %4.1f%%  %5.2f'
+    print('cholesky    N/A                       %+8.3f  %5.2f%%  %5.2f'
           % (logdet2, error2, elapsed_time2))
-    print('slq         N/A                       %+8.3f  %4.1f%%  %5.2f'
+    print('slq         N/A                       %+8.3f  %5.2f%%  %5.2f'
           % (logdet3, error3, elapsed_time3))
-    print('------------------------------------------------------------')
+    print('-------------------------------------------------------------')
     print('')
 
 
@@ -180,9 +180,9 @@ def test_logdet():
 
                 for exponent in exponents:
                     print('dtype: %s, ' % (dtype) +
-                          'sparse: %s, ' % (sparse) +
-                          'gram: %s, ' % (gram) +
-                          'exponent: %f, ' % (exponent) +
+                          'sparse: %5s, ' % (sparse) +
+                          'gram: %5s, ' % (gram) +
+                          'exponent: %0.4f,\n' % (exponent) +
                           'assume_matrix: %s.' % (assume_matrix))
 
                     _test_logdet_methods(K, matrix, gram, exponent,

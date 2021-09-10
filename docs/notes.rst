@@ -98,6 +98,14 @@ Some notes to myself when completing the documentation later.
   should be installed with the machine. Cuda driver 11 is not available on
   savio.
 
+* ``scikit-sparse`` package computes the Cholesky decomposition of the mixed
+  matrix :math:`$\mathbf{A} + \beta \mathbf{I}$`, which effectively can be used
+  to compute its traceinv. See:
+  https://scikit-sparse.readthedocs.io/en/latest/cholmod.html#sksparse.cholmod.cholesky
+  However, this is the full-rank update on the Cholesky factorization of the
+  matrix :math:`\mathbf{A}`, which is O(n^3) expensive. See:
+  https://scicomp.stackexchange.com/questions/10630/full-rank-update-to-cholesky-decomposition
+
 ====
 Name
 ====

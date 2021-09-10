@@ -88,8 +88,8 @@ def hutchinson_method(
 
     # Checking input arguments
     error_atol, error_rtol = check_arguments(
-            A, gram, exponent, assume_matrix, min_num_samples, max_num_samples,
-            error_atol, error_rtol, confidence_level,
+            A, B, gram, exponent, assume_matrix, min_num_samples,
+            max_num_samples, error_atol, error_rtol, confidence_level,
             outlier_significance_level, solver_tol, orthogonalize, num_threads,
             verbose, plot)
 
@@ -111,7 +111,7 @@ def hutchinson_method(
         trace, error, num_outliers, samples, processed_samples_indices, \
                 num_processed_samples, num_samples_used, converged, \
                 tot_wall_time, alg_wall_time, cpu_proc_time = \
-                _hutchinson_method_float(A, gram, exponent, assume_matrix,
+                _hutchinson_method_float(A, B, gram, exponent, assume_matrix,
                                          min_num_samples, max_num_samples,
                                          error_atol, error_rtol,
                                          confidence_level,
@@ -123,7 +123,7 @@ def hutchinson_method(
         trace, error, num_outliers, samples, processed_samples_indices, \
                 num_processed_samples, num_samples_used, converged, \
                 tot_wall_time, alg_wall_time, cpu_proc_time = \
-                _hutchinson_method_double(A, gram, exponent, assume_matrix,
+                _hutchinson_method_double(A, B, gram, exponent, assume_matrix,
                                           min_num_samples, max_num_samples,
                                           error_atol, error_rtol,
                                           confidence_level,
@@ -206,6 +206,7 @@ def hutchinson_method(
 
 def _hutchinson_method_float(
         A,
+        B,
         gram,
         exponent,
         assume_matrix,
@@ -249,6 +250,13 @@ def _hutchinson_method_float(
 
     init_alg_wall_time = time.perf_counter()
 
+    # Compute Gramian matrix if needed
+    if gram and (((exponent == 1) and (B is not None)) or
+                 (numpy.abs(exponent) > 1)):
+        AtA = A.T @ A
+    else:
+        AtA = None
+
     # Monte-Carlo sampling
     for i in range(max_num_samples):
 
@@ -256,7 +264,8 @@ def _hutchinson_method_float(
 
             # Stochastic estimator of trace using the i-th column of E
             samples[i] = _stochastic_trace_estimator_float(
-                    A, E[:, i], gram, exponent, assume_matrix, solver_tol)
+                    A, AtA, B, E[:, i], gram, exponent, assume_matrix,
+                    solver_tol)
 
             # Store the index of processed samples
             processed_samples_indices[num_processed_samples] = i
@@ -290,6 +299,7 @@ def _hutchinson_method_float(
 
 def _hutchinson_method_double(
         A,
+        B,
         gram,
         exponent,
         assume_matrix,
@@ -333,6 +343,13 @@ def _hutchinson_method_double(
 
     init_alg_wall_time = time.perf_counter()
 
+    # Compute Gramian matrix if needed
+    if gram and (((exponent == 1) and (B is not None)) or
+                 (numpy.abs(exponent) > 1)):
+        AtA = A.T @ A
+    else:
+        AtA = None
+
     # Monte-Carlo sampling
     for i in range(max_num_samples):
 
@@ -340,7 +357,8 @@ def _hutchinson_method_double(
 
             # Stochastic estimator of trace using the i-th column of E
             samples[i] = _stochastic_trace_estimator_double(
-                    A, E[:, i], gram, exponent, assume_matrix, solver_tol)
+                    A, AtA, B, E[:, i], gram, exponent, assume_matrix,
+                    solver_tol)
 
             # Store the index of processed samples
             processed_samples_indices[num_processed_samples] = i
@@ -374,6 +392,8 @@ def _hutchinson_method_double(
 
 cdef float _stochastic_trace_estimator_float(
         A,
+        AtA,
+        B,
         E,
         gram,
         exponent,
@@ -407,65 +427,79 @@ cdef float _stochastic_trace_estimator_float(
     :rtype: float
     """
 
-    # In the following, AinvpE is the action of the operator A**(-p) to the
-    # vector E. The exponent "p" is the "exponent" argument which is default
+    # Check AtA is not None when AtA is needed
+    if gram and (AtA is None):
+        if ((exponent == 1) and (B is not None)) or (numpy.abs(exponent) > 1):
+            raise RuntimeError('"AtA" cannot be None.')
+
+    # Multiply B by E
+    if B is not None:
+        BE = B @ E
+    else:
+        # Assume B is identity matrix
+        BE = E
+
+    # In the following, AinvpBE is the action of the operator A**(-p) to the
+    # vector BE. The exponent "p" is the "exponent" argument which is default
     # to one. Ainv means the inverse of A.
     if exponent == 0:
         # Ainvp is the identity matrix
-        AinvpE = E
+        AinvpBE = BE
 
     elif exponent == 1:
-        # Perform inv(A) * E. This requires GIL
+        # Perform inv(A) * BE. This requires GIL
         if gram:
-            AinvpE = linear_solver(A.T, E, assume_matrix, solver_tol)
+            if B is None:
+                AinvpBE = linear_solver(A.T, BE, assume_matrix, solver_tol)
+            else:
+                AinvpBE = linear_solver(AtA, BE, assume_matrix, solver_tol)
         else:
-            AinvpE = linear_solver(A, E, assume_matrix, solver_tol)
+            AinvpBE = linear_solver(A, BE, assume_matrix, solver_tol)
 
     elif exponent > 1:
-        # Perform Ainv * Ainv * ... Ainv * E where Ainv is repeated p times
+        # Perform Ainv * Ainv * ... Ainv * BE where Ainv is repeated p times
         # where p is the exponent.
-        AinvpE = E
+        AinvpBE = BE
 
         if gram:
-            AtA = A.T @ A
             for i in range(exponent):
-                AinvpE = linear_solver(AtA, AinvpE, assume_matrix, solver_tol)
+                AinvpBE = linear_solver(AtA, AinvpBE, assume_matrix,
+                                        solver_tol)
         else:
             for i in range(exponent):
-                AinvpE = linear_solver(A, AinvpE, assume_matrix, solver_tol)
+                AinvpBE = linear_solver(A, AinvpBE, assume_matrix, solver_tol)
 
     elif exponent == -1:
-        # Performing Ainv**(-1) E, where Ainv**(-1) it A itself.
-        AinvpE = A @ E
+        # Performing Ainv**(-1) BE, where Ainv**(-1) it A itself.
+        AinvpBE = A @ BE
 
     elif exponent < -1:
-        # Performing Ainv**(-p) E where Ainv**(-p) = A**p.
-        AinvpE = E
+        # Performing Ainv**(-p) * BE where Ainv**(-p) = A**p.
+        AinvpE = BE
         if gram:
-            AtA = A.T @ A
             for i in range(numpy.abs(exponent)):
-                AinvpE = AtA @ AinvpE
+                AinvpBE = AtA @ AinvpBE
         else:
             for i in range(numpy.abs(exponent)):
-                AinvpE = A @ AinvpE
+                AinvpBE = A @ AinvpBE
 
     # Get c pointer to E
     cdef float[:] memoryview_E = E
     cdef float* cE = &memoryview_E[0]
 
-    # Get c pointer to AinvpE.
-    cdef float[:] memoryview_AinvpE = AinvpE
-    cdef float* cAinvpE = &memoryview_AinvpE[0]
+    # Get c pointer to AinvpBE.
+    cdef float[:] memoryview_AinvpBE = AinvpBE
+    cdef float* cAinvpBE = &memoryview_AinvpBE[0]
 
-    # Inner product of E and AinvpE
+    # Inner product of E and AinvpBE
     cdef int vector_size = A.shape[0]
     cdef float inner_prod
 
-    if gram and (numpy.abs(exponent) == 1):
-        inner_prod = cVectorOperations[float].inner_product(cAinvpE, cAinvpE,
+    if gram and (numpy.abs(exponent) == 1) and (B is None):
+        inner_prod = cVectorOperations[float].inner_product(cAinvpBE, cAinvpBE,
                                                             vector_size)
     else:
-        inner_prod = cVectorOperations[float].inner_product(cE, cAinvpE,
+        inner_prod = cVectorOperations[float].inner_product(cE, cAinvpBE,
                                                             vector_size)
 
     # Hutcinson trace estimate
@@ -480,6 +514,8 @@ cdef float _stochastic_trace_estimator_float(
 
 cdef double _stochastic_trace_estimator_double(
         A,
+        AtA,
+        B,
         E,
         gram,
         exponent,
@@ -513,65 +549,79 @@ cdef double _stochastic_trace_estimator_double(
     :rtype: double
     """
 
-    # In the following, AinvpE is the action of the operator A**(-p) to the
+    # Check AtA is not None when AtA is needed
+    if gram and (AtA is None):
+        if ((exponent == 1) and (B is not None)) or (numpy.abs(exponent) > 1):
+            raise RuntimeError('"AtA" cannot be None.')
+
+    # Multiply B by E
+    if B is not None:
+        BE = B @ E
+    else:
+        # Assume B is identity matrix
+        BE = E
+
+    # In the following, AinvpBE is the action of the operator A**(-p) to the
     # vector E. The exponent "p" is the "exponent" argument which is default
     # to one. Ainv means the inverse of A.
     if exponent == 0:
         # Ainvp is the identity matrix
-        AinvpE = E
+        AinvpBE = BE
 
     elif exponent == 1:
-        # Perform inv(A) * E. This requires GIL
+        # Perform inv(A) * BE. This requires GIL
         if gram:
-            AinvpE = linear_solver(A.T, E, assume_matrix, solver_tol)
+            if B is None:
+                AinvpBE = linear_solver(A.T, BE, assume_matrix, solver_tol)
+            else:
+                AinvpBE = linear_solver(AtA, BE, assume_matrix, solver_tol)
         else:
-            AinvpE = linear_solver(A, E, assume_matrix, solver_tol)
+            AinvpBE = linear_solver(A, BE, assume_matrix, solver_tol)
 
     elif exponent > 1:
-        # Perform Ainv * Ainv * ... Ainv * E where Ainv is repeated p times
+        # Perform Ainv * Ainv * ... Ainv * BE where Ainv is repeated p times
         # where p is the exponent.
-        AinvpE = E
+        AinvpBE = BE
 
         if gram:
-            AtA = A.T @ A
             for i in range(exponent):
-                AinvpE = linear_solver(AtA, AinvpE, assume_matrix, solver_tol)
+                AinvpBE = linear_solver(AtA, AinvpBE, assume_matrix,
+                                        solver_tol)
         else:
             for i in range(exponent):
-                AinvpE = linear_solver(A, AinvpE, assume_matrix, solver_tol)
+                AinvpBE = linear_solver(A, AinvpBE, assume_matrix, solver_tol)
 
     elif exponent == -1:
-        # Performing Ainv**(-1) E, where Ainv**(-1) it A itself.
-        AinvpE = A @ E
+        # Performing Ainv**(-1) * BE, where Ainv**(-1) it A itself.
+        AinvpBE = A @ BE
 
     elif exponent < -1:
-        # Performing Ainv**(-p) E where Ainv**(-p) = A**p.
-        AinvpE = E
+        # Performing Ainv**(-p) * BE where Ainv**(-p) = A**p.
+        AinvpBE = BE
         if gram:
-            AtA = A.T @ A
             for i in range(numpy.abs(exponent)):
-                AinvpE = AtA @ AinvpE
+                AinvpBE = AtA @ AinvpBE
         else:
             for i in range(numpy.abs(exponent)):
-                AinvpE = A @ AinvpE
+                AinvpBE = A @ AinvpBE
 
     # Get c pointer to E
     cdef double[:] memoryview_E = E
     cdef double* cE = &memoryview_E[0]
 
-    # Get c pointer to AinvpE.
-    cdef double[:] memoryview_AinvpE = AinvpE
-    cdef double* cAinvpE = &memoryview_AinvpE[0]
+    # Get c pointer to AinvpBE.
+    cdef double[:] memoryview_AinvpBE = AinvpBE
+    cdef double* cAinvpBE = &memoryview_AinvpBE[0]
 
-    # Inner product of E and AinvpE
+    # Inner product of E and AinvpBE
     cdef int vector_size = A.shape[0]
     cdef double inner_prod
 
-    if gram and (numpy.abs(exponent) == 1):
-        inner_prod = cVectorOperations[double].inner_product(cAinvpE, cAinvpE,
-                                                             vector_size)
+    if gram and (numpy.abs(exponent) == 1) and (B is None):
+        inner_prod = cVectorOperations[double].inner_product(
+                cAinvpBE, cAinvpBE, vector_size)
     else:
-        inner_prod = cVectorOperations[double].inner_product(cE, cAinvpE,
+        inner_prod = cVectorOperations[double].inner_product(cE, cAinvpBE,
                                                              vector_size)
 
     # Hutcinson trace estimate

@@ -285,11 +285,11 @@ def test_traceinv():
 
                     for exponent in exponents:
                         print('dtype: %s, ' % (dtype) +
-                              'sparse: %s, ' % (sparse) +
-                              'gram: %s, ' % (gram) +
-                              'exponent: %f, ' % (exponent) +
+                              'sparse: %5s, ' % (sparse) +
+                              'gram: %5s, ' % (gram) +
+                              'exponent: %0.4f,\n' % (exponent) +
                               'assume_matrix: %s, ' % (assume_matrix) +
-                              'B_identity: %s.' % (B_identity))
+                              'B_identity: %5s.' % (B_identity))
 
                         _test_traceinv_methods(K, B, matrix_K, gram, exponent,
                                                assume_matrix)
