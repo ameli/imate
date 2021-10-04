@@ -21,7 +21,7 @@ from ._slq_method import slq_method
 # traceinv
 # ========
 
-def traceinv(A, B=None, method='slq', **options):
+def traceinv(A, B=None, C=None, method='slq', **options):
     """
     Computes the trace of inverse of a matrix.
     See :ref:`Compute Trace of Inverse User Guide<traceinv_UserGuide>` for
@@ -113,7 +113,7 @@ def traceinv(A, B=None, method='slq', **options):
         trace, info = cholesky_method(A, B, **options)
 
     elif method == 'hutchinson':
-        trace, info = hutchinson_method(A, B, **options)
+        trace, info = hutchinson_method(A, B, C, **options)
 
     elif method == 'slq':
         if B is not None:

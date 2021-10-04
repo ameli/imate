@@ -22,6 +22,7 @@ from scipy.sparse import isspmatrix
 def check_arguments(
         A,
         B,
+        C,
         gram,
         exponent,
         assume_matrix,
@@ -60,6 +61,23 @@ def check_arguments(
                             'the same type.')
         elif A.shape != B.shape:
             raise ValueError('Matrix "B" should have the same size as ' +
+                             'matrix "A".')
+
+    # Check C
+    if C is not None:
+        if B is None:
+            raise ValueError('When "C" is given, "B" should also be given.')
+        if (isinstance(A, numpy.ndarray)) and \
+                (not isinstance(C, numpy.ndarray)):
+            raise TypeError('When the input matrix "A" is of type ' +
+                            '"numpy.ndarray", matrix "C" should also be of ' +
+                            'the same type.')
+        if isspmatrix(A) and not isspmatrix(C):
+            raise TypeError('When the input matrix "A" is of type ' +
+                            '"scipy.sparse", matrix "C" should also be of ' +
+                            'the same type.')
+        elif A.shape != C.shape:
+            raise ValueError('Matrix "C" should have the same size as ' +
                              'matrix "A".')
 
     # Check gram
