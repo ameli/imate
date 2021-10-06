@@ -55,8 +55,54 @@ def exact_method(
             else:
                 trace = numpy.trace(A)
 
+    elif (exponent % 2 == 0):
+
+        # Since exponent is an even number, we only need to compute A**p, where
+        # p is exponent // 2.
+        if exponent == 2:
+
+            # Here, p is 1.
+            if gram:
+                Ap = A.T @ A
+            else:
+                # Ap (with p=1) is A itself.
+                Ap = A
+        else:
+            # Here, exponent is 4, 6, or more, and p is half of exponent.
+            p = numpy.abs(exponent) // 2
+
+            # Initialize Ap
+            if gram:
+                Ap = A.T @ A
+                A1 = Ap.copy()
+            else:
+                Ap = A.copy()
+                A1 = A
+
+            # Directly compute power of A by successive matrix multiplication
+            for i in range(1, p):
+                Ap = Ap @ A1
+
+        if gram:
+            trace = 0.0
+            if scipy.sparse.issparse(A):
+                # Since Ap = (AtA*)**p is symmetric, we compute (Ap).T * Ap
+                # instead of (Ap)**2, hence, its Frobenius norm can be used.
+                trace += numpy.sum(Ap.data**2)
+            else:
+                trace += numpy.linalg.norm(Ap, ord='fro')**2
+        else:
+            trace = 0.0
+            if scipy.sparse.issparse(A):
+                # Using element-wise matrix multiplication with its transpose.
+                # This is fast, compared to direct matrix multiplication.
+                trace += numpy.sum(Ap.multiply(Ap.T).data)
+            else:
+                trace += numpy.sum(numpy.multiply(Ap, Ap.T))
+
     else:
-        # Initialize Ap
+        # Exponent is an odd number. We need to compute Ap where p is the full
+        # exponent.
         if gram:
             Ap = A.T @ A
             A1 = Ap.copy()
