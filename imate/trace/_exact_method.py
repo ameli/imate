@@ -84,21 +84,19 @@ def exact_method(
                 Ap = Ap @ A1
 
         if gram:
-            trace = 0.0
             if scipy.sparse.issparse(A):
                 # Since Ap = (AtA*)**p is symmetric, we compute (Ap).T * Ap
                 # instead of (Ap)**2, hence, its Frobenius norm can be used.
-                trace += numpy.sum(Ap.data**2)
+                trace = numpy.sum(Ap.data**2)
             else:
-                trace += numpy.linalg.norm(Ap, ord='fro')**2
+                trace = numpy.linalg.norm(Ap, ord='fro')**2
         else:
-            trace = 0.0
             if scipy.sparse.issparse(A):
                 # Using element-wise matrix multiplication with its transpose.
                 # This is fast, compared to direct matrix multiplication.
-                trace += numpy.sum(Ap.multiply(Ap.T).data)
+                trace = numpy.sum(Ap.multiply(Ap.T).data)
             else:
-                trace += numpy.sum(numpy.multiply(Ap, Ap.T))
+                trace = numpy.sum(numpy.multiply(Ap, Ap.T))
 
     else:
         # Exponent is an odd number. We need to compute Ap where p is the full
