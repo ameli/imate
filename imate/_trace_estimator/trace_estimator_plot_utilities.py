@@ -286,8 +286,8 @@ def _plot_samples(
     # Plot confidence region
     ax.fill_between(x, _mean - _abs_error, _mean + _abs_error, color='black',
                     alpha=0.25,
-                    label=('%s' % str(100.0*confidence_level).strip('.0')) +
-                    r'$\%$ confidence region')
+                    label=(str(100.0*confidence_level).strip('0').strip('.') +
+                           r'$\%$ confidence region'))
 
     ax.set_xlabel('sample index')
     ax.set_ylabel('trace estimates')
