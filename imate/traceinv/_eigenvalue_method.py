@@ -57,7 +57,7 @@ def eigenvalue_method(
             which_eigenvalues = 'SM'
         else:
             # In contrary, when the exponent is negative, the largest
-            # eigenvalues weight more inthe trace of inverse.
+            # eigenvalues weight more in the trace of inverse.
             which_eigenvalues = 'LM'
 
         # Compute eigenvalues of A (or A.T @ A is gram is True)
@@ -88,7 +88,10 @@ def eigenvalue_method(
         },
         'device':
         {
-            'num_cpu_threads': multiprocessing.cpu_count()
+            'num_cpu_threads': multiprocessing.cpu_count(),
+            'num_gpu_devices': 0,
+            'num_gpu_multiprocessors': 0,
+            'num_gpu_threads_per_multiprocessor': 0
         },
         'time':
         {

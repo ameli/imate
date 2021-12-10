@@ -134,7 +134,10 @@ def exact_method(
         },
         'device':
         {
-            'num_cpu_threads': multiprocessing.cpu_count()
+            'num_cpu_threads': multiprocessing.cpu_count(),
+            'num_gpu_devices': 0,
+            'num_gpu_multiprocessors': 0,
+            'num_gpu_threads_per_multiprocessor': 0
         },
         'time':
         {

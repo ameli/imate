@@ -129,9 +129,20 @@ def get_num_all_gpu_devices():
     Get number of all gpu devices
     """
 
-    command = 'nvidia-smi --list-gpus | wc -l'
-    subprocess_result = subprocess.getoutput(command)
-    return int(subprocess_result)
+    command = ['nvidia-smi', '--list-gpus', '|', 'wc', '-l']
+    process = subprocess.Popen(command, stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE)
+    stdout, _ = process.communicate()
+    error_code = process.poll()
+
+    # Error code 127 means nvidia-smi is not a recognized command. Error code
+    # 9 means nvidia-smi could not find any device.
+    if error_code != 0:
+        num_gpu = 0
+    else:
+        num_gpu = int(stdout)
+
+    return num_gpu
 
 
 # =========
