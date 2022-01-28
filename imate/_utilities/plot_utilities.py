@@ -71,7 +71,7 @@ def load_plot_settings():
                 r'\usepackage{amsmath}'
             matplotlib.font_manager._rebuild()
 
-            # LaTeX font is a bit small. Increaset axes font size
+            # LaTeX font is a bit small. Increase axes font size
             sns.set(font_scale=1.2)
         except Exception:
             pass

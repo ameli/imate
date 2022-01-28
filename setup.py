@@ -201,7 +201,7 @@ if 'USE_UNSIGNED_LONG_INT' in os.environ and \
 # find in path
 # ============
 
-def find_in_path(executable_name, path):
+def _find_in_path(executable_name, path):
     """
     Recursively searches the executable ``executable_name`` in all of the
     directories in the given path, and returns the full path of the executable
@@ -259,12 +259,11 @@ def locate_cuda():
 
     # Brute-force search in all path to find nvcc binary
     if not cuda_found:
-        nvcc = find_in_path(nvcc_binary_name, os.environ['PATH'])
+        nvcc = _find_in_path(nvcc_binary_name, os.environ['PATH'])
         if nvcc is None:
             raise EnvironmentError('The "nvcc" binary could not be located '
-                                   'located in $PATH. Either add it to '
-                                   'path or set $CUDA_HOME, or $CUDA_ROOT, '
-                                   'or $CUDA_PATH.')
+                                   'in $PATH. Either add it to the PATH or set'
+                                   '$CUDA_HOME, or $CUDA_ROOT, or $CUDA_PATH.')
 
         home = os.path.dirname(os.path.dirname(nvcc))
 
@@ -805,7 +804,8 @@ class CustomBuildExtension(build_ext):
                                    '-Wunreachable-code', '-Wswitch-enum',
                                    '-Wpointer-arith', '-Wcast-align',
                                    '-Wwrite-strings', '-Wsign-compare',
-                                   '-pedantic', '-fno-common', '-Wundef']
+                                   '-Wundef', '-pedantic', '-fno-common',
+                                   '-fno-wrapv']
 
             # The option '-Wl, ..' will send arguments to the linker. Here,
             # '--strip-all' will remove all symbols from the shared library.

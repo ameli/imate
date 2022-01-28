@@ -4,7 +4,8 @@
 
 # -----------------------------------------------------------------------------
 # How to build
-#   $ docker build -t sameli/imate -f <This-Filename> .
+#   $ cd ..  # go to root dir of package
+#   $ docker build . -t sameli/glearn -f docker/Dockerfile
 #
 # How to run:
 #   $ docker run -it -v/host_dir:/image_dir imate
@@ -33,6 +34,7 @@ ENV USE_CUDA=1
 RUN mkdir /tmp/imate
 ADD . /tmp/imate/
 WORKDIR /tmp/imate
+RUN rm -rf build dist
 RUN /usr/bin/python3 setup.py bdist_wheel
 
 # -------
@@ -41,7 +43,7 @@ RUN /usr/bin/python3 setup.py bdist_wheel
 
 FROM nvidia/cuda:11.4.1-base-ubuntu20.04
 
-# Install python3 and libcudablas, libcusparse, since they are not in the NVIDA
+# Install python3 and libcudablas, libcusparse, since they are not in the NVIDIA
 # cuda's "base" image.
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \

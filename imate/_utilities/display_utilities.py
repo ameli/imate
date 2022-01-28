@@ -13,7 +13,7 @@
 
 def is_notebook():
     """
-    Returns ``True`` if this script is running in a jupyter notebook. Retruns
+    Returns ``True`` if this script is running in a jupyter notebook. Returns
     ``False`` otherwise, including both ipython and python.
     """
 
