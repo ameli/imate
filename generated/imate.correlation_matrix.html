@@ -1,0 +1,477 @@
+
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>imate.correlation_matrix &#8212; imate Manual</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/toggleprompt.js"></script>
+    <script>window.MathJax = {"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="imate.band_matrix" href="imate.band_matrix.html" />
+    <link rel="prev" title="imate.InterpolateTraceinv.upper_bound" href="imate.InterpolateTraceinv.upper_bound.html" />
+    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../index.html">
+<p class="title">imate</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../introduction.html">
+  Introduction
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../install.html">
+  Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../quickstart.html">
+  Quick Start
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../notes.html">
+  Notes
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+    <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Functions
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.logdet.html">
+   imate.logdet
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.trace.html">
+   imate.trace
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.traceinv.html">
+   imate.traceinv
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Linear Operators
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.Matrix.html">
+   imate.Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.AffineMatrixFunction.html">
+   imate.AffineMatrixFunction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateTraceinv.html">
+   imate.InterpolateTraceinv
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Sample Data
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   imate.correlation_matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.band_matrix.html">
+   imate.band_matrix
+  </a>
+ </li>
+</ul>
+
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="imate-correlation-matrix">
+<h1>imate.correlation_matrix<a class="headerlink" href="#imate-correlation-matrix" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="imate.correlation_matrix">
+<span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">correlation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'exponential'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'float64'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/imate/sample_matrices/correlation_matrix.html#correlation_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#imate.correlation_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Generates symmetric and positive-definite matrix for test purposes.</p>
+<p><strong>Correlation Function:</strong></p>
+<p>The generated matrix is a correlation matrix based on Matern correlation of
+spatial distance of a list of points in the unit hypercube. The Matern
+correlation function accepts the correlation scale parameter
+<span class="math notranslate nohighlight">\(\rho \in (0,1]\)</span>. Smaller decorrelation produces correlation matrix
+that is closer to the identity matrix.</p>
+<p><strong>Matrix Size:</strong></p>
+<p>The size of generated matrix is determined by the parameter <code class="docutils literal notranslate"><span class="pre">num_points</span></code>
+which here we refer to as <span class="math notranslate nohighlight">\(n\)</span>, the dimension, <code class="docutils literal notranslate"><span class="pre">dimension</span></code> which we
+refer to as <span class="math notranslate nohighlight">\(d\)</span>, and <code class="docutils literal notranslate"><span class="pre">grid</span></code> boolean variable.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">grid</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> (default value), then, the size of the square
+matrix is <span class="math notranslate nohighlight">\(n^d\)</span>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">grid</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, then, the size of the square matrix is
+<span class="math notranslate nohighlight">\(n\)</span>.</p></li>
+</ul>
+</div></blockquote>
+<p><strong>Sparsification:</strong></p>
+<p>The values of the correlation matrix are between <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(1\)</span>.
+To sparsify the matrix, the correlation kernel below a certain threshold
+value is set to zero to which tapers the correlation kernel. Such threshold
+can be set through the parameter <code class="docutils literal notranslate"><span class="pre">density</span></code>, which sets an approximate
+density of the non-zero elements of the sparse matrix.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Setting a too small <code class="docutils literal notranslate"><span class="pre">density</span></code> might eradicate the
+positive-definiteness of the correlation matrix.</p>
+</div>
+<p><strong>Plotting:</strong></p>
+<p>If the option <code class="docutils literal notranslate"><span class="pre">plot</span></code> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, it plots the generated matrix.</p>
+<ul class="simple">
+<li><p>If no graphical backend exists (such as running the code on a remote
+server or manually disabling the X11 backend), the plot will not be
+shown, rather, it will be saved as an <code class="docutils literal notranslate"><span class="pre">svg</span></code> file in the current
+directory.</p></li>
+<li><p>If the executable <code class="docutils literal notranslate"><span class="pre">latex</span></code> is on the path, the plot is rendered using
+<span class="math notranslate nohighlight">\(\rm\LaTeX\)</span>, which then, it takes longer to produce the plot.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\rm\LaTeX\)</span> is not installed, it uses any available San-Serif
+font to render the plot.</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<blockquote>
+<div><p>To manually disable interactive plot display, and save the plot as
+<code class="docutils literal notranslate"><span class="pre">SVG</span></code> instead, add the following in the very beginning of your code
+before importing <code class="docutils literal notranslate"><span class="pre">imate</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;IMATE_NO_DISPLAY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="field-list">
+<dt class="field-odd">param size</dt>
+<dd class="field-odd"><p>The size of the generated matrix is determined as follows:
+* If <code class="docutils literal notranslate"><span class="pre">grid</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the size of matrix is <code class="docutils literal notranslate"><span class="pre">size**dimension</span></code>.
+* If <code class="docutils literal notranslate"><span class="pre">grid</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, the size of matrix is <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p>
+</dd>
+<dt class="field-even">type size</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">param dimension</dt>
+<dd class="field-odd"><p>The dimension of the space of points to generate the
+correlation matrix.</p>
+</dd>
+<dt class="field-even">type dimension</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">param scale</dt>
+<dd class="field-odd"><p>A parameter of correlation function that scales
+distance.</p>
+</dd>
+<dt class="field-even">type scale</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+<dt class="field-odd">param nu</dt>
+<dd class="field-odd"><p>The parameter <span class="math notranslate nohighlight">\(\nu\)</span> of Matern correlation kernel.</p>
+</dd>
+<dt class="field-even">type nu</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+<dt class="field-odd">param grid</dt>
+<dd class="field-odd"><p>Determines if the generated set of points are on a structured
+grid or randomly generated.</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the points are generated on a structured grid in
+a unit hypercube with equal distances. In this case, the size of
+generated matrix (which is equal to the number of points) is</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">size**dimension</span></code>.
+* If <code class="docutils literal notranslate"><span class="pre">False</span></code>, the spatial points are generated</p>
+<blockquote>
+<div><p>randomly. In this case, the size of the generated matrix is <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p>
+</div></blockquote>
+</dd>
+<dt class="field-even">type grid</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">param sparse</dt>
+<dd class="field-odd"><p>Flag to indicate the correlation matrix should be sparse or
+dense matrix. If set to <code class="docutils literal notranslate"><span class="pre">True</span></code>, you may also specify <code class="docutils literal notranslate"><span class="pre">density</span></code>.</p>
+</dd>
+<dt class="field-even">type parse</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">param density</dt>
+<dd class="field-odd"><p>Specifies an approximate density of the non-zero elements
+of the generated sparse matrix. The actual density of the matrix may
+not be exactly the same as this value.</p>
+</dd>
+<dt class="field-even">rtype</dt>
+<dd class="field-even"><p>double</p>
+</dd>
+<dt class="field-odd">param plot</dt>
+<dd class="field-odd"><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the matrix will be plotted.</p>
+</dd>
+<dt class="field-even">type Plot</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">param verbose</dt>
+<dd class="field-odd"><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, prints some information during the process.</p>
+</dd>
+<dt class="field-even">type verbose</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>Correlation matrix.</p>
+</dd>
+<dt class="field-even">rtype</dt>
+<dd class="field-even"><p>numpy.ndarray or scipy.sparse.csc</p>
+</dd>
+</dl>
+<p><strong>Example:</strong></p>
+<p>Generate a matrix of the shape <code class="docutils literal notranslate"><span class="pre">(20,20)</span></code> by mutual correlation of a set
+of <span class="math notranslate nohighlight">\(20\)</span> points in the unit interval:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.sample_matrices</span> <span class="kn">import</span> <span class="n">correlation_matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Generate a matrix of the shape <span class="math notranslate nohighlight">\((20^2, 20^2)\)</span> by mutual correlation
+of a grid of <span class="math notranslate nohighlight">\(20 \times 20\)</span> points in the unit square:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.sample_matrices</span> <span class="kn">import</span> <span class="n">correlation_matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>correlation a correlation matrix of shape <code class="docutils literal notranslate"><span class="pre">(20,</span> <span class="pre">20)</span></code> based on 20 random
+points in unit square:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>correlation a matrix of shape <code class="docutils literal notranslate"><span class="pre">(20,</span> <span class="pre">20)</span></code> with spatial <span class="math notranslate nohighlight">\(20\)</span> points
+that are more correlated:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Sparsify correlation matrix of size <span class="math notranslate nohighlight">\((20^2, 20^2)\)</span> with approximate
+density of <span class="math notranslate nohighlight">\(1e-3\)</span></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="gp">... </span>                       <span class="n">density</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plot a dense matrix of size <span class="math notranslate nohighlight">\((30^2, 30^2)\)</span> by</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="imate.InterpolateTraceinv.upper_bound.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">imate.InterpolateTraceinv.upper_bound</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="imate.band_matrix.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">imate.band_matrix</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, Siavash Ameli.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

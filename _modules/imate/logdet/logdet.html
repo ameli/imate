@@ -1,0 +1,309 @@
+
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>imate.logdet.logdet &#8212; imate Manual</title>
+    
+    <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css" />
+    
+    <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/toggleprompt.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="../../../index.html">
+<p class="title">imate</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../introduction.html">
+  Introduction
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../install.html">
+  Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../quickstart.html">
+  Quick Start
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../api.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../notes.html">
+  Notes
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+    
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for imate.logdet.logdet</h1><div class="highlight"><pre>
+<span></span><span class="c1"># SPDX-FileCopyrightText: Copyright 2021, Siavash Ameli &lt;sameli@berkeley.edu&gt;</span>
+<span class="c1"># SPDX-License-Identifier: BSD-3-Clause</span>
+<span class="c1"># SPDX-FileType: SOURCE</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software: you can redistribute it and/or modify it under</span>
+<span class="c1"># the terms of the license found in the LICENSE.txt file in the root directory</span>
+<span class="c1"># of this source tree.</span>
+
+
+<span class="c1"># =======</span>
+<span class="c1"># Imports</span>
+<span class="c1"># =======</span>
+
+<span class="kn">from</span> <span class="nn">._eigenvalue_method</span> <span class="kn">import</span> <span class="n">eigenvalue_method</span>
+<span class="kn">from</span> <span class="nn">._cholesky_method</span> <span class="kn">import</span> <span class="n">cholesky_method</span>
+<span class="kn">from</span> <span class="nn">._slq_method</span> <span class="kn">import</span> <span class="n">slq_method</span>
+
+
+<span class="c1"># ======</span>
+<span class="c1"># logdet</span>
+<span class="c1"># ======</span>
+
+<div class="viewcode-block" id="logdet"><a class="viewcode-back" href="../../../generated/imate.logdet.html#imate.logdet">[docs]</a><span class="k">def</span> <span class="nf">logdet</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;cholesky&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the log-determinant of full-rank matrix.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">        A : numpy.ndarray, scipy.sparse matrix</span>
+<span class="sd">            An invertible matrix.</span>
+
+<span class="sd">        options : `**kwargs`</span>
+<span class="sd">            Options for either of the methods.</span>
+
+<span class="sd">    Return</span>
+<span class="sd">    ------</span>
+<span class="sd">        logdet : float</span>
+<span class="sd">            Log-determinant of `A`</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+
+<span class="sd">        For computing the *trace of inverse* with the stochastic Lanczos</span>
+<span class="sd">        quadrature method (see :mod:`imate.traceinv.slq_method`), the</span>
+<span class="sd">        preferred algorithm is the Lanczos tri-diagonalization, as opposed to</span>
+<span class="sd">        Golub-Kahn bi-diagonalization.</span>
+
+<span class="sd">        In contrast to the above, the preferred slq method for computing</span>
+<span class="sd">        *log-determinant* is the Golub-Kahn bi-diagonalization. The reason is</span>
+<span class="sd">        that if the matrix :math:`\\mathbf{A}` has many singular values close</span>
+<span class="sd">        to zero, bi-diagonalization performs better, and this matters when we</span>
+<span class="sd">        compute determinant.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">        * Ubaru, S., Chen, J., and Saad, Y. (2017).</span>
+<span class="sd">          Fast estimation of :math:`\\mathrm{tr}(f(A))` via stochastic Lanczos</span>
+<span class="sd">          quadrature. *SIAM Journal on Matrix Analysis and Applications*,</span>
+<span class="sd">          38(4), 1075-1099.</span>
+<span class="sd">          `doi: 10.1137/16M1104974 &lt;https://doi.org/10.1137/16M1104974&gt;`_</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        &gt;&gt;&gt; # Import packages</span>
+<span class="sd">        &gt;&gt;&gt; from imate import logdet</span>
+<span class="sd">        &gt;&gt;&gt; from imate import generate_matrix</span>
+
+<span class="sd">        &gt;&gt;&gt; # Generate a sample matrix</span>
+<span class="sd">        &gt;&gt;&gt; A = generate_matrix(size=20, dimension=2)</span>
+
+<span class="sd">        &gt;&gt;&gt; # Compute log-determinant with Cholesky method (default method)</span>
+<span class="sd">        &gt;&gt;&gt; logdet_1 = logdet(A)</span>
+
+<span class="sd">        &gt;&gt;&gt; # Compute log-determinant with stochastic Lanczos quadrature method</span>
+<span class="sd">        &gt;&gt;&gt; # using Lanczos tridiagonalization</span>
+<span class="sd">        &gt;&gt;&gt; logdet_2 = logdet(A, method=&#39;slq&#39;, num_iterations=20,</span>
+<span class="sd">        ...     lanczosdegree=20, symmetric=True)</span>
+
+<span class="sd">        &gt;&gt;&gt; # Compute log-determinant with stochastic Lanczos quadrature method</span>
+<span class="sd">        &gt;&gt;&gt; # using Golub-Khan bi-diagonalization</span>
+<span class="sd">        &gt;&gt;&gt; logdet_3 = logdet(A, method=&#39;slq&#39;, num_iterations=20,</span>
+<span class="sd">        ...     lanczos_degree=20, symmetric=False)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;eigenvalue&#39;</span><span class="p">:</span>
+        <span class="n">trace</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">eigenvalue_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;cholesky&#39;</span><span class="p">:</span>
+        <span class="n">trace</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">cholesky_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;slq&#39;</span><span class="p">:</span>
+        <span class="n">trace</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">slq_method</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Method &quot;</span><span class="si">%s</span><span class="s1">&quot; is invalid.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">method</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">trace</span><span class="p">,</span> <span class="n">info</span></div>
+</pre></div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, Siavash Ameli.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

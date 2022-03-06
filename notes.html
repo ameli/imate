@@ -1,0 +1,586 @@
+
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Notes &#8212; imate Manual</title>
+    
+    <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/pydata-sphinx-theme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
+    
+    <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/toggleprompt.js"></script>
+    <script>window.MathJax = {"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="changelog.html" />
+    <link rel="prev" title="imate.band_matrix" href="generated/imate.band_matrix.html" />
+    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="index.html">
+<p class="title">imate</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="introduction.html">
+  Introduction
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="install.html">
+  Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="quickstart.html">
+  Quick Start
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="api.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="current reference internal nav-link" href="#">
+  Notes
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+    
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#name">
+   Name
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#todo">
+   TODO
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#compile-and-build-issues">
+   Compile and Build Issues
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#local-installation">
+     Local Installation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#ideas">
+   Ideas
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functions">
+     functions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#chebychev-hutchinson">
+     Chebychev Hutchinson
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#keep-option-for-affinematrixfunction">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       keep
+      </span>
+     </code>
+     option for
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       AffineMatrixFunction
+      </span>
+     </code>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#method-limitations">
+   Method Limitations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#implementation-techniques">
+   Implementation Techniques
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installation-notes">
+   Installation Notes
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#openblas">
+     OpenBlas
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <section id="notes">
+<h1>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h1>
+<p>Some notes to myself when completing the documentation later.</p>
+<ul>
+<li><p>How to make the results of GPU and CPU identical for testing purposes:</p>
+<p>When num_gpu_devices and num_threads are the same, both cpu and gpu codes
+give identical results. This is due to the random number generator. For each
+thread, the random generator jumps the initial seed. Also, when an iteration
+on a single thread finishes, the next iteration continues with the next
+random number in the previous sequence in the memory of the generator.</p>
+<p>To make the result of both cpu and gpu exactly identical, do the followings:
+1. Set num_threads and num_gpu_devices to 1.
+2. In imate/_random_generator/split_mix_64.cpp, and in the constructor,</p>
+<blockquote>
+<div><p>initialize the seed with a fixed number, say 1234567890, not with time.
+This allows to run both the cpu code and gpu codes to start off by the
+same sequence of random numbers.</p>
+</div></blockquote>
+<p>If we set num_thread and num_gpu_devices to anything greater than one, the
+results might be different, since after each thread iteration, it is not
+guaranteed which thread continues the sequence of the previous random
+generator. But if min_num_samples is a large number, the results of both
+cpu and gpu should be very close.</p>
+</li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">cusparse</span></code> documentation here:
+<a class="reference external" href="https://docs.nvidia.com/cuda/cusparse/index.html#cusparse-generic-function-spmv">https://docs.nvidia.com/cuda/cusparse/index.html#cusparse-generic-function-spmv</a>
+says that:</p>
+<blockquote>
+<div><p>“The routine requires extra storage for CSR format (all algorithms) and
+for COO format with CUSPARSE_SPMM_COO_ALG2 algorithm.”</p>
+</div></blockquote>
+<p>However, it seems the <code class="docutils literal notranslate"><span class="pre">this-&gt;buffer_size</span></code> (see <code class="docutils literal notranslate"><span class="pre">cu_csr_matrix.cu</span></code>) is
+always zero even for various algorithms (currently I use
+<code class="docutils literal notranslate"><span class="pre">CUSPARSE_MV_ALG_DEFAULT</span></code>, but for any other algorithm, the buffer size
+is still zero).</p>
+<p>If I can be certain that the buffer size is “always” zero for the algorithm
+that I use, then I do not need to call <code class="docutils literal notranslate"><span class="pre">this-&gt;allocate_buffer</span></code> from the
+<code class="docutils literal notranslate"><span class="pre">this-&gt;dot()``function.</span> <span class="pre">Previously,</span> <span class="pre">the</span> <span class="pre">``dot()</span></code> function had <code class="docutils literal notranslate"><span class="pre">const</span></code>
+at the end of its signature. However, because we call <code class="docutils literal notranslate"><span class="pre">allocate_buffer</span></code>,
+and it changes a member data, the <code class="docutils literal notranslate"><span class="pre">dot()</span></code> function for this class and
+ALL of its base classes, and even the other non-cuda classes that are
+derived from the <code class="docutils literal notranslate"><span class="pre">cLinearOperator</span></code> class has to be non <code class="docutils literal notranslate"><span class="pre">const</span></code> member
+functions.</p>
+<p>If I can be certain that the buffer size is always zero, I can return back
+the constness to these functions and do not call the allocate buffer.
+Or, I can call allocate buffer to compute the buffer size, but do not
+allocate it. In this case, I should do <code class="docutils literal notranslate"><span class="pre">assert(buffer_size==0)</span></code> just in
+case if in some applications it has to be non-zero buffer.</p>
+<p>The <a href="#id1"><span class="problematic" id="id2">``</span></a>const``s that I removed:</p>
+<ol class="arabic simple">
+<li><p>In <code class="docutils literal notranslate"><span class="pre">cuCSRAffineMatrixFunction</span></code> and <code class="docutils literal notranslate"><span class="pre">cuCSCAffineMatrixFunction</span></code>, the
+member data <code class="docutils literal notranslate"><span class="pre">cuCSRMatrix&lt;DataType&gt;</span> <span class="pre">A,</span> <span class="pre">B</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">cuCSCMatrix&lt;DataType&gt;A,</span> <span class="pre">B</span></code> were <code class="docutils literal notranslate"><span class="pre">const</span></code> member data before. Now, they
+are not const.</p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">cu_lanczos_tridiagonalization</span></code> and
+<code class="docutils literal notranslate"><span class="pre">cu_golub_kahn_bidiagonalization</span></code>, all <code class="docutils literal notranslate"><span class="pre">cuLinearOperator</span></code> arguments
+were <code class="docutils literal notranslate"><span class="pre">const</span></code>. Now they are not const.</p></li>
+<li><p>All functions of <code class="docutils literal notranslate"><span class="pre">dot</span></code>, <code class="docutils literal notranslate"><span class="pre">dot_plus</span></code>, <code class="docutils literal notranslate"><span class="pre">transpose_dot</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">transpose_dot_plus</span></code> were const member functions for the entire
+classes of <code class="docutils literal notranslate"><span class="pre">cLinearOperator</span></code> and <code class="docutils literal notranslate"><span class="pre">cuLinearOperator</span></code> were const
+functions. Now they are not const.</p></li>
+</ol>
+</li>
+<li><p>Anaconda wheels are build without dynamic loading (so the wheels bundle the
+cuda libraries). PyPi wheels are build with dynamic loading (so the wheels
+do not bundle with cuda libraries). The following is only related to the
+dynamic loading, meaning that only those wheels uploaded to PyPi.</p>
+<p>With dynamic loading (pypi wheels), the running machine should have the exact
+same CUDA version as the build machine. I thought this version match is only
+for the “major” cuda version. But apparently, the “minor” version should also
+match. For example, if the manylinux wheel is compiled on CUDA 10.2, it can
+only run on CUDA 10.2, but not 11, or even 10.1. I did not expect the later,
+since both 10.2 and 10.1 have the same SONAME (lib ABI), which is 10.</p>
+<p>Version 10.0 is quite different story, since it does not have the LT libs,
+such as libcublasLt.so. So, it make sense that it wheel build on 10.2 cannot
+run on 10.0.</p>
+<p>For 10.1, I get the some std::logic_error about some return string is NULL.
+I suspect this is one of the functions in <cite>_cuda_dynamic_loading/*.cpp</cite>.</p>
+</li>
+<li><p>Anaconda wheels are build without dynamic loading, so they bundle with the
+cuda libraries. But, they still do not work fine. Here is how.</p>
+<p>An anaconda wheel that was built on cuda 10.2, can run fine on savio when
+cuda module is not loaded, or loaded.</p>
+<p>An anaconda wheel that was built on cuda 11, can NOT run on savio when
+cuda module is not loaded, or loaded. I did not expect this, since it should
+run without needing to load any module in savio. Could this be the cuda
+“driver”? Because the device driver is not bundled with the wheel, and it
+should be installed with the machine. Cuda driver 11 is not available on
+savio.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scikit-sparse</span></code> package computes the Cholesky decomposition of the mixed
+matrix <span class="math notranslate nohighlight">\($\mathbf{A} + \beta \mathbf{I}$\)</span>, which effectively can be used
+to compute its traceinv. See:
+<a class="reference external" href="https://scikit-sparse.readthedocs.io/en/latest/cholmod.html#sksparse.cholmod.cholesky">https://scikit-sparse.readthedocs.io/en/latest/cholmod.html#sksparse.cholmod.cholesky</a>
+However, this is the full-rank update on the Cholesky factorization of the
+matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, which is O(n^3) expensive. See:
+<a class="reference external" href="https://scicomp.stackexchange.com/questions/10630/full-rank-update-to-cholesky-decomposition">https://scicomp.stackexchange.com/questions/10630/full-rank-update-to-cholesky-decomposition</a></p></li>
+</ul>
+<section id="name">
+<h2>Name<a class="headerlink" href="#name" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>Implicit Matrix Trace Estimator: imte, &gt;&gt;”imate”&lt;&lt;, imtraes, “imtrest”,</dt><dd><p>“tracest”, “imtest”</p>
+</dd>
+</dl>
+<p>Fast Trace Estimator
+“scikit-trace”</p>
+</section>
+<section id="todo">
+<h2>TODO<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Implement <code class="docutils literal notranslate"><span class="pre">keep</span></code> functionality for slq method.</p></li>
+<li><p>Hutchinson methed can be implemented in C++ and also in CUDA on GPU.</p></li>
+<li><p>Other functions (besides traceinv and logdet)</p></li>
+<li><p>doxygen for c_linear_operator and its derived classes</p></li>
+<li><p>Get memory usage info for GPU. See for example:
+<a class="reference external" href="https://stackoverflow.com/questions/15966046/cudamemgetinfo-returns-same-amount-of-free-memory-on-both-devices-of-gtx-690">https://stackoverflow.com/questions/15966046/cudamemgetinfo-returns-same-amount-of-free-memory-on-both-devices-of-gtx-690</a></p></li>
+</ul>
+</section>
+<section id="compile-and-build-issues">
+<h2>Compile and Build Issues<a class="headerlink" href="#compile-and-build-issues" title="Permalink to this headline">¶</a></h2>
+<section id="local-installation">
+<h3>Local Installation<a class="headerlink" href="#local-installation" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Python 2.7:
+I dropped support for python 2.7, since
+<code class="docutils literal notranslate"><span class="pre">scipy.special.cython_special.erfinv</span></code> is not defined in the latest scipy
+that can be installed in python 2.7, which is scipy 1.2.3. The function
+<code class="docutils literal notranslate"><span class="pre">erfinv</span></code> exists in scipy as <em>python</em> function, but not as a <em>cyhton</em>
+function in <code class="docutils literal notranslate"><span class="pre">cython_special</span></code>. The first version of scipy that includes
+<code class="docutils literal notranslate"><span class="pre">erfinv</span></code> as cython function is scipy 1.5.0.</p></li>
+<li><p>Pythn 3.5:
+For some reasons, this package cannot be installed on python 3.5. However,
+py35 is deprecated as of last year.</p></li>
+<li><p>pypy:
+Build on pypy is only suppported on Linux. The package cannot be built on
+pypy on windows and macos. On Linux, pypy-3.6 and pypy-3.7 is supported.</p></li>
+<li><p>CUDA support:
+CUDA is only availble in linux and windows. NVIDIA no longer supports CUDA in
+macos, and Apple does not include NVIDA in apple products either.</p></li>
+</ul>
+</section>
+</section>
+<section id="ideas">
+<h2>Ideas<a class="headerlink" href="#ideas" title="Permalink to this headline">¶</a></h2>
+<section id="functions">
+<h3>functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<p>Encapsulate functions in a cdef class so that they can be passed from python to
+slq method.</p>
+</section>
+<section id="chebychev-hutchinson">
+<h3>Chebychev Hutchinson<a class="headerlink" href="#chebychev-hutchinson" title="Permalink to this headline">¶</a></h3>
+<p>See trace estimation using Chebychev Hutchinson method:
+<a class="reference external" href="https://nextjournal.com/akshayjain/traceEstimator02/">https://nextjournal.com/akshayjain/traceEstimator02/</a></p>
+<p>It can also be used to compute logdet:
+<a class="reference external" href="https://nextjournal.com/akshayjain/logdet-via-chebyhutch">https://nextjournal.com/akshayjain/logdet-via-chebyhutch</a></p>
+</section>
+<section id="keep-option-for-affinematrixfunction">
+<h3><code class="docutils literal notranslate"><span class="pre">keep</span></code> option for <code class="docutils literal notranslate"><span class="pre">AffineMatrixFunction</span></code><a class="headerlink" href="#keep-option-for-affinematrixfunction" title="Permalink to this headline">¶</a></h3>
+<p>For <code class="docutils literal notranslate"><span class="pre">AffineMatrixFunction</span></code>, have an option to store all <code class="docutils literal notranslate"><span class="pre">theta</span></code> and <code class="docutils literal notranslate"><span class="pre">tau</span></code>
+to be reused to next parameters. One way to do so is to bring the <code class="docutils literal notranslate"><span class="pre">traceinv</span></code>
+computation from the <code class="docutils literal notranslate"><span class="pre">traceinv()</span></code> function to be a member of
+<code class="docutils literal notranslate"><span class="pre">LinearOperator</span></code> class.</p>
+<p>Here is how it should work:</p>
+<ol class="arabic">
+<li><p>On the first run of <cite>AffineMatrixFunction.traceinv()`</cite> (or any other
+function such as <code class="docutils literal notranslate"><span class="pre">logdet()</span></code>), all theta and tau are stored as member data
+of <code class="docutils literal notranslate"><span class="pre">Aop</span></code>.</p></li>
+<li><p>On the second call of the function (which the second function can be
+different than the previous function, as long as both of the calls used
+<code class="docutils literal notranslate"><span class="pre">method='slq'</span></code>), the previous sample data (that and theta) are used. To
+case emerge:</p>
+<dl class="simple">
+<dt>2.1. If within the existing samples, the results of the desired function</dt><dd><p>converged within the given tolerance limit, no newer samples are needed.
+Thus, the function returns immediately.</p>
+</dd>
+<dt>2.2. If the convergence has not been met, newer samples will be produced</dt><dd><p>till the convergence is reached. The newer samples are also appended to
+the previous results.</p>
+</dd>
+</dl>
+</li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># keep argument allows the theta and tau to be stored with the cost of</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># taking memory. Default is True.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Aop</span> <span class="o">=</span> <span class="n">AffineMatrixFunction</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># The theta and tau are stored in Aop member data to be reused later</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Runtime: 10 seconds (just for example)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Aop</span><span class="o">.</span><span class="n">traceinv</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">lanczos_degree</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+<span class="go">                 min_num_samples=10, max_num_samples=100, error_rtol=1e-2)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Here, we reuse the previous theta and tau</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Runtime: 0.0001 seconds</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Aop</span><span class="o">.</span><span class="n">traceinv</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">lanczos_degree</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+<span class="go">                 min_num_samples=10, max_num_samples=100, error_rtol=1e-2)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Because here the error_rtol is smaller, we might need to generate new</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># samples, and append to the previous samples</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Runtime: 5 seconds</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Aop</span><span class="o">.</span><span class="n">traceinv</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="n">lanczos_degree</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+<span class="go">                 min_num_samples=10, max_num_samples=100, error_rtol=1e-3)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Previous theta and tau from the previous results can be used for</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># logdet or any other function, not just traceinv</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Runtime: 0.0001 seconds</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Aop</span><span class="o">.</span><span class="n">logdet</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">lanczos_degree</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+<span class="go">               min_num_samples=10, max_num_samples=100, error_rtol=1e-2)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Here, all the previous theta and tau from previous samples are purged,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># since &quot;lanczos_degree&quot; is changed, which changes theta and tau sizes.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Runtime: 10 seconds</span>
+<span class="go"> &gt;&gt;&gt; Aop.traceinv(method=&#39;slq&#39;, parameters=[9, 10], lanczos_degree=60,</span>
+<span class="go">                  min_num_samples=10, max_num_samples=100, error_rtol=1e-3)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="method-limitations">
+<h2>Method Limitations<a class="headerlink" href="#method-limitations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Matrices where their eigenvalue spectra cannot be represented by a limited
+eigenvalues. If the lanczos degree is <code class="docutils literal notranslate"><span class="pre">m</span></code>, and it the input matrix’s
+eigenvalues have at most <code class="docutils literal notranslate"><span class="pre">m</span></code> significant eigenvalues, then the SLQ method
+performs well. Covariance matrices usually have such property, where most of
+their eigenvalues are zero zero, but a small number of them are significant.</p></li>
+</ul>
+</section>
+<section id="implementation-techniques">
+<h2>Implementation Techniques<a class="headerlink" href="#implementation-techniques" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Lazy evaluation in linear operator and copy data to gpu device.</p></li>
+<li><p>dynamic polymorphism to dispatch to linear operator derived classes.</p></li>
+<li><p>Static template to support float, double, and long double data types.</p></li>
+<li><p>Dynamic loading of CUDA libraries.</p></li>
+<li><p>Random generator for Rademacher distribution is implemented. This is near
+a hundred times faster than C’s <code class="docutils literal notranslate"><span class="pre">rand()</span></code> function. The implementation uses
+xoshiro_265_star_star algorithm to generate 64-bit integers, which feeds to
+64 elements of array as +1 and -1 values. The initial seed uses split_mix
+random generator and itself is seeded by cpu time in microseconds.
+The random array generator can generate is thread-safe and can generate
+independent sequences of random numbers on each thread. The random array
+generator can be used on 2^64 parallel threads, each generating a sequence
+of 2^128 long.</p></li>
+<li><p>The basic algebra module seems to perform faster than OpenBlas. Not only
+that, for very large arrays, the dot product is more accurate than OpenBlas,
+since the reduction variable is cast to long double.</p></li>
+</ul>
+</section>
+<section id="installation-notes">
+<h2>Installation Notes<a class="headerlink" href="#installation-notes" title="Permalink to this headline">¶</a></h2>
+<section id="openblas">
+<h3>OpenBlas<a class="headerlink" href="#openblas" title="Permalink to this headline">¶</a></h3>
+<p>Install Openblas with conda. This is especially useful if you don’t have admin access to install with apt.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">anaconda</span> <span class="n">openblas</span>
+</pre></div>
+</div>
+<p>or with <code class="docutils literal notranslate"><span class="pre">apt</span></code> (needs admin access)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libopenblas</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<p>Or in macos with brew by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">brew</span> <span class="n">install</span> <span class="n">openblas</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="generated/imate.band_matrix.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">imate.band_matrix</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="changelog.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">&lt;no title&gt;</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, Siavash Ameli.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
