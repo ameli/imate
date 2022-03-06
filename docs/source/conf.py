@@ -1,3 +1,18 @@
+# SPDX-FileCopyrightText: Copyright 2022, Siavash Ameli <sameli@berkeley.edu>
+# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileType: SOURCE
+#
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the license found in the LICENSE.txt file in the root directory
+# of this source tree.
+
+# =======
+# Imports
+# =======
+
+import os
+import sys
+
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -9,10 +24,6 @@
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#
-import os
-import sys
-sys.path.insert(0, os.path.abspath('../'))
 
 # The following is treatment exclusively for CYTHON. Since I build cython
 # into '/build' directory, the lib files (*.so) are generated in the subfolder
@@ -35,6 +46,7 @@ sys.path.insert(0, os.path.abspath('../'))
 # to include the subdirectories of '/build' on the path.
 
 # The RecursiveGolb.py should be located in '/docs'.
+sys.path.insert(0, os.path.abspath('../'))
 sys.path.insert(0, os.path.abspath('./'))
 import recursive_glob  # this must be after including ./ path      # noqa: E402
 
@@ -62,7 +74,7 @@ for build_subdirectory in build_subdirectories:
 # -- Project information -----------------------------------------------------
 
 project = 'imate'
-copyright = '2020, Siavash Ameli'
+copyright = '2022, Siavash Ameli'
 author = 'Siavash Ameli'
 
 
@@ -73,22 +85,27 @@ author = 'Siavash Ameli'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx_math_dollar', 'sphinx.ext.mathjax',
+    # 'sphinx_math_dollar',
+    'sphinx.ext.mathjax',
     'sphinx.ext.graphviz', 'sphinx.ext.inheritance_diagram',
     'sphinx.ext.viewcode',
     'sphinx_toggleprompt',
-    'sphinx.ext.autosectionlabel',
+    # 'sphinx.ext.autosectionlabel',
     'sphinx.ext.autosummary',
-    'sphinx_automodapi.automodapi',
+    # 'sphinx_automodapi.automodapi',
+    # 'sphinxcontrib.napoleon'                # either use napoleon or numpydoc
+    'numpydoc'                                # either use napoleon or numpydoc
 ]
 
-# autosummary
+# Automatically generate autosummary after each build
 autosummary_generate = True
 
 # automodapi
 numpydoc_show_class_members = False
 
-mathjax_config = {
+# Added after including sphinx_math_dollar. The following prevents msthjax to
+# parse $ and $$.
+mathjax3_config = {
     'tex2jax': {
         'inlineMath': [["\\(", "\\)"]],
         'displayMath': [["\\[", "\\]"]],
@@ -114,8 +131,9 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # a list of builtin themes.
 #
 # Good themes
-html_theme = 'sphinx_rtd_theme'
-# html_theme = 'pydata_sphinx_theme'
+# html_theme = 'sphinx_rtd_theme'
+html_theme = 'pydata_sphinx_theme'
+# html_theme = 'sphinx_book_theme'
 # html_theme = 'nature'
 # html_theme = 'bizstyle'
 # html_theme = 'haiku'
@@ -128,6 +146,23 @@ html_theme = 'sphinx_rtd_theme'
 # html_theme = 'agogo'
 # html_theme = 'traditional'
 # html_theme = 'scrolls'
+
+# Options for theme
+html_theme_options = {
+    "github_url": "https://github.com/ameli/imate",
+    "navbar_end": ["search-field.html", "navbar-icon-links.html"],
+    "page_sidebar_items": ["page-toc", "edit-this-page"]
+}
+
+html_sidebars = {
+    "**": ["sidebar-nav-bs", "sidebar-ethical-ads"]
+}
+
+project = u'imate'
+copyright = u'2022, Siavash Ameli'
+
+html_title = f"{project} Manual"
+html_last_updated_fmt = '%b %d, %Y'
 
 # To use sphinx3, download at
 # https://github.com/sphinx-doc/sphinx/tree/master/doc/_themes/sphinx13
@@ -161,6 +196,10 @@ html_static_path = ['_static']
 #     'custom.css',
 # ]
 
+
+# =====
+# setup
+# =====
 
 def setup(app):
     """

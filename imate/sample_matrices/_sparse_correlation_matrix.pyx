@@ -44,7 +44,7 @@ cdef int _generate_matrix(
         const double[:, ::1] coords,
         const int matrix_size,
         const int dimension,
-        const double distance_scale,
+        const double scale,
         const kernel_type kernel_function,
         const double kernel_param,
         const double kernel_threshold,
@@ -78,9 +78,9 @@ cdef int _generate_matrix(
         is the dimension of the spatial points.
     :type dimension: int
 
-    :param distance_scale: A parameter of the correlation function that
+    :param scale: A parameter of the correlation function that
         scales distances.
-    :type distance_scale: double
+    :type scale: double
 
     :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
     :type nu: float
@@ -180,7 +180,7 @@ cdef int _generate_matrix(
                         euclidean_distance(
                             coords[i][:],
                             coords[j][:],
-                            distance_scale,
+                            scale,
                             dimension),
                         kernel_param)
 
@@ -292,7 +292,7 @@ def _estimate_kernel_threshold(
         matrix_size,
         dimension,
         density,
-        distance_scale,
+        scale,
         kernel,
         kernel_param):
     """
@@ -357,9 +357,9 @@ def _estimate_kernel_threshold(
         actual matrix density.
     :type sparse_density: int
 
-    :param distance_scale: A parameter of correlation function that scales
+    :param scale: A parameter of correlation function that scales
         distance.
-    :type distance_scale: float
+    :type scale: float
 
     :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
     :type nu: float
@@ -378,7 +378,7 @@ def _estimate_kernel_threshold(
                 'Adjacency: %0.2f. Correlation matrix will become identity '
                 % (adjacency_volume) +
                 'since kernel radius is less than grid size. To increase ' +
-                'adjacency, consider increasing density or distance_scale.')
+                'adjacency, consider increasing density or scale.')
 
     # Approximate radius of n-sphere containing the above number of adjacent
     # points, assuming adjacent points are distanced on integer lattice.
@@ -398,7 +398,7 @@ def _estimate_kernel_threshold(
     cdef kernel_type kernel_function = get_kernel(kernel)
 
     # Threshold of kernel to perform tapering
-    kernel_threshold = kernel_function(kernel_radius/distance_scale,
+    kernel_threshold = kernel_function(kernel_radius/scale,
                                        kernel_param)
 
     return kernel_threshold
@@ -451,7 +451,7 @@ def _estimate_max_nnz(
 
 def sparse_correlation_matrix(
         coords,
-        distance_scale=0.1,
+        scale=0.1,
         kernel='exponential',
         kernel_param=None,
         density=0.001,
@@ -475,9 +475,9 @@ def sparse_correlation_matrix(
         the dimension of the spatial points.
     :type coords: numpy.ndarray
 
-    :param distance_scale: A parameter of correlation function that scales
+    :param scale: A parameter of correlation function that scales
         distance.
-    :type distance_scale: float
+    :type scale: float
 
     :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
     :type nu: float
@@ -524,7 +524,7 @@ def sparse_correlation_matrix(
             matrix_size,
             dimension,
             density,
-            distance_scale,
+            scale,
             kernel,
             kernel_param)
 
@@ -566,7 +566,7 @@ def sparse_correlation_matrix(
                     coords,
                     matrix_size,
                     dimension,
-                    distance_scale,
+                    scale,
                     kernel_function,
                     kernel_param,
                     kernel_threshold,
@@ -589,7 +589,7 @@ def sparse_correlation_matrix(
                     coords,
                     matrix_size,
                     dimension,
-                    distance_scale,
+                    scale,
                     kernel_function,
                     kernel_param,
                     kernel_threshold,
@@ -612,7 +612,7 @@ def sparse_correlation_matrix(
                     coords,
                     matrix_size,
                     dimension,
-                    distance_scale,
+                    scale,
                     kernel_function,
                     kernel_param,
                     kernel_threshold,

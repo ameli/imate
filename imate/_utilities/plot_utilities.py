@@ -15,6 +15,15 @@ import os
 import platform
 import matplotlib
 import matplotlib.ticker
+from matplotlib.ticker import PercentFormatter                     # noqa: F401
+from mpl_toolkits.mplot3d import Axes3D                            # noqa: F401
+from mpl_toolkits.axes_grid1.inset_locator import inset_axes       # noqa: F401
+from mpl_toolkits.axes_grid1.inset_locator import InsetPosition    # noqa: F401
+from mpl_toolkits.axes_grid1.inset_locator import mark_inset       # noqa: F401
+from matplotlib.ticker import ScalarFormatter, NullFormatter       # noqa: F401
+from matplotlib.ticker import FormatStrFormatter                   # noqa: F401
+from mpl_toolkits.axes_grid1 import make_axes_locatable            # noqa: F401
+
 from distutils.spawn import find_executable
 from .display_utilities import is_notebook
 import logging
@@ -73,6 +82,7 @@ def load_plot_settings():
 
             # LaTeX font is a bit small. Increase axes font size
             sns.set(font_scale=1.2)
+
         except Exception:
             pass
 
@@ -92,7 +102,13 @@ def load_plot_settings():
 # save plot
 # =========
 
-def save_plot(plt, filename, transparent_background=True):
+def save_plot(
+        plt,
+        filename,
+        transparent_background=True,
+        pdf=True,
+        bbox_extra_artists=None,
+        verbose=False):
     """
     Saves plot as svg format in the current working directory.
 
@@ -112,12 +128,49 @@ def save_plot(plt, filename, transparent_background=True):
 
     # Save plot in svg format
     filename_svg = filename + '.svg'
+    filename_pdf = filename + '.pdf'
     if os.access(save_dir, os.W_OK):
         save_fullname_svg = os.path.join(save_dir, filename_svg)
+        save_fullname_pdf = os.path.join(save_dir, filename_pdf)
+
         plt.savefig(
                 save_fullname_svg,
                 transparent=transparent_background,
                 bbox_inches='tight')
-        print('Plot saved to "%s".' % (save_fullname_svg))
+        if verbose:
+            print('Plot saved to "%s".' % (save_fullname_svg))
+
+        if pdf:
+            plt.savefig(
+                    save_fullname_pdf,
+                    transparent=transparent_background,
+                    bbox_extra_artists=bbox_extra_artists, bbox_inches='tight')
+            if verbose:
+                print('Plot saved to "%s".' % (save_fullname_pdf))
     else:
         print('Cannot save plot to %s. Directory is not writable.' % save_dir)
+
+
+# =================
+# show or save plot
+# =================
+
+def show_or_save_plot(
+        plt,
+        filename,
+        transparent_background=True,
+        pdf=True,
+        bbox_extra_artists=None,
+        verbose=False):
+    """
+    Shows the plot. If no graphical beckend exists, saves the plot.
+    """
+
+    # Check if the graphical back-end exists
+    if matplotlib.get_backend() != 'agg' or is_notebook():
+        plt.show()
+    else:
+        # write the plot as SVG file in the current working directory
+        save_plot(plt, filename, transparent_background=transparent_background,
+                  pdf=pdf, bbox_extra_artists=bbox_extra_artists,
+                  verbose=verbose)

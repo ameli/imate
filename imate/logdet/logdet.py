@@ -22,18 +22,24 @@ from ._slq_method import slq_method
 
 def logdet(A, method='cholesky', **options):
     """
-    Computes the log-determinant of full-rank matrix ``A``.
+    Computes the log-determinant of full-rank matrix.
 
-    :param A: A full-rank matrix.
-    :type A: numpy.ndarray or scipy.sparse.csc_matrix
+    Parameters
+    ----------
 
-    :param options: Options for either of the methods.
-    :type options: ``**kwargs``
+        A : numpy.ndarray, scipy.sparse matrix
+            An invertible matrix.
 
-    :return: Log-determinant of ``A``
-    :rtype: float
+        options : `**kwargs`
+            Options for either of the methods.
 
-    .. note::
+    Return
+    ------
+        logdet : float
+            Log-determinant of `A`
+
+    Notes
+    -----
 
         For computing the *trace of inverse* with the stochastic Lanczos
         quadrature method (see :mod:`imate.traceinv.slq_method`), the
@@ -46,14 +52,17 @@ def logdet(A, method='cholesky', **options):
         to zero, bi-diagonalization performs better, and this matters when we
         compute determinant.
 
-    References:
+    References
+    ----------
+
         * Ubaru, S., Chen, J., and Saad, Y. (2017).
           Fast estimation of :math:`\\mathrm{tr}(f(A))` via stochastic Lanczos
           quadrature. *SIAM Journal on Matrix Analysis and Applications*,
           38(4), 1075-1099.
           `doi: 10.1137/16M1104974 <https://doi.org/10.1137/16M1104974>`_
 
-    **Examples:**
+    Examples
+    --------
 
     .. code-block:: python
 

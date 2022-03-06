@@ -1312,6 +1312,23 @@ def cythonize_extensions(extensions):
     return cythonized_extensions
 
 
+# ================
+# get requirements
+# ================
+
+def get_requirements(directory, subdirectory=""):
+    """
+    Returns a list containing the package requirements given in a file named
+    "requirements.txt" in a subdirectory.
+    """
+
+    requirements_filename = join(directory, subdirectory, "requirements.txt")
+    requirements_file = open(requirements_filename, 'r')
+    requirements = [i.strip() for i in requirements_file.readlines()]
+
+    return requirements
+
+
 # ====
 # main
 # ====
@@ -1333,15 +1350,15 @@ def main(argv):
     author = open(author_file, 'r').read().rstrip()
 
     # Requirements
-    requirements_filename = join(directory, "requirements.txt")
-    requirements_file = open(requirements_filename, 'r')
-    requirements = [i.strip() for i in requirements_file.readlines()]
+    requirements = get_requirements(directory)
+    test_requirements = get_requirements(directory, subdirectory="tests")
+    docs_requirements = get_requirements(directory, subdirectory="docs")
 
     # ReadMe
     readme_file = join(directory, 'README.rst')
     long_description = open(readme_file, 'r').read()
 
-    # Cyhton cpp extentions
+    # Cyhton cpp extensions
     extensions = []
 
     extensions.append(create_extension(package_name, 'sample_matrices'))
@@ -1473,18 +1490,8 @@ def main(argv):
             'extra': [
                 'scikit-sparse',
                 ],
-            'test': [
-                'pytest-cov',
-                'codecov'
-            ],
-            'docs': [
-                'sphinx',
-                'sphinx-math-dollar',
-                'sphinx-toggleprompt',
-                'sphinx_rtd_theme',
-                'graphviz',
-                'sphinx-automodapi',
-            ]
+            'test': test_requirements,
+            'docs': docs_requirements,
         },
         classifiers=[
             'Programming Language :: C++',

@@ -21,15 +21,14 @@ jobs:
                   ACCESS_TOKEN: ${{ secrets.IMATE_DOCS }}
                   BASE_BRANCH: main
                   BRANCH: gh-pages
-                  FOLDER: docs/_build/html
+                  FOLDER: docs/build/html
                   BUILD_SCRIPT: |
                       apt-get update
                       apt-get install graphviz -y
                       pip install --upgrade pip
                       pip install .[docs]
                       export PATH=$HOME/.local/bin:$PATH
-                      sphinx-apidoc -f -o docs/_modules/ ./imate
-                      python setup.py build_sphinx
+                      make html --directory=docs
                       touch docs/_build/html/.nojekyll
                       echo 'Visit [Documentation](https://ameli.github.io/imate/index.html).' > docs/_build/html/README.md
 

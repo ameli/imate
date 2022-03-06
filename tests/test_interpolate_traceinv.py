@@ -59,7 +59,7 @@ def test_interpolate_traceinv():
     # Compute trace of inverse of K using dense matrix
     print('Using dense matrix')
     A = correlation_matrix(size=20, sparse=False)
-    B = correlation_matrix(size=20, sparse=False, distance_scale=0.05)
+    B = correlation_matrix(size=20, sparse=False, scale=0.05)
 
     verbose = True
     interpolant_points = [1e-4, 1e-3, 1e-2, 1e-1, 1, 1e+1]

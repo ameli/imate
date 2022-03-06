@@ -225,7 +225,7 @@ cdef double _rational_quadratic_kernel(
 cdef double euclidean_distance(
         const double[:] point1,
         const double[:] point2,
-        const double distance_scale,
+        const double scale,
         const int dimension) nogil:
     """
     Returns the Euclidean distance between two points.
@@ -236,8 +236,8 @@ cdef double euclidean_distance(
     :param point2: 1D array of the coordinates of a point
     :type point2: cython memoryview (double)
 
-    :param distance_scale: A parameter to scale the distance
-    :type distance_scale: double
+    :param scale: A parameter to scale the distance
+    :type scale: double
 
     :param dimension: Dimension of the coordinates of the points.
     :type dimension: int
@@ -252,4 +252,4 @@ cdef double euclidean_distance(
     for dim in range(dimension):
         distance2 += (point1[dim] - point2[dim])**2
 
-    return sqrt(distance2) / distance_scale
+    return sqrt(distance2) / scale

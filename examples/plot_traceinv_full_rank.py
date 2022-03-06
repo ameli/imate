@@ -226,7 +226,7 @@ def main(test=False):
     A = correlation_matrix(
         size,
         dimension=2,
-        distance_scale=0.1,
+        scale=0.1,
         kernel='exponential',
         sparse=False,
         grid=True)

@@ -26,8 +26,8 @@ from ._rational_polynomial_functions_method import \
 
 try:
     from .._utilities.plot_utilities import *                # noqa: F401, F403
-    from .._utilities.plot_utilities import load_plot_settings, save_plot, \
-        matplotlib, plt
+    from .._utilities.plot_utilities import load_plot_settings, matplotlib, \
+        show_or_save_plot, plt
     plot_modules_exist = True
 except ImportError:
     plot_modules_exist = False
@@ -40,51 +40,6 @@ except ImportError:
 class InterpolateTraceinv(object):
     """
     Interpolates the trace of inverse of affine matrix functions.
-
-    :param A: A positive-definite matrix. Matrix can be dense or sparse.
-    :type A: numpy.ndarray or scipy.sparse.csc_matrix
-
-    :param B: A positive-definite matrix. Matrix can be dense or sparse.
-        If ``None`` or not provided, it is assumed that ``B`` is an identity
-        matrix of the shape of ``A``.
-    :type B: numpy.ndarray or scipy.sparse.csc_matrix
-
-    :param interpolant_points: A list or an array of points that the
-        interpolator use to interpolate. The trace of inverse is computed for
-        the interpolant points with exact method.
-    :type interpolant_points: list(float) or numpy.array(float)
-
-    :param ethod: One of the methods ``'EXT'``, ``'EIG'``, ``'MBF'``,
-        ``'RMBF'``, ``'RBF'``, and ``'RPF'``. Default is ``'RMBF'``.
-    :type method: string
-
-    :param traceinv_options: A dictionary of arguments to pass to
-        :mod:`imate.traceinv` module.
-    :type traceinv_options: dict
-
-    :param verbose: If ``True``, prints some information on the computation
-        process. Default is ``False``.
-    :type verbose: bool
-
-    :param interpolation_options: Additional options to pass to each specific
-        interpolator class. See the sub-classes of
-        :mod:`imate.InterpolantBase`.
-    :type interpolation_options: \\*\\*kwargs
-
-    **Methods:**
-
-    ==========  ==============================  ============
-    ``method``  Description                     Results
-    ==========  ==============================  ============
-    ``'EXT'``   Computes without interpolation  exact
-    ``'EIG'``   Uses Eigenvalues of matrix      exact
-    ``'MBF'``   Monomial Basis Functions        interpolated
-    ``'RMBF'``  Root monomial basis functions   interpolated
-    ``'RBF'``   Radial basis functions          interpolated
-    ``'RPF'``   Rational polynomial functions   interpolated
-    ==========  ==============================  ============
-
-    **Details:**
 
     An affine matrix function is defined by
 
@@ -106,10 +61,71 @@ class InterpolateTraceinv(object):
     :math:`t_i`, :math:`i = 1, \\dots, p`, which are often logarithmically
     spaced in some interval :math:`t_i \\in [t_1, t_p]`.
     The interpolator can interpolate the above function at inquiry points
-    :math:`t \\in [t_1, t_p]`
-    using various methods.
+    :math:`t \\in [t_1, t_p]` using various methods.
 
-    **Examples:**
+    Parameters
+    ----------
+        A : numpy.ndarray, scipy.sparse matrix
+            A positive-definite matrix. Matrix can be dense or sparse.
+
+        B : numpy.ndarray, scipy.sparse matrix, default=None
+            A positive-definite matrix. Matrix can be dense or sparse. If
+            `None` or not provided, it is assumed that `B` is an identity
+            matrix of the shape of `A`.
+
+        interpolant_points : list(float), numpy.array(float), default=None
+            A list or an array of points that the interpolator use to
+            interpolate. The trace of inverse is computed for the interpolant
+            points with exact method. If `None`, a default list of interpolant
+            points is used.
+
+        method : str, default=`'RMBF'`
+            Algorithm of interpolation. See table below.
+
+            ==========  ==============================  ============
+            `method`    Description                     Results
+            ==========  ==============================  ============
+            ``'EXT'``   Computes without interpolation  exact
+            ``'EIG'``   Uses Eigenvalues of matrix      exact
+            ``'MBF'``   Monomial Basis Functions        interpolated
+            ``'RMBF'``  Root monomial basis functions   interpolated
+            ``'RBF'``   Radial basis functions          interpolated
+            ``'RPF'``   Rational polynomial functions   interpolated
+            ==========  ==============================  ============
+
+        traceinv_options : dict, default={'method': 'cholesky'}
+            A dictionary of arguments to pass to :mod:`imate.traceinv` module.
+
+        verbose : bool, default=False
+            If `True`, it prints some information on the computation process.
+
+        interpolation_options : \\*\\*kwargs
+            Additional options to pass to each specific interpolator class.
+            See the sub-classes of :mod:`imate.InterpolantBase`.
+
+    Attributes
+    ----------
+    method : str
+        Method of interpolation
+    verbose : bool
+        Verbosity of the computation process.
+    n : int
+        Since of the matrix
+    p : int
+        number of interpolant points
+
+    Methods
+    -------
+    __call__
+    compute
+    compare_with_exact_solution
+    interpolate
+    lower_bound
+    upper_bound
+    plot_interpolation
+
+    Examples
+    --------
 
     Interpolate the trace of inverse of the affine matrix function
     :math:`\\mathbf{A} + t \\mathbf{B}`:
@@ -163,9 +179,9 @@ class InterpolateTraceinv(object):
         >>> TI = InterpolateTraceinv(A, B, interpolant_points,
         >>>     traceinv_options=traceinv_options)
 
-    .. seealso::
-        This module calls a derived class of the base class
-        :mod:`imate.InterpolateTraceinv.InterpolantBase`.
+    See Also
+    --------
+        traceinv : Computes trace of inverse of a matrix.
 
     """
 
@@ -234,6 +250,17 @@ class InterpolateTraceinv(object):
             raise ValueError("'method' is invalid. Select one of 'EXT', " +
                              "'EIG', 'MBF', 'RMBF', 'RBF', or 'RPF'.")
 
+    # ========
+    # __call__
+    # ========
+
+    def __call__(self, t, compare_with_exact=False, plot=False):
+        """
+        Same as :func:`InterpolateTraceinv.interpolate` method.
+        """
+
+        return self.interpolate(t, compare_with_exact, plot)
+
     # =======
     # compute
     # =======
@@ -245,15 +272,19 @@ class InterpolateTraceinv(object):
         method.
 
         The computation method used in this function is exact (no
-        interpolation). This function  is primarily used to compute trace on
+        interpolation). This function  is primarily used to compute traceinv on
         the *interpolant points*.
 
-        :param: t: An inquiry point, which can be a single number, or an array
-            of numbers.
-        :type t: float or numpy.array
+        Parameters
+        ----------
+            t : float or numpy.array
+                An inquiry point, which can be a single number, or an array of
+                numbers.
 
-        :return: The exact value of the trace
-        :rtype: float or numpy.array
+        Returns
+        -------
+            traceinv : float or numpy.array
+                The exact value of the traceinv function.
         """
 
         if isinstance(t, Number):
@@ -277,19 +308,22 @@ class InterpolateTraceinv(object):
         Computes the trace with exact method (no interpolation), then compares
         it with the interpolated solution.
 
-        :param t: Inquiry points
-        :type t: numpy.ndarray
+        Parameters
+        ----------
+            t : numpy.array
+                Inquiry points
 
-        :param Trace: The interpolated computation of trace.
-        :type Trace: float or numpy.ndarray
+            Trace: float or numpy.array
+                The interpolated computation of trace.
 
-        :returns:
-            - Exact solution of trace.
-            - Relative error of interpolated solution compared to the exact
-              solution.
-        :rtype:
-            - float or numpy.ndarray
-            - float or numpy.ndarray
+        Returns
+        -------
+            exact : float or numpy.array
+                Exact solution of trace.
+
+            relative_error : float or numpy.array
+                Relative error of interpolated solution compared to the exact
+                solution.
         """
 
         if self.method == 'EXT':
@@ -315,31 +349,33 @@ class InterpolateTraceinv(object):
         Interpolates :math:`\\mathrm{trace} \\left( (\\mathbf{A} +
         t \\mathbf{B})^{-1} \\right)` at :math:`t`.
 
-        This is the main interface function of this module and it is used after
-        the interpolation
-        object is initialized.
+        Parameters
+        ----------
+        t : float, list, numpy.array
+            The inquiry point(s) to be interpolated.
 
-        :param t: The inquiry point(s).
-        :type t: float, list, or numpy.array
-
-        :param compare_with_exact: If ``True``, it computes the trace with
-            exact solution, then compares it with the interpolated solution.
-            The return values of the ``Interpolate()`` functions become
+        compare_with_exact : bool, default=False
+            If `True`, it computes the trace with exact solution, then compares
+            it with the interpolated solution. The return values of the
+            :func:`InterpolateTraceinv.interpolate` function become
             interpolated trace, exact solution, and relative error. **Note:**
             When this option is enabled, the exact solution will be computed
-            for all inquiry points, which can take a very long time. Default is
-            ``False``.
-        :type compare_with_exact: bool
+            for all inquiry points, which can take a very long time.
 
-        :param plot: If ``True``, it plots the interpolated trace versus the
-            inquiry points. In addition, if the option ``compare_with_exact``
-            is also set to ``True``, the plotted diagram contains both
-            interpolated and exact solutions and the relative error of
-            interpolated solution with respect to the exact solution.
-        :type plot: bool
+        plot : bool, default=False
+            If `True`, it plots the interpolated trace versus the inquiry
+            points. In addition, if the option `compare_with_exact` is also set
+            to `True`, the plotted diagram contains both interpolated and exact
+            solutions and the relative error of interpolated solution with
+            respect to the exact solution.
 
-        :return: The interpolated value of the trace.
-        :rtype: float or numpy.array
+        Returns
+        -------
+        trace : float or numpy.array
+            The interpolated value of the traceinv function.
+
+        Notes
+        -----
 
         **Plotting:**
 
@@ -355,16 +391,14 @@ class InterpolateTraceinv(object):
             * If :math:`\rm\\laTeX` is not installed, it uses any available
               San-Serif font to render the plot.
 
-       .. note::
+        To manually disable interactive plot display, and save the plot as
+        ``SVG`` instead, add the following in the very begining of your code
+        before importing ``imate``:
 
-           To manually disable interactive plot display, and save the plot as
-           ``SVG`` instead, add the following in the very begining of your code
-           before importing ``imate``:
+        .. code-block:: python
 
-           .. code-block:: python
-
-               >>> import os
-               >>> os.environ['IMATE_NO_DISPLAY'] = 'True'
+            >>> import os
+            >>> os.environ['IMATE_NO_DISPLAY'] = 'True'
         """
 
         if isinstance(t, Number):
@@ -415,16 +449,15 @@ class InterpolateTraceinv(object):
             \\frac{n^2}{\\mathrm{trace}(\\mathbf{A}) +
             \\mathrm{trace}(t \\mathbf{B})}
 
-        :param t: An inquiry point or an array of inquiry points.
-        :type t: float or numpy.array
+        Parameters
+        ----------
+        t : float or numpy.array
+            An inquiry point or an array of inquiry points.
 
-        :return: Lower bound of the affine matrix function.
-        :rtype: float or numpy.array
-
-        .. seealso::
-
-            This function is implemented in
-            :meth:`imate.InterpolateTraceinv.InterpolantBase.g`.
+        Returns
+        -------
+            lb : float or numpy.array
+                Lower bound of the affine matrix function.
         """
 
         if isinstance(t, Number):
@@ -464,16 +497,15 @@ class InterpolateTraceinv(object):
 
         and :math:`\\tau_0 = \\tau(0)`.
 
-        :param t: An inquiry point or an array of inquiry points.
-        :type t: float or numpy.array
+        Parameters
+        ----------
+        t : float or numpy.array
+            An inquiry point or an array of inquiry points.
 
-        :return: Lower bound of the affine matrix function.
-        :rtype: float or numpy.array
-
-        .. seealso::
-
-            This function is implemented in
-            :meth:`imate.InterpolateTraceinv.InterpolantBase.upper_bound`.
+        Returns
+        -------
+        ub : float or numpy.array
+            bound of the affine matrix function.
         """
 
         if isinstance(t, Number):
@@ -488,12 +520,17 @@ class InterpolateTraceinv(object):
 
         return T_ub
 
-    # ==================
-    # plot interpolation
-    # ==================
+    # ====
+    # plot
+    # ====
 
-    def plot_interpolation(self, inquiry_points, trace_interpolated,
-                           trace_exact=None, trace_relative_error=None):
+    def plot(
+            self,
+            inquiry_points,
+            trace_interpolated=None,
+            compare=False,
+            trace_exact=None,
+            trace_relative_error=None):
         """
         Plots the interpolation results, together with the comparison with the
         exact solution and the relative error of the interpolation.
@@ -501,22 +538,23 @@ class InterpolateTraceinv(object):
         To plot, set ``Plot=True`` argument in
         :mod:`imate.InterpolateTraceinv`.
 
-        :param inquiry_points: Inquiry points
-        :type inquiry_points: numpy.ndarray
+        Parameters
+        ----------
+        inquiry_points: numpy.array
+            Inquiry points to be interpolated
 
-        :param trace_interpolated: Interpolation of the trace at inquiry
-            points.
-        :type trace_interpolated: numpy.ndarray
+        trace_interpolated : numpy.array
+            Interpolation of the trace at inquiry
 
-        :param trace_exact: Exact solutions of the trace at inquiry points.
-            If this variable is not None, it will be plotted together with the
-            interpolated results.
-        :type trace_exact: numpy.ndarray
+        trace_exact : numpy.array, default=None
+            Exact solutions of the trace at inquiry points. If this variable is
+            not None, it will be plotted together with the interpolated
+            results.
 
-        :param trace_relative_error: Relative errors of the interpolation with
-            respect to the exact solution. If not None, the relative errors
-            will be plotted on a second axis.
-        :type trace_relative_error: numpy.ndarray
+        trace_relative_error : numpy.array, default=None
+            Relative errors of the interpolation with respect to the exact
+            solution. If not None, the relative errors will be plotted on a
+            second axis.
         """
 
         if not plot_modules_exist:
@@ -538,6 +576,17 @@ class InterpolateTraceinv(object):
                              "array of length greater than one to be able " +
                              " to plot results.")
 
+        # If no data is provided, generate interpolation
+        if trace_interpolated is None:
+            trace_interpolated = self.interpolate(inquiry_points)
+
+        if compare:
+            if trace_exact is None:
+                trace_exact = self.compute(inquiry_points)
+
+            if trace_relative_error is None:
+                trace_relative_error = (trace_interpolated / trace_exact) - 1.0
+
         # Plot results
         if trace_relative_error is None:
             # One subplot
@@ -547,35 +596,56 @@ class InterpolateTraceinv(object):
             # Two subplots
             fig, ax = plt.subplots(ncols=2, figsize=(9, 4))
 
+        # Plot settings
+        markersize = 4
+        exact_color = 'firebrick'
+        interp_color = 'black'
+
+        # Normalize traceinv to tau
+        tau_i = self.interpolator.trace_i / self.interpolator.trace_Binv
+        tau_interpolated = trace_interpolated / self.interpolator.trace_Binv
+        if trace_exact is not None:
+            tau_exact = trace_exact / self.interpolator.trace_Binv
+
         # Plot interpolant points with their exact values
         if self.interpolator.p > 0:
-            ax[0].semilogx(self.interpolator.t_i, self.interpolator.trace_i,
-                           'o', color='red', label='Interpolant points',
-                           zorder=20)
+            ax[0].loglog(self.interpolator.t_i, tau_i, 'o', color=exact_color,
+                         markersize=markersize, label='Interpolant points',
+                         zorder=20)
 
         # Plot exact values
         if trace_exact is not None:
-            ax[0].semilogx(inquiry_points, trace_exact, color='red',
+            ax[0].semilogx(inquiry_points, tau_exact, color=exact_color,
                            label='Exact')
 
         # Plot interpolated results
-        ax[0].semilogx(inquiry_points, trace_interpolated, color='black',
+        ax[0].semilogx(inquiry_points, tau_interpolated, color=interp_color,
                        label='Interpolated')
 
-        ax[0].grid(True)
+        ax[0].grid(axis='x')
         ax[0].set_xlim([inquiry_points[0], inquiry_points[-1]])
         ax[0].set_xlabel(r'$t$')
         if self.interpolator.B_is_identity:
             if matplotlib.rcParams['text.usetex'] is True:
-                ax[0].set_ylabel(r'trace$(\\mathbf{A} + t \\mathbf{I})^{-1}$')
+                ax[0].set_ylabel(r'$\frac{1}{n}\mathrm{trace}(\mathbf{A} + ' +
+                                 r't \mathbf{I})^{-1}$')
             else:
-                ax[0].set_ylabel(r'trace$(\mathbf{A} + t \mathbf{I})^{-1}$')
+                ax[0].set_ylabel(r'$\frac{1}{n}\mathrm{trace}(\mathbf{A} + ' +
+                                 r't \mathbf{I})^{-1}$')
         else:
             if matplotlib.rcParams['text.usetex'] is True:
-                ax[0].set_ylabel(r'trace$(\\mathbf{A} + t \\mathbf{B})^{-1}$')
+                ax[0].set_ylabel(r'$\frac{\mathrm{trace}(\mathbf{A} + t ' +
+                                 r'\mathbf{B})^{-1}}{\mathrm{trace}(' +
+                                 r'\mathbf{B})^{-1}}$')
             else:
-                ax[0].set_ylabel(r'trace$(\mathbf{A} + t \mathbf{B})^{-1}$')
-        ax[0].set_title('Trace of Inverse')
+                ax[0].set_ylabel(r'$\frac{\mathrm{trace}(\mathbf{A} + t ' +
+                                 r'\mathbf{B})^{-1}}{\mathrm{trace}(' +
+                                 r'\mathbf{B})^{-1}}$')
+        if trace_relative_error is not None:
+            ax[0].set_title('(a) Comparison of Interpolated and Exact ' +
+                            'Function')
+        else:
+            ax[0].set_title('Interpolation')
         ax[0].legend(fontsize='small')
 
         # Plot relative error in percent
@@ -583,17 +653,19 @@ class InterpolateTraceinv(object):
             if self.interpolator.p > 0:
                 ax[1].semilogx(self.interpolator.t_i,
                                numpy.zeros(self.interpolator.p), 'o',
-                               color='red', label='Interpolant points',
-                               zorder=20)
+                               color=exact_color, markersize=markersize,
+                               label='Interpolant points', zorder=20)
             ax[1].semilogx(inquiry_points, 100.0*trace_relative_error,
-                           color='black', label='Interpolated')
-            ax[1].grid(True)
+                           color=interp_color, label='Interpolated')
+            ax[1].grid(axis='x')
+            ax[1].semilogx(ax[1].get_xlim(), [0, 0], color='#CCCCCC',
+                           linewidth=0.75)
             ax[1].set_xlim([inquiry_points[0], inquiry_points[-1]])
             ax[1].set_xlabel('$t$')
-            ax[1].set_ylabel('Relative Error (in Percent)')
-            ax[1].set_title('Relative Error')
+            ax[1].set_ylabel('Relative Error of Interpolation')
+            ax[1].set_title('(b) Relative Error')
             ax[1].yaxis.set_major_formatter(
-                    matplotlib.ticker.PercentFormatter())
+                    matplotlib.ticker.PercentFormatter(decimals=2))
             ax[1].legend(fontsize='small')
 
         plt.tight_layout()
@@ -603,5 +675,5 @@ class InterpolateTraceinv(object):
             plt.show()
         else:
             # Save the plot as SVG file in the current directory
-            save_plot(plt, 'interpolation_results',
+            show_or_save_plot(plt, 'interpolation',
                       transparent_background=True)

@@ -17,42 +17,24 @@ A common difficulty in such application is that the matrices are generally large
 .. toctree::
     :maxdepth: 1
     :caption: Documentation
+    :hidden:
 
     Introduction <introduction>
     Install <install>
     Quick Start <quickstart>
+    API Reference <api>
     Examples <examples>
     Notes <notes>
-
-.. toctree::
-    :maxdepth: 1
-    :caption: Sub-packages User Guide
-
-    Compute Log Determinant <ComputeLogDeterminant>
-    Compute Trace of Inverse <ComputeTraceOfInverse>
-    Interpolate Trace of Inverse <InterpolateTraceOfInverse>
-    generate_matrix <generate_matrix>
-
-.. toctree::
-    :maxdepth: 1
-    :caption: Development
-              
-    Package API <_modules/modules>
-    Running Tests <tests>
     Change Log <changelog>
 
-.. =======
-.. Modules
-.. =======
+.. .. toctree::
+..     :maxdepth: 1
+..     :caption: Sub-packages User Guide
 ..
-.. .. autosummary::
-..    :toctree: _autosummary
-..    :recursive:
-..    :nosignatures:
-..
-..    imate.ComputeTraceOfInverse
-..    imate.InterpolateTraceOfInverse
-..    imate.generate_matrix
+..     Compute Log Determinant <ComputeLogDeterminant>
+..     Compute Trace of Inverse <ComputeTraceOfInverse>
+..     Interpolate Trace of Inverse <InterpolateTraceOfInverse>
+..     generate_matrix <generate_matrix>
 
 =========
 Tutorials
@@ -76,13 +58,13 @@ Useful Links
 ..     * `Travis-CI <https://travis-ci.com/github/ameli/imate>`_
 ..     * `Codecov <https://codecov.io/gh/ameli/imate>`_
 
-+---------------------------------------------------------------+-------------------------------------------------------------------+
-|    For users                                                  | For developers                                                    |
-+===============================================================+===================================================================+
++---------------------------------------------------------------+----------------------------------------------------------------+
+|    For users                                                  | For developers                                                 |
++===============================================================+================================================================+
 | * `Anaconda package <https://anaconda.org/s-ameli/traceinv>`_ | * `API <https://ameli.github.io/imate/_modules/modules.html>`_ |
-| * `PyPi package <https://pypi.org/project/imate/>`_        | * `Travis-CI <https://travis-ci.com/github/ameli/imate>`_      |
-| * `Source code <https://github.com/ameli/imate>`_          | * `Codecov <https://codecov.io/gh/ameli/imate>`_               |
-+---------------------------------------------------------------+-------------------------------------------------------------------+
+| * `PyPi package <https://pypi.org/project/imate/>`_           | * `Travis-CI <https://travis-ci.com/github/ameli/imate>`_      |
+| * `Source code <https://github.com/ameli/imate>`_             | * `Codecov <https://codecov.io/gh/ameli/imate>`_               |
++---------------------------------------------------------------+----------------------------------------------------------------+
 
 =================
 How to Contribute

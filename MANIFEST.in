@@ -16,10 +16,12 @@ recursive-include docs *.py
 recursive-include docs *.rst
 recursive-include docs *.svg
 recursive-include docs Makefile
-recursive-include _modules *.rst
-recursive-exclude docs/images *.pdf
 recursive-include docs *.bib
 recursive-include docs *.in
+recursive-include docs *.txt
+recursive-exclude docs *.html
+recursive-exclude docs *.pdf
+recursive-include docs/source *.html
 
 recursive-include imate *.rst
 recursive-include examples *.py
@@ -28,6 +30,7 @@ recursive-include notebooks *.ipynb
 recursive-include tests *.py
 recursive-include tests *.rst
 recursive-exclude tests *.svg
+recursive-include tests *.txt
 
 include CHANGELOG.rst
 include README.rst
@@ -46,6 +49,7 @@ exclude .travis.yml
 exclude .coverage
 exclude .gitattributes
 
+prune docs/build
 prune .git
 prune tmp
 prune .tox

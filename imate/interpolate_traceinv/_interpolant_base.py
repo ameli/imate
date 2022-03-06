@@ -145,7 +145,6 @@ class InterpolantBase(object):
 
         # trace of Ainv
         self.trace_Ainv, _ = traceinv(self.A, **self.traceinv_options)
-        print(self.trace_Ainv)
 
         # trace of Binv
         if self.B_is_identity:

@@ -33,7 +33,7 @@ __all__ = ['correlation_matrix']
 def correlation_matrix(
         size=20,
         dimension=1,
-        distance_scale=0.1,
+        scale=0.1,
         kernel='exponential',
         kernel_param=None,
         grid=True,
@@ -110,9 +110,9 @@ def correlation_matrix(
         correlation matrix.
     :type dimension: int
 
-    :param distance_scale: A parameter of correlation function that scales
+    :param scale: A parameter of correlation function that scales
         distance.
-    :type distance_scale: float
+    :type scale: float
 
     :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
     :type nu: float
@@ -176,7 +176,7 @@ def correlation_matrix(
 
     .. code-block:: python
 
-       >>> A = correlation_matrix(size=20, distance_scale=0.3)
+       >>> A = correlation_matrix(size=20, scale=0.3)
 
     Sparsify correlation matrix of size :math:`(20^2, 20^2)` with approximate
     density of :math:`1e-3`
@@ -194,7 +194,7 @@ def correlation_matrix(
     """
 
     # Check input arguments
-    _check_arguments(size, dimension, distance_scale, kernel,
+    _check_arguments(size, dimension, scale, kernel,
                      kernel_param, grid, sparse, density, dtype, plot, verbose)
 
     # Default for kernel parameter
@@ -216,7 +216,7 @@ def correlation_matrix(
         # Generate as sparse matrix
         correlation_matrix = sparse_correlation_matrix(
             coords,
-            distance_scale,
+            scale,
             kernel,
             kernel_param,
             density,
@@ -228,7 +228,7 @@ def correlation_matrix(
         # Generate a dense matrix
         correlation_matrix = dense_correlation_matrix(
             coords,
-            distance_scale,
+            scale,
             kernel,
             kernel_param,
             dtype,
@@ -248,7 +248,7 @@ def correlation_matrix(
 def _check_arguments(
         size,
         dimension,
-        distance_scale,
+        scale,
         kernel,
         kernel_param,
         grid,
@@ -281,15 +281,15 @@ def _check_arguments(
     elif dimension < 1:
         raise ValueError('"dimension" should be a positive integer.')
 
-    # Check distance_scale
-    if distance_scale is None:
-        raise TypeError('"distance_scale" cannot be None.')
-    elif not numpy.isscalar(distance_scale):
-        raise TypeError('"distance_scale" should be a scalar value.')
-    elif isinstance(distance_scale, complex):
-        TypeError('"distance_scale" should be a float number.')
-    elif distance_scale <= 0.0:
-        raise ValueError('"distance_scale" should be a positive number.')
+    # Check scale
+    if scale is None:
+        raise TypeError('"scale" cannot be None.')
+    elif not numpy.isscalar(scale):
+        raise TypeError('"scale" should be a scalar value.')
+    elif isinstance(scale, complex):
+        TypeError('"scale" should be a float number.')
+    elif scale <= 0.0:
+        raise ValueError('"scale" should be a positive number.')
 
     # Check kernel
     if not isinstance(kernel, str):

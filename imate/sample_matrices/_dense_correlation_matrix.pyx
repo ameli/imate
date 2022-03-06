@@ -42,7 +42,7 @@ cdef void _generate_matrix(
         const double[:, ::1] coords,
         const int matrix_size,
         const int dimension,
-        const double distance_scale,
+        const double scale,
         const kernel_type kernel_function,
         const double kernel_param,
         const int num_threads,
@@ -64,9 +64,9 @@ cdef void _generate_matrix(
         is the dimension of the spatial points.
     :type dimension: int
 
-    :param distance_scale: A parameter of the correlation function that
+    :param scale: A parameter of the correlation function that
         scales distances.
-    :type distance_scale: double
+    :type scale: double
 
     :param nu: The parameter :math:`\\nu` of Matern correlation kernel.
     :type nu: float
@@ -121,7 +121,7 @@ cdef void _generate_matrix(
                         euclidean_distance(
                             coords[i][:],
                             coords[j][:],
-                            distance_scale,
+                            scale,
                             dimension),
                         kernel_param)
 
@@ -153,7 +153,7 @@ cdef void _generate_matrix(
 
 def dense_correlation_matrix(
         coords,
-        distance_scale=0.1,
+        scale=0.1,
         kernel='exponential',
         kernel_param=None,
         dtype=r'float64',
@@ -176,9 +176,9 @@ def dense_correlation_matrix(
         the dimension of the spatial points.
     :type coords: numpy.ndarray
 
-    :param distance_scale: A parameter of correlation function that scales
+    :param scale: A parameter of correlation function that scales
         distance.
-    :type distance_scale: float
+    :type scale: float
 
     :param verbose: If ``True``, prints some information during the process.
     :type verbose: bool
@@ -230,7 +230,7 @@ def dense_correlation_matrix(
                 coords,
                 matrix_size,
                 dimension,
-                distance_scale,
+                scale,
                 kernel_function,
                 kernel_param,
                 num_threads,
@@ -248,7 +248,7 @@ def dense_correlation_matrix(
                 coords,
                 matrix_size,
                 dimension,
-                distance_scale,
+                scale,
                 kernel_function,
                 kernel_param,
                 num_threads,
@@ -267,7 +267,7 @@ def dense_correlation_matrix(
                 coords,
                 matrix_size,
                 dimension,
-                distance_scale,
+                scale,
                 kernel_function,
                 kernel_param,
                 num_threads,
