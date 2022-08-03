@@ -34,8 +34,9 @@ To reproduce *Figure 2* of the manuscript, run the script |example1|_ by
 
 The script generates the figure below.
 
-.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/chebyshev.svg
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/chebyshev.svg
    :align: center
+   :width: 400
 
 ---------
 Example 2
@@ -49,7 +50,7 @@ To reproduce *Figure 3* of the manuscript, run the script |example2|_ by
 
 Note that this script may take a long time to complete. The script generates the figure below.
 
-.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/imate_mwe.svg
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/imate_mwe.svg
    :align: center
 
 ---------
@@ -64,11 +65,11 @@ To reproduce *Figure 4* of the manuscript, run the script |example3|_ by
 
 The script generates the three figures below.
 
-.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/plot_traceinv_full_rank_p0.py
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/traceinv_full_rank_p0.svg
    :align: center
-.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/plot_traceinv_full_rank_p1.py
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/traceinv_full_rank_p1.svg
    :align: center
-.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/plot_traceinv_full_rank_p2.py
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/traceinv_full_rank_p2.svg
    :align: center
 
 ---------
@@ -83,7 +84,7 @@ To reproduce *Figure 5* of the manuscript, run the script |example4|_ by
 
 The script generates the figure below.
 
-.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/plot_traceinv_ill_conditioned.svg
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/traceinv_ill_conditioned.svg
    :align: center
 
 ---------
@@ -98,8 +99,9 @@ To reproduce *Figure 6* of the manuscript, run the script |example5|_ by
 
 The script generates the figure below.
 
-.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/images/plot_generalized_cross_validation.svg
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/generalized_cross_validation.svg
    :align: center
+   :width: 400
 
 ---------
 Example 6
@@ -158,19 +160,19 @@ References
 .. _examplesdir: https://github.com/ameli/imate/blob/main/examples
 
 .. |example1| replace:: ``/examples/plot_chebyshev_rational.py``
-.. _example1: https://github.com/ameli/imate/blob/main/docs/source/_static/images/plot_chebyshev_rational.py
+.. _example1: https://github.com/ameli/imate/blob/main/examples/plot_chebyshev_rational.py
 
 .. |example2| replace:: ``/examples/imate_mwe.py``
-.. _example2: https://github.com/ameli/imate/blob/main/docs/source/_static/images/imate_mwe.py
+.. _example2: https://github.com/ameli/imate/blob/main/examples/imate_mwe.py
 
 .. |example3| replace:: ``/examples/plot_traceinv_full_rank.py``
-.. _example3: https://github.com/ameli/imate/blob/main/docs/source/_static/images/plot_traceinv_full_rank.py
+.. _example3: https://github.com/ameli/imate/blob/main/examples/plot_traceinv_full_rank.py
 
 .. |example4| replace:: ``/examples/plot_traceinv_ill_conditioned.py``
-.. _example4: https://github.com/ameli/imate/blob/main/docs/source/_static/images/plot_traceinv_ill_conditioned.py
+.. _example4: https://github.com/ameli/imate/blob/main/examples/plot_traceinv_ill_conditioned.py
 
 .. |example5| replace:: ``/examples/plot_generalized_corss_validation.py``
-.. _example5: https://github.com/ameli/imate/blob/main/docs/source/_static/images/plot_generalized_cross_validation.py
+.. _example5: https://github.com/ameli/imate/blob/main/examples/plot_generalized_cross_validation.py
 
 .. |example6| replace:: ``/examples/table_generalized_corss_validation.py``
-.. _example6: https://github.com/ameli/imate/blob/main/docs/source/_static/images/table_generalized_cross_validation.py
+.. _example6: https://github.com/ameli/imate/blob/main/examples/table_generalized_cross_validation.py
