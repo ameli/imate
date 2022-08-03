@@ -36,7 +36,7 @@ The script generates the figure below.
 
 .. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/chebyshev.svg
    :align: center
-   :width: 400
+   :scale: 50
 
 ---------
 Example 2
@@ -101,7 +101,7 @@ The script generates the figure below.
 
 .. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/generalized_cross_validation.svg
    :align: center
-   :width: 400
+   :scale: 50
 
 ---------
 Example 6
