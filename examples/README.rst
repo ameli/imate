@@ -36,7 +36,7 @@ The script generates the figure below.
 
 .. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/chebyshev.svg
    :align: center
-   :scale: 50
+   :width: 500
 
 ---------
 Example 2
