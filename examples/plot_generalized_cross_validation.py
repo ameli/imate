@@ -26,7 +26,7 @@ from _utilities.processing_time_utilities import TimeCounter, process_time, \
         restrict_computation_to_single_processor
 from _utilities.data_utilities import generate_matrix, generate_noisy_data, \
         generate_basis_functions
-from imate import InterpolateTraceinv
+from imate import InterpolateSchatten
 from imate import traceinv
 
 
@@ -35,7 +35,7 @@ from imate import traceinv
 # ============================
 
 def generalized_cross_validation(X, K, z, TI, shift, time_counter,
-                                 use_log_lambda, lambda_):
+                                 use_log_theta, theta_):
     """
     Computes the CGV function :math:`V(\\theta)`.
 
@@ -71,12 +71,12 @@ def generalized_cross_validation(X, K, z, TI, shift, time_counter,
             be read outside of this function.
         :type TimeCounteR: examples._utilities.TimeCounter
 
-        :param UseLog: A flag, if ``True``, it assumes ``lambda_`` is in
-            logarithmic scale. If ``False``, then ``lambda_`` is not assumed to
+        :param UseLog: A flag, if ``True``, it assumes ``theta_`` is in
+            logarithmic scale. If ``False``, then ``theta_`` is not assumed to
             be in logarithmic scale.
         :type UseLog: bool
 
-        :param lambda_: Parameter of generalized cross validation.
+        :param theta_: Parameter of generalized cross validation.
         :type: float
 
         The generalized cross-validation (GCV) function is:
@@ -97,7 +97,7 @@ def generalized_cross_validation(X, K, z, TI, shift, time_counter,
 
         .. note::
 
-            In this function, we use the variable ``lambda_`` for
+            In this function, we use the variable ``theta_`` for
             :math:`\\theta`.
 
 
@@ -110,12 +110,12 @@ def generalized_cross_validation(X, K, z, TI, shift, time_counter,
 
     """
 
-    # If lambda is in the logarithm scale, convert it to normal scale
-    if use_log_lambda is True:
-        lambda_ = 10**lambda_
+    # If theta is in the logarithm scale, convert it to normal scale
+    if use_log_theta is True:
+        theta_ = 10**theta_
 
     n, m = X.shape
-    mu = n*lambda_
+    mu = n*theta_
 
     y1 = X.T.dot(z)
     Im = numpy.eye(m)
@@ -131,7 +131,9 @@ def generalized_cross_validation(X, K, z, TI, shift, time_counter,
     if n > m:
         if TI is not None:
             # Interpolate trace of inverse
-            trace = n - m + mu * TI.interpolate(mu-shift)
+            schatten_mu = TI.interpolate(mu-shift)
+            trace_mu = m / schatten_mu
+            trace = n - m + mu * trace_mu
         else:
             # Compute the exact value of the trace of inverse
             time0 = process_time()
@@ -144,7 +146,9 @@ def generalized_cross_validation(X, K, z, TI, shift, time_counter,
     else:
         if TI is not None:
             # Interpolate trace of inverse
-            trace = mu * TI.interpolate(mu-shift)
+            schatten_mu = TI.interpolate(mu-shift)
+            trace_mu = n / schatten_mu
+            trace = mu * trace_mu
         else:
             time0 = process_time()
             In = numpy.eye(n)
@@ -167,26 +171,26 @@ def generalized_cross_validation(X, K, z, TI, shift, time_counter,
 # minimize gcv
 # ============
 
-def minimize_gcv(X, K, z, TI, shift, lambda_bounds, initial_elapsed_time,
+def minimize_gcv(X, K, z, TI, shift, theta_bounds, initial_elapsed_time,
                  time_counter):
     """
-    Finds the parameter ``lambda`` such that GCV is minimized.
+    Finds the parameter ``theta`` such that GCV is minimized.
 
-    In this function, ``lambda`` in logarithmic scale.
+    In this function, ``theta`` in logarithmic scale.
     """
 
     print('\nMinimize GCV ...')
 
-    # Use lambda in log scale
-    use_log_lambda = True
-    bounds = [(numpy.log10(lambda_bounds[0]), numpy.log10(lambda_bounds[1]))]
+    # Use theta in log scale
+    use_log_theta = True
+    bounds = [(numpy.log10(theta_bounds[0]), numpy.log10(theta_bounds[1]))]
     tolerance = 1e-4
-    # guess_log_lambda_ = -4
+    # guess_log_theta_ = -4
 
     # Partial function to minimize
     gcv_partial_function = partial(generalized_cross_validation,
                                    X, K, z, TI, shift, time_counter,
-                                   use_log_lambda)
+                                   use_log_theta)
 
     # Optimization methods
     time0 = process_time()
@@ -194,7 +198,7 @@ def minimize_gcv(X, K, z, TI, shift, lambda_bounds, initial_elapsed_time,
     # Local optimization method (use for both direct and presented method)
     # Method = 'Nelder-Mead'
     # results = scipy.optimize.minimize(gcv_partial_function,
-    #       guess_log_lambda_, method=Method, tol=tolerance,
+    #       guess_log_theta_, method=Method, tol=tolerance,
     #       options={'maxiter':1000, 'xatol':tolerance, 'fatol':tolerance,
     #                'disp':True})
     #       callback=MinimizeTerminatorObj.__call__,
@@ -211,7 +215,7 @@ def minimize_gcv(X, K, z, TI, shift, lambda_bounds, initial_elapsed_time,
     #             options={'minimize_every_iter': True, 'local_iter': True,
     #                      'minimizer_kwargs':{'method': 'Nelder-Mead'}})
     # results = scipy.optimize.basinhopping(gcv_partial_function,
-    #                                   x0=guess_log_lambda_)
+    #                                   x0=guess_log_theta_)
 
     print(results)
 
@@ -233,8 +237,8 @@ def minimize_gcv(X, K, z, TI, shift, lambda_bounds, initial_elapsed_time,
 
     results = {
         'min_gcv': results.fun,
-        'min_log_lambda_': results.x[0],
-        'min_lambda_': 10.0**results.x[0],
+        'min_log_theta_': results.x[0],
+        'min_theta_': 10.0**results.x[0],
         'fun_evaluations': results.nfev,
         'elapsed_time': elapsed_time
     }
@@ -248,12 +252,12 @@ def minimize_gcv(X, K, z, TI, shift, lambda_bounds, initial_elapsed_time,
 
 def plot_generalized_cross_validation(data, test):
     """
-    Plots GCV for a range of lambda_.
+    Plots GCV for a range of theta_.
 
     data is a list of dictionaries, ``data[0], data[1], ...``.
     Each dictionary ``data[i]`` has the fields:
 
-        * ``'lambda_'``: x axis, this is the same for all dictionaries in the
+        * ``'theta_'``: x axis, this is the same for all dictionaries in the
           list.
         * ``'GCV'``: y axis data.
         * ``'label'``: the label of the data GCV in the plot.
@@ -266,24 +270,28 @@ def plot_generalized_cross_validation(data, test):
     if not isinstance(data, list):
         data = [data]
 
-    lambda_ = data[0]['lambda_']
+    theta_ = data[0]['theta_']
 
-    fig, ax = plt.subplots(figsize=(7, 4.8))
-    colors_list = ["#000000", "#2ca02c", "#d62728"]
+    textwidth = 5.25  # in inches
+    fig, ax = plt.subplots(figsize=(textwidth, textwidth/1.458))
+    colors_list = ["#000000",
+                   "#1f77b4",
+                   "#2ca02c",
+                   "#d62728"]
 
     h_list = []
     for i in range(len(data)):
-        h, = ax.semilogx(lambda_, data[i]['GCV'], label=data[i]['label'],
+        h, = ax.semilogx(theta_, data[i]['GCV'], label=data[i]['label'],
                          color=colors_list[i])
         h_list.append(h)
-        ax.semilogx(data[i]['minimization_result']['min_lambda_'],
+        ax.semilogx(data[i]['minimization_result']['min_theta_'],
                     data[i]['minimization_result']['min_gcv'], 'o',
                     color=colors_list[i], markersize=3)
 
     ax.set_xlabel(r'$\theta$')
     ax.set_ylabel(r'$V(\theta)$')
     ax.set_title('Generalized Cross Validation')
-    ax.set_xlim([lambda_[0], lambda_[-1]])
+    ax.set_xlim([theta_[0], theta_[-1]])
 
     GCV = data[0]['GCV']
     ax.set_yticks([numpy.min(GCV), numpy.min(GCV[:GCV.size//5])])
@@ -291,7 +299,7 @@ def plot_generalized_cross_validation(data, test):
     ax.yaxis.set_major_formatter(FormatStrFormatter('%.4f'))
 
     ax.grid(True, axis='y')
-    ax.legend(frameon=False, fontsize='small', bbox_to_anchor=(0.59, 0.21),
+    ax.legend(frameon=False, fontsize='small', bbox_to_anchor=(0.56, 0.24),
               loc='lower left')
 
     plt.tight_layout()
@@ -345,7 +353,7 @@ def main(test=False):
             elapsed times will be wrong due to the parallel processing.
             The only way that seems to measure elapsed time of multicore
             process properly is to prevent python to use multi-cores.
-        3. Set the bound of search for ``lambda`` to ``10e-16`` to ``10e+16``.
+        3. Set the bound of search for ``theta`` to ``10e-16`` to ``10e+16``.
         4. Trace should be computed by either:
             * Hutchinson method
             * Cholesky factorization and without computing Inverse (set
@@ -353,16 +361,16 @@ def main(test=False):
 
     .. warning::
         To compute the elapsed-time, do not compute trace with *stochastic
-        Lanczos Quadrature* method, since for very small ``lambda``, the
+        Lanczos Quadrature* method, since for very small ``theta``, the
         tri-diagonalization fails.
 
     .. note::
         In the *rational polynomial functions * method for interpolation (using
-        ``method='RPF'``), the variable ``p`` in the code represents the number
+        ``method='RPF'``), the variable ``q`` in the code represents the number
         of interpolant points. However, in the paper [Ameli-2020], the variable
-        ``p`` represents the degree of the rational polynomial, As such, in the
-        code we have ``p = 2``, and ``p = 4``, (num points) but in the plots in
-        this script, they are labeled as ``p = 1`` and ``p = 2`` (degree of the
+        ``q`` represents the degree of the rational polynomial, As such, in the
+        code we have ``q = 2``, and ``q = 4``, (num points) but in the plots in
+        this script, they are labeled as ``q = 1`` and ``q = 2`` (degree of the
         rational polynomial).
 
     **References**
@@ -391,100 +399,91 @@ def main(test=False):
     noise_level = 4e-1
     X = generate_basis_functions(n, m)
     z = generate_noisy_data(X, noise_level)
-    K = generate_matrix(n, m, shift)
+    K = generate_matrix(X, n, m, shift)
 
     # Interpolating points
-    interpolant_points_1 = [1e-3, 1e-2, 1e-1, 1]
-    interpolant_points_2 = [1e-3, 1e-1]
+    scale = 5.0
+    interpolant_points = [
+            None,
+            [1e-3, 1e-1],
+            scale * numpy.logspace(-3, 0, 4),
+            scale * numpy.logspace(-3, 0, 6)
+    ]
 
     # Interpolating method
-    # Use this for plotting GCV and traces
-    traceinv_options = {'method': 'cholesky', 'invert_cholesky': True}
+    # For plotting GCV and traces, use Cholesky with setting
+    # invert_cholesky=True. However, to measure elapsed time, set
+    # invert_cholesky=False.
+    options = {'method': 'cholesky', 'invert_cholesky': True}
+    kind = 'RPF'
+    p = -1
 
-    # use this to measure elapsed time of optimizing GCV
-    # traceinv_options = {'method':'cholesky', 'invert_cholesky':False}
+    # Iterate over different set of interpolation points
+    TI = []
+    initial_elapsed_time = []
 
-    # Use this to measure elapsed time of optimizing GCV
-    # traceinv_options = {'method':'hutchinson', 'num_samples':20}
-    method = 'RPF'
+    for i in range(len(interpolant_points)):
 
-    # Interpolation with 4 interpolant points
-    time0 = process_time()
-    TI_1 = InterpolateTraceinv(K, interpolant_points=interpolant_points_1,
-                               method=method,
-                               traceinv_options=traceinv_options)
-    time1 = process_time()
-    initial_elapsed_time1 = time1 - time0
+        if interpolant_points[i] is not None:
+            time0 = process_time()
+            TI_ = InterpolateSchatten(K, p=p, ti=interpolant_points[i],
+                                      kind=kind, options=options)
+            time1 = process_time()
+            initial_elapsed_time_ = time1 - time0
+        else:
+            TI_ = None
+            initial_elapsed_time_ = 0.0
 
-    # Interpolation with 2 interpolant points
-    time2 = process_time()
-    TI_2 = InterpolateTraceinv(K, interpolant_points=interpolant_points_2,
-                               method=method,
-                               traceinv_options=traceinv_options)
-    time3 = process_time()
-    initial_elapsed_time2 = time3 - time2
-
-    # List of interpolating objects
-    # TI = [TI_1, TI_2]
+        TI.append(TI_)
+        initial_elapsed_time.append(initial_elapsed_time_)
 
     # Minimize GCV
-    # lambda_bounds = (1e-4, 1e1)
-    lambda_bounds = (1e-16, 1e16)
-    time_counter = TimeCounter()
-    minimization_result_1 = minimize_gcv(X, K, z, None, shift, lambda_bounds,
-                                         0, time_counter)
-    minimization_result_2 = minimize_gcv(X, K, z, TI_1, shift, lambda_bounds,
-                                         initial_elapsed_time1, time_counter)
-    minimization_result_3 = minimize_gcv(X, K, z, TI_2, shift, lambda_bounds,
-                                         initial_elapsed_time2, time_counter)
+    # theta_bounds = (1e-4, 1e1)
+    theta_bounds = (1e-16, 1e16)
 
-    print('Time to compute trace only:')
-    print('Exact: %f' % (time_counter.elapsed_time))
-    print('Interp 4 points: %f' % initial_elapsed_time1)
-    print('Interp 2 points: %f' % initial_elapsed_time2)
-    print('')
+    res = []
+    for i in range(len(interpolant_points)):
+        if TI[i] is None:
+            time_counter = TimeCounter()
+            res_ = minimize_gcv(X, K, z, None, shift, theta_bounds,
+                                initial_elapsed_time[i], time_counter)
+        else:
+            time_counter = None
+            res_ = minimize_gcv(X, K, z, TI[i], shift, theta_bounds,
+                                initial_elapsed_time[i], time_counter)
+        res.append(res_)
 
-    # Compute GCV for a range of lambda_
+    # Compute GCV for a range of theta_
     if test:
-        lambda__Resolution = 50
+        theta_Resolution = 50
     else:
-        lambda__Resolution = 500
-    lambda_ = numpy.logspace(-7, 1, lambda__Resolution)
-    GCV1 = numpy.empty(lambda_.size)
-    GCV2 = numpy.empty(lambda_.size)
-    GCV3 = numpy.empty(lambda_.size)
-    use_log_lambda = False
-    for i in range(lambda_.size):
-        GCV1[i] = generalized_cross_validation(X, K, z, None, shift, None,
-                                               use_log_lambda, lambda_[i])
-        GCV2[i] = generalized_cross_validation(X, K, z, TI_2, shift, None,
-                                               use_log_lambda, lambda_[i])
-        GCV3[i] = generalized_cross_validation(X, K, z, TI_1, shift, None,
-                                               use_log_lambda, lambda_[i])
+        theta_Resolution = 500
+    theta_ = numpy.logspace(-7, 1, theta_Resolution)
 
-    # Make a dictionary list of data for plots
-    plot_data1 = {
-        'lambda_': lambda_,
-        'GCV': GCV1,
-        'label': 'Exact',
-        'minimization_result': minimization_result_1
-    }
+    plot_data = []
+    for i in range(len(interpolant_points)):
+        GCV = numpy.empty(theta_.size)
+        use_log_theta = False
+        for j in range(theta_.size):
+            GCV[j] = generalized_cross_validation(X, K, z, TI[i], shift, None,
+                                                  use_log_theta, theta_[j])
 
-    plot_data2 = {
-        'lambda_': lambda_,
-        'GCV': GCV2,
-        'label': r'Interpolation, $p = 1$',
-        'minimization_result': minimization_result_3
-    }
+        if interpolant_points[i] is None:
+            label = 'No interpolation (Exact)'
+        else:
+            label = 'Interpolation, $q = %d$' \
+                    % (len(interpolant_points[i]) // 2)
 
-    plot_data3 = {
-        'lambda_': lambda_,
-        'GCV': GCV3,
-        'label': r'Interpolation, $p = 2$',
-        'minimization_result': minimization_result_2
-    }
+        # Make a dictionary list of data for plots
+        plot_data_ = {
+            'theta_': theta_,
+            'GCV': GCV,
+            'label': label,
+            'minimization_result': res[i]
+        }
 
-    plot_data = [plot_data1, plot_data2, plot_data3]
+        # plot_data = [plot_data0, plot_data1, plot_data2]
+        plot_data.append(plot_data_)
 
     # Plots
     plot_generalized_cross_validation(plot_data, test)

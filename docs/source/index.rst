@@ -76,7 +76,7 @@ We welcome contributions via `Github's pull request <https://github.com/ameli/im
 Related Projects
 ================
 
-* `Orthogonal Functions <https://ameli.github.io/Orthogonal-Functions/>`_: A python package that generates set of orthogonal basis functions used for :ref:`interpolation schemes <InterpolateTraceOfInverse>` in imate.
+* `ortho <https://ameli.github.io/ortho/>`_: A python package that generates set of orthogonal basis functions used for :ref:`interpolation schemes <InterpolateTraceOfInverse>` in imate.
 * `Gaussian Process Regression <https://github.com/ameli/gaussian-process-param-estimation>`_: A python package that makes use of imate expensively to efficiently compute the parameters of Gaussian process regression.
 
 ===========

@@ -20,7 +20,12 @@ from ._slq_method import slq_method
 # trace
 # =====
 
-def trace(A, method='exact', **options):
+def trace(
+        A,
+        gram=False,
+        p=1.0,
+        method='exact',
+        **options):
     """
     Computes the trace of a matrix.
     See :ref:`Compute Trace User Guide<trace_UserGuide>` for details.
@@ -97,13 +102,13 @@ def trace(A, method='exact', **options):
     """
 
     if method == 'exact':
-        trace, info = exact_method(A, **options)
+        trace, info = exact_method(A, gram=gram, exponent=p, **options)
 
     elif method == 'eigenvalue':
-        trace, info = eigenvalue_method(A, **options)
+        trace, info = eigenvalue_method(A, gram=gram, exponent=p, **options)
 
     elif method == 'slq':
-        trace, info = slq_method(A, **options)
+        trace, info = slq_method(A, gram=gram, exponent=p, **options)
 
     else:
         raise RuntimeError('Method "%s" is not recognized.' % method)

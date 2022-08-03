@@ -1,66 +1,172 @@
 name: deploy-conda
 
 on:
-    # push:
-    #     branches:
-    #         - main
+    push:
+        branches:
+            - main
     release:
         types: 
             - published
 
 jobs:
-    build_upload_conda:
-        runs-on: ubuntu-latest
+    build_wheels:
+        name: Build wheels on ${{ matrix.os }}
+        runs-on: ${{ matrix.os }}
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [ubuntu-latest, windows-latest, macos-latest]
+                
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            
+            - name: Setup Python 
+              uses: actions/setup-python@v2
+
+            - name: Install cibuildwheel
+              run: |
+                  python -m pip install cibuildwheel==1.11.0
+
+            - name: Install numpy
+              run: |
+                  python -m pip install --upgrade pip
+                  python -m pip install --upgrade numpy
+
+            - name: Install OpenMP and numpy for mac
+              if: runner.os == 'macos'
+              run: |
+                  brew install libomp
+
+            # To install CUDA in windows, uncomment the following lines. Note
+            # that the Jimver@cuda-toolkit action (below) can only install cuda
+            # on linux and windows, but not macos. Also, for linux, we should
+            # not install cuda here, rather it should be installed inside the
+            # manylinux docker image. Thus, the following Jimver action can
+            # only apply to windows, not linux and macos. To install cuda in
+            # linux, see the second next actions below "Build wheel with cuda
+            # support".
+            - name: Install CUDA
+              if: matrix.os == 'windows-latest'
+              uses: Jimver/cuda-toolkit@v0.2.1
+              id: cuda-toolkit
+              with:
+                  cuda: '11.2.2'
+
+            # Build wheel for windows with CUDA enabled. Note that cibuildwheel
+            # does not need manylinux docker, thuns, CUDA can be installed in
+            # the github action's virtual machine using the Jimver's action
+            # in the previous action (see above).
+            - name: Build wheels in windows with CUDA support
+              if: matrix.os == 'windows-latest'
+              run: python -m cibuildwheel --output-dir wheelhouse
+              env:
+                  CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
+                  CIBW_SKIP: "pp* cp27-* cp35-*"
+                  CIBW_BUILD_VERBOSITY: 1
+                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=0"
+           
+            # Do not enable compiling with CUDA for macos since NIVDIA no
+            # longer supports CUDA in the macos.
+            - name: Build wheels in mac without CUDA support
+              if: matrix.os == 'macos-latest'
+              run: python -m cibuildwheel --output-dir wheelhouse
+              env:
+                  CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
+                  CIBW_SKIP: "pp* cp27-* cp35-*"
+                  CIBW_BUILD_VERBOSITY: 1
+                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=0"
+
+            # Enable compiling with CUDA, only for linux. Note that cuda must
+            # be installed "inside" the manylinux docker image, not in the main
+            # github virtual machine. Also, we should use manylinux2014, but
+            # not manylinux1. Because of this, we will not install CUDA with
+            # the Jimver's action (unlike we did so for the windows wheel in
+            # the above). The ``CUDA_DYNAMIC_LOADING=0`` disables dynamic
+            # loading of CUDA library. Base of this, when the wheels are
+            # created in manylinux platform, the cuda's libraries
+            # (libcudart.so, libcublas.so, libcusparse.so) will bundle to
+            # the wheel. This is increases the wheel size, bit since the
+            # anaconda cloud upload size is 1GB, the large wheel size will not
+            # be a problem. The advantage of bundling cuda libraries to the
+            # wheel is that the end-user does not have to install cuda toolkit.
+            - name: Build wheels in linux with CUDA support
+              if: matrix.os == 'ubuntu-latest'
+              run: python -m cibuildwheel --output-dir wheelhouse
+              env:
+                  CIBW_MANYLINUX_X86_64_IMAGE: sameli/manylinux2014_x86_64_cuda_11
+                  # CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
+                  # CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
+                  CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
+                  CIBW_SKIP: "pp* cp27-* cp35-*"
+                  CIBW_BUILD_VERBOSITY: 1
+                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=0 CUDA_HOME=/usr/local/cuda"
+            
+            - name: Upload artifacts
+              uses: actions/upload-artifact@v2
+              with:
+                  name: wheel-artifacts
+                  path: ./wheelhouse/*.whl
+                  retention-days: 1
+
+    build_conda:
+        needs: [build_wheels]
+        name: Build conda on ${{ matrix.os }}
+        runs-on: ${{ matrix.os }}
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [ubuntu-latest, windows-latest, macos-latest]
+        
+        # To upload to PyPI on every tag starting with 'v', use the following:
+        # if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags/v')
+        # To publish to pypi on each GitHub Release, use the following:
+        # if: github.event_name == 'release' && github.event.action == 'published'
         steps:
             - name: Checkout
               uses: actions/checkout@v2
 
-            - name: Install conda, conda-build, and conda-client
-              run: |
-                  wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-                  bash miniconda.sh -b -p $HOME/miniconda
-                  export PATH="$HOME/miniconda/bin:$PATH"
-                  hash -r
-                  conda config --set always_yes yes --set changeps1 no
-                  conda update -q conda
-                  conda install conda-build
-                  conda install anaconda-client
+            - name: Download artifacts
+              uses: actions/download-artifact@v2
+              with:
+                  name: wheel-artifacts
+                  path: dist
 
-            - name: Build package
+            - name: Setup Miniconda
+              uses: conda-incubator/setup-miniconda@v2
+              with:
+                  auto-update-conda: true
+
+            - name: Build and upload package
+              shell: bash -l {0}
               run: |
-                  export PATH="$HOME/miniconda/bin:$PATH"
+                  conda install -y conda-build anaconda-client
+                  conda config --set anaconda_upload yes
+                  export PATH=$(conda info --root):$PATH
+                  export PATH=$(conda info --root)/bin:$PATH
                   conda-build --output-folder . .
               env:
                   CYTHON_BUILD_IN_SOURCE: '1'  # see setup.py. Avoids a bug when building with multiple python variants
-
-            - name: Convert linux builds to mac and windows
-              run: |
-                  export PATH="$HOME/miniconda/bin:$PATH"
-                  conda convert -f -p linux-aarch64 linux-64/*.tar.bz2
-                  conda convert -f -p osx-64 linux-64/*.tar.bz2
-                  conda convert -f -p win-64 linux-64/*.tar.bz2
-                  conda convert -f -p win-32 linux-64/*.tar.bz2
-
-            - name: Upload to Anaconda Cloud
-              run: |
-                  export PATH="$HOME/miniconda/bin:$PATH"
-                  anaconda upload --force --label main linux-64/*.tar.bz2
-                  anaconda upload --force --label main linux-aarch64/*.tar.bz2
-                  anaconda upload --force --label main osx-64/*.tar.bz2
-                  anaconda upload --force --label main win-64/*.tar.bz2
-                  anaconda upload --force --label main win-32/*.tar.bz2
-              env:
                   ANACONDA_API_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+                 
+            # The manylinux wheels (after repaired with auditwheel) are very
+            # large in size. It is better to delete them. If we do not delete
+            # them, however, they will be deleted after the retention days,
+            # which I set to one day.
+            - name: Delete artifacts
+              uses: geekyeggo/delete-artifact@v1
+              with:
+                  name: wheel-artifacts
 
     test_conda:
-        needs: [build_upload_conda]
+        needs: [build_conda]
         name: Test on ${{ matrix.os }} and Python ${{ matrix.python-version }}
         runs-on: ${{ matrix.os }}
         strategy:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest, windows-latest, macos-latest]
-                python-version: [2.7, 3.6, 3.7, 3.8, 3.9]
+                python-version: [3.6, 3.7, 3.8, 3.9]
 
         steps:
             - name: Setup Miniconda
@@ -70,59 +176,6 @@ jobs:
                   python-version: ${{ matrix.python-version }}
                   activate-environment: myenv
 
-        # steps:
-        #     - name: Download conda in Linux
-        #       if: runner.os == 'linux'
-        #       run: wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
-        #
-        #     - name: Download conda in macOS
-        #       if: runner.os == 'macos'
-        #       run: curl https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -o miniconda.sh
-
-            # - name: Download conda in Windows
-            #   if: runner.os == 'Windows'
-            #   run: |
-            #       python -m pip install wget
-            #       wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe -O miniconda.sh
-
-            # - name: Install conda
-            #   run: |
-            #       sh miniconda.sh -b -p $HOME/miniconda
-            #       export PATH="$HOME/miniconda/bin:$PATH"
-            #       hash -r
-            #       conda config --set always_yes yes --set changeps1 no
-            #       conda update -q conda
-
-            # - name: Test (in Unix)
-            #   if: runner.os != 'Windows'
-            #   run: |
-            #       mv imate imate-DoNotImport
-            #       export PATH="$HOME/miniconda/bin:$PATH"
-            #       source $(conda info --root)/etc/profile.d/conda.sh
-            #       
-            #       PythonVersions="2.7 3.6 3.7 3.8 3.9"
-            #       for PythonVersion in $PythonVersions
-            #       do
-            #           conda create --name env-${PythonVersion} -c s-ameli python=${PythonVersion} imate pytest-cov -y
-            #           conda activate env-${PythonVersion}
-            #           pytest
-            #           conda deactivate
-            #           conda remove --name env-${PythonVersion} --all -y
-            #       done
-
-            - name: Install Visual C++ for Python 2.7
-              if: |
-                  runner.os == 'Windows' &&
-                  matrix.python-version == '2.7'
-              run: choco install vcpython27 -f -y
-
-            # - name: Install package
-              # run: |
-                  # conda config --set channel_priority strict
-                  # conda install -c conda-forge pytest pytest-cov -y
-                  # conda install -c conda-forge -c s-ameli imate -y
-                  # conda init
-
             - name: Checkout
               uses: actions/checkout@v2
 
@@ -130,28 +183,8 @@ jobs:
               shell: bash -l {0}
               run: |
                   mv imate imate-DoNotImport
+                  rm tests/test_cu_linear_operator.py  # this raises ImportError
                   rm setup.cfg
                   conda install -c s-ameli imate -y
                   conda install pytest -y
                   pytest
-
-            # - name: Test (in Windows)
-            #   if: runner.os == 'Windows'
-            #   run: |
-            #       mkdir ~\tmp
-            #       Copy-Item -Path tests -Destination ~\tmp -Recurse
-            #       Copy-Item -Path examples -Destination ~\tmp -Recurse
-            #       cd ~\tmp
-            #       choco install vcpython27 -f -y
-            #       $RootDir=$(conda info --root)
-            #       . $RootDir\etc\profile.d\conda.sh
-            #       $PythonVersions="2.7","3.6","3.7","3.8","3.9"
-            #       foreach ($PythonVersion in $PythonVersions)
-            #       {
-            #           conda create --name env-$PythonVersion -c s-ameli python=$PythonVersion pytest-cov -y
-            #           conda activate env-$PythonVersion
-            #           conda install -c s-ameli imate -y
-            #           pytest-cov
-            #           conda deactivate
-            #           conda remove --name env-$PythonVersion --all -y
-            #       }

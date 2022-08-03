@@ -5,8 +5,3 @@
 # This program is free software: you can redistribute it and/or modify it
 # under the terms of the license found in the LICENSE.txt file in the root
 # directory of this source tree.
-
-
-# from plot_traceinv_full_rank import plot_traceinv_full_rank
-
-# __all__ ['plot_traceinv_full_rank']

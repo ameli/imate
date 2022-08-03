@@ -70,8 +70,11 @@ try:
     from .logdet import logdet                                     # noqa: E402
     from .trace import trace                                       # noqa: E402
     from .traceinv import traceinv                                 # noqa: E402
+    from .schatten import schatten                                 # npqa: E402
     from .linear_operator import Matrix, AffineMatrixFunction      # noqa: E402
-    from .interpolate_traceinv import InterpolateTraceinv          # noqa: E402
+    from .interpolator import InterpolateSchatten                  # noqa: E402
+    from .interpolator import InterpolateLogdet                    # noqa: E402
+    from .interpolator import InterpolateTrace                     # noqa: E402
     from .sample_matrices import correlation_matrix                # noqa: E402
     from .sample_matrices import band_matrix                       # noqa: E402
 
@@ -88,9 +91,12 @@ __all__ = [
         'trace',
         'traceinv',
         'logdet',
+        'schatten',
+        'InterpolateLogdet',
+        'InterpolateTrace',
+        'InterpolateSchatten',
         'Matrix',
         'AffineMatrixFunction',
-        'InterpolateTraceinv',
         'correlation_matrix',
         'band_matrix']
 

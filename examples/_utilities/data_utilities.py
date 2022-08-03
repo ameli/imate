@@ -143,7 +143,7 @@ def generate_noisy_data(X, noise_level=4e-1):
 # generate matrix
 # ===============
 
-def generate_matrix(n=1000, m=500, shift=1e-3):
+def generate_matrix(X, n=1000, m=500, shift=1e-3, verbose=False):
     """
     Generates a symmetric positive semidefinite matrix.
 
@@ -177,9 +177,9 @@ def generate_matrix(n=1000, m=500, shift=1e-3):
     """
 
     # Generate basis functions for linear regression
-    X = generate_basis_functions(n, m)
+    # X = generate_basis_functions(n, m)
 
-    # Create Grammian matrix K0 from X
+    # Create Gramian matrix K0 from X
     if n > m:
         K0 = X.T.dot(X)
 
@@ -192,6 +192,8 @@ def generate_matrix(n=1000, m=500, shift=1e-3):
     # Condition numbers
     cond_K0 = numpy.linalg.cond(K0)
     cond_K = numpy.linalg.cond(K)
-    print('Cond K0: %0.2e, Cond K: %0.2e' % (cond_K0, cond_K))
+
+    if verbose:
+        print('Cond K0: %0.2e, Cond K: %0.2e' % (cond_K0, cond_K))
 
     return K

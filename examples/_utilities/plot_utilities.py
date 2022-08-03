@@ -16,7 +16,7 @@ import platform
 import matplotlib
 import matplotlib.ticker
 from matplotlib.ticker import PercentFormatter                     # noqa: F401
-from matplotlib.ticker import FormatStrFormatter                   # noqa: F401
+from matplotlib.ticker import FormatStrFormatter, FuncFormatter    # noqa: F401
 from matplotlib.ticker import ScalarFormatter, NullFormatter       # noqa: F401
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes       # noqa: F401
 from mpl_toolkits.axes_grid1.inset_locator import InsetPosition    # noqa: F401
@@ -58,10 +58,12 @@ warnings.filterwarnings(action='ignore', module='matplotlib',
 # load plot settings
 # ==================
 
-def load_plot_settings():
+def load_plot_settings(font_scale=None):
     """
     Specifies general settings for the plots in the example scripts,
     namely, it sets plot themes by ``seaborn``, fonts by LaTeX if available.
+
+    A good setting for font_scale=1.2 or font_scale=1.
     """
 
     # Color palette
@@ -75,10 +77,10 @@ def load_plot_settings():
             matplotlib.rcParams['text.usetex'] = True
             matplotlib.rcParams['text.latex.preamble'] = \
                 r'\usepackage{amsmath}'
-            matplotlib.font_manager._rebuild()
 
             # LaTeX font is a bit small. Increaset axes font size
-            sns.set(font_scale=1.2)
+            if font_scale is not None:
+                sns.set(font_scale=font_scale)
         except Exception:
             pass
 

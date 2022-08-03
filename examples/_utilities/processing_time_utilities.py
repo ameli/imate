@@ -130,7 +130,7 @@ def restrict_computation_to_single_processor():
     scipy.optimize.differential_evolution) is to restrict the whole python
     script to use a single code. This function does that.
 
-    Note, other scipy.optimzie methods (like shgo) do not have this issue. That
+    Note, other scipy.optimize methods (like shgo) do not have this issue. That
     means, you can still run the code in parallel and the time.process_time()
     measures the CPU time of all cores properly.
     """

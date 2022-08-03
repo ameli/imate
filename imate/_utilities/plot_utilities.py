@@ -21,7 +21,7 @@ from mpl_toolkits.axes_grid1.inset_locator import inset_axes       # noqa: F401
 from mpl_toolkits.axes_grid1.inset_locator import InsetPosition    # noqa: F401
 from mpl_toolkits.axes_grid1.inset_locator import mark_inset       # noqa: F401
 from matplotlib.ticker import ScalarFormatter, NullFormatter       # noqa: F401
-from matplotlib.ticker import FormatStrFormatter                   # noqa: F401
+from matplotlib.ticker import FormatStrFormatter, FuncFormatter    # noqa: F401
 from mpl_toolkits.axes_grid1 import make_axes_locatable            # noqa: F401
 
 from distutils.spawn import find_executable
@@ -78,7 +78,6 @@ def load_plot_settings():
             matplotlib.rcParams['text.usetex'] = True
             matplotlib.rcParams['text.latex.preamble'] = \
                 r'\usepackage{amsmath}'
-            matplotlib.font_manager._rebuild()
 
             # LaTeX font is a bit small. Increase axes font size
             sns.set(font_scale=1.2)

@@ -99,6 +99,7 @@ extensions = [
 
 # Automatically generate autosummary after each build
 autosummary_generate = True
+autosummary_imported_members = True
 
 # automodapi
 numpydoc_show_class_members = False

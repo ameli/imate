@@ -21,7 +21,14 @@ from ._slq_method import slq_method
 # traceinv
 # ========
 
-def traceinv(A, B=None, C=None, method='slq', **options):
+def traceinv(
+        A,
+        B=None,
+        C=None,
+        gram=False,
+        p=1,
+        method='slq',
+        **options):
     """
     Computes the trace of inverse of a matrix.
     See :ref:`Compute Trace of Inverse User Guide<traceinv_UserGuide>` for
@@ -107,20 +114,33 @@ def traceinv(A, B=None, C=None, method='slq', **options):
             raise ValueError('Matrix "B" cannot be set with "eigenvalue" ' +
                              'method. Either leave "B" to "None", or use ' +
                              '"cholesky" or "hutchinson" method.')
-        trace, info = eigenvalue_method(A, **options)
+        if C is not None:
+            raise ValueError('Matrix "C" cannot be set with "eigenvalue" ' +
+                             'method. Either leave "C" to "None", or use ' +
+                             '"hutchinson" method.')
+        trace, info = eigenvalue_method(A, gram=gram, exponent=p, **options)
 
     elif method == 'cholesky':
-        trace, info = cholesky_method(A, B, **options)
+        if C is not None:
+            raise ValueError('Matrix "C" cannot be set with "eigenvalue" ' +
+                             'method. Either leave "C" to "None", or use ' +
+                             '"hutchinson" method.')
+        trace, info = cholesky_method(A, B, gram=gram, exponent=p, **options)
 
     elif method == 'hutchinson':
-        trace, info = hutchinson_method(A, B, C, **options)
+        trace, info = hutchinson_method(A, B, C, gram=gram, exponent=p,
+                                        **options)
 
     elif method == 'slq':
         if B is not None:
             raise ValueError('Matrix "B" cannot be set with "slq" method. ' +
                              'Either leave "B" to "None", or use ' +
                              '"cholesky" or "hutchinson" method.')
-        trace, info = slq_method(A, **options)
+        if C is not None:
+            raise ValueError('Matrix "C" cannot be set with "eigenvalue" ' +
+                             'method. Either leave "C" to "None", or use ' +
+                             '"hutchinson" method.')
+        trace, info = slq_method(A, gram=gram, exponent=p, **options)
 
     else:
         raise RuntimeError('Method "%s" is not recognized.' % method)

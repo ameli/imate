@@ -17,6 +17,21 @@ Functions
     imate.logdet
     imate.trace
     imate.traceinv
+    imate.schatten
+
+-------------
+Interpolators
+-------------
+
+.. autosummary::
+    :toctree: generated
+    :caption: Interpolators
+    :recursive:
+    :template: autosummary/class.rst
+
+    imate.InterpolateLogdet
+    imate.InterpolateTrace
+    imate.InterpolateSchatten
 
 ----------------
 Linear Operators
@@ -30,7 +45,6 @@ Linear Operators
 
     imate.Matrix
     imate.AffineMatrixFunction
-    imate.InterpolateTraceinv
 
 -----------
 Sample Data

@@ -125,6 +125,10 @@ TODO
 * doxygen for c_linear_operator and its derived classes
 * Get memory usage info for GPU. See for example:
   https://stackoverflow.com/questions/15966046/cudamemgetinfo-returns-same-amount-of-free-memory-on-both-devices-of-gtx-690
+* for the return of functions, instead of outputting (trace, info) tuple, only
+  return trace. However, in the arguments, include "full_output=False". If
+  True, it then outputs the dictionary of info. See scipy.optimize.fsolve.
+  https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.fsolve.html
 
 ========================
 Compile and Build Issues

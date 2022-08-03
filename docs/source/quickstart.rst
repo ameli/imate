@@ -7,10 +7,10 @@ The package imate provides three sub-packages:
 =========================================  =====================================================================
 Sub-Package                                Description
 =========================================  =====================================================================
-:mod:`imate.GenerateMatrix`             Generates symmetric and positive-definite matrices for test purposes.
-:mod:`imate.ComputeLogDeterminant`      Computes log-determinant for a sparse or dense matrix.
-:mod:`imate.ComputeTraceOfInverse`      Computes trace of inverse for a fixed sparse or dense matrix.
-:mod:`imate.InterpolateTraceOfInverse`  Interpolates trace of inverse for an affine matrix function.
+:mod:`imate.GenerateMatrix`                Generates symmetric and positive-definite matrices for test purposes.
+:mod:`imate.ComputeLogDeterminant`         Computes log-determinant for a sparse or dense matrix.
+:mod:`imate.ComputeTraceOfInverse`         Computes trace of inverse for a fixed sparse or dense matrix.
+:mod:`imate.InterpolateTraceOfInverse`     Interpolates trace of inverse for an affine matrix function.
 =========================================  =====================================================================
 
 The next two sections presents minimalistic examples respectively for:

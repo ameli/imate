@@ -17,8 +17,8 @@ import sys
 import numpy
 
 # Package modules
-from imate import InterpolateTraceinv
-from _utilities.data_utilities import generate_matrix
+from imate import InterpolateSchatten
+from _utilities.data_utilities import generate_matrix, generate_basis_functions
 from _utilities.plot_utilities import *                      # noqa: F401, F403
 from _utilities.plot_utilities import load_plot_settings, save_plot, plt, \
         matplotlib, InsetPosition, mark_inset, NullFormatter,  \
@@ -55,34 +55,35 @@ def plot(TI, test):
     zero_index = numpy.argmin(numpy.abs(eta))
 
     # Functions
-    trace_exact = TI[0].compute(eta)
-    trace_upperbound = TI[0].upper_bound(eta)
-    # trace_lowerbound = TI[0].lower_bound(eta)
+    trace_exact = TI[0].eval(eta)
+    trace_lowerbound = TI[0].bound(eta)
     trace_estimate = numpy.zeros((num_plots, eta.size))
     for j in range(num_plots):
         trace_estimate[j, :] = TI[j].interpolate(eta)
 
     # Tau
-    n = TI[0].n
-    tau_exact = trace_exact / n
-    tau_upperbound = trace_upperbound / n
-    # tau_lowerbound = trace_lowerbound / n
-    tau_estimate = trace_estimate / n
+    # n = TI[0].n
+    trace_B = 1
+    tau_exact = trace_exact / trace_B
+    tau_lowerbound = trace_lowerbound / trace_B
+    tau_estimate = trace_estimate / trace_B
 
     # Plots trace
-    fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(12, 6))
+    textwidth = 9.0  # in inches
+    # fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(textwidth, textwidth/2))
+    fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(textwidth, textwidth/2.5))
     ax[0].plot(eta, tau_exact, color='black', label='Exact')
-    ax[0].plot(eta[zero_index:], tau_upperbound[zero_index:], '--',
-               color='black', label=r'Upper bound (at $t \geq 0$)')
-    ax[0].plot(eta[:zero_index], tau_upperbound[:zero_index], '-.',
-               color='black', label=r'Lower bound (at $t < 0$)')
+    ax[0].plot(eta[zero_index:], tau_lowerbound[zero_index:], '--',
+               color='black', label=r'Lower bound (at $t \geq 0$)')
+    ax[0].plot(eta[:zero_index], tau_lowerbound[:zero_index], '-.',
+               color='black', label=r'Upper bound (at $t < 0$)')
     # ax[0].plot(eta, tau_lowerbound, '-.', color='black', label='Lower bound')
 
     colors_list = ["#d62728",
                    "#2ca02c",
+                   "#1f77b4",
                    "#bcbd22",
                    "#ff7f0e",
-                   "#1f77b4",
                    "#9467bd",
                    "#8c564b",
                    "#17becf",
@@ -90,22 +91,22 @@ def plot(TI, test):
                    "#e377c2"]
 
     for j in reversed(range(num_plots)):
-        p = TI[j].p
-        q = ax[0].plot(eta, tau_estimate[j, :],
-                       label=r'Interpolation, $p=%d$' % (p//2),
+        q = TI[j].q
+        h = ax[0].plot(eta, tau_estimate[j, :],
+                       label=r'Interpolation, $q=%d$' % (q//2),
                        color=colors_list[j])
         if j == 0:
-            q[0].set_zorder(20)
+            h[0].set_zorder(20)
 
     ax[0].set_xscale('symlog', linthresh=1e-8)
     ax[0].set_yscale('log')
     ax[0].set_xlim([eta[0], eta[-1]])
-    ax[0].set_ylim([1e-3, 1e4])
+    ax[0].set_ylim([1e-4, 1e3])
     ax[0].set_xlabel(r'$t$')
-    ax[0].set_ylabel(r'$\tau(t)$')
-    ax[0].set_title(r'(a) Exact, interpolation, and bounds of $\tau(t)$')
+    ax[0].set_ylabel(r'$\tau_p(t)$')
+    ax[0].set_title(r'(a) Interpolation of $\tau_p(t), p=-1$')
     ax[0].grid(True)
-    ax[0].legend(fontsize='x-small', loc='lower left')
+    ax[0].legend(fontsize='x-small', loc='upper left')
     ax[0].set_xticks(numpy.r_[-10**numpy.arange(-3, -7, -3, dtype=float), 0,
                      10**numpy.arange(-6, 4, 3, dtype=float)])
     ax[0].tick_params(axis='x', which='minor', bottom=False)
@@ -113,7 +114,7 @@ def plot(TI, test):
     # Inset plot
     ax2 = plt.axes([0, 0, 1, 1])
     # Manually set the position and relative size of the inset axes within ax1
-    ip = InsetPosition(ax[0], [0.12, 0.4, 0.45, 0.35])
+    ip = InsetPosition(ax[0], [0.14, 0.25, 0.45, 0.35])
     ax2.set_axes_locator(ip)
     # Mark the region corresponding to the inset axes on ax1 and draw lines
     # in grey linking the two axes.
@@ -123,10 +124,10 @@ def plot(TI, test):
     mark_inset(ax[0], ax2, loc1=1, loc2=4, facecolor=inset_color,
                edgecolor='0.5')
     ax2.plot(eta, tau_exact, color='black', label='Exact')
-    ax2.plot(eta[zero_index:], tau_upperbound[zero_index:], '--',
-             color='black', label=r'Upper bound (at $t \geq 0$)')
-    ax2.plot(eta[:zero_index], tau_upperbound[:zero_index], '-.',
-             color='black', label=r'Lower bound (at $t < 0$)')
+    ax2.plot(eta[zero_index:], tau_lowerbound[zero_index:], '--',
+             color='black', label=r'Lower bound (at $t \geq 0$)')
+    ax2.plot(eta[:zero_index], tau_lowerbound[:zero_index], '-.',
+             color='black', label=r'Upper bound (at $t < 0$)')
     for j in reversed(range(num_plots)):
         ax2.plot(eta, tau_estimate[j, :], color=colors_list[j])
     # ax2.set_xlim([1e-3, 1.4e-3])
@@ -134,40 +135,44 @@ def plot(TI, test):
     # ax2.set_xticks([1e-3, 1.4e-3])
     # ax2.set_yticks([400, 500])
     ax2.set_xlim([1e-2, 1.15e-2])
-    ax2.set_ylim(80, 90)
     ax2.set_xticks([1e-2, 1.15e-2])
-    ax2.set_yticks([80, 90])
+    ax2.set_ylim(0.0111, 0.0125)
+    ax2.set_yticks([0.0111, 0.0125])
     ax2.xaxis.set_minor_formatter(NullFormatter())
     ax2.set_xticklabels(['0.01', '0.0115'])
     # ax2.xaxis.set_major_formatter(FormatStrFormatter('%.2e'))
-    ax2.yaxis.set_major_formatter(FormatStrFormatter('%.0f'))
+    # ax2.yaxis.set_major_formatter(FormatStrFormatter('%.0f'))
+    # ax2.yaxis.set_major_formatter(FormatStrFormatter('%.2e'))
+    ax2.yaxis.set_major_formatter(ScalarFormatter(useMathText=True))
     ax2.set_facecolor(inset_color)
+    ax2.xaxis.set_tick_params(labelsize=8)
+    ax2.yaxis.set_tick_params(labelsize=8)
     # plt.setp(ax2.get_yticklabels(), backgroundcolor='white')
 
     # ax2.ticklabel_format(axis='y', style='sci', scilimits=(0, 0))
     # ax2.grid(True, axis='y')
 
     # Plot errors
-    # ax[1].semilogx(eta, tau_upperbound-tau_exact, '--', color='black',
+    # ax[1].semilogx(eta, tau_lowerbound-tau_exact, '--', color='black',
     #                label='Upper bound')  # Absolute error
     ax[1].semilogx(eta[zero_index:],
-                   100*(tau_upperbound[zero_index:]/tau_exact[zero_index:]-1),
-                   '--', color='black', label=r'Upper bound (at $t \geq 0$)',
+                   100*(1-tau_lowerbound[zero_index:]/tau_exact[zero_index:]),
+                   '--', color='black', label=r'Lower bound (at $t \geq 0$)',
                    zorder=15)  # Relative error
     ax[1].semilogx(eta[:zero_index],
-                   100*(tau_upperbound[:zero_index]/tau_exact[:zero_index]-1),
-                   '-.', color='black', label=r'Lower bound (at $t < 0$)',
+                   100*(1-tau_lowerbound[:zero_index]/tau_exact[:zero_index]),
+                   '-.', color='black', label=r'Upper bound (at $t < 0$)',
                    zorder=15)  # Relative error
     for j in reversed(range(num_plots)):
-        p = TI[j].p
-        # q = ax[1].semilogx(eta, tau_estimate[j, :]-tau_exact,
-        #                    label=r'Estimation, $p=%d$'%(p),
+        q = TI[j].q
+        # h = ax[1].semilogx(eta, tau_estimate[j, :]-tau_exact,
+        #                    label=r'Estimation, $q=%d$'%(q),
         #                    color=colors_list[j])  # Absolute error
-        q = ax[1].semilogx(eta, 100*(tau_estimate[j, :]/tau_exact-1),
-                           label=r'Interpolation, $p=%d$' % (p//2),
+        h = ax[1].semilogx(eta, 100*(1-tau_estimate[j, :]/tau_exact),
+                           label=r'Interpolation, $q=%d$' % (q//2),
                            color=colors_list[j])       # Relative error
         if j == 0:
-            q[0].set_zorder(20)
+            h[0].set_zorder(20)
     # ax[1].semilogx(eta, tau_estimate_alt-tau_exact,
     #                label=r'Alt. estimation', zorder=-20)   # Absolute error
     # ax[1].semilogx(eta, tau_estimate_alt/tau_exact-1,
@@ -179,8 +184,8 @@ def plot(TI, test):
     ax[1].set_yticks(numpy.arange(-0.5, 2.6, 0.5))
     ax[1].set_xlabel(r'$t$')
     ax[1].set_ylabel(
-            r'$\tau_{\mathrm{approx}}(t)/\tau_{\mathrm{exact}}(t) - 1$')
-    ax[1].set_title(r'(b) Relative error of estimation of $\tau(t)$')
+            r'$1-\tau_{\mathrm{approx}}(t)/\tau_{\mathrm{exact}}(t)$')
+    ax[1].set_title(r'(b) Relative error of interpolation, $p=-1$')
     ax[1].grid(True)
     ax[1].legend(fontsize='x-small', loc='upper left')
     ax[1].set_xticks(numpy.r_[-10**numpy.arange(-3, -7, -3, dtype=float), 0,
@@ -193,7 +198,7 @@ def plot(TI, test):
         plt.tight_layout()
 
     # Save Plot
-    filename = 'Example2'
+    filename = 'traceinv_ill_conditioned'
     if test:
         filename = "test_" + filename
     save_plot(plt, filename, transparent_background=False)
@@ -241,28 +246,35 @@ def main(test=False):
     else:
         n = 1000
         m = 500
-    K = generate_matrix(n, m, shift)
+    X = generate_basis_functions(n, m)
+    K = generate_matrix(X, n, m, shift)
 
     # Interpolating points
-    interpolant_points_1 = [1e-3, 1e-2, 1e-1, 1]
-    interpolant_points_2 = [1e-3, 1e-1]
+    scale = 5.0
+    interpolant_points = [
+            [1e-3, 1e-1],
+            scale * numpy.logspace(-3, 0, 4),
+            scale * numpy.logspace(-3, 0, 6)
+    ]
 
     # Interpolating objects
-    traceinv_options = {'method': 'cholesky', 'invert_cholesky': True}
-    method = 'RPF'
-    TI_1 = InterpolateTraceinv(K, interpolant_points=interpolant_points_1,
-                               method=method,
-                               traceinv_options=traceinv_options)
+    # For plotting GCV and traces, use Cholesky with setting
+    # invert_cholesky=True. However, to measure elapsed time, set
+    # invert_cholesky=False.
+    options = {'method': 'cholesky', 'invert_cholesky': True}
+    kind = 'RPF'
+    p = -1
 
-    TI_2 = InterpolateTraceinv(K, interpolant_points=interpolant_points_2,
-                               method=method,
-                               traceinv_options=traceinv_options)
+    # Iterate over different set of interpolation points
+    TI = []
+    
+    for i in range(len(interpolant_points)):
+        TI_ = InterpolateSchatten(K, p=p, ti=interpolant_points[i], kind=kind,
+                               options=options)
+        TI.append(TI_)
 
-    # List of interpolating objects
-    TI = [TI_1, TI_2]
-
-    # Plot interpolations
-    plot(TI, test)
+    # Plot interpolations (in reverse order for z-ordering)
+    plot(TI[::-1], test)
 
 
 # ===========

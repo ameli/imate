@@ -20,7 +20,12 @@ from ._slq_method import slq_method
 # logdet
 # ======
 
-def logdet(A, method='cholesky', **options):
+def logdet(
+        A,
+        gram=False,
+        p=1.0,
+        method='cholesky',
+        **options):
     """
     Computes the log-determinant of full-rank matrix.
 
@@ -88,13 +93,13 @@ def logdet(A, method='cholesky', **options):
     """
 
     if method == 'eigenvalue':
-        trace, info = eigenvalue_method(A, **options)
+        trace, info = eigenvalue_method(A, gram=gram, exponent=p, **options)
 
     elif method == 'cholesky':
-        trace, info = cholesky_method(A, **options)
+        trace, info = cholesky_method(A, gram=gram, exponent=p, **options)
 
     elif method == 'slq':
-        trace, info = slq_method(A, **options)
+        trace, info = slq_method(A, gram=gram, exponent=p, **options)
 
     else:
         raise ValueError('Method "%s" is invalid.' % (method))

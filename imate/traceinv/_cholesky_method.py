@@ -291,7 +291,7 @@ def check_arguments(A, B, gram, exponent, invert_cholesky, cholmod):
     elif not numpy.isscalar(exponent):
         raise TypeError('"exponent" should be a scalar value.')
     elif not isinstance(exponent, (int, numpy.integer)):
-        TypeError('"exponent" cannot be an integer.')
+        TypeError('"exponent" should be an integer.')
 
     # Check invert_cholesky
     if not numpy.isscalar(invert_cholesky):
