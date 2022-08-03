@@ -8,7 +8,7 @@ The scripts provided in |examplesdir|_ directory reproduces the figures and tabl
 Install Package
 ---------------
 
-Before running examples, install``imate`` package either by
+Before running examples, install ``imate`` package either by
 
 ::
 
@@ -20,7 +20,7 @@ or if you have Anaconda (Miniconda), install by
 
 	conda install -c s-ameli imate
 
-For further installation details, see `install <https://ameli.github.io/imate/install.html>` page from the package documentation.
+For further installation details, see `install <https://ameli.github.io/imate/install.html>`_ page from the package documentation.
 
 ---------
 Example 1
@@ -145,7 +145,7 @@ The script generates the table below.
 
      rational_polynomial has positive poles.
 
-  occurred, rerun the script again, or change the location of interpolant points in the code to produce desired results.
+  occurred, rerun the script again, or change the location of interpolating points in the code to produce desired results.
 
 
 ----------
@@ -158,19 +158,19 @@ References
 .. _examplesdir: https://github.com/ameli/imate/blob/main/examples
 
 .. |example1| replace:: ``/examples/plot_chebyshev_rational.py``
-.. _example1: https://github.com/ameli/imate/blob/main/examples/plot_chebyshev_rational.py
+.. _example1: https://github.com/ameli/imate/blob/main/docs/source/_static/images/plot_chebyshev_rational.py
 
 .. |example2| replace:: ``/examples/imate_mwe.py``
-.. _example2: https://github.com/ameli/imate/blob/main/examples/imate_mwe.py
+.. _example2: https://github.com/ameli/imate/blob/main/docs/source/_static/images/imate_mwe.py
 
 .. |example3| replace:: ``/examples/plot_traceinv_full_rank.py``
-.. _example3: https://github.com/ameli/imate/blob/main/examples/plot_traceinv_full_rank.py
+.. _example3: https://github.com/ameli/imate/blob/main/docs/source/_static/images/plot_traceinv_full_rank.py
 
 .. |example4| replace:: ``/examples/plot_traceinv_ill_conditioned.py``
-.. _example4: https://github.com/ameli/imate/blob/main/examples/plot_traceinv_ill_conditioned.py
+.. _example4: https://github.com/ameli/imate/blob/main/docs/source/_static/images/plot_traceinv_ill_conditioned.py
 
 .. |example5| replace:: ``/examples/plot_generalized_corss_validation.py``
-.. _example5: https://github.com/ameli/imate/blob/main/examples/plot_generalized_cross_validation.py
+.. _example5: https://github.com/ameli/imate/blob/main/docs/source/_static/images/plot_generalized_cross_validation.py
 
 .. |example6| replace:: ``/examples/table_generalized_corss_validation.py``
-.. _example6: https://github.com/ameli/imate/blob/main/examples/table_generalized_cross_validation.py
+.. _example6: https://github.com/ameli/imate/blob/main/docs/source/_static/images/table_generalized_cross_validation.py
