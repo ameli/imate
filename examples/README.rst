@@ -48,7 +48,7 @@ To reproduce *Figure 3* of the manuscript, run the script |example2|_ by
 
     python imate_mwe.py
 
-Note that this script may take a long time to complete. The script generates the figure below.
+The script generates the figure below (may take a long time to complete).
 
 .. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/imate_mwe.svg
    :align: center
