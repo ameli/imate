@@ -26,7 +26,9 @@ jobs:
                       apt-get update
                       apt-get install graphviz -y
                       pip install --upgrade pip
-                      pip install .[docs]
+                      pip install -r docs/requirements.txt
+                      export CYTHON_BUILD_FOR_DOC=1
+                      python setup.py install
                       export PATH=$HOME/.local/bin:$PATH
                       make html --directory=docs
                       touch docs/build/html/.nojekyll
