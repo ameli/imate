@@ -455,10 +455,11 @@ def sparse_correlation_matrix(
         kernel='exponential',
         kernel_param=None,
         density=0.001,
+        format=r'csr',
         dtype=r'float64',
         verbose=False):
     """
-    Generates either a sparse correlation matrix in CSR format.
+    Generates either a sparse correlation matrix.
 
     .. note::
 
@@ -641,7 +642,14 @@ def sparse_correlation_matrix(
             (matrix_data[:nnz[0]],
              (matrix_row_indices[:nnz[0]],
               matrix_column_indices[:nnz[0]])),
-            shape=(matrix_size, matrix_size)).tocsr()
+            shape=(matrix_size, matrix_size))
+
+    if format == 'csr':
+        correlation_matrix = correlation_matrix.tocsr()
+    elif format == 'csc':
+        correlation_matrix = correlation_matrix.tocsc()
+    else:
+        raise ValueError('"format" should be "csr" or "csc".')
 
     # Actual sparse density
     if verbose:

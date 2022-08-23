@@ -16,7 +16,7 @@ import subprocess
 import multiprocessing
 from datetime import datetime
 from imate import traceinv, logdet
-from imate.sample_matrices import band_matrix
+from imate.sample_matrices import toeplitz
 
 
 # ===============
@@ -349,7 +349,7 @@ def main(argv):
             print('Processing %s matrix size: %d ...' % ('32-bit', size))
 
             # Generate matrix
-            M = band_matrix(matrix['band_alpha'], matrix['band_beta'], size,
+            M = toeplitz(matrix['band_alpha'], matrix['band_beta'], size,
                             gram=matrix['gram'],
                             format=matrix['format'], dtype=r'float32')
 
@@ -367,7 +367,7 @@ def main(argv):
             print('Processing %s matrix size: %d ...' % ('64-bit', size))
 
             # Generate matrix
-            M = band_matrix(matrix['band_alpha'], matrix['band_beta'], size,
+            M = toeplitz(matrix['band_alpha'], matrix['band_beta'], size,
                             gram=matrix['gram'],
                             format=matrix['format'], dtype=r'float64')
 
@@ -385,9 +385,9 @@ def main(argv):
             print('Processing %s matrix size: %d ...' % ('128-bit', size))
 
             # Generate matrix
-            M = band_matrix(matrix['band_alpha'], matrix['band_beta'], size,
-                            gram=matrix['gram'],
-                            format=matrix['format'], dtype=r'float128')
+            M = toeplitz(matrix['band_alpha'], matrix['band_beta'], size,
+                         gram=matrix['gram'],
+                         format=matrix['format'], dtype=r'float128')
 
             # Run a benchmark for all algorithms
             result = compare_methods(M, config, matrix, arguments)

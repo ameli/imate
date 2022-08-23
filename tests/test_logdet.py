@@ -17,7 +17,7 @@ import sys
 import time
 import numpy
 import scipy.sparse
-from imate.sample_matrices import band_matrix, band_matrix_logdet
+from imate.sample_matrices import toeplitz, toeplitz_logdet
 from imate import logdet
 
 
@@ -102,8 +102,8 @@ def _test_logdet_methods(K, matrix, gram, exponent, assume_matrix):
 
     # Exact solution of logdet for band matrix
     if exponent == 1:
-        logdet_exact = band_matrix_logdet(matrix['a'], matrix['b'],
-                                          matrix['size'], gram)
+        logdet_exact = toeplitz_logdet(matrix['a'], matrix['b'],
+                                       matrix['size'], gram)
         if not gram:
             logdet_exact = 2.0 * logdet_exact
     else:
@@ -162,17 +162,17 @@ def test_logdet():
 
             # When gram is True:
             #     1. We generate a 2-band nonsymmetric matrix K (hence we set
-            #        gram=False in band_matrix).
+            #        gram=False in toeplitz).
             #     2. We compute logdet of K.T @ K using only K (hence we set
             #        gram=True in logdet method).
             #
             # When gram is False:
             #     1. We generate a 3-band symmetric matrix K (hence we set
-            #        gram=True in band_matrix).
+            #        gram=True in toeplitz).
             #     2. We compute logdet of K using K (hence we set
             #        gram=False in logdet method).
-            K = band_matrix(matrix['a'], matrix['b'], matrix['size'],
-                            gram=(not gram), dtype=dtype)
+            K = toeplitz(matrix['a'], matrix['b'], matrix['size'],
+                         gram=(not gram), dtype=dtype)
 
             for sparse in sparses:
                 if not sparse:

@@ -14,7 +14,7 @@ import scipy
 import scipy.sparse
 from imate import traceinv, logdet
 from imate import AffineMatrixFunction                             # noqa: F401
-from imate.sample_matrices import band_matrix
+from imate.sample_matrices import toeplitz
 import subprocess
 import multiprocessing
 import platform
@@ -155,9 +155,9 @@ def benchmark(argv):
     }
 
     # Generate matrix
-    M = band_matrix(matrix['band_alpha'], matrix['band_beta'], matrix['size'],
-                    gram=matrix['gram'], format=matrix['format'],
-                    dtype=matrix['dtype'])
+    M = toeplitz(matrix['band_alpha'], matrix['band_beta'], matrix['size'],
+                 gram=matrix['gram'], format=matrix['format'],
+                 dtype=matrix['dtype'])
 
     Mop = AffineMatrixFunction(M)
 

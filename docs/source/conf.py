@@ -84,22 +84,29 @@ author = 'Siavash Ameli'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'custom_domain',
     'sphinx.ext.autodoc',
     # 'sphinx_math_dollar',
     'sphinx.ext.mathjax',
     'sphinx.ext.graphviz', 'sphinx.ext.inheritance_diagram',
-    'sphinx.ext.viewcode',
+    # 'sphinx.ext.viewcode',
     'sphinx_toggleprompt',
     # 'sphinx.ext.autosectionlabel',
     'sphinx.ext.autosummary',
     # 'sphinx_automodapi.automodapi',
-    # 'sphinxcontrib.napoleon'                # either use napoleon or numpydoc
-    'numpydoc'                                # either use napoleon or numpydoc
+    # 'sphinxcontrib.napoleon',               # either use napoleon or numpydoc
+    'numpydoc',                               # either use napoleon or numpydoc
+    'nbsphinx',
+    'sphinx_design',
+    'sphinx_multitoc_numbering',
 ]
 
 # Automatically generate autosummary after each build
 autosummary_generate = True
 autosummary_imported_members = True
+
+# Remove the module names from the signature
+# add_module_names = False
 
 # automodapi
 numpydoc_show_class_members = False
@@ -151,19 +158,69 @@ html_theme = 'pydata_sphinx_theme'
 # Options for theme
 html_theme_options = {
     "github_url": "https://github.com/ameli/imate",
-    "navbar_end": ["search-field.html", "navbar-icon-links.html"],
-    "page_sidebar_items": ["page-toc", "edit-this-page"]
+    "navbar_end": [
+        "theme-switcher",
+        "search-field.html",
+        "navbar-icon-links.html"
+    ],
+    "page_sidebar_items": ["page-toc", "edit-this-page"],
+    # "header_links_before_dropdown": 4,
+    "use_edit_page_button": True,
+    "icon_links": [
+        {
+            "name": "PyPI",
+            "url": "https://pypi.org/project/imate/",
+            "icon": "fab fa-python",
+            "type": "fontawesome",
+        },
+        {
+            "name": "Anaconda Cloud",
+            "url": "https://anaconda.org/s-ameli/imate",
+            "icon": "fa fa-circle-notch",
+            "type": "fontawesome",
+        },
+        {
+            "name": "Docker Hub",
+            "url": "https://hub.docker.com/repository/docker/sameli/imate",
+            "icon": "fab fa-docker",
+            "type": "fontawesome",
+        },
+        {
+            "name": "Lanuch Jupyter on Binder",
+            "url": "https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb",
+            "icon": "fa fa-chart-line",
+            "type": "fontawesome",
+        },
+    ],
+    "pygment_light_style": "tango",
+    "pygment_dark_style": "native",
+   "logo": {
+      "image_light": "images/icons/logo-imate-light.png",
+      "image_dark": "images/icons/logo-imate-dark.png",
+   }
+}
+
+html_context = {
+    "default_mode": "auto",
+    "github_user": "https://github.com/ameli",
+    "github_repo": "imate",
+    "github_version": "main",
+    "doc_path": "docs/source",
 }
 
 html_sidebars = {
     "**": ["sidebar-nav-bs", "sidebar-ethical-ads"]
 }
 
-project = u'imate'
-copyright = u'2022, Siavash Ameli'
+# Using Font Awesome icons
+# html_css_files = [
+#     "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+# ]
+
 
 html_title = f"{project} Manual"
 html_last_updated_fmt = '%b %d, %Y'
+# html_show_sourcelink = False
 
 # To use sphinx3, download at
 # https://github.com/sphinx-doc/sphinx/tree/master/doc/_themes/sphinx13
@@ -193,10 +250,13 @@ html_last_updated_fmt = '%b %d, %Y'
 html_static_path = ['_static']
 
 # # Add css
-# html_css_files = [
-#     'custom.css',
-# ]
+# html_css_files = ["css/custom.css"]
+# html_css_files = ["css/custom.css"]
+# html_css_files = ['css/custom-anaconda-doc.css']
 
+html_is_files = ["js/custom-pydata.css"]
+# html_logo = '_static/images/icons/logo-imate-light.png'
+html_favicon = '_static/images/icons/logo-imate.ico'
 
 # =====
 # setup
@@ -208,5 +268,7 @@ def setup(app):
     Note: paths are relative to /docs/_static
     """
 
-    app.add_css_file('css/custom.css')
+    app.add_css_file('css/custom-pydata.css')
+    app.add_js_file('js/custom-pydata.js')
+    # app.add_css_file('css/custom.css')
     # app.add_css_file('css/custom-anaconda-doc.css')

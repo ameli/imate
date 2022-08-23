@@ -197,7 +197,7 @@ cdef double _square_exponential_kernel(
 
 
 # ==================
-# ratioanl quadratic
+# rational quadratic
 # ==================
 
 cdef double _rational_quadratic_kernel(

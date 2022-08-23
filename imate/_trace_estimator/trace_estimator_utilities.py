@@ -542,8 +542,8 @@ def print_summary(info):
     print('')
 
     # Prints convergence and error
-    print('             convergence                                 ' +
-          'error     ')
+    print('             convergence                                 error   ' +
+          '             ')
     print('-------------------------------------    ------------------------' +
           '-------------')
     print('min num samples:                %5d' % min_num_samples, end="    ")
@@ -561,7 +561,7 @@ def print_summary(info):
     print('=================================================================' +
           '=============')
     print('                 time                                   device   ' +
-          '               ')
+          '             ')
     print('-------------------------------------    ------------------------' +
           '-------------')
     print('tot wall time (sec):        %8.3e' % tot_wall_time, end="    ")

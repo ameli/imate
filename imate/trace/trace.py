@@ -28,7 +28,6 @@ def trace(
         **options):
     """
     Computes the trace of a matrix.
-    See :ref:`Compute Trace User Guide<trace_UserGuide>` for details.
 
     :param A: A square matrix
     :type A: numpy.ndarray

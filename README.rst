@@ -1,6 +1,6 @@
-************
-|logo| imate
-************
+******
+|logo|
+******
 
 |licence| |codecov-devel|
 
@@ -89,8 +89,8 @@ Acknowledgements
 * National Science Foundation #1520825
 * American Heart Association #18EIA33900046
 
-.. |logo| image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/logo.svg
-   :width: 50
+.. |logo| image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/logo-imate-light.svg
+   :width: 160
 .. |examplesdir| replace:: ``/examples`` 
 .. _examplesdir: https://github.com/ameli/imate/blob/main/examples
 .. |example1| replace:: ``/examples/Plot_imate_FullRank.py``

@@ -13,6 +13,13 @@
 
 class LinearOperator(object):
     """
+    Base class for linear operators.
+
+    See Also
+    --------
+
+    imate.Matrix
+    imate.AffineMatrixFunction
     """
 
     # ====
@@ -21,6 +28,7 @@ class LinearOperator(object):
 
     def __init__(self):
         """
+        Initializes attributes.
         """
 
         self.Aop = None
@@ -105,6 +113,23 @@ class LinearOperator(object):
 
     def get_linear_operator(self, gpu=False, num_gpu_devices=0):
         """
+        Sets the linear operator object on CPU or GPU and returns its object.
+
+        Parameters
+        ----------
+
+        gpu : bool, default=False
+            If `True`, sets the object representing the matrix data on GPU.
+
+        num_gpu_devices : int, default=0
+            Number of GPU devices. If `0`, it uses maximum available GPU
+            devices.
+
+        Returns
+        -------
+
+        operator : object
+            Object representing data on CPU or GPU
         """
 
         # Initialize matrix either on cpu or gpu (implemented in sub-classes)
@@ -149,6 +174,14 @@ class LinearOperator(object):
 
     def get_data_type_name(self):
         """
+        Returns the data type name, which can be `float32`, `float64`, or
+        `float128`.
+
+        Returns
+        -------
+
+        data_type_name : str
+            Data type name
         """
 
         if self.data_type_name is None:
@@ -162,6 +195,16 @@ class LinearOperator(object):
 
     def get_num_parameters(self):
         """
+        Returns the number of parameters of the linear operator.
+
+        For :class:`imate.Matrix` class, this value is `0` and for
+        :class:`imate.AffineMatrixFunction` class, this value is `1`.
+
+        Returns
+        -------
+
+        num_parameters : int
+            Number of parameters of linear operator.
         """
 
         if self.num_parameters is None:

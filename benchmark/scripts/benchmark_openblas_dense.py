@@ -14,7 +14,7 @@ import re
 from imate import traceinv
 from imate import Matrix
 from imate import AffineMatrixFunction                             # noqa: F401
-from imate.sample_matrices import band_matrix
+from imate.sample_matrices import toeplitz
 import subprocess
 import multiprocessing
 import platform
@@ -224,9 +224,9 @@ def benchmark(argv):
                 raise ValueError('Invalid data_type: %s.' % data_type)
 
             # Generate matrix
-            M = band_matrix(matrix['band_alpha'], matrix['band_beta'], size,
-                            gram=matrix['gram'],
-                            format=matrix['format'], dtype=dtype)
+            M = toeplitz(matrix['band_alpha'], matrix['band_beta'], size,
+                         gram=matrix['gram'],
+                         format=matrix['format'], dtype=dtype)
 
             Mop = Matrix(M.toarray())
             # Mop = AffineMatrixFunction(M)

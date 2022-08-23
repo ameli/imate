@@ -76,7 +76,8 @@ try:
     from .interpolator import InterpolateLogdet                    # noqa: E402
     from .interpolator import InterpolateTrace                     # noqa: E402
     from .sample_matrices import correlation_matrix                # noqa: E402
-    from .sample_matrices import band_matrix                       # noqa: E402
+    from .sample_matrices import toeplitz                          # noqa: E402
+    from .device import Timer, Memory, info
 
 except Exception as e:
     # Before printing the exception, check if the exception is raised due to
@@ -98,6 +99,9 @@ __all__ = [
         'Matrix',
         'AffineMatrixFunction',
         'correlation_matrix',
-        'band_matrix']
+        'toeplitz',
+        'Timer',
+        'Memory',
+        'info']
 
 from.__version__ import __version__                                # noqa: F401

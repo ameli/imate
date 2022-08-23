@@ -61,11 +61,11 @@ def schatten(
     References
     ----------
 
-        * Ubaru, S., Chen, J., and Saad, Y. (2017).
-          Fast estimation of :math:`\\mathrm{tr}(f(A))` via stochastic Lanczos
-          quadrature. *SIAM Journal on Matrix Analysis and Applications*,
-          38(4), 1075-1099.
-          `doi: 10.1137/16M1104974 <https://doi.org/10.1137/16M1104974>`_
+    * Ubaru, S., Chen, J., and Saad, Y. (2017).
+      Fast estimation of :math:`\\mathrm{tr}(f(A))` via stochastic Lanczos
+      quadrature. *SIAM Journal on Matrix Analysis and Applications*,
+      38(4), 1075-1099.
+      `doi: 10.1137/16M1104974 <https://doi.org/10.1137/16M1104974>`_
 
     Examples
     --------

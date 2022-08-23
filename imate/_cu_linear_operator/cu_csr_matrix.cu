@@ -233,7 +233,7 @@ void cuCSRMatrix<DataType>::copy_host_to_device()
 ///
 /// \details If buffer size if not the same as required buffer size, allocate
 ///          (or reallocate) memory. The allocation is always performed in the
-///          fisr call of this function since buffer size is initialized to
+///          first call of this function since buffer size is initialized to
 ///          zero in constructor. But for the next calls it might not be
 ///          reallocated if the buffer size is the same.
 

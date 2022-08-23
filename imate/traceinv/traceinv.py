@@ -31,8 +31,6 @@ def traceinv(
         **options):
     """
     Computes the trace of inverse of a matrix.
-    See :ref:`Compute Trace of Inverse User Guide<traceinv_UserGuide>` for
-    details.
 
     :param A: Invertible matrix
     :type A: numpy.ndarray

@@ -347,15 +347,15 @@ class InterpolateTrace(InterpolateSchatten):
 
         Regarding the plotting of the graph of interpolation:
 
-            * If no graphical backend exists (such as running the code on a
-              remote server or manually disabling the X11 backend), the plot
-              will not be shown, rather, it will ve saved as an ``svg`` file in
-              the current directory.
-            * If the executable ``latex`` is on the path, the plot is rendered
-              using :math:`\rm\\laTeX`, which then, it takes a bit
-              longer to produce the plot.
-            * If :math:`\rm\\laTeX` is not installed, it uses any available
-              San-Serif font to render the plot.
+        * If no graphical backend exists (such as running the code on a
+          remote server or manually disabling the X11 backend), the plot
+          will not be shown, rather, it will ve saved as an ``svg`` file in
+          the current directory.
+        * If the executable ``latex`` is on the path, the plot is rendered
+          using :math:`\\rm\\laTeX`, which then, it takes a bit
+          longer to produce the plot.
+        * If :math:`\\rm\\laTeX` is not installed, it uses any available
+          San-Serif font to render the plot.
 
         To manually disable interactive plot display, and save the plot as
         ``SVG`` instead, add the following in the very beginning of your code

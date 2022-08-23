@@ -17,7 +17,7 @@ import sys
 import time
 import numpy
 import scipy.sparse
-from imate.sample_matrices import band_matrix, band_matrix_traceinv
+from imate.sample_matrices import toeplitz, toeplitz_traceinv
 from imate import traceinv
 
 
@@ -92,8 +92,8 @@ def _traceinv_exact(K, B, C, matrix, gram, exponent):
     elif exponent == 1 and not gram:
 
         # B is identity. Using analytic formula.
-        traceinv_exact = band_matrix_traceinv(matrix['a'], matrix['b'],
-                                              matrix['size'], True)
+        traceinv_exact = toeplitz_traceinv(matrix['a'], matrix['b'],
+                                           matrix['size'], True)
     else:
         # B and C are identity. Compute traceinv directly.
         if scipy.sparse.isspmatrix(K):
@@ -294,18 +294,18 @@ def test_traceinv():
 
                     # When gram is True:
                     #     1. We generate a 2-band non symmetric matrix K (hence
-                    #        we set gram=False in band_matrix).
+                    #        we set gram=False in toeplitz).
                     #     2. We compute traceinv of K.T @ K using only K (hence
                     #        we set gram=True in traceinv method).
                     #
                     # When gram is False:
                     #     1. We generate a 3-band symmetric matrix K (hence we
-                    #        set gram=True in band_matrix).
+                    #        set gram=True in toeplitz).
                     #     2. We compute traceinv of K using K (hence we set
                     #        gram=False in traceinv method).
-                    K = band_matrix(matrix_K['a'], matrix_K['b'],
-                                    matrix_K['size'], gram=(not gram),
-                                    dtype=dtype)
+                    K = toeplitz(matrix_K['a'], matrix_K['b'],
+                                 matrix_K['size'], gram=(not gram),
+                                 dtype=dtype)
 
                     if B_identity:
                         if C_identity:
@@ -316,16 +316,16 @@ def test_traceinv():
                             # identity.
                             continue
                     else:
-                        B = band_matrix(matrix_B['a'], matrix_B['b'],
-                                        matrix_B['size'], gram=True,
-                                        dtype=dtype)
+                        B = toeplitz(matrix_B['a'], matrix_B['b'],
+                                     matrix_B['size'], gram=True,
+                                     dtype=dtype)
 
                         if C_identity:
                             C = None
                         else:
-                            C = band_matrix(matrix_C['a'], matrix_C['b'],
-                                            matrix_C['size'], gram=True,
-                                            dtype=dtype)
+                            C = toeplitz(matrix_C['a'], matrix_C['b'],
+                                         matrix_C['size'], gram=True,
+                                         dtype=dtype)
 
                     for sparse in sparses:
                         if not sparse:

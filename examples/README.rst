@@ -34,7 +34,7 @@ To reproduce *Figure 2* of the manuscript, run the script |example1|_ by
 
 The script generates the figure below.
 
-.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/chebyshev.svg
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/interpolation/chebyshev.svg
    :align: center
    :width: 500
 
@@ -50,7 +50,7 @@ To reproduce *Figure 3* of the manuscript, run the script |example2|_ by
 
 The script generates the figure below (may take a long time to complete).
 
-.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/imate_mwe.svg
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/interpolation/imate_mwe.svg
    :align: center
 
 ---------
@@ -65,11 +65,11 @@ To reproduce *Figure 4* of the manuscript, run the script |example3|_ by
 
 The script generates the three figures below.
 
-.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/traceinv_full_rank_p0.svg
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/interpolation/traceinv_full_rank_p0.svg
    :align: center
-.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/traceinv_full_rank_p1.svg
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/interpolation/traceinv_full_rank_p1.svg
    :align: center
-.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/traceinv_full_rank_p2.svg
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/interpolation/traceinv_full_rank_p2.svg
    :align: center
 
 ---------
@@ -84,7 +84,7 @@ To reproduce *Figure 5* of the manuscript, run the script |example4|_ by
 
 The script generates the figure below.
 
-.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/traceinv_ill_conditioned.svg
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/interpolation/traceinv_ill_conditioned.svg
    :align: center
 
 ---------
@@ -99,7 +99,7 @@ To reproduce *Figure 6* of the manuscript, run the script |example5|_ by
 
 The script generates the figure below.
 
-.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/generalized_cross_validation.svg
+.. image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/interpolation/generalized_cross_validation.svg
    :align: center
    :scale: 50
 

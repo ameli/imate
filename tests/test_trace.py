@@ -16,7 +16,7 @@
 import sys
 import time
 import numpy
-from imate.sample_matrices import band_matrix, band_matrix_trace
+from imate.sample_matrices import toeplitz, toeplitz_trace
 from imate import trace
 
 
@@ -86,7 +86,7 @@ def _test_trace_methods(K, matrix, gram, exponent, assume_matrix):
 
     # Exact solution of trace for band matrix
     if exponent == 1:
-        trace_exact = band_matrix_trace(matrix['a'], matrix['b'],
+        trace_exact = toeplitz_trace(matrix['a'], matrix['b'],
                                         matrix['size'], True)
     else:
         trace_exact = trace1
@@ -141,17 +141,17 @@ def test_trace():
 
             # When gram is True:
             #     1. We generate a 2-band nonsymmetric matrix K (hence we set
-            #        gram=False in band_matrix).
+            #        gram=False in toeplitz).
             #     2. We compute trace of K.T @ K using only K (hence we set
             #        gram=True in trace method).
             #
             # When gram is False:
             #     1. We generate a 3-band symmetric matrix K (hence we set
-            #        gram=True in band_matrix).
+            #        gram=True in toeplitz).
             #     2. We compute trace of K using K (hence we set
             #        gram=False in trace method).
-            K = band_matrix(matrix['a'], matrix['b'], matrix['size'],
-                            gram=(not gram), dtype=dtype)
+            K = toeplitz(matrix['a'], matrix['b'], matrix['size'],
+                         gram=(not gram), dtype=dtype)
 
             for sparse in sparses:
                 if not sparse:

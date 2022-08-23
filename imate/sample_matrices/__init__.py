@@ -8,8 +8,8 @@
 
 
 from .correlation_matrix import correlation_matrix
-from .band_matrix import band_matrix, band_matrix_trace, \
-        band_matrix_traceinv, band_matrix_logdet
+from .toeplitz import toeplitz, toeplitz_trace, toeplitz_traceinv, \
+       toeplitz_logdet
 
-__all__ = ['correlation_matrix', 'band_matrix', 'band_matrix_trace',
-           'band_matrix_traceinv', 'band_matrix_logdet']
+__all__ = ['correlation_matrix', 'toeplitz', 'toeplitz_trace',
+           'toeplitz_traceinv', 'toeplitz_logdet']
