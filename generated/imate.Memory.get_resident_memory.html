@@ -1,0 +1,613 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>imate.Memory.get_resident_memory &#8212; imate Manual</title>
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
+
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/toggleprompt.js"></script>
+    <script src="../_static/js/custom-pydata.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="shortcut icon" href="../_static/logo-imate.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="imate.info" href="imate.info.html" />
+    <link rel="prev" title="imate.Memory.read" href="imate.Memory.read.html" />
+    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="en">
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="auto">
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
+
+    
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
+
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    <img src="../_static/images/icons/logo-imate-light.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/images/icons/logo-imate-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fas fa-bars"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorials/install.html">
+  1. Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorials/docker.html">
+  2. Docker
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorials/gpu.html">
+  3. GPU
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../cite.html">
+  Publications
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/imate/" rel="noopener" target="_blank" title="PyPI"><span><i class="fab fa-python"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://anaconda.org/s-ameli/imate" rel="noopener" target="_blank" title="Anaconda Cloud"><span><i class="fa fa-circle-notch"></i></span>
+            <label class="sr-only">Anaconda Cloud</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://hub.docker.com/repository/docker/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+            <label class="sr-only">Docker Hub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" rel="noopener" target="_blank" title="Lanuch Jupyter on Binder"><span><i class="fa fa-chart-line"></i></span>
+            <label class="sr-only">Lanuch Jupyter on Binder</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
+          
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+    <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  logdet
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.logdet.html">
+   imate.logdet
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.logdet.eigenvalue.html">
+   imate.logdet(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.logdet.cholesky.html">
+   imate.logdet(method=’cholesky’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.logdet.slq.html">
+   imate.logdet(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  traceinv
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.traceinv.html">
+   imate.traceinv
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.traceinv.eigenvalue.html">
+   imate.traceinv(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.traceinv.cholesky.html">
+   imate.traceinv(method=’cholesky’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.traceinv.hutchinson.html">
+   imate.traceinv(method=’hutchinson’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.traceinv.slq.html">
+   imate.traceinv(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  trace
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.trace.html">
+   imate.trace
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.trace.exact.html">
+   imate.trace(method=’exact’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.trace.eigenvalue.html">
+   imate.trace(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.trace.slq.html">
+   imate.trace(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Schatten Norm
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.schatten.html">
+   imate.schatten
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Interpolators
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateLogdet.html">
+   imate.InterpolateLogdet
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateTrace.html">
+   imate.InterpolateTrace
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateSchatten.html">
+   imate.InterpolateSchatten
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Linear Operators
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.Matrix.html">
+   imate.Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.AffineMatrixFunction.html">
+   imate.AffineMatrixFunction
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Sample Matrices
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.correlation_matrix.html">
+   imate.correlation_matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.toeplitz.html">
+   imate.toeplitz
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.sample_matrices.toeplitz_logdet.html">
+   imate.sample_matrices.toeplitz_logdet
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.sample_matrices.toeplitz_trace.html">
+   imate.sample_matrices.toeplitz_trace
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.sample_matrices.toeplitz_traceinv.html">
+   imate.sample_matrices.toeplitz_traceinv
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.sample_matrices.toeplitz_schatten.html">
+   imate.sample_matrices.toeplitz_schatten
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Device Inquiry
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.Timer.html">
+   imate.Timer
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="imate.Memory.html">
+   imate.Memory
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="imate.Memory.start.html">
+     imate.Memory.start
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="imate.Memory.read.html">
+     imate.Memory.read
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     imate.Memory.get_resident_memory
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.info.html">
+   imate.info
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.get_processor_name.html">
+   imate.device.get_processor_name
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.get_gpu_name.html">
+   imate.device.get_gpu_name
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.get_num_cpu_threads.html">
+   imate.device.get_num_cpu_threads
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.get_num_gpu_devices.html">
+   imate.device.get_num_gpu_devices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.locate_cuda.html">
+   imate.device.locate_cuda
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.restrict_to_single_processor.html">
+   imate.device.restrict_to_single_processor
+  </a>
+ </li>
+</ul>
+
+    
+  </div>
+</nav>
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
+
+          
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
+
+<nav id="bd-toc-nav">
+    
+</nav>
+    </div>
+    
+    <div class="toc-item">
+      
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/https://github.com/ameli/imate/edit/main/docs/source/generated/imate.Memory.get_resident_memory.rst">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+    
+  
+</div>
+
+
+          
+          
+          <div class="bd-content col-12 col-md-9 col-xl-7">
+              
+              <article class="bd-article" role="main">
+                
+  <section id="imate-memory-get-resident-memory">
+<h1>imate.Memory.get_resident_memory<a class="headerlink" href="#imate-memory-get-resident-memory" title="Permalink to this heading">#</a></h1>
+<dl class="py method">
+<dt class="sig sig-object py" id="imate.Memory.get_resident_memory">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Memory.</span></span><span class="sig-name descname"><span class="pre">get_resident_memory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">human_readable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.Memory.get_resident_memory" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns the resident memory of the current process.</p>
+<p>This method is a <em>static method</em> and does not require to instantiate
+<a class="reference internal" href="imate.Memory.html#imate.Memory" title="imate.Memory"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.Memory</span></code></a> class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>human_readable</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>False</cite>, the output is in Bytes. If <cite>True</cite>, the output is
+converted to a human readable unit.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>mem_tuple</strong><span class="classifier">tuple (int, str)</span></dt><dd><p>A tuple consists of the resident memory together with a string
+indicating the unit in which the memory is reported. If
+<code class="docutils literal notranslate"><span class="pre">human_readable</span></code> is <cite>False</cite> the unit is <code class="docutils literal notranslate"><span class="pre">'b'</span></code> indicating Bytes
+unit. If <code class="docutils literal notranslate"><span class="pre">human_readable</span></code> is <cite>True</cite>, other units may be used as
+follows:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;b&quot;</span></code>: indicates Bytes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;KB&quot;</span></code>: indicates Kilo-Bytes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;MB&quot;</span></code>: indicates Mega-Bytes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;GB&quot;</span></code>: indicates Giga-Bytes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;TB&quot;</span></code>: indicates Tera-Bytes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;PB&quot;</span></code>: indicates Peta-Bytes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;EB&quot;</span></code>: indicates Exa-Bytes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;ZB&quot;</span></code>: indicates Zetta-Bytes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;YB&quot;</span></code>: indicates Yotta-Bytes</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="imate.Memory.read.html#imate.Memory.read" title="imate.Memory.read"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.Memory.read</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>This function returns the resident memory that currently resides in the
+hardware.</p>
+<p>Note that, in contrast, <a class="reference internal" href="imate.Memory.read.html#imate.Memory.read" title="imate.Memory.read"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.Memory.read()</span></code></a> reads the
+<em>difference</em> between the resident memory from when
+<a class="reference internal" href="imate.Memory.start.html#imate.Memory.start" title="imate.Memory.start"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.Memory.start()</span></code></a> is called to the point where this method is
+called, hence measures the <em>acquired</em> memory in between two points.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Load Memory module</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">Memory</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get resident memory in bytes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Memory</span><span class="o">.</span><span class="n">get_resident_memory</span><span class="p">()</span>
+<span class="go">(92954624, &#39;b&#39;)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get resident memory in human-readable format</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Memory</span><span class="o">.</span><span class="n">get_resident_memory</span><span class="p">(</span><span class="n">human_readable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">(88.6484375, &#39;Mb&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+              </article>
+              
+
+              
+              <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="imate.Memory.read.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">imate.Memory.read</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="imate.info.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">imate.info</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+              </footer>
+              
+          </div>
+          
+      </div>
+    </div>
+
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+
+<footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    <p class="copyright">
+    &copy; Copyright 2022, Siavash Ameli.<br>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
+</p>
+  </div>
+  
+</div>
+</footer>
+  </body>
+</html>

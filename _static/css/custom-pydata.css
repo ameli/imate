@@ -1,0 +1,42 @@
+/* Provided by Sphinx's 'basic' theme, and included in the final set of assets */
+@import "../basic.css";
+
+html[data-theme="light"] {
+    --pst-color-panel-background: #fafafa;
+    --sd-color-card-background: #fafafa;
+}
+
+html[data-theme="dark"] {
+    --pst-color-panel-background: rgb(28, 28, 28);
+    --sd-color-card-background: rgb(28, 28, 28);
+}
+
+/* Invert the color of all png images in dark mode */
+html[data-theme=dark] img.custom-dark {
+    /* filter: invert(0.828) brightness(.8) contrast(1.2); */
+    filter: invert(1) hue-rotate(180deg) brightness(.8) contrast(1.2);
+}
+
+@font-face {
+    font-family: 'syncopate';
+    /* src: url('../assets/fonts/syncopate.regular.ttf') format('truetype'); */
+    src: url('../assets/fonts/synconew.regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'syncopate';
+    src: url('../assets/fonts/syncopate.bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+span.synco{
+    font-family: syncopate;
+    font-size: 80%;
+}
+
+/* img { */
+/*   shape-rendering: geometricprecision; */
+/* } */

@@ -3,73 +3,93 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>API Reference &#8212; imate Manual</title>
-    
-    <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-  
-    
-    <link rel="stylesheet"
-      href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-      href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-  
-    
-      
-  
-    
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
+
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/pydata-sphinx-theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/custom.css" />
-    
-    <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
-  
+    <link rel="stylesheet" type="text/css" href="_static/css/custom-pydata.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/toggleprompt.js"></script>
+    <script src="_static/js/custom-pydata.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="_static/logo-imate.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="imate.logdet" href="generated/imate.logdet.html" />
-    <link rel="prev" title="Quick Start" href="quickstart.html" />
+    <link rel="prev" title="3. Using GPU Devices" href="tutorials/gpu.html" />
     <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
     
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
+    <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
     
-
-    <!-- Google Analytics -->
-    
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="en">
 
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="auto">
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
 
     
-    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
 
   <div id="navbar-start">
     
     
-<a class="navbar-brand" href="index.html">
-<p class="title">imate</p>
-</a>
+  
 
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    <img src="_static/images/icons/logo-imate-light.png" class="logo__image only-light" alt="Logo image">
+    <img src="_static/images/icons/logo-imate-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
     
   </div>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+    <span class="fas fa-bars"></span>
   </button>
 
   
@@ -79,20 +99,20 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="introduction.html">
-  Introduction
+ <a class="reference internal nav-link" href="tutorials/install.html">
+  1. Install
  </a>
 </li>
 
 <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="install.html">
-  Install
+ <a class="reference internal nav-link" href="tutorials/docker.html">
+  2. Docker
  </a>
 </li>
 
 <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="quickstart.html">
-  Quick Start
+ <a class="reference internal nav-link" href="tutorials/gpu.html">
+  3. GPU
  </a>
 </li>
 
@@ -103,8 +123,8 @@
 </li>
 
 <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="notes.html">
-  Notes
+ <a class="reference internal nav-link" href="cite.html">
+  Publications
  </a>
 </li>
 
@@ -115,6 +135,14 @@
     </div>
 
     <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
       
       <div class="navbar-end-item">
         <form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -129,6 +157,22 @@
           <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
             <label class="sr-only">GitHub</label></a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/imate/" rel="noopener" target="_blank" title="PyPI"><span><i class="fab fa-python"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://anaconda.org/s-ameli/imate" rel="noopener" target="_blank" title="Anaconda Cloud"><span><i class="fa fa-circle-notch"></i></span>
+            <label class="sr-only">Anaconda Cloud</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://hub.docker.com/repository/docker/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+            <label class="sr-only">Docker Hub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" rel="noopener" target="_blank" title="Lanuch Jupyter on Binder"><span><i class="fa fa-chart-line"></i></span>
+            <label class="sr-only">Lanuch Jupyter on Binder</label></a>
+        </li>
       </ul>
       </div>
       
@@ -138,18 +182,18 @@
     </nav>
     
 
-    <div class="container-xl">
-      <div class="row">
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
           
-            
-            <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar">
-              <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     
     <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Functions
+  logdet
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -158,14 +202,118 @@
    imate.logdet
   </a>
  </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="api/imate.logdet.eigenvalue.html">
+   imate.logdet(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="api/imate.logdet.cholesky.html">
+   imate.logdet(method=’cholesky’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="api/imate.logdet.slq.html">
+   imate.logdet(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  traceinv
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.traceinv.html">
+   imate.traceinv
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="api/imate.traceinv.eigenvalue.html">
+   imate.traceinv(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="api/imate.traceinv.cholesky.html">
+   imate.traceinv(method=’cholesky’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="api/imate.traceinv.hutchinson.html">
+   imate.traceinv(method=’hutchinson’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="api/imate.traceinv.slq.html">
+   imate.traceinv(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  trace
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="generated/imate.trace.html">
    imate.trace
   </a>
  </li>
+</ul>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="generated/imate.traceinv.html">
-   imate.traceinv
+  <a class="reference internal" href="api/imate.trace.exact.html">
+   imate.trace(method=’exact’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="api/imate.trace.eigenvalue.html">
+   imate.trace(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="api/imate.trace.slq.html">
+   imate.trace(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Schatten Norm
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.schatten.html">
+   imate.schatten
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Interpolators
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.InterpolateLogdet.html">
+   imate.InterpolateLogdet
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.InterpolateTrace.html">
+   imate.InterpolateTrace
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.InterpolateSchatten.html">
+   imate.InterpolateSchatten
   </a>
  </li>
 </ul>
@@ -185,15 +333,10 @@
    imate.AffineMatrixFunction
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="generated/imate.InterpolateTraceinv.html">
-   imate.InterpolateTraceinv
-  </a>
- </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Sample Data
+  Sample Matrices
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -203,8 +346,82 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="generated/imate.band_matrix.html">
-   imate.band_matrix
+  <a class="reference internal" href="generated/imate.toeplitz.html">
+   imate.toeplitz
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.sample_matrices.toeplitz_logdet.html">
+   imate.sample_matrices.toeplitz_logdet
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.sample_matrices.toeplitz_trace.html">
+   imate.sample_matrices.toeplitz_trace
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.sample_matrices.toeplitz_traceinv.html">
+   imate.sample_matrices.toeplitz_traceinv
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.sample_matrices.toeplitz_schatten.html">
+   imate.sample_matrices.toeplitz_schatten
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Device Inquiry
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.Timer.html">
+   imate.Timer
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.Memory.html">
+   imate.Memory
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.info.html">
+   imate.info
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.device.get_processor_name.html">
+   imate.device.get_processor_name
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.device.get_gpu_name.html">
+   imate.device.get_gpu_name
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.device.get_num_cpu_threads.html">
+   imate.device.get_num_cpu_threads
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.device.get_num_gpu_devices.html">
+   imate.device.get_num_gpu_devices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.device.locate_cuda.html">
+   imate.device.locate_cuda
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="generated/imate.device.restrict_to_single_processor.html">
+   imate.device.restrict_to_single_processor
   </a>
  </li>
 </ul>
@@ -212,20 +429,21 @@
     
   </div>
 </nav>
-              </div>
-              <div class="sidebar-end-items">
-              </div>
-            </div>
-            
-          
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
 
           
-          <div class="d-none d-xl-block col-xl-2 bd-toc">
-            
-              
-              <div class="toc-item">
-                
-<div class="tocsection onthispage pt-5 pb-3">
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
     <i class="fas fa-list"></i> On this page
 </div>
 
@@ -235,6 +453,39 @@
   <a class="reference internal nav-link" href="#functions">
    Functions
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#log-determinant">
+     Log-Determinant
+    </a>
+    <ul class="nav section-nav flex-column">
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trace-of-inverse">
+     Trace of Inverse
+    </a>
+    <ul class="nav section-nav flex-column">
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trace">
+     Trace
+    </a>
+    <ul class="nav section-nav flex-column">
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#schatten-norm">
+     Schatten Norm
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#interpolators">
+   Interpolators
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#linear-operators">
@@ -242,86 +493,375 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sample-data">
-   Sample Data
+  <a class="reference internal nav-link" href="#sample-matrices">
+   Sample Matrices
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#device-inquiry">
+   Device Inquiry
+  </a>
+  <ul class="nav section-nav flex-column">
+  </ul>
  </li>
 </ul>
 
 </nav>
-              </div>
-              
-              <div class="toc-item">
-                
-              </div>
-              
-            
-          </div>
-          
+    </div>
+    
+    <div class="toc-item">
+      
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/https://github.com/ameli/imate/edit/main/docs/source/api.rst">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+    
+  
+</div>
+
 
           
           
-            
-          
-          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+          <div class="bd-content col-12 col-md-9 col-xl-7">
               
-              <div>
+              <article class="bd-article" role="main">
                 
   <section id="api-reference">
-<span id="api"></span><h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<span id="api"></span><h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h1>
+<p>The API reference contains:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#functions"><span class="std std-ref">Functions</span></a>: compute log-determinant and trace of functions
+of matrices.</p></li>
+<li><p><a class="reference internal" href="#interpolators"><span class="std std-ref">Interpolators</span></a>: interpolate functions of one-parameter
+family of affine matrix functions.</p></li>
+<li><p><a class="reference internal" href="#linear-operators"><span class="std std-ref">Linear Operators</span></a>: classes that represent matrices
+and affine matrix functions.</p></li>
+<li><p><a class="reference internal" href="#sample-matrices"><span class="std std-ref">Sample Matrices</span></a>: generate matrices for test
+purposes.</p></li>
+<li><p><a class="reference internal" href="#device-inquiry"><span class="std std-ref">Device Inquiry</span></a>: inquiry information about CPU and GPU devices.</p></li>
+</ul>
 <section id="functions">
-<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
-<table class="longtable table autosummary">
+<span id="id1"></span><h2>Functions<a class="headerlink" href="#functions" title="Permalink to this heading">#</a></h2>
+<p>The functions of this package are:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#log-determinant"><span class="std std-ref">Log-Determinant</span></a>: computes log-determinant of matrix.</p></li>
+<li><p><a class="reference internal" href="#trace-of-inverses"><span class="std std-ref">Trace of Inverses</span></a>: computes trace of the inverse of
+a matrix or any negative power of the matrix.</p></li>
+<li><p><a class="reference internal" href="#trace"><span class="std std-ref">Trace</span></a>: computes the trace of matrix or any positive power of
+the matrix.</p></li>
+<li><p><a class="reference internal" href="#schatten-norm"><span class="std std-ref">Schatten Norm</span></a>: computes the Schatten norm of order
+<span class="math notranslate nohighlight">\(p\)</span>, which includes the above three functions.</p></li>
+</ul>
+<p>Each of the above functions are implemented using both direct and randomized algorithms, suitable for various matrices sizes.</p>
+<section id="log-determinant">
+<span id="id2"></span><h3>Log-Determinant<a class="headerlink" href="#log-determinant" title="Permalink to this heading">#</a></h3>
+<table class="autosummary longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.logdet.html#imate.logdet" title="imate.logdet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.logdet</span></code></a>(A[, method])</p></td>
-<td><p>Computes the log-determinant of full-rank matrix.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.logdet.html#imate.logdet" title="imate.logdet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.logdet</span></code></a>(A[, gram, p, return_info, method])</p></td>
+<td><p>Log-determinant of non-singular matrix or linear operator.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/imate.trace.html#imate.trace" title="imate.trace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.trace</span></code></a>(A[, method])</p></td>
-<td><p>Computes the trace of a matrix.</p></td>
+</tbody>
+</table>
+<p>This function computes the log-determinant of <span class="math notranslate nohighlight">\(\mathbf{A}^p\)</span> or the Gramian matrix <span class="math notranslate nohighlight">\((\mathbf{A}^{\intercal} \mathbf{A})^p\)</span> where <span class="math notranslate nohighlight">\(p\)</span> is a real exponent.</p>
+<p>The <cite>imate.logdet</cite> function supports the following methods:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/imate.logdet.eigenvalue.html">imate.logdet(method=’eigenvalue’)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/imate.logdet.cholesky.html">imate.logdet(method=’cholesky’)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/imate.logdet.slq.html">imate.logdet(method=’slq’)</a></li>
+</ul>
+</div>
+<table class="table">
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 19%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Algorithm</p></th>
+<th class="head"><p>Matrix size</p></th>
+<th class="head"><p>Matrix type</p></th>
+<th class="head"><p>Solution</p></th>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.traceinv.html#imate.traceinv" title="imate.traceinv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.traceinv</span></code></a>(A[, B, C, method])</p></td>
-<td><p>Computes the trace of inverse of a matrix.</p></td>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="api/imate.logdet.eigenvalue.html#imate-logdet-eigenvalue"><span class="std std-ref">eigenvalue</span></a></p></td>
+<td><p>Eigenvalue decomposition</p></td>
+<td><p>Small <span class="math notranslate nohighlight">\(n &lt; 2^{12}\)</span></p></td>
+<td><p>Any</p></td>
+<td><p>Exact</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/imate.logdet.cholesky.html#imate-logdet-cholesky"><span class="std std-ref">cholesky</span></a></p></td>
+<td><p>Cholesky decomposition</p></td>
+<td><p>Moderate <span class="math notranslate nohighlight">\(n &lt; 2^{15}\)</span></p></td>
+<td><p>Symmetric Positive-definite</p></td>
+<td><p>Exact</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/imate.logdet.slq.html#imate-logdet-slq"><span class="std std-ref">slq</span></a></p></td>
+<td><p>Stochastic Lanczos Quadrature</p></td>
+<td><p>Large <span class="math notranslate nohighlight">\(n &gt; 2^{12}\)</span></p></td>
+<td><p>Any</p></td>
+<td><p>Approximation</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="trace-of-inverse">
+<span id="trace-of-inverses"></span><h3>Trace of Inverse<a class="headerlink" href="#trace-of-inverse" title="Permalink to this heading">#</a></h3>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.traceinv.html#imate.traceinv" title="imate.traceinv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.traceinv</span></code></a>(A[, gram, p, return_info, method])</p></td>
+<td><p>Log-determinant of non-singular matrix or linear operator.</p></td>
+</tr>
+</tbody>
+</table>
+<p>This function computes the trace of <span class="math notranslate nohighlight">\(\mathbf{A}^{-p}\)</span> or the Gramian matrix <span class="math notranslate nohighlight">\((\mathbf{A}^{\intercal} \mathbf{A})^{-p}\)</span> where <span class="math notranslate nohighlight">\(p\)</span> is a positive real exponent.</p>
+<p>The <cite>imate.traceinv</cite> function supports the following methods:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/imate.traceinv.eigenvalue.html">imate.traceinv(method=’eigenvalue’)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/imate.traceinv.cholesky.html">imate.traceinv(method=’cholesky’)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/imate.traceinv.hutchinson.html">imate.traceinv(method=’hutchinson’)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/imate.traceinv.slq.html">imate.traceinv(method=’slq’)</a></li>
+</ul>
+</div>
+<table class="table">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 26%" />
+<col style="width: 24%" />
+<col style="width: 39%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Algorithm</p></th>
+<th class="head"><p>Matrix Size</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>eigenvalue</cite></p></td>
+<td><p>Eigenvalue decomposition</p></td>
+<td><p>Small <span class="math notranslate nohighlight">\(n &lt; 2^{12}\)</span></p></td>
+<td><p>For testing and benchmarking other methods</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>cholesky</cite></p></td>
+<td><p>Cholesky decomposition</p></td>
+<td><p>Moderate <span class="math notranslate nohighlight">\(n &lt; 2^{15}\)</span></p></td>
+<td><p>Exact solution</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>hutchinson</cite></p></td>
+<td><p>Hutchinson</p></td>
+<td><p>Large <span class="math notranslate nohighlight">\(2^{12} &lt; n\)</span></p></td>
+<td><p>Randomized method using Monte-Carlo sampling</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>slq</cite></p></td>
+<td><p>Stochastic Lanczos Quadrature</p></td>
+<td><p>Large <span class="math notranslate nohighlight">\(2^{12} &lt; n\)</span></p></td>
+<td><p>Randomized method using Monte-Carlo sampling</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="trace">
+<span id="id3"></span><h3>Trace<a class="headerlink" href="#trace" title="Permalink to this heading">#</a></h3>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.trace.html#imate.trace" title="imate.trace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.trace</span></code></a>(A[, gram, p, return_info, method])</p></td>
+<td><p>Log-determinant of non-singular matrix or linear operator.</p></td>
+</tr>
+</tbody>
+</table>
+<p>This function computes the trace of <span class="math notranslate nohighlight">\(\mathbf{A}^p\)</span> or the Gramian matrix <span class="math notranslate nohighlight">\((\mathbf{A}^{\intercal} \mathbf{A})^p\)</span> where <span class="math notranslate nohighlight">\(p\)</span> is a positive real exponent.</p>
+<p>The <cite>imate.trace</cite> function supports the following methods:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/imate.trace.exact.html">imate.trace(method=’exact’)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/imate.trace.eigenvalue.html">imate.trace(method=’eigenvalue’)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/imate.trace.slq.html">imate.trace(method=’slq’)</a></li>
+</ul>
+</div>
+<table class="table">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 27%" />
+<col style="width: 22%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Algorithm</p></th>
+<th class="head"><p>Matrix Size</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>exact</cite></p></td>
+<td><p>Direct</p></td>
+<td><p>All sizes</p></td>
+<td><p>For all purposes</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>eigenvalue</cite></p></td>
+<td><p>Eigenvalue decomposition</p></td>
+<td><p>Small <span class="math notranslate nohighlight">\(n &lt; 2^{12}\)</span></p></td>
+<td><p>For testing and benchmarking other methods</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>slq</cite></p></td>
+<td><p>Stochastic Lanczos Quadrature</p></td>
+<td><p>Large <span class="math notranslate nohighlight">\(2^{12} &lt; n\)</span></p></td>
+<td><p>Randomized method using Monte-Carlo sampling</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="schatten-norm">
+<span id="id4"></span><h3>Schatten Norm<a class="headerlink" href="#schatten-norm" title="Permalink to this heading">#</a></h3>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.schatten.html#imate.schatten" title="imate.schatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.schatten</span></code></a>(A[, gram, p, return_info, method])</p></td>
+<td><p>Log-determinant of non-singular matrix or linear operator.</p></td>
+</tr>
+</tbody>
+</table>
+<p>This function computes the Schatten norm of <span class="math notranslate nohighlight">\(\mathbf{A}^p\)</span> or the Gramian matrix <span class="math notranslate nohighlight">\((\mathbf{A}^{\intercal} \mathbf{A})^p\)</span> where <span class="math notranslate nohighlight">\(p\)</span> is a real exponent.</p>
+</section>
+</section>
+<section id="interpolators">
+<span id="id5"></span><h2>Interpolators<a class="headerlink" href="#interpolators" title="Permalink to this heading">#</a></h2>
+<p>Interpolate the various matrix functions of the one-parameter family of affine matrix functions.</p>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.InterpolateLogdet.html#imate.InterpolateLogdet" title="imate.InterpolateLogdet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.InterpolateLogdet</span></code></a>(A[, B, ti, kind, ...])</p></td>
+<td><p>Interpolates the Schatten norm, or anti-norm, of an affine matrix function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/imate.InterpolateTrace.html#imate.InterpolateTrace" title="imate.InterpolateTrace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.InterpolateTrace</span></code></a>(A[, B, p, ti, kind, ...])</p></td>
+<td><p>Interpolates the Schatten norm, or anti-norm, of an affine matrix function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.InterpolateSchatten.html#imate.InterpolateSchatten" title="imate.InterpolateSchatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.InterpolateSchatten</span></code></a>(A[, B, p, ti, ...])</p></td>
+<td><p>Interpolates the Schatten norm, or anti-norm, of an affine matrix function.</p></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="linear-operators">
-<h2>Linear Operators<a class="headerlink" href="#linear-operators" title="Permalink to this headline">¶</a></h2>
-<table class="longtable table autosummary">
+<span id="id6"></span><h2>Linear Operators<a class="headerlink" href="#linear-operators" title="Permalink to this heading">#</a></h2>
+<p>Create linear operator objects as container for various matrix types with a unified interface, establish a fully automatic dynamic buffer to allocate, deallocate, and transfer data between CPU and multiple GPU devices on demand, as well as perform basic matrix-vector operations with high performance on both CPU or GPU devices. These objects can be passed to <span class="synco">imate</span> functions as input matrices.</p>
+<table class="autosummary longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.Matrix.html#imate.Matrix" title="imate.Matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.Matrix</span></code></a>(A_)</p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.Matrix.html#imate.Matrix" title="imate.Matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.Matrix</span></code></a>(A)</p></td>
+<td><p>Create a linear operator object from an input matrix.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/imate.AffineMatrixFunction.html#imate.AffineMatrixFunction" title="imate.AffineMatrixFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.AffineMatrixFunction</span></code></a>(A_[, B_])</p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.InterpolateTraceinv.html#imate.InterpolateTraceinv" title="imate.InterpolateTraceinv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.InterpolateTraceinv</span></code></a>(A[, B, ...])</p></td>
-<td><p>Interpolates the trace of inverse of affine matrix functions.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/imate.AffineMatrixFunction.html#imate.AffineMatrixFunction" title="imate.AffineMatrixFunction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.AffineMatrixFunction</span></code></a>(A[, B])</p></td>
+<td><p>Create a one-parameter affine matrix function object from input matrices.</p></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="sample-data">
-<h2>Sample Data<a class="headerlink" href="#sample-data" title="Permalink to this headline">¶</a></h2>
-<table class="longtable table autosummary">
+<section id="sample-matrices">
+<span id="id7"></span><h2>Sample Matrices<a class="headerlink" href="#sample-matrices" title="Permalink to this heading">#</a></h2>
+<p>Generate sample matrices for test purposes, such as correlation matrix and Toeplitz matrix. The matrix functions of Toeplitz matrix (such as its log-determinant, trace of its inverse, etc) are known analytically, making Toeplitz matrix suitable for benchmarking the result of randomized methods with analytical solutions.</p>
+<table class="autosummary longtable table autosummary">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.correlation_matrix.html#imate.correlation_matrix" title="imate.correlation_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.correlation_matrix</span></code></a>([size, dimension, ...])</p></td>
-<td><p>Generates symmetric and positive-definite matrix for test purposes.</p></td>
+<td><p>Generate symmetric and positive-definite matrix for test purposes.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/imate.band_matrix.html#imate.band_matrix" title="imate.band_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.band_matrix</span></code></a>(a, b[, size, gram, ...])</p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/imate.toeplitz.html#imate.toeplitz" title="imate.toeplitz"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.toeplitz</span></code></a>(a, b[, size, gram, format, dtype])</p></td>
+<td><p>Generate a sparse Toeplitz matrix for test purposes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.sample_matrices.toeplitz_logdet.html#imate.sample_matrices.toeplitz_logdet" title="imate.sample_matrices.toeplitz_logdet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.sample_matrices.toeplitz_logdet</span></code></a>(a, b, size)</p></td>
+<td><p>Compute the log-determinant of Toeplitz matrix using an analytic formula.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/imate.sample_matrices.toeplitz_trace.html#imate.sample_matrices.toeplitz_trace" title="imate.sample_matrices.toeplitz_trace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.sample_matrices.toeplitz_trace</span></code></a>(a, b, size)</p></td>
+<td><p>Compute the trace of the Toeplitz matrix using an analytic formula.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.sample_matrices.toeplitz_traceinv.html#imate.sample_matrices.toeplitz_traceinv" title="imate.sample_matrices.toeplitz_traceinv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.sample_matrices.toeplitz_traceinv</span></code></a>(a, ...)</p></td>
+<td><p>Computes the trace of the inverse of Toeplitz matrix using an analytic formula.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/imate.sample_matrices.toeplitz_schatten.html#imate.sample_matrices.toeplitz_schatten" title="imate.sample_matrices.toeplitz_schatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.sample_matrices.toeplitz_schatten</span></code></a>(a, ...)</p></td>
+<td><p>Compute the Schatten norm of Toeplitz matrix using an analytic formula.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="device-inquiry">
+<span id="id8"></span><h2>Device Inquiry<a class="headerlink" href="#device-inquiry" title="Permalink to this heading">#</a></h2>
+<p>Measure the process time and consumed memory of the Python process during computation with the following classes.</p>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.Timer.html#imate.Timer" title="imate.Timer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.Timer</span></code></a>([hold])</p></td>
+<td><p>A timer to measure elapsed wall time and CPU process time of Python process.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/imate.Memory.html#imate.Memory" title="imate.Memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.Memory</span></code></a>()</p></td>
+<td><p>Measures resident memory size or its change for the Python process.</p></td>
+</tr>
+</tbody>
+</table>
+<p>Inquiry hardware information, including CPU and GPU devices employed during computation and get information about the CUDA Toolkit installation with the following functions.</p>
+<table class="autosummary longtable table autosummary">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.info.html#imate.info" title="imate.info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.info</span></code></a>([print_only])</p></td>
+<td><p>Provides general information about hardware device, package version, and memory usage.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/imate.device.get_processor_name.html#imate.device.get_processor_name" title="imate.device.get_processor_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.device.get_processor_name</span></code></a>()</p></td>
+<td><p>Gets the model name of CPU processor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.device.get_gpu_name.html#imate.device.get_gpu_name" title="imate.device.get_gpu_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.device.get_gpu_name</span></code></a>()</p></td>
+<td><p>Gets the model name of GPU device.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/imate.device.get_num_cpu_threads.html#imate.device.get_num_cpu_threads" title="imate.device.get_num_cpu_threads"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.device.get_num_cpu_threads</span></code></a>()</p></td>
+<td><p>Returns the number of available CPU processor threads.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.device.get_num_gpu_devices.html#imate.device.get_num_gpu_devices" title="imate.device.get_num_gpu_devices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.device.get_num_gpu_devices</span></code></a>()</p></td>
+<td><p>Returns the number of available GPU devices in multi-GPU platforms.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/imate.device.locate_cuda.html#imate.device.locate_cuda" title="imate.device.locate_cuda"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.device.locate_cuda</span></code></a>()</p></td>
+<td><p>Returns the directory paths and version of CUDA Toolkit installation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/imate.device.restrict_to_single_processor.html#imate.device.restrict_to_single_processor" title="imate.device.restrict_to_single_processor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.device.restrict_to_single_processor</span></code></a>()</p></td>
+<td><p>Restricts the computations to only one CPU thread.</p></td>
 </tr>
 </tbody>
 </table>
@@ -329,50 +869,55 @@
 </section>
 
 
-              </div>
+              </article>
               
-              
-              <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="quickstart.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Quick Start</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="generated/imate.logdet.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">imate.logdet</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-              
-          </main>
-          
 
+              
+              <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="tutorials/gpu.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title"><span class="section-number">3. </span>Using GPU Devices</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="generated/imate.logdet.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">imate.logdet</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+              </footer>
+              
+          </div>
+          
       </div>
     </div>
+
   
-    <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
-  <footer class="footer mt-5 mt-md-0">
-  <div class="container">
-    
-    <div class="footer-item">
-      <p class="copyright">
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+
+<footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    <p class="copyright">
     &copy; Copyright 2022, Siavash Ameli.<br>
 </p>
-    </div>
-    
-    <div class="footer-item">
-      <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
-</p>
-    </div>
-    
   </div>
+  
+  <div class="footer-item">
+    <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
+</p>
+  </div>
+  
+</div>
 </footer>
   </body>
 </html>
