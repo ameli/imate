@@ -151,9 +151,10 @@ def compare_methods(M, config, matrix, arguments):
         print('\tslq, repeat %d ...' % (i+1), end="")
         trace_s[i], info_s = function(
                 M,
-                method='slq',
-                exponent=config['exponent'],
                 gram=config['gram'],
+                p=config['exponent'],
+                return_info=True,
+                method='slq',
                 min_num_samples=config['min_num_samples'],
                 max_num_samples=config['max_num_samples'],
                 error_rtol=config['error_rtol'],
@@ -196,8 +197,9 @@ def compare_methods(M, config, matrix, arguments):
             print('\thutchinson, repeat %d ...' % (i+1), end="")
             trace_h[i], info_h = function(
                     M,
+                    p=config['exponent'],
+                    return_info=True,
                     method='hutchinson',
-                    exponent=config['exponent'],
                     assume_matrix='sym',
                     min_num_samples=config['min_num_samples'],
                     max_num_samples=config['max_num_samples'],
@@ -238,8 +240,9 @@ def compare_methods(M, config, matrix, arguments):
         if arguments['function'] == 'traceinv':
             trace_c, info_c = function(
                     M,
+                    p=config['exponent'],
+                    return_info=True,
                     method='cholesky',
-                    exponent=config['exponent'],
                     cholmod=None,
                     invert_cholesky=False)
 
@@ -252,18 +255,20 @@ def compare_methods(M, config, matrix, arguments):
             # it only uses scipy.sparse.cholesky
             trace_c, info_c = function(
                     M,
+                    p=config['exponent'],
+                    return_info=True,
                     method='cholesky',
-                    cholmod=None,
-                    exponent=config['exponent'])
+                    cholmod=None)
 
             # If cholmod is used, also compute once more without cholmod
             # if info_c['solver']['cholmod_used'] is True and \
             #         M.shape[0] <= matrix['max_cholesky_size_2']:
             #     trace_c2, info_c2 = function(
             #             M,
+            #             p=config['exponent'],
+            #             return_info=True,
             #             method='cholesky',
-            #             cholmod=False,
-            #             exponent=config['exponent'])
+            #             cholmod=False)
             # else:
             #     trace_c2 = numpy.nan
             #     info_c2 = {}

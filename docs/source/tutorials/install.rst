@@ -273,21 +273,21 @@ Compile :synco:`imate` with either of GCC, Clang/LLVM, or Intel C++ compiler on 
     .. tab-item:: Ubuntu/Debian
         :sync: ubuntu
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo apt install build-essential
 
     .. tab-item:: CentOS 7
         :sync: centos
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo yum group install "Development Tools"
 
     .. tab-item:: RHEL 9
         :sync: rhel
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo dnf group install "Development Tools"
 
@@ -312,14 +312,14 @@ Then, export ``C`` and ``CXX`` variables by
     .. tab-item:: Ubuntu/Debian
         :sync: ubuntu
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo apt install clang
 
     .. tab-item:: CentOS 7
         :sync: centos
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo yum install yum-utils
             sudo yum-config-manager --enable extras
@@ -329,7 +329,7 @@ Then, export ``C`` and ``CXX`` variables by
     .. tab-item:: RHEL 9
         :sync: rhel
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo dnf install yum-utils
             sudo dnf config-manager --enable extras
@@ -459,7 +459,7 @@ It is not required to install the entire CUDA Toolkit. Install only the CUDA com
     .. tab-item:: Ubuntu/Debian
         :sync: ubuntu
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo apt install -y \
                 cuda-nvcc-11-7 \
@@ -471,7 +471,7 @@ It is not required to install the entire CUDA Toolkit. Install only the CUDA com
     .. tab-item:: CentOS 7
         :sync: centos
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo yum install --setopt=obsoletes=0 -y \
                 cuda-nvcc-11-7.x86_64 \
@@ -484,7 +484,7 @@ It is not required to install the entire CUDA Toolkit. Install only the CUDA com
     .. tab-item:: RHEL 9
         :sync: rhel
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo dnf install --setopt=obsoletes=0 -y \
                 cuda-nvcc-11-7.x86_64 \
@@ -496,10 +496,10 @@ It is not required to install the entire CUDA Toolkit. Install only the CUDA com
 
 Update ``PATH`` with the CUDA installation location by
 
-.. code-block:: bash
+.. code-block:: Bash
 
-    echo 'export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}' >> ~/.bashrc
-    source ~/.bashrc
+    echo 'export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}' >> ~/.Bashrc
+    source ~/.Bashrc
 
 Check if the CUDA compiler is available with ``which nvcc``.
 
@@ -516,19 +516,19 @@ On a GPU cluster, chances are the CUDA Toolkit is already installed. If the clus
 
 First, check if a CUDA module is available by
 
-.. code-block:: bash
+.. code-block:: Bash
 
     module avail
 
 Load both CUDA and GCC by
 
-.. code-block:: bash
+.. code-block:: Bash
 
     module load cuda gcc
 
 You may specify CUDA version if multiple CUDA versions are available, such as by
 
-.. code-block:: bash
+.. code-block:: Bash
 
     module load cuda/11.7 gcc/6.3
 
@@ -552,14 +552,14 @@ Set the following environment variables as desired to configure the compilation 
             .. tab-item:: UNIX
                 :sync: unix
 
-                .. code-block:: bash
+                .. code-block:: Bash
 
                     export CUDA_HOME=/usr/local/cuda
 
             .. tab-item:: Windows (Powershell)
                 :sync: win
 
-                .. code-block:: bash
+                .. code-block:: PowerShell
 
                     $env:export CUDA_HOME = "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7"
 
@@ -572,14 +572,14 @@ Set the following environment variables as desired to configure the compilation 
             .. tab-item:: UNIX
                 :sync: unix
 
-                .. code-block:: bash
+                .. code-block:: Bash
 
                     export USE_CUDA=1
 
             .. tab-item:: Windows (Powershell)
                 :sync: win
 
-                .. code-block:: bash
+                .. code-block:: PowerShell
 
                     $env:export USE_CUDA = "1"
 
@@ -592,14 +592,14 @@ Set the following environment variables as desired to configure the compilation 
             .. tab-item:: UNIX
                 :sync: unix
 
-                .. code-block:: bash
+                .. code-block:: Bash
 
                     export CUDA_DYNAMIC_LOADING=1
 
             .. tab-item:: Windows (Powershell)
                 :sync: win
 
-                .. code-block:: bash
+                .. code-block:: PowerShell
 
                     $env:export CUDA_DYNAMIC_LOADING = "1"
 
@@ -612,14 +612,14 @@ Set the following environment variables as desired to configure the compilation 
             .. tab-item:: UNIX
                 :sync: unix
 
-                .. code-block:: bash
+                .. code-block:: Bash
 
                     export CYTHON_BUILD_IN_SOURCE=1
 
             .. tab-item:: Windows (Powershell)
                 :sync: win
 
-                .. code-block:: bash
+                .. code-block:: PowerShell
 
                     $env:export CYTHON_BUILD_IN_SOURCE = "1"
 
@@ -636,14 +636,14 @@ Set the following environment variables as desired to configure the compilation 
             .. tab-item:: UNIX
                 :sync: unix
 
-                .. code-block:: bash
+                .. code-block:: Bash
 
                     export CYTHON_BUILD_FOR_DOC=1
 
             .. tab-item:: Windows (Powershell)
                 :sync: win
 
-                .. code-block:: bash
+                .. code-block:: PowerShell
 
                     $env:export CYTHON_BUILD_FOR_DOC = "1"
 
@@ -664,14 +664,14 @@ Set the following environment variables as desired to configure the compilation 
             .. tab-item:: UNIX
                 :sync: unix
 
-                .. code-block:: bash
+                .. code-block:: Bash
 
                     export USE_CBLAS=1
 
             .. tab-item:: Windows (Powershell)
                 :sync: win
 
-                .. code-block:: bash
+                .. code-block:: PowerShell
 
                     $env:export USE_CBLAS = "1"
 
@@ -684,14 +684,14 @@ Set the following environment variables as desired to configure the compilation 
             .. tab-item:: UNIX
                 :sync: unix
 
-                .. code-block:: bash
+                .. code-block:: Bash
 
                     export DEBUG_MODE=1
 
             .. tab-item:: Windows (Powershell)
                 :sync: win
 
-                .. code-block:: bash
+                .. code-block:: PowerShell
 
                     $env:export DEBUG_MODE = "1"
 
@@ -702,16 +702,18 @@ Set the following environment variables as desired to configure the compilation 
 Compile and Install
 -------------------
 
+|repo-size|
+
 Get the source code of :synco:`imate` from the Github repository by
 
-.. code-block:: bash
+.. code-block:: Bash
 
     git clone https://github.com/ameli/imate.git
     cd imate
 
 To compile and install, run
 
-.. code-block:: bash
+.. code-block:: Bash
 
     python setup.py install
 
@@ -726,7 +728,7 @@ If you are using ``sudo`` for the above command, add ``-E`` option to ``sudo`` t
     .. tab-item:: UNIX
         :sync: unix
 
-        .. code-block:: bash
+        .. code-block:: Bash
             :emphasize-lines: 5
 
             export CUDA_HOME=/usr/local/cuda
@@ -738,7 +740,7 @@ If you are using ``sudo`` for the above command, add ``-E`` option to ``sudo`` t
     .. tab-item:: Windows (Powershell)
         :sync: win
 
-        .. code-block:: bash
+        .. code-block:: PowerShell
             :emphasize-lines: 5
 
             $env:export CUDA_HOME = "/usr/local/cuda"
@@ -762,16 +764,17 @@ Compile Documentation
 
 To generate this documentation, you should build the package first.
 
+
 Get the source code from Github repository.
 
-.. code-block:: bash
+.. code-block:: Bash
 
     git clone https://github.com/ameli/imate.git
     cd imate
 
 If you already had the source code, clean it from any previous build (especially if you built `in-source`):
 
-.. code-block:: bash
+.. code-block:: Bash
 
     python setup.py clean
 
@@ -782,7 +785,7 @@ Compile and install the package as follows:
     .. tab-item:: UNIX
         :sync: unix
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             export CYTHON_BUILD_FOR_DOC=1
             export USE_CUDA=0
@@ -791,15 +794,62 @@ Compile and install the package as follows:
     .. tab-item:: Windows (Powershell)
         :sync: win
 
-        .. code-block:: bash
+        .. code-block:: PowerShell
 
             $env:export CYTHON_BUILD_FOR_DOC = "1"
             $env:export USE_CUDA = "0"
             sudo -E python setup.py install
 
+Also, install `Pandoc <https://pandoc.org/>`_ which is required to build the documentation.
+
+.. tab-set::
+
+   .. tab-item:: Ubuntu/Debian
+      :sync: ubuntu
+
+      ::
+
+          sudo apt install pandoc
+
+   .. tab-item:: CentOS 7
+      :sync: centos
+
+      ::
+
+          sudo yum -y install epel-release
+          sudo yum -y install pandoc --enablerepo=epel
+
+   .. tab-item:: RHEL 9
+      :sync: rhel
+
+      ::
+
+          sudo dnf -y install epel-release
+          sudo dnf -y install pandoc --enablerepo=epel
+
+   .. tab-item:: macOS
+      :sync: osx
+
+      ::
+
+          sudo brew install pandoc
+
+   .. tab-item:: Windows (Powershell)
+      :sync: win
+    
+      .. code-block:: PowerShell
+
+          scoop install pandoc
+
+Alternatively, you may install Pandoc with ``conda``:
+
+::
+
+    conda install -c conda-forge pandoc
+
 Now, build the documentation:
 
-.. code-block:: bash
+.. code-block:: Bash
 
     cd docs
     python -m pip install -r requirements.txt
@@ -851,3 +901,5 @@ To automatically run all tests, use ``pytest``:
    :target: https://github.com/ameli/imate/releases/
 .. |conda-platform| image:: https://anaconda.org/s-ameli/imate/badges/platforms.svg
    :target: https://anaconda.org/s-ameli/imate
+.. |repo-size| image:: https://img.shields.io/github/repo-size/ameli/imate
+   :target: https://github.com/ameli/imate

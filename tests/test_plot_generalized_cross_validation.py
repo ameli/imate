@@ -36,6 +36,7 @@ def test_plot_generalized_cross_validation():
     examples_directory = os.path.join(parent_directory, 'examples')
 
     # Put the examples directory on the path
+    sys.path.append(parent_directory)
     sys.path.append(examples_directory)
 
     # Run example

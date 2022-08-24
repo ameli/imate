@@ -22,7 +22,7 @@ from _utilities.data_utilities import generate_matrix, generate_basis_functions
 from _utilities.plot_utilities import *                      # noqa: F401, F403
 from _utilities.plot_utilities import load_plot_settings, save_plot, plt, \
         matplotlib, InsetPosition, mark_inset, NullFormatter,  \
-        FormatStrFormatter, PercentFormatter
+        PercentFormatter, ScalarFormatter
 
 
 # ====
@@ -70,8 +70,10 @@ def plot(TI, test):
 
     # Plots trace
     textwidth = 9.0  # in inches
-    # fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(textwidth, textwidth/2))
-    fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(textwidth, textwidth/2.5))
+    # fig, ax = plt.subplots(nrows=1, ncols=2,
+    #                        figsize=(textwidth, textwidth/2))
+    fig, ax = plt.subplots(nrows=1, ncols=2,
+                           figsize=(textwidth, textwidth/2.5))
     ax[0].plot(eta, tau_exact, color='black', label='Exact')
     ax[0].plot(eta[zero_index:], tau_lowerbound[zero_index:], '--',
                color='black', label=r'Lower bound (at $t \geq 0$)')
@@ -267,10 +269,10 @@ def main(test=False):
 
     # Iterate over different set of interpolation points
     TI = []
-    
+
     for i in range(len(interpolant_points)):
         TI_ = InterpolateSchatten(K, p=p, ti=interpolant_points[i], kind=kind,
-                               options=options)
+                                  options=options)
         TI.append(TI_)
 
     # Plot interpolations (in reverse order for z-ordering)

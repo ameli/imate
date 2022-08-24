@@ -16,9 +16,8 @@
 import sys
 import time
 import numpy
-import scipy.sparse
-from imate.sample_matrices import toeplitz, toeplitz_logdet
-from imate import logdet
+from imate.sample_matrices import toeplitz, toeplitz_schatten
+from imate import schatten
 
 
 # ==============
@@ -42,11 +41,11 @@ def relative_error(estimate, exact):
     return relative_error
 
 
-# ===================
-# test logdet methods
-# ===================
+# =====================
+# test schatten methods
+# =====================
 
-def _test_logdet_methods(K, matrix, gram, p, assume_matrix):
+def _test_schatten_methods(K, matrix, gram, p, assume_matrix):
     """
     Computes the log-determinant of matrix ``K`` with multiple method.
 
@@ -61,83 +60,82 @@ def _test_logdet_methods(K, matrix, gram, p, assume_matrix):
     error_rtol = 1e-2
 
     # Use direct method
-    time00 = time.time()
-    if scipy.sparse.issparse(K):
-        logdet0 = numpy.real(numpy.log(
-            numpy.linalg.det(K.toarray()).astype(numpy.complex128)))
-    else:
-        logdet0 = numpy.real(numpy.log(
-            numpy.linalg.det(K).astype(numpy.complex128)))
-    logdet0 *= p
-    if gram:
-        logdet0 = 2.0 * logdet0
-    time01 = time.time()
+    # Exact solution of schatten for band matrix
+    schatten0 = toeplitz_schatten(matrix['a'], matrix['b'],
+                                  size=matrix['size'], gram=gram, p=p)
+    time00 = 0.0
+    time01 = 0.0
 
     # Use eigenvalue method
     time10 = time.time()
-    logdet1 = logdet(K, method='eigenvalue', gram=gram,
-                     assume_matrix=assume_matrix, p=p,
-                     non_zero_eig_fraction=0.95)
+    schatten1 = schatten(K, gram=gram, p=p, method='eigenvalue',
+                         assume_matrix=assume_matrix,
+                         non_zero_eig_fraction=0.95)
     time11 = time.time()
 
     # Use Cholesky method
-    time20 = time.time()
-    logdet2 = logdet(K, method='cholesky', gram=gram, p=p, cholmod=None)
-    time21 = time.time()
+    if p <= 0:
+        time20 = time.time()
+        schatten2 = schatten(K, gram=gram, p=p, method='cholesky',
+                             cholmod=None)
+        time21 = time.time()
+    else:
+        schatten2 = None
 
     # Use Stochastic Lanczos Quadrature method
     time30 = time.time()
-    logdet3 = logdet(K, method='slq', min_num_samples=min_num_samples,
-                     max_num_samples=max_num_samples, orthogonalize=-1,
-                     lanczos_degree=lanczos_degree, error_rtol=error_rtol,
-                     gram=gram, p=p, verbose=False)
+    schatten3 = schatten(K, gram=gram, p=p, method='slq',
+                         min_num_samples=min_num_samples,
+                         max_num_samples=max_num_samples, orthogonalize=-1,
+                         lanczos_degree=lanczos_degree, error_rtol=error_rtol,
+                         verbose=False)
     time31 = time.time()
 
     # Elapsed times
     elapsed_time0 = time01 - time00
     elapsed_time1 = time11 - time10
-    elapsed_time2 = time21 - time20
+    if schatten2 is not None:
+        elapsed_time2 = time21 - time20
+    else:
+        elapsed_time2 = None
     elapsed_time3 = time31 - time30
 
-    # Exact solution of logdet for band matrix
-    if p == 1:
-        logdet_exact = toeplitz_logdet(matrix['a'], matrix['b'],
-                                       matrix['size'], gram)
-        if not gram:
-            logdet_exact = 2.0 * logdet_exact
-    else:
-        logdet_exact = logdet0
-
     # error
-    error0 = relative_error(logdet0, logdet_exact)
-    error1 = relative_error(logdet1, logdet_exact)
-    error2 = relative_error(logdet2, logdet_exact)
-    error3 = relative_error(logdet3, logdet_exact)
+    error0 = relative_error(schatten0, schatten0)
+    error1 = relative_error(schatten1, schatten0)
+    if schatten2 is not None:
+        error2 = relative_error(schatten2, schatten0)
+    else:
+        error2 = None
+    error3 = relative_error(schatten3, schatten0)
 
     # Print results
     print('')
     print('-------------------------------------------------------------')
-    print('Method      Options                     logdet   error   time')
+    print('Method      Options                   schatten   error   time')
     print('----------  ------------------------  --------  ------  -----')
     print('direct      N/A                       %+8.3f  %5.2f%%  %5.2f'
-          % (logdet0, error0, elapsed_time0))
+          % (schatten0, error0, elapsed_time0))
     print('eigenvalue  N/A                       %+8.3f  %5.2f%%  %5.2f'
-          % (logdet1, error1, elapsed_time1))
-    print('cholesky    N/A                       %+8.3f  %5.2f%%  %5.2f'
-          % (logdet2, error2, elapsed_time2))
+          % (schatten1, error1, elapsed_time1))
+    if schatten2 is not None:
+        print('cholesky    N/A                       %+8.3f  %5.2f%%  %5.2f'
+              % (schatten2, error2, elapsed_time2))
+    else:
+        print('cholesky    without using inverse          N/A     N/A    N/A')
     print('slq         N/A                       %+8.3f  %5.2f%%  %5.2f'
-          % (logdet3, error3, elapsed_time3))
+          % (schatten3, error3, elapsed_time3))
     print('-------------------------------------------------------------')
     print('')
 
 
-# ===========
-# test logdet
-# ===========
+# =============
+# test schatten
+# =============
 
-def test_logdet():
+def test_schatten():
     """
-    A test for :mod:`logdetInv.logdet` sub-package.
+    A test for :mod:`schatten` sub-package.
     """
 
     matrix = {
@@ -162,14 +160,14 @@ def test_logdet():
             # When gram is True:
             #     1. We generate a 2-band nonsymmetric matrix K (hence we set
             #        gram=False in toeplitz).
-            #     2. We compute logdet of K.T @ K using only K (hence we set
-            #        gram=True in logdet method).
+            #     2. We compute schatten of K.T @ K using only K (hence we set
+            #        gram=True in schatten method).
             #
             # When gram is False:
             #     1. We generate a 3-band symmetric matrix K (hence we set
             #        gram=True in toeplitz).
-            #     2. We compute logdet of K using K (hence we set
-            #        gram=False in logdet method).
+            #     2. We compute schatten of K using K (hence we set
+            #        gram=False in schatten method).
             K = toeplitz(matrix['a'], matrix['b'], matrix['size'],
                          gram=(not gram), dtype=dtype)
 
@@ -184,7 +182,7 @@ def test_logdet():
                           'exponent: %0.4f,\n' % (p) +
                           'assume_matrix: %s.' % (assume_matrix))
 
-                    _test_logdet_methods(K, matrix, gram, p, assume_matrix)
+                    _test_schatten_methods(K, matrix, gram, p, assume_matrix)
 
 
 # ===========
@@ -192,4 +190,4 @@ def test_logdet():
 # ===========
 
 if __name__ == "__main__":
-    sys.exit(test_logdet())
+    sys.exit(test_schatten())

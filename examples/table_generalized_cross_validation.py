@@ -26,21 +26,20 @@ restrict_computation_to_single_processor()
 # imports
 # =======
 
-import sys
-import numpy
-import scipy.optimize
-from functools import partial
+import sys                                                         # noqa: E402
+import numpy                                                       # noqa: E402
+import scipy.optimize                                              # noqa: E402
+from functools import partial                                      # noqa: E402
 
 # Package Modules
-from _utilities.plot_utilities import *                      # noqa: F401, F403
-from _utilities.plot_utilities import load_plot_settings, save_plot, plt, \
-        matplotlib, FormatStrFormatter
-from _utilities.processing_time_utilities import TimeCounter, process_time, \
-        restrict_computation_to_single_processor
-from _utilities.data_utilities import generate_matrix, generate_noisy_data, \
-        generate_basis_functions
-from imate import InterpolateSchatten
-from imate import traceinv
+from _utilities.plot_utilities import *                # noqa: F401, F403, E402
+from _utilities.processing_time_utilities import TimeCounter       # noqa: E402
+from _utilities.processing_time_utilities import process_time      # noqa: E402
+from _utilities.data_utilities import generate_matrix              # noqa: E402
+from _utilities.data_utilities import generate_noisy_data          # noqa: E402
+from _utilities.data_utilities import generate_basis_functions     # noqa: E402
+from imate import InterpolateSchatten                              # noqa: E402
+from imate import traceinv                                         # noqa: E402
 
 
 # ===
@@ -53,7 +52,7 @@ def fit(X, theta, z):
     """
 
     n, m = X.shape
-    I = numpy.eye(m, m)
+    I = numpy.eye(m, m)                                            # noqa: E741
     A = X.T @ X + n*theta * I
     Xtz = numpy.dot(X.T, z)
     beta = numpy.linalg.solve(A, Xtz)
@@ -200,7 +199,7 @@ def generalized_cross_validation(X, K, z, TI, shift, time_counter, options,
             # Ainv = numpy.linalg.inv(A)
             # trace = n - m + mu * numpy.trace(Ainv)
             # trace = n - m + mu * traceinv(A, method='cholesky')[0]
-            trace = n - m + mu * traceinv(A, **options)[0]
+            trace = n - m + mu * traceinv(A, **options)
             time1 = process_time()
             if time_counter is not None:
                 time_counter.add(time1 - time0)
@@ -216,7 +215,7 @@ def generalized_cross_validation(X, K, z, TI, shift, time_counter, options,
             B = X.dot(X.T) + mu * In
             # Binv = numpy.linalg.inv(B)
             # trace = mu * numpy.trace(Binv)
-            trace = mu * traceinv(B, **options)[0]
+            trace = mu * traceinv(B, **options)
             time1 = process_time()
             if time_counter is not None:
                 time_counter.add(time1 - time0)
@@ -415,7 +414,6 @@ def main(test=False):
     ]
 
     # Comparing error with the result of Cholesky method without interpolation
-    benchmark_gcv = None
     repeat = 1
 
     print('-----------------------------------------------------------------' +
@@ -454,7 +452,7 @@ def main(test=False):
                 if interpolant_points[j] is not None:
                     time0 = process_time()
                     TI = InterpolateSchatten(K, p=p, ti=interpolant_points[j],
-                                              kind=kind, options=options)
+                                             kind=kind, options=options)
                     time1 = process_time()
                     initial_elapsed_time = time1 - time0
                 else:
@@ -468,8 +466,8 @@ def main(test=False):
                 if TI is None:
                     time_counter = TimeCounter()
                     res = minimize_gcv(X, K, z, TI, shift, theta_bounds,
-                                        initial_elapsed_time, time_counter,
-                                        options)
+                                       initial_elapsed_time, time_counter,
+                                       options)
                     initial_elapsed_time = time_counter.elapsed_time
                 else:
                     time_counter = None
@@ -529,9 +527,10 @@ def main(test=False):
                      trace_elapsed_time[j], tot_elapsed_time[j],
                      min_gcv[j], log_theta[j]), end='')
             print('%9.2f  %5.2f  %5.2f'
-                  %(error_log_theta[j], error_beta[j], error_z_hat[j]))
+                  % (error_log_theta[j], error_beta[j], error_z_hat[j]))
 
         print('')
+
 
 # ===========
 # script main

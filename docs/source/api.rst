@@ -202,6 +202,7 @@ Generate sample matrices for test purposes, such as correlation matrix and Toepl
     imate.sample_matrices.toeplitz_logdet
     imate.sample_matrices.toeplitz_trace
     imate.sample_matrices.toeplitz_traceinv
+    imate.sample_matrices.toeplitz_schatten
 
 .. _Device Inquiry:
 

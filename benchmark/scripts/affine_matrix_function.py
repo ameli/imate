@@ -171,10 +171,11 @@ def benchmark(argv):
     print('SLQ method ...', end='')
     trace, info = function(
             Mop,
-            parameters=matrix['t'],
-            method='slq',
-            exponent=config['exponent'],
             gram=config['gram'],
+            p=config['exponent'],
+            return_info=True,
+            method='slq',
+            parameters=matrix['t'],
             min_num_samples=config['min_num_samples'],
             max_num_samples=config['max_num_samples'],
             error_rtol=config['error_rtol'],
@@ -210,21 +211,23 @@ def benchmark(argv):
             M_ = M
         Mt = M_ + matrix['t'][i] * Identity
         if arguments['function'] == 'traceinv':
-            trace_exact[i], _ = function(
+            trace_exact[i] = function(
                     Mt.tocsr(),
-                    method='cholesky',
-                    exponent=config['exponent'],
-                    cholmod=None,
                     gram=False,
+                    p=config['exponent'],
+                    return_info=False,
+                    method='cholesky',
+                    cholmod=None,
                     invert_cholesky=config['invert_cholesky'])
 
         elif arguments['function'] == 'logdet':
-            trace_exact[i], _ = function(
+            trace_exact[i] = function(
                     Mt.tocsr(),
+                    gram=False,
+                    p=config['exponent'],
+                    return_info=False,
                     method='cholesky',
-                    exponent=config['exponent'],
-                    cholmod=None,
-                    gram=False)
+                    cholmod=None)
 
         print(' done.')
 

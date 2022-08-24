@@ -75,8 +75,10 @@ def plot(TI, p, test):
 
     # Plots trace
     textwidth = 9.0  # in inches
-    # fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(textwidth, textwidth/2))
-    fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(textwidth, textwidth/2.5))
+    # fig, ax = plt.subplots(nrows=1, ncols=2,
+    #                        figsize=(textwidth, textwidth/2))
+    fig, ax = plt.subplots(nrows=1, ncols=2,
+                           figsize=(textwidth, textwidth/2.5))
     ax[0].plot(eta, tau_exact, color='black', label='Exact')
     lb_label = 'Lower bound'
     ax[0].plot(eta, tau_lowerbound, '--', color='black', label=lb_label)
@@ -111,11 +113,11 @@ def plot(TI, p, test):
     ax[0].set_xlabel(r'$t$')
     ax[0].set_ylabel(r'$\tau_{p}(t)$')
 
-    if p == 0: 
+    if p == 0:
         ax[0].set_title(r'(a) Interpolation of $\tau_p(t)$, $p = %d$' % p)
-    elif p == -1: 
+    elif p == -1:
         ax[0].set_title(r'(c) Interpolation of $\tau_p(t)$, $p = %d$' % p)
-    elif p == -2: 
+    elif p == -2:
         ax[0].set_title(r'(e) Interpolation of $\tau_p(t)$, $p = %d$' % p)
     ax[0].grid(True)
     ax[0].legend(fontsize='xx-small', loc='lower right')

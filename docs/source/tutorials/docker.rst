@@ -8,7 +8,7 @@ Using :synco:`imate` on Docker
 Why Using Docker
 ================
 
-:synco:`imate`'s docker image can be very useful if you want to use GPU devices. The :synco:`imate` package that is installed via ``pip`` or ``conda``, natively comes with support on GPU devices. However, the version of CUDA Toolkit that :synco:`imate` was built with it, should match the version of CUDA Toolkit that you have on your machine. This might often be a problem, as your CUDA Toolkit might not have the exact same version as the one that :synco:`imate` supports.
+:synco:`imate`'s docker image can be very useful if you want to deploy :synco:`imate` on GPU devices. The :synco:`imate` package that is installed via ``pip`` or ``conda``, natively comes with support on GPU devices. However, the version of CUDA Toolkit that :synco:`imate` was built with it, should match the version of CUDA Toolkit that you have on your machine. This might often be a problem, as your CUDA Toolkit might not have the exact same version as the one that :synco:`imate` supports.
 
 Workarounds to this problem are that either:
 
@@ -82,7 +82,7 @@ Get :synco:`imate` Docker Image
 
 Get the :synco:`imate` docker image by
 
-.. code-block:: bash
+.. code-block:: Bash
 
   docker pull sameli/imate
 
@@ -102,13 +102,13 @@ The followings are some examples of using ``docker run`` with various options:
 
 * To check the host's NVIDIA driver version, CUDA runtime library version, and list of available GPU devices, run ``nvida-smi`` command by:
 
-  .. code-block:: bash
+  .. code-block:: Bash
   
       docker run sameli/imate nvidia-smi
   
 * To run the container and open *Python* interpreter directly at startup:
   
-  .. code-block:: bash
+  .. code-block:: Bash
   
       docker run -it sameli/imate
   
@@ -116,26 +116,26 @@ The followings are some examples of using ``docker run`` with various options:
   
 * To run the container and open *IPython* interpreter directly at startup:
   
-  .. code-block:: bash
+  .. code-block:: Bash
 
         docker run -it sameli/imate ipython
   
   This also imports `imate` package automatically.
   
-* To open *bash shell* only:
+* To open *Bash shell* only:
   
-  .. code-block:: bash
+  .. code-block:: Bash
 
-        docker run -it --entrypoint /bin/bash sameli/imate
+        docker run -it --entrypoint /bin/Bash sameli/imate
   
 * To *mount* a host's directory, such as ``/home/user/project``, onto a directory of the docker's container, such as ``/root``, use:
   
-  .. code-block:: bash
+  .. code-block:: Bash
   
         docker run -it -v /home/user/project:/root sameli/imate
 
-Use :synco:`imate` Docker Container on GPU
-==========================================
+Deploy :synco:`imate` Docker Container on GPU
+=============================================
 
 To access host's GPU device from inside the docker container, you should install NVIDIA Container Toolkit.
 
@@ -151,7 +151,7 @@ Add the package to the repository:
     .. tab-item:: Ubuntu/Debian
         :sync: ubuntu
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
             curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
@@ -160,14 +160,14 @@ Add the package to the repository:
     .. tab-item:: CentOS 7
         :sync: centos
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo yum-config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 
     .. tab-item:: RHEL 9
         :sync: rhel
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 
@@ -178,7 +178,7 @@ Install `nvidia-contaner-toolkit` by:
     .. tab-item:: Ubuntu/Debian
         :sync: ubuntu
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo apt-get update
             sudo apt-get install -y nvidia-container-toolkit
@@ -186,20 +186,20 @@ Install `nvidia-contaner-toolkit` by:
     .. tab-item:: CentOS 7
         :sync: centos
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm
 
     .. tab-item:: RHEL 9
         :sync: rhel
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo dnf install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm
 
 Restart docker:
 
-.. code-block:: bash
+.. code-block:: Bash
 
     sudo systemctl restart docker
 
@@ -208,7 +208,7 @@ Run :synco:`imate` Docker Container on GPU
       
 To use host's GPU from the docker container, simply add  ``--gpus all`` to any of the ``docker run`` commands :ref:`described earlier <docker-examples>`, such as by
 
-.. code-block:: bash
+.. code-block:: Bash
 
     docker run --gpus all -it sameli/imate
 

@@ -45,7 +45,7 @@ def relative_error(estimate, exact):
 # test trace methods
 # ==================
 
-def _test_trace_methods(K, matrix, gram, exponent, assume_matrix):
+def _test_trace_methods(K, matrix, gram, p, assume_matrix):
     """
     Computes the trace of matrix ``K`` with multiple method.
 
@@ -61,22 +61,23 @@ def _test_trace_methods(K, matrix, gram, exponent, assume_matrix):
 
     # Use exact method
     time10 = time.time()
-    trace1, _ = trace(K, method='exact', gram=gram, exponent=exponent)
+    trace1 = trace(K, gram=gram, p=p, method='exact')
     time11 = time.time()
 
     # Use eigenvalue method
     time20 = time.time()
-    trace2, _ = trace(K, method='eigenvalue', gram=gram,
-                      assume_matrix=assume_matrix, exponent=exponent,
-                      non_zero_eig_fraction=0.95)
+    trace2 = trace(K, gram=gram, p=p, method='eigenvalue',
+                   assume_matrix=assume_matrix,
+                   non_zero_eig_fraction=0.95)
     time21 = time.time()
 
     # Use Stochastic Lanczos Quadrature method
     time30 = time.time()
-    trace3, _ = trace(K, method='slq', min_num_samples=min_num_samples,
-                      max_num_samples=max_num_samples, orthogonalize=-1,
-                      lanczos_degree=lanczos_degree, error_rtol=error_rtol,
-                      gram=gram, exponent=exponent, verbose=False)
+    trace3 = trace(K, gram=gram, p=p, method='slq',
+                   min_num_samples=min_num_samples,
+                   max_num_samples=max_num_samples, orthogonalize=-1,
+                   lanczos_degree=lanczos_degree, error_rtol=error_rtol,
+                   verbose=False)
     time31 = time.time()
 
     # Elapsed times
@@ -85,9 +86,9 @@ def _test_trace_methods(K, matrix, gram, exponent, assume_matrix):
     elapsed_time3 = time31 - time30
 
     # Exact solution of trace for band matrix
-    if exponent == 1:
+    if p == 1:
         trace_exact = toeplitz_trace(matrix['a'], matrix['b'],
-                                        matrix['size'], True)
+                                     matrix['size'], True)
     else:
         trace_exact = trace1
 
@@ -157,15 +158,14 @@ def test_trace():
                 if not sparse:
                     K = K.toarray()
 
-                for exponent in exponents:
+                for p in exponents:
                     print('dtype: %s, ' % (dtype) +
                           'sparse: %5s, ' % (sparse) +
                           'gram: %5s, ' % (gram) +
-                          'exponent: %0.4f,\n' % (exponent) +
+                          'exponent: %0.4f,\n' % (p) +
                           'assume_matrix: %s.' % (assume_matrix))
 
-                    _test_trace_methods(K, matrix, gram, exponent,
-                                        assume_matrix)
+                    _test_trace_methods(K, matrix, gram, p, assume_matrix)
 
 
 # ===========

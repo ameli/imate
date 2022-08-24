@@ -19,12 +19,9 @@ import scipy
 import scipy.special
 
 # Package modules
-from imate.sample_matrices import correlation_matrix
-from imate import InterpolateSchatten
 from _utilities.plot_utilities import *                      # noqa: F401, F403
 from _utilities.plot_utilities import load_plot_settings, save_plot, plt, \
-        matplotlib, InsetPosition, mark_inset, NullFormatter,  \
-        FormatStrFormatter, PercentFormatter
+        matplotlib
 
 
 # ==============
@@ -41,8 +38,7 @@ def plot_chebyshev_rational(degree=6, test=False):
 
     t = numpy.logspace(-4, 4, 1000)
     x = (t-1.0) / (t+1.0)
- 
-    textwidth = 9.0  # in inches
+
     fig, ax = plt.subplots(figsize=(7, 4.8))
 
     # for deg in range(0, 3):
@@ -61,10 +57,10 @@ def plot_chebyshev_rational(degree=6, test=False):
     ax.set_ylabel(r'$\frac{1}{2}(1-r_i(t))$')
     ax.set_title('Chebyshev rational functions')
     ax.grid(axis='y')
-    
+
     if not test:
         plt.tight_layout()
-        
+
     # Save plot
     filename = 'chebyshev'
     if test:

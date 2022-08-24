@@ -252,9 +252,9 @@ Features
 Technical Notes
 ===============
 
-|tokei| |languages|
+|tokei-2| |languages|
 
-:synco:`imate` was implemented by over 54K lines of code in C++, CUDA, Cython, and Python. Some notable implementation techniques used to develop :synco:`mate` are:
+:synco:`imate` was implemented mainly in C++, CUDA, Cython, and Python. Some notable implementation techniques used to develop :synco:`mate` are:
 
 * Polymorphic and curiously recurring template pattern programming (CRTP).
 * Implemented customized `dynamic loading` of CUDA libraries.
@@ -267,10 +267,15 @@ How to Contribute
 
 We welcome contributions via `Github's pull request <https://github.com/ameli/imate/pulls>`_. If you do not feel comfortable modifying the code, we also welcome feature request and bug report as `Github issues <https://github.com/ameli/imate/issues>`_.
 
-How to Cite
-===========
+Publications
+============
 
-For information on how to cite :synco:`imate`, see :ref:`cite imate <cite>`.
+For information on how to cite :synco:`imate`, publications, and software packages that used :synco:`imate`, see:
+
+.. toctree::
+    :maxdepth: 2
+
+    Publications <cite>
 
 License
 =======
@@ -326,7 +331,9 @@ Related Projects
    :target: https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb
 .. |conda-downloads| image:: https://img.shields.io/conda/dn/s-ameli/imate
    :target: https://anaconda.org/s-ameli/imate
-.. |tokei| image:: https://img.shields.io/tokei/lines/github/ameli/imate
+.. |tokei| image:: https://tokei.rs/b1/github/ameli/imate?category=lines
+   :target: https://github.com/ameli/imate
+.. |tokei-2| image:: https://img.shields.io/badge/code%20lines-54.7k-blue
    :target: https://github.com/ameli/imate
 .. |languages| image:: https://img.shields.io/github/languages/count/ameli/imate
    :target: https://github.com/ameli/imate

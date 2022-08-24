@@ -135,7 +135,7 @@ class InterpolantBase(object):
         * If p is not zero, computes (trace(A+tB)**(p)/n)**(1/p)
         """
 
-        schatten_, _ = schatten(A, p=self.p, **self.options)
+        schatten_ = schatten(A, p=self.p, **self.options)
         return schatten_
 
     # ================================

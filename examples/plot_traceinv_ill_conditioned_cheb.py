@@ -22,7 +22,7 @@ from _utilities.data_utilities import generate_matrix
 from _utilities.plot_utilities import *                      # noqa: F401, F403
 from _utilities.plot_utilities import load_plot_settings, save_plot, plt, \
         matplotlib, InsetPosition, mark_inset, NullFormatter,  \
-        FormatStrFormatter, PercentFormatter
+        PercentFormatter, ScalarFormatter
 
 
 # ====
@@ -69,8 +69,10 @@ def plot_fun_and_error(TI, test):
 
     # Plots trace
     textwidth = 9.0  # in inches
-    # fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(textwidth, textwidth/2))
-    fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(textwidth, textwidth/2.5))
+    # fig, ax = plt.subplots(nrows=1, ncols=2,
+    #                        figsize=(textwidth, textwidth/2))
+    fig, ax = plt.subplots(nrows=1, ncols=2,
+                           figsize=(textwidth, textwidth/2.5))
     ax[0].plot(eta, tau_exact, color='black', label='Exact')
     ax[0].plot(eta[zero_index:], tau_lowerbound[zero_index:], '--',
                color='black', label=r'Lower bound (at $t \geq 0$)')
@@ -231,7 +233,8 @@ def plot_error_only(TI, test):
 
     # Plots trace
     textwidth = 9.0  # in inches
-    # fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(textwidth, textwidth/2))
+    # fig, ax = plt.subplots(nrows=1, ncols=2,
+    #                        figsize=(textwidth, textwidth/2))
     fig, ax = plt.subplots(figsize=(textwidth/1.946, textwidth/2.5))
 
     # ax[0].plot(eta, tau_exact, color='black', label='Exact')
@@ -274,13 +277,13 @@ def plot_error_only(TI, test):
     #
     # # Inset plot
     # ax2 = plt.axes([0, 0, 1, 1])
-    # # Manually set the position and relative size of the inset axes within ax1
+    # # Manually set the position and relative size of inset axes within ax1
     # ip = InsetPosition(ax[0], [0.14, 0.25, 0.45, 0.35])
     # ax2.set_axes_locator(ip)
     # # Mark the region corresponding to the inset axes on ax1 and draw lines
     # # in grey linking the two axes.
     #
-    # # Avoid inset mark lines intersect the inset axes itself by setting anchor
+    # # Avoid inset mark lines intersect inset axes itself by setting anchor
     # inset_color = 'oldlace'
     # mark_inset(ax[0], ax2, loc1=1, loc2=4, facecolor=inset_color,
     #            edgecolor='0.5')
@@ -305,18 +308,18 @@ def plot_error_only(TI, test):
 
     # Plot errors
     ax.semilogx(eta[zero_index:],
-                   100*(1-tau_lowerbound[zero_index:]/tau_exact[zero_index:]),
-                   '--', color='black', label=r'Lower bound (at $t \geq 0$)',
-                   zorder=15)  # Relative error
+                100*(1-tau_lowerbound[zero_index:]/tau_exact[zero_index:]),
+                '--', color='black', label=r'Lower bound (at $t \geq 0$)',
+                zorder=15)  # Relative error
     ax.semilogx(eta[:zero_index],
-                   100*(1-tau_lowerbound[:zero_index]/tau_exact[:zero_index]),
-                   '-.', color='black', label=r'Upper bound (at $t < 0$)',
-                   zorder=15)  # Relative error
+                100*(1-tau_lowerbound[:zero_index]/tau_exact[:zero_index]),
+                '-.', color='black', label=r'Upper bound (at $t < 0$)',
+                zorder=15)  # Relative error
     for j in reversed(range(num_plots)):
         q = TI[j].q
         h = ax.semilogx(eta, 100*(1-tau_estimate[j, :]/tau_exact),
-                           label=r'Interpolation, $q=%d$' % q,
-                           color=colors_list[j])       # Relative error
+                        label=r'Interpolation, $q=%d$' % q,
+                        color=colors_list[j])       # Relative error
         if j == 0:
             h[0].set_zorder(20)
     ax.set_xscale('symlog', linthresh=1e-8)

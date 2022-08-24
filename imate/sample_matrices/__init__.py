@@ -9,7 +9,7 @@
 
 from .correlation_matrix import correlation_matrix
 from .toeplitz import toeplitz, toeplitz_trace, toeplitz_traceinv, \
-       toeplitz_logdet
+       toeplitz_logdet, toeplitz_schatten
 
 __all__ = ['correlation_matrix', 'toeplitz', 'toeplitz_trace',
-           'toeplitz_traceinv', 'toeplitz_logdet']
+           'toeplitz_traceinv', 'toeplitz_logdet', 'toeplitz_schatten']

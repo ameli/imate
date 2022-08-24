@@ -14,7 +14,8 @@
 # =======
 
 import sys
-from imate.sample_matrices import toeplitz                      # noqa: E402
+from imate.sample_matrices import toeplitz, toeplitz_logdet, toeplitz_trace, \
+        toeplitz_traceinv, toeplitz_schatten
 
 
 # ================
@@ -31,6 +32,15 @@ def test_toeplitz():
 
     B = toeplitz(3, 1, size=20, gram=True, format='csc',   # noqa: F841
                  dtype='float64')
+
+    toeplitz_logdet(2, 1, size=20, gram=False)
+    toeplitz_logdet(2, 1, size=20, gram=True)
+    toeplitz_trace(2, 1, size=20, gram=False)
+    toeplitz_trace(2, 1, size=20, gram=True)
+    toeplitz_traceinv(2, 1, size=20, gram=False)
+    toeplitz_traceinv(2, 1, size=20, gram=True)
+    toeplitz_schatten(2, 1, size=20, gram=False)
+    toeplitz_schatten(2, 1, size=20, gram=True)
 
 
 # ===========

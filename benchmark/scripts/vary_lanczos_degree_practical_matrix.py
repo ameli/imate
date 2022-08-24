@@ -174,6 +174,7 @@ def benchmark(argv):
     print('Exact solution ...', end='')
     trace_c, info_c = traceinv(
             M,
+            return_info=True,
             method='cholesky',
             invert_cholesky=False)
     print(' done.')
@@ -208,9 +209,10 @@ def benchmark(argv):
                 print('\t\trepeat %d ...' % (i+1), end="")
                 trace[i], info = traceinv(
                         Mop,
-                        method='slq',
-                        exponent=config['exponent'],
                         gram=config['gram'],
+                        p=config['exponent'],
+                        return_info=True,
+                        method='slq',
                         min_num_samples=config['min_num_samples'],
                         max_num_samples=config['max_num_samples'],
                         error_rtol=config['error_rtol'],

@@ -51,7 +51,7 @@ Register NVIDIA CUDA repository by
     .. tab-item:: Ubuntu/Debian
         :sync: ubuntu
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb
             sudo dpkg -i cuda-keyring_1.0-1_all.deb
@@ -60,7 +60,7 @@ Register NVIDIA CUDA repository by
     .. tab-item:: CentOS 7
         :sync: centos
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo yum-config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-rhel7.repo
             sudo yum clean all
@@ -68,7 +68,7 @@ Register NVIDIA CUDA repository by
     .. tab-item:: RHEL 9
         :sync: rhel
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/cuda-rhel9.repo
             sudo dnf clean all
@@ -80,7 +80,7 @@ Install *NVIDIA graphic driver* with
     .. tab-item:: Ubuntu/Debian
         :sync: ubuntu
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             export DEBIAN_FRONTEND=noninteractive
             sudo -E apt install cuda-drivers -y
@@ -88,20 +88,20 @@ Install *NVIDIA graphic driver* with
     .. tab-item:: CentOS 7
         :sync: centos
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo yum -y install nvidia-driver-latest-dkms
 
     .. tab-item:: RHEL 9
         :sync: rhel
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo dnf -y module install nvidia-driver:latest-dkms
 
 The above step might need a *reboot* afterwards to properly load NVIDIA graphic driver. Confirm the driver installation by
 
-.. code-block:: bash
+.. code-block:: Bash
 
    nvidia-smi
 
@@ -117,14 +117,14 @@ It is not required to install the entire CUDA Toolkit (2.6GB). Rather, only the 
     .. tab-item:: Ubuntu/Debian
         :sync: ubuntu
 
-        .. code-block:: bash
+        .. code-block:: Bash
            
            sudo apt install cuda-cudart-11-7 libcublas-11-7 libcusparse-11-7 -y
 
     .. tab-item:: CentOS 7
         :sync: centos
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
            sudo yum install --setopt=obsoletes=0 -y \
                 cuda-nvcc-11-7.x86_64 \
@@ -134,7 +134,7 @@ It is not required to install the entire CUDA Toolkit (2.6GB). Rather, only the 
     .. tab-item:: RHEL 9
         :sync: rhel
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
            sudo dnf install --setopt=obsoletes=0 -y \
                 cuda-nvcc-11-7.x86_64 \
@@ -143,11 +143,11 @@ It is not required to install the entire CUDA Toolkit (2.6GB). Rather, only the 
 
 Update ``PATH`` with the CUDA installation location by
 
-.. code-block:: bash
+.. code-block:: Bash
 
-    echo 'export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}' >> ~/.bashrc
-    echo 'export CUDA_HOME=/usr/local/cuda${CUDA_HOME:+:${CUDA_HOME}}' >> ~/.bashrc
-    source ~/.bashrc
+    echo 'export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}' >> ~/.Bashrc
+    echo 'export CUDA_HOME=/usr/local/cuda${CUDA_HOME:+:${CUDA_HOME}}' >> ~/.Bashrc
+    source ~/.Bashrc
 
 Install OpenMP
 --------------
@@ -194,21 +194,21 @@ Compile :synco:`imate` with either of GCC, Clang/LLVM, or Intel C++ compiler.
     .. tab-item:: Ubuntu/Debian
         :sync: ubuntu
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo apt install build-essential libomp-dev
 
     .. tab-item:: CentOS 7
         :sync: centos
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo yum group install "Development Tools"
 
     .. tab-item:: RHEL 9
         :sync: rhel
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo dnf group install "Development Tools"
 
@@ -226,14 +226,14 @@ Then, export ``C`` and ``CXX`` variables by
     .. tab-item:: Ubuntu/Debian
         :sync: ubuntu
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo apt install clang libomp-dev
 
     .. tab-item:: CentOS 7
         :sync: centos
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo yum install yum-utils
             sudo yum-config-manager --enable extras
@@ -243,7 +243,7 @@ Then, export ``C`` and ``CXX`` variables by
     .. tab-item:: RHEL 9
         :sync: rhel
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo dnf install yum-utils
             sudo dnf config-manager --enable extras
@@ -275,7 +275,7 @@ If CUDA Toolkit is installed, skip this part. Otherwise, Make sure the CUDA comp
     .. tab-item:: Ubuntu/Debian
         :sync: ubuntu
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo apt install -y \
                 cuda-nvcc-11-7 \
@@ -287,7 +287,7 @@ If CUDA Toolkit is installed, skip this part. Otherwise, Make sure the CUDA comp
     .. tab-item:: CentOS 7
         :sync: centos
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo yum install --setopt=obsoletes=0 -y \
                 cuda-nvcc-11-7.x86_64 \
@@ -300,7 +300,7 @@ If CUDA Toolkit is installed, skip this part. Otherwise, Make sure the CUDA comp
     .. tab-item:: RHEL 9
         :sync: rhel
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo dnf install --setopt=obsoletes=0 -y \
                 cuda-nvcc-11-7.x86_64 \
@@ -312,10 +312,10 @@ If CUDA Toolkit is installed, skip this part. Otherwise, Make sure the CUDA comp
 
 Update ``PATH`` with the CUDA installation location by
 
-.. code-block:: bash
+.. code-block:: Bash
 
-    echo 'export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}' >> ~/.bashrc
-    source ~/.bashrc
+    echo 'export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}' >> ~/.Bashrc
+    source ~/.Bashrc
 
 Check if the CUDA compiler is available with ``which nvcc``.
 
@@ -326,19 +326,19 @@ If you are compiling :synco:`imate` on a GPU cluster, chances are the CUDA Toolk
 
 First, check if a CUDA module is available by
 
-.. code-block:: bash
+.. code-block:: Bash
 
     module avail
 
 Load both CUDA and GCC by
 
-.. code-block:: bash
+.. code-block:: Bash
 
     module load cuda gcc
 
 You may specify CUDA version if multiple CUDA versions are available, such as by
 
-.. code-block:: bash
+.. code-block:: Bash
 
     module load cuda/11.7 gcc/6.3
 
@@ -349,19 +349,19 @@ Configure Compile-Time Environment Variables
 
 Specify the home directory of CUDA Toolkit by setting either of the variables ``CUDA_HOME``, ``CUDA_ROOT``, or ``CUDA_PATH``. The home directory should be a path containing the executable ``/bin/nvcc``. For instance, if ``/usr/local/cuda/bin/nvcc`` exists, export the following:
 
-.. code-block:: bash
+.. code-block:: Bash
 
     export CUDA_HOME=/usr/local/cuda
 
-To permanently set this variable, place the above line in a profile file, such as in ``~/.bashrc``, or ``~/.profile``, and source this file, for instance by
+To permanently set this variable, place the above line in a profile file, such as in ``~/.Bashrc``, or ``~/.profile``, and source this file, for instance by
 
-.. code-block:: bash
+.. code-block:: Bash
 
-    source ~/.bashrc
+    source ~/.Bashrc
 
 To compile :synco:`imate` with CUDA, export the following flag variable
 
-.. code-block:: bash
+.. code-block:: Bash
 
     export USE_CUDA=1
 
@@ -370,22 +370,24 @@ Enable Dynamic Loading (*optional*)
 
 When :synco:`imate` is complied, the CUDA libraries bundle with the final installation of :synco:`imate` package, making it over 700MB. While this is generally not an issue for most users, often a small package is preferable if the installed package has to be distributed to other machines. To this end, enable the `dynamic loading` feature of :synco:`imate`. In this case, the CUDA libraries do not bundle with the :synco:`imate` installation, rather, :synco:`imate` loads the existing CUDA libraries of the host machine at runtime. To enable dynamic loading, simply set:
 
-.. code-block:: bash
+.. code-block:: Bash
     
     export CUDA_DYNAMIC_LOADING=1
 
 Compile and Install
 -------------------
 
+|repo-size|
+
 Get the source code of :synco:`imate` with
 
-.. code-block:: bash
+.. code-block:: Bash
 
     git clone https://github.com/ameli/imate.git
 
 Compile and install by
 
-.. code-block:: bash
+.. code-block:: Bash
 
     cd imate
     python setup.py install
@@ -465,7 +467,7 @@ Add the package to the repository:
     .. tab-item:: Ubuntu/Debian
         :sync: ubuntu
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
             curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
@@ -474,14 +476,14 @@ Add the package to the repository:
     .. tab-item:: CentOS 7
         :sync: centos
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo yum-config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 
     .. tab-item:: RHEL 9
         :sync: rhel
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 
@@ -492,7 +494,7 @@ Install `nvidia-contaner-toolkit` by:
     .. tab-item:: Ubuntu/Debian
         :sync: ubuntu
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo apt-get update
             sudo apt-get install -y nvidia-container-toolkit
@@ -500,29 +502,31 @@ Install `nvidia-contaner-toolkit` by:
     .. tab-item:: CentOS 7
         :sync: centos
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm
 
     .. tab-item:: RHEL 9
         :sync: rhel
 
-        .. code-block:: bash
+        .. code-block:: Bash
 
             sudo dnf install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm
 
 Restart docker:
 
-.. code-block:: bash
+.. code-block:: Bash
 
     sudo systemctl restart docker
 
 Get :synco:`imate` Docker image
 -------------------------------
 
+|docker-size|
+
 Get the :synco:`imate` docker image by
 
-.. code-block:: bash
+.. code-block:: Bash
 
   docker pull sameli/imate
 
@@ -538,7 +542,7 @@ Use :synco:`imate` Docker Container on GPU
       
 To use host's GPU from the docker container, add  ``--gpus all`` to any of the ``docker run`` commands, such as by
 
-.. code-block:: bash
+.. code-block:: Bash
 
     docker run --gpus all -it sameli/imate
 
@@ -546,13 +550,13 @@ The followings are some examples of using ``docker run`` with various options:
 
 * To check the host's NVIDIA driver version, CUDA runtime library version, and list of available GPU devices, run ``nvida-smi`` command by:
 
-  .. code-block:: bash
+  .. code-block:: Bash
   
       docker run --gpus all sameli/imate nvidia-smi
   
 * To run the container and open *Python* interpreter directly at startup:
   
-  .. code-block:: bash
+  .. code-block:: Bash
   
       docker run -it --gpus all sameli/imate
   
@@ -560,21 +564,21 @@ The followings are some examples of using ``docker run`` with various options:
   
 * To run the container and open *IPython* interpreter directly at startup:
   
-  .. code-block:: bash
+  .. code-block:: Bash
 
         docker run -it --gpus all sameli/imate ipython
   
   This also imports `imate` package automatically.
   
-* To open *bash shell* only:
+* To open *Bash shell* only:
   
-  .. code-block:: bash
+  .. code-block:: Bash
 
-        docker run -it --gpus all --entrypoint /bin/bash sameli/imate
+        docker run -it --gpus all --entrypoint /bin/Bash sameli/imate
   
 * To *mount* a host's directory, such as ``/home/user/project``, onto a directory of the docker's container, such as ``/root``, use:
   
-  .. code-block:: bash
+  .. code-block:: Bash
   
         docker run -it --gpus all -v /home/user/project:/root sameli/imate
 
@@ -610,11 +614,11 @@ Use :func:`imate.device.locate_cuda` function to find the location of CUDA home 
 
 If the above function does not return an output such as in the above, this is because either `CUDA Toolkit` is not installed, or the directory of CUDA Toolkit is nit set. To do so, set the directory of CUDA Toolkit to either of the variables ``CUDA_HOME``, ``CUDA_ROOT``, or ``CUDA_PATH``, such as by
 
-.. code-block:: bash
+.. code-block:: Bash
 
-    echo 'export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}' >> ~/.bashrc
-    echo 'export CUDA_HOME=/usr/local/cuda${CUDA_HOME:+:${CUDA_HOME}}' >> ~/.bashrc
-    source ~/.bashrc
+    echo 'export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}' >> ~/.Bashrc
+    echo 'export CUDA_HOME=/usr/local/cuda${CUDA_HOME:+:${CUDA_HOME}}' >> ~/.Bashrc
+    source ~/.Bashrc
 
 Detect GPU Devices
 ------------------
@@ -662,7 +666,7 @@ The :func:`imate.info` function also obtains general information about :synco:`i
 
 Alternatively, one may directly use ``nvidia-smi`` command to inquiry the GPU devices.
 
-.. code-block:: bash
+.. code-block:: Text
 
     nvidia-smi
 
@@ -818,8 +822,8 @@ By default, :synco:`imate` employs the maximum number of available GPU devices. 
 
 .. _gpu-cluster:
 
-Work With GPU Clusters
-======================
+Deploy :synco:`imate` on GPU Clusters
+=====================================
 
 On GPU clusters, the NVIDIA graphic driver and CUDA libraries are pre-installed and they only need to be loaded.
 
@@ -834,7 +838,7 @@ Check which modules are available on the machine
 
 Load python and a compatible CUDA version by
 
-.. code-block:: bash
+.. code-block:: Bash
 
     module load python/3.9
     module load cuda/11.7
@@ -852,7 +856,7 @@ There are two ways to work with GPU on a cluster. The first method is to ``ssh``
 
 ::
 
-    srun -A fc_biome -p savio2_gpu --gres=gpu:1 --ntasks 2 -t 2:00:00 --pty bash -i
+    srun -A fc_biome -p savio2_gpu --gres=gpu:1 --ntasks 2 -t 2:00:00 --pty Bash -i
 
 In the above example:
 
@@ -861,14 +865,14 @@ In the above example:
 * ``--gres=gpu:1`` requests one GPU device on the node.
 * ``--ntasks 2`` requests two parallel CPU threads on the node.
 * ``-t 2:00:00`` requests a two-hour session.
-* ``--pty bash`` starts a BASH shell.
+* ``--pty Bash`` starts a Bash shell.
 * ``-i`` redirects std input to the user's terminal for interactive use.
 
-See `list of options of srun <https://slurm.schedmd.com/srun.html>`_ for details. As an other example, to request a GPU node named ``savio2_1080ti`` with 4 GPU devices and 8 CPU threads for 10 hours, run
+See the list of `options of srun <https://slurm.schedmd.com/srun.html>`_ for details. As an other example, to request a GPU node named ``savio2_1080ti`` with 4 GPU devices and 8 CPU threads for 10 hours, run
 
 ::
 
-    srun -A fc_biome -p savio2_1080ti --gres=gpu:4 --ntasks 8 -t 10:00:00 --pty bash -i
+    srun -A fc_biome -p savio2_1080ti --gres=gpu:4 --ntasks 8 -t 10:00:00 --pty Bash -i
 
 .. note::
 
@@ -879,16 +883,16 @@ Submit Jobs to GPU with SLURM
 
 To submit a parallel job to GPU nodes on a cluster with `SLURM manager`, use ``sbatch`` command, such as
 
-.. code-block:: bash
+.. code-block:: Bash
 
     sbatch my_jobfile.sh
 
-See `list of options of sbatch <https://slurm.schedmd.com/sbatch.html>`_ for details. A sample job file, ``my_jobfile.sh`` is as shown below. The highlighted line in the file instructs `SLURM` to request number of GPU devices with ``--gres`` option.
+See the list of `options of sbatch <https://slurm.schedmd.com/sbatch.html>`_ for details. A sample job file, ``my_jobfile.sh`` is as shown below. The highlighted line in the file instructs `SLURM` to request number of GPU devices with ``--gres`` option.
 
-.. code-block:: bash
+.. code-block:: Slurm
    :emphasize-lines: 11
 
-    #!/bin/bash
+    #!/bin/Bash
 
     #SBATCH --job-name=my_project
     #SBATCH --mail-type=my_email
@@ -921,3 +925,8 @@ See `list of options of sbatch <https://slurm.schedmd.com/sbatch.html>`_ for det
 
     # Run the script
     $PYTHON_DIR/bin/python ${SCRIPTS_DIR}/script.py > ${LOG_DIR}/output.txt
+
+.. |repo-size| image:: https://img.shields.io/github/repo-size/ameli/imate
+   :target: https://github.com/ameli/imate
+.. |docker-size| image:: https://img.shields.io/docker/image-size/sameli/imate
+   :target: https://hub.docker.com/repository/docker/sameli/imate

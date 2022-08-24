@@ -234,6 +234,8 @@ def benchmark(argv):
                           % num_threads)
                     trace_cpu, info_cpu = traceinv(
                             Mop,
+                            gram=config['gram'],
+                            return_info=True,
                             method='slq',
                             min_num_samples=config['num_samples'],
                             max_num_samples=config['num_samples'],
@@ -242,7 +244,6 @@ def benchmark(argv):
                             orthogonalize=config['orthogonalize'],
                             error_rtol=config['error_rtol'],
                             error_atol=config['error_atol'],
-                            gram=config['gram'],
                             outlier_significance_level=config[
                                 'outlier_significance_level'],
                             verbose=config['verbose'],
@@ -276,6 +277,8 @@ def benchmark(argv):
                               % num_gpu_devices)
                         trace_gpu, info_gpu = traceinv(
                                 Mop,
+                                gram=config['gram'],
+                                return_info=True,
                                 method='slq',
                                 min_num_samples=config['num_samples'],
                                 max_num_samples=config['num_samples'],
@@ -284,7 +287,6 @@ def benchmark(argv):
                                 orthogonalize=config['orthogonalize'],
                                 error_rtol=config['error_rtol'],
                                 error_atol=config['error_atol'],
-                                gram=config['gram'],
                                 outlier_significance_level=config[
                                     'outlier_significance_level'],
                                 verbose=config['verbose'],

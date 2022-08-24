@@ -205,11 +205,11 @@ if 'USE_UNSIGNED_LONG_INT' in os.environ and \
 def clean_extensions(extensions):
     """
     If the package is build for documentation (cython_build_for_doc=True), then
-    the extensions are built using --inplace option, which means all cython 
+    the extensions are built using --inplace option, which means all cython
     generated files (*.c, *.cpp, *.so) will be generated inside the source
     code.
 
-    To get rid of these files, just run 
+    To get rid of these files, just run
 
         python setup.py clean
 
@@ -285,9 +285,9 @@ def clean_extensions(extensions):
 
                     # Search for generated *.so file corresponding to *.pyx
                     lib_files = \
-                            glob(os.path.join(path, '*.so')) + \
-                            glob(os.path.join(path, '*.dll')) + \
-                            glob(os.path.join(path, '*.dylib'))
+                        glob(os.path.join(path, '*.so')) + \
+                        glob(os.path.join(path, '*.dll')) + \
+                        glob(os.path.join(path, '*.dylib'))
                     for lib_file in lib_files:
                         lib_file_base = os.path.basename(lib_file)
                         if lib_file_base.startswith(base):
