@@ -878,12 +878,12 @@ To automatically run all tests, use ``pytest``:
 
 ::
 
-    cd tests
+    mv imate imate-do-not-import
     pytest
 
 .. attention::
 
-    Do not run ``pytest`` in the root directory of the :synco:`imate` package as it encounters import error. Simply, change the directory to ``/tests`` subdirectory as shown in the above, then run ``pytest``.
+    To use ``pytest``, change the name of ``/imate/imate`` directory as shown in thr above code. This causes ``pytest`` to properly import :synco:`imate` from the installed location, not from the source code directory.
 
 .. |codecov-devel| image:: https://img.shields.io/codecov/c/github/ameli/imate
    :target: https://codecov.io/gh/ameli/imate

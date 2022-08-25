@@ -1218,13 +1218,13 @@ make html
 </pre></div>
 </div>
 <p>To automatically run all tests, use <code class="docutils literal notranslate"><span class="pre">pytest</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">tests</span>
-<span class="n">pytest</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mv</span> <span class="n">imate</span> <span class="n">imate</span><span class="o">-</span><span class="n">do</span><span class="o">-</span><span class="ow">not</span><span class="o">-</span><span class="kn">import</span>
+<span class="nn">pytest</span>
 </pre></div>
 </div>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>Do not run <code class="docutils literal notranslate"><span class="pre">pytest</span></code> in the root directory of the <span class="synco">imate</span> package as it encounters import error. Simply, change the directory to <code class="docutils literal notranslate"><span class="pre">/tests</span></code> subdirectory as shown in the above, then run <code class="docutils literal notranslate"><span class="pre">pytest</span></code>.</p>
+<p>To use <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, change the name of <code class="docutils literal notranslate"><span class="pre">/imate/imate</span></code> directory as shown in thr above code. This causes <code class="docutils literal notranslate"><span class="pre">pytest</span></code> to properly import <span class="synco">imate</span> from the installed location, not from the source code directory.</p>
 </div>
 </section>
 </section>
