@@ -128,7 +128,11 @@ def get_num_cpu_threads():
         8
     """
 
-    num_cpu_threads = len(os.sched_getaffinity(0))
+    if hasattr(os, 'sched_getaffinity'):
+        num_cpu_threads = len(os.sched_getaffinity(0))
+    else:
+        num_cpu_threads = os.cpu_count()
+
     return num_cpu_threads
 
 

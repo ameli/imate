@@ -39,8 +39,8 @@ def test_toeplitz():
     toeplitz_trace(2, 1, size=20, gram=True)
     toeplitz_traceinv(2, 1, size=20, gram=False)
     toeplitz_traceinv(2, 1, size=20, gram=True)
-    toeplitz_schatten(2, 1, size=20, gram=False)
-    toeplitz_schatten(2, 1, size=20, gram=True)
+    toeplitz_schatten(2, 1, size=20, p=-2)
+    toeplitz_schatten(2, 1, size=20, p=2)
 
 
 # ===========

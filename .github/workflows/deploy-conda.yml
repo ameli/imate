@@ -19,10 +19,10 @@ jobs:
                 
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
             
             - name: Setup Python 
-              uses: actions/setup-python@v2
+              uses: actions/setup-python@v4
 
             - name: Install cibuildwheel
               run: |
@@ -124,10 +124,10 @@ jobs:
         # if: github.event_name == 'release' && github.event.action == 'published'
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
             - name: Download artifacts
-              uses: actions/download-artifact@v2
+              uses: actions/download-artifact@v3
               with:
                   name: wheel-artifacts
                   path: dist
@@ -177,7 +177,7 @@ jobs:
                   activate-environment: myenv
 
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v3
 
             - name: Test
               shell: bash -l {0}

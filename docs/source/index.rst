@@ -58,30 +58,30 @@ Successful installation and tests performed on the following operating systems, 
 .. |y| unicode:: U+2714
 .. |n| unicode:: U+2716
 
-+----------+----------+--------+-------+-------+-------+-------+-------+-------+-----------------+
-| OS       | Platform | Device | Python Version                | PyPy Version  | Continuous      |
-+          |          +        +-------+-------+-------+-------+-------+-------+ Integration     +
-|          |          |        |  3.6  |  3.7  |  3.8  |  3.9  |  3.6  |  3.7  |                 |
-+==========+==========+========+=======+=======+=======+=======+=======+=======+=================+
-| Linux    | X86-64   | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  | |build-linux|   |
-+          +          +--------+-------+-------+-------+-------+-------+-------+                 +
-|          |          | GPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |                 |
-+----------+----------+--------+-------+-------+-------+-------+-------+-------+-----------------+
-| macOS    | X86-64   | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  | |build-macos|   |
-+          +          +--------+-------+-------+-------+-------+-------+-------+                 +
-|          |          | GPU    |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |                 |
-+----------+----------+--------+-------+-------+-------+-------+-------+-------+-----------------+
-| Windows  | X86-64   | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  | |build-windows| |
-+          +          +--------+-------+-------+-------+-------+-------+-------+                 +
-|          |          | GPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |                 |
-+----------+----------+--------+-------+-------+-------+-------+-------+-------+-----------------+
++----------+----------+--------+-------+-------+-------+-------+-------+-------+-------+-----------------+
+| OS       | Platform | Device | Python Version                        | PyPy Version  | Continuous      |
++          |          +        +-------+-------+-------+-------+-------+-------+-------+ Integration     +
+|          |          |        |  3.6  |  3.7  |  3.8  |  3.9  |  3.10 |  3.6  |  3.7  |                 |
++==========+==========+========+=======+=======+=======+=======+=======+=======+=======+=================+
+| Linux    | X86-64   | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  | |build-linux|   |
++          +          +--------+-------+-------+-------+-------+-------+-------+-------+                 +
+|          |          | GPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |                 |
++----------+----------+--------+-------+-------+-------+-------+-------+-------+-------+-----------------+
+| macOS    | X86-64   | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  | |build-macos|   |
++          +          +--------+-------+-------+-------+-------+-------+-------+-------+                 +
+|          |          | GPU    |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |                 |
++----------+----------+--------+-------+-------+-------+-------+-------+-------+-------+-----------------+
+| Windows  | X86-64   | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  | |build-windows| |
++          +          +--------+-------+-------+-------+-------+-------+-------+-------+                 +
+|          |          | GPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |                 |
++----------+----------+--------+-------+-------+-------+-------+-------+-------+-------+-----------------+
 
-.. |build-linux| image:: https://github.com/ameli/glearn/workflows/build-linux/badge.svg
-   :target: https://github.com/ameli/glearn/actions?query=workflow%3Abuild-linux 
-.. |build-macos| image:: https://github.com/ameli/glearn/workflows/build-macos/badge.svg
-   :target: https://github.com/ameli/glearn/actions?query=workflow%3Abuild-macos
-.. |build-windows| image:: https://github.com/ameli/glearn/workflows/build-windows/badge.svg
-   :target: https://github.com/ameli/glearn/actions?query=workflow%3Abuild-windows
+.. |build-linux| image:: https://github.com/ameli/imate/workflows/build-linux/badge.svg
+   :target: https://github.com/ameli/imate/actions?query=workflow%3Abuild-linux 
+.. |build-macos| image:: https://github.com/ameli/imate/workflows/build-macos/badge.svg
+   :target: https://github.com/ameli/imate/actions?query=workflow%3Abuild-macos
+.. |build-windows| image:: https://github.com/ameli/imate/workflows/build-windows/badge.svg
+   :target: https://github.com/ameli/imate/actions?query=workflow%3Abuild-windows
 
 Python wheels for :synco:`imate` for all supported OS and versions in the above are available through `PyPI <https://pypi.org/project/imate/>`_ and `Anaconda Cloud <https://anaconda.org/s-ameli/imate>`_. If you need :synco:`imate` on other operating systems, platforms, and Python versions, `raise an issue <https://github.com/ameli/imate/issues>`_ on Github and we build its Python Wheel for you.
 

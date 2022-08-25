@@ -62,7 +62,7 @@ def _test_schatten_methods(K, matrix, gram, p, assume_matrix):
     # Use direct method
     # Exact solution of schatten for band matrix
     schatten0 = toeplitz_schatten(matrix['a'], matrix['b'],
-                                  size=matrix['size'], gram=gram, p=p)
+                                  size=matrix['size'], p=p)
     time00 = 0.0
     time01 = 0.0
 
