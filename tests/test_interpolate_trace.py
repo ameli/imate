@@ -27,7 +27,7 @@ from imate import InterpolateTrace                                 # noqa: E402
 # remove saved plot
 # =================
 
-def remove_saved_plot(filename):
+def _remove_saved_plot(filename):
     """
     When the option ``plot=True`` is used in :mod:`imate.correlation_matrix`, a
     file named ``CorrelationMatrix.svg`` is saved in the current directory.
@@ -46,11 +46,11 @@ def remove_saved_plot(filename):
     print('File %s is deleted.' % save_fullname)
 
 
-# ==========================
-# test interpolate trace exp
-# ==========================
+# =====================
+# interpolate trace exp
+# =====================
 
-def test_interpolate_trace_exp(p):
+def _interpolate_trace_exp(p):
     """
     Runs test for a given exponent p.
     """
@@ -204,8 +204,8 @@ def test_interpolate_trace_exp(p):
     TI12.plot(inquiry_points, normalize=True, compare=True)
 
     # Remove saved plot
-    remove_saved_plot('interpolation.pdf')
-    remove_saved_plot('interpolation.svg')
+    _remove_saved_plot('interpolation.pdf')
+    _remove_saved_plot('interpolation.svg')
 
 
 # ======================
@@ -217,9 +217,9 @@ def test_interpolate_trace():
     Tests imate.InterpolateTrace class.
     """
 
-    test_interpolate_trace_exp(p=-2)
-    test_interpolate_trace_exp(p=-1)
-    test_interpolate_trace_exp(p=2)
+    _interpolate_trace_exp(p=-2)
+    _interpolate_trace_exp(p=-1)
+    _interpolate_trace_exp(p=2)
 
 
 # ===========

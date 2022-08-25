@@ -27,7 +27,7 @@ from imate import InterpolateLogdet                                # noqa: E402
 # remove saved plot
 # =================
 
-def remove_saved_plot(filename):
+def _remove_saved_plot(filename):
     """
     When the option ``plot=True`` is used in :mod:`imate.correlation_matrix`, a
     file named ``CorrelationMatrix.svg`` is saved in the current directory.
@@ -200,8 +200,8 @@ def test_interpolate_logdet():
     TI12.plot(inquiry_points, normalize=True, compare=True)
 
     # Remove saved plot
-    remove_saved_plot('interpolation.pdf')
-    remove_saved_plot('interpolation.svg')
+    _remove_saved_plot('interpolation.pdf')
+    _remove_saved_plot('interpolation.svg')
 
 
 # ===========

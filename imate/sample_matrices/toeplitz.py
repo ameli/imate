@@ -544,7 +544,7 @@ def toeplitz_logdet(a, b, size, gram=False):
 # toeplitz schatten
 # =================
 
-def toeplitz_schatten(a, b, size, gram=False, p=2):
+def toeplitz_schatten(a, b, size, p=2):
     """
     Compute the Schatten norm of Toeplitz matrix using an analytic formula.
 
@@ -562,10 +562,6 @@ def toeplitz_schatten(a, b, size, gram=False, p=2):
 
     size : int, default=20
         Size of the square matrix.
-
-    gram : bool, default=False
-        If `False`, the matrix is assumed to be bi-diagonal Toeplitz. If
-        `True`, the Gramian of the matrix is considered instead.
 
     p : float, default=2
         The order :math:`p` of Schatten :math:`p`-norm.
@@ -623,12 +619,6 @@ def toeplitz_schatten(a, b, size, gram=False, p=2):
 
         \\Vert \\mathbf{A} \\Vert_p = a.
 
-    If ``gram`` is `True,` then
-
-    .. math::
-
-        \\Vert \\mathbf{A} \\Vert_p = a^2.
-
     Examples
     --------
 
@@ -640,23 +630,6 @@ def toeplitz_schatten(a, b, size, gram=False, p=2):
         >>> # Schatten 2-norm
         >>> toeplitz_schatten(a, b, size=6)
         2.0
-
-        >>> # Schatten 0-norm
-        >>> toeplitz_schatten(a, b, size=6, p=0)
-        2.0
-
-        >>> # Schatten anti 2-norm
-        >>> toeplitz_schatten(a, b, size=6, p=-2)
-        2.0
     """
 
-    # Eigenvalues of A
-    if gram:
-        eig = a**2
-    else:
-        eig = a
-
-    # Schatten norm
-    schatten = eig
-
-    return schatten
+    return a

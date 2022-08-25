@@ -71,6 +71,8 @@ def _test_schatten_methods(K, matrix, gram, p, assume_matrix):
     schatten1 = schatten(K, gram=gram, p=p, method='eigenvalue',
                          assume_matrix=assume_matrix,
                          non_zero_eig_fraction=0.95)
+    # Test
+    print(schatten1)
     time11 = time.time()
 
     # Use Cholesky method
@@ -146,43 +148,27 @@ def test_schatten():
 
     exponents = [0, 1, 2]
     dtypes = [r'float32', r'float64']
-    grams = [True, False]
     sparses = [True, False]
+    gram = False
+    assume_matrix = 'gen'
 
     for dtype in dtypes:
-        for gram in grams:
 
-            if gram:
-                assume_matrix = 'gen'
-            else:
-                assume_matrix = 'sym'
+        K = toeplitz(matrix['a'], matrix['b'], matrix['size'], gram=gram,
+                     dtype=dtype)
 
-            # When gram is True:
-            #     1. We generate a 2-band nonsymmetric matrix K (hence we set
-            #        gram=False in toeplitz).
-            #     2. We compute schatten of K.T @ K using only K (hence we set
-            #        gram=True in schatten method).
-            #
-            # When gram is False:
-            #     1. We generate a 3-band symmetric matrix K (hence we set
-            #        gram=True in toeplitz).
-            #     2. We compute schatten of K using K (hence we set
-            #        gram=False in schatten method).
-            K = toeplitz(matrix['a'], matrix['b'], matrix['size'],
-                         gram=(not gram), dtype=dtype)
+        for sparse in sparses:
+            if not sparse:
+                K = K.toarray()
 
-            for sparse in sparses:
-                if not sparse:
-                    K = K.toarray()
+            for p in exponents:
+                print('dtype: %s, ' % (dtype) +
+                      'sparse: %5s, ' % (sparse) +
+                      'gram: %5s, ' % (gram) +
+                      'exponent: %0.4f,\n' % (p) +
+                      'assume_matrix: %s.' % (assume_matrix))
 
-                for p in exponents:
-                    print('dtype: %s, ' % (dtype) +
-                          'sparse: %5s, ' % (sparse) +
-                          'gram: %5s, ' % (gram) +
-                          'exponent: %0.4f,\n' % (p) +
-                          'assume_matrix: %s.' % (assume_matrix))
-
-                    _test_schatten_methods(K, matrix, gram, p, assume_matrix)
+                _test_schatten_methods(K, matrix, gram, p, assume_matrix)
 
 
 # ===========
