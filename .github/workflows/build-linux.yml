@@ -15,7 +15,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', 'pypy3.6', 'pypy3.7', 'pypy3.8', 'pypy3.9']
+                python-version: ['3.6', '3.7', '3.8', '3.9', '3.10', 'pypy3.6', 'pypy3.7']
 
         steps:
             - name: Checkout
@@ -70,8 +70,11 @@ jobs:
             - name: Install package and dependencies (PyPy)
               if: contains(matrix.python-version, 'pypy')
               run: |
+                  apt-get update
+                  apt-get install libatlas-base-dev -y
                   python -m pip install --upgrade pip
                   python -m pip install --upgrade numpy
+                  python -m pip install --upgrade scipy
                   python -m pip install --upgrade .[extra]
               env:
                   USE_CUDA: 1
