@@ -883,7 +883,7 @@ To automatically run all tests, use ``pytest``:
 
 .. attention::
 
-    To use ``pytest``, change the name of ``/imate/imate`` directory as shown in thr above code. This causes ``pytest`` to properly import :synco:`imate` from the installed location, not from the source code directory.
+    To use ``pytest``, change the name of ``/imate/imate`` directory as shown in the above code. This causes ``pytest`` to properly import :synco:`imate` from the installed location, not from the source code directory.
 
 .. |codecov-devel| image:: https://img.shields.io/codecov/c/github/ameli/imate
    :target: https://codecov.io/gh/ameli/imate
