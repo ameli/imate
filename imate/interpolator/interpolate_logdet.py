@@ -184,7 +184,7 @@ class InterpolateLogdet(InterpolateSchatten):
     # init
     # ====
 
-    def __init__(self, A, B=None, ti=None, kind='IMBF', verbose=False,
+    def __init__(self, A, B=None, ti=[], kind='IMBF', verbose=False,
                  options={'method': 'cholesky'}, **kwargs):
         """
         Initializes the object depending on the method.
@@ -488,11 +488,19 @@ class InterpolateLogdet(InterpolateSchatten):
         # Normalize logdet to tau
         if normalize:
             schatten_B = self.interpolator.schatten_B
+
+            # EXT and EIG methods do not compute schatten_B by default.
+            if schatten_B is None:
+                schatten_B = self.interpolator._compute_schatten(
+                        self.interpolator.B, self.interpolator.p)
+                
             normal_factor = self._schatten_to_logdet(schatten_B)
         else:
             normal_factor = 0.0
-        logdet_i = self._schatten_to_logdet(self.interpolator.schatten_i)
-        tau_i = logdet_i - normal_factor
+
+        if self.interpolator.schatten_i is not None:
+            logdet_i = self._schatten_to_logdet(self.interpolator.schatten_i)
+            tau_i = logdet_i - normal_factor
         tau_interpolated = logdet_interpolated - normal_factor
         if compare:
             tau_exact = logdet_exact - normal_factor
@@ -514,9 +522,10 @@ class InterpolateLogdet(InterpolateSchatten):
 
         # Plot interpolant points with their exact values
         if self.interpolator.q > 0:
-            ax[0].semilogx(self.interpolator.t_i, tau_i, 'o',
-                           color=exact_color, markersize=markersize,
-                           label='Interpolant points', zorder=20)
+            if self.interpolator.schatten_i is not None:
+                ax[0].semilogx(self.interpolator.t_i, tau_i, 'o',
+                               color=exact_color, markersize=markersize,
+                               label='Interpolant points', zorder=20)
 
         # Plot exact values
         if compare:

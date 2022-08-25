@@ -184,7 +184,7 @@ class InterpolateTrace(InterpolateSchatten):
     # init
     # ====
 
-    def __init__(self, A, B=None, p=-1, ti=None, kind='IMBF', verbose=False,
+    def __init__(self, A, B=None, p=-1, ti=[], kind='IMBF', verbose=False,
                  options={'method': 'cholesky'}, **kwargs):
         """
         Initializes the object depending on the method.
@@ -494,11 +494,19 @@ class InterpolateTrace(InterpolateSchatten):
         # Normalize tracep to tau
         if normalize:
             schatten_B = self.interpolator.schatten_B
+
+            # EXT and EIG methods do not compute schatten_B by default.
+            if schatten_B is None:
+                schatten_B = self.interpolator._compute_schatten(
+                        self.interpolator.B, self.interpolator.p)
+
             normal_factor = self._schatten_to_tracep(schatten_B)
         else:
             normal_factor = 1.0
-        tracep_i = self._schatten_to_tracep(self.interpolator.schatten_i)
-        tau_i = tracep_i / normal_factor
+
+        if self.interpolator.schatten_i is not None:
+            tracep_i = self._schatten_to_tracep(self.interpolator.schatten_i)
+            tau_i = tracep_i / normal_factor
         tau_interpolated = tracep_interpolated / normal_factor
         if compare:
             tau_exact = tracep_exact / normal_factor
@@ -520,9 +528,11 @@ class InterpolateTrace(InterpolateSchatten):
 
         # Plot interpolant points with their exact values
         if self.interpolator.q > 0:
-            ax[0].loglog(self.interpolator.t_i, tau_i, 'o', color=exact_color,
-                         markersize=markersize, label='Interpolant points',
-                         zorder=20)
+            if self.interpolator.schatten_i is not None:
+                ax[0].loglog(self.interpolator.t_i, tau_i, 'o',
+                             color=exact_color,
+                             markersize=markersize,
+                             label='Interpolant points', zorder=20)
 
         # Plot exact values
         if compare:
@@ -585,7 +595,10 @@ class InterpolateTrace(InterpolateSchatten):
             ax1_title = r'(b) Relative error of interpolation, $p=%g$' % self.p
             ax[1].set_title(ax1_title)
             tau_range = numpy.max(numpy.abs(100.0 * tau_relative_error))
-            decimals = int(numpy.ceil(-numpy.log10(tau_range))) + 1
+            if tau_range != 0.0:
+                decimals = int(numpy.ceil(-numpy.log10(tau_range))) + 1
+            else:
+                decimals = 2
             ax[1].yaxis.set_major_formatter(
                     matplotlib.ticker.PercentFormatter(decimals=decimals))
             ax[1].legend(fontsize='small')

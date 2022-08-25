@@ -4,11 +4,24 @@
 
 # -----------------------------------------------------------------------------
 # How to build
-#   $ cd ..  # go to root dir of package
+#
+#   $ cd ..  # go to root dir of package (it must run from the parent dir)
 #   $ docker build . -t sameli/imate -f docker/Dockerfile
 #
+# If you run `docker build` multiple times to fix issues, it is better to add
+# `--no-cache` option, so that in each run it starts from fresh:
+#
+#   $ docker build . --no-cache -t sameli/imate -f docker/Dockerfile
+#
 # How to run:
+#
 #   $ docker run -it -v/host_dir:/image_dir imate
+#
+# Notes:
+#
+# The `ADD` command copies the contents of the package to a directory in the
+# comtainer, but it does not copy all files/folders. See `.dockerignore` to
+# see which files are ingored.
 # -----------------------------------------------------------------------------
 
 # -----
@@ -32,9 +45,14 @@ RUN apt-get update && \
 # Build package wheel
 ENV USE_CUDA=1
 RUN mkdir /tmp/imate
+
+# Note: ADD does not copy all files. See .dockerignore
 ADD . /tmp/imate/
 WORKDIR /tmp/imate
 RUN rm -rf build dist
+
+# Note: run setup.py clean to remove in-source cpp build files (if there are any)
+RUN /usr/bin/python3 setup.py clean
 RUN /usr/bin/python3 setup.py bdist_wheel
 
 # -------
@@ -48,8 +66,8 @@ FROM nvidia/cuda:11.7.1-base-ubuntu22.04
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get install -y --no-install-recommends \
-        libcublas-11-4 \
-        libcusparse-11-4 \
+        libcublas-11-7 \
+        libcusparse-11-7 \
         python3-pip \
         libgomp1 \
         libsuitesparse-dev \

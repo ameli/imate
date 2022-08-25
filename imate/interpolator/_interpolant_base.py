@@ -107,6 +107,11 @@ class InterpolantBase(object):
         self.schatten_A = None
         self.schatten_B = None
         self.tau0 = None
+        self.t_i = None
+        self.q = None
+        self.schatten_i = None
+        self.tau_i = None
+        self.scale_t = None
         self.options = options
 
         if ti is not None:
@@ -114,14 +119,16 @@ class InterpolantBase(object):
             # Compute self.schatten_A, self.schatten_B, and self.tau0
             self._compute_schatten_of_input_matrices()
 
-            # Compute schatten norm at interpolant points
-            self.t_i = numpy.array(ti)
-            self.q = self.t_i.size
-            self.schatten_i = self._compute_for_array(self.t_i)
-            self.tau_i = self.schatten_i / self.schatten_B
+            if ti != []:
 
-            # Scale interpolant points
-            self.scale_t = self.find_scale_ti()
+                # Compute schatten norm at interpolant points
+                self.t_i = numpy.array(ti)
+                self.q = self.t_i.size
+                self.schatten_i = self._compute_for_array(self.t_i)
+                self.tau_i = self.schatten_i / self.schatten_B
+
+                # Scale interpolant points
+                self.scale_t = self.find_scale_ti()
 
     # ================
     # compute schatten
@@ -129,7 +136,7 @@ class InterpolantBase(object):
 
     def _compute_schatten(self, A, p):
         """
-        Computes Shcatten norm of A, defined as follows:
+        Computes Schatten norm of A, defined as follows:
 
         * if p is zero, computes det(A+tB)**(1/n)
         * If p is not zero, computes (trace(A+tB)**(p)/n)**(1/p)
@@ -144,7 +151,7 @@ class InterpolantBase(object):
 
     def _compute_schatten_of_input_matrices(self):
         """
-        Computes Shcatten norm of A, B, and its ratio.
+        Computes Schatten norm of A, B, and its ratio.
 
         Schatten norm is defined as:
         * if p is zero, computes det(A+tB)**(1/n)

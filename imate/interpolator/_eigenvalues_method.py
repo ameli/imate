@@ -23,6 +23,8 @@ from ._interpolant_base import InterpolantBase
 
 class EigenvaluesMethod(InterpolantBase):
     """
+    Note: B is always None (identity) in EIG method.
+
     Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A} +
     t \\mathbf{B}` using eigenvalues of :math:`\\mathbf{A}`  and
     :math:`\\mathbf{B}`.
@@ -122,9 +124,12 @@ class EigenvaluesMethod(InterpolantBase):
         computes eigenvalues of the input matrices.
         """
 
+        if B is not None:
+            raise ValueError('In "EIG" method, "B" should be "None".')
+
         # Base class constructor
         super(EigenvaluesMethod, self).__init__(
-                A, B=B, p=p, options=options, verbose=verbose)
+                A, B=B, p=p, ti=None, options=options, verbose=verbose)
 
         # Attributes
         self.non_zero_ratio = non_zero_ratio

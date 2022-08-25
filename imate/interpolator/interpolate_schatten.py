@@ -197,7 +197,7 @@ class InterpolateSchatten(object):
     # init
     # ====
 
-    def __init__(self, A, B=None, p=0, ti=None, kind='IMBF', verbose=False,
+    def __init__(self, A, B=None, p=0, ti=[], kind='IMBF', verbose=False,
                  options={'method': 'cholesky'}, **kwargs):
         """
         Initializes the object depending on the method.
@@ -585,11 +585,21 @@ class InterpolateSchatten(object):
 
         # Normalize schatten to tau
         if normalize:
-            normal_factor = self.interpolator.schatten_B
+            schatten_B = self.interpolator.schatten_B
+
+            # EXT and EIG methods do not compute schatten_B by default.
+            if schatten_B is None:
+                schatten_B = self.interpolator._compute_schatten(
+                        self.interpolator.B, self.interpolator.p)
+
+            normal_factor = schatten_B
         else:
             normal_factor = 1.0
-        tau_i = self.interpolator.schatten_i / normal_factor
+
+        if self.interpolator.schatten_i is not None:
+            tau_i = self.interpolator.schatten_i / normal_factor
         tau_interpolated = schatten_interpolated / normal_factor
+
         if compare:
             tau_exact = schatten_exact / normal_factor
             tau_relative_error = 1.0 - (tau_interpolated / tau_exact)
@@ -610,9 +620,10 @@ class InterpolateSchatten(object):
 
         # Plot interpolant points with their exact values
         if self.interpolator.q > 0:
-            ax[0].loglog(self.interpolator.t_i, tau_i, 'o', color=exact_color,
-                         markersize=markersize, label='Interpolant points',
-                         zorder=20)
+            if self.interpolator.schatten_i is not None:
+                ax[0].loglog(self.interpolator.t_i, tau_i, 'o',
+                             color=exact_color, markersize=markersize,
+                             label='Interpolant points', zorder=20)
 
         # Plot exact values
         if compare:
@@ -675,7 +686,10 @@ class InterpolateSchatten(object):
             ax1_title = r'(b) Relative error of interpolation, $p=%g$' % self.p
             ax[1].set_title(ax1_title)
             tau_range = numpy.max(numpy.abs(100.0 * tau_relative_error))
-            decimals = int(numpy.ceil(-numpy.log10(tau_range))) + 1
+            if tau_range != 0.0:
+                decimals = int(numpy.ceil(-numpy.log10(tau_range))) + 1
+            else:
+                decimals = 2
             ax[1].yaxis.set_major_formatter(
                     matplotlib.ticker.PercentFormatter(decimals=decimals))
             ax[1].legend(fontsize='small')
@@ -752,10 +766,19 @@ class InterpolateSchatten(object):
 
         # Normalize schatten to tau
         if normalize:
-            normal_factor = self.interpolator.schatten_B
+            schatten_B = self.interpolator.schatten_B
+
+            # EXT and EIG methods do not compute schatten_B by default.
+            if schatten_B is None:
+                schatten_B = self.interpolator._compute_schatten(
+                        self.interpolator.B, self.interpolator.p)
+                
+            normal_factor = schatten_B
         else:
             normal_factor = 1.0
-        tau_i = self.interpolator.schatten_i / normal_factor
+
+        if self.interpolator.schatten_i is not None:
+            tau_i = self.interpolator.schatten_i / normal_factor
         tau_interpolated = schatten_interpolated / normal_factor
 
         if compare:
@@ -777,12 +800,14 @@ class InterpolateSchatten(object):
         x_i = (t_i_-1.0) / (t_i_+1.0)
 
         if self.interpolator.func_type == 1:
-            y_i = tau_i / (tau_0 + t_i) - 1.0
+            if self.interpolator.schatten_i is not None:
+                y_i = tau_i / (tau_0 + t_i) - 1.0
             y = tau_interpolated / (tau_0 + t) - 1.0
             if compare:
                 y_ex = tau_exact / (tau_0 + t) - 1.0
         elif self.interpolator.func_type == 2:
-            y_i = (tau_i - tau_0) / t_i - 1.0
+            if self.interpolator.schatten_i is not None:
+                y_i = (tau_i - tau_0) / t_i - 1.0
             y = (tau_interpolated - tau_0) / t - 1.0
             if compare:
                 y_ex = (tau_exact - tau_0) / t - 1.0
@@ -805,9 +830,10 @@ class InterpolateSchatten(object):
 
         # Plot interpolant points with their exact values
         if self.interpolator.q > 0:
-            ax[0].plot(x_i, y_i, 'o', color=exact_color,
-                       markersize=markersize, label='Interpolant points',
-                       zorder=20)
+            if self.interpolator.schatten_i is not None:
+                ax[0].plot(x_i, y_i, 'o', color=exact_color,
+                           markersize=markersize, label='Interpolant points',
+                           zorder=20)
 
         # Plot exact values
         if compare:
@@ -871,7 +897,10 @@ class InterpolateSchatten(object):
             ax1_title = r'(b) Relative error of interpolation, $p=%g$' % self.p
             ax[1].set_title(ax1_title)
             tau_range = numpy.max(numpy.abs(100.0 * tau_relative_error))
-            decimals = int(numpy.ceil(-numpy.log10(tau_range))) + 1
+            if tau_range != 0.0:
+                decimals = int(numpy.ceil(-numpy.log10(tau_range))) + 1
+            else:
+                decimals = 2
             ax[1].yaxis.set_major_formatter(
                     matplotlib.ticker.PercentFormatter(decimals=decimals))
             ax[1].legend(fontsize='small')

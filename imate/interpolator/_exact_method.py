@@ -88,7 +88,7 @@ class ExactMethod(InterpolantBase):
 
         # Base class constructor
         super(ExactMethod, self).__init__(
-                A, B=B, p=p, options=options, verbose=verbose)
+                A, B=B, p=p, ti=None, options=options, verbose=verbose)
 
         # Attributes
         self.q = 0

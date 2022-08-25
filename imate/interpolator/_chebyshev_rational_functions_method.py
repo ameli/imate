@@ -116,7 +116,7 @@ class ChebyshevRationalFunctionsMethod(InterpolantBase):
     # Init
     # ====
 
-    def __init__(self, A, B=None, p=0, ti=None, scale=None, func_type=1,
+    def __init__(self, A, B=None, p=0, ti=[], scale=None, func_type=1,
                  options={}, verbose=False):
         """
         Initializes the base class and attributes.

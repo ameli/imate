@@ -117,7 +117,7 @@ class MonomialBasisFunctionsMethod(InterpolantBase):
     # Init
     # ====
 
-    def __init__(self, A, B=None, p=0, ti=None, options={},
+    def __init__(self, A, B=None, p=0, ti=[], options={},
                  verbose=False):
         """
         Initializes the base class and attributes, namely, the trace at the
@@ -126,13 +126,10 @@ class MonomialBasisFunctionsMethod(InterpolantBase):
 
         # Base class constructor
         super(MonomialBasisFunctionsMethod, self).__init__(
-                A, B=B, p=p, options={}, verbose=verbose)
-
-        # Compute self.trace_Ap, self.trace_Bp, and self.tau0
-        self.compute_traceinv_of_input_matrices()
+                A, B=B, p=p, ti=ti, options=options, verbose=verbose)
 
         # t1
-        if ti is None:
+        if ti == []:
             self.t1 = 1.0 / self.tau0
         else:
             # Check number of interpolant points
@@ -149,7 +146,6 @@ class MonomialBasisFunctionsMethod(InterpolantBase):
 
         # Attributes
         self.t_i = numpy.array([self.t1])
-        self.tracep_i = self.T1
         self.q = self.t_i.size
 
     # =======================
@@ -165,9 +161,8 @@ class MonomialBasisFunctionsMethod(InterpolantBase):
         if self.verbose:
             print('Initialize interpolator ...')
 
-        An = self.A + self.t1*self.B
-        self.T1 = self.compute_trace_pow(An, self.p, **self.options)
-        self.tau1 = self.T1 / self.trace_Bp
+        schatten_1 = self.eval(self.t1)
+        self.tau1 = schatten_1 / self.schatten_B
 
         if self.verbose:
             print('Done.')

@@ -58,7 +58,7 @@ jobs:
               uses: Jimver/cuda-toolkit@v0.2.1
               id: cuda-toolkit
               with:
-                  cuda: '11.2.2'
+                  cuda: '11.7.0'
 
             # Build wheel for windows with CUDA enabled. Note that cibuildwheel
             # does not need manylinux docker, thuns, CUDA can be installed in
@@ -170,7 +170,7 @@ jobs:
                 # other required dependencies (like matplotlib, etc) need to be
                 # compiled on pypy.
                 # python-version: ['3.6', '3.7', '3.8', '3.9', 'pypy-3.6', 'pypy-3.7']
-                python-version: ['3.6', '3.7', '3.8', '3.9']
+                python-version: ['3.6', '3.7', '3.8', '3.9', '3.10']
 
         steps:
             - name: Setup Python ${{ matrix.python-version }}

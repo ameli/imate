@@ -145,7 +145,7 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
     # Init
     # ====
 
-    def __init__(self, A, B=None, p=0, ti=None, options={}, verbose=False,
+    def __init__(self, A, B=None, p=0, ti=[], options={}, verbose=False,
                  basis_functions_type='Orthogonal2'):
         """
         Initializes the base class and the attributes, namely, the computes the

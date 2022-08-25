@@ -28,6 +28,7 @@ from distutils.command.clean import clean
 import textwrap
 import multiprocessing
 import re
+import errno
 
 
 # ===============
@@ -1431,15 +1432,31 @@ def cythonize_extensions(extensions):
 # get requirements
 # ================
 
-def get_requirements(directory, subdirectory=""):
+def get_requirements(directory, subdirectory="", ignore=False):
     """
     Returns a list containing the package requirements given in a file named
     "requirements.txt" in a subdirectory.
+
+    If `ignore` is `True` and the file was not found, it passes without raising
+    error. This is useful when the package is build without
+    `docs/requirements.txt` and `tests/requirements.txt`, such as in the docker
+    where the folders `docs` and `tests` are not copied to the docker image.
+    See `.dockerignore` file.
     """
 
     requirements_filename = join(directory, subdirectory, "requirements.txt")
-    requirements_file = open(requirements_filename, 'r')
-    requirements = [i.strip() for i in requirements_file.readlines()]
+
+    # Check file exists
+    if os.path.exists(requirements_filename):
+        requirements_file = open(requirements_filename, 'r')
+        requirements = [i.strip() for i in requirements_file.readlines()]
+    else:
+        # Ignore if file was not found.
+        if ignore:
+            requirements = ''
+        else:
+            raise FileNotFoundError(
+                errno.ENOENT, os.strerror(errno.ENOENT), requirements_filename)
 
     return requirements
 
@@ -1466,8 +1483,10 @@ def main(argv):
 
     # Requirements
     requirements = get_requirements(directory)
-    test_requirements = get_requirements(directory, subdirectory="tests")
-    docs_requirements = get_requirements(directory, subdirectory="docs")
+    test_requirements = get_requirements(directory, subdirectory="tests",
+                                         ignore=True)
+    docs_requirements = get_requirements(directory, subdirectory="docs",
+                                         ignore=True)
 
     # ReadMe
     readme_file = join(directory, 'README.rst')

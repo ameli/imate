@@ -457,7 +457,7 @@ def check_arguments(A, B, gram, p, invert_cholesky, cholmod):
     elif not numpy.isscalar(p):
         raise TypeError('"p" should be a scalar value.')
     elif not isinstance(p, (int, numpy.integer)):
-        TypeError('"p" should be an integer.')
+        raise TypeError('"p" should be an integer.')
 
     # Check invert_cholesky
     if not numpy.isscalar(invert_cholesky):
