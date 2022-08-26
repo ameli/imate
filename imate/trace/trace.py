@@ -67,10 +67,10 @@ def trace(
         :ref:`slq method <imate.logdet.slq>`.
 
     gram : bool, default=False
-        If `True`, the log-determinant of the Gramian matrix,
+        If `True`, the trace of the Gramian matrix,
         :math:`(\\mathbf{A}^{\\intercal}\\mathbf{A})^p`, is computed. The
         Gramian matrix itself is not directly computed. If `False`, the
-        log-determinant of :math:`\\mathbf{A}^p` is computed.
+        trace of :math:`\\mathbf{A}^p` is computed.
 
     p : float, default=1.0
         A non-negative number representing the exponent :math:`p` in
@@ -84,8 +84,7 @@ def trace(
         details.
 
     method : {'exact', 'eigenvalue', 'slq'}, default='exact'
-        The method of computing log-determinant. See documentation for each
-        method:
+        The method of computing trace. See documentation for each method:
 
         * :ref:`Exact <imate.trace.exact>`
         * :ref:`eigenvalue <imate.trace.eigenvalue>`
@@ -99,7 +98,7 @@ def trace(
     -------
 
     logdet : float or numpy.array
-        Log-determinant of `A`. If ``method=slq`` and if `A` is of type
+        Trace of matrix. If ``method=slq`` and if `A` is of type
         :class:`imate.AffineMatrixFunction` with an array of ``parameters``,
         then the output is an array.
 
@@ -121,13 +120,8 @@ def trace(
             * ``density``: `float`, if `A` is sparse, the density of `A`, which
               is the `nnz` divided by size squared.
             * ``num_inquiries``: `int`, The size of inquiries of each parameter
-              of the linear operator `A`. if `A` is a matrix, this is always
-              `1`. For more details see :ref:`slq method <imate.logdet.slq>`.
-            * ``num_operator_parameters``: `int`, number of parameters of the
-              operator `A`. For more details, see
-              :ref:`slq method <imate.logdet.slq>`.
-            * ``parameters``: `list` [`float`], the parameters of the linear
-              operator `A`.
+              of the linear operator `A`. If `A` is a matrix, this is always
+              `1`. For more details see :ref:`slq method <imate.trace.slq>`.
 
         * ``device``:
             * ``num_cpu_threads``: `int`, number of CPU threads used in shared
@@ -152,9 +146,6 @@ def trace(
     Raises
     ------
 
-    LinAlgError
-        If ``method=cholesky`` and `A` is not positive-definite.
-
     ImportError
         If the package has not been compiled with GPU support, but ``gpu`` is
         `True`. Either set ``gpu`` to `False` to use the existing installed
@@ -164,7 +155,7 @@ def trace(
     See Also
     --------
 
-    imate.trace
+    imate.logdet
     imate.traceinv
     imate.schatten
 
@@ -175,12 +166,12 @@ def trace(
 
     See documentation for each method below.
 
-    * :ref:`eigenvalue <imate.logdet.eigenvalue>`: uses spectral decomposition.
+    * :ref:`exact <imate.trace.exact>`: Computes trace directly from its
+      diagonal entries. This is used when :math:`p` is integer. If :math:`p=1`,
+      this method is preferred.
+    * :ref:`eigenvalue <imate.trace.eigenvalue>`: uses spectral decomposition.
       Suitable for small matrices (:math:`n < 2^{12}`). The solution is exact.
-    * :ref:`cholesky <imate.logdet.cholesky>`: uses Cholesky decomposition.
-      Suitable for moderate-size matrices (:math:`n < 2^{15}`). Can only be
-      applied to positive-definite matrices. The solution is exact.
-    * :ref:`slq <imate.logdet.slq>`: uses stochastic Lanczos quadrature (SLQ),
+    * :ref:`slq <imate.trace.slq>`: uses stochastic Lanczos quadrature (SLQ),
       which is a randomized algorithm. Can be used on very large matrices
       (:math:`n > 2^{12}`). The solution is an approximation.
 
@@ -202,7 +193,7 @@ def trace(
     :math:`\\mathbf{A}(t) = \\mathbf{A} + t \\mathbf{B}`, then if the parameter
     :math:`t` is given as the tuple :math:`t = (t_1, \\dots, t_q)`, then the
     output of this function is an array of size :math:`q` corresponding to the
-    log-determinant of each :math:`\\mathbf{A}(t_i)`.
+    trace of each :math:`\\mathbf{A}(t_i)`.
 
     .. note::
 
@@ -211,38 +202,38 @@ def trace(
         :math:`\\mathbf{I}` is the identity matrix, and :math:`t` is given by
         a tuple :math:`t = (t_1, \\dots, t_q)`, by setting ``method=slq``, the
         computational cost of an array output of size `q` is the same as
-        computing for a single :math:`t_i`. Namely, the log-determinant of only
-        :math:`\\mathbf{A}(t_1)` is computed, and the log-determinant of the
-        rest of :math:`q=2, \\dots, q` are obtained from the result of
-        :math:`t_1` immediately.
+        computing for a single :math:`t_i`. Namely, the trace of only
+        :math:`\\mathbf{A}(t_1)` is computed, and the trace of the rest of
+        :math:`q=2, \\dots, q` are obtained from the result of :math:`t_1`
+        immediately.
 
     Examples
     --------
 
     **Sparse matrix:**
 
-    Compute the log-determinant of a sample sparse Toeplitz matrix created by
+    Compute the trace of a sample sparse Toeplitz matrix created by
     :func:`imate.toeplitz` function.
 
     .. code-block:: python
 
         >>> # Import packages
-        >>> from imate import toeplitz, logdet
+        >>> from imate import toeplitz, trace
 
         >>> # Generate a sample matrix (a toeplitz matrix)
         >>> A = toeplitz(2, 1, size=100)
 
-        >>> # Compute log-determinant with Cholesky method (default method)
-        >>> logdet(A)
+        >>> # Compute trace with the exact method (default method)
+        >>> trace(A)
         138.6294361119891
 
-    Alternatively, compute the log-determinant of
+    Alternatively, compute the trace of
     :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`:
 
     .. code-block:: python
 
-        >>> # Compute log-determinant of the Gramian of A^3:
-        >>> logdet(A, p=3, gram=True)
+        >>> # Compute trace of the Gramian of A^3 using exact method
+        >>> trace(A, p=3, gram=True)
         831.7766166719346
 
     **Output information:**
@@ -251,8 +242,8 @@ def trace(
 
     .. code-block:: python
 
-        >>> ld, info = logdet(A, return_info=True)
-        >>> print(ld)
+        >>> tr, info = trace(A, return_info=True)
+        >>> print(tr)
         138.6294361119891
 
         >>> # Print dictionary neatly using pprint
@@ -277,7 +268,7 @@ def trace(
             },
             'solver': {
                 'cholmod_used': True,
-                'method': 'cholesky',
+                'method': 'exact',
                 'version': '0.13.0'
             },
             'time': {
@@ -289,21 +280,21 @@ def trace(
 
     **Large matrix:**
 
-    Compute log-determinant of a very large sparse matrix using `slq` method.
-    This method does not compute log-determinant exactly, rather, the result is
-    an approximation using Monte-Carlo sampling. The following example uses at
-    least `100` samples.
+    Compute the trace of a very large sparse matrix for non-integer :math:`p`
+    using `slq` method. This method does not compute the trace exactly, rather,
+    the result is an approximation using Monte-Carlo sampling. The following
+    example uses at least `100` samples.
 
     .. code-block:: python
 
         >>> # Generate a matrix of size one million
         >>> A = toeplitz(2, 1, size=1000000, gram=True)
 
-        >>> # Approximate log-determinant using stochastic Lanczos quadrature
+        >>> # Approximate trace using stochastic Lanczos quadrature
         >>> # with at least 100 Monte-Carlo sampling
-        >>> ld, info = logdet(A, method='slq', min_num_samples=100,
-        ...                   max_num_samples=200, return_info=True)
-        >>> print(ld)
+        >>> tr, info = trace(A, p=2.5, method='slq', min_num_samples=100,
+        ...                  max_num_samples=200, return_info=True)
+        >>> print(tr)
         1386320.4734751645
 
         >>> # Find the time it took to compute the above
@@ -315,32 +306,32 @@ def trace(
         }
 
     Compare the result of the above approximation with the exact solution of
-    the log-determinant using the analytic relation for Toeplitz matrix. See
-    :func:`imate.sample_matrices.toeplitz_logdet` for details.
+    the trace using the analytic relation for Toeplitz matrix. See
+    :func:`imate.sample_matrices.toeplitz_trace` for details.
 
     .. code-block:: python
 
-        >>> from imate.sample_matrices import toeplitz_logdet
-        >>> toeplitz_logdet(2, 1, size=1000000, gram=True)
+        >>> from imate.sample_matrices import toeplitz_trace
+        >>> toeplitz_trace(2, 1, size=1000000, gram=True, p=2.5)
         1386294.3611198906
 
     It can be seen that the error of approximation is :math:`0.0018 \\%`. This
     accuracy is remarkable considering that the computation on such a large
-    matrix took only a 16 seconds. Computing the log-determinant of such a
-    large matrix using any of the exact methods (such as ``cholesky`` or
+    matrix took only a 16 seconds. Computing the trace of such a
+    large matrix using any of the exact methods (such as ``exact`` or
     ``eigenvalue``) is infeasible.
 
     **Matrix operator:**
 
     The following example uses an object of :class:`imate.Matrix`. Note that
     this can be only applied to ``method=slq``. See further details in
-    :ref:`slq method <imate.logdet.slq>`.
+    :ref:`slq method <imate.trace.slq>`.
 
     .. code-block:: python
         :emphasize-lines: 8
 
         >>> # Import matrix operator
-        >>> from imate import toeplitz, logdet, Matrix
+        >>> from imate import toeplitz, trace, Matrix
 
         >>> # Generate a sample matrix (a toeplitz matrix)
         >>> A = toeplitz(2, 1, size=100, gram=True)
@@ -348,8 +339,8 @@ def trace(
         >>> # Create a matrix operator object from matrix A
         >>> Aop = Matrix(A)
 
-        >>> # Compute log-determinant of Aop
-        >>> logdet(Aop, method='slq')
+        >>> # Compute trace of Aop
+        >>> trace(Aop, p=2.5, method='slq')
         141.52929878934194
 
     **Affine matrix operator:**
@@ -362,13 +353,13 @@ def trace(
         t \\mapsto \\mathbf{A} + t \\mathbf{I}
 
     Note that this can be only applied to ``method=slq``. See further details
-    in :ref:`slq method <imate.logdet.slq>`.
+    in :ref:`slq method <imate.trace.slq>`.
 
     .. code-block:: python
         :emphasize-lines: 8
 
         >>> # Import affine matrix function
-        >>> from imate import toeplitz, logdet, AffineMatrixFunction
+        >>> from imate import toeplitz, trace, AffineMatrixFunction
 
         >>> # Generate a sample matrix (a toeplitz matrix)
         >>> A = toeplitz(2, 1, size=100, gram=True)
@@ -379,8 +370,8 @@ def trace(
         >>> # A list of parameters t to pass to Aop
         >>> t = [-1.0, 0.0, 1.0]
 
-        >>> # Compute log-determinant of Aop for all parameters t
-        >>> logdet(Aop, method='slq', parameters=t)
+        >>> # Compute trace of Aop with non-integer power for all parameters t
+        >>> trace(Aop, p=2.5, method='slq', parameters=t)
         array([ 68.71411681, 135.88356906, 163.44156683])
     """
 

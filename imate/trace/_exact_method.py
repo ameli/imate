@@ -33,15 +33,14 @@ def exact_method(
         p=1.0,
         return_info=False):
     """
-    Log-determinant of non-singular matrix using Cholesky method.
+    Trace matrix using exact (direct) method.
 
     Given the matrix :math:`\\mathbf{A}` and the real exponent :math:`p`, the
     following is computed:
 
     .. math::
 
-        \\mathrm{logdet} \\left(\\mathbf{A}^p \\right) = p \\log_e \\vert
-        \\det (\\mathbf{A}) \\vert.
+        \\mathrm{trace} \\left(\\mathbf{A}^p \\right).
 
     If ``gram`` is `True`, then :math:`\\mathbf{A}` in the above is replaced by
     the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`, and the
@@ -49,47 +48,40 @@ def exact_method(
 
     .. math::
 
-        \\mathrm{logdet} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^p
-        \\right) = 2p \\log_e \\vert \\det (\\mathbf{A}) \\vert.
+        \\mathrm{trace} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^p
+        \\right).
 
     Parameters
     ----------
 
     A : numpy.ndarray, scipy.sparse
-        A non-singular sparse or dense matrix. For ``method=cholesky``, the
-        matrix `A` should be positive-definite.
+        A non-singular sparse or dense matrix.
 
         .. note::
 
-            In the Cholesky method, the matrix cannot be a type of
+            In the exact method, the matrix cannot be a type of
             :class:`Matrix` or :class:`imate.AffineMatrixFunction` classes.
 
     gram : bool, default=False
-        If `True`, the log-determinant of the Gramian matrix,
+        If `True`, the trace of the Gramian matrix,
         :math:`(\\mathbf{A}^{\\intercal}\\mathbf{A})^p`, is computed. The
         Gramian matrix itself is not directly computed. If `False`, the
-        log-determinant of :math:`\\mathbf{A}^p` is computed.
+        trace of :math:`\\mathbf{A}^p` is computed.
 
     p : float, default=1.0
-        The exponent :math:`p` in :math:`\\mathbf{A}^p`.
+        A non-negative integer representing the exponent
+        :math:`p` in :math:`\\mathbf{A}^p`.
 
     return_info : bool, default=False
         If `True`, this function also returns a dictionary containing
         information about the inner computation, such as process time,
         algorithm settings, etc.
 
-    cholmod : bool, default=None
-        If set to `True`, it uses the `Cholmod` library from `scikit-sparse`
-        package to compute the Cholesky decomposition. If set to `False`, it
-        uses `scipy.sparse.cholesky` method. If set to `None`, first, it tries
-        to use Cholmod library,  but if Cholmod is not available, it uses
-        `scipy.sparse.cholesky` method.
-
     Returns
     -------
 
     logdet : float or numpy.array
-        Log-determinant of `A`.
+        Trace of matrix.
 
     info : dict
         (Only if ``return_info`` is `True`) A dictionary of information with
@@ -127,15 +119,14 @@ def exact_method(
             * ``cpu_proc_time``: `float`, CPU processing time of computation.
 
         * ``solver``:
-            * `cholmod_used`: `bool`, whether the Cholmod from SparseSuite
               library was used.
             * ``version``: `str`, version of imate.
-            * ``method``: 'cholesky'
+            * ``method``: 'exact'
 
     See Also
     --------
 
-    imate.trace
+    imate.logdet
     imate.traceinv
     imate.schatten
 
@@ -165,26 +156,26 @@ def exact_method(
     Examples
     --------
 
-    Compute the log-determinant of a sparse positive-definite Toeplitz matrix:
+    Compute the trace of a sparse Toeplitz matrix:
 
     .. code-block:: python
 
         >>> # Import packages
-        >>> from imate import toeplitz, logdet
+        >>> from imate import toeplitz, trace
 
         >>> # Generate a sample symmetric and positive-definite matrix
         >>> A = toeplitz(2, 1, size=100, gram=True)
 
-        >>> # Compute log-determinant with Cholesky method (default method)
-        >>> logdet(A, method='cholesky')
+        >>> # Compute trace with exact method (default method)
+        >>> trace(A, method='exact')
         138.62943611198907
 
     Print information about the inner computation:
 
     .. code-block:: python
 
-        >>> ld, info = logdet(A, method='cholesky', return_info=True)
-        >>> print(ld)
+        >>> tr, info = trace(A, method='cholesky', return_info=True)
+        >>> print(tr)
         138.6294361119891
 
         >>> # Print dictionary neatly using pprint

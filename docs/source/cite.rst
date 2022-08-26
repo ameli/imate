@@ -19,7 +19,7 @@ If you publish work that uses :synco:`imate`, please consider citing the followi
   
        .. dropdown:: BibTeX Entry
            :animate: fade-in-slide-down
-           :margin: 1 3 4 0
+           :margin: 0 3 0 0
 
            .. code-block:: BibTex
 
@@ -41,7 +41,7 @@ If you publish work that uses :synco:`imate`, please consider citing the followi
 
        .. dropdown:: BibTeX Entry
            :animate: fade-in-slide-down
-           :margin: 1 3 4 0
+           :margin: 0 3 0 0
 
            .. code-block:: BibTeX
 
@@ -64,7 +64,7 @@ Publications Using :synco:`imate`
 
        .. dropdown:: BibTeX Entry
            :animate: fade-in-slide-down
-           :margin: 1 3 4 0
+           :margin: 0 3 0 0
 
            .. code-block:: BibTex
 
@@ -89,7 +89,7 @@ Software Packages Using :synco:`imate`
 
        .. dropdown:: BibTeX Entry
            :animate: fade-in-slide-down
-           :margin: 1 3 4 0
+           :margin: 0 3 0 0
 
            .. code-block:: BibTeX
 
