@@ -64,7 +64,7 @@ def trace(
         A non-singular sparse or dense matrix or linear operator. The linear
         operators :class:`imate.Matrix` and :class:`imate.AffineMatrixFunction`
         can be used only if ``method=slq``. See details in
-        :ref:`slq method <imate.logdet.slq>`.
+        :ref:`slq method <imate.trace.slq>`.
 
     gram : bool, default=False
         If `True`, the trace of the Gramian matrix,
@@ -97,7 +97,7 @@ def trace(
     Returns
     -------
 
-    logdet : float or numpy.array
+    trace : float or numpy.array
         Trace of matrix. If ``method=slq`` and if `A` is of type
         :class:`imate.AffineMatrixFunction` with an array of ``parameters``,
         then the output is an array.
@@ -279,10 +279,10 @@ def trace(
 
     **Large matrix:**
 
-    Compute the trace of a very large sparse matrix for non-integer :math:`p`
-    using `slq` method. This method does not compute the trace exactly, rather,
-    the result is an approximation using Monte-Carlo sampling. The following
-    example uses at least `100` samples.
+    Compute the trace of a very large sparse matrix using `slq` method. This
+    method does not compute the trace exactly, rather, the result is an
+    approximation using Monte-Carlo sampling. The following example uses at
+    least `100` samples.
 
     .. code-block:: python
 
@@ -291,17 +291,17 @@ def trace(
 
         >>> # Approximate trace using stochastic Lanczos quadrature
         >>> # with at least 100 Monte-Carlo sampling
-        >>> tr, info = trace(A, p=2.5, method='slq', min_num_samples=100,
+        >>> tr, info = trace(A, method='slq', min_num_samples=100,
         ...                  max_num_samples=200, return_info=True)
         >>> print(tr)
-        5000155.24
+        4999741.080000001
 
         >>> # Find the time it took to compute the above
         >>> print(info['time'])
         {
-            'tot_wall_time': 15.13876960601192,
-            'alg_wall_time': 15.134652137756348,
-            'cpu_proc_time': 109.497557838
+            'tot_wall_time': 16.221865047933534,
+            'alg_wall_time': 16.20779037475586,
+            'cpu_proc_time': 116.213995219
         }
 
     Compare the result of the above approximation with the exact solution of
@@ -311,8 +311,8 @@ def trace(
     .. code-block:: python
 
         >>> from imate.sample_matrices import toeplitz_trace
-        >>> toeplitz_trace(2, 1, size=1000000, p=2.5)
-        1386294.3611198906
+        >>> toeplitz_trace(2, 1, size=1000000)
+        4999999
 
     It can be seen that the error of approximation is :math:`0.0018 \\%`. This
     accuracy is remarkable considering that the computation on such a large
@@ -339,8 +339,8 @@ def trace(
         >>> Aop = Matrix(A)
 
         >>> # Compute trace of Aop
-        >>> trace(Aop, p=2.5, method='slq')
-        141.52929878934194
+        >>> trace(Aop, method='slq')
+        495.0
 
     **Affine matrix operator:**
 

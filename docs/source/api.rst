@@ -1,9 +1,5 @@
 .. _api:
 
-.. role:: synco
-   :class: synco
-
-=============
 API Reference
 =============
 
@@ -150,7 +146,6 @@ This function computes the Schatten norm of :math:`\mathbf{A}^p` or the Gramian 
 
 .. _Interpolators:
 
--------------
 Interpolators
 -------------
 
@@ -168,11 +163,10 @@ Interpolate the various matrix functions of the one-parameter family of affine m
 
 .. _Linear Operators:
 
-----------------
 Linear Operators
 ----------------
 
-Create linear operator objects as container for various matrix types with a unified interface, establish a fully automatic dynamic buffer to allocate, deallocate, and transfer data between CPU and multiple GPU devices on demand, as well as perform basic matrix-vector operations with high performance on both CPU or GPU devices. These objects can be passed to :synco:`imate` functions as input matrices.
+Create linear operator objects as container for various matrix types with a unified interface, establish a fully automatic dynamic buffer to allocate, deallocate, and transfer data between CPU and multiple GPU devices on demand, as well as perform basic matrix-vector operations with high performance on both CPU or GPU devices. These objects can be passed to |project| functions as input matrices.
 
 .. autosummary::
     :toctree: generated
@@ -185,7 +179,6 @@ Create linear operator objects as container for various matrix types with a unif
 
 .. _Sample Matrices:
 
----------------
 Sample Matrices
 ---------------
 
@@ -206,7 +199,6 @@ Generate sample matrices for test purposes, such as correlation matrix and Toepl
 
 .. _Device Inquiry:
 
---------------
 Device Inquiry
 --------------
 

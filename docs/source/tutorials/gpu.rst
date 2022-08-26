@@ -5,26 +5,26 @@ Using GPU Devices
 
 .. contents::
 
-:synco:`imate` can run on `CUDA-capable` GPU devices with the followings installed:
+|project| can run on `CUDA-capable` GPU devices with the followings installed:
 
 1. NVIDIA graphic driver,
 2. CUDA libraries.
 
 .. rubric:: CUDA Version
 
-The version of CUDA libraries installed on the user's machine should match the version of the CUDA libraries that :synco:`imate` package was compiled with. This includes matching both *major* and *minor* parts of the version numbers. However, the version's *patch* numbers do not need to be matched.
+The version of CUDA libraries installed on the user's machine should match the version of the CUDA libraries that |project| package was compiled with. This includes matching both *major* and *minor* parts of the version numbers. However, the version's *patch* numbers do not need to be matched.
 
 .. note::
 
-    The :synco:`imate` package that is installed with either ``pip`` or ``conda`` already has built-in support for CUDA Toolkit. The latest version of :synco:`imate` is compatible with **CUDA 11.7.x**, which should match the CUDA version installed in the user's machine.
+    The |project| package that is installed with either ``pip`` or ``conda`` already has built-in support for CUDA Toolkit. The latest version of |project| is compatible with **CUDA 11.7.x**, which should match the CUDA version installed in the user's machine.
 
-.. topic:: Methods of Setting up CUDA and :synco:`imate`
+.. topic:: Methods of Setting up CUDA and |project|
 
-    There are three ways to use :synco:`imate` with a compatible version of CUDA Toolkit:
+    There are three ways to use |project| with a compatible version of CUDA Toolkit:
 
-    1. :ref:`Install NVIDIA CUDA Toolkit <gpu-install-cuda>` with a CUDA version compatible with an existing :synco:`imate` installation. By this way, you can keep the :synco:`imate` package that is already installed with ``pip`` or ``conda``.
+    1. :ref:`Install NVIDIA CUDA Toolkit <gpu-install-cuda>` with a CUDA version compatible with an existing |project| installation. By this way, you can keep the |project| package that is already installed with ``pip`` or ``conda``.
     2. :ref:`Compile imate from the source <gpu-compile-imate>` for a specific version of CUDA to use an existing CUDA library. By this way, you can keep the current CUDA installation.
-    3. :ref:`Use docker image <gpu-docker>` with pre-installed :synco:`imate`, CUDA libraries, and NVIDIA graphic driver. This is the most convenient way as no compilation or installation of :synco:`imate` and CUDA Toolkit is required.
+    3. :ref:`Use docker image <gpu-docker>` with pre-installed |project|, CUDA libraries, and NVIDIA graphic driver. This is the most convenient way as no compilation or installation of |project| and CUDA Toolkit is required.
 
 The above methods are described in order below.
 
@@ -179,13 +179,13 @@ In addition to CUDA Toolkit, make sure the `OpenMP` library is also installed us
 
 .. _gpu-compile-imate:
 
-Compile :synco:`imate` from Source with CUDA
-============================================
+Compile |project| from Source with CUDA
+=======================================
 
 Install C++ Compiler and OpenMP
 -------------------------------
 
-Compile :synco:`imate` with either of GCC, Clang/LLVM, or Intel C++ compiler.
+Compile |project| with either of GCC, Clang/LLVM, or Intel C++ compiler.
 
 .. rubric:: Install GNU GCC Compiler
 
@@ -266,7 +266,7 @@ Install CUDA Compiler and Development Libraries
 
 .. attention::
 
-    The minimum version of CUDA to compile :synco:`imate` is `CUDA 10.0`.
+    The minimum version of CUDA to compile |project| is `CUDA 10.0`.
 
 If CUDA Toolkit is installed, skip this part. Otherwise, Make sure the CUDA compiler and the development libraries of cuBLAS and cuSparse are installed by
 
@@ -322,7 +322,7 @@ Check if the CUDA compiler is available with ``which nvcc``.
 Load CUDA Compiler on GPU Cluster
 ---------------------------------
 
-If you are compiling :synco:`imate` on a GPU cluster, chances are the CUDA Toolkit is already installed. If the cluster uses ``module`` interface, load CUDA as follows.
+If you are compiling |project| on a GPU cluster, chances are the CUDA Toolkit is already installed. If the cluster uses ``module`` interface, load CUDA as follows.
 
 First, check if a CUDA module is available by
 
@@ -359,7 +359,7 @@ To permanently set this variable, place the above line in a profile file, such a
 
     source ~/.Bashrc
 
-To compile :synco:`imate` with CUDA, export the following flag variable
+To compile |project| with CUDA, export the following flag variable
 
 .. code-block:: Bash
 
@@ -368,7 +368,7 @@ To compile :synco:`imate` with CUDA, export the following flag variable
 Enable Dynamic Loading (*optional*)
 -----------------------------------
 
-When :synco:`imate` is complied, the CUDA libraries bundle with the final installation of :synco:`imate` package, making it over 700MB. While this is generally not an issue for most users, often a small package is preferable if the installed package has to be distributed to other machines. To this end, enable the `dynamic loading` feature of :synco:`imate`. In this case, the CUDA libraries do not bundle with the :synco:`imate` installation, rather, :synco:`imate` loads the existing CUDA libraries of the host machine at runtime. To enable dynamic loading, simply set:
+When |project| is complied, the CUDA libraries bundle with the final installation of |project| package, making it over 700MB. While this is generally not an issue for most users, often a small package is preferable if the installed package has to be distributed to other machines. To this end, enable the `dynamic loading` feature of |project|. In this case, the CUDA libraries do not bundle with the |project| installation, rather, |project| loads the existing CUDA libraries of the host machine at runtime. To enable dynamic loading, simply set:
 
 .. code-block:: Bash
     
@@ -379,7 +379,7 @@ Compile and Install
 
 |repo-size|
 
-Get the source code of :synco:`imate` with
+Get the source code of |project| with
 
 .. code-block:: Bash
 
@@ -394,10 +394,10 @@ Compile and install by
 
 .. _gpu-docker:
 
-Use :synco:`imate` Docker Container on GPU
-==========================================
+Use |project| Docker Container on GPU
+=====================================
    
-This method neither requires installing CUDA nor :synco:`imate` as all are pre-installed in a docker image.
+This method neither requires installing CUDA nor |project| as all are pre-installed in a docker image.
 
 Install Docker
 --------------
@@ -519,12 +519,12 @@ Restart docker:
 
     sudo systemctl restart docker
 
-Get :synco:`imate` Docker image
--------------------------------
+Get |project| Docker image
+--------------------------
 
 |docker-size|
 
-Get the :synco:`imate` docker image by
+Get the |project| docker image by
 
 .. code-block:: Bash
 
@@ -537,8 +537,8 @@ The docker image has the followings pre-installed:
 * Python interpreters: `ipython`, `jupyter`
 * Editor: `vim`
 
-Use :synco:`imate` Docker Container on GPU
-------------------------------------------
+Use |project| Docker Container on GPU
+-------------------------------------
       
 To use host's GPU from the docker container, add  ``--gpus all`` to any of the ``docker run`` commands, such as by
 
@@ -560,7 +560,7 @@ The followings are some examples of using ``docker run`` with various options:
   
       docker run -it --gpus all sameli/imate
   
-  This also imports :synco:`imate` package automatically.
+  This also imports |project| package automatically.
   
 * To run the container and open *IPython* interpreter directly at startup:
   
@@ -582,10 +582,10 @@ The followings are some examples of using ``docker run`` with various options:
   
         docker run -it --gpus all -v /home/user/project:/root sameli/imate
 
-Inquiry GPU and CUDA with :synco:`imate`
-========================================
+Inquiry GPU and CUDA with |project|
+===================================
 
-First, make sure :synco:`imate` recognizes the CUDA libraries and GPU device. There are a number of functions available in :ref:`imate.device <Device Inquiry>` module to inquiry GPU device.
+First, make sure |project| recognizes the CUDA libraries and GPU device. There are a number of functions available in :ref:`imate.device <Device Inquiry>` module to inquiry GPU device.
 
 Locate CUDA Toolkit
 -------------------
@@ -651,7 +651,7 @@ The number of CPU threads and GPU devices can be obtained respectively by :func:
     >>> imate.device.get_num_gpu_devices()
     4
 
-The :func:`imate.info` function also obtains general information about :synco:`imate` configuration and devices.
+The :func:`imate.info` function also obtains general information about |project| configuration and devices.
 
 .. code-block:: python
 
@@ -705,10 +705,10 @@ Alternatively, one may directly use ``nvidia-smi`` command to inquiry the GPU de
 
 The output of ``nvidia-smi`` in the above shows there are four GPU devices available on the machine.
 
-Run :synco:`imate` Functions on GPU
-===================================
+Run |project| Functions on GPU
+==============================
 
-All functions in :synco:`imate` that accept the `SLQ` method (using ``method=slq`` argument) can perform computations on GPU devices. To do so, include ``gpu=True`` argument to the function syntax. The following examples show using multi-GPU devices to compute the log-determinant of a large matrix.
+All functions in |project| that accept the `SLQ` method (using ``method=slq`` argument) can perform computations on GPU devices. To do so, include ``gpu=True`` argument to the function syntax. The following examples show using multi-GPU devices to compute the log-determinant of a large matrix.
 
 A Simple Example
 ----------------
@@ -799,7 +799,7 @@ The above script prints the following table. The last section of the table shows
 Set Number of GPU Devices
 -------------------------
 
-By default, :synco:`imate` employs the maximum number of available GPU devices. To employ specific number of GPU devices, set ``num_gpu-devices`` in the function arguments. For instance
+By default, |project| employs the maximum number of available GPU devices. To employ specific number of GPU devices, set ``num_gpu-devices`` in the function arguments. For instance
 
 .. code-block:: python
     :emphasize-lines: 6, 12
@@ -822,8 +822,8 @@ By default, :synco:`imate` employs the maximum number of available GPU devices. 
 
 .. _gpu-cluster:
 
-Deploy :synco:`imate` on GPU Clusters
-=====================================
+Deploy |project| on GPU Clusters
+================================
 
 On GPU clusters, the NVIDIA graphic driver and CUDA libraries are pre-installed and they only need to be loaded.
 

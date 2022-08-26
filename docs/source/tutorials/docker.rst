@@ -1,21 +1,21 @@
 .. _imate-docker:
 
-Using :synco:`imate` on Docker
-******************************
+Using |project| on Docker
+*************************
 
 .. contents::
 
 Why Using Docker
 ================
 
-:synco:`imate`'s docker image can be very useful if you want to deploy :synco:`imate` on GPU devices. The :synco:`imate` package that is installed via ``pip`` or ``conda``, natively comes with support on GPU devices. However, the version of CUDA Toolkit that :synco:`imate` was built with it, should match the version of CUDA Toolkit that you have on your machine. This might often be a problem, as your CUDA Toolkit might not have the exact same version as the one that :synco:`imate` supports.
+|project|'s docker image can be very useful if you want to deploy |project| on GPU devices. The |project| package that is installed via ``pip`` or ``conda``, natively comes with support on GPU devices. However, the version of CUDA Toolkit that |project| was built with it, should match the version of CUDA Toolkit that you have on your machine. This might often be a problem, as your CUDA Toolkit might not have the exact same version as the one that |project| supports.
 
 Workarounds to this problem are that either:
 
 * Change your CUDA installation. See :ref:`Install CUDA Toolkit <gpu-install-cuda>`.
-* Compile :synco:`imate` with a specific CUDA version compatible with your existing CUDA installation. See :ref:`Compile imate from Source <compile-imate>`.
+* Compile |project| with a specific CUDA version compatible with your existing CUDA installation. See :ref:`Compile imate from Source <compile-imate>`.
 
-Alternatively, you can simply use :synco:`imate`'s docker image without installing :synco:`imate` or a compatible CUDA Toolkit as both are installed in the docker container and ready to use out of the box.
+Alternatively, you can simply use |project|'s docker image without installing |project| or a compatible CUDA Toolkit as both are installed in the docker container and ready to use out of the box.
 
 Install Docker
 ==============
@@ -75,12 +75,12 @@ Configure docker to run docker `without sudo password <https://docs.docker.com/e
 
 Then, log out and log back. If docker is installed on a *virtual machine*, restart the virtual machine for changes to take effect.
 
-Get :synco:`imate` Docker Image
+Get |project| Docker Image
 ===============================
 
 |docker-size|
 
-Get the :synco:`imate` docker image by
+Get the |project| docker image by
 
 .. code-block:: Bash
 
@@ -95,8 +95,8 @@ The docker image has the followings pre-installed:
 
 .. _docker-examples:
 
-Examples of Using :synco:`imate` Docker Container
-=================================================
+Examples of Using |project| Docker Container
+============================================
 
 The followings are some examples of using ``docker run`` with various options:
 
@@ -112,7 +112,7 @@ The followings are some examples of using ``docker run`` with various options:
   
       docker run -it sameli/imate
   
-  This also imports :synco:`imate` package automatically.
+  This also imports |project| package automatically.
   
 * To run the container and open *IPython* interpreter directly at startup:
   
@@ -134,8 +134,8 @@ The followings are some examples of using ``docker run`` with various options:
   
         docker run -it -v /home/user/project:/root sameli/imate
 
-Deploy :synco:`imate` Docker Container on GPU
-=============================================
+Deploy |project| Docker Container on GPU
+========================================
 
 To access host's GPU device from inside the docker container, you should install NVIDIA Container Toolkit.
 
@@ -203,8 +203,8 @@ Restart docker:
 
     sudo systemctl restart docker
 
-Run :synco:`imate` Docker Container on GPU
-------------------------------------------
+Run |project| Docker Container on GPU
+-------------------------------------
       
 To use host's GPU from the docker container, simply add  ``--gpus all`` to any of the ``docker run`` commands :ref:`described earlier <docker-examples>`, such as by
 

@@ -26,7 +26,7 @@ The following sparse matrices from real applications chosen from `SparseSuite Ma
 * `Bump_2911 <https://sparse.tamu.edu/Janna/Bump_2911>`_
 * `Queen_4147 <https://sparse.tamu.edu/Janna/Queen_4147>`_
   
-All the above matrices are symmetric positive-definite. The last matrix (`Queen_4147`) is so large that 32-bit ``int`` type integers cannot hold the column and row indexing of this matrix. Rather, 32-bit ``unsigned int`` should be used. To do so, the :synco:`imate` has to be compiled by exporting the environment variable:
+All the above matrices are symmetric positive-definite. The last matrix (`Queen_4147`) is so large that 32-bit ``int`` type integers cannot hold the column and row indexing of this matrix. Rather, 32-bit ``unsigned int`` should be used. To do so, the |project| has to be compiled by exporting the environment variable:
 
 ::
 
@@ -134,7 +134,7 @@ When submitting the jobs, make sure that the cpu is the same as the previous run
 Run on Cluster GPU Using Docker Image
 --------------------------------------
 
-On a virtual machine, it is better to install :synco:`imate` using the it's `docker image <https://hub.docker.com/repository/docker/sameli/imate>`_.
+On a virtual machine, it is better to install |project| using the it's `docker image <https://hub.docker.com/repository/docker/sameli/imate>`_.
 
 * `Install docker <https://docs.docker.com/engine/install/ubuntu/>`_
 * Set docker `without sudo <https://docs.docker.com/engine/install/linux-postinstall/>`_ password.

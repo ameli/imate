@@ -945,9 +945,8 @@ class CustomBuildExtension(build_ext):
                 # -fopenmp can be passed through preprocessor. This is how
                 # clang compiler accepts -fopenmp.
                 clang_compile_args = ['-Xpreprocessor', '-fopenmp']
-                # clang_link_args = ['-Xpreprocessor', '-fopenmp', '-lomp']
                 clang_link_args = ['-Xpreprocessor', '-fopenmp', '-lomp',
-                                   '-headerpad_max_install_names']  # Test
+                                   '-headerpad_max_install_names']
                 clang_has_openmp_flag = check_compiler_has_flag(
                         self.compiler,
                         clang_compile_args,

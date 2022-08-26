@@ -267,7 +267,7 @@ def eigenvalue_method(
         >>> toeplitz_logdet(2, 1, size=2000, gram=True)
         2772.588722239781
 
-    There is a significant difference between the approximation with<F3> 90% of
+    There is a significant difference between the approximation with 90% of
     eigenvalues and the actual solution. Because of this, it is not recommended
     to use the eigenvalue method to compute the log-determinant.
     """

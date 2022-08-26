@@ -1,14 +1,13 @@
 .. _perf-openblas:
 
-***************************************************
 Comparison of Performance with and without OpenBLAS
 ***************************************************
 
-Almost all computational software are built upon existing numerical libraries for basic linear algebraic subprograms, such as BLAS, OpenBLAS, NVIDIA® cuBLAS, and Intel® Math Kernel Library, to name a few. :synco:`imate` uses cuBLAS and cuSparse for basic vector and matrix operations on GPU devices. However, for computation on CPU, :synco:`imate` comes with its comes with its own library for basic numerical operations for vector and matrix operations, which supports both dense and sparse matrices. Despite this, :synco:`imate` can also be compiled with `OpenBLAS <https://www.openblas.net/>`_ instead of its own library.
+Almost all computational software are built upon existing numerical libraries for basic linear algebraic subprograms, such as BLAS, OpenBLAS, NVIDIA® cuBLAS, and Intel® Math Kernel Library, to name a few. |project| uses cuBLAS and cuSparse for basic vector and matrix operations on GPU devices. However, for computation on CPU, |project| comes with its comes with its own library for basic numerical operations for vector and matrix operations, which supports both dense and sparse matrices. Despite this, |project| can also be compiled with `OpenBLAS <https://www.openblas.net/>`_ instead of its own library.
 
 .. tip::
 
-    To compile :synco:`imate` using OpenBLAS, export the environment variable:
+    To compile |project| using OpenBLAS, export the environment variable:
 
     ::
 
@@ -18,10 +17,10 @@ Almost all computational software are built upon existing numerical libraries fo
 
 .. note::
 
-    OpenBLAS library has three levels of functionalities: level one, two, and three, for vector-vector, matrix-vector, and matrix-matrix operations, respectively. OpenBLAS, however, only supports operations on dense matrices. As such, when :synco:`imate` is compiled with OpenBLAS, it only uses level one functionalities of OpenBLAS for sparse data. For level two and three operations, :synco:`imate` uses its own library.
+    OpenBLAS library has three levels of functionalities: level one, two, and three, for vector-vector, matrix-vector, and matrix-matrix operations, respectively. OpenBLAS, however, only supports operations on dense matrices. As such, when |project| is compiled with OpenBLAS, it only uses level one functionalities of OpenBLAS for sparse data. For level two and three operations, |project| uses its own library.
 
 
-Here we compare the performance and accuracy of :synco:`imate` with and without using OpenBLAS. In this numerical experiment, we compute
+Here we compare the performance and accuracy of |project| with and without using OpenBLAS. In this numerical experiment, we compute
 
 .. math::
     :label: perf-traceinv

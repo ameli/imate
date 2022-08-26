@@ -12,6 +12,7 @@
 
 import os
 import sys
+from datetime import date
 
 # Configuration file for the Sphinx documentation builder.
 #
@@ -76,6 +77,22 @@ for build_subdirectory in build_subdirectories:
 project = 'imate'
 copyright = '2022, Siavash Ameli'
 author = 'Siavash Ameli'
+
+# -- Sphinx Settings ----------------------------------------------------------
+
+# Check links and references
+nitpicky = True
+
+# Automatically update year in copyright
+copyright = f'{date.today().year}, ' + author
+
+# Common definitions for the whole pages
+rst_epilog = f'''
+.. role:: synco
+   :class: synco
+
+.. |project| replace:: :synco:`imate`
+'''
 
 
 # -- General configuration ---------------------------------------------------
