@@ -99,7 +99,7 @@ def logdet(
     -------
 
     logdet : float or numpy.array
-        Log-determinant of `A`. If ``method=slq`` and if `A` is of type
+        Log-determinant of matrix. If ``method=slq`` and if `A` is of type
         :class:`imate.AffineMatrixFunction` with an array of ``parameters``,
         then the output is an array.
 
@@ -121,13 +121,8 @@ def logdet(
             * ``density``: `float`, if `A` is sparse, the density of `A`, which
               is the `nnz` divided by size squared.
             * ``num_inquiries``: `int`, The size of inquiries of each parameter
-              of the linear operator `A`. if `A` is a matrix, this is always
+              of the linear operator `A`. If `A` is a matrix, this is always
               `1`. For more details see :ref:`slq method <imate.logdet.slq>`.
-            * ``num_operator_parameters``: `int`, number of parameters of the
-              operator `A`. For more details, see
-              :ref:`slq method <imate.logdet.slq>`.
-            * ``parameters``: `list` [`float`], the parameters of the linear
-              operator `A`.
 
         * ``device``:
             * ``num_cpu_threads``: `int`, number of CPU threads used in shared

@@ -88,7 +88,7 @@ def trace(
 
         * :ref:`Exact <imate.trace.exact>`
         * :ref:`eigenvalue <imate.trace.eigenvalue>`
-        * :ref:`slq <imate.exact.slq>`
+        * :ref:`slq <imate.trace.slq>`
 
     options : `**kwargs`
         Extra arguments that are specific to each method. See the documentation
@@ -225,7 +225,7 @@ def trace(
 
         >>> # Compute trace with the exact method (default method)
         >>> trace(A)
-        138.6294361119891
+        200.0
 
     Alternatively, compute the trace of
     :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`:
@@ -234,7 +234,7 @@ def trace(
 
         >>> # Compute trace of the Gramian of A^3 using exact method
         >>> trace(A, p=3, gram=True)
-        831.7766166719346
+        24307.0
 
     **Output information:**
 
@@ -244,7 +244,7 @@ def trace(
 
         >>> tr, info = trace(A, return_info=True)
         >>> print(tr)
-        138.6294361119891
+        200.0
 
         >>> # Print dictionary neatly using pprint
         >>> from pprint import pprint
@@ -258,23 +258,22 @@ def trace(
             },
             'matrix': {
                 'data_type': b'float64',
-                'density': 0.0298,
+                'density': 0.0199,
                 'exponent': 1.0,
                 'gram': False,
-                'nnz': 298,
+                'nnz': 199,
                 'num_inquiries': 1,
                 'size': 100,
                 'sparse': True
             },
             'solver': {
-                'cholmod_used': True,
                 'method': 'exact',
-                'version': '0.13.0'
+                'version': '0.14.0'
             },
             'time': {
-                'alg_wall_time': 0.000903537031263113,
-                'cpu_proc_time': 0.0010093420000032438,
-                'tot_wall_time': 0.000903537031263113
+                'alg_wall_time': 0.00015896500553935766,
+                'cpu_proc_time': 0.00019168200000008184,
+                'tot_wall_time': 0.00015896500553935766
             }
         }
 
@@ -295,14 +294,14 @@ def trace(
         >>> tr, info = trace(A, p=2.5, method='slq', min_num_samples=100,
         ...                  max_num_samples=200, return_info=True)
         >>> print(tr)
-        1386320.4734751645
+        32997027.56
 
         >>> # Find the time it took to compute the above
         >>> print(info['time'])
         {
-            'tot_wall_time': 16.598053652094677,
-            'alg_wall_time': 16.57977867126465,
-            'cpu_proc_time': 113.03275911399999
+            'tot_wall_time': 22.004707033978775,
+            'alg_wall_time': 21.98174285888672,
+            'cpu_proc_time': 138.51682156400003
         }
 
     Compare the result of the above approximation with the exact solution of
