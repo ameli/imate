@@ -331,7 +331,7 @@ Related Projects
    :target: https://anaconda.org/s-ameli/imate
 .. |tokei| image:: https://tokei.rs/b1/github/ameli/imate?category=lines
    :target: https://github.com/ameli/imate
-.. |tokei-2| image:: https://img.shields.io/badge/code%20lines-54.7k-blue
+.. |tokei-2| image:: https://img.shields.io/badge/code%20lines-59.3k-blue
    :target: https://github.com/ameli/imate
 .. |languages| image:: https://img.shields.io/github/languages/count/ameli/imate
    :target: https://github.com/ameli/imate
