@@ -3,36 +3,43 @@
 Publications
 ************
 
-.. role:: synco
-   :class: synco
+How to Cite |project|
+=====================
 
-How to Cite :synco:`imate`
-==========================
-
-If you publish work that uses :synco:`imate`, please consider citing the following manuscripts. This list will update as more publications are underway.
+If you publish work that uses |project|, please consider citing the following manuscripts. This list will update as more publications are underway.
 
 .. [1] |ameli-interp|
 
        Ameli, S., and Shadden. S. C. (2022).
        Interpolating Log-Determinant and Trace of the Powers of Matrix :math:`\mathbf{A} + t \mathbf{B}`.
        arXiv:2009.07385 [math.NA]
-  
-       .. dropdown:: BibTeX Entry
-           :animate: fade-in-slide-down
-           :margin: 0 3 0 0
 
-           .. code-block:: BibTex
+    .. grid:: 2
 
-               @misc{arxiv.2009.07385,
-                   doi = {10.48550/ARXIV.2009.07385},
-                   author = {Ameli, S. and Shadden, S. C.}, 
-                   title = {Interpolating Log-Determinant and Trace of the Powers of Matrix $\mathbf{A} + t \mathbf{B}$},
-                   year = {2020}, 
-                   archivePrefix={arXiv},
-                   eprint = {2009.07385},
-                   primaryClass={math.NA},
-                   howpublished={\emph{arXiv}: 2009.07385 [math.NA]},
-               }
+        .. grid-item::
+      
+           .. dropdown:: BibTeX Entry
+               :animate: fade-in-slide-down
+               :margin: 0 3 0 0
+
+               .. code-block:: BibTex
+
+                   @misc{arxiv.2009.07385,
+                       doi = {10.48550/ARXIV.2009.07385},
+                       author = {Ameli, S. and Shadden, S. C.}, 
+                       title = {Interpolating Log-Determinant and Trace of the Powers of Matrix $\mathbf{A} + t \mathbf{B}$},
+                       year = {2020}, 
+                       archivePrefix={arXiv},
+                       eprint = {2009.07385},
+                       primaryClass={math.NA},
+                       howpublished={\emph{arXiv}: 2009.07385 [math.NA]},
+                   }
+
+        .. grid-item::
+
+            .. raw:: html
+
+                <button id="showPDF01">Show Summary</button>
 
 .. [2] |imate-zenodo|
     
@@ -52,8 +59,8 @@ If you publish work that uses :synco:`imate`, please consider citing the followi
                    howpublished = {\url{https://pypi.org/project/imate/}}
                }
 
-Publications Using :synco:`imate`
-=================================
+Publications Using |project|
+============================
 
 
 .. [3] |ameli-gpr|
@@ -79,8 +86,8 @@ Publications Using :synco:`imate`
                    howpublished={\emph{arXiv}: 2206.09976 [cs.LG]},
                }
 
-Software Packages Using :synco:`imate`
-======================================
+Software Packages Using |project|
+=================================
 
 .. [4] |glearn-zenodo|
 
@@ -99,6 +106,18 @@ Software Packages Using :synco:`imate`
                    year = {2022},
                    howpublished = {\url{https://pypi.org/project/glearn/}}
                }
+
+.. raw:: html
+
+    <div class="container">
+        <div class="buttonHolder">
+            <button id="showPDF02">Show Brochure</button>
+            <button id="showPDF03">Show Overview</button>
+        </div>
+    </div>
+
+    <div id="adobe-dc-view" style="height: 600px;"></div>
+
 
 
 .. |ameli-interp| image:: https://img.shields.io/badge/arXiv-2009.07385-b31b1b.svg

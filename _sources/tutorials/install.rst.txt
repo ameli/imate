@@ -5,17 +5,17 @@ Install
 
 .. contents::
 
-Install :synco:`imate` From Wheels
-==================================
+Install |project| From Wheels
+=============================
 
-Python wheels for :synco:`imate` are available for various operating systems and Python versions on both PyPI and Anaconda Cloud.
+Python wheels for |project| are available for various operating systems and Python versions on both PyPI and Anaconda Cloud.
 
 Install with ``pip``
 --------------------
 
 |pypi|
 
-Install :synco:`imate` and its Python dependencies through `PyPI <https://pypi.org/project/imate>`_ by
+Install |project| and its Python dependencies through `PyPI <https://pypi.org/project/imate>`_ by
 
 ::
     
@@ -27,7 +27,7 @@ Install with ``conda``
 
 |conda-version|
 
-Alternately, install :synco:`imate` and its Python dependencies from `Anaconda Cloud <https://anaconda.org/s-ameli/imate>`_ by
+Alternately, install |project| and its Python dependencies from `Anaconda Cloud <https://anaconda.org/s-ameli/imate>`_ by
 
 ::
 
@@ -35,8 +35,8 @@ Alternately, install :synco:`imate` and its Python dependencies from `Anaconda C
 
 .. _virtual-env:
 
-Install :synco:`imate` in Virtual Environments
-==============================================
+Install |project| in Virtual Environments
+=========================================
 
 If you do not want the installation to occupy your main python's site-packages (either you are testing or the dependencies may clutter your existing installed packages), install the package in an isolated virtual environment. Two common virtual environments are :ref:`virtualenv <virtualenv_env>` and :ref:`conda <conda_env>`.
 
@@ -129,7 +129,7 @@ In the followings, it is assumed `anaconda <https://www.anaconda.com/products/in
 Optional Runtime Dependencies
 =============================
 
-Runtime libraries are not required to present during the installation of :synco:`imate`. However, they may be required to be installed during running :synco:`imate`.
+Runtime libraries are not required to present during the installation of |project|. However, they may be required to be installed during running |project|.
 
 CUDA Toolkit and NVIDIA Graphic Driver (`Optional`)
 ---------------------------------------------------
@@ -142,11 +142,11 @@ To use GPU devices, install NVIDIA Graphic Driver and CUDA Toolkit. See instruct
 Sparse Suite (`Optional`)
 -------------------------
 
-`Suite Sarse <https://people.engr.tamu.edu/davis/suitesparse.html>`_ is a library for efficient calculations on sparse matrices. :synco:`imate` does not require this library as it has its own library for sparse matrices. However, if this library is available, :synco:`imate` uses it.
+`Suite Sarse <https://people.engr.tamu.edu/davis/suitesparse.html>`_ is a library for efficient calculations on sparse matrices. |project| does not require this library as it has its own library for sparse matrices. However, if this library is available, |project| uses it.
 
 .. note::
 
-    The Sparse Suite library is only used for those functions in :synco:`imate` that uses Cholesky decomposition method by passing ``method=cholesky`` argument to the functions. See :ref:`API reference for Functions <Functions>` for details. 
+    The Sparse Suite library is only used for those functions in |project| that uses Cholesky decomposition method by passing ``method=cholesky`` argument to the functions. See :ref:`API reference for Functions <Functions>` for details. 
 
 1. Install Sparse Suite development library by
 
@@ -195,11 +195,11 @@ Sparse Suite (`Optional`)
 OpenBLAS (`Optional`)
 ---------------------
 
-`OpenBLAS <https://www.openblas.net/>`_ is a library for efficient dense matrix operations. :synco:`imate` does not require this library as it has its own library for dense matrices. However, if you compiled :synco:`imate` to use OpenBLAS (see :ref:`Compile from Source <compile-imate>`), OpenBLAS library should be available at runtime.
+`OpenBLAS <https://www.openblas.net/>`_ is a library for efficient dense matrix operations. |project| does not require this library as it has its own library for dense matrices. However, if you compiled |project| to use OpenBLAS (see :ref:`Compile from Source <compile-imate>`), OpenBLAS library should be available at runtime.
 
 .. note::
 
-    A default installation of :synco:`imate` through ``pip`` or ``conda`` does not use OpenBLAS, and you may skip this section.
+    A default installation of |project| through ``pip`` or ``conda`` does not use OpenBLAS, and you may skip this section.
 
 Install OpenBLAS library by
 
@@ -244,26 +244,26 @@ Alternatively, you can install OpenBLAS using ``conda``:
 Compile from Source
 ===================
 
-When to Compile :synco:`imate`
-------------------------------
+When to Compile |project|
+-------------------------
 
-Generally, it is not required to compile :synco:`imate` as the installation through ``pip`` and ``conda`` contains most of its features, including support for GPU devices. You may compile :synco:`imate` if you want to:
+Generally, it is not required to compile |project| as the installation through ``pip`` and ``conda`` contains most of its features, including support for GPU devices. You may compile |project| if you want to:
 
-* modify :synco:`imate`.
-* use `OpenBLAS` instead of the built-in matrix library of :synco:`imate`.
-* build :synco:`imate` for a `specific version` of CUDA Toolkit.
-* disable `dynamic loading` feature of :synco:`imate` for CUDA libraries.
+* modify |project|.
+* use `OpenBLAS` instead of the built-in matrix library of |project|.
+* build |project| for a `specific version` of CUDA Toolkit.
+* disable `dynamic loading` feature of |project| for CUDA libraries.
 * enable `debugging mode`.
 * or, build this `documentation`.
 
-Otherwise, install :synco:`imate` through the :ref:`Python Wheels <install-wheels>`.
+Otherwise, install |project| through the :ref:`Python Wheels <install-wheels>`.
 
 This section walks you through the compilation process.
 
 Install C++ Compiler and OpenMP (`Required`)
 --------------------------------------------
 
-Compile :synco:`imate` with either of GCC, Clang/LLVM, or Intel C++ compiler on UNIX operating systems. For Windows, compile :synco:`imate` with `Microsoft Visual Studio (MSVC) Compiler for C++ <https://code.visualstudio.com/docs/cpp/config-msvc#:~:text=You%20can%20install%20the%20C,the%20C%2B%2B%20workload%20is%20checked.>`_.
+Compile |project| with either of GCC, Clang/LLVM, or Intel C++ compiler on UNIX operating systems. For Windows, compile |project| with `Microsoft Visual Studio (MSVC) Compiler for C++ <https://code.visualstudio.com/docs/cpp/config-msvc#:~:text=You%20can%20install%20the%20C,the%20C%2B%2B%20workload%20is%20checked.>`_.
 
 .. rubric:: Install GNU GCC Compiler
 
@@ -394,7 +394,7 @@ OpenMP comes with the C++ compiler installed in the above. However, you may alte
 OpenBLAS (`Optional`)
 ---------------------
 
-:synco:`imate` can be compiled with and without OpenBLAS. If you are compiling :synco:`imate` with OpenBLAS, install OpenBLAS library by
+|project| can be compiled with and without OpenBLAS. If you are compiling |project| with OpenBLAS, install OpenBLAS library by
 
 .. tab-set::
 
@@ -434,18 +434,18 @@ Alternatively, you can install OpenBLAS using ``conda``:
 
 .. note::
 
-    To build :synco:`imate` with OpenBLAS, you should also set ``USE_CBLAS`` environment variable as described in :ref:`Configure Compile-Time Environment Variables <config-env-variables>`.
+    To build |project| with OpenBLAS, you should also set ``USE_CBLAS`` environment variable as described in :ref:`Configure Compile-Time Environment Variables <config-env-variables>`.
 
 .. _install-cuda:
 
 Install CUDA Compiler (`Optional`)
 ----------------------------------
 
-To use :synco:`imate` on GPU devices, it should be compiled with CUDA compiler. Skip this part if you are not using GPU.
+To use |project| on GPU devices, it should be compiled with CUDA compiler. Skip this part if you are not using GPU.
 
 .. note::
 
-    The minimum version of CUDA to compile :synco:`imate` is `CUDA 10.0`.
+    The minimum version of CUDA to compile |project| is `CUDA 10.0`.
 
 .. attention::
 
@@ -505,7 +505,7 @@ Check if the CUDA compiler is available with ``which nvcc``.
 
 .. note::
 
-    To build :synco:`imate` with CUDA, you should also set ``CUDA_HOME``, ``USE_CUDA``, and optionally set ``CUDA_DYNAMIC_LOADING`` environment variabls as described in :ref:`Configure Compile-Time Environment Variables <config-env-variables>`.
+    To build |project| with CUDA, you should also set ``CUDA_HOME``, ``USE_CUDA``, and optionally set ``CUDA_DYNAMIC_LOADING`` environment variabls as described in :ref:`Configure Compile-Time Environment Variables <config-env-variables>`.
 
 Load CUDA Compiler on GPU Cluster (`Optional`)
 ----------------------------------------------
@@ -565,7 +565,7 @@ Set the following environment variables as desired to configure the compilation 
 
     ``USE_CUDA``
 
-        This variable is relevant only if you are compiling with CUDA compiler. By default, this variable is set to `0`. To compile :synco:`imate` with CUDA, :ref:`install CUDA Toolkit <install-cuda>` and set this variable to `1` by
+        This variable is relevant only if you are compiling with CUDA compiler. By default, this variable is set to `0`. To compile |project| with CUDA, :ref:`install CUDA Toolkit <install-cuda>` and set this variable to `1` by
 
         .. tab-set::
 
@@ -585,7 +585,7 @@ Set the following environment variables as desired to configure the compilation 
 
     ``CUDA_DYNAMIC_LOADING``
 
-        This variable is relevant only if you are compiling with CUDA compiler. By default, this variable is set to `0`.  When :synco:`imate` is complied with CUDA, the CUDA runtime libraries bundle with the final installation of :synco:`imate` package, making it over 700MB. While this is generally not an issue for most users, often a small package is preferable if the installed package has to be distributed to other machines. To this end, enable the custom-made `dynamic loading` feature of :synco:`imate`. In this case, the CUDA libraries will not bundle with the :synco:`imate` installation, rather, :synco:`imate` is instructed to load the existing CUDA libraries of the host machine at runtime. To enable dynamic loading, make sure :ref:`CUDA Toolkit <install-cuda>` is installed, then set this variable to `1` by
+        This variable is relevant only if you are compiling with CUDA compiler. By default, this variable is set to `0`.  When |project| is complied with CUDA, the CUDA runtime libraries bundle with the final installation of |project| package, making it over 700MB. While this is generally not an issue for most users, often a small package is preferable if the installed package has to be distributed to other machines. To this end, enable the custom-made `dynamic loading` feature of |project|. In this case, the CUDA libraries will not bundle with the |project| installation, rather, |project| is instructed to load the existing CUDA libraries of the host machine at runtime. To enable dynamic loading, make sure :ref:`CUDA Toolkit <install-cuda>` is installed, then set this variable to `1` by
 
         .. tab-set::
 
@@ -657,7 +657,7 @@ Set the following environment variables as desired to configure the compilation 
 
     ``USE_CBLAS``
 
-        By default, this variable is set to `0`. Set this variable to `1` if you want to use OpenBLAS instead of the built-in library of :synco:`imate`. :ref:`Install OpenBLAS <instal-openblas>` and set by
+        By default, this variable is set to `0`. Set this variable to `1` if you want to use OpenBLAS instead of the built-in library of |project|. :ref:`Install OpenBLAS <instal-openblas>` and set by
 
         .. tab-set::
 
@@ -677,7 +677,7 @@ Set the following environment variables as desired to configure the compilation 
 
     ``DEBUG_MODE``
 
-        By default, this variable is set to `0`, meaning that :synco:`imate` is compiled without debugging mode enabled. By enabling debug mode, you can debug the code with tools such as ``gdb``. Set this variable to `1` to enable debugging mode by
+        By default, this variable is set to `0`, meaning that |project| is compiled without debugging mode enabled. By enabling debug mode, you can debug the code with tools such as ``gdb``. Set this variable to `1` to enable debugging mode by
 
         .. tab-set::
 
@@ -704,7 +704,7 @@ Compile and Install
 
 |repo-size|
 
-Get the source code of :synco:`imate` from the Github repository by
+Get the source code of |project| from the Github repository by
 
 .. code-block:: Bash
 
@@ -883,7 +883,7 @@ To automatically run all tests, use ``pytest``:
 
 .. attention::
 
-    To use ``pytest``, change the name of ``/imate/imate`` directory as shown in the above code. This causes ``pytest`` to properly import :synco:`imate` from the installed location, not from the source code directory.
+    To use ``pytest``, change the name of ``/imate/imate`` directory as shown in the above code. This causes ``pytest`` to properly import |project| from the installed location, not from the source code directory.
 
 .. |codecov-devel| image:: https://img.shields.io/codecov/c/github/ameli/imate
    :target: https://codecov.io/gh/ameli/imate

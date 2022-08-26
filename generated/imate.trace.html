@@ -51,7 +51,7 @@
     <link rel="next" title="imate.trace(method=’exact’)" href="../api/imate.trace.exact.html" />
     <link rel="prev" title="imate.traceinv(method=’slq’)" href="../api/imate.traceinv.slq.html" />
     <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
-    
+    <script src="https://documentcloud.adobe.com/view-sdk/viewer.js"></script>
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
     
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -499,7 +499,7 @@ an input  tuple <span class="math notranslate nohighlight">\(t = (t_1, \dots, t_
 <dt><strong>A</strong><span class="classifier">numpy.ndarray, scipy.sparse, <a class="reference internal" href="imate.Matrix.html#imate.Matrix" title="imate.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.Matrix</span></code></a>, or             <a class="reference internal" href="imate.AffineMatrixFunction.html#imate.AffineMatrixFunction" title="imate.AffineMatrixFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.AffineMatrixFunction</span></code></a></span></dt><dd><p>A non-singular sparse or dense matrix or linear operator. The linear
 operators <a class="reference internal" href="imate.Matrix.html#imate.Matrix" title="imate.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.Matrix</span></code></a> and <a class="reference internal" href="imate.AffineMatrixFunction.html#imate.AffineMatrixFunction" title="imate.AffineMatrixFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.AffineMatrixFunction</span></code></a>
 can be used only if <code class="docutils literal notranslate"><span class="pre">method=slq</span></code>. See details in
-<a class="reference internal" href="../api/imate.logdet.slq.html#imate-logdet-slq"><span class="std std-ref">slq method</span></a>.</p>
+<a class="reference internal" href="../api/imate.trace.slq.html#imate-trace-slq"><span class="std std-ref">slq method</span></a>.</p>
 </dd>
 <dt><strong>gram</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, the trace of the Gramian matrix,
 <span class="math notranslate nohighlight">\((\mathbf{A}^{\intercal}\mathbf{A})^p\)</span>, is computed. The
@@ -529,7 +529,7 @@ for each <cite>method</cite> for details.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>logdet</strong><span class="classifier">float or numpy.array</span></dt><dd><p>Trace of matrix. If <code class="docutils literal notranslate"><span class="pre">method=slq</span></code> and if <cite>A</cite> is of type
+<dt><strong>trace</strong><span class="classifier">float or numpy.array</span></dt><dd><p>Trace of matrix. If <code class="docutils literal notranslate"><span class="pre">method=slq</span></code> and if <cite>A</cite> is of type
 <a class="reference internal" href="imate.AffineMatrixFunction.html#imate.AffineMatrixFunction" title="imate.AffineMatrixFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.AffineMatrixFunction</span></code></a> with an array of <code class="docutils literal notranslate"><span class="pre">parameters</span></code>,
 then the output is an array.</p>
 </dd>
@@ -714,26 +714,26 @@ immediately.</p>
 </pre></div>
 </div>
 <p><strong>Large matrix:</strong></p>
-<p>Compute the trace of a very large sparse matrix for non-integer <span class="math notranslate nohighlight">\(p\)</span>
-using <cite>slq</cite> method. This method does not compute the trace exactly, rather,
-the result is an approximation using Monte-Carlo sampling. The following
-example uses at least <cite>100</cite> samples.</p>
+<p>Compute the trace of a very large sparse matrix using <cite>slq</cite> method. This
+method does not compute the trace exactly, rather, the result is an
+approximation using Monte-Carlo sampling. The following example uses at
+least <cite>100</cite> samples.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a matrix of size one million</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">)</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Approximate trace using stochastic Lanczos quadrature</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># with at least 100 Monte-Carlo sampling</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">trace</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">min_num_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">trace</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">min_num_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
 <span class="gp">... </span>                 <span class="n">max_num_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
-<span class="go">5000155.24</span>
+<span class="go">4999741.080000001</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Find the time it took to compute the above</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
 <span class="go">{</span>
-<span class="go">    &#39;tot_wall_time&#39;: 15.13876960601192,</span>
-<span class="go">    &#39;alg_wall_time&#39;: 15.134652137756348,</span>
-<span class="go">    &#39;cpu_proc_time&#39;: 109.497557838</span>
+<span class="go">    &#39;tot_wall_time&#39;: 16.221865047933534,</span>
+<span class="go">    &#39;alg_wall_time&#39;: 16.20779037475586,</span>
+<span class="go">    &#39;cpu_proc_time&#39;: 116.213995219</span>
 <span class="go">}</span>
 </pre></div>
 </div>
@@ -741,8 +741,8 @@ example uses at least <cite>100</cite> samples.</p>
 the trace using the analytic relation for Toeplitz matrix. See
 <a class="reference internal" href="imate.sample_matrices.toeplitz_trace.html#imate.sample_matrices.toeplitz_trace" title="imate.sample_matrices.toeplitz_trace"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.sample_matrices.toeplitz_trace()</span></code></a> for details.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.sample_matrices</span> <span class="kn">import</span> <span class="n">toeplitz_trace</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">toeplitz_trace</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
-<span class="go">1386294.3611198906</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">toeplitz_trace</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">)</span>
+<span class="go">4999999</span>
 </pre></div>
 </div>
 <p>It can be seen that the error of approximation is <span class="math notranslate nohighlight">\(0.0018 \%\)</span>. This
@@ -764,8 +764,8 @@ this can be only applied to <code class="docutils literal notranslate"><span cla
 <span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">Aop</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 </span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute trace of Aop</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">)</span>
-<span class="go">141.52929878934194</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">)</span>
+<span class="go">495.0</span>
 </pre></div>
 </div>
 <p><strong>Affine matrix operator:</strong></p>

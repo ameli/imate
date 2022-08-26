@@ -49,7 +49,7 @@
     <link rel="next" title="3. Using GPU Devices" href="gpu.html" />
     <link rel="prev" title="1. Install" href="install.html" />
     <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
-    
+    <script src="https://documentcloud.adobe.com/view-sdk/viewer.js"></script>
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
     
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -224,7 +224,7 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#get-imate-docker-image">
+  <a class="reference internal nav-link" href="#get-project-docker-image">
    2.3. Get
    <span class="synco">
     imate
@@ -233,7 +233,7 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#examples-of-using-imate-docker-container">
+  <a class="reference internal nav-link" href="#examples-of-using-project-docker-container">
    2.4. Examples of Using
    <span class="synco">
     imate
@@ -242,7 +242,7 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#deploy-imate-docker-container-on-gpu">
+  <a class="reference internal nav-link" href="#deploy-project-docker-container-on-gpu">
    2.5. Deploy
    <span class="synco">
     imate
@@ -256,7 +256,7 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#run-imate-docker-container-on-gpu">
+    <a class="reference internal nav-link" href="#run-project-docker-container-on-gpu">
      2.5.2. Run
      <span class="synco">
       imate
@@ -292,21 +292,21 @@
               
               <article class="bd-article" role="main">
                 
-  <section id="using-imate-on-docker">
-<span id="imate-docker"></span><h1><a class="toc-backref" href="#id1"><span class="section-number">2. </span>Using <span class="synco">imate</span> on Docker</a><a class="headerlink" href="#using-imate-on-docker" title="Permalink to this heading">#</a></h1>
+  <section id="using-project-on-docker">
+<span id="imate-docker"></span><h1><a class="toc-backref" href="#id1"><span class="section-number">2. </span>Using <span class="synco">imate</span> on Docker</a><a class="headerlink" href="#using-project-on-docker" title="Permalink to this heading">#</a></h1>
 <div class="contents topic" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#using-imate-on-docker" id="id1">Using <span class="synco">imate</span> on Docker</a></p>
+<li><p><a class="reference internal" href="#using-project-on-docker" id="id1">Using <span class="synco">imate</span> on Docker</a></p>
 <ul>
 <li><p><a class="reference internal" href="#why-using-docker" id="id2">Why Using Docker</a></p></li>
 <li><p><a class="reference internal" href="#install-docker" id="id3">Install Docker</a></p></li>
-<li><p><a class="reference internal" href="#get-imate-docker-image" id="id4">Get <span class="synco">imate</span> Docker Image</a></p></li>
-<li><p><a class="reference internal" href="#examples-of-using-imate-docker-container" id="id5">Examples of Using <span class="synco">imate</span> Docker Container</a></p></li>
-<li><p><a class="reference internal" href="#deploy-imate-docker-container-on-gpu" id="id6">Deploy <span class="synco">imate</span> Docker Container on GPU</a></p>
+<li><p><a class="reference internal" href="#get-project-docker-image" id="id4">Get <span class="synco">imate</span> Docker Image</a></p></li>
+<li><p><a class="reference internal" href="#examples-of-using-project-docker-container" id="id5">Examples of Using <span class="synco">imate</span> Docker Container</a></p></li>
+<li><p><a class="reference internal" href="#deploy-project-docker-container-on-gpu" id="id6">Deploy <span class="synco">imate</span> Docker Container on GPU</a></p>
 <ul>
 <li><p><a class="reference internal" href="#install-nvidia-container-toolkit" id="id7">Install NVIDIA Container Toolkit</a></p></li>
-<li><p><a class="reference internal" href="#run-imate-docker-container-on-gpu" id="id8">Run <span class="synco">imate</span> Docker Container on GPU</a></p></li>
+<li><p><a class="reference internal" href="#run-project-docker-container-on-gpu" id="id8">Run <span class="synco">imate</span> Docker Container on GPU</a></p></li>
 </ul>
 </li>
 </ul>
@@ -376,8 +376,8 @@ sudo usermod -aG docker $USER
 </div>
 <p>Then, log out and log back. If docker is installed on a <em>virtual machine</em>, restart the virtual machine for changes to take effect.</p>
 </section>
-<section id="get-imate-docker-image">
-<h2><a class="toc-backref" href="#id4"><span class="section-number">2.3. </span>Get <span class="synco">imate</span> Docker Image</a><a class="headerlink" href="#get-imate-docker-image" title="Permalink to this heading">#</a></h2>
+<section id="get-project-docker-image">
+<h2><a class="toc-backref" href="#id4"><span class="section-number">2.3. </span>Get <span class="synco">imate</span> Docker Image</a><a class="headerlink" href="#get-project-docker-image" title="Permalink to this heading">#</a></h2>
 <p><a class="reference external" href="https://hub.docker.com/repository/docker/sameli/imate"><img alt="docker-size" src="https://img.shields.io/docker/image-size/sameli/imate" /></a></p>
 <p>Get the <span class="synco">imate</span> docker image by</p>
 <div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>docker pull sameli/imate
@@ -391,8 +391,8 @@ sudo usermod -aG docker $USER
 <li><p>Editor: <cite>vim</cite></p></li>
 </ul>
 </section>
-<section id="examples-of-using-imate-docker-container">
-<span id="docker-examples"></span><h2><a class="toc-backref" href="#id5"><span class="section-number">2.4. </span>Examples of Using <span class="synco">imate</span> Docker Container</a><a class="headerlink" href="#examples-of-using-imate-docker-container" title="Permalink to this heading">#</a></h2>
+<section id="examples-of-using-project-docker-container">
+<span id="docker-examples"></span><h2><a class="toc-backref" href="#id5"><span class="section-number">2.4. </span>Examples of Using <span class="synco">imate</span> Docker Container</a><a class="headerlink" href="#examples-of-using-project-docker-container" title="Permalink to this heading">#</a></h2>
 <p>The followings are some examples of using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> with various options:</p>
 <ul>
 <li><p>To check the host’s NVIDIA driver version, CUDA runtime library version, and list of available GPU devices, run <code class="docutils literal notranslate"><span class="pre">nvida-smi</span></code> command by:</p>
@@ -424,8 +424,8 @@ sudo usermod -aG docker $USER
 </li>
 </ul>
 </section>
-<section id="deploy-imate-docker-container-on-gpu">
-<h2><a class="toc-backref" href="#id6"><span class="section-number">2.5. </span>Deploy <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#deploy-imate-docker-container-on-gpu" title="Permalink to this heading">#</a></h2>
+<section id="deploy-project-docker-container-on-gpu">
+<h2><a class="toc-backref" href="#id6"><span class="section-number">2.5. </span>Deploy <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#deploy-project-docker-container-on-gpu" title="Permalink to this heading">#</a></h2>
 <p>To access host’s GPU device from inside the docker container, you should install NVIDIA Container Toolkit.</p>
 <section id="install-nvidia-container-toolkit">
 <h3><a class="toc-backref" href="#id7"><span class="section-number">2.5.1. </span>Install NVIDIA Container Toolkit</a><a class="headerlink" href="#install-nvidia-container-toolkit" title="Permalink to this heading">#</a></h3>
@@ -486,8 +486,8 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </pre></div>
 </div>
 </section>
-<section id="run-imate-docker-container-on-gpu">
-<h3><a class="toc-backref" href="#id8"><span class="section-number">2.5.2. </span>Run <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#run-imate-docker-container-on-gpu" title="Permalink to this heading">#</a></h3>
+<section id="run-project-docker-container-on-gpu">
+<h3><a class="toc-backref" href="#id8"><span class="section-number">2.5.2. </span>Run <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#run-project-docker-container-on-gpu" title="Permalink to this heading">#</a></h3>
 <p>To use host’s GPU from the docker container, simply add  <code class="docutils literal notranslate"><span class="pre">--gpus</span> <span class="pre">all</span></code> to any of the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> commands <a class="reference internal" href="#docker-examples"><span class="std std-ref">described earlier</span></a>, such as by</p>
 <div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>docker run --gpus all -it sameli/imate
 </pre></div>

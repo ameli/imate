@@ -51,7 +51,7 @@
     <link rel="next" title="imate.logdet" href="generated/imate.logdet.html" />
     <link rel="prev" title="3. Using GPU Devices" href="tutorials/gpu.html" />
     <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
-    
+    <script src="https://documentcloud.adobe.com/view-sdk/viewer.js"></script>
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
     
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -479,29 +479,31 @@
     <a class="reference internal nav-link" href="#schatten-norm">
      Schatten Norm
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#interpolators">
+       Interpolators
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#linear-operators">
+       Linear Operators
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#sample-matrices">
+       Sample Matrices
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#device-inquiry">
+       Device Inquiry
+      </a>
+      <ul class="nav section-nav flex-column">
+      </ul>
+     </li>
+    </ul>
    </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#interpolators">
-   Interpolators
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#linear-operators">
-   Linear Operators
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sample-matrices">
-   Sample Matrices
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#device-inquiry">
-   Device Inquiry
-  </a>
-  <ul class="nav section-nav flex-column">
   </ul>
  </li>
 </ul>
@@ -747,10 +749,8 @@ the matrix.</p></li>
 </tbody>
 </table>
 <p>This function computes the Schatten norm of <span class="math notranslate nohighlight">\(\mathbf{A}^p\)</span> or the Gramian matrix <span class="math notranslate nohighlight">\((\mathbf{A}^{\intercal} \mathbf{A})^p\)</span> where <span class="math notranslate nohighlight">\(p\)</span> is a real exponent.</p>
-</section>
-</section>
 <section id="interpolators">
-<span id="id5"></span><h2>Interpolators<a class="headerlink" href="#interpolators" title="Permalink to this heading">#</a></h2>
+<span id="id5"></span><h4>Interpolators<a class="headerlink" href="#interpolators" title="Permalink to this heading">#</a></h4>
 <p>Interpolate the various matrix functions of the one-parameter family of affine matrix functions.</p>
 <table class="autosummary longtable table autosummary">
 <colgroup>
@@ -771,7 +771,7 @@ the matrix.</p></li>
 </table>
 </section>
 <section id="linear-operators">
-<span id="id6"></span><h2>Linear Operators<a class="headerlink" href="#linear-operators" title="Permalink to this heading">#</a></h2>
+<span id="id6"></span><h4>Linear Operators<a class="headerlink" href="#linear-operators" title="Permalink to this heading">#</a></h4>
 <p>Create linear operator objects as container for various matrix types with a unified interface, establish a fully automatic dynamic buffer to allocate, deallocate, and transfer data between CPU and multiple GPU devices on demand, as well as perform basic matrix-vector operations with high performance on both CPU or GPU devices. These objects can be passed to <span class="synco">imate</span> functions as input matrices.</p>
 <table class="autosummary longtable table autosummary">
 <colgroup>
@@ -789,7 +789,7 @@ the matrix.</p></li>
 </table>
 </section>
 <section id="sample-matrices">
-<span id="id7"></span><h2>Sample Matrices<a class="headerlink" href="#sample-matrices" title="Permalink to this heading">#</a></h2>
+<span id="id7"></span><h4>Sample Matrices<a class="headerlink" href="#sample-matrices" title="Permalink to this heading">#</a></h4>
 <p>Generate sample matrices for test purposes, such as correlation matrix and Toeplitz matrix. The matrix functions of Toeplitz matrix (such as its log-determinant, trace of its inverse, etc) are known analytically, making Toeplitz matrix suitable for benchmarking the result of randomized methods with analytical solutions.</p>
 <table class="autosummary longtable table autosummary">
 <colgroup>
@@ -819,7 +819,7 @@ the matrix.</p></li>
 </table>
 </section>
 <section id="device-inquiry">
-<span id="id8"></span><h2>Device Inquiry<a class="headerlink" href="#device-inquiry" title="Permalink to this heading">#</a></h2>
+<span id="id8"></span><h4>Device Inquiry<a class="headerlink" href="#device-inquiry" title="Permalink to this heading">#</a></h4>
 <p>Measure the process time and consumed memory of the Python process during computation with the following classes.</p>
 <table class="autosummary longtable table autosummary">
 <colgroup>
@@ -865,6 +865,8 @@ the matrix.</p></li>
 </tr>
 </tbody>
 </table>
+</section>
+</section>
 </section>
 </section>
 

@@ -1,14 +1,11 @@
 .. module:: imate
 
-.. role:: synco
-   :class: synco
-
-:synco:`imate` Documentation
+|project| Documentation
 ****************************
 
 |deploy-docs|
 
-:synco:`imate`, short for **I**\ mplicit **Ma**\ trix **T**\ race **E**\ stimator, is a C++/CUDA library that provides high-performance randomized algorithms for the computationally expensive matrix functions in machine learning in Python.
+|project|, short for **I**\ mplicit **Ma**\ trix **T**\ race **E**\ stimator, is a C++/CUDA library that provides high-performance randomized algorithms for the computationally expensive matrix functions in machine learning in Python.
 
 .. grid:: 4
 
@@ -83,7 +80,7 @@ Successful installation and tests performed on the following operating systems, 
 .. |build-windows| image:: https://img.shields.io/github/workflow/status/ameli/imate/build-windows
    :target: https://github.com/ameli/imate/actions?query=workflow%3Abuild-windows
 
-Python wheels for :synco:`imate` for all supported platforms and versions in the above are available through `PyPI <https://pypi.org/project/imate/>`_ and `Anaconda Cloud <https://anaconda.org/s-ameli/imate>`_. If you need :synco:`imate` on other platforms, architectures, and Python or PyPy versions, `raise an issue <https://github.com/ameli/imate/issues>`_ on Github and we build its Python Wheel for you.
+Python wheels for |project| for all supported platforms and versions in the above are available through `PyPI <https://pypi.org/project/imate/>`_ and `Anaconda Cloud <https://anaconda.org/s-ameli/imate>`_. If you need |project| on other platforms, architectures, and Python or PyPy versions, `raise an issue <https://github.com/ameli/imate/issues>`_ on Github and we build its Python Wheel for you.
 
 Install
 =======
@@ -122,7 +119,7 @@ Docker
 
 |docker-pull| |deploy-docker|
 
-The docker image comes with pre-installed :synco:`imate`, NVIDIA graphic driver, and a compatible version of CUDA Toolkit libraries.
+The docker image comes with pre-installed |project|, NVIDIA graphic driver, and a compatible version of CUDA Toolkit libraries.
 
 .. grid:: 1
 
@@ -145,7 +142,7 @@ For a complete guide, see:
 GPU
 ===
 
-:synco:`imate` can run on CUDA-capable **multi**-GPU devices, which can be set up in multiple ways. Using the **docker image** is the easiest way to run :synco:`imate` on GPU devices. For a comprehensive guide, see:
+|project| can run on CUDA-capable **multi**-GPU devices, which can be set up in multiple ways. Using the **docker image** is the easiest way to run |project| on GPU devices. For a comprehensive guide, see:
 
 .. toctree::
     :maxdepth: 2
@@ -169,9 +166,9 @@ The supported GPU micro-architectures and CUDA version are as follows:
 Performance
 ===========
 
-:synco:`imate` is scalable to **very large matrices**. Its core library for basic linear algebraic operations is **faster than OpenBLAS**, and its **pseudo-random generator** is hundred-fold faster than the implementation in standard C++ library.
+|project| is scalable to **very large matrices**. Its core library for basic linear algebraic operations is **faster than OpenBLAS**, and its **pseudo-random generator** is hundred-fold faster than the implementation in standard C++ library.
 
-Read about the performance of :synco:`imate` in practical applications:
+Read about the performance of |project| in practical applications:
 
 .. grid:: 2
 
@@ -233,7 +230,7 @@ Launch online interactive demonstration of examples with
 API Reference
 =============
 
-Check the list of functions, classes, and modules of :synco:`imate` with their usage, options, and examples.
+Check the list of functions, classes, and modules of |project| with their usage, options, and examples.
 
 .. toctree::
     :maxdepth: 2
@@ -254,7 +251,7 @@ Technical Notes
 
 |tokei-2| |languages|
 
-:synco:`imate` was implemented mainly in C++, CUDA, Cython, and Python. Some notable implementation techniques used to develop :synco:`mate` are:
+|project| was implemented mainly in C++, CUDA, Cython, and Python. Some notable implementation techniques used to develop |project| are:
 
 * Polymorphic and curiously recurring template pattern programming (CRTP).
 * Implemented customized `dynamic loading` of CUDA libraries.
@@ -270,7 +267,7 @@ We welcome contributions via `Github's pull request <https://github.com/ameli/im
 Publications
 ============
 
-For information on how to cite :synco:`imate`, publications, and software packages that used :synco:`imate`, see:
+For information on how to cite |project|, publications, and software packages that used |project|, see:
 
 .. toctree::
     :maxdepth: 2
