@@ -6,7 +6,7 @@
 :synco:`imate` Documentation
 ****************************
 
-|licence|
+|deploy-docs|
 
 :synco:`imate`, short for **I**\ mplicit **Ma**\ trix **T**\ race **E**\ stimator, is a C++/CUDA library that provides high-performance randomized algorithms for the computationally expensive matrix functions in machine learning in Python.
 
@@ -120,7 +120,7 @@ For complete installation guide, see:
 Docker
 ======
 
-|docker-pull|
+|docker-pull| |deploy-docker|
 
 The docker image comes with pre-installed :synco:`imate`, NVIDIA graphic driver, and a compatible version of CUDA Toolkit libraries.
 
@@ -280,6 +280,8 @@ For information on how to cite :synco:`imate`, publications, and software packag
 License
 =======
 
+|license|
+
 This project uses a `BSD 3-clause license <https://github.com/ameli/imate/blob/main/LICENSE.txt>`_, in hopes that it will be accessible to most projects. If you require a different license, please raise an `issue <https://github.com/ameli/imate/issues>`_ and we will consider a dual license.
 
 Related Projects
@@ -305,18 +307,14 @@ Related Projects
 
       A python package to generate orthogonal basis functions used for matrix functions interpolation.
 
+.. |deploy-docs| image:: https://img.shields.io/github/workflow/status/ameli/imate/deploy-docs?label=docs
+   :target: https://github.com/ameli/imate/actions?query=workflow%3Adeploy-docs
+.. |deploy-docker| image:: https://img.shields.io/github/workflow/status/ameli/imate/deploy-docker?label=build%20docker
+   :target: https://github.com/ameli/imate/actions?query=workflow%3Adeploy-docker
 .. |codecov-devel| image:: https://img.shields.io/codecov/c/github/ameli/imate
    :target: https://codecov.io/gh/ameli/imate
-.. |docs| image:: https://github.com/ameli/imate/workflows/deploy-docs/badge.svg
-   :target: https://github.com/ameli/imate/actions?query=workflow%3Adeploy-docs
 .. |licence| image:: https://img.shields.io/github/license/ameli/imate
    :target: https://opensource.org/licenses/BSD-3-Clause
-.. |travis-devel-linux| image:: https://img.shields.io/travis/com/ameli/imate?env=BADGE=linux&label=build&branch=main
-   :target: https://travis-ci.com/github/ameli/imate
-.. |travis-devel-osx| image:: https://img.shields.io/travis/com/ameli/imate?env=BADGE=osx&label=build&branch=main
-   :target: https://travis-ci.com/github/ameli/imate
-.. |travis-devel-windows| image:: https://img.shields.io/travis/com/ameli/imate?env=BADGE=windows&label=build&branch=main
-   :target: https://travis-ci.com/github/ameli/imate
 .. |implementation| image:: https://img.shields.io/pypi/implementation/imate
 .. |pyversions| image:: https://img.shields.io/pypi/pyversions/imate
 .. |format| image:: https://img.shields.io/pypi/format/imate
