@@ -519,7 +519,7 @@ details.</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../api/imate.trace.exact.html#imate-trace-exact"><span class="std std-ref">Exact</span></a></p></li>
 <li><p><a class="reference internal" href="../api/imate.trace.eigenvalue.html#imate-trace-eigenvalue"><span class="std std-ref">eigenvalue</span></a></p></li>
-<li><p><span class="xref std std-ref">slq</span></p></li>
+<li><p><a class="reference internal" href="../api/imate.trace.slq.html#imate-trace-slq"><span class="std std-ref">slq</span></a></p></li>
 </ul>
 </dd>
 <dt><strong>options</strong><span class="classifier"><cite>**kwargs</cite></span></dt><dd><p>Extra arguments that are specific to each method. See the documentation
@@ -665,21 +665,21 @@ immediately.</p>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute trace with the exact method (default method)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-<span class="go">138.6294361119891</span>
+<span class="go">200.0</span>
 </pre></div>
 </div>
 <p>Alternatively, compute the trace of
 <span class="math notranslate nohighlight">\(\mathbf{A}^{\intercal} \mathbf{A}\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute trace of the Gramian of A^3 using exact method</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="go">831.7766166719346</span>
+<span class="go">24307.0</span>
 </pre></div>
 </div>
 <p><strong>Output information:</strong></p>
 <p>Print information about the inner computation:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">trace</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
-<span class="go">138.6294361119891</span>
+<span class="go">200.0</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Print dictionary neatly using pprint</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
@@ -693,23 +693,22 @@ immediately.</p>
 <span class="go">    },</span>
 <span class="go">    &#39;matrix&#39;: {</span>
 <span class="go">        &#39;data_type&#39;: b&#39;float64&#39;,</span>
-<span class="go">        &#39;density&#39;: 0.0298,</span>
+<span class="go">        &#39;density&#39;: 0.0199,</span>
 <span class="go">        &#39;exponent&#39;: 1.0,</span>
 <span class="go">        &#39;gram&#39;: False,</span>
-<span class="go">        &#39;nnz&#39;: 298,</span>
+<span class="go">        &#39;nnz&#39;: 199,</span>
 <span class="go">        &#39;num_inquiries&#39;: 1,</span>
 <span class="go">        &#39;size&#39;: 100,</span>
 <span class="go">        &#39;sparse&#39;: True</span>
 <span class="go">    },</span>
 <span class="go">    &#39;solver&#39;: {</span>
-<span class="go">        &#39;cholmod_used&#39;: True,</span>
 <span class="go">        &#39;method&#39;: &#39;exact&#39;,</span>
-<span class="go">        &#39;version&#39;: &#39;0.13.0&#39;</span>
+<span class="go">        &#39;version&#39;: &#39;0.14.0&#39;</span>
 <span class="go">    },</span>
 <span class="go">    &#39;time&#39;: {</span>
-<span class="go">        &#39;alg_wall_time&#39;: 0.000903537031263113,</span>
-<span class="go">        &#39;cpu_proc_time&#39;: 0.0010093420000032438,</span>
-<span class="go">        &#39;tot_wall_time&#39;: 0.000903537031263113</span>
+<span class="go">        &#39;alg_wall_time&#39;: 0.00015896500553935766,</span>
+<span class="go">        &#39;cpu_proc_time&#39;: 0.00019168200000008184,</span>
+<span class="go">        &#39;tot_wall_time&#39;: 0.00015896500553935766</span>
 <span class="go">    }</span>
 <span class="go">}</span>
 </pre></div>
@@ -727,14 +726,14 @@ example uses at least <cite>100</cite> samples.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">trace</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">min_num_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
 <span class="gp">... </span>                 <span class="n">max_num_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
-<span class="go">1386320.4734751645</span>
+<span class="go">32997027.56</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Find the time it took to compute the above</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
 <span class="go">{</span>
-<span class="go">    &#39;tot_wall_time&#39;: 16.598053652094677,</span>
-<span class="go">    &#39;alg_wall_time&#39;: 16.57977867126465,</span>
-<span class="go">    &#39;cpu_proc_time&#39;: 113.03275911399999</span>
+<span class="go">    &#39;tot_wall_time&#39;: 22.004707033978775,</span>
+<span class="go">    &#39;alg_wall_time&#39;: 21.98174285888672,</span>
+<span class="go">    &#39;cpu_proc_time&#39;: 138.51682156400003</span>
 <span class="go">}</span>
 </pre></div>
 </div>

@@ -313,7 +313,7 @@ Related Projects
    :target: https://github.com/ameli/imate/actions?query=workflow%3Adeploy-docker
 .. |codecov-devel| image:: https://img.shields.io/codecov/c/github/ameli/imate
    :target: https://codecov.io/gh/ameli/imate
-.. |licence| image:: https://img.shields.io/github/license/ameli/imate
+.. |license| image:: https://img.shields.io/github/license/ameli/imate
    :target: https://opensource.org/licenses/BSD-3-Clause
 .. |implementation| image:: https://img.shields.io/pypi/implementation/imate
 .. |pyversions| image:: https://img.shields.io/pypi/pyversions/imate
@@ -335,7 +335,7 @@ Related Projects
    :target: https://github.com/ameli/imate
 .. |languages| image:: https://img.shields.io/github/languages/count/ameli/imate
    :target: https://github.com/ameli/imate
-.. |docker-pull| image:: https://img.shields.io/docker/pulls/sameli/imate
+.. |docker-pull| image:: https://img.shields.io/docker/pulls/sameli/imate?color=green&label=downloads
    :target: https://hub.docker.com/repository/docker/sameli/imate
 .. |glearn-light| image:: _static/images/icons/logo-glearn-light.svg
    :height: 30
