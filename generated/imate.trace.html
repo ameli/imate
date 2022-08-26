@@ -501,10 +501,10 @@ operators <a class="reference internal" href="imate.Matrix.html#imate.Matrix" ti
 can be used only if <code class="docutils literal notranslate"><span class="pre">method=slq</span></code>. See details in
 <a class="reference internal" href="../api/imate.logdet.slq.html#imate-logdet-slq"><span class="std std-ref">slq method</span></a>.</p>
 </dd>
-<dt><strong>gram</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, the log-determinant of the Gramian matrix,
+<dt><strong>gram</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, the trace of the Gramian matrix,
 <span class="math notranslate nohighlight">\((\mathbf{A}^{\intercal}\mathbf{A})^p\)</span>, is computed. The
 Gramian matrix itself is not directly computed. If <cite>False</cite>, the
-log-determinant of <span class="math notranslate nohighlight">\(\mathbf{A}^p\)</span> is computed.</p>
+trace of <span class="math notranslate nohighlight">\(\mathbf{A}^p\)</span> is computed.</p>
 </dd>
 <dt><strong>p</strong><span class="classifier">float, default=1.0</span></dt><dd><p>A non-negative number representing the exponent <span class="math notranslate nohighlight">\(p\)</span> in
 <span class="math notranslate nohighlight">\(\mathbf{A}^p\)</span>. If <code class="docutils literal notranslate"><span class="pre">method</span></code> is <code class="docutils literal notranslate"><span class="pre">exact</span></code>, <span class="math notranslate nohighlight">\(p\)</span> should be 
@@ -515,8 +515,7 @@ information about the inner computation, such as process time,
 algorithm settings, etc. See the documentation for each <cite>method</cite> for
 details.</p>
 </dd>
-<dt><strong>method</strong><span class="classifier">{‘exact’, ‘eigenvalue’, ‘slq’}, default=’exact’</span></dt><dd><p>The method of computing log-determinant. See documentation for each
-method:</p>
+<dt><strong>method</strong><span class="classifier">{‘exact’, ‘eigenvalue’, ‘slq’}, default=’exact’</span></dt><dd><p>The method of computing trace. See documentation for each method:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../api/imate.trace.exact.html#imate-trace-exact"><span class="std std-ref">Exact</span></a></p></li>
 <li><p><a class="reference internal" href="../api/imate.trace.eigenvalue.html#imate-trace-eigenvalue"><span class="std std-ref">eigenvalue</span></a></p></li>
@@ -530,7 +529,7 @@ for each <cite>method</cite> for details.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>logdet</strong><span class="classifier">float or numpy.array</span></dt><dd><p>Log-determinant of <cite>A</cite>. If <code class="docutils literal notranslate"><span class="pre">method=slq</span></code> and if <cite>A</cite> is of type
+<dt><strong>logdet</strong><span class="classifier">float or numpy.array</span></dt><dd><p>Trace of matrix. If <code class="docutils literal notranslate"><span class="pre">method=slq</span></code> and if <cite>A</cite> is of type
 <a class="reference internal" href="imate.AffineMatrixFunction.html#imate.AffineMatrixFunction" title="imate.AffineMatrixFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.AffineMatrixFunction</span></code></a> with an array of <code class="docutils literal notranslate"><span class="pre">parameters</span></code>,
 then the output is an array.</p>
 </dd>
@@ -552,13 +551,8 @@ of <cite>A</cite>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">density</span></code>: <cite>float</cite>, if <cite>A</cite> is sparse, the density of <cite>A</cite>, which
 is the <cite>nnz</cite> divided by size squared.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">num_inquiries</span></code>: <cite>int</cite>, The size of inquiries of each parameter
-of the linear operator <cite>A</cite>. if <cite>A</cite> is a matrix, this is always
-<cite>1</cite>. For more details see <a class="reference internal" href="../api/imate.logdet.slq.html#imate-logdet-slq"><span class="std std-ref">slq method</span></a>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">num_operator_parameters</span></code>: <cite>int</cite>, number of parameters of the
-operator <cite>A</cite>. For more details, see
-<a class="reference internal" href="../api/imate.logdet.slq.html#imate-logdet-slq"><span class="std std-ref">slq method</span></a>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">parameters</span></code>: <cite>list</cite> [<cite>float</cite>], the parameters of the linear
-operator <cite>A</cite>.</p></li>
+of the linear operator <cite>A</cite>. If <cite>A</cite> is a matrix, this is always
+<cite>1</cite>. For more details see <a class="reference internal" href="../api/imate.trace.slq.html#imate-trace-slq"><span class="std std-ref">slq method</span></a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -601,8 +595,6 @@ only the algorithm execution.</p></li>
 </dd>
 <dt class="field-odd">Raises</dt>
 <dd class="field-odd"><dl class="simple">
-<dt>LinAlgError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">method=cholesky</span></code> and <cite>A</cite> is not positive-definite.</p>
-</dd>
 <dt>ImportError</dt><dd><p>If the package has not been compiled with GPU support, but <code class="docutils literal notranslate"><span class="pre">gpu</span></code> is
 <cite>True</cite>. Either set <code class="docutils literal notranslate"><span class="pre">gpu</span></code> to <cite>False</cite> to use the existing installed
 package. Alternatively, export the environment variable <code class="docutils literal notranslate"><span class="pre">USE_CUDA=1</span></code>
@@ -614,7 +606,7 @@ and recompile the source code of the package.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="#imate.trace" title="imate.trace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.trace</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="imate.logdet.html#imate.logdet" title="imate.logdet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.logdet</span></code></a></dt><dd></dd>
 <dt><a class="reference internal" href="imate.traceinv.html#imate.traceinv" title="imate.traceinv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.traceinv</span></code></a></dt><dd></dd>
 <dt><a class="reference internal" href="imate.schatten.html#imate.schatten" title="imate.schatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.schatten</span></code></a></dt><dd></dd>
 </dl>
@@ -623,12 +615,12 @@ and recompile the source code of the package.</p>
 <p><strong>Method of Computation:</strong></p>
 <p>See documentation for each method below.</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../api/imate.logdet.eigenvalue.html#imate-logdet-eigenvalue"><span class="std std-ref">eigenvalue</span></a>: uses spectral decomposition.
+<li><p><a class="reference internal" href="../api/imate.trace.exact.html#imate-trace-exact"><span class="std std-ref">exact</span></a>: Computes trace directly from its
+diagonal entries. This is used when <span class="math notranslate nohighlight">\(p\)</span> is integer. If <span class="math notranslate nohighlight">\(p=1\)</span>,
+this method is preferred.</p></li>
+<li><p><a class="reference internal" href="../api/imate.trace.eigenvalue.html#imate-trace-eigenvalue"><span class="std std-ref">eigenvalue</span></a>: uses spectral decomposition.
 Suitable for small matrices (<span class="math notranslate nohighlight">\(n &lt; 2^{12}\)</span>). The solution is exact.</p></li>
-<li><p><a class="reference internal" href="../api/imate.logdet.cholesky.html#imate-logdet-cholesky"><span class="std std-ref">cholesky</span></a>: uses Cholesky decomposition.
-Suitable for moderate-size matrices (<span class="math notranslate nohighlight">\(n &lt; 2^{15}\)</span>). Can only be
-applied to positive-definite matrices. The solution is exact.</p></li>
-<li><p><a class="reference internal" href="../api/imate.logdet.slq.html#imate-logdet-slq"><span class="std std-ref">slq</span></a>: uses stochastic Lanczos quadrature (SLQ),
+<li><p><a class="reference internal" href="../api/imate.trace.slq.html#imate-trace-slq"><span class="std std-ref">slq</span></a>: uses stochastic Lanczos quadrature (SLQ),
 which is a randomized algorithm. Can be used on very large matrices
 (<span class="math notranslate nohighlight">\(n &gt; 2^{12}\)</span>). The solution is an approximation.</p></li>
 </ul>
@@ -648,7 +640,7 @@ function <span class="math notranslate nohighlight">\(t \mapsto \mathbf{A} + t\m
 <span class="math notranslate nohighlight">\(\mathbf{A}(t) = \mathbf{A} + t \mathbf{B}\)</span>, then if the parameter
 <span class="math notranslate nohighlight">\(t\)</span> is given as the tuple <span class="math notranslate nohighlight">\(t = (t_1, \dots, t_q)\)</span>, then the
 output of this function is an array of size <span class="math notranslate nohighlight">\(q\)</span> corresponding to the
-log-determinant of each <span class="math notranslate nohighlight">\(\mathbf{A}(t_i)\)</span>.</p>
+trace of each <span class="math notranslate nohighlight">\(\mathbf{A}(t_i)\)</span>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When <cite>A</cite> represents
@@ -656,37 +648,37 @@ log-determinant of each <span class="math notranslate nohighlight">\(\mathbf{A}(
 <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> is the identity matrix, and <span class="math notranslate nohighlight">\(t\)</span> is given by
 a tuple <span class="math notranslate nohighlight">\(t = (t_1, \dots, t_q)\)</span>, by setting <code class="docutils literal notranslate"><span class="pre">method=slq</span></code>, the
 computational cost of an array output of size <cite>q</cite> is the same as
-computing for a single <span class="math notranslate nohighlight">\(t_i\)</span>. Namely, the log-determinant of only
-<span class="math notranslate nohighlight">\(\mathbf{A}(t_1)\)</span> is computed, and the log-determinant of the
-rest of <span class="math notranslate nohighlight">\(q=2, \dots, q\)</span> are obtained from the result of
-<span class="math notranslate nohighlight">\(t_1\)</span> immediately.</p>
+computing for a single <span class="math notranslate nohighlight">\(t_i\)</span>. Namely, the trace of only
+<span class="math notranslate nohighlight">\(\mathbf{A}(t_1)\)</span> is computed, and the trace of the rest of
+<span class="math notranslate nohighlight">\(q=2, \dots, q\)</span> are obtained from the result of <span class="math notranslate nohighlight">\(t_1\)</span>
+immediately.</p>
 </div>
 <p class="rubric">Examples</p>
 <p><strong>Sparse matrix:</strong></p>
-<p>Compute the log-determinant of a sample sparse Toeplitz matrix created by
+<p>Compute the trace of a sample sparse Toeplitz matrix created by
 <a class="reference internal" href="imate.toeplitz.html#imate.toeplitz" title="imate.toeplitz"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.toeplitz()</span></code></a> function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import packages</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">logdet</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">trace</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample matrix (a toeplitz matrix)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant with Cholesky method (default method)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute trace with the exact method (default method)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 <span class="go">138.6294361119891</span>
 </pre></div>
 </div>
-<p>Alternatively, compute the log-determinant of
+<p>Alternatively, compute the trace of
 <span class="math notranslate nohighlight">\(\mathbf{A}^{\intercal} \mathbf{A}\)</span>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of the Gramian of A^3:</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute trace of the Gramian of A^3 using exact method</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">831.7766166719346</span>
 </pre></div>
 </div>
 <p><strong>Output information:</strong></p>
 <p>Print information about the inner computation:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ld</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">logdet</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ld</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">trace</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
 <span class="go">138.6294361119891</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Print dictionary neatly using pprint</span>
@@ -711,7 +703,7 @@ rest of <span class="math notranslate nohighlight">\(q=2, \dots, q\)</span> are 
 <span class="go">    },</span>
 <span class="go">    &#39;solver&#39;: {</span>
 <span class="go">        &#39;cholmod_used&#39;: True,</span>
-<span class="go">        &#39;method&#39;: &#39;cholesky&#39;,</span>
+<span class="go">        &#39;method&#39;: &#39;exact&#39;,</span>
 <span class="go">        &#39;version&#39;: &#39;0.13.0&#39;</span>
 <span class="go">    },</span>
 <span class="go">    &#39;time&#39;: {</span>
@@ -723,18 +715,18 @@ rest of <span class="math notranslate nohighlight">\(q=2, \dots, q\)</span> are 
 </pre></div>
 </div>
 <p><strong>Large matrix:</strong></p>
-<p>Compute log-determinant of a very large sparse matrix using <cite>slq</cite> method.
-This method does not compute log-determinant exactly, rather, the result is
-an approximation using Monte-Carlo sampling. The following example uses at
-least <cite>100</cite> samples.</p>
+<p>Compute the trace of a very large sparse matrix for non-integer <span class="math notranslate nohighlight">\(p\)</span>
+using <cite>slq</cite> method. This method does not compute the trace exactly, rather,
+the result is an approximation using Monte-Carlo sampling. The following
+example uses at least <cite>100</cite> samples.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a matrix of size one million</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Approximate log-determinant using stochastic Lanczos quadrature</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Approximate trace using stochastic Lanczos quadrature</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># with at least 100 Monte-Carlo sampling</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ld</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">logdet</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">min_num_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-<span class="gp">... </span>                  <span class="n">max_num_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ld</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">trace</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">min_num_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+<span class="gp">... </span>                 <span class="n">max_num_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
 <span class="go">1386320.4734751645</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Find the time it took to compute the above</span>
@@ -747,24 +739,24 @@ least <cite>100</cite> samples.</p>
 </pre></div>
 </div>
 <p>Compare the result of the above approximation with the exact solution of
-the log-determinant using the analytic relation for Toeplitz matrix. See
-<a class="reference internal" href="imate.sample_matrices.toeplitz_logdet.html#imate.sample_matrices.toeplitz_logdet" title="imate.sample_matrices.toeplitz_logdet"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.sample_matrices.toeplitz_logdet()</span></code></a> for details.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.sample_matrices</span> <span class="kn">import</span> <span class="n">toeplitz_logdet</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">toeplitz_logdet</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+the trace using the analytic relation for Toeplitz matrix. See
+<a class="reference internal" href="imate.sample_matrices.toeplitz_trace.html#imate.sample_matrices.toeplitz_trace" title="imate.sample_matrices.toeplitz_trace"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.sample_matrices.toeplitz_trace()</span></code></a> for details.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.sample_matrices</span> <span class="kn">import</span> <span class="n">toeplitz_trace</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">toeplitz_trace</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
 <span class="go">1386294.3611198906</span>
 </pre></div>
 </div>
 <p>It can be seen that the error of approximation is <span class="math notranslate nohighlight">\(0.0018 \%\)</span>. This
 accuracy is remarkable considering that the computation on such a large
-matrix took only a 16 seconds. Computing the log-determinant of such a
-large matrix using any of the exact methods (such as <code class="docutils literal notranslate"><span class="pre">cholesky</span></code> or
+matrix took only a 16 seconds. Computing the trace of such a
+large matrix using any of the exact methods (such as <code class="docutils literal notranslate"><span class="pre">exact</span></code> or
 <code class="docutils literal notranslate"><span class="pre">eigenvalue</span></code>) is infeasible.</p>
 <p><strong>Matrix operator:</strong></p>
 <p>The following example uses an object of <a class="reference internal" href="imate.Matrix.html#imate.Matrix" title="imate.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.Matrix</span></code></a>. Note that
 this can be only applied to <code class="docutils literal notranslate"><span class="pre">method=slq</span></code>. See further details in
-<a class="reference internal" href="../api/imate.logdet.slq.html#imate-logdet-slq"><span class="std std-ref">slq method</span></a>.</p>
+<a class="reference internal" href="../api/imate.trace.slq.html#imate-trace-slq"><span class="std std-ref">slq method</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import matrix operator</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">logdet</span><span class="p">,</span> <span class="n">Matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">trace</span><span class="p">,</span> <span class="n">Matrix</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample matrix (a toeplitz matrix)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -772,8 +764,8 @@ this can be only applied to <code class="docutils literal notranslate"><span cla
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a matrix operator object from matrix A</span>
 <span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">Aop</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 </span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute trace of Aop</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">)</span>
 <span class="go">141.52929878934194</span>
 </pre></div>
 </div>
@@ -783,9 +775,9 @@ this can be only applied to <code class="docutils literal notranslate"><span cla
 <div class="math notranslate nohighlight">
 \[t \mapsto \mathbf{A} + t \mathbf{I}\]</div>
 <p>Note that this can be only applied to <code class="docutils literal notranslate"><span class="pre">method=slq</span></code>. See further details
-in <a class="reference internal" href="../api/imate.logdet.slq.html#imate-logdet-slq"><span class="std std-ref">slq method</span></a>.</p>
+in <a class="reference internal" href="../api/imate.trace.slq.html#imate-trace-slq"><span class="std std-ref">slq method</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import affine matrix function</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">logdet</span><span class="p">,</span> <span class="n">AffineMatrixFunction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">trace</span><span class="p">,</span> <span class="n">AffineMatrixFunction</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample matrix (a toeplitz matrix)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -796,8 +788,8 @@ in <a class="reference internal" href="../api/imate.logdet.slq.html#imate-logdet
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># A list of parameters t to pass to Aop</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop for all parameters t</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute trace of Aop with non-integer power for all parameters t</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
 <span class="go">array([ 68.71411681, 135.88356906, 163.44156683])</span>
 </pre></div>
 </div>
