@@ -706,9 +706,9 @@ immediately.</p>
 <span class="go">        &#39;version&#39;: &#39;0.14.0&#39;</span>
 <span class="go">    },</span>
 <span class="go">    &#39;time&#39;: {</span>
-<span class="go">        &#39;alg_wall_time&#39;: 0.00015896500553935766,</span>
-<span class="go">        &#39;cpu_proc_time&#39;: 0.00019168200000008184,</span>
-<span class="go">        &#39;tot_wall_time&#39;: 0.00015896500553935766</span>
+<span class="go">        &#39;alg_wall_time&#39;: 0.00013329205103218555,</span>
+<span class="go">        &#39;cpu_proc_time&#39;: 0.00017459900000016404,</span>
+<span class="go">        &#39;tot_wall_time&#39;: 0.00013329205103218555</span>
 <span class="go">    }</span>
 <span class="go">}</span>
 </pre></div>
@@ -719,21 +719,21 @@ using <cite>slq</cite> method. This method does not compute the trace exactly, r
 the result is an approximation using Monte-Carlo sampling. The following
 example uses at least <cite>100</cite> samples.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a matrix of size one million</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">)</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Approximate trace using stochastic Lanczos quadrature</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># with at least 100 Monte-Carlo sampling</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tr</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">trace</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">min_num_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
 <span class="gp">... </span>                 <span class="n">max_num_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">tr</span><span class="p">)</span>
-<span class="go">32997027.56</span>
+<span class="go">5000155.24</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Find the time it took to compute the above</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
 <span class="go">{</span>
-<span class="go">    &#39;tot_wall_time&#39;: 22.004707033978775,</span>
-<span class="go">    &#39;alg_wall_time&#39;: 21.98174285888672,</span>
-<span class="go">    &#39;cpu_proc_time&#39;: 138.51682156400003</span>
+<span class="go">    &#39;tot_wall_time&#39;: 15.13876960601192,</span>
+<span class="go">    &#39;alg_wall_time&#39;: 15.134652137756348,</span>
+<span class="go">    &#39;cpu_proc_time&#39;: 109.497557838</span>
 <span class="go">}</span>
 </pre></div>
 </div>
@@ -741,7 +741,7 @@ example uses at least <cite>100</cite> samples.</p>
 the trace using the analytic relation for Toeplitz matrix. See
 <a class="reference internal" href="imate.sample_matrices.toeplitz_trace.html#imate.sample_matrices.toeplitz_trace" title="imate.sample_matrices.toeplitz_trace"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.sample_matrices.toeplitz_trace()</span></code></a> for details.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.sample_matrices</span> <span class="kn">import</span> <span class="n">toeplitz_trace</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">toeplitz_trace</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">toeplitz_trace</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
 <span class="go">1386294.3611198906</span>
 </pre></div>
 </div>
