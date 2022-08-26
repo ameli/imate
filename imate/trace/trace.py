@@ -271,9 +271,9 @@ def trace(
                 'version': '0.14.0'
             },
             'time': {
-                'alg_wall_time': 0.00015896500553935766,
-                'cpu_proc_time': 0.00019168200000008184,
-                'tot_wall_time': 0.00015896500553935766
+                'alg_wall_time': 0.00013329205103218555,
+                'cpu_proc_time': 0.00017459900000016404,
+                'tot_wall_time': 0.00013329205103218555
             }
         }
 
@@ -287,21 +287,21 @@ def trace(
     .. code-block:: python
 
         >>> # Generate a matrix of size one million
-        >>> A = toeplitz(2, 1, size=1000000, gram=True)
+        >>> A = toeplitz(2, 1, size=1000000)
 
         >>> # Approximate trace using stochastic Lanczos quadrature
         >>> # with at least 100 Monte-Carlo sampling
         >>> tr, info = trace(A, p=2.5, method='slq', min_num_samples=100,
         ...                  max_num_samples=200, return_info=True)
         >>> print(tr)
-        32997027.56
+        5000155.24
 
         >>> # Find the time it took to compute the above
         >>> print(info['time'])
         {
-            'tot_wall_time': 22.004707033978775,
-            'alg_wall_time': 21.98174285888672,
-            'cpu_proc_time': 138.51682156400003
+            'tot_wall_time': 15.13876960601192,
+            'alg_wall_time': 15.134652137756348,
+            'cpu_proc_time': 109.497557838
         }
 
     Compare the result of the above approximation with the exact solution of
@@ -311,7 +311,7 @@ def trace(
     .. code-block:: python
 
         >>> from imate.sample_matrices import toeplitz_trace
-        >>> toeplitz_trace(2, 1, size=1000000, gram=True, p=2.5)
+        >>> toeplitz_trace(2, 1, size=1000000, p=2.5)
         1386294.3611198906
 
     It can be seen that the error of approximation is :math:`0.0018 \\%`. This

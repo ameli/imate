@@ -145,6 +145,11 @@ jobs:
               with:
                   auto-update-conda: true
 
+            - name: Install OpenMP and numpy for mac
+              if: runner.os == 'macos'
+              run: |
+                  brew install libomp
+
             - name: Build and upload package
               shell: bash -l {0}
               run: |
