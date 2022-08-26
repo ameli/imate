@@ -28,15 +28,14 @@ def trace(
         method='exact',
         **options):
     """
-    Log-determinant of non-singular matrix or linear operator.
+    Trace of matrix or linear operator.
 
     Given the matrix or the linear operator :math:`\\mathbf{A}` and the real
     exponent :math:`p`, the following is computed:
 
     .. math::
 
-        \\mathrm{logdet} \\left(\\mathbf{A}^p \\right) = p \\log_e \\vert
-        \\det (\\mathbf{A}) \\vert.
+        \\mathrm{trace} \\left(\\mathbf{A}^p \\right).
 
     If ``gram`` is `True`, then :math:`\\mathbf{A}` in the above is replaced by
     the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`, and the
@@ -44,8 +43,8 @@ def trace(
 
     .. math::
 
-        \\mathrm{logdet} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^p
-        \\right) = 2p \\log_e \\vert \\det (\\mathbf{A}) \\vert.
+        \\mathrm{trace} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^p
+        \\right).
 
     If :math:`\\mathbf{A} = \\mathbf{A}(t)` is a linear operator of the class
     :class:`imate.AffineMatrixFunction` with the parameter :math:`t`, then for
@@ -54,7 +53,7 @@ def trace(
 
     .. math::
 
-        \\mathrm{logdet} \\left((\\mathbf{A}(t_i))^p \\right),
+        \\mathrm{trace} \\left((\\mathbf{A}(t_i))^p \\right),
         \\quad i=1, \\dots, q.
 
     Parameters
@@ -65,8 +64,7 @@ def trace(
         A non-singular sparse or dense matrix or linear operator. The linear
         operators :class:`imate.Matrix` and :class:`imate.AffineMatrixFunction`
         can be used only if ``method=slq``. See details in
-        :ref:`slq method <imate.logdet.slq>`. If ``method=cholesky``, the
-        matrix `A` should be positive-definite.
+        :ref:`slq method <imate.logdet.slq>`.
 
     gram : bool, default=False
         If `True`, the log-determinant of the Gramian matrix,
@@ -75,7 +73,9 @@ def trace(
         log-determinant of :math:`\\mathbf{A}^p` is computed.
 
     p : float, default=1.0
-        The exponent :math:`p` in :math:`\\mathbf{A}^p`.
+        A non-negative number representing the exponent :math:`p` in
+        :math:`\\mathbf{A}^p`. If ``method`` is ``exact``, :math:`p` should be 
+        a non-negative integer.
 
     return_info : bool, default=False
         If `True`, this function also returns a dictionary containing
@@ -83,13 +83,13 @@ def trace(
         algorithm settings, etc. See the documentation for each `method` for
         details.
 
-    method : {'eigenvalue', 'cholesky', 'slq'}, default='cholesky'
+    method : {'exact', 'eigenvalue', 'slq'}, default='exact'
         The method of computing log-determinant. See documentation for each
         method:
 
-        * :ref:`eigenvalue <imate.logdet.eigenvalue>`
-        * :ref:`cholesky <imate.logdet.cholesky>`
-        * :ref:`slq <imate.logdet.slq>`
+        * :ref:`Exact <imate.trace.exact>`
+        * :ref:`eigenvalue <imate.trace.eigenvalue>`
+        * :ref:`slq <imate.exact.slq>`
 
     options : `**kwargs`
         Extra arguments that are specific to each method. See the documentation

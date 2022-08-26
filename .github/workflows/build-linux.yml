@@ -70,11 +70,8 @@ jobs:
             - name: Install package and dependencies (PyPy)
               if: contains(matrix.python-version, 'pypy')
               run: |
-                  apt-get update
-                  apt-get install libatlas-base-dev -y
                   python -m pip install --upgrade pip
                   python -m pip install --upgrade numpy
-                  python -m pip install --upgrade scipy
                   python -m pip install --upgrade .[extra]
               env:
                   USE_CUDA: 1
