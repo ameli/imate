@@ -8,6 +8,37 @@ How to Cite |project|
 
 If you publish work that uses |project|, please consider citing the following manuscripts. This list will update as more publications are underway.
 
+.. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant and Trace of the Powers of Matrix :math:`\mathbf{A} + t \mathbf{B}`. |ameli-interp|
+
+    .. grid:: 2
+
+        .. grid-item::
+      
+           .. dropdown:: BibTeX Entry
+               :animate: fade-in-slide-down
+               :margin: 0 3 0 0
+
+               .. code-block:: BibTex
+
+                   @misc{arxiv.2009.07385,
+                       doi = {10.48550/ARXIV.2009.07385},
+                       author = {Ameli, S. and Shadden, S. C.}, 
+                       title = {Interpolating Log-Determinant and Trace of the Powers of Matrix $\mathbf{A} + t \mathbf{B}$},
+                       year = {2020}, 
+                       archivePrefix={arXiv},
+                       eprint = {2009.07385},
+                       primaryClass={math.NA},
+                       howpublished={\emph{arXiv}: 2009.07385 [math.NA]},
+                   }
+
+        .. grid-item::
+
+            .. raw:: html
+
+                <button id="showPDF01">Show Summary</button>
+
+                <button type="button" class="btn btn-success">Success</button>
+
 .. [1] |ameli-interp|
 
        Ameli, S., and Shadden. S. C. (2022).
@@ -40,6 +71,8 @@ If you publish work that uses |project|, please consider citing the following ma
             .. raw:: html
 
                 <button id="showPDF01">Show Summary</button>
+
+                <button type="button" class="btn btn-success">Success</button>
 
 .. [2] |imate-zenodo|
     
@@ -112,11 +145,10 @@ Software Packages Using |project|
     <div class="container">
         <div class="buttonHolder">
             <button id="showPDF02">Show Brochure</button>
-            <button id="showPDF03">Show Overview</button>
         </div>
     </div>
 
-    <div id="adobe-dc-view" style="height: 600px;"></div>
+.. <div id="adobe-dc-view" style="height: 600px;"></div>
 
 
 

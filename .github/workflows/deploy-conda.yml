@@ -131,6 +131,16 @@ jobs:
         # To publish to pypi on each GitHub Release, use the following:
         # if: github.event_name == 'release' && github.event.action == 'published'
         steps:
+            
+            - name: Clean runner space
+              if: matrix.os == 'ubuntu-latest'
+              run: |
+                  sudo rm -rf /usr/share/dotnet
+                  sudo rm -rf /opt/ghc
+                  sudo rm -rf "/usr/local/share/boost"
+                  sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+                  docker system prune -af
+
             - name: Checkout
               uses: actions/checkout@v3
 

@@ -29,10 +29,10 @@ const viewerOptions = {
     // embedMode: "SIZED_CONTAINER",
     // embedMode: "FULL_WINDOW",
     defaultViewMode: "FIT_PAGE",
-    showDownloadPDF: false,
-    showPrintPDF: false,
+    // showDownloadPDF: false,
+    // showPrintPDF: false,
     enableFormFilling: false,
-    showZoomControl: false,
+    // showZoomControl: false,
     showThumbnails: false,
     showBookmarks: false,
     showAnnotationTools: false,
@@ -70,11 +70,7 @@ document.addEventListener("adobe_dc_view_sdk.ready", function () {
     });
 
     document.getElementById("showPDF02").addEventListener("click", function () {
-        showPDF("https://documentcloud.adobe.com/view-sdk-demo/PDFs/Bodea Brochure.pdf")
-    });
-
-    document.getElementById("showPDF03").addEventListener("click", function () {
-        showPDF("https://documentcloud.adobe.com/view-sdk-demo/PDFs/Overview.pdf")
+        showPDF("https://arxiv.org/pdf/2206.09976.pdf")
     });
 });
 
