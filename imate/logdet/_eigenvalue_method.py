@@ -65,7 +65,7 @@ def eigenvalue_method(
 
         .. note::
 
-            In the <F3>eigenvalue method, the matrix cannot be a type of
+            In the eigenvalue method, the matrix cannot be a type of
             :class:`Matrix` or :class:`imate.AffineMatrixFunction` classes.
 
     gram : bool, default=False
@@ -156,10 +156,13 @@ def eigenvalue_method(
     Notes
     -----
 
-    The eigenvalue method uses spectral decomposition. This method is suitable
-    for small matrices (:math:`n < 2^{12}`). The solution is exact and can be
-    used as a benchmark to test randomized methods of computing
-    log-determinant.
+    **Computational Complexity:**
+
+    The eigenvalue method uses spectral decomposition. The computational
+    complexity of this method is :math:`\\mathcal{O}(n^3)` where :math:`n` is
+    the matrix size. This method is only suitable for small matrices
+    (:math:`n < 2^{12}`). The solution is exact and can be used as a benchmark
+    to test randomized methods of computing log-determinant.
 
     .. warning::
 
@@ -189,6 +192,8 @@ def eigenvalue_method(
         >>> logdet(A, method='eigenvalue', assume_matrix='sym')
         138.62943611198907
 
+    **Precomputed Eigenvalues:**
+
     Alternatively, compute the eigenvalues of `A` in advance, and pass it to
     this function:
 
@@ -202,6 +207,12 @@ def eigenvalue_method(
         >>> # Pass the eigenvalues to logdet function
         >>> logdet(A, method='eigenvalue', eigenvalues=eigenvalues)
         138.62943611198907
+
+    Pre-computing eigenvalues can be useful if :func:`imate.logdet` function
+    should be called repeatedly for the same matrix `A` but other parameters
+    may change, such as `p`.
+
+    **Print Information:**
 
     Print information about the inner computation:
 
@@ -267,7 +278,7 @@ def eigenvalue_method(
         >>> toeplitz_logdet(2, 1, size=2000, gram=True)
         2772.588722239781
 
-    There is a significant difference between the approximation with<F3> 90% of
+    There is a significant difference between the approximation with 90% of
     eigenvalues and the actual solution. Because of this, it is not recommended
     to use the eigenvalue method to compute the log-determinant.
     """

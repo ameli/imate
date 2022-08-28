@@ -12,18 +12,22 @@
     .. grid-item-card:: GitHub
         :link: https://github.com/ameli/imate
         :text-align: center
+        :class-card: custom-card-link
 
     .. grid-item-card:: PyPI
         :link: https://pypi.org/project/imate/
         :text-align: center
+        :class-card: custom-card-link
 
     .. grid-item-card:: Anaconda Cloud
         :link: https://anaconda.org/s-ameli/imate
         :text-align: center
+        :class-card: custom-card-link
 
     .. grid-item-card:: Docker Hub
         :link: https://hub.docker.com/repository/docker/sameli/imate
         :text-align: center
+        :class-card: custom-card-link
 
 .. grid:: 4
 
@@ -31,21 +35,25 @@
         :link: install
         :link-type: ref
         :text-align: center
+        :class-card: custom-card-link
 
     .. grid-item-card:: Getting started
         :link: getting-started
         :link-type: ref
         :text-align: center
+        :class-card: custom-card-link
 
     .. grid-item-card:: User guide
         :link: user-guide
         :link-type: ref
         :text-align: center
+        :class-card: custom-card-link
 
     .. grid-item-card:: API reference
         :link: api
         :link-type: ref
         :text-align: center
+        :class-card: custom-card-link
 
 Supported Platforms
 ===================
@@ -176,6 +184,7 @@ Read about the performance of |project| in practical applications:
         :link: perf-gpu
         :link-type: ref
         :text-align: center
+        :class-card: custom-card-link
 
         .. image:: _static/images/performance/benchmark_speed_time.png
            :align: center
@@ -187,6 +196,7 @@ Read about the performance of |project| in practical applications:
         :link: perf-scalability
         :link-type: ref
         :text-align: center
+        :class-card: custom-card-link
 
         .. image:: _static/images/performance/compare_methods_practical_matrix_logdet_time.png
            :align: center
@@ -200,6 +210,7 @@ Read about the performance of |project| in practical applications:
         :link: perf-openblas
         :link-type: ref
         :text-align: center
+        :class-card: custom-card-link
 
         .. image:: _static/images/performance/benchmark_openblas_sparse_time.png
            :align: center
@@ -212,6 +223,7 @@ Read about the performance of |project| in practical applications:
         :link: interpolation
         :link-type: ref
         :text-align: center
+        :class-card: custom-card-link
 
         .. image:: _static/images/performance/affine_matrix_function_logdet.png
            :align: center
@@ -233,9 +245,9 @@ API Reference
 Check the list of functions, classes, and modules of |project| with their usage, options, and examples.
 
 .. toctree::
-    :maxdepth: 2
-
-    API Reference <api>
+   :maxdepth: 2
+   
+   API Reference <api>
 
 Features
 ========
@@ -289,18 +301,21 @@ Related Projects
    .. grid-item-card:: |glearn-light| |glearn-dark|
        :link: https://ameli.github.io/glearn/index.html
        :text-align: center
+       :class-card: custom-card-link
    
        A high-performance python package for machine learning using Gaussian process regression.
 
    .. grid-item-card:: |detkit-light| |detkit-dark|
        :link: https://ameli.github.io/detkit/index.html
        :text-align: center
+       :class-card: custom-card-link
 
        A python package for matrix determinant functions used in machine learning.
 
    .. grid-item-card:: |ortho-light| |ortho-dark|
       :link: https://ameli.github.io/ortho/index.html
       :text-align: center
+      :class-card: custom-card-link
 
       A python package to generate orthogonal basis functions used for matrix functions interpolation.
 

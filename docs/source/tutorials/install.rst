@@ -657,7 +657,7 @@ Set the following environment variables as desired to configure the compilation 
 
     ``USE_CBLAS``
 
-        By default, this variable is set to `0`. Set this variable to `1` if you want to use OpenBLAS instead of the built-in library of |project|. :ref:`Install OpenBLAS <instal-openblas>` and set by
+        By default, this variable is set to `0`. Set this variable to `1` if you want to use OpenBLAS instead of the built-in library of |project|. :ref:`Install OpenBLAS <install-openblas>` and set by
 
         .. tab-set::
 

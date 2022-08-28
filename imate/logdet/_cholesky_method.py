@@ -150,6 +150,8 @@ def cholesky_method(
     Notes
     -----
 
+    **Algorithm:**
+
     The log-determinant is computed from the Cholesky decomposition
     :math:`\\mathbf{A} = \\mathbf{L} \\mathbf{L}^{\\intercal}` as
 
@@ -158,6 +160,18 @@ def cholesky_method(
         \\log | \\mathbf{A} | =
         2 \\mathrm{trace}( \\log \\mathrm{diag}(\\mathbf{L})).
 
+    The result is exact (no approximation) and could be used as a benchmark to
+    test other methods.
+
+    **Computational Complexity:**
+
+    The computational complexity of this method is
+    :math:`\\mathcal{O}(\\frac{1}{3}n^3)` for dense matrices and
+    :math:`\\mathcal{O}(\\frac{\\rho}{3} n^2)` for sparse matrices where
+    :math:`n` is the matrix size and :math:`\\rho` is the sparse matrix
+    density.
+
+    **Implementation:**
 
     This function is essentially a wrapper for the Cholesky function of the
     `scipy` and `scikit-sparse` packages and is primarily used for testing and
@@ -166,9 +180,6 @@ def cholesky_method(
     uses the `Suite Sparse
     <https://people.engr.tamu.edu/davis/suitesparse.html>`_ package to compute
     the Cholesky decomposition.
-
-    The result is exact (no approximation) and could be used as a benchmark to
-    test other methods.
 
     Examples
     --------

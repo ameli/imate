@@ -31,7 +31,7 @@ def trace(
     Trace of matrix or linear operator.
 
     Given the matrix or the linear operator :math:`\\mathbf{A}` and the real
-    exponent :math:`p`, the following is computed:
+    non-negative exponent :math:`p \\geq 0`, the following is computed:
 
     .. math::
 
@@ -86,7 +86,7 @@ def trace(
     method : {'exact', 'eigenvalue', 'slq'}, default='exact'
         The method of computing trace. See documentation for each method:
 
-        * :ref:`Exact <imate.trace.exact>`
+        * :ref:`exact <imate.trace.exact>`
         * :ref:`eigenvalue <imate.trace.eigenvalue>`
         * :ref:`slq <imate.trace.slq>`
 
@@ -175,6 +175,16 @@ def trace(
       which is a randomized algorithm. Can be used on very large matrices
       (:math:`n > 2^{12}`). The solution is an approximation.
 
+    .. note::
+
+        If :math:`p=1` and ``gram`` is `False`, always use `exact` method.
+        If :math:`p` is non-integer, you may use `eigenvalue` or `slq` method,
+        though, for large matrices, the `slq` method is preferred.
+
+    .. note::
+
+        If :math:`p < 0`, use :func:`imate.traceinv` function.
+
     **Input Matrix:**
 
     The input `A` can be either of:
@@ -227,8 +237,8 @@ def trace(
         >>> trace(A)
         200.0
 
-    Alternatively, compute the trace of
-    :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`:
+    Compute the trace of
+    :math:`(\\mathbf{A}^{\\intercal} \\mathbf{A})^3`:
 
     .. code-block:: python
 
@@ -279,7 +289,7 @@ def trace(
 
     **Large matrix:**
 
-    Compute the trace of a very large sparse matrix using `slq` method. This
+    Compute the trace of a very large sparse matrix using `SLQ` method. This
     method does not compute the trace exactly, rather, the result is an
     approximation using Monte-Carlo sampling. The following example uses at
     least `100` samples.
@@ -370,8 +380,8 @@ def trace(
         >>> t = [-1.0, 0.0, 1.0]
 
         >>> # Compute trace of Aop with non-integer power for all parameters t
-        >>> trace(Aop, p=2.5, method='slq', parameters=t)
-        array([ 68.71411681, 135.88356906, 163.44156683])
+        >>> trace(Aop, method='slq', parameters=t)
+        array([398.04, 498.04, 598.04])
     """
 
     if method == 'exact':

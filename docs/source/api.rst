@@ -1,7 +1,7 @@
 .. _api:
 
 API Reference
-=============
+*************
 
 The API reference contains:
 
@@ -17,9 +17,8 @@ The API reference contains:
 
 .. _Functions:
 
----------
 Functions
----------
+=========
 
 The functions of this package are:
 
@@ -36,7 +35,7 @@ Each of the above functions are implemented using both direct and randomized alg
 .. _Log-Determinant:
 
 Log-Determinant
-~~~~~~~~~~~~~~~
+---------------
 
 .. autosummary::
     :toctree: generated
@@ -48,7 +47,7 @@ Log-Determinant
 
 This function computes the log-determinant of :math:`\mathbf{A}^p` or the Gramian matrix :math:`(\mathbf{A}^{\intercal} \mathbf{A})^p` where :math:`p` is a real exponent.
 
-The `imate.logdet` function supports the following methods:
+The `imate.logdet` function has the following methods:
 
 .. toctree::
 
@@ -67,7 +66,7 @@ Method                                       Algorithm                      Matr
 .. _Trace of Inverses:
 
 Trace of Inverse
-~~~~~~~~~~~~~~~~
+----------------
 
 .. autosummary::
     :toctree: generated
@@ -79,7 +78,7 @@ Trace of Inverse
 
 This function computes the trace of :math:`\mathbf{A}^{-p}` or the Gramian matrix :math:`(\mathbf{A}^{\intercal} \mathbf{A})^{-p}` where :math:`p` is a positive real exponent.
 
-The `imate.traceinv` function supports the following methods:
+The `imate.traceinv` function has the following methods:
 
 .. toctree::
 
@@ -100,7 +99,7 @@ Method        Algorithm                      Matrix Size                  Notes
 .. _Trace:
 
 Trace
-~~~~~
+-----
 
 .. autosummary::
     :toctree: generated
@@ -112,7 +111,7 @@ Trace
 
 This function computes the trace of :math:`\mathbf{A}^p` or the Gramian matrix :math:`(\mathbf{A}^{\intercal} \mathbf{A})^p` where :math:`p` is a positive real exponent.
 
-The `imate.trace` function supports the following methods:
+The `imate.trace` function has the following methods:
 
 .. toctree::
 
@@ -132,7 +131,7 @@ Method        Algorithm                      Matrix Size               Notes
 .. _Schatten Norm:
 
 Schatten Norm
-~~~~~~~~~~~~~
+-------------
 
 .. autosummary::
     :toctree: generated
@@ -147,7 +146,7 @@ This function computes the Schatten norm of :math:`\mathbf{A}^p` or the Gramian 
 .. _Interpolators:
 
 Interpolators
--------------
+=============
 
 Interpolate the various matrix functions of the one-parameter family of affine matrix functions.
 
@@ -164,7 +163,7 @@ Interpolate the various matrix functions of the one-parameter family of affine m
 .. _Linear Operators:
 
 Linear Operators
-----------------
+================
 
 Create linear operator objects as container for various matrix types with a unified interface, establish a fully automatic dynamic buffer to allocate, deallocate, and transfer data between CPU and multiple GPU devices on demand, as well as perform basic matrix-vector operations with high performance on both CPU or GPU devices. These objects can be passed to |project| functions as input matrices.
 
@@ -180,7 +179,7 @@ Create linear operator objects as container for various matrix types with a unif
 .. _Sample Matrices:
 
 Sample Matrices
----------------
+===============
 
 Generate sample matrices for test purposes, such as correlation matrix and Toeplitz matrix. The matrix functions of Toeplitz matrix (such as its log-determinant, trace of its inverse, etc) are known analytically, making Toeplitz matrix suitable for benchmarking the result of randomized methods with analytical solutions.
    
@@ -200,7 +199,7 @@ Generate sample matrices for test purposes, such as correlation matrix and Toepl
 .. _Device Inquiry:
 
 Device Inquiry
---------------
+==============
 
 Measure the process time and consumed memory of the Python process during computation with the following classes.
 

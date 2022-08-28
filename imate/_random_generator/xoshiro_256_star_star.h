@@ -38,7 +38,7 @@
 ///          alternative method is Xoshiro256+, which is 15% faster, but it
 ///          suffers linear dependency of the lower 4 bits. It is usually used
 ///          for generating floating numbers using the upper 53 bits and
-///          discard the lower bits.<F3>
+///          discard the lower bits.
 ///
 ///          The Xoshiro256** algorithm is develped by David Blackman and
 ///          Sebastiano Vigna (2018) and the source code can be found at:

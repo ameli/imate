@@ -33,10 +33,10 @@ def exact_method(
         p=1.0,
         return_info=False):
     """
-    Trace matrix using exact (direct) method.
+    Trace of matrix using exact (direct) method.
 
-    Given the matrix :math:`\\mathbf{A}` and the real exponent :math:`p`, the
-    following is computed:
+    Given the matrix :math:`\\mathbf{A}` and the non-negative integer exponent
+    :math:`p \\geq 0`, the following is computed:
 
     .. math::
 
@@ -55,7 +55,7 @@ def exact_method(
     ----------
 
     A : numpy.ndarray, scipy.sparse
-        A non-singular sparse or dense matrix.
+        A sparse or dense matrix.
 
         .. note::
 
@@ -80,7 +80,7 @@ def exact_method(
     Returns
     -------
 
-    logdet : float or numpy.array
+    trace : float or numpy.array
         Trace of matrix.
 
     info : dict
@@ -119,7 +119,6 @@ def exact_method(
             * ``cpu_proc_time``: `float`, CPU processing time of computation.
 
         * ``solver``:
-              library was used.
             * ``version``: `str`, version of imate.
             * ``method``: 'exact'
 
@@ -133,81 +132,121 @@ def exact_method(
     Notes
     -----
 
-    The log-determinant is computed from the Cholesky decomposition
-    :math:`\\mathbf{A} = \\mathbf{L} \\mathbf{L}^{\\intercal}` as
+    With the `exact` method, the trace is computed directly by summing up the
+    diagonal elements of the matrix. 
 
-    .. math::
+    **Computational Complexity:**
 
-        \\log | \\mathbf{A} | =
-        2 \\mathrm{trace}( \\log \\mathrm{diag}(\\mathbf{L})).
+    * If :math:`p=1` and ``gram`` is `False`, the computational complexity is
+      :math:`\\mathcal{O}(n)`.
+      methods.
 
+    * If :math:`p=1` and ``gram`` is `True`, the computational complexity is
+      :math:`\\mathcal{O}(n^2)`.
 
-    This function is essentially a wrapper for the Cholesky function of the
-    `scipy` and `scikit-sparse` packages and is primarily used for testing and
-    comparison (benchmarking) against the randomized methods that are
-    implemented in this package. If ``cholmod`` is set to `True`, this function
-    uses the `Suite Sparse
-    <https://people.engr.tamu.edu/davis/suitesparse.html>`_ package to compute
-    the Cholesky decomposition.
+    * If :math:`p=2` and ``gram`` is `False`, the computational complexity is
+      :math:`\\mathcal{O}(n^3)`.
 
-    The result is exact (no approximation) and could be used as a benchmark to
-    test other methods.
+    * If :math:`p=2` and ``gram`` is `True`, the computational complexity is
+      :math:`\\mathcal{O}(n^3)`.
+
+    * If :math:`p>2`, the computational complexity is
+      :math:`\\mathcal{O}(n^3)`.
+
+    .. note::
+
+        When :math:`p=1` and ``gram`` is `False`, the `exact` method should
+        always be used. If :math:`p \\neq 1` or ``gram`` is `True`, use `slq`
+        method especially if the matrix is large.
 
     Examples
     --------
 
-    Compute the trace of a sparse Toeplitz matrix:
+    Compute the trace of a sample sparse Toeplitz matrix created by
+    :func:`imate.toeplitz` function.
 
     .. code-block:: python
 
         >>> # Import packages
         >>> from imate import toeplitz, trace
 
-        >>> # Generate a sample symmetric and positive-definite matrix
-        >>> A = toeplitz(2, 1, size=100, gram=True)
+        >>> # Generate a sample matrix (a toeplitz matrix)
+        >>> A = toeplitz(2, 1, size=100)
 
-        >>> # Compute trace with exact method (default method)
-        >>> trace(A, method='exact')
-        138.62943611198907
+        >>> # Compute trace with the exact method (default method)
+        >>> trace(A)
+        200.0
+
+    Compute the trace of
+    :math:`(\\mathbf{A}^{\\intercal} \\mathbf{A})^3`:
+
+    .. code-block:: python
+
+        >>> # Compute trace of the Gramian of A^3 using exact method
+        >>> trace(A, p=3, gram=True)
+        24307.0
 
     Print information about the inner computation:
 
     .. code-block:: python
 
-        >>> tr, info = trace(A, method='cholesky', return_info=True)
+        >>> tr, info = trace(A, return_info=True)
         >>> print(tr)
-        138.6294361119891
+        200.0
 
         >>> # Print dictionary neatly using pprint
         >>> from pprint import pprint
         >>> pprint(info)
         {
-            'matrix': {
-                'data_type': b'float64',
-                'density': 0.0298,
-                'exponent': 1.0,
-                'gram': False,
-                'nnz': 298,
-                'num_inquiries': 1,
-                'size': 100,
-                'sparse': True
-            },
             'device': {
                 'num_cpu_threads': 8,
                 'num_gpu_devices': 0,
                 'num_gpu_multiprocessors': 0,
                 'num_gpu_threads_per_multiprocessor': 0
             },
+            'matrix': {
+                'data_type': b'float64',
+                'density': 0.0199,
+                'exponent': 1.0,
+                'gram': False,
+                'nnz': 199,
+                'num_inquiries': 1,
+                'size': 100,
+                'sparse': True
+            },
             'solver': {
-                'cholmod_used': True,
-                'method': 'cholesky',
-                'version': '0.13.0'
+                'method': 'exact',
+                'version': '0.14.0'
             },
             'time': {
-                'alg_wall_time': 0.0007234140066429973,
-                'cpu_proc_time': 0.0009358710000000325,
-                'tot_wall_time': 0.0007234140066429973
+                'alg_wall_time': 0.00013329205103218555,
+                'cpu_proc_time': 0.00017459900000016404,
+                'tot_wall_time': 0.00013329205103218555
             }
+        }
+
+    **Large matrix:**
+
+    For large matrices, use the `exact` method only if :math:`p = 1` and if
+    ``gram`` is `False`.
+
+    .. code-block:: python
+
+        >>> # Generate a matrix of size one million
+        >>> A = toeplitz(2, 1, size=1000000)
+
+        >>> # Approximate trace using stochastic Lanczos quadrature
+        >>> # with at least 100 Monte-Carlo sampling
+        >>> tr, info = trace(A, p=1, gram=False, return_info=True)
+        >>> print(tr)
+        2000000.0
+
+        >>> # Find the time it took to compute the above
+        >>> print(info['time'])
+        {
+            'tot_wall_time': 0.004113928065635264,
+            'alg_wall_time': 0.004113928065635264,
+            'cpu_proc_time': 0.0041158319999681225
         }
     """
     # Checking input arguments

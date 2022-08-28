@@ -32,7 +32,7 @@ def traceinv(
     Log-determinant of non-singular matrix or linear operator.
 
     Given the matrix or the linear operator :math:`\\mathbf{A}` and the real
-    exponent :math:`p`, the following is computed:
+    non-negative exponent :math:`p`, the following is computed:
 
     .. math::
 
@@ -290,7 +290,7 @@ def traceinv(
 
     **Large matrix:**
 
-    Compute log-determinant of a very large sparse matrix using `slq` method.
+    Compute log-determinant of a very large sparse matrix using `SLQ` method.
     This method does not compute log-determinant exactly, rather, the result is
     an approximation using Monte-Carlo sampling. The following example uses at
     least `100` samples.

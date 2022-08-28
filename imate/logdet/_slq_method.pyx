@@ -331,8 +331,21 @@ def slq_method(
     Notes
     -----
 
+    **Computational Complexity:**
+
     This method uses stochastic Lanczos quadrature (SLQ), which is a randomized
-    algorithm. It can be used on very large matrices (:math:`n > 2^{12}`). The
+    algorithm. The computational complexity of this method is
+
+    .. math::
+
+        \\mathcal{O}((\\rho n^2 + n l) s l),
+
+    where :math:`n` is the matrix size, :math:`\\rho` is the density of
+    sparse matrix (for dense matrix, :math:`\\rho=1`), :math:`l` is the
+    Lanczos degree (set with ``lanczos_degree``), and :math:`s` is the number
+    of samples (set with ``min_num_samples`` and ``max_num_samples``).
+
+    This method can be used on very large matrices (:math:`n > 2^{12}`). The
     solution is an approximation.
 
     **Input Matrix:**
@@ -469,8 +482,8 @@ def slq_method(
 
     **Large matrix:**
 
-    Compute log-determinant of a very large sparse matrix using at least `100`
-    samples:
+    Compute the log-determinant of a very large sparse matrix using at least
+    `100` samples:
 
     .. code-block:: python
         :emphasize-lines: 9, 10
@@ -512,6 +525,28 @@ def slq_method(
     matrix took only 16 seconds. Computing the log-determinant of such a
     large matrix using any of the exact methods (such as ``cholesky`` or
     ``eigenvalue``) is infeasible.
+
+    **Non-symmetric Input Matrix:**
+
+    Recall that `slq` method requires :math:`\\mathbf{A}` to be symmetric.
+    However, if we set ``gram=True`` in :func:`imate.logdet` function to
+    compute the log-determinant of
+    :math:`(\\mathbf{A}^{\\intercal} \\mathbf{A})` or its power, the input
+    matrix :math:`\\mathbf{A}` may be non-symmetric.
+
+    Compute the log-determinant of
+    :math:`(\\mathbf{A}^{\\intercal} \\mathbf{A})^{2.5}`:
+
+    .. code-block:: python
+
+        >>> # Generate a matrix of size one million. Matrix is not symmetric.
+        >>> A = toeplitz(2, 1, size=1000000)
+
+        >>> # Approximate trace using stochastic Lanczos quadrature
+        >>> # with at least 100 Monte-Carlo sampling
+        >>> logdet(A, gram=True, p=2.5, method='slq', min_num_samples=100,
+        ...       max_num_samples=200)
+        2772676.0000623395
 
     **Output information:**
 
@@ -598,7 +633,7 @@ def slq_method(
         ...        error_rtol=2e-4, confidence_level=0.95,
         ...        outlier_significance_level=0.001, plot=True)
 
-    .. image:: ../_static/images/plots/slq_convergence_1.png
+    .. image:: ../_static/images/plots/logdet_slq_convergence_1.png
         :align: center
         :class: custom-dark
 
@@ -722,7 +757,7 @@ def slq_method(
     The output of the plot is shown below. Each colored curve corresponds to
     a parameter in ``t = [-1, 0, 1]``.
 
-    .. image:: ../_static/images/plots/slq_convergence_2.png
+    .. image:: ../_static/images/plots/logdet_slq_convergence_2.png
         :align: center
         :width: 80%
         :class: custom-dark

@@ -65,7 +65,7 @@ def eigenvalue_method(
 
         .. note::
 
-            In the <F3>eigenvalue method, the matrix cannot be a type of
+            In the eigenvalue method, the matrix cannot be a type of
             :class:`Matrix` or :class:`imate.AffineMatrixFunction` classes.
 
     gram : bool, default=False
@@ -171,8 +171,8 @@ def eigenvalue_method(
 
     **Dense matrix:**
 
-    Compute the log-determinant of a sample sparse Toeplitz matrix created
-    by :func:`imate.toeplitz` function:
+    Compute the trace of :math:`\\mathbf{A}^{-2.5}` for a symmetric Toeplitz
+    matrix created by :func:`imate.toeplitz` function:
 
     .. code-block:: python
 
@@ -189,6 +189,17 @@ def eigenvalue_method(
         >>> logdet(A, method='eigenvalue', assume_matrix='sym')
         138.62943611198907
 
+    Compute the trace of :math:`(\\mathbf{A}^{\\intercal} \\mathbf{A})^{-2.5}`:
+
+    .. code-block:: python
+
+        >>> # Compute trace with eigenvalue method
+        >>> trace(A, gram=True, p=2.5, method='eigenvalue',
+        ...       assume_matrix='sym')
+        1533618.9999999988
+
+    **Precomputed Eigenvalues:**
+
     Alternatively, compute the eigenvalues of `A` in advance, and pass it to
     this function:
 
@@ -202,6 +213,12 @@ def eigenvalue_method(
         >>> # Pass the eigenvalues to logdet function
         >>> logdet(A, method='eigenvalue', eigenvalues=eigenvalues)
         138.62943611198907
+
+    Pre-computing eigenvalues can be useful if :func:`imate.traceinv` function
+    should be called repeatedly for the same matrix `A` but other parameters
+    may change, such as `p`.
+
+    **Print Information:**
 
     Print information about the inner computation:
 
@@ -267,7 +284,7 @@ def eigenvalue_method(
         >>> toeplitz_logdet(2, 1, size=2000, gram=True)
         2772.588722239781
 
-    There is a significant difference between the approximation with<F3> 90% of
+    There is a significant difference between the approximation with 90% of
     eigenvalues and the actual solution. Because of this, it is not recommended
     to use the eigenvalue method to compute the log-determinant.
     """
@@ -297,6 +314,11 @@ def eigenvalue_method(
         eigenvalues = compute_eigenvalues(A, gram, assume_matrix,
                                           non_zero_eig_fraction,
                                           which_eigenvalues)
+
+    else:
+        # When eigenvalues of A are provided by the user
+        if gram:
+            eigenvalues = eigenvalues**2
 
     # Compute trace of inverse of matrix
     not_nan = numpy.logical_not(numpy.isnan(eigenvalues))
