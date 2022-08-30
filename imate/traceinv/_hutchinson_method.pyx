@@ -407,11 +407,10 @@ def hutchinson_method(
 
         >>> # Generate a sample matrix
         >>> A = toeplitz(2, 1, size=100)
-        >>> from imate import traceinv
 
         >>> # Compute trace of inverse
         >>> traceinv(A, p=2, method='hutchinson')
-        18.527409020384308
+        24.73726368966402
 
     Compute the trace of :math:`(\\mathbf{A}^{\\intercal} \\mathbf{A})^{-2}`:
 
@@ -419,7 +418,7 @@ def hutchinson_method(
 
         >>> # Using Gramian matrix of A
         >>> traceinv(A, gram=True, p=2, method='hutchinson')
-        18.527409020384308
+        17.751659383784748
 
     Compute the trace of :math:`\\mathbf{B} \\mathbf{A}^{-2}`:
 
@@ -430,7 +429,7 @@ def hutchinson_method(
 
         >>> # Using Gramian matrix of A
         >>> traceinv(A, p=2, method='hutchinson', B=B)
-        18.527409020384308
+        99.8817360381704
 
     Compute the trace of :math:`\\mathbf{B} \\mathbf{A}^{-2} \\mathbf{C}
     \\mathbf{A}^{-2}`:
@@ -442,19 +441,16 @@ def hutchinson_method(
 
         >>> # Using Gramian matrix of A
         >>> traceinv(A, p=2, method='hutchinson', B=B, C=C)
-        18.527409020384308
+        124.45436379980006
 
     Compute the trace of :math:`\\mathbf{B} (\\mathbf{A}^{\\intercal}
     \\mathbf{A})^{-2} \\mathbf{C} (\\mathbf{A}^{\\intercal} \\mathbf{A})^{-2}`:
 
     .. code-block:: python
 
-        >>> # Generate another sample matrix
-        >>> C = toeplitz(5, 4, size=100)
-
         >>> # Using Gramian matrix of A
         >>> traceinv(A, gram=True, p=2, method='hutchinson', B=B, C=C)
-        18.527409020384308
+        5.517453125230929
 
     **Verbose output:**
 
@@ -472,49 +468,46 @@ def hutchinson_method(
 
         >>> ti, info = traceinv(A, method='hutchinson', return_info=True)
         >>> print(ti)
-        32.708445808330886
+        50.059307947603585
 
         >>> # Print dictionary neatly using pprint
         >>> from pprint import pprint
         >>> pprint(info)
         {
             'matrix': {
+                'assume_matrix': 'gen',
                 'data_type': b'float64',
-                'density': 0.0298,
+                'density': 0.0199,
                 'exponent': 1,
                 'gram': False,
-                'nnz': 298,
+                'nnz': 199,
                 'num_inquiries': 1,
-                'num_operator_parameters': 0,
-                'parameters': None,
                 'size': 100,
                 'sparse': True
             },
             'convergence': {
-                'all_converged': False,
                 'converged': False,
-                'max_num_samples': 50,
-                'min_num_samples': 10,
-                'num_outliers': 0,
-                'num_samples_used': 50,
-                'samples': array([33.24133019, ..., 33.20591227]),
-                'samples_mean': 32.708445808330886,
-                'samples_processed_order': array([ 0, ..., 49])
+                 'max_num_samples': 50,
+                 'min_num_samples': 10,
+                 'num_outliers': 0,
+                 'num_samples_used': 50,
+                 'samples': array([52.237154, ..., 51.37932704]),
+                 'samples_mean': 50.059307947603585,
+                 'samples_processed_order': array([ 0, ..., 49])
             },
             'error': {
-                'absolute_error': 1.0957187950411644,
+                'absolute_error': 0.8111131801161796,
                'confidence_level': 0.95,
                'error_atol': 0.0,
                'error_rtol': 0.01,
                'outlier_significance_level': 0.001,
-               'relative_error': 0.03349956770988132
+               'relative_error': 0.016203044216375525
             },
             'solver': {
-                'lanczos_degree': 20,
-                'lanczos_tol': 2.220446049250313e-16,
-                'method': 'slq',
-                'orthogonalize': 0,
-                'version': '0.15.0'
+                'method': 'hutchinson',
+                'orthogonalize': True,
+                'solver_tol': 1e-06,
+                'version': '0.16.0'
             },
             'device': {
                 'num_cpu_threads': 8,
@@ -523,11 +516,11 @@ def hutchinson_method(
                 'num_gpu_threads_per_multiprocessor': 0
             },
             'time': {
-                'alg_wall_time': 0.005590200424194336,
-                'cpu_proc_time': 0.03228565200000011,
-                'tot_wall_time': 0.0057561639696359634
-                }
+                'alg_wall_time': 0.03236744087189436,
+              'cpu_proc_time': 0.047695197999999994,
+              'tot_wall_time': 0.033352302853018045
             }
+        }
 
     **Large matrix:**
 
@@ -545,14 +538,14 @@ def hutchinson_method(
         ...                     assume_matrix='sym_pos', min_num_samples=100,
         ...                     max_num_samples=200, return_info=True)
         >>> print(ti)
-        333273.2654698325
+        333292.3226031165
 
         >>> # Find the time it took to compute the above
         >>> print(info['time'])
         {
-            'tot_wall_time': 15.991112960968167,
-            'alg_wall_time': 15.972427368164062,
-            'cpu_proc_time': 117.7014269
+            'tot_wall_time': 175.93423152901232,
+            'alg_wall_time': 119.86316476506181,
+            'cpu_proc_time': 572.180877451
         }
 
     Compare the result of the above approximation with the exact solution of
@@ -565,9 +558,9 @@ def hutchinson_method(
         >>> toeplitz_traceinv(2, 1, size=1000000, gram=True)
         333333.2222222222
 
-    It can be seen that the error of approximation is :math:`0.018 \\%`. This
+    It can be seen that the error of approximation is :math:`0.012 \\%`. This
     accuracy is remarkable considering that the computation on such a large
-    matrix took only 16 seconds. Computing the trace of such a large matrix
+    matrix took on 119 seconds. Computing the trace of such a large matrix
     using any of the exact methods (such as ``exact`` or ``eigenvalue``) is
     infeasible.
 
@@ -598,9 +591,9 @@ def hutchinson_method(
     In the right plot, the darker shaded area in the interval :math:`[0, 50]`
     shows the minimum number of samples and is set by ``min_num_samples=50``.
     The iterations do not stop till the minimum number of iterations is passed.
-    We can observe that sampling is terminated after 120 iterations where the
+    We can observe that sampling is terminated after 140 iterations where the
     relative error of samples reaches 0.02% since we set ``error_rtol=2e-4``.
-    The lighter shaded area in the interval :math:`[120, 150]` corresponds to
+    The lighter shaded area in the interval :math:`[140, 150]` corresponds to
     the iterations that were not performed to reach the specified maximum
     iterations by ``max_num_samples=150``.
     """

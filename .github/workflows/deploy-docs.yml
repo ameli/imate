@@ -23,15 +23,16 @@ jobs:
                   BRANCH: gh-pages
                   FOLDER: docs/build/html
                   BUILD_SCRIPT: |
+                      set -e
                       apt-get update
                       apt-get install graphviz -y
-                      apt-get install pandoc -y
+                      vascript:void(0);)apt-get install pandoc -y
                       pip install --upgrade pip
                       pip install -r docs/requirements.txt
                       export CYTHON_BUILD_FOR_DOC=1
                       python setup.py install
                       export PATH=$HOME/.local/bin:$PATH
-                      make html --directory=docs
+                      make clean html --directory=docs
                       touch docs/build/html/.nojekyll
                       echo 'Visit [Documentation](https://ameli.github.io/imate/index.html).' > docs/build/html/README.md
 
