@@ -75,7 +75,7 @@ def eigenvalue_method(
         log-determinant of :math:`\\mathbf{A}^p` is computed.
 
     p : float, default=1.0
-        The exponent :math:`p` in :math:`\\mathbf{A}^p`.
+        The real exponent :math:`p` in :math:`\\mathbf{A}^p`.
 
     return_info : bool, default=False
         If `True`, this function also returns a dictionary containing
@@ -237,15 +237,15 @@ def eigenvalue_method(
                 'size': 100,
                 'sparse': False
             },
+            'solver': {
+                'method': 'eigenvalue',
+                'version': '0.13.0'
+            },
             'device': {
                 'num_cpu_threads': 8,
                 'num_gpu_devices': 0,
                 'num_gpu_multiprocessors': 0,
                 'num_gpu_threads_per_multiprocessor': 0
-            },
-            'solver': {
-                'method': 'eigenvalue',
-                'version': '0.13.0'
             },
             'time': {
                 'alg_wall_time': 0.007327683997573331,

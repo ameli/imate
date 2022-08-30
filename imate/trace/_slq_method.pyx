@@ -82,7 +82,7 @@ def slq_method(
 
         .. warning::
 
-            The symmetry of `A` will not be checked by this function. If
+            The symmetry of `A` is not pre-checked by this function. If
             ``gram`` is `False`, make sure `A` is symmetric.
 
     gram : bool, default=False
@@ -309,7 +309,10 @@ def slq_method(
 
         * ``solver``:
             * ``version``: `str`, version of imate.
-            * ``method``: 'slq'
+            * ``method``: 'slq'.
+            * ``lanczos_degree``: `bool`, Lanczos degree.
+            * ``lanczos_tol``: `float`, Lanczos tolerance.
+            * ``orthogonalize``: `int`, orthogonalization flag.
 
     Raises
     ------
@@ -330,7 +333,7 @@ def slq_method(
 
     Notes
     -----
-    
+
     **Computational Complexity:**
 
     This method uses stochastic Lanczos quadrature (SLQ), which is a randomized
@@ -479,6 +482,135 @@ def slq_method(
     Examples
     --------
 
+    **Symmetric Input Matrix:**
+
+    The `slq` method requires the input matrix of :func:`imate.trace` function
+    to be symmetric when ``gram`` is `False`. For the first example, generate a
+    symmetric sample matrix using :func:`imate.toeplitz` function as follows:
+
+    .. code-block:: python
+
+        >>> # Import packages
+        >>> from imate import toeplitz
+
+        >>> # Generate a symmetric matrix by setting gram=True.
+        >>> A = toeplitz(2, 1, size=100, gram=True)
+
+    In the above, by passing ``gram=True`` to :func:`imate.toeplitz` function,
+    the Gramian of the Toeplitz matrix is returned, which is symmetric. Compute
+    the trace of :math:`\\mathbf{A}^{2.5}`:
+
+    .. code-block:: python
+
+        >>> # Import packages
+        >>> from imate import trace
+
+        >>> # Compute trace
+        >>> trace(A, gram=False, p=2.5, method='slq')
+        3177.56
+
+    .. note:
+
+        Since `slq` is a stochastic method, the above result slightly
+        differs after each run.
+
+    **Gramian Matrix:**
+    
+    Passing ``gram=True`` to :func:`imate.trace` function uses the Gramian
+    of the input matrix. In this case, the input matrix can be non-symmetric.
+    In the next example, generate a non-symmetric matrix, :math:`\\mathbf{B}`,
+    then compute the trace of
+    :math:`(\\mathbf{B}^{\\intercal} \\mathbf{B})^{2.5}`.
+
+    .. code-block:: python
+
+        >>> # Generate a non-symmetric matrix by setting gram=False
+        >>> B = toeplitz(2, 1, size=100, gram=False)
+
+        >>> # Compute the trace of Gramian by passing gram=True
+        >>> trace(B, gram=True, p=2.5, method='slq')
+        3180.60
+
+    Note that the result of the two examples in the above are the similar since
+    the input matrix :math:`\\mathbf{A}` of the first example is the Gramian of
+    the input matrix :math:`\\mathbf{B}` in the second example, that is
+    :math:`\\mathbf{A} = \\mathbf{B}^{\\intercal} \\mathbf{B}`. Since the
+    second example uses the Gramian of the input matrix, it computes the same
+    quantity as the first example.
+
+    **Verbose output:**
+
+    By setting ``verbose`` to `True`, useful info about the process is
+    printed.
+
+    .. literalinclude:: ../_static/data/imate.trace.slq-verbose-1.txt
+        :language: python
+
+    **Output information:**
+
+    Print information about the inner computation:
+
+    .. code-block:: python
+
+        >>> tr, info = trace(A, method='slq', return_info=True)
+        >>> print(tr)
+        506.04
+
+        >>> # Print dictionary neatly using pprint
+        >>> from pprint import pprint
+        >>> pprint(info)
+        {
+            'convergence': {
+                'all_converged': False,
+                'converged': False,
+                'max_num_samples': 50,
+                'min_num_samples': 10,
+                'num_outliers': 0,
+                'num_samples_used': 50,
+                'samples': array([527., ..., 495.]),
+                'samples_mean': 506.04,
+                'samples_processed_order': array([ 2, ..., 49])
+            },
+            'device': {
+                'num_cpu_threads': 8,
+                'num_gpu_devices': 0,
+                'num_gpu_multiprocessors': 0,
+                'num_gpu_threads_per_multiprocessor': 0
+            },
+            'error': {
+                'absolute_error': 10.380366588608128,
+               'confidence_level': 0.95,
+               'error_atol': 0.0,
+               'error_rtol': 0.01,
+               'outlier_significance_level': 0.001,
+               'relative_error': 0.02051293689947065
+            },
+            'matrix': {
+                'data_type': b'float64',
+                'density': 0.0298,
+                'exponent': 1.0,
+                'gram': False,
+                'nnz': 298,
+                'num_inquiries': 1,
+                'num_operator_parameters': 0,
+                'parameters': None,
+                'size': 100,
+                'sparse': True
+            },
+            'solver': {
+                'lanczos_degree': 20,
+                'lanczos_tol': 2.220446049250313e-16,
+                'method': 'slq',
+                'orthogonalize': 0,
+                'version': '0.15.0'
+            },
+            'time': {
+                'alg_wall_time': 0.003865957260131836,
+              'cpu_proc_time': 0.021690301999999884,
+              'tot_wall_time': 0.0040010069496929646
+            }
+        }
+
     **Large matrix:**
 
     Compute the trace of :math:`\\mathbf{A}` for a very large sparse
@@ -486,10 +618,7 @@ def slq_method(
     :math:`\\mathbf{A}` should be symmetric.
 
     .. code-block:: python
-        :emphasize-lines: 9, 10
-
-        >>> # Import packages
-        >>> from imate import toeplitz, trace
+        :emphasize-lines: 7, 8
 
         >>> # Generate a matrix of size one million. Set gram=True to create
         >>> # a symmetric matrix needed for slq method.
@@ -500,14 +629,14 @@ def slq_method(
         >>> tr, info = trace(A, method='slq', min_num_samples=100,
         ...                  max_num_samples=200, return_info=True)
         >>> print(tr)
-        1386320.4734751645
+        4999763.32
 
         >>> # Find the time it took to compute the above
         >>> print(info['time'])
         {
-            'tot_wall_time': 16.598053652094677,
-            'alg_wall_time': 16.57977867126465,
-            'cpu_proc_time': 113.03275911399999
+            'tot_wall_time': 16.101079436950386,
+            'alg_wall_time': 16.08251190185547,
+            'cpu_proc_time': 117.259937983
         }
 
     Compare the result of the above approximation with the exact solution of
@@ -518,109 +647,13 @@ def slq_method(
 
         >>> from imate.sample_matrices import toeplitz_trace
         >>> toeplitz_trace(2, 1, size=1000000, gram=True)
-        1386294.3611198906
+        4999999
 
-    It can be seen that the error of approximation is :math:`0.0018 \\%`. This
+    It can be seen that the error of approximation is :math:`0.008 \\%`. This
     accuracy is remarkable considering that the computation on such a large
     matrix took only 16 seconds. Computing the trace of such a large matrix
     using any of the exact methods (such as ``exact`` or ``eigenvalue``) is
     infeasible.
-
-    **Non-symmetric Input Matrix:**
-
-    Recall that `slq` method requires :math:`\\mathbf{A}` to be symmetric.
-    However, if we set ``gram=True`` in :func:`imate.trace` function to compute
-    the trace of :math:`(\\mathbf{A}^{\\intercal} \\mathbf{A})` or its power,
-    the input matrix :math:`\\mathbf{A}` may be non-symmetric.
-
-    Compute the trace of :math:`(\\mathbf{A}^{\\intercal} \\mathbf{A})^{2.5}`:
-
-    .. code-block:: python
-
-        >>> # Import packages
-        >>> from imate import toeplitz, trace
-
-        >>> # Generate a matrix of size one million. Matrix is not symmetric.
-        >>> A = toeplitz(2, 1, size=1000000)
-
-        >>> # Approximate trace using stochastic Lanczos quadrature
-        >>> # with at least 100 Monte-Carlo sampling
-        >>> trace(A, gram=True, p=2.5, method='slq', min_num_samples=100,
-        ...       max_num_samples=200)
-        1386320.4734751645
-
-    **Output information:**
-
-    Print information about the inner computation:
-
-    .. code-block:: python
-
-        >>> tr, info = trace(A, method='slq', return_info=True)
-        >>> print(tr)
-        138.6294361119891
-
-        >>> # Print dictionary neatly using pprint
-        >>> from pprint import pprint
-        >>> pprint(info)
-        {
-            'matrix': {
-                'data_type': b'float64',
-                'density': 2.999998e-06,
-                'exponent': 1.0,
-                'gram': False,
-                'nnz': 2999998,
-                'num_inquiries': 1,
-                'num_operator_parameters': 0,
-                'parameters': None,
-                'size': 1000000,
-                'sparse': True
-            },
-            'convergence': {
-                'all_converged': True,
-                'converged': True,
-                'max_num_samples': 50,
-                'min_num_samples': 10,
-                'num_outliers': 0,
-                'num_samples_used': 10,
-                'samples': array([1386085.91975074, ..., nan]),
-                 'samples_mean': 1385604.1663613867,
-                'samples_processed_order': array([ 6, ..., 0]),
-            },
-            'error': {
-                'absolute_error': 467.54178690512845,
-                'confidence_level': 0.95,
-                'error_atol': 0.0,
-                'error_rtol': 0.01,
-                'outlier_significance_level': 0.001,
-                'relative_error': 0.0003374281041120848
-            },
-            'solver': {
-                'lanczos_degree': 20,
-                'lanczos_tol': 2.220446049250313e-16,
-                'method': 'slq',
-                'orthogonalize': 0,
-                'version': '0.13.0'
-            },
-            'device': {
-                'num_cpu_threads': 8,
-                'num_gpu_devices': 0,
-                'num_gpu_multiprocessors': 0,
-                'num_gpu_threads_per_multiprocessor': 0
-            },
-            'time': {
-                'alg_wall_time': 2.6905629634857178,
-                'cpu_proc_time': 18.138382528999998,
-                'tot_wall_time': 2.69458799099084
-            }
-        }
-
-    **Verbose output:**
-
-    By setting ``verbose`` to `True`, useful info about the process is
-    printed.
-
-    .. literalinclude:: ../_static/imate.trace.slq-verbose-1.txt
-        :language: python
 
     **Plotting:**
 
@@ -673,7 +706,7 @@ def slq_method(
 
         >>> # Compute the trace of Aop
         >>> trace(Aop, method='slq')
-        141.52929878934194
+        493.08
 
     An advantage of passing `Aop` (instead of `A`) to the `trace` function
     will be clear when using GPU.
@@ -687,7 +720,7 @@ def slq_method(
 
         >>> # Compute thet race of Aop
         >>> trace(Aop, method='slq', gpu=True)
-        141.52929878934194
+        493.08
 
     The above function call triggers the object `Aop` to automatically load the
     matrix data on the GPU.
@@ -703,7 +736,7 @@ def slq_method(
 
         >>> # Compute the trace of Aop
         >>> trace(Aop, method='slq', gpu=True, gram=True)
-        141.52929878934194
+        493.08
 
     In the above example, no data is needed to be transferred from CPU host to
     GPU device again. However, if `A` was used instead of `Aop`, the data would
@@ -723,8 +756,8 @@ def slq_method(
         \\mathbf{A}(t) = \\mathbf{A} + t \\mathbf{I}.
 
     The object :math:`\\mathbf{A}(t)` can be passed to `trace` function with
-    multiple values for the parameter :math:`t` to compute their
-    log-determinant all at once, as follows.
+    multiple values for the parameter :math:`t` to compute their trace  all at
+    once, as follows.
 
     .. code-block:: python
         :emphasize-lines: 8
@@ -733,30 +766,30 @@ def slq_method(
         >>> from imate import toeplitz, trace, AffineMatrixFunction
 
         >>> # Generate a sample matrix (a toeplitz matrix)
-        >>> A = toeplitz(2, 1, size=100, gram=True)
+        >>> A = toeplitz(2, 1, size=10000, gram=True)
 
         >>> # Create a matrix operator object from matrix A
         >>> Aop = AffineMatrixFunction(A)
 
         >>> # A list of parameters t to pass to Aop
-        >>> t = [-1.0, 0.0, 1.0]
+        >>> t = [-1.0, 0.5, 1.0]
 
         >>> # Compute the trace of Aop for all parameters t
-        >>> trace(Aop, method='slq', parameters=t, min_num_samples=20,
-        ...       max_num_samples=80, error_rtol=1e-3, confidence_level=0.95,
+        >>> trace(Aop, method='slq', parameters=t, min_num_samples=50,
+        ...       max_num_samples=150, error_rtol=2e-3, confidence_level=0.95,
         ...       outlier_significance_level=0.001, plot=True, verbose=True)
-        array([ 68.71411681, 135.88356906, 163.44156683])
+        [39988.03448276 54988.03448276 59988.03448276]
 
     The output of the verbose argument is shown below. In the results section
     of the table below, each row `i` under the `inquiry` column corresponds to
-    each element of the parameters ``t = [-1, 0, 1]`` that was specified by
+    each element of the parameters ``t = [-1, 0.5, 1]`` that was specified by
     ``parameters`` argument.
 
-    .. literalinclude:: ../_static/imate.trace.slq-verbose-2.txt
+    .. literalinclude:: ../_static/data/imate.trace.slq-verbose-2.txt
         :language: python
 
     The output of the plot is shown below. Each colored curve corresponds to
-    a parameter in ``t = [-1, 0, 1]``.
+    a parameter in ``t = [-1, 0.5, 1]``.
 
     .. image:: ../_static/images/plots/trace_slq_convergence_2.png
         :align: center

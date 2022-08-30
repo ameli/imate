@@ -7,6 +7,8 @@
 
 |project|, short for **I**\ mplicit **Ma**\ trix **T**\ race **E**\ stimator, is a C++/CUDA library that provides high-performance randomized algorithms for the computationally expensive matrix functions in machine learning in Python.
 
+To learn more about |project| at a glance, see :ref:`Overview <overview>`.
+
 .. grid:: 4
 
     .. grid-item-card:: GitHub
@@ -58,7 +60,7 @@
 Supported Platforms
 ===================
 
-Successful installation and tests performed on the following operating systems, architectures, and Python/PyPy versions:
+Successful installation and tests performed on the following operating systems, architectures, and Python and `PyPy <https://www.pypy.org/>`_ versions:
 
 .. |y| unicode:: U+2714
 .. |n| unicode:: U+2716
@@ -101,7 +103,7 @@ Install
 
         Install with ``pip`` from `PyPI <https://pypi.org/project/imate/>`_:
 
-        ::
+        .. prompt:: bash
             
             pip install imate
 
@@ -109,7 +111,7 @@ Install
 
         Install with ``conda`` from `Anaconda Cloud <https://anaconda.org/s-ameli/imate>`_:
 
-        ::
+        .. prompt:: bash
             
             conda install -c s-ameli imate
 
@@ -135,7 +137,7 @@ The docker image comes with pre-installed |project|, NVIDIA graphic driver, and 
 
         Pull docker image from `Docker Hub <https://hub.docker.com/repository/docker/sameli/imate>`_:
 
-        ::
+        .. prompt:: bash
             
             docker pull sameli/imate
 
@@ -150,7 +152,7 @@ For a complete guide, see:
 GPU
 ===
 
-|project| can run on CUDA-capable **multi**-GPU devices, which can be set up in multiple ways. Using the **docker image** is the easiest way to run |project| on GPU devices. For a comprehensive guide, see:
+|project| can run on CUDA-capable **multi**-GPU devices, which can be set up in multiple ways. Using the **docker container** is the easiest way to run |project| on GPU devices. For a comprehensive guide, see:
 
 .. toctree::
     :maxdepth: 2
@@ -184,7 +186,7 @@ Read about the performance of |project| in practical applications:
         :link: perf-gpu
         :link-type: ref
         :text-align: center
-        :class-card: custom-card-link
+        :class-card: custom-card-link-2
 
         .. image:: _static/images/performance/benchmark_speed_time.png
            :align: center
@@ -196,7 +198,7 @@ Read about the performance of |project| in practical applications:
         :link: perf-scalability
         :link-type: ref
         :text-align: center
-        :class-card: custom-card-link
+        :class-card: custom-card-link-2
 
         .. image:: _static/images/performance/compare_methods_practical_matrix_logdet_time.png
            :align: center
@@ -210,7 +212,7 @@ Read about the performance of |project| in practical applications:
         :link: perf-openblas
         :link-type: ref
         :text-align: center
-        :class-card: custom-card-link
+        :class-card: custom-card-link-2
 
         .. image:: _static/images/performance/benchmark_openblas_sparse_time.png
            :align: center
@@ -223,7 +225,7 @@ Read about the performance of |project| in practical applications:
         :link: interpolation
         :link-type: ref
         :text-align: center
-        :class-card: custom-card-link
+        :class-card: custom-card-link-2
 
         .. image:: _static/images/performance/affine_matrix_function_logdet.png
            :align: center

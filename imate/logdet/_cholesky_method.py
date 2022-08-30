@@ -64,8 +64,12 @@ def cholesky_method(
     ----------
 
     A : numpy.ndarray, scipy.sparse
-        A non-singular sparse or dense matrix. For ``method=cholesky``, the
-        matrix `A` should be positive-definite.
+        A positive-definite sparse or dense matrix.
+
+        .. warning::
+
+            This function does not pre-check whether the input matrix is
+            positive-definite.
 
         .. note::
 
@@ -79,7 +83,7 @@ def cholesky_method(
         log-determinant of :math:`\\mathbf{A}^p` is computed.
 
     p : float, default=1.0
-        The exponent :math:`p` in :math:`\\mathbf{A}^p`.
+        The real exponent :math:`p` in :math:`\\mathbf{A}^p`.
 
     return_info : bool, default=False
         If `True`, this function also returns a dictionary containing
@@ -90,7 +94,7 @@ def cholesky_method(
         If set to `True`, it uses the `Cholmod` library from `scikit-sparse`
         package to compute the Cholesky decomposition. If set to `False`, it
         uses `scipy.sparse.cholesky` method. If set to `None`, first, it tries
-        to use Cholmod library,  but if Cholmod is not available, it uses
+        to use Cholmod library,  but if Cholmod is not available, then it uses
         `scipy.sparse.cholesky` method.
 
     Returns
@@ -220,16 +224,16 @@ def cholesky_method(
                 'size': 100,
                 'sparse': True
             },
+            'solver': {
+                'cholmod_used': True,
+                'method': 'cholesky',
+                'version': '0.13.0'
+            },
             'device': {
                 'num_cpu_threads': 8,
                 'num_gpu_devices': 0,
                 'num_gpu_multiprocessors': 0,
                 'num_gpu_threads_per_multiprocessor': 0
-            },
-            'solver': {
-                'cholmod_used': True,
-                'method': 'cholesky',
-                'version': '0.13.0'
             },
             'time': {
                 'alg_wall_time': 0.0007234140066429973,

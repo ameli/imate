@@ -38,15 +38,14 @@ def eigenvalue_method(
         assume_matrix='gen',
         non_zero_eig_fraction=0.9):
     """
-    Log-determinant of non-singular matrix using eigenvalue method.
+    Trace of inverse of non-singular matrix using eigenvalue method.
 
     Given the matrix :math:`\\mathbf{A}` and the real exponent :math:`p`, the
     following is computed:
 
     .. math::
 
-        \\mathrm{logdet} \\left(\\mathbf{A}^p \\right) = p \\log_e \\vert
-        \\det (\\mathbf{A}) \\vert.
+        \\mathrm{trace} \\left(\\mathbf{A}^{-p} \\right).
 
     If ``gram`` is `True`, then :math:`\\mathbf{A}` in the above is replaced by
     the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`, and the
@@ -54,8 +53,8 @@ def eigenvalue_method(
 
     .. math::
 
-        \\mathrm{logdet} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^p
-        \\right) = 2p \\log_e \\vert \\det (\\mathbf{A}) \\vert.
+        \\mathrm{trace} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^{-p}
+        \\right).
 
     Parameters
     ----------
@@ -69,13 +68,13 @@ def eigenvalue_method(
             :class:`Matrix` or :class:`imate.AffineMatrixFunction` classes.
 
     gram : bool, default=False
-        If `True`, the log-determinant of the Gramian matrix,
-        :math:`(\\mathbf{A}^{\\intercal}\\mathbf{A})^p`, is computed. The
+        If `True`, the trace of the Gramian matrix,
+        :math:`(\\mathbf{A}^{\\intercal}\\mathbf{A})^{-p}`, is computed. The
         Gramian matrix itself is not directly computed. If `False`, the
-        log-determinant of :math:`\\mathbf{A}^p` is computed.
+        trace of :math:`\\mathbf{A}^{-p}` is computed.
 
     p : float, default=1.0
-        The exponent :math:`p` in :math:`\\mathbf{A}^p`.
+        The real exponent :math:`p` in :math:`\\mathbf{A}^{-p}`.
 
     return_info : bool, default=False
         If `True`, this function also returns a dictionary containing
@@ -101,8 +100,8 @@ def eigenvalue_method(
     Returns
     -------
 
-    logdet : float or numpy.array
-        Log-determinant of `A`.
+    traceinv : float or numpy.array
+        Trace of inverse of matrix.
 
     info : dict
         (Only if ``return_info`` is `True`) A dictionary of information with
@@ -113,7 +112,8 @@ def eigenvalue_method(
               the matrix data.
             * ``gram``: `bool`, whether the matrix `A` or its Gramian is
               considered.
-            * ``exponent``: `float`, the exponent `p` in :math:`\\mathbf{A}^p`.
+            * ``exponent``: `float`, the exponent `p` in
+              :math:`\\mathbf{A}^{-p}`.
             * ``assume_matrix``: `str`, {`gen`, `sym`}, determines whether
               matrix is generic or symmetric.
             * ``size``: `int`, the size of matrix `A`.
@@ -149,17 +149,20 @@ def eigenvalue_method(
     See Also
     --------
 
+    imate.logdet
     imate.trace
-    imate.traceinv
     imate.schatten
 
     Notes
     -----
 
-    The eigenvalue method uses spectral decomposition. This method is suitable
-    for small matrices (:math:`n < 2^{12}`). The solution is exact and can be
-    used as a benchmark to test randomized methods of computing
-    log-determinant.
+    **Computational Complexity:**
+
+    The eigenvalue method uses spectral decomposition. The computational
+    complexity of this method is :math:`\\mathcal{O}(n^3)` where :math:`n` is
+    the matrix size. This method is only suitable for small matrices
+    (:math:`n < 2^{12}`). The solution is exact and can be used as a benchmark
+    to test randomized methods of computing trace.
 
     .. warning::
 
@@ -177,26 +180,26 @@ def eigenvalue_method(
     .. code-block:: python
 
         >>> # Import packages
-        >>> from imate import toeplitz, logdet
+        >>> from imate import toeplitz, traceinv
 
-        >>> # Generate a sample symmetric matrix (a toeplitz matrix)
+        >>> # Create a symmetric matrix (setting gram=True makes it symmetric)
         >>> A = toeplitz(2, 1, size=100, gram=True)
 
         >>> # Convert the sparse matrix to a dense matrix
         >>> A = A.toarray()
 
-        >>> # Compute log-determinant with Cholesky method (default method)
-        >>> logdet(A, method='eigenvalue', assume_matrix='sym')
-        138.62943611198907
+        >>> # Compute trace of inverse with eigenvalue method
+        >>> traceinv(A, p=2.5, method='eigenvalue', assume_matrix='sym')
+        8849.423700390627
 
     Compute the trace of :math:`(\\mathbf{A}^{\\intercal} \\mathbf{A})^{-2.5}`:
 
     .. code-block:: python
 
-        >>> # Compute trace with eigenvalue method
-        >>> trace(A, gram=True, p=2.5, method='eigenvalue',
-        ...       assume_matrix='sym')
-        1533618.9999999988
+        >>> # Compute trace of inverse with eigenvalue method
+        >>> traceinv(A, gram=True, p=2.5, method='eigenvalue',
+        ...          assume_matrix='sym')
+        1533619.00
 
     **Precomputed Eigenvalues:**
 
@@ -210,9 +213,10 @@ def eigenvalue_method(
         >>> from scipy.linalg import eigh
         >>> eigenvalues = eigh(A, eigvals_only=True)
 
-        >>> # Pass the eigenvalues to logdet function
-        >>> logdet(A, method='eigenvalue', eigenvalues=eigenvalues)
-        138.62943611198907
+        >>> # Pass the eigenvalues to traceinv function
+        >>> traceinv(A, gram=True, p=2.5, method='eigenvalue',
+        ...          eigenvalues=eigenvalues)
+        1533619.00
 
     Pre-computing eigenvalues can be useful if :func:`imate.traceinv` function
     should be called repeatedly for the same matrix `A` but other parameters
@@ -224,9 +228,9 @@ def eigenvalue_method(
 
     .. code-block:: python
 
-        >>> ld, info = logdet(A, method='eigenvalue', return_info=True)
-        >>> print(ld)
-        138.6294361119891
+        >>> ti, info = traceinv(A, method='eigenvalue', return_info=True)
+        >>> print(ti)
+        499.00
 
         >>> # Print dictionary neatly using pprint
         >>> from pprint import pprint
@@ -243,20 +247,20 @@ def eigenvalue_method(
                 'size': 100,
                 'sparse': False
             },
+            'solver': {
+                'method': 'eigenvalue',
+                'version': '0.15.0'
+            },
             'device': {
                 'num_cpu_threads': 8,
                 'num_gpu_devices': 0,
                 'num_gpu_multiprocessors': 0,
                 'num_gpu_threads_per_multiprocessor': 0
             },
-            'solver': {
-                'method': 'eigenvalue',
-                'version': '0.13.0'
-            },
             'time': {
-                'alg_wall_time': 0.007327683997573331,
-                'cpu_proc_time': 0.014451992999999774,
-                'tot_wall_time': 0.007327683997573331
+                'alg_wall_time': 0.00996067700907588,
+                'cpu_proc_time': 0.01607515599999987,
+                'tot_wall_time': 0.00996067700907588
             }
         }
 
@@ -270,23 +274,23 @@ def eigenvalue_method(
         >>> A = toeplitz(2, 1, size=2000, gram=True)
 
         >>> # Assume only 80% of eigenvalues of A are non-zero
-        >>> logdet(A, method='eigenvalue', assume_matrix='sym',
-        ...        non_zero_eig_fraction=0.9)
-        2451.2640192906174
+        >>> traceinv(A, method='eigenvalue', assume_matrix='sym',
+        ...          non_zero_eig_fraction=0.9)
+        9785.832766806298
 
     The above result is only an approximation since not all eigenvalues of `A`
     are taken into account. To compare with the exact solution, use
-    :func:`imate.sample_matrices.toeplitz_logdet` function.
+    :func:`imate.sample_matrices.toeplitz_traceinv` function.
 
     .. code-block:: python
 
-        >>> from imate.sample_matrices import toeplitz_logdet
-        >>> toeplitz_logdet(2, 1, size=2000, gram=True)
-        2772.588722239781
+        >>> from imate.sample_matrices import toeplitz_traceinv
+        >>> toeplitz_traceinv(2, 1, size=2000, gram=True)
+        9999
 
     There is a significant difference between the approximation with 90% of
     eigenvalues and the actual solution. Because of this, it is not recommended
-    to use the eigenvalue method to compute the log-determinant.
+    to use the eigenvalue method to compute trace.
     """
 
     # Checking input arguments
@@ -410,8 +414,6 @@ def check_arguments(
         raise TypeError('"p" cannot be None.')
     elif not numpy.isscalar(p):
         raise TypeError('"p" should be a scalar value.')
-    elif not isinstance(p, (int, numpy.integer)):
-        TypeError('"p" cannot be an integer.')
 
     # Check assume_matrix
     if assume_matrix is None:

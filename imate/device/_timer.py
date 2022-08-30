@@ -86,17 +86,16 @@ class Timer(object):
 
     **Difference Between Wall and Process Times:**
 
-    The *wall* time (:py:attr:`imate.Timer.wall_time`) measures the wall's
-    clock time in between the execution of two tasks, including. This includes
-    when the processor is idle or performs other tasks other the Python
-    process.
+    The *wall* time (``Timer.wall_time``) measures the wall's clock time in
+    between the execution of two tasks, including. This includes when the
+    processor is idle or performs other tasks other the Python process.
 
-    On the other hand, the *process* time (:py:attr:`imate.Timer.proc_time`) is
-    the combined CPU clock on all cores of the CPU processor of the process. It
-    excludes the time when the processor is idle. Namely, it only measures
-    how much the processor was busy. Also, it only measures the time it takes
-    to run the *current* process, and not other tasks that the process might
-    perform concurrently.
+    On the other hand, the *process* time (``Timer.proc_time``) is the combined
+    CPU clock on all cores of the CPU processor of the process. It excludes the
+    time when the processor is idle. Namely, it only measures how much the
+    processor was busy. Also, it only measures the time it takes to run the
+    *current* process, and not other tasks that the process might perform
+    concurrently.
 
     As a rule of thumb, the process time is larger than the wall time by the
     order of the number of CPU cores (see

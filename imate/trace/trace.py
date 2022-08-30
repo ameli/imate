@@ -64,7 +64,8 @@ def trace(
         A non-singular sparse or dense matrix or linear operator. The linear
         operators :class:`imate.Matrix` and :class:`imate.AffineMatrixFunction`
         can be used only if ``method=slq``. See details in
-        :ref:`slq method <imate.trace.slq>`.
+        :ref:`slq method <imate.trace.slq>`. If ``method=slq`` and
+        ``gram=False``, the input matrix `A` should be symmetric.
 
     gram : bool, default=False
         If `True`, the trace of the Gramian matrix,
@@ -73,9 +74,15 @@ def trace(
         trace of :math:`\\mathbf{A}^p` is computed.
 
     p : float, default=1.0
-        A non-negative number representing the exponent :math:`p` in
-        :math:`\\mathbf{A}^p`. If ``method`` is ``exact``, :math:`p` should be 
-        a non-negative integer.
+        The exponent :math:`p` in :math:`\\mathbf{A}^p`.
+
+        * If ``method=exact``, :math:`p` should be a non-negative integer.
+        * If ``method=eigenvalue``, :math:`p` can be any real number. 
+        * If ``method=slq``, :math:`p` should be non-negative real number.
+
+        .. note::
+
+            If :math:`p < 0`, use :func:`imate.traceinv` function.
 
     return_info : bool, default=False
         If `True`, this function also returns a dictionary containing
@@ -181,10 +188,6 @@ def trace(
         If :math:`p` is non-integer, you may use `eigenvalue` or `slq` method,
         though, for large matrices, the `slq` method is preferred.
 
-    .. note::
-
-        If :math:`p < 0`, use :func:`imate.traceinv` function.
-
     **Input Matrix:**
 
     The input `A` can be either of:
@@ -242,7 +245,7 @@ def trace(
 
     .. code-block:: python
 
-        >>> # Compute trace of the Gramian of A^3 using exact method
+        >>> # Compute trace of the Gramian of A to the power of 3.
         >>> trace(A, p=3, gram=True)
         24307.0
 
@@ -260,12 +263,6 @@ def trace(
         >>> from pprint import pprint
         >>> pprint(info)
         {
-            'device': {
-                'num_cpu_threads': 8,
-                'num_gpu_devices': 0,
-                'num_gpu_multiprocessors': 0,
-                'num_gpu_threads_per_multiprocessor': 0
-            },
             'matrix': {
                 'data_type': b'float64',
                 'density': 0.0199,
@@ -279,6 +276,12 @@ def trace(
             'solver': {
                 'method': 'exact',
                 'version': '0.14.0'
+            },
+            'device': {
+                'num_cpu_threads': 8,
+                'num_gpu_devices': 0,
+                'num_gpu_multiprocessors': 0,
+                'num_gpu_threads_per_multiprocessor': 0
             },
             'time': {
                 'alg_wall_time': 0.00013329205103218555,

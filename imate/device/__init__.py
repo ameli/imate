@@ -11,9 +11,10 @@ from ._timer import Timer
 from ._memory import Memory
 from ._info import info
 from ._device import get_processor_name, get_num_cpu_threads, get_gpu_name, \
-        get_num_gpu_devices, restrict_to_single_processor
+        get_num_gpu_devices, get_nvidia_driver_version, \
+        restrict_to_single_processor
 from ._cuda import locate_cuda
 
 __all__ = ['Timer', 'Memory', 'get_processor_name', 'get_num_cpu_threads',
            'get_gpu_name', 'get_num_gpu_devices',  'info', 'locate_cuda',
-           'restrict_to_single_processor']
+           'get_nvidia_driver_version', 'restrict_to_single_processor']

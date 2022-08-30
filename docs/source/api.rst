@@ -224,5 +224,6 @@ Inquiry hardware information, including CPU and GPU devices employed during comp
     imate.device.get_gpu_name
     imate.device.get_num_cpu_threads
     imate.device.get_num_gpu_devices
+    imate.device.get_nvidia_driver_version
     imate.device.locate_cuda
     imate.device.restrict_to_single_processor

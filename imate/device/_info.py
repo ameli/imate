@@ -12,7 +12,7 @@
 # =======
 
 from ._device import get_processor_name, get_num_cpu_threads, get_gpu_name, \
-        get_num_gpu_devices
+        get_num_gpu_devices, get_nvidia_driver_version
 from ._memory import Memory
 from ._cuda import locate_cuda
 from ..__version__ import __version__
@@ -51,13 +51,14 @@ def info(print_only=True):
         * ``gpu_name``: `str`, model name of the GPU devices.
         * ``num_gpu_devices``: `int`, number of GPU devices in multi-GPU
           platforms.
+        * ``cuda_version``: `str`, the version of CUDA Toolkit installed on the
+          machine in the format ``"major_version.minor_version.patch_number"``.
+        * ``nvidia_driver``: `str`, the version of NVIDIA graphic driver.
         * ``mem_used``: `int`, resident memory usage for the current Python
           process.
         * ``mem_unit``, `str`, the unit in which ``mem_used`` is reported. This
           can be ``"b"`` for Byte, ``"KB"`` for Kilo-Byte, ``"MB"`` for
           Mega-Byte, ``"GB"`` for Giga-Byte, and ``"TB"`` for Tera-Byte.
-        * ``cuda_version``: `str`, the version of CUDA Toolkit installed on the
-          machine in the format ``"major_version.minor_version.patch_number"``.
 
     See Also
     --------
@@ -66,6 +67,7 @@ def info(print_only=True):
     imate.device.get_gpu_name
     imate.device.get_num_cpu_threads
     imate.device.get_num_gpu_devices
+    imate.device.get_nvidia_driver_version
     imate.Memory
     imate.device.locate_cuda
 
@@ -136,6 +138,7 @@ def info(print_only=True):
         gpu device      : 'GeForce GTX 1080 Ti'
         num gpu devices : 4
         cuda version    : 11.2.0
+        nvidia driver   : 460.84
         process memory  : 1.7 (Gb)
 
     Return information as a dictionary:
@@ -155,6 +158,7 @@ def info(print_only=True):
             'gpu device': 'GeForce GTX 1080 Ti',
             'num gpu devices': 4,
             'cuda version': 11.2.0,
+            'nvidia driver': 460.84,
             'process memory': 1.7 (Gb)
         }
     """
@@ -171,6 +175,9 @@ def info(print_only=True):
     else:
         cuda_version_ = 'not found'
 
+    # NVIDIA driver version
+    nvidia_driver = get_nvidia_driver_version()
+
     info_ = {
         'imate_version': __version__,
         'processor_name': get_processor_name(),
@@ -179,7 +186,8 @@ def info(print_only=True):
         'num_gpu_devices': get_num_gpu_devices(),
         'mem_used': mem_used,
         'mem_unit': mem_unit,
-        'cuda_version': cuda_version_
+        'cuda_version': cuda_version_,
+        'nvidia_driver': nvidia_driver,
     }
 
     # Print
@@ -191,6 +199,7 @@ def info(print_only=True):
         print('gpu device      : %s' % info_['gpu_name'])
         print('num gpu devices : %d' % info_['num_gpu_devices'])
         print('cuda version    : %s' % info_['cuda_version'])
+        print('nvidia driver   : %s' % info_['nvidia_driver'])
         print('process memory  : %0.1f (%s)'
               % (info_['mem_used'], info_['mem_unit']))
         print('')

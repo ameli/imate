@@ -66,7 +66,8 @@ def logdet(
         operators :class:`imate.Matrix` and :class:`imate.AffineMatrixFunction`
         can be used only if ``method=slq``. See details in
         :ref:`slq method <imate.logdet.slq>`. If ``method=cholesky``, the
-        matrix `A` should be positive-definite.
+        matrix `A` should be positive-definite. If ``method=slq`` and
+        ``gram=False``, the input matrix `A` should be symmetric.
 
     gram : bool, default=False
         If `True`, the log-determinant of the Gramian matrix,
@@ -75,7 +76,7 @@ def logdet(
         log-determinant of :math:`\\mathbf{A}^p` is computed.
 
     p : float, default=1.0
-        The exponent :math:`p` in :math:`\\mathbf{A}^p`.
+        The real exponent :math:`p` in :math:`\\mathbf{A}^p`.
 
     return_info : bool, default=False
         If `True`, this function also returns a dictionary containing
@@ -236,7 +237,7 @@ def logdet(
 
     .. code-block:: python
 
-        >>> # Compute log-determinant of the Gramian of A^3:
+        >>> # Compute log-determinant of the Gramian to the power of 3:
         >>> logdet(A, p=3, gram=True)
         831.7766166719346
 
@@ -254,12 +255,6 @@ def logdet(
         >>> from pprint import pprint
         >>> pprint(info)
         {
-            'device': {
-                'num_cpu_threads': 8,
-                'num_gpu_devices': 0,
-                'num_gpu_multiprocessors': 0,
-                'num_gpu_threads_per_multiprocessor': 0
-            },
             'matrix': {
                 'data_type': b'float64',
                 'density': 0.0298,
@@ -274,6 +269,12 @@ def logdet(
                 'cholmod_used': True,
                 'method': 'cholesky',
                 'version': '0.13.0'
+            },
+            'device': {
+                'num_cpu_threads': 8,
+                'num_gpu_devices': 0,
+                'num_gpu_multiprocessors': 0,
+                'num_gpu_threads_per_multiprocessor': 0
             },
             'time': {
                 'alg_wall_time': 0.000903537031263113,
@@ -299,14 +300,14 @@ def logdet(
         >>> ld, info = logdet(A, method='slq', min_num_samples=100,
         ...                   max_num_samples=200, return_info=True)
         >>> print(ld)
-        1386320.4734751645
+        1386187.5751816272
 
         >>> # Find the time it took to compute the above
         >>> print(info['time'])
         {
-            'tot_wall_time': 16.598053652094677,
-            'alg_wall_time': 16.57977867126465,
-            'cpu_proc_time': 113.03275911399999
+            'tot_wall_time': 15.908390650060028,
+            'alg_wall_time': 15.890228271484375,
+            'cpu_proc_time': 116.93080989600001
         }
 
     Compare the result of the above approximation with the exact solution of

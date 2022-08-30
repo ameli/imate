@@ -493,7 +493,7 @@ class InterpolateLogdet(InterpolateSchatten):
             if schatten_B is None:
                 schatten_B = self.interpolator._compute_schatten(
                         self.interpolator.B, self.interpolator.p)
-                
+
             normal_factor = self._schatten_to_logdet(schatten_B)
         else:
             normal_factor = 0.0

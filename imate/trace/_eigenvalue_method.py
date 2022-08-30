@@ -40,8 +40,8 @@ def eigenvalue_method(
     """
     Trace of matrix using eigenvalue method.
 
-    Given the matrix :math:`\\mathbf{A}` and the real non-negative exponent
-    :math:`p \\geq 0`, the following is computed:
+    Given the matrix :math:`\\mathbf{A}` and the real exponent :math:`p`, the
+    following is computed:
 
     .. math::
 
@@ -74,7 +74,7 @@ def eigenvalue_method(
         trace of :math:`\\mathbf{A}^p` is computed.
 
     p : float, default=1.0
-        The non-negative real exponent :math:`p` in :math:`\\mathbf{A}^p`.
+        The real exponent :math:`p` in :math:`\\mathbf{A}^p`.
 
     return_info : bool, default=False
         If `True`, this function also returns a dictionary containing
@@ -154,7 +154,7 @@ def eigenvalue_method(
 
     Notes
     -----
-    
+
     **Computational Complexity:**
 
     The eigenvalue method uses spectral decomposition. The computational
@@ -181,7 +181,7 @@ def eigenvalue_method(
         >>> # Import packages
         >>> from imate import toeplitz, trace
 
-        >>> # Greate a symmetric matrix (setting gram=True makes it symmetric)
+        >>> # Create a symmetric matrix (setting gram=True makes it symmetric)
         >>> A = toeplitz(2, 1, size=100, gram=True)
 
         >>> # Convert the sparse matrix to a dense matrix
@@ -235,12 +235,6 @@ def eigenvalue_method(
         >>> from pprint import pprint
         >>> pprint(info)
         {
-            'device': {
-                'num_cpu_threads': 8,
-                'num_gpu_devices': 0,
-                'num_gpu_multiprocessors': 0,
-                'num_gpu_threads_per_multiprocessor': 0
-            },
             'matrix': {
                 'assume_matrix': 'gen',
                 'data_type': b'float64',
@@ -255,6 +249,12 @@ def eigenvalue_method(
             'solver': {
                 'method': 'eigenvalue',
                 'version': '0.15.0'
+            },
+            'device': {
+                'num_cpu_threads': 8,
+                'num_gpu_devices': 0,
+                'num_gpu_multiprocessors': 0,
+                'num_gpu_threads_per_multiprocessor': 0
             },
             'time': {
                 'alg_wall_time': 0.00996067700907588,

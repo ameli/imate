@@ -209,7 +209,7 @@ class Memory(object):
         human_readable : bool, default=False
             If `False`, the output is in Bytes. If `True`, the output is
             converted to a human readable unit. The unit can be checked by
-            :py:attr:`Memory.mem_unit` attribute.
+            ``Memory.mem_unit`` attribute.
 
         Returns
         -------

@@ -84,6 +84,7 @@ def locate_cuda():
     --------
 
     imate.info
+    imate.device.get_nvidia_driver_version
 
     Notes
     -----

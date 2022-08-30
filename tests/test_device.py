@@ -31,6 +31,7 @@ def test_device():
     # Device inquiry
     imate.info()
     imate.device.locate_cuda()
+    imate.device.get_nvidia_driver_version()
     imate.device.get_processor_name()
     imate.device.get_gpu_name()
     imate.device.get_num_cpu_threads()

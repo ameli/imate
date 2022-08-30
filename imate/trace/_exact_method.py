@@ -69,8 +69,7 @@ def exact_method(
         trace of :math:`\\mathbf{A}^p` is computed.
 
     p : float, default=1.0
-        A non-negative integer representing the exponent
-        :math:`p` in :math:`\\mathbf{A}^p`.
+        The non-negative integer exponent :math:`p` in :math:`\\mathbf{A}^p`.
 
     return_info : bool, default=False
         If `True`, this function also returns a dictionary containing
@@ -133,7 +132,7 @@ def exact_method(
     -----
 
     With the `exact` method, the trace is computed directly by summing up the
-    diagonal elements of the matrix. 
+    diagonal elements of the matrix.
 
     **Computational Complexity:**
 
@@ -156,8 +155,7 @@ def exact_method(
     .. note::
 
         When :math:`p=1` and ``gram`` is `False`, the `exact` method should
-        always be used. If :math:`p \\neq 1` or ``gram`` is `True`, use `slq`
-        method especially if the matrix is large.
+        always be used. If :math:`p \\neq 1`, use the other methods.
 
     Examples
     --------
@@ -198,12 +196,6 @@ def exact_method(
         >>> from pprint import pprint
         >>> pprint(info)
         {
-            'device': {
-                'num_cpu_threads': 8,
-                'num_gpu_devices': 0,
-                'num_gpu_multiprocessors': 0,
-                'num_gpu_threads_per_multiprocessor': 0
-            },
             'matrix': {
                 'data_type': b'float64',
                 'density': 0.0199,
@@ -217,6 +209,12 @@ def exact_method(
             'solver': {
                 'method': 'exact',
                 'version': '0.14.0'
+            },
+            'device': {
+                'num_cpu_threads': 8,
+                'num_gpu_devices': 0,
+                'num_gpu_multiprocessors': 0,
+                'num_gpu_threads_per_multiprocessor': 0
             },
             'time': {
                 'alg_wall_time': 0.00013329205103218555,

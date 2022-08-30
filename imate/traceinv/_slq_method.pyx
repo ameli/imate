@@ -42,16 +42,15 @@ def slq_method(
         plot=False,
         gpu=False):
     """
-    Log-determinant of non-singular matrix or linear operator using stochastic
-    Lanczos quadrature method.
+    Trace of inverse of matrix or linear operator using stochastic Lanczos
+    quadrature method.
 
-    Given the symmetric matrix or linear operator :math:`\\mathbf{A}` and the
-    real exponent :math:`p`, the following is computed:
+    Given the matrix or the linear operator :math:`\\mathbf{A}` and the real
+    non-negative exponent :math:`p \\geq 0`, the following is computed:
 
     .. math::
 
-        \\mathrm{logdet} \\left(\\mathbf{A}^p \\right) = p \\log_e \\vert
-        \\det (\\mathbf{A}) \\vert.
+        \\mathrm{trace} \\left(\\mathbf{A}^p \\right).
 
     If ``gram`` is `True`, then :math:`\\mathbf{A}` in the above is replaced by
     the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`, and the
@@ -59,8 +58,8 @@ def slq_method(
 
     .. math::
 
-        \\mathrm{logdet} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^p
-        \\right) = 2p \\log_e \\vert \\det (\\mathbf{A}) \\vert.
+        \\mathrm{trace} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^p
+        \\right).
 
     If :math:`\\mathbf{A} = \\mathbf{A}(t)` is a linear operator of the class
     :class:`imate.AffineMatrixFunction` with the parameter :math:`t`, then for
@@ -69,7 +68,7 @@ def slq_method(
 
     .. math::
 
-        \\mathrm{logdet} \\left((\\mathbf{A}(t_i))^p \\right),
+        \\mathrm{trace} \\left((\\mathbf{A}(t_i))^p \\right),
         \\quad i=1, \\dots, q.
 
     Parameters
@@ -77,22 +76,22 @@ def slq_method(
 
     A : numpy.ndarray, scipy.sparse, :class:`imate.Matrix`, or \
             :class:`imate.AffineMatrixFunction`
-        A non-singular sparse or dense matrix or linear operator. If ``gram``
-        is `False`, then `A` should be symmetric.
+        A sparse or dense matrix or linear operator. If ``gram`` is `False`,
+        then `A` should be symmetric.
 
         .. warning::
 
-            The symmetry of `A` will not be checked by this function. If
+            The symmetry of `A` is not pre-checked by this function. If
             ``gram`` is `False`, make sure `A` is symmetric.
 
     gram : bool, default=False
-        If `True`, the log-determinant of the Gramian matrix,
-        :math:`(\\mathbf{A}^{\\intercal}\\mathbf{A})^p`, is computed. The
+        If `True`, the trace of the Gramian matrix,
+        :math:`(\\mathbf{A}^{\\intercal}\\mathbf{A})^{-p}`, is computed. The
         Gramian matrix itself is not directly computed. If `False`, the
-        log-determinant of :math:`\\mathbf{A}^p` is computed.
+        trace of :math:`\\mathbf{A}^{-p}` is computed.
 
     p : float, default=1.0
-        The exponent :math:`p` in :math:`\\mathbf{A}^p`.
+        The non-negative real exponent :math:`p` in :math:`\\mathbf{A}^{-p}`.
 
     return_info : bool, default=False
         If `True`, this function also returns a dictionary containing
@@ -213,8 +212,8 @@ def slq_method(
     Returns
     -------
 
-    logdet : float or numpy.array
-        Log-determinant of `A`. If `A` is of type
+    traceinv : float or numpy.array
+        Trace of inverse of matrix. If `A` is of type
         :class:`imate.AffineMatrixFunction` with an array of ``parameters``,
         then the output is an array.
 
@@ -227,7 +226,8 @@ def slq_method(
               the matrix data.
             * ``gram``: `bool`, whether the matrix `A` or its Gramian is
               considered.
-            * ``exponent``: `float`, the exponent `p` in :math:`\\mathbf{A}^p`.
+            * ``exponent``: `float`, the exponent `p` in
+              :math:`\\mathbf{A}^{-p}`.
             * ``size``: (int) The size of matrix `A`.
             * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
             * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
@@ -309,7 +309,10 @@ def slq_method(
 
         * ``solver``:
             * ``version``: `str`, version of imate.
-            * ``method``: 'slq'
+            * ``method``: 'slq'.
+            * ``lanczos_degree``: `bool`, Lanczos degree.
+            * ``lanczos_tol``: `float`, Lanczos tolerance.
+            * ``orthogonalize``: `int`, orthogonalization flag.
 
     Raises
     ------
@@ -324,13 +327,13 @@ def slq_method(
     See Also
     --------
 
+    imate.logdet
     imate.trace
-    imate.traceinv
     imate.schatten
 
     Notes
     -----
-    
+
     **Computational Complexity:**
 
     This method uses stochastic Lanczos quadrature (SLQ), which is a randomized
@@ -364,7 +367,7 @@ def slq_method(
     :math:`\\mathbf{A}(t) = \\mathbf{A} + t \\mathbf{B}` where :math:`t` is
     given as the tuple :math:`t = (t_1, \\dots, t_q)`, then the output of this
     function is an array of size :math:`q` corresponding to the
-    log-determinant of each :math:`\\mathbf{A}(t_i)`.
+    trace of each :math:`\\mathbf{A}(t_i)`.
 
     .. note::
 
@@ -373,10 +376,9 @@ def slq_method(
         :math:`\\mathbf{I}` is the identity matrix, and :math:`t` is given by
         a tuple :math:`t = (t_1, \\dots, t_q)`, the computational cost of an
         array output of size `q` is the same as computing for a single
-        :math:`t_i`. Namely, the log-determinant of only
-        :math:`\\mathbf{A}(t_1)` is computed, and the log-determinant of the
-        rest of :math:`i=2, \\dots, q` are obtained from the result of
-        :math:`t_1` immediately.
+        :math:`t_i`. Namely, the trace of only :math:`\\mathbf{A}(t_1)` is
+        computed, and the trace of the rest of :math:`i=2, \\dots, q` are
+        obtained from the result of :math:`t_1` immediately.
 
     **Algorithm:**
 
@@ -480,75 +482,70 @@ def slq_method(
     Examples
     --------
 
-    **Large matrix:**
+    **Symmetric Input Matrix:**
 
-    Compute the trace of :math:`\\mathbf{A}^{-1}` for a very large sparse
-    matrix using at least `100` samples. Note that the matrix
-    :math:`\\mathbf{A}` should be symmetric.
-
-    .. code-block:: python
-        :emphasize-lines: 9, 10
-
-
-        >>> # Import packages
-        >>> from imate import toeplitz, logdet
-
-        >>> # Generate a matrix of size one million
-        >>> A = toeplitz(2, 1, size=1000000, gram=True)
-
-        >>> # Approximate log-determinant using stochastic Lanczos quadrature
-        >>> # with at least 100 Monte-Carlo sampling
-        >>> ld, info = logdet(A, method='slq', min_num_samples=100,
-        ...                   max_num_samples=200, return_info=True)
-        >>> print(ld)
-        1386320.4734751645
-
-        >>> # Find the time it took to compute the above
-        >>> print(info['time'])
-        {
-            'tot_wall_time': 16.598053652094677,
-            'alg_wall_time': 16.57977867126465,
-            'cpu_proc_time': 113.03275911399999
-        }
-
-    Compare the result of the above approximation with the exact solution of
-    the log-determinant using the analytic relation for Toeplitz matrix. See
-    :func:`imate.sample_matrices.toeplitz_logdet` for details.
-
-    .. code-block:: python
-
-        >>> from imate.sample_matrices import toeplitz_logdet
-        >>> toeplitz_logdet(2, 1, size=1000000, gram=True)
-        1386294.3611198906
-
-    It can be seen that the error of approximation is :math:`0.0018 \\%`. This
-    accuracy is remarkable considering that the computation on such a large
-    matrix took only 16 seconds. Computing the log-determinant of such a
-    large matrix using any of the exact methods (such as ``cholesky`` or
-    ``eigenvalue``) is infeasible.
-
-    **Non-symmetric Input Matrix:**
-
-    Recall that `slq` method requires :math:`\\mathbf{A}` to be symmetric.
-    However, if we set ``gram=True`` in :func:`imate.trace` function to compute
-    the trace of :math:`(\\mathbf{A}^{\\intercal} \\mathbf{A})` or its power,
-    the input matrix :math:`\\mathbf{A}` may be non-symmetric.
-
-    Compute the trace of :math:`(\\mathbf{A}^{\\intercal} \\mathbf{A})^{2.5}`:
+    The `slq` method requires the input matrix of :func:`imate.traceinv`
+    function to be symmetric when ``gram`` is `False`. For the first example,
+    generate a symmetric sample matrix using :func:`imate.toeplitz` function as
+    follows:
 
     .. code-block:: python
 
         >>> # Import packages
-        >>> from imate import toeplitz, trace
+        >>> from imate import toeplitz
 
-        >>> # Generate a matrix of size one million. Matrix is not symmetric.
-        >>> A = toeplitz(2, 1, size=1000000)
+        >>> # Generate a symmetric matrix by setting gram=True.
+        >>> A = toeplitz(2, 1, size=100, gram=True)
 
-        >>> # Approximate trace using stochastic Lanczos quadrature
-        >>> # with at least 100 Monte-Carlo sampling
-        >>> trace(A, gram=True, p=2.5, method='slq', min_num_samples=100,
-        ...       max_num_samples=200)
-        1386320.4734751645
+    In the above, by passing ``gram=True`` to :func:`imate.toeplitz` function,
+    the Gramian of the Toeplitz matrix is returned, which is symmetric. Compute
+    the trace of :math:`\\mathbf{A}^{-2.5}`:
+
+    .. code-block:: python
+
+        >>> # Import packages
+        >>> from imate import traceinv
+
+        >>> # Compute trace
+        >>> traceinv(A, gram=False, p=2.5, method='slq')
+        18.527409020384308
+
+    .. note:
+
+        Since `slq` is a stochastic method, the above result slightly
+        differs after each run.
+
+    **Gramian Matrix:**
+    
+    Passing ``gram=True`` to :func:`imate.traceinv` function uses the Gramian
+    of the input matrix. In this case, the input matrix can be non-symmetric.
+    In the next example, generate a non-symmetric matrix, :math:`\\mathbf{B}`,
+    then compute the trace of
+    :math:`(\\mathbf{B}^{\\intercal} \\mathbf{B})^{-2.5}`.
+
+    .. code-block:: python
+
+        >>> # Generate a non-symmetric matrix by setting gram=False
+        >>> B = toeplitz(2, 1, size=100, gram=False)
+
+        >>> # Compute the trace of Gramian by passing gram=True
+        >>> traceinv(B, gram=True, p=2.5, method='slq')
+        18.26725627960205
+
+    Note that the result of the two examples in the above are the similar since
+    the input matrix :math:`\\mathbf{A}` of the first example is the Gramian of
+    the input matrix :math:`\\mathbf{B}` in the second example, that is
+    :math:`\\mathbf{A} = \\mathbf{B}^{\\intercal} \\mathbf{B}`. Since the
+    second example uses the Gramian of the input matrix, it computes the same
+    quantity as the first example.
+
+    **Verbose output:**
+
+    By setting ``verbose`` to `True`, useful info about the process is
+    printed.
+
+    .. literalinclude:: ../_static/data/imate.traceinv.slq-verbose-1.txt
+        :language: python
 
     **Output information:**
 
@@ -556,9 +553,9 @@ def slq_method(
 
     .. code-block:: python
 
-        >>> ld, info = logdet(A, method='slq', return_info=True)
-        >>> print(ld)
-        138.6294361119891
+        >>> tr, info = traceinv(A, method='slq', return_info=True)
+        >>> print(tr)
+        32.708445808330886
 
         >>> # Print dictionary neatly using pprint
         >>> from pprint import pprint
@@ -566,41 +563,41 @@ def slq_method(
         {
             'matrix': {
                 'data_type': b'float64',
-                'density': 2.999998e-06,
-                'exponent': 1.0,
+                'density': 0.0298,
+                'exponent': 1,
                 'gram': False,
-                'nnz': 2999998,
+                'nnz': 298,
                 'num_inquiries': 1,
                 'num_operator_parameters': 0,
                 'parameters': None,
-                'size': 1000000,
+                'size': 100,
                 'sparse': True
             },
             'convergence': {
-                'all_converged': True,
-                'converged': True,
+                'all_converged': False,
+                'converged': False,
                 'max_num_samples': 50,
                 'min_num_samples': 10,
                 'num_outliers': 0,
-                'num_samples_used': 10,
-                'samples': array([1386085.91975074, ..., nan]),
-                 'samples_mean': 1385604.1663613867,
-                'samples_processed_order': array([ 6, ..., 0]),
+                'num_samples_used': 50,
+                'samples': array([33.24133019, ..., 33.20591227]),
+                'samples_mean': 32.708445808330886,
+                'samples_processed_order': array([ 0, ..., 49])
             },
             'error': {
-                'absolute_error': 467.54178690512845,
-                'confidence_level': 0.95,
-                'error_atol': 0.0,
-                'error_rtol': 0.01,
-                'outlier_significance_level': 0.001,
-                'relative_error': 0.0003374281041120848
+                'absolute_error': 1.0957187950411644,
+               'confidence_level': 0.95,
+               'error_atol': 0.0,
+               'error_rtol': 0.01,
+               'outlier_significance_level': 0.001,
+               'relative_error': 0.03349956770988132
             },
             'solver': {
                 'lanczos_degree': 20,
                 'lanczos_tol': 2.220446049250313e-16,
                 'method': 'slq',
                 'orthogonalize': 0,
-                'version': '0.13.0'
+                'version': '0.15.0'
             },
             'device': {
                 'num_cpu_threads': 8,
@@ -609,19 +606,55 @@ def slq_method(
                 'num_gpu_threads_per_multiprocessor': 0
             },
             'time': {
-                'alg_wall_time': 2.6905629634857178,
-                'cpu_proc_time': 18.138382528999998,
-                'tot_wall_time': 2.69458799099084
+                'alg_wall_time': 0.005590200424194336,
+                'cpu_proc_time': 0.03228565200000011,
+                'tot_wall_time': 0.0057561639696359634
+                }
             }
+
+    **Large matrix:**
+
+    Compute the trace of :math:`\\mathbf{A}^{-1}` for a very large sparse
+    matrix using at least `100` samples. Note that the matrix
+    :math:`\\mathbf{A}` should be symmetric.
+
+    .. code-block:: python
+        :emphasize-lines: 7, 8
+
+        >>> # Generate a matrix of size one million. Set gram=True to create
+        >>> # a symmetric matrix needed for slq method.
+        >>> A = toeplitz(2, 1, size=1000000, gram=True)
+
+        >>> # Approximate trace using stochastic Lanczos quadrature
+        >>> # with at least 100 Monte-Carlo sampling
+        >>> tr, info = traceinv(A, method='slq', min_num_samples=100,
+        ...                     max_num_samples=200, return_info=True)
+        >>> print(tr)
+        333273.2654698325
+
+        >>> # Find the time it took to compute the above
+        >>> print(info['time'])
+        {
+            'tot_wall_time': 15.991112960968167,
+            'alg_wall_time': 15.972427368164062,
+            'cpu_proc_time': 117.7014269
         }
 
-    **Verbose output:**
+    Compare the result of the above approximation with the exact solution of
+    the trace using the analytic relation for Toeplitz matrix. See
+    :func:`imate.sample_matrices.toeplitz_traceinv` for details.
 
-    By setting ``verbose`` to `True`, useful info about the process is
-    printed.
+    .. code-block:: python
 
-    .. literalinclude:: ../_static/imate.logdet.slq-verbose-1.txt
-        :language: python
+        >>> from imate.sample_matrices import toeplitz_traceinv
+        >>> toeplitz_traceinv(2, 1, size=1000000, gram=True)
+        333333.2222222222
+
+    It can be seen that the error of approximation is :math:`0.018 \\%`. This
+    accuracy is remarkable considering that the computation on such a large
+    matrix took only 16 seconds. Computing the trace of such a large matrix
+    using any of the exact methods (such as ``exact`` or ``eigenvalue``) is
+    infeasible.
 
     **Plotting:**
 
@@ -631,11 +664,11 @@ def slq_method(
     .. code-block:: python
 
         >>> A = toeplitz(2, 1, size=1000000, gram=True)
-        >>> logdet(A, method='slq', min_num_samples=20, max_num_samples=80,
-        ...        error_rtol=2e-4, confidence_level=0.95,
-        ...        outlier_significance_level=0.001, plot=True)
+        >>> traceinv(A, method='slq', min_num_samples=50, max_num_samples=150,
+        ...          error_rtol=2e-4, confidence_level=0.95,
+        ...          outlier_significance_level=0.001, plot=True)
 
-    .. image:: ../_static/images/plots/slq_convergence_1.png
+    .. image:: ../_static/images/plots/traceinv_slq_convergence_1.png
         :align: center
         :class: custom-dark
 
@@ -646,25 +679,25 @@ def slq_method(
     considered outliers, which is set by the significance level
     ``outlier_significance_level=0.001``.
 
-    In the right plot, the darker shaded area in the interval :math:`[0, 20]`
-    shows the minimum number of samples and is set by ``min_num_samples=20``.
+    In the right plot, the darker shaded area in the interval :math:`[0, 50]`
+    shows the minimum number of samples and is set by ``min_num_samples=50``.
     The iterations do not stop till the minimum number of iterations is passed.
-    We can observe that sampling is terminated after 55 iterations where the
+    We can observe that sampling is terminated after 120 iterations where the
     relative error of samples reaches 0.02% since we set ``error_rtol=2e-4``.
-    The lighter shaded area in the interval :math:`[56, 80]` corresponds to the
-    iterations that were not performed to reach the specified maximum
-    iterations by ``max_num_samples=80``.
+    The lighter shaded area in the interval :math:`[120, 150]` corresponds to
+    the iterations that were not performed to reach the specified maximum
+    iterations by ``max_num_samples=150``.
 
     **Matrix operator:**
 
     Use an object of :class:`imate.Matrix` class as an alternative method to
-    pass the matrix `A` to the `logdet` function.
+    pass the matrix `A` to the `traceinv` function.
 
     .. code-block:: python
         :emphasize-lines: 8
 
         >>> # Import matrix operator
-        >>> from imate import toeplitz, logdet, Matrix
+        >>> from imate import toeplitz, traceinv, Matrix
 
         >>> # Generate a sample matrix (a toeplitz matrix)
         >>> A = toeplitz(2, 1, size=100, gram=True)
@@ -672,11 +705,11 @@ def slq_method(
         >>> # Create a matrix operator object from matrix A
         >>> Aop = Matrix(A)
 
-        >>> # Compute log-determinant of Aop
-        >>> logdet(Aop, method='slq')
-        141.52929878934194
+        >>> # Compute the trace of the inverse of Aop
+        >>> traceinv(Aop, method='slq')
+        33.490062323020325
 
-    An advantage of passing `Aop` (instead of `A`) to the `logdet` function
+    An advantage of passing `Aop` (instead of `A`) to the `traceinv` function
     will be clear when using GPU.
 
     **Computation on GPU:**
@@ -686,25 +719,25 @@ def slq_method(
 
     .. code-block:: python
 
-        >>> # Compute log-determinant of Aop
-        >>> logdet(Aop, method='slq', gpu=True)
-        141.52929878934194
+        >>> # Compute thet race of Aop
+        >>> traceinv(Aop, method='slq', gpu=True)
+        33.490062323020325
 
     The above function call triggers the object `Aop` to automatically load the
     matrix data on the GPU.
 
     One could have used `A` instead of `Aop` in the above. However, an
     advantage of using `Aop` (instead of the matrix `A` directly) is that by
-    calling the above `logdet` function (or another function) again on this
+    calling the above `traceinv` function (or another function) again on this
     matrix, the data of this matrix does not have to be re-allocated on the GPU
     device again. To highlight this point, call the above function again, but
     this time, set ``gram`` to `True` to compute something different.
 
     .. code-block:: python
 
-        >>> # Compute log-determinant of Aop
-        >>> logdet(Aop, method='slq', gpu=True, gram=True)
-        141.52929878934194
+        >>> # Compute the trace of the inverse of Aop
+        >>> traceinv(Aop, method='slq', gpu=True, gram=True)
+        33.490062323020325
 
     In the above example, no data is needed to be transferred from CPU host to
     GPU device again. However, if `A` was used instead of `Aop`, the data would
@@ -723,43 +756,44 @@ def slq_method(
 
         \\mathbf{A}(t) = \\mathbf{A} + t \\mathbf{I}.
 
-    The object :math:`\\mathbf{A}(t)` can be passed to `logdet` function with
-    multiple values for the parameter :math:`t` to compute their
-    log-determinant all at once, as follows.
+    The object :math:`\\mathbf{A}(t)` can be passed to `traceinv` function with
+    multiple values for the parameter :math:`t` to compute their trace  all at
+    once, as follows.
 
     .. code-block:: python
         :emphasize-lines: 8
 
         >>> # Import affine matrix function
-        >>> from imate import toeplitz, logdet, AffineMatrixFunction
+        >>> from imate import toeplitz, traceinv, AffineMatrixFunction
 
         >>> # Generate a sample matrix (a toeplitz matrix)
-        >>> A = toeplitz(2, 1, size=100, gram=True)
+        >>> A = toeplitz(2, 1, size=10000, gram=True)
 
         >>> # Create a matrix operator object from matrix A
         >>> Aop = AffineMatrixFunction(A)
 
         >>> # A list of parameters t to pass to Aop
-        >>> t = [-1.0, 0.0, 1.0]
+        >>> t = [0.5, 1.0, 1.5]
 
-        >>> # Compute log-determinant of Aop for all parameters t
-        >>> logdet(Aop, method='slq', parameters=t, min_num_samples=20,
-        ...        max_num_samples=80, error_rtol=1e-3, confidence_level=0.95,
-        ...        outlier_significance_level=0.001, plot=True, verbose=True)
-        array([ 68.71411681, 135.88356906, 163.44156683])
+        >>> # Compute the trace the inverse of Aop for all parameters t
+        >>> traceinv(Aop, method='slq', parameters=t, min_num_samples=50,
+        ...          max_num_samples=150, error_rtol=2e-3,
+        ...          confidence_level=0.95, outlier_significance_level=0.001,
+        ...          plot=True, verbose=True)
+        [2652.47318185 2238.5072489  1953.64615272]
 
     The output of the verbose argument is shown below. In the results section
     of the table below, each row `i` under the `inquiry` column corresponds to
-    each element of the parameters ``t = [-1, 0, 1]`` that was specified by
-    ``parameters`` argument.
+    each element of the parameters ``t = [0.5, 1.0, 1.5]`` that was specified
+    by ``parameters`` argument.
 
-    .. literalinclude:: ../_static/imate.logdet.slq-verbose-2.txt
+    .. literalinclude:: ../_static/data/imate.traceinv.slq-verbose-2.txt
         :language: python
 
     The output of the plot is shown below. Each colored curve corresponds to
-    a parameter in ``t = [-1, 0, 1]``.
+    a parameter in ``t = [0.5, 1.0, 1.5]``.
 
-    .. image:: ../_static/images/plots/slq_convergence_2.png
+    .. image:: ../_static/images/plots/traceinv_slq_convergence_2.png
         :align: center
         :width: 80%
         :class: custom-dark

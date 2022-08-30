@@ -116,6 +116,7 @@ extensions = [
     'nbsphinx',
     'sphinx_design',
     'sphinx_multitoc_numbering',
+    'sphinx-prompt'
 ]
 
 # Automatically generate autosummary after each build

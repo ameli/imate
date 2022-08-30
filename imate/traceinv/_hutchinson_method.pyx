@@ -54,70 +54,85 @@ def hutchinson_method(
         verbose=False,
         plot=False):
     """
-    Log-determinant of non-singular matrix or linear operator using stochastic
-    Lanczos quadrature method.
+    Trace of matrix or linear operator using stochastic Lanczos quadrature
+    method.
 
-    Given the symmetric matrix or linear operator :math:`\\mathbf{A}` and the
-    real exponent :math:`p`, the following is computed:
+    If `C` is `None`, given the matrices :math:`\\mathbf{A}` and
+    :math:`\\mathbf{B}` and the integer exponent :math:`p`, the following is
+    computed:
 
     .. math::
 
-        \\mathrm{logdet} \\left(\\mathbf{A}^p \\right) = p \\log_e \\vert
-        \\det (\\mathbf{A}) \\vert.
+        \\mathrm{trace} \\left(\\mathbf{B} \\mathbf{A}^{-p} \\right).
+
+    If `B` is `None`, it is assumed that :math:`\\mathbf{B}` is the identity
+    matrix.
+
+    If `C` is not `None`, given the matrix :math:`\\mathbf{C}`, the following
+    is instead computed:
+
+    .. math::
+
+        \\mathrm{trace} \\left(\\mathbf{B} \\mathbf{A}^{-p} \\mathbf{C}
+        \\mathbf{A}^{-p} \\right).
 
     If ``gram`` is `True`, then :math:`\\mathbf{A}` in the above is replaced by
-    the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`, and the
-    following is instead computed:
+    the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`. Namely, if
+    `C` is `None`:
 
     .. math::
 
-        \\mathrm{logdet} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^p
-        \\right) = 2p \\log_e \\vert \\det (\\mathbf{A}) \\vert.
+        \\mathrm{trace} \\left(\\mathbf{B} 
+        (\\mathbf{A}^{\\intercal}\\mathbf{A})^{-p} \\right),
 
-    If :math:`\\mathbf{A} = \\mathbf{A}(t)` is a linear operator of the class
-    :class:`imate.AffineMatrixFunction` with the parameter :math:`t`, then for
-    an input  tuple :math:`t = (t_1, \\dots, t_q)`, an array output of the
-    size :math:`q` is returned, namely:
+    and if `C` is not `None`,
 
     .. math::
 
-        \\mathrm{logdet} \\left((\\mathbf{A}(t_i))^p \\right),
-        \\quad i=1, \\dots, q.
+        \\mathrm{trace} \\left(\\mathbf{B} 
+        (\\mathbf{A}^{\\intercal}\\mathbf{A})^{-p} \\mathbf{C}
+        (\\mathbf{A}^{\\intercal}\\mathbf{A}^{-p})
+        \\right),
 
     Parameters
     ----------
 
-    A : numpy.ndarray, scipy.sparse, :class:`imate.Matrix`, or \
-            :class:`imate.AffineMatrixFunction`
-        A non-singular sparse or dense matrix or linear operator. If ``gram``
-        is `False`, then `A` should be symmetric.
+    A : numpy.ndarray, scipy.sparse
+        A sparse or dense matrix.
 
-        .. warning::
+        .. note::
 
-            The symmetry of `A` will not be checked by this function. If
-            ``gram`` is `False`, make sure `A` is symmetric.
+            In the Hutchinson method, the matrix cannot be a type of
+            :class:`Matrix` or :class:`imate.AffineMatrixFunction` classes.
 
     gram : bool, default=False
-        If `True`, the log-determinant of the Gramian matrix,
+        If `True`, the trace of the Gramian matrix,
         :math:`(\\mathbf{A}^{\\intercal}\\mathbf{A})^p`, is computed. The
         Gramian matrix itself is not directly computed. If `False`, the
-        log-determinant of :math:`\\mathbf{A}^p` is computed.
+        trace of :math:`\\mathbf{A}^p` is computed.
 
     p : float, default=1.0
-        The exponent :math:`p` in :math:`\\mathbf{A}^p`.
+        The integer exponent :math:`p` in :math:`\\mathbf{A}^{-p}`.
 
     return_info : bool, default=False
         If `True`, this function also returns a dictionary containing
         information about the inner computation, such as process time,
         algorithm settings, etc.
 
-    parameters : array_like [`float`], default=one
-        This argument is relevant if `A` is a type of
-        :class:`AffineMatrixFunction`. By this argument, multiple inquiries,
-        :math:`(t_1, \\dots, t_q)`, can be passed to the parameter :math:`t` of
-        the linear operator :math:`\\mathbf{A}(t)`. The output of this function
-        becomes an array of the size :math:`q` corresponding to each of the
-        input matrices :math:`\\mathbf{A}(t_i)`.
+    B : numpy.ndarray, scipy.sparse
+        A sparse or dense matrix. `B` should be the same size and type of `A`.
+        if `B` is `None`, it is assumed that `B` is the identity matrix.
+
+    C : numpy.ndarray, scipy.sparse
+        A sparse or dense matrix. `C` should be the same size and type of `A`.
+
+    assume_matrix : str {'gen', 'sym', 'pos', 'sym_pos'}, default: 'gen'
+        Type of matrix `A`:
+
+        * ``gen`` assumes `A` is a generic matrix.
+        * ``sym`` assumes `A` is symmetric.
+        * ``pos`` assumes `A` is positive-definite.
+        * ``sym_pos`` assumes `A` is symmetric and positive-definite.
 
     min_num_samples : int, default=10
         The minimum number of Monte-Carlo samples. If the convergence criterion
@@ -158,60 +173,19 @@ def hutchinson_method(
         One minus the confidence level of the uncertainty of the outliers of
         the output samples. This is a number between `0` and `1`.
 
-    lanczos_degree : int, default=20
-        The number of Lanczos recursive iterations. The larger Lanczos degree
-        leads to better estimation. The computational cost quadratically
-        increases with the Lanczos degree.
-
-    lanczos_tol : float, default=None
-        The tolerance to stop the Lanczos recursive iterations before
-        the end of iterations reached. If the tolerance is not met, all the
-        iterations (total of ``lanczos_degree`` iterations) continue till the
-        end. If set to `None` (default value), the machine' epsilon precision
-        is used. The machine's epsilon precision is as follows:
-
-        * For 32-bit, machine precision is
-          :math:`2^{-23} = 1.1920929 \\times 10^{-7}`.
-        * For 64-bit, machine precision is
-          :math:`2^{-52} = 2.220446049250313 \\times 10^{-16}`,
-        * For 128-bit, machine precision is
-          :math:`2^{-63} = -1.084202172485504434 \\times 10^{-19}`.
+    solver_tol : float, default=1e-6
+        Tolerance of solving linear system.
 
     orthogonalize : int, default=0
-        Indicates whether to re-orthogonalize the eigenvectors during Lanczos
-        recursive iterations.
-
-        * If set to `0`, no orthogonalization is performed.
-        * If set to a negative integer or an integer larger than
-          ``lanczos_degree``, a newly computed eigenvector is orthogonalized
-          against all the previous eigenvectors (also known as
-          `full reorthogonalization`).
-        * If set to a positive integer, say `q`, but less than
-          ``lanczos_degree``, the newly computed eigenvector is
-          orthogonalized against a window of last `q` previous eigenvectors
-          (known as `partial reorthogonalization`).
+        If `True`, it orthogonalizes the set of random vectors used for
+        Monte-Carlo sampling. This might lead to a better estimation of the
+        output.
 
     num_threads : int, default=0
         Number of processor threads to employ for parallel computation on CPU.
         If set to `0` or a number larger than the available number of threads,
         all threads of the processor are used. The parallelization is performed
         over the Monte-Carlo iterations.
-
-    num_gpu_devices : int default=0
-        Number of GPU devices (if available) to use for parallel multi-GPU
-        processing. If set to `0`, the maximum number of available GPU devices
-        is used. This parameter is relevant if ``gpu`` is `True`.
-
-    gpu : bool, default=False
-        If `True`, the computations are performed on GPU devices where the
-        number of devices can be set by ``num_gpu_devices``. If no GPU device
-        is found, it raises an error.
-
-        .. note::
-            When performing `repetitive` computation on the same matrix on GPU,
-            it is recommended to input `A` as an instance of
-            :class:`imate.Matrix` class instead of `numpy` or `scipy` matrices.
-            See examples below for clarification.
 
     verbose : bool, default=False
         Prints extra information about the computations.
@@ -225,10 +199,8 @@ def hutchinson_method(
     Returns
     -------
 
-    logdet : float or numpy.array
-        Log-determinant of `A`. If `A` is of type
-        :class:`imate.AffineMatrixFunction` with an array of ``parameters``,
-        then the output is an array.
+    traceinv : float or numpy.array
+        Trace of inverse of matrix.
 
     info : dict
         (Only if ``return_info`` is `True`) A dictionary of information with
@@ -240,6 +212,8 @@ def hutchinson_method(
             * ``gram``: `bool`, whether the matrix `A` or its Gramian is
               considered.
             * ``exponent``: `float`, the exponent `p` in :math:`\\mathbf{A}^p`.
+            * ``assume_matrix``: `str`, {`gen`, `sym`, `pos`, `sym_pos`},
+              determines the type of matrix `A`.
             * ``size``: (int) The size of matrix `A`.
             * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
             * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
@@ -250,23 +224,10 @@ def hutchinson_method(
               of the linear operator `A`. If `A` is a matrix, this is always
               `1`. If `A` is a type of :class:`AffineMatrixFunction`, this
               value is the number of :math:`t_i` parameters.
-            * ``num_operator_parameters``: `int`, number of parameters of the
-              operator `A`. If `A` a type of :class:`AffineMatrixFunction`,
-              then this value is `1` corresponding to one parameter :math:`t`
-              in the affine function `t \\mapsto \\mathbf{A} + t \\mathbf{B}`.
-            * ``parameters``: `list` [`float`], the parameters of the linear
-              operator `A`.
 
         * ``convergence``:
-            * ``all_converged``: `bool`, whether the Monte-Carlo sampling
-              converged for all requested parameters :math:`t_i`. If all
-              entries of the array for ``converged`` is `True``, then this
-              value is also ``True``.
-            * ``converged``: `array` [`bool`], whether the Monte-Carlo sampling
-              converged for each of the requested parameters :math:`t_i`.
-              Convergence is defined based on a termination criterion, such
-              as absolute or relative error. If the iterations terminated due
-              to reaching the maximum number of samples, this value is `False`.
+            * ``converged``: `bool`, whether the Monte-Carlo sampling
+              converged.
             * ``min_num_samples``: `int`, the minimum number of Monte-Carlo
               iterations.
             * ``max_num_samples``: `int`, the maximum number of Monte-Carlo
@@ -321,7 +282,9 @@ def hutchinson_method(
 
         * ``solver``:
             * ``version``: `str`, version of imate.
-            * ``method``: 'slq'
+            * ``method``: 'hutchinson'.
+            * ``solver_tol``: `float`, tolerance of solving linear system.
+            * ``orthogonalize``: `bool`, orthogonalization flag.
 
     Raises
     ------
@@ -336,54 +299,28 @@ def hutchinson_method(
     See Also
     --------
 
+    imate.logdet
     imate.trace
-    imate.traceinv
     imate.schatten
 
     Notes
     -----
 
-    This method uses stochastic Lanczos quadrature (SLQ), which is a randomized
-    algorithm. It can be used on very large matrices (:math:`n > 2^{12}`). The
+    **Computational Complexity:**
+
+    This method uses the Hutchinson, which is a randomized algorithm. The
+    computational complexity of this method is
+
+    .. math::
+
+        \\mathcal{O}((\\rho n^2s),
+
+    where :math:`n` is the matrix size, :math:`\\rho` is the density of
+    sparse matrix (for dense matrix, :math:`\\rho=1`), and :math:`s` is the
+    number of samples (set with ``min_num_samples`` and ``max_num_samples``).
+
+    This method can be used on very large matrices (:math:`n > 2^{12}`). The
     solution is an approximation.
-
-    **Input Matrix:**
-
-    The input `A` can be either of:
-
-    * A matrix, such as `numpy.ndarray`, or `scipy.sparse`.
-    * A linear operator representing a matrix using :class:`imate.Matrix`.
-    * A linear operator representing a one-parameter family of an affine matrix
-      function :math:`t \\mapsto \\mathbf{A} + t\\mathbf{B}` using
-      :class:`imate.AffineMatrixFunction`.
-
-    **Output:**
-
-    The output is a scalar. However, if `A` is the linear operator
-    :math:`\\mathbf{A}(t) = \\mathbf{A} + t \\mathbf{B}` where :math:`t` is
-    given as the tuple :math:`t = (t_1, \\dots, t_q)`, then the output of this
-    function is an array of size :math:`q` corresponding to the
-    log-determinant of each :math:`\\mathbf{A}(t_i)`.
-
-    .. note::
-
-        When `A` represents
-        :math:`\\mathbf{A}(t) = \\mathbf{A} + t \\mathbf{I}`, where
-        :math:`\\mathbf{I}` is the identity matrix, and :math:`t` is given by
-        a tuple :math:`t = (t_1, \\dots, t_q)`, the computational cost of an
-        array output of size `q` is the same as computing for a single
-        :math:`t_i`. Namely, the log-determinant of only
-        :math:`\\mathbf{A}(t_1)` is computed, and the log-determinant of the
-        rest of :math:`i=2, \\dots, q` are obtained from the result of
-        :math:`t_1` immediately.
-
-    **Algorithm:**
-
-    If ``gram`` is `False`, the Lanczos tri-diagonalization method is
-    used. This method requires only matrix-vector multiplication. If
-    ``gram`` is `True`, the Golub-Kahn bi-diagonalization method is used. This
-    method requires both matrix-vector multiplication and transposed-matrix
-    vector multiplications.
 
     **Convergence criterion:**
 
@@ -424,26 +361,6 @@ def hutchinson_method(
     relative error tolerances respectively, and they are set by ``error_atol``
     and ``error_rtol``.
 
-    **Convergence for the case of multiple parameters:**
-
-    When `A` is a type of :class:`imate.AffineMatrixFunction` representing the
-    affine matrix function :math:`\\mathbf{A}(t) = \\mathbf{A} + t \\mathbf{B}`
-    and if multiple parameters :math:`t_i`, :math:`i=1,\\dots, q` are passed to
-    this function through ``parameters`` argument, the convergence criterion
-    has to be satisfied for each of :math:`\\mathbf{A}(t_i)`. Specifically, the
-    iterations are terminated as follows:
-
-    * If :math:`\\mathbf{B}` is the identity matrix, iterations for all
-      :math:`\\mathbf{A}(t_i)` continue till the convergence criterion for
-      *all* :math:`t_i` are satisfied. That is, even if :math:`t=t_i` is
-      converged but :math:`t=t_j` has not converged yet, the iterations for
-      :math:`t=t_i` will continue.
-      :
-    * If :math:`\\mathbf{B}` is not the identity matrix, the iterations for
-      each of :math:`t_i` are independent. That is, if :math:`t=t_i` converges,
-      the iterations for that parameter will stop regardless of the convergence
-      status of other parameters.
-
     **Plotting:**
 
     If ``plot`` is set to `True`, it plots the convergence of samples and their
@@ -479,51 +396,73 @@ def hutchinson_method(
     Examples
     --------
 
-    **Large matrix:**
+    **Basic Usage:**
 
-    Compute log-determinant of a very large sparse matrix using at least `100`
-    samples:
+    Compute the trace of :math:`\\mathbf{A}^{-2}`:
 
     .. code-block:: python
-        :emphasize-lines: 9, 10
-
 
         >>> # Import packages
-        >>> from imate import toeplitz, logdet
+        >>> from imate import toeplitz, traceinv
 
-        >>> # Generate a matrix of size one million
-        >>> A = toeplitz(2, 1, size=1000000, gram=True)
+        >>> # Generate a sample matrix
+        >>> A = toeplitz(2, 1, size=100)
+        >>> from imate import traceinv
 
-        >>> # Approximate log-determinant using stochastic Lanczos quadrature
-        >>> # with at least 100 Monte-Carlo sampling
-        >>> ld, info = logdet(A, method='slq', min_num_samples=100,
-        ...                   max_num_samples=200, return_info=True)
-        >>> print(ld)
-        1386320.4734751645
+        >>> # Compute trace of inverse
+        >>> traceinv(A, p=2, method='hutchinson')
+        18.527409020384308
 
-        >>> # Find the time it took to compute the above
-        >>> print(info['time'])
-        {
-            'tot_wall_time': 16.598053652094677,
-            'alg_wall_time': 16.57977867126465,
-            'cpu_proc_time': 113.03275911399999
-        }
-
-    Compare the result of the above approximation with the exact solution of
-    the log-determinant using the analytic relation for Toeplitz matrix. See
-    :func:`imate.sample_matrices.toeplitz_logdet` for details.
+    Compute the trace of :math:`(\\mathbf{A}^{\\intercal} \\mathbf{A})^{-2}`:
 
     .. code-block:: python
 
-        >>> from imate.sample_matrices import toeplitz_logdet
-        >>> toeplitz_logdet(2, 1, size=1000000, gram=True)
-        1386294.3611198906
+        >>> # Using Gramian matrix of A
+        >>> traceinv(A, gram=True, p=2, method='hutchinson')
+        18.527409020384308
 
-    It can be seen that the error of approximation is :math:`0.0018 \\%`. This
-    accuracy is remarkable considering that the computation on such a large
-    matrix took only 16 seconds. Computing the log-determinant of such a
-    large matrix using any of the exact methods (such as ``cholesky`` or
-    ``eigenvalue``) is infeasible.
+    Compute the trace of :math:`\\mathbf{B} \\mathbf{A}^{-2}`:
+
+    .. code-block:: python
+
+        >>> # Generate another sample matrix
+        >>> B = toeplitz(4, 3, size=100)
+
+        >>> # Using Gramian matrix of A
+        >>> traceinv(A, p=2, method='hutchinson', B=B)
+        18.527409020384308
+
+    Compute the trace of :math:`\\mathbf{B} \\mathbf{A}^{-2} \\mathbf{C}
+    \\mathbf{A}^{-2}`:
+
+    .. code-block:: python
+
+        >>> # Generate another sample matrix
+        >>> C = toeplitz(5, 4, size=100)
+
+        >>> # Using Gramian matrix of A
+        >>> traceinv(A, p=2, method='hutchinson', B=B, C=C)
+        18.527409020384308
+
+    Compute the trace of :math:`\\mathbf{B} (\\mathbf{A}^{\\intercal}
+    \\mathbf{A})^{-2} \\mathbf{C} (\\mathbf{A}^{\\intercal} \\mathbf{A})^{-2}`:
+
+    .. code-block:: python
+
+        >>> # Generate another sample matrix
+        >>> C = toeplitz(5, 4, size=100)
+
+        >>> # Using Gramian matrix of A
+        >>> traceinv(A, gram=True, p=2, method='hutchinson', B=B, C=C)
+        18.527409020384308
+
+    **Verbose output:**
+
+    By setting ``verbose`` to `True`, useful info about the process is
+    printed.
+
+    .. literalinclude:: ../_static/data/imate.traceinv.hutchinson-verbose.txt
+        :language: python
 
     **Output information:**
 
@@ -531,9 +470,9 @@ def hutchinson_method(
 
     .. code-block:: python
 
-        >>> ld, info = logdet(A, method='slq', return_info=True)
-        >>> print(ld)
-        138.6294361119891
+        >>> ti, info = traceinv(A, method='hutchinson', return_info=True)
+        >>> print(ti)
+        32.708445808330886
 
         >>> # Print dictionary neatly using pprint
         >>> from pprint import pprint
@@ -541,41 +480,41 @@ def hutchinson_method(
         {
             'matrix': {
                 'data_type': b'float64',
-                'density': 2.999998e-06,
-                'exponent': 1.0,
+                'density': 0.0298,
+                'exponent': 1,
                 'gram': False,
-                'nnz': 2999998,
+                'nnz': 298,
                 'num_inquiries': 1,
                 'num_operator_parameters': 0,
                 'parameters': None,
-                'size': 1000000,
+                'size': 100,
                 'sparse': True
             },
             'convergence': {
-                'all_converged': True,
-                'converged': True,
+                'all_converged': False,
+                'converged': False,
                 'max_num_samples': 50,
                 'min_num_samples': 10,
                 'num_outliers': 0,
-                'num_samples_used': 10,
-                'samples': array([1386085.91975074, ..., nan]),
-                 'samples_mean': 1385604.1663613867,
-                'samples_processed_order': array([ 6, ..., 0]),
+                'num_samples_used': 50,
+                'samples': array([33.24133019, ..., 33.20591227]),
+                'samples_mean': 32.708445808330886,
+                'samples_processed_order': array([ 0, ..., 49])
             },
             'error': {
-                'absolute_error': 467.54178690512845,
-                'confidence_level': 0.95,
-                'error_atol': 0.0,
-                'error_rtol': 0.01,
-                'outlier_significance_level': 0.001,
-                'relative_error': 0.0003374281041120848
+                'absolute_error': 1.0957187950411644,
+               'confidence_level': 0.95,
+               'error_atol': 0.0,
+               'error_rtol': 0.01,
+               'outlier_significance_level': 0.001,
+               'relative_error': 0.03349956770988132
             },
             'solver': {
                 'lanczos_degree': 20,
                 'lanczos_tol': 2.220446049250313e-16,
                 'method': 'slq',
                 'orthogonalize': 0,
-                'version': '0.13.0'
+                'version': '0.15.0'
             },
             'device': {
                 'num_cpu_threads': 8,
@@ -584,19 +523,53 @@ def hutchinson_method(
                 'num_gpu_threads_per_multiprocessor': 0
             },
             'time': {
-                'alg_wall_time': 2.6905629634857178,
-                'cpu_proc_time': 18.138382528999998,
-                'tot_wall_time': 2.69458799099084
+                'alg_wall_time': 0.005590200424194336,
+                'cpu_proc_time': 0.03228565200000011,
+                'tot_wall_time': 0.0057561639696359634
+                }
             }
+
+    **Large matrix:**
+
+    Compute the trace of :math:`\\mathbf{A}^{-1}` for a very large sparse
+    matrix using at least `100` samples.
+
+    .. code-block:: python
+        :emphasize-lines: 5, 6, 7
+
+        >>> # Create a symmetric positive-definite matrix of size one million.
+        >>> A = toeplitz(2, 1, size=1000000, gram=True)
+
+        >>> # Approximate trace using hutchinson method
+        >>> ti, info = traceinv(A, method='hutchinson', solver_tol=1e-4,
+        ...                     assume_matrix='sym_pos', min_num_samples=100,
+        ...                     max_num_samples=200, return_info=True)
+        >>> print(ti)
+        333273.2654698325
+
+        >>> # Find the time it took to compute the above
+        >>> print(info['time'])
+        {
+            'tot_wall_time': 15.991112960968167,
+            'alg_wall_time': 15.972427368164062,
+            'cpu_proc_time': 117.7014269
         }
 
-    **Verbose output:**
+    Compare the result of the above approximation with the exact solution of
+    the trace using the analytic relation for Toeplitz matrix. See
+    :func:`imate.sample_matrices.toeplitz_traceinv` for details.
 
-    By setting ``verbose`` to `True`, useful info about the process is
-    printed.
+    .. code-block:: python
 
-    .. literalinclude:: ../_static/imate.logdet.slq-verbose-1.txt
-        :language: python
+        >>> from imate.sample_matrices import toeplitz_traceinv
+        >>> toeplitz_traceinv(2, 1, size=1000000, gram=True)
+        333333.2222222222
+
+    It can be seen that the error of approximation is :math:`0.018 \\%`. This
+    accuracy is remarkable considering that the computation on such a large
+    matrix took only 16 seconds. Computing the trace of such a large matrix
+    using any of the exact methods (such as ``exact`` or ``eigenvalue``) is
+    infeasible.
 
     **Plotting:**
 
@@ -606,11 +579,12 @@ def hutchinson_method(
     .. code-block:: python
 
         >>> A = toeplitz(2, 1, size=1000000, gram=True)
-        >>> logdet(A, method='slq', min_num_samples=20, max_num_samples=80,
-        ...        error_rtol=2e-4, confidence_level=0.95,
-        ...        outlier_significance_level=0.001, plot=True)
+        >>> traceinv(A, method='hutchinson', assume_matrix='sym_pos',
+        ...          solver_tol=1e-4, min_num_samples=50, max_num_samples=150,
+        ...          error_rtol=2e-4, confidence_level=0.95,
+        ...          outlier_significance_level=0.001, plot=True)
 
-    .. image:: ../_static/images/plots/slq_convergence_1.png
+    .. image:: ../_static/images/plots/traceinv_hutchinson_convergence.png
         :align: center
         :class: custom-dark
 
@@ -621,123 +595,14 @@ def hutchinson_method(
     considered outliers, which is set by the significance level
     ``outlier_significance_level=0.001``.
 
-    In the right plot, the darker shaded area in the interval :math:`[0, 20]`
-    shows the minimum number of samples and is set by ``min_num_samples=20``.
+    In the right plot, the darker shaded area in the interval :math:`[0, 50]`
+    shows the minimum number of samples and is set by ``min_num_samples=50``.
     The iterations do not stop till the minimum number of iterations is passed.
-    We can observe that sampling is terminated after 55 iterations where the
+    We can observe that sampling is terminated after 120 iterations where the
     relative error of samples reaches 0.02% since we set ``error_rtol=2e-4``.
-    The lighter shaded area in the interval :math:`[56, 80]` corresponds to the
-    iterations that were not performed to reach the specified maximum
-    iterations by ``max_num_samples=80``.
-
-    **Matrix operator:**
-
-    Use an object of :class:`imate.Matrix` class as an alternative method to
-    pass the matrix `A` to the `logdet` function.
-
-    .. code-block:: python
-        :emphasize-lines: 8
-
-        >>> # Import matrix operator
-        >>> from imate import toeplitz, logdet, Matrix
-
-        >>> # Generate a sample matrix (a toeplitz matrix)
-        >>> A = toeplitz(2, 1, size=100, gram=True)
-
-        >>> # Create a matrix operator object from matrix A
-        >>> Aop = Matrix(A)
-
-        >>> # Compute log-determinant of Aop
-        >>> logdet(Aop, method='slq')
-        141.52929878934194
-
-    An advantage of passing `Aop` (instead of `A`) to the `logdet` function
-    will be clear when using GPU.
-
-    **Computation on GPU:**
-
-    The argument ``gpu=True`` performs the computations on GPU. The following
-    example uses the object `Aop` created earlier.
-
-    .. code-block:: python
-
-        >>> # Compute log-determinant of Aop
-        >>> logdet(Aop, method='slq', gpu=True)
-        141.52929878934194
-
-    The above function call triggers the object `Aop` to automatically load the
-    matrix data on the GPU.
-
-    One could have used `A` instead of `Aop` in the above. However, an
-    advantage of using `Aop` (instead of the matrix `A` directly) is that by
-    calling the above `logdet` function (or another function) again on this
-    matrix, the data of this matrix does not have to be re-allocated on the GPU
-    device again. To highlight this point, call the above function again, but
-    this time, set ``gram`` to `True` to compute something different.
-
-    .. code-block:: python
-
-        >>> # Compute log-determinant of Aop
-        >>> logdet(Aop, method='slq', gpu=True, gram=True)
-        141.52929878934194
-
-    In the above example, no data is needed to be transferred from CPU host to
-    GPU device again. However, if `A` was used instead of `Aop`, the data would
-    have been transferred from CPU to GPU again for the second time. The `Aop`
-    object holds the data on GPU for later use as long as this object does no
-    go out of the scope of the python environment. Once the variable `Aop` goes
-    out of scope, the matrix data on all the GPU devices will be cleaned
-    automatically.
-
-    **Affine matrix operator:**
-
-    Use an object of :class:`imate.AffineMatrixFunction` to create the linear
-    operator
-
-    .. math::
-
-        \\mathbf{A}(t) = \\mathbf{A} + t \\mathbf{I}.
-
-    The object :math:`\\mathbf{A}(t)` can be passed to `logdet` function with
-    multiple values for the parameter :math:`t` to compute their
-    log-determinant all at once, as follows.
-
-    .. code-block:: python
-        :emphasize-lines: 8
-
-        >>> # Import affine matrix function
-        >>> from imate import toeplitz, logdet, AffineMatrixFunction
-
-        >>> # Generate a sample matrix (a toeplitz matrix)
-        >>> A = toeplitz(2, 1, size=100, gram=True)
-
-        >>> # Create a matrix operator object from matrix A
-        >>> Aop = AffineMatrixFunction(A)
-
-        >>> # A list of parameters t to pass to Aop
-        >>> t = [-1.0, 0.0, 1.0]
-
-        >>> # Compute log-determinant of Aop for all parameters t
-        >>> logdet(Aop, method='slq', parameters=t, min_num_samples=20,
-        ...        max_num_samples=80, error_rtol=1e-3, confidence_level=0.95,
-        ...        outlier_significance_level=0.001, plot=True, verbose=True)
-        array([ 68.71411681, 135.88356906, 163.44156683])
-
-    The output of the verbose argument is shown below. In the results section
-    of the table below, each row `i` under the `inquiry` column corresponds to
-    each element of the parameters ``t = [-1, 0, 1]`` that was specified by
-    ``parameters`` argument.
-
-    .. literalinclude:: ../_static/imate.logdet.slq-verbose-2.txt
-        :language: python
-
-    The output of the plot is shown below. Each colored curve corresponds to
-    a parameter in ``t = [-1, 0, 1]``.
-
-    .. image:: ../_static/images/plots/slq_convergence_2.png
-        :align: center
-        :width: 80%
-        :class: custom-dark
+    The lighter shaded area in the interval :math:`[120, 150]` corresponds to
+    the iterations that were not performed to reach the specified maximum
+    iterations by ``max_num_samples=150``.
     """
 
     # Checking input arguments

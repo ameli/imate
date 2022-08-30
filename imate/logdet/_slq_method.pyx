@@ -82,7 +82,7 @@ def slq_method(
 
         .. warning::
 
-            The symmetry of `A` will not be checked by this function. If
+            The symmetry of `A` is not pre-checked by this function. If
             ``gram`` is `False`, make sure `A` is symmetric.
 
     gram : bool, default=False
@@ -92,7 +92,7 @@ def slq_method(
         log-determinant of :math:`\\mathbf{A}^p` is computed.
 
     p : float, default=1.0
-        The exponent :math:`p` in :math:`\\mathbf{A}^p`.
+        The real exponent :math:`p` in :math:`\\mathbf{A}^p`.
 
     return_info : bool, default=False
         If `True`, this function also returns a dictionary containing
@@ -309,7 +309,10 @@ def slq_method(
 
         * ``solver``:
             * ``version``: `str`, version of imate.
-            * ``method``: 'slq'
+            * ``method``: 'slq'.
+            * ``lanczos_degree``: `bool`, Lanczos degree.
+            * ``lanczos_tol``: `float`, Lanczos tolerance.
+            * ``orthogonalize``: `int`, orthogonalization flag.
 
     Raises
     ------
@@ -480,17 +483,142 @@ def slq_method(
     Examples
     --------
 
+    **Symmetric Input Matrix:**
+
+    The `slq` method requires the input matrix of :func:`imate.logdet` function
+    to be symmetric when ``gram`` is `False`. For the first example, generate a
+    symmetric sample matrix using :func:`imate.toeplitz` function as follows:
+
+    .. code-block:: python
+
+        >>> # Import packages
+        >>> from imate import toeplitz
+
+        >>> # Generate a symmetric matrix by setting gram=True.
+        >>> A = toeplitz(2, 1, size=100, gram=True)
+
+    In the above, by passing ``gram=True`` to :func:`imate.toeplitz` function,
+    the Gramian of the Toeplitz matrix is returned, which is symmetric. Compute
+    the log-determinant of :math:`\\mathbf{A}^{2.5}`:
+
+    .. code-block:: python
+
+        >>> # Import packages
+        >>> from imate import logdet
+
+        >>> # Compute the log-determinant
+        >>> logdet(A, gram=False, p=2.5, method='slq')
+        277.00578301560057
+
+    .. note:
+
+        Since `slq` is a stochastic method, the above result slightly
+        differs after each run.
+
+    **Gramian Matrix:**
+    
+    Passing ``gram=True`` to :func:`imate.logdet` function uses the Gramian
+    of the input matrix. n this case, the input matrix can be non-symmetric.
+    In the next example, generate a non-symmetric matrix, :math:`\\mathbf{B}`,
+    then compute the log-determinant of
+    :math:`(\\mathbf{B}^{\\intercal} \\mathbf{B})^{2.5}`.
+
+    .. code-block:: python
+
+        >>> # Generate a non-symmetric matrix by setting gram=False
+        >>> B = toeplitz(2, 1, size=100, gram=False)
+
+        >>> # Compute log-determinant of Gramian by passing gram=True
+        >>> logdet(B, gram=True, p=2.5, method='slq')
+        275.15518680196476
+
+    Note that the result of the two examples in the above are the similar since
+    the input matrix :math:`\\mathbf{A}` of the first example is the Gramian of
+    the input matrix :math:`\\mathbf{B}` in the second example, that is
+    :math:`\\mathbf{A} = \\mathbf{B}^{\\intercal} \\mathbf{B}`. Since the
+    second example uses the Gramian of the input matrix, it computes the same
+    quantity as the first example.
+
+    **Verbose output:**
+
+    By setting ``verbose`` to `True`, useful info about the process is
+    printed.
+
+    .. literalinclude:: ../_static/data/imate.logdet.slq-verbose-1.txt
+        :language: python
+
+    **Output information:**
+
+    Print information about the inner computation:
+
+    .. code-block:: python
+
+        >>> ld, info = logdet(A, method='slq', return_info=True)
+        >>> print(ld)
+        138.6294361119891
+
+        >>> # Print dictionary neatly using pprint
+        >>> from pprint import pprint
+        >>> pprint(info)
+        {
+            'matrix': {
+                'data_type': b'float64',
+                'density': 0.0298,
+                'exponent': 1.0,
+                'gram': False,
+                'nnz': 298,
+                'num_inquiries': 1,
+                'num_operator_parameters': 0,
+                'parameters': None,
+                'size': 100,
+                'sparse': True
+            },
+            'convergence': {
+                'all_converged': False,
+                'converged': False,
+                'max_num_samples': 50,
+                'min_num_samples': 10,
+                'num_outliers': 0,
+                'num_samples_used': 50,
+                'samples': array([124.65021242, ..., 143.27314446]),
+                'samples_mean': 139.89509513079338,
+                'samples_processed_order': array([ 4, ..., 47])
+            },
+            'error': {
+                'absolute_error': 2.345203485787551,
+               'confidence_level': 0.95,
+               'error_atol': 0.0,
+               'error_rtol': 0.01,
+               'outlier_significance_level': 0.001,
+               'relative_error': 0.01676401508998531
+            },
+            'solver': {
+                'lanczos_degree': 20,
+                'lanczos_tol': 2.220446049250313e-16,
+                'method': 'slq',
+                'orthogonalize': 0,
+                'version': '0.15.0'
+            },
+            'device': {
+                'num_cpu_threads': 8,
+                'num_gpu_devices': 0,
+                'num_gpu_multiprocessors': 0,
+                'num_gpu_threads_per_multiprocessor': 0
+            },
+            'time': {
+                'alg_wall_time': 0.002254009246826172,
+                'cpu_proc_time': 0.01330678200000035,
+                'tot_wall_time': 0.0023698790464550257
+            }
+        }
+
     **Large matrix:**
 
     Compute the log-determinant of a very large sparse matrix using at least
     `100` samples:
 
     .. code-block:: python
-        :emphasize-lines: 9, 10
-
-
-        >>> # Import packages
-        >>> from imate import toeplitz, logdet
+        :emphasize-lines: 6, 7
 
         >>> # Generate a matrix of size one million
         >>> A = toeplitz(2, 1, size=1000000, gram=True)
@@ -525,101 +653,6 @@ def slq_method(
     matrix took only 16 seconds. Computing the log-determinant of such a
     large matrix using any of the exact methods (such as ``cholesky`` or
     ``eigenvalue``) is infeasible.
-
-    **Non-symmetric Input Matrix:**
-
-    Recall that `slq` method requires :math:`\\mathbf{A}` to be symmetric.
-    However, if we set ``gram=True`` in :func:`imate.logdet` function to
-    compute the log-determinant of
-    :math:`(\\mathbf{A}^{\\intercal} \\mathbf{A})` or its power, the input
-    matrix :math:`\\mathbf{A}` may be non-symmetric.
-
-    Compute the log-determinant of
-    :math:`(\\mathbf{A}^{\\intercal} \\mathbf{A})^{2.5}`:
-
-    .. code-block:: python
-
-        >>> # Generate a matrix of size one million. Matrix is not symmetric.
-        >>> A = toeplitz(2, 1, size=1000000)
-
-        >>> # Approximate trace using stochastic Lanczos quadrature
-        >>> # with at least 100 Monte-Carlo sampling
-        >>> logdet(A, gram=True, p=2.5, method='slq', min_num_samples=100,
-        ...       max_num_samples=200)
-        2772676.0000623395
-
-    **Output information:**
-
-    Print information about the inner computation:
-
-    .. code-block:: python
-
-        >>> ld, info = logdet(A, method='slq', return_info=True)
-        >>> print(ld)
-        138.6294361119891
-
-        >>> # Print dictionary neatly using pprint
-        >>> from pprint import pprint
-        >>> pprint(info)
-        {
-            'matrix': {
-                'data_type': b'float64',
-                'density': 2.999998e-06,
-                'exponent': 1.0,
-                'gram': False,
-                'nnz': 2999998,
-                'num_inquiries': 1,
-                'num_operator_parameters': 0,
-                'parameters': None,
-                'size': 1000000,
-                'sparse': True
-            },
-            'convergence': {
-                'all_converged': True,
-                'converged': True,
-                'max_num_samples': 50,
-                'min_num_samples': 10,
-                'num_outliers': 0,
-                'num_samples_used': 10,
-                'samples': array([1386085.91975074, ..., nan]),
-                 'samples_mean': 1385604.1663613867,
-                'samples_processed_order': array([ 6, ..., 0]),
-            },
-            'error': {
-                'absolute_error': 467.54178690512845,
-                'confidence_level': 0.95,
-                'error_atol': 0.0,
-                'error_rtol': 0.01,
-                'outlier_significance_level': 0.001,
-                'relative_error': 0.0003374281041120848
-            },
-            'solver': {
-                'lanczos_degree': 20,
-                'lanczos_tol': 2.220446049250313e-16,
-                'method': 'slq',
-                'orthogonalize': 0,
-                'version': '0.13.0'
-            },
-            'device': {
-                'num_cpu_threads': 8,
-                'num_gpu_devices': 0,
-                'num_gpu_multiprocessors': 0,
-                'num_gpu_threads_per_multiprocessor': 0
-            },
-            'time': {
-                'alg_wall_time': 2.6905629634857178,
-                'cpu_proc_time': 18.138382528999998,
-                'tot_wall_time': 2.69458799099084
-            }
-        }
-
-    **Verbose output:**
-
-    By setting ``verbose`` to `True`, useful info about the process is
-    printed.
-
-    .. literalinclude:: ../_static/imate.logdet.slq-verbose-1.txt
-        :language: python
 
     **Plotting:**
 
@@ -751,7 +784,7 @@ def slq_method(
     each element of the parameters ``t = [-1, 0, 1]`` that was specified by
     ``parameters`` argument.
 
-    .. literalinclude:: ../_static/imate.logdet.slq-verbose-2.txt
+    .. literalinclude:: ../_static/data/imate.logdet.slq-verbose-2.txt
         :language: python
 
     The output of the plot is shown below. Each colored curve corresponds to

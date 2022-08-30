@@ -17,7 +17,8 @@ import platform
 import subprocess
 
 __all__ = ['get_processor_name', 'get_num_cpu_threads', 'get_gpu_name',
-           'get_num_gpu_devices', 'restrict_to_single_processor']
+           'get_num_gpu_devices', 'get_nvidia_driver_version',
+           'restrict_to_single_processor']
 
 
 # ==================
@@ -164,7 +165,7 @@ def get_gpu_name():
 
     ::
 
-        nvidia-smi -a | grep -i "Product Name" -m 1 | grep -o ":.*"' |cut -c 3-
+        nvidia-smi -a | grep -i "Product Name" -m 1 | grep -o ":.*" |cut -c 3-
 
     The ``nvidia-smi`` command is part of `NVIDIA graphic driver`. See
     :ref:`Install NVIDIA Graphic Driver <install-graphic-driver>` for further
@@ -180,6 +181,12 @@ def get_gpu_name():
         >>> get_gpu_name()
         'GeForce GTX 1080 Ti'
     """
+
+    # Pre-check if the nvidia-smi command works
+    status = _check_nvidia_smi()
+    if status is False:
+        gpu_name = 'not found'
+        return gpu_name
 
     command = 'nvidia-smi -a | grep -i "Product Name" -m 1 | grep -o ":.*"' + \
         ' | cut -c 3-'
@@ -254,6 +261,12 @@ def get_num_gpu_devices():
         4
     """
 
+    # Pre-check if the nvidia-smi command works
+    status = _check_nvidia_smi()
+    if status is False:
+        num_gpu_devices = 0
+        return num_gpu_devices
+
     command = 'nvidia-smi --list-gpus | wc -l'
 
     try:
@@ -273,6 +286,116 @@ def get_num_gpu_devices():
         num_gpu_devices = 0
 
     return num_gpu_devices
+
+
+# =========================
+# get nvidia driver version
+# =========================
+
+def get_nvidia_driver_version():
+    """
+    Gets the NVIDIA graphic driver version.
+
+    Returns
+    -------
+
+    version : str
+        The version number in the format "DriverVersion.RuntimeVersion".
+
+    See Also
+    --------
+
+    imate.device.locate_cuda
+    imate.info
+
+    Notes
+    -----
+
+    This function parses the output of ``nvidia-smi`` command as
+
+    ::
+
+        nvidia-smi -q | grep -i "Driver Version" | grep -o ":.*" | cut -c 3-
+
+    The ``nvidia-smi`` command is part of `NVIDIA graphic driver`. See
+    :ref:`Install NVIDIA Graphic Driver <install-graphic-driver>` for further
+    details. If a graphic driver is not installed, this function returns
+    ``"not found"``.
+
+    Examples
+    --------
+
+    .. code-block:: python
+
+        >>> from imate.device import get_nvidia_driver_version
+        >>> get_nvidia_driver_version()
+        '460.84'
+    """
+
+    # Pre-check if the nvidia-smi command works
+    status = _check_nvidia_smi()
+    if status is False:
+        gpu_name = 'not found'
+        return gpu_name
+
+    command = 'nvidia-smi -q | grep -i "Driver Version" | grep -o ":.*"' + \
+        '| cut -c 3-'
+
+    try:
+        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
+        stdout, _ = process.communicate()
+        error_code = process.poll()
+
+        # Error code 127 means nvidia-smi is not a recognized command. Error
+        # code 9 means nvidia-smi could not find any device.
+        if error_code != 0:
+            version = 'not found'
+        else:
+            version = stdout.strip().decode('utf-8')
+
+        if version == '':
+            version = 'not found'
+
+    except FileNotFoundError:
+        version = 'not found'
+
+    return version
+
+
+# ================
+# check nvidia smi
+# ================
+
+def _check_nvidia_smi():
+    """
+    Checks if the ``nvidia-smi`` command can connect to the NVIDIA device.
+
+    Returns
+    -------
+
+    status : bool
+        If `True`, the output of ``nvidia-smi`` command is successful.
+    """
+
+    command = 'nvidia-smi'
+    status = True
+
+    try:
+        process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
+        stdout, _ = process.communicate()
+        error_code = process.poll()
+
+        # Error code 127 means nvidia-smi is not a recognized command. Error
+        # code 9 means nvidia-smi could not find any device.
+        if error_code != 0:
+            status = False
+
+    except FileNotFoundError:
+        status = False
+
+    return status
 
 
 # ============================

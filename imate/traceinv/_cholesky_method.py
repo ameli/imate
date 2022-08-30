@@ -47,15 +47,17 @@ def cholesky_method(
         invert_cholesky=True,
         cholmod=None):
     """
-    Log-determinant of non-singular matrix using Cholesky method.
+    Trace of inverse of non-singular matrix using Cholesky method.
 
-    Given the matrix :math:`\\mathbf{A}` and the real exponent :math:`p`, the
-    following is computed:
+    Given the matrices :math:`\\mathbf{A}` and :math:`\\mathbf{B}` and the
+    integer exponent :math:`p`, the following is computed:
 
     .. math::
 
-        \\mathrm{logdet} \\left(\\mathbf{A}^p \\right) = p \\log_e \\vert
-        \\det (\\mathbf{A}) \\vert.
+        \\mathrm{trace} \\left(\\mathbf{A}^{-p} \\mathbf{B} \\right).
+
+    If ``B`` is `None`, it is assumed that :math:`\\mathbf{B}` is the identity
+    matrix.
 
     If ``gram`` is `True`, then :math:`\\mathbf{A}` in the above is replaced by
     the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`, and the
@@ -63,15 +65,19 @@ def cholesky_method(
 
     .. math::
 
-        \\mathrm{logdet} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^p
-        \\right) = 2p \\log_e \\vert \\det (\\mathbf{A}) \\vert.
+        \\mathrm{trace} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^{-p}
+        \\mathbf{B} \\right).
 
     Parameters
     ----------
 
     A : numpy.ndarray, scipy.sparse
-        A non-singular sparse or dense matrix. For ``method=cholesky``, the
-        matrix `A` should be positive-definite.
+        A positive-definite sparse or dense matrix.
+
+        .. warning::
+
+            This function does not pre-check whether the input matrix is
+            positive-definite.
 
         .. note::
 
@@ -79,36 +85,47 @@ def cholesky_method(
             :class:`Matrix` or :class:`imate.AffineMatrixFunction` classes.
 
     gram : bool, default=False
-        If `True`, the log-determinant of the Gramian matrix,
-        :math:`(\\mathbf{A}^{\\intercal}\\mathbf{A})^p`, is computed. The
+        If `True`, the trace of the Gramian matrix,
+        :math:`(\\mathbf{A}^{\\intercal}\\mathbf{A})^{-p}`, is computed. The
         Gramian matrix itself is not directly computed. If `False`, the
-        log-determinant of :math:`\\mathbf{A}^p` is computed.
+        trace of :math:`\\mathbf{A}^{-p}` is computed.
 
     p : float, default=1.0
-        The exponent :math:`p` in :math:`\\mathbf{A}^p`.
+        The integer exponent :math:`p` in :math:`\\mathbf{A}^p`.
 
     return_info : bool, default=False
         If `True`, this function also returns a dictionary containing
         information about the inner computation, such as process time,
         algorithm settings, etc.
 
-    :param invert_cholesky: Flag to invert Cholesky matrix.
-        If ``false``, the inverse of Cholesky is not directly computed, but a
-        linear system is solved for each column of the inverse of the Cholesky.
-    :type invert_cholesky: bool
+    B : numpy.ndarray, scipy.sparse
+        A positive-definite sparse or dense matrix. `B` should be the same
+        size and type of `A`. If `B` is `None`, is it assumed that the matrix
+        `B` is identity.
+
+        .. warning::
+
+            This function does not pre-check whether the input matrix is
+            positive-definite.
+
+    invert_cholesky : bool, default=True
+        If `True`, the inverse of Cholesky decomposition is computed. This
+        approach is fast but it is only suitable for small matrices. If set to
+        `False`, it uses the inverse of Cholesky matrix indirectly (see Notes).
+        This approach is suitable for larger matrices but slower.
 
     cholmod : bool, default=None
         If set to `True`, it uses the `Cholmod` library from `scikit-sparse`
         package to compute the Cholesky decomposition. If set to `False`, it
         uses `scipy.sparse.cholesky` method. If set to `None`, first, it tries
-        to use Cholmod library,  but if Cholmod is not available, it uses
+        to use Cholmod library,  but if Cholmod is not available, then it uses
         `scipy.sparse.cholesky` method.
 
     Returns
     -------
 
-    logdet : float or numpy.array
-        Log-determinant of `A`.
+    traceinv : float or numpy.array
+        Trace of inverse of `A`.
 
     info : dict
         (Only if ``return_info`` is `True`) A dictionary of information with
@@ -119,7 +136,8 @@ def cholesky_method(
               the matrix data.
             * ``gram``: `bool`, whether the matrix `A` or its Gramian is
               considered.
-            * ``exponent``: `float`, the exponent `p` in :math:`\\mathbf{A}^p`.
+            * ``exponent``: `float`, the exponent `p` in
+              :math:`\\mathbf{A}^{-p}`.
             * ``size``: `int`, the size of matrix `A`.
             * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
             * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
@@ -155,20 +173,64 @@ def cholesky_method(
     --------
 
     imate.trace
-    imate.traceinv
+    imate.logdet
     imate.schatten
 
     Notes
     -----
 
-    The log-determinant is computed from the Cholesky decomposition
-    :math:`\\mathbf{A} = \\mathbf{L} \\mathbf{L}^{\\intercal}` as
+    **Algorithm:**
+
+    The trace of inverse is computed from the Cholesky decompositions
+    :math:`\\mathbf{A}^{p} = \\mathbf{L}_{\\vert p \\vert}
+    \\mathbf{L}_{\\vert p \\vert}^{\\intercal}` and :math:`\\mathbf{B} =
+    \\mathbf{L}_{\\mathbf{B}} \\mathbf{L}_{\\mathbf{B}}^{\\intercal}` as
+    follows:
 
     .. math::
 
-        \\log | \\mathbf{A} | =
-        2 \\mathrm{trace}( \\log \\mathrm{diag}(\\mathbf{L})).
+        \\mathrm{trace} \\left( \\mathbf{A}^{-p} \\mathbf{B} \\right) =
+        \\Vert \\mathbf{L}_{\\vert p \\vert}^{-1} \\mathbf{L}_{\\mathbf{B}}
+        \\Vert_F^2.
 
+    where :math:`\\Vert \\cdot \\Vert_F` is the Frobenius norm. If
+    ``inverst_cholesky`` is `True`, the inverse
+    :math:`\\mathbf{L}_{\\vert p \\vert}^{-1}` is computed directly. Inverting
+    this matrix directly is only feasible for small matrices.
+
+    For larger matrices, set ``invert_cholesky`` to `False`. This approach
+    is slower than setting ``invert_cholesky`` to `True`, however, it can
+    process larger matrices. In this case,
+    :math:`\\Vert \\mathbf{L}_{\\vert p \\vert}^{-1} \\Vert_F^2`
+    is computed indirectly by
+
+    .. math::
+
+
+        \\Vert \\mathbf{L}_{\\vert p \\vert}^{-1} \\Vert_F^2 =
+        \\sum_{i=1}^n \\Vert \\boldsymbol{x}_i \\Vert^2,
+
+    where :math:`\\boldsymbol{x}_i` is solved by the lower-triangular system
+
+    .. math::
+
+        \\mathbf{L}_{\\vert p \\vert} \\boldsymbol{x}_i = \\boldsymbol{b}_i,
+
+    where :math:`\\boldsymbol{b}_i` is the :math:`i`-th column of
+    :math:`\\mathbf{L}_{\\mathbf{B}}`. If `B` is `None`, then
+    :math:`\\mathbf{B}` is assumed to be the identity and hence,
+    :math:`\\boldsymbol{b}_i = (0, \dots, 0, 1, 0, \dots, 0)` is a
+    vector of zeross, except its :math:`i`-th element is `1`.
+
+    **Computational Complexity:**
+
+    The computational complexity of this method is
+    :math:`\\mathcal{O}(\\frac{1}{3}n^3)` for dense matrices and
+    :math:`\\mathcal{O}(\\frac{\\rho}{3} n^2)` for sparse matrices where
+    :math:`n` is the matrix size and :math:`\\rho` is the sparse matrix
+    density.
+
+    **Implementation:**
 
     This function is essentially a wrapper for the Cholesky function of the
     `scipy` and `scikit-sparse` packages and is primarily used for testing and
@@ -178,46 +240,30 @@ def cholesky_method(
     <https://people.engr.tamu.edu/davis/suitesparse.html>`_ package to compute
     the Cholesky decomposition.
 
-    The result is exact (no approximation) and could be used as a benchmark to
-    test other methods.
-
-    .. note::
-
-        This function does not produce correct results when ``'A'`` is sparse.
-        It seems ``sksparse.cholmod`` has a problem.
-
-        When :math:`\\mathbf{A} = \\mathbf{K}` for some positive-definite
-        matrix :math:`\\mathbf{K}`, it produces correct result. However, when
-        :math:`\\mathbf{A} = \\mathbf{K} + \\eta \\mathbf{I}``, its result is
-        different than Hurtchinson and Lanczos stochastic quadrature methods.
-        Also its result becomes correct when :math:`\\mathbf{A}` is converted
-        to dense matrix, and if we do not use ``skspase.cholmod``.
-
-
     Examples
     --------
 
-    Compute the log-determinant of a sparse positive-definite Toeplitz matrix:
+    Compute the trace of inverse of a sparse positive-definite Toeplitz matrix:
 
     .. code-block:: python
 
         >>> # Import packages
-        >>> from imate import toeplitz, logdet
+        >>> from imate import toeplitz, traceinv
 
         >>> # Generate a sample symmetric and positive-definite matrix
         >>> A = toeplitz(2, 1, size=100, gram=True)
 
-        >>> # Compute log-determinant with Cholesky method (default method)
-        >>> logdet(A, method='cholesky')
-        138.62943611198907
+        >>> # Compute with Cholesky method (default method)
+        >>> traceinv(A, method='cholesky')
+        33.22222222222223
 
     Print information about the inner computation:
 
     .. code-block:: python
 
-        >>> ld, info = logdet(A, method='cholesky', return_info=True)
-        >>> print(ld)
-        138.6294361119891
+        >>> ti, info = traceinv(A, method='cholesky', return_info=True)
+        >>> print(ti)
+        33.22222222222223
 
         >>> # Print dictionary neatly using pprint
         >>> from pprint import pprint
@@ -226,12 +272,18 @@ def cholesky_method(
             'matrix': {
                 'data_type': b'float64',
                 'density': 0.0298,
-                'exponent': 1.0,
+                'exponent': 1,
                 'gram': False,
                 'nnz': 298,
                 'num_inquiries': 1,
                 'size': 100,
                 'sparse': True
+            },
+            'solver': {
+                'cholmod_used': True,
+                'invert_cholesky': True,
+                'method': 'cholesky',
+                'version': '0.16.0'
             },
             'device': {
                 'num_cpu_threads': 8,
@@ -239,15 +291,10 @@ def cholesky_method(
                 'num_gpu_multiprocessors': 0,
                 'num_gpu_threads_per_multiprocessor': 0
             },
-            'solver': {
-                'cholmod_used': True,
-                'method': 'cholesky',
-                'version': '0.13.0'
-            },
             'time': {
-                'alg_wall_time': 0.0007234140066429973,
-                'cpu_proc_time': 0.0009358710000000325,
-                'tot_wall_time': 0.0007234140066429973
+                'alg_wall_time': 0.031367766903713346,
+                'cpu_proc_time': 0.03275534099998367,
+                'tot_wall_time': 0.031367766903713346
             }
         }
     """

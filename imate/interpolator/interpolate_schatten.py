@@ -772,7 +772,7 @@ class InterpolateSchatten(object):
             if schatten_B is None:
                 schatten_B = self.interpolator._compute_schatten(
                         self.interpolator.B, self.interpolator.p)
-                
+
             normal_factor = schatten_B
         else:
             normal_factor = 1.0
