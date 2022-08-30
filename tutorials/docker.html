@@ -9,30 +9,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>2. Using imate on Docker &#8212; imate Manual</title>
-<script>
-  document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
-  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
-</script>
-
+  <script>
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=9b1a4fa89bdd0e95b23b" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=9b1a4fa89bdd0e95b23b" rel="stylesheet">
 
-
+  
   <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    href="../_static/vendor/fontawesome/6.1.2/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=9b1a4fa89bdd0e95b23b">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -43,30 +43,60 @@
     <script src="../_static/js/custom-pydata.js"></script>
     <script src="../_static/design-tabs.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/docker';</script>
     <link rel="shortcut icon" href="../_static/logo-imate.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="3. Using GPU Devices" href="gpu.html" />
     <link rel="prev" title="1. Install" href="install.html" />
     <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
+
+    <!-- Adobe Embed API -->
     <script src="https://documentcloud.adobe.com/view-sdk/viewer.js"></script>
+
+    <!-- My custom JS -->
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
+
+    <!-- Syntax highlighting for BibTex code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs-bibtex@2.0.1/prism-bibtex.min.js"></script>
+
     
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
 
   </head>
   
   
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="auto">
-    <div class="bd-header-announcement container-fluid" id="banner">
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
       
-
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
     </div>
+  </div>
 
-    
-    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
-
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fas fa-bars"></span>
+  </label>
   <div id="navbar-start">
     
     
@@ -74,9 +104,15 @@
 
 
 <a class="navbar-brand logo" href="../index.html">
+
   
   
   
+  
+  
+  
+  
+
   
     <img src="../_static/images/icons/logo-imate-light.png" class="logo__image only-light" alt="Logo image">
     <img src="../_static/images/icons/logo-imate-dark.png" class="logo__image only-dark" alt="Logo image">
@@ -86,56 +122,67 @@
     
   </div>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="fas fa-bars"></span>
-  </button>
-
   
-  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+  <div class="col-lg-9 navbar-header-items">
     <div id="navbar-center" class="mr-auto">
       
       <div class="navbar-center-item">
-        <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="install.html">
-  1. Install
- </a>
-</li>
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                <li class="nav-item">
+                    <a class="nav-link" href="install.html">
+                        Install
+                    </a>
+                </li>
+                
 
-<li class="toctree-l1 current active nav-item">
- <a class="current reference internal nav-link" href="#">
-  2. Docker
- </a>
-</li>
+                <li class="nav-item current active">
+                    <a class="nav-link" href="#">
+                        Using imate on Docker
+                    </a>
+                </li>
+                
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="gpu.html">
-  3. GPU
- </a>
-</li>
+                <li class="nav-item">
+                    <a class="nav-link" href="gpu.html">
+                        Using GPU Devices
+                    </a>
+                </li>
+                
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../api.html">
-  API Reference
- </a>
-</li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../api.html">
+                        API Reference
+                    </a>
+                </li>
+                
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../cite.html">
-  Publications
- </a>
-</li>
-
-    
-</ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="../cite.html">
+                        Publications
+                    </a>
+                </li>
+                
+    </ul>
+</nav>
       </div>
       
     </div>
 
     <div id="navbar-end">
+      <div class="navbar-end-item navbar-end__search-button-container">
+        
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search">
+  <i class="fas fa-search"></i>
+</button>
+      </div>
       
       <div class="navbar-end-item">
-        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+        <span class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle">
     <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
     <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
     <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
@@ -143,32 +190,64 @@
       </div>
       
       <div class="navbar-end-item">
-        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+        
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form>
       </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
         <li class="nav-item">
-          <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ameli/imate" title="GitHub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-github-square"></i></span>
             <label class="sr-only">GitHub</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://pypi.org/project/imate/" rel="noopener" target="_blank" title="PyPI"><span><i class="fab fa-python"></i></span>
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/imate/" title="PyPI" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-python"></i></span>
             <label class="sr-only">PyPI</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://anaconda.org/s-ameli/imate" rel="noopener" target="_blank" title="Anaconda Cloud"><span><i class="fa fa-circle-notch"></i></span>
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/s-ameli/imate" title="Anaconda Cloud" class="nav-link" rel="noopener" target="_blank"><span><i class="fa fa-circle-notch"></i></span>
             <label class="sr-only">Anaconda Cloud</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://hub.docker.com/repository/docker/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+          
+          
+          
+          
+          
+          
+          <a href="https://hub.docker.com/repository/docker/sameli/imate" title="Docker Hub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-docker"></i></span>
             <label class="sr-only">Docker Hub</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" rel="noopener" target="_blank" title="Lanuch Jupyter on Binder"><span><i class="fa fa-chart-line"></i></span>
+          
+          
+          
+          
+          
+          
+          <a href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" title="Lanuch Jupyter on Binder" class="nav-link" rel="noopener" target="_blank"><span><i class="fa fa-chart-line"></i></span>
             <label class="sr-only">Lanuch Jupyter on Binder</label></a>
         </li>
       </ul>
@@ -176,42 +255,400 @@
       
     </div>
   </div>
-</div>
-    </nav>
-    
-
-    <div class="bd-container container-xl">
-      <div class="bd-container__inner row">
-          
-
-<!-- Only show if we have sidebars configured, else just a small margin  -->
-<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
-  <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <div class="bd-toc-item active">
-    
-    
-    
-  </div>
-</nav>
-  </div>
-  <div class="sidebar-end-items">
-  </div>
-</div>
 
 
-          
-
-
-<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
   
-    
-    <div class="toc-item">
+  <div class="search-button-container--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search">
+  <i class="fas fa-search"></i>
+</button>
+  </div>
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fas fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-<div class="tocsection onthispage mt-5 pt-1 pb-3">
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                <li class="nav-item">
+                    <a class="nav-link" href="install.html">
+                        Install
+                    </a>
+                </li>
+                
+
+                <li class="nav-item current active">
+                    <a class="nav-link" href="#">
+                        Using imate on Docker
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="gpu.html">
+                        Using GPU Devices
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../api.html">
+                        API Reference
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../cite.html">
+                        Publications
+                    </a>
+                </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <span class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ameli/imate" title="GitHub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/imate/" title="PyPI" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-python"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/s-ameli/imate" title="Anaconda Cloud" class="nav-link" rel="noopener" target="_blank"><span><i class="fa fa-circle-notch"></i></span>
+            <label class="sr-only">Anaconda Cloud</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://hub.docker.com/repository/docker/sameli/imate" title="Docker Hub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-docker"></i></span>
+            <label class="sr-only">Docker Hub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" title="Lanuch Jupyter on Binder" class="nav-link" rel="noopener" target="_blank"><span><i class="fa fa-chart-line"></i></span>
+            <label class="sr-only">Lanuch Jupyter on Binder</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item">
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+      </div>
+      <main class="bd-main">
+        
+        
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+            </div>
+            
+            
+            <article class="bd-article" role="main">
+              
+  <section id="using-project-on-docker">
+<span id="imate-docker"></span><h1><a class="toc-backref" href="#id1"><span class="section-number">2. </span>Using <span class="synco">imate</span> on Docker</a><a class="headerlink" href="#using-project-on-docker" title="Permalink to this heading">#</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#using-project-on-docker" id="id1">Using <span class="synco">imate</span> on Docker</a></p>
+<ul>
+<li><p><a class="reference internal" href="#why-using-docker" id="id2">Why Using Docker</a></p></li>
+<li><p><a class="reference internal" href="#install-docker" id="id3">Install Docker</a></p></li>
+<li><p><a class="reference internal" href="#get-project-docker-image" id="id4">Get <span class="synco">imate</span> Docker Image</a></p></li>
+<li><p><a class="reference internal" href="#examples-of-using-project-docker-container" id="id5">Examples of Using <span class="synco">imate</span> Docker Container</a></p></li>
+<li><p><a class="reference internal" href="#deploy-project-docker-container-on-gpu" id="id6">Deploy <span class="synco">imate</span> Docker Container on GPU</a></p>
+<ul>
+<li><p><a class="reference internal" href="#install-nvidia-container-toolkit" id="id7">Install NVIDIA Container Toolkit</a></p></li>
+<li><p><a class="reference internal" href="#run-project-docker-container-on-gpu" id="id8">Run <span class="synco">imate</span> Docker Container on GPU</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="why-using-docker">
+<h2><a class="toc-backref" href="#id2"><span class="section-number">2.1. </span>Why Using Docker</a><a class="headerlink" href="#why-using-docker" title="Permalink to this heading">#</a></h2>
+<p><span class="synco">imate</span>’s docker image can be very useful if you want to deploy <span class="synco">imate</span> on GPU devices. The <span class="synco">imate</span> package that is installed via <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code>, natively comes with support on GPU devices. However, the version of CUDA Toolkit that <span class="synco">imate</span> was built with it, should match the version of CUDA Toolkit that you have on your machine. This might often be a problem, as your CUDA Toolkit might not have the exact same version as the one that <span class="synco">imate</span> supports.</p>
+<p>Workarounds to this problem are that either:</p>
+<ul class="simple">
+<li><p>Change your CUDA installation. See <a class="reference internal" href="gpu.html#gpu-install-cuda"><span class="std std-ref">Install CUDA Toolkit</span></a>.</p></li>
+<li><p>Compile <span class="synco">imate</span> with a specific CUDA version compatible with your existing CUDA installation. See <a class="reference internal" href="install.html#compile-imate"><span class="std std-ref">Compile imate from Source</span></a>.</p></li>
+</ul>
+<p>Alternatively, you can simply use <span class="synco">imate</span>’s docker image without installing <span class="synco">imate</span> or a compatible CUDA Toolkit as both are installed in the docker container and ready to use out of the box.</p>
+</section>
+<section id="install-docker">
+<h2><a class="toc-backref" href="#id3"><span class="section-number">2.2. </span>Install Docker</a><a class="headerlink" href="#install-docker" title="Permalink to this heading">#</a></h2>
+<p>The followings are instructions to install docker on Linux. To install on other operating systems, see <a class="reference external" href="https://docs.docker.com/engine/install/ubuntu/">Install Docker Engine</a> from Docker documentation.</p>
+<p>Install docker by</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-0">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">sudo apt-get update</span>
+<span class="prompt1">sudo apt-get install ca-certificates curl gnupg lsb-release</span>
+<span class="prompt1">sudo mkdir -p /etc/apt/keyrings</span>
+<span class="prompt1">curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class="p">|</span> <span class="se">\</span>
+    sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span>
+<span class="prompt1"><span class="nb">echo</span> <span class="s2">&quot;deb [arch=</span><span class="k">$(</span>dpkg --print-architecture<span class="k">)</span><span class="s2"> signed-by=/etc/apt/keyrings/docker.gpg] \</span>
+<span class="s2">    https://download.docker.com/linux/ubuntu \</span>
+<span class="s2">    </span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> stable&quot;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</span>
+<span class="prompt1">sudo apt-get update</span>
+<span class="prompt1">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span>
+</pre></div></div></div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-1">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install -y yum-utils</span>
+<span class="prompt1">sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span>
+<span class="prompt1">sudo yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span>
+<span class="prompt1">sudo systemctl <span class="nb">enable</span> docker.service</span>
+<span class="prompt1">sudo systemctl <span class="nb">enable</span> containerd.service</span>
+<span class="prompt1">sudo systemctl start docker</span>
+</pre></div></div></div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-2">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install -y yum-utils</span>
+<span class="prompt1">sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span>
+<span class="prompt1">sudo yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span>
+<span class="prompt1">sudo systemctl <span class="nb">enable</span> docker.service</span>
+<span class="prompt1">sudo systemctl <span class="nb">enable</span> containerd.service</span>
+<span class="prompt1">sudo systemctl start docker</span>
+</pre></div></div></div>
+</div>
+<p>Configure docker to run docker <a class="reference external" href="https://docs.docker.com/engine/install/linux-postinstall/">without sudo password</a> by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo groupadd docker</span>
+<span class="prompt1">sudo usermod -aG docker <span class="nv">$USER</span></span>
+</pre></div></div><p>Then, log out and log back. If docker is installed on a <em>virtual machine</em>, restart the virtual machine for changes to take effect.</p>
+</section>
+<section id="get-project-docker-image">
+<h2><a class="toc-backref" href="#id4"><span class="section-number">2.3. </span>Get <span class="synco">imate</span> Docker Image</a><a class="headerlink" href="#get-project-docker-image" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://hub.docker.com/repository/docker/sameli/imate"><img alt="docker-size" src="https://img.shields.io/docker/image-size/sameli/imate" /></a></p>
+<p>Get the <span class="synco">imate</span> docker image by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker pull sameli/imate</span>
+</pre></div></div><p>The docker image has the followings pre-installed:</p>
+<ul class="simple">
+<li><p>CUDA: in <code class="docutils literal notranslate"><span class="pre">/usr/local/cuda</span></code></p></li>
+<li><p>Python 3.9: in <code class="docutils literal notranslate"><span class="pre">/usr/bin/python3</span></code></p></li>
+<li><p>Python interpreters: <cite>ipython</cite>, <cite>jupyter</cite></p></li>
+<li><p>Editor: <cite>vim</cite></p></li>
+</ul>
+</section>
+<section id="examples-of-using-project-docker-container">
+<span id="docker-examples"></span><h2><a class="toc-backref" href="#id5"><span class="section-number">2.4. </span>Examples of Using <span class="synco">imate</span> Docker Container</a><a class="headerlink" href="#examples-of-using-project-docker-container" title="Permalink to this heading">#</a></h2>
+<p>The followings are some examples of using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> with various options:</p>
+<ul>
+<li><p>To check the host’s NVIDIA driver version, CUDA runtime library version, and list of available GPU devices, run <code class="docutils literal notranslate"><span class="pre">nvida-smi</span></code> command by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker run sameli/imate nvidia-smi</span>
+</pre></div></div></li>
+<li><p>To run the container and open <em>Python</em> interpreter directly at startup:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker run -it sameli/imate</span>
+</pre></div></div><p>This also imports <span class="synco">imate</span> package automatically.</p>
+</li>
+<li><p>To run the container and open <em>IPython</em> interpreter directly at startup:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker run -it sameli/imate ipython</span>
+</pre></div></div><p>This also imports <cite>imate</cite> package automatically.</p>
+</li>
+<li><p>To open <em>Bash shell</em> only:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker run -it --entrypoint /bin/bash sameli/imate</span>
+</pre></div></div></li>
+<li><p>To <em>mount</em> a host’s directory, such as <code class="docutils literal notranslate"><span class="pre">/home/user/project</span></code>, onto a directory of the docker’s container, such as <code class="docutils literal notranslate"><span class="pre">/root</span></code>, use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker run -it -v /home/user/project:/root sameli/imate</span>
+</pre></div></div></li>
+</ul>
+</section>
+<section id="deploy-project-docker-container-on-gpu">
+<h2><a class="toc-backref" href="#id6"><span class="section-number">2.5. </span>Deploy <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#deploy-project-docker-container-on-gpu" title="Permalink to this heading">#</a></h2>
+<p>To access host’s GPU device from inside the docker container, you should install NVIDIA Container Toolkit.</p>
+<section id="install-nvidia-container-toolkit">
+<h3><a class="toc-backref" href="#id7"><span class="section-number">2.5.1. </span>Install NVIDIA Container Toolkit</a><a class="headerlink" href="#install-nvidia-container-toolkit" title="Permalink to this heading">#</a></h3>
+<p>Install <a class="reference external" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html">NVIDIA Container Toolkit</a> as follows.</p>
+<p>Add the package to the repository:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-3">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nv">distribution</span><span class="o">=</span><span class="k">$(</span>. /etc/os-release<span class="p">;</span><span class="nb">echo</span> <span class="nv">$ID$VERSION_ID</span><span class="k">)</span></span>
+<span class="prompt1">curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey <span class="p">|</span> sudo apt-key add -</span>
+<span class="prompt1">curl -s -L https://nvidia.github.io/nvidia-docker/<span class="nv">$distribution</span>/nvidia-docker.list <span class="p">|</span> sudo tee /etc/apt/sources.list.d/nvidia-docker.list</span>
+</pre></div></div></div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-4">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum-config-manager --add-repo<span class="o">=</span>https://download.docker.com/linux/centos/docker-ce.repo</span>
+</pre></div></div></div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-5">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf config-manager --add-repo<span class="o">=</span>https://download.docker.com/linux/centos/docker-ce.repo</span>
+</pre></div></div></div>
+</div>
+<p>Install <cite>nvidia-contaner-toolkit</cite> by:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-6">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt-get update</span>
+<span class="prompt1">sudo apt-get install -y nvidia-container-toolkit</span>
+</pre></div></div></div>
+<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-7">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm</span>
+</pre></div></div></div>
+<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-8">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm</span>
+</pre></div></div></div>
+</div>
+<p>Restart docker:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo systemctl restart docker</span>
+</pre></div></div></section>
+<section id="run-project-docker-container-on-gpu">
+<h3><a class="toc-backref" href="#id8"><span class="section-number">2.5.2. </span>Run <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#run-project-docker-container-on-gpu" title="Permalink to this heading">#</a></h3>
+<p>To use host’s GPU from the docker container, simply add  <code class="docutils literal notranslate"><span class="pre">--gpus</span> <span class="pre">all</span></code> to any of the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> commands <a class="reference internal" href="#docker-examples"><span class="std std-ref">described earlier</span></a>, such as by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker run --gpus all -it sameli/imate</span>
+</pre></div></div></section>
+</section>
+</section>
+
+
+            </article>
+            
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="install.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title"><span class="section-number">1. </span>Install</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="gpu.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title"><span class="section-number">3. </span>Using GPU Devices</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
     <i class="fas fa-list"></i> On this page
 </div>
-
-<nav id="bd-toc-nav">
+<nav id="bd-toc-nav" class="page-toc">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#why-using-docker">
@@ -269,10 +706,10 @@
 </ul>
 
 </nav>
-    </div>
-    
-    <div class="toc-item">
-      
+</div>
+
+<div class="toc-item">
+  
 
 <div class="tocsection editthispage">
     <a href="https://github.com/https://github.com/ameli/imate/edit/main/docs/source/tutorials/docker.rst">
@@ -280,272 +717,48 @@
     </a>
 </div>
 
-    </div>
-    
-  
 </div>
 
-
+            </div>
           
           
-          <div class="bd-content col-12 col-md-9 col-xl-7">
-              
-              <article class="bd-article" role="main">
-                
-  <section id="using-project-on-docker">
-<span id="imate-docker"></span><h1><a class="toc-backref" href="#id1"><span class="section-number">2. </span>Using <span class="synco">imate</span> on Docker</a><a class="headerlink" href="#using-project-on-docker" title="Permalink to this heading">#</a></h1>
-<div class="contents topic" id="contents">
-<p class="topic-title">Contents</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#using-project-on-docker" id="id1">Using <span class="synco">imate</span> on Docker</a></p>
-<ul>
-<li><p><a class="reference internal" href="#why-using-docker" id="id2">Why Using Docker</a></p></li>
-<li><p><a class="reference internal" href="#install-docker" id="id3">Install Docker</a></p></li>
-<li><p><a class="reference internal" href="#get-project-docker-image" id="id4">Get <span class="synco">imate</span> Docker Image</a></p></li>
-<li><p><a class="reference internal" href="#examples-of-using-project-docker-container" id="id5">Examples of Using <span class="synco">imate</span> Docker Container</a></p></li>
-<li><p><a class="reference internal" href="#deploy-project-docker-container-on-gpu" id="id6">Deploy <span class="synco">imate</span> Docker Container on GPU</a></p>
-<ul>
-<li><p><a class="reference internal" href="#install-nvidia-container-toolkit" id="id7">Install NVIDIA Container Toolkit</a></p></li>
-<li><p><a class="reference internal" href="#run-project-docker-container-on-gpu" id="id8">Run <span class="synco">imate</span> Docker Container on GPU</a></p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-<section id="why-using-docker">
-<h2><a class="toc-backref" href="#id2"><span class="section-number">2.1. </span>Why Using Docker</a><a class="headerlink" href="#why-using-docker" title="Permalink to this heading">#</a></h2>
-<p><span class="synco">imate</span>’s docker image can be very useful if you want to deploy <span class="synco">imate</span> on GPU devices. The <span class="synco">imate</span> package that is installed via <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code>, natively comes with support on GPU devices. However, the version of CUDA Toolkit that <span class="synco">imate</span> was built with it, should match the version of CUDA Toolkit that you have on your machine. This might often be a problem, as your CUDA Toolkit might not have the exact same version as the one that <span class="synco">imate</span> supports.</p>
-<p>Workarounds to this problem are that either:</p>
-<ul class="simple">
-<li><p>Change your CUDA installation. See <a class="reference internal" href="gpu.html#gpu-install-cuda"><span class="std std-ref">Install CUDA Toolkit</span></a>.</p></li>
-<li><p>Compile <span class="synco">imate</span> with a specific CUDA version compatible with your existing CUDA installation. See <a class="reference internal" href="install.html#compile-imate"><span class="std std-ref">Compile imate from Source</span></a>.</p></li>
-</ul>
-<p>Alternatively, you can simply use <span class="synco">imate</span>’s docker image without installing <span class="synco">imate</span> or a compatible CUDA Toolkit as both are installed in the docker container and ready to use out of the box.</p>
-</section>
-<section id="install-docker">
-<h2><a class="toc-backref" href="#id3"><span class="section-number">2.2. </span>Install Docker</a><a class="headerlink" href="#install-docker" title="Permalink to this heading">#</a></h2>
-<p>The followings are instructions to install docker on Linux. To install on other operating systems, see <a class="reference external" href="https://docs.docker.com/engine/install/ubuntu/">Install Docker Engine</a> from Docker documentation.</p>
-<p>Install docker by</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-0">
-Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">ca</span><span class="o">-</span><span class="n">certificates</span> <span class="n">curl</span> <span class="n">gnupg</span> <span class="n">lsb</span><span class="o">-</span><span class="n">release</span>
-<span class="n">sudo</span> <span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">keyrings</span>
-<span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">/</span><span class="n">gpg</span> <span class="o">|</span> \
-    <span class="n">sudo</span> <span class="n">gpg</span> <span class="o">--</span><span class="n">dearmor</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">keyrings</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">gpg</span>
-<span class="n">echo</span> <span class="s2">&quot;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] </span><span class="se">\</span>
-<span class="s2">    https://download.docker.com/linux/ubuntu </span><span class="se">\</span>
-<span class="s2">    $(lsb_release -cs) stable&quot;</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">list</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">-</span><span class="n">cli</span> <span class="n">containerd</span><span class="o">.</span><span class="n">io</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">-</span><span class="n">plugin</span>
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-1">
-CentOS 7</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">yum</span><span class="o">-</span><span class="n">utils</span>
-<span class="n">sudo</span> <span class="n">yum</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">manager</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">repo</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">centos</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">.</span><span class="n">repo</span>
-<span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">-</span><span class="n">cli</span> <span class="n">containerd</span><span class="o">.</span><span class="n">io</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">-</span><span class="n">plugin</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">docker</span><span class="o">.</span><span class="n">service</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">containerd</span><span class="o">.</span><span class="n">service</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">start</span> <span class="n">docker</span>
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-2">
-RHEL 9</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">yum</span><span class="o">-</span><span class="n">utils</span>
-<span class="n">sudo</span> <span class="n">yum</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">manager</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">repo</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">centos</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">.</span><span class="n">repo</span>
-<span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">-</span><span class="n">cli</span> <span class="n">containerd</span><span class="o">.</span><span class="n">io</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">-</span><span class="n">plugin</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">docker</span><span class="o">.</span><span class="n">service</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">containerd</span><span class="o">.</span><span class="n">service</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">start</span> <span class="n">docker</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Configure docker to run docker <a class="reference external" href="https://docs.docker.com/engine/install/linux-postinstall/">without sudo password</a> by</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sudo groupadd docker
-sudo usermod -aG docker $USER
-</pre></div>
-</div>
-<p>Then, log out and log back. If docker is installed on a <em>virtual machine</em>, restart the virtual machine for changes to take effect.</p>
-</section>
-<section id="get-project-docker-image">
-<h2><a class="toc-backref" href="#id4"><span class="section-number">2.3. </span>Get <span class="synco">imate</span> Docker Image</a><a class="headerlink" href="#get-project-docker-image" title="Permalink to this heading">#</a></h2>
-<p><a class="reference external" href="https://hub.docker.com/repository/docker/sameli/imate"><img alt="docker-size" src="https://img.shields.io/docker/image-size/sameli/imate" /></a></p>
-<p>Get the <span class="synco">imate</span> docker image by</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>docker pull sameli/imate
-</pre></div>
-</div>
-<p>The docker image has the followings pre-installed:</p>
-<ul class="simple">
-<li><p>CUDA: in <code class="docutils literal notranslate"><span class="pre">/usr/local/cuda</span></code></p></li>
-<li><p>Python 3.9: in <code class="docutils literal notranslate"><span class="pre">/usr/bin/python3</span></code></p></li>
-<li><p>Python interpreters: <cite>ipython</cite>, <cite>jupyter</cite></p></li>
-<li><p>Editor: <cite>vim</cite></p></li>
-</ul>
-</section>
-<section id="examples-of-using-project-docker-container">
-<span id="docker-examples"></span><h2><a class="toc-backref" href="#id5"><span class="section-number">2.4. </span>Examples of Using <span class="synco">imate</span> Docker Container</a><a class="headerlink" href="#examples-of-using-project-docker-container" title="Permalink to this heading">#</a></h2>
-<p>The followings are some examples of using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> with various options:</p>
-<ul>
-<li><p>To check the host’s NVIDIA driver version, CUDA runtime library version, and list of available GPU devices, run <code class="docutils literal notranslate"><span class="pre">nvida-smi</span></code> command by:</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>docker run sameli/imate nvidia-smi
-</pre></div>
-</div>
-</li>
-<li><p>To run the container and open <em>Python</em> interpreter directly at startup:</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>docker run -it sameli/imate
-</pre></div>
-</div>
-<p>This also imports <span class="synco">imate</span> package automatically.</p>
-</li>
-<li><p>To run the container and open <em>IPython</em> interpreter directly at startup:</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>docker run -it sameli/imate ipython
-</pre></div>
-</div>
-<p>This also imports <cite>imate</cite> package automatically.</p>
-</li>
-<li><p>To open <em>Bash shell</em> only:</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>docker run -it --entrypoint /bin/Bash sameli/imate
-</pre></div>
-</div>
-</li>
-<li><p>To <em>mount</em> a host’s directory, such as <code class="docutils literal notranslate"><span class="pre">/home/user/project</span></code>, onto a directory of the docker’s container, such as <code class="docutils literal notranslate"><span class="pre">/root</span></code>, use:</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>docker run -it -v /home/user/project:/root sameli/imate
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-<section id="deploy-project-docker-container-on-gpu">
-<h2><a class="toc-backref" href="#id6"><span class="section-number">2.5. </span>Deploy <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#deploy-project-docker-container-on-gpu" title="Permalink to this heading">#</a></h2>
-<p>To access host’s GPU device from inside the docker container, you should install NVIDIA Container Toolkit.</p>
-<section id="install-nvidia-container-toolkit">
-<h3><a class="toc-backref" href="#id7"><span class="section-number">2.5.1. </span>Install NVIDIA Container Toolkit</a><a class="headerlink" href="#install-nvidia-container-toolkit" title="Permalink to this heading">#</a></h3>
-<p>Install <a class="reference external" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html">NVIDIA Container Toolkit</a> as follows.</p>
-<p>Add the package to the repository:</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-3">
-Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nv">distribution</span><span class="o">=</span><span class="k">$(</span>. /etc/os-release<span class="p">;</span><span class="nb">echo</span> <span class="nv">$ID$VERSION_ID</span><span class="k">)</span>
-curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey <span class="p">|</span> sudo apt-key add -
-curl -s -L https://nvidia.github.io/nvidia-docker/<span class="nv">$distribution</span>/nvidia-docker.list <span class="p">|</span> sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-4">
-CentOS 7</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo yum-config-manager --add-repo<span class="o">=</span>https://download.docker.com/linux/centos/docker-ce.repo
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-5">
-RHEL 9</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo dnf config-manager --add-repo<span class="o">=</span>https://download.docker.com/linux/centos/docker-ce.repo
-</pre></div>
-</div>
-</div>
-</div>
-<p>Install <cite>nvidia-contaner-toolkit</cite> by:</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-6">
-Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get update
-sudo apt-get install -y nvidia-container-toolkit
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-7">
-CentOS 7</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-8">
-RHEL 9</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo dnf install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm
-</pre></div>
-</div>
-</div>
-</div>
-<p>Restart docker:</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo systemctl restart docker
-</pre></div>
-</div>
-</section>
-<section id="run-project-docker-container-on-gpu">
-<h3><a class="toc-backref" href="#id8"><span class="section-number">2.5.2. </span>Run <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#run-project-docker-container-on-gpu" title="Permalink to this heading">#</a></h3>
-<p>To use host’s GPU from the docker container, simply add  <code class="docutils literal notranslate"><span class="pre">--gpus</span> <span class="pre">all</span></code> to any of the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> commands <a class="reference internal" href="#docker-examples"><span class="std std-ref">described earlier</span></a>, such as by</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>docker run --gpus all -it sameli/imate
-</pre></div>
-</div>
-</section>
-</section>
-</section>
-
-
-              </article>
-              
-
-              
-              <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="install.html" title="previous page">
-      <i class="fas fa-angle-left"></i>
-      <div class="prev-next-info">
-          <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title"><span class="section-number">1. </span>Install</p>
-      </div>
-  </a>
-  <a class='right-next' id="next-link" href="gpu.html" title="next page">
-  <div class="prev-next-info">
-      <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title"><span class="section-number">3. </span>Using GPU Devices</p>
-  </div>
-  <i class="fas fa-angle-right"></i>
-  </a>
-</div>
-              </footer>
-              
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
           </div>
-          
-      </div>
+        </footer>
+        
+      </main>
     </div>
+  </div>
 
   
-  
+    
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=9b1a4fa89bdd0e95b23b"></script>
 
-<footer class="bd-footer"><div class="bd-footer__inner container">
+  <footer class="bd-footer"><div class="bd-footer__inner container">
   
   <div class="footer-item">
-    <p class="copyright">
+    
+<p class="copyright">
+
     &copy; Copyright 2022, Siavash Ameli.<br>
+
 </p>
+
   </div>
   
   <div class="footer-item">
-    <p class="sphinx-version">
+    
+<p class="sphinx-version">
 Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
 </p>
+
   </div>
   
 </div>
-</footer>
+  </footer>
   </body>
 </html>

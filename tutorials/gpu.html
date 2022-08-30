@@ -9,30 +9,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>3. Using GPU Devices &#8212; imate Manual</title>
-<script>
-  document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
-  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
-</script>
-
+  <script>
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=9b1a4fa89bdd0e95b23b" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=9b1a4fa89bdd0e95b23b" rel="stylesheet">
 
-
+  
   <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    href="../_static/vendor/fontawesome/6.1.2/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=9b1a4fa89bdd0e95b23b">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -43,30 +43,60 @@
     <script src="../_static/js/custom-pydata.js"></script>
     <script src="../_static/design-tabs.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'tutorials/gpu';</script>
     <link rel="shortcut icon" href="../_static/logo-imate.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="API Reference" href="../api.html" />
     <link rel="prev" title="2. Using imate on Docker" href="docker.html" />
     <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
+
+    <!-- Adobe Embed API -->
     <script src="https://documentcloud.adobe.com/view-sdk/viewer.js"></script>
+
+    <!-- My custom JS -->
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
+
+    <!-- Syntax highlighting for BibTex code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs-bibtex@2.0.1/prism-bibtex.min.js"></script>
+
     
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
 
   </head>
   
   
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="auto">
-    <div class="bd-header-announcement container-fluid" id="banner">
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
       
-
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
     </div>
+  </div>
 
-    
-    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
-
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fas fa-bars"></span>
+  </label>
   <div id="navbar-start">
     
     
@@ -74,9 +104,15 @@
 
 
 <a class="navbar-brand logo" href="../index.html">
+
   
   
   
+  
+  
+  
+  
+
   
     <img src="../_static/images/icons/logo-imate-light.png" class="logo__image only-light" alt="Logo image">
     <img src="../_static/images/icons/logo-imate-dark.png" class="logo__image only-dark" alt="Logo image">
@@ -86,56 +122,67 @@
     
   </div>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="fas fa-bars"></span>
-  </button>
-
   
-  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+  <div class="col-lg-9 navbar-header-items">
     <div id="navbar-center" class="mr-auto">
       
       <div class="navbar-center-item">
-        <ul id="navbar-main-elements" class="navbar-nav">
-    <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="install.html">
-  1. Install
- </a>
-</li>
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                <li class="nav-item">
+                    <a class="nav-link" href="install.html">
+                        Install
+                    </a>
+                </li>
+                
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="docker.html">
-  2. Docker
- </a>
-</li>
+                <li class="nav-item">
+                    <a class="nav-link" href="docker.html">
+                        Using imate on Docker
+                    </a>
+                </li>
+                
 
-<li class="toctree-l1 current active nav-item">
- <a class="current reference internal nav-link" href="#">
-  3. GPU
- </a>
-</li>
+                <li class="nav-item current active">
+                    <a class="nav-link" href="#">
+                        Using GPU Devices
+                    </a>
+                </li>
+                
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../api.html">
-  API Reference
- </a>
-</li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../api.html">
+                        API Reference
+                    </a>
+                </li>
+                
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../cite.html">
-  Publications
- </a>
-</li>
-
-    
-</ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="../cite.html">
+                        Publications
+                    </a>
+                </li>
+                
+    </ul>
+</nav>
       </div>
       
     </div>
 
     <div id="navbar-end">
+      <div class="navbar-end-item navbar-end__search-button-container">
+        
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search">
+  <i class="fas fa-search"></i>
+</button>
+      </div>
       
       <div class="navbar-end-item">
-        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+        <span class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle">
     <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
     <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
     <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
@@ -143,32 +190,64 @@
       </div>
       
       <div class="navbar-end-item">
-        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+        
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form>
       </div>
       
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
         <li class="nav-item">
-          <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ameli/imate" title="GitHub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-github-square"></i></span>
             <label class="sr-only">GitHub</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://pypi.org/project/imate/" rel="noopener" target="_blank" title="PyPI"><span><i class="fab fa-python"></i></span>
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/imate/" title="PyPI" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-python"></i></span>
             <label class="sr-only">PyPI</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://anaconda.org/s-ameli/imate" rel="noopener" target="_blank" title="Anaconda Cloud"><span><i class="fa fa-circle-notch"></i></span>
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/s-ameli/imate" title="Anaconda Cloud" class="nav-link" rel="noopener" target="_blank"><span><i class="fa fa-circle-notch"></i></span>
             <label class="sr-only">Anaconda Cloud</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://hub.docker.com/repository/docker/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+          
+          
+          
+          
+          
+          
+          <a href="https://hub.docker.com/repository/docker/sameli/imate" title="Docker Hub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-docker"></i></span>
             <label class="sr-only">Docker Hub</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" rel="noopener" target="_blank" title="Lanuch Jupyter on Binder"><span><i class="fa fa-chart-line"></i></span>
+          
+          
+          
+          
+          
+          
+          <a href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" title="Lanuch Jupyter on Binder" class="nav-link" rel="noopener" target="_blank"><span><i class="fa fa-chart-line"></i></span>
             <label class="sr-only">Lanuch Jupyter on Binder</label></a>
         </li>
       </ul>
@@ -176,42 +255,997 @@
       
     </div>
   </div>
-</div>
-    </nav>
-    
-
-    <div class="bd-container container-xl">
-      <div class="bd-container__inner row">
-          
-
-<!-- Only show if we have sidebars configured, else just a small margin  -->
-<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
-  <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <div class="bd-toc-item active">
-    
-    
-    
-  </div>
-</nav>
-  </div>
-  <div class="sidebar-end-items">
-  </div>
-</div>
 
 
-          
-
-
-<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
   
-    
-    <div class="toc-item">
+  <div class="search-button-container--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search">
+  <i class="fas fa-search"></i>
+</button>
+  </div>
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fas fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-<div class="tocsection onthispage mt-5 pt-1 pb-3">
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+                <li class="nav-item">
+                    <a class="nav-link" href="install.html">
+                        Install
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="docker.html">
+                        Using imate on Docker
+                    </a>
+                </li>
+                
+
+                <li class="nav-item current active">
+                    <a class="nav-link" href="#">
+                        Using GPU Devices
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../api.html">
+                        API Reference
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../cite.html">
+                        Publications
+                    </a>
+                </li>
+                
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <span class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ameli/imate" title="GitHub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://pypi.org/project/imate/" title="PyPI" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-python"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://anaconda.org/s-ameli/imate" title="Anaconda Cloud" class="nav-link" rel="noopener" target="_blank"><span><i class="fa fa-circle-notch"></i></span>
+            <label class="sr-only">Anaconda Cloud</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://hub.docker.com/repository/docker/sameli/imate" title="Docker Hub" class="nav-link" rel="noopener" target="_blank"><span><i class="fab fa-docker"></i></span>
+            <label class="sr-only">Docker Hub</label></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          <a href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" title="Lanuch Jupyter on Binder" class="nav-link" rel="noopener" target="_blank"><span><i class="fa fa-chart-line"></i></span>
+            <label class="sr-only">Lanuch Jupyter on Binder</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item">
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+      </div>
+      <main class="bd-main">
+        
+        
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+            </div>
+            
+            
+            <article class="bd-article" role="main">
+              
+  <section id="using-gpu-devices">
+<span id="imate-gpu"></span><h1><a class="toc-backref" href="#id5"><span class="section-number">3. </span>Using GPU Devices</a><a class="headerlink" href="#using-gpu-devices" title="Permalink to this heading">#</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#using-gpu-devices" id="id5">Using GPU Devices</a></p>
+<ul>
+<li><p><a class="reference internal" href="#install-nvidia-cuda-toolkit" id="id6">Install NVIDIA CUDA Toolkit</a></p>
+<ul>
+<li><p><a class="reference internal" href="#install-nvidia-graphic-driver" id="id7">Install NVIDIA Graphic Driver</a></p></li>
+<li><p><a class="reference internal" href="#install-cuda-toolkit" id="id8">Install CUDA Toolkit</a></p></li>
+<li><p><a class="reference internal" href="#install-openmp" id="id9">Install OpenMP</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#compile-project-from-source-with-cuda" id="id10">Compile <span class="synco">imate</span> from Source with CUDA</a></p>
+<ul>
+<li><p><a class="reference internal" href="#install-c-compiler-and-openmp" id="id11">Install C++ Compiler and OpenMP</a></p></li>
+<li><p><a class="reference internal" href="#install-cuda-compiler-and-development-libraries" id="id12">Install CUDA Compiler and Development Libraries</a></p></li>
+<li><p><a class="reference internal" href="#load-cuda-compiler-on-gpu-cluster" id="id13">Load CUDA Compiler on GPU Cluster</a></p></li>
+<li><p><a class="reference internal" href="#configure-compile-time-environment-variables" id="id14">Configure Compile-Time Environment Variables</a></p></li>
+<li><p><a class="reference internal" href="#enable-dynamic-loading-optional" id="id15">Enable Dynamic Loading (<em>optional</em>)</a></p></li>
+<li><p><a class="reference internal" href="#compile-and-install" id="id16">Compile and Install</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#use-project-docker-container-on-gpu" id="id17">Use <span class="synco">imate</span> Docker Container on GPU</a></p>
+<ul>
+<li><p><a class="reference internal" href="#install-docker" id="id18">Install Docker</a></p></li>
+<li><p><a class="reference internal" href="#install-nvidia-container-toolkit" id="id19">Install NVIDIA Container Toolkit</a></p></li>
+<li><p><a class="reference internal" href="#get-project-docker-image" id="id20">Get <span class="synco">imate</span> Docker image</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id21">Use <span class="synco">imate</span> Docker Container on GPU</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#inquiry-gpu-and-cuda-with-project" id="id22">Inquiry GPU and CUDA with <span class="synco">imate</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="#locate-cuda-toolkit" id="id23">Locate CUDA Toolkit</a></p></li>
+<li><p><a class="reference internal" href="#detect-nvidia-graphic-driver" id="id24">Detect NVIDIA Graphic Driver</a></p></li>
+<li><p><a class="reference internal" href="#detect-gpu-devices" id="id25">Detect GPU Devices</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#run-project-functions-on-gpu" id="id26">Run <span class="synco">imate</span> Functions on GPU</a></p>
+<ul>
+<li><p><a class="reference internal" href="#a-simple-example" id="id27">A Simple Example</a></p></li>
+<li><p><a class="reference internal" href="#get-process-information" id="id28">Get Process Information</a></p></li>
+<li><p><a class="reference internal" href="#verbose-output" id="id29">Verbose Output</a></p></li>
+<li><p><a class="reference internal" href="#set-number-of-gpu-devices" id="id30">Set Number of GPU Devices</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#deploy-project-on-gpu-clusters" id="id31">Deploy <span class="synco">imate</span> on GPU Clusters</a></p>
+<ul>
+<li><p><a class="reference internal" href="#load-modules" id="id32">Load Modules</a></p></li>
+<li><p><a class="reference internal" href="#interactive-session-with-slurm" id="id33">Interactive Session with SLURM</a></p></li>
+<li><p><a class="reference internal" href="#submit-jobs-to-gpu-with-slurm" id="id34">Submit Jobs to GPU with SLURM</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p><span class="synco">imate</span> can run on <cite>CUDA-capable</cite> GPU devices with the followings installed:</p>
+<ol class="arabic simple">
+<li><p>NVIDIA graphic driver,</p></li>
+<li><p>CUDA libraries.</p></li>
+</ol>
+<p class="rubric">CUDA Version</p>
+<p>The version of CUDA libraries installed on the user’s machine should match the version of the CUDA libraries that <span class="synco">imate</span> package was compiled with. This includes matching both <em>major</em> and <em>minor</em> parts of the version numbers. However, the version’s <em>patch</em> numbers do not need to be matched.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <span class="synco">imate</span> package that is installed with either <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code> already has built-in support for CUDA Toolkit. The latest version of <span class="synco">imate</span> is compatible with <strong>CUDA 11.7.x</strong>, which should match the CUDA version installed in the user’s machine.</p>
+</div>
+<div class="topic">
+<p class="topic-title">Methods of Setting up CUDA and <span class="synco">imate</span></p>
+<p>There are three ways to use <span class="synco">imate</span> with a compatible version of CUDA Toolkit:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="#gpu-install-cuda"><span class="std std-ref">Install NVIDIA CUDA Toolkit</span></a> with a CUDA version compatible with an existing <span class="synco">imate</span> installation. By this way, you can keep the <span class="synco">imate</span> package that is already installed with <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code>.</p></li>
+<li><p><a class="reference internal" href="#gpu-compile-imate"><span class="std std-ref">Compile imate from the source</span></a> for a specific version of CUDA to use an existing CUDA library. By this way, you can keep the current CUDA installation.</p></li>
+<li><p><a class="reference internal" href="#gpu-docker"><span class="std std-ref">Use docker image</span></a> with pre-installed <span class="synco">imate</span>, CUDA libraries, and NVIDIA graphic driver. This is the most convenient way as no compilation or installation of <span class="synco">imate</span> and CUDA Toolkit is required.</p></li>
+</ol>
+</div>
+<p>The above methods are described in order below.</p>
+<section id="install-nvidia-cuda-toolkit">
+<span id="gpu-install-cuda"></span><h2><a class="toc-backref" href="#id6"><span class="section-number">3.1. </span>Install NVIDIA CUDA Toolkit</a><a class="headerlink" href="#install-nvidia-cuda-toolkit" title="Permalink to this heading">#</a></h2>
+<p>The following instruction describes installing <cite>CUDA 11.7</cite> for <cite>Ubuntu 22.04</cite>, <cite>CentOS 7</cite>, and <cite>Red Hat 9 (RHEL 9)</cite> on the <cite>X86_64</cite> platform. You may refer to <a class="reference external" href="https://developer.nvidia.com/cuda-downloads">CUDA installation guide</a> from NVIDIA developer documentation for other operating systems and platforms.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>NVIDIA does not support macOS. You can install NVIDIA CUDA Toolkit on Linux and Windows only.</p>
+</div>
+<section id="install-nvidia-graphic-driver">
+<span id="install-graphic-driver"></span><h3><a class="toc-backref" href="#id7"><span class="section-number">3.1.1. </span>Install NVIDIA Graphic Driver</a><a class="headerlink" href="#install-nvidia-graphic-driver" title="Permalink to this heading">#</a></h3>
+<p>Register NVIDIA CUDA repository by</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-0">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb</span>
+<span class="prompt1">sudo dpkg -i cuda-keyring_1.0-1_all.deb</span>
+<span class="prompt1">sudo apt update</span>
+</pre></div></div></div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-1">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum-config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-rhel7.repo</span>
+<span class="prompt1">sudo yum clean all</span>
+</pre></div></div></div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-2">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/cuda-rhel9.repo</span>
+<span class="prompt1">sudo dnf clean all</span>
+</pre></div></div></div>
+</div>
+<p>Install <em>NVIDIA graphic driver</em> with</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-3">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive</span>
+<span class="prompt1">sudo -E apt install cuda-drivers -y</span>
+</pre></div></div></div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-4">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum -y install nvidia-driver-latest-dkms</span>
+</pre></div></div></div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-5">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf -y module install nvidia-driver:latest-dkms</span>
+</pre></div></div></div>
+</div>
+<p>The above step might need a <em>reboot</em> afterwards to properly load NVIDIA graphic driver. Confirm the driver installation by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">nvidia-smi</span>
+</pre></div></div></section>
+<section id="install-cuda-toolkit">
+<span id="id1"></span><h3><a class="toc-backref" href="#id8"><span class="section-number">3.1.2. </span>Install CUDA Toolkit</a><a class="headerlink" href="#install-cuda-toolkit" title="Permalink to this heading">#</a></h3>
+<p>It is not required to install the entire CUDA Toolkit (2.6GB). Rather, only the CUDA runtime library, cuBLAS, and cuSparse libraries are sufficient (700MB in total). These can be installed by</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-6">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install cuda-cudart-11-7 libcublas-11-7 libcusparse-11-7 -y</span>
+</pre></div></div></div>
+<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-7">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre></pre></div></div></div>
+<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-8">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre></pre></div></div></div>
+</div>
+<p>Update <code class="docutils literal notranslate"><span class="pre">PATH</span></code> with the CUDA installation location by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">echo</span> <span class="s1">&#39;export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}&#39;</span> &gt;&gt; ~/.bashrc</span>
+<span class="prompt1"><span class="nb">echo</span> <span class="s1">&#39;export CUDA_HOME=/usr/local/cuda${CUDA_HOME:+:${CUDA_HOME}}&#39;</span> &gt;&gt; ~/.bashrc</span>
+<span class="prompt1"><span class="nb">source</span> ~/.bashrc</span>
+</pre></div></div></section>
+<section id="install-openmp">
+<h3><a class="toc-backref" href="#id9"><span class="section-number">3.1.3. </span>Install OpenMP</a><a class="headerlink" href="#install-openmp" title="Permalink to this heading">#</a></h3>
+<p>In addition to CUDA Toolkit, make sure the <cite>OpenMP</cite> library is also installed using</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-9" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-9">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install libgomp1 -y</span>
+</pre></div></div></div>
+<input id="sd-tab-item-10" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-10">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install libgomp -y</span>
+</pre></div></div></div>
+<input id="sd-tab-item-11" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-11">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install libgomp -y</span>
+</pre></div></div></div>
+</div>
+</section>
+</section>
+<section id="compile-project-from-source-with-cuda">
+<span id="gpu-compile-imate"></span><h2><a class="toc-backref" href="#id10"><span class="section-number">3.2. </span>Compile <span class="synco">imate</span> from Source with CUDA</a><a class="headerlink" href="#compile-project-from-source-with-cuda" title="Permalink to this heading">#</a></h2>
+<section id="install-c-compiler-and-openmp">
+<h3><a class="toc-backref" href="#id11"><span class="section-number">3.2.1. </span>Install C++ Compiler and OpenMP</a><a class="headerlink" href="#install-c-compiler-and-openmp" title="Permalink to this heading">#</a></h3>
+<p>Compile <span class="synco">imate</span> with either of GCC, Clang/LLVM, or Intel C++ compiler.</p>
+<p class="rubric">Install GNU GCC Compiler</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-4" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-12">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install build-essential libomp-dev</span>
+</pre></div></div></div>
+<input id="sd-tab-item-13" name="sd-tab-set-4" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-13">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum group install <span class="s2">&quot;Development Tools&quot;</span></span>
+</pre></div></div></div>
+<input id="sd-tab-item-14" name="sd-tab-set-4" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-14">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf group install <span class="s2">&quot;Development Tools&quot;</span></span>
+</pre></div></div></div>
+</div>
+<p>Then, export <code class="docutils literal notranslate"><span class="pre">C</span></code> and <code class="docutils literal notranslate"><span class="pre">CXX</span></code> variables by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span>/usr/local/bin/gcc</span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">CXX</span><span class="o">=</span>/usr/local/bin/g++</span>
+</pre></div></div><p class="rubric">Install Clang/LLVN Compiler</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-15" name="sd-tab-set-5" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-15">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install clang libomp-dev</span>
+</pre></div></div></div>
+<input id="sd-tab-item-16" name="sd-tab-set-5" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-16">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install yum-utils</span>
+<span class="prompt1">sudo yum-config-manager --enable extras</span>
+<span class="prompt1">sudo yum makecache</span>
+<span class="prompt1">sudo yum install clang</span>
+</pre></div></div></div>
+<input id="sd-tab-item-17" name="sd-tab-set-5" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-17">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install yum-utils</span>
+<span class="prompt1">sudo dnf config-manager --enable extras</span>
+<span class="prompt1">sudo dnf makecache</span>
+<span class="prompt1">sudo dnf install clang</span>
+</pre></div></div></div>
+</div>
+<p>Then, export <code class="docutils literal notranslate"><span class="pre">C</span></code> and <code class="docutils literal notranslate"><span class="pre">CXX</span></code> variables by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span>/usr/local/bin/clang</span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">CXX</span><span class="o">=</span>/usr/local/bin/clang++</span>
+</pre></div></div><p class="rubric">Install Intel oneAPI Compiler</p>
+<p>To install <cite>Intel Compiler</cite> see <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=linux&amp;distributions=aptpackagemanager">Intel oneAPI Base Toolkit</a>.</p>
+</section>
+<section id="install-cuda-compiler-and-development-libraries">
+<h3><a class="toc-backref" href="#id12"><span class="section-number">3.2.2. </span>Install CUDA Compiler and Development Libraries</a><a class="headerlink" href="#install-cuda-compiler-and-development-libraries" title="Permalink to this heading">#</a></h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>The minimum version of CUDA to compile <span class="synco">imate</span> is <cite>CUDA 10.0</cite>.</p>
+</div>
+<p>If CUDA Toolkit is installed, skip this part. Otherwise, Make sure the CUDA compiler and the development libraries of cuBLAS and cuSparse are installed by</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-18" name="sd-tab-set-6" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-18">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install -y <span class="se">\</span>
+    cuda-nvcc-11-7 <span class="se">\</span>
+    libcublas-11-7 <span class="se">\</span>
+    libcublas-dev-11-7 <span class="se">\</span>
+    libcusparse-11-7 -y <span class="se">\</span>
+    libcusparse-dev-11-7</span>
+</pre></div></div></div>
+<input id="sd-tab-item-19" name="sd-tab-set-6" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-19">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install --setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span> -y <span class="se">\</span>
+    cuda-nvcc-11-7.x86_64 <span class="se">\</span>
+    cuda-cudart-devel-11-7.x86_64 <span class="se">\</span>
+    libcublas-11-7.x86_64 <span class="se">\</span>
+    libcublas-devel-11-7.x86_64 <span class="se">\</span>
+    libcusparse-11-7.x86_64 <span class="se">\</span>
+    libcusparse-devel-11-7.x86_64</span>
+</pre></div></div></div>
+<input id="sd-tab-item-20" name="sd-tab-set-6" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-20">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install --setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span> -y <span class="se">\</span>
+    cuda-nvcc-11-7.x86_64 <span class="se">\</span>
+    cuda-cudart-devel-11-7.x86_64 <span class="se">\</span>
+    libcublas-11-7.x86_64 <span class="se">\</span>
+    libcublas-devel-11-7.x86_64 <span class="se">\</span>
+    libcusparse-11-7.x86_64 <span class="se">\</span>
+    libcusparse-devel-11-7.x86_64</span>
+</pre></div></div></div>
+</div>
+<p>Update <code class="docutils literal notranslate"><span class="pre">PATH</span></code> with the CUDA installation location by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">echo</span> <span class="s1">&#39;export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}&#39;</span> &gt;&gt; ~/.bashrc</span>
+<span class="prompt1"><span class="nb">source</span> ~/.bashrc</span>
+</pre></div></div><p>Check if the CUDA compiler is available with <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">nvcc</span></code>.</p>
+</section>
+<section id="load-cuda-compiler-on-gpu-cluster">
+<h3><a class="toc-backref" href="#id13"><span class="section-number">3.2.3. </span>Load CUDA Compiler on GPU Cluster</a><a class="headerlink" href="#load-cuda-compiler-on-gpu-cluster" title="Permalink to this heading">#</a></h3>
+<p>If you are compiling <span class="synco">imate</span> on a GPU cluster, chances are the CUDA Toolkit is already installed. If the cluster uses <code class="docutils literal notranslate"><span class="pre">module</span></code> interface, load CUDA as follows.</p>
+<p>First, check if a CUDA module is available by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module avail</span>
+</pre></div></div><p>Load both CUDA and GCC by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module load cuda gcc</span>
+</pre></div></div><p>You may specify CUDA version if multiple CUDA versions are available, such as by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module load cuda/11.7 gcc/6.3</span>
+</pre></div></div><p>You may check if CUDA Compiler is available with <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">nvcc</span></code>.</p>
+</section>
+<section id="configure-compile-time-environment-variables">
+<h3><a class="toc-backref" href="#id14"><span class="section-number">3.2.4. </span>Configure Compile-Time Environment Variables</a><a class="headerlink" href="#configure-compile-time-environment-variables" title="Permalink to this heading">#</a></h3>
+<p>Specify the home directory of CUDA Toolkit by setting either of the variables <code class="docutils literal notranslate"><span class="pre">CUDA_HOME</span></code>, <code class="docutils literal notranslate"><span class="pre">CUDA_ROOT</span></code>, or <code class="docutils literal notranslate"><span class="pre">CUDA_PATH</span></code>. The home directory should be a path containing the executable <code class="docutils literal notranslate"><span class="pre">/bin/nvcc</span></code>. For instance, if <code class="docutils literal notranslate"><span class="pre">/usr/local/cuda/bin/nvcc</span></code> exists, export the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">CUDA_HOME</span><span class="o">=</span>/usr/local/cuda</span>
+</pre></div></div><p>To permanently set this variable, place the above line in a profile file, such as in <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code>, or <code class="docutils literal notranslate"><span class="pre">~/.profile</span></code>, and source this file, for instance by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">echo</span> <span class="s1">&#39;export CUDA_HOME=/usr/local/cuda${CUDA_HOME:+:${CUDA_HOME}}&#39;</span> &gt;&gt; ~/.bashrc</span>
+<span class="prompt1"><span class="nb">source</span> ~/.bashrc</span>
+</pre></div></div><p>To compile <span class="synco">imate</span> with CUDA, export the following flag variable</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">USE_CUDA</span><span class="o">=</span><span class="m">1</span></span>
+</pre></div></div></section>
+<section id="enable-dynamic-loading-optional">
+<h3><a class="toc-backref" href="#id15"><span class="section-number">3.2.5. </span>Enable Dynamic Loading (<em>optional</em>)</a><a class="headerlink" href="#enable-dynamic-loading-optional" title="Permalink to this heading">#</a></h3>
+<p>When <span class="synco">imate</span> is complied, the CUDA libraries bundle with the final installation of <span class="synco">imate</span> package, making it over 700MB. While this is generally not an issue for most users, often a small package is preferable if the installed package has to be distributed to other machines. To this end, enable the <cite>dynamic loading</cite> feature of <span class="synco">imate</span>. In this case, the CUDA libraries do not bundle with the <span class="synco">imate</span> installation, rather, <span class="synco">imate</span> loads the existing CUDA libraries of the host machine at runtime. To enable dynamic loading, simply set:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">CUDA_DYNAMIC_LOADING</span><span class="o">=</span><span class="m">1</span></span>
+</pre></div></div></section>
+<section id="compile-and-install">
+<h3><a class="toc-backref" href="#id16"><span class="section-number">3.2.6. </span>Compile and Install</a><a class="headerlink" href="#compile-and-install" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://github.com/ameli/imate"><img alt="repo-size" src="https://img.shields.io/github/repo-size/ameli/imate" /></a></p>
+<p>Get the source code of <span class="synco">imate</span> with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git clone https://github.com/ameli/imate.git</span>
+</pre></div></div><p>Compile and install by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> imate</span>
+<span class="prompt1">python setup.py install</span>
+</pre></div></div></section>
+</section>
+<section id="use-project-docker-container-on-gpu">
+<span id="gpu-docker"></span><h2><a class="toc-backref" href="#id17"><span class="section-number">3.3. </span>Use <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#use-project-docker-container-on-gpu" title="Permalink to this heading">#</a></h2>
+<p>This method neither requires installing CUDA nor <span class="synco">imate</span> as all are pre-installed in a docker image.</p>
+<section id="install-docker">
+<h3><a class="toc-backref" href="#id18"><span class="section-number">3.3.1. </span>Install Docker</a><a class="headerlink" href="#install-docker" title="Permalink to this heading">#</a></h3>
+<p>First, <a class="reference external" href="https://docs.docker.com/engine/install/ubuntu/">install docker</a>. Briefly:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-21" name="sd-tab-set-7" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-21">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt-get update</span>
+<span class="prompt1">sudo apt-get install ca-certificates curl gnupg lsb-release</span>
+<span class="prompt1">sudo mkdir -p /etc/apt/keyrings</span>
+<span class="prompt1">curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class="p">|</span> <span class="se">\</span>
+    sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span>
+<span class="prompt1"><span class="nb">echo</span> <span class="s2">&quot;deb [arch=</span><span class="k">$(</span>dpkg --print-architecture<span class="k">)</span><span class="s2"> signed-by=/etc/apt/keyrings/docker.gpg] \</span>
+<span class="s2">    https://download.docker.com/linux/ubuntu \</span>
+<span class="s2">    </span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> stable&quot;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</span>
+<span class="prompt1">sudo apt-get update</span>
+<span class="prompt1">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span>
+</pre></div></div></div>
+<input id="sd-tab-item-22" name="sd-tab-set-7" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-22">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install -y yum-utils</span>
+<span class="prompt1">sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span>
+<span class="prompt1">sudo yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span>
+<span class="prompt1">sudo systemctl <span class="nb">enable</span> docker.service</span>
+<span class="prompt1">sudo systemctl <span class="nb">enable</span> containerd.service</span>
+<span class="prompt1">sudo systemctl start docker</span>
+</pre></div></div></div>
+<input id="sd-tab-item-23" name="sd-tab-set-7" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-23">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install -y yum-utils</span>
+<span class="prompt1">sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span>
+<span class="prompt1">sudo yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span>
+<span class="prompt1">sudo systemctl <span class="nb">enable</span> docker.service</span>
+<span class="prompt1">sudo systemctl <span class="nb">enable</span> containerd.service</span>
+<span class="prompt1">sudo systemctl start docker</span>
+</pre></div></div></div>
+</div>
+<p>Configure docker to run docker <a class="reference external" href="https://docs.docker.com/engine/install/linux-postinstall/">without sudo password</a> by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo groupadd docker</span>
+<span class="prompt1">sudo usermod -aG docker <span class="nv">$USER</span></span>
+</pre></div></div><p>Then, log out and log back. If docker is installed on a <em>virtual machine</em>, restart the virtual machine for changes to take effect.</p>
+</section>
+<section id="install-nvidia-container-toolkit">
+<h3><a class="toc-backref" href="#id19"><span class="section-number">3.3.2. </span>Install NVIDIA Container Toolkit</a><a class="headerlink" href="#install-nvidia-container-toolkit" title="Permalink to this heading">#</a></h3>
+<p>To access host’s GPU device from a docker container, <a class="reference external" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html">install NVIDIA Container Toolkit</a> as follows.</p>
+<p>Add the package to the repository:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-24" name="sd-tab-set-8" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-24">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nv">distribution</span><span class="o">=</span><span class="k">$(</span>. /etc/os-release<span class="p">;</span><span class="nb">echo</span> <span class="nv">$ID$VERSION_ID</span><span class="k">)</span></span>
+<span class="prompt1">curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey <span class="p">|</span> sudo apt-key add -</span>
+<span class="prompt1">curl -s -L https://nvidia.github.io/nvidia-docker/<span class="nv">$distribution</span>/nvidia-docker.list <span class="p">|</span> sudo tee /etc/apt/sources.list.d/nvidia-docker.list</span>
+</pre></div></div></div>
+<input id="sd-tab-item-25" name="sd-tab-set-8" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-25">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum-config-manager --add-repo<span class="o">=</span>https://download.docker.com/linux/centos/docker-ce.repo</span>
+</pre></div></div></div>
+<input id="sd-tab-item-26" name="sd-tab-set-8" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-26">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf config-manager --add-repo<span class="o">=</span>https://download.docker.com/linux/centos/docker-ce.repo</span>
+</pre></div></div></div>
+</div>
+<p>Install <cite>nvidia-contaner-toolkit</cite> by:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-27" name="sd-tab-set-9" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-27">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt-get update</span>
+<span class="prompt1">sudo apt-get install -y nvidia-container-toolkit</span>
+</pre></div></div></div>
+<input id="sd-tab-item-28" name="sd-tab-set-9" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-28">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm</span>
+</pre></div></div></div>
+<input id="sd-tab-item-29" name="sd-tab-set-9" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-29">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm</span>
+</pre></div></div></div>
+</div>
+<p>Restart docker:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo systemctl restart docker</span>
+</pre></div></div></section>
+<section id="get-project-docker-image">
+<h3><a class="toc-backref" href="#id20"><span class="section-number">3.3.3. </span>Get <span class="synco">imate</span> Docker image</a><a class="headerlink" href="#get-project-docker-image" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://hub.docker.com/repository/docker/sameli/imate"><img alt="docker-size" src="https://img.shields.io/docker/image-size/sameli/imate" /></a></p>
+<p>Get the <span class="synco">imate</span> docker image by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker pull sameli/imate</span>
+</pre></div></div><p>The docker image has the followings pre-installed:</p>
+<ul class="simple">
+<li><p>CUDA: in <code class="docutils literal notranslate"><span class="pre">/usr/local/cuda</span></code></p></li>
+<li><p>Python 3.9: in <code class="docutils literal notranslate"><span class="pre">/usr/bin/python3</span></code></p></li>
+<li><p>Python interpreters: <cite>ipython</cite>, <cite>jupyter</cite></p></li>
+<li><p>Editor: <cite>vim</cite></p></li>
+</ul>
+</section>
+<section id="id4">
+<h3><a class="toc-backref" href="#id21"><span class="section-number">3.3.4. </span>Use <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<p>To use host’s GPU from the docker container, add  <code class="docutils literal notranslate"><span class="pre">--gpus</span> <span class="pre">all</span></code> to any of the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> commands, such as by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker run --gpus all -it sameli/imate</span>
+</pre></div></div><p>The followings are some examples of using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> with various options:</p>
+<ul>
+<li><p>To check the host’s NVIDIA driver version, CUDA runtime library version, and list of available GPU devices, run <code class="docutils literal notranslate"><span class="pre">nvida-smi</span></code> command by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker run --gpus all sameli/imate nvidia-smi</span>
+</pre></div></div></li>
+<li><p>To run the container and open <em>Python</em> interpreter directly at startup:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker run -it --gpus all sameli/imate</span>
+</pre></div></div><p>This also imports <span class="synco">imate</span> package automatically.</p>
+</li>
+<li><p>To run the container and open <em>IPython</em> interpreter directly at startup:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker run -it --gpus all sameli/imate ipython</span>
+</pre></div></div><p>This also imports <cite>imate</cite> package automatically.</p>
+</li>
+<li><p>To open <em>Bash shell</em> only:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker run -it --gpus all --entrypoint /bin/bash sameli/imate</span>
+</pre></div></div></li>
+<li><p>To <em>mount</em> a host’s directory, such as <code class="docutils literal notranslate"><span class="pre">/home/user/project</span></code>, onto a directory of the docker’s container, such as <code class="docutils literal notranslate"><span class="pre">/root</span></code>, use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker run -it --gpus all -v /home/user/project:/root sameli/imate</span>
+</pre></div></div></li>
+</ul>
+</section>
+</section>
+<section id="inquiry-gpu-and-cuda-with-project">
+<h2><a class="toc-backref" href="#id22"><span class="section-number">3.4. </span>Inquiry GPU and CUDA with <span class="synco">imate</span></a><a class="headerlink" href="#inquiry-gpu-and-cuda-with-project" title="Permalink to this heading">#</a></h2>
+<p>First, make sure <span class="synco">imate</span> recognizes the CUDA libraries and GPU device. There are a number of functions available in <a class="reference internal" href="../api.html#device-inquiry"><span class="std std-ref">imate.device</span></a> module to inquiry GPU device.</p>
+<section id="locate-cuda-toolkit">
+<h3><a class="toc-backref" href="#id23"><span class="section-number">3.4.1. </span>Locate CUDA Toolkit</a><a class="headerlink" href="#locate-cuda-toolkit" title="Permalink to this heading">#</a></h3>
+<p>Use <a class="reference internal" href="../generated/imate.device.locate_cuda.html#imate.device.locate_cuda" title="imate.device.locate_cuda"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.locate_cuda()</span></code></a> function to find the location of CUDA home directory.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">imate</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get the location and version of CUDA Toolkit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">locate_cuda</span><span class="p">()</span>
+<span class="go">{</span>
+<span class="go">    &#39;home&#39;: &#39;/global/software/sl-7.x86_64/modules/langs/cuda/11.2&#39;,</span>
+<span class="go">    &#39;include&#39;: &#39;/global/software/sl-7.x86_64/modules/langs/cuda/11.2/include&#39;,</span>
+<span class="go">    &#39;lib&#39;: &#39;/global/software/sl-7.x86_64/modules/langs/cuda/11.2/lib64&#39;,</span>
+<span class="go">    &#39;nvcc&#39;: &#39;/global/software/sl-7.x86_64/modules/langs/cuda/11.2/bin/nvcc&#39;,</span>
+<span class="go">    &#39;version&#39;:</span>
+<span class="go">    {</span>
+<span class="go">        &#39;major&#39;: 11,</span>
+<span class="go">        &#39;minor&#39;: 2,</span>
+<span class="go">        &#39;patch&#39;: 0</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<p>If the above function does not return an output such as in the above, this is because either <cite>CUDA Toolkit</cite> is not installed, or the directory of CUDA Toolkit is nit set. To do so, set the directory of CUDA Toolkit to either of the variables <code class="docutils literal notranslate"><span class="pre">CUDA_HOME</span></code>, <code class="docutils literal notranslate"><span class="pre">CUDA_ROOT</span></code>, or <code class="docutils literal notranslate"><span class="pre">CUDA_PATH</span></code>, such as by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">echo</span> <span class="s1">&#39;export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}&#39;</span> &gt;&gt; ~/.bashrc</span>
+<span class="prompt1"><span class="nb">echo</span> <span class="s1">&#39;export CUDA_HOME=/usr/local/cuda${CUDA_HOME:+:${CUDA_HOME}}&#39;</span> &gt;&gt; ~/.bashrc</span>
+<span class="prompt1"><span class="nb">source</span> ~/.bashrc</span>
+</pre></div></div></section>
+<section id="detect-nvidia-graphic-driver">
+<h3><a class="toc-backref" href="#id24"><span class="section-number">3.4.2. </span>Detect NVIDIA Graphic Driver</a><a class="headerlink" href="#detect-nvidia-graphic-driver" title="Permalink to this heading">#</a></h3>
+<p>Use <a class="reference internal" href="../generated/imate.device.get_nvidia_driver_version.html#imate.device.get_nvidia_driver_version" title="imate.device.get_nvidia_driver_version"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_nvidia_driver_version()</span></code></a> function to make sure <span class="synco">imate</span> can detect the NVIDIA driver.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get the version of NVIDIA graphic driver</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_nvidia_driver_version</span><span class="p">()</span>
+<span class="go">460.84</span>
+</pre></div>
+</div>
+</section>
+<section id="detect-gpu-devices">
+<h3><a class="toc-backref" href="#id25"><span class="section-number">3.4.3. </span>Detect GPU Devices</a><a class="headerlink" href="#detect-gpu-devices" title="Permalink to this heading">#</a></h3>
+<p>Use <a class="reference internal" href="../generated/imate.device.get_processor_name.html#imate.device.get_processor_name" title="imate.device.get_processor_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_processor_name()</span></code></a> and <a class="reference internal" href="../generated/imate.device.get_gpu_name.html#imate.device.get_gpu_name" title="imate.device.get_gpu_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_gpu_name()</span></code></a> to find the name of CPU and GPU devices, respectively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get the name of CPU processor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_processor_name</span><span class="p">()</span>
+<span class="go">&#39;Intel(R) Xeon(R) CPU E5-2623 v3 @ 3.00GHz&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get the name of GPU devices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_gpu_name</span><span class="p">()</span>
+<span class="go">&#39;GeForce GTX 1080 Ti&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the name of GPU device is empty, this is because either there is no GPU device detected, or <em>NVIDIA graphic driver</em> is not installed, or its location is not on the PATH. To do so, set the location of <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> executable to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable. On UNIX, this executbale should be on <code class="docutils literal notranslate"><span class="pre">/usr/bin</span></code> directory and by default it should be already on the <cite>PATH</cite>.</p>
+</div>
+<p>The number of CPU threads and GPU devices can be obtained respectively by <a class="reference internal" href="../generated/imate.device.get_num_cpu_threads.html#imate.device.get_num_cpu_threads" title="imate.device.get_num_cpu_threads"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_num_cpu_threads()</span></code></a> and <a class="reference internal" href="../generated/imate.device.get_num_gpu_devices.html#imate.device.get_num_gpu_devices" title="imate.device.get_num_gpu_devices"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_num_gpu_devices()</span></code></a> functions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get number of processor threads</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_num_cpu_threads</span><span class="p">()</span>
+<span class="go">8</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get number of GPU devices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_num_gpu_devices</span><span class="p">()</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="../generated/imate.info.html#imate.info" title="imate.info"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.info()</span></code></a> function also obtains general information about <span class="synco">imate</span> configuration and devices.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="o">&gt;&gt;&gt;</span> <span class="n">imate</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+ <span class="n">imate</span> <span class="n">version</span>   <span class="p">:</span> <span class="mf">0.13.0</span>
+ <span class="n">processor</span>       <span class="p">:</span> <span class="n">Intel</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">Xeon</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">CPU</span> <span class="n">E5</span><span class="o">-</span><span class="mi">2623</span> <span class="n">v3</span> <span class="o">@</span> <span class="mf">3.00</span><span class="n">GHz</span>
+ <span class="n">num</span> <span class="n">threads</span>     <span class="p">:</span> <span class="mi">8</span>
+<span class="hll"> <span class="n">gpu</span> <span class="n">device</span>      <span class="p">:</span> <span class="s1">&#39;GeForce GTX 1080 Ti&#39;</span>
+</span><span class="hll"> <span class="n">num</span> <span class="n">gpu</span> <span class="n">devices</span> <span class="p">:</span> <span class="mi">4</span>
+</span><span class="hll"> <span class="n">cuda</span> <span class="n">version</span>    <span class="p">:</span> <span class="mf">11.2.0</span>
+</span><span class="hll"> <span class="n">nvidia</span> <span class="n">driver</span>   <span class="p">:</span> <span class="mf">460.84</span>
+</span> <span class="n">process</span> <span class="n">memory</span>  <span class="p">:</span> <span class="mf">1.7</span> <span class="p">(</span><span class="n">Gb</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Alternatively, one may directly use <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> command to inquiry the GPU devices.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">nvidia-smi</span>
+</pre></div></div><p>Output:</p>
+<div class="highlight-Text notranslate"><div class="highlight"><pre><span></span>+-----------------------------------------------------------------------------+
+| NVIDIA-SMI 460.84       Driver Version: 460.84       CUDA Version: 11.2     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 108...  Off  | 00000000:02:00.0 Off |                  N/A |
+| 33%   57C    P2    62W / 250W |    147MiB / 11178MiB |     25%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce GTX 108...  Off  | 00000000:03:00.0 Off |                  N/A |
+| 27%   48C    P2    61W / 250W |    147MiB / 11178MiB |     23%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   2  GeForce GTX 108...  Off  | 00000000:81:00.0 Off |                  N/A |
+| 18%   32C    P0    59W / 250W |      0MiB / 11178MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   3  GeForce GTX 108...  Off  | 00000000:82:00.0 Off |                  N/A |
+| 18%   32C    P0    59W / 250W |      0MiB / 11178MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A       654      C   python                            145MiB |
+|    1   N/A  N/A       839      C   python                            145MiB |
++-----------------------------------------------------------------------------+
+</pre></div>
+</div>
+<p>The output of <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> in the above shows there are four GPU devices available on the machine. For more complete information on the GPU devices, use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">nvidia-smi -q</span>
+</pre></div></div></section>
+</section>
+<section id="run-project-functions-on-gpu">
+<h2><a class="toc-backref" href="#id26"><span class="section-number">3.5. </span>Run <span class="synco">imate</span> Functions on GPU</a><a class="headerlink" href="#run-project-functions-on-gpu" title="Permalink to this heading">#</a></h2>
+<p>All functions in <span class="synco">imate</span> that accept the <cite>SLQ</cite> method (using <code class="docutils literal notranslate"><span class="pre">method=slq</span></code> argument) can perform computations on GPU devices. To do so, include <code class="docutils literal notranslate"><span class="pre">gpu=True</span></code> argument to the function syntax. The following examples show using multi-GPU devices to compute the log-determinant of a large matrix.</p>
+<section id="a-simple-example">
+<h3><a class="toc-backref" href="#id27"><span class="section-number">3.5.1. </span>A Simple Example</a><a class="headerlink" href="#a-simple-example" title="Permalink to this heading">#</a></h3>
+<p>First, create a sample Toeplitz matrix with ten million in size using <a class="reference internal" href="../generated/imate.toeplitz.html#imate.toeplitz" title="imate.toeplitz"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.toeplitz()</span></code></a> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import toeplitz matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample matrix (a toeplitz matrix)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="mi">10000000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next, create an <a class="reference internal" href="../generated/imate.Matrix.html#imate.Matrix" title="imate.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.Matrix</span></code></a> object from matrix <cite>A</cite>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import Matrix class</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">Matrix</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a matrix operator object from matrix A</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Aop</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Compute the log-determinant of the above matrix on GPU by passing <code class="docutils literal notranslate"><span class="pre">gpu=True</span></code> to <a class="reference internal" href="../generated/imate.logdet.html#imate.logdet" title="imate.logdet"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.logdet()</span></code></a> function. Recall GPU can only be employed using <cite>SLQ</cite> method by passing <code class="docutils literal notranslate"><span class="pre">method=slq</span></code> argument.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import logdet function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">logdet</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span class="go">13862193.020813728</span>
+</pre></div>
+</div>
+</section>
+<section id="get-process-information">
+<h3><a class="toc-backref" href="#id28"><span class="section-number">3.5.2. </span>Get Process Information</a><a class="headerlink" href="#get-process-information" title="Permalink to this heading">#</a></h3>
+<p>It is useful pass the argument <code class="docutils literal notranslate"><span class="pre">return_info=True</span></code> to get information about the computation process.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ld</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The information about GPU devices used during the computation can be found in <code class="docutils literal notranslate"><span class="pre">info['device']</span></code> key:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+ <span class="o">&gt;&gt;&gt;</span> <span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">])</span>
+ <span class="p">{</span>
+     <span class="s1">&#39;num_cpu_threads&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+<span class="hll">     <span class="s1">&#39;num_gpu_devices&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+</span><span class="hll">     <span class="s1">&#39;num_gpu_multiprocessors&#39;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+</span><span class="hll">     <span class="s1">&#39;num_gpu_threads_per_multiprocessor&#39;</span><span class="p">:</span> <span class="mi">2048</span>
+</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>The processing time can be obtained by <code class="docutils literal notranslate"><span class="pre">info['time']</span></code> key:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+<span class="go">{</span>
+<span class="go">    &#39;alg_wall_time&#39;: 1.7192635536193848,</span>
+<span class="go">    &#39;cpu_proc_time&#39;: 3.275628339,</span>
+<span class="go">    &#39;tot_wall_time&#39;: 3.5191736351698637</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</section>
+<section id="verbose-output">
+<h3><a class="toc-backref" href="#id29"><span class="section-number">3.5.3. </span>Verbose Output</a><a class="headerlink" href="#verbose-output" title="Permalink to this heading">#</a></h3>
+<p>Alternatively, to print verbose information, including the information about GPU devices, pass <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code> to the function argument:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above script prints the following table. The last section of the table shows device information.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>                                    <span class="n">results</span>                                   
+<span class="o">==============================================================================</span>
+     <span class="n">inquiries</span>                            <span class="n">error</span>            <span class="n">samples</span>            
+<span class="o">--------------------</span>              <span class="o">---------------------</span>   <span class="o">---------</span>           
+<span class="n">i</span>         <span class="n">parameters</span>       <span class="n">trace</span>    <span class="n">absolute</span>   <span class="n">relative</span>   <span class="n">num</span>   <span class="n">out</span>  <span class="n">converged</span>
+<span class="o">==============================================================================</span>
+<span class="mi">1</span>               <span class="n">none</span>  <span class="o">+</span><span class="mf">1.386e+07</span>   <span class="mf">1.715e+03</span>     <span class="mf">0.012</span><span class="o">%</span>    <span class="mi">10</span>     <span class="mi">0</span>       <span class="kc">True</span>
+
+                                    <span class="n">config</span>                                    
+<span class="o">==============================================================================</span>
+                <span class="n">matrix</span>                            <span class="n">stochastic</span> <span class="n">estimator</span>        
+<span class="o">-------------------------------------</span>    <span class="o">-------------------------------------</span>
+<span class="n">gram</span><span class="p">:</span>                           <span class="kc">False</span>    <span class="n">method</span><span class="p">:</span>                           <span class="n">slq</span>
+<span class="n">exponent</span><span class="p">:</span>                           <span class="mi">1</span>    <span class="n">lanczos</span> <span class="n">degree</span><span class="p">:</span>                    <span class="mi">20</span>
+<span class="n">num</span> <span class="n">matrix</span> <span class="n">parameters</span><span class="p">:</span>              <span class="mi">0</span>    <span class="n">lanczos</span> <span class="n">tol</span><span class="p">:</span>                <span class="mf">2.220e-16</span>
+<span class="n">data</span> <span class="nb">type</span><span class="p">:</span>                     <span class="mi">64</span><span class="o">-</span><span class="n">bit</span>    <span class="n">orthogonalization</span><span class="p">:</span>               <span class="n">none</span>
+
+             <span class="n">convergence</span>                                 <span class="n">error</span>                
+<span class="o">-------------------------------------</span>    <span class="o">-------------------------------------</span>
+<span class="nb">min</span> <span class="n">num</span> <span class="n">samples</span><span class="p">:</span>                   <span class="mi">10</span>    <span class="nb">abs</span> <span class="n">error</span> <span class="n">tol</span><span class="p">:</span>              <span class="mf">0.000e+00</span>
+<span class="nb">max</span> <span class="n">num</span> <span class="n">samples</span><span class="p">:</span>                   <span class="mi">50</span>    <span class="n">rel</span> <span class="n">error</span> <span class="n">tol</span><span class="p">:</span>                  <span class="mf">1.00</span><span class="o">%</span>
+<span class="n">outlier</span> <span class="n">significance</span> <span class="n">level</span><span class="p">:</span>     <span class="mf">0.00</span><span class="o">%</span>    <span class="n">confidence</span> <span class="n">level</span><span class="p">:</span>              <span class="mf">95.00</span><span class="o">%</span>
+
+                                   <span class="n">process</span>                                    
+<span class="o">==============================================================================</span>
+                 <span class="n">time</span>                                   <span class="n">device</span>                
+<span class="o">-------------------------------------</span>    <span class="o">-------------------------------------</span>
+<span class="hll"><span class="n">tot</span> <span class="n">wall</span> <span class="n">time</span> <span class="p">(</span><span class="n">sec</span><span class="p">):</span>        <span class="mf">1.744e+00</span>    <span class="n">num</span> <span class="n">cpu</span> <span class="n">threads</span><span class="p">:</span>                    <span class="mi">8</span>
+</span><span class="hll"><span class="n">alg</span> <span class="n">wall</span> <span class="n">time</span> <span class="p">(</span><span class="n">sec</span><span class="p">):</span>        <span class="mf">1.722e+00</span>    <span class="n">num</span> <span class="n">gpu</span> <span class="n">devices</span><span class="p">,</span> <span class="n">multiproc</span><span class="p">:</span>     <span class="mi">4</span><span class="p">,</span> <span class="mi">28</span>
+</span><span class="hll"><span class="n">cpu</span> <span class="n">proc</span> <span class="n">time</span> <span class="p">(</span><span class="n">sec</span><span class="p">):</span>        <span class="mf">1.752e+00</span>    <span class="n">num</span> <span class="n">gpu</span> <span class="n">threads</span> <span class="n">per</span> <span class="n">multiproc</span><span class="p">:</span>   <span class="mi">2048</span>
+</span></pre></div>
+</div>
+</section>
+<section id="set-number-of-gpu-devices">
+<h3><a class="toc-backref" href="#id30"><span class="section-number">3.5.4. </span>Set Number of GPU Devices</a><a class="headerlink" href="#set-number-of-gpu-devices" title="Permalink to this heading">#</a></h3>
+<p>By default, <span class="synco">imate</span> employs the maximum number of available GPU devices. To employ specific number of GPU devices, set <code class="docutils literal notranslate"><span class="pre">num_gpu-devices</span></code> in the function arguments. For instance</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import logdet function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">logdet</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ld</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="hll"><span class="gp">... </span>                  <span class="n">num_gpu_devices</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Check how many GPU devices used</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">])</span>
+<span class="go">{</span>
+<span class="go">    &#39;num_cpu_threads&#39;: 8,</span>
+<span class="hll"><span class="go">    &#39;num_gpu_devices&#39;: 2,</span>
+</span><span class="go">    &#39;num_gpu_multiprocessors&#39;: 28,</span>
+<span class="go">    &#39;num_gpu_threads_per_multiprocessor&#39;: 2048</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="deploy-project-on-gpu-clusters">
+<span id="gpu-cluster"></span><h2><a class="toc-backref" href="#id31"><span class="section-number">3.6. </span>Deploy <span class="synco">imate</span> on GPU Clusters</a><a class="headerlink" href="#deploy-project-on-gpu-clusters" title="Permalink to this heading">#</a></h2>
+<p>On GPU clusters, the NVIDIA graphic driver and CUDA libraries are pre-installed and they only need to be loaded.</p>
+<section id="load-modules">
+<h3><a class="toc-backref" href="#id32"><span class="section-number">3.6.1. </span>Load Modules</a><a class="headerlink" href="#load-modules" title="Permalink to this heading">#</a></h3>
+<p>Check which modules are available on the machine</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module avail</span>
+</pre></div></div><p>Load python and a compatible CUDA version by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module load python/3.9</span>
+<span class="prompt1">module load cuda/11.7</span>
+</pre></div></div><p>Check which modules are loaded</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module list</span>
+</pre></div></div></section>
+<section id="interactive-session-with-slurm">
+<h3><a class="toc-backref" href="#id33"><span class="section-number">3.6.2. </span>Interactive Session with SLURM</a><a class="headerlink" href="#interactive-session-with-slurm" title="Permalink to this heading">#</a></h3>
+<p>There are two ways to work with GPU on a cluster. The first method is to <code class="docutils literal notranslate"><span class="pre">ssh</span></code> to a GPU node and for hands-on interaction with the GPU device. If the GPU cluster uses <a class="reference external" href="https://slurm.schedmd.com/documentation.html">SLURM manager</a>, use <code class="docutils literal notranslate"><span class="pre">srun</span></code> to initiate a session as follows</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">srun -A fc_biome -p savio2_gpu --gres<span class="o">=</span>gpu:1 --ntasks <span class="m">2</span> -t <span class="m">2</span>:00:00 --pty Bash -i</span>
+</pre></div></div><p>In the above example:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-A</span> <span class="pre">fc_biome</span></code> sets the group account associated with the user.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">savio2_gpu</span></code> sets the name of the GPU node.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--gres=gpu:1</span></code> requests one GPU device on the node.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--ntasks</span> <span class="pre">2</span></code> requests two parallel CPU threads on the node.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">2:00:00</span></code> requests a two-hour session.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--pty</span> <span class="pre">Bash</span></code> starts a Bash shell.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-i</span></code> redirects std input to the user’s terminal for interactive use.</p></li>
+</ul>
+<p>See the list of <a class="reference external" href="https://slurm.schedmd.com/srun.html">options of srun</a> for details. As an other example, to request a GPU node named <code class="docutils literal notranslate"><span class="pre">savio2_1080ti</span></code> with 4 GPU devices and 8 CPU threads for 10 hours, run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">srun -A fc_biome -p savio2_1080ti --gres<span class="o">=</span>gpu:4 --ntasks <span class="m">8</span> -t <span class="m">10</span>:00:00 --pty Bash -i</span>
+</pre></div></div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Replace the name of nodes and accounts in the above example with yours. The name of GPU nodes and accounts in the above examples are obtained from <a class="reference external" href="https://docs-research-it.berkeley.edu/services/high-performance-computing/overview/">SAVIO Cluster</a> (an institutional Cluster at UC Berkeley).</p>
+</div>
+</section>
+<section id="submit-jobs-to-gpu-with-slurm">
+<h3><a class="toc-backref" href="#id34"><span class="section-number">3.6.3. </span>Submit Jobs to GPU with SLURM</a><a class="headerlink" href="#submit-jobs-to-gpu-with-slurm" title="Permalink to this heading">#</a></h3>
+<p>To submit a parallel job to GPU nodes on a cluster with <cite>SLURM manager</cite>, use <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> command, such as</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sbatch jobfile.sh</span>
+</pre></div></div><p>See the list of <a class="reference external" href="https://slurm.schedmd.com/sbatch.html">options of sbatch</a> for details. A sample job file, <code class="docutils literal notranslate"><span class="pre">jobfile.sh</span></code> is as shown below. The highlighted line in the file instructs <cite>SLURM</cite> to request number of GPU devices with <code class="docutils literal notranslate"><span class="pre">--gres</span></code> option.</p>
+<div class="highlight-Slurm notranslate"><div class="highlight"><pre><span></span> <span class="c1">#!/bin/bash</span>
+
+ <span class="kp">#SBATCH --job-name=your_project</span>
+ <span class="kp">#SBATCH --mail-type=your_email</span>
+ <span class="kp">#SBATCH --mail-user=your_email</span>
+ <span class="kp">#SBATCH --partition=savio2_1080ti</span>
+ <span class="kp">#SBATCH --account=fc_biome</span>
+ <span class="kp">#SBATCH --qos=savio_normal</span>
+ <span class="kp">#SBATCH --time=72:00:00</span>
+ <span class="kp">#SBATCH --nodes=1</span>
+<span class="hll"> <span class="kp">#SBATCH --gres=gpu:4</span>
+</span> <span class="kp">#SBATCH --ntasks=1</span>
+ <span class="kp">#SBATCH --cpus-per-task=8</span>
+ <span class="kp">#SBATCH --mem=64gb</span>
+ <span class="kp">#SBATCH --output=output.log</span>
+
+ <span class="c1"># Point to where Python is installed</span>
+ <span class="nv">PYTHON_DIR</span><span class="o">=</span><span class="nv">$HOME</span>/programs/miniconda3
+
+ <span class="c1"># Point to where a script should run</span>
+ <span class="nv">SCRIPTS_DIR</span><span class="o">=</span><span class="k">$(</span>dirname <span class="nv">$PWD</span><span class="k">)</span>/scripts
+
+ <span class="c1"># Directory of log files</span>
+ <span class="nv">LOG_DIR</span><span class="o">=</span><span class="nv">$PWD</span>
+
+ <span class="c1"># Load modules</span>
+ module load cuda/11.2
+
+ <span class="c1"># Export OpenMP variables</span>
+ <span class="nb">export</span> <span class="nv">OMP_NUM_THREADS</span><span class="o">=</span><span class="nv">$SLURM_CPUS_PER_TASK</span>
+
+ <span class="c1"># Run the script</span>
+ <span class="nv">$PYTHON_DIR</span>/bin/python <span class="si">${</span><span class="nv">SCRIPTS_DIR</span><span class="si">}</span>/script.py &gt; <span class="si">${</span><span class="nv">LOG_DIR</span><span class="si">}</span>/output.txt
+</pre></div>
+</div>
+<p>In the above job file, modify <code class="docutils literal notranslate"><span class="pre">--partition</span></code>, <code class="docutils literal notranslate"><span class="pre">--account</span></code>, and <code class="docutils literal notranslate"><span class="pre">--qos</span></code> according to your user account allowance on cluster.</p>
+</section>
+</section>
+</section>
+
+
+            </article>
+            
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="docker.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title"><span class="section-number">2. </span>Using <span class="synco">imate</span> on Docker</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="../api.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">API Reference</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
     <i class="fas fa-list"></i> On this page
 </div>
-
-<nav id="bd-toc-nav">
+<nav id="bd-toc-nav" class="page-toc">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#install-nvidia-cuda-toolkit">
@@ -333,8 +1367,13 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#detect-nvidia-graphic-driver">
+     3.4.2. Detect NVIDIA Graphic Driver
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#detect-gpu-devices">
-     3.4.2. Detect GPU Devices
+     3.4.3. Detect GPU Devices
     </a>
    </li>
   </ul>
@@ -399,10 +1438,10 @@
 </ul>
 
 </nav>
-    </div>
-    
-    <div class="toc-item">
-      
+</div>
+
+<div class="toc-item">
+  
 
 <div class="tocsection editthispage">
     <a href="https://github.com/https://github.com/ameli/imate/edit/main/docs/source/tutorials/gpu.rst">
@@ -410,947 +1449,48 @@
     </a>
 </div>
 
-    </div>
-    
-  
 </div>
 
-
+            </div>
           
           
-          <div class="bd-content col-12 col-md-9 col-xl-7">
-              
-              <article class="bd-article" role="main">
-                
-  <section id="using-gpu-devices">
-<span id="imate-gpu"></span><h1><a class="toc-backref" href="#id5"><span class="section-number">3. </span>Using GPU Devices</a><a class="headerlink" href="#using-gpu-devices" title="Permalink to this heading">#</a></h1>
-<div class="contents topic" id="contents">
-<p class="topic-title">Contents</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#using-gpu-devices" id="id5">Using GPU Devices</a></p>
-<ul>
-<li><p><a class="reference internal" href="#install-nvidia-cuda-toolkit" id="id6">Install NVIDIA CUDA Toolkit</a></p>
-<ul>
-<li><p><a class="reference internal" href="#install-nvidia-graphic-driver" id="id7">Install NVIDIA Graphic Driver</a></p></li>
-<li><p><a class="reference internal" href="#install-cuda-toolkit" id="id8">Install CUDA Toolkit</a></p></li>
-<li><p><a class="reference internal" href="#install-openmp" id="id9">Install OpenMP</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#compile-project-from-source-with-cuda" id="id10">Compile <span class="synco">imate</span> from Source with CUDA</a></p>
-<ul>
-<li><p><a class="reference internal" href="#install-c-compiler-and-openmp" id="id11">Install C++ Compiler and OpenMP</a></p></li>
-<li><p><a class="reference internal" href="#install-cuda-compiler-and-development-libraries" id="id12">Install CUDA Compiler and Development Libraries</a></p></li>
-<li><p><a class="reference internal" href="#load-cuda-compiler-on-gpu-cluster" id="id13">Load CUDA Compiler on GPU Cluster</a></p></li>
-<li><p><a class="reference internal" href="#configure-compile-time-environment-variables" id="id14">Configure Compile-Time Environment Variables</a></p></li>
-<li><p><a class="reference internal" href="#enable-dynamic-loading-optional" id="id15">Enable Dynamic Loading (<em>optional</em>)</a></p></li>
-<li><p><a class="reference internal" href="#compile-and-install" id="id16">Compile and Install</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#use-project-docker-container-on-gpu" id="id17">Use <span class="synco">imate</span> Docker Container on GPU</a></p>
-<ul>
-<li><p><a class="reference internal" href="#install-docker" id="id18">Install Docker</a></p></li>
-<li><p><a class="reference internal" href="#install-nvidia-container-toolkit" id="id19">Install NVIDIA Container Toolkit</a></p></li>
-<li><p><a class="reference internal" href="#get-project-docker-image" id="id20">Get <span class="synco">imate</span> Docker image</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id21">Use <span class="synco">imate</span> Docker Container on GPU</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#inquiry-gpu-and-cuda-with-project" id="id22">Inquiry GPU and CUDA with <span class="synco">imate</span></a></p>
-<ul>
-<li><p><a class="reference internal" href="#locate-cuda-toolkit" id="id23">Locate CUDA Toolkit</a></p></li>
-<li><p><a class="reference internal" href="#detect-gpu-devices" id="id24">Detect GPU Devices</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#run-project-functions-on-gpu" id="id25">Run <span class="synco">imate</span> Functions on GPU</a></p>
-<ul>
-<li><p><a class="reference internal" href="#a-simple-example" id="id26">A Simple Example</a></p></li>
-<li><p><a class="reference internal" href="#get-process-information" id="id27">Get Process Information</a></p></li>
-<li><p><a class="reference internal" href="#verbose-output" id="id28">Verbose Output</a></p></li>
-<li><p><a class="reference internal" href="#set-number-of-gpu-devices" id="id29">Set Number of GPU Devices</a></p></li>
-</ul>
-</li>
-<li><p><a class="reference internal" href="#deploy-project-on-gpu-clusters" id="id30">Deploy <span class="synco">imate</span> on GPU Clusters</a></p>
-<ul>
-<li><p><a class="reference internal" href="#load-modules" id="id31">Load Modules</a></p></li>
-<li><p><a class="reference internal" href="#interactive-session-with-slurm" id="id32">Interactive Session with SLURM</a></p></li>
-<li><p><a class="reference internal" href="#submit-jobs-to-gpu-with-slurm" id="id33">Submit Jobs to GPU with SLURM</a></p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-<p><span class="synco">imate</span> can run on <cite>CUDA-capable</cite> GPU devices with the followings installed:</p>
-<ol class="arabic simple">
-<li><p>NVIDIA graphic driver,</p></li>
-<li><p>CUDA libraries.</p></li>
-</ol>
-<p class="rubric">CUDA Version</p>
-<p>The version of CUDA libraries installed on the user’s machine should match the version of the CUDA libraries that <span class="synco">imate</span> package was compiled with. This includes matching both <em>major</em> and <em>minor</em> parts of the version numbers. However, the version’s <em>patch</em> numbers do not need to be matched.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The <span class="synco">imate</span> package that is installed with either <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code> already has built-in support for CUDA Toolkit. The latest version of <span class="synco">imate</span> is compatible with <strong>CUDA 11.7.x</strong>, which should match the CUDA version installed in the user’s machine.</p>
-</div>
-<div class="topic">
-<p class="topic-title">Methods of Setting up CUDA and <span class="synco">imate</span></p>
-<p>There are three ways to use <span class="synco">imate</span> with a compatible version of CUDA Toolkit:</p>
-<ol class="arabic simple">
-<li><p><a class="reference internal" href="#gpu-install-cuda"><span class="std std-ref">Install NVIDIA CUDA Toolkit</span></a> with a CUDA version compatible with an existing <span class="synco">imate</span> installation. By this way, you can keep the <span class="synco">imate</span> package that is already installed with <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code>.</p></li>
-<li><p><a class="reference internal" href="#gpu-compile-imate"><span class="std std-ref">Compile imate from the source</span></a> for a specific version of CUDA to use an existing CUDA library. By this way, you can keep the current CUDA installation.</p></li>
-<li><p><a class="reference internal" href="#gpu-docker"><span class="std std-ref">Use docker image</span></a> with pre-installed <span class="synco">imate</span>, CUDA libraries, and NVIDIA graphic driver. This is the most convenient way as no compilation or installation of <span class="synco">imate</span> and CUDA Toolkit is required.</p></li>
-</ol>
-</div>
-<p>The above methods are described in order below.</p>
-<section id="install-nvidia-cuda-toolkit">
-<span id="gpu-install-cuda"></span><h2><a class="toc-backref" href="#id6"><span class="section-number">3.1. </span>Install NVIDIA CUDA Toolkit</a><a class="headerlink" href="#install-nvidia-cuda-toolkit" title="Permalink to this heading">#</a></h2>
-<p>The following instruction describes installing <cite>CUDA 11.7</cite> for <cite>Ubuntu 22.04</cite>, <cite>CentOS 7</cite>, and <cite>Red Hat 9 (RHEL 9)</cite> on the <cite>X86_64</cite> platform. You may refer to <a class="reference external" href="https://developer.nvidia.com/cuda-downloads">CUDA installation guide</a> from NVIDIA developer documentation for other operating systems and platforms.</p>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>NVIDIA does not support macOS. You can install NVIDIA CUDA Toolkit on Linux and Windows only.</p>
-</div>
-<section id="install-nvidia-graphic-driver">
-<span id="install-graphic-driver"></span><h3><a class="toc-backref" href="#id7"><span class="section-number">3.1.1. </span>Install NVIDIA Graphic Driver</a><a class="headerlink" href="#install-nvidia-graphic-driver" title="Permalink to this heading">#</a></h3>
-<p>Register NVIDIA CUDA repository by</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-0">
-Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb
-sudo dpkg -i cuda-keyring_1.0-1_all.deb
-sudo apt update
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-1">
-CentOS 7</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo yum-config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-rhel7.repo
-sudo yum clean all
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-2">
-RHEL 9</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/cuda-rhel9.repo
-sudo dnf clean all
-</pre></div>
-</div>
-</div>
-</div>
-<p>Install <em>NVIDIA graphic driver</em> with</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-3">
-Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive
-sudo -E apt install cuda-drivers -y
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-4">
-CentOS 7</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo yum -y install nvidia-driver-latest-dkms
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-5">
-RHEL 9</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo dnf -y module install nvidia-driver:latest-dkms
-</pre></div>
-</div>
-</div>
-</div>
-<p>The above step might need a <em>reboot</em> afterwards to properly load NVIDIA graphic driver. Confirm the driver installation by</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>nvidia-smi
-</pre></div>
-</div>
-</section>
-<section id="install-cuda-toolkit">
-<span id="id1"></span><h3><a class="toc-backref" href="#id8"><span class="section-number">3.1.2. </span>Install CUDA Toolkit</a><a class="headerlink" href="#install-cuda-toolkit" title="Permalink to this heading">#</a></h3>
-<p>It is not required to install the entire CUDA Toolkit (2.6GB). Rather, only the CUDA runtime library, cuBLAS, and cuSparse libraries are sufficient (700MB in total). These can be installed by</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-6">
-Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo apt install cuda-cudart-11-7 libcublas-11-7 libcusparse-11-7 -y
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-7">
-CentOS 7</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo yum install --setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span> -y <span class="se">\</span>
-     cuda-nvcc-11-7.x86_64 <span class="se">\</span>
-     libcublas-11-7.x86_64 <span class="se">\</span>
-     libcusparse-11-7.x86_64 <span class="se">\</span>
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-8">
-RHEL 9</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo dnf install --setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span> -y <span class="se">\</span>
-     cuda-nvcc-11-7.x86_64 <span class="se">\</span>
-     libcublas-11-7.x86_64 <span class="se">\</span>
-     libcusparse-11-7.x86_64 <span class="se">\</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Update <code class="docutils literal notranslate"><span class="pre">PATH</span></code> with the CUDA installation location by</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}&#39;</span> &gt;&gt; ~/.Bashrc
-<span class="nb">echo</span> <span class="s1">&#39;export CUDA_HOME=/usr/local/cuda${CUDA_HOME:+:${CUDA_HOME}}&#39;</span> &gt;&gt; ~/.Bashrc
-<span class="nb">source</span> ~/.Bashrc
-</pre></div>
-</div>
-</section>
-<section id="install-openmp">
-<h3><a class="toc-backref" href="#id9"><span class="section-number">3.1.3. </span>Install OpenMP</a><a class="headerlink" href="#install-openmp" title="Permalink to this heading">#</a></h3>
-<p>In addition to CUDA Toolkit, make sure the <cite>OpenMP</cite> library is also installed using</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-9" name="sd-tab-set-3" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-9">
-Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">libgomp1</span> <span class="o">-</span><span class="n">y</span>
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-10" name="sd-tab-set-3" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-10">
-CentOS 7</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">libgomp</span> <span class="o">-</span><span class="n">y</span>
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-11" name="sd-tab-set-3" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-11">
-RHEL 9</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">dnf</span> <span class="n">install</span> <span class="n">libgomp</span> <span class="o">-</span><span class="n">y</span>
-</pre></div>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="compile-project-from-source-with-cuda">
-<span id="gpu-compile-imate"></span><h2><a class="toc-backref" href="#id10"><span class="section-number">3.2. </span>Compile <span class="synco">imate</span> from Source with CUDA</a><a class="headerlink" href="#compile-project-from-source-with-cuda" title="Permalink to this heading">#</a></h2>
-<section id="install-c-compiler-and-openmp">
-<h3><a class="toc-backref" href="#id11"><span class="section-number">3.2.1. </span>Install C++ Compiler and OpenMP</a><a class="headerlink" href="#install-c-compiler-and-openmp" title="Permalink to this heading">#</a></h3>
-<p>Compile <span class="synco">imate</span> with either of GCC, Clang/LLVM, or Intel C++ compiler.</p>
-<p class="rubric">Install GNU GCC Compiler</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-4" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-12">
-Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo apt install build-essential libomp-dev
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-13" name="sd-tab-set-4" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-13">
-CentOS 7</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo yum group install <span class="s2">&quot;Development Tools&quot;</span>
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-14" name="sd-tab-set-4" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-14">
-RHEL 9</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo dnf group install <span class="s2">&quot;Development Tools&quot;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Then, export <code class="docutils literal notranslate"><span class="pre">C</span></code> and <code class="docutils literal notranslate"><span class="pre">CXX</span></code> variables by</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">CC</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">gcc</span>
-<span class="n">export</span> <span class="n">CXX</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">g</span><span class="o">++</span>
-</pre></div>
-</div>
-<p class="rubric">Install Clang/LLVN Compiler</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-15" name="sd-tab-set-5" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-15">
-Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo apt install clang libomp-dev
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-16" name="sd-tab-set-5" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-16">
-CentOS 7</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo yum install yum-utils
-sudo yum-config-manager --enable extras
-sudo yum makecache
-sudo yum install clang
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-17" name="sd-tab-set-5" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-17">
-RHEL 9</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo dnf install yum-utils
-sudo dnf config-manager --enable extras
-sudo dnf makecache
-sudo dnf install clang
-</pre></div>
-</div>
-</div>
-</div>
-<p>Then, export <code class="docutils literal notranslate"><span class="pre">C</span></code> and <code class="docutils literal notranslate"><span class="pre">CXX</span></code> variables by</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">CC</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">clang</span>
-<span class="n">export</span> <span class="n">CXX</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">clang</span><span class="o">++</span>
-</pre></div>
-</div>
-<p class="rubric">Install Intel oneAPI Compiler</p>
-<p>To install <cite>Intel Compiler</cite> see <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=linux&amp;distributions=aptpackagemanager">Intel oneAPI Base Toolkit</a>.</p>
-</section>
-<section id="install-cuda-compiler-and-development-libraries">
-<h3><a class="toc-backref" href="#id12"><span class="section-number">3.2.2. </span>Install CUDA Compiler and Development Libraries</a><a class="headerlink" href="#install-cuda-compiler-and-development-libraries" title="Permalink to this heading">#</a></h3>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>The minimum version of CUDA to compile <span class="synco">imate</span> is <cite>CUDA 10.0</cite>.</p>
-</div>
-<p>If CUDA Toolkit is installed, skip this part. Otherwise, Make sure the CUDA compiler and the development libraries of cuBLAS and cuSparse are installed by</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-18" name="sd-tab-set-6" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-18">
-Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo apt install -y <span class="se">\</span>
-    cuda-nvcc-11-7 <span class="se">\</span>
-    libcublas-11-7 <span class="se">\</span>
-    libcublas-dev-11-7 <span class="se">\</span>
-    libcusparse-11-7 -y <span class="se">\</span>
-    libcusparse-dev-11-7
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-19" name="sd-tab-set-6" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-19">
-CentOS 7</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo yum install --setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span> -y <span class="se">\</span>
-    cuda-nvcc-11-7.x86_64 <span class="se">\</span>
-    cuda-cudart-devel-11-7.x86_64 <span class="se">\</span>
-    libcublas-11-7.x86_64 <span class="se">\</span>
-    libcublas-devel-11-7.x86_64 <span class="se">\</span>
-    libcusparse-11-7.x86_64 <span class="se">\</span>
-    libcusparse-devel-11-7.x86_64
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-20" name="sd-tab-set-6" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-20">
-RHEL 9</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo dnf install --setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span> -y <span class="se">\</span>
-    cuda-nvcc-11-7.x86_64 <span class="se">\</span>
-    cuda-cudart-devel-11-7.x86_64 <span class="se">\</span>
-    libcublas-11-7.x86_64 <span class="se">\</span>
-    libcublas-devel-11-7.x86_64 <span class="se">\</span>
-    libcusparse-11-7.x86_64 <span class="se">\</span>
-    libcusparse-devel-11-7.x86_64
-</pre></div>
-</div>
-</div>
-</div>
-<p>Update <code class="docutils literal notranslate"><span class="pre">PATH</span></code> with the CUDA installation location by</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}&#39;</span> &gt;&gt; ~/.Bashrc
-<span class="nb">source</span> ~/.Bashrc
-</pre></div>
-</div>
-<p>Check if the CUDA compiler is available with <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">nvcc</span></code>.</p>
-</section>
-<section id="load-cuda-compiler-on-gpu-cluster">
-<h3><a class="toc-backref" href="#id13"><span class="section-number">3.2.3. </span>Load CUDA Compiler on GPU Cluster</a><a class="headerlink" href="#load-cuda-compiler-on-gpu-cluster" title="Permalink to this heading">#</a></h3>
-<p>If you are compiling <span class="synco">imate</span> on a GPU cluster, chances are the CUDA Toolkit is already installed. If the cluster uses <code class="docutils literal notranslate"><span class="pre">module</span></code> interface, load CUDA as follows.</p>
-<p>First, check if a CUDA module is available by</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>module avail
-</pre></div>
-</div>
-<p>Load both CUDA and GCC by</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>module load cuda gcc
-</pre></div>
-</div>
-<p>You may specify CUDA version if multiple CUDA versions are available, such as by</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>module load cuda/11.7 gcc/6.3
-</pre></div>
-</div>
-<p>You may check if CUDA Compiler is available with <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">nvcc</span></code>.</p>
-</section>
-<section id="configure-compile-time-environment-variables">
-<h3><a class="toc-backref" href="#id14"><span class="section-number">3.2.4. </span>Configure Compile-Time Environment Variables</a><a class="headerlink" href="#configure-compile-time-environment-variables" title="Permalink to this heading">#</a></h3>
-<p>Specify the home directory of CUDA Toolkit by setting either of the variables <code class="docutils literal notranslate"><span class="pre">CUDA_HOME</span></code>, <code class="docutils literal notranslate"><span class="pre">CUDA_ROOT</span></code>, or <code class="docutils literal notranslate"><span class="pre">CUDA_PATH</span></code>. The home directory should be a path containing the executable <code class="docutils literal notranslate"><span class="pre">/bin/nvcc</span></code>. For instance, if <code class="docutils literal notranslate"><span class="pre">/usr/local/cuda/bin/nvcc</span></code> exists, export the following:</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CUDA_HOME</span><span class="o">=</span>/usr/local/cuda
-</pre></div>
-</div>
-<p>To permanently set this variable, place the above line in a profile file, such as in <code class="docutils literal notranslate"><span class="pre">~/.Bashrc</span></code>, or <code class="docutils literal notranslate"><span class="pre">~/.profile</span></code>, and source this file, for instance by</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> ~/.Bashrc
-</pre></div>
-</div>
-<p>To compile <span class="synco">imate</span> with CUDA, export the following flag variable</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">USE_CUDA</span><span class="o">=</span><span class="m">1</span>
-</pre></div>
-</div>
-</section>
-<section id="enable-dynamic-loading-optional">
-<h3><a class="toc-backref" href="#id15"><span class="section-number">3.2.5. </span>Enable Dynamic Loading (<em>optional</em>)</a><a class="headerlink" href="#enable-dynamic-loading-optional" title="Permalink to this heading">#</a></h3>
-<p>When <span class="synco">imate</span> is complied, the CUDA libraries bundle with the final installation of <span class="synco">imate</span> package, making it over 700MB. While this is generally not an issue for most users, often a small package is preferable if the installed package has to be distributed to other machines. To this end, enable the <cite>dynamic loading</cite> feature of <span class="synco">imate</span>. In this case, the CUDA libraries do not bundle with the <span class="synco">imate</span> installation, rather, <span class="synco">imate</span> loads the existing CUDA libraries of the host machine at runtime. To enable dynamic loading, simply set:</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CUDA_DYNAMIC_LOADING</span><span class="o">=</span><span class="m">1</span>
-</pre></div>
-</div>
-</section>
-<section id="compile-and-install">
-<h3><a class="toc-backref" href="#id16"><span class="section-number">3.2.6. </span>Compile and Install</a><a class="headerlink" href="#compile-and-install" title="Permalink to this heading">#</a></h3>
-<p><a class="reference external" href="https://github.com/ameli/imate"><img alt="repo-size" src="https://img.shields.io/github/repo-size/ameli/imate" /></a></p>
-<p>Get the source code of <span class="synco">imate</span> with</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/ameli/imate.git
-</pre></div>
-</div>
-<p>Compile and install by</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> imate
-python setup.py install
-</pre></div>
-</div>
-</section>
-</section>
-<section id="use-project-docker-container-on-gpu">
-<span id="gpu-docker"></span><h2><a class="toc-backref" href="#id17"><span class="section-number">3.3. </span>Use <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#use-project-docker-container-on-gpu" title="Permalink to this heading">#</a></h2>
-<p>This method neither requires installing CUDA nor <span class="synco">imate</span> as all are pre-installed in a docker image.</p>
-<section id="install-docker">
-<h3><a class="toc-backref" href="#id18"><span class="section-number">3.3.1. </span>Install Docker</a><a class="headerlink" href="#install-docker" title="Permalink to this heading">#</a></h3>
-<p>First, <a class="reference external" href="https://docs.docker.com/engine/install/ubuntu/">install docker</a>. Briefly:</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-21" name="sd-tab-set-7" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-21">
-Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">ca</span><span class="o">-</span><span class="n">certificates</span> <span class="n">curl</span> <span class="n">gnupg</span> <span class="n">lsb</span><span class="o">-</span><span class="n">release</span>
-<span class="n">sudo</span> <span class="n">mkdir</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">keyrings</span>
-<span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">/</span><span class="n">gpg</span> <span class="o">|</span> \
-    <span class="n">sudo</span> <span class="n">gpg</span> <span class="o">--</span><span class="n">dearmor</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">keyrings</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">gpg</span>
-<span class="n">echo</span> <span class="s2">&quot;deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] </span><span class="se">\</span>
-<span class="s2">    https://download.docker.com/linux/ubuntu </span><span class="se">\</span>
-<span class="s2">    $(lsb_release -cs) stable&quot;</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">list</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span>
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">-</span><span class="n">cli</span> <span class="n">containerd</span><span class="o">.</span><span class="n">io</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">-</span><span class="n">plugin</span>
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-22" name="sd-tab-set-7" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-22">
-CentOS 7</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">yum</span><span class="o">-</span><span class="n">utils</span>
-<span class="n">sudo</span> <span class="n">yum</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">manager</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">repo</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">centos</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">.</span><span class="n">repo</span>
-<span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">-</span><span class="n">cli</span> <span class="n">containerd</span><span class="o">.</span><span class="n">io</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">-</span><span class="n">plugin</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">docker</span><span class="o">.</span><span class="n">service</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">containerd</span><span class="o">.</span><span class="n">service</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">start</span> <span class="n">docker</span>
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-23" name="sd-tab-set-7" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-23">
-RHEL 9</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">yum</span><span class="o">-</span><span class="n">utils</span>
-<span class="n">sudo</span> <span class="n">yum</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">manager</span> <span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">repo</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">centos</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">.</span><span class="n">repo</span>
-<span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">-</span><span class="n">cli</span> <span class="n">containerd</span><span class="o">.</span><span class="n">io</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="o">-</span><span class="n">plugin</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">docker</span><span class="o">.</span><span class="n">service</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">enable</span> <span class="n">containerd</span><span class="o">.</span><span class="n">service</span>
-<span class="n">sudo</span> <span class="n">systemctl</span> <span class="n">start</span> <span class="n">docker</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Configure docker to run docker <a class="reference external" href="https://docs.docker.com/engine/install/linux-postinstall/">without sudo password</a> by</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sudo groupadd docker
-sudo usermod -aG docker $USER
-</pre></div>
-</div>
-<p>Then, log out and log back. If docker is installed on a <em>virtual machine</em>, restart the virtual machine for changes to take effect.</p>
-</section>
-<section id="install-nvidia-container-toolkit">
-<h3><a class="toc-backref" href="#id19"><span class="section-number">3.3.2. </span>Install NVIDIA Container Toolkit</a><a class="headerlink" href="#install-nvidia-container-toolkit" title="Permalink to this heading">#</a></h3>
-<p>To access host’s GPU device from a docker container, <a class="reference external" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html">install NVIDIA Container Toolkit</a> as follows.</p>
-<p>Add the package to the repository:</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-24" name="sd-tab-set-8" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-24">
-Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nv">distribution</span><span class="o">=</span><span class="k">$(</span>. /etc/os-release<span class="p">;</span><span class="nb">echo</span> <span class="nv">$ID$VERSION_ID</span><span class="k">)</span>
-curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey <span class="p">|</span> sudo apt-key add -
-curl -s -L https://nvidia.github.io/nvidia-docker/<span class="nv">$distribution</span>/nvidia-docker.list <span class="p">|</span> sudo tee /etc/apt/sources.list.d/nvidia-docker.list
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-25" name="sd-tab-set-8" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-25">
-CentOS 7</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo yum-config-manager --add-repo<span class="o">=</span>https://download.docker.com/linux/centos/docker-ce.repo
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-26" name="sd-tab-set-8" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-26">
-RHEL 9</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo dnf config-manager --add-repo<span class="o">=</span>https://download.docker.com/linux/centos/docker-ce.repo
-</pre></div>
-</div>
-</div>
-</div>
-<p>Install <cite>nvidia-contaner-toolkit</cite> by:</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-27" name="sd-tab-set-9" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-27">
-Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get update
-sudo apt-get install -y nvidia-container-toolkit
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-28" name="sd-tab-set-9" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-28">
-CentOS 7</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm
-</pre></div>
-</div>
-</div>
-<input id="sd-tab-item-29" name="sd-tab-set-9" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-29">
-RHEL 9</label><div class="sd-tab-content docutils">
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo dnf install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm
-</pre></div>
-</div>
-</div>
-</div>
-<p>Restart docker:</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sudo systemctl restart docker
-</pre></div>
-</div>
-</section>
-<section id="get-project-docker-image">
-<h3><a class="toc-backref" href="#id20"><span class="section-number">3.3.3. </span>Get <span class="synco">imate</span> Docker image</a><a class="headerlink" href="#get-project-docker-image" title="Permalink to this heading">#</a></h3>
-<p><a class="reference external" href="https://hub.docker.com/repository/docker/sameli/imate"><img alt="docker-size" src="https://img.shields.io/docker/image-size/sameli/imate" /></a></p>
-<p>Get the <span class="synco">imate</span> docker image by</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>docker pull sameli/imate
-</pre></div>
-</div>
-<p>The docker image has the followings pre-installed:</p>
-<ul class="simple">
-<li><p>CUDA: in <code class="docutils literal notranslate"><span class="pre">/usr/local/cuda</span></code></p></li>
-<li><p>Python 3.9: in <code class="docutils literal notranslate"><span class="pre">/usr/bin/python3</span></code></p></li>
-<li><p>Python interpreters: <cite>ipython</cite>, <cite>jupyter</cite></p></li>
-<li><p>Editor: <cite>vim</cite></p></li>
-</ul>
-</section>
-<section id="id4">
-<h3><a class="toc-backref" href="#id21"><span class="section-number">3.3.4. </span>Use <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
-<p>To use host’s GPU from the docker container, add  <code class="docutils literal notranslate"><span class="pre">--gpus</span> <span class="pre">all</span></code> to any of the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> commands, such as by</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>docker run --gpus all -it sameli/imate
-</pre></div>
-</div>
-<p>The followings are some examples of using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> with various options:</p>
-<ul>
-<li><p>To check the host’s NVIDIA driver version, CUDA runtime library version, and list of available GPU devices, run <code class="docutils literal notranslate"><span class="pre">nvida-smi</span></code> command by:</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>docker run --gpus all sameli/imate nvidia-smi
-</pre></div>
-</div>
-</li>
-<li><p>To run the container and open <em>Python</em> interpreter directly at startup:</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>docker run -it --gpus all sameli/imate
-</pre></div>
-</div>
-<p>This also imports <span class="synco">imate</span> package automatically.</p>
-</li>
-<li><p>To run the container and open <em>IPython</em> interpreter directly at startup:</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>docker run -it --gpus all sameli/imate ipython
-</pre></div>
-</div>
-<p>This also imports <cite>imate</cite> package automatically.</p>
-</li>
-<li><p>To open <em>Bash shell</em> only:</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>docker run -it --gpus all --entrypoint /bin/Bash sameli/imate
-</pre></div>
-</div>
-</li>
-<li><p>To <em>mount</em> a host’s directory, such as <code class="docutils literal notranslate"><span class="pre">/home/user/project</span></code>, onto a directory of the docker’s container, such as <code class="docutils literal notranslate"><span class="pre">/root</span></code>, use:</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>docker run -it --gpus all -v /home/user/project:/root sameli/imate
-</pre></div>
-</div>
-</li>
-</ul>
-</section>
-</section>
-<section id="inquiry-gpu-and-cuda-with-project">
-<h2><a class="toc-backref" href="#id22"><span class="section-number">3.4. </span>Inquiry GPU and CUDA with <span class="synco">imate</span></a><a class="headerlink" href="#inquiry-gpu-and-cuda-with-project" title="Permalink to this heading">#</a></h2>
-<p>First, make sure <span class="synco">imate</span> recognizes the CUDA libraries and GPU device. There are a number of functions available in <a class="reference internal" href="../api.html#device-inquiry"><span class="std std-ref">imate.device</span></a> module to inquiry GPU device.</p>
-<section id="locate-cuda-toolkit">
-<h3><a class="toc-backref" href="#id23"><span class="section-number">3.4.1. </span>Locate CUDA Toolkit</a><a class="headerlink" href="#locate-cuda-toolkit" title="Permalink to this heading">#</a></h3>
-<p>Use <a class="reference internal" href="../generated/imate.device.locate_cuda.html#imate.device.locate_cuda" title="imate.device.locate_cuda"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.locate_cuda()</span></code></a> function to find the location of CUDA home directory.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">imate</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get the location and version of CUDA Toolkit</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">locate_cuda</span><span class="p">()</span>
-<span class="go">{</span>
-<span class="go">    &#39;home&#39;: &#39;/global/software/sl-7.x86_64/modules/langs/cuda/11.2&#39;,</span>
-<span class="go">    &#39;include&#39;: &#39;/global/software/sl-7.x86_64/modules/langs/cuda/11.2/include&#39;,</span>
-<span class="go">    &#39;lib&#39;: &#39;/global/software/sl-7.x86_64/modules/langs/cuda/11.2/lib64&#39;,</span>
-<span class="go">    &#39;nvcc&#39;: &#39;/global/software/sl-7.x86_64/modules/langs/cuda/11.2/bin/nvcc&#39;,</span>
-<span class="go">    &#39;version&#39;:</span>
-<span class="go">    {</span>
-<span class="go">        &#39;major&#39;: 11,</span>
-<span class="go">        &#39;minor&#39;: 2,</span>
-<span class="go">        &#39;patch&#39;: 0</span>
-<span class="go">    }</span>
-<span class="go">}</span>
-</pre></div>
-</div>
-<p>If the above function does not return an output such as in the above, this is because either <cite>CUDA Toolkit</cite> is not installed, or the directory of CUDA Toolkit is nit set. To do so, set the directory of CUDA Toolkit to either of the variables <code class="docutils literal notranslate"><span class="pre">CUDA_HOME</span></code>, <code class="docutils literal notranslate"><span class="pre">CUDA_ROOT</span></code>, or <code class="docutils literal notranslate"><span class="pre">CUDA_PATH</span></code>, such as by</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s1">&#39;export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}&#39;</span> &gt;&gt; ~/.Bashrc
-<span class="nb">echo</span> <span class="s1">&#39;export CUDA_HOME=/usr/local/cuda${CUDA_HOME:+:${CUDA_HOME}}&#39;</span> &gt;&gt; ~/.Bashrc
-<span class="nb">source</span> ~/.Bashrc
-</pre></div>
-</div>
-</section>
-<section id="detect-gpu-devices">
-<h3><a class="toc-backref" href="#id24"><span class="section-number">3.4.2. </span>Detect GPU Devices</a><a class="headerlink" href="#detect-gpu-devices" title="Permalink to this heading">#</a></h3>
-<p>Use <a class="reference internal" href="../generated/imate.device.get_processor_name.html#imate.device.get_processor_name" title="imate.device.get_processor_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_processor_name()</span></code></a> and <a class="reference internal" href="../generated/imate.device.get_gpu_name.html#imate.device.get_gpu_name" title="imate.device.get_gpu_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_gpu_name()</span></code></a> to find the name of CPU and GPU devices, respectively.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get the name of CPU processor</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_processor_name</span><span class="p">()</span>
-<span class="go">&#39;Intel(R) Xeon(R) CPU E5-2623 v3 @ 3.00GHz&#39;</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get the name of GPU devices</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_gpu_name</span><span class="p">()</span>
-<span class="go">&#39;GeForce GTX 1080 Ti&#39;</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If the name of GPU device is empty, this is because either there is no GPU device detected, or <em>NVIDIA graphic driver</em> is not installed, or its location is not on the PATH. To do so, set the location of <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> executable to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable. On UNIX, this executbale should be on <code class="docutils literal notranslate"><span class="pre">/usr/bin</span></code> directory and by default it should be already on the <cite>PATH</cite>.</p>
-</div>
-<p>The number of CPU threads and GPU devices can be obtained respectively by <a class="reference internal" href="../generated/imate.device.get_num_cpu_threads.html#imate.device.get_num_cpu_threads" title="imate.device.get_num_cpu_threads"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_num_cpu_threads()</span></code></a> and <a class="reference internal" href="../generated/imate.device.get_num_gpu_devices.html#imate.device.get_num_gpu_devices" title="imate.device.get_num_gpu_devices"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_num_gpu_devices()</span></code></a> functions.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get number of processor threads</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_num_cpu_threads</span><span class="p">()</span>
-<span class="go">8</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get number of GPU devices</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_num_gpu_devices</span><span class="p">()</span>
-<span class="go">4</span>
-</pre></div>
-</div>
-<p>The <a class="reference internal" href="../generated/imate.info.html#imate.info" title="imate.info"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.info()</span></code></a> function also obtains general information about <span class="synco">imate</span> configuration and devices.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-<span class="go">imate version   : 0.13.0</span>
-<span class="go">processor       : Intel(R) Xeon(R) CPU E5-2623 v3 @ 3.00GHz</span>
-<span class="go">num threads     : 8</span>
-<span class="go">gpu device      : &#39;GeForce GTX 1080 Ti&#39;</span>
-<span class="go">num gpu devices : 4</span>
-<span class="go">cuda version    : 11.2.0</span>
-<span class="go">process memory  : 1.7 (Gb)</span>
-</pre></div>
-</div>
-<p>Alternatively, one may directly use <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> command to inquiry the GPU devices.</p>
-<div class="highlight-Text notranslate"><div class="highlight"><pre><span></span>nvidia-smi
-
-+-----------------------------------------------------------------------------+
-| NVIDIA-SMI 460.84       Driver Version: 460.84       CUDA Version: 11.2     |
-|-------------------------------+----------------------+----------------------+
-| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-|                               |                      |               MIG M. |
-|===============================+======================+======================|
-|   0  GeForce GTX 108...  Off  | 00000000:02:00.0 Off |                  N/A |
-| 33%   57C    P2    62W / 250W |    147MiB / 11178MiB |     25%      Default |
-|                               |                      |                  N/A |
-+-------------------------------+----------------------+----------------------+
-|   1  GeForce GTX 108...  Off  | 00000000:03:00.0 Off |                  N/A |
-| 27%   48C    P2    61W / 250W |    147MiB / 11178MiB |     23%      Default |
-|                               |                      |                  N/A |
-+-------------------------------+----------------------+----------------------+
-|   2  GeForce GTX 108...  Off  | 00000000:81:00.0 Off |                  N/A |
-| 18%   32C    P0    59W / 250W |      0MiB / 11178MiB |      0%      Default |
-|                               |                      |                  N/A |
-+-------------------------------+----------------------+----------------------+
-|   3  GeForce GTX 108...  Off  | 00000000:82:00.0 Off |                  N/A |
-| 18%   32C    P0    59W / 250W |      0MiB / 11178MiB |      0%      Default |
-|                               |                      |                  N/A |
-+-------------------------------+----------------------+----------------------+
-
-+-----------------------------------------------------------------------------+
-| Processes:                                                                  |
-|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
-|        ID   ID                                                   Usage      |
-|=============================================================================|
-|    0   N/A  N/A       654      C   python                            145MiB |
-|    1   N/A  N/A       839      C   python                            145MiB |
-+-----------------------------------------------------------------------------+
-</pre></div>
-</div>
-<p>The output of <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> in the above shows there are four GPU devices available on the machine.</p>
-</section>
-</section>
-<section id="run-project-functions-on-gpu">
-<h2><a class="toc-backref" href="#id25"><span class="section-number">3.5. </span>Run <span class="synco">imate</span> Functions on GPU</a><a class="headerlink" href="#run-project-functions-on-gpu" title="Permalink to this heading">#</a></h2>
-<p>All functions in <span class="synco">imate</span> that accept the <cite>SLQ</cite> method (using <code class="docutils literal notranslate"><span class="pre">method=slq</span></code> argument) can perform computations on GPU devices. To do so, include <code class="docutils literal notranslate"><span class="pre">gpu=True</span></code> argument to the function syntax. The following examples show using multi-GPU devices to compute the log-determinant of a large matrix.</p>
-<section id="a-simple-example">
-<h3><a class="toc-backref" href="#id26"><span class="section-number">3.5.1. </span>A Simple Example</a><a class="headerlink" href="#a-simple-example" title="Permalink to this heading">#</a></h3>
-<p>First, create a sample Toeplitz matrix with ten million in size using <a class="reference internal" href="../generated/imate.toeplitz.html#imate.toeplitz" title="imate.toeplitz"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.toeplitz()</span></code></a> function.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import toeplitz matrix</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample matrix (a toeplitz matrix)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="mi">10000000</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Next, create an <a class="reference internal" href="../generated/imate.Matrix.html#imate.Matrix" title="imate.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.Matrix</span></code></a> object from matrix <cite>A</cite>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import Matrix class</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">Matrix</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a matrix operator object from matrix A</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Aop</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Compute the log-determinant of the above matrix on GPU by passing <code class="docutils literal notranslate"><span class="pre">gpu=True</span></code> to <a class="reference internal" href="../generated/imate.logdet.html#imate.logdet" title="imate.logdet"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.logdet()</span></code></a> function. Recall GPU can only be employed using <cite>SLQ</cite> method by passing <code class="docutils literal notranslate"><span class="pre">method=slq</span></code> argument.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import logdet function</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">logdet</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
-<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span class="go">13862193.020813728</span>
-</pre></div>
-</div>
-</section>
-<section id="get-process-information">
-<h3><a class="toc-backref" href="#id27"><span class="section-number">3.5.2. </span>Get Process Information</a><a class="headerlink" href="#get-process-information" title="Permalink to this heading">#</a></h3>
-<p>It is useful pass the argument <code class="docutils literal notranslate"><span class="pre">return_info=True</span></code> to get information about the computation process.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ld</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The information about GPU devices used during the computation can be found in <code class="docutils literal notranslate"><span class="pre">info['device']</span></code> key:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">])</span>
-<span class="go">{</span>
-<span class="go">    &#39;num_cpu_threads&#39;: 8,</span>
-<span class="go">    &#39;num_gpu_devices&#39;: 4,</span>
-<span class="go">    &#39;num_gpu_multiprocessors&#39;: 28,</span>
-<span class="go">    &#39;num_gpu_threads_per_multiprocessor&#39;: 2048</span>
-<span class="go">}</span>
-</pre></div>
-</div>
-<p>The processing time can be obtained by <code class="docutils literal notranslate"><span class="pre">info['time']</span></code> key:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
-<span class="go">{</span>
-<span class="go">    &#39;alg_wall_time&#39;: 1.7192635536193848,</span>
-<span class="go">    &#39;cpu_proc_time&#39;: 3.275628339,</span>
-<span class="go">    &#39;tot_wall_time&#39;: 3.5191736351698637</span>
-<span class="go">}</span>
-</pre></div>
-</div>
-</section>
-<section id="verbose-output">
-<h3><a class="toc-backref" href="#id28"><span class="section-number">3.5.3. </span>Verbose Output</a><a class="headerlink" href="#verbose-output" title="Permalink to this heading">#</a></h3>
-<p>Alternatively, to print verbose information, including the information about GPU devices, pass <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code> to the function argument:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The above script prints the following table. The last section of the table shows device information.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>                                    <span class="n">results</span>                                   
-<span class="o">==============================================================================</span>
-     <span class="n">inquiries</span>                            <span class="n">error</span>            <span class="n">samples</span>            
-<span class="o">--------------------</span>              <span class="o">---------------------</span>   <span class="o">---------</span>           
-<span class="n">i</span>         <span class="n">parameters</span>       <span class="n">trace</span>    <span class="n">absolute</span>   <span class="n">relative</span>   <span class="n">num</span>   <span class="n">out</span>  <span class="n">converged</span>
-<span class="o">==============================================================================</span>
-<span class="mi">1</span>               <span class="n">none</span>  <span class="o">+</span><span class="mf">1.386e+07</span>   <span class="mf">1.715e+03</span>     <span class="mf">0.012</span><span class="o">%</span>    <span class="mi">10</span>     <span class="mi">0</span>       <span class="kc">True</span>
-
-                                    <span class="n">config</span>                                    
-<span class="o">==============================================================================</span>
-                <span class="n">matrix</span>                            <span class="n">stochastic</span> <span class="n">estimator</span>        
-<span class="o">-------------------------------------</span>    <span class="o">-------------------------------------</span>
-<span class="n">gram</span><span class="p">:</span>                           <span class="kc">False</span>    <span class="n">method</span><span class="p">:</span>                           <span class="n">slq</span>
-<span class="n">exponent</span><span class="p">:</span>                           <span class="mi">1</span>    <span class="n">lanczos</span> <span class="n">degree</span><span class="p">:</span>                    <span class="mi">20</span>
-<span class="n">num</span> <span class="n">matrix</span> <span class="n">parameters</span><span class="p">:</span>              <span class="mi">0</span>    <span class="n">lanczos</span> <span class="n">tol</span><span class="p">:</span>                <span class="mf">2.220e-16</span>
-<span class="n">data</span> <span class="nb">type</span><span class="p">:</span>                     <span class="mi">64</span><span class="o">-</span><span class="n">bit</span>    <span class="n">orthogonalization</span><span class="p">:</span>               <span class="n">none</span>
-
-             <span class="n">convergence</span>                                 <span class="n">error</span>                
-<span class="o">-------------------------------------</span>    <span class="o">-------------------------------------</span>
-<span class="nb">min</span> <span class="n">num</span> <span class="n">samples</span><span class="p">:</span>                   <span class="mi">10</span>    <span class="nb">abs</span> <span class="n">error</span> <span class="n">tol</span><span class="p">:</span>              <span class="mf">0.000e+00</span>
-<span class="nb">max</span> <span class="n">num</span> <span class="n">samples</span><span class="p">:</span>                   <span class="mi">50</span>    <span class="n">rel</span> <span class="n">error</span> <span class="n">tol</span><span class="p">:</span>                  <span class="mf">1.00</span><span class="o">%</span>
-<span class="n">outlier</span> <span class="n">significance</span> <span class="n">level</span><span class="p">:</span>     <span class="mf">0.00</span><span class="o">%</span>    <span class="n">confidence</span> <span class="n">level</span><span class="p">:</span>              <span class="mf">95.00</span><span class="o">%</span>
-
-                                   <span class="n">process</span>                                    
-<span class="o">==============================================================================</span>
-                 <span class="n">time</span>                                   <span class="n">device</span>                
-<span class="o">-------------------------------------</span>    <span class="o">-------------------------------------</span>
-<span class="hll"><span class="n">tot</span> <span class="n">wall</span> <span class="n">time</span> <span class="p">(</span><span class="n">sec</span><span class="p">):</span>        <span class="mf">1.744e+00</span>    <span class="n">num</span> <span class="n">cpu</span> <span class="n">threads</span><span class="p">:</span>                    <span class="mi">8</span>
-</span><span class="hll"><span class="n">alg</span> <span class="n">wall</span> <span class="n">time</span> <span class="p">(</span><span class="n">sec</span><span class="p">):</span>        <span class="mf">1.722e+00</span>    <span class="n">num</span> <span class="n">gpu</span> <span class="n">devices</span><span class="p">,</span> <span class="n">multiproc</span><span class="p">:</span>     <span class="mi">4</span><span class="p">,</span> <span class="mi">28</span>
-</span><span class="hll"><span class="n">cpu</span> <span class="n">proc</span> <span class="n">time</span> <span class="p">(</span><span class="n">sec</span><span class="p">):</span>        <span class="mf">1.752e+00</span>    <span class="n">num</span> <span class="n">gpu</span> <span class="n">threads</span> <span class="n">per</span> <span class="n">multiproc</span><span class="p">:</span>   <span class="mi">2048</span>
-</span></pre></div>
-</div>
-</section>
-<section id="set-number-of-gpu-devices">
-<h3><a class="toc-backref" href="#id29"><span class="section-number">3.5.4. </span>Set Number of GPU Devices</a><a class="headerlink" href="#set-number-of-gpu-devices" title="Permalink to this heading">#</a></h3>
-<p>By default, <span class="synco">imate</span> employs the maximum number of available GPU devices. To employ specific number of GPU devices, set <code class="docutils literal notranslate"><span class="pre">num_gpu-devices</span></code> in the function arguments. For instance</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import logdet function</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">logdet</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">ld</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="hll"><span class="gp">... </span>                  <span class="n">num_gpu_devices</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Check how many GPU devices used</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">])</span>
-<span class="go">{</span>
-<span class="go">    &#39;num_cpu_threads&#39;: 8,</span>
-<span class="hll"><span class="go">    &#39;num_gpu_devices&#39;: 2,</span>
-</span><span class="go">    &#39;num_gpu_multiprocessors&#39;: 28,</span>
-<span class="go">    &#39;num_gpu_threads_per_multiprocessor&#39;: 2048</span>
-<span class="go">}</span>
-</pre></div>
-</div>
-</section>
-</section>
-<section id="deploy-project-on-gpu-clusters">
-<span id="gpu-cluster"></span><h2><a class="toc-backref" href="#id30"><span class="section-number">3.6. </span>Deploy <span class="synco">imate</span> on GPU Clusters</a><a class="headerlink" href="#deploy-project-on-gpu-clusters" title="Permalink to this heading">#</a></h2>
-<p>On GPU clusters, the NVIDIA graphic driver and CUDA libraries are pre-installed and they only need to be loaded.</p>
-<section id="load-modules">
-<h3><a class="toc-backref" href="#id31"><span class="section-number">3.6.1. </span>Load Modules</a><a class="headerlink" href="#load-modules" title="Permalink to this heading">#</a></h3>
-<p>Check which modules are available on the machine</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">avail</span>
-</pre></div>
-</div>
-<p>Load python and a compatible CUDA version by</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>module load python/3.9
-module load cuda/11.7
-</pre></div>
-</div>
-<p>Check which modules are loaded</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="nb">list</span>
-</pre></div>
-</div>
-</section>
-<section id="interactive-session-with-slurm">
-<h3><a class="toc-backref" href="#id32"><span class="section-number">3.6.2. </span>Interactive Session with SLURM</a><a class="headerlink" href="#interactive-session-with-slurm" title="Permalink to this heading">#</a></h3>
-<p>There are two ways to work with GPU on a cluster. The first method is to <code class="docutils literal notranslate"><span class="pre">ssh</span></code> to a GPU node and for hands-on interaction with the GPU device. If the GPU cluster uses <a class="reference external" href="https://slurm.schedmd.com/documentation.html">SLURM manager</a>, use <code class="docutils literal notranslate"><span class="pre">srun</span></code> to initiate a session as follows</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">srun</span> <span class="o">-</span><span class="n">A</span> <span class="n">fc_biome</span> <span class="o">-</span><span class="n">p</span> <span class="n">savio2_gpu</span> <span class="o">--</span><span class="n">gres</span><span class="o">=</span><span class="n">gpu</span><span class="p">:</span><span class="mi">1</span> <span class="o">--</span><span class="n">ntasks</span> <span class="mi">2</span> <span class="o">-</span><span class="n">t</span> <span class="mi">2</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">--</span><span class="n">pty</span> <span class="n">Bash</span> <span class="o">-</span><span class="n">i</span>
-</pre></div>
-</div>
-<p>In the above example:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">-A</span> <span class="pre">fc_biome</span></code> sets the group account associated with the user.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-p</span> <span class="pre">savio2_gpu</span></code> sets the name of the GPU node.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--gres=gpu:1</span></code> requests one GPU device on the node.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--ntasks</span> <span class="pre">2</span></code> requests two parallel CPU threads on the node.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">2:00:00</span></code> requests a two-hour session.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--pty</span> <span class="pre">Bash</span></code> starts a Bash shell.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">-i</span></code> redirects std input to the user’s terminal for interactive use.</p></li>
-</ul>
-<p>See the list of <a class="reference external" href="https://slurm.schedmd.com/srun.html">options of srun</a> for details. As an other example, to request a GPU node named <code class="docutils literal notranslate"><span class="pre">savio2_1080ti</span></code> with 4 GPU devices and 8 CPU threads for 10 hours, run</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">srun</span> <span class="o">-</span><span class="n">A</span> <span class="n">fc_biome</span> <span class="o">-</span><span class="n">p</span> <span class="n">savio2_1080ti</span> <span class="o">--</span><span class="n">gres</span><span class="o">=</span><span class="n">gpu</span><span class="p">:</span><span class="mi">4</span> <span class="o">--</span><span class="n">ntasks</span> <span class="mi">8</span> <span class="o">-</span><span class="n">t</span> <span class="mi">10</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="o">--</span><span class="n">pty</span> <span class="n">Bash</span> <span class="o">-</span><span class="n">i</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Replace the name of nodes and accounts in the above example with yours. The name of GPU nodes and accounts in the above examples are obtained from <a class="reference external" href="https://docs-research-it.berkeley.edu/services/high-performance-computing/overview/">SAVIO Cluster</a> (an institutional Cluster at UC Berkeley).</p>
-</div>
-</section>
-<section id="submit-jobs-to-gpu-with-slurm">
-<h3><a class="toc-backref" href="#id33"><span class="section-number">3.6.3. </span>Submit Jobs to GPU with SLURM</a><a class="headerlink" href="#submit-jobs-to-gpu-with-slurm" title="Permalink to this heading">#</a></h3>
-<p>To submit a parallel job to GPU nodes on a cluster with <cite>SLURM manager</cite>, use <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> command, such as</p>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>sbatch my_jobfile.sh
-</pre></div>
-</div>
-<p>See the list of <a class="reference external" href="https://slurm.schedmd.com/sbatch.html">options of sbatch</a> for details. A sample job file, <code class="docutils literal notranslate"><span class="pre">my_jobfile.sh</span></code> is as shown below. The highlighted line in the file instructs <cite>SLURM</cite> to request number of GPU devices with <code class="docutils literal notranslate"><span class="pre">--gres</span></code> option.</p>
-<div class="highlight-Slurm notranslate"><div class="highlight"><pre><span></span> <span class="c1">#!/bin/Bash</span>
-
- <span class="kp">#SBATCH --job-name=my_project</span>
- <span class="kp">#SBATCH --mail-type=my_email</span>
- <span class="kp">#SBATCH --mail-user=my_email</span>
- <span class="kp">#SBATCH --partition=savio2_1080ti</span>
- <span class="kp">#SBATCH --account=fc_biome</span>
- <span class="kp">#SBATCH --qos=savio_normal</span>
- <span class="kp">#SBATCH --time=72:00:00</span>
- <span class="kp">#SBATCH --nodes=1</span>
-<span class="hll"> <span class="kp">#SBATCH --gres=gpu:4</span>
-</span> <span class="kp">#SBATCH --ntasks=1</span>
- <span class="kp">#SBATCH --cpus-per-task=8</span>
- <span class="kp">#SBATCH --mem=64gb</span>
- <span class="kp">#SBATCH --output=output.log</span>
-
- <span class="c1"># Point to where Python is installed</span>
- <span class="nv">PYTHON_DIR</span><span class="o">=</span><span class="nv">$HOME</span>/programs/miniconda3
-
- <span class="c1"># Point to where a script should run</span>
- <span class="nv">SCRIPTS_DIR</span><span class="o">=</span><span class="k">$(</span>dirname <span class="nv">$PWD</span><span class="k">)</span>/scripts
-
- <span class="c1"># Directory of log files</span>
- <span class="nv">LOG_DIR</span><span class="o">=</span><span class="nv">$PWD</span>
-
- <span class="c1"># Load modules</span>
- module load cuda/11.2
-
- <span class="c1"># Export OpenMP variables</span>
- <span class="nb">export</span> <span class="nv">OMP_NUM_THREADS</span><span class="o">=</span><span class="nv">$SLURM_CPUS_PER_TASK</span>
-
- <span class="c1"># Run the script</span>
- <span class="nv">$PYTHON_DIR</span>/bin/python <span class="si">${</span><span class="nv">SCRIPTS_DIR</span><span class="si">}</span>/script.py &gt; <span class="si">${</span><span class="nv">LOG_DIR</span><span class="si">}</span>/output.txt
-</pre></div>
-</div>
-</section>
-</section>
-</section>
-
-
-              </article>
-              
-
-              
-              <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="docker.html" title="previous page">
-      <i class="fas fa-angle-left"></i>
-      <div class="prev-next-info">
-          <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title"><span class="section-number">2. </span>Using <span class="synco">imate</span> on Docker</p>
-      </div>
-  </a>
-  <a class='right-next' id="next-link" href="../api.html" title="next page">
-  <div class="prev-next-info">
-      <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">API Reference</p>
-  </div>
-  <i class="fas fa-angle-right"></i>
-  </a>
-</div>
-              </footer>
-              
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
           </div>
-          
-      </div>
+        </footer>
+        
+      </main>
     </div>
+  </div>
 
   
-  
+    
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=9b1a4fa89bdd0e95b23b"></script>
 
-<footer class="bd-footer"><div class="bd-footer__inner container">
+  <footer class="bd-footer"><div class="bd-footer__inner container">
   
   <div class="footer-item">
-    <p class="copyright">
+    
+<p class="copyright">
+
     &copy; Copyright 2022, Siavash Ameli.<br>
+
 </p>
+
   </div>
   
   <div class="footer-item">
-    <p class="sphinx-version">
+    
+<p class="sphinx-version">
 Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
 </p>
+
   </div>
   
 </div>
-</footer>
+  </footer>
   </body>
 </html>

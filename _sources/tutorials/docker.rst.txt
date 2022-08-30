@@ -29,7 +29,7 @@ Install docker by
     .. tab-item:: Ubuntu/Debian
         :sync: ubuntu
 
-        ::
+        .. prompt:: bash
 
             sudo apt-get update
             sudo apt-get install ca-certificates curl gnupg lsb-release
@@ -45,7 +45,7 @@ Install docker by
     .. tab-item:: CentOS 7
         :sync: centos
 
-        ::
+        .. prompt:: bash
 
             sudo yum install -y yum-utils
             sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
@@ -57,7 +57,7 @@ Install docker by
     .. tab-item:: RHEL 9
         :sync: rhel
 
-        ::
+        .. prompt:: bash
 
             sudo yum install -y yum-utils
             sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
@@ -68,7 +68,7 @@ Install docker by
 
 Configure docker to run docker `without sudo password <https://docs.docker.com/engine/install/linux-postinstall/>`_ by
 
-::
+.. prompt:: bash
 
     sudo groupadd docker
     sudo usermod -aG docker $USER
@@ -82,7 +82,7 @@ Get |project| Docker Image
 
 Get the |project| docker image by
 
-.. code-block:: Bash
+.. prompt:: bash
 
   docker pull sameli/imate
 
@@ -102,13 +102,13 @@ The followings are some examples of using ``docker run`` with various options:
 
 * To check the host's NVIDIA driver version, CUDA runtime library version, and list of available GPU devices, run ``nvida-smi`` command by:
 
-  .. code-block:: Bash
+  .. prompt:: bash
   
       docker run sameli/imate nvidia-smi
   
 * To run the container and open *Python* interpreter directly at startup:
   
-  .. code-block:: Bash
+  .. prompt:: bash
   
       docker run -it sameli/imate
   
@@ -116,7 +116,7 @@ The followings are some examples of using ``docker run`` with various options:
   
 * To run the container and open *IPython* interpreter directly at startup:
   
-  .. code-block:: Bash
+  .. prompt:: bash
 
         docker run -it sameli/imate ipython
   
@@ -124,13 +124,13 @@ The followings are some examples of using ``docker run`` with various options:
   
 * To open *Bash shell* only:
   
-  .. code-block:: Bash
+  .. prompt:: bash
 
-        docker run -it --entrypoint /bin/Bash sameli/imate
+        docker run -it --entrypoint /bin/bash sameli/imate
   
 * To *mount* a host's directory, such as ``/home/user/project``, onto a directory of the docker's container, such as ``/root``, use:
   
-  .. code-block:: Bash
+  .. prompt:: bash
   
         docker run -it -v /home/user/project:/root sameli/imate
 
@@ -151,7 +151,7 @@ Add the package to the repository:
     .. tab-item:: Ubuntu/Debian
         :sync: ubuntu
 
-        .. code-block:: Bash
+        .. prompt:: bash
 
             distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
             curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
@@ -160,14 +160,14 @@ Add the package to the repository:
     .. tab-item:: CentOS 7
         :sync: centos
 
-        .. code-block:: Bash
+        .. prompt:: bash
 
             sudo yum-config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 
     .. tab-item:: RHEL 9
         :sync: rhel
 
-        .. code-block:: Bash
+        .. prompt:: bash
 
             sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
 
@@ -178,7 +178,7 @@ Install `nvidia-contaner-toolkit` by:
     .. tab-item:: Ubuntu/Debian
         :sync: ubuntu
 
-        .. code-block:: Bash
+        .. prompt:: bash
 
             sudo apt-get update
             sudo apt-get install -y nvidia-container-toolkit
@@ -186,20 +186,20 @@ Install `nvidia-contaner-toolkit` by:
     .. tab-item:: CentOS 7
         :sync: centos
 
-        .. code-block:: Bash
+        .. prompt:: bash
 
             sudo yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm
 
     .. tab-item:: RHEL 9
         :sync: rhel
 
-        .. code-block:: Bash
+        .. prompt:: bash
 
             sudo dnf install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm
 
 Restart docker:
 
-.. code-block:: Bash
+.. prompt:: bash
 
     sudo systemctl restart docker
 
@@ -208,7 +208,7 @@ Run |project| Docker Container on GPU
       
 To use host's GPU from the docker container, simply add  ``--gpus all`` to any of the ``docker run`` commands :ref:`described earlier <docker-examples>`, such as by
 
-.. code-block:: Bash
+.. prompt:: bash
 
     docker run --gpus all -it sameli/imate
 
