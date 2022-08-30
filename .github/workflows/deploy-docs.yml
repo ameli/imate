@@ -23,9 +23,10 @@ jobs:
                   BRANCH: gh-pages
                   FOLDER: docs/build/html
                   BUILD_SCRIPT: |
+                      set -e
                       apt-get update
                       apt-get install graphviz -y
-                      vascript:void(0);)apt-get install pandoc -y
+                      apt-get install pandoc -y
                       pip install --upgrade pip
                       pip install -r docs/requirements.txt
                       export CYTHON_BUILD_FOR_DOC=1
