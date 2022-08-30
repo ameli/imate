@@ -1,0 +1,38 @@
+name: docs
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+permissions:
+  contents: write
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+
+            - name: Install and Build
+              run: |
+                apt-get update
+                apt-get install graphviz -y
+                apt-get install pandoc -y
+                pip install --upgrade pip
+                pip install -r docs/requirements.txt
+                export CYTHON_BUILD_FOR_DOC=1
+                python setup.py install
+                export PATH=$HOME/.local/bin:$PATH
+                make clean html --directory=docs
+                touch docs/build/html/.nojekyll
+                echo 'Visit [Documentation](https://ameli.github.io/imate/index.html).' > docs/build/html/README.md
+
+            - name: Deploy
+              uses: JamesIves/github-pages-deploy-action@v4
+              with:
+                folder: docs/build/html
