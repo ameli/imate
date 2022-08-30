@@ -18,13 +18,19 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
 
+            - name: Set up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: 3.10
+
             - name: Install and Build
               run: |
                 sudo apt-get update
                 sudo apt-get install graphviz -y
                 sudo apt-get install pandoc -y
-                pip install --upgrade pip
-                pip install -r docs/requirements.txt
+                python -m pip install --upgrade pip
+                python -m pip install -r requirements.txt
+                python -m pip install -r docs/requirements.txt
                 export CYTHON_BUILD_FOR_DOC=1
                 python setup.py install
                 export PATH=$HOME/.local/bin:$PATH
