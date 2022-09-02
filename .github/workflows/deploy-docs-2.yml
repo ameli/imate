@@ -25,6 +25,7 @@ jobs:
               run: |
                 sudo apt update
                 sudo apt install doxygen -y
+                sudo apt-get install graphviz -y
                 cd docs/doxygen
                 doxygen doxyfile.in
 
@@ -39,7 +40,7 @@ jobs:
             # Build sphinx in /docs/build, copy /docs/doxygen/output/html to /docs/build/doxygen
             - name: Build Sphinx
               run: |
-                sudo apt-get install graphviz -y
+                sudo apt install pandoc -y
                 python -m pip install -r docs/requirements.txt
                 export PATH=$HOME/.local/bin:$PATH
                 make clean html --directory=docs
