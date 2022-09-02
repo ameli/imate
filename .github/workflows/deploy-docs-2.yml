@@ -46,8 +46,8 @@ jobs:
                 make clean html --directory=docs
                 touch docs/build/html/.nojekyll
                 echo 'Visit [Documentation](https://ameli.github.io/imate/index.html).' > docs/build/html/README.md
-                mkdir -p docs/build/doxygen
-                cp -r docs/doxygen/output/html docs/build/doxygen
+                mkdir -p docs/build/html/doxygen
+                cp -r docs/doxygen/output/html docs/build/html/doxygen
 
             # Deploy to github pages
             - name: Deploy
