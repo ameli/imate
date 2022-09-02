@@ -265,7 +265,7 @@ Technical Notes
 
 |tokei-2| |languages|
 
-The core of |project| is implemented in C++ and NVIDIA CUDA, which is standalone modular library for high-performance low-level algebraic operations on linear operators (including matrices and affine matrix functions). This library provides a unified interface for computations on both CPU and GPU, unified interface for dense and sparse matrices, unified container for various data types, and fully automatic memory management and data transfer between CPU and GPU devices on demand. This library can be employed independently for projects other than |project|. The doxygen generated reference of `C++/CUDA Classes Hierarchy and Namespaces <../doxygen/html/annotated.html>`_ is available for developers.
+The core of |project| is implemented in C++ and NVIDIA CUDA, which is standalone modular library for high-performance low-level algebraic operations on linear operators (including matrices and affine matrix functions). This library provides a unified interface for computations on both CPU and GPU, unified interface for dense and sparse matrices, unified container for various data types, and fully automatic memory management and data transfer between CPU and GPU devices on demand. This library can be employed independently for projects other than |project|. The doxygen generated reference of `C++/CUDA Classes Hierarchy and Namespaces <doxygen/html/annotated.html>`_ is available for developers.
 
 The front-end interface of |project| is implemented in Cython and Python (see :ref:`API Reference <api>` for end-users).
 

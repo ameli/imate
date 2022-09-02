@@ -1,0 +1,519 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>imate: /home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_trace_estimator/trace_estimator.pyx Source File</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js", "TeX/AMSfonts.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom-alternative.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/ameli/imate" class="github-corner" title="View source on GitHub" target="_blank">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo-imate-light.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">imate
+   </div>
+   <div id="projectbrief">C++/CUDA Reference</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Search','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('trace__estimator_8pyx_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">trace_estimator.pyx</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="trace__estimator_8pyx.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment"># SPDX-FileCopyrightText: Copyright 2021, Siavash Ameli &lt;sameli@berkeley.edu&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"># SPDX-License-Identifier: BSD-3-Clause</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"># SPDX-FileType: SOURCE</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">#</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment"># This program is free software: you can redistribute it and/or modify it</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment"># under the terms of the license found in the LICENSE.txt file in the root</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment"># directory of this source tree.</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment"># =======</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"># Imports</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"># =======</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment"># Python</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">import</span> numpy</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">import</span> time</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">from</span> ..__version__ <span class="keyword">import</span> __version__</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">from</span> .trace_estimator_plot_utilities <span class="keyword">import</span> plot_convergence</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">from</span> .trace_estimator_utilities <span class="keyword">import</span> get_operator, \</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        get_operator_parameters, check_arguments, get_machine_precision, \</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        find_num_inquiries, print_summary</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">from</span> ..linear_operator <span class="keyword">import</span> LinearOperator</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment"># Cython</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">from</span> .._definitions.types cimport IndexType, FlagType</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">from</span> ..functions cimport pyFunction</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;cimport openmp</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"># Type names</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#ab11c5728da6c8b2b2a1d7083022a2408">   30</a></span>&#160;cdef char* index_type_name = b<span class="stringliteral">&#39;int32&#39;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a7c455bc214403cc57b6ec8ffdf6accd3">   31</a></span>&#160;cdef char* flag_type_name = b<span class="stringliteral">&#39;int32&#39;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"># ===============</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"># trace estimator</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"># ===============</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;cpdef trace_estimator(</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        A,</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        parameters,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        pyFunction py_matrix_function,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        gram,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        exponent,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        min_num_samples,</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        max_num_samples,</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        error_atol,</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        error_rtol,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        confidence_level,</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        outlier_significance_level,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        lanczos_degree,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        lanczos_tol,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        orthogonalize,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        num_threads,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        num_gpu_devices,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        verbose,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        plot,</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        gpu):</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="stringliteral">    Computes the trace of inverse of matrix based on stochastic Lanczos</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="stringliteral">    quadrature (SLQ) method.</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="stringliteral">    :param A: invertible matrix or linear operator</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="stringliteral">    :type A: numpy.ndarray, scipy.sparse matrix, or LinearOperator object</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="stringliteral">    :param max_num_samples: Number of Monte-Carlo trials</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="stringliteral">    :type max_num_samples: unsigned int</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="stringliteral">    :param lanczos_degree: Lanczos degree</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="stringliteral">    :type lanczos_degree: unsigned int</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="stringliteral">    :param gram: If ``True``, the Gram matrix ``A.T @ A`` is considered instead</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="stringliteral">        of ``A`` itself. In this case, ``A`` itself can be a generic, but</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="stringliteral">        square, matrix. If ``False``, matrix ``A`` is used, which then it has</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="stringliteral">        to be symmetric and positive semi-definite.</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="stringliteral">    :type gram: bool</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="stringliteral">    :param tolerance: The tolerance for the acceptable error of Lanczos</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="stringliteral">        tri-diagonalization, or Golub-Kahn bi-diagonalization.</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="stringliteral">    :type tolerance: DataType</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="stringliteral">    :return: Trace of ``A``</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="stringliteral">    :rtype: float</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="stringliteral">    .. note::</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="stringliteral">        In Lanczos tri-diagonalization method, :math:`\\theta`` is the</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="stringliteral">        eigenvalue of ``T``. However, in Golub-Kahn bi-diagonalization method,</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="stringliteral">        :math:`\\theta` is the singular values of ``B``. The relation between</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="stringliteral">        these two methods are as follows: ``B.T*B`` is the ``T`` for ``A.T*A``.</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="stringliteral">        That is, if we have the input matrix ``A.T*T``, its Lanczos</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="stringliteral">        tri-diagonalization ``T`` is the same matrix as if we bi-diagonalize</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="stringliteral">        ``A`` (not ``A.T*A``) with Golub-Kahn to get ``B``, then ``T = B.T*B``.</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="stringliteral">        This has not been highlighted in the above paper.</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="stringliteral">        To correctly implement Golub-Kahn, here :math:`\\theta` should be the</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="stringliteral">        singular values of ``B``, **NOT** the square of the singular values of</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="stringliteral">        ``B`` (as described in the above paper incorrectly!).</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="stringliteral">    Technical notes:</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="stringliteral">        This function is a wrapper to a cython function. In cython we cannot</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="stringliteral">        have function arguments with default values (neither ``cdef``,</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="stringliteral">        ``cpdef``). As a work around, this function (defined with ``def``)</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="stringliteral">        accepts default values for arguments, and then calls the cython</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="stringliteral">        function (defined with ``cdef``).</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="stringliteral">    Reference:</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="stringliteral">        * `Ubaru, S., Chen, J., and Saad, Y. (2017)</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="stringliteral">          &lt;https://www-users.cs.umn.edu/~saad/PDF/ys-2016-04.pdf&gt;`_,</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="stringliteral">          Fast Estimation of :math:`\\mathrm{tr}(F(A))` Via Stochastic Lanczos</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="stringliteral">          Quadrature, SIAM J. Matrix Anal. Appl., 38(4), 1075-1099.</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="comment"># Set number of parallel openmp threads</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">if</span> num_threads &lt; 1:</div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a4c826db52f9abe67ee8eaf0bc3aebef2">  115</a></span>&#160;        num_threads = openmp.omp_get_max_threads()</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="comment"># Check operator A, and convert to a linear operator (if not already)</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#ab117f420810c28b5c7ab7a0647e26ff5">  118</a></span>&#160;    Aop = get_operator(A)</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="comment"># data type name is either float32 (float), float64 double), or float128</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="comment"># (long double). This will be used to choose a template function</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a59220d66bacf4fedbc47bb0dc0bc598f">  122</a></span>&#160;    data_type_name = Aop.get_data_type_name()</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="comment"># Check parameters of operator A, convert its type if needed, and finds the</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="comment"># size of given parameters array or scalar</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a102c8e85a59a4eb89e9cb35fd7ba44e4">  126</a></span>&#160;    parameters, parameters_size = get_operator_parameters(</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            parameters, data_type_name)</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="comment"># Find number of inquiries, which is the number of batches of different set</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="comment"># of parameters to produce different linear operators. These batches are</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="comment"># concatenated in the &quot;parameters&quot; array.</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a9900f7931c3cf6c3241dc8985a13d90e">  132</a></span>&#160;    cdef IndexType num_inquiries = find_num_inquiries(Aop, parameters_size)</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="comment"># Check input arguments have proper type and values</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a1f4a8085799cc11f2cbec6970e7790c1">  135</a></span>&#160;    error_atol, error_rtol = <a class="code" href="namespaceimate_1_1logdet_1_1__slq__method.html#a180f2ca4df8f7eea76f5e92aa120e406">check_arguments</a>(</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;            gram, exponent, min_num_samples, max_num_samples, error_atol,</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;            error_rtol, confidence_level, outlier_significance_level,</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;            lanczos_degree, lanczos_tol, orthogonalize, num_threads,</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            num_gpu_devices, verbose, plot, gpu)</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="comment"># Set the default value for the &quot;epsilon&quot; of the slq algorithm</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordflow">if</span> lanczos_tol <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#ac5dd5b2d107743c4b1df951dbbcfe3c6">  143</a></span>&#160;        lanczos_tol = get_machine_precision(data_type_name)</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="comment"># Allocate output trace as array of size num_inquiries</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a128c7cde3dc28998a6e32d0b8d58c923">  146</a></span>&#160;    trace = numpy.empty((num_inquiries,), dtype=data_type_name)</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="comment"># Error of computing trace within a confidence interval</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a0110eda9577a520d7dd4bb9333699ded">  149</a></span>&#160;    error = numpy.empty((num_inquiries,), dtype=data_type_name)</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="comment"># Array of all Monte-Carlo samples where array trace is averaged based upon</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a5a65a008cb8f7290f7ba13f42dc105aa">  152</a></span>&#160;    samples = \</div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#ad6a889a3a4716b947e84d302ee0eb09c">  153</a></span>&#160;        numpy.empty((max_num_samples, num_inquiries), dtype=data_type_name)</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    samples[:, :] = numpy.nan</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="comment"># Track the order of process of samples in rows of samples array</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#ae7269b272f4992195ac998ddb9ad8388">  157</a></span>&#160;    processed_samples_indices = \</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        numpy.empty((max_num_samples,), dtype=index_type_name)</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    processed_samples_indices[:] = 0</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="comment"># Store how many samples used for each inquiry till reaching convergence</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#adeba9b08f4e0b25c25fc9f1dedc86786">  162</a></span>&#160;    num_samples_used = numpy.zeros((num_inquiries,), dtype=index_type_name)</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="comment"># Number of outliers that is removed from num_samples_used in averaging</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a6848d6a4c651d35b660c66bd3bcaf1f9">  165</a></span>&#160;    num_outliers = numpy.zeros((num_inquiries,), dtype=index_type_name)</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="comment"># Flag indicating which of the inquiries were converged below the tolerance</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#acb4f0ca2c5e2cab1c9c0704de661a801">  168</a></span>&#160;    converged = numpy.zeros((num_inquiries,), dtype=flag_type_name)</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="comment"># Initialize gpu device properties</span></div>
+<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a84e7c1f780abb462a5785ee4cf3c5e46">  171</a></span>&#160;    num_gpu_multiprocessors = 0</div>
+<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a6d8de2ddfd5de988686351d13d2c1b97">  172</a></span>&#160;    num_gpu_threads_per_multiprocessor = 0</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="comment"># Call SLQ method (actual computation)</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#ab6e96a6e92362c7729eaae76f2ebff54">  175</a></span>&#160;    init_wall_time = time.perf_counter()</div>
+<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#ad62b48cc54954874425284b611878194">  176</a></span>&#160;    init_proc_time = time.process_time()</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    cdef FlagType all_converged</div>
+<div class="line"><a name="l00179"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#aa66e9dafe58b680d650496cb0a2c1334">  179</a></span>&#160;    alg_wall_times = numpy.zeros((1, ), dtype=float)</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordflow">if</span> gpu:</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="comment"># dispatch execution on gpu</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            <span class="keyword">from</span> .._cu_trace_estimator <span class="keyword">import</span> pycu_trace_estimator</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keywordflow">except</span> ImportError:</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;            <span class="keywordflow">raise</span> ImportError(<span class="stringliteral">&#39;This package has not been compiled with GPU &#39;</span> +</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                              <span class="stringliteral">&#39;support. Either set &quot;gpu=False&quot; to use the &#39;</span> +</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                              <span class="stringliteral">&#39;existing installed package, or export the &#39;</span> +</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                              <span class="stringliteral">&#39;environment variable &quot;USE_CUDA=1&quot; and &#39;</span> +</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                              <span class="stringliteral">&#39;recompile the source code of the package.&#39;</span>)</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
+<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a5f2ac8924165a017d2dfca4c7fbc2fa9">  193</a></span>&#160;        pycuAop = Aop.get_linear_operator(gpu=<span class="keyword">True</span>,</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;                                          num_gpu_devices=num_gpu_devices)</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="comment"># Get device properties</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a5e6c67d731466ba441822d7dcb5260ce">  197</a></span>&#160;        device_properties_dict = pycuAop.get_device_properties()</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="comment"># We get the properties of the first device (device 0), assuming the</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="comment"># other gpu devices have the same specs</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#ae769d6f116cf8f0121e62d0aeb0e7684">  201</a></span>&#160;        device_id = 0</div>
+<div class="line"><a name="l00202"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#adb5ce9ddb60d9c1ea53693826681e327">  202</a></span>&#160;        num_all_gpu_devices = device_properties_dict[<span class="stringliteral">&#39;num_devices&#39;</span>]</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        num_gpu_multiprocessors = \</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;            device_properties_dict[<span class="stringliteral">&#39;num_multiprocessors&#39;</span>][device_id]</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        num_gpu_threads_per_multiprocessor = \</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            device_properties_dict[<span class="stringliteral">&#39;num_threads_per_multiprocessor&#39;</span>][device_id]</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="comment"># Zero indicates that all gpu devices were used</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordflow">if</span> num_gpu_devices == 0:</div>
+<div class="line"><a name="l00210"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#aff8d0b5440d82e4142d5a0fdc42599f7">  210</a></span>&#160;            num_gpu_devices = num_all_gpu_devices</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
+<div class="line"><a name="l00212"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a0612f56270283f9c333a2131732e3f0e">  212</a></span>&#160;        all_converged = pycu_trace_estimator(</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;            pycuAop,</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            parameters,</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            num_inquiries,</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            py_matrix_function,</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            int(gram),</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;            exponent,</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;            orthogonalize,</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;            lanczos_degree,</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;            lanczos_tol,</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;            min_num_samples,</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;            max_num_samples,</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;            error_atol,</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;            error_rtol,</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;            confidence_level,</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;            outlier_significance_level,</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;            num_threads,</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;            num_gpu_devices,</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;            data_type_name,</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;            trace,</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;            error,</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;            samples,</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;            processed_samples_indices,</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;            num_samples_used,</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;            num_outliers,</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;            converged,</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;            alg_wall_times)</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        <span class="comment"># dispatch execution on cpu</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <span class="keyword">from</span> .._c_trace_estimator <span class="keyword">import</span> pyc_trace_estimator</div>
+<div class="line"><a name="l00244"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a3b8c09597d1d9a725d415f01d4696a7a">  244</a></span>&#160;        pycAop = Aop.get_linear_operator(gpu=<span class="keyword">False</span>)</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        all_converged = pyc_trace_estimator(</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;            pycAop,</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;            parameters,</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;            num_inquiries,</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            py_matrix_function,</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;            int(gram),</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;            exponent,</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            orthogonalize,</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;            lanczos_degree,</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            lanczos_tol,</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;            min_num_samples,</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;            max_num_samples,</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            error_atol,</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;            error_rtol,</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            confidence_level,</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;            outlier_significance_level,</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;            num_threads,</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            data_type_name,</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;            trace,</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;            error,</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            samples,</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            processed_samples_indices,</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            num_samples_used,</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;            num_outliers,</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;            converged,</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;            alg_wall_times)</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160; </div>
+<div class="line"><a name="l00273"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#af307a7e3d72ae9df3fdc3138115d45ee">  273</a></span>&#160;    tot_wall_time = time.perf_counter() - init_wall_time</div>
+<div class="line"><a name="l00274"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#acf84e77fbad95ec5b12c30afee40b379">  274</a></span>&#160;    cpu_proc_time = time.process_time() - init_proc_time</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160; </div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <span class="comment"># Matrix size info</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a654d0ceba3d59a862cb2e8d71457df99">  277</a></span>&#160;    matrix_size = Aop.get_num_rows()</div>
+<div class="line"><a name="l00278"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a74577e58bdcb320f6224d549cb0dad85">  278</a></span>&#160;    matrix_nnz = Aop.get_nnz()</div>
+<div class="line"><a name="l00279"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#acca2866851da5e06749a5a4e66625056">  279</a></span>&#160;    matrix_density = Aop.get_density()</div>
+<div class="line"><a name="l00280"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#a9b7672431377358ec928a724c8e6134e">  280</a></span>&#160;    sparse = Aop.is_sparse()</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="comment"># Dictionary of output info</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#accf0a7637d89c61e9f0c8230a499d38e">  283</a></span>&#160;    info = {</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        <span class="stringliteral">&#39;matrix&#39;</span>:</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        {</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;            <span class="stringliteral">&#39;data_type&#39;</span>: data_type_name,</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;            <span class="stringliteral">&#39;gram&#39;</span>: gram,</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;            <span class="stringliteral">&#39;exponent&#39;</span>: exponent,</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;            <span class="stringliteral">&#39;size&#39;</span>: matrix_size,</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;            <span class="stringliteral">&#39;sparse&#39;</span>: sparse,</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;            <span class="stringliteral">&#39;nnz&#39;</span>: matrix_nnz,</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;            <span class="stringliteral">&#39;density&#39;</span>: matrix_density,</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;            <span class="stringliteral">&#39;num_inquiries&#39;</span>: num_inquiries,</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;            <span class="stringliteral">&#39;num_operator_parameters&#39;</span>: Aop.get_num_parameters(),</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;            <span class="stringliteral">&#39;parameters&#39;</span>: parameters</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        },</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        <span class="stringliteral">&#39;error&#39;</span>:</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        {</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;            <span class="stringliteral">&#39;absolute_error&#39;</span>: <span class="keywordtype">None</span>,</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;            <span class="stringliteral">&#39;relative_error&#39;</span>: <span class="keywordtype">None</span>,</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;            <span class="stringliteral">&#39;error_atol&#39;</span>: error_atol,</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;            <span class="stringliteral">&#39;error_rtol&#39;</span>: error_rtol,</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;            <span class="stringliteral">&#39;confidence_level&#39;</span>: confidence_level,</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;            <span class="stringliteral">&#39;outlier_significance_level&#39;</span>: outlier_significance_level</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        },</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        <span class="stringliteral">&#39;convergence&#39;</span>:</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        {</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;            <span class="stringliteral">&#39;converged&#39;</span>: <span class="keywordtype">None</span>,</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;            <span class="stringliteral">&#39;all_converged&#39;</span>: bool(all_converged),</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;            <span class="stringliteral">&#39;min_num_samples&#39;</span>: min_num_samples,</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;            <span class="stringliteral">&#39;max_num_samples&#39;</span>: max_num_samples,</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;            <span class="stringliteral">&#39;num_samples_used&#39;</span>: <span class="keywordtype">None</span>,</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;            <span class="stringliteral">&#39;num_outliers&#39;</span>: <span class="keywordtype">None</span>,</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;            <span class="stringliteral">&#39;samples&#39;</span>: <span class="keywordtype">None</span>,</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;            <span class="stringliteral">&#39;samples_mean&#39;</span>: <span class="keywordtype">None</span>,</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;            <span class="stringliteral">&#39;samples_processed_order&#39;</span>: processed_samples_indices</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        },</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;        <span class="stringliteral">&#39;time&#39;</span>:</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        {</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;            <span class="stringliteral">&#39;tot_wall_time&#39;</span>: tot_wall_time,</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;            <span class="stringliteral">&#39;alg_wall_time&#39;</span>: alg_wall_times[0],</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;            <span class="stringliteral">&#39;cpu_proc_time&#39;</span>: cpu_proc_time</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        },</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        <span class="stringliteral">&#39;device&#39;</span>:</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        {</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;            <span class="stringliteral">&#39;num_cpu_threads&#39;</span>: num_threads,</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;            <span class="stringliteral">&#39;num_gpu_devices&#39;</span>: num_gpu_devices,</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;            <span class="stringliteral">&#39;num_gpu_multiprocessors&#39;</span>: num_gpu_multiprocessors,</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;            <span class="stringliteral">&#39;num_gpu_threads_per_multiprocessor&#39;</span>:</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;                num_gpu_threads_per_multiprocessor</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        },</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <span class="stringliteral">&#39;solver&#39;</span>:</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        {</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;            <span class="stringliteral">&#39;version&#39;</span>: __version__,</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;            <span class="stringliteral">&#39;lanczos_degree&#39;</span>: lanczos_degree,</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;            <span class="stringliteral">&#39;lanczos_tol&#39;</span>: lanczos_tol,</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;            <span class="stringliteral">&#39;orthogonalize&#39;</span>: orthogonalize,</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;            <span class="stringliteral">&#39;method&#39;</span>: <span class="stringliteral">&#39;slq&#39;</span>,</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        }</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    }</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160; </div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <span class="comment"># Determine if the output is array</span></div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    <span class="keywordflow">if</span> (parameters <span class="keywordflow">is</span> <span class="keywordtype">None</span>) <span class="keywordflow">or</span> numpy.isscalar(parameters):</div>
+<div class="line"><a name="l00344"></a><span class="lineno"><a class="line" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator.html#abf35896ffc92a4b651a68d6e7729fce6">  344</a></span>&#160;        output_is_array = <span class="keyword">False</span></div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        output_is_array = <span class="keyword">True</span></div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160; </div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="comment"># Fill arrays of info depending on whether output is scalar or array</span></div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    <span class="keywordflow">if</span> output_is_array:</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        info[<span class="stringliteral">&#39;error&#39;</span>][<span class="stringliteral">&#39;absolute_error&#39;</span>] = error</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        info[<span class="stringliteral">&#39;error&#39;</span>][<span class="stringliteral">&#39;relative_error&#39;</span>] = error / numpy.abs(trace)</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        info[<span class="stringliteral">&#39;convergence&#39;</span>][<span class="stringliteral">&#39;converged&#39;</span>] = converged.astype(bool)</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        info[<span class="stringliteral">&#39;convergence&#39;</span>][<span class="stringliteral">&#39;num_samples_used&#39;</span>] = num_samples_used</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        info[<span class="stringliteral">&#39;convergence&#39;</span>][<span class="stringliteral">&#39;num_outliers&#39;</span>] = num_outliers</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;        info[<span class="stringliteral">&#39;convergence&#39;</span>][<span class="stringliteral">&#39;samples&#39;</span>] = samples</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;        info[<span class="stringliteral">&#39;convergence&#39;</span>][<span class="stringliteral">&#39;samples_mean&#39;</span>] = trace</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        info[<span class="stringliteral">&#39;error&#39;</span>][<span class="stringliteral">&#39;absolute_error&#39;</span>] = error[0]</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        info[<span class="stringliteral">&#39;error&#39;</span>][<span class="stringliteral">&#39;relative_error&#39;</span>] = error[0] / numpy.abs(trace[0])</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        info[<span class="stringliteral">&#39;convergence&#39;</span>][<span class="stringliteral">&#39;converged&#39;</span>] = bool(converged[0])</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        info[<span class="stringliteral">&#39;convergence&#39;</span>][<span class="stringliteral">&#39;num_samples_used&#39;</span>] = num_samples_used[0]</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        info[<span class="stringliteral">&#39;convergence&#39;</span>][<span class="stringliteral">&#39;num_outliers&#39;</span>] = num_outliers[0]</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        info[<span class="stringliteral">&#39;convergence&#39;</span>][<span class="stringliteral">&#39;samples&#39;</span>] = samples[:, 0]</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        info[<span class="stringliteral">&#39;convergence&#39;</span>][<span class="stringliteral">&#39;samples_mean&#39;</span>] = trace[0]</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160; </div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    <span class="comment"># print summary</span></div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <span class="keywordflow">if</span> verbose:</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;        <a class="code" href="namespaceimate_1_1traceinv_1_1__hutchinson__method__utilities.html#a565ddb00fbf9fc2ec312022775a650fe">print_summary</a>(info)</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160; </div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    <span class="comment"># Plot results</span></div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    <span class="keywordflow">if</span> plot:</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        plot_convergence(info)</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160; </div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <span class="comment"># return output</span></div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    <span class="keywordflow">if</span> output_is_array:</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;        <span class="keywordflow">return</span> trace, info</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;        <span class="keywordflow">return</span> trace[0], info</div>
+<div class="ttc" id="anamespaceimate_1_1logdet_1_1__slq__method_html_a180f2ca4df8f7eea76f5e92aa120e406"><div class="ttname"><a href="namespaceimate_1_1logdet_1_1__slq__method.html#a180f2ca4df8f7eea76f5e92aa120e406">imate.logdet._slq_method.check_arguments</a></div><div class="ttdeci">def check_arguments(return_info)</div><div class="ttdef"><b>Definition:</b> <a href="logdet_2__slq__method_8pyx_source.html#l00837">_slq_method.pyx:837</a></div></div>
+<div class="ttc" id="anamespaceimate_1_1traceinv_1_1__hutchinson__method__utilities_html_a565ddb00fbf9fc2ec312022775a650fe"><div class="ttname"><a href="namespaceimate_1_1traceinv_1_1__hutchinson__method__utilities.html#a565ddb00fbf9fc2ec312022775a650fe">imate.traceinv._hutchinson_method_utilities.print_summary</a></div><div class="ttdeci">def print_summary(info)</div><div class="ttdef"><b>Definition:</b> <a href="__hutchinson__method__utilities_8pyx_source.html#l00242">_hutchinson_method_utilities.pyx:242</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_7cbdf7f1e0681c65fd455a0f383ae44b.html">imate</a></li><li class="navelem"><a class="el" href="dir_3393a7783634724554d0ec61af9e365d.html">_trace_estimator</a></li><li class="navelem"><a class="el" href="trace__estimator_8pyx.html">trace_estimator.pyx</a></li>
+    <li class="footer">Generated on Thu Sep 1 2022 16:18:33 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

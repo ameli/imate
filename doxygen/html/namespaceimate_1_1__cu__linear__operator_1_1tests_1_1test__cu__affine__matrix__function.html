@@ -1,0 +1,575 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>imate: imate._cu_linear_operator.tests.test_cu_affine_matrix_function Namespace Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js", "TeX/AMSfonts.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom-alternative.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/ameli/imate" class="github-corner" title="View source on GitHub" target="_blank">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo-imate-light.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">imate
+   </div>
+   <div id="projectbrief">C++/CUDA Reference</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Search','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">imate._cu_linear_operator.tests.test_cu_affine_matrix_function Namespace Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a3873e88bc8756e8b0adcdd9ce86a8afd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a3873e88bc8756e8b0adcdd9ce86a8afd">_benchmark_solution</a> (A, B, t, <a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a089de944947d359aa76c32cd9e0fff5f">vector</a>)</td></tr>
+<tr class="separator:a3873e88bc8756e8b0adcdd9ce86a8afd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a548bd77083a6b526fa34455170122a12"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a548bd77083a6b526fa34455170122a12">test_cu_affine_matrix_function</a> ()</td></tr>
+<tr class="separator:a548bd77083a6b526fa34455170122a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ad13f29093c964dc25e957002588bbcda"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#ad13f29093c964dc25e957002588bbcda">__all__</a> = ['<a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a548bd77083a6b526fa34455170122a12">test_cu_affine_matrix_function</a>']</td></tr>
+<tr class="separator:ad13f29093c964dc25e957002588bbcda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27b81596a9c849e7bb7bee34f5ee2bd4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a27b81596a9c849e7bb7bee34f5ee2bd4">Aop</a></td></tr>
+<tr class="separator:a27b81596a9c849e7bb7bee34f5ee2bd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b811a4e56f8c316f53f5cacd872c54e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a1b811a4e56f8c316f53f5cacd872c54e">parameters</a> = t</td></tr>
+<tr class="separator:a1b811a4e56f8c316f53f5cacd872c54e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63c6054577e4ab815437c5cf99c588bc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a63c6054577e4ab815437c5cf99c588bc">num_rows</a></td></tr>
+<tr class="separator:a63c6054577e4ab815437c5cf99c588bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24be88f237896d48ce8a4878d6aa3d26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a24be88f237896d48ce8a4878d6aa3d26">num_columns</a></td></tr>
+<tr class="separator:a24be88f237896d48ce8a4878d6aa3d26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a089de944947d359aa76c32cd9e0fff5f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a089de944947d359aa76c32cd9e0fff5f">vector</a> = numpy.random.randn(<a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a24be88f237896d48ce8a4878d6aa3d26">num_columns</a>)</td></tr>
+<tr class="separator:a089de944947d359aa76c32cd9e0fff5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1eb6f54dc49714bb3739fb07f771380c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a1eb6f54dc49714bb3739fb07f771380c">product</a> = numpy.empty((<a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a63c6054577e4ab815437c5cf99c588bc">num_rows</a>), dtype=float)</td></tr>
+<tr class="separator:a1eb6f54dc49714bb3739fb07f771380c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f33f672d5f739a2d3c435eaa838f3e3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a8f33f672d5f739a2d3c435eaa838f3e3">benchmark</a> = <a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a3873e88bc8756e8b0adcdd9ce86a8afd">_benchmark_solution</a>(A, B, t, numpy.asarray(<a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a089de944947d359aa76c32cd9e0fff5f">vector</a>))</td></tr>
+<tr class="separator:a8f33f672d5f739a2d3c435eaa838f3e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ce625399e0d39791740d60e10253c7f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a9ce625399e0d39791740d60e10253c7f">error</a> = numpy.abs(numpy.asarray(<a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a1eb6f54dc49714bb3739fb07f771380c">product</a>) - <a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a8f33f672d5f739a2d3c435eaa838f3e3">benchmark</a>)</td></tr>
+<tr class="separator:a9ce625399e0d39791740d60e10253c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f22d7962f5383940cbe339b7b45bd12"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a2f22d7962f5383940cbe339b7b45bd12">success</a> = 0</td></tr>
+<tr class="separator:a2f22d7962f5383940cbe339b7b45bd12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae190c5ce0c2f2412631f6401506b53b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#ae190c5ce0c2f2412631f6401506b53b0">tolerance</a></td></tr>
+<tr class="separator:ae190c5ce0c2f2412631f6401506b53b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5411ce580d489f3579bc7af6c7ae629"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#af5411ce580d489f3579bc7af6c7ae629">success1</a> = _test_dot(A, B, t)</td></tr>
+<tr class="separator:af5411ce580d489f3579bc7af6c7ae629"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f451739bb2c1209b72a4cd56ea6e5ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a8f451739bb2c1209b72a4cd56ea6e5ed">success2</a> = _test_transpose_dot(A, B, t)</td></tr>
+<tr class="separator:a8f451739bb2c1209b72a4cd56ea6e5ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a3873e88bc8756e8b0adcdd9ce86a8afd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3873e88bc8756e8b0adcdd9ce86a8afd">&#9670;&nbsp;</a></span>_benchmark_solution()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate._cu_linear_operator.tests.test_cu_affine_matrix_function._benchmark_solution </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>B</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>vector</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">Multiplies ``A + t[i] * B`` by ``vector`` using numpy.
+
+:param A: An array of size ``(n, m)``.
+:type A: numpy.ndarray, or any scipy.sparse array
+
+:param B: An array of size ``(n, m)``.
+:type B: numpy.ndarray, or any scipy.sparse array
+
+:param t: The parameter of the affine matrix function
+:type t: DataType
+
+:param vector: The input vector to multiply with, with the size of ``m``.
+:type vector: numpy.array
+
+:return: The product ``(A + t * B) * vector``. The length of this array is
+    ``n``.
+:rtype: numpy.array
+</pre> 
+<p class="definition">Definition at line <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html#l00026">26</a> of file <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html">test_cu_affine_matrix_function.pyx</a>.</p>
+<div class="fragment"><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">def </span><a class="code" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a3873e88bc8756e8b0adcdd9ce86a8afd">_benchmark_solution</a>(A, B, t, vector):</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="stringliteral">    Multiplies ``A + t[i] * B`` by ``vector`` using numpy.</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="stringliteral">    :param A: An array of size ``(n, m)``.</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="stringliteral">    :type A: numpy.ndarray, or any scipy.sparse array</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="stringliteral">    :param B: An array of size ``(n, m)``.</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="stringliteral">    :type B: numpy.ndarray, or any scipy.sparse array</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="stringliteral">    :param t: The parameter of the affine matrix function</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="stringliteral">    :type t: DataType</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="stringliteral">    :param vector: The input vector to multiply with, with the size of ``m``.</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="stringliteral">    :type vector: numpy.array</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="stringliteral">    :return: The product ``(A + t * B) * vector``. The length of this array is</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="stringliteral">        ``n``.</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="stringliteral">    :rtype: numpy.array</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    n, m = A.shape</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">if</span> B <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">if</span> scipy.sparse.issparse(A):</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            K = A + t * scipy.sparse.eye(n, m, dtype=float)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            K = A + t * numpy.eye(n, m, dtype=float)</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        K = A + t * B</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="comment"># Matrix-vector multiplication</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    benchmark = K.dot(numpy.asarray(vector))</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">return</span> benchmark</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment"># ========</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment"># test dot</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment"># ========</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="ttc" id="anamespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function_html_a3873e88bc8756e8b0adcdd9ce86a8afd"><div class="ttname"><a href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a3873e88bc8756e8b0adcdd9ce86a8afd">imate._cu_linear_operator.tests.test_cu_affine_matrix_function._benchmark_solution</a></div><div class="ttdeci">def _benchmark_solution(A, B, t, vector)</div><div class="ttdef"><b>Definition:</b> <a href="test__cu__affine__matrix__function_8pyx_source.html#l00026">test_cu_affine_matrix_function.pyx:26</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a548bd77083a6b526fa34455170122a12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a548bd77083a6b526fa34455170122a12">&#9670;&nbsp;</a></span>test_cu_affine_matrix_function()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate._cu_linear_operator.tests.test_cu_affine_matrix_function.test_cu_affine_matrix_function </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">A test for :mod:`imate.linear_operator.affine_matrix_function` module.
+</pre> 
+<p class="definition">Definition at line <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html#l00188">188</a> of file <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html">test_cu_affine_matrix_function.pyx</a>.</p>
+<div class="fragment"><div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="keyword">def </span><a class="code" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a548bd77083a6b526fa34455170122a12">test_cu_affine_matrix_function</a>():</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="stringliteral">    A test for :mod:`imate.linear_operator.affine_matrix_function` module.</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    success = []</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="comment"># n and m are the shapes of matrices A and B</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    n, m = 10, 7</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="comment"># Parameter t</span></div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    t = 2.2</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="comment"># Both A and B are random</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    success.append(_test(</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;            numpy.random.randn(n, m),</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;            numpy.random.randn(n, m),</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            t))</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="comment"># No B and t</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    success.append(_test(</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            numpy.random.randn(n, m),</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            <span class="keywordtype">None</span>,</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;            t))</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="comment"># Sparse CSR</span></div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    success.append(_test(</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            scipy.sparse.random(n, m, density=0.2, format=<span class="stringliteral">&#39;csr&#39;</span>),</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            scipy.sparse.random(n, m, density=0.2, format=<span class="stringliteral">&#39;csr&#39;</span>),</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            t))</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160; </div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="comment"># Sparse CSC</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    success.append(_test(</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;            scipy.sparse.random(n, m, density=0.2, format=<span class="stringliteral">&#39;csc&#39;</span>),</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;            scipy.sparse.random(n, m, density=0.2, format=<span class="stringliteral">&#39;csc&#39;</span>),</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;            t))</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="comment"># Sparse LIL</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    success.append(_test(</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;            scipy.sparse.random(n, m, density=0.2, format=<span class="stringliteral">&#39;lil&#39;</span>),</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;            scipy.sparse.random(n, m, density=0.2, format=<span class="stringliteral">&#39;lil&#39;</span>),</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;            t))</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    success = numpy.array(success, dtype=bool)</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keywordflow">if</span> success.all():</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        print(<span class="stringliteral">&#39;OK&#39;</span>)</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        print(success)</div>
+<div class="ttc" id="anamespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function_html_a548bd77083a6b526fa34455170122a12"><div class="ttname"><a href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a548bd77083a6b526fa34455170122a12">imate._cu_linear_operator.tests.test_cu_affine_matrix_function.test_cu_affine_matrix_function</a></div><div class="ttdeci">def test_cu_affine_matrix_function()</div><div class="ttdef"><b>Definition:</b> <a href="test__cu__affine__matrix__function_8pyx_source.html#l00188">test_cu_affine_matrix_function.pyx:188</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ad13f29093c964dc25e957002588bbcda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad13f29093c964dc25e957002588bbcda">&#9670;&nbsp;</a></span>__all__</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">list imate._cu_linear_operator.tests.test_cu_affine_matrix_function.__all__ = ['<a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a548bd77083a6b526fa34455170122a12">test_cu_affine_matrix_function</a>']</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html#l00019">19</a> of file <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html">test_cu_affine_matrix_function.pyx</a>.</p>
+
+</div>
+</div>
+<a id="a27b81596a9c849e7bb7bee34f5ee2bd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27b81596a9c849e7bb7bee34f5ee2bd4">&#9670;&nbsp;</a></span>Aop</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate._cu_linear_operator.tests.test_cu_affine_matrix_function.Aop</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html#l00072">72</a> of file <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html">test_cu_affine_matrix_function.pyx</a>.</p>
+
+</div>
+</div>
+<a id="a8f33f672d5f739a2d3c435eaa838f3e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f33f672d5f739a2d3c435eaa838f3e3">&#9670;&nbsp;</a></span>benchmark</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate._cu_linear_operator.tests.test_cu_affine_matrix_function.benchmark = <a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a3873e88bc8756e8b0adcdd9ce86a8afd">_benchmark_solution</a>(A, B, t, numpy.asarray(<a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a089de944947d359aa76c32cd9e0fff5f">vector</a>))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html#l00093">93</a> of file <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html">test_cu_affine_matrix_function.pyx</a>.</p>
+
+</div>
+</div>
+<a id="a9ce625399e0d39791740d60e10253c7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ce625399e0d39791740d60e10253c7f">&#9670;&nbsp;</a></span>error</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate._cu_linear_operator.tests.test_cu_affine_matrix_function.error = numpy.abs(numpy.asarray(<a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a1eb6f54dc49714bb3739fb07f771380c">product</a>) - <a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a8f33f672d5f739a2d3c435eaa838f3e3">benchmark</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html#l00096">96</a> of file <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html">test_cu_affine_matrix_function.pyx</a>.</p>
+
+</div>
+</div>
+<a id="a24be88f237896d48ce8a4878d6aa3d26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24be88f237896d48ce8a4878d6aa3d26">&#9670;&nbsp;</a></span>num_columns</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate._cu_linear_operator.tests.test_cu_affine_matrix_function.num_columns</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html#l00081">81</a> of file <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html">test_cu_affine_matrix_function.pyx</a>.</p>
+
+</div>
+</div>
+<a id="a63c6054577e4ab815437c5cf99c588bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63c6054577e4ab815437c5cf99c588bc">&#9670;&nbsp;</a></span>num_rows</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate._cu_linear_operator.tests.test_cu_affine_matrix_function.num_rows</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html#l00081">81</a> of file <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html">test_cu_affine_matrix_function.pyx</a>.</p>
+
+</div>
+</div>
+<a id="a1b811a4e56f8c316f53f5cacd872c54e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b811a4e56f8c316f53f5cacd872c54e">&#9670;&nbsp;</a></span>parameters</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate._cu_linear_operator.tests.test_cu_affine_matrix_function.parameters = t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html#l00077">77</a> of file <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html">test_cu_affine_matrix_function.pyx</a>.</p>
+
+</div>
+</div>
+<a id="a1eb6f54dc49714bb3739fb07f771380c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1eb6f54dc49714bb3739fb07f771380c">&#9670;&nbsp;</a></span>product</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate._cu_linear_operator.tests.test_cu_affine_matrix_function.product = numpy.empty((<a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a63c6054577e4ab815437c5cf99c588bc">num_rows</a>), dtype=float)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html#l00087">87</a> of file <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html">test_cu_affine_matrix_function.pyx</a>.</p>
+
+</div>
+</div>
+<a id="a2f22d7962f5383940cbe339b7b45bd12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f22d7962f5383940cbe339b7b45bd12">&#9670;&nbsp;</a></span>success</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int imate._cu_linear_operator.tests.test_cu_affine_matrix_function.success = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html#l00099">99</a> of file <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html">test_cu_affine_matrix_function.pyx</a>.</p>
+
+</div>
+</div>
+<a id="af5411ce580d489f3579bc7af6c7ae629"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5411ce580d489f3579bc7af6c7ae629">&#9670;&nbsp;</a></span>success1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate._cu_linear_operator.tests.test_cu_affine_matrix_function.success1 = _test_dot(A, B, t)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html#l00173">173</a> of file <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html">test_cu_affine_matrix_function.pyx</a>.</p>
+
+</div>
+</div>
+<a id="a8f451739bb2c1209b72a4cd56ea6e5ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f451739bb2c1209b72a4cd56ea6e5ed">&#9670;&nbsp;</a></span>success2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate._cu_linear_operator.tests.test_cu_affine_matrix_function.success2 = _test_transpose_dot(A, B, t)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html#l00176">176</a> of file <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html">test_cu_affine_matrix_function.pyx</a>.</p>
+
+</div>
+</div>
+<a id="ae190c5ce0c2f2412631f6401506b53b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae190c5ce0c2f2412631f6401506b53b0">&#9670;&nbsp;</a></span>tolerance</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate._cu_linear_operator.tests.test_cu_affine_matrix_function.tolerance</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html#l00100">100</a> of file <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html">test_cu_affine_matrix_function.pyx</a>.</p>
+
+</div>
+</div>
+<a id="a089de944947d359aa76c32cd9e0fff5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a089de944947d359aa76c32cd9e0fff5f">&#9670;&nbsp;</a></span>vector</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate._cu_linear_operator.tests.test_cu_affine_matrix_function.vector = numpy.random.randn(<a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html#a24be88f237896d48ce8a4878d6aa3d26">num_columns</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html#l00084">84</a> of file <a class="el" href="test__cu__affine__matrix__function_8pyx_source.html">test_cu_affine_matrix_function.pyx</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>imate</b></li><li class="navelem"><a class="el" href="namespaceimate_1_1__cu__linear__operator.html">_cu_linear_operator</a></li><li class="navelem"><b>tests</b></li><li class="navelem"><a class="el" href="namespaceimate_1_1__cu__linear__operator_1_1tests_1_1test__cu__affine__matrix__function.html">test_cu_affine_matrix_function</a></li>
+    <li class="footer">Generated on Thu Sep 1 2022 16:18:34 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

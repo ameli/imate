@@ -1,0 +1,929 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>imate: imate.device._timer.Timer Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js", "TeX/AMSfonts.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom-alternative.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/ameli/imate" class="github-corner" title="View source on GitHub" target="_blank">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo-imate-light.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">imate
+   </div>
+   <div id="projectbrief">C++/CUDA Reference</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Search','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classimate_1_1device_1_1__timer_1_1Timer.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="classimate_1_1device_1_1__timer_1_1Timer-members.html">List of all members</a>  </div>
+  <div class="headertitle">
+<div class="title">imate.device._timer.Timer Class Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for imate.device._timer.Timer:</div>
+<div class="dyncontent">
+<div class="center"><img src="classimate_1_1device_1_1__timer_1_1Timer__inherit__graph.png" border="0" usemap="#aimate_8device_8__timer_8Timer_inherit__map" alt="Inheritance graph"/></div>
+<map name="aimate_8device_8__timer_8Timer_inherit__map" id="aimate_8device_8__timer_8Timer_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,80,177,107"/>
+<area shape="rect" title=" " alt="" coords="63,5,120,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for imate.device._timer.Timer:</div>
+<div class="dyncontent">
+<div class="center"><img src="classimate_1_1device_1_1__timer_1_1Timer__coll__graph.png" border="0" usemap="#aimate_8device_8__timer_8Timer_coll__map" alt="Collaboration graph"/></div>
+<map name="aimate_8device_8__timer_8Timer_coll__map" id="aimate_8device_8__timer_8Timer_coll__map">
+<area shape="rect" title=" " alt="" coords="5,80,177,107"/>
+<area shape="rect" title=" " alt="" coords="63,5,120,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a58e13a6c91f59845b6cff5f405d294fb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1device_1_1__timer_1_1Timer.html#a58e13a6c91f59845b6cff5f405d294fb">__init__</a> (self, <a class="el" href="classimate_1_1device_1_1__timer_1_1Timer.html#acf68d314f8414682072dc07761613055">hold</a>=True)</td></tr>
+<tr class="separator:a58e13a6c91f59845b6cff5f405d294fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac99edad9a3a112aaca394d7935840cc1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1device_1_1__timer_1_1Timer.html#ac99edad9a3a112aaca394d7935840cc1">tic</a> (self)</td></tr>
+<tr class="separator:ac99edad9a3a112aaca394d7935840cc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf29babf6941cb58fe78a12752e59585"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1device_1_1__timer_1_1Timer.html#abf29babf6941cb58fe78a12752e59585">toc</a> (self)</td></tr>
+<tr class="separator:abf29babf6941cb58fe78a12752e59585"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc4cab4daae83f86f44ee8167d2bdb04"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1device_1_1__timer_1_1Timer.html#abc4cab4daae83f86f44ee8167d2bdb04">reset</a> (self)</td></tr>
+<tr class="separator:abc4cab4daae83f86f44ee8167d2bdb04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ab991b1ba75812426894ccbde74a22e12"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1device_1_1__timer_1_1Timer.html#ab991b1ba75812426894ccbde74a22e12">init_wall_time</a></td></tr>
+<tr class="separator:ab991b1ba75812426894ccbde74a22e12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60544be35e5994679dc324864274f5d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1device_1_1__timer_1_1Timer.html#a60544be35e5994679dc324864274f5d7">init_proc_time</a></td></tr>
+<tr class="separator:a60544be35e5994679dc324864274f5d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0885760f94a3e55915d54c01f0d1fc8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1device_1_1__timer_1_1Timer.html#aa0885760f94a3e55915d54c01f0d1fc8">tic_initiated</a></td></tr>
+<tr class="separator:aa0885760f94a3e55915d54c01f0d1fc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf68d314f8414682072dc07761613055"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1device_1_1__timer_1_1Timer.html#acf68d314f8414682072dc07761613055">hold</a></td></tr>
+<tr class="separator:acf68d314f8414682072dc07761613055"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a507ad7cd7cec57c049def4a9d0aec218"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1device_1_1__timer_1_1Timer.html#a507ad7cd7cec57c049def4a9d0aec218">wall_time</a></td></tr>
+<tr class="separator:a507ad7cd7cec57c049def4a9d0aec218"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1948d82371c366ebd540a3f1c916cccb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1device_1_1__timer_1_1Timer.html#a1948d82371c366ebd540a3f1c916cccb">proc_time</a></td></tr>
+<tr class="separator:a1948d82371c366ebd540a3f1c916cccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a612e6114ae3bdaab998e90b2bad06481"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1device_1_1__timer_1_1Timer.html#a612e6114ae3bdaab998e90b2bad06481">count</a></td></tr>
+<tr class="separator:a612e6114ae3bdaab998e90b2bad06481"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">A timer to measure elapsed wall time and CPU process time of Python
+process.
+
+Parameters
+----------
+
+hold : bool, default=True
+    When ``hold`` is `True`, measuring time between successive `tic-toc`
+    calls are cumulative.
+
+Attributes
+----------
+
+init_wall_time : float, default=0
+    The initial wall time in seconds. This is set by
+    :meth:`imate.Timer.tic`.
+
+init_proc_time : float, default=0
+    The initial CPU process time in seconds. This is set by
+    :meth:`imate.Timer.tic`.
+
+tic_initiated : bool, default=False
+    Indicates whether the function :meth:`imate.Timer.tic` has been called
+    to initiate tracking time.
+
+hold : bool
+    Initialized by the argument ``hold``, and indicates whether to
+    accumulate the recording of time between successive tic-toc calls.
+
+wall_time : float, default=0
+    The wall time between a `tic` and a `toc` in seconds. This variable is
+    updated by calling :meth:`imate.Timer.toc`.
+
+proc_time : float, default=0
+    The CPU process time between a `tic` and a `toc` in seconds. This
+    variable is updated by calling :meth:`imate.Timer.toc`.
+
+count : int, default=0
+    Counts how many pairs of `tic-toc` is called. That is, the counter
+    counts a completed pair of `tic-toc` calls. If there is one tic but
+    multiple toc calls later, this is counted as only once.
+
+Methods
+-------
+tic
+toc
+reset
+
+See Also
+--------
+
+imate.Memory
+imate.device.restrict_to_single_processor
+
+Notes
+-----
+
+**Difference Between Wall and Process Times:**
+
+The *wall* time (``Timer.wall_time``) measures the wall's clock time in
+between the execution of two tasks, including. This includes when the
+processor is idle or performs other tasks other the Python process.
+
+On the other hand, the *process* time (``Timer.proc_time``) is the combined
+CPU clock on all cores of the CPU processor of the process. It excludes the
+time when the processor is idle. Namely, it only measures how much the
+processor was busy. Also, it only measures the time it takes to run the
+*current* process, and not other tasks that the process might perform
+concurrently.
+
+As a rule of thumb, the process time is larger than the wall time by the
+order of the number of CPU cores (see
+:func:`imate.device.get_num_cpu_threads`). However, the process time can
+in some cases deviate from this rule significantly (or even be less than
+the wall time if the processor was largely idle).
+
+Generally, the process time is the preferred measure to benchmark a
+computational task.
+
+Examples
+--------
+
+**Using Tic-Toc:**
+
+A simple usage of measuring wall and process time to compute the
+log-determinant of a sample matrix:
+
+.. code-block:: python
+    :emphasize-lines: 8, 16
+
+    &gt;&gt;&gt; # Load Timer class
+    &gt;&gt;&gt; from imate import Timer
+
+    &gt;&gt;&gt; # Instantiate a timer object
+    &gt;&gt;&gt; timer = Timer()
+
+    &gt;&gt;&gt; # Start tracking time
+    &gt;&gt;&gt; timer.tic()
+
+    &gt;&gt;&gt; # do something time-consuming
+    &gt;&gt;&gt; from imate import toeplitz, logdet
+    &gt;&gt;&gt; A = toeplitz(2, 1, size=1000000, gram=True)
+    &gt;&gt;&gt; ld, info = logdet(A, method='slq', return_info=True)
+
+    &gt;&gt;&gt; # Register a time-stamp right here in the code
+    &gt;&gt;&gt; timer.toc()
+
+    &gt;&gt;&gt; # Read wall time
+    &gt;&gt;&gt; timer.wall_time
+    2.727652072906494
+
+    &gt;&gt;&gt; # Read process time
+    &gt;&gt;&gt; timer.proc_time
+    17.752098541000002
+
+The `toc` calls can continue (multiple `toc` calls). In each of the `toc`
+calls, the measured time is updated from the time s `toc` is called
+with respect to the last `tic` call.
+
+**Alternative Way of Measuring Time Using Function Returns:**
+
+In the above example we also passed ``return_info=True`` argument to the
+:func:`imate.logdet` function, which returns the dictionary ``info``.
+The key ``info['time']`` also keeps the track of computation time of this
+function, which can be compared with the wall and process times  measured
+by :class:`imate.Timer` as follows:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; info['time']
+    {
+        'tot_wall_time': 2.617882580962032,
+        'alg_wall_time': 2.5974619388580322,
+        'cpu_proc_time': 17.642682527999998
+    }
+
+**Resetting Timer:**
+
+The above timer can be reset as follows:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; # Reset timer
+    &gt;&gt;&gt; timer.reset()
+    17.752098541000002
+
+    # By resetting, all attributes of the object set back to zero
+    &gt;&gt;&gt; timer.wall_time
+    0.0
+
+    &gt;&gt;&gt; time.proc_time
+    0.0
+
+**Accumulative Time Measure Using Hold:**
+
+Often it is useful to measure times accumulatively, in between multiple
+pairs of `tic-toc` calls. To do so, set ``hold`` to `True` as follows. The
+measured time in the example below is the addition of the first two and the
+second two calls to the pair of `tic` and `toc` on the highlighted lines,
+which includes the time to process matrices `A` and `C`, but excludes the
+matrix `B`.
+
+.. code-block:: python
+    :emphasize-lines: 8, 16, 24, 32
+
+    &gt;&gt;&gt; # Load Timer class
+    &gt;&gt;&gt; from imate import Timer
+
+    &gt;&gt;&gt; # Instantiate a timer object
+    &gt;&gt;&gt; timer = Timer(hold=True)
+
+    &gt;&gt;&gt; # The first call to tic
+    &gt;&gt;&gt; timer.tic()
+
+    &gt;&gt;&gt; # The first task with matrix A.
+    &gt;&gt;&gt; from imate import toeplitz, logdet
+    &gt;&gt;&gt; A = toeplitz(2, 1, size=1000000, gram=True)
+    &gt;&gt;&gt; logdet(A, method='slq')
+
+    &gt;&gt;&gt; # The first call to toc stops tracking time since last tic.
+    &gt;&gt;&gt; timer.toc()
+
+    &gt;&gt;&gt; # A second task with matrix B. Elapsed time for this task is not
+    &gt;&gt;&gt; # recorded.
+    &gt;&gt;&gt; B = toeplitz(3, 2, size=1000000, gram=True)
+    &gt;&gt;&gt; logdet(B, method='slq')
+
+    &gt;&gt;&gt; # Resume tracking time.
+    &gt;&gt;&gt; timer.tic()
+
+    &gt;&gt;&gt; # The third task with matrix C. Time for this job is added to the
+    &gt;&gt;&gt; # time tracking since timer is resumed.
+    &gt;&gt;&gt; C = toeplitz(4, 3, size=1000000, gram=True)
+    &gt;&gt;&gt; logdet(C, method='slq')
+
+    &gt;&gt;&gt; # The second call to toc stops tracking time since last tic.
+    &gt;&gt;&gt; timer.toc()
+
+    &gt;&gt;&gt; # Read wall time
+    &gt;&gt;&gt; timer.wall_time
+    5.431022644042969
+
+    &gt;&gt;&gt; # Read process time
+    &gt;&gt;&gt; timer.proc_time
+    36.046730618
+</pre> 
+<p class="definition">Definition at line <a class="el" href="__timer_8py_source.html#l00028">28</a> of file <a class="el" href="__timer_8py_source.html">_timer.py</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a58e13a6c91f59845b6cff5f405d294fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58e13a6c91f59845b6cff5f405d294fb">&#9670;&nbsp;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate.device._timer.Timer.__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>hold</em> = <code>True</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Initialization.
+</pre> 
+<p class="definition">Definition at line <a class="el" href="__timer_8py_source.html#l00241">241</a> of file <a class="el" href="__timer_8py_source.html">_timer.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keyword">def </span>__init__(self, hold=True):</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="stringliteral">        Initialization.</span></div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        <span class="comment"># Internal variable used to store initial timestamps</span></div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        self.init_wall_time = 0.0</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        self.init_proc_time = 0.0</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        self.tic_initiated = <span class="keyword">False</span></div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        self.hold = hold</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <span class="comment"># Public attributes</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        self.wall_time = 0.0</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        self.proc_time = 0.0</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        self.count = 0</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="abc4cab4daae83f86f44ee8167d2bdb04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc4cab4daae83f86f44ee8167d2bdb04">&#9670;&nbsp;</a></span>reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate.device._timer.Timer.reset </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Resets time counters.
+
+This function is used when an instance of this class should be
+reused again from fresh settings.
+
+Examples
+--------
+
+.. code-block:: python
+    :emphasize-lines: 19
+
+    &gt;&gt;&gt; # Load Timer class
+    &gt;&gt;&gt; from imate import Timer
+
+    &gt;&gt;&gt; # Instantiate a timer object
+    &gt;&gt;&gt; timer = Timer()
+
+    &gt;&gt;&gt; # Start tracking time
+    &gt;&gt;&gt; timer.tic()
+
+    &gt;&gt;&gt; # do something time-consuming
+    &gt;&gt;&gt; from imate import toeplitz, logdet
+    &gt;&gt;&gt; A = toeplitz(2, 1, size=1000000, gram=True)
+    &gt;&gt;&gt; ld, info = logdet(A, method='slq', return_info=True)
+
+    &gt;&gt;&gt; # Register a time-stamp right here in the code
+    &gt;&gt;&gt; timer.toc()
+
+    &gt;&gt;&gt; # Read wall time
+    &gt;&gt;&gt; timer.wall_time
+    2.727652072906494
+
+    &gt;&gt;&gt; # Read process time
+    &gt;&gt;&gt; timer.proc_time
+    17.752098541000002
+
+    &gt;&gt;&gt; # Reset timer
+    &gt;&gt;&gt; timer.reset()
+
+    # By resetting, all attributes of the object set back to zero
+    &gt;&gt;&gt; timer.wall_time
+    0.0
+
+    &gt;&gt;&gt; time.proc_time
+    0.0
+</pre> 
+<p class="definition">Definition at line <a class="el" href="__timer_8py_source.html#l00383">383</a> of file <a class="el" href="__timer_8py_source.html">_timer.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    <span class="keyword">def </span>reset(self):</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="stringliteral">        Resets time counters.</span></div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="stringliteral">        This function is used when an instance of this class should be</span></div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="stringliteral">        reused again from fresh settings.</span></div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="stringliteral">        Examples</span></div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="stringliteral">        --------</span></div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="stringliteral">        .. code-block:: python</span></div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="stringliteral">            :emphasize-lines: 19</span></div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Load Timer class</span></div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; from imate import Timer</span></div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Instantiate a timer object</span></div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer = Timer()</span></div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Start tracking time</span></div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer.tic()</span></div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # do something time-consuming</span></div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; from imate import toeplitz, logdet</span></div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; A = toeplitz(2, 1, size=1000000, gram=True)</span></div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; ld, info = logdet(A, method=&#39;slq&#39;, return_info=True)</span></div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Register a time-stamp right here in the code</span></div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer.toc()</span></div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Read wall time</span></div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer.wall_time</span></div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="stringliteral">            2.727652072906494</span></div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Read process time</span></div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer.proc_time</span></div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;<span class="stringliteral">            17.752098541000002</span></div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Reset timer</span></div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer.reset()</span></div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="stringliteral">            # By resetting, all attributes of the object set back to zero</span></div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer.wall_time</span></div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="stringliteral">            0.0</span></div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; time.proc_time</span></div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="stringliteral">            0.0</span></div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160; </div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;        self.wall_time = 0.0</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;        self.proc_time = 0.0</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;        self.tic_initiated = <span class="keyword">False</span></div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;        self.count = 0</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="__timer_8py_source.html#l00255">imate.device._timer.Timer.count</a>, <a class="el" href="__timer_8py_source.html#l00254">imate.device._timer.Timer.proc_time</a>, <a class="el" href="__timer_8py_source.html#l00249">imate.device._timer.Timer.tic_initiated</a>, and <a class="el" href="__timer_8py_source.html#l00253">imate.device._timer.Timer.wall_time</a>.</p>
+
+</div>
+</div>
+<a id="ac99edad9a3a112aaca394d7935840cc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac99edad9a3a112aaca394d7935840cc1">&#9670;&nbsp;</a></span>tic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate.device._timer.Timer.tic </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Initializes tracking time.
+
+.. note::
+
+    This function should be called before calling
+    :meth:`imate.Timer.toc`.
+
+Examples
+--------
+
+.. code-block:: python
+    :emphasize-lines: 8
+
+    &gt;&gt;&gt; # Load Timer class
+    &gt;&gt;&gt; from imate import Timer
+
+    &gt;&gt;&gt; # Instantiate a timer object
+    &gt;&gt;&gt; timer = Timer()
+
+    &gt;&gt;&gt; # Start tracking time
+    &gt;&gt;&gt; timer.tic()
+
+    &gt;&gt;&gt; # do something time-consuming
+    &gt;&gt;&gt; from imate import toeplitz, logdet
+    &gt;&gt;&gt; A = toeplitz(2, 1, size=1000000, gram=True)
+    &gt;&gt;&gt; ld, info = logdet(A, method='slq', return_info=True)
+
+    &gt;&gt;&gt; # Register a time-stamp right here in the code
+    &gt;&gt;&gt; timer.toc()
+
+    &gt;&gt;&gt; # Read wall time
+    &gt;&gt;&gt; timer.wall_time
+    2.727652072906494
+
+    &gt;&gt;&gt; # Read process time
+    &gt;&gt;&gt; timer.proc_time
+    17.752098541000002
+</pre> 
+<p class="definition">Definition at line <a class="el" href="__timer_8py_source.html#l00261">261</a> of file <a class="el" href="__timer_8py_source.html">_timer.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <span class="keyword">def </span>tic(self):</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="stringliteral">        Initializes tracking time.</span></div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;<span class="stringliteral">        .. note::</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="stringliteral">            This function should be called before calling</span></div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="stringliteral">            :meth:`imate.Timer.toc`.</span></div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<span class="stringliteral">        Examples</span></div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="stringliteral">        --------</span></div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="stringliteral">        .. code-block:: python</span></div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="stringliteral">            :emphasize-lines: 8</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Load Timer class</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; from imate import Timer</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Instantiate a timer object</span></div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer = Timer()</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Start tracking time</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer.tic()</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # do something time-consuming</span></div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; from imate import toeplitz, logdet</span></div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; A = toeplitz(2, 1, size=1000000, gram=True)</span></div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; ld, info = logdet(A, method=&#39;slq&#39;, return_info=True)</span></div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Register a time-stamp right here in the code</span></div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer.toc()</span></div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Read wall time</span></div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer.wall_time</span></div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="stringliteral">            2.727652072906494</span></div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Read process time</span></div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer.proc_time</span></div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="stringliteral">            17.752098541000002</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        self.init_wall_time = time.time()</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        <span class="keywordflow">if</span> python2:</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;            self.init_proc_time = time.time()</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;            self.init_proc_time = time.process_time()</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        <span class="comment"># This variable is used to count a complete tic-toc call.</span></div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        self.tic_initiated = <span class="keyword">True</span></div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="__timer_8py_source.html#l00248">imate.device._timer.Timer.init_proc_time</a>, <a class="el" href="__timer_8py_source.html#l00247">imate.device._timer.Timer.init_wall_time</a>, and <a class="el" href="__timer_8py_source.html#l00249">imate.device._timer.Timer.tic_initiated</a>.</p>
+
+</div>
+</div>
+<a id="abf29babf6941cb58fe78a12752e59585"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf29babf6941cb58fe78a12752e59585">&#9670;&nbsp;</a></span>toc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate.device._timer.Timer.toc </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Measures time from the last call to :meth:`imate.Timer.tic`.
+
+.. note::
+
+    This function should be called after calling
+    :meth:`imate.Timer.tic`.
+
+Examples
+--------
+
+.. code-block:: python
+    :emphasize-lines: 16
+
+    &gt;&gt;&gt; # Load Timer class
+    &gt;&gt;&gt; from imate import Timer
+
+    &gt;&gt;&gt; # Instantiate a timer object
+    &gt;&gt;&gt; timer = Timer()
+
+    &gt;&gt;&gt; # Start tracking time
+    &gt;&gt;&gt; timer.tic()
+
+    &gt;&gt;&gt; # do something time-consuming
+    &gt;&gt;&gt; from imate import toeplitz, logdet
+    &gt;&gt;&gt; A = toeplitz(2, 1, size=1000000, gram=True)
+    &gt;&gt;&gt; ld, info = logdet(A, method='slq', return_info=True)
+
+    &gt;&gt;&gt; # Register a time-stamp right here in the code
+    &gt;&gt;&gt; timer.toc()
+
+    &gt;&gt;&gt; # Read wall time
+    &gt;&gt;&gt; timer.wall_time
+    2.727652072906494
+
+    &gt;&gt;&gt; # Read process time
+    &gt;&gt;&gt; timer.proc_time
+    17.752098541000002
+</pre> 
+<p class="definition">Definition at line <a class="el" href="__timer_8py_source.html#l00316">316</a> of file <a class="el" href="__timer_8py_source.html">_timer.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keyword">def </span>toc(self):</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="stringliteral">        Measures time from the last call to :meth:`imate.Timer.tic`.</span></div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="stringliteral">        .. note::</span></div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="stringliteral">            This function should be called after calling</span></div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="stringliteral">            :meth:`imate.Timer.tic`.</span></div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="stringliteral">        Examples</span></div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;<span class="stringliteral">        --------</span></div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;<span class="stringliteral">        .. code-block:: python</span></div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<span class="stringliteral">            :emphasize-lines: 16</span></div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Load Timer class</span></div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; from imate import Timer</span></div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Instantiate a timer object</span></div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer = Timer()</span></div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Start tracking time</span></div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer.tic()</span></div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # do something time-consuming</span></div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; from imate import toeplitz, logdet</span></div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; A = toeplitz(2, 1, size=1000000, gram=True)</span></div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; ld, info = logdet(A, method=&#39;slq&#39;, return_info=True)</span></div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Register a time-stamp right here in the code</span></div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer.toc()</span></div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Read wall time</span></div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer.wall_time</span></div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="stringliteral">            2.727652072906494</span></div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; # Read process time</span></div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; timer.proc_time</span></div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="stringliteral">            17.752098541000002</span></div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160; </div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;        wall_time_ = time.time() - self.init_wall_time</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160; </div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        <span class="keywordflow">if</span> python2:</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;            proc_time_ = time.time() - self.init_proc_time</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;            proc_time_ = time.process_time() - self.init_proc_time</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160; </div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        <span class="keywordflow">if</span> self.hold:</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;            <span class="comment"># Commulative time between successive tic-toc</span></div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;            self.wall_time += wall_time_</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;            self.proc_time += proc_time_</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;            <span class="comment"># Only measures the elapsed time for the current tic-toc</span></div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;            self.wall_time = wall_time_</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;            self.proc_time = proc_time_</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160; </div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;        <span class="comment"># Prevents counting multiple toc calls which were initiated with one</span></div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;        <span class="comment"># tic call.</span></div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;        <span class="keywordflow">if</span> self.tic_initiated:</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;            self.tic_initiated = <span class="keyword">False</span></div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;            self.count += 1</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="__timer_8py_source.html#l00255">imate.device._timer.Timer.count</a>, <a class="el" href="__timer_8py_source.html#l00250">imate.device._timer.Timer.hold</a>, <a class="el" href="__timer_8py_source.html#l00248">imate.device._timer.Timer.init_proc_time</a>, <a class="el" href="__timer_8py_source.html#l00247">imate.device._timer.Timer.init_wall_time</a>, <a class="el" href="__timer_8py_source.html#l00254">imate.device._timer.Timer.proc_time</a>, <a class="el" href="__timer_8py_source.html#l00249">imate.device._timer.Timer.tic_initiated</a>, and <a class="el" href="__timer_8py_source.html#l00253">imate.device._timer.Timer.wall_time</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a612e6114ae3bdaab998e90b2bad06481"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a612e6114ae3bdaab998e90b2bad06481">&#9670;&nbsp;</a></span>count</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate.device._timer.Timer.count</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="__timer_8py_source.html#l00255">255</a> of file <a class="el" href="__timer_8py_source.html">_timer.py</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="__timer_8py_source.html#l00383">imate.device._timer.Timer.reset()</a>, and <a class="el" href="__timer_8py_source.html#l00316">imate.device._timer.Timer.toc()</a>.</p>
+
+</div>
+</div>
+<a id="acf68d314f8414682072dc07761613055"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf68d314f8414682072dc07761613055">&#9670;&nbsp;</a></span>hold</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate.device._timer.Timer.hold</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="__timer_8py_source.html#l00250">250</a> of file <a class="el" href="__timer_8py_source.html">_timer.py</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="__timer_8py_source.html#l00316">imate.device._timer.Timer.toc()</a>.</p>
+
+</div>
+</div>
+<a id="a60544be35e5994679dc324864274f5d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60544be35e5994679dc324864274f5d7">&#9670;&nbsp;</a></span>init_proc_time</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate.device._timer.Timer.init_proc_time</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="__timer_8py_source.html#l00248">248</a> of file <a class="el" href="__timer_8py_source.html">_timer.py</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="__timer_8py_source.html#l00261">imate.device._timer.Timer.tic()</a>, and <a class="el" href="__timer_8py_source.html#l00316">imate.device._timer.Timer.toc()</a>.</p>
+
+</div>
+</div>
+<a id="ab991b1ba75812426894ccbde74a22e12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab991b1ba75812426894ccbde74a22e12">&#9670;&nbsp;</a></span>init_wall_time</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate.device._timer.Timer.init_wall_time</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="__timer_8py_source.html#l00247">247</a> of file <a class="el" href="__timer_8py_source.html">_timer.py</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="__timer_8py_source.html#l00261">imate.device._timer.Timer.tic()</a>, and <a class="el" href="__timer_8py_source.html#l00316">imate.device._timer.Timer.toc()</a>.</p>
+
+</div>
+</div>
+<a id="a1948d82371c366ebd540a3f1c916cccb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1948d82371c366ebd540a3f1c916cccb">&#9670;&nbsp;</a></span>proc_time</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate.device._timer.Timer.proc_time</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="__timer_8py_source.html#l00254">254</a> of file <a class="el" href="__timer_8py_source.html">_timer.py</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="__timer_8py_source.html#l00383">imate.device._timer.Timer.reset()</a>, and <a class="el" href="__timer_8py_source.html#l00316">imate.device._timer.Timer.toc()</a>.</p>
+
+</div>
+</div>
+<a id="aa0885760f94a3e55915d54c01f0d1fc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0885760f94a3e55915d54c01f0d1fc8">&#9670;&nbsp;</a></span>tic_initiated</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate.device._timer.Timer.tic_initiated</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="__timer_8py_source.html#l00249">249</a> of file <a class="el" href="__timer_8py_source.html">_timer.py</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="__timer_8py_source.html#l00383">imate.device._timer.Timer.reset()</a>, <a class="el" href="__timer_8py_source.html#l00261">imate.device._timer.Timer.tic()</a>, and <a class="el" href="__timer_8py_source.html#l00316">imate.device._timer.Timer.toc()</a>.</p>
+
+</div>
+</div>
+<a id="a507ad7cd7cec57c049def4a9d0aec218"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a507ad7cd7cec57c049def4a9d0aec218">&#9670;&nbsp;</a></span>wall_time</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate.device._timer.Timer.wall_time</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="__timer_8py_source.html#l00253">253</a> of file <a class="el" href="__timer_8py_source.html">_timer.py</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="__timer_8py_source.html#l00383">imate.device._timer.Timer.reset()</a>, and <a class="el" href="__timer_8py_source.html#l00316">imate.device._timer.Timer.toc()</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/device/<a class="el" href="__timer_8py_source.html">_timer.py</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceimate.html">imate</a></li><li class="navelem"><a class="el" href="namespaceimate_1_1device.html">device</a></li><li class="navelem"><a class="el" href="namespaceimate_1_1device_1_1__timer.html">_timer</a></li><li class="navelem"><a class="el" href="classimate_1_1device_1_1__timer_1_1Timer.html">Timer</a></li>
+    <li class="footer">Generated on Thu Sep 1 2022 16:13:23 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

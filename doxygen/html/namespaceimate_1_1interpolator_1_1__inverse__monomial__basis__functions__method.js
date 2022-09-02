@@ -1,0 +1,4 @@
+var namespaceimate_1_1interpolator_1_1__inverse__monomial__basis__functions__method =
+[
+    [ "InverseMonomialBasisFunctionsMethod", "classimate_1_1interpolator_1_1__inverse__monomial__basis__functions__method_1_1InverseMonomialBasisFunctionsMethod.html", "classimate_1_1interpolator_1_1__inverse__monomial__basis__functions__method_1_1InverseMonomialBasisFunctionsMethod" ]
+];

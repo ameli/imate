@@ -340,8 +340,8 @@
 <p>The followings are instructions to install docker on Linux. To install on other operating systems, see <a class="reference external" href="https://docs.docker.com/engine/install/ubuntu/">Install Docker Engine</a> from Docker documentation.</p>
 <p>Install docker by</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="1f9bbc63-109d-4bac-b1d2-ec8237ddef4e" name="b5a306d3-3639-41af-8619-a62d0e654d5d" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="1f9bbc63-109d-4bac-b1d2-ec8237ddef4e">
+<input checked="checked" id="174a15a6-34fa-427e-8892-b3ea16dba4ba" name="00354ff5-f2ff-4d53-ae2c-27e5c42327ac" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="174a15a6-34fa-427e-8892-b3ea16dba4ba">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
 span.prompt1:before {
@@ -358,8 +358,8 @@ span.prompt1:before {
 <span class="prompt1">sudo apt-get update</span>
 <span class="prompt1">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span>
 </pre></div></div></div>
-<input id="d818ff1f-421e-41f1-af35-0ab948a3682f" name="b5a306d3-3639-41af-8619-a62d0e654d5d" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="d818ff1f-421e-41f1-af35-0ab948a3682f">
+<input id="d42512dc-4904-4f35-ac1f-3d417e3393be" name="00354ff5-f2ff-4d53-ae2c-27e5c42327ac" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="d42512dc-4904-4f35-ac1f-3d417e3393be">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install -y yum-utils</span>
 <span class="prompt1">sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span>
@@ -368,8 +368,8 @@ CentOS 7</label><div class="sd-tab-content docutils">
 <span class="prompt1">sudo systemctl <span class="nb">enable</span> containerd.service</span>
 <span class="prompt1">sudo systemctl start docker</span>
 </pre></div></div></div>
-<input id="1ea27008-da39-498f-9771-52119230a7c0" name="b5a306d3-3639-41af-8619-a62d0e654d5d" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="1ea27008-da39-498f-9771-52119230a7c0">
+<input id="a05912b5-c25c-423e-97a1-5bd2fca7fb8f" name="00354ff5-f2ff-4d53-ae2c-27e5c42327ac" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="a05912b5-c25c-423e-97a1-5bd2fca7fb8f">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install -y yum-utils</span>
 <span class="prompt1">sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span>
@@ -428,39 +428,39 @@ RHEL 9</label><div class="sd-tab-content docutils">
 <p>Install <a class="reference external" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html">NVIDIA Container Toolkit</a> as follows.</p>
 <p>Add the package to the repository:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="d33511bc-b4ed-4359-82f3-7144a29a0288" name="7fb9d1e8-17c5-4086-944e-dd29112d6907" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="d33511bc-b4ed-4359-82f3-7144a29a0288">
+<input checked="checked" id="076b8a30-7f97-4824-8314-37c6c2fed607" name="fa1d8491-0fff-47d8-a6f6-f75a154ef94d" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="076b8a30-7f97-4824-8314-37c6c2fed607">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nv">distribution</span><span class="o">=</span><span class="k">$(</span>. /etc/os-release<span class="p">;</span><span class="nb">echo</span> <span class="nv">$ID$VERSION_ID</span><span class="k">)</span></span>
 <span class="prompt1">curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey <span class="p">|</span> sudo apt-key add -</span>
 <span class="prompt1">curl -s -L https://nvidia.github.io/nvidia-docker/<span class="nv">$distribution</span>/nvidia-docker.list <span class="p">|</span> sudo tee /etc/apt/sources.list.d/nvidia-docker.list</span>
 </pre></div></div></div>
-<input id="9012b504-efd2-4532-a7a9-52b5e9813dd2" name="7fb9d1e8-17c5-4086-944e-dd29112d6907" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="9012b504-efd2-4532-a7a9-52b5e9813dd2">
+<input id="f4778078-0a49-4d14-98e3-75dd3bc59bff" name="fa1d8491-0fff-47d8-a6f6-f75a154ef94d" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="f4778078-0a49-4d14-98e3-75dd3bc59bff">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum-config-manager --add-repo<span class="o">=</span>https://download.docker.com/linux/centos/docker-ce.repo</span>
 </pre></div></div></div>
-<input id="4176cf47-188a-434f-88b7-f039e008a0e6" name="7fb9d1e8-17c5-4086-944e-dd29112d6907" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="4176cf47-188a-434f-88b7-f039e008a0e6">
+<input id="22fc5eb6-eaa7-42cb-a529-7b7b7d9379ad" name="fa1d8491-0fff-47d8-a6f6-f75a154ef94d" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="22fc5eb6-eaa7-42cb-a529-7b7b7d9379ad">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf config-manager --add-repo<span class="o">=</span>https://download.docker.com/linux/centos/docker-ce.repo</span>
 </pre></div></div></div>
 </div>
 <p>Install <cite>nvidia-contaner-toolkit</cite> by:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="b214300e-5be7-4bf0-8c32-2d0e7d15dfac" name="d6af5b35-8199-4d20-82ca-ed4129c922a5" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="b214300e-5be7-4bf0-8c32-2d0e7d15dfac">
+<input checked="checked" id="1d9c94c8-aa71-4403-93bc-ec417cf7c35e" name="b2264cb7-cdee-437a-85b9-7bce6d037c4a" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="1d9c94c8-aa71-4403-93bc-ec417cf7c35e">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt-get update</span>
 <span class="prompt1">sudo apt-get install -y nvidia-container-toolkit</span>
 </pre></div></div></div>
-<input id="d886f398-e8df-47f0-8b95-699b40a17027" name="d6af5b35-8199-4d20-82ca-ed4129c922a5" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="d886f398-e8df-47f0-8b95-699b40a17027">
+<input id="cdd94d79-b5da-4e5b-a27d-e569a520db34" name="b2264cb7-cdee-437a-85b9-7bce6d037c4a" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="cdd94d79-b5da-4e5b-a27d-e569a520db34">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm</span>
 </pre></div></div></div>
-<input id="aa2427b6-8bca-42bc-bc73-bfb350a5f7dd" name="d6af5b35-8199-4d20-82ca-ed4129c922a5" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="aa2427b6-8bca-42bc-bc73-bfb350a5f7dd">
+<input id="b1dd4fe9-fb19-4d88-98f0-f2f4cc50d7c8" name="b2264cb7-cdee-437a-85b9-7bce6d037c4a" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="b1dd4fe9-fb19-4d88-98f0-f2f4cc50d7c8">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm</span>
 </pre></div></div></div>

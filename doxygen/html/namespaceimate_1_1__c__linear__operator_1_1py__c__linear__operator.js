@@ -1,0 +1,4 @@
+var namespaceimate_1_1__c__linear__operator_1_1py__c__linear__operator =
+[
+    [ "pycLinearOperator", "classimate_1_1__c__linear__operator_1_1py__c__linear__operator_1_1pycLinearOperator.html", "classimate_1_1__c__linear__operator_1_1py__c__linear__operator_1_1pycLinearOperator" ]
+];
