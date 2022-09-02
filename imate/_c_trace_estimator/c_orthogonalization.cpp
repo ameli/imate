@@ -94,7 +94,7 @@
 /// \param[in]     vector_size
 ///                The length of each vector. If we assume \c V indicates a 2D
 ///                vector, this is the number of rows of \c V.
-/// \param[in]     num_vector
+/// \param[in]     num_vectors
 ///                The number of column vectors. If we assume \c V indicates a
 ///                2D vector, this the number of columns of \c V.
 /// \param[in]     last_vector
@@ -108,7 +108,7 @@
 ///                vector is given by \c last_vector. This index is a number
 ///                between \c 0 and \c num_vectors-1. The index of the last
 ///                i-th vector is winding back from the last vector by
-///                $last_vector-i+1 \mod num_vectors$.
+///                <tt>last_vector-i+1 mod num_vectors</tt>.
 /// \param[in]     num_ortho
 ///                The number of vectors to be orthogonalized starting from the
 ///                last vector. \c 0 indicates no orthogonalization will be

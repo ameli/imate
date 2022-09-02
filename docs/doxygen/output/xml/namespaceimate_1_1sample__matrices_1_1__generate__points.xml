@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespaceimate_1_1sample__matrices_1_1__generate__points" kind="namespace" language="Python">
+    <compoundname>imate::sample_matrices::_generate_points</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceimate_1_1sample__matrices_1_1__generate__points_1a6f2d2659cce4ac0409ac1f51fcb30def" prot="private" static="no" mutable="no">
+        <type>list</type>
+        <definition>list imate::sample_matrices::_generate_points.__all__</definition>
+        <argsstring></argsstring>
+        <name>__all__</name>
+        <initializer>=  [&apos;generated_points&apos;]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/_generate_points.pyx" line="18" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/_generate_points.pyx" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceimate_1_1sample__matrices_1_1__generate__points_1a927c3978c27233ea5c7d7eaa01dfbde5" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>imate::sample_matrices::_generate_points.num_points</definition>
+        <argsstring></argsstring>
+        <name>num_points</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/_generate_points.pyx" line="94" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/_generate_points.pyx" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceimate_1_1sample__matrices_1_1__generate__points_1a5ec494f6f11402cde20a219013c8add3" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int imate::sample_matrices::_generate_points::shift_next_dim</definition>
+        <argsstring></argsstring>
+        <name>shift_next_dim</name>
+        <initializer>=  1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/_generate_points.pyx" line="105" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/_generate_points.pyx" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespaceimate_1_1sample__matrices_1_1__generate__points_1a26435b5fac4f525dd9471beaded1c303" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>imate::sample_matrices::_generate_points.dx</definition>
+        <argsstring></argsstring>
+        <name>dx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/_generate_points.pyx" line="129" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/_generate_points.pyx" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceimate_1_1sample__matrices_1_1__generate__points_1a68601d4980d7a2c9db7d8ac650e78ad5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.sample_matrices._generate_points.generate_points</definition>
+        <argsstring>(size, dimension=2, grid=True)</argsstring>
+        <name>generate_points</name>
+        <param>
+          <type>size</type>
+          <defname>size</defname>
+        </param>
+        <param>
+          <type>dimension</type>
+          <defname>dimension</defname>
+          <defval>2</defval>
+        </param>
+        <param>
+          <type>grid</type>
+          <defname>grid</defname>
+          <defval>True</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Generates a set of points in the unit hypercube.
+
+:param size: Indicates the number of generated points as follows:
+    * If ``grid`` is ``True``, the points are equi-distanced structured
+      grid where there are ``size`` points along each axis. Hence, the
+      overall number of points are equal to ``size**dimension``.
+    * If ``grid is ``False``, random points are generated with uniform
+      distribution. The overall number of points are equal to ``size``.
+:type size: int
+
+:param dimension: The dimension of the hypercube.
+:type dimension: int
+:param grid: Determines whether the points are generated on a structured
+    grid (if ``True``) or randomly (if ``False``).
+:type grid: bool
+
+:return: 2D array of the coordinates of the generated points. The first
+    index of the array corresponds to the point Ids, and the second axis is
+    each of the dimensional coordinates.
+:rtype: numpy.ndarray
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/_generate_points.pyx" line="25" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/_generate_points.pyx" bodystart="25" bodyend="65"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/_generate_points.pyx" line="1" column="1"/>
+  </compounddef>
+</doxygen>

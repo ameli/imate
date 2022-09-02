@@ -1,0 +1,704 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet" kind="class" language="Python" prot="public">
+    <compoundname>imate::interpolator::interpolate_logdet::InterpolateLogdet</compoundname>
+    <basecompoundref refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten" prot="public" virt="non-virtual">imate.interpolator.interpolate_schatten.InterpolateSchatten</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1aa090acef24889aa13b428da062962279" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>imate.interpolator.interpolate_logdet.InterpolateLogdet::kind</definition>
+        <argsstring></argsstring>
+        <name>kind</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" line="291" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" bodystart="291" bodyend="-1"/>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1aa0fab44823eefba8f131db3cac2b657f" compoundref="interpolate__schatten_8py" startline="366" endline="402">imate.interpolator.interpolate_schatten.InterpolateSchatten._compare_with_exact_solution</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1ab6500d8ed781a3dc971e9c06e856b58f" compoundref="interpolate__schatten_8py" startline="760" endline="962">imate.interpolator.interpolate_schatten.InterpolateSchatten._plot_finite</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a730f165dfcdbdf27fc062b383ee6845a" compoundref="interpolate__schatten_8py" startline="570" endline="583">imate.interpolator.interpolate_schatten.InterpolateSchatten.plot</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a69c0b47a270f0d2b764d530772092ff6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.interpolator.interpolate_logdet.InterpolateLogdet.__init__</definition>
+        <argsstring>(self, A, B=None, ti=[], kind=&apos;IMBF&apos;, verbose=False, options={ &apos;method&apos;:&apos;cholesky&apos;}, **kwargs)</argsstring>
+        <name>__init__</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>A</type>
+          <defname>A</defname>
+        </param>
+        <param>
+          <type>B</type>
+          <defname>B</defname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>ti</type>
+          <defname>ti</defname>
+          <defval>[]</defval>
+        </param>
+        <param>
+          <type><ref refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1aa090acef24889aa13b428da062962279" kindref="member">kind</ref></type>
+          <defname>kind</defname>
+          <defval>&apos;IMBF&apos;</defval>
+        </param>
+        <param>
+          <type><ref refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1aa20bf547bac7d4856e9a6e5923ac379c" kindref="member">verbose</ref></type>
+          <defname>verbose</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>options</type>
+          <defname>options</defname>
+          <defval>{ &apos;method&apos;:&apos;cholesky&apos;}</defval>
+        </param>
+        <param>
+          <type>**</type>
+          <declname>kwargs</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Initializes the object depending on the method.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" line="187" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" bodystart="188" bodyend="197"/>
+      </memberdef>
+      <memberdef kind="function" id="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1ac79e204d7e159e93f8e1c220168b0e5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.interpolator.interpolate_logdet.InterpolateLogdet.__call__</definition>
+        <argsstring>(self, t)</argsstring>
+        <name>__call__</name>
+        <reimplements refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a8d73f3cded7d501f9563ce09ff9951e4">__call__</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>t</type>
+          <defname>t</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Same as :func:`InterpolateSchatten.interpolate` method.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" line="226" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" bodystart="226" bodyend="233"/>
+        <references refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a24fd8ea903b9ce7b8063a6959ba1e3c0" compoundref="interpolate__logdet_8py" startline="202" endline="209">imate.interpolator.interpolate_logdet.InterpolateLogdet._schatten_to_logdet</references>
+      </memberdef>
+      <memberdef kind="function" id="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a938c843b51d76c472e0d8f9e87801371" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.interpolator.interpolate_logdet.InterpolateLogdet.eval</definition>
+        <argsstring>(self, t)</argsstring>
+        <name>eval</name>
+        <reimplements refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a5b9b4cab566b084d7f1c3d24d3fa75a6">eval</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>t</type>
+          <defname>t</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Computes the function :math:`\\mathrm{trace}\\left( (\\mathbf{A} +
+t \\mathbf{B})^{-1} \\right)` at the input point :math:`t` using exact
+method.
+
+The computation method used in this function is exact (no
+interpolation). This function  is primarily used to compute traceinv on
+the *interpolant points*.
+
+Parameters
+----------
+    t : float or numpy.array
+        An inquiry point, which can be a single number, or an array of
+        numbers.
+
+Returns
+-------
+    traceinv : float or numpy.array
+        The exact value of the traceinv function.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" line="238" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" bodystart="238" bodyend="263"/>
+        <references refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a24fd8ea903b9ce7b8063a6959ba1e3c0" compoundref="interpolate__logdet_8py" startline="202" endline="209">imate.interpolator.interpolate_logdet.InterpolateLogdet._schatten_to_logdet</references>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1aa0fab44823eefba8f131db3cac2b657f" compoundref="interpolate__schatten_8py" startline="366" endline="402">imate.interpolator.interpolate_schatten.InterpolateSchatten._compare_with_exact_solution</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1ab6500d8ed781a3dc971e9c06e856b58f" compoundref="interpolate__schatten_8py" startline="760" endline="962">imate.interpolator.interpolate_schatten.InterpolateSchatten._plot_finite</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a9cbdbcf5477fa0f629bfc90b96124d47" compoundref="interpolate__schatten_8py" startline="592" endline="751">imate.interpolator.interpolate_schatten.InterpolateSchatten._plot_semi_infinite</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1__monomial__basis__functions__method_1_1MonomialBasisFunctionsMethod_1a805c6eb66a8397506be953f71f1f0266" compoundref="__monomial__basis__functions__method_8py" startline="155" endline="169">imate.interpolator._monomial_basis_functions_method.MonomialBasisFunctionsMethod.initialize_interpolator</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1__exact__method_1_1ExactMethod_1ab3fca349a29a103f4496e1c8593fb2a0" compoundref="interpolator_2__exact__method_8py" startline="100" endline="115">imate.interpolator._exact_method.ExactMethod.interpolate</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1af80d3805ea6303c00baf4f1e92d79652" compoundref="interpolate__logdet_8py" startline="449" endline="591">imate.interpolator.interpolate_logdet.InterpolateLogdet.plot</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_1a38158704798314a5ea2a5d3f9fb2a226" compoundref="interpolate__trace_8py" startline="447" endline="607">imate.interpolator.interpolate_trace.InterpolateTrace.plot</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a5877d4041d1fb00a7fcdd06ab6051ee8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.interpolator.interpolate_logdet.InterpolateLogdet.interpolate</definition>
+        <argsstring>(self, t)</argsstring>
+        <name>interpolate</name>
+        <reimplements refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a08adc4093f60a5ffdcb7dd80445b3bdf">interpolate</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>t</type>
+          <defname>t</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Interpolates :math:`\\mathrm{trace} \\left( (\\mathbf{A} +
+t \\mathbf{B})^{-1} \\right)` at :math:`t`.
+
+Parameters
+----------
+t : float, list, numpy.array
+    The inquiry point(s) to be interpolated.
+
+compare_with_exact : bool, default=False
+    If `True`, it computes the trace with exact solution, then compares
+    it with the interpolated solution. The return values of the
+    :func:`InterpolateSchatten.interpolate` function become
+    interpolated trace, exact solution, and relative error. **Note:**
+    When this option is enabled, the exact solution will be computed
+    for all inquiry points, which can take a very long time.
+
+plot : bool, default=False
+    If `True`, it plots the interpolated trace versus the inquiry
+    points. In addition, if the option `compare_with_exact` is also set
+    to `True`, the plotted diagram contains both interpolated and exact
+    solutions and the relative error of interpolated solution with
+    respect to the exact solution.
+
+Returns
+-------
+trace : float or numpy.array
+    The interpolated value of the traceinv function.
+
+Notes
+-----
+
+**Plotting:** Regarding the plotting of the graph of interpolation:
+
+* If no graphical backend exists (such as running the code on a
+  remote server or manually disabling the X11 backend), the plot
+  will not be shown, rather, it will ve saved as an ``svg`` file in
+  the current directory.
+* If the executable ``latex`` is on the path, the plot is rendered
+  using :math:`\\rm\\laTeX`, which then, it takes a bit
+  longer to produce the plot.
+* If :math:`\\rm\\laTeX` is not installed, it uses any available
+  San-Serif font to render the plot.
+
+To manually disable interactive plot display, and save the plot as
+``SVG`` instead, add the following in the very beginning of your code
+before importing ``imate``:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; import os
+    &gt;&gt;&gt; os.environ[&apos;IMATE_NO_DISPLAY&apos;] = &apos;True&apos;
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" line="309" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" bodystart="309" bodyend="366"/>
+        <references refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a24fd8ea903b9ce7b8063a6959ba1e3c0" compoundref="interpolate__logdet_8py" startline="202" endline="209">imate.interpolator.interpolate_logdet.InterpolateLogdet._schatten_to_logdet</references>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a8d73f3cded7d501f9563ce09ff9951e4" compoundref="interpolate__schatten_8py" startline="317" endline="323">imate.interpolator.interpolate_schatten.InterpolateSchatten.__call__</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1ab6500d8ed781a3dc971e9c06e856b58f" compoundref="interpolate__schatten_8py" startline="760" endline="962">imate.interpolator.interpolate_schatten.InterpolateSchatten._plot_finite</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a9cbdbcf5477fa0f629bfc90b96124d47" compoundref="interpolate__schatten_8py" startline="592" endline="751">imate.interpolator.interpolate_schatten.InterpolateSchatten._plot_semi_infinite</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1af80d3805ea6303c00baf4f1e92d79652" compoundref="interpolate__logdet_8py" startline="449" endline="591">imate.interpolator.interpolate_logdet.InterpolateLogdet.plot</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_1a38158704798314a5ea2a5d3f9fb2a226" compoundref="interpolate__trace_8py" startline="447" endline="607">imate.interpolator.interpolate_trace.InterpolateTrace.plot</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1aaf2542966276ed7906e09af38562aced" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.interpolator.interpolate_logdet.InterpolateLogdet.lower_bound</definition>
+        <argsstring>(self, t)</argsstring>
+        <name>lower_bound</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>t</type>
+          <defname>t</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Lower bound of the function :math:`t \\mapsto \\mathrm{trace} \\left(
+(\\mathbf{A} + t \\mathbf{B})^{-1} \\right)`.
+
+The lower bound is given by
+
+.. math::
+
+    \\mathrm{trace}((\\mathbf{A}+t\\mathbf{B})^{-1}) \\geq
+    \\frac{n^2}{\\mathrm{trace}(\\mathbf{A}) +
+    \\mathrm{trace}(t \\mathbf{B})}
+
+Parameters
+----------
+t : float or numpy.array
+    An inquiry point or an array of inquiry points.
+
+Returns
+-------
+    lb : float or numpy.array
+        Lower bound of the affine matrix function.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" line="371" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" bodystart="371" bodyend="399"/>
+        <references refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a24fd8ea903b9ce7b8063a6959ba1e3c0" compoundref="interpolate__logdet_8py" startline="202" endline="209">imate.interpolator.interpolate_logdet.InterpolateLogdet._schatten_to_logdet</references>
+        <references refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a2ca36a0aa8cc228a3030886bb1b749a0" compoundref="interpolate__schatten_8py" startline="478" endline="513">imate.interpolator.interpolate_schatten.InterpolateSchatten.bound</references>
+      </memberdef>
+      <memberdef kind="function" id="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1ae85822d0a526cf09b99ff70669289210" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.interpolator.interpolate_logdet.InterpolateLogdet.upper_bound</definition>
+        <argsstring>(self, t)</argsstring>
+        <name>upper_bound</name>
+        <reimplements refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a787918d590d9327b8d42a157f0abd350">upper_bound</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>t</type>
+          <defname>t</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Upper bound of the function :math:`t \\mapsto \\mathrm{trace} \\left(
+(\\mathbf{A} + t \\mathbf{B})^{-1} \\right)`.
+
+The upper bound is given by
+
+.. math::
+
+        \\frac{1}{\\tau(t)} \\geq \\frac{1}{\\tau_0} + t
+
+where
+
+.. math::
+
+        \\tau(t) = \\frac{\\mathrm{trace}\\left( (\\mathbf{A} +
+        t \\mathbf{B})^{-1}
+        \\right)}{\\mathrm{trace}(\\mathbf{B}^{-1})}
+
+and :math:`\\tau_0 = \\tau(0)`.
+
+Parameters
+----------
+t : float or numpy.array
+    An inquiry point or an array of inquiry points.
+
+Returns
+-------
+ub : float or numpy.array
+    bound of the affine matrix function.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" line="404" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" bodystart="404" bodyend="440"/>
+        <references refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a24fd8ea903b9ce7b8063a6959ba1e3c0" compoundref="interpolate__logdet_8py" startline="202" endline="209">imate.interpolator.interpolate_logdet.InterpolateLogdet._schatten_to_logdet</references>
+      </memberdef>
+      <memberdef kind="function" id="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1af80d3805ea6303c00baf4f1e92d79652" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.interpolator.interpolate_logdet.InterpolateLogdet.plot</definition>
+        <argsstring>(self, inquiry_points, normalize=True, compare=False)</argsstring>
+        <name>plot</name>
+        <reimplements refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a730f165dfcdbdf27fc062b383ee6845a">plot</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>inquiry_points</type>
+          <defname>inquiry_points</defname>
+        </param>
+        <param>
+          <type>normalize</type>
+          <defname>normalize</defname>
+          <defval>True</defval>
+        </param>
+        <param>
+          <type>compare</type>
+          <defname>compare</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Plots the interpolation results, together with the comparison with the
+exact solution and the relative error of the interpolation.
+
+To plot, set ``Plot=True`` argument in
+:mod:`imate.InterpolateSchatten`.
+
+Parameters
+----------
+inquiry_points: numpy.array
+    Inquiry points to be interpolated
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" line="445" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" bodystart="449" bodyend="591"/>
+        <references refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a24fd8ea903b9ce7b8063a6959ba1e3c0" compoundref="interpolate__logdet_8py" startline="202" endline="209">imate.interpolator.interpolate_logdet.InterpolateLogdet._schatten_to_logdet</references>
+        <references refid="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase_1ab536b71b179a86e3c869f7b1f5e1a113" compoundref="__interpolant__base_8py" startline="201" endline="211">imate.interpolator._interpolant_base.InterpolantBase.eval</references>
+        <references refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a938c843b51d76c472e0d8f9e87801371" compoundref="interpolate__logdet_8py" startline="238" endline="263">imate.interpolator.interpolate_logdet.InterpolateLogdet.eval</references>
+        <references refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a5b9b4cab566b084d7f1c3d24d3fa75a6" compoundref="interpolate__schatten_8py" startline="328" endline="361">imate.interpolator.interpolate_schatten.InterpolateSchatten.eval</references>
+        <references refid="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_1ad45cecbdfd3babfe3848b88698372259" compoundref="interpolate__trace_8py" startline="234" endline="259">imate.interpolator.interpolate_trace.InterpolateTrace.eval</references>
+        <references refid="classimate_1_1interpolator_1_1__chebyshev__rational__functions__method_1_1ChebyshevRationalFunctionsMethod_1a541fdb75c923910de2196a62feef1f71" compoundref="__chebyshev__rational__functions__method_8py" startline="354" endline="386">imate.interpolator._chebyshev_rational_functions_method.ChebyshevRationalFunctionsMethod.interpolate</references>
+        <references refid="classimate_1_1interpolator_1_1__eigenvalues__method_1_1EigenvaluesMethod_1aca5f42655c0505dedc8f815aac0514da" compoundref="__eigenvalues__method_8py" startline="213" endline="246">imate.interpolator._eigenvalues_method.EigenvaluesMethod.interpolate</references>
+        <references refid="classimate_1_1interpolator_1_1__exact__method_1_1ExactMethod_1ab3fca349a29a103f4496e1c8593fb2a0" compoundref="interpolator_2__exact__method_8py" startline="100" endline="115">imate.interpolator._exact_method.ExactMethod.interpolate</references>
+        <references refid="classimate_1_1interpolator_1_1__inverse__monomial__basis__functions__method_1_1InverseMonomialBasisFunctionsMethod_1af6bd58b74cf5f9e51124e414f9e5a7d2" compoundref="__inverse__monomial__basis__functions__method_8py" startline="452" endline="511">imate.interpolator._inverse_monomial_basis_functions_method.InverseMonomialBasisFunctionsMethod.interpolate</references>
+        <references refid="classimate_1_1interpolator_1_1__monomial__basis__functions__method_1_1MonomialBasisFunctionsMethod_1a1bcd4522d89fd2005679a18065d08dce" compoundref="__monomial__basis__functions__method_8py" startline="174" endline="196">imate.interpolator._monomial_basis_functions_method.MonomialBasisFunctionsMethod.interpolate</references>
+        <references refid="classimate_1_1interpolator_1_1__radial__basis__functions__method_1_1RadialBasisFunctionsMethod_1a06f515be85c05ab746e88e163ccdb674" compoundref="__radial__basis__functions__method_8py" startline="234" endline="265">imate.interpolator._radial_basis_functions_method.RadialBasisFunctionsMethod.interpolate</references>
+        <references refid="classimate_1_1interpolator_1_1__rational__polynomial__functions__method_1_1RationalPolynomialFunctionsMethod_1ad6a48757676b49ad140b8278ed7b079a" compoundref="__rational__polynomial__functions__method_8py" startline="239" endline="258">imate.interpolator._rational_polynomial_functions_method.RationalPolynomialFunctionsMethod.interpolate</references>
+        <references refid="classimate_1_1interpolator_1_1__spline__method_1_1SplineMethod_1ae6bfde3cf647fe5e563138e20be4149f" compoundref="__spline__method_8py" startline="174" endline="202">imate.interpolator._spline_method.SplineMethod.interpolate</references>
+        <references refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a5877d4041d1fb00a7fcdd06ab6051ee8" compoundref="interpolate__logdet_8py" startline="309" endline="366">imate.interpolator.interpolate_logdet.InterpolateLogdet.interpolate</references>
+        <references refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a08adc4093f60a5ffdcb7dd80445b3bdf" compoundref="interpolate__schatten_8py" startline="407" endline="473">imate.interpolator.interpolate_schatten.InterpolateSchatten.interpolate</references>
+        <references refid="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_1aff80957bada09cedeec5e0ac3c72f54f" compoundref="interpolate__trace_8py" startline="305" endline="364">imate.interpolator.interpolate_trace.InterpolateTrace.interpolate</references>
+        <references refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a5544db6cfa67a301fbf4a9f7f8345cf1" compoundref="interpolate__schatten_8py" startline="264">imate.interpolator.interpolate_schatten.InterpolateSchatten.interpolator</references>
+        <references refid="namespaceimate_1_1__utilities_1_1plot__utilities_1ac5be3859295616ee4d82fdcaab5faedd" compoundref="plot__utilities_8py" startline="64" endline="103">imate._utilities.plot_utilities.load_plot_settings</references>
+        <references refid="namespaceimate_1_1__utilities_1_1plot__utilities_1a21059ce3e73c1ed3f0726f4af5a33f64" compoundref="plot__utilities_8py" startline="163" endline="176">imate._utilities.plot_utilities.show_or_save_plot</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a24fd8ea903b9ce7b8063a6959ba1e3c0" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.interpolator.interpolate_logdet.InterpolateLogdet._schatten_to_logdet</definition>
+        <argsstring>(self, schatten)</argsstring>
+        <name>_schatten_to_logdet</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>schatten</type>
+          <defname>schatten</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Converts Schatten anti-norm to logdet.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" line="202" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" bodystart="202" bodyend="209"/>
+        <references refid="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase_1a1d37a6482c31673943f3fa11f7a5fdb1" compoundref="__interpolant__base_8py" startline="81">imate.interpolator._interpolant_base.InterpolantBase.n</references>
+        <references refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a58f48f4a3b17bc3a0c0367e0eaab3b1d" compoundref="interpolate__schatten_8py" startline="254">imate.interpolator.interpolate_schatten.InterpolateSchatten.n</references>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1ac79e204d7e159e93f8e1c220168b0e5d" compoundref="interpolate__logdet_8py" startline="226" endline="233">imate.interpolator.interpolate_logdet.InterpolateLogdet.__call__</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a938c843b51d76c472e0d8f9e87801371" compoundref="interpolate__logdet_8py" startline="238" endline="263">imate.interpolator.interpolate_logdet.InterpolateLogdet.eval</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a5877d4041d1fb00a7fcdd06ab6051ee8" compoundref="interpolate__logdet_8py" startline="309" endline="366">imate.interpolator.interpolate_logdet.InterpolateLogdet.interpolate</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1aaf2542966276ed7906e09af38562aced" compoundref="interpolate__logdet_8py" startline="371" endline="399">imate.interpolator.interpolate_logdet.InterpolateLogdet.lower_bound</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1af80d3805ea6303c00baf4f1e92d79652" compoundref="interpolate__logdet_8py" startline="449" endline="591">imate.interpolator.interpolate_logdet.InterpolateLogdet.plot</referencedby>
+        <referencedby refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1ae85822d0a526cf09b99ff70669289210" compoundref="interpolate__logdet_8py" startline="404" endline="440">imate.interpolator.interpolate_logdet.InterpolateLogdet.upper_bound</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a38c98fbbe537ad5fac57bc034f681bf6" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.interpolator.interpolate_logdet.InterpolateLogdet._logdet_to_schatten</definition>
+        <argsstring>(self, logdet_)</argsstring>
+        <name>_logdet_to_schatten</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>logdet_</type>
+          <defname>logdet_</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Converts logdet to Schatten anti-norm.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" line="214" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" bodystart="214" bodyend="221"/>
+        <references refid="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase_1a1d37a6482c31673943f3fa11f7a5fdb1" compoundref="__interpolant__base_8py" startline="81">imate.interpolator._interpolant_base.InterpolantBase.n</references>
+        <references refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a58f48f4a3b17bc3a0c0367e0eaab3b1d" compoundref="interpolate__schatten_8py" startline="254">imate.interpolator.interpolate_schatten.InterpolateSchatten.n</references>
+      </memberdef>
+      <memberdef kind="function" id="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1ac5a0b49222bdcb7a9df739ee9c665690" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.interpolator.interpolate_logdet.InterpolateLogdet._compare_with_exact_solution</definition>
+        <argsstring>(self, t, logdet_)</argsstring>
+        <name>_compare_with_exact_solution</name>
+        <reimplements refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1aa0fab44823eefba8f131db3cac2b657f">_compare_with_exact_solution</reimplements>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>t</type>
+          <defname>t</defname>
+        </param>
+        <param>
+          <type>logdet_</type>
+          <defname>logdet_</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Computes the trace with exact method (no interpolation), then compares
+it with the interpolated solution.
+
+Parameters
+----------
+    t : numpy.array
+        Inquiry points
+
+    Trace: float or numpy.array
+        The interpolated computation of trace.
+
+Returns
+-------
+    exact : float or numpy.array
+        Exact solution of trace.
+
+    relative_error : float or numpy.array
+        Relative error of interpolated solution compared to the exact
+        solution.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" line="268" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" bodystart="268" bodyend="304"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><verbatim>Interpolates the Schatten norm, or anti-norm, of an affine matrix function.
+
+The Shcatten-type operator of order :math:`p \\in \\mathbb{R}` of an affine
+matrix function :math:`t \\mapsto \\mathbf{A} + t \\mathbf{B}` is defined
+by
+
+.. math::
+
+    t \\mapsto \\| \\mathbf{A} + t \\mathbf{B} \\|_p
+
+where the matrices :math:`\\mathbf{A}` and :math:`\\mathbf{B}` are
+Hermitian and positive semi-definite (positive-definite if :math:`p &lt; 0`)
+and :math:`t` is a real parameter. The above
+
+This module interpolates the function
+
+.. math::
+
+    t \\mapsto \\mathrm{trace} \\left( (\\mathbf{A} +
+    t \\mathbf{B})^{-1} \\right)
+
+The interpolator is initialized by providing :math:`q` interpolant points
+:math:`t_i`, :math:`i = 1, \\dots, q`, which are often logarithmically
+spaced in some interval :math:`t_i \\in [t_1, t_p]`.
+The interpolator can interpolate the above function at inquiry points
+:math:`t \\in [t_1, t_p]` using various methods.
+
+Parameters
+----------
+    A : numpy.ndarray, scipy.sparse matrix
+        A positive-definite matrix. Matrix can be dense or sparse.
+
+    B : numpy.ndarray, scipy.sparse matrix, default=None
+        A positive-definite matrix. Matrix can be dense or sparse. If
+        `None` or not provided, it is assumed that `B` is an identity
+        matrix of the shape of `A`.
+
+    p : float , default=0
+        Power of matrix.
+
+    ti : list(float), numpy.array(float), default=None
+        A list or an array of points that the interpolator use to
+        interpolate. The trace of inverse is computed for the interpolant
+        points with exact method. If `None`, a default list of interpolant
+        points is used.
+
+    method : str, default=`&apos;IMBF&apos;`
+        Algorithm of interpolation. See table below.
+
+        ==========  ================================  ============
+        `kind`      Description                       Results
+        ==========  ================================  ============
+        ``&apos;EXT&apos;``   Computes without interpolation    exact
+        ``&apos;EIG&apos;``   Uses Eigenvalues of matrix        exact
+        ``&apos;MBF&apos;``   Monomial Basis Functions          interpolated
+        ``&apos;IMBF&apos;``  Inverse monomial basis functions  interpolated
+        ``&apos;RBF&apos;``   Radial basis functions            interpolated
+        ``&apos;RPF&apos;``   Rational polynomial functions     interpolated
+        ==========  ================================  ============
+
+    options : dict, default={&apos;method&apos;: &apos;cholesky&apos;}
+        A dictionary of arguments to pass to :mod:`imate.traceinv` module.
+
+    verbose : bool, default=False
+        If `True`, it prints some information on the computation process.
+
+    kwargs : \\*\\*kwargs
+        Additional options to pass to each specific interpolator class.
+        See the sub-classes of :mod:`imate.InterpolantBase`.
+
+Attributes
+----------
+kind : str
+    Method of interpolation
+verbose : bool
+    Verbosity of the computation process.
+n : int
+    Since of the matrix
+q : int
+    number of interpolant points
+
+Methods
+-------
+__call__
+eval
+interpolate
+lower_bound
+upper_bound
+plot
+
+Examples
+--------
+
+Interpolate the trace of inverse of the affine matrix function
+:math:`\\mathbf{A} + t \\mathbf{B}`:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; # Generate two sample matrices (symmetric and positive-definite)
+    &gt;&gt;&gt; from imate import generate_matrix
+    &gt;&gt;&gt; A = generate_matrix(size=20, correlation_scale=1e-1)
+    &gt;&gt;&gt; B = generate_matrix(size=20, correlation_scale=2e-2)
+
+    &gt;&gt;&gt; # Initialize interpolator object
+    &gt;&gt;&gt; from imate import InterpolateSchatten
+    &gt;&gt;&gt; ti = [1e-2, 1e-1, 1, 1e1]
+    &gt;&gt;&gt; TI = InterpolateSchatten(A, B, ti)
+
+    &gt;&gt;&gt; # Interpolate at an inquiry point t = 0.4
+    &gt;&gt;&gt; t = 4e-1
+    &gt;&gt;&gt; Trace = TI.interpolate(t)
+
+Interpolate an array of inquiry points
+
+.. code-block:: python
+
+    &gt;&gt;&gt; # Interpolate at an array of points
+    &gt;&gt;&gt; import numpy
+    &gt;&gt;&gt; t_array = numoy.logspace(-2, 1, 10)
+    &gt;&gt;&gt; Trace = TI.interpolator(t_array)
+
+By default, the interpolation kind is ``&apos;IMBF&apos;``. Use a different
+interpolation kind, such as ``&apos;RBF&apos;`` by
+
+.. code-block:: python
+
+    &gt;&gt;&gt; TI = InterpolateSchatten(A, B, ti, kind=&apos;RBF&apos;)
+
+By default, the trace is computed with the Cholesky decomposition method as
+the interpolant points. Configure the
+computation method by ``options`` as
+
+.. code-block:: python
+
+    &gt;&gt;&gt; # Specify arguments to imate.omputeTraceOfInverse in a dictionary
+    &gt;&gt;&gt; options = \
+    ... {
+    ...     &apos;method&apos;: &apos;hutchinson&apos;,
+    ...     &apos;NumIterations&apos;: 20
+    ... }
+
+    &gt;&gt;&gt; # Pass the options to the interpolator
+    &gt;&gt;&gt; TI = InterpolateSchatten(A, B, ti,
+    &gt;&gt;&gt;     options=options)
+
+See Also
+--------
+    traceinv : Computes trace of inverse of a matrix.</verbatim> </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>imate.interpolator.interpolate_schatten.InterpolateSchatten</label>
+        <link refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>object</label>
+      </node>
+      <node id="1">
+        <label>imate.interpolator.interpolate_logdet.InterpolateLogdet</label>
+        <link refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>imate.interpolator.interpolate_schatten.InterpolateSchatten</label>
+        <link refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>object</label>
+      </node>
+      <node id="1">
+        <label>imate.interpolator.interpolate_logdet.InterpolateLogdet</label>
+        <link refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" line="30" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/interpolate_logdet.py" bodystart="30" bodyend="591"/>
+    <listofallmembers>
+      <member refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1ac79e204d7e159e93f8e1c220168b0e5d" prot="public" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>__call__</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a69c0b47a270f0d2b764d530772092ff6" prot="public" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>__init__</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1aeb6416e306aeaec7c4cfde673bb87698" prot="public" virt="non-virtual" ambiguityscope="imate::interpolator::interpolate_schatten::InterpolateSchatten."><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>__init__</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1ac5a0b49222bdcb7a9df739ee9c665690" prot="private" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>_compare_with_exact_solution</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a38c98fbbe537ad5fac57bc034f681bf6" prot="private" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>_logdet_to_schatten</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1ab6500d8ed781a3dc971e9c06e856b58f" prot="private" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>_plot_finite</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a9cbdbcf5477fa0f629bfc90b96124d47" prot="private" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>_plot_semi_infinite</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a24fd8ea903b9ce7b8063a6959ba1e3c0" prot="private" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>_schatten_to_logdet</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a2ca36a0aa8cc228a3030886bb1b749a0" prot="public" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>bound</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a938c843b51d76c472e0d8f9e87801371" prot="public" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>eval</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1a5877d4041d1fb00a7fcdd06ab6051ee8" prot="public" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>interpolate</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a5544db6cfa67a301fbf4a9f7f8345cf1" prot="public" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>interpolator</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1aa090acef24889aa13b428da062962279" prot="public" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>kind</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1aaf2542966276ed7906e09af38562aced" prot="public" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>lower_bound</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a58f48f4a3b17bc3a0c0367e0eaab3b1d" prot="public" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>n</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1a3b303e9e315a234f288c3d9487513f05" prot="public" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>p</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1af80d3805ea6303c00baf4f1e92d79652" prot="public" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>plot</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1af0effb5324f0e773ae8deb275099cf43" prot="public" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>q</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet_1ae85822d0a526cf09b99ff70669289210" prot="public" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>upper_bound</name></member>
+      <member refid="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten_1aa20bf547bac7d4856e9a6e5923ac379c" prot="public" virt="non-virtual"><scope>imate::interpolator::interpolate_logdet::InterpolateLogdet</scope><name>verbose</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

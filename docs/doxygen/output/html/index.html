@@ -1,0 +1,543 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>imate: How to Build</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js", "TeX/AMSfonts.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom-alternative.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/ameli/imate" class="github-corner" title="View source on GitHub" target="_blank">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo-imate-light.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">imate
+   </div>
+   <div id="projectbrief">C++/CUDA Reference</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Search','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('index.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="PageDoc"><div class="header">
+  <div class="headertitle">
+<div class="title">How to Build </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_README"></a></p>
+<h1><a class="anchor" id="autotoc_md15"></a>
+Compile from Source</h1>
+<h2><a class="anchor" id="autotoc_md16"></a>
+When to Compile |project|</h2>
+<p>Generally, it is not required to compile |project| as the installation through <code>pip</code> and <code>conda</code> contains most of its features, including support for GPU devices. You may compile |project| if you want to:</p>
+<ul>
+<li>modify |project|.</li>
+<li>use <code>OpenBLAS</code> instead of the built-in matrix library of |project|.</li>
+<li>build |project| for a <code>specific version</code> of CUDA Toolkit.</li>
+<li>disable <code>dynamic loading</code> feature of |project| for CUDA libraries.</li>
+<li>enable <code>debugging mode</code>.</li>
+<li>or, build this <code>documentation</code>.</li>
+</ul>
+<p>Otherwise, install |project| through the :ref:<code>Python Wheels &lt;install-wheels&gt;</code>.</p>
+<p>This section walks you through the compilation process.</p>
+<h2><a class="anchor" id="autotoc_md17"></a>
+Install C++ Compiler and OpenMP (&lt;tt&gt;Required&lt;/tt&gt;)</h2>
+<p>Compile |project| with either of GCC, Clang/LLVM, or Intel C++ compiler on UNIX operating systems. For Windows, compile |project| with <code>Microsoft Visual Studio (MSVC) Compiler for C++ &lt;<a href="https://code.visualstudio.com/docs/cpp/config-msvc">https://code.visualstudio.com/docs/cpp/config-msvc</a>#:~:text=You%20can%20install%20the%20C,the%20C%2B%2B%20workload%20is%20checked.&gt;</code>_.</p>
+<p>.. rubric:: Install GNU GCC Compiler</p>
+<p>.. tab-set:: </p><pre class="fragment">.. tab-item:: Ubuntu/Debian
+    :sync: ubuntu
+
+    .. prompt:: bash
+
+        sudo apt install build-essential
+
+.. tab-item:: CentOS 7
+    :sync: centos
+
+    .. prompt:: bash
+
+        sudo yum group install "Development Tools"
+
+.. tab-item:: RHEL 9
+    :sync: rhel
+
+    .. prompt:: bash
+
+        sudo dnf group install "Development Tools"
+
+.. tab-item:: macOS
+    :sync: osx
+
+    .. prompt:: bash
+
+        sudo brew install gcc libomp
+</pre><p> Then, export <code>C</code> and <code>CXX</code> variables by</p>
+<p>.. prompt:: bash</p>
+<p>export CC=/usr/local/bin/gcc export CXX=/usr/local/bin/g++</p>
+<p>.. rubric:: Install Clang/LLVN Compiler</p>
+<p>.. tab-set:: </p><pre class="fragment">.. tab-item:: Ubuntu/Debian
+    :sync: ubuntu
+
+    .. prompt:: bash
+
+        sudo apt install clang
+
+.. tab-item:: CentOS 7
+    :sync: centos
+
+    .. prompt:: bash
+
+        sudo yum install yum-utils
+        sudo yum-config-manager --enable extras
+        sudo yum makecache
+        sudo yum install clang
+
+.. tab-item:: RHEL 9
+    :sync: rhel
+
+    .. prompt:: bash
+
+        sudo dnf install yum-utils
+        sudo dnf config-manager --enable extras
+        sudo dnf makecache
+        sudo dnf install clang
+
+.. tab-item:: macOS
+    :sync: osx
+
+    .. prompt:: bash
+
+        sudo brew install llvm libomp-dev
+</pre><p> Then, export <code>C</code> and <code>CXX</code> variables by</p>
+<p>.. prompt:: bash</p>
+<p>export CC=/usr/local/bin/clang export CXX=/usr/local/bin/clang++</p>
+<p>.. rubric:: Install Intel oneAPI Compiler</p>
+<p>To install <code>Intel Compiler</code> see <code>Intel oneAPI Base Toolkit &lt;<a href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=linux&distributions=aptpackagemanager">https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=linux&amp;distributions=aptpackagemanager</a>&gt;</code>_.</p>
+<h2><a class="anchor" id="autotoc_md18"></a>
+Install OpenMP (&lt;tt&gt;Required&lt;/tt&gt;)</h2>
+<p>OpenMP comes with the C++ compiler installed in the above. However, you may alternatively install it directly on UNIX. Install <code>OpenMP</code> library on UNIX as follows:</p>
+<p>.. tab-set:: </p><pre class="fragment">.. tab-item:: Ubuntu/Debian
+    :sync: ubuntu
+
+    .. prompt:: bash
+
+        sudo apt install libgomp1 -y
+
+.. tab-item:: CentOS 7
+    :sync: centos
+
+    .. prompt:: bash
+
+        sudo yum install libgomp -y
+
+.. tab-item:: RHEL 9
+    :sync: rhel
+
+    .. prompt:: bash
+
+        sudo dnf install libgomp -y
+
+.. tab-item:: macOS
+    :sync: osx
+
+    .. prompt:: bash
+
+        sudo brew install libomp
+</pre><p> .. _install-openblas:</p>
+<h2><a class="anchor" id="autotoc_md19"></a>
+OpenBLAS (&lt;tt&gt;Optional&lt;/tt&gt;)</h2>
+<p>|project| can be compiled with and without OpenBLAS. If you are compiling |project| with OpenBLAS, install OpenBLAS library by</p>
+<p>.. tab-set::</p>
+<p>.. tab-item:: Ubuntu/Debian :sync: ubuntu</p>
+<p>.. prompt:: bash </p><pre class="fragment">  sudo apt-get install libopenblas-dev
+</pre><p> .. tab-item:: CentOS 7 :sync: centos</p>
+<p>.. prompt:: bash </p><pre class="fragment">sudo yum install openblas-devel
+</pre><p> .. tab-item:: RHEL 9 :sync: rhel</p>
+<p>.. prompt:: bash </p><pre class="fragment">sudo dnf install openblas-devel
+</pre><p> .. tab-item:: macOS :sync: osx</p>
+<p>.. prompt:: bash </p><pre class="fragment">sudo brew install openblas
+</pre><p> Alternatively, you can install OpenBLAS using <code>conda</code>:</p>
+<p>.. prompt:: bash </p><pre class="fragment">conda install -c anaconda openblas
+</pre><p> .. note:: </p><pre class="fragment">To build |project| with OpenBLAS, you should also set ``USE_CBLAS`` environment variable as described in :ref:`Configure Compile-Time Environment Variables &lt;config-env-variables&gt;`.
+</pre><p> .. _install-cuda:</p>
+<h2><a class="anchor" id="autotoc_md20"></a>
+Install CUDA Compiler (&lt;tt&gt;Optional&lt;/tt&gt;)</h2>
+<p>To use |project| on GPU devices, it should be compiled with CUDA compiler. Skip this part if you are not using GPU.</p>
+<p>.. note:: </p><pre class="fragment">The minimum version of CUDA to compile |project| is `CUDA 10.0`.
+</pre><p> .. attention:: </p><pre class="fragment">NVIDIA does not support macOS. You can install NVIDIA CUDA Toolkit on Linux and Windows only.
+</pre><p>It is not required to install the entire CUDA Toolkit. Install only the CUDA compiler and the development libraries of cuBLAS and cuSparse by</p>
+<p>.. tab-set:: </p><pre class="fragment">.. tab-item:: Ubuntu/Debian
+    :sync: ubuntu
+
+    .. prompt:: bash
+
+        sudo apt install -y \
+            cuda-nvcc-11-7 \
+            libcublas-11-7 \
+            libcublas-dev-11-7 \
+            libcusparse-11-7 -y \
+            libcusparse-dev-11-7
+
+.. tab-item:: CentOS 7
+    :sync: centos
+
+    .. prompt:: bash
+
+        sudo yum install --setopt=obsoletes=0 -y \
+            cuda-nvcc-11-7.x86_64 \
+            cuda-cudart-devel-11-7.x86_64 \
+            libcublas-11-7.x86_64 \
+            libcublas-devel-11-7.x86_64 \
+            libcusparse-11-7.x86_64 \
+            libcusparse-devel-11-7.x86_64
+
+.. tab-item:: RHEL 9
+    :sync: rhel
+
+    .. prompt:: bash
+
+        sudo dnf install --setopt=obsoletes=0 -y \
+            cuda-nvcc-11-7.x86_64 \
+            cuda-cudart-devel-11-7.x86_64 \
+            libcublas-11-7.x86_64 \
+            libcublas-devel-11-7.x86_64 \
+            libcusparse-11-7.x86_64 \
+            libcusparse-devel-11-7.x86_64
+</pre><p> Update <code>PATH</code> with the CUDA installation location by</p>
+<p>.. prompt:: bash </p><pre class="fragment">echo 'export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}' &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</pre><p> Check if the CUDA compiler is available with <code>which nvcc</code>.</p>
+<p>.. note:: </p><pre class="fragment">To build |project| with CUDA, you should also set ``CUDA_HOME``, ``USE_CUDA``, and optionally set ``CUDA_DYNAMIC_LOADING`` environment variabls as described in :ref:`Configure Compile-Time Environment Variables &lt;config-env-variables&gt;`.
+</pre> <h2><a class="anchor" id="autotoc_md21"></a>
+Load CUDA Compiler on GPU Cluster (&lt;tt&gt;Optional&lt;/tt&gt;)</h2>
+<p>This section is relevant if you are using GPU on a cluster, and skip this section otherwise.</p>
+<p>On a GPU cluster, chances are the CUDA Toolkit is already installed. If the cluster uses <code>module</code> interface, load CUDA as follows.</p>
+<p>First, check if a CUDA module is available by</p>
+<p>.. prompt:: bash </p><pre class="fragment">module avail
+</pre><p> Load both CUDA and GCC by</p>
+<p>.. prompt:: bash </p><pre class="fragment">module load cuda gcc
+</pre><p> You may specify CUDA version if multiple CUDA versions are available, such as by</p>
+<p>.. prompt:: bash </p><pre class="fragment">module load cuda/11.7 gcc/6.3
+</pre><p> You may check if CUDA Compiler is available with <code>which nvcc</code>.</p>
+<p>.. _config-env-variables:</p>
+<h2><a class="anchor" id="autotoc_md22"></a>
+Configure Compile-Time Environment Variables (&lt;tt&gt;Optional&lt;/tt&gt;)</h2>
+<p>Set the following environment variables as desired to configure the compilation process.</p>
+<p>.. glossary:: </p><pre class="fragment">``CUDA_HOME``, ``CUDA_PATH``, ``CUDA_ROOT``
+
+    These variables are relevant only if you are compiling with CUDA compiler. :ref:`Install CUDA Toolkit &lt;install-cuda&gt;` and specify the home directory of CUDA Toolkit by setting either of these variables. The home directory should be a path containing the executable ``/bin/nvcc`` (or ``\bin\nvcc.exe`` on Windows). For instance, if ``/usr/local/cuda/bin/nvcc`` exists, export the following:
+
+    .. tab-set::
+
+        .. tab-item:: UNIX
+            :sync: unix
+
+            .. prompt:: bash
+
+                export CUDA_HOME=/usr/local/cuda
+
+        .. tab-item:: Windows (Powershell)
+            :sync: win
+
+            .. prompt:: powershell
+
+                $env:export CUDA_HOME = "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7"
+
+``USE_CUDA``
+
+    This variable is relevant only if you are compiling with CUDA compiler. By default, this variable is set to `0`. To compile |project| with CUDA, :ref:`install CUDA Toolkit &lt;install-cuda&gt;` and set this variable to `1` by
+
+    .. tab-set::
+
+        .. tab-item:: UNIX
+            :sync: unix
+
+            .. prompt:: bash
+
+                export USE_CUDA=1
+
+        .. tab-item:: Windows (Powershell)
+            :sync: win
+
+            .. prompt:: powershell
+
+                $env:export USE_CUDA = "1"
+
+``CUDA_DYNAMIC_LOADING``
+
+    This variable is relevant only if you are compiling with CUDA compiler. By default, this variable is set to `0`.  When |project| is complied with CUDA, the CUDA runtime libraries bundle with the final installation of |project| package, making it over 700MB. While this is generally not an issue for most users, often a small package is preferable if the installed package has to be distributed to other machines. To this end, enable the custom-made `dynamic loading` feature of |project|. In this case, the CUDA libraries will not bundle with the |project| installation, rather, |project| is instructed to load the existing CUDA libraries of the host machine at runtime. To enable dynamic loading, make sure :ref:`CUDA Toolkit &lt;install-cuda&gt;` is installed, then set this variable to `1` by
+
+    .. tab-set::
+
+        .. tab-item:: UNIX
+            :sync: unix
+
+            .. prompt:: bash
+
+                export CUDA_DYNAMIC_LOADING=1
+
+        .. tab-item:: Windows (Powershell)
+            :sync: win
+
+            .. prompt:: powershell
+
+                $env:export CUDA_DYNAMIC_LOADING = "1"
+
+``CYTHON_BUILD_IN_SOURCE``
+
+    By default, this variable is set to `0`, in which the compilation process generates source files in outside of the source directry, in ``/build`` directry. When it is set to `1`, the build files are generated in source directory. To set this variable, run
+
+    .. tab-set::
+
+        .. tab-item:: UNIX
+            :sync: unix
+
+            .. prompt:: bash
+
+                export CYTHON_BUILD_IN_SOURCE=1
+
+        .. tab-item:: Windows (Powershell)
+            :sync: win
+
+            .. prompt:: powershell
+
+                $env:export CYTHON_BUILD_IN_SOURCE = "1"
+
+    .. hint::
+
+        If you generated the source files inside the source directory by setting this variable, and later you wanted to clean them, see :ref:`Clean Compilation Files &lt;clean-files&gt;`.
+
+``CYTHON_BUILD_FOR_DOC``
+
+    Set this variable if you are building this documentation. By default, this variable is set to `0`. When it is set to `1`, the package will be built suitable for generating the documentation. To set this variable, run
+
+    .. tab-set::
+
+        .. tab-item:: UNIX
+            :sync: unix
+
+            .. prompt:: bash
+
+                export CYTHON_BUILD_FOR_DOC=1
+
+        .. tab-item:: Windows (Powershell)
+            :sync: win
+
+            .. prompt:: powershell
+
+                $env:export CYTHON_BUILD_FOR_DOC = "1"
+
+    .. warning::
+
+        Do not use this option to build the package for `production` (release) as it has a slower performance. Building the package by enabling this variable is only sitable for generting the documentation.
+
+    .. hint::
+
+        By enabling this variable, the build will be `in-source`, similar to setting ``CYTHON_BUILD_IN_SOURCE=1``. To clean the source directory from the generated files, see :ref:`Clean Compilation Files &lt;clean-files&gt;`.
+
+``USE_CBLAS``
+
+    By default, this variable is set to `0`. Set this variable to `1` if you want to use OpenBLAS instead of the built-in library of |project|. :ref:`Install OpenBLAS &lt;install-openblas&gt;` and set by
+
+    .. tab-set::
+
+        .. tab-item:: UNIX
+            :sync: unix
+
+            .. prompt:: bash
+
+                export USE_CBLAS=1
+
+        .. tab-item:: Windows (Powershell)
+            :sync: win
+
+            .. prompt:: powershell
+
+                $env:export USE_CBLAS = "1"
+
+``DEBUG_MODE``
+
+    By default, this variable is set to `0`, meaning that |project| is compiled without debugging mode enabled. By enabling debug mode, you can debug the code with tools such as ``gdb``. Set this variable to `1` to enable debugging mode by
+
+    .. tab-set::
+
+        .. tab-item:: UNIX
+            :sync: unix
+
+            .. prompt:: bash
+
+                export DEBUG_MODE=1
+
+        .. tab-item:: Windows (Powershell)
+            :sync: win
+
+            .. prompt:: powershell
+
+                $env:export DEBUG_MODE = "1"
+
+    .. attention::
+
+        With the debugging mode enabled, the size of the package will be larger and its performance may be slower, which is not suitable for `production`.
+</pre> <h2><a class="anchor" id="autotoc_md23"></a>
+Compile and Install</h2>
+<p>|repo-size|</p>
+<p>Get the source code of |project| from the Github repository by</p>
+<p>.. prompt:: bash </p><pre class="fragment">git clone https://github.com/ameli/imate.git
+cd imate
+</pre><p> To compile and install, run</p>
+<p>.. prompt:: bash </p><pre class="fragment">python setup.py install
+</pre><p> The above command may need <code>sudo</code> privilege.</p>
+<p>.. rubric:: A Note on Using <code>sudo</code></p>
+<p>If you are using <code>sudo</code> for the above command, add <code>-E</code> option to <code>sudo</code> to make sure the environment variables (if you have set any) are accessible to the root user. For instance</p>
+<p>.. tab-set:: </p><pre class="fragment">.. tab-item:: UNIX
+    :sync: unix
+
+    .. code-block:: Bash
+        :emphasize-lines: 5
+
+        export CUDA_HOME=/usr/local/cuda
+        export USE_CUDA=1
+        export CUDA_DYNAMIC_LOADING=1
+
+        sudo -E python setup.py install
+
+.. tab-item:: Windows (Powershell)
+    :sync: win
+
+    .. code-block:: PowerShell
+        :emphasize-lines: 5
+
+        $env:export CUDA_HOME = "/usr/local/cuda"
+        $env:export USE_CUDA = "1"
+        $env:export CUDA_DYNAMIC_LOADING = "1"
+
+        sudo -E python setup.py install
+</pre><p> Once the installation is completed, check the package can be loaded by</p>
+<p>.. prompt:: bash </p><pre class="fragment">cd ..  # do not load imate in the same directory of the source code
+python -c "import imate; imate.info()"
+</pre><p> The output to the above command should be similar to the following:</p>
+<p>.. code-block:: text </p><pre class="fragment">imate version   : 0.15.0
+processor       : Intel(R) Xeon(R) CPU E5-2623 v3 @ 3.00GHz
+num threads     : 8
+gpu device      : GeForce GTX 1080 Ti
+num gpu devices : 4
+cuda version    : 11.2.0
+process memory  : 61.4 (Mb)
+</pre><p> .. attention:: </p><pre class="fragment">Do not load imate if your current working directory is the root directory of the source code of |project|, since python cannot load the installed package properly. Always change the current direcotry to somewhere else (for example, ``cd ..`` as shown in the above).
+</pre><p> .. _clean-files:</p>
+<p>.. rubric:: Cleaning Compilation Files</p>
+<p>If you set <code>CYTHON_BUILD_IN_SOURCE</code> or <code>CYTHON_BUILD_FOR_DOC</code> to <code>1</code>, the output files of Cython's compiler will be generated inside the source code directories. To clean the source code from these files (<code>optional</code>), run the following:</p>
+<p>.. prompt:: bash </p><pre class="fragment">python setup.py clean
+</pre> </div></div><!-- PageDoc -->
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Thu Sep 1 2022 17:18:53 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -29,7 +29,7 @@ class ExactMethod(InterpolantBase):
 
     **Class Inheritance:**
 
-    .. inheritance-diagram:: imate.InterpolateTraceinv.ExactMethod
+    .. inheritance-diagram:: imate.interpolator._exact_method.ExactMethod
         :parts: 1
 
     :param A: A positive-definite matrix. Matrix can be dense or sparse.

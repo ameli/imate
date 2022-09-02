@@ -27,7 +27,7 @@
 ///          \f]
 ///
 ///          However, instead of a matrix function, the equivalent scalar
-///          function \f$ f: \mathbb{R} \to \mathbb{R}\ f$ is defiend which
+///          function \f$ f: \mathbb{R} \to \mathbb{R} \f$ is defiend which
 ///          acts on the eigenvalues of the matrix.
 ///
 /// \note    This class is a base class for other classes and serves as an
@@ -59,7 +59,7 @@ class Function
 ///          \f]
 ///
 ///          However, instead of a matrix function, the equivalent scalar
-///          function \f$ f: \mathbb{R} \to \mathbb{R}\ f$ is defiend which
+///          function \f$ f: \mathbb{R} \to \mathbb{R} \f$ is defiend which
 ///          acts on the eigenvalues of the matrix.
 
 class Identity : public Function
@@ -86,7 +86,7 @@ class Identity : public Function
 ///          \f]
 ///
 ///          However, instead of a matrix function, the equivalent scalar
-///          function \f$ f: \mathbb{R} \to \mathbb{R}\ f$ is defiend which
+///          function \f$ f: \mathbb{R} \to \mathbb{R} \f$ is defiend which
 ///          acts on the eigenvalues of the matrix.
 
 class Inverse : public Function
@@ -113,7 +113,7 @@ class Inverse : public Function
 ///          \f]
 ///
 ///          However, instead of a matrix function, the equivalent scalar
-///          function \f$ f: \mathbb{R} \to \mathbb{R}\ f$ is defiend which
+///          function \f$ f: \mathbb{R} \to \mathbb{R} \f$ is defiend which
 ///          acts on the eigenvalues of the matrix.
 
 class Logarithm : public Function
@@ -140,7 +140,7 @@ class Logarithm : public Function
 ///          \f]
 ///
 ///          However, instead of a matrix function, the equivalent scalar
-///          function \f$ f: \mathbb{R} \to \mathbb{R}\ f$ is defiend which
+///          function \f$ f: \mathbb{R} \to \mathbb{R} \f$ is defiend which
 ///          acts on the eigenvalues of the matrix.
 
 class Exponential : public Function
@@ -169,7 +169,7 @@ class Exponential : public Function
 ///          \f]
 ///
 ///          However, instead of a matrix function, the equivalent scalar
-///          function \f$ f: \mathbb{R} \to \mathbb{R}\ f$ is defiend which
+///          function \f$ f: \mathbb{R} \to \mathbb{R} \f$ is defiend which
 ///          acts on the eigenvalues of the matrix.
 
 class Power : public Function
@@ -205,7 +205,7 @@ class Power : public Function
 ///          \f]
 ///
 ///          However, instead of a matrix function, the equivalent scalar
-///          function \f$ f: \mathbb{R} \to \mathbb{R}\ f$ is defiend which
+///          function \f$ f: \mathbb{R} \to \mathbb{R} \f$ is defiend which
 ///          acts on the eigenvalues of the matrix.
 
 class Gaussian : public Function
@@ -241,7 +241,7 @@ class Gaussian : public Function
 ///          \f]
 ///
 ///          However, instead of a matrix function, the equivalent scalar
-///          function \f$ f: \mathbb{R} \to \mathbb{R}\ f$ is defiend which
+///          function \f$ f: \mathbb{R} \to \mathbb{R} \f$ is defiend which
 ///          acts on the eigenvalues of the matrix.
 ///
 /// \note    The smooth step function defined here should not be confused with

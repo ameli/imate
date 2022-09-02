@@ -165,7 +165,7 @@ namespace cusparse_interface
     // cusparse matrix buffer size (float)
     // ===========================
 
-    /// \brief A template wrapper for \cu cusparseSpMat_buffersize for \c float
+    /// \brief A template wrapper for \c cusparseSpMat_buffersize for \c float
     ///        precision data. This function determines the buffer size needed
     ///        for matrix-vector multiplication using \c cusparseSpMV. The
     ///        output is \c buffer_size variable.
@@ -195,7 +195,7 @@ namespace cusparse_interface
     // cusparse matrix buffer size (double)
     // ===========================
 
-    /// \brief A template wrapper for \cu cusparseSpMat_buffersize for
+    /// \brief A template wrapper for \c cusparseSpMat_buffersize for
     ///        \c double precision data. This function determines the buffer
     ///        size needed for matrix-vector multiplication using
     ///        \c cusparseSpMV. The output is \c buffer_size variable.

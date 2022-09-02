@@ -1,0 +1,315 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classCudaInterface" kind="class" language="C++" prot="public">
+    <compoundname>CudaInterface</compoundname>
+    <includes refid="cuda__interface_8h" local="no">cuda_interface.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename ArrayType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classCudaInterface_1a65875bf1fdfe213562b31e3459f04b33" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>ArrayType *</type>
+        <definition>ArrayType * CudaInterface&lt; ArrayType &gt;::alloc</definition>
+        <argsstring>(const LongIndexType array_size)</argsstring>
+        <name>alloc</name>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>array_size</declname>
+        </param>
+        <briefdescription>
+<para>Allocates memory on gpu device. This function creates a pointer and returns it. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">array_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the array to be allocated. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A pointer to the allocated 1D array on device. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.h" line="41" column="26" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.cu" bodystart="36" bodyend="60"/>
+        <references refid="cudart__symbols_8cpp_1ac63ffd93e344b939d6399199d8b12fef" compoundref="cudart__symbols_8cpp" startline="326" endline="340">cudaMalloc</references>
+        <referencedby refid="classcuCSCMatrix_1ad56cd20e4a4603cf94fb54e65f22e3eb" compoundref="cu__csc__matrix_8cu" startline="169" endline="233">cuCSCMatrix&lt; DataType &gt;::copy_host_to_device</referencedby>
+        <referencedby refid="classcuCSRMatrix_1af1c70b75225b3c39e9e8beab3255d897" compoundref="cu__csr__matrix_8cu" startline="165" endline="224">cuCSRMatrix&lt; DataType &gt;::copy_host_to_device</referencedby>
+        <referencedby refid="classcuDenseMatrix_1a7a6f586d01300175558bc9706ff4346e" compoundref="cu__dense__matrix_8cu" startline="95" endline="123">cuDenseMatrix&lt; DataType &gt;::copy_host_to_device</referencedby>
+        <referencedby refid="cu__golub__kahn__bidiagonalization_8cu_1aa755f765f48f41b63d9dab3528b5f0b2" compoundref="cu__golub__kahn__bidiagonalization_8cu" startline="113" endline="242">cu_golub_kahn_bidiagonalization</referencedby>
+        <referencedby refid="cu__lanczos__tridiagonalization_8cu_1a30ec831ebcc2ce17eefefb770b13773d" compoundref="cu__lanczos__tridiagonalization_8cu" startline="119" endline="248">cu_lanczos_tridiagonalization</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCudaInterface_1a9076e1c17225c8df226148664f88f69a" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CudaInterface&lt; ArrayType &gt;::alloc</definition>
+        <argsstring>(ArrayType *&amp;device_array, const LongIndexType array_size)</argsstring>
+        <name>alloc</name>
+        <param>
+          <type>ArrayType *&amp;</type>
+          <declname>device_array</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>array_size</declname>
+        </param>
+        <briefdescription>
+<para>Allocates memory on gpu device. This function uses an existing given pointer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">device_array</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to the device memory to be allocated </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">array_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the array to be allocated. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.h" line="44" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.cu" bodystart="76" bodyend="99"/>
+        <references refid="cudart__symbols_8cpp_1ac63ffd93e344b939d6399199d8b12fef" compoundref="cudart__symbols_8cpp" startline="326" endline="340">cudaMalloc</references>
+      </memberdef>
+      <memberdef kind="function" id="classCudaInterface_1a45411db9045668d1c0407e33d7b4e825" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CudaInterface&lt; ArrayType &gt;::alloc_bytes</definition>
+        <argsstring>(void *&amp;device_array, const size_t num_bytes)</argsstring>
+        <name>alloc_bytes</name>
+        <param>
+          <type>void *&amp;</type>
+          <declname>device_array</declname>
+        </param>
+        <param>
+          <type>const size_t</type>
+          <declname>num_bytes</declname>
+        </param>
+        <briefdescription>
+<para>Allocates memory on gpu device. This function uses an existing given pointer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">device_array</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to the device memory to be allocated </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_bytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes of the array to be allocated. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.h" line="49" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.cu" bodystart="115" bodyend="125"/>
+        <references refid="cudart__symbols_8cpp_1ac63ffd93e344b939d6399199d8b12fef" compoundref="cudart__symbols_8cpp" startline="326" endline="340">cudaMalloc</references>
+        <referencedby refid="classcuCSCMatrix_1af9b7af845f6f68d64b812709cd0f59ef" compoundref="cu__csc__matrix_8cu" startline="250" endline="279">cuCSCMatrix&lt; DataType &gt;::allocate_buffer</referencedby>
+        <referencedby refid="classcuCSRMatrix_1ae629d237f7336a31473b637b9aeb2741" compoundref="cu__csr__matrix_8cu" startline="241" endline="270">cuCSRMatrix&lt; DataType &gt;::allocate_buffer</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCudaInterface_1a95efada2ca34b3490f96ccfa97b4d6eb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CudaInterface&lt; ArrayType &gt;::copy_to_device</definition>
+        <argsstring>(const ArrayType *host_array, const LongIndexType array_size, ArrayType *device_array)</argsstring>
+        <name>copy_to_device</name>
+        <param>
+          <type>const ArrayType *</type>
+          <declname>host_array</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>array_size</declname>
+        </param>
+        <param>
+          <type>ArrayType *</type>
+          <declname>device_array</declname>
+        </param>
+        <briefdescription>
+<para>Copies memory on host to device memory. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">host_array</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer of 1D array memory on host </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">array_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of array on host. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">device_array</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the destination memory on device. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.h" line="54" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.cu" bodystart="142" bodyend="151"/>
+        <references refid="cudart__symbols_8cpp_1ac6037fee0e6fa6d528cb60e1c8e7ba26" compoundref="cudart__symbols_8cpp" startline="350" endline="368">cudaMemcpy</references>
+        <referencedby refid="classcuCSCMatrix_1ad56cd20e4a4603cf94fb54e65f22e3eb" compoundref="cu__csc__matrix_8cu" startline="169" endline="233">cuCSCMatrix&lt; DataType &gt;::copy_host_to_device</referencedby>
+        <referencedby refid="classcuCSRMatrix_1af1c70b75225b3c39e9e8beab3255d897" compoundref="cu__csr__matrix_8cu" startline="165" endline="224">cuCSRMatrix&lt; DataType &gt;::copy_host_to_device</referencedby>
+        <referencedby refid="classcuDenseMatrix_1a7a6f586d01300175558bc9706ff4346e" compoundref="cu__dense__matrix_8cu" startline="95" endline="123">cuDenseMatrix&lt; DataType &gt;::copy_host_to_device</referencedby>
+        <referencedby refid="cu__golub__kahn__bidiagonalization_8cu_1aa755f765f48f41b63d9dab3528b5f0b2" compoundref="cu__golub__kahn__bidiagonalization_8cu" startline="113" endline="242">cu_golub_kahn_bidiagonalization</referencedby>
+        <referencedby refid="cu__lanczos__tridiagonalization_8cu_1a30ec831ebcc2ce17eefefb770b13773d" compoundref="cu__lanczos__tridiagonalization_8cu" startline="119" endline="248">cu_lanczos_tridiagonalization</referencedby>
+        <referencedby refid="classcuOrthogonalization_1aefd27369921be5760a998a60aca49b56" compoundref="cu__orthogonalization_8cu" startline="275" endline="436">cuOrthogonalization&lt; DataType &gt;::orthogonalize_vectors</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCudaInterface_1a427b7203f73cf821e35234e5f724064b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CudaInterface&lt; ArrayType &gt;::del</definition>
+        <argsstring>(void *device_array)</argsstring>
+        <name>del</name>
+        <param>
+          <type>void *</type>
+          <declname>device_array</declname>
+        </param>
+        <briefdescription>
+<para>Deletes memory on gpu device if its pointer is not <computeroutput>NULL</computeroutput>, then sets the pointer to <computeroutput>NULL</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">device_array</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to memory on device to be deleted. This pointer will be set to <computeroutput>NULL</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.h" line="60" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.cu" bodystart="166" bodyend="174"/>
+        <references refid="cudart__symbols_8cpp_1ab17fef862d4d1fefb9dba35bd62a187e" compoundref="cudart__symbols_8cpp" startline="303" endline="316">cudaFree</references>
+        <referencedby refid="classcuCSCMatrix_1af9b7af845f6f68d64b812709cd0f59ef" compoundref="cu__csc__matrix_8cu" startline="250" endline="279">cuCSCMatrix&lt; DataType &gt;::allocate_buffer</referencedby>
+        <referencedby refid="classcuCSRMatrix_1ae629d237f7336a31473b637b9aeb2741" compoundref="cu__csr__matrix_8cu" startline="241" endline="270">cuCSRMatrix&lt; DataType &gt;::allocate_buffer</referencedby>
+        <referencedby refid="cu__golub__kahn__bidiagonalization_8cu_1aa755f765f48f41b63d9dab3528b5f0b2" compoundref="cu__golub__kahn__bidiagonalization_8cu" startline="113" endline="242">cu_golub_kahn_bidiagonalization</referencedby>
+        <referencedby refid="cu__lanczos__tridiagonalization_8cu_1a30ec831ebcc2ce17eefefb770b13773d" compoundref="cu__lanczos__tridiagonalization_8cu" startline="119" endline="248">cu_lanczos_tridiagonalization</referencedby>
+        <referencedby refid="classcuCSCMatrix_1afb187a61a6f4d735409a989524a85336" compoundref="cu__csc__matrix_8cu" startline="95" endline="154">cuCSCMatrix&lt; DataType &gt;::~cuCSCMatrix</referencedby>
+        <referencedby refid="classcuCSRMatrix_1a5040e7af906ebb5e7b4ec1f5af701263" compoundref="cu__csr__matrix_8cu" startline="95" endline="154">cuCSRMatrix&lt; DataType &gt;::~cuCSRMatrix</referencedby>
+        <referencedby refid="classcuDenseMatrix_1a883fe7e26f157544ad8f6f836703bc05" compoundref="cu__dense__matrix_8cu" startline="66" endline="84">cuDenseMatrix&lt; DataType &gt;::~cuDenseMatrix</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCudaInterface_1aba5754e3b4c02d3b151fdee31fa0fd46" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void CudaInterface&lt; ArrayType &gt;::set_device</definition>
+        <argsstring>(int device_id)</argsstring>
+        <name>set_device</name>
+        <param>
+          <type>int</type>
+          <declname>device_id</declname>
+        </param>
+        <briefdescription>
+<para>Sets the current device in multi-gpu applications. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">device_id</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The id of the device to switch to. The id is a number from <computeroutput>0</computeroutput> to <computeroutput>num_gpu_devices-1</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.h" line="63" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.cu" bodystart="188" bodyend="192"/>
+        <references refid="cudart__symbols_8cpp_1a418c299b069c4803bfb7cab4943da383" compoundref="cudart__symbols_8cpp" startline="378" endline="392">cudaSetDevice</references>
+        <referencedby refid="classcuCSCMatrix_1ad56cd20e4a4603cf94fb54e65f22e3eb" compoundref="cu__csc__matrix_8cu" startline="169" endline="233">cuCSCMatrix&lt; DataType &gt;::copy_host_to_device</referencedby>
+        <referencedby refid="classcuCSRMatrix_1af1c70b75225b3c39e9e8beab3255d897" compoundref="cu__csr__matrix_8cu" startline="165" endline="224">cuCSRMatrix&lt; DataType &gt;::copy_host_to_device</referencedby>
+        <referencedby refid="classcuDenseMatrix_1a7a6f586d01300175558bc9706ff4346e" compoundref="cu__dense__matrix_8cu" startline="95" endline="123">cuDenseMatrix&lt; DataType &gt;::copy_host_to_device</referencedby>
+        <referencedby refid="classcuTraceEstimator_1aac1cf44a9dc5522d3104b2cdf3b05285" compoundref="cu__trace__estimator_8cu" startline="188" endline="305">cuTraceEstimator&lt; DataType &gt;::cu_trace_estimator</referencedby>
+        <referencedby refid="classcuLinearOperator_1ae2bec474007baff1b7e598a869e83e12" compoundref="cu__linear__operator_8cu" startline="185" endline="206">cuLinearOperator&lt; DataType &gt;::initialize_cublas_handle</referencedby>
+        <referencedby refid="classcuLinearOperator_1a118f2b8f1523da52441070340f7c43f9" compoundref="cu__linear__operator_8cu" startline="217" endline="238">cuLinearOperator&lt; DataType &gt;::initialize_cusparse_handle</referencedby>
+        <referencedby refid="classcuCSCMatrix_1afb187a61a6f4d735409a989524a85336" compoundref="cu__csc__matrix_8cu" startline="95" endline="154">cuCSCMatrix&lt; DataType &gt;::~cuCSCMatrix</referencedby>
+        <referencedby refid="classcuCSRMatrix_1a5040e7af906ebb5e7b4ec1f5af701263" compoundref="cu__csr__matrix_8cu" startline="95" endline="154">cuCSRMatrix&lt; DataType &gt;::~cuCSRMatrix</referencedby>
+        <referencedby refid="classcuDenseMatrix_1a883fe7e26f157544ad8f6f836703bc05" compoundref="cu__dense__matrix_8cu" startline="66" endline="84">cuDenseMatrix&lt; DataType &gt;::~cuDenseMatrix</referencedby>
+        <referencedby refid="classcuLinearOperator_1ad1d14172ed32afa599208af04ec4db0c" compoundref="cu__linear__operator_8cu" startline="103" endline="148">cuLinearOperator&lt; DataType &gt;::~cuLinearOperator</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classCudaInterface_1a29ab521266d2670951510179d719ead1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int CudaInterface&lt; ArrayType &gt;::get_device</definition>
+        <argsstring>()</argsstring>
+        <name>get_device</name>
+        <briefdescription>
+<para>Gets the current device in multi-gpu applications. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>device_id The id of the current device. The id is a number from <computeroutput>0</computeroutput> to <computeroutput>num_gpu_devices-1</computeroutput> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.h" line="66" column="20" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.cu" bodystart="206" bodyend="213"/>
+        <references refid="cudart__symbols_8cpp_1a1795645d53ca669d84d2aff6f3706917" compoundref="cudart__symbols_8cpp" startline="229" endline="243">cudaGetDevice</references>
+        <referencedby refid="classcuAffineMatrixFunction_1af0a51e03280f6700f6534a94874436c1" compoundref="cu__affine__matrix__function_8cu" startline="131" endline="144">cuAffineMatrixFunction&lt; DataType &gt;::_add_scaled_vector</referencedby>
+        <referencedby refid="classcuCSCMatrix_1a1eb47019eaa7abd083d644e37893fc3a" compoundref="cu__csc__matrix_8cu" startline="287" endline="329">cuCSCMatrix&lt; DataType &gt;::dot</referencedby>
+        <referencedby refid="classcuCSRMatrix_1ac7153e0293610828cf3455d01ffe8c30" compoundref="cu__csr__matrix_8cu" startline="278" endline="318">cuCSRMatrix&lt; DataType &gt;::dot</referencedby>
+        <referencedby refid="classcuDenseMatrix_1acda42015f534adec6df3728f53f2a6d7" compoundref="cu__dense__matrix_8cu" startline="131" endline="148">cuDenseMatrix&lt; DataType &gt;::dot</referencedby>
+        <referencedby refid="classcuCSCMatrix_1ac4759c30ffb86521f4ae29eac739db42" compoundref="cu__csc__matrix_8cu" startline="337" endline="379">cuCSCMatrix&lt; DataType &gt;::dot_plus</referencedby>
+        <referencedby refid="classcuCSRMatrix_1a96db9711b26e1be6b67da4d73f77cf70" compoundref="cu__csr__matrix_8cu" startline="326" endline="366">cuCSRMatrix&lt; DataType &gt;::dot_plus</referencedby>
+        <referencedby refid="classcuDenseMatrix_1a5be7f76677e25f81d4a1edbedfbf3f35" compoundref="cu__dense__matrix_8cu" startline="156" endline="175">cuDenseMatrix&lt; DataType &gt;::dot_plus</referencedby>
+        <referencedby refid="classcuLinearOperator_1aa0bf630097fc3820d7ec27ec4e1a2994" compoundref="cu__linear__operator_8cu" startline="168" endline="174">cuLinearOperator&lt; DataType &gt;::get_cublas_handle</referencedby>
+        <referencedby refid="classcuCSCMatrix_1a0af6927d0301ce630c70a88c1d799300" compoundref="cu__csc__matrix_8cu" startline="387" endline="429">cuCSCMatrix&lt; DataType &gt;::transpose_dot</referencedby>
+        <referencedby refid="classcuCSRMatrix_1a533fef9f3fd9de1f3c984dae663b0ba7" compoundref="cu__csr__matrix_8cu" startline="374" endline="414">cuCSRMatrix&lt; DataType &gt;::transpose_dot</referencedby>
+        <referencedby refid="classcuDenseMatrix_1a36bcdf696c8a5b30d818f43d63a1a0ff" compoundref="cu__dense__matrix_8cu" startline="183" endline="200">cuDenseMatrix&lt; DataType &gt;::transpose_dot</referencedby>
+        <referencedby refid="classcuCSCMatrix_1a19f87522864944c7d622c1a3653bf883" compoundref="cu__csc__matrix_8cu" startline="437" endline="479">cuCSCMatrix&lt; DataType &gt;::transpose_dot_plus</referencedby>
+        <referencedby refid="classcuCSRMatrix_1ae43cfdb290779cd143389a2fa4ed5b3f" compoundref="cu__csr__matrix_8cu" startline="422" endline="462">cuCSRMatrix&lt; DataType &gt;::transpose_dot_plus</referencedby>
+        <referencedby refid="classcuDenseMatrix_1a04afe283c6f3570cbaffb36b8043d940" compoundref="cu__dense__matrix_8cu" startline="208" endline="227">cuDenseMatrix&lt; DataType &gt;::transpose_dot_plus</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>An interface to CUDA linrary to facilitate working with CUDA, such as memory allocation, copy data to and from device, etc. This class contains all public static functions and serves as a namespace. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.h" line="36" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.h" bodystart="37" bodyend="67"/>
+    <listofallmembers>
+      <member refid="classCudaInterface_1a65875bf1fdfe213562b31e3459f04b33" prot="public" virt="non-virtual"><scope>CudaInterface</scope><name>alloc</name></member>
+      <member refid="classCudaInterface_1a9076e1c17225c8df226148664f88f69a" prot="public" virt="non-virtual"><scope>CudaInterface</scope><name>alloc</name></member>
+      <member refid="classCudaInterface_1a45411db9045668d1c0407e33d7b4e825" prot="public" virt="non-virtual"><scope>CudaInterface</scope><name>alloc_bytes</name></member>
+      <member refid="classCudaInterface_1a95efada2ca34b3490f96ccfa97b4d6eb" prot="public" virt="non-virtual"><scope>CudaInterface</scope><name>copy_to_device</name></member>
+      <member refid="classCudaInterface_1a427b7203f73cf821e35234e5f724064b" prot="public" virt="non-virtual"><scope>CudaInterface</scope><name>del</name></member>
+      <member refid="classCudaInterface_1a29ab521266d2670951510179d719ead1" prot="public" virt="non-virtual"><scope>CudaInterface</scope><name>get_device</name></member>
+      <member refid="classCudaInterface_1aba5754e3b4c02d3b151fdee31fa0fd46" prot="public" virt="non-virtual"><scope>CudaInterface</scope><name>set_device</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

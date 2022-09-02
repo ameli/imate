@@ -1,0 +1,392 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="trace__estimator_8pyx" kind="file" language="Python">
+    <compoundname>trace_estimator.pyx</compoundname>
+    <innernamespace refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator">imate::_trace_estimator::trace_estimator</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">#<sp/>SPDX-FileCopyrightText:<sp/>Copyright<sp/>2021,<sp/>Siavash<sp/>Ameli<sp/>&lt;sameli@berkeley.edu&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">#<sp/>SPDX-License-Identifier:<sp/>BSD-3-Clause</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">#<sp/>SPDX-FileType:<sp/>SOURCE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">#</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">#<sp/>This<sp/>program<sp/>is<sp/>free<sp/>software:<sp/>you<sp/>can<sp/>redistribute<sp/>it<sp/>and/or<sp/>modify<sp/>it</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">#<sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>license<sp/>found<sp/>in<sp/>the<sp/>LICENSE.txt<sp/>file<sp/>in<sp/>the<sp/>root</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">#<sp/>directory<sp/>of<sp/>this<sp/>source<sp/>tree.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">#<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Imports</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">#<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Python</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>numpy</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>time</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>..__version__<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>__version__</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.trace_estimator_plot_utilities<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>plot_convergence</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.trace_estimator_utilities<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>get_operator,<sp/>\</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>get_operator_parameters,<sp/>check_arguments,<sp/>get_machine_precision,<sp/>\</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>find_num_inquiries,<sp/>print_summary</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>..linear_operator<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>LinearOperator</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Cython</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.._definitions.types<sp/>cimport<sp/>IndexType,<sp/>FlagType</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>..functions<sp/>cimport<sp/>pyFunction</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">cimport<sp/>openmp</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Type<sp/>names</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1ab11c5728da6c8b2b2a1d7083022a2408" refkind="member"><highlight class="normal">cdef<sp/>char*<sp/>index_type_name<sp/>=<sp/>b</highlight><highlight class="stringliteral">&apos;int32&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a7c455bc214403cc57b6ec8ffdf6accd3" refkind="member"><highlight class="normal">cdef<sp/>char*<sp/>flag_type_name<sp/>=<sp/>b</highlight><highlight class="stringliteral">&apos;int32&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">#<sp/>===============</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">#<sp/>trace<sp/>estimator</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">#<sp/>===============</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">cpdef<sp/>trace_estimator(</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>A,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>parameters,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pyFunction<sp/>py_matrix_function,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>gram,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>exponent,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>min_num_samples,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>max_num_samples,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error_atol,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error_rtol,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>confidence_level,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>outlier_significance_level,</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lanczos_degree,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lanczos_tol,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>orthogonalize,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_threads,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_gpu_devices,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>verbose,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>plot,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>gpu):</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="59"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Computes<sp/>the<sp/>trace<sp/>of<sp/>inverse<sp/>of<sp/>matrix<sp/>based<sp/>on<sp/>stochastic<sp/>Lanczos</highlight></codeline>
+<codeline lineno="60"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>quadrature<sp/>(SLQ)<sp/>method.</highlight></codeline>
+<codeline lineno="61"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="62"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:param<sp/>A:<sp/>invertible<sp/>matrix<sp/>or<sp/>linear<sp/>operator</highlight></codeline>
+<codeline lineno="63"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:type<sp/>A:<sp/>numpy.ndarray,<sp/>scipy.sparse<sp/>matrix,<sp/>or<sp/>LinearOperator<sp/>object</highlight></codeline>
+<codeline lineno="64"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="65"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:param<sp/>max_num_samples:<sp/>Number<sp/>of<sp/>Monte-Carlo<sp/>trials</highlight></codeline>
+<codeline lineno="66"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:type<sp/>max_num_samples:<sp/>unsigned<sp/>int</highlight></codeline>
+<codeline lineno="67"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="68"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:param<sp/>lanczos_degree:<sp/>Lanczos<sp/>degree</highlight></codeline>
+<codeline lineno="69"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:type<sp/>lanczos_degree:<sp/>unsigned<sp/>int</highlight></codeline>
+<codeline lineno="70"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="71"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:param<sp/>gram:<sp/>If<sp/>``True``,<sp/>the<sp/>Gram<sp/>matrix<sp/>``A.T<sp/>@<sp/>A``<sp/>is<sp/>considered<sp/>instead</highlight></codeline>
+<codeline lineno="72"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>of<sp/>``A``<sp/>itself.<sp/>In<sp/>this<sp/>case,<sp/>``A``<sp/>itself<sp/>can<sp/>be<sp/>a<sp/>generic,<sp/>but</highlight></codeline>
+<codeline lineno="73"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>square,<sp/>matrix.<sp/>If<sp/>``False``,<sp/>matrix<sp/>``A``<sp/>is<sp/>used,<sp/>which<sp/>then<sp/>it<sp/>has</highlight></codeline>
+<codeline lineno="74"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>to<sp/>be<sp/>symmetric<sp/>and<sp/>positive<sp/>semi-definite.</highlight></codeline>
+<codeline lineno="75"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:type<sp/>gram:<sp/>bool</highlight></codeline>
+<codeline lineno="76"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="77"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:param<sp/>tolerance:<sp/>The<sp/>tolerance<sp/>for<sp/>the<sp/>acceptable<sp/>error<sp/>of<sp/>Lanczos</highlight></codeline>
+<codeline lineno="78"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tri-diagonalization,<sp/>or<sp/>Golub-Kahn<sp/>bi-diagonalization.</highlight></codeline>
+<codeline lineno="79"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:type<sp/>tolerance:<sp/>DataType</highlight></codeline>
+<codeline lineno="80"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="81"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:return:<sp/>Trace<sp/>of<sp/>``A``</highlight></codeline>
+<codeline lineno="82"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:rtype:<sp/>float</highlight></codeline>
+<codeline lineno="83"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="84"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>..<sp/>note::</highlight></codeline>
+<codeline lineno="85"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="86"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>In<sp/>Lanczos<sp/>tri-diagonalization<sp/>method,<sp/>:math:`\\theta``<sp/>is<sp/>the</highlight></codeline>
+<codeline lineno="87"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>eigenvalue<sp/>of<sp/>``T``.<sp/>However,<sp/>in<sp/>Golub-Kahn<sp/>bi-diagonalization<sp/>method,</highlight></codeline>
+<codeline lineno="88"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:math:`\\theta`<sp/>is<sp/>the<sp/>singular<sp/>values<sp/>of<sp/>``B``.<sp/>The<sp/>relation<sp/>between</highlight></codeline>
+<codeline lineno="89"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>these<sp/>two<sp/>methods<sp/>are<sp/>as<sp/>follows:<sp/>``B.T*B``<sp/>is<sp/>the<sp/>``T``<sp/>for<sp/>``A.T*A``.</highlight></codeline>
+<codeline lineno="90"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>That<sp/>is,<sp/>if<sp/>we<sp/>have<sp/>the<sp/>input<sp/>matrix<sp/>``A.T*T``,<sp/>its<sp/>Lanczos</highlight></codeline>
+<codeline lineno="91"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tri-diagonalization<sp/>``T``<sp/>is<sp/>the<sp/>same<sp/>matrix<sp/>as<sp/>if<sp/>we<sp/>bi-diagonalize</highlight></codeline>
+<codeline lineno="92"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>``A``<sp/>(not<sp/>``A.T*A``)<sp/>with<sp/>Golub-Kahn<sp/>to<sp/>get<sp/>``B``,<sp/>then<sp/>``T<sp/>=<sp/>B.T*B``.</highlight></codeline>
+<codeline lineno="93"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>has<sp/>not<sp/>been<sp/>highlighted<sp/>in<sp/>the<sp/>above<sp/>paper.</highlight></codeline>
+<codeline lineno="94"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="95"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>To<sp/>correctly<sp/>implement<sp/>Golub-Kahn,<sp/>here<sp/>:math:`\\theta`<sp/>should<sp/>be<sp/>the</highlight></codeline>
+<codeline lineno="96"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>singular<sp/>values<sp/>of<sp/>``B``,<sp/>**NOT**<sp/>the<sp/>square<sp/>of<sp/>the<sp/>singular<sp/>values<sp/>of</highlight></codeline>
+<codeline lineno="97"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>``B``<sp/>(as<sp/>described<sp/>in<sp/>the<sp/>above<sp/>paper<sp/>incorrectly!).</highlight></codeline>
+<codeline lineno="98"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="99"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Technical<sp/>notes:</highlight></codeline>
+<codeline lineno="100"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>function<sp/>is<sp/>a<sp/>wrapper<sp/>to<sp/>a<sp/>cython<sp/>function.<sp/>In<sp/>cython<sp/>we<sp/>cannot</highlight></codeline>
+<codeline lineno="101"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>have<sp/>function<sp/>arguments<sp/>with<sp/>default<sp/>values<sp/>(neither<sp/>``cdef``,</highlight></codeline>
+<codeline lineno="102"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>``cpdef``).<sp/>As<sp/>a<sp/>work<sp/>around,<sp/>this<sp/>function<sp/>(defined<sp/>with<sp/>``def``)</highlight></codeline>
+<codeline lineno="103"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>accepts<sp/>default<sp/>values<sp/>for<sp/>arguments,<sp/>and<sp/>then<sp/>calls<sp/>the<sp/>cython</highlight></codeline>
+<codeline lineno="104"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>function<sp/>(defined<sp/>with<sp/>``cdef``).</highlight></codeline>
+<codeline lineno="105"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="106"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Reference:</highlight></codeline>
+<codeline lineno="107"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>`Ubaru,<sp/>S.,<sp/>Chen,<sp/>J.,<sp/>and<sp/>Saad,<sp/>Y.<sp/>(2017)</highlight></codeline>
+<codeline lineno="108"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;https://www-users.cs.umn.edu/~saad/PDF/ys-2016-04.pdf&gt;`_,</highlight></codeline>
+<codeline lineno="109"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Fast<sp/>Estimation<sp/>of<sp/>:math:`\\mathrm{tr}(F(A))`<sp/>Via<sp/>Stochastic<sp/>Lanczos</highlight></codeline>
+<codeline lineno="110"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Quadrature,<sp/>SIAM<sp/>J.<sp/>Matrix<sp/>Anal.<sp/>Appl.,<sp/>38(4),<sp/>1075-1099.</highlight></codeline>
+<codeline lineno="111"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Set<sp/>number<sp/>of<sp/>parallel<sp/>openmp<sp/>threads</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>num_threads<sp/>&lt;<sp/>1:</highlight></codeline>
+<codeline lineno="115" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a4c826db52f9abe67ee8eaf0bc3aebef2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_threads<sp/>=<sp/>openmp.omp_get_max_threads()</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Check<sp/>operator<sp/>A,<sp/>and<sp/>convert<sp/>to<sp/>a<sp/>linear<sp/>operator<sp/>(if<sp/>not<sp/>already)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1ab117f420810c28b5c7ab7a0647e26ff5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>Aop<sp/>=<sp/>get_operator(A)</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>data<sp/>type<sp/>name<sp/>is<sp/>either<sp/>float32<sp/>(float),<sp/>float64<sp/>double),<sp/>or<sp/>float128</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>(long<sp/>double).<sp/>This<sp/>will<sp/>be<sp/>used<sp/>to<sp/>choose<sp/>a<sp/>template<sp/>function</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a59220d66bacf4fedbc47bb0dc0bc598f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>data_type_name<sp/>=<sp/>Aop.get_data_type_name()</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Check<sp/>parameters<sp/>of<sp/>operator<sp/>A,<sp/>convert<sp/>its<sp/>type<sp/>if<sp/>needed,<sp/>and<sp/>finds<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>size<sp/>of<sp/>given<sp/>parameters<sp/>array<sp/>or<sp/>scalar</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a102c8e85a59a4eb89e9cb35fd7ba44e4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>parameters,<sp/>parameters_size<sp/>=<sp/>get_operator_parameters(</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>parameters,<sp/>data_type_name)</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Find<sp/>number<sp/>of<sp/>inquiries,<sp/>which<sp/>is<sp/>the<sp/>number<sp/>of<sp/>batches<sp/>of<sp/>different<sp/>set</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>of<sp/>parameters<sp/>to<sp/>produce<sp/>different<sp/>linear<sp/>operators.<sp/>These<sp/>batches<sp/>are</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>concatenated<sp/>in<sp/>the<sp/>&quot;parameters&quot;<sp/>array.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a9900f7931c3cf6c3241dc8985a13d90e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>IndexType<sp/>num_inquiries<sp/>=<sp/>find_num_inquiries(Aop,<sp/>parameters_size)</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Check<sp/>input<sp/>arguments<sp/>have<sp/>proper<sp/>type<sp/>and<sp/>values</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a1f4a8085799cc11f2cbec6970e7790c1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>error_atol,<sp/>error_rtol<sp/>=<sp/><ref refid="namespaceimate_1_1logdet_1_1__slq__method_1a180f2ca4df8f7eea76f5e92aa120e406" kindref="member">check_arguments</ref>(</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>gram,<sp/>exponent,<sp/>min_num_samples,<sp/>max_num_samples,<sp/>error_atol,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error_rtol,<sp/>confidence_level,<sp/>outlier_significance_level,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lanczos_degree,<sp/>lanczos_tol,<sp/>orthogonalize,<sp/>num_threads,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_gpu_devices,<sp/>verbose,<sp/>plot,<sp/>gpu)</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Set<sp/>the<sp/>default<sp/>value<sp/>for<sp/>the<sp/>&quot;epsilon&quot;<sp/>of<sp/>the<sp/>slq<sp/>algorithm</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>lanczos_tol<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="143" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1ac5dd5b2d107743c4b1df951dbbcfe3c6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lanczos_tol<sp/>=<sp/>get_machine_precision(data_type_name)</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Allocate<sp/>output<sp/>trace<sp/>as<sp/>array<sp/>of<sp/>size<sp/>num_inquiries</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a128c7cde3dc28998a6e32d0b8d58c923" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>trace<sp/>=<sp/>numpy.empty((num_inquiries,),<sp/>dtype=data_type_name)</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Error<sp/>of<sp/>computing<sp/>trace<sp/>within<sp/>a<sp/>confidence<sp/>interval</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a0110eda9577a520d7dd4bb9333699ded" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>error<sp/>=<sp/>numpy.empty((num_inquiries,),<sp/>dtype=data_type_name)</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Array<sp/>of<sp/>all<sp/>Monte-Carlo<sp/>samples<sp/>where<sp/>array<sp/>trace<sp/>is<sp/>averaged<sp/>based<sp/>upon</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a5a65a008cb8f7290f7ba13f42dc105aa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>samples<sp/>=<sp/>\</highlight></codeline>
+<codeline lineno="153" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1ad6a889a3a4716b947e84d302ee0eb09c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>numpy.empty((max_num_samples,<sp/>num_inquiries),<sp/>dtype=data_type_name)</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/>samples[:,<sp/>:]<sp/>=<sp/>numpy.nan</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Track<sp/>the<sp/>order<sp/>of<sp/>process<sp/>of<sp/>samples<sp/>in<sp/>rows<sp/>of<sp/>samples<sp/>array</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1ae7269b272f4992195ac998ddb9ad8388" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>processed_samples_indices<sp/>=<sp/>\</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>numpy.empty((max_num_samples,),<sp/>dtype=index_type_name)</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/>processed_samples_indices[:]<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Store<sp/>how<sp/>many<sp/>samples<sp/>used<sp/>for<sp/>each<sp/>inquiry<sp/>till<sp/>reaching<sp/>convergence</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1adeba9b08f4e0b25c25fc9f1dedc86786" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>num_samples_used<sp/>=<sp/>numpy.zeros((num_inquiries,),<sp/>dtype=index_type_name)</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Number<sp/>of<sp/>outliers<sp/>that<sp/>is<sp/>removed<sp/>from<sp/>num_samples_used<sp/>in<sp/>averaging</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a6848d6a4c651d35b660c66bd3bcaf1f9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>num_outliers<sp/>=<sp/>numpy.zeros((num_inquiries,),<sp/>dtype=index_type_name)</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Flag<sp/>indicating<sp/>which<sp/>of<sp/>the<sp/>inquiries<sp/>were<sp/>converged<sp/>below<sp/>the<sp/>tolerance</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1acb4f0ca2c5e2cab1c9c0704de661a801" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>converged<sp/>=<sp/>numpy.zeros((num_inquiries,),<sp/>dtype=flag_type_name)</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Initialize<sp/>gpu<sp/>device<sp/>properties</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a84e7c1f780abb462a5785ee4cf3c5e46" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>num_gpu_multiprocessors<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="172" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a6d8de2ddfd5de988686351d13d2c1b97" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>num_gpu_threads_per_multiprocessor<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Call<sp/>SLQ<sp/>method<sp/>(actual<sp/>computation)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1ab6e96a6e92362c7729eaae76f2ebff54" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>init_wall_time<sp/>=<sp/>time.perf_counter()</highlight></codeline>
+<codeline lineno="176" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1ad62b48cc54954874425284b611878194" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>init_proc_time<sp/>=<sp/>time.process_time()</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>FlagType<sp/>all_converged</highlight></codeline>
+<codeline lineno="179" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1aa66e9dafe58b680d650496cb0a2c1334" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>alg_wall_times<sp/>=<sp/>numpy.zeros((1,<sp/>),<sp/>dtype=float)</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>gpu:</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>dispatch<sp/>execution<sp/>on<sp/>gpu</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.._cu_trace_estimator<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>pycu_trace_estimator</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>ImportError:</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">raise</highlight><highlight class="normal"><sp/>ImportError(</highlight><highlight class="stringliteral">&apos;This<sp/>package<sp/>has<sp/>not<sp/>been<sp/>compiled<sp/>with<sp/>GPU<sp/>&apos;</highlight><highlight class="normal"><sp/>+</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;support.<sp/>Either<sp/>set<sp/>&quot;gpu=False&quot;<sp/>to<sp/>use<sp/>the<sp/>&apos;</highlight><highlight class="normal"><sp/>+</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;existing<sp/>installed<sp/>package,<sp/>or<sp/>export<sp/>the<sp/>&apos;</highlight><highlight class="normal"><sp/>+</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;environment<sp/>variable<sp/>&quot;USE_CUDA=1&quot;<sp/>and<sp/>&apos;</highlight><highlight class="normal"><sp/>+</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;recompile<sp/>the<sp/>source<sp/>code<sp/>of<sp/>the<sp/>package.&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a5f2ac8924165a017d2dfca4c7fbc2fa9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pycuAop<sp/>=<sp/>Aop.get_linear_operator(gpu=</highlight><highlight class="keyword">True</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_gpu_devices=num_gpu_devices)</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Get<sp/>device<sp/>properties</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a5e6c67d731466ba441822d7dcb5260ce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>device_properties_dict<sp/>=<sp/>pycuAop.get_device_properties()</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>We<sp/>get<sp/>the<sp/>properties<sp/>of<sp/>the<sp/>first<sp/>device<sp/>(device<sp/>0),<sp/>assuming<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>other<sp/>gpu<sp/>devices<sp/>have<sp/>the<sp/>same<sp/>specs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1ae769d6f116cf8f0121e62d0aeb0e7684" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>device_id<sp/>=<sp/>0</highlight></codeline>
+<codeline lineno="202" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1adb5ce9ddb60d9c1ea53693826681e327" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_all_gpu_devices<sp/>=<sp/>device_properties_dict[</highlight><highlight class="stringliteral">&apos;num_devices&apos;</highlight><highlight class="normal">]</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_gpu_multiprocessors<sp/>=<sp/>\</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>device_properties_dict[</highlight><highlight class="stringliteral">&apos;num_multiprocessors&apos;</highlight><highlight class="normal">][device_id]</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_gpu_threads_per_multiprocessor<sp/>=<sp/>\</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>device_properties_dict[</highlight><highlight class="stringliteral">&apos;num_threads_per_multiprocessor&apos;</highlight><highlight class="normal">][device_id]</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Zero<sp/>indicates<sp/>that<sp/>all<sp/>gpu<sp/>devices<sp/>were<sp/>used</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>num_gpu_devices<sp/>==<sp/>0:</highlight></codeline>
+<codeline lineno="210" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1aff8d0b5440d82e4142d5a0fdc42599f7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_gpu_devices<sp/>=<sp/>num_all_gpu_devices</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a0612f56270283f9c333a2131732e3f0e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>all_converged<sp/>=<sp/>pycu_trace_estimator(</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pycuAop,</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>parameters,</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_inquiries,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>py_matrix_function,</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int(gram),</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>exponent,</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>orthogonalize,</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lanczos_degree,</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lanczos_tol,</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>min_num_samples,</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>max_num_samples,</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error_atol,</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error_rtol,</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>confidence_level,</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>outlier_significance_level,</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_threads,</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_gpu_devices,</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data_type_name,</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>trace,</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error,</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>samples,</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>processed_samples_indices,</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_samples_used,</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_outliers,</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>converged,</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alg_wall_times)</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>dispatch<sp/>execution<sp/>on<sp/>cpu</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.._c_trace_estimator<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>pyc_trace_estimator</highlight></codeline>
+<codeline lineno="244" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a3b8c09597d1d9a725d415f01d4696a7a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pycAop<sp/>=<sp/>Aop.get_linear_operator(gpu=</highlight><highlight class="keyword">False</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>all_converged<sp/>=<sp/>pyc_trace_estimator(</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pycAop,</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>parameters,</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_inquiries,</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>py_matrix_function,</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int(gram),</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>exponent,</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>orthogonalize,</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lanczos_degree,</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lanczos_tol,</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>min_num_samples,</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>max_num_samples,</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error_atol,</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error_rtol,</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>confidence_level,</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>outlier_significance_level,</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_threads,</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>data_type_name,</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>trace,</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>error,</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>samples,</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>processed_samples_indices,</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_samples_used,</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_outliers,</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>converged,</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alg_wall_times)</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1af307a7e3d72ae9df3fdc3138115d45ee" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>tot_wall_time<sp/>=<sp/>time.perf_counter()<sp/>-<sp/>init_wall_time</highlight></codeline>
+<codeline lineno="274" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1acf84e77fbad95ec5b12c30afee40b379" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>cpu_proc_time<sp/>=<sp/>time.process_time()<sp/>-<sp/>init_proc_time</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Matrix<sp/>size<sp/>info</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a654d0ceba3d59a862cb2e8d71457df99" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>matrix_size<sp/>=<sp/>Aop.get_num_rows()</highlight></codeline>
+<codeline lineno="278" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a74577e58bdcb320f6224d549cb0dad85" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>matrix_nnz<sp/>=<sp/>Aop.get_nnz()</highlight></codeline>
+<codeline lineno="279" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1acca2866851da5e06749a5a4e66625056" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>matrix_density<sp/>=<sp/>Aop.get_density()</highlight></codeline>
+<codeline lineno="280" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a9b7672431377358ec928a724c8e6134e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>sparse<sp/>=<sp/>Aop.is_sparse()</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Dictionary<sp/>of<sp/>output<sp/>info</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="283" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1accf0a7637d89c61e9f0c8230a499d38e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>info<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;matrix&apos;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;data_type&apos;</highlight><highlight class="normal">:<sp/>data_type_name,</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;gram&apos;</highlight><highlight class="normal">:<sp/>gram,</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;exponent&apos;</highlight><highlight class="normal">:<sp/>exponent,</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;size&apos;</highlight><highlight class="normal">:<sp/>matrix_size,</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;sparse&apos;</highlight><highlight class="normal">:<sp/>sparse,</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;nnz&apos;</highlight><highlight class="normal">:<sp/>matrix_nnz,</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;density&apos;</highlight><highlight class="normal">:<sp/>matrix_density,</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;num_inquiries&apos;</highlight><highlight class="normal">:<sp/>num_inquiries,</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;num_operator_parameters&apos;</highlight><highlight class="normal">:<sp/>Aop.get_num_parameters(),</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;parameters&apos;</highlight><highlight class="normal">:<sp/>parameters</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;error&apos;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;absolute_error&apos;</highlight><highlight class="normal">:<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;relative_error&apos;</highlight><highlight class="normal">:<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;error_atol&apos;</highlight><highlight class="normal">:<sp/>error_atol,</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;error_rtol&apos;</highlight><highlight class="normal">:<sp/>error_rtol,</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;confidence_level&apos;</highlight><highlight class="normal">:<sp/>confidence_level,</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;outlier_significance_level&apos;</highlight><highlight class="normal">:<sp/>outlier_significance_level</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;convergence&apos;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;converged&apos;</highlight><highlight class="normal">:<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;all_converged&apos;</highlight><highlight class="normal">:<sp/>bool(all_converged),</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;min_num_samples&apos;</highlight><highlight class="normal">:<sp/>min_num_samples,</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;max_num_samples&apos;</highlight><highlight class="normal">:<sp/>max_num_samples,</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;num_samples_used&apos;</highlight><highlight class="normal">:<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;num_outliers&apos;</highlight><highlight class="normal">:<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;samples&apos;</highlight><highlight class="normal">:<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;samples_mean&apos;</highlight><highlight class="normal">:<sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;samples_processed_order&apos;</highlight><highlight class="normal">:<sp/>processed_samples_indices</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;time&apos;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;tot_wall_time&apos;</highlight><highlight class="normal">:<sp/>tot_wall_time,</highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;alg_wall_time&apos;</highlight><highlight class="normal">:<sp/>alg_wall_times[0],</highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;cpu_proc_time&apos;</highlight><highlight class="normal">:<sp/>cpu_proc_time</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;device&apos;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="325"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;num_cpu_threads&apos;</highlight><highlight class="normal">:<sp/>num_threads,</highlight></codeline>
+<codeline lineno="327"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;num_gpu_devices&apos;</highlight><highlight class="normal">:<sp/>num_gpu_devices,</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;num_gpu_multiprocessors&apos;</highlight><highlight class="normal">:<sp/>num_gpu_multiprocessors,</highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;num_gpu_threads_per_multiprocessor&apos;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_gpu_threads_per_multiprocessor</highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;solver&apos;</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;version&apos;</highlight><highlight class="normal">:<sp/>__version__,</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;lanczos_degree&apos;</highlight><highlight class="normal">:<sp/>lanczos_degree,</highlight></codeline>
+<codeline lineno="336"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;lanczos_tol&apos;</highlight><highlight class="normal">:<sp/>lanczos_tol,</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;orthogonalize&apos;</highlight><highlight class="normal">:<sp/>orthogonalize,</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;method&apos;</highlight><highlight class="normal">:<sp/></highlight><highlight class="stringliteral">&apos;slq&apos;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Determine<sp/>if<sp/>the<sp/>output<sp/>is<sp/>array</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(parameters<sp/></highlight><highlight class="keywordflow">is</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">None</highlight><highlight class="normal">)<sp/></highlight><highlight class="keywordflow">or</highlight><highlight class="normal"><sp/>numpy.isscalar(parameters):</highlight></codeline>
+<codeline lineno="344" refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1abf35896ffc92a4b651a68d6e7729fce6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>output_is_array<sp/>=<sp/></highlight><highlight class="keyword">False</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>output_is_array<sp/>=<sp/></highlight><highlight class="keyword">True</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="348"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Fill<sp/>arrays<sp/>of<sp/>info<sp/>depending<sp/>on<sp/>whether<sp/>output<sp/>is<sp/>scalar<sp/>or<sp/>array</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="349"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>output_is_array:</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info[</highlight><highlight class="stringliteral">&apos;error&apos;</highlight><highlight class="normal">][</highlight><highlight class="stringliteral">&apos;absolute_error&apos;</highlight><highlight class="normal">]<sp/>=<sp/>error</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info[</highlight><highlight class="stringliteral">&apos;error&apos;</highlight><highlight class="normal">][</highlight><highlight class="stringliteral">&apos;relative_error&apos;</highlight><highlight class="normal">]<sp/>=<sp/>error<sp/>/<sp/>numpy.abs(trace)</highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info[</highlight><highlight class="stringliteral">&apos;convergence&apos;</highlight><highlight class="normal">][</highlight><highlight class="stringliteral">&apos;converged&apos;</highlight><highlight class="normal">]<sp/>=<sp/>converged.astype(bool)</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info[</highlight><highlight class="stringliteral">&apos;convergence&apos;</highlight><highlight class="normal">][</highlight><highlight class="stringliteral">&apos;num_samples_used&apos;</highlight><highlight class="normal">]<sp/>=<sp/>num_samples_used</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info[</highlight><highlight class="stringliteral">&apos;convergence&apos;</highlight><highlight class="normal">][</highlight><highlight class="stringliteral">&apos;num_outliers&apos;</highlight><highlight class="normal">]<sp/>=<sp/>num_outliers</highlight></codeline>
+<codeline lineno="355"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info[</highlight><highlight class="stringliteral">&apos;convergence&apos;</highlight><highlight class="normal">][</highlight><highlight class="stringliteral">&apos;samples&apos;</highlight><highlight class="normal">]<sp/>=<sp/>samples</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info[</highlight><highlight class="stringliteral">&apos;convergence&apos;</highlight><highlight class="normal">][</highlight><highlight class="stringliteral">&apos;samples_mean&apos;</highlight><highlight class="normal">]<sp/>=<sp/>trace</highlight></codeline>
+<codeline lineno="357"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="358"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info[</highlight><highlight class="stringliteral">&apos;error&apos;</highlight><highlight class="normal">][</highlight><highlight class="stringliteral">&apos;absolute_error&apos;</highlight><highlight class="normal">]<sp/>=<sp/>error[0]</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info[</highlight><highlight class="stringliteral">&apos;error&apos;</highlight><highlight class="normal">][</highlight><highlight class="stringliteral">&apos;relative_error&apos;</highlight><highlight class="normal">]<sp/>=<sp/>error[0]<sp/>/<sp/>numpy.abs(trace[0])</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info[</highlight><highlight class="stringliteral">&apos;convergence&apos;</highlight><highlight class="normal">][</highlight><highlight class="stringliteral">&apos;converged&apos;</highlight><highlight class="normal">]<sp/>=<sp/>bool(converged[0])</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info[</highlight><highlight class="stringliteral">&apos;convergence&apos;</highlight><highlight class="normal">][</highlight><highlight class="stringliteral">&apos;num_samples_used&apos;</highlight><highlight class="normal">]<sp/>=<sp/>num_samples_used[0]</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info[</highlight><highlight class="stringliteral">&apos;convergence&apos;</highlight><highlight class="normal">][</highlight><highlight class="stringliteral">&apos;num_outliers&apos;</highlight><highlight class="normal">]<sp/>=<sp/>num_outliers[0]</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info[</highlight><highlight class="stringliteral">&apos;convergence&apos;</highlight><highlight class="normal">][</highlight><highlight class="stringliteral">&apos;samples&apos;</highlight><highlight class="normal">]<sp/>=<sp/>samples[:,<sp/>0]</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info[</highlight><highlight class="stringliteral">&apos;convergence&apos;</highlight><highlight class="normal">][</highlight><highlight class="stringliteral">&apos;samples_mean&apos;</highlight><highlight class="normal">]<sp/>=<sp/>trace[0]</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>print<sp/>summary</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="367"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>verbose:</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespaceimate_1_1traceinv_1_1__hutchinson__method__utilities_1a565ddb00fbf9fc2ec312022775a650fe" kindref="member">print_summary</ref>(info)</highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Plot<sp/>results</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>plot:</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>plot_convergence(info)</highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>return<sp/>output</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>output_is_array:</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>trace,<sp/>info</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>trace[0],<sp/>info</highlight></codeline>
+    </programlisting>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_trace_estimator/trace_estimator.pyx"/>
+  </compounddef>
+</doxygen>

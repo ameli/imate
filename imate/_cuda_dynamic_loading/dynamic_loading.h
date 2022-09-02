@@ -72,7 +72,7 @@
 ///
 ///                module load cuda
 ///
-/// \s         cudartSymbols,
+/// \sa        cudartSymbols,
 ///            cublasSymbols,
 ///            cusparseSymbols
 

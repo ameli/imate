@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="py__cu__linear__operator_8pxd" kind="file" language="Python">
+    <compoundname>py_cu_linear_operator.pxd</compoundname>
+    <innerclass refid="classimate_1_1__cu__linear__operator_1_1py__cu__linear__operator_1_1pycuLinearOperator" prot="public">imate::_cu_linear_operator::py_cu_linear_operator::pycuLinearOperator</innerclass>
+    <innernamespace refid="namespaceimate_1_1__cu__linear__operator_1_1py__cu__linear__operator">imate::_cu_linear_operator::py_cu_linear_operator</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespaceimate_1_1__cu__linear__operator_1_1py__cu__linear__operator" refkind="compound"><highlight class="comment">#<sp/>SPDX-FileCopyrightText:<sp/>Copyright<sp/>2021,<sp/>Siavash<sp/>Ameli<sp/>&lt;sameli@berkeley.edu&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">#<sp/>SPDX-License-Identifier:<sp/>BSD-3-Clause</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">#<sp/>SPDX-FileType:<sp/>SOURCE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">#</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">#<sp/>This<sp/>program<sp/>is<sp/>free<sp/>software:<sp/>you<sp/>can<sp/>redistribute<sp/>it<sp/>and/or<sp/>modify<sp/>it</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">#<sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>license<sp/>found<sp/>in<sp/>the<sp/>LICENSE.txt<sp/>file<sp/>in<sp/>the<sp/>root</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">#<sp/>directory<sp/>of<sp/>this<sp/>source<sp/>tree.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">#<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Imports</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">#<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.._definitions.types<sp/>cimport<sp/>DataType,<sp/>IndexType,<sp/>LongIndexType,<sp/>FlagType</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.cu_linear_operator<sp/>cimport<sp/>cuLinearOperator</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.._cuda_utilities<sp/>cimport<sp/>DeviceProperties</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="comment">#<sp/>====================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">#<sp/>pycu<sp/>Linear<sp/>Operator</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">#<sp/>====================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="classimate_1_1__cu__linear__operator_1_1py__cu__linear__operator_1_1pycuLinearOperator" refkind="compound"><highlight class="normal">cdef<sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classimate_1_1__cu__linear__operator_1_1py__cu__linear__operator_1_1pycuLinearOperator" kindref="compound">pycuLinearOperator</ref>(object):</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Attributes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>cuLinearOperator[float]*<sp/>Aop_float</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>cuLinearOperator[double]*<sp/>Aop_double</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>char*<sp/>data_type_name</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>char*<sp/>long_index_type_name</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>IndexType<sp/>num_parameters</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>int<sp/>num_gpu_devices</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>dict<sp/>device_properties_dict</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Cython<sp/>methods</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>LongIndexType<sp/>get_num_rows(self)<sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>*</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>LongIndexType<sp/>get_num_columns(self)<sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>*</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>char*<sp/>get_data_type_name(self)<sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>*</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>cuLinearOperator[float]*<sp/>get_linear_operator_float(self)<sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>*</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>cuLinearOperator[double]*<sp/>get_linear_operator_double(self)<sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>*</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>cpdef<sp/>void<sp/>dot(self,<sp/>vector,<sp/>product)<sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>*</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>cpdef<sp/>void<sp/>transpose_dot(self,<sp/>vector,<sp/>product)<sp/></highlight><highlight class="keywordflow">except</highlight><highlight class="normal"><sp/>*</highlight></codeline>
+    </programlisting>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/py_cu_linear_operator.pxd"/>
+  </compounddef>
+</doxygen>

@@ -26,7 +26,7 @@
 /// important. This could include, for instance, indices of long columns of
 /// matrices, but not short rows.
 ///
-/// This type is intended to be set as \c{long}. However, because the
+/// This type is intended to be set as <tt>long</tt>. However, because the
 /// indices of \c scipy.sparse matrices are stored as \c int (and not
 /// \c long) here, a fused type is used to accommodate both \c int and
 /// \c long.
@@ -43,7 +43,7 @@
 ///     self.A_index_pointer = A.indptr.astype('uint64')
 ///     self.B_index_pointer = B.indptr.astype('uint64')
 ///
-/// In the above, \c uint64 is equivalent to \c{long}. Note, this
+/// In the above, \c uint64 is equivalent to <tt>long</tt>. Note, this
 /// will *copy* the data, since scipy's sparse indices should be casted from
 /// \c uint32.
 

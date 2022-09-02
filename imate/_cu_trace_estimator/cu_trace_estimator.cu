@@ -79,8 +79,8 @@
 ///               transposed-matrix vector multiplications.
 /// \param[in]  exponent
 ///             The exponent parameter \c p in the trace of the expression
-///             $f((\mathbf{A} + t \mathbf{B})^p)$. The exponent is a real
-///             number and by default it is set to \c 1.0.
+///             \f$ f((\mathbf{A} + t \mathbf{B})^p) \f$. The exponent is a
+///             real number and by default it is set to \c 1.0.
 /// \param[in]  orthogonalize
 ///             Indicates whether to orthogonalize the orthogonal eigenvectors
 ///             during Lanczos recursive iterations.
@@ -138,6 +138,10 @@
 /// \param[in]  num_threads
 ///             Number of OpenMP parallel processes. The parallelization is
 ///             implemented over the Monte-Carlo iterations.
+/// \param[in]  num_gpu_devices
+///             Number of GPU devices to use. This is the number of CPU threads
+///             to be created to handle each GPU device in parallel for each
+///             CPU thread.
 /// \param[out] trace
 ///             The output trace of size \c num_inquiries. These values are the
 ///             average of the rows of \c samples array.
@@ -349,8 +353,8 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
 ///               transposed-matrix vector multiplications.
 /// \param[in]  exponent
 ///             The exponent parameter \c p in the trace of the expression
-///             $f((\mathbf{A} + t \mathbf{B})^p)$. The exponent is a real
-///             number and by default it is set to \c 1.0.
+///             \f$ f((\mathbf{A} + t \mathbf{B})^p) \f$. The exponent is a
+///             real number and by default it is set to \c 1.0.
 /// \param[in]  orthogonalize
 ///             Indicates whether to orthogonalize the orthogonal eigenvectors
 ///             during Lanczos recursive iterations.

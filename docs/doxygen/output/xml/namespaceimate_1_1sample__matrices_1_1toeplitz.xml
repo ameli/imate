@@ -1,0 +1,678 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespaceimate_1_1sample__matrices_1_1toeplitz" kind="namespace" language="Python">
+    <compoundname>imate::sample_matrices::toeplitz</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceimate_1_1sample__matrices_1_1toeplitz_1a6bcd94aaaa505bb5f8369e9da0835a59" prot="private" static="no" mutable="no">
+        <type>list</type>
+        <definition>list imate::sample_matrices::toeplitz.__all__</definition>
+        <argsstring></argsstring>
+        <name>__all__</name>
+        <initializer>=  [&apos;<ref refid="namespaceimate_1_1sample__matrices_1_1toeplitz_1ab2d7d3ddfb5d7963d9f8c7db2b9b699a" kindref="member">toeplitz</ref>&apos;, &apos;<ref refid="namespaceimate_1_1sample__matrices_1_1toeplitz_1ab42f7e9a058e050c3213ea57ddb0be1f" kindref="member">toeplitz_trace</ref>&apos;, &apos;<ref refid="namespaceimate_1_1sample__matrices_1_1toeplitz_1a30c9f97f398d0e0a9e03f45b94178cd1" kindref="member">toeplitz_traceinv</ref>&apos;,
+           &apos;<ref refid="namespaceimate_1_1sample__matrices_1_1toeplitz_1a560c7659a1d496c5738522aabe505eed" kindref="member">toeplitz_logdet</ref>&apos;, &apos;<ref refid="namespaceimate_1_1sample__matrices_1_1toeplitz_1abe1c2d5327c571051074041b6665a487" kindref="member">toeplitz_schatten</ref>&apos;]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/toeplitz.py" line="17" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/toeplitz.py" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceimate_1_1sample__matrices_1_1toeplitz_1ab2d7d3ddfb5d7963d9f8c7db2b9b699a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.sample_matrices.toeplitz.toeplitz</definition>
+        <argsstring>(a, b, size=20, gram=False, format=&apos;csr&apos;, dtype=r &apos;float64&apos;)</argsstring>
+        <name>toeplitz</name>
+        <param>
+          <type>a</type>
+          <defname>a</defname>
+        </param>
+        <param>
+          <type>b</type>
+          <defname>b</defname>
+        </param>
+        <param>
+          <type>size</type>
+          <defname>size</defname>
+          <defval>20</defval>
+        </param>
+        <param>
+          <type>gram</type>
+          <defname>gram</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>format</type>
+          <defname>format</defname>
+          <defval>&apos;csr&apos;</defval>
+        </param>
+        <param>
+          <type>dtype</type>
+          <defname>dtype</defname>
+          <defval>r &apos;float64&apos;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Generate a sparse Toeplitz matrix for test purposes.
+
+A bi-diagonal Toeplitz matrix is generated using `a` and `b` as
+
+.. math::
+    :label: toeplitz-A
+
+    \\mathbf{A} =
+    \\begin{bmatrix}
+        a &amp; b &amp; 0 &amp;\\cdots &amp; \\cdots &amp; 0 \\
+
+        0 &amp; a &amp; b &amp; \\ddots &amp;&amp; \\vdots \\
+
+        0 &amp; 0 &amp; \\ddots &amp; \\ddots &amp; \\ddots &amp; \\vdots \\
+
+        \\vdots &amp; \\ddots &amp; \\ddots &amp; \\ddots &amp; b &amp; 0 \\
+
+        \\vdots &amp; &amp; \\ddots &amp; 0 &amp; a &amp; b \\
+
+        0 &amp; \\cdots &amp; \\cdots &amp; 0 &amp; 0 &amp; a
+    \\end{bmatrix}
+
+If ``gram=True``, the Gramian of the above matrix is generated, which is
+:math:`\\mathbf{B} = \\mathbf{A}^{\\intercal} \\mathbf{A}`, namely
+
+.. math::
+    :label: toeplitz-B
+
+    \\mathbf{B} =
+    \\begin{bmatrix}
+        a^2 &amp; ab &amp; 0 &amp;\\cdots &amp; \\cdots &amp; 0 \\
+
+        ab &amp; a^2+b^2 &amp; ab &amp; \\ddots &amp;&amp; \\vdots \\
+
+        0 &amp; ab &amp; \\ddots &amp; \\ddots &amp; \\ddots &amp; \\vdots \\
+
+        \\vdots &amp; \\ddots &amp; \\ddots &amp; \\ddots &amp; b &amp; 0 \\
+
+        \\vdots &amp; &amp; \\ddots &amp; ab &amp; a^2+b^2 &amp; ab \\
+
+        0 &amp; \\cdots &amp; \\cdots &amp; 0 &amp; ab &amp; a^2+b^2
+    \\end{bmatrix}
+
+Parameters
+----------
+
+a : float
+    The diagonal elements of the Toeplitz matrix.
+
+b : float
+    The upper off-diagonals element of the Toeplitz matrix.
+
+size : int, default=20
+    Size of the square matrix.
+
+gram : bool, default=False
+    If `False`, the bi-diagonal matrix :math:`\\mathbf{A}` in
+    :math:numref:`toeplitz-A` is returned. If `True`, the Gramian
+    tri-diagonal matrix :math:`\\mathbf{B}` in :math:numref:`toeplitz-B` is
+    returned.
+
+format : {&apos;csr&apos;, &apos;csc&apos;}, default=&apos;csr&apos;
+    The format of the sparse matrix. `CSR` is the compressed sparse row and
+    `CSC` is the compressed sparse column format.
+
+dtype : {&apos;float32&apos;, &apos;float64&apos;, &apos;float128&apos;}, default=&apos;float64&apos;
+    The data type of the matrix.
+
+Returns
+-------
+
+A : scipy.sparse.csr or scipy.sparse.csc, (n, n)
+    Bi-diagonal or tri-diagonal (if ``grid=True``) Toeplitz matrix
+
+See Also
+--------
+
+imate.correlation_matrix
+imate.sample_matrices.toeplitz_logdet
+imate.sample_matrices.toeplitz_trace
+imate.sample_matrices.toeplitz_traceinv
+
+Notes
+-----
+
+The matrix functions of the Toeplitz matrix (such as log-determinant,
+trace of its inverse, etc) is known analytically. As such, this matrix can
+be used to test the accuracy of randomized algorithms for computing matrix
+functions.
+
+.. warning::
+
+    All eigenvalues of the generated Toeplitz matrix are equal to
+    :math:`a`. So, in applications where a matrix with distinct
+    eigenvalues is needed, this matrix is not suitable. For such
+    applications, use :func:`imate.correlation_matrix` instead.
+
+To generate a symmetric and positive-definite matrix, set ``gram`` to
+`True`.
+
+Examples
+--------
+
+Generate bi-diagonal matrix:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; from imate.sample_matrices import toeplitz
+    &gt;&gt;&gt; a, b = 2, 3
+
+    &gt;&gt;&gt; # Bi-diagonal matrix
+    &gt;&gt;&gt; A = toeplitz(a, b, size=6, format=&apos;csr&apos;, dtype=&apos;float128&apos;)
+
+    &gt;&gt;&gt; print(A.dtype)
+    dtype(&apos;float128&apos;)
+
+    &gt;&gt;&gt; print(type(A))
+    scipy.sparse.csr.csr_matrix
+
+    &gt;&gt;&gt; # Convert sparse to dense numpy array to display the matrix
+    &gt;&gt;&gt; A.toarray()
+    array([[2., 3., 0., 0., 0., 0.],
+           [0., 2., 3., 0., 0., 0.],
+           [0., 0., 2., 3., 0., 0.],
+           [0., 0., 0., 2., 3., 0.],
+           [0., 0., 0., 0., 2., 3.],
+           [0., 0., 0., 0., 0., 2.]])
+
+Create a tri-diagonal Matrix:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; # Tri-diagonal Gramian matrix
+    &gt;&gt;&gt; B = toeplitz(a, b, size=6, gram=True)
+    &gt;&gt;&gt; B.toarray()
+    array([[ 4.,  6.,  0.,  0.,  0.,  0.],
+           [ 6., 13.,  6.,  0.,  0.,  0.],
+           [ 0.,  6., 13.,  6.,  0.,  0.],
+           [ 0.,  0.,  6., 13.,  6.,  0.],
+           [ 0.,  0.,  0.,  6., 13.,  6.],
+           [ 0.,  0.,  0.,  0.,  6., 13.]])
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/toeplitz.py" line="25" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/toeplitz.py" bodystart="31" bodyend="208"/>
+        <references refid="namespaceimate_1_1sample__matrices_1_1toeplitz_1aa6dce35f4068168a6d9d16ab7d54a2f5" compoundref="toeplitz_8py" startline="215" endline="272">imate.sample_matrices.toeplitz._check_arguments</references>
+      </memberdef>
+      <memberdef kind="function" id="namespaceimate_1_1sample__matrices_1_1toeplitz_1aa6dce35f4068168a6d9d16ab7d54a2f5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.sample_matrices.toeplitz._check_arguments</definition>
+        <argsstring>(a, b, size, gram, format, dtype)</argsstring>
+        <name>_check_arguments</name>
+        <param>
+          <type>a</type>
+          <defname>a</defname>
+        </param>
+        <param>
+          <type>b</type>
+          <defname>b</defname>
+        </param>
+        <param>
+          <type>size</type>
+          <defname>size</defname>
+        </param>
+        <param>
+          <type>gram</type>
+          <defname>gram</defname>
+        </param>
+        <param>
+          <type>format</type>
+          <defname>format</defname>
+        </param>
+        <param>
+          <type>dtype</type>
+          <defname>dtype</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Checks the type and values of the input arguments.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/toeplitz.py" line="209" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/toeplitz.py" bodystart="215" bodyend="272"/>
+        <referencedby refid="namespaceimate_1_1sample__matrices_1_1toeplitz_1ab2d7d3ddfb5d7963d9f8c7db2b9b699a" compoundref="toeplitz_8py" startline="31" endline="208">imate.sample_matrices.toeplitz.toeplitz</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespaceimate_1_1sample__matrices_1_1toeplitz_1ab42f7e9a058e050c3213ea57ddb0be1f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.sample_matrices.toeplitz.toeplitz_trace</definition>
+        <argsstring>(a, b, size, gram=False)</argsstring>
+        <name>toeplitz_trace</name>
+        <param>
+          <type>a</type>
+          <defname>a</defname>
+        </param>
+        <param>
+          <type>b</type>
+          <defname>b</defname>
+        </param>
+        <param>
+          <type>size</type>
+          <defname>size</defname>
+        </param>
+        <param>
+          <type>gram</type>
+          <defname>gram</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Compute the trace of the Toeplitz matrix using an analytic formula.
+
+The Toeplitz matrix using the entries :math:`a` and :math:`b` refers to the
+matrix generated by :func:`imate.toeplitz`.
+
+Parameters
+----------
+
+a : float
+    The diagonal elements of the Toeplitz matrix.
+
+b : float
+    The upper off-diagonal elements of the Toeplitz matrix.
+
+size : int, default=20
+    Size of the square matrix.
+
+gram : bool, default=False
+    If `False`, the matrix is assumed to be bi-diagonal Toeplitz. If
+    `True`, the Gramian of the matrix is considered instead.
+
+Returns
+-------
+
+trace : float
+    Trace of Toeplitz matrix
+
+See Also
+--------
+
+imate.toeplitz
+imate.sample_matrices.toeplitz_logdet
+imate.sample_matrices.toeplitz_traceinv
+
+Notes
+-----
+
+For the matrix :math:`\\mathbf{A}` given in :func:`imate.toeplitz`, the
+trace is computed by
+
+.. math::
+
+    \\mathrm{trace}(\\mathbf{A}) = n a,
+
+where :math:`n` is the size of the matrix. For the Gramian matrix,
+:math:`\\mathbf{B} = \\mathbf{A}^{\\intercal} \\mathbf{A}` (when ``gram``
+is set to `True`), the trace is
+
+.. math::
+
+    \\mathrm{trace}(\\mathbf{B}) = a^2 + (n-1)(a^2 + b^2).
+
+Examples
+--------
+
+.. code-block:: python
+
+    &gt;&gt;&gt; from imate.sample_matrices import toeplitz_trace
+    &gt;&gt;&gt; a, b = 2, 3
+
+    &gt;&gt;&gt; toeplitz_trace(a, b, size=6)
+    12
+
+    &gt;&gt;&gt; toeplitz_trace(a, b, size=6, gram=True)
+    69
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/toeplitz.py" line="273" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/toeplitz.py" bodystart="273" bodyend="354"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceimate_1_1sample__matrices_1_1toeplitz_1a30c9f97f398d0e0a9e03f45b94178cd1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.sample_matrices.toeplitz.toeplitz_traceinv</definition>
+        <argsstring>(a, b, size, gram=False)</argsstring>
+        <name>toeplitz_traceinv</name>
+        <param>
+          <type>a</type>
+          <defname>a</defname>
+        </param>
+        <param>
+          <type>b</type>
+          <defname>b</defname>
+        </param>
+        <param>
+          <type>size</type>
+          <defname>size</defname>
+        </param>
+        <param>
+          <type>gram</type>
+          <defname>gram</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Computes the trace of the inverse of Toeplitz matrix using an analytic
+formula.
+
+The Toeplitz matrix using the entries :math:`a` and :math:`b` refers to the
+matrix generated by :func:`imate.toeplitz`.
+
+Parameters
+----------
+
+a : float
+    The diagonal elements of the Toeplitz matrix.
+
+b : float
+    The upper off-diagonal elements of the Toeplitz matrix.
+
+size : int, default=20
+    Size of the square matrix.
+
+gram : bool, default=False
+    If `False`, the  matrix is assumed to be bi-diagonal Toeplitz. If
+    `True`, the Gramian of the matrix is considered instead.
+
+Returns
+-------
+
+traceinv : float
+    Trace of the inverse of Toeplitz matrix
+
+See Also
+--------
+
+imate.toeplitz
+imate.sample_matrices.toeplitz_logdet
+imate.sample_matrices.toeplitz_trace
+
+Notes
+-----
+
+For the matrix :math:`\\mathbf{A}` given in :func:`imate.toeplitz`, the
+trace of its inverse is computed by
+
+.. math::
+
+    \\mathrm{trace}(\\mathbf{A}^{-1}) = \\frac{n}{a},
+
+where :math:`n` is the size of the matrix. For the Gramian matrix,
+:math:`\\mathbf{B} = \\mathbf{A}^{\\intercal} \\mathbf{A}` (when ``gram``
+is set to `True`), the trace of inverse is
+
+.. math::
+
+    \\mathrm{trace}(\\mathbf{B}^{-1}) =
+    \\begin{cases}
+        \\displaystyle{\\frac{n(n+1)}{2 a^2}}, &amp; \\text{if} a=b \\
+
+        \\displaystyle{\\frac{1}{a^2 - b^2}
+        \\frac{q^2 (q^{2n} - 1)}{q^2-1}}
+        , &amp;
+        \\text{if} a \\neq b
+    \\end{cases}
+
+where :math:`q = b/a`. If :math:`n \\gg 1`, then for :math:`q \\neq 1` we
+have
+
+.. math::
+    :label: limit
+
+    \\mathrm{trace}(\\mathbf{B}^{-1}) \\approx \\frac{1}{a^2 - b^2}
+    \\left( n - \\frac{q^{2}}{1 - q^2} \\right).
+
+This function uses the approximation :math:numref:`limit` when
+:math:`n &gt; 200`.
+
+Examples
+--------
+
+.. code-block:: python
+
+    &gt;&gt;&gt; from imate.sample_matrices import toeplitz_traceinv
+    &gt;&gt;&gt; a, b = 2, 3
+
+    &gt;&gt;&gt; toeplitz_traceinv(a, b, size=6)
+    3.0
+
+    &gt;&gt;&gt; toeplitz_traceinv(a, b, size=6, gram=True)
+    45.148681640625
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/toeplitz.py" line="355" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/toeplitz.py" bodystart="355" bodyend="466"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceimate_1_1sample__matrices_1_1toeplitz_1a560c7659a1d496c5738522aabe505eed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.sample_matrices.toeplitz.toeplitz_logdet</definition>
+        <argsstring>(a, b, size, gram=False)</argsstring>
+        <name>toeplitz_logdet</name>
+        <param>
+          <type>a</type>
+          <defname>a</defname>
+        </param>
+        <param>
+          <type>b</type>
+          <defname>b</defname>
+        </param>
+        <param>
+          <type>size</type>
+          <defname>size</defname>
+        </param>
+        <param>
+          <type>gram</type>
+          <defname>gram</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Compute the log-determinant of Toeplitz matrix using an analytic formula.
+
+The Toeplitz matrix using the entries :math:`a` and :math:`b` refers to the
+matrix generated by :func:`imate.toeplitz`.
+
+Parameters
+----------
+
+a : float
+    The diagonal elements of the Toeplitz matrix.
+
+b : float
+    The upper off-diagonal elements of the Toeplitz matrix.
+
+size : int, default=20
+    Size of the square matrix.
+
+gram : bool, default=False
+    If `False`, the matrix is assumed to be bi-diagonal Toeplitz. If
+    `True`, the Gramian of the matrix is considered instead.
+
+Returns
+-------
+
+logdet : float
+    Natural logarithm of the determinant of Toeplitz matrix
+
+See Also
+--------
+
+imate.toeplitz
+imate.sample_matrices.toeplitz_trace
+imate.sample_matrices.toeplitz_traceinv
+
+Notes
+-----
+
+For the matrix :math:`\\mathbf{A}` given in :func:`imate.toeplitz`, the
+log-determinant is
+
+.. math::
+
+    \\mathrm{logdet}(\\mathbf{A}) = n \\log_e(a),
+
+where :math:`n` is the size of the matrix. For the Gramian matrix,
+:math:`\\mathbf{B} = \\mathbf{A}^{\\intercal} \\mathbf{A}` (when ``gram``
+is set to `True`), the log-determinant is
+
+.. math::
+
+    \\mathrm{logdet}(\\mathbf{B}) = 2 n \\log_e(a)
+
+Examples
+--------
+
+.. code-block:: python
+
+    &gt;&gt;&gt; from imate.sample_matrices import toeplitz_logdet
+    &gt;&gt;&gt; a, b = 2, 3
+
+    &gt;&gt;&gt; toeplitz_logdet(a, b, size=6)
+    4.1588830833596715
+
+    &gt;&gt;&gt; toeplitz_logdet(a, b, size=6, gram=True)
+    8.317766166719343
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/toeplitz.py" line="467" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/toeplitz.py" bodystart="467" bodyend="546"/>
+      </memberdef>
+      <memberdef kind="function" id="namespaceimate_1_1sample__matrices_1_1toeplitz_1abe1c2d5327c571051074041b6665a487" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.sample_matrices.toeplitz.toeplitz_schatten</definition>
+        <argsstring>(a, b, size, p=2)</argsstring>
+        <name>toeplitz_schatten</name>
+        <param>
+          <type>a</type>
+          <defname>a</defname>
+        </param>
+        <param>
+          <type>b</type>
+          <defname>b</defname>
+        </param>
+        <param>
+          <type>size</type>
+          <defname>size</defname>
+        </param>
+        <param>
+          <type>p</type>
+          <defname>p</defname>
+          <defval>2</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Compute the Schatten norm of Toeplitz matrix using an analytic formula.
+
+The Toeplitz matrix using the entries :math:`a` and :math:`b` refers to the
+matrix generated by :func:`imate.toeplitz`.
+
+Parameters
+----------
+
+a : float
+    The diagonal elements of the Toeplitz matrix.
+
+b : float
+    The upper off-diagonal elements of the Toeplitz matrix.
+
+size : int, default=20
+    Size of the square matrix.
+
+p : float, default=2
+    The order :math:`p` of Schatten :math:`p`-norm.
+
+Returns
+-------
+
+logdet : float
+    Natural logarithm of the determinant of Toeplitz matrix
+
+See Also
+--------
+
+imate.toeplitz
+imate.sample_matrices.toeplitz_logdet
+imate.sample_matrices.toeplitz_trace
+imate.sample_matrices.toeplitz_traceinv
+
+Notes
+-----
+
+The Schatten :math:`p`-norm of matrix :math:`\\mathbf{A}` is defined as
+
+.. math::
+    :label: schatten-eq
+
+    \\Vert \\mathbf{A} \\Vert_p =
+    \\begin{cases}
+        \\left| \\mathrm{det}(\\mathbf{A})
+        \\right|^{\\frac{1}{n}}, &amp; p=0, \\\\
+        \\left| \\frac{1}{n}
+        \\mathrm{trace}(\\mathbf{A}^{\\frac{1}{p}})
+        \\right|^{\\frac{1}{p}}, &amp; p \\neq 0,
+    \\end{cases},
+
+where :math:`n` is the size of the matrix. When :math:`p \\geq 0`, the
+above definition is the Schatten **norm**, and when :math:`p &lt; 0`, the
+above is the Schatten **anti-norm**.
+
+.. note::
+
+    Conventionally, the Schatten norm is defined without the normalizing
+    factor :math:`\\frac{1}{n}` in :math:numref:`schatten-eq`. However,
+    this factor is justified by the continuity granted by
+
+    .. math::
+
+        \\lim_{p \\to 0} \\Vert \\mathbf{A} \\Vert_p =
+        \\Vert \\mathbf{A} \\Vert_0.
+
+For the matrix :math:`\\mathbf{A}` given in :func:`imate.toeplitz`, the
+Schatten norm (or anti-norm) is
+
+.. math::
+
+    \\Vert \\mathbf{A} \\Vert_p = a.
+
+Examples
+--------
+
+.. code-block:: python
+
+    &gt;&gt;&gt; from imate.sample_matrices import toeplitz_schatten
+    &gt;&gt;&gt; a, b = 2, 3
+
+    &gt;&gt;&gt; # Schatten 2-norm
+    &gt;&gt;&gt; toeplitz_schatten(a, b, size=6)
+    2.0
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/toeplitz.py" line="547" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/toeplitz.py" bodystart="547" bodyend="636"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/sample_matrices/toeplitz.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

@@ -117,8 +117,8 @@ class EigenvaluesMethod(InterpolantBase):
     # Init
     # ====
 
-    def __init__(self, A, B=None, p=0, options={}, non_zero_ratio=0.9,
-                 tol=1e-3, verbose=False):
+    def __init__(self, A, B=None, p=0, options={}, verbose=False,
+                 non_zero_ratio=0.9, tol=1e-3):
         """
         Constructor of the class, which initializes the bases class and
         computes eigenvalues of the input matrices.

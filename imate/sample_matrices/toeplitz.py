@@ -583,7 +583,7 @@ def toeplitz_schatten(a, b, size, p=2):
     Notes
     -----
 
-    For the Schatten :math:`p`-norm of matrix :math:`\\mathbf{A}` is
+    The Schatten :math:`p`-norm of matrix :math:`\\mathbf{A}` is defined as
 
     .. math::
         :label: schatten-eq

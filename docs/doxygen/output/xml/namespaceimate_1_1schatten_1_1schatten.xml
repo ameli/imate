@@ -1,0 +1,446 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespaceimate_1_1schatten_1_1schatten" kind="namespace" language="Python">
+    <compoundname>imate::schatten::schatten</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceimate_1_1schatten_1_1schatten_1addd398048ffe6f31c8401438d3ab708e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.schatten.schatten.schatten</definition>
+        <argsstring>(A, gram=False, p=0, return_info=False, method=&apos;cholesky&apos;, **options)</argsstring>
+        <name>schatten</name>
+        <param>
+          <type>A</type>
+          <defname>A</defname>
+        </param>
+        <param>
+          <type>gram</type>
+          <defname>gram</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>p</type>
+          <defname>p</defname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>return_info</type>
+          <defname>return_info</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>method</type>
+          <defname>method</defname>
+          <defval>&apos;cholesky&apos;</defval>
+        </param>
+        <param>
+          <type>**</type>
+          <declname>options</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Schatten `p`-norm and p-anti-norm of matrix.
+
+Parameters
+----------
+
+A : numpy.ndarray, scipy.sparse, :class:`imate.Matrix`, or \
+        :class:`imate.AffineMatrixFunction`
+    A non-singular sparse or dense matrix or linear operator. The linear
+    operators :class:`imate.Matrix` and :class:`imate.AffineMatrixFunction`
+    can be used only if ``method=slq``. If ``method=cholesky``, the
+    matrix `A` should be positive-definite. If ``method=slq`` and
+    ``gram=False``, the input matrix `A` should be symmetric.
+
+gram : bool, default=False
+    If `False`, this function computes the Schatten norm
+    :math:`\\Vert \\mathbf{A} \\Vert_p`. If `True`, it computes the
+    Schatten norm of the Gramian matrix, namely,
+    :math:`\\Vert \\mathbf{A}^{\\intercal} \\mathbf{A} \\Vert_p`.
+
+p : float, default=2.0
+    The real order :math:`p` in :math:`\\Vert \\mathbf{A} \\Vert_p`. If
+    :math:`p&gt;0`, the output is the Schatten norm and if :math:`p&lt;0`, the
+    output is the Schatten anti-norm.
+
+return_info : bool, default=False
+    If `True`, this function also returns a dictionary containing
+    information about the inner computation, such as process time,
+    algorithm settings, etc. See the documentation for each `method` for
+    details.
+
+method : {&apos;exact&apos;, &apos;eigenvalue&apos;, &apos;cholesky&apos;, &apos;hutchinson&apos;, &apos;slq&apos;}, \
+        default=&apos;exact&apos;
+    The method of computing Schatten norm. Note that
+
+    * ``exact`` is only available for :math:`p&gt;0` 
+    * ``cholesky`` is only available for :math:`p \\leq 0`.
+    * ``hutchinson`` is only available for :math:`p &lt; 0`.
+
+options : `**kwargs`
+    Extra arguments that are specific to each method and :math:`p`.
+    Depending on the sign of :math:`p`, the options of this function is
+    passed to the following functions:
+
+    * If :math:`p &gt; 0`, see options for :func:`imate.trace`. In particular:
+
+      * :ref:`imate.trace.exact`
+      * :ref:`imate.trace.eigenvalue`
+      * :ref:`imate.trace.slq`
+
+    * If :math:`p = 0`, see options for :func:`imate.logdet`. In
+      particular:
+
+      * :ref:`imate.logdet.eigenvalue`
+      * :ref:`imate.logdet.cholesky`
+      * :ref:`imate.logdet.slq`
+
+    * If :math:`p &lt; 0`, see options for :func:`imate.traceinv`. In
+      particular:
+
+      * :ref:`imate.traceinv.eigenvalue`
+      * :ref:`imate.traceinv.cholesky`
+      * :ref:`imate.traceinv.hutchinson`
+      * :ref:`imate.traceinv.slq`
+
+Returns
+-------
+
+norm : float or numpy.array
+    Schatten norm of matrix. If ``method=slq`` and if `A` is of type
+    :class:`imate.AffineMatrixFunction` with an array of ``parameters``,
+    then the output is an array.
+
+info : dict
+    (Only if ``return_info`` is `True`) A dictionary of information with at
+    least the following keys. Further keys specific to each method can be
+    found in the documentation of each method.
+
+    * ``matrix``:
+        * ``data_type``: `str`, {`float32`, `float64`, `float128`}, type of
+          the matrix data.
+        * ``gram``: `bool`, whether the matrix `A` or its Gramian is
+          considered.
+        * ``exponent``: `float`, the order `p` of the norm.
+        * ``size``: `int`, The size of matrix `A`.
+        * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
+        * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
+          of `A`.
+        * ``density``: `float`, if `A` is sparse, the density of `A`, which
+          is the `nnz` divided by size squared.
+        * ``num_inquiries``: `int`, The size of inquiries of each parameter
+          of the linear operator `A`. If `A` is a matrix, this is always
+          `1`. For more details see :ref:`slq method &lt;imate.logdet.slq&gt;`.
+
+    * ``device``:
+        * ``num_cpu_threads``: `int`, number of CPU threads used in shared
+          memory parallel processing.
+        * ``num_gpu_devices``: `int`, number of GPU devices used in the
+          multi-GPU (GPU farm) computation.
+        * ``num_gpu_multiprocessors``: `int`, number of GPU
+          multi-processors.
+        * ``num_gpu_threads_per_multiprocessor``: `int`, number of GPU
+          threads on each GPU multi-processor.
+
+    * ``time``:
+        * ``tot_wall_time``: `float`, total elapsed time of computation.
+        * ``alg_wall_time``: `float`, elapsed time of computation during
+          only the algorithm execution.
+        * ``cpu_proc_time``: `float`, CPU processing time of computation.
+
+    * ``solver``:
+        * ``version``: `str`, version of imate.
+        * ``method``: `str`, method of computation.
+    
+Raises
+------
+
+LinAlgError
+    If ``method=cholesky`` and `A` is not positive-definite.
+
+ImportError
+    If the package has not been compiled with GPU support, but ``gpu`` is
+    `True`. Either set ``gpu`` to `False` to use the existing installed
+    package. Alternatively, export the environment variable ``USE_CUDA=1``
+    and recompile the source code of the package.
+
+See Also
+--------
+
+imate.trace
+imate.traceinv
+imate.logdet
+imate.sample_matrices.toeplitz_schatten
+
+Notes
+-----
+
+**Definition of the Norm:**
+
+This function defines the Schatten :math:`p`-norm of matrix
+:math:`\\mathbf{A}` as
+
+.. math::
+    :label: schatten-eq-2
+
+    \\Vert \\mathbf{A} \\Vert_p =
+    \\begin{cases}
+        \\left| \\mathrm{det}(\\mathbf{A})
+        \\right|^{\\frac{1}{n}}, &amp; p=0, \\\\
+        \\left| \\frac{1}{n}
+        \\mathrm{trace}(\\mathbf{A}^{\\frac{1}{p}})
+        \\right|^{\\frac{1}{p}}, &amp; p \\neq 0,
+    \\end{cases},
+
+where :math:`n` is the size of the matrix. When :math:`p \\geq 0`, the
+above definition is the Schatten **norm**, and when :math:`p &lt; 0`, the
+above is the Schatten **anti-norm**.
+
+.. note::
+
+    Conventionally, the Schatten norm is defined without the normalizing
+    factor :math:`\\frac{1}{n}` in :math:numref:`schatten-eq-2`. However,
+    this factor is justified by the continuity granted by
+
+    .. math::
+        :label: schatten-continuous
+
+        \\lim_{p \\to 0} \\Vert \\mathbf{A} \\Vert_p =
+        \\Vert \\mathbf{A} \\Vert_0.
+
+    See [1]_ (Section 2) for details and the example below.
+
+**Method and Options Arguments:**
+
+The :func:`imate.schatten` calls the following functions:
+
+* If :math:`p &gt; 0`, the computation is passed to :func:`imate.trace`
+  function.
+* If :math:`p = 0`, the computation is passed to :func:`imate.logdet`
+  function.
+* If :math:`p &lt; 0`, the computation is passed to :func:`imate.traceinv`
+  function.
+
+The ``method`` and ``**options`` arguments to this functions are then
+passed to the above functions directly. Hence, depending on the sign of
+:math:`p`, see usage of the arguments in the documentation of the above
+functions.
+
+References
+----------
+
+.. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant
+       and Trace of the Powers of Matrix :math:`\mathbf{A} + t \mathbf{B}`.
+       `arXiv: 2009.07385 &lt;https://arxiv.org/abs/2207.08038&gt;`_ [math.NA].
+
+Examples
+--------
+
+**Basic Usage:**
+
+Compute Schatten norm for various orders :math:`p`:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; # Import packages
+    &gt;&gt;&gt; from imate import schatten
+    &gt;&gt;&gt; from imate.sample_matrices import correlation_matrix
+
+    &gt;&gt;&gt; # Generate a sample matrix
+    &gt;&gt;&gt; A = correlation_matrix(size=1000)
+
+    &gt;&gt;&gt; # Compute Schatten 2-norm using the exact method
+    &gt;&gt;&gt; schatten(A)
+    9.742355891729794
+
+    &gt;&gt;&gt; # Compute Schatten 2-norm of the Gramian of A
+    &gt;&gt;&gt; schatten(A, gram=True)
+    1459.9826900202575
+
+    &gt;&gt;&gt; # Compute Schatten 0-norm
+    &gt;&gt;&gt; schatten(A, p=0, method=&apos;cholesky&apos;)
+    0.019898820919266435
+
+    &gt;&gt;&gt; # Compute Schatten 2-anti-norm
+    &gt;&gt;&gt; schatten(A, p=-2, method=&apos;cholesky&apos;)
+    0.008178429155178678
+
+**Verbose output:**
+
+By setting ``verbose`` to `True`, useful info about the process is
+printed.
+
+.. literalinclude:: ../_static/data/imate.schatten-verbose.txt
+    :language: python
+
+**Output information:**
+
+Print information about the inner computation:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; norm, info = schatten(A, method=&apos;slq&apos;, return_info=true)
+    &gt;&gt;&gt; print(norm)
+    9.873304126858432
+
+    &gt;&gt;&gt; # Print dictionary neatly using pprint
+    &gt;&gt;&gt; from pprint import pprint
+    &gt;&gt;&gt; pprint(info)
+    {
+        &apos;matrix&apos;: {
+            &apos;data_type&apos;: b&apos;float64&apos;,
+            &apos;density&apos;: 1.0,
+            &apos;exponent&apos;: 2,
+            &apos;gram&apos;: False,
+            &apos;nnz&apos;: 1000000,
+            &apos;num_inquiries&apos;: 1,
+            &apos;num_operator_parameters&apos;: 0,
+            &apos;parameters&apos;: None,
+            &apos;size&apos;: 1000,
+            &apos;sparse&apos;: False
+        },
+        &apos;convergence&apos;: {
+            &apos;all_converged&apos;: False,
+            &apos;converged&apos;: False,
+            &apos;max_num_samples&apos;: 50,
+            &apos;min_num_samples&apos;: 10,
+            &apos;num_outliers&apos;: 1,
+            &apos;num_samples_used&apos;: 50,
+            &apos;samples&apos;: array([165444.12035971,  ..., 38852.18934236]),
+            &apos;samples_mean&apos;: 97482.13438143977,
+            &apos;samples_processed_order&apos;: array([ 6, ..., 47])
+        },
+        &apos;error&apos;: {
+            &apos;absolute_error&apos;: 17071.631543126343,
+            &apos;confidence_level&apos;: 0.95,
+            &apos;error_atol&apos;: 0.0,
+            &apos;error_rtol&apos;: 0.01,
+            &apos;outlier_significance_level&apos;: 0.001,
+            &apos;relative_error&apos;: 0.17512574638883488
+        },
+        &apos;solver&apos;: {
+            &apos;lanczos_degree&apos;: 20,
+            &apos;lanczos_tol&apos;: 2.220446049250313e-16,
+            &apos;method&apos;: &apos;slq&apos;,
+            &apos;orthogonalize&apos;: 0,
+            &apos;version&apos;: &apos;0.16.0&apos;
+        },
+        &apos;device&apos;: {
+            &apos;num_cpu_threads&apos;: 4,
+            &apos;num_gpu_devices&apos;: 0,
+            &apos;num_gpu_multiprocessors&apos;: 0,
+            &apos;num_gpu_threads_per_multiprocessor&apos;: 0
+        },
+        &apos;time&apos;: {
+            &apos;alg_wall_time&apos;: 0.4813501834869385,
+              &apos;cpu_proc_time&apos;: 1.4557350500000004,
+              &apos;tot_wall_time&apos;: 0.48481535189785063
+        }
+    }
+
+**Large Matrix:**
+
+Compute Schatten of a large sparse matrix using `SLQ` method for
+:math:`p &gt; 0`. In this case, the computation is passed to
+:ref:`imate.trace.slq` function. Note that the SLQ method does not compute
+norm exactly, rather, the result is an approximation using Monte-Carlo
+sampling. The following example uses at least `100` samples.
+
+.. note::
+
+    To see options passed to :func:`imate.schatten` for :math:`p &gt; 0` in
+    the example below, see the parameters of :ref:`imate.trace.slq`
+    function. In particular, note that the input matrix `A` should be
+    symmetric as a requirement to the `SLQ` method.
+
+.. code-block:: python
+    :emphasize-lines: 7, 8
+
+    &gt;&gt;&gt; # Generate a matrix of size one million
+    &gt;&gt;&gt; from imate import toeplitz
+    &gt;&gt;&gt; A = toeplitz(2, 1, size=1000000, gram=True)
+
+    &gt;&gt;&gt; # Approximate log-determinant using stochastic Lanczos quadrature
+    &gt;&gt;&gt; # with at least 100 Monte-Carlo sampling
+    &gt;&gt;&gt; norm, info = schatten(A, p=2.5, method=&apos;slq&apos;, min_num_samples=100,
+    ...                       max_num_samples=200, return_info=True)
+    &gt;&gt;&gt; print(norm)
+    4.049580819943461
+
+    &gt;&gt;&gt; # Find the time it took to compute the above
+    &gt;&gt;&gt; print(info[&apos;time&apos;])
+    {
+        &apos;tot_wall_time&apos;: 16.129820372909307,
+        &apos;alg_wall_time&apos;: 16.115617752075195,
+        &apos;cpu_proc_time&apos;: 117.41655239300007
+    }
+
+**Continuity of Norm in Order p:**
+
+Check the continuity of the Schatten norm over the order :math:`p`. Here,
+the `eigenvalue` method is used as it can be applied to positive, negative,
+and zero order :math:`p` among other methods.
+
+.. code-block:: python
+    :emphasize-lines: 20
+
+    &gt;&gt;&gt; # Importing packages
+    &gt;&gt;&gt; import numpy
+    &gt;&gt;&gt; import matplotlib.pyplot as plt
+    &gt;&gt;&gt; import seaborn as sns
+    &gt;&gt;&gt; from imate.sample_matrices import correlation_matrix
+    &gt;&gt;&gt; from imate import schatten
+
+    &gt;&gt;&gt; # Plot settings (optional)
+    &gt;&gt;&gt; sns.set(font_scale=1.15)
+    &gt;&gt;&gt; sns.set_style(&quot;white&quot;)
+    &gt;&gt;&gt; sns.set_style(&quot;ticks&quot;)
+
+    &gt;&gt;&gt; # Generate a sample matrix
+    &gt;&gt;&gt; A = correlation_matrix(size=500)
+
+    &gt;&gt;&gt; # Compute norm over a range of order p, including p=0
+    &gt;&gt;&gt; p = numpy.linspace(-10, 10, 201)
+    &gt;&gt;&gt; norm = numpy.zeros_like(p)
+    &gt;&gt;&gt; for i in range(p.size):
+    ...     norm[i] = schatten(A, p=p[i], method=&apos;eigenvalue&apos;)
+
+    &gt;&gt;&gt; # Norm at p=0
+    &gt;&gt;&gt; norm0 = schatten(A, p=0, method=&apos;eigenvalue&apos;)
+
+    &gt;&gt;&gt; # Plotting
+    &gt;&gt;&gt; plt.semilogy(p, norm, color=&apos;black&apos;)
+    &gt;&gt;&gt; plt.semilogy(0, norm0, &apos;o&apos;, color=&apos;black&apos;)  
+    &gt;&gt;&gt; plt.xlim([p[0], p[-1]])
+    &gt;&gt;&gt; plt.ylim([1e-2, 1e2])
+    &gt;&gt;&gt; plt.xlabel(&apos;$p$&apos;)
+    &gt;&gt;&gt; plt.ylabel(&apos;$\\Vert \\mathbf{A} \\Vert_p$&apos;)
+    &gt;&gt;&gt; plt.title(r&apos;Schatten Norm&apos;)
+    &gt;&gt;&gt; plt.show()
+
+.. image:: ../_static/images/plots/schatten_continuous.png
+    :align: center
+    :class: custom-dark
+    :width: 70%
+
+Since the Schatten norm in this function is defined as in
+:math:numref:`schatten-eq-2`, the norm is continuous at :math:`p = 0`. See
+:math:numref:`schatten-continuous`.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/schatten/schatten.py" line="24" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/schatten/schatten.py" bodystart="30" bodyend="467"/>
+        <references refid="namespaceimate_1_1logdet_1_1logdet_1a8047c87b7c5667157404a6c7b2a435a8" compoundref="logdet_8py" startline="29" endline="397">imate.logdet.logdet.logdet</references>
+        <references refid="namespaceimate_1_1__trace__estimator_1_1trace__estimator_1a128c7cde3dc28998a6e32d0b8d58c923" compoundref="trace__estimator_8pyx" startline="146">imate._trace_estimator.trace_estimator.trace</references>
+        <references refid="namespaceimate_1_1traceinv_1_1traceinv_1af09d9b0af1471fa625846f791debb269" compoundref="traceinv_8py" startline="30" endline="440">imate.traceinv.traceinv.traceinv</references>
+        <referencedby refid="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase_1ac280d2903b95eebb4f52d53a39f9814b" compoundref="__interpolant__base_8py" startline="137" endline="147">imate.interpolator._interpolant_base.InterpolantBase._compute_schatten</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/schatten/schatten.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

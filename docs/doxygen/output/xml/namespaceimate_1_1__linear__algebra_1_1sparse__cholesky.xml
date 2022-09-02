@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespaceimate_1_1__linear__algebra_1_1sparse__cholesky" kind="namespace" language="Python">
+    <compoundname>imate::_linear_algebra::sparse_cholesky</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceimate_1_1__linear__algebra_1_1sparse__cholesky_1a98ab770378a6efc51dbd1b62a233e75a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate._linear_algebra.sparse_cholesky.sparse_cholesky</definition>
+        <argsstring>(A, diagonal_only=False)</argsstring>
+        <name>sparse_cholesky</name>
+        <param>
+          <type>A</type>
+          <defname>A</defname>
+        </param>
+        <param>
+          <type>diagonal_only</type>
+          <defname>diagonal_only</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Computes the Cholesky decomposition of symmetric and positive-definite
+matrix ``A``. This function uses LU decomposition instead of directly
+computing Cholesky decomposition.
+
+.. note::
+
+    This function does not check if ``A`` is positive-definite. If the
+    input matrix is not positive-definite, the Cholesky decomposition does
+    not exist and the return value is misleadingly wrong.
+
+:param A: Symmetric and positive-definite matrix.
+:type A: numpy.ndarray
+
+:param diagonal_only: If ``True``, returns a column array of the diagonals
+    of the Cholesky decomposition. If ``False``, returns the full Cholesky
+    matrix as scipy.sparse.csc_matrix.
+
+:return: Cholesky decomposition of ``A``.
+:rtype: Super.LU
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_linear_algebra/sparse_cholesky.py" line="23" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_linear_algebra/sparse_cholesky.py" bodystart="23" bodyend="67"/>
+        <referencedby refid="namespaceimate_1_1traceinv_1_1__cholesky__method_1ac62318de9c8b4c44b65f2cc72c04f4a1" compoundref="traceinv_2__cholesky__method_8py" startline="48" endline="465">imate.traceinv._cholesky_method.cholesky_method</referencedby>
+        <referencedby refid="namespaceimate_1_1logdet_1_1__cholesky__method_1aa890fbc6de58a24eb061fca38d7e1e81" compoundref="logdet_2__cholesky__method_8py" startline="42" endline="346">imate.logdet._cholesky_method.cholesky_method</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_linear_algebra/sparse_cholesky.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

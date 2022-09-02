@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespaceimate_1_1logdet_1_1__cholesky__method" kind="namespace" language="Python">
+    <compoundname>imate::logdet::_cholesky_method</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceimate_1_1logdet_1_1__cholesky__method_1a60f4841869d17e2c987bc6ac586df90c" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool imate::logdet::_cholesky_method::suitesparse_installed</definition>
+        <argsstring></argsstring>
+        <name>suitesparse_installed</name>
+        <initializer>=  True</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/logdet/_cholesky_method.py" line="25" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/logdet/_cholesky_method.py" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceimate_1_1logdet_1_1__cholesky__method_1aa890fbc6de58a24eb061fca38d7e1e81" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.logdet._cholesky_method.cholesky_method</definition>
+        <argsstring>(A, gram=False, p=1.0, return_info=False, cholmod=None)</argsstring>
+        <name>cholesky_method</name>
+        <param>
+          <type>A</type>
+          <defname>A</defname>
+        </param>
+        <param>
+          <type>gram</type>
+          <defname>gram</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>p</type>
+          <defname>p</defname>
+          <defval>1.0</defval>
+        </param>
+        <param>
+          <type>return_info</type>
+          <defname>return_info</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>cholmod</type>
+          <defname>cholmod</defname>
+          <defval>None</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Log-determinant of non-singular matrix using Cholesky method.
+
+Given the matrix :math:`\\mathbf{A}` and the real exponent :math:`p`, the
+following is computed:
+
+.. math::
+
+    \\mathrm{logdet} \\left(\\mathbf{A}^p \\right) = p \\log_e \\vert
+    \\det (\\mathbf{A}) \\vert.
+
+If ``gram`` is `True`, then :math:`\\mathbf{A}` in the above is replaced by
+the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`, and the
+following is instead computed:
+
+.. math::
+
+    \\mathrm{logdet} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^p
+    \\right) = 2p \\log_e \\vert \\det (\\mathbf{A}) \\vert.
+
+Parameters
+----------
+
+A : numpy.ndarray, scipy.sparse
+    A positive-definite sparse or dense matrix.
+
+    .. warning::
+
+        This function does not pre-check whether the input matrix is
+        positive-definite.
+
+    .. note::
+
+        In the Cholesky method, the matrix cannot be a type of
+        :class:`Matrix` or :class:`imate.AffineMatrixFunction` classes.
+
+gram : bool, default=False
+    If `True`, the log-determinant of the Gramian matrix,
+    :math:`(\\mathbf{A}^{\\intercal}\\mathbf{A})^p`, is computed. The
+    Gramian matrix itself is not directly computed. If `False`, the
+    log-determinant of :math:`\\mathbf{A}^p` is computed.
+
+p : float, default=1.0
+    The real exponent :math:`p` in :math:`\\mathbf{A}^p`.
+
+return_info : bool, default=False
+    If `True`, this function also returns a dictionary containing
+    information about the inner computation, such as process time,
+    algorithm settings, etc.
+
+cholmod : bool, default=None
+    If set to `True`, it uses the `Cholmod` library from `scikit-sparse`
+    package to compute the Cholesky decomposition. If set to `False`, it
+    uses `scipy.sparse.cholesky` method. If set to `None`, first, it tries
+    to use Cholmod library,  but if Cholmod is not available, then it uses
+    `scipy.sparse.cholesky` method.
+
+Returns
+-------
+
+logdet : float or numpy.array
+    Log-determinant of `A`.
+
+info : dict
+    (Only if ``return_info`` is `True`) A dictionary of information with
+    the following keys.
+
+    * ``matrix``:
+        * ``data_type``: `str`, {`float32`, `float64`, `float128`}. Type of
+          the matrix data.
+        * ``gram``: `bool`, whether the matrix `A` or its Gramian is
+          considered.
+        * ``exponent``: `float`, the exponent `p` in :math:`\\mathbf{A}^p`.
+        * ``size``: `int`, the size of matrix `A`.
+        * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
+        * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
+          of `A`.
+        * ``density``: `float`, if `A` is sparse, the density of `A`, which
+          is the `nnz` divided by size squared.
+        * ``num_inquiries``: `int`, for the `cholesky` method, this is
+          always `1`.
+
+    * ``device``:
+        * ``num_cpu_threads``: `int`, number of CPU threads used in shared
+          memory parallel processing.
+        * ``num_gpu_devices``: `int`, for the `cholesky` method, this is
+          always `0`.
+        * ``num_gpu_multiprocessors``: `int`, for the `cholesky` method,
+          this is always `0`.
+        * ``num_gpu_threads_per_multiprocessor``: `int`, for the `cholesky`
+          method, this is always `0`.
+
+    * ``time``:
+        * ``tot_wall_time``: `float`, total elapsed time of computation.
+        * ``alg_wall_time``: `float`, elapsed time of computation during
+          only the algorithm execution.
+        * ``cpu_proc_time``: `float`, CPU processing time of computation.
+
+    * ``solver``:
+        * `cholmod_used`: `bool`, whether the Cholmod from SparseSuite
+          library was used.
+        * ``version``: `str`, version of imate.
+        * ``method``: &apos;cholesky&apos;
+
+See Also
+--------
+
+imate.trace
+imate.traceinv
+imate.schatten
+
+Notes
+-----
+
+**Algorithm:**
+
+The log-determinant is computed from the Cholesky decomposition
+:math:`\\mathbf{A} = \\mathbf{L} \\mathbf{L}^{\\intercal}` as
+
+.. math::
+
+    \\log | \\mathbf{A} | =
+    2 \\mathrm{trace}( \\log \\mathrm{diag}(\\mathbf{L})).
+
+The result is exact (no approximation) and could be used as a benchmark to
+test other methods.
+
+**Computational Complexity:**
+
+The computational complexity of this method is
+:math:`\\mathcal{O}(\\frac{1}{3}n^3)` for dense matrices and
+:math:`\\mathcal{O}(\\frac{\\rho}{3} n^2)` for sparse matrices where
+:math:`n` is the matrix size and :math:`\\rho` is the sparse matrix
+density.
+
+**Implementation:**
+
+This function is essentially a wrapper for the Cholesky function of the
+`scipy` and `scikit-sparse` packages and is primarily used for testing and
+comparison (benchmarking) against the randomized methods that are
+implemented in this package. If ``cholmod`` is set to `True`, this function
+uses the `Suite Sparse
+&lt;https://people.engr.tamu.edu/davis/suitesparse.html&gt;`_ package to compute
+the Cholesky decomposition.
+
+Examples
+--------
+
+Compute the log-determinant of a sparse positive-definite Toeplitz matrix:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; # Import packages
+    &gt;&gt;&gt; from imate import toeplitz, logdet
+
+    &gt;&gt;&gt; # Generate a sample symmetric and positive-definite matrix
+    &gt;&gt;&gt; A = toeplitz(2, 1, size=100, gram=True)
+
+    &gt;&gt;&gt; # Compute log-determinant with Cholesky method (default method)
+    &gt;&gt;&gt; logdet(A, method=&apos;cholesky&apos;)
+    138.62943611198907
+
+Print information about the inner computation:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; ld, info = logdet(A, method=&apos;cholesky&apos;, return_info=True)
+    &gt;&gt;&gt; print(ld)
+    138.6294361119891
+
+    &gt;&gt;&gt; # Print dictionary neatly using pprint
+    &gt;&gt;&gt; from pprint import pprint
+    &gt;&gt;&gt; pprint(info)
+    {
+        &apos;matrix&apos;: {
+            &apos;data_type&apos;: b&apos;float64&apos;,
+            &apos;density&apos;: 0.0298,
+            &apos;exponent&apos;: 1.0,
+            &apos;gram&apos;: False,
+            &apos;nnz&apos;: 298,
+            &apos;num_inquiries&apos;: 1,
+            &apos;size&apos;: 100,
+            &apos;sparse&apos;: True
+        },
+        &apos;solver&apos;: {
+            &apos;cholmod_used&apos;: True,
+            &apos;method&apos;: &apos;cholesky&apos;,
+            &apos;version&apos;: &apos;0.13.0&apos;
+        },
+        &apos;device&apos;: {
+            &apos;num_cpu_threads&apos;: 8,
+            &apos;num_gpu_devices&apos;: 0,
+            &apos;num_gpu_multiprocessors&apos;: 0,
+            &apos;num_gpu_threads_per_multiprocessor&apos;: 0
+        },
+        &apos;time&apos;: {
+            &apos;alg_wall_time&apos;: 0.0007234140066429973,
+            &apos;cpu_proc_time&apos;: 0.0009358710000000325,
+            &apos;tot_wall_time&apos;: 0.0007234140066429973
+        }
+    }
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/logdet/_cholesky_method.py" line="37" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/logdet/_cholesky_method.py" bodystart="42" bodyend="346"/>
+        <references refid="namespaceimate_1_1logdet_1_1__cholesky__method_1a80cd6ac4146039ab1d11a6d321a0c82e" compoundref="logdet_2__cholesky__method_8py" startline="352" endline="394">imate.logdet._cholesky_method.check_arguments</references>
+        <references refid="namespaceimate_1_1__linear__algebra_1_1matrix__utilities_1ab38dbfffdf3dd5a3599ec768dd704ba0" compoundref="matrix__utilities_8py" startline="21" endline="44">imate._linear_algebra.matrix_utilities.get_data_type_name</references>
+        <references refid="namespaceimate_1_1__linear__algebra_1_1matrix__utilities_1a85bc667db05d03b8beb694a069aa45cd" compoundref="matrix__utilities_8py" startline="60" endline="69">imate._linear_algebra.matrix_utilities.get_density</references>
+        <references refid="namespaceimate_1_1__linear__algebra_1_1matrix__utilities_1a98ba8778e91264e000ac383db223859b" compoundref="matrix__utilities_8py" startline="45" endline="59">imate._linear_algebra.matrix_utilities.get_nnz</references>
+        <references refid="namespaceimate_1_1__linear__algebra_1_1sparse__cholesky_1a98ab770378a6efc51dbd1b62a233e75a" compoundref="sparse__cholesky_8py" startline="23" endline="67">imate._linear_algebra.sparse_cholesky.sparse_cholesky</references>
+        <referencedby refid="namespaceimate_1_1logdet_1_1logdet_1a8047c87b7c5667157404a6c7b2a435a8" compoundref="logdet_8py" startline="29" endline="397">imate.logdet.logdet.logdet</referencedby>
+        <referencedby refid="namespaceimate_1_1traceinv_1_1traceinv_1af09d9b0af1471fa625846f791debb269" compoundref="traceinv_8py" startline="30" endline="440">imate.traceinv.traceinv.traceinv</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespaceimate_1_1logdet_1_1__cholesky__method_1a80cd6ac4146039ab1d11a6d321a0c82e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.logdet._cholesky_method.check_arguments</definition>
+        <argsstring>(A, gram, p, return_info, cholmod)</argsstring>
+        <name>check_arguments</name>
+        <param>
+          <type>A</type>
+          <defname>A</defname>
+        </param>
+        <param>
+          <type>gram</type>
+          <defname>gram</defname>
+        </param>
+        <param>
+          <type>p</type>
+          <defname>p</defname>
+        </param>
+        <param>
+          <type>return_info</type>
+          <defname>return_info</defname>
+        </param>
+        <param>
+          <type>cholmod</type>
+          <defname>cholmod</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Checks the type and value of the parameters.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/logdet/_cholesky_method.py" line="347" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/logdet/_cholesky_method.py" bodystart="352" bodyend="394"/>
+        <referencedby refid="namespaceimate_1_1logdet_1_1__cholesky__method_1aa890fbc6de58a24eb061fca38d7e1e81" compoundref="logdet_2__cholesky__method_8py" startline="42" endline="346">imate.logdet._cholesky_method.cholesky_method</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/logdet/_cholesky_method.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

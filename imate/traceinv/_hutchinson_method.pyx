@@ -91,8 +91,7 @@ def hutchinson_method(
 
         \\mathrm{trace} \\left(\\mathbf{B} 
         (\\mathbf{A}^{\\intercal}\\mathbf{A})^{-p} \\mathbf{C}
-        (\\mathbf{A}^{\\intercal}\\mathbf{A}^{-p})
-        \\right),
+        (\\mathbf{A}^{\\intercal}\\mathbf{A})^{-p} \\right).
 
     Parameters
     ----------

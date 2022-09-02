@@ -25,6 +25,8 @@
 
 /// \brief      Copies a vector to a new vector. Result is written in-place
 ///
+/// \param[in]  cublas_handle
+///             The cuBLAS object handle.
 /// \param[in]  input_vector
 ///             A 1D array
 /// \param[in]  vector_size
@@ -55,6 +57,8 @@ void cuVectorOperations<DataType>::copy_vector(
 
 /// \brief      Scales a vector and stores to a new vector.
 ///
+/// \param[in]  cublas_handle
+///             The cuBLAS object handle.
 /// \param[in]  input_vector
 ///             A 1D array
 /// \param[in]  vector_size
@@ -108,6 +112,8 @@ void cuVectorOperations<DataType>::copy_scaled_vector(
 ///                * \f$ \boldsymbol{b} \f$ is the output vector that is
 ///                written in-place.
 ///
+/// \param[in]     cublas_handle
+///                The cuBLAS object handle.
 /// \param[in]     input_vector
 ///                A 1D array
 /// \param[in]     vector_size
@@ -147,6 +153,8 @@ void cuVectorOperations<DataType>::subtract_scaled_vector(
 
 /// \brief     Computes Euclidean inner product of two vectors.
 ///
+/// \param[in] cublas_handle
+///            The cuBLAS object handle.
 /// \param[in] vector1
 ///            1D array
 /// \param[in] vector2
@@ -181,6 +189,8 @@ DataType cuVectorOperations<DataType>::inner_product(
 
 /// \brief     Computes the Euclidean 2-norm of a 1D array.
 ///
+/// \param[in] cublas_handle
+///            The cuBLAS object handle.
 /// \param[in] vector
 ///            A pointer to 1D array
 /// \param[in] vector_size
@@ -212,6 +222,8 @@ DataType cuVectorOperations<DataType>::euclidean_norm(
 /// \brief          Normalizes a vector based on Euclidean 2-norm. The result
 ///                 is written in-place.
 ///
+/// \param[in]      cublas_handle
+///                 The cuBLAS object handle.
 /// \param[in, out] vector
 ///                 Input vector to be normalized in-place.
 /// \param[in]      vector_size
@@ -247,6 +259,8 @@ DataType cuVectorOperations<DataType>::normalize_vector_in_place(
 /// \brief      Normalizes a vector based on Euclidean 2-norm. The result is
 ///             written into another vector.
 ///
+/// \param[in]  cublas_handle
+///             The cuBLAS object handle.
 /// \param[in]  vector
 ///             Input vector.
 /// \param[in]  vector_size

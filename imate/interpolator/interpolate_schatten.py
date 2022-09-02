@@ -44,101 +44,161 @@ class InterpolateSchatten(object):
     """
     Interpolates the Schatten norm, or anti-norm, of an affine matrix function.
 
-    The Shcatten-type operator of order :math:`p \\in \\mathbb{R}` of an affine
-    matrix function :math:`t \\mapsto \\mathbf{A} + t \\mathbf{B}` is defined
-    by
-
-    .. math::
-
-        t \\mapsto \\| \\mathbf{A} + t \\mathbf{B} \\|_p
-
-    where the matrices :math:`\\mathbf{A}` and :math:`\\mathbf{B}` are
-    Hermitian and positive semi-definite (positive-definite if :math:`p < 0`)
-    and :math:`t` is a real parameter. The above
-
-    This module interpolates the function
-
-    .. math::
-
-        t \\mapsto \\mathrm{trace} \\left( (\\mathbf{A} +
-        t \\mathbf{B})^{-1} \\right)
-
-    The interpolator is initialized by providing :math:`q` interpolant points
-    :math:`t_i`, :math:`i = 1, \\dots, q`, which are often logarithmically
-    spaced in some interval :math:`t_i \\in [t_1, t_p]`.
-    The interpolator can interpolate the above function at inquiry points
-    :math:`t \\in [t_1, t_p]` using various methods.
-
     Parameters
     ----------
-        A : numpy.ndarray, scipy.sparse matrix
-            A positive-definite matrix. Matrix can be dense or sparse.
 
-        B : numpy.ndarray, scipy.sparse matrix, default=None
-            A positive-definite matrix. Matrix can be dense or sparse. If
-            `None` or not provided, it is assumed that `B` is an identity
-            matrix of the shape of `A`.
+    A : numpy.ndarray, scipy.sparse matrix
+        Symmetric positive-definite matrix. Matrix can be dense or sparse.
 
-        p : float , default=0
-            Power of matrix.
+    B : numpy.ndarray, scipy.sparse matrix, default=None
+        Symmetric positive-definite matrix. Matrix can be dense or sparse.
+        The matrix `B` should have the same size and type of the matrix `A`. If
+        `B` is `None` (default value), it is assumed that `B` is the identity
+        matrix.
 
-        ti : list(float), numpy.array(float), default=None
-            A list or an array of points that the interpolator use to
-            interpolate. The trace of inverse is computed for the interpolant
-            points with exact method. If `None`, a default list of interpolant
-            points is used.
+    p : float, default=2
+        The order :math:`p` in the Schatten :math:`p`-norm, which can be real
+        positive, negative or zero.
 
-        method : str, default=`'IMBF'`
-            Algorithm of interpolation. See table below.
+    options : dict, default={``'method'``: ``'cholesky'``}
+        Options to pass to :func:`imate.schatten` function.
 
-            ==========  ================================  ============
-            `kind`      Description                       Results
-            ==========  ================================  ============
-            ``'EXT'``   Computes without interpolation    exact
-            ``'EIG'``   Uses Eigenvalues of matrix        exact
-            ``'MBF'``   Monomial Basis Functions          interpolated
-            ``'IMBF'``  Inverse monomial basis functions  interpolated
-            ``'RBF'``   Radial basis functions            interpolated
-            ``'RPF'``   Rational polynomial functions     interpolated
-            ==========  ================================  ============
+    verbose : bool, default=False
+        If `True`, it prints some information on the computation process.
 
-        options : dict, default={'method': 'cholesky'}
-            A dictionary of arguments to pass to :mod:`imate.traceinv` module.
+    kind : {`'ext'`, `'eig'`, `'mbf'`, `'imbf'`, `'rbf'`, `'crf'`, `'spl'`, \
+            `'rpf'`}, default: `'imbf'`
+        The algorithm of interpolation. See documentation for each specific
+        algorithm below:
 
-        verbose : bool, default=False
-            If `True`, it prints some information on the computation process.
+        * :ref:`imate.InterpolateSchatten.ext`
+        * :ref:`imate.InterpolateSchatten.eig`
+        * :ref:`imate.InterpolateSchatten.mbf`
+        * :ref:`imate.InterpolateSchatten.imbf`
+        * :ref:`imate.InterpolateSchatten.rbf`
+        * :ref:`imate.InterpolateSchatten.crf`
+        * :ref:`imate.InterpolateSchatten.spl`
+        * :ref:`imate.InterpolateSchatten.rpf`
 
-        kwargs : \\*\\*kwargs
-            Additional options to pass to each specific interpolator class.
-            See the sub-classes of :mod:`imate.InterpolantBase`.
+    ti : array_like(float), default=None
+        A list or an array of interpolant points that the interpolator use to
+        interpolate. If an empty list is give, ``[]``, a default list of
+        interpolant points for specific ``kind`` is used.
+
+    kwargs : \\*\\*kwargs
+        Additional arguments to pass to each specific method. See documentation
+        for each ``kind`` in the above.
+
+    See Also
+    --------
+
+    imate.InterpolateTrace
+    imate.InterpolateLogdet
+    imate.schatten
 
     Attributes
     ----------
     kind : str
         Method of interpolation
+
     verbose : bool
-        Verbosity of the computation process.
+        Verbosity of the computation process
+
     n : int
         Since of the matrix
+
     q : int
-        number of interpolant points
+        Number of interpolant points
+
+    p : float
+        Order of Schatten :math:`p`-norm
 
     Methods
     -------
+
     __call__
     eval
     interpolate
-    lower_bound
+    bound
     upper_bound
     plot
+
+    Notes
+    -----
+
+    **Schatten Norm:**
+
+    In this class, the Schatten :math:`p`-norm of the matrix
+    :math:`\\mathbf{A}` is defined by
+
+    .. math::
+        :label: schatten-eq-3
+
+        \\Vert \\mathbf{A} \\Vert_p =
+        \\begin{cases}
+            \\left| \\mathrm{det}(\\mathbf{A})
+            \\right|^{\\frac{1}{n}}, & p=0, \\\\
+            \\left| \\frac{1}{n}
+            \\mathrm{trace}(\\mathbf{A}^{\\frac{1}{p}})
+            \\right|^{\\frac{1}{p}}, & p \\neq 0,
+        \\end{cases}
+
+    where :math:`n` is the size of the matrix. When :math:`p \\geq 0`, the
+    above definition is the Schatten **norm**, and when :math:`p < 0`, the
+    above is the Schatten **anti-norm**.
+
+    .. note::
+
+        Conventionally, the Schatten norm is defined without the normalizing
+        factor :math:`\\frac{1}{n}` in :math:numref:`schatten-eq-3`. However,
+        this factor is justified by the continuity granted by
+
+        .. math::
+            :label: schatten-continuous-3
+
+            \\lim_{p \\to 0} \\Vert \\mathbf{A} \\Vert_p =
+            \\Vert \\mathbf{A} \\Vert_0.
+
+        See [1]_ (Section 2) and the example below for details.
+
+    **Interpolation of Affine Matrix Function:**
+
+    This class interpolates the one-parameter matrix function:
+
+    .. math::
+
+        t \\mapsto \\| \\mathbf{A} + t \\mathbf{B} \\|_p,
+
+    where the matrices :math:`\\mathbf{A}` and :math:`\\mathbf{B}` are
+    symmetric and positive semi-definite (positive-definite if :math:`p < 0`)
+    and :math:`t \\in [t_{\\inf}, \\infty)` is a real parameter where
+    :math:`t_{\\inf}` is the minimum :math:`t` such that
+    :math:`\\mathbf{A} + t_{\\inf} \\mathbf{B}` remains positive-definite.
+
+    The interpolator is initialized by providing :math:`q` interpolant points
+    :math:`t_i`, :math:`i = 1, \\dots, q`, which are often logarithmically
+    spaced in some interval :math:`t_i \\in [t_1, t_p]`. The interpolator can
+    interpolate the above function at inquiry points :math:`t \\in [t_1, t_p]`
+    using various methods.
+
+    References
+    ----------
+
+    .. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant
+           and Trace of the Powers of Matrix :math:`\mathbf{A} + t \mathbf{B}`.
+           `arXiv: 2009.07385 <https://arxiv.org/abs/2207.08038>`_ [math.NA].
 
     Examples
     --------
 
-    Interpolate the trace of inverse of the affine matrix function
-    :math:`\\mathbf{A} + t \\mathbf{B}`:
+    **Basic Usage:**
+
+    Interpolate the Schatten `2`-norm of the affine matrix function
+    :math:`\\mathbf{A} + t \\mathbf{B}` using ``imbf`` algorithm and the
+    interpolating points :math:`t_i = [10^{-2}, 10^{-1}, 1, 10]`.
 
     .. code-block:: python
+        :emphasize-lines: 9, 13
 
         >>> # Generate two sample matrices (symmetric and positive-definite)
         >>> from imate import generate_matrix
@@ -148,11 +208,78 @@ class InterpolateSchatten(object):
         >>> # Initialize interpolator object
         >>> from imate import InterpolateSchatten
         >>> ti = [1e-2, 1e-1, 1, 1e1]
-        >>> TI = InterpolateSchatten(A, B, ti)
+        >>> isch = InterpolateSchatten(A, B, p=2, kind='imbf', ti=ti)
 
         >>> # Interpolate at an inquiry point t = 0.4
         >>> t = 4e-1
-        >>> Trace = TI.interpolate(t)
+        >>> isch(t)
+
+    Alternatively, call :meth:`imate.nterpolateSchatten.interpolate` to
+    interpolate at points `t`:
+
+    .. code-block:: python
+
+        >>> # This is the same as isch(t)
+        >>> isch.interpolate(t)
+
+    To evaluate the exact value of the Schatten norm at point `t` without
+    interpolation, call :meth:`imate.InterpolateSchatten.eval` function:
+
+    .. code-block:: python
+
+        >>> # This evaluates the function value at t exactly (no interpolation)
+        >>> isch.interpolate(t)
+
+    .. warning::
+
+        Calling :meth:`imate.InterpolateSchatten.eval` may take a longer time
+        to compute as it computes the function exactly. Particularly, if `t` is
+        a large array, it may take a very long time to return the exact values.
+
+    **Arguments Specific to Algorithms:**
+
+    In the above example, the ``imbf`` algorithm is used. See more arguments
+    of this algorithm at :ref:`imate.InterpolateSchatten.imbf`. In the next
+    example, we pass ``basis_functions_type`` specific to this algorithm:
+
+    .. code-block:: python
+        :emphasize-lines: 3
+
+        >>> # Passing kwatgs specific to imbf algorithm
+        >>> isch = InterpolateSchatten(A, B, p=2, kind='imbf', ti=ti,
+        ...                            basis_functions_type='Orthogonal2')
+        >>> isch(t)
+
+    **Passing Options:**
+
+    At each interpolation point `ti`, the value of the Schatten norm is
+    computed using :func:`imate.schatten` function. You can pass arguments to
+    this function using ``options``. To do so, create a dictionary with the
+    keys with the name of the argument. For instance, to use
+    :ref:`imate.schatten.slq` method with ``min_num_samples=20`` and
+    ``max_num_samples=100``, create the following dictionary
+
+    .. code-block:: python
+
+        >>> # Specify arguments as a dictionary
+        >>> options = \
+        ... {
+        ...     'method': 'slq',
+        ...     'min_num_samples': 20,
+        ...     'max_num_samples': 100
+        ... }
+
+        >>> # Pass the options to the interpolator
+        >>> isch = InterpolateSchatten(A, B, p=2, options=options, kind='imbf',
+        ...                            ti=ti)
+        >>> isch(t)
+
+    **Interpolate on Range of Points:**
+
+    Once the interpolation object ``isch`` in the above example is
+    instantiated, calling :meth:`imate.InterpolateSchatten.interpolate` on
+    a list of inquiry points `t` has almost no computational cost. The next
+    example inquires interpolation on `1000` points `t`:
 
     Interpolate an array of inquiry points
 
@@ -160,36 +287,75 @@ class InterpolateSchatten(object):
 
         >>> # Interpolate at an array of points
         >>> import numpy
-        >>> t_array = numoy.logspace(-2, 1, 10)
-        >>> Trace = TI.interpolator(t_array)
+        >>> t_array = numoy.logspace(-2, 1, 1000)
+        >>> norm_array = isch.interpolator(t_array)
 
-    By default, the interpolation kind is ``'IMBF'``. Use a different
-    interpolation kind, such as ``'RBF'`` by
-
-    .. code-block:: python
-
-        >>> TI = InterpolateSchatten(A, B, ti, kind='RBF')
-
-    By default, the trace is computed with the Cholesky decomposition method as
-    the interpolant points. Configure the
-    computation method by ``options`` as
+    One may plot the above interpolated results as follows:
 
     .. code-block:: python
 
-        >>> # Specify arguments to imate.omputeTraceOfInverse in a dictionary
-        >>> options = \
-        ... {
-        ...     'method': 'hutchinson',
-        ...     'NumIterations': 20
-        ... }
+        >>> import matplotlib.pyplot as plt
+        >>> plt.loglog(t_array, norm_array, color='black')
+        >>> plt.xlim([t_array[0], t_array[-1]])
+        >>> plt.xlabel('$t$')
+        >>> plt.ylabel('$\\Vert \\mathbf{A} + t \\mathbf{B} \\Vert_{2}$')
+        >>> plt.title('Interpolation of Schatten 2-Norm')
+        >>> plt.show()
 
-        >>> # Pass the options to the interpolator
-        >>> TI = InterpolateSchatten(A, B, ti,
-        >>>     options=options)
+    **Plotting Interpolation and Compare with Exact Solution:**
 
-    See Also
-    --------
-        traceinv : Computes trace of inverse of a matrix.
+    A more convenient way to plot the interpolation result is to call
+    :meth:`imate.InterpolateSchatten.plot` function.
+
+    .. code-block:: python
+
+        >>> isch.plot(t)
+
+    To compare with the true values (without interpolation), pass
+    ``compare=True`` to the above function:
+
+    .. warning::
+
+        By setting ``compare`` to `True`, every point in the array `t` is
+        evaluated both using interpolation and with the exact method (no
+        interpolation). If the size of `t` is large, this may take a very
+        long run time.
+
+    .. code-block:: python
+
+        >>> isch.plot(t, compare=True)
+
+    Alternatively, you may set ``normalize`` to `True` to plot the normalized
+    function
+
+    .. math::
+
+        \\frac{\\Vert \\mathbf{A} + t \\mathbf{B} \\Vert_{p}}{
+        \\Vert \\mathbf{B} \\Vert_p}.
+
+    .. code-block:: python
+
+        >>> isch.plot(t, normalize=True, compare=True)
+
+
+    **Using Other Algorithms:**
+
+    All the above examples uses ``imbf`` algorithms. You may choose other
+    algorithms using ``kind`` argument. For instance, the next example uses
+    the Chebyshev rational functions:
+
+    .. code-block:: python
+
+        >>> # Generate two sample matrices (symmetric and positive-definite)
+        >>> isch = InterpolateSchatten(A, B, p=2, kind='crf', ti=ti)
+
+        >>> # Interpolate at an inquiry point t = 0.4
+        >>> t = 4e-1
+        >>> isch(t)
+
+    **Example of Large Matrices:**
+
+    The following is a practical example on a large matrix. 
 
     """
 
@@ -197,8 +363,8 @@ class InterpolateSchatten(object):
     # init
     # ====
 
-    def __init__(self, A, B=None, p=0, ti=[], kind='IMBF', verbose=False,
-                 options={'method': 'cholesky'}, **kwargs):
+    def __init__(self, A, B=None, p=2, options={'method': 'cholesky'},
+                 verbose=False, kind='imbf', ti=[], **kwargs):
         """
         Initializes the object depending on the method.
         """
@@ -214,56 +380,56 @@ class InterpolateSchatten(object):
         self.p = p
 
         # Define an interpolation object depending on the given method
-        if kind == 'EXT':
+        if kind.lower() == 'ext':
             # Exact computation, not interpolation
             self.interpolator = ExactMethod(
                     A, B, p=self.p, options=options, verbose=verbose, **kwargs)
 
-        elif kind == 'EIG':
+        elif kind.lower() == 'eig':
             # Eigenvalues kind
             self.interpolator = EigenvaluesMethod(
                     A, B, p=self.p, options=options, verbose=verbose, **kwargs)
 
-        elif kind == 'MBF':
+        elif kind.lower() == 'mbf':
             # Monomial Basis Functions kind
             self.interpolator = MonomialBasisFunctionsMethod(
                     A, B, p=self.p, ti=ti, options=options, verbose=verbose,
                     **kwargs)
 
-        elif kind == 'IMBF':
+        elif kind.lower() == 'imbf':
             # Inverse Monomial Basis Functions kind
             self.interpolator = InverseMonomialBasisFunctionsMethod(
                     A, B, p=self.p, ti=ti, options=options, verbose=verbose,
                     **kwargs)
 
-        elif kind == 'RBF':
+        elif kind.lower() == 'rbf':
             # Radial Basis Functions kind
             self.interpolator = RadialBasisFunctionsMethod(
                     A, B, p=self.p, ti=ti, options=options, verbose=verbose,
                     **kwargs)
 
-        elif kind == 'CRF':
+        elif kind.lower() == 'crf':
             # Chebushev Rational Functions
             self.interpolator = ChebyshevRationalFunctionsMethod(
                     A, B, p=self.p, ti=ti, options=options, verbose=verbose,
                     **kwargs)
 
-        elif kind == 'SPL':
+        elif kind.lower() == 'spl':
             # Spline
             self.interpolator = SplineMethod(
                     A, B, p=self.p, ti=ti, options=options, verbose=verbose,
                     **kwargs)
 
-        elif kind == 'RPF':
+        elif kind.lower() == 'rpf':
             # Rational Polynomial Functions kind
             self.interpolator = RationalPolynomialFunctionsMethod(
                     A, B, p=self.p, ti=ti, options=options, verbose=verbose,
                     **kwargs)
 
         else:
-            raise ValueError("'kind' is invalid. Select one of 'EXT', " +
-                             "'EIG', 'MBF', 'IMBF', 'RBF', 'CRF', 'SPL', or " +
-                             "'RPF'.")
+            raise ValueError("'kind' is invalid. Select one of 'ext', " +
+                             "'eig', 'mbf', 'imbf', 'rbf', 'crf', 'spl', or " +
+                             "'rpf'.")
 
     # ========
     # __call__
@@ -341,7 +507,7 @@ class InterpolateSchatten(object):
                 solution.
         """
 
-        if self.kind == 'EXT':
+        if self.kind.lower() == 'ext':
 
             # The Trace results are already exact. No need to recompute again.
             schatten_exact = schatten
@@ -361,57 +527,19 @@ class InterpolateSchatten(object):
 
     def interpolate(self, t):
         """
-        Interpolates :math:`\\mathrm{trace} \\left( (\\mathbf{A} +
-        t \\mathbf{B})^{-1} \\right)` at :math:`t`.
+        Interpolates at point(s) `t`.
 
         Parameters
         ----------
-        t : float, list, numpy.array
+
+        t : float, list, or numpy.array
             The inquiry point(s) to be interpolated.
-
-        compare_with_exact : bool, default=False
-            If `True`, it computes the trace with exact solution, then compares
-            it with the interpolated solution. The return values of the
-            :func:`InterpolateSchatten.interpolate` function become
-            interpolated trace, exact solution, and relative error. **Note:**
-            When this option is enabled, the exact solution will be computed
-            for all inquiry points, which can take a very long time.
-
-        plot : bool, default=False
-            If `True`, it plots the interpolated trace versus the inquiry
-            points. In addition, if the option `compare_with_exact` is also set
-            to `True`, the plotted diagram contains both interpolated and exact
-            solutions and the relative error of interpolated solution with
-            respect to the exact solution.
 
         Returns
         -------
-        trace : float or numpy.array
-            The interpolated value of the traceinv function.
 
-        Notes
-        -----
-
-        **Plotting:** Regarding the plotting of the graph of interpolation:
-
-        * If no graphical backend exists (such as running the code on a
-          remote server or manually disabling the X11 backend), the plot
-          will not be shown, rather, it will ve saved as an ``svg`` file in
-          the current directory.
-        * If the executable ``latex`` is on the path, the plot is rendered
-          using :math:`\\rm\\laTeX`, which then, it takes a bit
-          longer to produce the plot.
-        * If :math:`\\rm\\laTeX` is not installed, it uses any available
-          San-Serif font to render the plot.
-
-        To manually disable interactive plot display, and save the plot as
-        ``SVG`` instead, add the following in the very beginning of your code
-        before importing ``imate``:
-
-        .. code-block:: python
-
-            >>> import os
-            >>> os.environ['IMATE_NO_DISPLAY'] = 'True'
+        norm : float or numpy.array
+            The interpolated value of the Schatten norm.
         """
 
         if isinstance(t, Number):
@@ -524,10 +652,71 @@ class InterpolateSchatten(object):
             normalize=True,
             compare=False):
         """
-        Plots interpolated function.
+        Plots the interpolation results, together with the comparison with the
+        exact solution and the relative error of the interpolation.
+
+        To plot, set ``Plot=True`` argument in
+        :mod:`imate.InterpolateSchatten`.
+
+        Parameters
+        ----------
+        inquiry_points: numpy.array
+            Inquiry points to be interpolated
+
+        schatten_interpolated : numpy.array
+            Interpolation of the trace at inquiry
+
+        schatten_exact : numpy.array, default=None
+            Exact solutions of the trace at inquiry points. If this variable is
+            not None, it will be plotted together with the interpolated
+            results.
+
+        schatten_relative_error : numpy.array, default=None
+            Relative errors of the interpolation with respect to the exact
+            solution. If not None, the relative errors will be plotted on a
+            second axis.
+            
+        compare_with_exact : bool, default=False
+            If `True`, it computes the trace with exact solution, then compares
+            it with the interpolated solution. The return values of the
+            :func:`InterpolateSchatten.interpolate` function become
+            interpolated trace, exact solution, and relative error. **Note:**
+            When this option is enabled, the exact solution will be computed
+            for all inquiry points, which can take a very long time.
+
+        plot : bool, default=False
+            If `True`, it plots the interpolated trace versus the inquiry
+            points. In addition, if the option `compare_with_exact` is also set
+            to `True`, the plotted diagram contains both interpolated and exact
+            solutions and the relative error of interpolated solution with
+            respect to the exact solution.
+            
+        Notes
+        -----
+
+        **Plotting:** Regarding the plotting of the graph of interpolation:
+
+        * If no graphical backend exists (such as running the code on a
+          remote server or manually disabling the X11 backend), the plot
+          will not be shown, rather, it will ve saved as an ``svg`` file in
+          the current directory.
+        * If the executable ``latex`` is on the path, the plot is rendered
+          using :math:`\\rm\\laTeX`, which then, it takes a bit
+          longer to produce the plot.
+        * If :math:`\\rm\\laTeX` is not installed, it uses any available
+          San-Serif font to render the plot.
+
+        To manually disable interactive plot display, and save the plot as
+        ``SVG`` instead, add the following in the very beginning of your code
+        before importing ``imate``:
+
+        .. code-block:: python
+
+            >>> import os
+            >>> os.environ['IMATE_NO_DISPLAY'] = 'True'
         """
 
-        if self.kind in ['CRF', 'SPL']:
+        if self.kind.lower() in ['crf', 'spl']:
             # Plots tau where abscissa is the finite domain [-1, 1]
             self._plot_finite(
                     inquiry_points, normalize=normalize, compare=compare)
@@ -789,7 +978,7 @@ class InterpolateSchatten(object):
         t_i = self.interpolator.t_i
         t = inquiry_points
 
-        if self.kind == 'CRF':
+        if self.kind.lower() == 'crf':
             scale = self.interpolator.scale
         else:
             scale = 1.0
@@ -847,9 +1036,9 @@ class InterpolateSchatten(object):
         ax[0].grid(axis='x')
         ax[0].set_xlim([-1, 1])
         ax[0].set_ylim(bottom=0, top=None)
-        if self.kind == 'SPL':
+        if self.kind.lower() == 'spl':
             ax[0].set_xlabel(r'$(t-1) / (t+1)$')
-        elif self.kind == 'CRF':
+        elif self.kind.lower() == 'crf':
             ax[0].set_xlabel(r'$(t-\alpha) / (t+\alpha)$')
         else:
             raise ValueError('"method" should be "SPL" or "CRF".')

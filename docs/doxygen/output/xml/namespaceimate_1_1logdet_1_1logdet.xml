@@ -1,0 +1,409 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespaceimate_1_1logdet_1_1logdet" kind="namespace" language="Python">
+    <compoundname>imate::logdet::logdet</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceimate_1_1logdet_1_1logdet_1a8047c87b7c5667157404a6c7b2a435a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.logdet.logdet.logdet</definition>
+        <argsstring>(A, gram=False, p=1.0, return_info=False, method=&apos;cholesky&apos;, **options)</argsstring>
+        <name>logdet</name>
+        <param>
+          <type>A</type>
+          <defname>A</defname>
+        </param>
+        <param>
+          <type>gram</type>
+          <defname>gram</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>p</type>
+          <defname>p</defname>
+          <defval>1.0</defval>
+        </param>
+        <param>
+          <type>return_info</type>
+          <defname>return_info</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>method</type>
+          <defname>method</defname>
+          <defval>&apos;cholesky&apos;</defval>
+        </param>
+        <param>
+          <type>**</type>
+          <declname>options</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Log-determinant of non-singular matrix or linear operator.
+
+Given the matrix or the linear operator :math:`\\mathbf{A}` and the real
+exponent :math:`p`, the following is computed:
+
+.. math::
+
+    \\mathrm{logdet} \\left(\\mathbf{A}^p \\right) = p \\log_e \\vert
+    \\det (\\mathbf{A}) \\vert.
+
+If ``gram`` is `True`, then :math:`\\mathbf{A}` in the above is replaced by
+the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`, and the
+following is instead computed:
+
+.. math::
+
+    \\mathrm{logdet} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^p
+    \\right) = 2p \\log_e \\vert \\det (\\mathbf{A}) \\vert.
+
+If :math:`\\mathbf{A} = \\mathbf{A}(t)` is a linear operator of the class
+:class:`imate.AffineMatrixFunction` with the parameter :math:`t`, then for
+an input  tuple :math:`t = (t_1, \\dots, t_q)`, an array output of the size
+:math:`q` is returned, namely:
+
+.. math::
+
+    \\mathrm{logdet} \\left((\\mathbf{A}(t_i))^p \\right),
+    \\quad i=1, \\dots, q.
+
+Parameters
+----------
+
+A : numpy.ndarray, scipy.sparse, :class:`imate.Matrix`, or \
+        :class:`imate.AffineMatrixFunction`
+    A non-singular sparse or dense matrix or linear operator. The linear
+    operators :class:`imate.Matrix` and :class:`imate.AffineMatrixFunction`
+    can be used only if ``method=slq``. See details in
+    :ref:`slq method &lt;imate.logdet.slq&gt;`. If ``method=cholesky``, the
+    matrix `A` should be positive-definite. If ``method=slq`` and
+    ``gram=False``, the input matrix `A` should be symmetric.
+
+gram : bool, default=False
+    If `True`, the log-determinant of the Gramian matrix,
+    :math:`(\\mathbf{A}^{\\intercal}\\mathbf{A})^p`, is computed. The
+    Gramian matrix itself is not directly computed. If `False`, the
+    log-determinant of :math:`\\mathbf{A}^p` is computed.
+
+p : float, default=1.0
+    The real exponent :math:`p` in :math:`\\mathbf{A}^p`.
+
+return_info : bool, default=False
+    If `True`, this function also returns a dictionary containing
+    information about the inner computation, such as process time,
+    algorithm settings, etc. See the documentation for each `method` for
+    details.
+
+method : {&apos;eigenvalue&apos;, &apos;cholesky&apos;, &apos;slq&apos;}, default=&apos;cholesky&apos;
+    The method of computing log-determinant. See documentation for each
+    method:
+
+    * :ref:`eigenvalue &lt;imate.logdet.eigenvalue&gt;`
+    * :ref:`cholesky &lt;imate.logdet.cholesky&gt;`
+    * :ref:`slq &lt;imate.logdet.slq&gt;`
+
+options : `**kwargs`
+    Extra arguments that are specific to each method. See the documentation
+    for each `method` for details.
+
+Returns
+-------
+
+logdet : float or numpy.array
+    Log-determinant of matrix. If ``method=slq`` and if `A` is of type
+    :class:`imate.AffineMatrixFunction` with an array of ``parameters``,
+    then the output is an array.
+
+info : dict
+    (Only if ``return_info`` is `True`) A dictionary of information with at
+    least the following keys. Further keys specific to each method can be
+    found in the documentation of each method.
+
+    * ``matrix``:
+        * ``data_type``: `str`, {`float32`, `float64`, `float128`}, type of
+          the matrix data.
+        * ``gram``: `bool`, whether the matrix `A` or its Gramian is
+          considered.
+        * ``exponent``: `float`, the exponent `p` in :math:`\\mathbf{A}^p`.
+        * ``size``: `int`, The size of matrix `A`.
+        * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
+        * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
+          of `A`.
+        * ``density``: `float`, if `A` is sparse, the density of `A`, which
+          is the `nnz` divided by size squared.
+        * ``num_inquiries``: `int`, The size of inquiries of each parameter
+          of the linear operator `A`. If `A` is a matrix, this is always
+          `1`. For more details see :ref:`slq method &lt;imate.logdet.slq&gt;`.
+
+    * ``device``:
+        * ``num_cpu_threads``: `int`, number of CPU threads used in shared
+          memory parallel processing.
+        * ``num_gpu_devices``: `int`, number of GPU devices used in the
+          multi-GPU (GPU farm) computation.
+        * ``num_gpu_multiprocessors``: `int`, number of GPU
+          multi-processors.
+        * ``num_gpu_threads_per_multiprocessor``: `int`, number of GPU
+          threads on each GPU multi-processor.
+
+    * ``time``:
+        * ``tot_wall_time``: `float`, total elapsed time of computation.
+        * ``alg_wall_time``: `float`, elapsed time of computation during
+          only the algorithm execution.
+        * ``cpu_proc_time``: `float`, CPU processing time of computation.
+
+    * ``solver``:
+        * ``version``: `str`, version of imate.
+        * ``method``: `str`, method of computation.
+
+Raises
+------
+
+LinAlgError
+    If ``method=cholesky`` and `A` is not positive-definite.
+
+ImportError
+    If the package has not been compiled with GPU support, but ``gpu`` is
+    `True`. Either set ``gpu`` to `False` to use the existing installed
+    package. Alternatively, export the environment variable ``USE_CUDA=1``
+    and recompile the source code of the package.
+
+See Also
+--------
+
+imate.trace
+imate.traceinv
+imate.schatten
+
+Notes
+-----
+
+**Method of Computation:**
+
+See documentation for each method below.
+
+* :ref:`eigenvalue &lt;imate.logdet.eigenvalue&gt;`: uses spectral decomposition.
+  Suitable for small matrices (:math:`n &lt; 2^{12}`). The solution is exact.
+* :ref:`cholesky &lt;imate.logdet.cholesky&gt;`: uses Cholesky decomposition.
+  Suitable for moderate-size matrices (:math:`n &lt; 2^{15}`). Can only be
+  applied to positive-definite matrices. The solution is exact.
+* :ref:`slq &lt;imate.logdet.slq&gt;`: uses stochastic Lanczos quadrature (SLQ),
+  which is a randomized algorithm. Can be used on very large matrices
+  (:math:`n &gt; 2^{12}`). The solution is an approximation.
+
+**Input Matrix:**
+
+The input `A` can be either of:
+
+* A matrix, such as `numpy.ndarray`, or `scipy.sparse`.
+* A linear operator representing a matrix using :class:`imate.Matrix` (
+  only if ``method=slq``).
+* A linear operator representing a one-parameter family of an affine matrix
+  function :math:`t \\mapsto \\mathbf{A} + t\\mathbf{B}`, using
+  :class:`imate.AffineMatrixFunction` (only if ``method=slq``).
+
+**Output:**
+
+The output is a scalar. However, if `A` is the linear operator of the type
+:class:`imate.AffineMatrixFunction` representing the matrix function
+:math:`\\mathbf{A}(t) = \\mathbf{A} + t \\mathbf{B}`, then if the parameter
+:math:`t` is given as the tuple :math:`t = (t_1, \\dots, t_q)`, then the
+output of this function is an array of size :math:`q` corresponding to the
+log-determinant of each :math:`\\mathbf{A}(t_i)`.
+
+.. note::
+
+    When `A` represents
+    :math:`\\mathbf{A}(t) = \\mathbf{A} + t \\mathbf{I}`, where
+    :math:`\\mathbf{I}` is the identity matrix, and :math:`t` is given by
+    a tuple :math:`t = (t_1, \\dots, t_q)`, by setting ``method=slq``, the
+    computational cost of an array output of size `q` is the same as
+    computing for a single :math:`t_i`. Namely, the log-determinant of only
+    :math:`\\mathbf{A}(t_1)` is computed, and the log-determinant of the
+    rest of :math:`q=2, \\dots, q` are obtained from the result of
+    :math:`t_1` immediately.
+
+Examples
+--------
+
+**Sparse matrix:**
+
+Compute the log-determinant of a sample sparse Toeplitz matrix created by
+:func:`imate.toeplitz` function.
+
+.. code-block:: python
+
+    &gt;&gt;&gt; # Import packages
+    &gt;&gt;&gt; from imate import toeplitz, logdet
+
+    &gt;&gt;&gt; # Generate a sample matrix (a toeplitz matrix)
+    &gt;&gt;&gt; A = toeplitz(2, 1, size=100)
+
+    &gt;&gt;&gt; # Compute log-determinant with Cholesky method (default method)
+    &gt;&gt;&gt; logdet(A)
+    138.6294361119891
+
+Alternatively, compute the log-determinant of
+:math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; # Compute log-determinant of the Gramian to the power of 3:
+    &gt;&gt;&gt; logdet(A, p=3, gram=True)
+    831.7766166719346
+
+**Output information:**
+
+Print information about the inner computation:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; ld, info = logdet(A, return_info=True)
+    &gt;&gt;&gt; print(ld)
+    138.6294361119891
+
+    &gt;&gt;&gt; # Print dictionary neatly using pprint
+    &gt;&gt;&gt; from pprint import pprint
+    &gt;&gt;&gt; pprint(info)
+    {
+        &apos;matrix&apos;: {
+            &apos;data_type&apos;: b&apos;float64&apos;,
+            &apos;density&apos;: 0.0298,
+            &apos;exponent&apos;: 1.0,
+            &apos;gram&apos;: False,
+            &apos;nnz&apos;: 298,
+            &apos;num_inquiries&apos;: 1,
+            &apos;size&apos;: 100,
+            &apos;sparse&apos;: True
+        },
+        &apos;solver&apos;: {
+            &apos;cholmod_used&apos;: True,
+            &apos;method&apos;: &apos;cholesky&apos;,
+            &apos;version&apos;: &apos;0.13.0&apos;
+        },
+        &apos;device&apos;: {
+            &apos;num_cpu_threads&apos;: 8,
+            &apos;num_gpu_devices&apos;: 0,
+            &apos;num_gpu_multiprocessors&apos;: 0,
+            &apos;num_gpu_threads_per_multiprocessor&apos;: 0
+        },
+        &apos;time&apos;: {
+            &apos;alg_wall_time&apos;: 0.000903537031263113,
+            &apos;cpu_proc_time&apos;: 0.0010093420000032438,
+            &apos;tot_wall_time&apos;: 0.000903537031263113
+        }
+    }
+
+**Large matrix:**
+
+Compute log-determinant of a very large sparse matrix using `SLQ` method.
+This method does not compute log-determinant exactly, rather, the result is
+an approximation using Monte-Carlo sampling. The following example uses at
+least `100` samples.
+
+.. code-block:: python
+
+    &gt;&gt;&gt; # Generate a matrix of size one million
+    &gt;&gt;&gt; A = toeplitz(2, 1, size=1000000, gram=True)
+
+    &gt;&gt;&gt; # Approximate log-determinant using stochastic Lanczos quadrature
+    &gt;&gt;&gt; # with at least 100 Monte-Carlo sampling
+    &gt;&gt;&gt; ld, info = logdet(A, method=&apos;slq&apos;, min_num_samples=100,
+    ...                   max_num_samples=200, return_info=True)
+    &gt;&gt;&gt; print(ld)
+    1386187.5751816272
+
+    &gt;&gt;&gt; # Find the time it took to compute the above
+    &gt;&gt;&gt; print(info[&apos;time&apos;])
+    {
+        &apos;tot_wall_time&apos;: 15.908390650060028,
+        &apos;alg_wall_time&apos;: 15.890228271484375,
+        &apos;cpu_proc_time&apos;: 116.93080989600001
+    }
+
+Compare the result of the above approximation with the exact solution of
+the log-determinant using the analytic relation for Toeplitz matrix. See
+:func:`imate.sample_matrices.toeplitz_logdet` for details.
+
+.. code-block:: python
+
+    &gt;&gt;&gt; from imate.sample_matrices import toeplitz_logdet
+    &gt;&gt;&gt; toeplitz_logdet(2, 1, size=1000000, gram=True)
+    1386294.3611198906
+
+It can be seen that the error of approximation is :math:`0.0018 \\%`. This
+accuracy is remarkable considering that the computation on such a large
+matrix took only a 16 seconds. Computing the log-determinant of such a
+large matrix using any of the exact methods (such as ``cholesky`` or
+``eigenvalue``) is infeasible.
+
+**Matrix operator:**
+
+The following example uses an object of :class:`imate.Matrix`. Note that
+this can be only applied to ``method=slq``. See further details in
+:ref:`slq method &lt;imate.logdet.slq&gt;`.
+
+.. code-block:: python
+    :emphasize-lines: 8
+
+    &gt;&gt;&gt; # Import matrix operator
+    &gt;&gt;&gt; from imate import toeplitz, logdet, Matrix
+
+    &gt;&gt;&gt; # Generate a sample matrix (a toeplitz matrix)
+    &gt;&gt;&gt; A = toeplitz(2, 1, size=100, gram=True)
+
+    &gt;&gt;&gt; # Create a matrix operator object from matrix A
+    &gt;&gt;&gt; Aop = Matrix(A)
+
+    &gt;&gt;&gt; # Compute log-determinant of Aop
+    &gt;&gt;&gt; logdet(Aop, method=&apos;slq&apos;)
+    141.52929878934194
+
+**Affine matrix operator:**
+
+The following example uses an object of
+:class:`imate.AffineMatrixFunction` to create the linear operator:
+
+.. math::
+
+    t \\mapsto \\mathbf{A} + t \\mathbf{I}
+
+Note that this can be only applied to ``method=slq``. See further details
+in :ref:`slq method &lt;imate.logdet.slq&gt;`.
+
+.. code-block:: python
+    :emphasize-lines: 8
+
+    &gt;&gt;&gt; # Import affine matrix function
+    &gt;&gt;&gt; from imate import toeplitz, logdet, AffineMatrixFunction
+
+    &gt;&gt;&gt; # Generate a sample matrix (a toeplitz matrix)
+    &gt;&gt;&gt; A = toeplitz(2, 1, size=100, gram=True)
+
+    &gt;&gt;&gt; # Create a matrix operator object from matrix A
+    &gt;&gt;&gt; Aop = AffineMatrixFunction(A)
+
+    &gt;&gt;&gt; # A list of parameters t to pass to Aop
+    &gt;&gt;&gt; t = [-1.0, 0.0, 1.0]
+
+    &gt;&gt;&gt; # Compute log-determinant of Aop for all parameters t
+    &gt;&gt;&gt; logdet(Aop, method=&apos;slq&apos;, parameters=t)
+    array([ 68.71411681, 135.88356906, 163.44156683])
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/logdet/logdet.py" line="23" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/logdet/logdet.py" bodystart="29" bodyend="397"/>
+        <references refid="namespaceimate_1_1logdet_1_1__cholesky__method_1aa890fbc6de58a24eb061fca38d7e1e81" compoundref="logdet_2__cholesky__method_8py" startline="42" endline="346">imate.logdet._cholesky_method.cholesky_method</references>
+        <references refid="namespaceimate_1_1logdet_1_1__eigenvalue__method_1a9514f0de2c73a9922234ff43d1546c66" compoundref="logdet_2__eigenvalue__method_8py" startline="39" endline="351">imate.logdet._eigenvalue_method.eigenvalue_method</references>
+        <references refid="namespaceimate_1_1logdet_1_1__slq__method_1a8f7e56fdb6a71674cc894241ca2b152f" compoundref="logdet_2__slq__method_8pyx" startline="43" endline="836">imate.logdet._slq_method.slq_method</references>
+        <referencedby refid="namespaceimate_1_1schatten_1_1schatten_1addd398048ffe6f31c8401438d3ab708e" compoundref="schatten_8py" startline="30" endline="467">imate.schatten.schatten.schatten</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/logdet/logdet.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

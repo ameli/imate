@@ -780,7 +780,7 @@ It is useful pass the argument ``return_info=True`` to get information about the
 The information about GPU devices used during the computation can be found in ``info['device']`` key:
 
 .. code-block:: python
-   :emphasize-lines: 5, 6, 7
+    :emphasize-lines: 5, 6, 7
 
     >>> from pprint import pprint
     >>> pprint(info['device'])

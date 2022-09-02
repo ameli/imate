@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="random__vectors_8pyx" kind="file" language="Python">
+    <compoundname>random_vectors.pyx</compoundname>
+    <innernamespace refid="namespaceimate_1_1__linear__algebra_1_1random__vectors">imate::_linear_algebra::random_vectors</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">#<sp/>SPDX-FileCopyrightText:<sp/>Copyright<sp/>2021,<sp/>Siavash<sp/>Ameli<sp/>&lt;sameli@berkeley.edu&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">#<sp/>SPDX-License-Identifier:<sp/>BSD-3-Clause</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">#<sp/>SPDX-FileType:<sp/>SOURCE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">#</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">#<sp/>This<sp/>program<sp/>is<sp/>free<sp/>software:<sp/>you<sp/>can<sp/>redistribute<sp/>it<sp/>and/or<sp/>modify<sp/>it<sp/>under</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">#<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>license<sp/>found<sp/>in<sp/>the<sp/>LICENSE.txt<sp/>file<sp/>in<sp/>the<sp/>root<sp/>directory</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">#<sp/>of<sp/>this<sp/>source<sp/>tree.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">#<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Imports</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">#<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>cython.parallel<sp/>cimport<sp/>parallel,<sp/>prange</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.._definitions.types<sp/>cimport<sp/>DataType,<sp/>IndexType,<sp/>LongIndexType</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.._random_generator<sp/>cimport<sp/>py_generate_random_array</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.orthogonalization<sp/>cimport<sp/>orthogonalize_vectors</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>.._c_basic_algebra<sp/>cimport<sp/>cVectorOperations</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">cimport<sp/>openmp</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">#<sp/>==============================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">#<sp/>generate<sp/>random<sp/>column<sp/>vectors</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">#<sp/>==============================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">cdef<sp/>void<sp/>generate_random_column_vectors(</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataType*<sp/>vectors,</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>LongIndexType<sp/>vector_size,</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>IndexType<sp/>num_vectors,</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>IndexType<sp/>orthogonalize,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>const<sp/>IndexType<sp/>num_threads):</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="33"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Generates<sp/>a<sp/>set<sp/>of<sp/>random<sp/>column<sp/>vectors<sp/>using<sp/>Rademacher<sp/>distribution.<sp/>The</highlight></codeline>
+<codeline lineno="34"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>column<sp/>vectors<sp/>are<sp/>normalized<sp/>to<sp/>unit<sp/>norm.<sp/>If<sp/>desired,<sp/>the<sp/>vectors<sp/>can</highlight></codeline>
+<codeline lineno="35"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>also<sp/>be<sp/>orthogonalized<sp/>by<sp/>setting<sp/>``orthogonalize``<sp/>flag<sp/>to<sp/>a<sp/>non-zero</highlight></codeline>
+<codeline lineno="36"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>value.<sp/>The<sp/>computation<sp/>is<sp/>parallelized<sp/>using<sp/>OpenMP<sp/>over<sp/>the<sp/>number<sp/>of</highlight></codeline>
+<codeline lineno="37"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>column<sp/>vectors.</highlight></codeline>
+<codeline lineno="38"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="39"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:param<sp/>vectors:<sp/>2D<sp/>array<sp/>of<sp/>vectors<sp/>of<sp/>size<sp/>``(vector_size,<sp/>num_vectors)``.</highlight></codeline>
+<codeline lineno="40"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>This<sp/>array<sp/>will<sp/>be<sp/>written<sp/>in-place<sp/>and<sp/>serves<sp/>as<sp/>the<sp/>output.<sp/>Note<sp/>this</highlight></codeline>
+<codeline lineno="41"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>is<sp/>Fortran<sp/>ordering,<sp/>meaning<sp/>that<sp/>the<sp/>first<sp/>index<sp/>is<sp/>contiguous.<sp/>To</highlight></codeline>
+<codeline lineno="42"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>refer<sp/>to<sp/>the<sp/>j-th<sp/>column<sp/>vector,<sp/>use<sp/>``&amp;vectors[0][j]``.</highlight></codeline>
+<codeline lineno="43"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:type<sp/>vectors:<sp/>pointer<sp/>(DataType)</highlight></codeline>
+<codeline lineno="44"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="45"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:param<sp/>vector_size:<sp/>Number<sp/>of<sp/>rows<sp/>of<sp/>vectors<sp/>array.</highlight></codeline>
+<codeline lineno="46"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:type<sp/>vector_size:<sp/>LongIndexType</highlight></codeline>
+<codeline lineno="47"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="48"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:param<sp/>num_vectors:<sp/>Number<sp/>of<sp/>columns<sp/>of<sp/>vectors<sp/>array.</highlight></codeline>
+<codeline lineno="49"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:type<sp/>num_vectors:<sp/>IndexType</highlight></codeline>
+<codeline lineno="50"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="51"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:param<sp/>orthogonalize:<sp/>A<sp/>flag,<sp/>when<sp/>set<sp/>to<sp/>a<sp/>non-zero<sp/>value,<sp/>the<sp/>vectors<sp/>are</highlight></codeline>
+<codeline lineno="52"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>orthogonalized<sp/>using<sp/>modified<sp/>Gram-Schmidt<sp/>process.<sp/>Otherwise,<sp/>the</highlight></codeline>
+<codeline lineno="53"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>generated<sp/>vectors<sp/>remain<sp/>enact.</highlight></codeline>
+<codeline lineno="54"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:param<sp/>orthogonalize:<sp/>IndexType</highlight></codeline>
+<codeline lineno="55"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="56"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:param<sp/>num_threads:<sp/>Number<sp/>of<sp/>OpenMP<sp/>parallel<sp/>threads</highlight></codeline>
+<codeline lineno="57"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>:type<sp/>num_threads:<sp/>IndexType</highlight></codeline>
+<codeline lineno="58"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Generate<sp/>random<sp/>array</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="namespaceimate_1_1__linear__algebra_1_1random__vectors_1a6196c3be707ee010fc22d15fbc4156fa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>LongIndexType<sp/>vectors_size<sp/>=<sp/>vector_size<sp/>*<sp/>num_vectors</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>py_generate_random_array(vectors,<sp/>vectors_size,<sp/>num_threads)</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Orthogonalize<sp/>(optional).<sp/>This<sp/>section<sp/>is<sp/>not<sp/>parallel<sp/>(must<sp/>be<sp/>serial)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>orthogonalize:</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>orthogonalize_vectors(vectors,<sp/>vector_size,<sp/>num_vectors)</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Set<sp/>the<sp/>number<sp/>of<sp/>threads</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>openmp.omp_set_num_threads(num_threads)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Using<sp/>max<sp/>possible<sp/>chunk<sp/>size<sp/>for<sp/>parallel<sp/>schedules</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="namespaceimate_1_1__linear__algebra_1_1random__vectors_1aa12402ef7d7e544664b569f8ebc312e3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>IndexType<sp/>chunk_size<sp/>=<sp/>int((&lt;DataType&gt;<sp/>num_vectors)<sp/>/<sp/>num_threads)</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>chunk_size<sp/>&lt;<sp/>1:</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>chunk_size<sp/>=<sp/>1</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Normalize<sp/>(necessary)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>cdef<sp/>IndexType<sp/>j</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">with</highlight><highlight class="normal"><sp/>nogil,<sp/>parallel():</highlight></codeline>
+<codeline lineno="79" refid="namespaceimate_1_1__linear__algebra_1_1random__vectors_1abdce6aef481df5f6a3d64e3957881786" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>j<sp/></highlight><highlight class="keywordflow">in</highlight><highlight class="normal"><sp/>prange(num_vectors,<sp/>schedule=</highlight><highlight class="stringliteral">&apos;static&apos;</highlight><highlight class="normal">,<sp/>chunksize=chunk_size):</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cVectorOperations[DataType].normalize_vector_in_place(</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;vectors[j*vector_size],<sp/>vector_size)</highlight></codeline>
+    </programlisting>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_linear_algebra/random_vectors.pyx"/>
+  </compounddef>
+</doxygen>

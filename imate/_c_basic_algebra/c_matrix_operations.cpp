@@ -30,12 +30,13 @@
 ///             dense matrix.
 ///
 /// \details    The reduction variable (here, \c sum ) is of the type
-///             \c{long double}. This is becase when \c DataType is \c float,
-///             the summation loses the precision, especially when the vector
-///             size is large. It seems that using \c{long double} is slightly
-///             faster than using \c double. The advantage of using a type
-///             with larger bits for the reduction variable is only sensible
-///             if the compiler is optimized with \c -O2 or \c -O3 flags.
+///             <tt>long double</tt>. This is becase when \c DataType is \c
+///             float, the summation loses the precision, especially when the
+///             vector size is large. It seems that using <tt>long double</tt>
+///             is slightly faster than using \c double. The advantage of using
+///             a type with larger bits for the reduction variable is only
+///             sensible if the compiler is optimized with \c -O2 or \c -O3
+///             flags.
 ///
 /// \param[in]  A
 ///             1D array that represents a 2D dense array with either C (row)
@@ -147,13 +148,13 @@ void cMatrixOperations<DataType>::dense_matvec(
 ///                \f$ is a dense matrix.
 ///
 /// \details       The reduction variable (here, \c sum ) is of the type
-///                \c{long double}. This is becase when \c DataType is \c
+///                <tt>long double</tt>. This is becase when \c DataType is \c
 ///                float the summation loses the precision, especially when the
-///                vector size is large. It seems that using \c{long double} is
-///                slightly faster than using \c double. The advantage of using
-///                a type with larger bits for the reduction variable is only
-///                sensible if the compiler is optimized with \c -O2 or \c -O3
-///                flags.
+///                vector size is large. It seems that using <tt>long double
+///                </tt> is slightly faster than using \c double. The advantage
+///                of using a type with larger bits for the reduction variable
+///                is only sensible if the compiler is optimized with \c -O2 or
+///                \c -O3 flags.
 ///
 /// \param[in]     A
 ///                1D array that represents a 2D dense array with either C
@@ -246,12 +247,13 @@ void cMatrixOperations<DataType>::dense_matvec_plus(
 ///             transpose of the matrix \f$ \mathbf{A} \f$.
 ///
 /// \details    The reduction variable (here, \c sum ) is of the type
-///             \c{long double}. This is becase when \c DataType is \c float,
+///             <tt>long double</tt>. This is becase when \c DataType is \c float,
 ///             the summation loses the precision, especially when the vector
-///             size is large. It seems that using \c{long double} is slightly
-///             faster than using \c double. The advantage of using a type
-///             with larger bits for the reduction variable is only sensible
-///             if the compiler is optimized with \c -O2 or \c -O3 flags.
+///             size is large. It seems that using <tt>long double</tt> is
+///             slightly faster than using \c double. The advantage of using a
+///             type with larger bits for the reduction variable is only
+///             sensible if the compiler is optimized with \c -O2 or \c -O3
+///             flags.
 ///
 /// \param[in]  A
 ///             1D array that represents a 2D dense array with either C (row)
@@ -336,13 +338,13 @@ void cMatrixOperations<DataType>::dense_transposed_matvec(
 ///                is the transpose of the matrix \f$ \mathbf{A} \f$.
 ///
 /// \details       The reduction variable (here, \c sum ) is of the type
-///                \c{long double}. This is becase when \c DataType is \c
+///                <tt>long double</tt>. This is becase when \c DataType is \c
 ///                float the summation loses the precision, especially when the
-///                vector size is large. It seems that using \c{long double} is
-///                slightly faster than using \c double. The advantage of using
-///                a type with larger bits for the reduction variable is only
-///                sensible if the compiler is optimized with \c -O2 or \c -O3
-///                flags.
+///                vector size is large. It seems that using <tt>long double
+///                </tt> is slightly faster than using \c double. The advantage
+///                of using a type with larger bits for the reduction variable
+///                is only sensible if the compiler is optimized with \c -O2 or
+///                \c -O3 flags.
 ///
 /// \param[in]     A
 ///                1D array that represents a 2D dense array with either C
@@ -430,17 +432,18 @@ void cMatrixOperations<DataType>::dense_transposed_matvec_plus(
 // ==========
 
 /// \brief      Computes \f$ \boldsymbol{c} = \mathbf{A} \boldsymbol{b} \f$
-///             where \f$ \mathbf{A}\ f$ is compressed sparse row (CSR) matrix
+///             where \f$ \mathbf{A} \f$ is compressed sparse row (CSR) matrix
 ///             and \f$ \boldsymbol{b} \f$ is a dense vector. The output \f$
 ///             \boldsymbol{c} \f$ is a dense vector.
 ///
 /// \details    The reduction variable (here, \c sum ) is of the type
-///             \c{long double}. This is becase when \c DataType is \c float,
+///             <tt>long double</tt>. This is becase when \c DataType is \c float,
 ///             the summation loses the precision, especially when the vector
-///             size is large. It seems that using \c{long double} is slightly
-///             faster than using \c double. The advantage of using a type
-///             with larger bits for the reduction variable is only sensible
-///             if the compiler is optimized with \c -O2 or \c -O3 flags.
+///             size is large. It seems that using <tt>long double</tt> is
+///             slightly faster than using \c double. The advantage of using a
+///             type with larger bits for the reduction variable is only
+///             sensible if the compiler is optimized with \c -O2 or \c -O3
+///             flags.
 ///
 /// \param[in]  A_data
 ///             CSR format data array of the sparse matrix. The length of this
@@ -496,19 +499,19 @@ void cMatrixOperations<DataType>::csr_matvec(
 // ===============
 
 /// \brief         Computes \f$ \boldsymbol{c} = \boldsymbol{c} + \alpha
-///                \mathbf{A} \boldsymbol{b} \f$ where \f$ \mathbf{A}\ f$ is
+///                \mathbf{A} \boldsymbol{b} \f$ where \f$ \mathbf{A} \f$ is
 ///                compressed sparse row (CSR) matrix and \f$ \boldsymbol{b}
 ///                \f$ is a dense vector. The output \f$ \boldsymbol{c} \f$ is
 ///                a dense vector.
 ///
 /// \details       The reduction variable (here, \c sum ) is of the type
-///                \c{long double}. This is becase when \c DataType is \c
+///                <tt>long double</tt>. This is becase when \c DataType is \c
 ///                float the summation loses the precision, especially when the
-///                vector size is large. It seems that using \c{long double} is
-///                slightly faster than using \c double. The advantage of using
-///                a type with larger bits for the reduction variable is only
-///                sensible if the compiler is optimized with \c -O2 or \c -O3
-///                flags.
+///                vector size is large. It seems that using <tt>long double
+///                </tt> is slightly faster than using \c double. The advantage
+///                of using a type with larger bits for the reduction variable
+///                is only sensible if the compiler is optimized with \c -O2 or
+///                \c -O3 flags.
 ///
 /// \param[in]     A_data
 ///                CSR format data array of the sparse matrix. The length of
@@ -837,12 +840,13 @@ void cMatrixOperations<DataType>::csc_matvec_plus(
 ///             vector.
 ///
 /// \details    The reduction variable (here, \c sum ) is of the type
-///             \c{long double}. This is becase when \c DataType is \c float,
-///             the summation loses the precision, especially when the vector
-///             size is large. It seems that using \c{long double} is slightly
-///             faster than using \c double. The advantage of using a type
-///             with larger bits for the reduction variable is only sensible
-///             if the compiler is optimized with \c -O2 or \c -O3 flags.
+///             <tt>long double</tt>. This is becase when \c DataType is \c
+///             float, the summation loses the precision, especially when the
+///             vector size is large. It seems that using <tt>long double</tt>
+///             is slightly faster than using \c double. The advantage of using
+///             a type with larger bits for the reduction variable is only
+///             sensible if the compiler is optimized with \c -O2 or \c -O3
+///             flags.
 ///
 /// \param[in]  A_data
 ///             CSC format data array of the sparse matrix. The length of this
@@ -904,13 +908,13 @@ void cMatrixOperations<DataType>::csc_transposed_matvec(
 ///                \boldsymbol{c} \f$ is a dense vector.
 ///
 /// \details       The reduction variable (here, \c sum ) is of the type
-///                \c{long double}. This is becase when \c DataType is \c
+///                <tt>long double</tt>. This is becase when \c DataType is \c
 ///                float the summation loses the precision, especially when the
-///                vector size is large. It seems that using \c{long double} is
-///                slightly faster than using \c double. The advantage of using
-///                a type with larger bits for the reduction variable is only
-///                sensible if the compiler is optimized with \c -O2 or \c -O3
-///                flags.
+///                vector size is large. It seems that using <tt>long double
+///                </tt> is slightly faster than using \c double. The advantage
+///                of using a type with larger bits for the reduction variable
+///                is only sensible if the compiler is optimized with \c -O2 or
+///                \c -O3 flags.
 ///
 /// \param[in]     A_data
 ///                CSC format data array of the sparse matrix. The length of

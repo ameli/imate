@@ -173,12 +173,13 @@ void cVectorOperations<DataType>::subtract_scaled_vector(
 /// \brief     Computes Euclidean inner product of two vectors.
 ///
 /// \details   The reduction variable (here, \c inner_prod ) is of the type
-///            \c{long double}. This is becase when \c DataType is \c float,
-///            the summation loses the precision, especially when the vector
-///            size is large. It seems that using \c{long double} is slightly
-///            faster than using \c double. The advantage of using a type
-///            with larger bits for the reduction variable is only sensible
-///            if the compiler is optimized with \c -O2 or \c -O3 flags.
+///            <tt>long double</tt>. This is becase when \c DataType is \c
+///            float, the summation loses the precision, especially when the
+///            vector size is large. It seems that using <tt>long double</tt>
+///            is slightly faster than using \c double. The advantage of using
+///            a type with larger bits for the reduction variable is only
+///            sensible if the compiler is optimized with \c -O2 or \c -O3
+///            flags.
 ///
 ///            Using a larger bit type for the reduction variable is very
 ///            important for this function. If \c DataType is \c float,
@@ -250,12 +251,13 @@ DataType cVectorOperations<DataType>::inner_product(
 /// \brief     Computes the Euclidean norm of a 1D array.
 ///
 /// \details   The reduction variable (here, \c inner_prod ) is of the type
-///            \c{long double}. This is becase when \c DataType is \c float,
-///            the summation loses the precision, especially when the vector
-///            size is large. It seems that using \c{long double} is slightly
-///            faster than using \c double. The advantage of using a type
-///            with larger bits for the reduction variable is only sensible
-///            if the compiler is optimized with \c -O2 or \c -O3 flags.
+///            <tt>long double</tt>. This is becase when \c DataType is \c
+///            float, the summation loses the precision, especially when the
+///            vector size is large. It seems that using <tt>long double</tt>
+///            is slightly faster than using \c double. The advantage of using
+///            a type with larger bits for the reduction variable is only
+///            sensible if the compiler is optimized with \c -O2 or \c -O3
+///            flags.
 ///
 ///            Using a larger bit type for the reduction variable is very
 ///            important for this function. If \c DataType is \c float,

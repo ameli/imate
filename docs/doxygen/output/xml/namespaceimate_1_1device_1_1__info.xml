@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespaceimate_1_1device_1_1__info" kind="namespace" language="Python">
+    <compoundname>imate::device::_info</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceimate_1_1device_1_1__info_1a2ac82a263a83eea40e22818ef6c64717" prot="private" static="no" mutable="no">
+        <type>list</type>
+        <definition>list imate::device::_info.__all__</definition>
+        <argsstring></argsstring>
+        <name>__all__</name>
+        <initializer>=  [&apos;<ref refid="namespaceimate_1_1device_1_1__info_1a735794b84c8257928e00c262feebd599" kindref="member">info</ref>&apos;]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/device/_info.py" line="20" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/device/_info.py" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceimate_1_1device_1_1__info_1a735794b84c8257928e00c262feebd599" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.device._info.info</definition>
+        <argsstring>(print_only=True)</argsstring>
+        <name>info</name>
+        <param>
+          <type>print_only</type>
+          <defname>print_only</defname>
+          <defval>True</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Provides general information about hardware device, package version, and
+memory usage.
+
+Parameters
+----------
+
+print_only : bool, default=True
+    It `True`, it prints the output. If `False`, it returns the output as
+    a dictionary.
+
+Returns
+-------
+
+info_dict : dict
+    (Only if ``print_only`` is `False`). A dictionary with the following
+    keys:
+
+    * ``imate_version``: `str`, the version of the imate package in the
+      format ``&quot;major_version.minor_version.patch_number&quot;``.
+    * ``processor``: `str`, the model name of the CPU processor.
+    * ``num_threads``, `int`, number of CPU threads that are available and
+      allocated to the user.
+    * ``gpu_name``: `str`, model name of the GPU devices.
+    * ``num_gpu_devices``: `int`, number of GPU devices in multi-GPU
+      platforms.
+    * ``cuda_version``: `str`, the version of CUDA Toolkit installed on the
+      machine in the format ``&quot;major_version.minor_version.patch_number&quot;``.
+    * ``nvidia_driver``: `str`, the version of NVIDIA graphic driver.
+    * ``mem_used``: `int`, resident memory usage for the current Python
+      process.
+    * ``mem_unit``, `str`, the unit in which ``mem_used`` is reported. This
+      can be ``&quot;b&quot;`` for Byte, ``&quot;KB&quot;`` for Kilo-Byte, ``&quot;MB&quot;`` for
+      Mega-Byte, ``&quot;GB&quot;`` for Giga-Byte, and ``&quot;TB&quot;`` for Tera-Byte.
+
+See Also
+--------
+
+imate.device.get_processor_name
+imate.device.get_gpu_name
+imate.device.get_num_cpu_threads
+imate.device.get_num_gpu_devices
+imate.device.get_nvidia_driver_version
+imate.Memory
+imate.device.locate_cuda
+
+Notes
+-----
+
+**CUDA Version:**
+
+In order to find CUDA Toolkit information properly, either of the
+environment variables ``CUDA_HOME``, ``CUDA_ROOT``, or ``CUDA_PATH`` should
+be set to the directory where CUDA Toolkit is installed. Usually on UNIX
+operating systems, this path is ``/usr/local/cuda``. In this case, set
+``CUDA_HOME`` (or any of the other variables mentioned in the above) as
+follows:
+
+::
+
+    export CUDA_HOME=/usr/local/cuda
+
+To permanently set this variable, place the above line in ``profile`` file,
+such as in ``~/.bashrc``, or ``~/.profile``, and source this file, for
+instance by
+
+::
+
+    source ~/.bashrc
+
+If no CUDA Toolkit is installed, then the key ``cuda_version`` shows
+`not found`.
+
+.. note::
+
+    It is possible that the CUDA Toolkit is installed on the machine, but
+    ``cuda_version`` key shows `not found`. This is because the user did
+    not set the environment variables mentioned in the above.
+
+**GPU Devices:**
+
+If the key ``gpu_name`` shows `not found`, this is because either
+
+* No GPU device is detected on the machine.
+* GPU device exists, but NVIDIA graphic driver is not installed. See
+  :ref:`Install NVIDIA Graphic Driver &lt;install-graphic-driver&gt;` for further
+  details.
+* NVIDIA graphic driver is installed, but the executable ``nvidia-smi`` is
+  not available on the `PATH``. To fix this, set the location of the
+  ``nvidia-smi`` executable on the ``PATH`` variable.
+
+**Memory:**
+
+The key ``mem_used`` shows the resident set size memory (RSS) on RAM
+hardware. The unit of the reported memory size can be found in
+``mem_unit``, which can be ``b`` for Bytes, ``KB`` for Kilo-Bytes, ``MB``
+for Mega-Bytes, and so on.
+
+Examples
+--------
+
+Print information:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; from imate import info
+    &gt;&gt;&gt; info()
+    imate version   : 0.13.0
+    processor       : Intel(R) Xeon(R) CPU E5-2623 v3 @ 3.00GHz
+    num threads     : 8
+    gpu device      : &apos;GeForce GTX 1080 Ti&apos;
+    num gpu devices : 4
+    cuda version    : 11.2.0
+    nvidia driver   : 460.84
+    process memory  : 1.7 (Gb)
+
+Return information as a dictionary:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; from imate import info
+    &gt;&gt;&gt; info_dict = info(print_only=False)
+
+    &gt;&gt;&gt; # Neatly print dictionary using pprint
+    &gt;&gt;&gt; from pprint import pprint
+    &gt;&gt;&gt; pprint(info_dict)
+    {
+        &apos;imate version&apos;: 0.13.0,
+        &apos;processor&apos;: Intel(R) Xeon(R) CPU E5-2623 v3 @ 3.00GHz,
+        &apos;num threads&apos;: 8,
+        &apos;gpu device&apos;: &apos;GeForce GTX 1080 Ti&apos;,
+        &apos;num gpu devices&apos;: 4,
+        &apos;cuda version&apos;: 11.2.0,
+        &apos;nvidia driver&apos;: 460.84,
+        &apos;process memory&apos;: 1.7 (Gb)
+    }
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/device/_info.py" line="27" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/device/_info.py" bodystart="27" bodyend="208"/>
+        <references refid="namespaceimate_1_1device_1_1__device_1a283033b5b736587aab6d74929a2ace48" compoundref="__device_8py" startline="144" endline="219">imate.device._device.get_gpu_name</references>
+        <references refid="namespaceimate_1_1device_1_1__device_1af9525e7a774a0f7dbecf38a643e7c78a" compoundref="__device_8py" startline="97" endline="143">imate.device._device.get_num_cpu_threads</references>
+        <references refid="namespaceimate_1_1device_1_1__device_1a5c1da1b7a4bc6c2c778789b807eb27ca" compoundref="__device_8py" startline="220" endline="294">imate.device._device.get_num_gpu_devices</references>
+        <references refid="namespaceimate_1_1device_1_1__device_1a126773820a5a66414bf0ea1871672ef4" compoundref="__device_8py" startline="295" endline="369">imate.device._device.get_nvidia_driver_version</references>
+        <references refid="namespaceimate_1_1device_1_1__device_1ad8a7aa1910ae556a9f58d353a18c138e" compoundref="__device_8py" startline="28" endline="96">imate.device._device.get_processor_name</references>
+        <references refid="namespaceimate_1_1device_1_1__cuda_1ae83b14fb4d618639ff75a167ae57f127" compoundref="__cuda_8py" startline="47" endline="251">imate.device._cuda.locate_cuda</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/device/_info.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

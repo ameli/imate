@@ -27,6 +27,8 @@
 ///             \mathbf{A} \boldsymbol{b} \f$ where \f$ \mathbf{A} \f$ is a
 ///             dense matrix.
 ///
+/// \param[in]  cublas_handle
+///             The cuBLAS object handle.
 /// \param[in]  A
 ///             1D array that represents a 2D dense array with either C (row)
 ///             major ordering or Fortran (column) major ordering. The major
@@ -99,6 +101,8 @@ void cuMatrixOperations<DataType>::dense_matvec(
 ///                \alpha \mathbf{A} \boldsymbol{b} \f$ where \f$ \mathbf{A}
 ///                \f$ is a dense matrix.
 ///
+/// \param[in]     cublas_handle
+///                The cuBLAS object handle.
 /// \param[in]     A
 ///                1D array that represents a 2D dense array with either C
 ///                (row) major ordering or Fortran (column) major ordering. The
@@ -174,6 +178,8 @@ void cuMatrixOperations<DataType>::dense_matvec_plus(
 ///             \f$ is dense, and \f$ \mathbf{A}^{\intercal} \f$ is the
 ///             transpose of the matrix \f$ \mathbf{A} \f$.
 ///
+/// \param[in]  cublas_handle
+///             The cuBLAS object handle.
 /// \param[in]  A
 ///             1D array that represents a 2D dense array with either C (row)
 ///             major ordering or Fortran (column) major ordering. The major
@@ -247,6 +253,8 @@ void cuMatrixOperations<DataType>::dense_transposed_matvec(
 ///                \mathbf{A} \f$ is dense, and \f$ \mathbf{A}^{\intercal} \f$
 ///                is the transpose of the matrix \f$ \mathbf{A} \f$.
 ///
+/// \param[in]     cublas_handle
+///                The cuBLAS object handle.
 /// \param[in]     A
 ///                1D array that represents a 2D dense array with either C
 ///                (row) major ordering or Fortran (column) major ordering. The
@@ -323,10 +331,12 @@ void cuMatrixOperations<DataType>::dense_transposed_matvec_plus(
 // ==========
 
 /// \brief      Computes \f$ \boldsymbol{c} = \mathbf{A} \boldsymbol{b} \f$
-///             where \f$ \mathbf{A}\ f$ is compressed sparse row (CSR) matrix
+///             where \f$ \mathbf{A} \f$ is compressed sparse row (CSR) matrix
 ///             and \f$ \boldsymbol{b} \f$ is a dense vector. The output \f$
 ///             \boldsymbol{c} \f$ is a dense vector.
 ///
+/// \param[in]  cusparse_handle
+///             The cuSparse object handle.
 /// \param[in]  A_data
 ///             CSR format data array of the sparse matrix. The length of this
 ///             array is the nnz of the matrix.
@@ -382,11 +392,13 @@ void cuMatrixOperations<DataType>::csr_matvec(
 // ===============
 
 /// \brief         Computes \f$ \boldsymbol{c} = \boldsymbol{c} + \alpha
-///                \mathbf{A} \boldsymbol{b} \f$ where \f$ \mathbf{A}\ f$ is
+///                \mathbf{A} \boldsymbol{b} \f$ where \f$ \mathbf{A} \f$ is
 ///                compressed sparse row (CSR) matrix and \f$ \boldsymbol{b}
 ///                \f$ is a dense vector. The output \f$ \boldsymbol{c} \f$ is
 ///                a dense vector.
 ///
+/// \param[in]     cusparse_handle
+///                The cuSparse object handle.
 /// \param[in]     A_data
 ///                CSR format data array of the sparse matrix. The length of
 ///                this array is the nnz of the matrix.
@@ -455,6 +467,8 @@ void cuMatrixOperations<DataType>::csr_matvec_plus(
 ///             row (CSR) matrix and \f$ \boldsymbol{b} \f$ is a dense vector.
 ///             The output \f$ \boldsymbol{c} \f$ is a dense vector.
 ///
+/// \param[in]  cusparse_handle
+///             The cuSparse object handle.
 /// \param[in]  A_data
 ///             CSR format data array of the sparse matrix. The length of this
 ///             array is the nnz of the matrix.
@@ -521,6 +535,8 @@ void cuMatrixOperations<DataType>::csr_transposed_matvec(
 ///                \boldsymbol{b} \f$ is a dense vector. The output \f$
 ///                \boldsymbol{c} \f$ is a dense vector.
 ///
+/// \param[in]     cusparse_handle
+///                The cuSparse object handle.
 /// \param[in]     A_data
 ///                CSR format data array of the sparse matrix. The length of
 ///                this array is the nnz of the matrix.
@@ -589,6 +605,8 @@ void cuMatrixOperations<DataType>::csr_transposed_matvec_plus(
 ///             matrix and \f$ \boldsymbol{b} \f$ is a dense vector. The output
 ///             \f$ \boldsymbol{c} \f$ is a dense vector.
 ///
+/// \param[in]  cusparse_handle
+///             The cuSparse object handle.
 /// \param[in]  A_data
 ///             CSC format data array of the sparse matrix. The length of this
 ///             array is the nnz of the matrix.
@@ -655,6 +673,8 @@ void cuMatrixOperations<DataType>::csc_matvec(
 ///                \f$ is a dense vector. The output \f$ \boldsymbol{c} \f$ is
 ///                a dense vector.
 ///
+/// \param[in]     cusparse_handle
+///                The cuSparse object handle.
 /// \param[in]     A_data
 ///                CSC format data array of the sparse matrix. The length of
 ///                this array is the nnz of the matrix.
@@ -724,6 +744,8 @@ void cuMatrixOperations<DataType>::csc_matvec_plus(
 ///             dense vector. The output \f$ \boldsymbol{c} \f$ is a dense
 ///             vector.
 ///
+/// \param[in]  cusparse_handle
+///             The cuSparse object handle.
 /// \param[in]  A_data
 ///             CSC format data array of the sparse matrix. The length of this
 ///             array is the nnz of the matrix.
@@ -784,6 +806,8 @@ void cuMatrixOperations<DataType>::csc_transposed_matvec(
 ///                \f$ \boldsymbol{b} \f$ is a dense vector. The output \f$
 ///                \boldsymbol{c} \f$ is a dense vector.
 ///
+/// \param[in]     cusparse_handle
+///                The cuSparse object handle.
 /// \param[in]     A_data
 ///                CSC format data array of the sparse matrix. The length of
 ///                this array is the nnz of the matrix.
@@ -859,6 +883,8 @@ void cuMatrixOperations<DataType>::csc_transposed_matvec_plus(
 ///             Depending on \c tridiagonal, the matrix is upper bi-diagonal or
 ///             symmetric tri-diagonal.
 ///
+/// \param[in]  cusparse_handle
+///             The cuSparse object handle.
 /// \param[in]  diagonals
 ///             An array of length \c n. All elements \c diagonals create the
 ///             diagonals of \c matrix.

@@ -78,8 +78,8 @@
 ///               transposed-matrix vector multiplications.
 /// \param[in]  exponent
 ///             The exponent parameter \c p in the trace of the expression
-///             $f((\mathbf{A} + t \mathbf{B})^p)$. The exponent is a real
-///             number and by default it is set to \c 1.0.
+///             \f$ f((\mathbf{A} + t \mathbf{B})^p) \f$. The exponent is a
+///             real number and by default it is set to \c 1.0.
 /// \param[in]  orthogonalize
 ///             Indicates whether to orthogonalize the orthogonal eigenvectors
 ///             during Lanczos recursive iterations.
@@ -345,8 +345,8 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
 ///               transposed-matrix vector multiplications.
 /// \param[in]  exponent
 ///             The exponent parameter \c p in the trace of the expression
-///             $f((\mathbf{A} + t \mathbf{B})^p)$. The exponent is a real
-///             number and by default it is set to \c 1.0.
+///             \f$ f((\mathbf{A} + t \mathbf{B})^p) \f$. The exponent is a
+///             real number and by default it is set to \c 1.0.
 /// \param[in]  orthogonalize
 ///             Indicates whether to orthogonalize the orthogonal eigenvectors
 ///             during Lanczos recursive iterations.

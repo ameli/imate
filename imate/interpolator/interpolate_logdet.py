@@ -29,163 +29,14 @@ except ImportError:
 
 class InterpolateLogdet(InterpolateSchatten):
     """
-    Interpolates the Schatten norm, or anti-norm, of an affine matrix function.
-
-    The Shcatten-type operator of order :math:`p \\in \\mathbb{R}` of an affine
-    matrix function :math:`t \\mapsto \\mathbf{A} + t \\mathbf{B}` is defined
-    by
-
-    .. math::
-
-        t \\mapsto \\| \\mathbf{A} + t \\mathbf{B} \\|_p
-
-    where the matrices :math:`\\mathbf{A}` and :math:`\\mathbf{B}` are
-    Hermitian and positive semi-definite (positive-definite if :math:`p < 0`)
-    and :math:`t` is a real parameter. The above
-
-    This module interpolates the function
-
-    .. math::
-
-        t \\mapsto \\mathrm{trace} \\left( (\\mathbf{A} +
-        t \\mathbf{B})^{-1} \\right)
-
-    The interpolator is initialized by providing :math:`q` interpolant points
-    :math:`t_i`, :math:`i = 1, \\dots, q`, which are often logarithmically
-    spaced in some interval :math:`t_i \\in [t_1, t_p]`.
-    The interpolator can interpolate the above function at inquiry points
-    :math:`t \\in [t_1, t_p]` using various methods.
-
-    Parameters
-    ----------
-        A : numpy.ndarray, scipy.sparse matrix
-            A positive-definite matrix. Matrix can be dense or sparse.
-
-        B : numpy.ndarray, scipy.sparse matrix, default=None
-            A positive-definite matrix. Matrix can be dense or sparse. If
-            `None` or not provided, it is assumed that `B` is an identity
-            matrix of the shape of `A`.
-
-        p : float , default=0
-            Power of matrix.
-
-        ti : list(float), numpy.array(float), default=None
-            A list or an array of points that the interpolator use to
-            interpolate. The trace of inverse is computed for the interpolant
-            points with exact method. If `None`, a default list of interpolant
-            points is used.
-
-        method : str, default=`'IMBF'`
-            Algorithm of interpolation. See table below.
-
-            ==========  ================================  ============
-            `kind`      Description                       Results
-            ==========  ================================  ============
-            ``'EXT'``   Computes without interpolation    exact
-            ``'EIG'``   Uses Eigenvalues of matrix        exact
-            ``'MBF'``   Monomial Basis Functions          interpolated
-            ``'IMBF'``  Inverse monomial basis functions  interpolated
-            ``'RBF'``   Radial basis functions            interpolated
-            ``'RPF'``   Rational polynomial functions     interpolated
-            ==========  ================================  ============
-
-        options : dict, default={'method': 'cholesky'}
-            A dictionary of arguments to pass to :mod:`imate.traceinv` module.
-
-        verbose : bool, default=False
-            If `True`, it prints some information on the computation process.
-
-        kwargs : \\*\\*kwargs
-            Additional options to pass to each specific interpolator class.
-            See the sub-classes of :mod:`imate.InterpolantBase`.
-
-    Attributes
-    ----------
-    kind : str
-        Method of interpolation
-    verbose : bool
-        Verbosity of the computation process.
-    n : int
-        Since of the matrix
-    q : int
-        number of interpolant points
-
-    Methods
-    -------
-    __call__
-    eval
-    interpolate
-    lower_bound
-    upper_bound
-    plot
-
-    Examples
-    --------
-
-    Interpolate the trace of inverse of the affine matrix function
-    :math:`\\mathbf{A} + t \\mathbf{B}`:
-
-    .. code-block:: python
-
-        >>> # Generate two sample matrices (symmetric and positive-definite)
-        >>> from imate import generate_matrix
-        >>> A = generate_matrix(size=20, correlation_scale=1e-1)
-        >>> B = generate_matrix(size=20, correlation_scale=2e-2)
-
-        >>> # Initialize interpolator object
-        >>> from imate import InterpolateSchatten
-        >>> ti = [1e-2, 1e-1, 1, 1e1]
-        >>> TI = InterpolateSchatten(A, B, ti)
-
-        >>> # Interpolate at an inquiry point t = 0.4
-        >>> t = 4e-1
-        >>> Trace = TI.interpolate(t)
-
-    Interpolate an array of inquiry points
-
-    .. code-block:: python
-
-        >>> # Interpolate at an array of points
-        >>> import numpy
-        >>> t_array = numoy.logspace(-2, 1, 10)
-        >>> Trace = TI.interpolator(t_array)
-
-    By default, the interpolation kind is ``'IMBF'``. Use a different
-    interpolation kind, such as ``'RBF'`` by
-
-    .. code-block:: python
-
-        >>> TI = InterpolateSchatten(A, B, ti, kind='RBF')
-
-    By default, the trace is computed with the Cholesky decomposition method as
-    the interpolant points. Configure the
-    computation method by ``options`` as
-
-    .. code-block:: python
-
-        >>> # Specify arguments to imate.omputeTraceOfInverse in a dictionary
-        >>> options = \
-        ... {
-        ...     'method': 'hutchinson',
-        ...     'NumIterations': 20
-        ... }
-
-        >>> # Pass the options to the interpolator
-        >>> TI = InterpolateSchatten(A, B, ti,
-        >>>     options=options)
-
-    See Also
-    --------
-        traceinv : Computes trace of inverse of a matrix.
-
     """
 
     # ====
     # init
     # ====
 
-    def __init__(self, A, B=None, ti=[], kind='IMBF', verbose=False,
-                 options={'method': 'cholesky'}, **kwargs):
+    def __init__(self, A, B=None, options={'method': 'cholesky'},
+                 verbose=False, kind='imbf', ti=[], **kwargs):
         """
         Initializes the object depending on the method.
         """
@@ -288,7 +139,7 @@ class InterpolateLogdet(InterpolateSchatten):
                 solution.
         """
 
-        if self.kind == 'EXT':
+        if self.kind.lower() == 'ext':
 
             # The Trace results are already exact. No need to recompute again.
             logdet_exact = logdet_

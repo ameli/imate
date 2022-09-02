@@ -160,6 +160,32 @@ Interpolate the various matrix functions of the one-parameter family of affine m
     imate.InterpolateTrace
     imate.InterpolateSchatten
 
+Each of the above interpolator classes have the following interpolation methods:
+
+.. toctree::
+
+    api/imate.InterpolateSchatten.ext
+    api/imate.InterpolateSchatten.eig
+    api/imate.InterpolateSchatten.mbf
+    api/imate.InterpolateSchatten.imbf
+    api/imate.InterpolateSchatten.rbf
+    api/imate.InterpolateSchatten.crf
+    api/imate.InterpolateSchatten.spl
+    api/imate.InterpolateSchatten.rpf
+
+==========  ================================  ============
+`kind`      Description                       Results
+==========  ================================  ============
+``'ext'``   Exact (no interpolation)          exact
+``'eig'``   Eigenvalue (no interpolation)     exact
+``'mbf'``   Monomial Basis Functions          interpolated
+``'imbf'``  Inverse Monomial Basis Functions  interpolated
+``'rbf'``   Radial Basis Functions            interpolated
+``'crf'``   Chebyshev Rational Functions      interpolated
+``'spl'``   Spline                            interpolated
+``'rpf'``   Rational Polynomial Functions     interpolated
+==========  ================================  ============
+
 .. _Linear Operators:
 
 Linear Operators

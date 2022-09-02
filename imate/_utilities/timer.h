@@ -40,9 +40,9 @@
 ///               double elapsed_time = timer.elapsed();
 ///
 /// \note     The start and stop time variables *inside* this class must be
-///           declared as \double, and not \float to have enough precision for
-///           the subtraction of stop minus start time. However, the elapsed
-///           time *outside* of this class can be declared as \c float.
+///           declared as \c double, and not \c float to have enough precision
+///           for the subtraction of stop minus start time. However, the
+///           elapsed time *outside* of this class can be declared as \c float.
 ///
 /// \sa       CudaTimer
 

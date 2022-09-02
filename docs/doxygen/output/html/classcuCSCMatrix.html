@@ -1,0 +1,1408 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>imate: cuCSCMatrix&lt; DataType &gt; Class Template Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js", "TeX/AMSfonts.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom-alternative.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/ameli/imate" class="github-corner" title="View source on GitHub" target="_blank">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo-imate-light.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">imate
+   </div>
+   <div id="projectbrief">C++/CUDA Reference</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Search','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classcuCSCMatrix.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="classcuCSCMatrix-members.html">List of all members</a>  </div>
+  <div class="headertitle">
+<div class="title">cuCSCMatrix&lt; DataType &gt; Class Template Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="cu__csc__matrix_8h_source.html">cu_csc_matrix.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for cuCSCMatrix&lt; DataType &gt;:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcuCSCMatrix__inherit__graph.png" border="0" usemap="#acuCSCMatrix_3_01DataType_01_4_inherit__map" alt="Inheritance graph"/></div>
+<map name="acuCSCMatrix_3_01DataType_01_4_inherit__map" id="acuCSCMatrix_3_01DataType_01_4_inherit__map">
+<area shape="rect" title=" " alt="" coords="113,229,294,256"/>
+<area shape="rect" href="classcuMatrix.html" title="Base class for constant matrices." alt="" coords="34,155,186,181"/>
+<area shape="rect" href="classcuLinearOperator.html" title="Base class for linear operators. This class serves as interface for all derived classes." alt="" coords="5,80,207,107"/>
+<area shape="rect" href="classcLinearOperator.html" title="Base class for linear operators. This class serves as interface for all derived classes." alt="" coords="107,5,302,32"/>
+<area shape="rect" href="classcMatrix.html" title="Base class for constant matrices." alt="" coords="231,80,376,107"/>
+<area shape="rect" href="classcCSCMatrix.html" title=" " alt="" coords="213,155,388,181"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for cuCSCMatrix&lt; DataType &gt;:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcuCSCMatrix__coll__graph.png" border="0" usemap="#acuCSCMatrix_3_01DataType_01_4_coll__map" alt="Collaboration graph"/></div>
+<map name="acuCSCMatrix_3_01DataType_01_4_coll__map" id="acuCSCMatrix_3_01DataType_01_4_coll__map">
+<area shape="rect" title=" " alt="" coords="113,229,294,256"/>
+<area shape="rect" href="classcuMatrix.html" title="Base class for constant matrices." alt="" coords="34,155,186,181"/>
+<area shape="rect" href="classcuLinearOperator.html" title="Base class for linear operators. This class serves as interface for all derived classes." alt="" coords="5,80,207,107"/>
+<area shape="rect" href="classcLinearOperator.html" title="Base class for linear operators. This class serves as interface for all derived classes." alt="" coords="107,5,302,32"/>
+<area shape="rect" href="classcMatrix.html" title="Base class for constant matrices." alt="" coords="231,80,376,107"/>
+<area shape="rect" href="classcCSCMatrix.html" title=" " alt="" coords="213,155,388,181"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a8ab5a2478703d8d6af7a7f558241e3e4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuCSCMatrix.html#a8ab5a2478703d8d6af7a7f558241e3e4">cuCSCMatrix</a> ()</td></tr>
+<tr class="memdesc:a8ab5a2478703d8d6af7a7f558241e3e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="classcuCSCMatrix.html#a8ab5a2478703d8d6af7a7f558241e3e4">More...</a><br /></td></tr>
+<tr class="separator:a8ab5a2478703d8d6af7a7f558241e3e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3052323bdb6799654448ece5e9889837"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuCSCMatrix.html#a3052323bdb6799654448ece5e9889837">cuCSCMatrix</a> (const DataType *A_data_, const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> *A_indices_, const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> *A_index_pointer_, const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> num_rows_, const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> num_columns_, const int num_gpu_devices_)</td></tr>
+<tr class="memdesc:a3052323bdb6799654448ece5e9889837"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with arguments.  <a href="classcuCSCMatrix.html#a3052323bdb6799654448ece5e9889837">More...</a><br /></td></tr>
+<tr class="separator:a3052323bdb6799654448ece5e9889837"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb187a61a6f4d735409a989524a85336"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuCSCMatrix.html#afb187a61a6f4d735409a989524a85336">~cuCSCMatrix</a> ()</td></tr>
+<tr class="memdesc:afb187a61a6f4d735409a989524a85336"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual desructor.  <a href="classcuCSCMatrix.html#afb187a61a6f4d735409a989524a85336">More...</a><br /></td></tr>
+<tr class="separator:afb187a61a6f4d735409a989524a85336"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1eb47019eaa7abd083d644e37893fc3a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuCSCMatrix.html#a1eb47019eaa7abd083d644e37893fc3a">dot</a> (const DataType *device_vector, DataType *device_product)</td></tr>
+<tr class="separator:a1eb47019eaa7abd083d644e37893fc3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4759c30ffb86521f4ae29eac739db42"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuCSCMatrix.html#ac4759c30ffb86521f4ae29eac739db42">dot_plus</a> (const DataType *device_vector, const DataType alpha, DataType *device_product)</td></tr>
+<tr class="separator:ac4759c30ffb86521f4ae29eac739db42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0af6927d0301ce630c70a88c1d799300"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuCSCMatrix.html#a0af6927d0301ce630c70a88c1d799300">transpose_dot</a> (const DataType *device_vector, DataType *device_product)</td></tr>
+<tr class="separator:a0af6927d0301ce630c70a88c1d799300"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19f87522864944c7d622c1a3653bf883"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuCSCMatrix.html#a19f87522864944c7d622c1a3653bf883">transpose_dot_plus</a> (const DataType *device_vector, const DataType alpha, DataType *device_product)</td></tr>
+<tr class="separator:a19f87522864944c7d622c1a3653bf883"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classcuMatrix"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcuMatrix')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcuMatrix.html">cuMatrix&lt; DataType &gt;</a></td></tr>
+<tr class="memitem:a8f1e4536906b1f57e05877bd64d5f47e inherit pub_methods_classcuMatrix"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuMatrix.html#a8f1e4536906b1f57e05877bd64d5f47e">cuMatrix</a> ()</td></tr>
+<tr class="separator:a8f1e4536906b1f57e05877bd64d5f47e inherit pub_methods_classcuMatrix"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd84126f06028a052ebeda858fa14798 inherit pub_methods_classcuMatrix"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuMatrix.html#acd84126f06028a052ebeda858fa14798">cuMatrix</a> (int num_gpu_devices_)</td></tr>
+<tr class="separator:acd84126f06028a052ebeda858fa14798 inherit pub_methods_classcuMatrix"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a764596132535491b6614e2637ab636 inherit pub_methods_classcuMatrix"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuMatrix.html#a9a764596132535491b6614e2637ab636">~cuMatrix</a> ()</td></tr>
+<tr class="separator:a9a764596132535491b6614e2637ab636 inherit pub_methods_classcuMatrix"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classcuLinearOperator"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcuLinearOperator')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcuLinearOperator.html">cuLinearOperator&lt; DataType &gt;</a></td></tr>
+<tr class="memitem:a003b67351f4a3cf2e574a1e8631e1b24 inherit pub_methods_classcuLinearOperator"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuLinearOperator.html#a003b67351f4a3cf2e574a1e8631e1b24">cuLinearOperator</a> ()</td></tr>
+<tr class="separator:a003b67351f4a3cf2e574a1e8631e1b24 inherit pub_methods_classcuLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a27f677cbfb7c9c26d07904cdd0ee74 inherit pub_methods_classcuLinearOperator"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuLinearOperator.html#a8a27f677cbfb7c9c26d07904cdd0ee74">cuLinearOperator</a> (int num_gpu_devices_)</td></tr>
+<tr class="memdesc:a8a27f677cbfb7c9c26d07904cdd0ee74 inherit pub_methods_classcuLinearOperator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with setting <code>num_rows</code> and <code>num_columns</code>.  <a href="classcuLinearOperator.html#a8a27f677cbfb7c9c26d07904cdd0ee74">More...</a><br /></td></tr>
+<tr class="separator:a8a27f677cbfb7c9c26d07904cdd0ee74 inherit pub_methods_classcuLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1d14172ed32afa599208af04ec4db0c inherit pub_methods_classcuLinearOperator"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuLinearOperator.html#ad1d14172ed32afa599208af04ec4db0c">~cuLinearOperator</a> ()</td></tr>
+<tr class="separator:ad1d14172ed32afa599208af04ec4db0c inherit pub_methods_classcuLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0bf630097fc3820d7ec27ec4e1a2994 inherit pub_methods_classcuLinearOperator"><td class="memItemLeft" align="right" valign="top">cublasHandle_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuLinearOperator.html#aa0bf630097fc3820d7ec27ec4e1a2994">get_cublas_handle</a> () const</td></tr>
+<tr class="memdesc:aa0bf630097fc3820d7ec27ec4e1a2994 inherit pub_methods_classcuLinearOperator"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function returns a reference to the <code>cublasHandle_t</code> object. The object will be created, if it is not created already.  <a href="classcuLinearOperator.html#aa0bf630097fc3820d7ec27ec4e1a2994">More...</a><br /></td></tr>
+<tr class="separator:aa0bf630097fc3820d7ec27ec4e1a2994 inherit pub_methods_classcuLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classcLinearOperator"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcLinearOperator')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcLinearOperator.html">cLinearOperator&lt; DataType &gt;</a></td></tr>
+<tr class="memitem:acb0880fed1d5599d721a9438c207ee5b inherit pub_methods_classcLinearOperator"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperator.html#acb0880fed1d5599d721a9438c207ee5b">cLinearOperator</a> ()</td></tr>
+<tr class="memdesc:acb0880fed1d5599d721a9438c207ee5b inherit pub_methods_classcLinearOperator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="classcLinearOperator.html#acb0880fed1d5599d721a9438c207ee5b">More...</a><br /></td></tr>
+<tr class="separator:acb0880fed1d5599d721a9438c207ee5b inherit pub_methods_classcLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac844c5dd7b83eb1e95f3c96181366629 inherit pub_methods_classcLinearOperator"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperator.html#ac844c5dd7b83eb1e95f3c96181366629">cLinearOperator</a> (const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> num_rows_, const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> num_columns_)</td></tr>
+<tr class="memdesc:ac844c5dd7b83eb1e95f3c96181366629 inherit pub_methods_classcLinearOperator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with setting <code>num_rows</code> and <code>num_columns</code>.  <a href="classcLinearOperator.html#ac844c5dd7b83eb1e95f3c96181366629">More...</a><br /></td></tr>
+<tr class="separator:ac844c5dd7b83eb1e95f3c96181366629 inherit pub_methods_classcLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53065884c6a1349054a96a9fb8838e65 inherit pub_methods_classcLinearOperator"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperator.html#a53065884c6a1349054a96a9fb8838e65">~cLinearOperator</a> ()</td></tr>
+<tr class="separator:a53065884c6a1349054a96a9fb8838e65 inherit pub_methods_classcLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecc5b62db1d8a41f5112b289c7031aaf inherit pub_methods_classcLinearOperator"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperator.html#aecc5b62db1d8a41f5112b289c7031aaf">get_num_rows</a> () const</td></tr>
+<tr class="separator:aecc5b62db1d8a41f5112b289c7031aaf inherit pub_methods_classcLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08a2eb3bd8ff1f47d1141dc164af1c61 inherit pub_methods_classcLinearOperator"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperator.html#a08a2eb3bd8ff1f47d1141dc164af1c61">get_num_columns</a> () const</td></tr>
+<tr class="separator:a08a2eb3bd8ff1f47d1141dc164af1c61 inherit pub_methods_classcLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7395bd04ec8014c9dd0e66c318ae125 inherit pub_methods_classcLinearOperator"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperator.html#ad7395bd04ec8014c9dd0e66c318ae125">set_parameters</a> (DataType *parameters_)</td></tr>
+<tr class="memdesc:ad7395bd04ec8014c9dd0e66c318ae125 inherit pub_methods_classcLinearOperator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the scalar parameter <code>this-&gt;parameters</code>. Parameter is initialized to <code>NULL</code>. However, before calling <code>dot</code> or <code>transpose_dot</code> functions, the parameters must be set.  <a href="classcLinearOperator.html#ad7395bd04ec8014c9dd0e66c318ae125">More...</a><br /></td></tr>
+<tr class="separator:ad7395bd04ec8014c9dd0e66c318ae125 inherit pub_methods_classcLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9be60b44a47eed5b2c98f077ff54987 inherit pub_methods_classcLinearOperator"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#ab1b7173c76e5040d0161e695a129dafe">IndexType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperator.html#af9be60b44a47eed5b2c98f077ff54987">get_num_parameters</a> () const</td></tr>
+<tr class="separator:af9be60b44a47eed5b2c98f077ff54987 inherit pub_methods_classcLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0c980ca87c2795e0dbfda1c84f74591 inherit pub_methods_classcLinearOperator"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a67de833a333e9264ce27ee3d6e4b2732">FlagType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperator.html#af0c980ca87c2795e0dbfda1c84f74591">is_eigenvalue_relation_known</a> () const</td></tr>
+<tr class="memdesc:af0c980ca87c2795e0dbfda1c84f74591 inherit pub_methods_classcLinearOperator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a flag that determines whether a relation between the parameters of the operator and its eigenvalue(s) is known.  <a href="classcLinearOperator.html#af0c980ca87c2795e0dbfda1c84f74591">More...</a><br /></td></tr>
+<tr class="separator:af0c980ca87c2795e0dbfda1c84f74591 inherit pub_methods_classcLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classcCSCMatrix"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcCSCMatrix')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcCSCMatrix.html">cCSCMatrix&lt; DataType &gt;</a></td></tr>
+<tr class="memitem:ac295de3fd670c38d5489c5d4168a4881 inherit pub_methods_classcCSCMatrix"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcCSCMatrix.html#ac295de3fd670c38d5489c5d4168a4881">cCSCMatrix</a> ()</td></tr>
+<tr class="separator:ac295de3fd670c38d5489c5d4168a4881 inherit pub_methods_classcCSCMatrix"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c56f3bc5e43a5d82b3553946c60b85e inherit pub_methods_classcCSCMatrix"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcCSCMatrix.html#a5c56f3bc5e43a5d82b3553946c60b85e">cCSCMatrix</a> (const DataType *A_data_, const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> *A_indices_, const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> *A_index_pointer_, const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> num_rows_, const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> num_columns_)</td></tr>
+<tr class="separator:a5c56f3bc5e43a5d82b3553946c60b85e inherit pub_methods_classcCSCMatrix"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33d71bf920e7622d5c8ff940f68f463e inherit pub_methods_classcCSCMatrix"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcCSCMatrix.html#a33d71bf920e7622d5c8ff940f68f463e">~cCSCMatrix</a> ()</td></tr>
+<tr class="separator:a33d71bf920e7622d5c8ff940f68f463e inherit pub_methods_classcCSCMatrix"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79d28a5222adf5aa510c3e859285dd2c inherit pub_methods_classcCSCMatrix"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="types_8h.html#a67de833a333e9264ce27ee3d6e4b2732">FlagType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcCSCMatrix.html#a79d28a5222adf5aa510c3e859285dd2c">is_identity_matrix</a> () const</td></tr>
+<tr class="memdesc:a79d28a5222adf5aa510c3e859285dd2c inherit pub_methods_classcCSCMatrix"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the matrix is identity.  <a href="classcCSCMatrix.html#a79d28a5222adf5aa510c3e859285dd2c">More...</a><br /></td></tr>
+<tr class="separator:a79d28a5222adf5aa510c3e859285dd2c inherit pub_methods_classcCSCMatrix"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a012110acfbc3dc645bb20036279df9f3 inherit pub_methods_classcCSCMatrix"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcCSCMatrix.html#a012110acfbc3dc645bb20036279df9f3">get_nnz</a> () const</td></tr>
+<tr class="memdesc:a012110acfbc3dc645bb20036279df9f3 inherit pub_methods_classcCSCMatrix"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of non-zero elements of the sparse matrix.  <a href="classcCSCMatrix.html#a012110acfbc3dc645bb20036279df9f3">More...</a><br /></td></tr>
+<tr class="separator:a012110acfbc3dc645bb20036279df9f3 inherit pub_methods_classcCSCMatrix"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classcMatrix"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcMatrix')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcMatrix.html">cMatrix&lt; DataType &gt;</a></td></tr>
+<tr class="memitem:a3e7134e2fe4ad377d33b730ac49ee4c5 inherit pub_methods_classcMatrix"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcMatrix.html#a3e7134e2fe4ad377d33b730ac49ee4c5">cMatrix</a> ()</td></tr>
+<tr class="memdesc:a3e7134e2fe4ad377d33b730ac49ee4c5 inherit pub_methods_classcMatrix"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="classcMatrix.html#a3e7134e2fe4ad377d33b730ac49ee4c5">More...</a><br /></td></tr>
+<tr class="separator:a3e7134e2fe4ad377d33b730ac49ee4c5 inherit pub_methods_classcMatrix"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b7276e140f160bdfbb5cdbd14f4265e inherit pub_methods_classcMatrix"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcMatrix.html#a0b7276e140f160bdfbb5cdbd14f4265e">~cMatrix</a> ()</td></tr>
+<tr class="separator:a0b7276e140f160bdfbb5cdbd14f4265e inherit pub_methods_classcMatrix"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb08422559c53336b4515a6627a9d990 inherit pub_methods_classcMatrix"><td class="memItemLeft" align="right" valign="top">DataType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcMatrix.html#afb08422559c53336b4515a6627a9d990">get_eigenvalue</a> (const DataType *known_parameters, const DataType known_eigenvalue, const DataType *inquiry_parameters) const</td></tr>
+<tr class="memdesc:afb08422559c53336b4515a6627a9d990 inherit pub_methods_classcMatrix"><td class="mdescLeft">&#160;</td><td class="mdescRight">This virtual function is implemented from its pure virtual function of the base class. In this class, this functio has no use and was only implemented so that this class be able to be instantiated (due to the pure virtual function).  <a href="classcMatrix.html#afb08422559c53336b4515a6627a9d990">More...</a><br /></td></tr>
+<tr class="separator:afb08422559c53336b4515a6627a9d990 inherit pub_methods_classcMatrix"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ad56cd20e4a4603cf94fb54e65f22e3eb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuCSCMatrix.html#ad56cd20e4a4603cf94fb54e65f22e3eb">copy_host_to_device</a> ()</td></tr>
+<tr class="memdesc:ad56cd20e4a4603cf94fb54e65f22e3eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the member data from the host memory to the device memory.  <a href="classcuCSCMatrix.html#ad56cd20e4a4603cf94fb54e65f22e3eb">More...</a><br /></td></tr>
+<tr class="separator:ad56cd20e4a4603cf94fb54e65f22e3eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9b7af845f6f68d64b812709cd0f59ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuCSCMatrix.html#af9b7af845f6f68d64b812709cd0f59ef">allocate_buffer</a> (const int device_id, cusparseOperation_t cusparse_operation, const DataType alpha, const DataType beta, cusparseDnVecDescr_t &amp;cusparse_input_vector, cusparseDnVecDescr_t &amp;cusparse_output_vector, cusparseSpMVAlg_t algorithm)</td></tr>
+<tr class="memdesc:af9b7af845f6f68d64b812709cd0f59ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates an external buffer for matrix-vector multiplication using <code>cusparseSpMV</code> function.  <a href="classcuCSCMatrix.html#af9b7af845f6f68d64b812709cd0f59ef">More...</a><br /></td></tr>
+<tr class="separator:af9b7af845f6f68d64b812709cd0f59ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classcuLinearOperator"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classcuLinearOperator')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classcuLinearOperator.html">cuLinearOperator&lt; DataType &gt;</a></td></tr>
+<tr class="memitem:a8dac55aff04e3f372468b21367a6dab8 inherit pro_methods_classcuLinearOperator"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuLinearOperator.html#a8dac55aff04e3f372468b21367a6dab8">query_gpu_devices</a> () const</td></tr>
+<tr class="memdesc:a8dac55aff04e3f372468b21367a6dab8 inherit pro_methods_classcuLinearOperator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Before any numerical computation, this method chechs if any gpu device is available on the machine, or notifies the user if nothing was found.  <a href="classcuLinearOperator.html#a8dac55aff04e3f372468b21367a6dab8">More...</a><br /></td></tr>
+<tr class="separator:a8dac55aff04e3f372468b21367a6dab8 inherit pro_methods_classcuLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2bec474007baff1b7e598a869e83e12 inherit pro_methods_classcuLinearOperator"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuLinearOperator.html#ae2bec474007baff1b7e598a869e83e12">initialize_cublas_handle</a> ()</td></tr>
+<tr class="memdesc:ae2bec474007baff1b7e598a869e83e12 inherit pro_methods_classcuLinearOperator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <code>cublasHandle_t</code> object, if not created already.  <a href="classcuLinearOperator.html#ae2bec474007baff1b7e598a869e83e12">More...</a><br /></td></tr>
+<tr class="separator:ae2bec474007baff1b7e598a869e83e12 inherit pro_methods_classcuLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a118f2b8f1523da52441070340f7c43f9 inherit pro_methods_classcuLinearOperator"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuLinearOperator.html#a118f2b8f1523da52441070340f7c43f9">initialize_cusparse_handle</a> ()</td></tr>
+<tr class="memdesc:a118f2b8f1523da52441070340f7c43f9 inherit pro_methods_classcuLinearOperator"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <code>cusparseHandle_t</code> object, if not created already.  <a href="classcuLinearOperator.html#a118f2b8f1523da52441070340f7c43f9">More...</a><br /></td></tr>
+<tr class="separator:a118f2b8f1523da52441070340f7c43f9 inherit pro_methods_classcuLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:ad152c35aff1a99991fec22e1522bdc7e"><td class="memItemLeft" align="right" valign="top">DataType **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuCSCMatrix.html#ad152c35aff1a99991fec22e1522bdc7e">device_A_data</a></td></tr>
+<tr class="separator:ad152c35aff1a99991fec22e1522bdc7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2ecb9fa43853ebf5bbf0b512dedbbd8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuCSCMatrix.html#af2ecb9fa43853ebf5bbf0b512dedbbd8">device_A_indices</a></td></tr>
+<tr class="separator:af2ecb9fa43853ebf5bbf0b512dedbbd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a557ee14549f06dd815e9a85c0f4066a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuCSCMatrix.html#a557ee14549f06dd815e9a85c0f4066a3">device_A_index_pointer</a></td></tr>
+<tr class="separator:a557ee14549f06dd815e9a85c0f4066a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aced811a178bc569515579c819a9c1c73"><td class="memItemLeft" align="right" valign="top">void **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuCSCMatrix.html#aced811a178bc569515579c819a9c1c73">device_buffer</a></td></tr>
+<tr class="separator:aced811a178bc569515579c819a9c1c73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e98eb3b9cd36de0f7726708b6483707"><td class="memItemLeft" align="right" valign="top">size_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuCSCMatrix.html#a6e98eb3b9cd36de0f7726708b6483707">device_buffer_num_bytes</a></td></tr>
+<tr class="separator:a6e98eb3b9cd36de0f7726708b6483707"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c4f53e60845c1d68f36806f0973032e"><td class="memItemLeft" align="right" valign="top">cusparseSpMatDescr_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuCSCMatrix.html#a9c4f53e60845c1d68f36806f0973032e">cusparse_matrix_A</a></td></tr>
+<tr class="separator:a9c4f53e60845c1d68f36806f0973032e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classcuLinearOperator"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classcuLinearOperator')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classcuLinearOperator.html">cuLinearOperator&lt; DataType &gt;</a></td></tr>
+<tr class="memitem:a701c8a301638c78c66a3290b0848483e inherit pro_attribs_classcuLinearOperator"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuLinearOperator.html#a701c8a301638c78c66a3290b0848483e">num_gpu_devices</a></td></tr>
+<tr class="separator:a701c8a301638c78c66a3290b0848483e inherit pro_attribs_classcuLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5b5c2becca5fd6368acd5c98de7bbe5 inherit pro_attribs_classcuLinearOperator"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuLinearOperator.html#ac5b5c2becca5fd6368acd5c98de7bbe5">copied_host_to_device</a></td></tr>
+<tr class="separator:ac5b5c2becca5fd6368acd5c98de7bbe5 inherit pro_attribs_classcuLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46558cb4eb689bf6131c2e2415efea0d inherit pro_attribs_classcuLinearOperator"><td class="memItemLeft" align="right" valign="top">cublasHandle_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuLinearOperator.html#a46558cb4eb689bf6131c2e2415efea0d">cublas_handle</a></td></tr>
+<tr class="separator:a46558cb4eb689bf6131c2e2415efea0d inherit pro_attribs_classcuLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab097cf1372d598ceac08237e26bafc6d inherit pro_attribs_classcuLinearOperator"><td class="memItemLeft" align="right" valign="top">cusparseHandle_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcuLinearOperator.html#ab097cf1372d598ceac08237e26bafc6d">cusparse_handle</a></td></tr>
+<tr class="separator:ab097cf1372d598ceac08237e26bafc6d inherit pro_attribs_classcuLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classcLinearOperator"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classcLinearOperator')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classcLinearOperator.html">cLinearOperator&lt; DataType &gt;</a></td></tr>
+<tr class="memitem:a6786391614f08ef1575554f78717fbb0 inherit pro_attribs_classcLinearOperator"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperator.html#a6786391614f08ef1575554f78717fbb0">num_rows</a></td></tr>
+<tr class="separator:a6786391614f08ef1575554f78717fbb0 inherit pro_attribs_classcLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdafe59b033d5a73f5abe380f63f40a1 inherit pro_attribs_classcLinearOperator"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperator.html#acdafe59b033d5a73f5abe380f63f40a1">num_columns</a></td></tr>
+<tr class="separator:acdafe59b033d5a73f5abe380f63f40a1 inherit pro_attribs_classcLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4c88c2dcdc8a4d33a77df3979789d42 inherit pro_attribs_classcLinearOperator"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a67de833a333e9264ce27ee3d6e4b2732">FlagType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperator.html#ac4c88c2dcdc8a4d33a77df3979789d42">eigenvalue_relation_known</a></td></tr>
+<tr class="separator:ac4c88c2dcdc8a4d33a77df3979789d42 inherit pro_attribs_classcLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22683aa9286bfd651f1f2dbae3660545 inherit pro_attribs_classcLinearOperator"><td class="memItemLeft" align="right" valign="top">DataType *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperator.html#a22683aa9286bfd651f1f2dbae3660545">parameters</a></td></tr>
+<tr class="separator:a22683aa9286bfd651f1f2dbae3660545 inherit pro_attribs_classcLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab9f0063e55c2a1a92a7e643f086348b inherit pro_attribs_classcLinearOperator"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#ab1b7173c76e5040d0161e695a129dafe">IndexType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperator.html#aab9f0063e55c2a1a92a7e643f086348b">num_parameters</a></td></tr>
+<tr class="separator:aab9f0063e55c2a1a92a7e643f086348b inherit pro_attribs_classcLinearOperator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_classcCSCMatrix"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classcCSCMatrix')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classcCSCMatrix.html">cCSCMatrix&lt; DataType &gt;</a></td></tr>
+<tr class="memitem:a6d66a176437c03989a756a6a294445e0 inherit pro_attribs_classcCSCMatrix"><td class="memItemLeft" align="right" valign="top">const DataType *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcCSCMatrix.html#a6d66a176437c03989a756a6a294445e0">A_data</a></td></tr>
+<tr class="separator:a6d66a176437c03989a756a6a294445e0 inherit pro_attribs_classcCSCMatrix"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93daf6e75d9b8a242ed20d29970a8311 inherit pro_attribs_classcCSCMatrix"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcCSCMatrix.html#a93daf6e75d9b8a242ed20d29970a8311">A_indices</a></td></tr>
+<tr class="separator:a93daf6e75d9b8a242ed20d29970a8311 inherit pro_attribs_classcCSCMatrix"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bbfccdbd98839daf89f6d938e511280 inherit pro_attribs_classcCSCMatrix"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcCSCMatrix.html#a9bbfccdbd98839daf89f6d938e511280">A_index_pointer</a></td></tr>
+<tr class="separator:a9bbfccdbd98839daf89f6d938e511280 inherit pro_attribs_classcCSCMatrix"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename DataType&gt;<br />
+class cuCSCMatrix&lt; DataType &gt;</h3>
+
+
+<p class="definition">Definition at line <a class="el" href="cu__csc__matrix_8h_source.html#l00030">30</a> of file <a class="el" href="cu__csc__matrix_8h_source.html">cu_csc_matrix.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a8ab5a2478703d8d6af7a7f558241e3e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ab5a2478703d8d6af7a7f558241e3e4">&#9670;&nbsp;</a></span>cuCSCMatrix() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a>&lt; DataType &gt;::<a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Default constructor. </p>
+
+<p class="definition">Definition at line <a class="el" href="cu__csc__matrix_8cu_source.html#l00033">33</a> of file <a class="el" href="cu__csc__matrix_8cu_source.html">cu_csc_matrix.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                                  :</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="classcuCSCMatrix.html#ad152c35aff1a99991fec22e1522bdc7e">device_A_data</a>(NULL),</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="classcuCSCMatrix.html#af2ecb9fa43853ebf5bbf0b512dedbbd8">device_A_indices</a>(NULL),</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="classcuCSCMatrix.html#a557ee14549f06dd815e9a85c0f4066a3">device_A_index_pointer</a>(NULL),</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="classcuCSCMatrix.html#aced811a178bc569515579c819a9c1c73">device_buffer</a>(NULL),</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="classcuCSCMatrix.html#a6e98eb3b9cd36de0f7726708b6483707">device_buffer_num_bytes</a>(NULL),</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="classcuCSCMatrix.html#a9c4f53e60845c1d68f36806f0973032e">cusparse_matrix_A</a>(NULL)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
+<div class="ttc" id="aclasscuCSCMatrix_html_a557ee14549f06dd815e9a85c0f4066a3"><div class="ttname"><a href="classcuCSCMatrix.html#a557ee14549f06dd815e9a85c0f4066a3">cuCSCMatrix::device_A_index_pointer</a></div><div class="ttdeci">LongIndexType ** device_A_index_pointer</div><div class="ttdef"><b>Definition:</b> <a href="cu__csc__matrix_8h_source.html#l00084">cu_csc_matrix.h:84</a></div></div>
+<div class="ttc" id="aclasscuCSCMatrix_html_a6e98eb3b9cd36de0f7726708b6483707"><div class="ttname"><a href="classcuCSCMatrix.html#a6e98eb3b9cd36de0f7726708b6483707">cuCSCMatrix::device_buffer_num_bytes</a></div><div class="ttdeci">size_t * device_buffer_num_bytes</div><div class="ttdef"><b>Definition:</b> <a href="cu__csc__matrix_8h_source.html#l00086">cu_csc_matrix.h:86</a></div></div>
+<div class="ttc" id="aclasscuCSCMatrix_html_a9c4f53e60845c1d68f36806f0973032e"><div class="ttname"><a href="classcuCSCMatrix.html#a9c4f53e60845c1d68f36806f0973032e">cuCSCMatrix::cusparse_matrix_A</a></div><div class="ttdeci">cusparseSpMatDescr_t * cusparse_matrix_A</div><div class="ttdef"><b>Definition:</b> <a href="cu__csc__matrix_8h_source.html#l00087">cu_csc_matrix.h:87</a></div></div>
+<div class="ttc" id="aclasscuCSCMatrix_html_aced811a178bc569515579c819a9c1c73"><div class="ttname"><a href="classcuCSCMatrix.html#aced811a178bc569515579c819a9c1c73">cuCSCMatrix::device_buffer</a></div><div class="ttdeci">void ** device_buffer</div><div class="ttdef"><b>Definition:</b> <a href="cu__csc__matrix_8h_source.html#l00085">cu_csc_matrix.h:85</a></div></div>
+<div class="ttc" id="aclasscuCSCMatrix_html_ad152c35aff1a99991fec22e1522bdc7e"><div class="ttname"><a href="classcuCSCMatrix.html#ad152c35aff1a99991fec22e1522bdc7e">cuCSCMatrix::device_A_data</a></div><div class="ttdeci">DataType ** device_A_data</div><div class="ttdef"><b>Definition:</b> <a href="cu__csc__matrix_8h_source.html#l00082">cu_csc_matrix.h:82</a></div></div>
+<div class="ttc" id="aclasscuCSCMatrix_html_af2ecb9fa43853ebf5bbf0b512dedbbd8"><div class="ttname"><a href="classcuCSCMatrix.html#af2ecb9fa43853ebf5bbf0b512dedbbd8">cuCSCMatrix::device_A_indices</a></div><div class="ttdeci">LongIndexType ** device_A_indices</div><div class="ttdef"><b>Definition:</b> <a href="cu__csc__matrix_8h_source.html#l00083">cu_csc_matrix.h:83</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a3052323bdb6799654448ece5e9889837"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3052323bdb6799654448ece5e9889837">&#9670;&nbsp;</a></span>cuCSCMatrix() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a>&lt; DataType &gt;::<a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a> </td>
+          <td>(</td>
+          <td class="paramtype">const DataType *&#160;</td>
+          <td class="paramname"><em>A_data_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> *&#160;</td>
+          <td class="paramname"><em>A_indices_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> *&#160;</td>
+          <td class="paramname"><em>A_index_pointer_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>&#160;</td>
+          <td class="paramname"><em>num_rows_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>&#160;</td>
+          <td class="paramname"><em>num_columns_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>num_gpu_devices_</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor with arguments. </p>
+
+<p class="definition">Definition at line <a class="el" href="cu__csc__matrix_8cu_source.html#l00052">52</a> of file <a class="el" href="cu__csc__matrix_8cu_source.html">cu_csc_matrix.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                                   :</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="comment">// Base class constructor</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="classcLinearOperator.html">cLinearOperator&lt;DataType&gt;</a>(num_rows_, num_columns_),</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="classcCSCMatrix.html">cCSCMatrix&lt;DataType&gt;</a>(A_data_, A_indices_, A_index_pointer_, num_rows_,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                         num_columns_),</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="classcuMatrix.html">cuMatrix&lt;DataType&gt;</a>(num_gpu_devices_),</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="comment">// Initializer list</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="classcuCSCMatrix.html#ad152c35aff1a99991fec22e1522bdc7e">device_A_data</a>(NULL),</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="classcuCSCMatrix.html#af2ecb9fa43853ebf5bbf0b512dedbbd8">device_A_indices</a>(NULL),</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <a class="code" href="classcuCSCMatrix.html#a557ee14549f06dd815e9a85c0f4066a3">device_A_index_pointer</a>(NULL),</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="classcuCSCMatrix.html#aced811a178bc569515579c819a9c1c73">device_buffer</a>(NULL),</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="classcuCSCMatrix.html#a9c4f53e60845c1d68f36806f0973032e">cusparse_matrix_A</a>(NULL)</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;{</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    this-&gt;<a class="code" href="classcuLinearOperator.html#a118f2b8f1523da52441070340f7c43f9">initialize_cusparse_handle</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    this-&gt;<a class="code" href="classcuCSCMatrix.html#ad56cd20e4a4603cf94fb54e65f22e3eb">copy_host_to_device</a>();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="comment">// Initialize device buffer</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    this-&gt;<a class="code" href="classcuCSCMatrix.html#aced811a178bc569515579c819a9c1c73">device_buffer</a> = <span class="keyword">new</span> <span class="keywordtype">void</span>*[this-&gt;<a class="code" href="classcuLinearOperator.html#a701c8a301638c78c66a3290b0848483e">num_gpu_devices</a>];</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    this-&gt;<a class="code" href="classcuCSCMatrix.html#a6e98eb3b9cd36de0f7726708b6483707">device_buffer_num_bytes</a> = <span class="keyword">new</span> <span class="keywordtype">size_t</span>[this-&gt;<a class="code" href="classcuLinearOperator.html#a701c8a301638c78c66a3290b0848483e">num_gpu_devices</a>];</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> device_id=0; device_id &lt; this-&gt;<a class="code" href="classcuLinearOperator.html#a701c8a301638c78c66a3290b0848483e">num_gpu_devices</a>; ++device_id)</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        this-&gt;<a class="code" href="classcuCSCMatrix.html#aced811a178bc569515579c819a9c1c73">device_buffer</a>[device_id] = NULL;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        this-&gt;<a class="code" href="classcuCSCMatrix.html#a6e98eb3b9cd36de0f7726708b6483707">device_buffer_num_bytes</a>[device_id] = 0;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
+<div class="ttc" id="aclasscCSCMatrix_html"><div class="ttname"><a href="classcCSCMatrix.html">cCSCMatrix</a></div><div class="ttdef"><b>Definition:</b> <a href="c__csc__matrix_8h_source.html#l00029">c_csc_matrix.h:30</a></div></div>
+<div class="ttc" id="aclasscLinearOperator_html"><div class="ttname"><a href="classcLinearOperator.html">cLinearOperator</a></div><div class="ttdoc">Base class for linear operators. This class serves as interface for all derived classes.</div><div class="ttdef"><b>Definition:</b> <a href="c__linear__operator_8h_source.html#l00040">c_linear_operator.h:41</a></div></div>
+<div class="ttc" id="aclasscuCSCMatrix_html_ad56cd20e4a4603cf94fb54e65f22e3eb"><div class="ttname"><a href="classcuCSCMatrix.html#ad56cd20e4a4603cf94fb54e65f22e3eb">cuCSCMatrix::copy_host_to_device</a></div><div class="ttdeci">virtual void copy_host_to_device()</div><div class="ttdoc">Copies the member data from the host memory to the device memory.</div><div class="ttdef"><b>Definition:</b> <a href="cu__csc__matrix_8cu_source.html#l00169">cu_csc_matrix.cu:169</a></div></div>
+<div class="ttc" id="aclasscuLinearOperator_html_a118f2b8f1523da52441070340f7c43f9"><div class="ttname"><a href="classcuLinearOperator.html#a118f2b8f1523da52441070340f7c43f9">cuLinearOperator::initialize_cusparse_handle</a></div><div class="ttdeci">void initialize_cusparse_handle()</div><div class="ttdoc">Creates a cusparseHandle_t object, if not created already.</div><div class="ttdef"><b>Definition:</b> <a href="cu__linear__operator_8cu_source.html#l00217">cu_linear_operator.cu:217</a></div></div>
+<div class="ttc" id="aclasscuLinearOperator_html_a701c8a301638c78c66a3290b0848483e"><div class="ttname"><a href="classcuLinearOperator.html#a701c8a301638c78c66a3290b0848483e">cuLinearOperator::num_gpu_devices</a></div><div class="ttdeci">int num_gpu_devices</div><div class="ttdef"><b>Definition:</b> <a href="cu__linear__operator_8h_source.html#l00063">cu_linear_operator.h:63</a></div></div>
+<div class="ttc" id="aclasscuMatrix_html"><div class="ttname"><a href="classcuMatrix.html">cuMatrix</a></div><div class="ttdoc">Base class for constant matrices.</div><div class="ttdef"><b>Definition:</b> <a href="cu__matrix_8h_source.html#l00040">cu_matrix.h:41</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cu__csc__matrix_8cu_source.html#l00169">cuCSCMatrix&lt; DataType &gt;::copy_host_to_device()</a>, <a class="el" href="cu__csc__matrix_8h_source.html#l00085">cuCSCMatrix&lt; DataType &gt;::device_buffer</a>, <a class="el" href="cu__csc__matrix_8h_source.html#l00086">cuCSCMatrix&lt; DataType &gt;::device_buffer_num_bytes</a>, <a class="el" href="cu__linear__operator_8cu_source.html#l00217">cuLinearOperator&lt; DataType &gt;::initialize_cusparse_handle()</a>, and <a class="el" href="cu__linear__operator_8h_source.html#l00063">cuLinearOperator&lt; DataType &gt;::num_gpu_devices</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcuCSCMatrix_a3052323bdb6799654448ece5e9889837_cgraph.png" border="0" usemap="#aclasscuCSCMatrix_a3052323bdb6799654448ece5e9889837_cgraph" alt=""/></div>
+<map name="aclasscuCSCMatrix_a3052323bdb6799654448ece5e9889837_cgraph" id="aclasscuCSCMatrix_a3052323bdb6799654448ece5e9889837_cgraph">
+<area shape="rect" title="Constructor with arguments." alt="" coords="5,163,193,189"/>
+<area shape="rect" href="classcuCSCMatrix.html#ad56cd20e4a4603cf94fb54e65f22e3eb" title="Copies the member data from the host memory to the device memory." alt="" coords="245,122,414,163"/>
+<area shape="rect" href="classcuLinearOperator.html#a118f2b8f1523da52441070340f7c43f9" title="Creates a cusparseHandle_t object, if not created already." alt="" coords="241,187,417,229"/>
+<area shape="rect" href="classCudaInterface.html#a65875bf1fdfe213562b31e3459f04b33" title="Allocates memory on gpu device. This function creates a pointer and returns it." alt="" coords="481,5,619,32"/>
+<area shape="rect" href="classCudaInterface.html#a95efada2ca34b3490f96ccfa97b4d6eb" title="Copies memory on host to device memory." alt="" coords="480,57,620,98"/>
+<area shape="rect" href="namespacecusparse__interface.html#a26d83ba6e0fe31cb088cd77f2b7d59cb" title=" " alt="" coords="465,122,635,163"/>
+<area shape="rect" href="classCudaInterface.html#aba5754e3b4c02d3b151fdee31fa0fd46" title="Sets the current device in multi&#45;gpu applications." alt="" coords="485,187,615,229"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#ac63ffd93e344b939d6399199d8b12fef" title="Definition of CUDA&#39;s cudaMalloc function using dynamically loaded cudart library." alt="" coords="715,9,803,36"/>
+<area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="883,57,1017,98"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#ac6037fee0e6fa6d528cb60e1c8e7ba26" title="Definition of CUDA&#39;s cudaMemcpy function using dynamically loaded cudart library." alt="" coords="709,64,809,91"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#a418c299b069c4803bfb7cab4943da383" title="Definition of CUDA&#39;s cudaSetDevice function using dynamically loaded cudart library." alt="" coords="703,155,814,181"/>
+<area shape="rect" href="cusparse__symbols_8cpp.html#a9e60affbb67ff50ac958838adae4f525" title="Definition of CUDA&#39;s cusparseCreate function using dynamically loaded cublas library." alt="" coords="493,253,607,280"/>
+<area shape="rect" href="classcusparseSymbols.html#a8195de91cda101a217b527b3240f287d" title="Returns the name of cusparse shared library." alt="" coords="683,246,835,287"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="afb187a61a6f4d735409a989524a85336"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb187a61a6f4d735409a989524a85336">&#9670;&nbsp;</a></span>~cuCSCMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a>&lt; DataType &gt;::~<a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Virtual desructor. </p>
+
+<p class="definition">Definition at line <a class="el" href="cu__csc__matrix_8cu_source.html#l00095">95</a> of file <a class="el" href="cu__csc__matrix_8cu_source.html">cu_csc_matrix.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;{</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="comment">// Member objects exist if the second constructor was called.</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">if</span> (this-&gt;<a class="code" href="classcuLinearOperator.html#ac5b5c2becca5fd6368acd5c98de7bbe5">copied_host_to_device</a>)</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="comment">// Deallocate arrays of data on gpu</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> device_id=0; device_id &lt; this-&gt;<a class="code" href="classcuLinearOperator.html#a701c8a301638c78c66a3290b0848483e">num_gpu_devices</a>; ++device_id)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            <span class="comment">// Switch to a device</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <a class="code" href="classCudaInterface.html#aba5754e3b4c02d3b151fdee31fa0fd46">CudaInterface&lt;DataType&gt;::set_device</a>(device_id);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="comment">// Deallocate</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <a class="code" href="classCudaInterface.html#a427b7203f73cf821e35234e5f724064b">CudaInterface&lt;DataType&gt;::del</a>(this-&gt;<a class="code" href="classcuCSCMatrix.html#ad152c35aff1a99991fec22e1522bdc7e">device_A_data</a>[device_id]);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <a class="code" href="classCudaInterface.html#a427b7203f73cf821e35234e5f724064b">CudaInterface&lt;LongIndexType&gt;::del</a>(</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                    this-&gt;<a class="code" href="classcuCSCMatrix.html#af2ecb9fa43853ebf5bbf0b512dedbbd8">device_A_indices</a>[device_id]);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <a class="code" href="classCudaInterface.html#a427b7203f73cf821e35234e5f724064b">CudaInterface&lt;LongIndexType&gt;::del</a>(</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                    this-&gt;<a class="code" href="classcuCSCMatrix.html#a557ee14549f06dd815e9a85c0f4066a3">device_A_index_pointer</a>[device_id]);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            <a class="code" href="classCudaInterface.html#a427b7203f73cf821e35234e5f724064b">CudaInterface&lt;LongIndexType&gt;::del</a>(this-&gt;<a class="code" href="classcuCSCMatrix.html#aced811a178bc569515579c819a9c1c73">device_buffer</a>[device_id]);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <a class="code" href="namespacecusparse__interface.html#a5ab766d1794cea863c5d79815e9b7537">cusparse_interface::destroy_cusparse_matrix</a>(</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                    this-&gt;<a class="code" href="classcuCSCMatrix.html#a9c4f53e60845c1d68f36806f0973032e">cusparse_matrix_A</a>[device_id]);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        }</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    }</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="comment">// Deallocate arrays of pointers on cpu</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">if</span> (this-&gt;<a class="code" href="classcuCSCMatrix.html#ad152c35aff1a99991fec22e1522bdc7e">device_A_data</a> != NULL)</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keyword">delete</span>[] this-&gt;<a class="code" href="classcuCSCMatrix.html#ad152c35aff1a99991fec22e1522bdc7e">device_A_data</a>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        this-&gt;<a class="code" href="classcuCSCMatrix.html#ad152c35aff1a99991fec22e1522bdc7e">device_A_data</a> = NULL;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    }</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">if</span> (this-&gt;<a class="code" href="classcuCSCMatrix.html#af2ecb9fa43853ebf5bbf0b512dedbbd8">device_A_indices</a> != NULL)</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keyword">delete</span>[] this-&gt;<a class="code" href="classcuCSCMatrix.html#af2ecb9fa43853ebf5bbf0b512dedbbd8">device_A_indices</a>;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        this-&gt;<a class="code" href="classcuCSCMatrix.html#af2ecb9fa43853ebf5bbf0b512dedbbd8">device_A_indices</a> = NULL;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    }</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">if</span> (this-&gt;<a class="code" href="classcuCSCMatrix.html#a557ee14549f06dd815e9a85c0f4066a3">device_A_index_pointer</a> != NULL)</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="keyword">delete</span>[] this-&gt;<a class="code" href="classcuCSCMatrix.html#a557ee14549f06dd815e9a85c0f4066a3">device_A_index_pointer</a>;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        this-&gt;<a class="code" href="classcuCSCMatrix.html#a557ee14549f06dd815e9a85c0f4066a3">device_A_index_pointer</a> = NULL;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    }</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">if</span> (this-&gt;<a class="code" href="classcuCSCMatrix.html#aced811a178bc569515579c819a9c1c73">device_buffer</a> != NULL)</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    {</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keyword">delete</span>[] this-&gt;<a class="code" href="classcuCSCMatrix.html#aced811a178bc569515579c819a9c1c73">device_buffer</a>;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        this-&gt;<a class="code" href="classcuCSCMatrix.html#aced811a178bc569515579c819a9c1c73">device_buffer</a> = NULL;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    }</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordflow">if</span> (this-&gt;<a class="code" href="classcuCSCMatrix.html#a6e98eb3b9cd36de0f7726708b6483707">device_buffer_num_bytes</a> != NULL)</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    {</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keyword">delete</span>[] this-&gt;<a class="code" href="classcuCSCMatrix.html#a6e98eb3b9cd36de0f7726708b6483707">device_buffer_num_bytes</a>;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        this-&gt;<a class="code" href="classcuCSCMatrix.html#a6e98eb3b9cd36de0f7726708b6483707">device_buffer_num_bytes</a> = NULL;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    }</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">if</span> (this-&gt;<a class="code" href="classcuCSCMatrix.html#a9c4f53e60845c1d68f36806f0973032e">cusparse_matrix_A</a> != NULL)</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keyword">delete</span>[] this-&gt;<a class="code" href="classcuCSCMatrix.html#a9c4f53e60845c1d68f36806f0973032e">cusparse_matrix_A</a>;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        this-&gt;<a class="code" href="classcuCSCMatrix.html#a9c4f53e60845c1d68f36806f0973032e">cusparse_matrix_A</a> = NULL;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    }</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;}</div>
+<div class="ttc" id="aclassCudaInterface_html_a427b7203f73cf821e35234e5f724064b"><div class="ttname"><a href="classCudaInterface.html#a427b7203f73cf821e35234e5f724064b">CudaInterface::del</a></div><div class="ttdeci">static void del(void *device_array)</div><div class="ttdoc">Deletes memory on gpu device if its pointer is not NULL, then sets the pointer to NULL.</div><div class="ttdef"><b>Definition:</b> <a href="cuda__interface_8cu_source.html#l00166">cuda_interface.cu:166</a></div></div>
+<div class="ttc" id="aclassCudaInterface_html_aba5754e3b4c02d3b151fdee31fa0fd46"><div class="ttname"><a href="classCudaInterface.html#aba5754e3b4c02d3b151fdee31fa0fd46">CudaInterface::set_device</a></div><div class="ttdeci">static void set_device(int device_id)</div><div class="ttdoc">Sets the current device in multi-gpu applications.</div><div class="ttdef"><b>Definition:</b> <a href="cuda__interface_8cu_source.html#l00188">cuda_interface.cu:188</a></div></div>
+<div class="ttc" id="aclasscuLinearOperator_html_ac5b5c2becca5fd6368acd5c98de7bbe5"><div class="ttname"><a href="classcuLinearOperator.html#ac5b5c2becca5fd6368acd5c98de7bbe5">cuLinearOperator::copied_host_to_device</a></div><div class="ttdeci">bool copied_host_to_device</div><div class="ttdef"><b>Definition:</b> <a href="cu__linear__operator_8h_source.html#l00064">cu_linear_operator.h:64</a></div></div>
+<div class="ttc" id="anamespacecusparse__interface_html_a5ab766d1794cea863c5d79815e9b7537"><div class="ttname"><a href="namespacecusparse__interface.html#a5ab766d1794cea863c5d79815e9b7537">cusparse_interface::destroy_cusparse_matrix</a></div><div class="ttdeci">void destroy_cusparse_matrix(cusparseSpMatDescr_t &amp;cusparse_matrix)</div><div class="ttdoc">Destroys cusparse matrix.</div><div class="ttdef"><b>Definition:</b> <a href="cusparse__interface_8cu_source.html#l00141">cusparse_interface.cu:141</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cuda__interface_8cu_source.html#l00166">CudaInterface&lt; ArrayType &gt;::del()</a>, <a class="el" href="cusparse__interface_8cu_source.html#l00141">cusparse_interface::destroy_cusparse_matrix()</a>, and <a class="el" href="cuda__interface_8cu_source.html#l00188">CudaInterface&lt; ArrayType &gt;::set_device()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcuCSCMatrix_afb187a61a6f4d735409a989524a85336_cgraph.png" border="0" usemap="#aclasscuCSCMatrix_afb187a61a6f4d735409a989524a85336_cgraph" alt=""/></div>
+<map name="aclasscuCSCMatrix_afb187a61a6f4d735409a989524a85336_cgraph" id="aclasscuCSCMatrix_afb187a61a6f4d735409a989524a85336_cgraph">
+<area shape="rect" title="Virtual desructor." alt="" coords="5,71,201,98"/>
+<area shape="rect" href="classCudaInterface.html#a427b7203f73cf821e35234e5f724064b" title="Deletes memory on gpu device if its pointer is not NULL, then sets the pointer to NULL." alt="" coords="273,71,402,98"/>
+<area shape="rect" href="namespacecusparse__interface.html#a5ab766d1794cea863c5d79815e9b7537" title="Destroys cusparse matrix." alt="" coords="249,123,425,164"/>
+<area shape="rect" href="classCudaInterface.html#aba5754e3b4c02d3b151fdee31fa0fd46" title="Sets the current device in multi&#45;gpu applications." alt="" coords="272,5,403,47"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#ab17fef862d4d1fefb9dba35bd62a187e" title="Definition of CUDA&#39;s cudaFree function using dynamically loaded cudart library." alt="" coords="515,70,591,97"/>
+<area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="689,33,823,75"/>
+<area shape="rect" href="cusparse__symbols_8cpp.html#a153b1bb75420d84c916c15b38471f44e" title="Definition of CUDA&#39;s cusparseDestroySpMat function using dynamically loaded cublas library." alt="" coords="473,130,632,157"/>
+<area shape="rect" href="classcusparseSymbols.html#a8195de91cda101a217b527b3240f287d" title="Returns the name of cusparse shared library." alt="" coords="680,123,832,164"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#a418c299b069c4803bfb7cab4943da383" title="Definition of CUDA&#39;s cudaSetDevice function using dynamically loaded cudart library." alt="" coords="497,15,608,42"/>
+</map>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af9b7af845f6f68d64b812709cd0f59ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9b7af845f6f68d64b812709cd0f59ef">&#9670;&nbsp;</a></span>allocate_buffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a>&lt; DataType &gt;::allocate_buffer </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>device_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">cusparseOperation_t&#160;</td>
+          <td class="paramname"><em>cusparse_operation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const DataType&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const DataType&#160;</td>
+          <td class="paramname"><em>beta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">cusparseDnVecDescr_t &amp;&#160;</td>
+          <td class="paramname"><em>cusparse_input_vector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">cusparseDnVecDescr_t &amp;&#160;</td>
+          <td class="paramname"><em>cusparse_output_vector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">cusparseSpMVAlg_t&#160;</td>
+          <td class="paramname"><em>algorithm</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Allocates an external buffer for matrix-vector multiplication using <code>cusparseSpMV</code> function. </p>
+<p>If buffer size if not the same as required buffer size, allocate (or reallocate) memory. The allocation is always performed in the first call of this function since buffer size is initialized to zero in constructor. But for the next calls it might not be reallocated if the buffer size is the same. </p>
+
+<p class="definition">Definition at line <a class="el" href="cu__csc__matrix_8cu_source.html#l00250">250</a> of file <a class="el" href="cu__csc__matrix_8cu_source.html">cu_csc_matrix.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;{</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="comment">// Find the buffer size needed for matrix-vector multiplication</span></div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="keywordtype">size_t</span> required_buffer_size;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <a class="code" href="namespacecusparse__interface.html#aefebdbbc12a46732f32942498111a16c">cusparse_interface::cusparse_matrix_buffer_size</a>(</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;            this-&gt;<a class="code" href="classcuLinearOperator.html#ab097cf1372d598ceac08237e26bafc6d">cusparse_handle</a>[device_id], cusparse_operation, alpha,</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            this-&gt;<a class="code" href="classcuCSCMatrix.html#a9c4f53e60845c1d68f36806f0973032e">cusparse_matrix_A</a>[device_id], cusparse_input_vector, beta,</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;            cusparse_output_vector, algorithm, &amp;required_buffer_size);</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <span class="keywordflow">if</span> (this-&gt;<a class="code" href="classcuCSCMatrix.html#a6e98eb3b9cd36de0f7726708b6483707">device_buffer_num_bytes</a>[device_id] != required_buffer_size)</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    {</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        <span class="comment">// Update the buffer size</span></div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        this-&gt;<a class="code" href="classcuCSCMatrix.html#a6e98eb3b9cd36de0f7726708b6483707">device_buffer_num_bytes</a>[device_id] = required_buffer_size;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        <span class="comment">// Delete buffer if it was allocated previously</span></div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        <a class="code" href="classCudaInterface.html#a427b7203f73cf821e35234e5f724064b">CudaInterface&lt;DataType&gt;::del</a>(this-&gt;<a class="code" href="classcuCSCMatrix.html#aced811a178bc569515579c819a9c1c73">device_buffer</a>[device_id]);</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        <span class="comment">// Allocate (or reallocate) buffer on device.</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        <a class="code" href="classCudaInterface.html#a45411db9045668d1c0407e33d7b4e825">CudaInterface&lt;DataType&gt;::alloc_bytes</a>(</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;                this-&gt;<a class="code" href="classcuCSCMatrix.html#aced811a178bc569515579c819a9c1c73">device_buffer</a>[device_id],</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;                this-&gt;<a class="code" href="classcuCSCMatrix.html#a6e98eb3b9cd36de0f7726708b6483707">device_buffer_num_bytes</a>[device_id]);</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    }</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;}</div>
+<div class="ttc" id="aclassCudaInterface_html_a45411db9045668d1c0407e33d7b4e825"><div class="ttname"><a href="classCudaInterface.html#a45411db9045668d1c0407e33d7b4e825">CudaInterface::alloc_bytes</a></div><div class="ttdeci">static void alloc_bytes(void *&amp;device_array, const size_t num_bytes)</div><div class="ttdoc">Allocates memory on gpu device. This function uses an existing given pointer.</div><div class="ttdef"><b>Definition:</b> <a href="cuda__interface_8cu_source.html#l00115">cuda_interface.cu:115</a></div></div>
+<div class="ttc" id="aclasscuLinearOperator_html_ab097cf1372d598ceac08237e26bafc6d"><div class="ttname"><a href="classcuLinearOperator.html#ab097cf1372d598ceac08237e26bafc6d">cuLinearOperator::cusparse_handle</a></div><div class="ttdeci">cusparseHandle_t * cusparse_handle</div><div class="ttdef"><b>Definition:</b> <a href="cu__linear__operator_8h_source.html#l00066">cu_linear_operator.h:66</a></div></div>
+<div class="ttc" id="anamespacecusparse__interface_html_aefebdbbc12a46732f32942498111a16c"><div class="ttname"><a href="namespacecusparse__interface.html#aefebdbbc12a46732f32942498111a16c">cusparse_interface::cusparse_matrix_buffer_size</a></div><div class="ttdeci">void cusparse_matrix_buffer_size(cusparseHandle_t cusparse_handle, cusparseOperation_t cusparse_operation, const DataType alpha, cusparseSpMatDescr_t cusparse_matrix, cusparseDnVecDescr_t cusparse_input_vector, const DataType beta, cusparseDnVecDescr_t cusparse_output_vector, cusparseSpMVAlg_t algorithm, size_t *buffer_size)</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cuda__interface_8cu_source.html#l00115">CudaInterface&lt; ArrayType &gt;::alloc_bytes()</a>, <a class="el" href="namespacecusparse__interface.html#aefebdbbc12a46732f32942498111a16c">cusparse_interface::cusparse_matrix_buffer_size()</a>, and <a class="el" href="cuda__interface_8cu_source.html#l00166">CudaInterface&lt; ArrayType &gt;::del()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcuCSCMatrix_af9b7af845f6f68d64b812709cd0f59ef_cgraph.png" border="0" usemap="#aclasscuCSCMatrix_af9b7af845f6f68d64b812709cd0f59ef_cgraph" alt=""/></div>
+<map name="aclasscuCSCMatrix_af9b7af845f6f68d64b812709cd0f59ef_cgraph" id="aclasscuCSCMatrix_af9b7af845f6f68d64b812709cd0f59ef_cgraph">
+<area shape="rect" title="Allocates an external buffer for matrix&#45;vector multiplication using cusparseSpMV function." alt="" coords="5,71,160,112"/>
+<area shape="rect" href="classCudaInterface.html#a45411db9045668d1c0407e33d7b4e825" title="Allocates memory on gpu device. This function uses an existing given pointer." alt="" coords="237,5,376,47"/>
+<area shape="rect" href="namespacecusparse__interface.html#aefebdbbc12a46732f32942498111a16c" title=" " alt="" coords="208,71,405,112"/>
+<area shape="rect" href="classCudaInterface.html#a427b7203f73cf821e35234e5f724064b" title="Deletes memory on gpu device if its pointer is not NULL, then sets the pointer to NULL." alt="" coords="242,137,371,163"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#ac63ffd93e344b939d6399199d8b12fef" title="Definition of CUDA&#39;s cudaMalloc function using dynamically loaded cudart library." alt="" coords="453,31,541,58"/>
+<area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="589,68,724,109"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#ab17fef862d4d1fefb9dba35bd62a187e" title="Definition of CUDA&#39;s cudaFree function using dynamically loaded cudart library." alt="" coords="459,101,535,127"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ad56cd20e4a4603cf94fb54e65f22e3eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad56cd20e4a4603cf94fb54e65f22e3eb">&#9670;&nbsp;</a></span>copy_host_to_device()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a>&lt; DataType &gt;::copy_host_to_device</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copies the member data from the host memory to the device memory. </p>
+<dl class="section note"><dt>Note</dt><dd>Despite the input matrix is a CSC matrix, we treat it as a CSR matrix, since cusparse's interface is only for CSR matrices. For this, we swap the number of columns and rows from the input matrix to the cusparse matrix. </dd></dl>
+
+<p>Implements <a class="el" href="classcuMatrix.html#a9bb6e16a29711add2cf81c69d91dc082">cuMatrix&lt; DataType &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="cu__csc__matrix_8cu_source.html#l00169">169</a> of file <a class="el" href="cu__csc__matrix_8cu_source.html">cu_csc_matrix.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;{</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">if</span> (!this-&gt;<a class="code" href="classcuLinearOperator.html#ac5b5c2becca5fd6368acd5c98de7bbe5">copied_host_to_device</a>)</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    {</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <span class="comment">// Set the number of threads</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        omp_set_num_threads(this-&gt;<a class="code" href="classcuLinearOperator.html#a701c8a301638c78c66a3290b0848483e">num_gpu_devices</a>);</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <span class="comment">// Array sizes</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <a class="code" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> A_data_size = this-&gt;<a class="code" href="classcCSCMatrix.html#a012110acfbc3dc645bb20036279df9f3">get_nnz</a>();</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <a class="code" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> A_indices_size = A_data_size;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <a class="code" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> A_index_pointer_size = this-&gt;<a class="code" href="classcLinearOperator.html#a6786391614f08ef1575554f78717fbb0">num_rows</a> + 1;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <a class="code" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> A_nnz = this-&gt;<a class="code" href="classcCSCMatrix.html#a012110acfbc3dc645bb20036279df9f3">get_nnz</a>();</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="comment">// Swapping the number of rows and columns to treat the input CSC</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="comment">// matrix as a CSR matrix.</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <a class="code" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> csc_num_rows = this-&gt;<a class="code" href="classcLinearOperator.html#acdafe59b033d5a73f5abe380f63f40a1">num_columns</a>;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <a class="code" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> csc_num_columns = this-&gt;<a class="code" href="classcLinearOperator.html#a6786391614f08ef1575554f78717fbb0">num_rows</a>;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="comment">// Create array of pointers for data on each gpu device</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        this-&gt;<a class="code" href="classcuCSCMatrix.html#ad152c35aff1a99991fec22e1522bdc7e">device_A_data</a> = <span class="keyword">new</span> DataType*[this-&gt;<a class="code" href="classcuLinearOperator.html#a701c8a301638c78c66a3290b0848483e">num_gpu_devices</a>];</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        this-&gt;<a class="code" href="classcuCSCMatrix.html#af2ecb9fa43853ebf5bbf0b512dedbbd8">device_A_indices</a> = <span class="keyword">new</span> <a class="code" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>*[this-&gt;<a class="code" href="classcuLinearOperator.html#a701c8a301638c78c66a3290b0848483e">num_gpu_devices</a>];</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        this-&gt;<a class="code" href="classcuCSCMatrix.html#a557ee14549f06dd815e9a85c0f4066a3">device_A_index_pointer</a> = \</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            new <a class="code" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>*[this-&gt;<a class="code" href="classcuLinearOperator.html#a701c8a301638c78c66a3290b0848483e">num_gpu_devices</a>];</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        this-&gt;<a class="code" href="classcuCSCMatrix.html#a9c4f53e60845c1d68f36806f0973032e">cusparse_matrix_A</a> = \</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            new cusparseSpMatDescr_t[this-&gt;<a class="code" href="classcuLinearOperator.html#a701c8a301638c78c66a3290b0848483e">num_gpu_devices</a>];</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="preprocessor">        #pragma omp parallel</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        {</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;            <span class="comment">// Switch to a device with the same device id as the cpu thread id</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> thread_id = omp_get_thread_num();</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            <a class="code" href="classCudaInterface.html#aba5754e3b4c02d3b151fdee31fa0fd46">CudaInterface&lt;DataType&gt;::set_device</a>(thread_id);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;            <span class="comment">// A_data</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            <a class="code" href="classCudaInterface.html#a65875bf1fdfe213562b31e3459f04b33">CudaInterface&lt;DataType&gt;::alloc</a>(this-&gt;<a class="code" href="classcuCSCMatrix.html#ad152c35aff1a99991fec22e1522bdc7e">device_A_data</a>[thread_id],</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;                                           A_data_size);</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;            <a class="code" href="classCudaInterface.html#a95efada2ca34b3490f96ccfa97b4d6eb">CudaInterface&lt;DataType&gt;::copy_to_device</a>(</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;                    this-&gt;<a class="code" href="classcCSCMatrix.html#a6d66a176437c03989a756a6a294445e0">A_data</a>, A_data_size, this-&gt;<a class="code" href="classcuCSCMatrix.html#ad152c35aff1a99991fec22e1522bdc7e">device_A_data</a>[thread_id]);</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            <span class="comment">// A_indices</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            <a class="code" href="classCudaInterface.html#a65875bf1fdfe213562b31e3459f04b33">CudaInterface&lt;LongIndexType&gt;::alloc</a>(</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;                    this-&gt;<a class="code" href="classcuCSCMatrix.html#af2ecb9fa43853ebf5bbf0b512dedbbd8">device_A_indices</a>[thread_id], A_indices_size);</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            <a class="code" href="classCudaInterface.html#a95efada2ca34b3490f96ccfa97b4d6eb">CudaInterface&lt;LongIndexType&gt;::copy_to_device</a>(</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;                    this-&gt;<a class="code" href="classcCSCMatrix.html#a93daf6e75d9b8a242ed20d29970a8311">A_indices</a>, A_indices_size,</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;                    this-&gt;<a class="code" href="classcuCSCMatrix.html#af2ecb9fa43853ebf5bbf0b512dedbbd8">device_A_indices</a>[thread_id]);</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            <span class="comment">// A_index_pointer</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;            <a class="code" href="classCudaInterface.html#a65875bf1fdfe213562b31e3459f04b33">CudaInterface&lt;LongIndexType&gt;::alloc</a>(</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;                    this-&gt;<a class="code" href="classcuCSCMatrix.html#a557ee14549f06dd815e9a85c0f4066a3">device_A_index_pointer</a>[thread_id],</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;                    A_index_pointer_size);</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;            <a class="code" href="classCudaInterface.html#a95efada2ca34b3490f96ccfa97b4d6eb">CudaInterface&lt;LongIndexType&gt;::copy_to_device</a>(</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                    this-&gt;<a class="code" href="classcCSCMatrix.html#a9bbfccdbd98839daf89f6d938e511280">A_index_pointer</a>, A_index_pointer_size,</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;                    this-&gt;<a class="code" href="classcuCSCMatrix.html#a557ee14549f06dd815e9a85c0f4066a3">device_A_index_pointer</a>[thread_id]);</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;            <span class="comment">// Create cusparse matrix</span></div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;            <a class="code" href="namespacecusparse__interface.html#a26d83ba6e0fe31cb088cd77f2b7d59cb">cusparse_interface::create_cusparse_matrix</a>(</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                    this-&gt;<a class="code" href="classcuCSCMatrix.html#a9c4f53e60845c1d68f36806f0973032e">cusparse_matrix_A</a>[thread_id], csc_num_rows,</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                    csc_num_columns, A_nnz, this-&gt;<a class="code" href="classcuCSCMatrix.html#ad152c35aff1a99991fec22e1522bdc7e">device_A_data</a>[thread_id],</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;                    this-&gt;<a class="code" href="classcuCSCMatrix.html#af2ecb9fa43853ebf5bbf0b512dedbbd8">device_A_indices</a>[thread_id],</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;                    this-&gt;<a class="code" href="classcuCSCMatrix.html#a557ee14549f06dd815e9a85c0f4066a3">device_A_index_pointer</a>[thread_id]);</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        }</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <span class="comment">// Flag to prevent reinitialization</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        this-&gt;<a class="code" href="classcuLinearOperator.html#ac5b5c2becca5fd6368acd5c98de7bbe5">copied_host_to_device</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    }</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;}</div>
+<div class="ttc" id="aclassCudaInterface_html_a65875bf1fdfe213562b31e3459f04b33"><div class="ttname"><a href="classCudaInterface.html#a65875bf1fdfe213562b31e3459f04b33">CudaInterface::alloc</a></div><div class="ttdeci">static ArrayType * alloc(const LongIndexType array_size)</div><div class="ttdoc">Allocates memory on gpu device. This function creates a pointer and returns it.</div><div class="ttdef"><b>Definition:</b> <a href="cuda__interface_8cu_source.html#l00036">cuda_interface.cu:36</a></div></div>
+<div class="ttc" id="aclassCudaInterface_html_a95efada2ca34b3490f96ccfa97b4d6eb"><div class="ttname"><a href="classCudaInterface.html#a95efada2ca34b3490f96ccfa97b4d6eb">CudaInterface::copy_to_device</a></div><div class="ttdeci">static void copy_to_device(const ArrayType *host_array, const LongIndexType array_size, ArrayType *device_array)</div><div class="ttdoc">Copies memory on host to device memory.</div><div class="ttdef"><b>Definition:</b> <a href="cuda__interface_8cu_source.html#l00142">cuda_interface.cu:142</a></div></div>
+<div class="ttc" id="aclasscCSCMatrix_html_a012110acfbc3dc645bb20036279df9f3"><div class="ttname"><a href="classcCSCMatrix.html#a012110acfbc3dc645bb20036279df9f3">cCSCMatrix::get_nnz</a></div><div class="ttdeci">LongIndexType get_nnz() const</div><div class="ttdoc">Returns the number of non-zero elements of the sparse matrix.</div><div class="ttdef"><b>Definition:</b> <a href="c__csc__matrix_8cpp_source.html#l00128">c_csc_matrix.cpp:128</a></div></div>
+<div class="ttc" id="aclasscCSCMatrix_html_a6d66a176437c03989a756a6a294445e0"><div class="ttname"><a href="classcCSCMatrix.html#a6d66a176437c03989a756a6a294445e0">cCSCMatrix::A_data</a></div><div class="ttdeci">const DataType * A_data</div><div class="ttdef"><b>Definition:</b> <a href="c__csc__matrix_8h_source.html#l00070">c_csc_matrix.h:70</a></div></div>
+<div class="ttc" id="aclasscCSCMatrix_html_a93daf6e75d9b8a242ed20d29970a8311"><div class="ttname"><a href="classcCSCMatrix.html#a93daf6e75d9b8a242ed20d29970a8311">cCSCMatrix::A_indices</a></div><div class="ttdeci">const LongIndexType * A_indices</div><div class="ttdef"><b>Definition:</b> <a href="c__csc__matrix_8h_source.html#l00071">c_csc_matrix.h:71</a></div></div>
+<div class="ttc" id="aclasscCSCMatrix_html_a9bbfccdbd98839daf89f6d938e511280"><div class="ttname"><a href="classcCSCMatrix.html#a9bbfccdbd98839daf89f6d938e511280">cCSCMatrix::A_index_pointer</a></div><div class="ttdeci">const LongIndexType * A_index_pointer</div><div class="ttdef"><b>Definition:</b> <a href="c__csc__matrix_8h_source.html#l00072">c_csc_matrix.h:72</a></div></div>
+<div class="ttc" id="aclasscLinearOperator_html_a6786391614f08ef1575554f78717fbb0"><div class="ttname"><a href="classcLinearOperator.html#a6786391614f08ef1575554f78717fbb0">cLinearOperator::num_rows</a></div><div class="ttdeci">const LongIndexType num_rows</div><div class="ttdef"><b>Definition:</b> <a href="c__linear__operator_8h_source.html#l00075">c_linear_operator.h:75</a></div></div>
+<div class="ttc" id="aclasscLinearOperator_html_acdafe59b033d5a73f5abe380f63f40a1"><div class="ttname"><a href="classcLinearOperator.html#acdafe59b033d5a73f5abe380f63f40a1">cLinearOperator::num_columns</a></div><div class="ttdeci">const LongIndexType num_columns</div><div class="ttdef"><b>Definition:</b> <a href="c__linear__operator_8h_source.html#l00076">c_linear_operator.h:76</a></div></div>
+<div class="ttc" id="anamespacecusparse__interface_html_a26d83ba6e0fe31cb088cd77f2b7d59cb"><div class="ttname"><a href="namespacecusparse__interface.html#a26d83ba6e0fe31cb088cd77f2b7d59cb">cusparse_interface::create_cusparse_matrix</a></div><div class="ttdeci">void create_cusparse_matrix(cusparseSpMatDescr_t &amp;cusparse_matrix, const LongIndexType num_rows, const LongIndexType num_columns, const LongIndexType nnz, DataType *device_A_data, LongIndexType *device_A_indices, LongIndexType *device_A_index_pointer)</div></div>
+<div class="ttc" id="atypes_8h_html_a4918759cb64dcead17269b3613b27d25"><div class="ttname"><a href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a></div><div class="ttdeci">int LongIndexType</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00060">types.h:60</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cuda__interface_8cu_source.html#l00036">CudaInterface&lt; ArrayType &gt;::alloc()</a>, <a class="el" href="cuda__interface_8cu_source.html#l00142">CudaInterface&lt; ArrayType &gt;::copy_to_device()</a>, <a class="el" href="namespacecusparse__interface.html#a26d83ba6e0fe31cb088cd77f2b7d59cb">cusparse_interface::create_cusparse_matrix()</a>, and <a class="el" href="cuda__interface_8cu_source.html#l00188">CudaInterface&lt; ArrayType &gt;::set_device()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cu__csc__matrix_8cu_source.html#l00052">cuCSCMatrix&lt; DataType &gt;::cuCSCMatrix()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcuCSCMatrix_ad56cd20e4a4603cf94fb54e65f22e3eb_cgraph.png" border="0" usemap="#aclasscuCSCMatrix_ad56cd20e4a4603cf94fb54e65f22e3eb_cgraph" alt=""/></div>
+<map name="aclasscuCSCMatrix_ad56cd20e4a4603cf94fb54e65f22e3eb_cgraph" id="aclasscuCSCMatrix_ad56cd20e4a4603cf94fb54e65f22e3eb_cgraph">
+<area shape="rect" title="Copies the member data from the host memory to the device memory." alt="" coords="5,90,175,131"/>
+<area shape="rect" href="classCudaInterface.html#a65875bf1fdfe213562b31e3459f04b33" title="Allocates memory on gpu device. This function creates a pointer and returns it." alt="" coords="238,5,377,32"/>
+<area shape="rect" href="classCudaInterface.html#a95efada2ca34b3490f96ccfa97b4d6eb" title="Copies memory on host to device memory." alt="" coords="237,57,377,98"/>
+<area shape="rect" href="namespacecusparse__interface.html#a26d83ba6e0fe31cb088cd77f2b7d59cb" title=" " alt="" coords="223,122,392,163"/>
+<area shape="rect" href="classCudaInterface.html#aba5754e3b4c02d3b151fdee31fa0fd46" title="Sets the current device in multi&#45;gpu applications." alt="" coords="242,187,373,229"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#ac63ffd93e344b939d6399199d8b12fef" title="Definition of CUDA&#39;s cudaMalloc function using dynamically loaded cudart library." alt="" coords="451,9,539,36"/>
+<area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="599,57,733,98"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#ac6037fee0e6fa6d528cb60e1c8e7ba26" title="Definition of CUDA&#39;s cudaMemcpy function using dynamically loaded cudart library." alt="" coords="445,64,545,91"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#a418c299b069c4803bfb7cab4943da383" title="Definition of CUDA&#39;s cudaSetDevice function using dynamically loaded cudart library." alt="" coords="440,155,551,181"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcuCSCMatrix_ad56cd20e4a4603cf94fb54e65f22e3eb_icgraph.png" border="0" usemap="#aclasscuCSCMatrix_ad56cd20e4a4603cf94fb54e65f22e3eb_icgraph" alt=""/></div>
+<map name="aclasscuCSCMatrix_ad56cd20e4a4603cf94fb54e65f22e3eb_icgraph" id="aclasscuCSCMatrix_ad56cd20e4a4603cf94fb54e65f22e3eb_icgraph">
+<area shape="rect" title="Copies the member data from the host memory to the device memory." alt="" coords="241,5,411,47"/>
+<area shape="rect" href="classcuCSCMatrix.html#a3052323bdb6799654448ece5e9889837" title="Constructor with arguments." alt="" coords="5,13,193,39"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a1eb47019eaa7abd083d644e37893fc3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1eb47019eaa7abd083d644e37893fc3a">&#9670;&nbsp;</a></span>dot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a>&lt; DataType &gt;::dot </td>
+          <td>(</td>
+          <td class="paramtype">const DataType *&#160;</td>
+          <td class="paramname"><em>device_vector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DataType *&#160;</td>
+          <td class="paramname"><em>device_product</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classcCSCMatrix.html#a3780d212eb797641bf36772eeb864462">cCSCMatrix&lt; DataType &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="cu__csc__matrix_8cu_source.html#l00287">287</a> of file <a class="el" href="cu__csc__matrix_8cu_source.html">cu_csc_matrix.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;{</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    assert(this-&gt;<a class="code" href="classcuLinearOperator.html#ac5b5c2becca5fd6368acd5c98de7bbe5">copied_host_to_device</a>);</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="comment">// Create cusparse vector for the input vector</span></div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    cusparseDnVecDescr_t cusparse_input_vector;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <a class="code" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector</a>(</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;            cusparse_input_vector, this-&gt;<a class="code" href="classcLinearOperator.html#acdafe59b033d5a73f5abe380f63f40a1">num_columns</a>,</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;            <span class="keyword">const_cast&lt;</span>DataType*<span class="keyword">&gt;</span>(device_vector));</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160; </div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <span class="comment">// Create cusparse vector for the output vector</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    cusparseDnVecDescr_t cusparse_output_vector;</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <a class="code" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector</a>(</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;            cusparse_output_vector, this-&gt;<a class="code" href="classcLinearOperator.html#a6786391614f08ef1575554f78717fbb0">num_rows</a>, device_product);</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="comment">// Matrix vector settings</span></div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    DataType alpha = 1.0;</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    DataType beta = 0.0;</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160; </div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="comment">// Using transpose operation since we treat CSC matrix as CSR</span></div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    cusparseOperation_t cusparse_operation = CUSPARSE_OPERATION_TRANSPOSE;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    cusparseSpMVAlg_t algorithm = CUSPARSE_MV_ALG_DEFAULT;</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <span class="comment">// Get device id</span></div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <span class="keywordtype">int</span> device_id = <a class="code" href="classCudaInterface.html#a29ab521266d2670951510179d719ead1">CudaInterface&lt;DataType&gt;::get_device</a>();</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160; </div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="comment">// Allocate device buffer (or reallocation if needed)</span></div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    this-&gt;<a class="code" href="classcuCSCMatrix.html#af9b7af845f6f68d64b812709cd0f59ef">allocate_buffer</a>(device_id, cusparse_operation, alpha, beta,</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;                          cusparse_input_vector, cusparse_output_vector,</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;                          algorithm);</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    <span class="comment">// Matrix vector multiplication</span></div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <a class="code" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec</a>(</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;            this-&gt;<a class="code" href="classcuLinearOperator.html#ab097cf1372d598ceac08237e26bafc6d">cusparse_handle</a>[device_id], cusparse_operation, alpha,</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;            this-&gt;<a class="code" href="classcuCSCMatrix.html#a9c4f53e60845c1d68f36806f0973032e">cusparse_matrix_A</a>[device_id], cusparse_input_vector, beta,</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;            cusparse_output_vector, algorithm, this-&gt;<a class="code" href="classcuCSCMatrix.html#aced811a178bc569515579c819a9c1c73">device_buffer</a>[device_id]);</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160; </div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="comment">// Destroy cusparse vectors</span></div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <a class="code" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e">cusparse_interface::destroy_cusparse_vector</a>(cusparse_input_vector);</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <a class="code" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e">cusparse_interface::destroy_cusparse_vector</a>(cusparse_output_vector);</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;}</div>
+<div class="ttc" id="aclassCudaInterface_html_a29ab521266d2670951510179d719ead1"><div class="ttname"><a href="classCudaInterface.html#a29ab521266d2670951510179d719ead1">CudaInterface::get_device</a></div><div class="ttdeci">static int get_device()</div><div class="ttdoc">Gets the current device in multi-gpu applications.</div><div class="ttdef"><b>Definition:</b> <a href="cuda__interface_8cu_source.html#l00206">cuda_interface.cu:206</a></div></div>
+<div class="ttc" id="aclasscuCSCMatrix_html_af9b7af845f6f68d64b812709cd0f59ef"><div class="ttname"><a href="classcuCSCMatrix.html#af9b7af845f6f68d64b812709cd0f59ef">cuCSCMatrix::allocate_buffer</a></div><div class="ttdeci">void allocate_buffer(const int device_id, cusparseOperation_t cusparse_operation, const DataType alpha, const DataType beta, cusparseDnVecDescr_t &amp;cusparse_input_vector, cusparseDnVecDescr_t &amp;cusparse_output_vector, cusparseSpMVAlg_t algorithm)</div><div class="ttdoc">Allocates an external buffer for matrix-vector multiplication using cusparseSpMV function.</div><div class="ttdef"><b>Definition:</b> <a href="cu__csc__matrix_8cu_source.html#l00250">cu_csc_matrix.cu:250</a></div></div>
+<div class="ttc" id="anamespacecusparse__interface_html_a5bde38e93d3b432f9342e83682db4f2e"><div class="ttname"><a href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e">cusparse_interface::destroy_cusparse_vector</a></div><div class="ttdeci">void destroy_cusparse_vector(cusparseDnVecDescr_t &amp;cusparse_vector)</div><div class="ttdoc">Destroys cusparse vector.</div><div class="ttdef"><b>Definition:</b> <a href="cusparse__interface_8cu_source.html#l00156">cusparse_interface.cu:156</a></div></div>
+<div class="ttc" id="anamespacecusparse__interface_html_a6d9c1654a089e5732deb2e1306b21420"><div class="ttname"><a href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec</a></div><div class="ttdeci">void cusparse_matvec(cusparseHandle_t cusparse_handle, cusparseOperation_t cusparse_operation, const DataType alpha, cusparseSpMatDescr_t cusparse_matrix, cusparseDnVecDescr_t cusparse_input_vector, const DataType beta, cusparseDnVecDescr_t cusparse_output_vector, cusparseSpMVAlg_t algorithm, void *external_buffer)</div></div>
+<div class="ttc" id="anamespacecusparse__interface_html_aaadf25fbb7e80c24cd6ee6ca171aa048"><div class="ttname"><a href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector</a></div><div class="ttdeci">void create_cusparse_vector(cusparseDnVecDescr_t &amp;cusparse_vector, const LongIndexType vector_size, DataType *device_vector)</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector()</a>, <a class="el" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec()</a>, <a class="el" href="cusparse__interface_8cu_source.html#l00156">cusparse_interface::destroy_cusparse_vector()</a>, and <a class="el" href="cuda__interface_8cu_source.html#l00206">CudaInterface&lt; ArrayType &gt;::get_device()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcuCSCMatrix_a1eb47019eaa7abd083d644e37893fc3a_cgraph.png" border="0" usemap="#aclasscuCSCMatrix_a1eb47019eaa7abd083d644e37893fc3a_cgraph" alt=""/></div>
+<map name="aclasscuCSCMatrix_a1eb47019eaa7abd083d644e37893fc3a_cgraph" id="aclasscuCSCMatrix_a1eb47019eaa7abd083d644e37893fc3a_cgraph">
+<area shape="rect" title=" " alt="" coords="5,111,132,138"/>
+<area shape="rect" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048" title=" " alt="" coords="183,5,353,47"/>
+<area shape="rect" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420" title=" " alt="" coords="201,71,335,112"/>
+<area shape="rect" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e" title="Destroys cusparse vector." alt="" coords="180,136,356,177"/>
+<area shape="rect" href="classCudaInterface.html#a29ab521266d2670951510179d719ead1" title="Gets the current device in multi&#45;gpu applications." alt="" coords="203,201,333,243"/>
+<area shape="rect" href="cusparse__symbols_8cpp.html#a60b7ee5f6dbd7a6b7a7e3cd2ac34d69f" title="Definition of CUDA&#39;s cusparseDestroyDnVec function using dynamically loaded cublas library." alt="" coords="404,143,565,170"/>
+<area shape="rect" href="classcusparseSymbols.html#a8195de91cda101a217b527b3240f287d" title="Returns the name of cusparse shared library." alt="" coords="613,136,765,177"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#a1795645d53ca669d84d2aff6f3706917" title="Definition of CUDA&#39;s cudaGetDevice function using dynamically loaded cudart library." alt="" coords="429,209,541,235"/>
+<area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="622,201,757,243"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ac4759c30ffb86521f4ae29eac739db42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4759c30ffb86521f4ae29eac739db42">&#9670;&nbsp;</a></span>dot_plus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a>&lt; DataType &gt;::dot_plus </td>
+          <td>(</td>
+          <td class="paramtype">const DataType *&#160;</td>
+          <td class="paramname"><em>device_vector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const DataType&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DataType *&#160;</td>
+          <td class="paramname"><em>device_product</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classcCSCMatrix.html#a9c016188ebff671e8df98a6cf96ce1c4">cCSCMatrix&lt; DataType &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="cu__csc__matrix_8cu_source.html#l00337">337</a> of file <a class="el" href="cu__csc__matrix_8cu_source.html">cu_csc_matrix.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;{</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    assert(this-&gt;<a class="code" href="classcuLinearOperator.html#ac5b5c2becca5fd6368acd5c98de7bbe5">copied_host_to_device</a>);</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="comment">// Create cusparse vector for the input vector</span></div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    cusparseDnVecDescr_t cusparse_input_vector;</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <a class="code" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector</a>(</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;            cusparse_input_vector, this-&gt;<a class="code" href="classcLinearOperator.html#acdafe59b033d5a73f5abe380f63f40a1">num_columns</a>,</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;            <span class="keyword">const_cast&lt;</span>DataType*<span class="keyword">&gt;</span>(device_vector));</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160; </div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    <span class="comment">// Create cusparse vector for the output vector</span></div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    cusparseDnVecDescr_t cusparse_output_vector;</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <a class="code" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector</a>(</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;            cusparse_output_vector, this-&gt;<a class="code" href="classcLinearOperator.html#a6786391614f08ef1575554f78717fbb0">num_rows</a>, device_product);</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160; </div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="comment">// Matrix vector settings</span></div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    DataType beta = 1.0;</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160; </div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;    <span class="comment">// Using transpose operation since we treat CSC matrix as CSR</span></div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    cusparseOperation_t cusparse_operation = CUSPARSE_OPERATION_TRANSPOSE;</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    cusparseSpMVAlg_t algorithm = CUSPARSE_MV_ALG_DEFAULT;</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160; </div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    <span class="comment">// Get device id</span></div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    <span class="keywordtype">int</span> device_id = <a class="code" href="classCudaInterface.html#a29ab521266d2670951510179d719ead1">CudaInterface&lt;DataType&gt;::get_device</a>();</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160; </div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    <span class="comment">// Allocate device buffer (or reallocation if needed)</span></div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    this-&gt;<a class="code" href="classcuCSCMatrix.html#af9b7af845f6f68d64b812709cd0f59ef">allocate_buffer</a>(device_id, cusparse_operation, alpha, beta,</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;                          cusparse_input_vector, cusparse_output_vector,</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;                          algorithm);</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160; </div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    <span class="comment">// Matrix vector multiplication</span></div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    <a class="code" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec</a>(</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;            this-&gt;<a class="code" href="classcuLinearOperator.html#ab097cf1372d598ceac08237e26bafc6d">cusparse_handle</a>[device_id], cusparse_operation, alpha,</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;            this-&gt;<a class="code" href="classcuCSCMatrix.html#a9c4f53e60845c1d68f36806f0973032e">cusparse_matrix_A</a>[device_id], cusparse_input_vector, beta,</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;            cusparse_output_vector, algorithm, this-&gt;<a class="code" href="classcuCSCMatrix.html#aced811a178bc569515579c819a9c1c73">device_buffer</a>[device_id]);</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160; </div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    <span class="comment">// Destroy cusparse vectors</span></div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    <a class="code" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e">cusparse_interface::destroy_cusparse_vector</a>(cusparse_input_vector);</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    <a class="code" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e">cusparse_interface::destroy_cusparse_vector</a>(cusparse_output_vector);</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector()</a>, <a class="el" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec()</a>, <a class="el" href="cusparse__interface_8cu_source.html#l00156">cusparse_interface::destroy_cusparse_vector()</a>, and <a class="el" href="cuda__interface_8cu_source.html#l00206">CudaInterface&lt; ArrayType &gt;::get_device()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcuCSCMatrix_ac4759c30ffb86521f4ae29eac739db42_cgraph.png" border="0" usemap="#aclasscuCSCMatrix_ac4759c30ffb86521f4ae29eac739db42_cgraph" alt=""/></div>
+<map name="aclasscuCSCMatrix_ac4759c30ffb86521f4ae29eac739db42_cgraph" id="aclasscuCSCMatrix_ac4759c30ffb86521f4ae29eac739db42_cgraph">
+<area shape="rect" title=" " alt="" coords="5,111,164,138"/>
+<area shape="rect" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048" title=" " alt="" coords="215,5,385,47"/>
+<area shape="rect" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420" title=" " alt="" coords="233,71,367,112"/>
+<area shape="rect" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e" title="Destroys cusparse vector." alt="" coords="212,136,388,177"/>
+<area shape="rect" href="classCudaInterface.html#a29ab521266d2670951510179d719ead1" title="Gets the current device in multi&#45;gpu applications." alt="" coords="235,201,365,243"/>
+<area shape="rect" href="cusparse__symbols_8cpp.html#a60b7ee5f6dbd7a6b7a7e3cd2ac34d69f" title="Definition of CUDA&#39;s cusparseDestroyDnVec function using dynamically loaded cublas library." alt="" coords="436,143,597,170"/>
+<area shape="rect" href="classcusparseSymbols.html#a8195de91cda101a217b527b3240f287d" title="Returns the name of cusparse shared library." alt="" coords="645,136,797,177"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#a1795645d53ca669d84d2aff6f3706917" title="Definition of CUDA&#39;s cudaGetDevice function using dynamically loaded cudart library." alt="" coords="461,209,573,235"/>
+<area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="654,201,789,243"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a0af6927d0301ce630c70a88c1d799300"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0af6927d0301ce630c70a88c1d799300">&#9670;&nbsp;</a></span>transpose_dot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a>&lt; DataType &gt;::transpose_dot </td>
+          <td>(</td>
+          <td class="paramtype">const DataType *&#160;</td>
+          <td class="paramname"><em>device_vector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DataType *&#160;</td>
+          <td class="paramname"><em>device_product</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classcCSCMatrix.html#a3061588e0400fbceabad9d7f49736d86">cCSCMatrix&lt; DataType &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="cu__csc__matrix_8cu_source.html#l00387">387</a> of file <a class="el" href="cu__csc__matrix_8cu_source.html">cu_csc_matrix.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;{</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    assert(this-&gt;<a class="code" href="classcuLinearOperator.html#ac5b5c2becca5fd6368acd5c98de7bbe5">copied_host_to_device</a>);</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    <span class="comment">// Create cusparse vector for the input vector</span></div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    cusparseDnVecDescr_t cusparse_input_vector;</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    <a class="code" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector</a>(</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;            cusparse_input_vector, this-&gt;<a class="code" href="classcLinearOperator.html#acdafe59b033d5a73f5abe380f63f40a1">num_columns</a>,</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;            <span class="keyword">const_cast&lt;</span>DataType*<span class="keyword">&gt;</span>(device_vector));</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160; </div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    <span class="comment">// Create cusparse vector for the output vector</span></div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    cusparseDnVecDescr_t cusparse_output_vector;</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    <a class="code" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector</a>(</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;            cusparse_output_vector, this-&gt;<a class="code" href="classcLinearOperator.html#a6786391614f08ef1575554f78717fbb0">num_rows</a>, device_product);</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160; </div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    <span class="comment">// Matrix vector settings</span></div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    DataType alpha = 1.0;</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    DataType beta = 0.0;</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160; </div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    <span class="comment">// Using non-transpose operation since we treat CSC matrix as CSR</span></div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    cusparseOperation_t cusparse_operation = CUSPARSE_OPERATION_NON_TRANSPOSE;</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    cusparseSpMVAlg_t algorithm = CUSPARSE_MV_ALG_DEFAULT;</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160; </div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    <span class="comment">// Get device id</span></div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;    <span class="keywordtype">int</span> device_id = <a class="code" href="classCudaInterface.html#a29ab521266d2670951510179d719ead1">CudaInterface&lt;DataType&gt;::get_device</a>();</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160; </div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <span class="comment">// Allocate device buffer (or reallocation if needed)</span></div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    this-&gt;<a class="code" href="classcuCSCMatrix.html#af9b7af845f6f68d64b812709cd0f59ef">allocate_buffer</a>(device_id, cusparse_operation, alpha, beta,</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;                          cusparse_input_vector, cusparse_output_vector,</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;                          algorithm);</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160; </div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    <span class="comment">// Matrix vector multiplication</span></div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    <a class="code" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec</a>(</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;            this-&gt;<a class="code" href="classcuLinearOperator.html#ab097cf1372d598ceac08237e26bafc6d">cusparse_handle</a>[device_id], cusparse_operation, alpha,</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;            this-&gt;<a class="code" href="classcuCSCMatrix.html#a9c4f53e60845c1d68f36806f0973032e">cusparse_matrix_A</a>[device_id], cusparse_input_vector, beta,</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;            cusparse_output_vector, algorithm, this-&gt;<a class="code" href="classcuCSCMatrix.html#aced811a178bc569515579c819a9c1c73">device_buffer</a>[device_id]);</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160; </div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    <span class="comment">// Destroy cusparse vectors</span></div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    <a class="code" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e">cusparse_interface::destroy_cusparse_vector</a>(cusparse_input_vector);</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    <a class="code" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e">cusparse_interface::destroy_cusparse_vector</a>(cusparse_output_vector);</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector()</a>, <a class="el" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec()</a>, <a class="el" href="cusparse__interface_8cu_source.html#l00156">cusparse_interface::destroy_cusparse_vector()</a>, and <a class="el" href="cuda__interface_8cu_source.html#l00206">CudaInterface&lt; ArrayType &gt;::get_device()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcuCSCMatrix_a0af6927d0301ce630c70a88c1d799300_cgraph.png" border="0" usemap="#aclasscuCSCMatrix_a0af6927d0301ce630c70a88c1d799300_cgraph" alt=""/></div>
+<map name="aclasscuCSCMatrix_a0af6927d0301ce630c70a88c1d799300_cgraph" id="aclasscuCSCMatrix_a0af6927d0301ce630c70a88c1d799300_cgraph">
+<area shape="rect" title=" " alt="" coords="5,111,196,138"/>
+<area shape="rect" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048" title=" " alt="" coords="247,5,417,47"/>
+<area shape="rect" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420" title=" " alt="" coords="265,71,399,112"/>
+<area shape="rect" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e" title="Destroys cusparse vector." alt="" coords="244,136,420,177"/>
+<area shape="rect" href="classCudaInterface.html#a29ab521266d2670951510179d719ead1" title="Gets the current device in multi&#45;gpu applications." alt="" coords="267,201,397,243"/>
+<area shape="rect" href="cusparse__symbols_8cpp.html#a60b7ee5f6dbd7a6b7a7e3cd2ac34d69f" title="Definition of CUDA&#39;s cusparseDestroyDnVec function using dynamically loaded cublas library." alt="" coords="468,143,629,170"/>
+<area shape="rect" href="classcusparseSymbols.html#a8195de91cda101a217b527b3240f287d" title="Returns the name of cusparse shared library." alt="" coords="677,136,829,177"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#a1795645d53ca669d84d2aff6f3706917" title="Definition of CUDA&#39;s cudaGetDevice function using dynamically loaded cudart library." alt="" coords="493,209,605,235"/>
+<area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="686,201,821,243"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a19f87522864944c7d622c1a3653bf883"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19f87522864944c7d622c1a3653bf883">&#9670;&nbsp;</a></span>transpose_dot_plus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a>&lt; DataType &gt;::transpose_dot_plus </td>
+          <td>(</td>
+          <td class="paramtype">const DataType *&#160;</td>
+          <td class="paramname"><em>device_vector</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const DataType&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DataType *&#160;</td>
+          <td class="paramname"><em>device_product</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classcCSCMatrix.html#ada140e4a0a6d3a1d4efc88c234afd650">cCSCMatrix&lt; DataType &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="cu__csc__matrix_8cu_source.html#l00437">437</a> of file <a class="el" href="cu__csc__matrix_8cu_source.html">cu_csc_matrix.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;{</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    assert(this-&gt;<a class="code" href="classcuLinearOperator.html#ac5b5c2becca5fd6368acd5c98de7bbe5">copied_host_to_device</a>);</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160; </div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    <span class="comment">// Create cusparse vector for the input vector</span></div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    cusparseDnVecDescr_t cusparse_input_vector;</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    <a class="code" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector</a>(</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;            cusparse_input_vector, this-&gt;<a class="code" href="classcLinearOperator.html#acdafe59b033d5a73f5abe380f63f40a1">num_columns</a>,</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;            <span class="keyword">const_cast&lt;</span>DataType*<span class="keyword">&gt;</span>(device_vector));</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160; </div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    <span class="comment">// Create cusparse vector for the output vector</span></div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    cusparseDnVecDescr_t cusparse_output_vector;</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;    <a class="code" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector</a>(</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;            cusparse_output_vector, this-&gt;<a class="code" href="classcLinearOperator.html#a6786391614f08ef1575554f78717fbb0">num_rows</a>, device_product);</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160; </div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    <span class="comment">// Matrix vector settings</span></div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;    DataType beta = 1.0;</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160; </div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;    <span class="comment">// Using non-transpose operation since we treat CSC matrix as CSR</span></div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    cusparseOperation_t cusparse_operation = CUSPARSE_OPERATION_NON_TRANSPOSE;</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    cusparseSpMVAlg_t algorithm = CUSPARSE_MV_ALG_DEFAULT;</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160; </div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;    <span class="comment">// Get device id</span></div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;    <span class="keywordtype">int</span> device_id = <a class="code" href="classCudaInterface.html#a29ab521266d2670951510179d719ead1">CudaInterface&lt;DataType&gt;::get_device</a>();</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160; </div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    <span class="comment">// Allocate device buffer (or reallocation if needed)</span></div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;    this-&gt;<a class="code" href="classcuCSCMatrix.html#af9b7af845f6f68d64b812709cd0f59ef">allocate_buffer</a>(device_id, cusparse_operation, alpha, beta,</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;                          cusparse_input_vector, cusparse_output_vector,</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;                          algorithm);</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160; </div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;    <span class="comment">// Matrix vector multiplication</span></div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;    <a class="code" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec</a>(</div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;            this-&gt;<a class="code" href="classcuLinearOperator.html#ab097cf1372d598ceac08237e26bafc6d">cusparse_handle</a>[device_id], cusparse_operation, alpha,</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;            this-&gt;<a class="code" href="classcuCSCMatrix.html#a9c4f53e60845c1d68f36806f0973032e">cusparse_matrix_A</a>[device_id], cusparse_input_vector, beta,</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;            cusparse_output_vector, algorithm, this-&gt;<a class="code" href="classcuCSCMatrix.html#aced811a178bc569515579c819a9c1c73">device_buffer</a>[device_id]);</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160; </div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;    <span class="comment">// Destroy cusparse vectors</span></div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;    <a class="code" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e">cusparse_interface::destroy_cusparse_vector</a>(cusparse_input_vector);</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;    <a class="code" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e">cusparse_interface::destroy_cusparse_vector</a>(cusparse_output_vector);</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector()</a>, <a class="el" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec()</a>, <a class="el" href="cusparse__interface_8cu_source.html#l00156">cusparse_interface::destroy_cusparse_vector()</a>, and <a class="el" href="cuda__interface_8cu_source.html#l00206">CudaInterface&lt; ArrayType &gt;::get_device()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcuCSCMatrix_a19f87522864944c7d622c1a3653bf883_cgraph.png" border="0" usemap="#aclasscuCSCMatrix_a19f87522864944c7d622c1a3653bf883_cgraph" alt=""/></div>
+<map name="aclasscuCSCMatrix_a19f87522864944c7d622c1a3653bf883_cgraph" id="aclasscuCSCMatrix_a19f87522864944c7d622c1a3653bf883_cgraph">
+<area shape="rect" title=" " alt="" coords="5,104,172,145"/>
+<area shape="rect" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048" title=" " alt="" coords="223,5,393,47"/>
+<area shape="rect" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420" title=" " alt="" coords="241,71,375,112"/>
+<area shape="rect" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e" title="Destroys cusparse vector." alt="" coords="220,136,396,177"/>
+<area shape="rect" href="classCudaInterface.html#a29ab521266d2670951510179d719ead1" title="Gets the current device in multi&#45;gpu applications." alt="" coords="243,201,373,243"/>
+<area shape="rect" href="cusparse__symbols_8cpp.html#a60b7ee5f6dbd7a6b7a7e3cd2ac34d69f" title="Definition of CUDA&#39;s cusparseDestroyDnVec function using dynamically loaded cublas library." alt="" coords="444,143,605,170"/>
+<area shape="rect" href="classcusparseSymbols.html#a8195de91cda101a217b527b3240f287d" title="Returns the name of cusparse shared library." alt="" coords="653,136,805,177"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#a1795645d53ca669d84d2aff6f3706917" title="Definition of CUDA&#39;s cudaGetDevice function using dynamically loaded cudart library." alt="" coords="469,209,581,235"/>
+<area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="662,201,797,243"/>
+</map>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a9c4f53e60845c1d68f36806f0973032e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c4f53e60845c1d68f36806f0973032e">&#9670;&nbsp;</a></span>cusparse_matrix_A</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">cusparseSpMatDescr_t* <a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a>&lt; DataType &gt;::cusparse_matrix_A</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cu__csc__matrix_8h_source.html#l00087">87</a> of file <a class="el" href="cu__csc__matrix_8h_source.html">cu_csc_matrix.h</a>.</p>
+
+</div>
+</div>
+<a id="ad152c35aff1a99991fec22e1522bdc7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad152c35aff1a99991fec22e1522bdc7e">&#9670;&nbsp;</a></span>device_A_data</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DataType** <a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a>&lt; DataType &gt;::device_A_data</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cu__csc__matrix_8h_source.html#l00082">82</a> of file <a class="el" href="cu__csc__matrix_8h_source.html">cu_csc_matrix.h</a>.</p>
+
+</div>
+</div>
+<a id="a557ee14549f06dd815e9a85c0f4066a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a557ee14549f06dd815e9a85c0f4066a3">&#9670;&nbsp;</a></span>device_A_index_pointer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>** <a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a>&lt; DataType &gt;::device_A_index_pointer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cu__csc__matrix_8h_source.html#l00084">84</a> of file <a class="el" href="cu__csc__matrix_8h_source.html">cu_csc_matrix.h</a>.</p>
+
+</div>
+</div>
+<a id="af2ecb9fa43853ebf5bbf0b512dedbbd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2ecb9fa43853ebf5bbf0b512dedbbd8">&#9670;&nbsp;</a></span>device_A_indices</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>** <a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a>&lt; DataType &gt;::device_A_indices</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cu__csc__matrix_8h_source.html#l00083">83</a> of file <a class="el" href="cu__csc__matrix_8h_source.html">cu_csc_matrix.h</a>.</p>
+
+</div>
+</div>
+<a id="aced811a178bc569515579c819a9c1c73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aced811a178bc569515579c819a9c1c73">&#9670;&nbsp;</a></span>device_buffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void** <a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a>&lt; DataType &gt;::device_buffer</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cu__csc__matrix_8h_source.html#l00085">85</a> of file <a class="el" href="cu__csc__matrix_8h_source.html">cu_csc_matrix.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cu__csc__matrix_8cu_source.html#l00052">cuCSCMatrix&lt; DataType &gt;::cuCSCMatrix()</a>.</p>
+
+</div>
+</div>
+<a id="a6e98eb3b9cd36de0f7726708b6483707"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e98eb3b9cd36de0f7726708b6483707">&#9670;&nbsp;</a></span>device_buffer_num_bytes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t* <a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a>&lt; DataType &gt;::device_buffer_num_bytes</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cu__csc__matrix_8h_source.html#l00086">86</a> of file <a class="el" href="cu__csc__matrix_8h_source.html">cu_csc_matrix.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cu__csc__matrix_8cu_source.html#l00052">cuCSCMatrix&lt; DataType &gt;::cuCSCMatrix()</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/<a class="el" href="cu__csc__matrix_8h_source.html">cu_csc_matrix.h</a></li>
+<li>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/<a class="el" href="cu__csc__matrix_8cu_source.html">cu_csc_matrix.cu</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="classcuCSCMatrix.html">cuCSCMatrix</a></li>
+    <li class="footer">Generated on Thu Sep 1 2022 17:18:52 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

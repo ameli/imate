@@ -1,0 +1,570 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>imate: imate._utilities.plot_utilities Namespace Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js", "TeX/AMSfonts.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom-alternative.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/ameli/imate" class="github-corner" title="View source on GitHub" target="_blank">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo-imate-light.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">imate
+   </div>
+   <div id="projectbrief">C++/CUDA Reference</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Search','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('namespaceimate_1_1__utilities_1_1plot__utilities.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle">
+<div class="title">imate._utilities.plot_utilities Namespace Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ac5be3859295616ee4d82fdcaab5faedd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__utilities_1_1plot__utilities.html#ac5be3859295616ee4d82fdcaab5faedd">load_plot_settings</a> ()</td></tr>
+<tr class="separator:ac5be3859295616ee4d82fdcaab5faedd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16effb74c6816ea6e0efbd6cbd19a494"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__utilities_1_1plot__utilities.html#a16effb74c6816ea6e0efbd6cbd19a494">save_plot</a> (plt, filename, transparent_background=True, pdf=True, bbox_extra_artists=None, verbose=False)</td></tr>
+<tr class="separator:a16effb74c6816ea6e0efbd6cbd19a494"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21059ce3e73c1ed3f0726f4af5a33f64"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__utilities_1_1plot__utilities.html#a21059ce3e73c1ed3f0726f4af5a33f64">show_or_save_plot</a> (plt, filename, transparent_background=True, pdf=True, bbox_extra_artists=None, verbose=False)</td></tr>
+<tr class="separator:a21059ce3e73c1ed3f0726f4af5a33f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ac624a813e337455091aea33d1f56e349"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__utilities_1_1plot__utilities.html#ac624a813e337455091aea33d1f56e349">action</a></td></tr>
+<tr class="separator:ac624a813e337455091aea33d1f56e349"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72f5746e1da910285811c6a56cc53fe3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__utilities_1_1plot__utilities.html#a72f5746e1da910285811c6a56cc53fe3">module</a></td></tr>
+<tr class="separator:a72f5746e1da910285811c6a56cc53fe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04500b3655a9a4293231d467dbb4583c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__utilities_1_1plot__utilities.html#a04500b3655a9a4293231d467dbb4583c">category</a></td></tr>
+<tr class="separator:a04500b3655a9a4293231d467dbb4583c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47bac1a7e509cd6ae91f6bb89e4a5341"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceimate_1_1__utilities_1_1plot__utilities.html#a47bac1a7e509cd6ae91f6bb89e4a5341">message</a></td></tr>
+<tr class="separator:a47bac1a7e509cd6ae91f6bb89e4a5341"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ac5be3859295616ee4d82fdcaab5faedd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5be3859295616ee4d82fdcaab5faedd">&#9670;&nbsp;</a></span>load_plot_settings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate._utilities.plot_utilities.load_plot_settings </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Specifies general settings for the plots in the example scripts,
+namely, it sets plot themes by ``seaborn``, fonts by LaTeX if available.
+</pre> 
+<p class="definition">Definition at line <a class="el" href="plot__utilities_8py_source.html#l00064">64</a> of file <a class="el" href="plot__utilities_8py_source.html">plot_utilities.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">def </span><a class="code" href="namespaceimate_1_1__utilities_1_1plot__utilities.html#ac5be3859295616ee4d82fdcaab5faedd">load_plot_settings</a>():</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="stringliteral">    Specifies general settings for the plots in the example scripts,</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="stringliteral">    namely, it sets plot themes by ``seaborn``, fonts by LaTeX if available.</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="comment"># Color palette</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment"># sns.set()</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="comment"># LaTeX</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">if</span> find_executable(<span class="stringliteral">&#39;latex&#39;</span>):</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <span class="comment"># plt.rc(&#39;text&#39;,usetex=True)</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            matplotlib.rcParams[<span class="stringliteral">&#39;text.usetex&#39;</span>] = <span class="keyword">True</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            matplotlib.rcParams[<span class="stringliteral">&#39;text.latex.preamble&#39;</span>] = \</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                <span class="stringliteral">r&#39;\usepackage{amsmath}&#39;</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="comment"># LaTeX font is a bit small. Increase axes font size</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            sns.set(font_scale=1.2)</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">except</span> Exception:</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keywordflow">pass</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="comment"># Style sheet</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    sns.set_style(<span class="stringliteral">&quot;white&quot;</span>)</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    sns.set_style(<span class="stringliteral">&quot;ticks&quot;</span>)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="comment"># Font (Note: this should be AFTER the plt.style.use)</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    plt.rc(<span class="stringliteral">&#39;font&#39;</span>, family=<span class="stringliteral">&#39;serif&#39;</span>)</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    plt.rcParams[<span class="stringliteral">&#39;svg.fonttype&#39;</span>] = <span class="stringliteral">&#39;none&#39;</span>   <span class="comment"># text in svg will be text not path</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="comment"># from cycler import cycler</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="comment"># matplotlib.rcParams[&#39;axes.prop_cycle&#39;] = cycler(color=&#39;bgrcmyk&#39;)</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment"># =========</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment"># save plot</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment"># =========</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="ttc" id="anamespaceimate_1_1__utilities_1_1plot__utilities_html_ac5be3859295616ee4d82fdcaab5faedd"><div class="ttname"><a href="namespaceimate_1_1__utilities_1_1plot__utilities.html#ac5be3859295616ee4d82fdcaab5faedd">imate._utilities.plot_utilities.load_plot_settings</a></div><div class="ttdeci">def load_plot_settings()</div><div class="ttdef"><b>Definition:</b> <a href="plot__utilities_8py_source.html#l00064">plot_utilities.py:64</a></div></div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="correlation__matrix_8py_source.html#l00438">imate.sample_matrices.correlation_matrix._check_arguments()</a>, <a class="el" href="trace__estimator__plot__utilities_8py_source.html#l00315">imate._trace_estimator.trace_estimator_plot_utilities._plot_error()</a>, <a class="el" href="interpolate__schatten_8py_source.html#l00760">imate.interpolator.interpolate_schatten.InterpolateSchatten._plot_finite()</a>, <a class="el" href="trace__estimator__plot__utilities_8py_source.html#l00206">imate._trace_estimator.trace_estimator_plot_utilities._plot_samples()</a>, <a class="el" href="interpolate__schatten_8py_source.html#l00592">imate.interpolator.interpolate_schatten.InterpolateSchatten._plot_semi_infinite()</a>, <a class="el" href="__hutchinson__method__utilities_8pyx_source.html#l00039">imate.traceinv._hutchinson_method_utilities.check_arguments()</a>, <a class="el" href="trace__estimator__utilities_8py_source.html#l00124">imate._trace_estimator.trace_estimator_utilities.check_arguments()</a>, <a class="el" href="interpolate__logdet_8py_source.html#l00449">imate.interpolator.interpolate_logdet.InterpolateLogdet.plot()</a>, <a class="el" href="interpolate__trace_8py_source.html#l00447">imate.interpolator.interpolate_trace.InterpolateTrace.plot()</a>, <a class="el" href="trace__estimator__plot__utilities_8py_source.html#l00512">imate._trace_estimator.trace_estimator_plot_utilities.plot_convergence()</a>, and <a class="el" href="correlation__matrix_8py_source.html#l00574">imate.sample_matrices.correlation_matrix.plot_matrix()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceimate_1_1__utilities_1_1plot__utilities_ac5be3859295616ee4d82fdcaab5faedd_icgraph.png" border="0" usemap="#anamespaceimate_1_1__utilities_1_1plot__utilities_ac5be3859295616ee4d82fdcaab5faedd_icgraph" alt=""/></div>
+<map name="anamespaceimate_1_1__utilities_1_1plot__utilities_ac5be3859295616ee4d82fdcaab5faedd_icgraph" id="anamespaceimate_1_1__utilities_1_1plot__utilities_ac5be3859295616ee4d82fdcaab5faedd_icgraph">
+<area shape="rect" title=" " alt="" coords="2935,322,3065,378"/>
+<area shape="rect" href="namespaceimate_1_1sample__matrices_1_1correlation__matrix.html#ae1ff6ce05f3d1675939d57c9b3bf8d64" title=" " alt="" coords="2665,111,2887,152"/>
+<area shape="rect" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator__plot__utilities.html#ac297a0e6e32b51a8fc6308b93c724869" title=" " alt="" coords="2683,322,2869,378"/>
+<area shape="rect" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator__plot__utilities.html#a5b5b11b077873546cc4bd81e9d38c991" title=" " alt="" coords="2413,322,2600,378"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#ab6500d8ed781a3dc971e9c06e856b58f" title=" " alt="" coords="299,149,499,205"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a9cbdbcf5477fa0f629bfc90b96124d47" title=" " alt="" coords="299,53,499,109"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet.html#af80d3805ea6303c00baf4f1e92d79652" title=" " alt="" coords="302,387,495,428"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#a38158704798314a5ea2a5d3f9fb2a226" title=" " alt="" coords="306,601,491,643"/>
+<area shape="rect" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator__plot__utilities.html#ad7047cd3e950939f55c0351853e756e1" title=" " alt="" coords="2683,242,2869,298"/>
+<area shape="rect" href="namespaceimate_1_1traceinv_1_1__hutchinson__method__utilities.html#a8916a3bbabaff4ca1cd2d84dfe851396" title=" " alt="" coords="2688,503,2864,559"/>
+<area shape="rect" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator__utilities.html#a9fe4c1dd676fb61d18b03a34b029a836" title=" " alt="" coords="2413,419,2600,475"/>
+<area shape="rect" href="namespaceimate_1_1sample__matrices_1_1correlation__matrix.html#a0120e3faa4d26e769c90784ed3ffa3d9" title=" " alt="" coords="2665,176,2887,217"/>
+<area shape="rect" href="namespaceimate_1_1sample__matrices_1_1correlation__matrix.html#abce2891d45b26e645bb349b548a1977e" title=" " alt="" coords="2396,159,2617,200"/>
+<area shape="rect" href="namespaceimate_1_1traceinv_1_1__hutchinson__method.html#a62c0bc37cf02ed8dddf9d15fd56112ed" title=" " alt="" coords="2159,329,2348,371"/>
+<area shape="rect" href="namespaceimate_1_1traceinv_1_1traceinv.html#af09d9b0af1471fa625846f791debb269" title=" " alt="" coords="1911,331,2111,358"/>
+<area shape="rect" href="namespaceimate_1_1schatten_1_1schatten.html#addd398048ffe6f31c8401438d3ab708e" title=" " alt="" coords="1647,318,1863,345"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase.html#ac280d2903b95eebb4f52d53a39f9814b" title=" " alt="" coords="1409,271,1599,327"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase.html#a413ec50ad36453760a7640af0d254aa5" title=" " alt="" coords="1172,271,1361,327"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase.html#af4dff8144fb18580899069269f2f57eb" title=" " alt="" coords="1172,160,1361,231"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase.html#ae34c18fb577fc57bcf0f70cc0a86d073" title=" " alt="" coords="935,241,1124,297"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase.html#ab536b71b179a86e3c869f7b1f5e1a113" title=" " alt="" coords="935,321,1124,377"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#aa0fab44823eefba8f131db3cac2b657f" title=" " alt="" coords="628,243,829,299"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__monomial__basis__functions__method_1_1MonomialBasisFunctionsMethod.html#a805c6eb66a8397506be953f71f1f0266" title=" " alt="" coords="571,441,887,512"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__exact__method_1_1ExactMethod.html#ab3fca349a29a103f4496e1c8593fb2a0" title=" " alt="" coords="601,324,857,365"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a730f165dfcdbdf27fc062b383ee6845a" title=" " alt="" coords="5,156,227,197"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a8d73f3cded7d501f9563ce09ff9951e4" title=" " alt="" coords="275,321,523,363"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase.html#a8518f8ac4e73004e17323152e1dbbd27" title=" " alt="" coords="935,161,1124,217"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a16effb74c6816ea6e0efbd6cbd19a494"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16effb74c6816ea6e0efbd6cbd19a494">&#9670;&nbsp;</a></span>save_plot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate._utilities.plot_utilities.save_plot </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>plt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>transparent_background</em> = <code>True</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>pdf</em> = <code>True</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>bbox_extra_artists</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>verbose</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Saves plot as svg format in the current working directory.
+
+:param plt: matplotlib.pyplot object for the plots.
+:type plt: matplotlib.pyplot
+
+:param filename: Name of the file without extension or directory name.
+:type filename: string
+
+:param transparent_background: Sets the background of svg file to be
+    transparent.
+:type transparent_background: bool
+</pre> 
+<p class="definition">Definition at line <a class="el" href="plot__utilities_8py_source.html#l00104">104</a> of file <a class="el" href="plot__utilities_8py_source.html">plot_utilities.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        verbose=<span class="keyword">False</span>):</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="stringliteral">    Saves plot as svg format in the current working directory.</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="stringliteral">    :param plt: matplotlib.pyplot object for the plots.</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="stringliteral">    :type plt: matplotlib.pyplot</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="stringliteral">    :param filename: Name of the file without extension or directory name.</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="stringliteral">    :type filename: string</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="stringliteral">    :param transparent_background: Sets the background of svg file to be</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="stringliteral">        transparent.</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="stringliteral">    :type transparent_background: bool</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="comment"># Write in the current working directory</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    save_dir = os.getcwd()</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="comment"># Save plot in svg format</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    filename_svg = filename + <span class="stringliteral">&#39;.svg&#39;</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    filename_pdf = filename + <span class="stringliteral">&#39;.pdf&#39;</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">if</span> os.access(save_dir, os.W_OK):</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        save_fullname_svg = os.path.join(save_dir, filename_svg)</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        save_fullname_pdf = os.path.join(save_dir, filename_pdf)</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        plt.savefig(</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                save_fullname_svg,</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;                transparent=transparent_background,</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                bbox_inches=<span class="stringliteral">&#39;tight&#39;</span>)</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;        <span class="keywordflow">if</span> verbose:</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            print(<span class="stringliteral">&#39;Plot saved to &quot;%s&quot;.&#39;</span> % (save_fullname_svg))</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keywordflow">if</span> pdf:</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;            plt.savefig(</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                    save_fullname_pdf,</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                    transparent=transparent_background,</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                    bbox_extra_artists=bbox_extra_artists, bbox_inches=<span class="stringliteral">&#39;tight&#39;</span>)</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;            <span class="keywordflow">if</span> verbose:</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                print(<span class="stringliteral">&#39;Plot saved to &quot;%s&quot;.&#39;</span> % (save_fullname_pdf))</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        print(<span class="stringliteral">&#39;Cannot save plot to %s. Directory is not writable.&#39;</span> % save_dir)</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="comment"># =================</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment"># show or save plot</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment"># =================</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="trace__estimator__plot__utilities_8py_source.html#l00512">imate._trace_estimator.trace_estimator_plot_utilities.plot_convergence()</a>, <a class="el" href="correlation__matrix_8py_source.html#l00574">imate.sample_matrices.correlation_matrix.plot_matrix()</a>, and <a class="el" href="plot__utilities_8py_source.html#l00163">imate._utilities.plot_utilities.show_or_save_plot()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceimate_1_1__utilities_1_1plot__utilities_a16effb74c6816ea6e0efbd6cbd19a494_icgraph.png" border="0" usemap="#anamespaceimate_1_1__utilities_1_1plot__utilities_a16effb74c6816ea6e0efbd6cbd19a494_icgraph" alt=""/></div>
+<map name="anamespaceimate_1_1__utilities_1_1plot__utilities_a16effb74c6816ea6e0efbd6cbd19a494_icgraph" id="anamespaceimate_1_1__utilities_1_1plot__utilities_a16effb74c6816ea6e0efbd6cbd19a494_icgraph">
+<area shape="rect" title=" " alt="" coords="2697,331,2828,372"/>
+<area shape="rect" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator__plot__utilities.html#a5b5b11b077873546cc4bd81e9d38c991" title=" " alt="" coords="2445,258,2632,314"/>
+<area shape="rect" href="namespaceimate_1_1sample__matrices_1_1correlation__matrix.html#a0120e3faa4d26e769c90784ed3ffa3d9" title=" " alt="" coords="2428,389,2649,431"/>
+<area shape="rect" href="namespaceimate_1_1__utilities_1_1plot__utilities.html#a21059ce3e73c1ed3f0726f4af5a33f64" title=" " alt="" coords="635,393,822,435"/>
+<area shape="rect" href="namespaceimate_1_1traceinv_1_1__hutchinson__method.html#a62c0bc37cf02ed8dddf9d15fd56112ed" title=" " alt="" coords="2175,259,2364,300"/>
+<area shape="rect" href="namespaceimate_1_1traceinv_1_1traceinv.html#af09d9b0af1471fa625846f791debb269" title=" " alt="" coords="1911,263,2111,290"/>
+<area shape="rect" href="namespaceimate_1_1schatten_1_1schatten.html#addd398048ffe6f31c8401438d3ab708e" title=" " alt="" coords="1647,251,1863,278"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase.html#ac280d2903b95eebb4f52d53a39f9814b" title=" " alt="" coords="1409,215,1599,271"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase.html#a413ec50ad36453760a7640af0d254aa5" title=" " alt="" coords="1172,215,1361,271"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase.html#af4dff8144fb18580899069269f2f57eb" title=" " alt="" coords="1172,84,1361,155"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase.html#ae34c18fb577fc57bcf0f70cc0a86d073" title=" " alt="" coords="935,153,1124,209"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase.html#ab536b71b179a86e3c869f7b1f5e1a113" title=" " alt="" coords="935,233,1124,289"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#aa0fab44823eefba8f131db3cac2b657f" title=" " alt="" coords="628,195,829,251"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#ab6500d8ed781a3dc971e9c06e856b58f" title=" " alt="" coords="299,342,499,398"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a9cbdbcf5477fa0f629bfc90b96124d47" title=" " alt="" coords="299,422,499,478"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__monomial__basis__functions__method_1_1MonomialBasisFunctionsMethod.html#a805c6eb66a8397506be953f71f1f0266" title=" " alt="" coords="571,100,887,171"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__exact__method_1_1ExactMethod.html#ab3fca349a29a103f4496e1c8593fb2a0" title=" " alt="" coords="601,276,857,317"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet.html#af80d3805ea6303c00baf4f1e92d79652" title=" " alt="" coords="302,145,495,187"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#a38158704798314a5ea2a5d3f9fb2a226" title=" " alt="" coords="306,211,491,252"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a730f165dfcdbdf27fc062b383ee6845a" title=" " alt="" coords="5,349,227,391"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a8d73f3cded7d501f9563ce09ff9951e4" title=" " alt="" coords="275,276,523,317"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase.html#a8518f8ac4e73004e17323152e1dbbd27" title=" " alt="" coords="935,73,1124,129"/>
+<area shape="rect" href="namespaceimate_1_1sample__matrices_1_1correlation__matrix.html#abce2891d45b26e645bb349b548a1977e" title=" " alt="" coords="2159,389,2380,431"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a21059ce3e73c1ed3f0726f4af5a33f64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21059ce3e73c1ed3f0726f4af5a33f64">&#9670;&nbsp;</a></span>show_or_save_plot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate._utilities.plot_utilities.show_or_save_plot </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>plt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>transparent_background</em> = <code>True</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>pdf</em> = <code>True</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>bbox_extra_artists</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>verbose</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Shows the plot. If no graphical beckend exists, saves the plot.
+</pre> 
+<p class="definition">Definition at line <a class="el" href="plot__utilities_8py_source.html#l00157">157</a> of file <a class="el" href="plot__utilities_8py_source.html">plot_utilities.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        verbose=<span class="keyword">False</span>):</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="stringliteral">    Shows the plot. If no graphical beckend exists, saves the plot.</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="comment"># Check if the graphical back-end exists</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordflow">if</span> matplotlib.get_backend() != <span class="stringliteral">&#39;agg&#39;</span> <span class="keywordflow">or</span> <a class="code" href="namespaceimate_1_1__utilities_1_1display__utilities.html#a26f9d42b865f3003abe00b8a8f2f4fe8">is_notebook</a>():</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        plt.show()</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        <span class="comment"># write the plot as SVG file in the current working directory</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <a class="code" href="namespaceimate_1_1__utilities_1_1plot__utilities.html#a16effb74c6816ea6e0efbd6cbd19a494">save_plot</a>(plt, filename, transparent_background=transparent_background,</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                  pdf=pdf, bbox_extra_artists=bbox_extra_artists,</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                  verbose=verbose)</div>
+<div class="ttc" id="anamespaceimate_1_1__utilities_1_1display__utilities_html_a26f9d42b865f3003abe00b8a8f2f4fe8"><div class="ttname"><a href="namespaceimate_1_1__utilities_1_1display__utilities.html#a26f9d42b865f3003abe00b8a8f2f4fe8">imate._utilities.display_utilities.is_notebook</a></div><div class="ttdeci">def is_notebook()</div><div class="ttdef"><b>Definition:</b> <a href="display__utilities_8py_source.html#l00014">display_utilities.py:14</a></div></div>
+<div class="ttc" id="anamespaceimate_1_1__utilities_1_1plot__utilities_html_a16effb74c6816ea6e0efbd6cbd19a494"><div class="ttname"><a href="namespaceimate_1_1__utilities_1_1plot__utilities.html#a16effb74c6816ea6e0efbd6cbd19a494">imate._utilities.plot_utilities.save_plot</a></div><div class="ttdeci">def save_plot(plt, filename, transparent_background=True, pdf=True, bbox_extra_artists=None, verbose=False)</div><div class="ttdef"><b>Definition:</b> <a href="plot__utilities_8py_source.html#l00104">plot_utilities.py:110</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="display__utilities_8py_source.html#l00014">imate._utilities.display_utilities.is_notebook()</a>, and <a class="el" href="plot__utilities_8py_source.html#l00110">imate._utilities.plot_utilities.save_plot()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="interpolate__schatten_8py_source.html#l00760">imate.interpolator.interpolate_schatten.InterpolateSchatten._plot_finite()</a>, <a class="el" href="interpolate__schatten_8py_source.html#l00592">imate.interpolator.interpolate_schatten.InterpolateSchatten._plot_semi_infinite()</a>, <a class="el" href="interpolate__logdet_8py_source.html#l00449">imate.interpolator.interpolate_logdet.InterpolateLogdet.plot()</a>, and <a class="el" href="interpolate__trace_8py_source.html#l00447">imate.interpolator.interpolate_trace.InterpolateTrace.plot()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceimate_1_1__utilities_1_1plot__utilities_a21059ce3e73c1ed3f0726f4af5a33f64_cgraph.png" border="0" usemap="#anamespaceimate_1_1__utilities_1_1plot__utilities_a21059ce3e73c1ed3f0726f4af5a33f64_cgraph" alt=""/></div>
+<map name="anamespaceimate_1_1__utilities_1_1plot__utilities_a21059ce3e73c1ed3f0726f4af5a33f64_cgraph" id="anamespaceimate_1_1__utilities_1_1plot__utilities_a21059ce3e73c1ed3f0726f4af5a33f64_cgraph">
+<area shape="rect" title=" " alt="" coords="5,39,192,80"/>
+<area shape="rect" href="namespaceimate_1_1__utilities_1_1display__utilities.html#a26f9d42b865f3003abe00b8a8f2f4fe8" title=" " alt="" coords="240,5,391,47"/>
+<area shape="rect" href="namespaceimate_1_1__utilities_1_1plot__utilities.html#a16effb74c6816ea6e0efbd6cbd19a494" title=" " alt="" coords="250,71,381,112"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespaceimate_1_1__utilities_1_1plot__utilities_a21059ce3e73c1ed3f0726f4af5a33f64_icgraph.png" border="0" usemap="#anamespaceimate_1_1__utilities_1_1plot__utilities_a21059ce3e73c1ed3f0726f4af5a33f64_icgraph" alt=""/></div>
+<map name="anamespaceimate_1_1__utilities_1_1plot__utilities_a21059ce3e73c1ed3f0726f4af5a33f64_icgraph" id="anamespaceimate_1_1__utilities_1_1plot__utilities_a21059ce3e73c1ed3f0726f4af5a33f64_icgraph">
+<area shape="rect" title=" " alt="" coords="523,130,709,171"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#ab6500d8ed781a3dc971e9c06e856b58f" title=" " alt="" coords="275,5,475,61"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a9cbdbcf5477fa0f629bfc90b96124d47" title=" " alt="" coords="275,85,475,141"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet.html#af80d3805ea6303c00baf4f1e92d79652" title=" " alt="" coords="278,166,471,207"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#a38158704798314a5ea2a5d3f9fb2a226" title=" " alt="" coords="282,231,467,273"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a730f165dfcdbdf27fc062b383ee6845a" title=" " alt="" coords="5,13,227,54"/>
+</map>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="ac624a813e337455091aea33d1f56e349"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac624a813e337455091aea33d1f56e349">&#9670;&nbsp;</a></span>action</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate._utilities.plot_utilities.action</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="plot__utilities_8py_source.html#l00053">53</a> of file <a class="el" href="plot__utilities_8py_source.html">plot_utilities.py</a>.</p>
+
+</div>
+</div>
+<a id="a04500b3655a9a4293231d467dbb4583c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04500b3655a9a4293231d467dbb4583c">&#9670;&nbsp;</a></span>category</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate._utilities.plot_utilities.category</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="plot__utilities_8py_source.html#l00055">55</a> of file <a class="el" href="plot__utilities_8py_source.html">plot_utilities.py</a>.</p>
+
+</div>
+</div>
+<a id="a47bac1a7e509cd6ae91f6bb89e4a5341"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47bac1a7e509cd6ae91f6bb89e4a5341">&#9670;&nbsp;</a></span>message</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate._utilities.plot_utilities.message</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="plot__utilities_8py_source.html#l00056">56</a> of file <a class="el" href="plot__utilities_8py_source.html">plot_utilities.py</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dynamic__loading_8h_source.html#l00164">dynamic_loading.load_symbol()</a>.</p>
+
+</div>
+</div>
+<a id="a72f5746e1da910285811c6a56cc53fe3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72f5746e1da910285811c6a56cc53fe3">&#9670;&nbsp;</a></span>module</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate._utilities.plot_utilities.module</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="plot__utilities_8py_source.html#l00054">54</a> of file <a class="el" href="plot__utilities_8py_source.html">plot_utilities.py</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceimate.html">imate</a></li><li class="navelem"><a class="el" href="namespaceimate_1_1__utilities.html">_utilities</a></li><li class="navelem"><a class="el" href="namespaceimate_1_1__utilities_1_1plot__utilities.html">plot_utilities</a></li>
+    <li class="footer">Generated on Thu Sep 1 2022 16:13:23 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

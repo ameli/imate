@@ -43,19 +43,18 @@
 ///             The cumulative average of the rows are expected to converge.
 ///             Note that because of parallel processing, the rows of this
 ///             array are not filled sequentially. The list of filled rows are
-///             stored in \c processed_sample_indices.
+///             stored in \c processed_samples_indices.
 /// \param[in]  min_num_samples
 ///             Minimum number of sample iterations.
 /// \param[in]  num_inquiries
 ///             Number of columns of \c samples array.
-/// \param[in]  processed_sample_indices
-///             1D array of the row indices of \c samples that are filled
-///             (processed). Because the process is done in parallel, the
-///             processed indices are not sequential.
 /// \param[in]  processed_samples_indices
 ///             A 1D array indicating the processing order of rows of the
-///             \c samples. In paralleli processing, this order of processing
+///             \c samples. In parallel processing, this order of processing
 ///             the rows of \c samples is not necessarly sequential.
+/// \param[in]  num_processed_samples
+///             A counter that keeps track of how many samples were processed
+///             so far in the iterations.
 /// \param[in]  confidence_level
 ///             The confidence level of the error, which is a number between
 ///             \c 0 and \c 1. This affects the scale of \c error.

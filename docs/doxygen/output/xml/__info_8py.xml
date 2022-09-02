@@ -1,0 +1,221 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="__info_8py" kind="file" language="Python">
+    <compoundname>_info.py</compoundname>
+    <innernamespace refid="namespaceimate_1_1device_1_1__info">imate::device::_info</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="namespaceimate_1_1device_1_1__info" refkind="compound"><highlight class="comment">#<sp/>SPDX-FileCopyrightText:<sp/>Copyright<sp/>2021,<sp/>Siavash<sp/>Ameli<sp/>&lt;sameli@berkeley.edu&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">#<sp/>SPDX-License-Identifier:<sp/>BSD-3-Clause</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">#<sp/>SPDX-FileType:<sp/>SOURCE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">#</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">#<sp/>This<sp/>program<sp/>is<sp/>free<sp/>software:<sp/>you<sp/>can<sp/>redistribute<sp/>it<sp/>and/or<sp/>modify<sp/>it</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">#<sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>license<sp/>found<sp/>in<sp/>the<sp/>LICENSE.txt<sp/>file<sp/>in<sp/>the<sp/>root</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">#<sp/>directory<sp/>of<sp/>this<sp/>source<sp/>tree.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">#<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">#<sp/>Imports</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">#<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>._device<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>get_processor_name,<sp/>get_num_cpu_threads,<sp/>get_gpu_name,<sp/>\</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>get_num_gpu_devices,<sp/>get_nvidia_driver_version</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>._memory<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>Memory</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>._cuda<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>locate_cuda</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">from</highlight><highlight class="normal"><sp/>..__version__<sp/></highlight><highlight class="keyword">import</highlight><highlight class="normal"><sp/>__version__</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="namespaceimate_1_1device_1_1__info_1a2ac82a263a83eea40e22818ef6c64717" refkind="member"><highlight class="normal">__all__<sp/>=<sp/>[</highlight><highlight class="stringliteral">&apos;info&apos;</highlight><highlight class="normal">]</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">#<sp/>====</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">#<sp/>info</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">#<sp/>====</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="namespaceimate_1_1device_1_1__info_1a735794b84c8257928e00c262feebd599" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">def<sp/></highlight><highlight class="normal"><ref refid="namespaceimate_1_1device_1_1__info_1a735794b84c8257928e00c262feebd599" kindref="member">info</ref>(print_only=True):</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;&quot;&quot;</highlight></codeline>
+<codeline lineno="29"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Provides<sp/>general<sp/>information<sp/>about<sp/>hardware<sp/>device,<sp/>package<sp/>version,<sp/>and</highlight></codeline>
+<codeline lineno="30"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>memory<sp/>usage.</highlight></codeline>
+<codeline lineno="31"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="32"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Parameters</highlight></codeline>
+<codeline lineno="33"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>----------</highlight></codeline>
+<codeline lineno="34"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="35"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>print_only<sp/>:<sp/>bool,<sp/>default=True</highlight></codeline>
+<codeline lineno="36"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>It<sp/>`True`,<sp/>it<sp/>prints<sp/>the<sp/>output.<sp/>If<sp/>`False`,<sp/>it<sp/>returns<sp/>the<sp/>output<sp/>as</highlight></codeline>
+<codeline lineno="37"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>a<sp/>dictionary.</highlight></codeline>
+<codeline lineno="38"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="39"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Returns</highlight></codeline>
+<codeline lineno="40"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>-------</highlight></codeline>
+<codeline lineno="41"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="42"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>info_dict<sp/>:<sp/>dict</highlight></codeline>
+<codeline lineno="43"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(Only<sp/>if<sp/>``print_only``<sp/>is<sp/>`False`).<sp/>A<sp/>dictionary<sp/>with<sp/>the<sp/>following</highlight></codeline>
+<codeline lineno="44"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>keys:</highlight></codeline>
+<codeline lineno="45"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="46"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>``imate_version``:<sp/>`str`,<sp/>the<sp/>version<sp/>of<sp/>the<sp/>imate<sp/>package<sp/>in<sp/>the</highlight></codeline>
+<codeline lineno="47"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>format<sp/>``&quot;major_version.minor_version.patch_number&quot;``.</highlight></codeline>
+<codeline lineno="48"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>``processor``:<sp/>`str`,<sp/>the<sp/>model<sp/>name<sp/>of<sp/>the<sp/>CPU<sp/>processor.</highlight></codeline>
+<codeline lineno="49"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>``num_threads``,<sp/>`int`,<sp/>number<sp/>of<sp/>CPU<sp/>threads<sp/>that<sp/>are<sp/>available<sp/>and</highlight></codeline>
+<codeline lineno="50"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>allocated<sp/>to<sp/>the<sp/>user.</highlight></codeline>
+<codeline lineno="51"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>``gpu_name``:<sp/>`str`,<sp/>model<sp/>name<sp/>of<sp/>the<sp/>GPU<sp/>devices.</highlight></codeline>
+<codeline lineno="52"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>``num_gpu_devices``:<sp/>`int`,<sp/>number<sp/>of<sp/>GPU<sp/>devices<sp/>in<sp/>multi-GPU</highlight></codeline>
+<codeline lineno="53"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>platforms.</highlight></codeline>
+<codeline lineno="54"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>``cuda_version``:<sp/>`str`,<sp/>the<sp/>version<sp/>of<sp/>CUDA<sp/>Toolkit<sp/>installed<sp/>on<sp/>the</highlight></codeline>
+<codeline lineno="55"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>machine<sp/>in<sp/>the<sp/>format<sp/>``&quot;major_version.minor_version.patch_number&quot;``.</highlight></codeline>
+<codeline lineno="56"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>``nvidia_driver``:<sp/>`str`,<sp/>the<sp/>version<sp/>of<sp/>NVIDIA<sp/>graphic<sp/>driver.</highlight></codeline>
+<codeline lineno="57"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>``mem_used``:<sp/>`int`,<sp/>resident<sp/>memory<sp/>usage<sp/>for<sp/>the<sp/>current<sp/>Python</highlight></codeline>
+<codeline lineno="58"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>process.</highlight></codeline>
+<codeline lineno="59"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>``mem_unit``,<sp/>`str`,<sp/>the<sp/>unit<sp/>in<sp/>which<sp/>``mem_used``<sp/>is<sp/>reported.<sp/>This</highlight></codeline>
+<codeline lineno="60"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>can<sp/>be<sp/>``&quot;b&quot;``<sp/>for<sp/>Byte,<sp/>``&quot;KB&quot;``<sp/>for<sp/>Kilo-Byte,<sp/>``&quot;MB&quot;``<sp/>for</highlight></codeline>
+<codeline lineno="61"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Mega-Byte,<sp/>``&quot;GB&quot;``<sp/>for<sp/>Giga-Byte,<sp/>and<sp/>``&quot;TB&quot;``<sp/>for<sp/>Tera-Byte.</highlight></codeline>
+<codeline lineno="62"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="63"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>See<sp/>Also</highlight></codeline>
+<codeline lineno="64"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>--------</highlight></codeline>
+<codeline lineno="65"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="66"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>imate.device.get_processor_name</highlight></codeline>
+<codeline lineno="67"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>imate.device.get_gpu_name</highlight></codeline>
+<codeline lineno="68"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>imate.device.get_num_cpu_threads</highlight></codeline>
+<codeline lineno="69"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>imate.device.get_num_gpu_devices</highlight></codeline>
+<codeline lineno="70"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>imate.device.get_nvidia_driver_version</highlight></codeline>
+<codeline lineno="71"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>imate.Memory</highlight></codeline>
+<codeline lineno="72"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>imate.device.locate_cuda</highlight></codeline>
+<codeline lineno="73"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="74"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Notes</highlight></codeline>
+<codeline lineno="75"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>-----</highlight></codeline>
+<codeline lineno="76"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="77"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>**CUDA<sp/>Version:**</highlight></codeline>
+<codeline lineno="78"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="79"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>In<sp/>order<sp/>to<sp/>find<sp/>CUDA<sp/>Toolkit<sp/>information<sp/>properly,<sp/>either<sp/>of<sp/>the</highlight></codeline>
+<codeline lineno="80"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>environment<sp/>variables<sp/>``CUDA_HOME``,<sp/>``CUDA_ROOT``,<sp/>or<sp/>``CUDA_PATH``<sp/>should</highlight></codeline>
+<codeline lineno="81"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>be<sp/>set<sp/>to<sp/>the<sp/>directory<sp/>where<sp/>CUDA<sp/>Toolkit<sp/>is<sp/>installed.<sp/>Usually<sp/>on<sp/>UNIX</highlight></codeline>
+<codeline lineno="82"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>operating<sp/>systems,<sp/>this<sp/>path<sp/>is<sp/>``/usr/local/cuda``.<sp/>In<sp/>this<sp/>case,<sp/>set</highlight></codeline>
+<codeline lineno="83"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>``CUDA_HOME``<sp/>(or<sp/>any<sp/>of<sp/>the<sp/>other<sp/>variables<sp/>mentioned<sp/>in<sp/>the<sp/>above)<sp/>as</highlight></codeline>
+<codeline lineno="84"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>follows:</highlight></codeline>
+<codeline lineno="85"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="86"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>::</highlight></codeline>
+<codeline lineno="87"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="88"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>export<sp/>CUDA_HOME=/usr/local/cuda</highlight></codeline>
+<codeline lineno="89"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="90"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>To<sp/>permanently<sp/>set<sp/>this<sp/>variable,<sp/>place<sp/>the<sp/>above<sp/>line<sp/>in<sp/>``profile``<sp/>file,</highlight></codeline>
+<codeline lineno="91"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>such<sp/>as<sp/>in<sp/>``~/.bashrc``,<sp/>or<sp/>``~/.profile``,<sp/>and<sp/>source<sp/>this<sp/>file,<sp/>for</highlight></codeline>
+<codeline lineno="92"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>instance<sp/>by</highlight></codeline>
+<codeline lineno="93"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="94"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>::</highlight></codeline>
+<codeline lineno="95"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="96"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>source<sp/>~/.bashrc</highlight></codeline>
+<codeline lineno="97"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="98"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>If<sp/>no<sp/>CUDA<sp/>Toolkit<sp/>is<sp/>installed,<sp/>then<sp/>the<sp/>key<sp/>``cuda_version``<sp/>shows</highlight></codeline>
+<codeline lineno="99"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>`not<sp/>found`.</highlight></codeline>
+<codeline lineno="100"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="101"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>..<sp/>note::</highlight></codeline>
+<codeline lineno="102"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="103"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>It<sp/>is<sp/>possible<sp/>that<sp/>the<sp/>CUDA<sp/>Toolkit<sp/>is<sp/>installed<sp/>on<sp/>the<sp/>machine,<sp/>but</highlight></codeline>
+<codeline lineno="104"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>``cuda_version``<sp/>key<sp/>shows<sp/>`not<sp/>found`.<sp/>This<sp/>is<sp/>because<sp/>the<sp/>user<sp/>did</highlight></codeline>
+<codeline lineno="105"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>not<sp/>set<sp/>the<sp/>environment<sp/>variables<sp/>mentioned<sp/>in<sp/>the<sp/>above.</highlight></codeline>
+<codeline lineno="106"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="107"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>**GPU<sp/>Devices:**</highlight></codeline>
+<codeline lineno="108"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="109"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>If<sp/>the<sp/>key<sp/>``gpu_name``<sp/>shows<sp/>`not<sp/>found`,<sp/>this<sp/>is<sp/>because<sp/>either</highlight></codeline>
+<codeline lineno="110"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="111"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>*<sp/>No<sp/>GPU<sp/>device<sp/>is<sp/>detected<sp/>on<sp/>the<sp/>machine.</highlight></codeline>
+<codeline lineno="112"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>*<sp/>GPU<sp/>device<sp/>exists,<sp/>but<sp/>NVIDIA<sp/>graphic<sp/>driver<sp/>is<sp/>not<sp/>installed.<sp/>See</highlight></codeline>
+<codeline lineno="113"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/>:ref:`Install<sp/>NVIDIA<sp/>Graphic<sp/>Driver<sp/>&lt;install-graphic-driver&gt;`<sp/>for<sp/>further</highlight></codeline>
+<codeline lineno="114"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/>details.</highlight></codeline>
+<codeline lineno="115"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>*<sp/>NVIDIA<sp/>graphic<sp/>driver<sp/>is<sp/>installed,<sp/>but<sp/>the<sp/>executable<sp/>``nvidia-smi``<sp/>is</highlight></codeline>
+<codeline lineno="116"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/>not<sp/>available<sp/>on<sp/>the<sp/>`PATH``.<sp/>To<sp/>fix<sp/>this,<sp/>set<sp/>the<sp/>location<sp/>of<sp/>the</highlight></codeline>
+<codeline lineno="117"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/>``nvidia-smi``<sp/>executable<sp/>on<sp/>the<sp/>``PATH``<sp/>variable.</highlight></codeline>
+<codeline lineno="118"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="119"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>**Memory:**</highlight></codeline>
+<codeline lineno="120"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="121"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>The<sp/>key<sp/>``mem_used``<sp/>shows<sp/>the<sp/>resident<sp/>set<sp/>size<sp/>memory<sp/>(RSS)<sp/>on<sp/>RAM</highlight></codeline>
+<codeline lineno="122"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>hardware.<sp/>The<sp/>unit<sp/>of<sp/>the<sp/>reported<sp/>memory<sp/>size<sp/>can<sp/>be<sp/>found<sp/>in</highlight></codeline>
+<codeline lineno="123"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>``mem_unit``,<sp/>which<sp/>can<sp/>be<sp/>``b``<sp/>for<sp/>Bytes,<sp/>``KB``<sp/>for<sp/>Kilo-Bytes,<sp/>``MB``</highlight></codeline>
+<codeline lineno="124"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>for<sp/>Mega-Bytes,<sp/>and<sp/>so<sp/>on.</highlight></codeline>
+<codeline lineno="125"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="126"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Examples</highlight></codeline>
+<codeline lineno="127"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>--------</highlight></codeline>
+<codeline lineno="128"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="129"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Print<sp/>information:</highlight></codeline>
+<codeline lineno="130"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="131"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>..<sp/>code-block::<sp/>python</highlight></codeline>
+<codeline lineno="132"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="133"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>from<sp/>imate<sp/>import<sp/>info</highlight></codeline>
+<codeline lineno="134"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>info()</highlight></codeline>
+<codeline lineno="135"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>imate<sp/>version<sp/><sp/><sp/>:<sp/>0.13.0</highlight></codeline>
+<codeline lineno="136"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>processor<sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>Intel(R)<sp/>Xeon(R)<sp/>CPU<sp/>E5-2623<sp/>v3<sp/>@<sp/>3.00GHz</highlight></codeline>
+<codeline lineno="137"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num<sp/>threads<sp/><sp/><sp/><sp/><sp/>:<sp/>8</highlight></codeline>
+<codeline lineno="138"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>gpu<sp/>device<sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>&apos;GeForce<sp/>GTX<sp/>1080<sp/>Ti&apos;</highlight></codeline>
+<codeline lineno="139"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num<sp/>gpu<sp/>devices<sp/>:<sp/>4</highlight></codeline>
+<codeline lineno="140"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cuda<sp/>version<sp/><sp/><sp/><sp/>:<sp/>11.2.0</highlight></codeline>
+<codeline lineno="141"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nvidia<sp/>driver<sp/><sp/><sp/>:<sp/>460.84</highlight></codeline>
+<codeline lineno="142"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>process<sp/>memory<sp/><sp/>:<sp/>1.7<sp/>(Gb)</highlight></codeline>
+<codeline lineno="143"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="144"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>Return<sp/>information<sp/>as<sp/>a<sp/>dictionary:</highlight></codeline>
+<codeline lineno="145"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="146"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>..<sp/>code-block::<sp/>python</highlight></codeline>
+<codeline lineno="147"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="148"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>from<sp/>imate<sp/>import<sp/>info</highlight></codeline>
+<codeline lineno="149"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>info_dict<sp/>=<sp/>info(print_only=False)</highlight></codeline>
+<codeline lineno="150"><highlight class="stringliteral"></highlight></codeline>
+<codeline lineno="151"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>#<sp/>Neatly<sp/>print<sp/>dictionary<sp/>using<sp/>pprint</highlight></codeline>
+<codeline lineno="152"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>from<sp/>pprint<sp/>import<sp/>pprint</highlight></codeline>
+<codeline lineno="153"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&gt;&gt;&gt;<sp/>pprint(info_dict)</highlight></codeline>
+<codeline lineno="154"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;imate<sp/>version&apos;:<sp/>0.13.0,</highlight></codeline>
+<codeline lineno="156"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;processor&apos;:<sp/>Intel(R)<sp/>Xeon(R)<sp/>CPU<sp/>E5-2623<sp/>v3<sp/>@<sp/>3.00GHz,</highlight></codeline>
+<codeline lineno="157"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;num<sp/>threads&apos;:<sp/>8,</highlight></codeline>
+<codeline lineno="158"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;gpu<sp/>device&apos;:<sp/>&apos;GeForce<sp/>GTX<sp/>1080<sp/>Ti&apos;,</highlight></codeline>
+<codeline lineno="159"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;num<sp/>gpu<sp/>devices&apos;:<sp/>4,</highlight></codeline>
+<codeline lineno="160"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;cuda<sp/>version&apos;:<sp/>11.2.0,</highlight></codeline>
+<codeline lineno="161"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;nvidia<sp/>driver&apos;:<sp/>460.84,</highlight></codeline>
+<codeline lineno="162"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&apos;process<sp/>memory&apos;:<sp/>1.7<sp/>(Gb)</highlight></codeline>
+<codeline lineno="163"><highlight class="stringliteral"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="164"><highlight class="stringliteral"><sp/><sp/><sp/><sp/>&quot;&quot;&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/>mem_used,<sp/>mem_unit<sp/>=<sp/>Memory.get_resident_memory(human_readable=</highlight><highlight class="keyword">True</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Get<sp/>cuda<sp/>version</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/>cuda<sp/>=<sp/><ref refid="namespaceimate_1_1device_1_1__cuda_1ae83b14fb4d618639ff75a167ae57f127" kindref="member">locate_cuda</ref>()</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>cuda<sp/>!=<sp/>{}:</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cuda_version<sp/>=<sp/>cuda[</highlight><highlight class="stringliteral">&apos;version&apos;</highlight><highlight class="normal">]</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cuda_version_<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;%d.%d.%d&apos;</highlight><highlight class="normal"><sp/>\</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>%<sp/>(cuda_version[</highlight><highlight class="stringliteral">&apos;major&apos;</highlight><highlight class="normal">],<sp/>cuda_version[</highlight><highlight class="stringliteral">&apos;minor&apos;</highlight><highlight class="normal">],</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cuda_version[</highlight><highlight class="stringliteral">&apos;patch&apos;</highlight><highlight class="normal">])</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cuda_version_<sp/>=<sp/></highlight><highlight class="stringliteral">&apos;not<sp/>found&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>NVIDIA<sp/>driver<sp/>version</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/>nvidia_driver<sp/>=<sp/><ref refid="namespaceimate_1_1device_1_1__device_1a126773820a5a66414bf0ea1871672ef4" kindref="member">get_nvidia_driver_version</ref>()</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/>info_<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;imate_version&apos;</highlight><highlight class="normal">:<sp/>__version__,</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;processor_name&apos;</highlight><highlight class="normal">:<sp/><ref refid="namespaceimate_1_1device_1_1__device_1ad8a7aa1910ae556a9f58d353a18c138e" kindref="member">get_processor_name</ref>(),</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;num_cpu_threads&apos;</highlight><highlight class="normal">:<sp/><ref refid="namespaceimate_1_1device_1_1__device_1af9525e7a774a0f7dbecf38a643e7c78a" kindref="member">get_num_cpu_threads</ref>(),</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;gpu_name&apos;</highlight><highlight class="normal">:<sp/><ref refid="namespaceimate_1_1device_1_1__device_1a283033b5b736587aab6d74929a2ace48" kindref="member">get_gpu_name</ref>(),</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;num_gpu_devices&apos;</highlight><highlight class="normal">:<sp/><ref refid="namespaceimate_1_1device_1_1__device_1a5c1da1b7a4bc6c2c778789b807eb27ca" kindref="member">get_num_gpu_devices</ref>(),</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;mem_used&apos;</highlight><highlight class="normal">:<sp/>mem_used,</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;mem_unit&apos;</highlight><highlight class="normal">:<sp/>mem_unit,</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;cuda_version&apos;</highlight><highlight class="normal">:<sp/>cuda_version_,</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&apos;nvidia_driver&apos;</highlight><highlight class="normal">:<sp/>nvidia_driver,</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">#<sp/>Print</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>print_only:</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&apos;&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&apos;imate<sp/>version<sp/><sp/><sp/>:<sp/>%s&apos;</highlight><highlight class="normal"><sp/>%<sp/>info_[</highlight><highlight class="stringliteral">&apos;imate_version&apos;</highlight><highlight class="normal">])</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&apos;processor<sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%s&apos;</highlight><highlight class="normal"><sp/>%<sp/>info_[</highlight><highlight class="stringliteral">&apos;processor_name&apos;</highlight><highlight class="normal">])</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&apos;num<sp/>threads<sp/><sp/><sp/><sp/><sp/>:<sp/>%d&apos;</highlight><highlight class="normal"><sp/>%<sp/>info_[</highlight><highlight class="stringliteral">&apos;num_cpu_threads&apos;</highlight><highlight class="normal">])</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&apos;gpu<sp/>device<sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>%s&apos;</highlight><highlight class="normal"><sp/>%<sp/>info_[</highlight><highlight class="stringliteral">&apos;gpu_name&apos;</highlight><highlight class="normal">])</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&apos;num<sp/>gpu<sp/>devices<sp/>:<sp/>%d&apos;</highlight><highlight class="normal"><sp/>%<sp/>info_[</highlight><highlight class="stringliteral">&apos;num_gpu_devices&apos;</highlight><highlight class="normal">])</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&apos;cuda<sp/>version<sp/><sp/><sp/><sp/>:<sp/>%s&apos;</highlight><highlight class="normal"><sp/>%<sp/>info_[</highlight><highlight class="stringliteral">&apos;cuda_version&apos;</highlight><highlight class="normal">])</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&apos;nvidia<sp/>driver<sp/><sp/><sp/>:<sp/>%s&apos;</highlight><highlight class="normal"><sp/>%<sp/>info_[</highlight><highlight class="stringliteral">&apos;nvidia_driver&apos;</highlight><highlight class="normal">])</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&apos;process<sp/>memory<sp/><sp/>:<sp/>%0.1f<sp/>(%s)&apos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>%<sp/>(info_[</highlight><highlight class="stringliteral">&apos;mem_used&apos;</highlight><highlight class="normal">],<sp/>info_[</highlight><highlight class="stringliteral">&apos;mem_unit&apos;</highlight><highlight class="normal">]))</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>print(</highlight><highlight class="stringliteral">&apos;&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>info_</highlight></codeline>
+    </programlisting>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/device/_info.py"/>
+  </compounddef>
+</doxygen>

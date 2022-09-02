@@ -1,0 +1,4 @@
+var namespaceimate_1_1__c__linear__operator_1_1py__c__affine__matrix__function =
+[
+    [ "pycAffineMatrixFunction", "classimate_1_1__c__linear__operator_1_1py__c__affine__matrix__function_1_1pycAffineMatrixFunction.html", "classimate_1_1__c__linear__operator_1_1py__c__affine__matrix__function_1_1pycAffineMatrixFunction" ]
+];

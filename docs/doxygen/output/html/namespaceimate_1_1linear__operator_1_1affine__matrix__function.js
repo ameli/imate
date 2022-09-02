@@ -1,0 +1,4 @@
+var namespaceimate_1_1linear__operator_1_1affine__matrix__function =
+[
+    [ "AffineMatrixFunction", "classimate_1_1linear__operator_1_1affine__matrix__function_1_1AffineMatrixFunction.html", "classimate_1_1linear__operator_1_1affine__matrix__function_1_1AffineMatrixFunction" ]
+];

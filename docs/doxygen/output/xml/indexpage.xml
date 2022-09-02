@@ -1,0 +1,430 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>How to Build</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="index_1md_README"/></para>
+<sect1 id="index_1autotoc_md15">
+<title>Compile from Source</title>
+<sect2 id="index_1autotoc_md16">
+<title>When to Compile |project|</title>
+<para>Generally, it is not required to compile |project| as the installation through <computeroutput>pip</computeroutput> and <computeroutput>conda</computeroutput> contains most of its features, including support for GPU devices. You may compile |project| if you want to:</para>
+<para><itemizedlist>
+<listitem><para>modify |project|.</para>
+</listitem><listitem><para>use <computeroutput>OpenBLAS</computeroutput> instead of the built-in matrix library of |project|.</para>
+</listitem><listitem><para>build |project| for a <computeroutput>specific version</computeroutput> of CUDA Toolkit.</para>
+</listitem><listitem><para>disable <computeroutput>dynamic loading</computeroutput> feature of |project| for CUDA libraries.</para>
+</listitem><listitem><para>enable <computeroutput>debugging mode</computeroutput>.</para>
+</listitem><listitem><para>or, build this <computeroutput>documentation</computeroutput>.</para>
+</listitem></itemizedlist>
+</para>
+<para>Otherwise, install |project| through the :ref:<computeroutput>Python Wheels &lt;install-wheels&gt;</computeroutput>.</para>
+<para>This section walks you through the compilation process.</para>
+</sect2>
+<sect2 id="index_1autotoc_md17">
+<title>Install C++ Compiler and OpenMP (&lt;tt&gt;Required&lt;/tt&gt;)</title>
+<para>Compile |project| with either of GCC, Clang/LLVM, or Intel C++ compiler on UNIX operating systems. For Windows, compile |project| with <computeroutput>Microsoft Visual Studio (MSVC) Compiler for C++ &lt;<ulink url="https://code.visualstudio.com/docs/cpp/config-msvc">https://code.visualstudio.com/docs/cpp/config-msvc</ulink>#:~:text=You%20can%20install%20the%20C,the%20C%2B%2B%20workload%20is%20checked.&gt;</computeroutput>_.</para>
+<para>.. rubric:: Install GNU GCC Compiler</para>
+<para>.. tab-set:: <verbatim>.. tab-item:: Ubuntu/Debian
+    :sync: ubuntu
+
+    .. prompt:: bash
+
+        sudo apt install build-essential
+
+.. tab-item:: CentOS 7
+    :sync: centos
+
+    .. prompt:: bash
+
+        sudo yum group install &quot;Development Tools&quot;
+
+.. tab-item:: RHEL 9
+    :sync: rhel
+
+    .. prompt:: bash
+
+        sudo dnf group install &quot;Development Tools&quot;
+
+.. tab-item:: macOS
+    :sync: osx
+
+    .. prompt:: bash
+
+        sudo brew install gcc libomp
+</verbatim> Then, export <computeroutput>C</computeroutput> and <computeroutput>CXX</computeroutput> variables by</para>
+<para>.. prompt:: bash</para>
+<para>export CC=/usr/local/bin/gcc export CXX=/usr/local/bin/g++</para>
+<para>.. rubric:: Install Clang/LLVN Compiler</para>
+<para>.. tab-set:: <verbatim>.. tab-item:: Ubuntu/Debian
+    :sync: ubuntu
+
+    .. prompt:: bash
+
+        sudo apt install clang
+
+.. tab-item:: CentOS 7
+    :sync: centos
+
+    .. prompt:: bash
+
+        sudo yum install yum-utils
+        sudo yum-config-manager --enable extras
+        sudo yum makecache
+        sudo yum install clang
+
+.. tab-item:: RHEL 9
+    :sync: rhel
+
+    .. prompt:: bash
+
+        sudo dnf install yum-utils
+        sudo dnf config-manager --enable extras
+        sudo dnf makecache
+        sudo dnf install clang
+
+.. tab-item:: macOS
+    :sync: osx
+
+    .. prompt:: bash
+
+        sudo brew install llvm libomp-dev
+</verbatim> Then, export <computeroutput>C</computeroutput> and <computeroutput>CXX</computeroutput> variables by</para>
+<para>.. prompt:: bash</para>
+<para>export CC=/usr/local/bin/clang export CXX=/usr/local/bin/clang++</para>
+<para>.. rubric:: Install Intel oneAPI Compiler</para>
+<para>To install <computeroutput>Intel Compiler</computeroutput> see <computeroutput>Intel oneAPI Base Toolkit &lt;<ulink url="https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=linux&amp;distributions=aptpackagemanager">https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=linux&amp;distributions=aptpackagemanager</ulink>&gt;</computeroutput>_.</para>
+</sect2>
+<sect2 id="index_1autotoc_md18">
+<title>Install OpenMP (&lt;tt&gt;Required&lt;/tt&gt;)</title>
+<para>OpenMP comes with the C++ compiler installed in the above. However, you may alternatively install it directly on UNIX. Install <computeroutput>OpenMP</computeroutput> library on UNIX as follows:</para>
+<para>.. tab-set:: <verbatim>.. tab-item:: Ubuntu/Debian
+    :sync: ubuntu
+
+    .. prompt:: bash
+
+        sudo apt install libgomp1 -y
+
+.. tab-item:: CentOS 7
+    :sync: centos
+
+    .. prompt:: bash
+
+        sudo yum install libgomp -y
+
+.. tab-item:: RHEL 9
+    :sync: rhel
+
+    .. prompt:: bash
+
+        sudo dnf install libgomp -y
+
+.. tab-item:: macOS
+    :sync: osx
+
+    .. prompt:: bash
+
+        sudo brew install libomp
+</verbatim> .. _install-openblas:</para>
+</sect2>
+<sect2 id="index_1autotoc_md19">
+<title>OpenBLAS (&lt;tt&gt;Optional&lt;/tt&gt;)</title>
+<para>|project| can be compiled with and without OpenBLAS. If you are compiling |project| with OpenBLAS, install OpenBLAS library by</para>
+<para>.. tab-set::</para>
+<para>.. tab-item:: Ubuntu/Debian :sync: ubuntu</para>
+<para>.. prompt:: bash <verbatim>  sudo apt-get install libopenblas-dev
+</verbatim> .. tab-item:: CentOS 7 :sync: centos</para>
+<para>.. prompt:: bash <verbatim>sudo yum install openblas-devel
+</verbatim> .. tab-item:: RHEL 9 :sync: rhel</para>
+<para>.. prompt:: bash <verbatim>sudo dnf install openblas-devel
+</verbatim> .. tab-item:: macOS :sync: osx</para>
+<para>.. prompt:: bash <verbatim>sudo brew install openblas
+</verbatim> Alternatively, you can install OpenBLAS using <computeroutput>conda</computeroutput>:</para>
+<para>.. prompt:: bash <verbatim>conda install -c anaconda openblas
+</verbatim> .. note:: <verbatim>To build |project| with OpenBLAS, you should also set ``USE_CBLAS`` environment variable as described in :ref:`Configure Compile-Time Environment Variables &lt;config-env-variables&gt;`.
+</verbatim> .. _install-cuda:</para>
+</sect2>
+<sect2 id="index_1autotoc_md20">
+<title>Install CUDA Compiler (&lt;tt&gt;Optional&lt;/tt&gt;)</title>
+<para>To use |project| on GPU devices, it should be compiled with CUDA compiler. Skip this part if you are not using GPU.</para>
+<para>.. note:: <verbatim>The minimum version of CUDA to compile |project| is `CUDA 10.0`.
+</verbatim> .. attention:: <verbatim>NVIDIA does not support macOS. You can install NVIDIA CUDA Toolkit on Linux and Windows only.
+</verbatim></para>
+<para>It is not required to install the entire CUDA Toolkit. Install only the CUDA compiler and the development libraries of cuBLAS and cuSparse by</para>
+<para>.. tab-set:: <verbatim>.. tab-item:: Ubuntu/Debian
+    :sync: ubuntu
+
+    .. prompt:: bash
+
+        sudo apt install -y \
+            cuda-nvcc-11-7 \
+            libcublas-11-7 \
+            libcublas-dev-11-7 \
+            libcusparse-11-7 -y \
+            libcusparse-dev-11-7
+
+.. tab-item:: CentOS 7
+    :sync: centos
+
+    .. prompt:: bash
+
+        sudo yum install --setopt=obsoletes=0 -y \
+            cuda-nvcc-11-7.x86_64 \
+            cuda-cudart-devel-11-7.x86_64 \
+            libcublas-11-7.x86_64 \
+            libcublas-devel-11-7.x86_64 \
+            libcusparse-11-7.x86_64 \
+            libcusparse-devel-11-7.x86_64
+
+.. tab-item:: RHEL 9
+    :sync: rhel
+
+    .. prompt:: bash
+
+        sudo dnf install --setopt=obsoletes=0 -y \
+            cuda-nvcc-11-7.x86_64 \
+            cuda-cudart-devel-11-7.x86_64 \
+            libcublas-11-7.x86_64 \
+            libcublas-devel-11-7.x86_64 \
+            libcusparse-11-7.x86_64 \
+            libcusparse-devel-11-7.x86_64
+</verbatim> Update <computeroutput>PATH</computeroutput> with the CUDA installation location by</para>
+<para>.. prompt:: bash <verbatim>echo &apos;export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}&apos; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+</verbatim> Check if the CUDA compiler is available with <computeroutput>which nvcc</computeroutput>.</para>
+<para>.. note:: <verbatim>To build |project| with CUDA, you should also set ``CUDA_HOME``, ``USE_CUDA``, and optionally set ``CUDA_DYNAMIC_LOADING`` environment variabls as described in :ref:`Configure Compile-Time Environment Variables &lt;config-env-variables&gt;`.
+</verbatim> </para>
+</sect2>
+<sect2 id="index_1autotoc_md21">
+<title>Load CUDA Compiler on GPU Cluster (&lt;tt&gt;Optional&lt;/tt&gt;)</title>
+<para>This section is relevant if you are using GPU on a cluster, and skip this section otherwise.</para>
+<para>On a GPU cluster, chances are the CUDA Toolkit is already installed. If the cluster uses <computeroutput>module</computeroutput> interface, load CUDA as follows.</para>
+<para>First, check if a CUDA module is available by</para>
+<para>.. prompt:: bash <verbatim>module avail
+</verbatim> Load both CUDA and GCC by</para>
+<para>.. prompt:: bash <verbatim>module load cuda gcc
+</verbatim> You may specify CUDA version if multiple CUDA versions are available, such as by</para>
+<para>.. prompt:: bash <verbatim>module load cuda/11.7 gcc/6.3
+</verbatim> You may check if CUDA Compiler is available with <computeroutput>which nvcc</computeroutput>.</para>
+<para>.. _config-env-variables:</para>
+</sect2>
+<sect2 id="index_1autotoc_md22">
+<title>Configure Compile-Time Environment Variables (&lt;tt&gt;Optional&lt;/tt&gt;)</title>
+<para>Set the following environment variables as desired to configure the compilation process.</para>
+<para>.. glossary:: <verbatim>``CUDA_HOME``, ``CUDA_PATH``, ``CUDA_ROOT``
+
+    These variables are relevant only if you are compiling with CUDA compiler. :ref:`Install CUDA Toolkit &lt;install-cuda&gt;` and specify the home directory of CUDA Toolkit by setting either of these variables. The home directory should be a path containing the executable ``/bin/nvcc`` (or ``\bin\nvcc.exe`` on Windows). For instance, if ``/usr/local/cuda/bin/nvcc`` exists, export the following:
+
+    .. tab-set::
+
+        .. tab-item:: UNIX
+            :sync: unix
+
+            .. prompt:: bash
+
+                export CUDA_HOME=/usr/local/cuda
+
+        .. tab-item:: Windows (Powershell)
+            :sync: win
+
+            .. prompt:: powershell
+
+                $env:export CUDA_HOME = &quot;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7&quot;
+
+``USE_CUDA``
+
+    This variable is relevant only if you are compiling with CUDA compiler. By default, this variable is set to `0`. To compile |project| with CUDA, :ref:`install CUDA Toolkit &lt;install-cuda&gt;` and set this variable to `1` by
+
+    .. tab-set::
+
+        .. tab-item:: UNIX
+            :sync: unix
+
+            .. prompt:: bash
+
+                export USE_CUDA=1
+
+        .. tab-item:: Windows (Powershell)
+            :sync: win
+
+            .. prompt:: powershell
+
+                $env:export USE_CUDA = &quot;1&quot;
+
+``CUDA_DYNAMIC_LOADING``
+
+    This variable is relevant only if you are compiling with CUDA compiler. By default, this variable is set to `0`.  When |project| is complied with CUDA, the CUDA runtime libraries bundle with the final installation of |project| package, making it over 700MB. While this is generally not an issue for most users, often a small package is preferable if the installed package has to be distributed to other machines. To this end, enable the custom-made `dynamic loading` feature of |project|. In this case, the CUDA libraries will not bundle with the |project| installation, rather, |project| is instructed to load the existing CUDA libraries of the host machine at runtime. To enable dynamic loading, make sure :ref:`CUDA Toolkit &lt;install-cuda&gt;` is installed, then set this variable to `1` by
+
+    .. tab-set::
+
+        .. tab-item:: UNIX
+            :sync: unix
+
+            .. prompt:: bash
+
+                export CUDA_DYNAMIC_LOADING=1
+
+        .. tab-item:: Windows (Powershell)
+            :sync: win
+
+            .. prompt:: powershell
+
+                $env:export CUDA_DYNAMIC_LOADING = &quot;1&quot;
+
+``CYTHON_BUILD_IN_SOURCE``
+
+    By default, this variable is set to `0`, in which the compilation process generates source files in outside of the source directry, in ``/build`` directry. When it is set to `1`, the build files are generated in source directory. To set this variable, run
+
+    .. tab-set::
+
+        .. tab-item:: UNIX
+            :sync: unix
+
+            .. prompt:: bash
+
+                export CYTHON_BUILD_IN_SOURCE=1
+
+        .. tab-item:: Windows (Powershell)
+            :sync: win
+
+            .. prompt:: powershell
+
+                $env:export CYTHON_BUILD_IN_SOURCE = &quot;1&quot;
+
+    .. hint::
+
+        If you generated the source files inside the source directory by setting this variable, and later you wanted to clean them, see :ref:`Clean Compilation Files &lt;clean-files&gt;`.
+
+``CYTHON_BUILD_FOR_DOC``
+
+    Set this variable if you are building this documentation. By default, this variable is set to `0`. When it is set to `1`, the package will be built suitable for generating the documentation. To set this variable, run
+
+    .. tab-set::
+
+        .. tab-item:: UNIX
+            :sync: unix
+
+            .. prompt:: bash
+
+                export CYTHON_BUILD_FOR_DOC=1
+
+        .. tab-item:: Windows (Powershell)
+            :sync: win
+
+            .. prompt:: powershell
+
+                $env:export CYTHON_BUILD_FOR_DOC = &quot;1&quot;
+
+    .. warning::
+
+        Do not use this option to build the package for `production` (release) as it has a slower performance. Building the package by enabling this variable is only sitable for generting the documentation.
+
+    .. hint::
+
+        By enabling this variable, the build will be `in-source`, similar to setting ``CYTHON_BUILD_IN_SOURCE=1``. To clean the source directory from the generated files, see :ref:`Clean Compilation Files &lt;clean-files&gt;`.
+
+``USE_CBLAS``
+
+    By default, this variable is set to `0`. Set this variable to `1` if you want to use OpenBLAS instead of the built-in library of |project|. :ref:`Install OpenBLAS &lt;install-openblas&gt;` and set by
+
+    .. tab-set::
+
+        .. tab-item:: UNIX
+            :sync: unix
+
+            .. prompt:: bash
+
+                export USE_CBLAS=1
+
+        .. tab-item:: Windows (Powershell)
+            :sync: win
+
+            .. prompt:: powershell
+
+                $env:export USE_CBLAS = &quot;1&quot;
+
+``DEBUG_MODE``
+
+    By default, this variable is set to `0`, meaning that |project| is compiled without debugging mode enabled. By enabling debug mode, you can debug the code with tools such as ``gdb``. Set this variable to `1` to enable debugging mode by
+
+    .. tab-set::
+
+        .. tab-item:: UNIX
+            :sync: unix
+
+            .. prompt:: bash
+
+                export DEBUG_MODE=1
+
+        .. tab-item:: Windows (Powershell)
+            :sync: win
+
+            .. prompt:: powershell
+
+                $env:export DEBUG_MODE = &quot;1&quot;
+
+    .. attention::
+
+        With the debugging mode enabled, the size of the package will be larger and its performance may be slower, which is not suitable for `production`.
+</verbatim> </para>
+</sect2>
+<sect2 id="index_1autotoc_md23">
+<title>Compile and Install</title>
+<para>|repo-size|</para>
+<para>Get the source code of |project| from the Github repository by</para>
+<para>.. prompt:: bash <verbatim>git clone https://github.com/ameli/imate.git
+cd imate
+</verbatim> To compile and install, run</para>
+<para>.. prompt:: bash <verbatim>python setup.py install
+</verbatim> The above command may need <computeroutput>sudo</computeroutput> privilege.</para>
+<para>.. rubric:: A Note on Using <computeroutput>sudo</computeroutput></para>
+<para>If you are using <computeroutput>sudo</computeroutput> for the above command, add <computeroutput>-E</computeroutput> option to <computeroutput>sudo</computeroutput> to make sure the environment variables (if you have set any) are accessible to the root user. For instance</para>
+<para>.. tab-set:: <verbatim>.. tab-item:: UNIX
+    :sync: unix
+
+    .. code-block:: Bash
+        :emphasize-lines: 5
+
+        export CUDA_HOME=/usr/local/cuda
+        export USE_CUDA=1
+        export CUDA_DYNAMIC_LOADING=1
+
+        sudo -E python setup.py install
+
+.. tab-item:: Windows (Powershell)
+    :sync: win
+
+    .. code-block:: PowerShell
+        :emphasize-lines: 5
+
+        $env:export CUDA_HOME = &quot;/usr/local/cuda&quot;
+        $env:export USE_CUDA = &quot;1&quot;
+        $env:export CUDA_DYNAMIC_LOADING = &quot;1&quot;
+
+        sudo -E python setup.py install
+</verbatim> Once the installation is completed, check the package can be loaded by</para>
+<para>.. prompt:: bash <verbatim>cd ..  # do not load imate in the same directory of the source code
+python -c &quot;import imate; imate.info()&quot;
+</verbatim> The output to the above command should be similar to the following:</para>
+<para>.. code-block:: text <verbatim>imate version   : 0.15.0
+processor       : Intel(R) Xeon(R) CPU E5-2623 v3 @ 3.00GHz
+num threads     : 8
+gpu device      : GeForce GTX 1080 Ti
+num gpu devices : 4
+cuda version    : 11.2.0
+process memory  : 61.4 (Mb)
+</verbatim> .. attention:: <verbatim>Do not load imate if your current working directory is the root directory of the source code of |project|, since python cannot load the installed package properly. Always change the current direcotry to somewhere else (for example, ``cd ..`` as shown in the above).
+</verbatim> .. _clean-files:</para>
+<para>.. rubric:: Cleaning Compilation Files</para>
+<para>If you set <computeroutput>CYTHON_BUILD_IN_SOURCE</computeroutput> or <computeroutput>CYTHON_BUILD_FOR_DOC</computeroutput> to <computeroutput>1</computeroutput>, the output files of Cython&apos;s compiler will be generated inside the source code directories. To clean the source code from these files (<computeroutput>optional</computeroutput>), run the following:</para>
+<para>.. prompt:: bash <verbatim>python setup.py clean
+</verbatim> </para>
+</sect2>
+</sect1>
+    </detaileddescription>
+    <location file="README.md"/>
+  </compounddef>
+</doxygen>

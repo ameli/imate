@@ -87,6 +87,8 @@
 /// \sa            cu_golub_kahn_bidiagonalizaton,
 ///                cu_lanczos_bidiagonalization
 ///
+/// \param[in]     cublas_handle
+///                The cuBLAS object handle.
 /// \param[in]     V
 ///                1D coalesced array of vectors representing a 2D array. The
 ///                length of this 1D array is \c vector_size*num_vectors, which
@@ -95,7 +97,7 @@
 /// \param[in]     vector_size
 ///                The length of each vector. If we assume \c V indicates a 2D
 ///                vector, this is the number of rows of \c V.
-/// \param[in]     num_vector
+/// \param[in]     num_vectors
 ///                The number of column vectors. If we assume \c V indicates a
 ///                2D vector, this the number of columns of \c V.
 /// \param[in]     last_vector
@@ -109,7 +111,7 @@
 ///                vector is given by \c last_vector. This index is a number
 ///                between \c 0 and \c num_vectors-1. The index of the last
 ///                i-th vector is winding back from the last vector by
-///                $last_vector-i+1 \mod num_vectors$.
+///                <tt>last_vector-i+1 mod num_vectors</tt>.
 /// \param[in]     num_ortho
 ///                The number of vectors to be orthogonalized starting from the
 ///                last vector. \c 0 indicates no orthogonalization will be
@@ -256,6 +258,8 @@ void cuOrthogonalization<DataType>::gram_schmidt_process(
 ///                orthogonalization fails since not all vectors are
 ///                independent, and at least one vector becomes zero.
 ///
+/// \param[in]     cublas_handle
+///                The cuBLAS object handle.
 /// \param[in,out] vectors
 ///                2D array of size \c vector_size*num_vectors. This array will
 ///                be modified in-place and will be output of this function.

@@ -7,7 +7,7 @@
 
 |project|, short for **I**\ mplicit **Ma**\ trix **T**\ race **E**\ stimator, is a C++/CUDA library that provides high-performance randomized algorithms for the computationally expensive matrix functions in machine learning in Python.
 
-To learn more about |project| at a glance, see :ref:`Overview <overview>`.
+To learn more about |project| functionality, see :ref:`Overview <overview>`.
 
 .. grid:: 4
 
@@ -265,11 +265,14 @@ Technical Notes
 
 |tokei-2| |languages|
 
-|project| was implemented mainly in C++, CUDA, Cython, and Python. Some notable implementation techniques used to develop |project| are:
+The core of |project| is implemented in C++ and NVIDIA CUDA, which is standalone modular library for high-performance low-level algebraic operations on linear operators (including matrices and affine matrix functions). This library provides a unified interface for computations on both CPU and GPU, unified interface for dense and sparse matrices, unified container for various data types, and fully automatic memory management and data transfer between CPU and GPU devices on demand. This library can be employed independently for projects other than |project|. The doxygen generated reference of `C++/CUDA Classes Hierarchy and Namespaces <../doxygen/html/annotated.html>`_ is available for developers.
+
+The front-end interface of |project| is implemented in Cython and Python (see :ref:`API Reference <api>` for end-users).
+
+Some notable implementation techniques used to develop |project| are:
 
 * Polymorphic and curiously recurring template pattern programming (CRTP).
 * Implemented customized `dynamic loading` of CUDA libraries.
-* Wrapped C++ and CUDA libraries with Python using Cython.
 * Provides `manylinux` wheels on customized docker images with CUDA support for `CUDA 10 <https://hub.docker.com/repository/docker/sameli/manylinux2014_x86_64_cuda_10>`_ and `CUDA 11 <https://hub.docker.com/repository/docker/sameli/manylinux2014_x86_64_cuda_11>`_.
 * Provides `docker image <https://hub.docker.com/repository/docker/sameli/imate>`_ with pre-installed CUDA and imate package.
 

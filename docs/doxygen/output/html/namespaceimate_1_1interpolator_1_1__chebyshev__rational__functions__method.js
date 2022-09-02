@@ -1,0 +1,4 @@
+var namespaceimate_1_1interpolator_1_1__chebyshev__rational__functions__method =
+[
+    [ "ChebyshevRationalFunctionsMethod", "classimate_1_1interpolator_1_1__chebyshev__rational__functions__method_1_1ChebyshevRationalFunctionsMethod.html", "classimate_1_1interpolator_1_1__chebyshev__rational__functions__method_1_1ChebyshevRationalFunctionsMethod" ]
+];

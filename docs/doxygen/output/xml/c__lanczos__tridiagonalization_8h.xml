@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="c__lanczos__tridiagonalization_8h" kind="file" language="C++">
+    <compoundname>c_lanczos_tridiagonalization.h</compoundname>
+    <includes refid="c__linear__operator_8h" local="yes">../_c_linear_operator/c_linear_operator.h</includes>
+    <includes refid="types_8h" local="yes">../_definitions/types.h</includes>
+    <includedby refid="c__lanczos__tridiagonalization_8cpp" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_lanczos_tridiagonalization.cpp</includedby>
+    <includedby refid="c__trace__estimator_8cpp" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_trace_estimator.cpp</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>../_c_linear_operator/c_linear_operator.h</label>
+        <link refid="c__linear__operator_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_lanczos_tridiagonalization.h</label>
+        <link refid="c__lanczos__tridiagonalization_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>./definitions.h</label>
+        <link refid="definitions_8h"/>
+      </node>
+      <node id="3">
+        <label>../_definitions/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_lanczos_tridiagonalization.h</label>
+        <link refid="c__lanczos__tridiagonalization_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_trace_estimator.cpp</label>
+        <link refid="c__trace__estimator_8cpp"/>
+      </node>
+      <node id="2">
+        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_lanczos_tridiagonalization.cpp</label>
+        <link refid="c__lanczos__tridiagonalization_8cpp"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="c__lanczos__tridiagonalization_8h_1a88831f1a1ba564b198f446a7c8a8d5ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename DataType</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref></type>
+        <definition>IndexType c_lanczos_tridiagonalization</definition>
+        <argsstring>(cLinearOperator&lt; DataType &gt; *A, const DataType *v, const LongIndexType n, const IndexType m, const DataType lanczos_tol, const FlagType orthogonalize, DataType *alpha, DataType *beta)</argsstring>
+        <name>c_lanczos_tridiagonalization</name>
+        <param>
+          <type><ref refid="classcLinearOperator" kindref="compound">cLinearOperator</ref>&lt; DataType &gt; *</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref></type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>lanczos_tol</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>orthogonalize</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>beta</declname>
+        </param>
+        <briefdescription>
+<para>Tri-diagonalizes matrix <computeroutput>A</computeroutput> to <computeroutput>T</computeroutput> using the start vector <computeroutput>v</computeroutput>. <computeroutput>is</computeroutput> the Lanczos degree, which will be the size of square matrix <computeroutput>T</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The output of this function is not an explicit matrix <computeroutput>T</computeroutput>, rather are the two arrays <computeroutput>alpha</computeroutput> of length <computeroutput>m</computeroutput> and <computeroutput>beta</computeroutput> of length <computeroutput>m+1</computeroutput>. The array <computeroutput>alpha</computeroutput>[:] represents the diagonal elements and <computeroutput>beta</computeroutput>[1:] represents the off-diagonal elements of the tri-diagonal <computeroutput></computeroutput>(m,m) symmetric and positive-definite matrix <computeroutput>T</computeroutput>.</para>
+<sect4 id="c__lanczos__tridiagonalization_8h_1autotoc_md2">
+<title>Lanczos tridiagonalization vs Golub-Kahn bidiagonalization</title>
+<para><itemizedlist>
+<listitem><para>The Lanczos tri-diagonalization is twice faster (in runtime), as it has only one matrix-vector multiplication. Whereas the Golub-Kahn bi-diagonalization has two matrix-vector multiplications.</para>
+</listitem><listitem><para>The Lanczos tri-diagonalization can only be applied to symmetric matrices. Whereas the Golub-Kahn bi-diagonalization can be applied to any matrix.</para>
+</listitem></itemizedlist>
+</para>
+</sect4>
+<sect4 id="c__lanczos__tridiagonalization_8h_1autotoc_md3">
+<title>Algorithm</title>
+<para>The algorithm and notations are obtained from [DEMMEL], p. 57, Algorithm 4.6 (see also [SAAD] p. 137, Algorithm 6.5). However there are four ways to implement the iteration. [PAIGE]_ has shown that the iteration that is implemented below is the most stable against loosing orthogonality of the eigenvectors. For details, see [CULLUM]_ p. 46, and p.48, particularly the algorithm denoted by A(2,7). The differences of these implementations are the order in which <formula id="29">$ \alpha_j $</formula> and <formula id="30">$ \beta_j $</formula> are defined and the order in which vectors are subtracted from <computeroutput>r</computeroutput> .</para>
+</sect4>
+<sect4 id="c__lanczos__tridiagonalization_8h_1autotoc_md4">
+<title>References</title>
+<para><itemizedlist>
+<listitem><para>[DEMMEL] Demmel, J., Templates for solution of Algebraic Eigenvalue Problems, p. 57.</para>
+</listitem><listitem><para>[SAAD] Saad, Numerical Methods for Large Eigenvalue Problems, p. 137.</para>
+</listitem><listitem><para>[PAIGE] Paige (1980) Accuracy and effectiveness of the Lanczos algorithm for the symmetric eigenproblem.</para>
+</listitem><listitem><para>[CULLUM] Cullum; Willoughby. Lanczos Algorithms for Large Symmetric Eigenvalue Computations. 1. pp.46-48.</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">A</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A linear operator that represents a matrix of size <computeroutput></computeroutput>(n,n) and can perform matrix-vector operation with <computeroutput>dot()</computeroutput> method. This matrix should be positive-definite. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Start vector for the Lanczos tri-diagonalization. Column vector of size c n. It could be generated randomly. Often it is generated by the Rademacher distribution with entries c +1 and <computeroutput>-1</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the square matrix <computeroutput>A</computeroutput>, which is also the size of the vector <computeroutput>v</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lanczos degree, which is the number of Lanczos iterations. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">lanczos_tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The tolerance of the residual error of the Lanczos iteration. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">orthogonalize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates whether to orthogonalize the orthogonal eigenvectors during Lanczos recursive iterations.<itemizedlist>
+<listitem><para>If set to <computeroutput>0</computeroutput>, no orthogonalization is performed.</para>
+</listitem><listitem><para>If set to a negative integer, a newly computed eigenvector is orthogonalized against all the previous eigenvectors (full reorthogonalization).</para>
+</listitem><listitem><para>If set to a positive integer, say <computeroutput>q</computeroutput> less than <computeroutput>lanczos_degree</computeroutput>, the newly computed eigenvector is orthogonalized against the last <computeroutput>q</computeroutput> previous eigenvectors (partial reorthogonalization).</para>
+</listitem><listitem><para>If set to an integer larger than <computeroutput>lanczos_degree</computeroutput>, it is cut to <computeroutput>lanczos_degree</computeroutput>, which effectively orthogonalizes against all previous eigenvectors (full reorthogonalization). </para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>This is a 1D array of size <computeroutput>m</computeroutput>. The array <computeroutput>alpha</computeroutput>[:] constitute the diagonal elements of the tri-diagonal matrix <computeroutput>T</computeroutput>. This is the output and written in place. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">beta</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>This is a 1D array of size <computeroutput>m</computeroutput>. The array <computeroutput>beta</computeroutput>[:] constitute the off-diagonals of the tri-diagonal matrix <computeroutput>T</computeroutput>. This array is the output and written in place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Counter for the Lanczos iterations. Normally, the size of the output matrix should be <computeroutput></computeroutput>(m,m), which is the Lanczos degree. However, if the algorithm terminates early, the size of <computeroutput>alpha</computeroutput> and <computeroutput>beta</computeroutput>, and hence the output tri-diagonal matrix, is smaller. This counter keeps track of the <emphasis>non-zero</emphasis> size of <computeroutput>alpha</computeroutput> and <computeroutput>beta</computeroutput>. </para>
+</simplesect>
+</para>
+</sect4>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_lanczos_tridiagonalization.h" line="29" column="11" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_lanczos_tridiagonalization.cpp" bodystart="117" bodyend="236" declfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_lanczos_tridiagonalization.h" declline="29" declcolumn="11"/>
+        <references refid="classcVectorOperations_1a6627fe95659faa224dca2af1dab1fab3" compoundref="c__vector__operations_8cpp" startline="81" endline="107">cVectorOperations&lt; DataType &gt;::copy_scaled_vector</references>
+        <references refid="classcVectorOperations_1a492894cdc368a4f60b28aa15109cf9bc" compoundref="c__vector__operations_8cpp" startline="39" endline="62">cVectorOperations&lt; DataType &gt;::copy_vector</references>
+        <references refid="classcLinearOperator_1a48c76860a74f00fefaa1297368d17a77">cLinearOperator&lt; DataType &gt;::dot</references>
+        <references refid="classcVectorOperations_1abd0d2c941f9d3598f42026755cbc4709" compoundref="c__vector__operations_8cpp" startline="281" endline="321">cVectorOperations&lt; DataType &gt;::euclidean_norm</references>
+        <references refid="classcOrthogonalization_1a1b1bcbb636f1a1608ce7a22d4538b3b3" compoundref="c__orthogonalization_8cpp" startline="125" endline="224">cOrthogonalization&lt; DataType &gt;::gram_schmidt_process</references>
+        <references refid="classcVectorOperations_1ab8b945baba573b4479e8095ca87f8b3f" compoundref="c__vector__operations_8cpp" startline="204" endline="244">cVectorOperations&lt; DataType &gt;::inner_product</references>
+        <references refid="classcVectorOperations_1a9bd28bd08f5a6b096d99a4a2f7d23e90" compoundref="c__vector__operations_8cpp" startline="135" endline="166">cVectorOperations&lt; DataType &gt;::subtract_scaled_vector</references>
+        <referencedby refid="classcTraceEstimator_1a02afa505a915c58380b99a62e4d56b30" compoundref="c__trace__estimator_8cpp" startline="401" endline="644">cTraceEstimator&lt; DataType &gt;::_c_stochastic_lanczos_quadrature</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-FileCopyrightText:<sp/>Copyright<sp/>2021,<sp/>Siavash<sp/>Ameli<sp/>&lt;sameli@berkeley.edu&gt;</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-License-Identifier:<sp/>BSD-3-Clause</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-FileType:<sp/>SOURCE</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/>This<sp/>program<sp/>is<sp/>free<sp/>software:<sp/>you<sp/>can<sp/>redistribute<sp/>it<sp/>and/or<sp/>modify<sp/>it</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/><sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>license<sp/>found<sp/>in<sp/>the<sp/>LICENSE.txt<sp/>file<sp/>in<sp/>the<sp/>root</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/><sp/>directory<sp/>of<sp/>this<sp/>source<sp/>tree.</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_C_TRACE_ESTIMATOR_C_LANCZOS_TRIDIAGONALIZATION_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>_C_TRACE_ESTIMATOR_C_LANCZOS_TRIDIAGONALIZATION_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Headers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../_c_linear_operator/c_linear_operator.h&quot;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>cLinearOperator</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../_definitions/types.h&quot;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>IndexType,<sp/>LongIndexType,<sp/>FlagType</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/>============</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Declarations</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/>============</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//<sp/>lanczos<sp/>tridiagonalization</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>DataType&gt;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref><sp/><ref refid="c__lanczos__tridiagonalization_8h_1a88831f1a1ba564b198f446a7c8a8d5ef" kindref="member">c_lanczos_tridiagonalization</ref>(</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcLinearOperator" kindref="compound">cLinearOperator&lt;DataType&gt;</ref>*<sp/>A,</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>DataType*<sp/>v,</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref><sp/>n,</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref><sp/>m,</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>DataType<sp/>lanczos_tol,</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref><sp/>orthogonalize,</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataType*<sp/>alpha,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataType*<sp/>beta);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>_C_TRACE_ESTIMATOR_C_LANCZOS_TRIDIAGONALIZATION_H_</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_lanczos_tridiagonalization.h"/>
+  </compounddef>
+</doxygen>

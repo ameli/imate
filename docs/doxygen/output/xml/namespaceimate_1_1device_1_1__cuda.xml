@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespaceimate_1_1device_1_1__cuda" kind="namespace" language="Python">
+    <compoundname>imate::device::_cuda</compoundname>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespaceimate_1_1device_1_1__cuda_1a44ff23fa2ff6211db560a9351e0e9efb" prot="private" static="no" mutable="no">
+        <type>list</type>
+        <definition>list imate::device::_cuda.__all__</definition>
+        <argsstring></argsstring>
+        <name>__all__</name>
+        <initializer>=  [&apos;<ref refid="namespaceimate_1_1device_1_1__cuda_1ae83b14fb4d618639ff75a167ae57f127" kindref="member">locate_cuda</ref>&apos;]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/device/_cuda.py" line="21" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/device/_cuda.py" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceimate_1_1device_1_1__cuda_1ae61ca6be1e23267d51f9fbba475fca06" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.device._cuda._find_in_path</definition>
+        <argsstring>(executable_name, path)</argsstring>
+        <name>_find_in_path</name>
+        <param>
+          <type>executable_name</type>
+          <defname>executable_name</defname>
+        </param>
+        <param>
+          <type>path</type>
+          <defname>path</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Recursively searches the executable ``executable_name`` in all of the
+directories in the given path, and returns the full path of the executable
+once its first occurrence is found.. If no executable is found, ``None`` is
+returned. This is used to find CUDA&apos;s directories.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/device/_cuda.py" line="28" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/device/_cuda.py" bodystart="28" bodyend="46"/>
+        <referencedby refid="namespaceimate_1_1device_1_1__cuda_1ae83b14fb4d618639ff75a167ae57f127" compoundref="__cuda_8py" startline="47" endline="251">imate.device._cuda.locate_cuda</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespaceimate_1_1device_1_1__cuda_1ae83b14fb4d618639ff75a167ae57f127" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.device._cuda.locate_cuda</definition>
+        <argsstring>()</argsstring>
+        <name>locate_cuda</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Returns the directory paths and version of CUDA Toolkit installation.
+
+.. note::
+
+    Either of the environment variables ``CUDA_HOME``, ``CUDA_ROOT``, or
+    ``CUDA_PATH`` should be set with the home directory of the CUDA
+    Toolkit installation before calling this function.
+
+Returns
+-------
+
+cuda : dict
+    A dictionary with the following keys:
+
+    * ``home``: `str`, home directory of CUDA.
+    * ``nvcc``: `str`, the path to ``nvcc`` compiler file.
+    * ``lib``: `str`, the path to the library directory of CUDA.
+    * ``include``: `str`, the path to the directory of header files.
+    * ``version``: `dict`, the version of CUDA Toolkit with the following
+      keys:
+
+        * ``major``: `int`, the major number of version
+        * ``minor``: `int`, the minor number of version
+        * ``parth``: `int`, the patch number of version
+
+    If no CUDA Toolkit is found, it returns an empty dictionary ``{}``.
+
+Raises
+------
+
+EnvironmentError
+    Raised if in the home directory of the CUDA Toolkit, the expected
+    sub-directories cannot be found.
+
+See Also
+--------
+
+imate.info
+imate.device.get_nvidia_driver_version
+
+Notes
+-----
+
+**Setting Environment Variables:**
+
+In order to find CUDA Toolkit information properly, either of the
+environment variables ``CUDA_HOME``, ``CUDA_ROOT``, or ``CUDA_PATH`` should
+be set to the directory where CUDA Toolkit is installed. Usually on UNIX
+operating systems, this path is ``/usr/local/cuda``. In this case, set
+``CUDA_HOME`` (or any of the other variables mentioned in the above) as
+follows:
+
+::
+
+    export CUDA_HOME=/usr/local/cuda
+
+To permanently set this variable, place the above line in ``profile`` file,
+such as in ``~/.bashrc``, or ``~/.profile``, and source this file, for
+instance by
+
+::
+
+    source ~/.bashrc
+
+.. note::
+
+    It is possible that the CUDA Toolkit is installed on the machine, but
+    ``cuda_version`` key shows `not found`. This is because the user did
+    not set the environment variables mentioned in the above.
+
+**Expected Directory Structure:**
+
+This function looks for the executable ``nvcc`` (or ``nvcc.exe`` if
+windows) in the directory specified by ``CUDA_HOME``, ``CUDA_ROOT`` or
+``CUDA_PATH`` environment variables. If ``nvcc`` executable is found, it
+continues searching for the directory structure as described below.
+
+The expected sub-directories under the CUDA home directory should have the
+following structure:
+
+* ``/bin`` with the executable ``/bin/nvcc`` (or ``/bin/nvcc.exe`` in
+  Windows)
+* ``/include`` with the file ``/include/cuda.h``
+* ``/lib`` or ``lib64`` in UNIX, and ``lib/x86`` or ``lib/x64`` in Windows.
+
+Examples
+--------
+
+Suppose the CUDA Toolkit is installed in ``/usr/local/cuda``. First, in a
+Shell environment, export the variable
+
+.. code-block:: bash
+
+    export CUDA_HOME=/usr/local/cuda
+
+Then in Python script, obtain info about the CUDA paths and version using:
+
+.. code-block:: python
+    :emphasize-lines: 3
+
+    &gt;&gt;&gt; # Import function
+    &gt;&gt;&gt; from imate.device import locate_cuda
+    &gt;&gt;&gt; cuda = locate_cuda()
+
+    &gt;&gt;&gt; # Neatly print the dictionary using pprint
+    &gt;&gt;&gt; from pprint import pprint
+    &gt;&gt;&gt; pprint(cuda)
+    {
+        &apos;home&apos;: &apos;/usr/local/cuda/11.7&apos;,
+        &apos;include&apos;: &apos;/usr/local/cuda/11.7/include&apos;,
+        &apos;lib&apos;: &apos;/usr/local/cuda/11.7/lib64&apos;,
+        &apos;nvcc&apos;: &apos;/usr/local/cuda/11.7/bin/nvcc&apos;,
+        &apos;version&apos;:
+        {
+            &apos;major&apos;: 11,
+            &apos;minor&apos;: 7,
+            &apos;patch&apos;: 0
+        }
+    }
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/device/_cuda.py" line="47" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/device/_cuda.py" bodystart="47" bodyend="251"/>
+        <references refid="namespaceimate_1_1device_1_1__cuda_1ae61ca6be1e23267d51f9fbba475fca06" compoundref="__cuda_8py" startline="28" endline="46">imate.device._cuda._find_in_path</references>
+        <references refid="namespaceimate_1_1device_1_1__cuda_1a89b9b97f60bb379872c50de29c07279e" compoundref="__cuda_8py" startline="252" endline="336">imate.device._cuda._get_cuda_version</references>
+        <referencedby refid="namespaceimate_1_1device_1_1__info_1a735794b84c8257928e00c262feebd599" compoundref="__info_8py" startline="27" endline="208">imate.device._info.info</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespaceimate_1_1device_1_1__cuda_1a89b9b97f60bb379872c50de29c07279e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.device._cuda._get_cuda_version</definition>
+        <argsstring>(cuda_home)</argsstring>
+        <name>_get_cuda_version</name>
+        <param>
+          <type>cuda_home</type>
+          <defname>cuda_home</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Gets the version of CUDA library.
+
+:param cuda_home: The CUDA home paths.
+:type cuda_home: str
+
+:return: A dictionary with version info containing the keys &apos;major&apos;,
+    &apos;minor&apos;, and &apos;patch&apos;.
+:rtype: dict
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/device/_cuda.py" line="252" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/device/_cuda.py" bodystart="252" bodyend="336"/>
+        <referencedby refid="namespaceimate_1_1device_1_1__cuda_1ae83b14fb4d618639ff75a167ae57f127" compoundref="__cuda_8py" startline="47" endline="251">imate.device._cuda.locate_cuda</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/device/_cuda.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

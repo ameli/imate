@@ -29,34 +29,7 @@ def schatten(
         method='cholesky',
         **options):
     """
-    Log-determinant of non-singular matrix or linear operator.
-
-    Given the matrix or the linear operator :math:`\\mathbf{A}` and the real
-    exponent :math:`p`, the following is computed:
-
-    .. math::
-
-        \\mathrm{logdet} \\left(\\mathbf{A}^p \\right) = p \\log_e \\vert
-        \\det (\\mathbf{A}) \\vert.
-
-    If ``gram`` is `True`, then :math:`\\mathbf{A}` in the above is replaced by
-    the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`, and the
-    following is instead computed:
-
-    .. math::
-
-        \\mathrm{logdet} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^p
-        \\right) = 2p \\log_e \\vert \\det (\\mathbf{A}) \\vert.
-
-    If :math:`\\mathbf{A} = \\mathbf{A}(t)` is a linear operator of the class
-    :class:`imate.AffineMatrixFunction` with the parameter :math:`t`, then for
-    an input  tuple :math:`t = (t_1, \\dots, t_q)`, an array output of the size
-    :math:`q` is returned, namely:
-
-    .. math::
-
-        \\mathrm{logdet} \\left((\\mathbf{A}(t_i))^p \\right),
-        \\quad i=1, \\dots, q.
+    Schatten `p`-norm and p-anti-norm of matrix.
 
     Parameters
     ----------
@@ -65,18 +38,20 @@ def schatten(
             :class:`imate.AffineMatrixFunction`
         A non-singular sparse or dense matrix or linear operator. The linear
         operators :class:`imate.Matrix` and :class:`imate.AffineMatrixFunction`
-        can be used only if ``method=slq``. See details in
-        :ref:`slq method <imate.logdet.slq>`. If ``method=cholesky``, the
-        matrix `A` should be positive-definite.
+        can be used only if ``method=slq``. If ``method=cholesky``, the
+        matrix `A` should be positive-definite. If ``method=slq`` and
+        ``gram=False``, the input matrix `A` should be symmetric.
 
     gram : bool, default=False
-        If `True`, the log-determinant of the Gramian matrix,
-        :math:`(\\mathbf{A}^{\\intercal}\\mathbf{A})^p`, is computed. The
-        Gramian matrix itself is not directly computed. If `False`, the
-        log-determinant of :math:`\\mathbf{A}^p` is computed.
+        If `False`, this function computes the Schatten norm
+        :math:`\\Vert \\mathbf{A} \\Vert_p`. If `True`, it computes the
+        Schatten norm of the Gramian matrix, namely,
+        :math:`\\Vert \\mathbf{A}^{\\intercal} \\mathbf{A} \\Vert_p`.
 
-    p : float, default=1.0
-        The exponent :math:`p` in :math:`\\mathbf{A}^p`.
+    p : float, default=2.0
+        The real order :math:`p` in :math:`\\Vert \\mathbf{A} \\Vert_p`. If
+        :math:`p>0`, the output is the Schatten norm and if :math:`p<0`, the
+        output is the Schatten anti-norm.
 
     return_info : bool, default=False
         If `True`, this function also returns a dictionary containing
@@ -84,23 +59,45 @@ def schatten(
         algorithm settings, etc. See the documentation for each `method` for
         details.
 
-    method : {'eigenvalue', 'cholesky', 'slq'}, default='cholesky'
-        The method of computing log-determinant. See documentation for each
-        method:
+    method : {'exact', 'eigenvalue', 'cholesky', 'hutchinson', 'slq'}, \
+            default='exact'
+        The method of computing Schatten norm. Note that
 
-        * :ref:`eigenvalue <imate.logdet.eigenvalue>`
-        * :ref:`cholesky <imate.logdet.cholesky>`
-        * :ref:`slq <imate.logdet.slq>`
+        * ``exact`` is only available for :math:`p>0` 
+        * ``cholesky`` is only available for :math:`p \\leq 0`.
+        * ``hutchinson`` is only available for :math:`p < 0`.
 
     options : `**kwargs`
-        Extra arguments that are specific to each method. See the documentation
-        for each `method` for details.
+        Extra arguments that are specific to each method and :math:`p`.
+        Depending on the sign of :math:`p`, the options of this function is
+        passed to the following functions:
+
+        * If :math:`p > 0`, see options for :func:`imate.trace`. In particular:
+
+          * :ref:`imate.trace.exact`
+          * :ref:`imate.trace.eigenvalue`
+          * :ref:`imate.trace.slq`
+
+        * If :math:`p = 0`, see options for :func:`imate.logdet`. In
+          particular:
+
+          * :ref:`imate.logdet.eigenvalue`
+          * :ref:`imate.logdet.cholesky`
+          * :ref:`imate.logdet.slq`
+
+        * If :math:`p < 0`, see options for :func:`imate.traceinv`. In
+          particular:
+
+          * :ref:`imate.traceinv.eigenvalue`
+          * :ref:`imate.traceinv.cholesky`
+          * :ref:`imate.traceinv.hutchinson`
+          * :ref:`imate.traceinv.slq`
 
     Returns
     -------
 
-    logdet : float or numpy.array
-        Log-determinant of `A`. If ``method=slq`` and if `A` is of type
+    norm : float or numpy.array
+        Schatten norm of matrix. If ``method=slq`` and if `A` is of type
         :class:`imate.AffineMatrixFunction` with an array of ``parameters``,
         then the output is an array.
 
@@ -114,7 +111,7 @@ def schatten(
               the matrix data.
             * ``gram``: `bool`, whether the matrix `A` or its Gramian is
               considered.
-            * ``exponent``: `float`, the exponent `p` in :math:`\\mathbf{A}^p`.
+            * ``exponent``: `float`, the order `p` of the norm.
             * ``size``: `int`, The size of matrix `A`.
             * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
             * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
@@ -122,13 +119,8 @@ def schatten(
             * ``density``: `float`, if `A` is sparse, the density of `A`, which
               is the `nnz` divided by size squared.
             * ``num_inquiries``: `int`, The size of inquiries of each parameter
-              of the linear operator `A`. if `A` is a matrix, this is always
+              of the linear operator `A`. If `A` is a matrix, this is always
               `1`. For more details see :ref:`slq method <imate.logdet.slq>`.
-            * ``num_operator_parameters``: `int`, number of parameters of the
-              operator `A`. For more details, see
-              :ref:`slq method <imate.logdet.slq>`.
-            * ``parameters``: `list` [`float`], the parameters of the linear
-              operator `A`.
 
         * ``device``:
             * ``num_cpu_threads``: `int`, number of CPU threads used in shared
@@ -149,7 +141,7 @@ def schatten(
         * ``solver``:
             * ``version``: `str`, version of imate.
             * ``method``: `str`, method of computation.
-
+        
     Raises
     ------
 
@@ -167,84 +159,109 @@ def schatten(
 
     imate.trace
     imate.traceinv
-    imate.schatten
+    imate.logdet
+    imate.sample_matrices.toeplitz_schatten
 
     Notes
     -----
 
-    **Method of Computation:**
+    **Definition of the Norm:**
 
-    See documentation for each method below.
+    This function defines the Schatten :math:`p`-norm of matrix
+    :math:`\\mathbf{A}` as
 
-    * :ref:`eigenvalue <imate.logdet.eigenvalue>`: uses spectral decomposition.
-      Suitable for small matrices (:math:`n < 2^{12}`). The solution is exact.
-    * :ref:`cholesky <imate.logdet.cholesky>`: uses Cholesky decomposition.
-      Suitable for moderate-size matrices (:math:`n < 2^{15}`). Can only be
-      applied to positive-definite matrices. The solution is exact.
-    * :ref:`slq <imate.logdet.slq>`: uses stochastic Lanczos quadrature (SLQ),
-      which is a randomized algorithm. Can be used on very large matrices
-      (:math:`n > 2^{12}`). The solution is an approximation.
+    .. math::
+        :label: schatten-eq-2
 
-    **Input Matrix:**
+        \\Vert \\mathbf{A} \\Vert_p =
+        \\begin{cases}
+            \\left| \\mathrm{det}(\\mathbf{A})
+            \\right|^{\\frac{1}{n}}, & p=0, \\\\
+            \\left| \\frac{1}{n}
+            \\mathrm{trace}(\\mathbf{A}^{\\frac{1}{p}})
+            \\right|^{\\frac{1}{p}}, & p \\neq 0,
+        \\end{cases},
 
-    The input `A` can be either of:
-
-    * A matrix, such as `numpy.ndarray`, or `scipy.sparse`.
-    * A linear operator representing a matrix using :class:`imate.Matrix` (
-      only if ``method=slq``).
-    * A linear operator representing a one-parameter family of an affine matrix
-      function :math:`t \\mapsto \\mathbf{A} + t\\mathbf{B}`, using
-      :class:`imate.AffineMatrixFunction` (only if ``method=slq``).
-
-    **Output:**
-
-    The output is a scalar. However, if `A` is the linear operator of the type
-    :class:`imate.AffineMatrixFunction` representing the matrix function
-    :math:`\\mathbf{A}(t) = \\mathbf{A} + t \\mathbf{B}`, then if the parameter
-    :math:`t` is given as the tuple :math:`t = (t_1, \\dots, t_q)`, then the
-    output of this function is an array of size :math:`q` corresponding to the
-    log-determinant of each :math:`\\mathbf{A}(t_i)`.
+    where :math:`n` is the size of the matrix. When :math:`p \\geq 0`, the
+    above definition is the Schatten **norm**, and when :math:`p < 0`, the
+    above is the Schatten **anti-norm**.
 
     .. note::
 
-        When `A` represents
-        :math:`\\mathbf{A}(t) = \\mathbf{A} + t \\mathbf{I}`, where
-        :math:`\\mathbf{I}` is the identity matrix, and :math:`t` is given by
-        a tuple :math:`t = (t_1, \\dots, t_q)`, by setting ``method=slq``, the
-        computational cost of an array output of size `q` is the same as
-        computing for a single :math:`t_i`. Namely, the log-determinant of only
-        :math:`\\mathbf{A}(t_1)` is computed, and the log-determinant of the
-        rest of :math:`q=2, \\dots, q` are obtained from the result of
-        :math:`t_1` immediately.
+        Conventionally, the Schatten norm is defined without the normalizing
+        factor :math:`\\frac{1}{n}` in :math:numref:`schatten-eq-2`. However,
+        this factor is justified by the continuity granted by
+
+        .. math::
+            :label: schatten-continuous
+
+            \\lim_{p \\to 0} \\Vert \\mathbf{A} \\Vert_p =
+            \\Vert \\mathbf{A} \\Vert_0.
+
+        See [1]_ (Section 2) for details and the example below.
+
+    **Method and Options Arguments:**
+
+    The :func:`imate.schatten` calls the following functions:
+
+    * If :math:`p > 0`, the computation is passed to :func:`imate.trace`
+      function.
+    * If :math:`p = 0`, the computation is passed to :func:`imate.logdet`
+      function.
+    * If :math:`p < 0`, the computation is passed to :func:`imate.traceinv`
+      function.
+
+    The ``method`` and ``**options`` arguments to this functions are then
+    passed to the above functions directly. Hence, depending on the sign of
+    :math:`p`, see usage of the arguments in the documentation of the above
+    functions.
+
+    References
+    ----------
+
+    .. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant
+           and Trace of the Powers of Matrix :math:`\mathbf{A} + t \mathbf{B}`.
+           `arXiv: 2009.07385 <https://arxiv.org/abs/2207.08038>`_ [math.NA].
 
     Examples
     --------
 
-    **Sparse matrix:**
+    **Basic Usage:**
 
-    Compute the log-determinant of a sample sparse Toeplitz matrix created by
-    :func:`imate.toeplitz` function.
+    Compute Schatten norm for various orders :math:`p`:
 
     .. code-block:: python
 
         >>> # Import packages
-        >>> from imate import toeplitz, logdet
+        >>> from imate import schatten
+        >>> from imate.sample_matrices import correlation_matrix
 
-        >>> # Generate a sample matrix (a toeplitz matrix)
-        >>> A = toeplitz(2, 1, size=100)
+        >>> # Generate a sample matrix
+        >>> A = correlation_matrix(size=1000)
 
-        >>> # Compute log-determinant with Cholesky method (default method)
-        >>> logdet(A)
-        138.6294361119891
+        >>> # Compute Schatten 2-norm using the exact method
+        >>> schatten(A)
+        9.742355891729794
 
-    Alternatively, compute the log-determinant of
-    :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`:
+        >>> # Compute Schatten 2-norm of the Gramian of A
+        >>> schatten(A, gram=True)
+        1459.9826900202575
 
-    .. code-block:: python
+        >>> # Compute Schatten 0-norm
+        >>> schatten(A, p=0, method='cholesky')
+        0.019898820919266435
 
-        >>> # Compute log-determinant of the Gramian of A^3:
-        >>> logdet(A, p=3, gram=True)
-        831.7766166719346
+        >>> # Compute Schatten 2-anti-norm
+        >>> schatten(A, p=-2, method='cholesky')
+        0.008178429155178678
+
+    **Verbose output:**
+
+    By setting ``verbose`` to `True`, useful info about the process is
+    printed.
+
+    .. literalinclude:: ../_static/data/imate.schatten-verbose.txt
+        :language: python
 
     **Output information:**
 
@@ -252,137 +269,153 @@ def schatten(
 
     .. code-block:: python
 
-        >>> ld, info = logdet(A, return_info=True)
-        >>> print(ld)
-        138.6294361119891
+        >>> norm, info = schatten(A, method='slq', return_info=true)
+        >>> print(norm)
+        9.873304126858432
 
         >>> # Print dictionary neatly using pprint
         >>> from pprint import pprint
         >>> pprint(info)
         {
+            'matrix': {
+                'data_type': b'float64',
+                'density': 1.0,
+                'exponent': 2,
+                'gram': False,
+                'nnz': 1000000,
+                'num_inquiries': 1,
+                'num_operator_parameters': 0,
+                'parameters': None,
+                'size': 1000,
+                'sparse': False
+            },
+            'convergence': {
+                'all_converged': False,
+                'converged': False,
+                'max_num_samples': 50,
+                'min_num_samples': 10,
+                'num_outliers': 1,
+                'num_samples_used': 50,
+                'samples': array([165444.12035971,  ..., 38852.18934236]),
+                'samples_mean': 97482.13438143977,
+                'samples_processed_order': array([ 6, ..., 47])
+            },
+            'error': {
+                'absolute_error': 17071.631543126343,
+                'confidence_level': 0.95,
+                'error_atol': 0.0,
+                'error_rtol': 0.01,
+                'outlier_significance_level': 0.001,
+                'relative_error': 0.17512574638883488
+            },
+            'solver': {
+                'lanczos_degree': 20,
+                'lanczos_tol': 2.220446049250313e-16,
+                'method': 'slq',
+                'orthogonalize': 0,
+                'version': '0.16.0'
+            },
             'device': {
-                'num_cpu_threads': 8,
+                'num_cpu_threads': 4,
                 'num_gpu_devices': 0,
                 'num_gpu_multiprocessors': 0,
                 'num_gpu_threads_per_multiprocessor': 0
             },
-            'matrix': {
-                'data_type': b'float64',
-                'density': 0.0298,
-                'exponent': 1.0,
-                'gram': False,
-                'nnz': 298,
-                'num_inquiries': 1,
-                'size': 100,
-                'sparse': True
-            },
-            'solver': {
-                'cholmod_used': True,
-                'method': 'cholesky',
-                'version': '0.13.0'
-            },
             'time': {
-                'alg_wall_time': 0.000903537031263113,
-                'cpu_proc_time': 0.0010093420000032438,
-                'tot_wall_time': 0.000903537031263113
+                'alg_wall_time': 0.4813501834869385,
+                  'cpu_proc_time': 1.4557350500000004,
+                  'tot_wall_time': 0.48481535189785063
             }
         }
 
-    **Large matrix:**
+    **Large Matrix:**
 
-    Compute log-determinant of a very large sparse matrix using `slq` method.
-    This method does not compute log-determinant exactly, rather, the result is
-    an approximation using Monte-Carlo sampling. The following example uses at
-    least `100` samples.
+    Compute Schatten of a large sparse matrix using `SLQ` method for
+    :math:`p > 0`. In this case, the computation is passed to
+    :ref:`imate.trace.slq` function. Note that the SLQ method does not compute
+    norm exactly, rather, the result is an approximation using Monte-Carlo
+    sampling. The following example uses at least `100` samples.
+
+    .. note::
+
+        To see options passed to :func:`imate.schatten` for :math:`p > 0` in
+        the example below, see the parameters of :ref:`imate.trace.slq`
+        function. In particular, note that the input matrix `A` should be
+        symmetric as a requirement to the `SLQ` method.
 
     .. code-block:: python
+        :emphasize-lines: 7, 8
 
         >>> # Generate a matrix of size one million
+        >>> from imate import toeplitz
         >>> A = toeplitz(2, 1, size=1000000, gram=True)
 
         >>> # Approximate log-determinant using stochastic Lanczos quadrature
         >>> # with at least 100 Monte-Carlo sampling
-        >>> ld, info = logdet(A, method='slq', min_num_samples=100,
-        ...                   max_num_samples=200, return_info=True)
-        >>> print(ld)
-        1386320.4734751645
+        >>> norm, info = schatten(A, p=2.5, method='slq', min_num_samples=100,
+        ...                       max_num_samples=200, return_info=True)
+        >>> print(norm)
+        4.049580819943461
 
         >>> # Find the time it took to compute the above
         >>> print(info['time'])
         {
-            'tot_wall_time': 16.598053652094677,
-            'alg_wall_time': 16.57977867126465,
-            'cpu_proc_time': 113.03275911399999
+            'tot_wall_time': 16.129820372909307,
+            'alg_wall_time': 16.115617752075195,
+            'cpu_proc_time': 117.41655239300007
         }
 
-    Compare the result of the above approximation with the exact solution of
-    the log-determinant using the analytic relation for Toeplitz matrix. See
-    :func:`imate.sample_matrices.toeplitz_logdet` for details.
+    **Continuity of Norm in Order p:**
+
+    Check the continuity of the Schatten norm over the order :math:`p`. Here,
+    the `eigenvalue` method is used as it can be applied to positive, negative,
+    and zero order :math:`p` among other methods.
 
     .. code-block:: python
+        :emphasize-lines: 20
 
-        >>> from imate.sample_matrices import toeplitz_logdet
-        >>> toeplitz_logdet(2, 1, size=1000000, gram=True)
-        1386294.3611198906
+        >>> # Importing packages
+        >>> import numpy
+        >>> import matplotlib.pyplot as plt
+        >>> import seaborn as sns
+        >>> from imate.sample_matrices import correlation_matrix
+        >>> from imate import schatten
 
-    It can be seen that the error of approximation is :math:`0.0018 \\%`. This
-    accuracy is remarkable considering that the computation on such a large
-    matrix took only a 16 seconds. Computing the log-determinant of such a
-    large matrix using any of the exact methods (such as ``cholesky`` or
-    ``eigenvalue``) is infeasible.
+        >>> # Plot settings (optional)
+        >>> sns.set(font_scale=1.15)
+        >>> sns.set_style("white")
+        >>> sns.set_style("ticks")
 
-    **Matrix operator:**
+        >>> # Generate a sample matrix
+        >>> A = correlation_matrix(size=500)
 
-    The following example uses an object of :class:`imate.Matrix`. Note that
-    this can be only applied to ``method=slq``. See further details in
-    :ref:`slq method <imate.logdet.slq>`.
+        >>> # Compute norm over a range of order p, including p=0
+        >>> p = numpy.linspace(-10, 10, 201)
+        >>> norm = numpy.zeros_like(p)
+        >>> for i in range(p.size):
+        ...     norm[i] = schatten(A, p=p[i], method='eigenvalue')
 
-    .. code-block:: python
-        :emphasize-lines: 8
+        >>> # Norm at p=0
+        >>> norm0 = schatten(A, p=0, method='eigenvalue')
 
-        >>> # Import matrix operator
-        >>> from imate import toeplitz, logdet, Matrix
+        >>> # Plotting
+        >>> plt.semilogy(p, norm, color='black')
+        >>> plt.semilogy(0, norm0, 'o', color='black')  
+        >>> plt.xlim([p[0], p[-1]])
+        >>> plt.ylim([1e-2, 1e2])
+        >>> plt.xlabel('$p$')
+        >>> plt.ylabel('$\\Vert \\mathbf{A} \\Vert_p$')
+        >>> plt.title(r'Schatten Norm')
+        >>> plt.show()
 
-        >>> # Generate a sample matrix (a toeplitz matrix)
-        >>> A = toeplitz(2, 1, size=100, gram=True)
+    .. image:: ../_static/images/plots/schatten_continuous.png
+        :align: center
+        :class: custom-dark
+        :width: 70%
 
-        >>> # Create a matrix operator object from matrix A
-        >>> Aop = Matrix(A)
-
-        >>> # Compute log-determinant of Aop
-        >>> logdet(Aop, method='slq')
-        141.52929878934194
-
-    **Affine matrix operator:**
-
-    The following example uses an object of
-    :class:`imate.AffineMatrixFunction` to create the linear operator:
-
-    .. math::
-
-        t \\mapsto \\mathbf{A} + t \\mathbf{I}
-
-    Note that this can be only applied to ``method=slq``. See further details
-    in :ref:`slq method <imate.logdet.slq>`.
-
-    .. code-block:: python
-        :emphasize-lines: 8
-
-        >>> # Import affine matrix function
-        >>> from imate import toeplitz, logdet, AffineMatrixFunction
-
-        >>> # Generate a sample matrix (a toeplitz matrix)
-        >>> A = toeplitz(2, 1, size=100, gram=True)
-
-        >>> # Create a matrix operator object from matrix A
-        >>> Aop = AffineMatrixFunction(A)
-
-        >>> # A list of parameters t to pass to Aop
-        >>> t = [-1.0, 0.0, 1.0]
-
-        >>> # Compute log-determinant of Aop for all parameters t
-        >>> logdet(Aop, method='slq', parameters=t)
-        array([ 68.71411681, 135.88356906, 163.44156683])
+    Since the Schatten norm in this function is defined as in
+    :math:numref:`schatten-eq-2`, the norm is continuous at :math:`p = 0`. See
+    :math:numref:`schatten-continuous`.
     """
 
     if not isinstance(p, (int, numpy.integer, float)):

@@ -172,6 +172,16 @@ int Diagonalization<DataType>::eigh_tridiagonal(
 ///                 contiguous. Thus, the i-th element of the j-th vector
 ///                 should be accessed by \c U[j*matrix_size+i]. This array is
 ///                 written in place and is the output of this function.
+/// \param[out]     Vt
+///                 Transpose of left eigenvectors represented by 1D array of
+///                 the length \c matrix_size*matrix_size which denotes a 2D
+///                 array of the shape \c (matrix_size, matrix_size). The
+///                 second index of the matrix iterates over the column
+///                 vectors. The array has Fortran ordering, meaning that the
+///                 first index is contiguous. Thus, the i-th element of the
+///                 j-th vector should be accessed by \c Vt[j*matrix_size+i].
+///                 This array is written in place and is the output of this
+///                 function.
 /// \param[in]      matrix_size
 ///                 The size of square matrix.
 /// \return         Integer \c info indicates the status of the computation.

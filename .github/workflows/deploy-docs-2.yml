@@ -8,9 +8,6 @@ on:
         branches:
             - main
 
-# permissions:
-  # contents: write
-
 jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
@@ -23,21 +20,35 @@ jobs:
               with:
                   python-version: '3.10'
 
-            - name: Install and Build
+            # Build doxygen files in /docs/doxygen/output/html
+            - name: Build doxygen
               run: |
-                sudo apt-get update
-                sudo apt-get install graphviz -y
-                sudo apt-get install pandoc -y
+                sudo apt update
+                sudo apt install doxygen -y
+                cd docs/doxygen
+                doxygen doxyfile.in
+
+            # Compile package with in-source build
+            - name: Install
+              run: |
                 python -m pip install --upgrade pip
                 python -m pip install -r requirements.txt
-                python -m pip install -r docs/requirements.txt
                 export CYTHON_BUILD_FOR_DOC=1
                 python setup.py install
+
+            # Build sphinx in /docs/build, copy /docs/doxygen/output/html to /docs/build/doxygen
+            - name: Build Sphinx
+              run: |
+                sudo apt-get install graphviz -y
+                python -m pip install -r docs/requirements.txt
                 export PATH=$HOME/.local/bin:$PATH
                 make clean html --directory=docs
                 touch docs/build/html/.nojekyll
                 echo 'Visit [Documentation](https://ameli.github.io/imate/index.html).' > docs/build/html/README.md
+                mkdir -p docs/build/doxygen
+                cp -r docs/doxygen/output/html docs/build/doxygen
 
+            # Deploy to github pages
             - name: Deploy
               uses: JamesIves/github-pages-deploy-action@v4
               with:

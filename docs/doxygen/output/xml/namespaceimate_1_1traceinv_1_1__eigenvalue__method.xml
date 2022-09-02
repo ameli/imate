@@ -1,0 +1,399 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespaceimate_1_1traceinv_1_1__eigenvalue__method" kind="namespace" language="Python">
+    <compoundname>imate::traceinv::_eigenvalue_method</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespaceimate_1_1traceinv_1_1__eigenvalue__method_1a2857557e4f3e3523b4d33965b89a366d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.traceinv._eigenvalue_method.eigenvalue_method</definition>
+        <argsstring>(A, gram=False, p=1.0, return_info=False, eigenvalues=None, assume_matrix=&apos;gen&apos;, non_zero_eig_fraction=0.9)</argsstring>
+        <name>eigenvalue_method</name>
+        <param>
+          <type>A</type>
+          <defname>A</defname>
+        </param>
+        <param>
+          <type>gram</type>
+          <defname>gram</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>p</type>
+          <defname>p</defname>
+          <defval>1.0</defval>
+        </param>
+        <param>
+          <type>return_info</type>
+          <defname>return_info</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>eigenvalues</type>
+          <defname>eigenvalues</defname>
+          <defval>None</defval>
+        </param>
+        <param>
+          <type>assume_matrix</type>
+          <defname>assume_matrix</defname>
+          <defval>&apos;gen&apos;</defval>
+        </param>
+        <param>
+          <type>non_zero_eig_fraction</type>
+          <defname>non_zero_eig_fraction</defname>
+          <defval>0.9</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Trace of inverse of non-singular matrix using eigenvalue method.
+
+Given the matrix :math:`\\mathbf{A}` and the real exponent :math:`p`, the
+following is computed:
+
+.. math::
+
+    \\mathrm{trace} \\left(\\mathbf{A}^{-p} \\right).
+
+If ``gram`` is `True`, then :math:`\\mathbf{A}` in the above is replaced by
+the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`, and the
+following is instead computed:
+
+.. math::
+
+    \\mathrm{trace} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^{-p}
+    \\right).
+
+Parameters
+----------
+
+A : numpy.ndarray, scipy.sparse
+    A non-singular sparse or dense matrix.
+
+    .. note::
+
+        In the eigenvalue method, the matrix cannot be a type of
+        :class:`Matrix` or :class:`imate.AffineMatrixFunction` classes.
+
+gram : bool, default=False
+    If `True`, the trace of the Gramian matrix,
+    :math:`(\\mathbf{A}^{\\intercal}\\mathbf{A})^{-p}`, is computed. The
+    Gramian matrix itself is not directly computed. If `False`, the
+    trace of :math:`\\mathbf{A}^{-p}` is computed.
+
+p : float, default=1.0
+    The real exponent :math:`p` in :math:`\\mathbf{A}^{-p}`.
+
+return_info : bool, default=False
+    If `True`, this function also returns a dictionary containing
+    information about the inner computation, such as process time,
+    algorithm settings, etc.
+
+eigenvalues : array_like [`float`], default=None
+    The array of all eigenvalues of `A`, if available. The size of this
+    array must be the same as the size of `A`. If `None`, the eigenvalues
+    of `A` are computed.
+
+assume_matrix : str {&apos;gen&apos;, &apos;sym&apos;}, default: &apos;gen&apos;
+    Type of matrix. `gen` assumes generic matrix, while `sym` assumes
+    `A` is symmetric.
+
+non_zero_eig_fraction : float, default=0.9
+    A fraction (between `0` and `1`) of eigenvalues assumed to be non-zero.
+    For large matrices, it is not possible to compute all eigenvalues, and
+    only the largest eigenvalues can be computed and the rest are assumed
+    to be negligible. By setting this parameter, a fraction of
+    non-negligible eigenvalues is determined.
+
+Returns
+-------
+
+traceinv : float or numpy.array
+    Trace of inverse of matrix.
+
+info : dict
+    (Only if ``return_info`` is `True`) A dictionary of information with
+    the following keys.
+
+    * ``matrix``:
+        * ``data_type``: `str`, {`float32`, `float64`, `float128`}, type of
+          the matrix data.
+        * ``gram``: `bool`, whether the matrix `A` or its Gramian is
+          considered.
+        * ``exponent``: `float`, the exponent `p` in
+          :math:`\\mathbf{A}^{-p}`.
+        * ``assume_matrix``: `str`, {`gen`, `sym`}, determines whether
+          matrix is generic or symmetric.
+        * ``size``: `int`, the size of matrix `A`.
+        * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
+        * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
+          of `A`.
+        * ``density``: `float`, if `A` is sparse, the density of `A`, which
+          is the `nnz` divided by size squared.
+        * ``num_inquiries``: `int`, for the `eigenvalue` method, this is
+          always `1`.
+
+    * ``device``:
+        * ``num_cpu_threads``: `int`, number of CPU threads used in shared
+          memory parallel processing.
+        * ``num_gpu_devices``: `int`, for the `eigenvalue` method, this is
+          always `0`.
+        * ``num_gpu_multiprocessors``: `int`, for the `eigenvalue` method,
+          this is always `0`.
+        * ``num_gpu_threads_per_multiprocessor``: `int`, for `eigenvalue`
+          method, this is always `0`.
+
+    * ``time``:
+        * ``tot_wall_time``: `float`, total elapsed time of computation.
+        * ``alg_wall_time``: `float`, elapsed time of computation during
+          only the algorithm execution.
+        * ``cpu_proc_time``: `float`, the CPU processing time of
+          computation.
+
+    * ``solver``:
+        * ``version``: `str`, version of imate.
+        * ``method``: &apos;eigenvalue&apos;
+
+See Also
+--------
+
+imate.logdet
+imate.trace
+imate.schatten
+
+Notes
+-----
+
+**Computational Complexity:**
+
+The eigenvalue method uses spectral decomposition. The computational
+complexity of this method is :math:`\\mathcal{O}(n^3)` where :math:`n` is
+the matrix size. This method is only suitable for small matrices
+(:math:`n &lt; 2^{12}`). The solution is exact and can be used as a benchmark
+to test randomized methods of computing trace.
+
+.. warning::
+
+    It is not recommended to use this method for sparse matrices, as not
+    all eigenvalues of sparse matrices can be computed.
+
+Examples
+--------
+
+**Dense matrix:**
+
+Compute the trace of :math:`\\mathbf{A}^{-2.5}` for a symmetric Toeplitz
+matrix created by :func:`imate.toeplitz` function:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; # Import packages
+    &gt;&gt;&gt; from imate import toeplitz, traceinv
+
+    &gt;&gt;&gt; # Create a symmetric matrix (setting gram=True makes it symmetric)
+    &gt;&gt;&gt; A = toeplitz(2, 1, size=100, gram=True)
+
+    &gt;&gt;&gt; # Convert the sparse matrix to a dense matrix
+    &gt;&gt;&gt; A = A.toarray()
+
+    &gt;&gt;&gt; # Compute trace of inverse with eigenvalue method
+    &gt;&gt;&gt; traceinv(A, p=2.5, method=&apos;eigenvalue&apos;, assume_matrix=&apos;sym&apos;)
+    8849.423700390627
+
+Compute the trace of :math:`(\\mathbf{A}^{\\intercal} \\mathbf{A})^{-2.5}`:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; # Compute trace of inverse with eigenvalue method
+    &gt;&gt;&gt; traceinv(A, gram=True, p=2.5, method=&apos;eigenvalue&apos;,
+    ...          assume_matrix=&apos;sym&apos;)
+    1533619.00
+
+**Precomputed Eigenvalues:**
+
+Alternatively, compute the eigenvalues of `A` in advance, and pass it to
+this function:
+
+.. code-block:: python
+    :emphasize-lines: 6
+
+    &gt;&gt;&gt; # Compute eigenvalues of symmetric matrix A.
+    &gt;&gt;&gt; from scipy.linalg import eigh
+    &gt;&gt;&gt; eigenvalues = eigh(A, eigvals_only=True)
+
+    &gt;&gt;&gt; # Pass the eigenvalues to traceinv function
+    &gt;&gt;&gt; traceinv(A, gram=True, p=2.5, method=&apos;eigenvalue&apos;,
+    ...          eigenvalues=eigenvalues)
+    1533619.00
+
+Pre-computing eigenvalues can be useful if :func:`imate.traceinv` function
+should be called repeatedly for the same matrix `A` but other parameters
+may change, such as `p`.
+
+**Print Information:**
+
+Print information about the inner computation:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; ti, info = traceinv(A, method=&apos;eigenvalue&apos;, return_info=True)
+    &gt;&gt;&gt; print(ti)
+    499.00
+
+    &gt;&gt;&gt; # Print dictionary neatly using pprint
+    &gt;&gt;&gt; from pprint import pprint
+    &gt;&gt;&gt; pprint(info)
+    {
+        &apos;matrix&apos;: {
+            &apos;assume_matrix&apos;: &apos;gen&apos;,
+            &apos;data_type&apos;: b&apos;float64&apos;,
+            &apos;density&apos;: 1.0,
+            &apos;exponent&apos;: 1.0,
+            &apos;gram&apos;: False,
+            &apos;nnz&apos;: 10000,
+            &apos;num_inquiries&apos;: 1,
+            &apos;size&apos;: 100,
+            &apos;sparse&apos;: False
+        },
+        &apos;solver&apos;: {
+            &apos;method&apos;: &apos;eigenvalue&apos;,
+            &apos;version&apos;: &apos;0.15.0&apos;
+        },
+        &apos;device&apos;: {
+            &apos;num_cpu_threads&apos;: 8,
+            &apos;num_gpu_devices&apos;: 0,
+            &apos;num_gpu_multiprocessors&apos;: 0,
+            &apos;num_gpu_threads_per_multiprocessor&apos;: 0
+        },
+        &apos;time&apos;: {
+            &apos;alg_wall_time&apos;: 0.00996067700907588,
+            &apos;cpu_proc_time&apos;: 0.01607515599999987,
+            &apos;tot_wall_time&apos;: 0.00996067700907588
+        }
+    }
+
+**Sparse matrix:**
+
+Using a large matrix and ignoring 10% of its eigenvalues:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; # Generate a symmetric sparse matrix
+    &gt;&gt;&gt; A = toeplitz(2, 1, size=2000, gram=True)
+
+    &gt;&gt;&gt; # Assume only 80% of eigenvalues of A are non-zero
+    &gt;&gt;&gt; traceinv(A, method=&apos;eigenvalue&apos;, assume_matrix=&apos;sym&apos;,
+    ...          non_zero_eig_fraction=0.9)
+    9785.832766806298
+
+The above result is only an approximation since not all eigenvalues of `A`
+are taken into account. To compare with the exact solution, use
+:func:`imate.sample_matrices.toeplitz_traceinv` function.
+
+.. code-block:: python
+
+    &gt;&gt;&gt; from imate.sample_matrices import toeplitz_traceinv
+    &gt;&gt;&gt; toeplitz_traceinv(2, 1, size=2000, gram=True)
+    9999
+
+There is a significant difference between the approximation with 90% of
+eigenvalues and the actual solution. Because of this, it is not recommended
+to use the eigenvalue method to compute trace.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/traceinv/_eigenvalue_method.py" line="32" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/traceinv/_eigenvalue_method.py" bodystart="39" bodyend="377"/>
+        <references refid="namespaceimate_1_1traceinv_1_1__eigenvalue__method_1a5bd8ad8025985ddd485e2eaf585d9872" compoundref="traceinv_2__eigenvalue__method_8py" startline="384" endline="441">imate.traceinv._eigenvalue_method.check_arguments</references>
+        <references refid="namespaceimate_1_1traceinv_1_1__eigenvalue__method_1a29813d36b875431477634f86bb77da2b" compoundref="traceinv_2__eigenvalue__method_8py" startline="448" endline="515">imate.traceinv._eigenvalue_method.compute_eigenvalues</references>
+        <references refid="namespaceimate_1_1__linear__algebra_1_1matrix__utilities_1ab38dbfffdf3dd5a3599ec768dd704ba0" compoundref="matrix__utilities_8py" startline="21" endline="44">imate._linear_algebra.matrix_utilities.get_data_type_name</references>
+        <references refid="namespaceimate_1_1__linear__algebra_1_1matrix__utilities_1a85bc667db05d03b8beb694a069aa45cd" compoundref="matrix__utilities_8py" startline="60" endline="69">imate._linear_algebra.matrix_utilities.get_density</references>
+        <references refid="namespaceimate_1_1__linear__algebra_1_1matrix__utilities_1a98ba8778e91264e000ac383db223859b" compoundref="matrix__utilities_8py" startline="45" endline="59">imate._linear_algebra.matrix_utilities.get_nnz</references>
+      </memberdef>
+      <memberdef kind="function" id="namespaceimate_1_1traceinv_1_1__eigenvalue__method_1a5bd8ad8025985ddd485e2eaf585d9872" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.traceinv._eigenvalue_method.check_arguments</definition>
+        <argsstring>(A, eigenvalues, gram, p, assume_matrix, non_zero_eig_fraction)</argsstring>
+        <name>check_arguments</name>
+        <param>
+          <type>A</type>
+          <defname>A</defname>
+        </param>
+        <param>
+          <type>eigenvalues</type>
+          <defname>eigenvalues</defname>
+        </param>
+        <param>
+          <type>gram</type>
+          <defname>gram</defname>
+        </param>
+        <param>
+          <type>p</type>
+          <defname>p</defname>
+        </param>
+        <param>
+          <type>assume_matrix</type>
+          <defname>assume_matrix</defname>
+        </param>
+        <param>
+          <type>non_zero_eig_fraction</type>
+          <defname>non_zero_eig_fraction</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim>Checks the type and value of the parameters.
+</verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/traceinv/_eigenvalue_method.py" line="378" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/traceinv/_eigenvalue_method.py" bodystart="384" bodyend="441"/>
+        <referencedby refid="namespaceimate_1_1traceinv_1_1__eigenvalue__method_1a2857557e4f3e3523b4d33965b89a366d" compoundref="traceinv_2__eigenvalue__method_8py" startline="39" endline="377">imate.traceinv._eigenvalue_method.eigenvalue_method</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="namespaceimate_1_1traceinv_1_1__eigenvalue__method_1a29813d36b875431477634f86bb77da2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def imate.traceinv._eigenvalue_method.compute_eigenvalues</definition>
+        <argsstring>(A, gram, assume_matrix, non_zero_eig_fraction, which_eigenvalues, tol=1e-4)</argsstring>
+        <name>compute_eigenvalues</name>
+        <param>
+          <type>A</type>
+          <defname>A</defname>
+        </param>
+        <param>
+          <type>gram</type>
+          <defname>gram</defname>
+        </param>
+        <param>
+          <type>assume_matrix</type>
+          <defname>assume_matrix</defname>
+        </param>
+        <param>
+          <type>non_zero_eig_fraction</type>
+          <defname>non_zero_eig_fraction</defname>
+        </param>
+        <param>
+          <type>which_eigenvalues</type>
+          <defname>which_eigenvalues</defname>
+        </param>
+        <param>
+          <type>tol</type>
+          <defname>tol</defname>
+          <defval>1e-4</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><verbatim></verbatim> </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/traceinv/_eigenvalue_method.py" line="442" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/traceinv/_eigenvalue_method.py" bodystart="448" bodyend="515"/>
+        <referencedby refid="namespaceimate_1_1traceinv_1_1__eigenvalue__method_1a2857557e4f3e3523b4d33965b89a366d" compoundref="traceinv_2__eigenvalue__method_8py" startline="39" endline="377">imate.traceinv._eigenvalue_method.eigenvalue_method</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/traceinv/_eigenvalue_method.py" line="1" column="1"/>
+  </compounddef>
+</doxygen>

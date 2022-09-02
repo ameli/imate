@@ -116,8 +116,17 @@ extensions = [
     'nbsphinx',
     'sphinx_design',
     'sphinx_multitoc_numbering',
-    'sphinx-prompt'
+    'sphinx-prompt',
+    'sphinx_copybutton',
 ]
+
+# Breathe settings
+breathe_default_project = "imate"
+breathe_projects = {"imate": "../doxygen/output/xml"}
+
+# Copy button settings
+copybutton_prompt_is_regexp = True
+copybutton_prompt_text = r'>>> |\.\.\. '
 
 # Automatically generate autosummary after each build
 autosummary_generate = True

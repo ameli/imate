@@ -100,7 +100,7 @@ class RationalPolynomialFunctionsMethod(InterpolantBase):
     # Init
     # ====
 
-    def __init__(self, A, B=None, p=0, ti=[], options={}, verbose=False):
+    def __init__(self, A, B=None, p=0, options={}, verbose=False, ti=[]):
         """
         Initializes the base class and attributes.
         """

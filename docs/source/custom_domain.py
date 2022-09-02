@@ -6,42 +6,70 @@ Reference:
 
 What this script does:
 
-    This script creates a new custom sphinx domain. In sphinx, things like
+    This script creates a new custom sphinx domain and two directives for it.
+    
+    Sphinx terminology:
 
     .. py:funtion:: some_function_name
     .. py:module:: some_module_name
     .. py:class:: some_class_name
 
-    and so on are called domain. This script creates a domain called:
+    In the above, "py" is called a domain, and "functon", "module", "class" are
+    called the directives of that domain.
 
-    .. custom-domaon::function <interface_function_name>
-       :impl: <implementation_function_name>
+    This script creates a domain called "custom-domain" with two directives
+    called "function" and "class".
+
+Usage of function derivative:
+
+    .. custom-domain::function <interface_function_name>
+       :impl: <path to implementation_function_name>
        :method: <method_name>
+
+Usage of class derivative:
+
+    .. custom-domain::class <interface_class_name>
+       :impl: <path to implementation_class_name>
+       :annotation: <kind_name>
 
 Why this custom domain is needed:
 
-    Suppose you have the function `logdet` with the signature
+    Suppose you have the function `logdet` and the class `Interpolate` with
+    the signatures
 
         logdet(A, p, method=method, **options)
+        Interpolate(A, p, kind=kind, **options)
 
-    Depending on the argument 'method', the above function accepts different
-    **options arguments. For example:
+    Depending on the argument 'method' for the function and 'kind' for the
+    class, the above function and class accepts different `**options`
+    arguments. For example:
 
         logdet(A, p, method='cholesky', colmod=False)
         logdet(A, p, method='hutchinson', num_samples=20)
         logdet(A, p, method='slq', lanczos_degree=20)
 
-    Also, the interface function, `logdet`, dispatches the computation to
-    different implementation functions. Suppose logdet and the above functions
-    are implemented respectively by these files:
+        Interpolate(A, p, kind='EXT')
+        Interpolate(A, p, kind='EIG', tol=1e-3)
+        Interpolate(A, p, kind='IMBF', ti=[1, 2, 3])
 
-    The interface function:
+    There are also two types of functions/classes: the "interface"
+    function/class (like `logdet` and `Interpolate`), and they dispatch the
+    computation to different "implementation" functions/classes. Suppose
+    `logdet`/`Interpolate` and the above functions are implemented
+    respectively by these files:
+
+    The interface function/class:
         imate.logdet.logdet(A, ...)
+        imate.Interpolate.Interpolate(A, ...)
 
-    The implementation functions:
+    The implementation functions/classes:
         imate.logdet._cholesky_method.cholesky_method(A, ...)
         imate.logdet._hutchinson_method.hutchinson_method(A, ...)
         imate.logdet._slq_method.slq_method(A, ...)
+
+        imate.Interpolate._EXT_method.EXT_method(A, ...)
+        imate.Interpolate._EIG_method.EIG_method(A, ...)
+        imate.Interpolate._IMBF_method.IMBF_method(A, ...)
 
     We include the docstring of interface function by
 
@@ -53,8 +81,18 @@ Why this custom domain is needed:
 
             imate.logdet
 
+    and
+
+        .. autosummary::
+            :toctree: generated
+            :caption: Classes
+            :recursive:
+            :template: autosummary/class.rst
+
+            imate.Interpolate
+
     Now, we also want to create a docstring for each of the implementation
-    functions. If we do just as like in the above, like by adding
+    function/class. If we do just as like in the above, like by adding
 
         .. autosummary::
             :toctree: generated
@@ -65,19 +103,39 @@ Why this custom domain is needed:
             imate.logdet
             imate.logdet._slq_method.slq_method
 
+    and 
+        .. autosummary::
+            :toctree: generated
+            :caption: Classes
+            :recursive:
+            :template: autosummary/class.rst
+
+            imate.Interpolate
+            imate.Interpolate._IMBF_method.IMBF_method
+
     then it creates a docstring with the signature
 
         imate.logdet._slq_method.slq_method(A, p, method='slq', lanczos_degr..)
         ... content of _slq_method
+
+    and 
+
+        imate.Interpolate._IMBF_method.IMBF_method(A, p, kind='IMBF', ti=...)
+        ... content of _EXT_method
 
     but what we really want is
 
         imate.logdet(A, p, method='slq', lanczos_degr..)
         ... content of _slq_method
 
+    and
+
+        imate.Interpolate(A, p, kind='IMBF', ti=[], ...)
+        ... content of _IMBF_method
+
     That is, we want these three things together:
 
-    (1) take the NAME of function from interface file
+    (1) take the NAME of function/class from interface file
     (2) keep the SIGNATURE from the implementation file
     (3) keep the CONTENT from implementation file
 
@@ -88,15 +146,18 @@ Why this custom domain is needed:
         name of the implementation function is
 
             imate.logdet._slq_method_slq_method
+            imate.Interpolate._IMBF_method.IMBF_method
 
         We need to make a custom domain that uses this name instead:
 
             imate.logdet
+            imate.Interpolate
 
     (2) We want to take the signature of the implementation function, not the
         interface function. Namely, we want
 
         imate.logdet(A, p, method='slq', lanczos_degree=20)
+        imate.Interpolate(A, p, kind='IMBF', ti=[])
 
     (3) We want to include the docstring content of the implementation, not
         the interface file.
@@ -109,6 +170,12 @@ How the custom domain solves this issue:
     .. custom-domain:function:: imate.logdet        <= interface function
        :impl: imate.logdet._slq_method.slq_method   <= implementation function
        :method: slq                                 <= value of 'method' arg
+
+    and
+
+    .. custom-domain:class:: imate.Interpolate           <= interface class
+       :impl: imate.Interpolate._IMBF_method.IMBF_method <= implement... class
+       :annotation: IMBF                                 <= value of 'kind' arg
 """
 
 
@@ -209,10 +276,15 @@ def _option_required_str(x):
 # =============
 
 def _import_object(name):
+    """
+    Gets the function objects from the function name.
+    """
+
     parts = name.split('.')
     module_name = '.'.join(parts[:-1])
     __import__(module_name)
     obj = getattr(sys.modules[module_name], parts[-1])
+
     return obj
 
 
@@ -228,19 +300,43 @@ class CustomInterfaceDomain(PythonDomain):
     def __init__(self, *a, **kw):
         super().__init__(*a, **kw)
         self.directives = dict(self.directives)
+
+        # For function directive
         self.directives['function'] = wrap_mangling_directive(
-                self.directives['function'])
+                self.directives['function'], directive_type='function')
+
+        # For class directive
+        self.directives['class'] = wrap_mangling_directive(
+                self.directives['class'], directive_type='class')
 
 
 # =======================
 # wrap mangling directive
 # =======================
 
-def wrap_mangling_directive(base_directive):
+def wrap_mangling_directive(base_directive, directive_type):
+    """
+    Modifies a directive class from a given base directive class.
+
+    Parameters
+    ----------
+
+    base_directive : docutils.parsers.rst.Directive
+        A directive object which its class has to be modified.
+
+    directive_type : {`'function'`, `'class'`}
+        Type of directive. It can be either a function directive or class
+        directive.
+    """
 
     class directive(base_directive):
 
         def run(self):
+            """
+            iface is related to interface function.
+            impl is related to implementation function.
+            """
+            
             env = self.state.document.settings.env
 
             # Interface function (we only use its name, but not its signature)
@@ -249,19 +345,34 @@ def wrap_mangling_directive(base_directive):
             iface_args, iface_varargs, iface_keywords, iface_defaults = \
                     getfullargspec_no_self(iface_obj)[:4]
 
+            # Get options from function or class directive
+            if directive_type == 'function':
+                impl_name = self.options['impl']
+                method_name = self.options['method']
+            elif directive_type == 'class':
+                impl_name = self.options['canonical']
+                method_name = self.options['annotation']
+
+                # Clear annotation. Because we only used annotation to pass
+                # the name of "kind" as the annotation parameter.
+                self.options['annotation'] = ''
+
+            # Name of argument to insert in the signature. For functions,
+            # insert "method=..." and for class, insert "kind=...".
+            if directive_type == 'function':
+                insert_arg_name = 'method'
+            elif directive_type == 'class':
+                insert_arg_name = 'kind'
+
             # Implementation function (we use its signature, but not its name)
-            impl_name = self.options['impl']
             impl_obj = _import_object(impl_name)
             impl_args, impl_varargs, impl_keywords, impl_defaults = \
                     getfullargspec_no_self(impl_obj)[:4]
 
-            # Insert `method=<method-name>` to the implementation signature
-            method_name = self.options['method']
-
             # Insert 'method' to impl_args
             num_iface_args = len(iface_args)
             impl_args = list(impl_args)
-            impl_args.insert(num_iface_args-1, 'method')
+            impl_args.insert(num_iface_args-1, insert_arg_name)
             impl_args = tuple(impl_args)
 
             # Insert method name to impl_defaults
@@ -289,8 +400,8 @@ def wrap_mangling_directive(base_directive):
                 .. seealso::
 
                     This page describes only the `%s` method. For other
-                    methods, see :func:`%s`.
-                """ % (method_name, iface_name)
+                    %s, see :func:`%s`.
+                """ % (method_name, insert_arg_name+'s', iface_name)
 
             # Find where to add see_also. We add it right after the first
             # paragraph. We exclude the first item in the list.

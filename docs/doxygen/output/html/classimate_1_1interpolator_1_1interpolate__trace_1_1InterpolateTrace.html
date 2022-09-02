@@ -1,0 +1,1495 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>imate: imate.interpolator.interpolate_trace.InterpolateTrace Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js", "TeX/AMSfonts.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom-alternative.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/ameli/imate" class="github-corner" title="View source on GitHub" target="_blank">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo-imate-light.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">imate
+   </div>
+   <div id="projectbrief">C++/CUDA Reference</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Search','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace-members.html">List of all members</a>  </div>
+  <div class="headertitle">
+<div class="title">imate.interpolator.interpolate_trace.InterpolateTrace Class Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Inheritance diagram for imate.interpolator.interpolate_trace.InterpolateTrace:</div>
+<div class="dyncontent">
+<div class="center"><img src="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace__inherit__graph.png" border="0" usemap="#aimate_8interpolator_8interpolate__trace_8InterpolateTrace_inherit__map" alt="Inheritance graph"/></div>
+<map name="aimate_8interpolator_8interpolate__trace_8InterpolateTrace_inherit__map" id="aimate_8interpolator_8interpolate__trace_8InterpolateTrace_inherit__map">
+<area shape="rect" title=" " alt="" coords="11,169,196,211"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html" title=" " alt="" coords="5,80,201,121"/>
+<area shape="rect" title=" " alt="" coords="75,5,132,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for imate.interpolator.interpolate_trace.InterpolateTrace:</div>
+<div class="dyncontent">
+<div class="center"><img src="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace__coll__graph.png" border="0" usemap="#aimate_8interpolator_8interpolate__trace_8InterpolateTrace_coll__map" alt="Collaboration graph"/></div>
+<map name="aimate_8interpolator_8interpolate__trace_8InterpolateTrace_coll__map" id="aimate_8interpolator_8interpolate__trace_8InterpolateTrace_coll__map">
+<area shape="rect" title=" " alt="" coords="11,169,196,211"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html" title=" " alt="" coords="5,80,201,121"/>
+<area shape="rect" title=" " alt="" coords="75,5,132,32"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a894fe309247748d6f2f2673da25d11e1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#a894fe309247748d6f2f2673da25d11e1">__init__</a> (self, A, B=None, <a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a3b303e9e315a234f288c3d9487513f05">p</a>=-1, ti=[], <a class="el" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#a3dc2fb8d1d6fd5ae689e5085a83ba1a2">kind</a>='IMBF', <a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#aa20bf547bac7d4856e9a6e5923ac379c">verbose</a>=False, options={ 'method':'cholesky'}, **kwargs)</td></tr>
+<tr class="separator:a894fe309247748d6f2f2673da25d11e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab531c4f0a8e8ddefa59607947be0dd6e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#ab531c4f0a8e8ddefa59607947be0dd6e">__call__</a> (self, t)</td></tr>
+<tr class="separator:ab531c4f0a8e8ddefa59607947be0dd6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad45cecbdfd3babfe3848b88698372259"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#ad45cecbdfd3babfe3848b88698372259">eval</a> (self, t)</td></tr>
+<tr class="separator:ad45cecbdfd3babfe3848b88698372259"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff80957bada09cedeec5e0ac3c72f54f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#aff80957bada09cedeec5e0ac3c72f54f">interpolate</a> (self, t)</td></tr>
+<tr class="separator:aff80957bada09cedeec5e0ac3c72f54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c5da68928956e60cc26c851633b53af"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#a6c5da68928956e60cc26c851633b53af">lower_bound</a> (self, t)</td></tr>
+<tr class="separator:a6c5da68928956e60cc26c851633b53af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ebae09f23df1578518900c37d47cd77"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#a2ebae09f23df1578518900c37d47cd77">upper_bound</a> (self, t)</td></tr>
+<tr class="separator:a2ebae09f23df1578518900c37d47cd77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38158704798314a5ea2a5d3f9fb2a226"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#a38158704798314a5ea2a5d3f9fb2a226">plot</a> (self, inquiry_points, normalize=True, compare=False)</td></tr>
+<tr class="separator:a38158704798314a5ea2a5d3f9fb2a226"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html">imate.interpolator.interpolate_schatten.InterpolateSchatten</a></td></tr>
+<tr class="memitem:a2ca36a0aa8cc228a3030886bb1b749a0 inherit pub_methods_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a2ca36a0aa8cc228a3030886bb1b749a0">bound</a> (self, t)</td></tr>
+<tr class="separator:a2ca36a0aa8cc228a3030886bb1b749a0 inherit pub_methods_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a3dc2fb8d1d6fd5ae689e5085a83ba1a2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#a3dc2fb8d1d6fd5ae689e5085a83ba1a2">kind</a></td></tr>
+<tr class="separator:a3dc2fb8d1d6fd5ae689e5085a83ba1a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_attribs_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html">imate.interpolator.interpolate_schatten.InterpolateSchatten</a></td></tr>
+<tr class="memitem:a8fd6d39dbf1803504afd9bdd7ddbd321 inherit pub_attribs_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a8fd6d39dbf1803504afd9bdd7ddbd321">kind</a></td></tr>
+<tr class="separator:a8fd6d39dbf1803504afd9bdd7ddbd321 inherit pub_attribs_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa20bf547bac7d4856e9a6e5923ac379c inherit pub_attribs_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#aa20bf547bac7d4856e9a6e5923ac379c">verbose</a></td></tr>
+<tr class="separator:aa20bf547bac7d4856e9a6e5923ac379c inherit pub_attribs_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58f48f4a3b17bc3a0c0367e0eaab3b1d inherit pub_attribs_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a58f48f4a3b17bc3a0c0367e0eaab3b1d">n</a></td></tr>
+<tr class="separator:a58f48f4a3b17bc3a0c0367e0eaab3b1d inherit pub_attribs_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0effb5324f0e773ae8deb275099cf43 inherit pub_attribs_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#af0effb5324f0e773ae8deb275099cf43">q</a></td></tr>
+<tr class="separator:af0effb5324f0e773ae8deb275099cf43 inherit pub_attribs_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b303e9e315a234f288c3d9487513f05 inherit pub_attribs_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a3b303e9e315a234f288c3d9487513f05">p</a></td></tr>
+<tr class="separator:a3b303e9e315a234f288c3d9487513f05 inherit pub_attribs_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5544db6cfa67a301fbf4a9f7f8345cf1 inherit pub_attribs_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a5544db6cfa67a301fbf4a9f7f8345cf1">interpolator</a></td></tr>
+<tr class="separator:a5544db6cfa67a301fbf4a9f7f8345cf1 inherit pub_attribs_classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:af2e6bdea7b760f2a1bd3bbea33236ca0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#af2e6bdea7b760f2a1bd3bbea33236ca0">_schatten_to_tracep</a> (self, schatten)</td></tr>
+<tr class="separator:af2e6bdea7b760f2a1bd3bbea33236ca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3916095c921e663114551504d43ca27e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#a3916095c921e663114551504d43ca27e">_tracep_to_schatten</a> (self, tracep)</td></tr>
+<tr class="separator:a3916095c921e663114551504d43ca27e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a565837e19c77dd0543b8ecafa2758170"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#a565837e19c77dd0543b8ecafa2758170">_compare_with_exact_solution</a> (self, t, tracep)</td></tr>
+<tr class="separator:a565837e19c77dd0543b8ecafa2758170"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">Interpolates the trace of powers of affine matrix functions.
+
+This class interpolates the function
+
+.. math::
+
+    t \\mapsto \\mathrm{trace} \\left( (\\mathbf{A} + t \\mathbf{B})^p
+    \\right),
+
+where the matrices :math:`\\mathbf{A}` and :math:`\\mathbf{B}` are
+Hermitian and positive semi-definite (positive-definite if :math:`p &lt; 0`)
+and :math:`t` is a real parameter.
+
+The interpolator is initialized by providing :math:`q` interpolant points
+:math:`t_i`, :math:`i = 1, \\dots, q`, which are often logarithmically
+spaced in some interval :math:`t_i \\in [t_1, t_p]`.
+The interpolator can interpolate the above function at inquiry points
+:math:`t \\in [t_1, t_p]` using various methods.
+
+Parameters
+----------
+    A : numpy.ndarray, scipy.sparse matrix
+        A positive-definite matrix. Matrix can be dense or sparse.
+
+    B : numpy.ndarray, scipy.sparse matrix, default=None
+        A positive-definite matrix. Matrix can be dense or sparse. If
+        `None` or not provided, it is assumed that `B` is an identity
+        matrix of the shape of `A`.
+
+    p : float , default=0
+        Power of matrix.
+
+    ti : list(float), numpy.array(float), default=None
+        A list or an array of points that the interpolator use to
+        interpolate. The trace of inverse is computed for the interpolant
+        points with exact method. If `None`, a default list of interpolant
+        points is used.
+
+    method : str, default=`'IMBF'`
+        Algorithm of interpolation. See table below.
+
+        ==========  ================================  ============
+        `kind`      Description                       Results
+        ==========  ================================  ============
+        ``'EXT'``   Computes without interpolation    exact
+        ``'EIG'``   Uses Eigenvalues of matrix        exact
+        ``'MBF'``   Monomial Basis Functions          interpolated
+        ``'IMBF'``  Inverse monomial basis functions  interpolated
+        ``'RBF'``   Radial basis functions            interpolated
+        ``'RPF'``   Rational polynomial functions     interpolated
+        ==========  ================================  ============
+
+    options : dict, default={'method': 'cholesky'}
+        A dictionary of arguments to pass to :mod:`imate.traceinv` module.
+
+    verbose : bool, default=False
+        If `True`, it prints some information on the computation process.
+
+    kwargs : \\*\\*kwargs
+        Additional options to pass to each specific interpolator class.
+        See the sub-classes of :mod:`imate.InterpolantBase`.
+
+Attributes
+----------
+kind : str
+    Method of interpolation
+verbose : bool
+    Verbosity of the computation process.
+n : int
+    Since of the matrix
+q : int
+    number of interpolant points
+
+Methods
+-------
+__call__
+eval
+interpolate
+lower_bound
+upper_bound
+plot
+
+Examples
+--------
+
+Interpolate the trace of inverse of the affine matrix function
+:math:`\\mathbf{A} + t \\mathbf{B}`:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; # Generate two sample matrices (symmetric and positive-definite)
+    &gt;&gt;&gt; from imate import generate_matrix
+    &gt;&gt;&gt; A = generate_matrix(size=20, correlation_scale=1e-1)
+    &gt;&gt;&gt; B = generate_matrix(size=20, correlation_scale=2e-2)
+
+    &gt;&gt;&gt; # Initialize interpolator object
+    &gt;&gt;&gt; from imate import InterpolateSchatten
+    &gt;&gt;&gt; ti = [1e-2, 1e-1, 1, 1e1]
+    &gt;&gt;&gt; TI = InterpolateSchatten(A, B, ti)
+
+    &gt;&gt;&gt; # Interpolate at an inquiry point t = 0.4
+    &gt;&gt;&gt; t = 4e-1
+    &gt;&gt;&gt; Trace = TI.interpolate(t)
+
+Interpolate an array of inquiry points
+
+.. code-block:: python
+
+    &gt;&gt;&gt; # Interpolate at an array of points
+    &gt;&gt;&gt; import numpy
+    &gt;&gt;&gt; t_array = numoy.logspace(-2, 1, 10)
+    &gt;&gt;&gt; Trace = TI.interpolator(t_array)
+
+By default, the interpolation kind is ``'IMBF'``. Use a different
+interpolation kind, such as ``'RBF'`` by
+
+.. code-block:: python
+
+    &gt;&gt;&gt; TI = InterpolateSchatten(A, B, ti, kind='RBF')
+
+By default, the trace is computed with the Cholesky decomposition method as
+the interpolant points. Configure the
+computation method by ``options`` as
+
+.. code-block:: python
+
+    &gt;&gt;&gt; # Specify arguments to imate.omputeTraceOfInverse in a dictionary
+    &gt;&gt;&gt; options = \
+    ... {
+    ...     'method': 'hutchinson',
+    ...     'NumIterations': 20
+    ... }
+
+    &gt;&gt;&gt; # Pass the options to the interpolator
+    &gt;&gt;&gt; TI = InterpolateSchatten(A, B, ti,
+    &gt;&gt;&gt;     options=options)
+
+See Also
+--------
+    traceinv : Computes trace of inverse of a matrix.</pre> 
+<p class="definition">Definition at line <a class="el" href="interpolate__trace_8py_source.html#l00030">30</a> of file <a class="el" href="interpolate__trace_8py_source.html">interpolate_trace.py</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a894fe309247748d6f2f2673da25d11e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a894fe309247748d6f2f2673da25d11e1">&#9670;&nbsp;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate.interpolator.interpolate_trace.InterpolateTrace.__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>B</em> = <code>None</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>p</em> = <code>-1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>ti</em> = <code>[]</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>kind</em> = <code>'IMBF'</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>verbose</em> = <code>False</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>options</em> = <code>{'method':&#160;'cholesky'}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">**&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Initializes the object depending on the method.
+</pre> 
+<p>Reimplemented from <a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#aeb6416e306aeaec7c4cfde673bb87698">imate.interpolator.interpolate_schatten.InterpolateSchatten</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="interpolate__trace_8py_source.html#l00179">179</a> of file <a class="el" href="interpolate__trace_8py_source.html">interpolate_trace.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                 options={<span class="stringliteral">&#39;method&#39;</span>: <span class="stringliteral">&#39;cholesky&#39;</span>}, **kwargs):</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="stringliteral">        Initializes the object depending on the method.</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keywordflow">if</span> p == 0:</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            <span class="keywordflow">raise</span> ValueError(<span class="stringliteral">&#39;&quot;p&quot; cannot be zero in &quot;InterpolateTrace&quot;. &#39;</span> +</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                             <span class="stringliteral">&#39;&quot;p=0&quot; use &quot;InterpolateLogdet&quot; class.&#39;</span>)</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        <span class="comment"># In Schatten operator, p=0 corresponds to determinant**(1/n)</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        super(InterpolateTrace, self).__init__(</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                A, B=B, p=p, ti=ti, kind=kind, verbose=verbose,</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                options=options, **kwargs)</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab531c4f0a8e8ddefa59607947be0dd6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab531c4f0a8e8ddefa59607947be0dd6e">&#9670;&nbsp;</a></span>__call__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate.interpolator.interpolate_trace.InterpolateTrace.__call__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Same as :func:`InterpolateSchatten.interpolate` method.
+</pre> 
+<p>Reimplemented from <a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a8d73f3cded7d501f9563ce09ff9951e4">imate.interpolator.interpolate_schatten.InterpolateSchatten</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="interpolate__trace_8py_source.html#l00222">222</a> of file <a class="el" href="interpolate__trace_8py_source.html">interpolate_trace.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keyword">def </span>__call__(self, t):</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;<span class="stringliteral">        Same as :func:`InterpolateSchatten.interpolate` method.</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        schatten = super(InterpolateTrace, self).__call__(t)</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        <span class="keywordflow">return</span> self._schatten_to_tracep(schatten)</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="interpolate__trace_8py_source.html#l00198">imate.interpolator.interpolate_trace.InterpolateTrace._schatten_to_tracep()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_ab531c4f0a8e8ddefa59607947be0dd6e_cgraph.png" border="0" usemap="#aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_ab531c4f0a8e8ddefa59607947be0dd6e_cgraph" alt=""/></div>
+<map name="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_ab531c4f0a8e8ddefa59607947be0dd6e_cgraph" id="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_ab531c4f0a8e8ddefa59607947be0dd6e_cgraph">
+<area shape="rect" title=" " alt="" coords="5,13,213,54"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#af2e6bdea7b760f2a1bd3bbea33236ca0" title=" " alt="" coords="261,5,479,61"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a565837e19c77dd0543b8ecafa2758170"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a565837e19c77dd0543b8ecafa2758170">&#9670;&nbsp;</a></span>_compare_with_exact_solution()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate.interpolator.interpolate_trace.InterpolateTrace._compare_with_exact_solution </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>tracep</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">Computes the trace with exact method (no interpolation), then compares
+it with the interpolated solution.
+
+Parameters
+----------
+    t : numpy.array
+        Inquiry points
+
+    Trace: float or numpy.array
+        The interpolated computation of trace.
+
+Returns
+-------
+    exact : float or numpy.array
+        Exact solution of trace.
+
+    relative_error : float or numpy.array
+        Relative error of interpolated solution compared to the exact
+        solution.
+</pre> 
+<p>Reimplemented from <a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#aa0fab44823eefba8f131db3cac2b657f">imate.interpolator.interpolate_schatten.InterpolateSchatten</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="interpolate__trace_8py_source.html#l00264">264</a> of file <a class="el" href="interpolate__trace_8py_source.html">interpolate_trace.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="keyword">def </span>_compare_with_exact_solution(self, t, tracep):</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;<span class="stringliteral">        Computes the trace with exact method (no interpolation), then compares</span></div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="stringliteral">        it with the interpolated solution.</span></div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="stringliteral">        Parameters</span></div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<span class="stringliteral">        ----------</span></div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="stringliteral">            t : numpy.array</span></div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="stringliteral">                Inquiry points</span></div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="stringliteral">            Trace: float or numpy.array</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="stringliteral">                The interpolated computation of trace.</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="stringliteral">        Returns</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="stringliteral">        -------</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;<span class="stringliteral">            exact : float or numpy.array</span></div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;<span class="stringliteral">                Exact solution of trace.</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;<span class="stringliteral">            relative_error : float or numpy.array</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="stringliteral">                Relative error of interpolated solution compared to the exact</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="stringliteral">                solution.</span></div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160; </div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <span class="keywordflow">if</span> self.kind == <span class="stringliteral">&#39;EXT&#39;</span>:</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;            <span class="comment"># The Trace results are already exact. No need to recompute again.</span></div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;            tracep_exact = tracep</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;            tracep_relative_error = numpy.zeros(t.shape)</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;            <span class="comment"># Compute exact solution</span></div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;            tracep_exact = self.eval(t)</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;            tracep_relative_error = (tracep - tracep_exact) / (tracep_exact)</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160; </div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        <span class="keywordflow">return</span> tracep_exact, tracep_relative_error</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af2e6bdea7b760f2a1bd3bbea33236ca0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2e6bdea7b760f2a1bd3bbea33236ca0">&#9670;&nbsp;</a></span>_schatten_to_tracep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate.interpolator.interpolate_trace.InterpolateTrace._schatten_to_tracep </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>schatten</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">Converts Schatten anti-norm to trace of matrix to the power of p.
+</pre> 
+<p class="definition">Definition at line <a class="el" href="interpolate__trace_8py_source.html#l00198">198</a> of file <a class="el" href="interpolate__trace_8py_source.html">interpolate_trace.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keyword">def </span>_schatten_to_tracep(self, schatten):</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="stringliteral">        Converts Schatten anti-norm to trace of matrix to the power of p.</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        tracep = schatten**self.p * self.n</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keywordflow">return</span> tracep</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="__interpolant__base_8py_source.html#l00081">imate.interpolator._interpolant_base.InterpolantBase.n</a>, <a class="el" href="interpolate__schatten_8py_source.html#l00254">imate.interpolator.interpolate_schatten.InterpolateSchatten.n</a>, <a class="el" href="__eigenvalues__method_8py_source.html#l00237">imate.interpolator._eigenvalues_method.EigenvaluesMethod.p</a>, <a class="el" href="__interpolant__base_8py_source.html#l00104">imate.interpolator._interpolant_base.InterpolantBase.p</a>, and <a class="el" href="interpolate__schatten_8py_source.html#l00259">imate.interpolator.interpolate_schatten.InterpolateSchatten.p</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="interpolate__trace_8py_source.html#l00222">imate.interpolator.interpolate_trace.InterpolateTrace.__call__()</a>, <a class="el" href="interpolate__trace_8py_source.html#l00234">imate.interpolator.interpolate_trace.InterpolateTrace.eval()</a>, <a class="el" href="interpolate__trace_8py_source.html#l00305">imate.interpolator.interpolate_trace.InterpolateTrace.interpolate()</a>, <a class="el" href="interpolate__trace_8py_source.html#l00369">imate.interpolator.interpolate_trace.InterpolateTrace.lower_bound()</a>, <a class="el" href="interpolate__trace_8py_source.html#l00447">imate.interpolator.interpolate_trace.InterpolateTrace.plot()</a>, and <a class="el" href="interpolate__trace_8py_source.html#l00402">imate.interpolator.interpolate_trace.InterpolateTrace.upper_bound()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_af2e6bdea7b760f2a1bd3bbea33236ca0_icgraph.png" border="0" usemap="#aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_af2e6bdea7b760f2a1bd3bbea33236ca0_icgraph" alt=""/></div>
+<map name="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_af2e6bdea7b760f2a1bd3bbea33236ca0_icgraph" id="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_af2e6bdea7b760f2a1bd3bbea33236ca0_icgraph">
+<area shape="rect" title=" " alt="" coords="1217,426,1435,482"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#ab531c4f0a8e8ddefa59607947be0dd6e" title=" " alt="" coords="948,236,1156,277"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#ad45cecbdfd3babfe3848b88698372259" title=" " alt="" coords="959,353,1145,394"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#a38158704798314a5ea2a5d3f9fb2a226" title=" " alt="" coords="306,441,491,482"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#aff80957bada09cedeec5e0ac3c72f54f" title=" " alt="" coords="619,112,839,153"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#a6c5da68928956e60cc26c851633b53af" title=" " alt="" coords="935,572,1169,613"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#a2ebae09f23df1578518900c37d47cd77" title=" " alt="" coords="935,637,1169,678"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#aa0fab44823eefba8f131db3cac2b657f" title=" " alt="" coords="628,272,829,328"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#ab6500d8ed781a3dc971e9c06e856b58f" title=" " alt="" coords="299,343,499,399"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a9cbdbcf5477fa0f629bfc90b96124d47" title=" " alt="" coords="299,183,499,239"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__monomial__basis__functions__method_1_1MonomialBasisFunctionsMethod.html#a805c6eb66a8397506be953f71f1f0266" title=" " alt="" coords="571,177,887,248"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__exact__method_1_1ExactMethod.html#ab3fca349a29a103f4496e1c8593fb2a0" title=" " alt="" coords="601,353,857,394"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet.html#af80d3805ea6303c00baf4f1e92d79652" title=" " alt="" coords="302,112,495,153"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a730f165dfcdbdf27fc062b383ee6845a" title=" " alt="" coords="5,350,227,392"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a8d73f3cded7d501f9563ce09ff9951e4" title=" " alt="" coords="275,274,523,316"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a3916095c921e663114551504d43ca27e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3916095c921e663114551504d43ca27e">&#9670;&nbsp;</a></span>_tracep_to_schatten()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate.interpolator.interpolate_trace.InterpolateTrace._tracep_to_schatten </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>tracep</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<pre class="fragment">Converts tracep to Schatten anti-norm.
+</pre> 
+<p class="definition">Definition at line <a class="el" href="interpolate__trace_8py_source.html#l00210">210</a> of file <a class="el" href="interpolate__trace_8py_source.html">interpolate_trace.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keyword">def </span>_tracep_to_schatten(self, tracep):</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="stringliteral">        Converts tracep to Schatten anti-norm.</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        schatten = (tracep / self.n)**(1.0/self.p)</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <span class="keywordflow">return</span> schatten</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="__interpolant__base_8py_source.html#l00081">imate.interpolator._interpolant_base.InterpolantBase.n</a>, <a class="el" href="interpolate__schatten_8py_source.html#l00254">imate.interpolator.interpolate_schatten.InterpolateSchatten.n</a>, <a class="el" href="__eigenvalues__method_8py_source.html#l00237">imate.interpolator._eigenvalues_method.EigenvaluesMethod.p</a>, <a class="el" href="__interpolant__base_8py_source.html#l00104">imate.interpolator._interpolant_base.InterpolantBase.p</a>, and <a class="el" href="interpolate__schatten_8py_source.html#l00259">imate.interpolator.interpolate_schatten.InterpolateSchatten.p</a>.</p>
+
+</div>
+</div>
+<a id="ad45cecbdfd3babfe3848b88698372259"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad45cecbdfd3babfe3848b88698372259">&#9670;&nbsp;</a></span>eval()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate.interpolator.interpolate_trace.InterpolateTrace.eval </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Computes the function :math:`\\mathrm{trace}\\left( (\\mathbf{A} +
+t \\mathbf{B})^{-1} \\right)` at the input point :math:`t` using exact
+method.
+
+The computation method used in this function is exact (no
+interpolation). This function  is primarily used to compute traceinv on
+the *interpolant points*.
+
+Parameters
+----------
+    t : float or numpy.array
+        An inquiry point, which can be a single number, or an array of
+        numbers.
+
+Returns
+-------
+    traceinv : float or numpy.array
+        The exact value of the traceinv function.
+</pre> 
+<p>Reimplemented from <a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a5b9b4cab566b084d7f1c3d24d3fa75a6">imate.interpolator.interpolate_schatten.InterpolateSchatten</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="interpolate__trace_8py_source.html#l00234">234</a> of file <a class="el" href="interpolate__trace_8py_source.html">interpolate_trace.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keyword">def </span>eval(self, t):</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="stringliteral">        Computes the function :math:`\\mathrm{trace}\\left( (\\mathbf{A} +</span></div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="stringliteral">        t \\mathbf{B})^{-1} \\right)` at the input point :math:`t` using exact</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="stringliteral">        method.</span></div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;<span class="stringliteral">        The computation method used in this function is exact (no</span></div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="stringliteral">        interpolation). This function  is primarily used to compute traceinv on</span></div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;<span class="stringliteral">        the *interpolant points*.</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="stringliteral">        Parameters</span></div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="stringliteral">        ----------</span></div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="stringliteral">            t : float or numpy.array</span></div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="stringliteral">                An inquiry point, which can be a single number, or an array of</span></div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="stringliteral">                numbers.</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="stringliteral">        Returns</span></div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="stringliteral">        -------</span></div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="stringliteral">            traceinv : float or numpy.array</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="stringliteral">                The exact value of the traceinv function.</span></div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        schatten = super(InterpolateTrace, self).eval(t)</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        <span class="keywordflow">return</span> self._schatten_to_tracep(schatten)</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="interpolate__trace_8py_source.html#l00198">imate.interpolator.interpolate_trace.InterpolateTrace._schatten_to_tracep()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="interpolate__schatten_8py_source.html#l00366">imate.interpolator.interpolate_schatten.InterpolateSchatten._compare_with_exact_solution()</a>, <a class="el" href="interpolate__schatten_8py_source.html#l00760">imate.interpolator.interpolate_schatten.InterpolateSchatten._plot_finite()</a>, <a class="el" href="interpolate__schatten_8py_source.html#l00592">imate.interpolator.interpolate_schatten.InterpolateSchatten._plot_semi_infinite()</a>, <a class="el" href="__monomial__basis__functions__method_8py_source.html#l00155">imate.interpolator._monomial_basis_functions_method.MonomialBasisFunctionsMethod.initialize_interpolator()</a>, <a class="el" href="interpolator_2__exact__method_8py_source.html#l00100">imate.interpolator._exact_method.ExactMethod.interpolate()</a>, <a class="el" href="interpolate__logdet_8py_source.html#l00449">imate.interpolator.interpolate_logdet.InterpolateLogdet.plot()</a>, and <a class="el" href="interpolate__trace_8py_source.html#l00447">imate.interpolator.interpolate_trace.InterpolateTrace.plot()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_ad45cecbdfd3babfe3848b88698372259_cgraph.png" border="0" usemap="#aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_ad45cecbdfd3babfe3848b88698372259_cgraph" alt=""/></div>
+<map name="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_ad45cecbdfd3babfe3848b88698372259_cgraph" id="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_ad45cecbdfd3babfe3848b88698372259_cgraph">
+<area shape="rect" title=" " alt="" coords="5,13,191,54"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#af2e6bdea7b760f2a1bd3bbea33236ca0" title=" " alt="" coords="239,5,456,61"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_ad45cecbdfd3babfe3848b88698372259_icgraph.png" border="0" usemap="#aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_ad45cecbdfd3babfe3848b88698372259_icgraph" alt=""/></div>
+<map name="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_ad45cecbdfd3babfe3848b88698372259_icgraph" id="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_ad45cecbdfd3babfe3848b88698372259_icgraph">
+<area shape="rect" title=" " alt="" coords="935,187,1120,229"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#aa0fab44823eefba8f131db3cac2b657f" title=" " alt="" coords="628,5,829,61"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#ab6500d8ed781a3dc971e9c06e856b58f" title=" " alt="" coords="299,107,499,163"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a9cbdbcf5477fa0f629bfc90b96124d47" title=" " alt="" coords="299,27,499,83"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__monomial__basis__functions__method_1_1MonomialBasisFunctionsMethod.html#a805c6eb66a8397506be953f71f1f0266" title=" " alt="" coords="571,355,887,426"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__exact__method_1_1ExactMethod.html#ab3fca349a29a103f4496e1c8593fb2a0" title=" " alt="" coords="601,187,857,229"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet.html#af80d3805ea6303c00baf4f1e92d79652" title=" " alt="" coords="302,253,495,294"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#a38158704798314a5ea2a5d3f9fb2a226" title=" " alt="" coords="306,318,491,359"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a730f165dfcdbdf27fc062b383ee6845a" title=" " alt="" coords="5,114,227,155"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a8d73f3cded7d501f9563ce09ff9951e4" title=" " alt="" coords="275,187,523,229"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aff80957bada09cedeec5e0ac3c72f54f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff80957bada09cedeec5e0ac3c72f54f">&#9670;&nbsp;</a></span>interpolate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate.interpolator.interpolate_trace.InterpolateTrace.interpolate </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Interpolates :math:`\\mathrm{trace} \\left( (\\mathbf{A} +
+t \\mathbf{B})^{-1} \\right)` at :math:`t`.
+
+Parameters
+----------
+t : float, list, numpy.array
+    The inquiry point(s) to be interpolated.
+
+compare_with_exact : bool, default=False
+    If `True`, it computes the trace with exact solution, then compares
+    it with the interpolated solution. The return values of the
+    :func:`InterpolateSchatten.interpolate` function become
+    interpolated trace, exact solution, and relative error. **Note:**
+    When this option is enabled, the exact solution will be computed
+    for all inquiry points, which can take a very long time.
+
+plot : bool, default=False
+    If `True`, it plots the interpolated trace versus the inquiry
+    points. In addition, if the option `compare_with_exact` is also set
+    to `True`, the plotted diagram contains both interpolated and exact
+    solutions and the relative error of interpolated solution with
+    respect to the exact solution.
+
+Returns
+-------
+trace : float or numpy.array
+    The interpolated value of the traceinv function.
+
+Notes
+-----
+
+**Plotting:**
+
+Regarding the plotting of the graph of interpolation:
+
+* If no graphical backend exists (such as running the code on a
+  remote server or manually disabling the X11 backend), the plot
+  will not be shown, rather, it will ve saved as an ``svg`` file in
+  the current directory.
+* If the executable ``latex`` is on the path, the plot is rendered
+  using :math:`\\rm\\laTeX`, which then, it takes a bit
+  longer to produce the plot.
+* If :math:`\\rm\\laTeX` is not installed, it uses any available
+  San-Serif font to render the plot.
+
+To manually disable interactive plot display, and save the plot as
+``SVG`` instead, add the following in the very beginning of your code
+before importing ``imate``:
+
+.. code-block:: python
+
+    &gt;&gt;&gt; import os
+    &gt;&gt;&gt; os.environ['IMATE_NO_DISPLAY'] = 'True'
+</pre> 
+<p>Reimplemented from <a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a08adc4093f60a5ffdcb7dd80445b3bdf">imate.interpolator.interpolate_schatten.InterpolateSchatten</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="interpolate__trace_8py_source.html#l00305">305</a> of file <a class="el" href="interpolate__trace_8py_source.html">interpolate_trace.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keyword">def </span>interpolate(self, t):</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="stringliteral">        Interpolates :math:`\\mathrm{trace} \\left( (\\mathbf{A} +</span></div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="stringliteral">        t \\mathbf{B})^{-1} \\right)` at :math:`t`.</span></div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="stringliteral">        Parameters</span></div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="stringliteral">        ----------</span></div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="stringliteral">        t : float, list, numpy.array</span></div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="stringliteral">            The inquiry point(s) to be interpolated.</span></div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="stringliteral">        compare_with_exact : bool, default=False</span></div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="stringliteral">            If `True`, it computes the trace with exact solution, then compares</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="stringliteral">            it with the interpolated solution. The return values of the</span></div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="stringliteral">            :func:`InterpolateSchatten.interpolate` function become</span></div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="stringliteral">            interpolated trace, exact solution, and relative error. **Note:**</span></div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="stringliteral">            When this option is enabled, the exact solution will be computed</span></div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="stringliteral">            for all inquiry points, which can take a very long time.</span></div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="stringliteral">        plot : bool, default=False</span></div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;<span class="stringliteral">            If `True`, it plots the interpolated trace versus the inquiry</span></div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="stringliteral">            points. In addition, if the option `compare_with_exact` is also set</span></div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;<span class="stringliteral">            to `True`, the plotted diagram contains both interpolated and exact</span></div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="stringliteral">            solutions and the relative error of interpolated solution with</span></div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;<span class="stringliteral">            respect to the exact solution.</span></div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;<span class="stringliteral">        Returns</span></div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="stringliteral">        -------</span></div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="stringliteral">        trace : float or numpy.array</span></div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="stringliteral">            The interpolated value of the traceinv function.</span></div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="stringliteral">        Notes</span></div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="stringliteral">        -----</span></div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="stringliteral">        **Plotting:**</span></div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;<span class="stringliteral">        Regarding the plotting of the graph of interpolation:</span></div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="stringliteral">        * If no graphical backend exists (such as running the code on a</span></div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="stringliteral">          remote server or manually disabling the X11 backend), the plot</span></div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="stringliteral">          will not be shown, rather, it will ve saved as an ``svg`` file in</span></div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;<span class="stringliteral">          the current directory.</span></div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;<span class="stringliteral">        * If the executable ``latex`` is on the path, the plot is rendered</span></div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="stringliteral">          using :math:`\\rm\\laTeX`, which then, it takes a bit</span></div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="stringliteral">          longer to produce the plot.</span></div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="stringliteral">        * If :math:`\\rm\\laTeX` is not installed, it uses any available</span></div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="stringliteral">          San-Serif font to render the plot.</span></div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="stringliteral">        To manually disable interactive plot display, and save the plot as</span></div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="stringliteral">        ``SVG`` instead, add the following in the very beginning of your code</span></div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="stringliteral">        before importing ``imate``:</span></div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<span class="stringliteral">        .. code-block:: python</span></div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; import os</span></div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="stringliteral">            &gt;&gt;&gt; os.environ[&#39;IMATE_NO_DISPLAY&#39;] = &#39;True&#39;</span></div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160; </div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;        schatten = super(InterpolateTrace, self).interpolate(t)</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        <span class="keywordflow">return</span> self._schatten_to_tracep(schatten)</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="interpolate__trace_8py_source.html#l00198">imate.interpolator.interpolate_trace.InterpolateTrace._schatten_to_tracep()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="interpolate__schatten_8py_source.html#l00317">imate.interpolator.interpolate_schatten.InterpolateSchatten.__call__()</a>, <a class="el" href="interpolate__schatten_8py_source.html#l00760">imate.interpolator.interpolate_schatten.InterpolateSchatten._plot_finite()</a>, <a class="el" href="interpolate__schatten_8py_source.html#l00592">imate.interpolator.interpolate_schatten.InterpolateSchatten._plot_semi_infinite()</a>, <a class="el" href="interpolate__logdet_8py_source.html#l00449">imate.interpolator.interpolate_logdet.InterpolateLogdet.plot()</a>, and <a class="el" href="interpolate__trace_8py_source.html#l00447">imate.interpolator.interpolate_trace.InterpolateTrace.plot()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_aff80957bada09cedeec5e0ac3c72f54f_cgraph.png" border="0" usemap="#aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_aff80957bada09cedeec5e0ac3c72f54f_cgraph" alt=""/></div>
+<map name="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_aff80957bada09cedeec5e0ac3c72f54f_cgraph" id="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_aff80957bada09cedeec5e0ac3c72f54f_cgraph">
+<area shape="rect" title=" " alt="" coords="5,13,225,54"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#af2e6bdea7b760f2a1bd3bbea33236ca0" title=" " alt="" coords="273,5,491,61"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_aff80957bada09cedeec5e0ac3c72f54f_icgraph.png" border="0" usemap="#aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_aff80957bada09cedeec5e0ac3c72f54f_icgraph" alt=""/></div>
+<map name="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_aff80957bada09cedeec5e0ac3c72f54f_icgraph" id="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_aff80957bada09cedeec5e0ac3c72f54f_icgraph">
+<area shape="rect" title=" " alt="" coords="571,159,791,200"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a8d73f3cded7d501f9563ce09ff9951e4" title=" " alt="" coords="275,5,523,47"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#ab6500d8ed781a3dc971e9c06e856b58f" title=" " alt="" coords="299,71,499,127"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a9cbdbcf5477fa0f629bfc90b96124d47" title=" " alt="" coords="299,151,499,207"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet.html#af80d3805ea6303c00baf4f1e92d79652" title=" " alt="" coords="302,232,495,273"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#a38158704798314a5ea2a5d3f9fb2a226" title=" " alt="" coords="306,297,491,339"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a730f165dfcdbdf27fc062b383ee6845a" title=" " alt="" coords="5,79,227,120"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a6c5da68928956e60cc26c851633b53af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c5da68928956e60cc26c851633b53af">&#9670;&nbsp;</a></span>lower_bound()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate.interpolator.interpolate_trace.InterpolateTrace.lower_bound </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Lower bound of the function :math:`t \\mapsto \\mathrm{trace} \\left(
+(\\mathbf{A} + t \\mathbf{B})^{-1} \\right)`.
+
+The lower bound is given by
+
+.. math::
+
+    \\mathrm{trace}((\\mathbf{A}+t\\mathbf{B})^{-1}) \\geq
+    \\frac{n^2}{\\mathrm{trace}(\\mathbf{A}) +
+    \\mathrm{trace}(t \\mathbf{B})}
+
+Parameters
+----------
+t : float or numpy.array
+    An inquiry point or an array of inquiry points.
+
+Returns
+-------
+    lb : float or numpy.array
+        Lower bound of the affine matrix function.
+</pre> 
+<p class="definition">Definition at line <a class="el" href="interpolate__trace_8py_source.html#l00369">369</a> of file <a class="el" href="interpolate__trace_8py_source.html">interpolate_trace.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    <span class="keyword">def </span>lower_bound(self, t):</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;<span class="stringliteral">        Lower bound of the function :math:`t \\mapsto \\mathrm{trace} \\left(</span></div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;<span class="stringliteral">        (\\mathbf{A} + t \\mathbf{B})^{-1} \\right)`.</span></div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;<span class="stringliteral">        The lower bound is given by</span></div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="stringliteral">        .. math::</span></div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;<span class="stringliteral">            \\mathrm{trace}((\\mathbf{A}+t\\mathbf{B})^{-1}) \\geq</span></div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="stringliteral">            \\frac{n^2}{\\mathrm{trace}(\\mathbf{A}) +</span></div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;<span class="stringliteral">            \\mathrm{trace}(t \\mathbf{B})}</span></div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;<span class="stringliteral">        Parameters</span></div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="stringliteral">        ----------</span></div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="stringliteral">        t : float or numpy.array</span></div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="stringliteral">            An inquiry point or an array of inquiry points.</span></div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="stringliteral">        Returns</span></div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="stringliteral">        -------</span></div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="stringliteral">            lb : float or numpy.array</span></div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="stringliteral">                Lower bound of the affine matrix function.</span></div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        schatten_lb = super(InterpolateTrace, self).bound(t)</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160; </div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;        tracep_lb = self._schatten_to_tracep(schatten_lb)</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        <span class="keywordflow">return</span> tracep_lb</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="interpolate__trace_8py_source.html#l00198">imate.interpolator.interpolate_trace.InterpolateTrace._schatten_to_tracep()</a>, and <a class="el" href="interpolate__schatten_8py_source.html#l00478">imate.interpolator.interpolate_schatten.InterpolateSchatten.bound()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_a6c5da68928956e60cc26c851633b53af_cgraph.png" border="0" usemap="#aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_a6c5da68928956e60cc26c851633b53af_cgraph" alt=""/></div>
+<map name="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_a6c5da68928956e60cc26c851633b53af_cgraph" id="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_a6c5da68928956e60cc26c851633b53af_cgraph">
+<area shape="rect" title=" " alt="" coords="5,50,239,91"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#af2e6bdea7b760f2a1bd3bbea33236ca0" title=" " alt="" coords="295,5,513,61"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a2ca36a0aa8cc228a3030886bb1b749a0" title=" " alt="" coords="287,86,521,127"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a38158704798314a5ea2a5d3f9fb2a226"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38158704798314a5ea2a5d3f9fb2a226">&#9670;&nbsp;</a></span>plot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate.interpolator.interpolate_trace.InterpolateTrace.plot </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>inquiry_points</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>normalize</em> = <code>True</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>compare</em> = <code>False</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Plots the interpolation results, together with the comparison with the
+exact solution and the relative error of the interpolation.
+
+To plot, set ``Plot=True`` argument in
+:mod:`imate.InterpolateSchatten`.
+
+Parameters
+----------
+inquiry_points: numpy.array
+    Inquiry points to be interpolated
+</pre> 
+<p>Reimplemented from <a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a730f165dfcdbdf27fc062b383ee6845a">imate.interpolator.interpolate_schatten.InterpolateSchatten</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="interpolate__trace_8py_source.html#l00443">443</a> of file <a class="el" href="interpolate__trace_8py_source.html">interpolate_trace.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;            compare=<span class="keyword">False</span>):</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;<span class="stringliteral">        Plots the interpolation results, together with the comparison with the</span></div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="stringliteral">        exact solution and the relative error of the interpolation.</span></div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;<span class="stringliteral">        To plot, set ``Plot=True`` argument in</span></div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;<span class="stringliteral">        :mod:`imate.InterpolateSchatten`.</span></div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;<span class="stringliteral">        Parameters</span></div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;<span class="stringliteral">        ----------</span></div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;<span class="stringliteral">        inquiry_points: numpy.array</span></div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;<span class="stringliteral">            Inquiry points to be interpolated</span></div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160; </div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;        <span class="keywordflow">if</span> <span class="keywordflow">not</span> plot_modules_exist:</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;            <span class="keywordflow">raise</span> ImportError(<span class="stringliteral">&#39;Cannot import modules for plotting. Either &#39;</span> +</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;                              <span class="stringliteral">&#39;install &quot;matplotlib&quot; and &quot;seaborn&quot; packages, &#39;</span> +</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;                              <span class="stringliteral">&#39;or set &quot;plot=False&quot;.&#39;</span>)</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160; </div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;        <span class="comment"># Load plot settings</span></div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;        <span class="keywordflow">try</span>:</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;            <a class="code" href="namespaceimate_1_1__utilities_1_1plot__utilities.html#ac5be3859295616ee4d82fdcaab5faedd">load_plot_settings</a>()</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;        <span class="keywordflow">except</span> ImportError:</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;            <span class="keywordflow">raise</span> ImportError(<span class="stringliteral">&#39;Cannot import modules for plotting. Either &#39;</span> +</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;                              <span class="stringliteral">&#39;install &quot;matplotlib&quot; and &quot;seaborn&quot; packages, &#39;</span> +</div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;                              <span class="stringliteral">&#39;or set &quot;plot=False&quot;.&#39;</span>)</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160; </div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;        <span class="comment"># Check t should be an array</span></div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;        <span class="keywordflow">if</span> numpy.isscalar(inquiry_points) <span class="keywordflow">or</span> (inquiry_points.size == 1):</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;            <span class="keywordflow">raise</span> ValueError(<span class="stringliteral">&quot;Argument &#39;inquiry_points&#39; should be an &quot;</span> +</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;                             <span class="stringliteral">&quot;array of length greater than one to be able &quot;</span> +</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;                             <span class="stringliteral">&quot; to plot results.&quot;</span>)</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160; </div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;        <span class="comment"># Generate interpolation</span></div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;        tracep_interpolated = self.interpolate(inquiry_points)</div>
+<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160; </div>
+<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;        <span class="keywordflow">if</span> compare:</div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;            tracep_exact = self.eval(inquiry_points)</div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160; </div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;        <span class="comment"># Normalize tracep to tau</span></div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;        <span class="keywordflow">if</span> normalize:</div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;            schatten_B = self.interpolator.schatten_B</div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160; </div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;            <span class="comment"># EXT and EIG methods do not compute schatten_B by default.</span></div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;            <span class="keywordflow">if</span> schatten_B <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;                schatten_B = self.interpolator._compute_schatten(</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;                        self.interpolator.B, self.interpolator.p)</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160; </div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;            normal_factor = self._schatten_to_tracep(schatten_B)</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;            normal_factor = 1.0</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160; </div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;        <span class="keywordflow">if</span> self.interpolator.schatten_i <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;            tracep_i = self._schatten_to_tracep(self.interpolator.schatten_i)</div>
+<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;            tau_i = tracep_i / normal_factor</div>
+<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;        tau_interpolated = tracep_interpolated / normal_factor</div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;        <span class="keywordflow">if</span> compare:</div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;            tau_exact = tracep_exact / normal_factor</div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;            tau_relative_error = 1.0 - (tau_interpolated / tau_exact)</div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160; </div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;        <span class="comment"># Plot results</span></div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;        <span class="keywordflow">if</span> compare:</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;            <span class="comment"># Two subplots</span></div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;            fig, ax = plt.subplots(ncols=2, figsize=(9, 4))</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;            <span class="comment"># One subplot</span></div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;            fig, ax = plt.subplots(figsize=(5, 4))</div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;            ax = [ax]</div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160; </div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;        <span class="comment"># Plot settings</span></div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;        markersize = 4</div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;        exact_color = <span class="stringliteral">&#39;firebrick&#39;</span></div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;        interp_color = <span class="stringliteral">&#39;black&#39;</span></div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160; </div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;        <span class="comment"># Plot interpolant points with their exact values</span></div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;        <span class="keywordflow">if</span> self.interpolator.q &gt; 0:</div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;            <span class="keywordflow">if</span> self.interpolator.schatten_i <span class="keywordflow">is</span> <span class="keywordflow">not</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;                ax[0].loglog(self.interpolator.t_i, tau_i, <span class="stringliteral">&#39;o&#39;</span>,</div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;                             color=exact_color,</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;                             markersize=markersize,</div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;                             label=<span class="stringliteral">&#39;Interpolant points&#39;</span>, zorder=20)</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160; </div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;        <span class="comment"># Plot exact values</span></div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;        <span class="keywordflow">if</span> compare:</div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;            ax[0].loglog(inquiry_points, tau_exact, color=exact_color,</div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;                         label=<span class="stringliteral">&#39;Exact&#39;</span>)</div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160; </div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;        <span class="comment"># Plot interpolated results</span></div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;        ax[0].loglog(inquiry_points, tau_interpolated, color=interp_color,</div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;                     label=<span class="stringliteral">&#39;Interpolated&#39;</span>)</div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160; </div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;        <span class="keywordflow">if</span> compare:</div>
+<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;            tau_min = numpy.min([tau_exact, tau_interpolated])</div>
+<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;            tau_max = numpy.max([tau_exact, tau_interpolated])</div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;            tau_min = numpy.min([tau_interpolated])</div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;            tau_max = numpy.max([tau_interpolated])</div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;        tau_min_snap = 10**(numpy.round(numpy.log10(tau_min)))</div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;        tau_max_snap = 10**(numpy.ceil(numpy.log10(tau_max)))</div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160; </div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;        ax[0].grid(axis=<span class="stringliteral">&#39;x&#39;</span>)</div>
+<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;        ax[0].set_xlim([inquiry_points[0], inquiry_points[-1]])</div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;        ax[0].set_ylim([tau_min_snap, tau_max_snap])</div>
+<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;        ax[0].set_xlabel(<span class="stringliteral">r&#39;$t$&#39;</span>)</div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160; </div>
+<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;        <span class="keywordflow">if</span> normalize:</div>
+<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;            ax[0].set_ylabel(<span class="stringliteral">r&#39;$g_p(t)$&#39;</span>)</div>
+<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;            ax[0].set_ylabel(<span class="stringliteral">r&#39;$f_p(t)$&#39;</span>)</div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160; </div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;        <span class="keywordflow">if</span> normalize:</div>
+<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;            ax0_title = <span class="stringliteral">r&#39;Interpolation of $g_p(t)$, $p = %g$&#39;</span> % self.p</div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;            ax0_title = <span class="stringliteral">r&#39;Interpolation of $f_p(t)$, $p = %g$&#39;</span> % self.p</div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;        <span class="keywordflow">if</span> compare:</div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;            ax0_title = <span class="stringliteral">r&#39;(a) &#39;</span> + ax0_title</div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160; </div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;        ax[0].set_title(ax0_title)</div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;        ax[0].legend(fontsize=<span class="stringliteral">&#39;small&#39;</span>)</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160; </div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;        <span class="comment"># Plot relative error in percent</span></div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;        <span class="keywordflow">if</span> compare:</div>
+<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;            <span class="keywordflow">if</span> self.interpolator.q &gt; 0:</div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;                ax[1].semilogx(self.interpolator.t_i,</div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;                               numpy.zeros(self.interpolator.q), <span class="stringliteral">&#39;o&#39;</span>,</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;                               color=exact_color, markersize=markersize,</div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;                               label=<span class="stringliteral">&#39;Interpolant points&#39;</span>, zorder=20)</div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;            ax[1].semilogx(inquiry_points, 100.0*tau_relative_error,</div>
+<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;                           color=interp_color, label=<span class="stringliteral">&#39;Interpolated&#39;</span>)</div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;            ax[1].grid(axis=<span class="stringliteral">&#39;x&#39;</span>)</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;            ax[1].semilogx(ax[1].get_xlim(), [0, 0], color=<span class="stringliteral">&#39;#CCCCCC&#39;</span>,</div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;                           linewidth=0.75)</div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;            ax[1].set_xlim([inquiry_points[0], inquiry_points[-1]])</div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;            ax[1].set_xlabel(<span class="stringliteral">&#39;$t$&#39;</span>)</div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;            <span class="keywordflow">if</span> normalize:</div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;                ax[1].set_ylabel(<span class="stringliteral">r&#39;$1-g_{\mathrm{approx}}(t) / &#39;</span> +</div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;                                 <span class="stringliteral">r&#39;g_{\mathrm{exact}}(t)$&#39;</span>)</div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;                ax[1].set_ylabel(<span class="stringliteral">r&#39;$1-f_{\mathrm{approx}}(t) / &#39;</span> +</div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;                                 <span class="stringliteral">r&#39;f_{\mathrm{exact}}(t)$&#39;</span>)</div>
+<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;            ax1_title = <span class="stringliteral">r&#39;(b) Relative error of interpolation, $p=%g$&#39;</span> % self.p</div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;            ax[1].set_title(ax1_title)</div>
+<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;            tau_range = numpy.max(numpy.abs(100.0 * tau_relative_error))</div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;            <span class="keywordflow">if</span> tau_range != 0.0:</div>
+<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;                decimals = int(numpy.ceil(-numpy.log10(tau_range))) + 1</div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;                decimals = 2</div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;            ax[1].yaxis.set_major_formatter(</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;                    matplotlib.ticker.PercentFormatter(decimals=decimals))</div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;            ax[1].legend(fontsize=<span class="stringliteral">&#39;small&#39;</span>)</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160; </div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;        plt.tight_layout()</div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160; </div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;        <span class="comment"># Check if the graphical backend exists</span></div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;        <span class="keywordflow">if</span> matplotlib.get_backend() != <span class="stringliteral">&#39;agg&#39;</span>:</div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;            plt.show()</div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;        <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;            <span class="comment"># Save the plot as SVG file in the current directory</span></div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;            <a class="code" href="namespaceimate_1_1__utilities_1_1plot__utilities.html#a21059ce3e73c1ed3f0726f4af5a33f64">show_or_save_plot</a>(plt, <span class="stringliteral">&#39;interpolation&#39;</span>,</div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;                              transparent_background=<span class="keyword">True</span>)</div>
+<div class="ttc" id="anamespaceimate_1_1__utilities_1_1plot__utilities_html_a21059ce3e73c1ed3f0726f4af5a33f64"><div class="ttname"><a href="namespaceimate_1_1__utilities_1_1plot__utilities.html#a21059ce3e73c1ed3f0726f4af5a33f64">imate._utilities.plot_utilities.show_or_save_plot</a></div><div class="ttdeci">def show_or_save_plot(plt, filename, transparent_background=True, pdf=True, bbox_extra_artists=None, verbose=False)</div><div class="ttdef"><b>Definition:</b> <a href="plot__utilities_8py_source.html#l00157">plot_utilities.py:163</a></div></div>
+<div class="ttc" id="anamespaceimate_1_1__utilities_1_1plot__utilities_html_ac5be3859295616ee4d82fdcaab5faedd"><div class="ttname"><a href="namespaceimate_1_1__utilities_1_1plot__utilities.html#ac5be3859295616ee4d82fdcaab5faedd">imate._utilities.plot_utilities.load_plot_settings</a></div><div class="ttdeci">def load_plot_settings()</div><div class="ttdef"><b>Definition:</b> <a href="plot__utilities_8py_source.html#l00064">plot_utilities.py:64</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="interpolate__trace_8py_source.html#l00198">imate.interpolator.interpolate_trace.InterpolateTrace._schatten_to_tracep()</a>, <a class="el" href="__interpolant__base_8py_source.html#l00201">imate.interpolator._interpolant_base.InterpolantBase.eval()</a>, <a class="el" href="interpolate__logdet_8py_source.html#l00238">imate.interpolator.interpolate_logdet.InterpolateLogdet.eval()</a>, <a class="el" href="interpolate__schatten_8py_source.html#l00328">imate.interpolator.interpolate_schatten.InterpolateSchatten.eval()</a>, <a class="el" href="interpolate__trace_8py_source.html#l00234">imate.interpolator.interpolate_trace.InterpolateTrace.eval()</a>, <a class="el" href="__chebyshev__rational__functions__method_8py_source.html#l00354">imate.interpolator._chebyshev_rational_functions_method.ChebyshevRationalFunctionsMethod.interpolate()</a>, <a class="el" href="__eigenvalues__method_8py_source.html#l00213">imate.interpolator._eigenvalues_method.EigenvaluesMethod.interpolate()</a>, <a class="el" href="interpolator_2__exact__method_8py_source.html#l00100">imate.interpolator._exact_method.ExactMethod.interpolate()</a>, <a class="el" href="__inverse__monomial__basis__functions__method_8py_source.html#l00452">imate.interpolator._inverse_monomial_basis_functions_method.InverseMonomialBasisFunctionsMethod.interpolate()</a>, <a class="el" href="__monomial__basis__functions__method_8py_source.html#l00174">imate.interpolator._monomial_basis_functions_method.MonomialBasisFunctionsMethod.interpolate()</a>, <a class="el" href="__radial__basis__functions__method_8py_source.html#l00234">imate.interpolator._radial_basis_functions_method.RadialBasisFunctionsMethod.interpolate()</a>, <a class="el" href="__rational__polynomial__functions__method_8py_source.html#l00239">imate.interpolator._rational_polynomial_functions_method.RationalPolynomialFunctionsMethod.interpolate()</a>, <a class="el" href="__spline__method_8py_source.html#l00174">imate.interpolator._spline_method.SplineMethod.interpolate()</a>, <a class="el" href="interpolate__logdet_8py_source.html#l00309">imate.interpolator.interpolate_logdet.InterpolateLogdet.interpolate()</a>, <a class="el" href="interpolate__schatten_8py_source.html#l00407">imate.interpolator.interpolate_schatten.InterpolateSchatten.interpolate()</a>, <a class="el" href="interpolate__trace_8py_source.html#l00305">imate.interpolator.interpolate_trace.InterpolateTrace.interpolate()</a>, <a class="el" href="interpolate__schatten_8py_source.html#l00264">imate.interpolator.interpolate_schatten.InterpolateSchatten.interpolator</a>, <a class="el" href="plot__utilities_8py_source.html#l00064">imate._utilities.plot_utilities.load_plot_settings()</a>, <a class="el" href="__eigenvalues__method_8py_source.html#l00237">imate.interpolator._eigenvalues_method.EigenvaluesMethod.p</a>, <a class="el" href="__interpolant__base_8py_source.html#l00104">imate.interpolator._interpolant_base.InterpolantBase.p</a>, <a class="el" href="interpolate__schatten_8py_source.html#l00259">imate.interpolator.interpolate_schatten.InterpolateSchatten.p</a>, and <a class="el" href="plot__utilities_8py_source.html#l00163">imate._utilities.plot_utilities.show_or_save_plot()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_a38158704798314a5ea2a5d3f9fb2a226_cgraph.png" border="0" usemap="#aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_a38158704798314a5ea2a5d3f9fb2a226_cgraph" alt=""/></div>
+<map name="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_a38158704798314a5ea2a5d3f9fb2a226_cgraph" id="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_a38158704798314a5ea2a5d3f9fb2a226_cgraph">
+<area shape="rect" title=" " alt="" coords="5,980,191,1021"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#af2e6bdea7b760f2a1bd3bbea33236ca0" title=" " alt="" coords="923,523,1141,579"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase.html#ab536b71b179a86e3c869f7b1f5e1a113" title=" " alt="" coords="647,662,836,718"/>
+<area shape="rect" href="namespaceimate_1_1__utilities_1_1plot__utilities.html#ac5be3859295616ee4d82fdcaab5faedd" title=" " alt="" coords="2733,903,2864,959"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet.html#a938c843b51d76c472e0d8f9e87801371" title=" " alt="" coords="643,808,839,849"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a5b9b4cab566b084d7f1c3d24d3fa75a6" title=" " alt="" coords="629,743,853,784"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#ad45cecbdfd3babfe3848b88698372259" title=" " alt="" coords="649,596,834,637"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__chebyshev__rational__functions__method_1_1ChebyshevRationalFunctionsMethod.html#a541fdb75c923910de2196a62feef1f71" title=" " alt="" coords="286,1064,521,1135"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__eigenvalues__method_1_1EigenvaluesMethod.html#aca5f42655c0505dedc8f815aac0514da" title=" " alt="" coords="292,1159,515,1215"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__exact__method_1_1ExactMethod.html#ab3fca349a29a103f4496e1c8593fb2a0" title=" " alt="" coords="275,728,531,769"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__inverse__monomial__basis__functions__method_1_1InverseMonomialBasisFunctionsMethod.html#af6bd58b74cf5f9e51124e414f9e5a7d2" title=" " alt="" coords="286,1240,521,1311"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__monomial__basis__functions__method_1_1MonomialBasisFunctionsMethod.html#a1bcd4522d89fd2005679a18065d08dce" title=" " alt="" coords="239,1335,568,1391"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__radial__basis__functions__method_1_1RadialBasisFunctionsMethod.html#a06f515be85c05ab746e88e163ccdb674" title=" " alt="" coords="248,1415,559,1471"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__rational__polynomial__functions__method_1_1RationalPolynomialFunctionsMethod.html#ad6a48757676b49ad140b8278ed7b079a" title=" " alt="" coords="279,1496,527,1567"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__spline__method_1_1SplineMethod.html#ae6bfde3cf647fe5e563138e20be4149f" title=" " alt="" coords="273,1591,533,1632"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet.html#a5877d4041d1fb00a7fcdd06ab6051ee8" title=" " alt="" coords="625,991,857,1032"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a08adc4093f60a5ffdcb7dd80445b3bdf" title=" " alt="" coords="273,1656,533,1697"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#aff80957bada09cedeec5e0ac3c72f54f" title=" " alt="" coords="631,531,851,572"/>
+<area shape="rect" href="namespaceimate_1_1__utilities_1_1plot__utilities.html#a21059ce3e73c1ed3f0726f4af5a33f64" title=" " alt="" coords="310,896,497,937"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase.html#a413ec50ad36453760a7640af0d254aa5" title=" " alt="" coords="937,633,1127,689"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__interpolant__base_1_1InterpolantBase.html#ac280d2903b95eebb4f52d53a39f9814b" title=" " alt="" coords="1197,501,1387,557"/>
+<area shape="rect" href="namespaceimate_1_1schatten_1_1schatten.html#addd398048ffe6f31c8401438d3ab708e" title=" " alt="" coords="1435,387,1651,414"/>
+<area shape="rect" href="namespaceimate_1_1logdet_1_1logdet.html#a8047c87b7c5667157404a6c7b2a435a8" title=" " alt="" coords="1713,330,1884,357"/>
+<area shape="rect" href="namespaceimate_1_1traceinv_1_1traceinv.html#af09d9b0af1471fa625846f791debb269" title=" " alt="" coords="1699,387,1899,414"/>
+<area shape="rect" href="namespaceimate_1_1logdet_1_1__cholesky__method.html#aa890fbc6de58a24eb061fca38d7e1e81" title=" " alt="" coords="1953,253,2132,295"/>
+<area shape="rect" href="namespaceimate_1_1logdet_1_1__eigenvalue__method.html#a9514f0de2c73a9922234ff43d1546c66" title=" " alt="" coords="1949,319,2137,360"/>
+<area shape="rect" href="namespaceimate_1_1logdet_1_1__slq__method.html#a8f7e56fdb6a71674cc894241ca2b152f" title=" " alt="" coords="1947,384,2139,425"/>
+<area shape="rect" href="namespaceimate_1_1logdet_1_1__cholesky__method.html#a80cd6ac4146039ab1d11a6d321a0c82e" title=" " alt="" coords="2218,71,2397,112"/>
+<area shape="rect" href="namespaceimate_1_1__linear__algebra_1_1matrix__utilities.html#ab38dbfffdf3dd5a3599ec768dd704ba0" title=" " alt="" coords="2210,319,2405,360"/>
+<area shape="rect" href="namespaceimate_1_1__linear__algebra_1_1matrix__utilities.html#a85bc667db05d03b8beb694a069aa45cd" title=" " alt="" coords="2215,253,2400,295"/>
+<area shape="rect" href="namespaceimate_1_1__linear__algebra_1_1matrix__utilities.html#a98ba8778e91264e000ac383db223859b" title=" " alt="" coords="2488,316,2673,357"/>
+<area shape="rect" href="namespaceimate_1_1__linear__algebra_1_1sparse__cholesky.html#a98ab770378a6efc51dbd1b62a233e75a" title=" " alt="" coords="2213,5,2401,47"/>
+<area shape="rect" href="namespaceimate_1_1logdet_1_1__eigenvalue__method.html#a02524dd5aef31cf7d1ce62e4f9a0de48" title=" " alt="" coords="2218,188,2397,229"/>
+<area shape="rect" href="namespaceimate_1_1logdet_1_1__eigenvalue__method.html#ac71640930637e12925d30277f3a16d38" title=" " alt="" coords="2206,436,2409,477"/>
+<area shape="rect" href="namespaceimate_1_1traceinv_1_1__hutchinson__method.html#a62c0bc37cf02ed8dddf9d15fd56112ed" title=" " alt="" coords="1948,560,2137,601"/>
+<area shape="rect" href="namespaceimate_1_1traceinv_1_1__hutchinson__method.html#af61e24be718bb3a8f8c762e2d88356fc" title=" " alt="" coords="2187,699,2428,740"/>
+<area shape="rect" href="namespaceimate_1_1traceinv_1_1__hutchinson__method.html#ad1edc7413c75730ea3bd454a0c4ed435" title=" " alt="" coords="2193,633,2421,675"/>
+<area shape="rect" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator__utilities.html#a9fe4c1dd676fb61d18b03a34b029a836" title=" " alt="" coords="2487,977,2674,1033"/>
+<area shape="rect" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator__plot__utilities.html#a5b5b11b077873546cc4bd81e9d38c991" title=" " alt="" coords="2214,765,2401,821"/>
+<area shape="rect" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator__utilities.html#a8e2f724d2797c34188b5ae135765a177" title=" " alt="" coords="2214,553,2401,609"/>
+<area shape="rect" href="namespaceimate_1_1traceinv_1_1__convergence__tools.html#a94fd0270ecfc020ebab46aad57045c12" title=" " alt="" coords="2487,633,2674,675"/>
+<area shape="rect" href="namespaceimate_1_1traceinv_1_1__convergence__tools.html#a009d234f3b85679f7604248541ad0368" title=" " alt="" coords="2487,568,2674,609"/>
+<area shape="rect" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator__plot__utilities.html#ab9d29de8d95a73fda97ac3868aadddfc" title=" " alt="" coords="2476,699,2685,755"/>
+<area shape="rect" href="namespaceimate_1_1__trace__estimator_1_1trace__estimator__plot__utilities.html#ac297a0e6e32b51a8fc6308b93c724869" title=" " alt="" coords="2487,830,2674,886"/>
+<area shape="rect" href="namespaceimate_1_1__utilities_1_1plot__utilities.html#a16effb74c6816ea6e0efbd6cbd19a494" title=" " alt="" coords="2515,911,2646,952"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__logdet_1_1InterpolateLogdet.html#a24fd8ea903b9ce7b8063a6959ba1e3c0" title=" " alt="" coords="939,794,1125,850"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__inverse__monomial__basis__functions__method_1_1InverseMonomialBasisFunctionsMethod.html#aff990c3677acb01a825fd327d6c80933" title=" " alt="" coords="616,1240,867,1311"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__inverse__monomial__basis__functions__method_1_1InverseMonomialBasisFunctionsMethod.html#a7c5272e89448e04db04eba0bb10a117b" title=" " alt="" coords="915,1233,1149,1318"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1__rational__polynomial__functions__method_1_1RationalPolynomialFunctionsMethod.html#a80718b75a3d6011f832d6183296728ca" title=" " alt="" coords="617,1496,865,1567"/>
+<area shape="rect" href="namespaceimate_1_1__utilities_1_1display__utilities.html#a26f9d42b865f3003abe00b8a8f2f4fe8" title=" " alt="" coords="666,925,817,967"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a2ebae09f23df1578518900c37d47cd77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ebae09f23df1578518900c37d47cd77">&#9670;&nbsp;</a></span>upper_bound()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def imate.interpolator.interpolate_trace.InterpolateTrace.upper_bound </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Upper bound of the function :math:`t \\mapsto \\mathrm{trace} \\left(
+(\\mathbf{A} + t \\mathbf{B})^{-1} \\right)`.
+
+The upper bound is given by
+
+.. math::
+
+        \\frac{1}{\\tau(t)} \\geq \\frac{1}{\\tau_0} + t
+
+where
+
+.. math::
+
+        \\tau(t) = \\frac{\\mathrm{trace}\\left( (\\mathbf{A} +
+        t \\mathbf{B})^{-1}
+        \\right)}{\\mathrm{trace}(\\mathbf{B}^{-1})}
+
+and :math:`\\tau_0 = \\tau(0)`.
+
+Parameters
+----------
+t : float or numpy.array
+    An inquiry point or an array of inquiry points.
+
+Returns
+-------
+ub : float or numpy.array
+    bound of the affine matrix function.
+</pre> 
+<p>Reimplemented from <a class="el" href="classimate_1_1interpolator_1_1interpolate__schatten_1_1InterpolateSchatten.html#a787918d590d9327b8d42a157f0abd350">imate.interpolator.interpolate_schatten.InterpolateSchatten</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="interpolate__trace_8py_source.html#l00402">402</a> of file <a class="el" href="interpolate__trace_8py_source.html">interpolate_trace.py</a>.</p>
+<div class="fragment"><div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    <span class="keyword">def </span>upper_bound(self, t):</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="stringliteral">        Upper bound of the function :math:`t \\mapsto \\mathrm{trace} \\left(</span></div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;<span class="stringliteral">        (\\mathbf{A} + t \\mathbf{B})^{-1} \\right)`.</span></div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="stringliteral">        The upper bound is given by</span></div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="stringliteral">        .. math::</span></div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="stringliteral">                \\frac{1}{\\tau(t)} \\geq \\frac{1}{\\tau_0} + t</span></div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="stringliteral">        where</span></div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="stringliteral">        .. math::</span></div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="stringliteral">                \\tau(t) = \\frac{\\mathrm{trace}\\left( (\\mathbf{A} +</span></div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="stringliteral">                t \\mathbf{B})^{-1}</span></div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;<span class="stringliteral">                \\right)}{\\mathrm{trace}(\\mathbf{B}^{-1})}</span></div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="stringliteral">        and :math:`\\tau_0 = \\tau(0)`.</span></div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="stringliteral">        Parameters</span></div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="stringliteral">        ----------</span></div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="stringliteral">        t : float or numpy.array</span></div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="stringliteral">            An inquiry point or an array of inquiry points.</span></div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="stringliteral"></span> </div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="stringliteral">        Returns</span></div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="stringliteral">        -------</span></div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="stringliteral">        ub : float or numpy.array</span></div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;<span class="stringliteral">            bound of the affine matrix function.</span></div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;<span class="stringliteral">        &quot;&quot;&quot;</span></div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160; </div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;        schatten_ub = super(InterpolateTrace, self).upper_bound(t)</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160; </div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;        tracep_ub = self._schatten_to_tracep(schatten_ub)</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        <span class="keywordflow">return</span> tracep_ub</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160; </div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="interpolate__trace_8py_source.html#l00198">imate.interpolator.interpolate_trace.InterpolateTrace._schatten_to_tracep()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_a2ebae09f23df1578518900c37d47cd77_cgraph.png" border="0" usemap="#aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_a2ebae09f23df1578518900c37d47cd77_cgraph" alt=""/></div>
+<map name="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_a2ebae09f23df1578518900c37d47cd77_cgraph" id="aclassimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace_a2ebae09f23df1578518900c37d47cd77_cgraph">
+<area shape="rect" title=" " alt="" coords="5,13,240,54"/>
+<area shape="rect" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html#af2e6bdea7b760f2a1bd3bbea33236ca0" title=" " alt="" coords="288,5,505,61"/>
+</map>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3dc2fb8d1d6fd5ae689e5085a83ba1a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dc2fb8d1d6fd5ae689e5085a83ba1a2">&#9670;&nbsp;</a></span>kind</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">imate.interpolator.interpolate_trace.InterpolateTrace.kind</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="interpolate__trace_8py_source.html#l00287">287</a> of file <a class="el" href="interpolate__trace_8py_source.html">interpolate_trace.py</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="interpolate__schatten_8py_source.html#l00366">imate.interpolator.interpolate_schatten.InterpolateSchatten._compare_with_exact_solution()</a>, <a class="el" href="interpolate__schatten_8py_source.html#l00760">imate.interpolator.interpolate_schatten.InterpolateSchatten._plot_finite()</a>, and <a class="el" href="interpolate__schatten_8py_source.html#l00570">imate.interpolator.interpolate_schatten.InterpolateSchatten.plot()</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/interpolator/<a class="el" href="interpolate__trace_8py_source.html">interpolate_trace.py</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceimate.html">imate</a></li><li class="navelem"><a class="el" href="namespaceimate_1_1interpolator.html">interpolator</a></li><li class="navelem"><a class="el" href="namespaceimate_1_1interpolator_1_1interpolate__trace.html">interpolate_trace</a></li><li class="navelem"><a class="el" href="classimate_1_1interpolator_1_1interpolate__trace_1_1InterpolateTrace.html">InterpolateTrace</a></li>
+    <li class="footer">Generated on Thu Sep 1 2022 16:13:23 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

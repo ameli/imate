@@ -1,37 +1,37 @@
-name: docs
-
-on:
-    # push:
-    #     branches:
-    #         - main
-    pull_request:
-        branches:
-            - main
-
-jobs:
-    build-and-deploy:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
-
-            - name: Build and Deploy
-              uses: JacksonMaxfield/github-pages-deploy-action-python@master
-              env:
-                  ACCESS_TOKEN: ${{ secrets.IMATE_DOCS }}
-                  BASE_BRANCH: main
-                  BRANCH: gh-pages
-                  FOLDER: docs/build/html
-                  BUILD_SCRIPT: |
-                      apt-get update
-                      apt-get install graphviz -y
-                      apt-get install pandoc -y
-                      pip install --upgrade pip
-                      pip install -r docs/requirements.txt
-                      export CYTHON_BUILD_FOR_DOC=1
-                      python setup.py install
-                      export PATH=$HOME/.local/bin:$PATH
-                      make clean html --directory=docs
-                      touch docs/build/html/.nojekyll
-                      echo 'Visit [Documentation](https://ameli.github.io/imate/index.html).' > docs/build/html/README.md
-
+# name: docs
+#
+# on:
+#     push:
+#         branches:
+#             - main
+#     pull_request:
+#         branches:
+#             - main
+#
+# jobs:
+#     build-and-deploy:
+#         runs-on: ubuntu-latest
+#         steps:
+#             - name: Checkout
+#               uses: actions/checkout@v3
+#
+#             - name: Build and Deploy
+#               uses: JacksonMaxfield/github-pages-deploy-action-python@master
+#               env:
+#                   ACCESS_TOKEN: ${{ secrets.IMATE_DOCS }}
+#                   BASE_BRANCH: main
+#                   BRANCH: gh-pages
+#                   FOLDER: docs/build/html
+#                   BUILD_SCRIPT: |
+#                       apt-get update
+#                       apt-get install graphviz -y
+#                       apt-get install pandoc -y
+#                       pip install --upgrade pip
+#                       pip install -r docs/requirements.txt
+#                       export CYTHON_BUILD_FOR_DOC=1
+#                       python setup.py install
+#                       export PATH=$HOME/.local/bin:$PATH
+#                       make clean html --directory=docs
+#                       touch docs/build/html/.nojekyll
+#                       echo 'Visit [Documentation](https://ameli.github.io/imate/index.html).' > docs/build/html/README.md
+#
