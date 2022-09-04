@@ -27,29 +27,8 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
     t \\mathbf{B}` using an interpolation scheme based on inverse monomial
     basis functions (see details below).
 
-    **Class Inheritance:**
-
-    .. inheritance-diagram::
-        imate.InterpolateTraceinv.InverseMonomialBasisFunctionsMethod
-        :parts: 1
-
-    :param A: Invertible matrix, can be either dense or sparse matrix.
-    :type A: numpy.ndarray
-
-    :param B: Invertible matrix, can be either dense or sparse matrix.
-    :type B: numpy.ndarray
-
-    :param options: A dictionary of input arguments fo
-        :mod:`imate.traceinv.traceinv` module.
-    :type options: dict
-
-    :param verbose: If ``True``, prints some information on the computation
-        process. Default is ``False``.
-    :type verbose: bool
-
-    :param basis_functions_type: One of the types ``'NonOrthogonal'``,
-        ``'Orthogonal'`` and ``'Orthogonal2'``. Default is ``'orthogonal2'``.
-    :type basisFunctionsType: string
+    basis_func_type: One of the types ``'NonOrthogonal'``,
+    ``'Orthogonal'`` and ``'Orthogonal2'``. Default is ``'orthogonal2'``.
 
     **Interpolation Method**
 
@@ -77,16 +56,16 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
     **Basis Functions:**
 
     In this module, three kinds of basis functions which can be set by the
-    argument ``basis_functions_type``.
+    argument ``basis_func_type``.
 
-    When ``basis_functions_type`` is set to ``NonOrthogonal``, the basis
+    When ``basis_func_type`` is set to ``NonOrthogonal``, the basis
     functions are the inverse of the monomial functions defined by
 
     .. math::
 
         \\phi_i(t) = t^{\\frac{1}{i+1}}, \\qquad i = 0, \\dots, q.
 
-    When ``basis_functions_type`` is set to ``'Orthogonal'`` or
+    When ``basis_func_type`` is set to ``'Orthogonal'`` or
     ``'Orthogonal2'``, the orthogonal form of the above basis functions are
     used. Orthogonal basis functions are formed by the above non-orthogonal
     functions as
@@ -111,34 +90,6 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
     .. note::
 
         The recommended basis function type is ``'Orthogonal2'``.
-
-
-    **Example**
-
-    This class can be invoked from
-    :class:`imate.InterpolateTraceinv.InterpolateTraceinv` module using
-    ``method='RMBF'`` argument.
-
-    .. code-block:: python
-
-        >>> from imate import generate_matrix
-        >>> from imate import InterpolateTraceinv
-
-        >>> # Create a symmetric positive-definite matrix, size (20**2, 20**2)
-        >>> A = generate_matrix(size=20)
-
-        >>> # Create an object that interpolates trace of inverse of A+tI
-        >>> # where I is identity matrix.
-        >>> TI = InterpolateTraceinv(A, method='RMBF')
-
-        >>> # Interpolate A+tI at some input point t
-        >>> t = 4e-1
-        >>> trace = TI.interpolate(t)
-
-    .. seealso::
-
-        The other class that provides interpolation with basis functions method
-        is :mod:`imate.InterpolateTraceinv.Monomialbasis_functionsMethod`.
     """
 
     # ====
@@ -146,7 +97,7 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
     # ====
 
     def __init__(self, A, B=None, p=0, options={}, verbose=False, ti=[], 
-                 basis_functions_type='Orthogonal2'):
+                 basis_func_type='ortho2'):
         """
         Initializes the base class and the attributes, namely, the computes the
         trace at interpolant points.
@@ -159,7 +110,7 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
         super(InverseMonomialBasisFunctionsMethod, self).__init__(
                 A, B=B, p=p, ti=ti, options=options, verbose=verbose)
 
-        self.basis_functions_type = basis_functions_type
+        self.basis_func_type = basis_func_type
 
         # Initialize Interpolator
         self.alpha = None
@@ -182,7 +133,7 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
             print('Initialize interpolator ...')
 
         # Method 1: Use non-orthogonal basis functions
-        if self.basis_functions_type == 'NonOrthogonal':
+        if self.basis_func_type == 'non-ortho':
             # Form a linear system for weights w
             b = self.tau_i - self.tau0 - self.t_i
             C = numpy.zeros((self.q, self.q))
@@ -195,7 +146,7 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
 
             self.w = numpy.linalg.solve(C, b)
 
-        elif self.basis_functions_type == 'Orthogonal':
+        elif self.basis_func_type == 'ortho':
 
             # Method 2: Use orthogonal basis functions
             self.alpha, self.a = self.orthogonal_basis_function_coefficients()
@@ -223,7 +174,7 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
             # Solve weights
             self.w = numpy.linalg.solve(C, b)
 
-        elif self.basis_functions_type == 'Orthogonal2':
+        elif self.basis_func_type == 'ortho2':
 
             # Method 3: Use orthogonal basis functions
             self.alpha, self.a = self.orthogonal_basis_function_coefficients()
@@ -291,7 +242,7 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
         :return: Basis functions at inquiry point.
         :rtype: float
 
-        Depending on ``basis_functions_type``, the basis functions are:
+        Depending on ``basis_func_type``, the basis functions are:
 
         * For ``NonOrthogonal``:
 
@@ -321,10 +272,10 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
             are not orthogonal to :math:`\\phi_1(t) = t`.
         """
 
-        if self.basis_functions_type == 'NonOrthogonal':
+        if self.basis_func_type == 'non-ortho':
             return InverseMonomialBasisFunctionsMethod.phi(j+2, t)
 
-        elif self.basis_functions_type == 'Orthogonal':
+        elif self.basis_func_type == 'ortho':
 
             # Use Orthogonal basis functions
             alpha, a = self.orthogonal_basis_function_coefficients()
@@ -336,7 +287,7 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
 
             return phi_perp
 
-        elif self.basis_functions_type == 'Orthogonal2':
+        elif self.basis_func_type == 'ortho2':
 
             # Use Orthogonal basis functions
             alpha, a = self.orthogonal_basis_function_coefficients()
@@ -394,7 +345,7 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
         q = 9
         a = numpy.zeros((q, q), dtype=float)
 
-        if self.basis_functions_type == 'Orthogonal':
+        if self.basis_func_type == 'ortho':
             alpha = numpy.array([
                 +numpy.sqrt(2.0/1.0),
                 -numpy.sqrt(2.0/2.0),
@@ -418,7 +369,7 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
             a[8, :9] = numpy.array([81, -1620, 13860, -62370, 162162, -252252,
                                    231660, -115830, 24310])
 
-        elif self.basis_functions_type == 'Orthogonal2':
+        elif self.basis_func_type == 'ortho2':
             alpha = numpy.array([
                 +numpy.sqrt(2.0/2.0),
                 -numpy.sqrt(2.0/3.0),
@@ -466,7 +417,7 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
 
         **Details:**
 
-        Depending on the ``basis_functions_type``, the interpolation is as
+        Depending on the ``basis_func_type``, the interpolation is as
         follows:
 
         For ``'NonOrthogonal'`` basis:
@@ -485,21 +436,21 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
         """
 
         # Interpolation
-        if self.basis_functions_type == 'NonOrthogonal':
+        if self.basis_func_type == 'non-ortho':
 
             S = 0.0
             for j in range(self.q):
                 S += self.w[j] * self.basis_functions(j, t)
             tau = self.tau0 + S + t
 
-        elif self.basis_functions_type == 'Orthogonal':
+        elif self.basis_func_type == 'ortho':
 
             S = 0.0
             for j in range(self.w.size):
                 S += self.w[j] * self.basis_functions(j, t/self.scale_t)
             tau = self.tau0 + S
 
-        elif self.basis_functions_type == 'Orthogonal2':
+        elif self.basis_func_type == 'ortho2':
 
             S = 0.0
             for j in range(self.q):

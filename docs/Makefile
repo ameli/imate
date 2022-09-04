@@ -20,6 +20,6 @@ help:
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O); \
 	if [ -d "$(DOXY_HTML)" ]; then \
-		mkdir -p "$(BUILDDIR)"/doxygen; \
-		cp -r "$(DOXY_HTML)" "$(BUILDDIR)"/doxygen; \
+		mkdir -p "$(BUILDDIR)"/html/doxygen; \
+		cp -r "$(DOXY_HTML)" "$(BUILDDIR)"/html/doxygen; \
 	fi

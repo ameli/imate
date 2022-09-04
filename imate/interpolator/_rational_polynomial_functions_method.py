@@ -27,25 +27,6 @@ class RationalPolynomialFunctionsMethod(InterpolantBase):
     t \\mathbf{B}` using an interpolation scheme based on rational polynomial
     functions (see details below).
 
-    **Class Inheritance:**
-
-    .. inheritance-diagram::
-    imate.InterpolateTraceinv.RationalPolynomialFunctionsMethod
-        :parts: 1
-
-    :param A: Invertible matrix, can be either dense or sparse matrix.
-    :type A: numpy.ndarray
-
-    :param B: Invertible matrix, can be either dense or sparse matrix.
-    :type B: numpy.ndarray
-
-    :param options: A dictionary of input arguments for
-        :mod:`imate.traceinv.traceinv` module.
-    :type options: dict
-
-    :param verbose: If ``True``, prints some information on the computation
-        process. Default is ``False``.
-    :type verbose: bool
 
     **Interpolation Method**
 
@@ -72,28 +53,6 @@ class RationalPolynomialFunctionsMethod(InterpolantBase):
 
         The number of interpolant points :math:`q` in this module can only be
         either :math:`q = 2` or :math:`q = 4`.
-
-    **Example**
-
-    This class can be invoked from
-    :class:`imate.InterpolateTraceinv.InterpolateTraceinv` module
-    using ``method='RPF'`` argument.
-
-    .. code-block:: python
-
-        >>> from imate import generate_matrix
-        >>> from imate import InterpolateTraceinv
-
-        >>> # Create a symmetric positive-definite matrix, size (20**2, 20**2)
-        >>> A = generate_matrix(size=20)
-
-        >>> # Create an object that interpolates trace of inverse of A+tI
-        >>> # where I is identity matrix.
-        >>> TI = InterpolateTraceinv(A, method='RPF')
-
-        >>> # Interpolate A+tI at some input point t
-        >>> t = 4e-1
-        >>> trace = TI.interpolate(t)
     """
 
     # ====

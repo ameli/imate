@@ -95,22 +95,22 @@ def _interpolate_trace_exp(p):
 
     # Root Monomial Basis Functions, basis type: NonOrthogonal
     TI03 = InterpolateSchatten(A, B=B, p=p, ti=interpolant_points, kind='IMBF',
-                               basis_functions_type='NonOrthogonal',
-                               options=options, verbose=verbose)
+                               basis_func_type='non-ortho', options=options,
+                               verbose=verbose)
     Schatten03 = TI03.interpolate(inquiry_point)
     Error03 = 100.0 * numpy.abs(Schatten03 - Schatten00) / Schatten00
 
     # Root Monomial Basis Functions, basis type: Orthogonal
     TI04 = InterpolateSchatten(A, B=B, p=p, ti=interpolant_points, kind='IMBF',
-                               basis_functions_type='Orthogonal',
-                               options=options, verbose=verbose)
+                               basis_func_type='ortho', options=options,
+                               verbose=verbose)
     Schatten04 = TI04.interpolate(inquiry_point)
     Error04 = 100.0 * numpy.abs(Schatten04 - Schatten00) / Schatten00
 
     # Root Monomial Basis Functions, basis type: Orthogonal2
     TI05 = InterpolateSchatten(A, B=B, p=p, ti=interpolant_points, kind='IMBF',
-                               basis_functions_type='Orthogonal2',
-                               options=options, verbose=verbose)
+                               basis_func_type='ortho2', options=options,
+                               verbose=verbose)
     Schatten05 = TI05.interpolate(inquiry_point)
     Error05 = 100.0 * numpy.abs(Schatten05 - Schatten00) / Schatten00
 

@@ -8,9 +8,9 @@ Using |project| on Docker
 Why Using Docker
 ================
 
-|project|'s docker image can be very useful if you want to deploy |project| on GPU devices. The |project| package that is installed via ``pip`` or ``conda``, natively comes with support on GPU devices. However, the version of CUDA Toolkit that |project| was built with it, should match the version of CUDA Toolkit that you have on your machine. This might often be a problem, as your CUDA Toolkit might not have the exact same version as the one that |project| supports.
+|project|'s docker image can be very useful if you want to deploy |project| on GPU devices. The |project| package which is installed via ``pip`` or ``conda``, natively comes with support on GPU devices. However, the version of CUDA Toolkit that |project| was built with it, should match the version of CUDA Toolkit that you have on your machine. This might often be a problem, as your CUDA Toolkit might not have the same version as the one that |project| supports.
 
-Workarounds to this problem are that either:
+Workarounds to this problem are either:
 
 * Change your CUDA installation. See :ref:`Install CUDA Toolkit <gpu-install-cuda>`.
 * Compile |project| with a specific CUDA version compatible with your existing CUDA installation. See :ref:`Compile imate from Source <compile-imate>`.
@@ -31,16 +31,16 @@ Install docker by
 
         .. prompt:: bash
 
-            sudo apt-get update
-            sudo apt-get install ca-certificates curl gnupg lsb-release
+            sudo apt update
+            sudo apt install ca-certificates curl gnupg lsb-release
             sudo mkdir -p /etc/apt/keyrings
             curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
                 sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
             echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
                 https://download.docker.com/linux/ubuntu \
                 $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-            sudo apt-get update
-            sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+            sudo apt update
+            sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
     .. tab-item:: CentOS 7
         :sync: centos
@@ -86,7 +86,7 @@ Get the |project| docker image by
 
   docker pull sameli/imate
 
-The docker image has the followings pre-installed:
+The docker image has the following pre-installed:
 
 * CUDA: in ``/usr/local/cuda``
 * Python 3.9: in ``/usr/bin/python3``
@@ -137,7 +137,7 @@ The followings are some examples of using ``docker run`` with various options:
 Deploy |project| Docker Container on GPU
 ========================================
 
-To access host's GPU device from inside the docker container, you should install NVIDIA Container Toolkit.
+To access the host's GPU device from inside the docker container, you should install NVIDIA Container Toolkit.
 
 Install NVIDIA Container Toolkit
 --------------------------------
@@ -180,8 +180,8 @@ Install `nvidia-contaner-toolkit` by:
 
         .. prompt:: bash
 
-            sudo apt-get update
-            sudo apt-get install -y nvidia-container-toolkit
+            sudo apt update
+            sudo apt install -y nvidia-container-toolkit
 
     .. tab-item:: CentOS 7
         :sync: centos
@@ -206,11 +206,11 @@ Restart docker:
 Run |project| Docker Container on GPU
 -------------------------------------
       
-To use host's GPU from the docker container, simply add  ``--gpus all`` to any of the ``docker run`` commands :ref:`described earlier <docker-examples>`, such as by
+To use the host's GPU from the docker container, simply add  ``--gpus all`` to any of the ``docker run`` commands :ref:`described earlier <docker-examples>`, such as by
 
 .. prompt:: bash
 
     docker run --gpus all -it sameli/imate
 
 .. |docker-size| image:: https://img.shields.io/docker/image-size/sameli/imate
-   :target: https://hub.docker.com/repository/docker/sameli/imate
+   :target: https://hub.docker.com/r/sameli/imate

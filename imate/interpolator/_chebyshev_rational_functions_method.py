@@ -14,6 +14,7 @@
 from __future__ import print_function
 from ._interpolant_base import InterpolantBase
 
+import numbers
 import numpy
 import scipy
 import scipy.interpolate
@@ -28,88 +29,6 @@ from scipy.integrate import quad
 
 class ChebyshevRationalFunctionsMethod(InterpolantBase):
     """
-    Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A} +
-    t \\mathbf{B}` using an interpolation scheme based on rational polynomial
-    functions (see details below).
-
-    **Class Inheritance:**
-
-    .. inheritance-diagram::
-        imate.InterpolateTraceinv.RadialBasisFunctionsMethod
-        :parts: 1
-
-    :param A: Invertible matrix, can be either dense or sparse matrix.
-    :type A: numpy.ndarray
-
-    :param B: Invertible matrix, can be either dense or sparse matrix.
-    :type B: numpy.ndarray
-
-    :param options: A dictionary of input arguments for
-        :mod:`imate.traceinv.traceinv` module.
-    :type options: dict
-
-    :param verbose: If ``True``, prints some information on the computation
-        process. Default is ``False``.
-    :type verbose: bool
-
-    :param function_type: Can be ``1``, ``2``, or ``3``, which defines
-        different radial basis functions (see details below).
-    :type function_type: int
-
-    **Interpolation Method**
-
-    Define the function
-
-    .. math::
-
-        \\tau(t) = \\frac{\\mathrm{trace}\\left( (\\mathbf{A} +
-        t \\mathbf{B})^{-1} \\right)}{\\mathrm{trace}(\\mathbf{B}^{-1})}
-
-    and :math:`\\tau_0 = \\tau(0)`. Then, we approximate :math:`\\tau(t)` by
-    radial basis functions as follows. Define
-
-    .. math::
-
-        x(t) = \\log t
-
-    Depending whether ``function_type`` is set to ``1``, ``2``, or ``3``, one
-    of the following functions is defined:
-
-    .. math::
-        :nowrap:
-
-        \\begin{eqnarray}
-        y_1(t) &= \\frac{1}{\\tau(t)} - \\frac{1}{\\tau_0} - t, \\
-        y_2(t) &= \\frac{\\frac{1}{\\tau(t)}}{\\frac{1}{\\tau_0} + t} - 1, \\
-        y_3(t) &= 1 - \\tau(t) \\left( \\frac{1}{\\tau_0} + t \\right).
-        \\end{eqnarray}
-
-    * The set of data :math:`(x, y_1(x))` are interpolated using
-      *cubic splines*.
-    * The set of data :math:`(x, y_2(x))` and :math:`(x, y_3(x))` are
-      interpolated using *Gaussian radial basis functions*.
-
-    **Example**
-
-    This class can be invoked from
-    :class:`imate.InterpolateTraceinv.InterpolateTraceinv` module using
-    ``method='RBF'`` argument.
-
-    .. code-block:: python
-
-        >>> from imate import generate_matrix
-        >>> from imate import InterpolateTraceinv
-
-        >>> # Create a symmetric positive-definite matrix, size (20**2, 20**2)
-        >>> A = generate_matrix(size=20)
-
-        >>> # Create an object that interpolates trace of inverse of A+tI
-        >>> # where I is identity matrix.
-        >>> TI = InterpolateTraceinv(A, method='RBF')
-
-        >>> # Interpolate A+tI at some input point t
-        >>> t = 4e-1
-        >>> trace = TI.interpolate(t)
     """
 
     # ====
@@ -380,6 +299,11 @@ class ChebyshevRationalFunctionsMethod(InterpolantBase):
             tau = (y+1.0)*t + self.tau0
         else:
             raise ValueError('"type" should be 1 or 2.')
+
+        # If input is a number, make output also a number, not an array
+        if isinstance(t, numbers.Number):
+            if not isinstance(tau, numbers.Number):
+                tau = tau[0]
 
         schatten = tau * self.schatten_B
         return schatten

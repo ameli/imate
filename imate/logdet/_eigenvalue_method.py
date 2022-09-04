@@ -298,6 +298,17 @@ def eigenvalue_method(
     not_nan = numpy.logical_not(numpy.isnan(eigenvalues))
     logdet_ = numpy.sum(numpy.log((eigenvalues[not_nan]**p)))
 
+    # Return only the real part
+    angle_rtol = 1e-6
+    if isinstance(logdet_, numpy.complex128):
+        angle = numpy.abs(numpy.angle(logdet_))
+        if angle > angle_rtol * A.shape[0]:
+            raise RuntimeError(
+                    'Determinant is not a purely real number. Angle : %f'
+                    % angle)
+        else:
+            logdet_ = logdet_.real
+
     # Gramian matrix
     if gram:
         logdet_ = 2.0 * logdet_

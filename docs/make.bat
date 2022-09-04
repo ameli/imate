@@ -9,6 +9,7 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=source
 set BUILDDIR=build
+et DOXY_HTML=doxygen\output\html
 
 if "%1" == "" goto help
 
@@ -26,6 +27,12 @@ if errorlevel 9009 (
 )
 
 %SPHINXBUILD% -M %1 %SOURCEDIR% %BUILDDIR% %SPHINXOPTS% %O%
+if exist %DOXY_HTML% (
+    if not exist %BUILDDIR%\html\doxygen (
+        mkdir %BUILDDIR%\html\doxygen
+    )
+    xcopy /e /k /h /i  %DOXY_HTML% %BUILDDIR%\html\doxygen
+)
 goto end
 
 :help

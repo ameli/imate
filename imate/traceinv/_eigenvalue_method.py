@@ -328,6 +328,16 @@ def eigenvalue_method(
     not_nan = numpy.logical_not(numpy.isnan(eigenvalues))
     trace = numpy.sum(1.0 / (eigenvalues[not_nan]**p))
 
+    # Return only the real part
+    angle_rtol = 1e-6
+    if isinstance(trace, numpy.complex128):
+        angle = numpy.abs(numpy.angle(trace))
+        if angle > angle_rtol * A.shape[0]:
+            raise RuntimeError(
+                    'Trace is not a purely real number. Angle : %f' % angle)
+        else:
+            trace = trace.real
+
     tot_wall_time = time.perf_counter() - init_tot_wall_time
     cpu_proc_time = time.process_time() - init_cpu_proc_time
 

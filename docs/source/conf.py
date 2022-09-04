@@ -75,16 +75,31 @@ for build_subdirectory in build_subdirectories:
 # -- Project information -----------------------------------------------------
 
 project = 'imate'
-copyright = '2022, Siavash Ameli'
 author = 'Siavash Ameli'
+copyright = f'{date.today().year}, ' + author
 
 # -- Sphinx Settings ----------------------------------------------------------
 
 # Check links and references
 nitpicky = True
 
-# Automatically update year in copyright
-copyright = f'{date.today().year}, ' + author
+# Why setting "root_doc": by using toctree in index.rst, two things are added
+# to index.html main page: (1) a toc in that location of page, (2) toc in the
+# sidebar menu. If we add :hidden: option to toctree, it removes toc from
+# both page and sidebar menu. There is no way we can have only one of these,
+# for instance, toc only in the page, but not in the menu. A solution to 
+# this is as follows:
+#   1. set "root_doc= 'content'". Then add those toc that should go into the
+#      menu in the content.rst file.
+#   2. Add those toc that should go into the page in index.rst file.
+# This way, we can control which toc appears where.
+#
+# A problem: by setting "root_doc='content'", the sidebar logo links to
+# contents.html page, not the main page. There is a logo_url variable but it
+# does not seem to do anything. To fix this, I added a javascript (see in
+# /docs/source/_static/js/custom-pydata.js) which overwrites
+# <a href"path/contents.html"> to <a href="path/index.html>".
+root_doc = "contents"
 
 # Common definitions for the whole pages
 rst_epilog = f'''
@@ -93,7 +108,6 @@ rst_epilog = f'''
 
 .. |project| replace:: :synco:`imate`
 '''
-
 
 # -- General configuration ---------------------------------------------------
 
@@ -208,7 +222,7 @@ html_theme_options = {
         },
         {
             "name": "Docker Hub",
-            "url": "https://hub.docker.com/repository/docker/sameli/imate",
+            "url": "https://hub.docker.com/r/sameli/imate",
             "icon": "fab fa-docker",
             "type": "fontawesome",
         },
@@ -221,10 +235,10 @@ html_theme_options = {
     ],
     "pygment_light_style": "tango",
     "pygment_dark_style": "native",
-   "logo": {
-      "image_light": "images/icons/logo-imate-light.png",
-      "image_dark": "images/icons/logo-imate-dark.png",
-   }
+    "logo": {
+        "image_light": "images/icons/logo-imate-light.png",
+        "image_dark": "images/icons/logo-imate-dark.png",
+    },
 }
 
 html_context = {

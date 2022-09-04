@@ -7,8 +7,6 @@
 
 |project|, short for **I**\ mplicit **Ma**\ trix **T**\ race **E**\ stimator, is a C++/CUDA library that provides high-performance randomized algorithms for the computationally expensive matrix functions in machine learning in Python.
 
-To learn more about |project| functionality, see :ref:`Overview <overview>`.
-
 .. grid:: 4
 
     .. grid-item-card:: GitHub
@@ -27,7 +25,7 @@ To learn more about |project| functionality, see :ref:`Overview <overview>`.
         :class-card: custom-card-link
 
     .. grid-item-card:: Docker Hub
-        :link: https://hub.docker.com/repository/docker/sameli/imate
+        :link: https://hub.docker.com/r/sameli/imate
         :text-align: center
         :class-card: custom-card-link
 
@@ -56,6 +54,15 @@ To learn more about |project| functionality, see :ref:`Overview <overview>`.
         :link-type: ref
         :text-align: center
         :class-card: custom-card-link
+
+Overview
+========
+
+To learn more about |project| functionality, see:
+
+.. toctree::
+
+    overview
 
 Supported Platforms
 ===================
@@ -90,7 +97,7 @@ Successful installation and tests performed on the following operating systems, 
 .. |build-windows| image:: https://img.shields.io/github/workflow/status/ameli/imate/build-windows
    :target: https://github.com/ameli/imate/actions?query=workflow%3Abuild-windows
 
-Python wheels for |project| for all supported platforms and versions in the above are available through `PyPI <https://pypi.org/project/imate/>`_ and `Anaconda Cloud <https://anaconda.org/s-ameli/imate>`_. If you need |project| on other platforms, architectures, and Python or PyPy versions, `raise an issue <https://github.com/ameli/imate/issues>`_ on Github and we build its Python Wheel for you.
+Python wheels for |project| for all supported platforms and versions in the above are available through `PyPI <https://pypi.org/project/imate/>`_ and `Anaconda Cloud <https://anaconda.org/s-ameli/imate>`_. If you need |project| on other platforms, architectures, and Python or PyPy versions, `raise an issue <https://github.com/ameli/imate/issues>`_ on GitHub to build its Python Wheel for you.
 
 Install
 =======
@@ -129,13 +136,13 @@ Docker
 
 |docker-pull| |deploy-docker|
 
-The docker image comes with pre-installed |project|, NVIDIA graphic driver, and a compatible version of CUDA Toolkit libraries.
+The docker image comes with a pre-installed |project|, an NVIDIA graphic driver, and a compatible version of CUDA Toolkit libraries.
 
 .. grid:: 1
 
     .. grid-item-card::
 
-        Pull docker image from `Docker Hub <https://hub.docker.com/repository/docker/sameli/imate>`_:
+        Pull docker image from `Docker Hub <https://hub.docker.com/r/sameli/imate>`_:
 
         .. prompt:: bash
             
@@ -176,7 +183,7 @@ The supported GPU micro-architectures and CUDA version are as follows:
 Performance
 ===========
 
-|project| is scalable to **very large matrices**. Its core library for basic linear algebraic operations is **faster than OpenBLAS**, and its **pseudo-random generator** is hundred-fold faster than the implementation in standard C++ library.
+|project| is scalable to **very large matrices**. Its core library for basic linear algebraic operations is **faster than OpenBLAS**, and its **pseudo-random generator** is a hundred-fold faster than the implementation in the standard C++ library.
 
 Read about the performance of |project| in practical applications:
 
@@ -265,21 +272,22 @@ Technical Notes
 
 |tokei-2| |languages|
 
-The core of |project| is implemented in C++ and NVIDIA CUDA, which is standalone modular library for high-performance low-level algebraic operations on linear operators (including matrices and affine matrix functions). This library provides a unified interface for computations on both CPU and GPU, unified interface for dense and sparse matrices, unified container for various data types, and fully automatic memory management and data transfer between CPU and GPU devices on demand. This library can be employed independently for projects other than |project|. The doxygen generated reference of `C++/CUDA Classes Hierarchy and Namespaces <doxygen/html/annotated.html>`_ is available for developers.
+The core of |project|, which is implemented in C++ and NVIDIA CUDA framework, is a standalone modular library for high-performance low-level algebraic operations on linear operators (including matrices and affine matrix functions). This library provides a unified interface for computations on both CPU and GPU, a unified interface for dense and sparse matrices, a unified container for various data types, and fully automatic memory management and data transfer between CPU and GPU devices on demand. This library can be employed independently for projects other than |project|. The Doxygen generated reference of `C++/CUDA Classes and Namespaces <doxygen/html/annotated.html>`_ of |project| is available for developers.
 
-The front-end interface of |project| is implemented in Cython and Python (see :ref:`API Reference <api>` for end-users).
+The front-end interface of |project| is implemented in Cython and Python (see Python :ref:`API Reference <api>` for end-users).
 
 Some notable implementation techniques used to develop |project| are:
 
-* Polymorphic and curiously recurring template pattern programming (CRTP).
-* Implemented customized `dynamic loading` of CUDA libraries.
-* Provides `manylinux` wheels on customized docker images with CUDA support for `CUDA 10 <https://hub.docker.com/repository/docker/sameli/manylinux2014_x86_64_cuda_10>`_ and `CUDA 11 <https://hub.docker.com/repository/docker/sameli/manylinux2014_x86_64_cuda_11>`_.
-* Provides `docker image <https://hub.docker.com/repository/docker/sameli/imate>`_ with pre-installed CUDA and imate package.
+* Polymorphic and curiously recurring template pattern programming (CRTP) technique.
+* OS-independent customized `dynamic loading` of CUDA libraries.
+* Static dispatching enables executing |project| with and without CUDA on the user's machine with the same pre-compiled |project| installation.
+* Completely `GIL-free` Cython implementation.
+* Providing `manylinux` wheels build upon customized docker images with CUDA support (see `CUDA 10 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_10>`_ and `CUDA 11 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_11>`_ images on Docker Hub).
 
 How to Contribute
 =================
 
-We welcome contributions via `Github's pull request <https://github.com/ameli/imate/pulls>`_. If you do not feel comfortable modifying the code, we also welcome feature request and bug report as `Github issues <https://github.com/ameli/imate/issues>`_.
+We welcome contributions via `GitHub's pull request <https://github.com/ameli/imate/pulls>`_. If you do not feel comfortable modifying the code, we also welcome feature requests and bug reports as `GitHub issues <https://github.com/ameli/imate/issues>`_.
 
 Publications
 ============
@@ -322,7 +330,7 @@ Related Projects
       :text-align: center
       :class-card: custom-card-link
 
-      A python package to generate orthogonal basis functions used for matrix functions interpolation.
+      A python package to generate orthogonal basis functions for matrix functions interpolation.
 
 .. |deploy-docs| image:: https://img.shields.io/github/workflow/status/ameli/imate/deploy-docs?label=docs
    :target: https://github.com/ameli/imate/actions?query=workflow%3Adeploy-docs
@@ -353,7 +361,7 @@ Related Projects
 .. |languages| image:: https://img.shields.io/github/languages/count/ameli/imate
    :target: https://github.com/ameli/imate
 .. |docker-pull| image:: https://img.shields.io/docker/pulls/sameli/imate?color=green&label=downloads
-   :target: https://hub.docker.com/repository/docker/sameli/imate
+   :target: https://hub.docker.com/r/sameli/imate
 .. |glearn-light| image:: _static/images/icons/logo-glearn-light.svg
    :height: 30
    :class: only-light

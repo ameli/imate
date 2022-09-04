@@ -30,29 +30,9 @@ class SplineMethod(InterpolantBase):
     t \\mathbf{B}` using an interpolation scheme based on rational polynomial
     functions (see details below).
 
-    **Class Inheritance:**
 
-    .. inheritance-diagram::
-        imate.InterpolateTraceinv.RadialBasisFunctionsMethod
-        :parts: 1
-
-    :param A: Invertible matrix, can be either dense or sparse matrix.
-    :type A: numpy.ndarray
-
-    :param B: Invertible matrix, can be either dense or sparse matrix.
-    :type B: numpy.ndarray
-
-    :param options: A dictionary of input arguments for
-        :mod:`imate.traceinv.traceinv` module.
-    :type options: dict
-
-    :param verbose: If ``True``, prints some information on the computation
-        process. Default is ``False``.
-    :type verbose: bool
-
-    :param function_type: Can be ``1``, ``2``, or ``3``, which defines
-        different radial basis functions (see details below).
-    :type function_type: int
+    function_type: Can be ``1``, ``2``, or ``3``, which defines
+    different radial basis functions (see details below).
 
     **Interpolation Method**
 
@@ -86,28 +66,6 @@ class SplineMethod(InterpolantBase):
       *cubic splines*.
     * The set of data :math:`(x, y_2(x))` and :math:`(x, y_3(x))` are
       interpolated using *Gaussian radial basis functions*.
-
-    **Example**
-
-    This class can be invoked from
-    :class:`imate.InterpolateTraceinv.InterpolateTraceinv` module using
-    ``method='RBF'`` argument.
-
-    .. code-block:: python
-
-        >>> from imate import generate_matrix
-        >>> from imate import InterpolateTraceinv
-
-        >>> # Create a symmetric positive-definite matrix, size (20**2, 20**2)
-        >>> A = generate_matrix(size=20)
-
-        >>> # Create an object that interpolates trace of inverse of A+tI
-        >>> # where I is identity matrix.
-        >>> TI = InterpolateTraceinv(A, method='RBF')
-
-        >>> # Interpolate A+tI at some input point t
-        >>> t = 4e-1
-        >>> trace = TI.interpolate(t)
     """
 
     # ====

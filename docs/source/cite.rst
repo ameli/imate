@@ -6,7 +6,7 @@ Publications
 How to Cite
 ===========
 
-If you publish work that uses |project|, please consider citing the following manuscripts. This list will update as more publications are underway.
+If you publish work that uses |project|, please consider citing the following manuscripts. This list will update as more publications are in progress.
 
 .. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant and Trace of the Powers of Matrix :math:`\mathbf{A} + t \mathbf{B}`. |ameli-interp| |btn-bib-1| |btn-view-pdf-1|
 

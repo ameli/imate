@@ -593,9 +593,9 @@ def toeplitz_schatten(a, b, size, p=2):
             \\left| \\mathrm{det}(\\mathbf{A})
             \\right|^{\\frac{1}{n}}, & p=0, \\\\
             \\left| \\frac{1}{n}
-            \\mathrm{trace}(\\mathbf{A}^{\\frac{1}{p}})
+            \\mathrm{trace}(\\mathbf{A}^{p})
             \\right|^{\\frac{1}{p}}, & p \\neq 0,
-        \\end{cases},
+        \\end{cases}
 
     where :math:`n` is the size of the matrix. When :math:`p \\geq 0`, the
     above definition is the Schatten **norm**, and when :math:`p < 0`, the

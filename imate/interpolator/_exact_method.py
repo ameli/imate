@@ -21,60 +21,6 @@ from ._interpolant_base import InterpolantBase
 
 class ExactMethod(InterpolantBase):
     """
-    Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A}
-    + t \\mathbf{B}` using exact method (no interpolation is performed).
-    This class does not accept interpolant points as the result is not
-    interpolated, rather, used as a benchmark to compare the exact versus the
-    interpolated solution of the other classes.
-
-    **Class Inheritance:**
-
-    .. inheritance-diagram:: imate.interpolator._exact_method.ExactMethod
-        :parts: 1
-
-    :param A: A positive-definite matrix. Matrix can be dense or sparse.
-    :type A: numpy.ndarray or scipy.sparse.csc_matrix
-
-    :param B: A positive-definite matrix.
-        If ``None`` or not provided, it is assumed that ``B`` is an identity
-        matrix of the shape of ``A``.
-    :type B: numpy.ndarray or scipy.sparse.csc_matrix
-
-    :param options: A dictionary of arguments to pass to
-        :mod:`imate.traceinv` module.
-    :type options: dict
-
-    :param verbose: If ``True``, prints some information on the computation
-        process. Default is ``False``.
-    :type verbose: bool
-
-    :example:
-
-    This class can be invoked from
-        :class:`imate.InterpolateTraceinv.InterpolateTraceinv` module
-    using ``method='EXT'`` argument.
-
-    .. code-block:: python
-
-        >>> from imate import generate_matrix
-        >>> from imate import InterpolateTraceinv
-
-        >>> # Create a symmetric positive-definite matrix, size (20**2, 20**2)
-        >>> A = generate_matrix(size=20)
-
-        >>> # Create an object that interpolates trace of inverse of A+tI
-        >>> # where I is identity matrix
-        >>> TI = InterpolateTraceinv(A, method='EXT')
-
-        >>> # Interpolate A+tI at some input point t
-        >>> t = 4e-1
-        >>> trace = TI.interpolate(t)
-
-    .. seealso::
-
-        The result of the ``EXT`` method is identical with the eigenvalue
-        method ``EIG``, which is given by
-        :class:`imate.InterpolateTraceinv.EigenvaluesMethod`.
     """
 
     # ====

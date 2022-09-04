@@ -24,9 +24,9 @@ import numpy
 def schatten(
         A,
         gram=False,
-        p=0,
+        p=2.0,
         return_info=False,
-        method='cholesky',
+        method='eigenvalue',
         **options):
     """
     Schatten `p`-norm and p-anti-norm of matrix.
@@ -60,7 +60,7 @@ def schatten(
         details.
 
     method : {'exact', 'eigenvalue', 'cholesky', 'hutchinson', 'slq'}, \
-            default='exact'
+            default='eigenvalue'
         The method of computing Schatten norm. Note that
 
         * ``exact`` is only available for :math:`p>0` 
@@ -178,9 +178,9 @@ def schatten(
             \\left| \\mathrm{det}(\\mathbf{A})
             \\right|^{\\frac{1}{n}}, & p=0, \\\\
             \\left| \\frac{1}{n}
-            \\mathrm{trace}(\\mathbf{A}^{\\frac{1}{p}})
+            \\mathrm{trace}(\\mathbf{A}^{p})
             \\right|^{\\frac{1}{p}}, & p \\neq 0,
-        \\end{cases},
+        \\end{cases}
 
     where :math:`n` is the size of the matrix. When :math:`p \\geq 0`, the
     above definition is the Schatten **norm**, and when :math:`p < 0`, the
@@ -239,7 +239,7 @@ def schatten(
         >>> # Generate a sample matrix
         >>> A = correlation_matrix(size=1000)
 
-        >>> # Compute Schatten 2-norm using the exact method
+        >>> # Compute Schatten 2-norm using the default (eigenvalue) method
         >>> schatten(A)
         9.742355891729794
 

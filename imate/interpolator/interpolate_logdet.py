@@ -35,8 +35,8 @@ class InterpolateLogdet(InterpolateSchatten):
     # init
     # ====
 
-    def __init__(self, A, B=None, options={'method': 'cholesky'},
-                 verbose=False, kind='imbf', ti=[], **kwargs):
+    def __init__(self, A, B=None, options={}, verbose=False, kind='imbf',
+                 ti=[], **kwargs):
         """
         Initializes the object depending on the method.
         """

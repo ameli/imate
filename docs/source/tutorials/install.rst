@@ -90,7 +90,7 @@ In the followings, it is assumed `anaconda <https://www.anaconda.com/products/in
 
        conda init
 
-   You may need to close and reopen terminal after the above command. Alternatively, instead of the above, you can do
+   You may need to close and reopen your terminal after the above command. Alternatively, instead of the above, you can do
 
    .. prompt:: bash
 
@@ -129,12 +129,12 @@ In the followings, it is assumed `anaconda <https://www.anaconda.com/products/in
 Optional Runtime Dependencies
 =============================
 
-Runtime libraries are not required to present during the installation of |project|. However, they may be required to be installed during running |project|.
+Runtime libraries are not required to be present during the installation of |project|. However, they may be required to be installed during running |project|.
 
 CUDA Toolkit and NVIDIA Graphic Driver (`Optional`)
 ---------------------------------------------------
 
-To use GPU devices, install NVIDIA Graphic Driver and CUDA Toolkit. See instructions below.
+To use GPU devices, install NVIDIA Graphic Driver and CUDA Toolkit. See the instructions below.
 
 * :ref:`Install NVIDIA Graphic Driver <install-graphic-driver>`.
 * :ref:`Install CUDA Toolkit <install-cuda-toolkit>`.
@@ -146,7 +146,7 @@ Sparse Suite (`Optional`)
 
 .. note::
 
-    The Sparse Suite library is only used for those functions in |project| that uses Cholesky decomposition method by passing ``method=cholesky`` argument to the functions. See :ref:`API reference for Functions <Functions>` for details. 
+    The Sparse Suite library is only used for those functions in |project| that uses the Cholesky decomposition method by passing ``method=cholesky`` argument to the functions. See :ref:`API reference for Functions <Functions>` for details. 
 
 1. Install Sparse Suite development library by
 
@@ -210,7 +210,7 @@ Install OpenBLAS library by
 
       .. prompt:: bash
 
-            sudo apt-get install libopenblas-dev
+            sudo apt install libopenblas-dev
 
    .. tab-item:: CentOS 7
       :sync: centos
@@ -252,7 +252,7 @@ Generally, it is not required to compile |project| as the installation through `
 * modify |project|.
 * use `OpenBLAS` instead of the built-in matrix library of |project|.
 * build |project| for a `specific version` of CUDA Toolkit.
-* disable `dynamic loading` feature of |project| for CUDA libraries.
+* disable the `dynamic loading` feature of |project| for CUDA libraries.
 * enable `debugging mode`.
 * or, build this `documentation`.
 
@@ -357,7 +357,7 @@ To install `Intel Compiler` see `Intel oneAPI Base Toolkit <https://www.intel.co
 Install OpenMP (`Required`)
 ---------------------------
 
-OpenMP comes with the C++ compiler installed in the above. However, you may alternatively install it directly on UNIX. Install `OpenMP` library on UNIX as follows:
+OpenMP comes with the C++ compiler installed. However, you may alternatively install it directly on UNIX. Install `OpenMP` library on UNIX as follows:
 
 .. tab-set::
 
@@ -403,7 +403,7 @@ OpenBLAS (`Optional`)
 
       .. prompt:: bash
 
-            sudo apt-get install libopenblas-dev
+            sudo apt install libopenblas-dev
 
    .. tab-item:: CentOS 7
       :sync: centos
@@ -449,7 +449,7 @@ To use |project| on GPU devices, it should be compiled with CUDA compiler. Skip 
 
 .. attention::
 
-    NVIDIA does not support macOS. You can install NVIDIA CUDA Toolkit on Linux and Windows only.
+    NVIDIA does not support macOS. You can install the NVIDIA CUDA Toolkit on Linux and Windows only.
 
 
 It is not required to install the entire CUDA Toolkit. Install only the CUDA compiler and the development libraries of cuBLAS and cuSparse by
@@ -505,14 +505,14 @@ Check if the CUDA compiler is available with ``which nvcc``.
 
 .. note::
 
-    To build |project| with CUDA, you should also set ``CUDA_HOME``, ``USE_CUDA``, and optionally set ``CUDA_DYNAMIC_LOADING`` environment variabls as described in :ref:`Configure Compile-Time Environment Variables <config-env-variables>`.
+    To build |project| with CUDA, you should also set ``CUDA_HOME``, ``USE_CUDA``, and optionally set ``CUDA_DYNAMIC_LOADING`` environment variables as described in :ref:`Configure Compile-Time Environment Variables <config-env-variables>`.
 
 Load CUDA Compiler on GPU Cluster (`Optional`)
 ----------------------------------------------
 
-This section is relevant if you are using GPU on a cluster, and skip this section otherwise.
+This section is relevant if you are using GPU on a cluster and skip this section otherwise.
 
-On a GPU cluster, chances are the CUDA Toolkit is already installed. If the cluster uses ``module`` interface, load CUDA as follows.
+On a GPU cluster, chances are the CUDA Toolkit is already installed. If the cluster uses the `module` interface, load CUDA as follows.
 
 First, check if a CUDA module is available by
 
@@ -545,7 +545,7 @@ Set the following environment variables as desired to configure the compilation 
 
     ``CUDA_HOME``, ``CUDA_PATH``, ``CUDA_ROOT``
 
-        These variables are relevant only if you are compiling with CUDA compiler. :ref:`Install CUDA Toolkit <install-cuda>` and specify the home directory of CUDA Toolkit by setting either of these variables. The home directory should be a path containing the executable ``/bin/nvcc`` (or ``\bin\nvcc.exe`` on Windows). For instance, if ``/usr/local/cuda/bin/nvcc`` exists, export the following:
+        These variables are relevant only if you are compiling with the CUDA compiler. :ref:`Install CUDA Toolkit <install-cuda>` and specify the home directory of CUDA Toolkit by setting either of these variables. The home directory should be a path containing the executable ``/bin/nvcc`` (or ``\bin\nvcc.exe`` on Windows). For instance, if ``/usr/local/cuda/bin/nvcc`` exists, export the following:
 
         .. tab-set::
 
@@ -565,7 +565,7 @@ Set the following environment variables as desired to configure the compilation 
 
     ``USE_CUDA``
 
-        This variable is relevant only if you are compiling with CUDA compiler. By default, this variable is set to `0`. To compile |project| with CUDA, :ref:`install CUDA Toolkit <install-cuda>` and set this variable to `1` by
+        This variable is relevant only if you are compiling with the CUDA compiler. By default, this variable is set to `0`. To compile |project| with CUDA, :ref:`install CUDA Toolkit <install-cuda>` and set this variable to `1` by
 
         .. tab-set::
 
@@ -585,7 +585,7 @@ Set the following environment variables as desired to configure the compilation 
 
     ``CUDA_DYNAMIC_LOADING``
 
-        This variable is relevant only if you are compiling with CUDA compiler. By default, this variable is set to `0`.  When |project| is complied with CUDA, the CUDA runtime libraries bundle with the final installation of |project| package, making it over 700MB. While this is generally not an issue for most users, often a small package is preferable if the installed package has to be distributed to other machines. To this end, enable the custom-made `dynamic loading` feature of |project|. In this case, the CUDA libraries will not bundle with the |project| installation, rather, |project| is instructed to load the existing CUDA libraries of the host machine at runtime. To enable dynamic loading, make sure :ref:`CUDA Toolkit <install-cuda>` is installed, then set this variable to `1` by
+        This variable is relevant only if you are compiling with the CUDA compiler. By default, this variable is set to `0`.  When |project| is complied with CUDA, the CUDA runtime libraries bundle with the final installation of |project| package, making it over 700MB. While this is generally not an issue for most users, often a small package is preferable if the installed package has to be distributed to other machines. To this end, enable the custom-made `dynamic loading` feature of |project|. In this case, the CUDA libraries will not bundle with the |project| installation, rather, |project| is instructed to load the existing CUDA libraries of the host machine at runtime. To enable dynamic loading, make sure :ref:`CUDA Toolkit <install-cuda>` is installed, then set this variable to `1` by
 
         .. tab-set::
 
@@ -605,7 +605,7 @@ Set the following environment variables as desired to configure the compilation 
 
     ``CYTHON_BUILD_IN_SOURCE``
 
-        By default, this variable is set to `0`, in which the compilation process generates source files in outside of the source directry, in ``/build`` directry. When it is set to `1`, the build files are generated in source directory. To set this variable, run
+        By default, this variable is set to `0`, in which the compilation process generates source files outside of the source directory, in ``/build`` directry. When it is set to `1`, the build files are generated in the source directory. To set this variable, run
 
         .. tab-set::
 
@@ -649,7 +649,7 @@ Set the following environment variables as desired to configure the compilation 
 
         .. warning::
 
-            Do not use this option to build the package for `production` (release) as it has a slower performance. Building the package by enabling this variable is only sitable for generting the documentation.
+            Do not use this option to build the package for `production` (release) as it has a slower performance. Building the package by enabling this variable is only suitable for generating the documentation.
 
         .. hint::
 
@@ -657,7 +657,7 @@ Set the following environment variables as desired to configure the compilation 
 
     ``USE_CBLAS``
 
-        By default, this variable is set to `0`. Set this variable to `1` if you want to use OpenBLAS instead of the built-in library of |project|. :ref:`Install OpenBLAS <install-openblas>` and set by
+        By default, this variable is set to `0`. Set this variable to `1` if you want to use OpenBLAS instead of the built-in library of |project|. :ref:`Install OpenBLAS <install-openblas>` and set
 
         .. tab-set::
 
@@ -704,7 +704,7 @@ Compile and Install
 
 |repo-size|
 
-Get the source code of |project| from the Github repository by
+Get the source code of |project| from the GitHub repository by
 
 .. prompt:: bash
 
@@ -770,7 +770,7 @@ The output to the above command should be similar to the following:
 
 .. attention::
 
-    Do not load imate if your current working directory is the root directory of the source code of |project|, since python cannot load the installed package properly. Always change the current direcotry to somewhere else (for example, ``cd ..`` as shown in the above).
+    Do not load imate if your current working directory is the root directory of the source code of |project|, since python cannot load the installed package properly. Always change the current directory to somewhere else (for example, ``cd ..`` as shown in the above).
 
 .. _clean-files:
    
@@ -782,12 +782,12 @@ If you set ``CYTHON_BUILD_IN_SOURCE`` or ``CYTHON_BUILD_FOR_DOC`` to ``1``, the 
 
     python setup.py clean
 
-Compile Documentation
-=====================
+Generate Documentation
+======================
 
-To generate this documentation, you should build the package first.
+The documentation consists of a Doxygen documentation and a Sphinx documentation. You should generate the Doxygen documentation first. Before generating the Sphinx documentation, you should compile the package.
 
-Get the source code from Github repository.
+Get the source code from the GitHub repository.
 
 .. prompt:: bash
 
@@ -800,7 +800,64 @@ If you already had the source code, clean it from any previous build (especially
 
     python setup.py clean
 
-Compile and install the package as follows:
+Generate Doxygen Documentation
+------------------------------
+
+Install `doxygen` and `graphviz` by
+
+.. tab-set::
+
+   .. tab-item:: Ubuntu/Debian
+      :sync: ubuntu
+
+      .. prompt:: bash
+
+            sudo apt install doxygen graphviz -y
+
+   .. tab-item:: CentOS 7
+      :sync: centos
+
+      .. prompt:: bash
+
+          sudo yum install doxygen graphviz -y
+
+   .. tab-item:: RHEL 9
+      :sync: rhel
+
+      .. prompt:: bash
+
+          sudo dnf install doxygen graphviz -y
+
+   .. tab-item:: macOS
+      :sync: osx
+
+      .. prompt:: bash
+
+          sudo brew install doxygen graphviz -y
+
+   .. tab-item:: Windows (Powershell)
+      :sync: win
+
+      .. prompt:: powershell
+
+          scoop install doxygen graphviz
+
+.. attention::
+
+    Make sure you ran ``python setup.py clean`` as mentioned previously. Otherwise, if the source directory is not cleaned from any previous built (if there is any), Doxygen unwantedly generates all auto-generated cython files.
+
+Generating the Doxygen documentation by
+
+.. prompt:: bash
+
+    cd docs/doxygen
+    doxygen doxyfile.in
+    cd ../..
+
+Compile Package
+---------------
+
+Set ``CYTHON_BUILD_FOR_DOC`` to `1` (see :ref:`Configure Compile-Time Environment variables <config-env-variables>`). Compile and install the package by
 
 .. tab-set::
 
@@ -822,14 +879,16 @@ Compile and install the package as follows:
             $env:export USE_CUDA = "0"
             sudo -E python setup.py install
 
-Install the requirements
+Generate Sphinx Documentation
+-----------------------------
+
+Install the requirements for the Sphinx documentation by
 
 .. prompt:: bash
 
-    cd docs
-    python -m pip install -r requirements.txt
+    python -m pip install -r docs/requirements.txt
 
-The above installs requirement packages in the Python's path directory. Make sure python's directory is on the `PATH`, for instance, by
+The above command installs the required packages in Python's path directory. Make sure python's directory is on the `PATH`, for instance, by
 
 .. tab-set::
 
@@ -851,9 +910,22 @@ The above installs requirement packages in the Python's path directory. Make sur
 
 Now, build the documentation:
 
-.. prompt:: bash
+.. tab-set::
 
-    make clean html
+    .. tab-item:: UNIX
+        :sync: unix
+
+        .. prompt:: bash
+
+            make clean html --directory=docs
+
+    .. tab-item:: Windows (Powershell)
+        :sync: win
+
+        .. prompt:: powershell
+
+            cd docs
+            make.bat clean html
 
 The main page of the documentation can be found in ``/docs/build/html/index.html``. 
 
@@ -862,7 +934,7 @@ Test with ``pytest``
 
 |codecov-devel|
 
-The package can be tested by running several `test scripts <https://github.com/ameli/imate/tree/main/tests>`_, which tests all `sub-packages <https://github.com/ameli/imate/tree/main/imate>`_ and the `examples <https://github.com/ameli/imate/tree/main/examples>`_.
+The package can be tested by running several `test scripts <https://github.com/ameli/imate/tree/main/tests>`_, which test all `sub-packages <https://github.com/ameli/imate/tree/main/imate>`_ and `examples <https://github.com/ameli/imate/tree/main/examples>`_.
 
 Clone the source code from the repository and install the required test packages by
 
@@ -873,7 +945,7 @@ Clone the source code from the repository and install the required test packages
     python -m pip install -r tests/requirements.txt
     python setup.py install
 
-To automatically run all tests, use ``pytest``:
+To automatically run all tests, use ``pytest`` which is installed by the above commands.
 
 .. prompt:: bash
 
@@ -882,7 +954,7 @@ To automatically run all tests, use ``pytest``:
 
 .. attention::
 
-    To use ``pytest``, change the name of ``/imate/imate`` directory as shown in the above code. This causes ``pytest`` to properly import |project| from the installed location, not from the source code directory.
+    To properly run ``pytest``, rename ``/imate/imate`` directory as shown in the above code. This makes ``pytest`` to properly import |project| from the installed location, not from the source code directory.
 
 .. |codecov-devel| image:: https://img.shields.io/codecov/c/github/ameli/imate
    :target: https://codecov.io/gh/ameli/imate

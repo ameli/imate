@@ -41,38 +41,20 @@ class EigenvaluesMethod(InterpolantBase):
     This class does not accept interpolant points as the result is not
     interpolated.
 
-    **Class Inheritance:**
 
-    .. inheritance-diagram:: imate.InterpolateTraceinv.EigenvaluesMethod
-        :parts: 1
+    non_zero_ratio
 
-    :param A: Invertible matrix, can be either dense or sparse matrix.
-    :type A: numpy.ndarray
+    The ratio of the number of eigenvalues to be assumed
+    non-zero over all eigenvalues. This option is only used for sparse
+    matrices where as assume some of eigenvalues are very small and we are
+    only interested in computing non-zero eigenvalues. In practice, it is
+    not possible to compute all eigenvalues of a large sparse matrix.
+    Default is ``0.9`` indicating to compute 90 percent of the eigenvalues
+    with the largest magnitude and assume the rest of the eigenvalues are
+    zero.
 
-    :param B: Invertible matrix, can be either dense or sparse matrix.
-    :type B: numpy.ndarray
-
-    :param options: A dictionary of input arguments for
-        :mod:`imate.traceinv.traceinv` module.
-    :type options: dict
-
-    :param non_zero_ratio: The ratio of the number of eigenvalues to be assumed
-        non-zero over all eigenvalues. This option is only used for sparse
-        matrices where as assume some of eigenvalues are very small and we are
-        only interested in computing non-zero eigenvalues. In practice, it is
-        not possible to compute all eigenvalues of a large sparse matrix.
-        Default is ``0.9`` indicating to compute 90 percent of the eigenvalues
-        with the largest magnitude and assume the rest of the eigenvalues are
-        zero.
-    :type non_zero_ratio: int
-
-    :param tol: tol of computing eigenvalues. This option is only
-        used for sparse matrices. Default value is ``1e-3``.
-    :type tol: float
-
-    :param verbose: If ``True``, prints some information on the computation
-        process. Default is ``False``.
-    :type verbose: bool
+    tol: tol of computing eigenvalues. This option is only
+    used for sparse matrices. Default value is ``1e-3``.
 
     .. note::
 
@@ -83,34 +65,6 @@ class EigenvaluesMethod(InterpolantBase):
         eigenvalues over the total number of eigenvalues can be set by
         ``non_zero_ratio``. The tolerance at which the eigenvalues are computed
         can be set by ``tol``.
-
-    **Example:**
-
-    This class can be invoked from
-    :class:`imate.InterpolateTraceinv.InterpolateTraceinv` module using
-    ``method='EIG'`` argument.
-
-    .. code-block:: python
-
-        >>> from imate import generate_matrix
-        >>> from imate import InterpolateTraceinv
-
-        >>> # Create a symmetric positive-definite matrix, size (20**2, 20**2)
-        >>> A = generate_matrix(size=20)
-
-        >>> # Create an object that interpolates trace of inverse of A+tI
-        >>> # where I is identity matrix.
-        >>> TI = InterpolateTraceinv(A, InterpolatiionMethod='EIG')
-
-        >>> # Interpolate A+tI at some input point t
-        >>> t = 4e-1
-        >>> trace = TI.interpolate(t)
-
-    .. seealso::
-
-        The result of the ``EIG`` method is identical with the exact method
-        ``EXT``, which is given by
-        :class:`imate.InterpolateTraceinv.ExactMethod`.
     """
 
     # ====
