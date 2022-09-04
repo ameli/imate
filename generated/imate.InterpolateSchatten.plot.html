@@ -3,10 +3,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>imate.InterpolateSchatten.plot &#8212; imate Manual</title>
 <script>
@@ -30,7 +30,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -38,6 +38,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/clipboard.min.js"></script>
@@ -67,7 +68,7 @@
 
     
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
 
   </head>
   
@@ -87,7 +88,7 @@
   
 
 
-<a class="navbar-brand logo" href="../index.html">
+<a class="navbar-brand logo" href="../contents.html">
   
   
   
@@ -134,12 +135,6 @@
  </a>
 </li>
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../cite.html">
-  Publications
- </a>
-</li>
-
     
 </ul>
       </div>
@@ -178,7 +173,7 @@
             <label class="sr-only">Anaconda Cloud</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://hub.docker.com/repository/docker/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
             <label class="sr-only">Docker Hub</label></a>
         </li>
         <li class="nav-item">
@@ -567,56 +562,72 @@
               <article class="bd-article" role="main">
                 
   <section id="imate-interpolateschatten-plot">
-<h1>imate.InterpolateSchatten.plot<a class="headerlink" href="#imate-interpolateschatten-plot" title="Permalink to this headline">#</a></h1>
+<h1>imate.InterpolateSchatten.plot<a class="headerlink" href="#imate-interpolateschatten-plot" title="Permalink to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="imate.InterpolateSchatten.plot">
 <span class="sig-prename descclassname"><span class="pre">InterpolateSchatten.</span></span><span class="sig-name descname"><span class="pre">plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inquiry_points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compare</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.InterpolateSchatten.plot" title="Permalink to this definition">#</a></dt>
-<dd><p>Plots the interpolation results, together with the comparison with the
-exact solution and the relative error of the interpolation.</p>
-<p>To plot, set <code class="docutils literal notranslate"><span class="pre">Plot=True</span></code> argument in
-<a class="reference internal" href="imate.InterpolateSchatten.html#imate.InterpolateSchatten" title="imate.InterpolateSchatten"><code class="xref py py-mod docutils literal notranslate"><span class="pre">imate.InterpolateSchatten</span></code></a>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><dl class="simple">
-<dt><strong>inquiry_points: numpy.array</strong></dt><dd><p>Inquiry points to be interpolated</p>
+<dd><p>Plot the interpolation results.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>inquiry_points</strong><span class="classifier">numpy.array</span></dt><dd><p>Inquiry points to be interpolated.</p>
 </dd>
-<dt><strong>schatten_interpolated</strong><span class="classifier">numpy.array</span></dt><dd><p>Interpolation of the trace at inquiry</p>
+<dt><strong>normalize</strong><span class="classifier">bool, default: False</span></dt><dd><p>If set to <cite>False</cite> the function <span class="math notranslate nohighlight">\(\tau_p = \Vert \mathbf{A}
++ t \mathbf{B} \Vert_p\)</span> is plotted. If set to <cite>True</cite>, it plots
+the normalized function</p>
+<div class="math notranslate nohighlight">
+\[\frac{\Vert \mathbf{A} + t \mathbf{B} \Vert_{p}}{
+\Vert \mathbf{B} \Vert_p}.\]</div>
 </dd>
-<dt><strong>schatten_exact</strong><span class="classifier">numpy.array, default=None</span></dt><dd><p>Exact solutions of the trace at inquiry points. If this variable is
-not None, it will be plotted together with the interpolated
-results.</p>
-</dd>
-<dt><strong>schatten_relative_error</strong><span class="classifier">numpy.array, default=None</span></dt><dd><p>Relative errors of the interpolation with respect to the exact
-solution. If not None, the relative errors will be plotted on a
-second axis.</p>
-</dd>
-<dt><strong>compare_with_exact</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, it computes the trace with exact solution, then compares
-it with the interpolated solution. The return values of the
-<a class="reference internal" href="imate.InterpolateSchatten.interpolate.html#imate.InterpolateSchatten.interpolate" title="imate.InterpolateSchatten.interpolate"><code class="xref py py-func docutils literal notranslate"><span class="pre">InterpolateSchatten.interpolate()</span></code></a> function become
-interpolated trace, exact solution, and relative error. <strong>Note:</strong>
-When this option is enabled, the exact solution will be computed
-for all inquiry points, which can take a very long time.</p>
-</dd>
-<dt><strong>plot</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, it plots the interpolated trace versus the inquiry
-points. In addition, if the option <cite>compare_with_exact</cite> is also set
-to <cite>True</cite>, the plotted diagram contains both interpolated and exact
-solutions and the relative error of interpolated solution with
-respect to the exact solution.</p>
+<dt><strong>compare</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, it computes the exact function values (without
+interpolation), then compares it with the interpolated solution to
+estimate the relative error of interpolation.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When this option is enabled, the exact solution will be
+computed for all inquiry points, which can take a very long
+time.</p>
+</div>
 </dd>
 </dl>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
-<p><strong>Plotting:</strong> Regarding the plotting of the graph of interpolation:</p>
+<p><strong>Plotted Function:</strong></p>
+<ul>
+<li><p>When <code class="docutils literal notranslate"><span class="pre">kind</span></code> is either of <code class="docutils literal notranslate"><span class="pre">ext</span></code>, <code class="docutils literal notranslate"><span class="pre">eig</span></code>, <code class="docutils literal notranslate"><span class="pre">mbf</span></code>, <code class="docutils literal notranslate"><span class="pre">imbf</span></code>,
+<code class="docutils literal notranslate"><span class="pre">rpf</span></code>, or <code class="docutils literal notranslate"><span class="pre">rbf</span></code>, the function :math:<code class="docutils literal notranslate"><span class="pre">\tau_p(t)</span></code> if plotted,
+which is defined as follows. if <code class="docutils literal notranslate"><span class="pre">normalize</span></code> is <cite>False</cite>, then</p>
+<div class="math notranslate nohighlight">
+\[\tau_p(t) = \Vert \mathbf{A} + t \mathbf{B} \Vert_r.\]</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">normalize</span></code> is <cite>True</cite>, then the following is plotted:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\Vert \mathbf{A} + t \mathbf{B} \Vert_{p}}{
+\Vert \mathbf{B} \Vert_p}.\]</div>
+</li>
+<li><p>On the other hand, if <code class="docutils literal notranslate"><span class="pre">kind=crf</span></code> (see
+<a class="reference internal" href="../api/imate.InterpolateSchatten.crf.html#imate-interpolateschatten-crf"><span class="std std-ref">imate.InterpolateSchatten(kind=’crf’)</span></a>) or <code class="docutils literal notranslate"><span class="pre">kind=spl</span></code> (see
+<a class="reference internal" href="../api/imate.InterpolateSchatten.spl.html#imate-interpolateschatten-spl"><span class="std std-ref">imate.InterpolateSchatten(kind=’spl’)</span></a>), the plot, the function
+<span class="math notranslate nohighlight">\(y_p(x)\)</span> is plotted, which is defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[x = \frac{t - \alpha}{t + \alpha}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha\)</span> is the <code class="docutils literal notranslate"><span class="pre">scale</span></code> parameter in
+<a class="reference internal" href="../api/imate.InterpolateSchatten.crf.html#imate-interpolateschatten-crf"><span class="std std-ref">imate.InterpolateSchatten(kind=’crf’)</span></a> assuming <code class="docutils literal notranslate"><span class="pre">kind=crf</span></code>. If
+<code class="docutils literal notranslate"><span class="pre">kind=spl</span></code>, then <span class="math notranslate nohighlight">\(\alpha=1\)</span>. Also</p>
+<div class="math notranslate nohighlight">
+\[y_p = \frac{\tau_p(t)}{\tau_p(0) + t} - 1.\]</div>
+</li>
+</ul>
+<p><strong>Graphical Backend:</strong></p>
 <ul class="simple">
 <li><p>If no graphical backend exists (such as running the code on a
 remote server or manually disabling the X11 backend), the plot
 will not be shown, rather, it will ve saved as an <code class="docutils literal notranslate"><span class="pre">svg</span></code> file in
 the current directory.</p></li>
 <li><p>If the executable <code class="docutils literal notranslate"><span class="pre">latex</span></code> is on the path, the plot is rendered
-using <span class="math notranslate nohighlight">\(\rm\laTeX\)</span>, which then, it takes a bit
+using <span class="math notranslate nohighlight">\(\rm\LaTeX\)</span>, which then, it takes a bit
 longer to produce the plot.</p></li>
-<li><p>If <span class="math notranslate nohighlight">\(\rm\laTeX\)</span> is not installed, it uses any available
+<li><p>If <span class="math notranslate nohighlight">\(\rm\LaTeX\)</span> is not installed, it uses any available
 San-Serif font to render the plot.</p></li>
 </ul>
 <p>To manually disable interactive plot display, and save the plot as
@@ -626,6 +637,53 @@ before importing <code class="docutils literal notranslate"><span class="pre">im
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;IMATE_NO_DISPLAY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
 </pre></div>
 </div>
+<p class="rubric">Examples</p>
+<p>Create an interpolator object <span class="math notranslate nohighlight">\(f\)</span> using four interpolant points
+<span class="math notranslate nohighlight">\(t_i\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate sample matrices (symmetric positive-definite)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.sample_matrices</span> <span class="kn">import</span> <span class="n">correlation_matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1e-1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">2e-2</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Initialize interpolator object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">InterpolateSchatten</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ti</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e-1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1e1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">InterpolateSchatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">ti</span><span class="o">=</span><span class="n">ti</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Define an array if inquiry point <cite>t</cite> and call
+<a class="reference internal" href="#imate.InterpolateSchatten.plot" title="imate.InterpolateSchatten.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.plot()</span></code></a> function to plot the
+interpolation of the function <span class="math notranslate nohighlight">\(f(t)\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_array</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_array</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="custom-dark reference internal image-reference" href="../_images/interpolate_schatten_2.png"><img alt="../_images/interpolate_schatten_2.png" class="custom-dark align-center" src="../_images/interpolate_schatten_2.png" style="width: 60%;" /></a>
+<p>To compare with the true values (without interpolation), pass
+<code class="docutils literal notranslate"><span class="pre">compare=True</span></code> to the above function.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>By setting <code class="docutils literal notranslate"><span class="pre">compare</span></code> to <cite>True</cite>, every point in the array <cite>t</cite> is
+evaluated both using interpolation and with the exact method (no
+interpolation). If the size of <cite>t</cite> is large, this may take a very
+long run time.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_array</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/interpolate_schatten_3.png" class="custom-dark align-center" src="../_images/interpolate_schatten_3.png" />
+<p><strong>Plotting for Chebyshev and Spline Methods:</strong></p>
+<p>As mentioned in the Notes in the above, if <code class="docutils literal notranslate"><span class="pre">kind=crf</span></code> or
+<code class="docutils literal notranslate"><span class="pre">kind=spl</span></code>, the transformed function <span class="math notranslate nohighlight">\(y_p(x)\)</span> is plotted as
+shown in the example below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Recreate interpolating object, but using crf method</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">InterpolateSchatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;crf&#39;</span><span class="p">,</span> <span class="n">ti</span><span class="o">=</span><span class="n">ti</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_array</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_array</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/interpolate_schatten_4.png" class="custom-dark align-center" src="../_images/interpolate_schatten_4.png" />
 </dd></dl>
 
 </section>
@@ -675,7 +733,7 @@ before importing <code class="docutils literal notranslate"><span class="pre">im
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
 </p>
   </div>
   

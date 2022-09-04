@@ -3,10 +3,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>imate.InterpolateSchatten(kind=’spl’) &#8212; imate Manual</title>
 <script>
@@ -30,7 +30,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -38,6 +38,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/clipboard.min.js"></script>
@@ -67,7 +68,7 @@
 
     
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
 
   </head>
   
@@ -87,7 +88,7 @@
   
 
 
-<a class="navbar-brand logo" href="../index.html">
+<a class="navbar-brand logo" href="../contents.html">
   
   
   
@@ -134,12 +135,6 @@
  </a>
 </li>
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../cite.html">
-  Publications
- </a>
-</li>
-
     
 </ul>
       </div>
@@ -178,7 +173,7 @@
             <label class="sr-only">Anaconda Cloud</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://hub.docker.com/repository/docker/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
             <label class="sr-only">Docker Hub</label></a>
         </li>
         <li class="nav-item">
@@ -530,7 +525,7 @@
               <article class="bd-article" role="main">
                 
   <section id="imate-interpolateschatten-kind-spl">
-<span id="imate-interpolateschatten-spl"></span><h1>imate.InterpolateSchatten(kind=’spl’)<a class="headerlink" href="#imate-interpolateschatten-kind-spl" title="Permalink to this headline">#</a></h1>
+<span id="imate-interpolateschatten-spl"></span><h1>imate.InterpolateSchatten(kind=’spl’)<a class="headerlink" href="#imate-interpolateschatten-kind-spl" title="Permalink to this heading">#</a></h1>
 <dl class="custom-domain class">
 <dt class="sig sig-object custom-domain">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">InterpolateSchatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ti</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spl'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span></dt>
@@ -544,21 +539,8 @@ functions (see details below).</p>
 kinds, see <a class="reference internal" href="../generated/imate.InterpolateSchatten.html#imate.InterpolateSchatten" title="imate.InterpolateSchatten"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.InterpolateSchatten()</span></code></a>.</p>
 </div>
 </div></blockquote>
-<p><strong>Class Inheritance:</strong></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
-<li><p><strong>B</strong> (<em>numpy.ndarray</em>) – Invertible matrix, can be either dense or sparse matrix.</p></li>
-<li><p><strong>options</strong> (<em>dict</em>) – A dictionary of input arguments for
-<code class="xref py py-mod docutils literal notranslate"><span class="pre">imate.traceinv.traceinv</span></code> module.</p></li>
-<li><p><strong>verbose</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, prints some information on the computation
-process. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-<li><p><strong>function_type</strong> (<em>int</em>) – Can be <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, or <code class="docutils literal notranslate"><span class="pre">3</span></code>, which defines
-different radial basis functions (see details below).</p></li>
-</ul>
-</dd>
-</dl>
+<p>function_type: Can be <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, or <code class="docutils literal notranslate"><span class="pre">3</span></code>, which defines
+different radial basis functions (see details below).</p>
 <p><strong>Interpolation Method</strong></p>
 <p>Define the function</p>
 <div class="math notranslate nohighlight">
@@ -581,25 +563,6 @@ y_3(t) &amp;= 1 - \tau(t) \left( \frac{1}{\tau_0} + t \right).
 <li><p>The set of data <span class="math notranslate nohighlight">\((x, y_2(x))\)</span> and <span class="math notranslate nohighlight">\((x, y_3(x))\)</span> are
 interpolated using <em>Gaussian radial basis functions</em>.</p></li>
 </ul>
-<p><strong>Example</strong></p>
-<p>This class can be invoked from
-<code class="xref py py-class docutils literal notranslate"><span class="pre">imate.InterpolateTraceinv.InterpolateTraceinv</span></code> module using
-<code class="docutils literal notranslate"><span class="pre">method='RBF'</span></code> argument.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">generate_matrix</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">InterpolateTraceinv</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a symmetric positive-definite matrix, size (20**2, 20**2)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">generate_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an object that interpolates trace of inverse of A+tI</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># where I is identity matrix.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">TI</span> <span class="o">=</span> <span class="n">InterpolateTraceinv</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;RBF&#39;</span><span class="p">)</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Interpolate A+tI at some input point t</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="mf">4e-1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">TI</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</pre></div>
-</div>
 </dd></dl>
 
 </section>
@@ -649,7 +612,7 @@ interpolated using <em>Gaussian radial basis functions</em>.</p></li>
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
 </p>
   </div>
   

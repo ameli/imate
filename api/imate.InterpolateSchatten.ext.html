@@ -3,10 +3,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>imate.InterpolateSchatten(kind=’ext’) &#8212; imate Manual</title>
 <script>
@@ -30,7 +30,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -38,6 +38,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/clipboard.min.js"></script>
@@ -45,8 +46,6 @@
     <script src="../_static/js/custom-pydata.js"></script>
     <script src="../_static/design-tabs.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>window.MathJax = {"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../_static/logo-imate.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -67,7 +66,7 @@
 
     
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
 
   </head>
   
@@ -87,7 +86,7 @@
   
 
 
-<a class="navbar-brand logo" href="../index.html">
+<a class="navbar-brand logo" href="../contents.html">
   
   
   
@@ -134,12 +133,6 @@
  </a>
 </li>
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../cite.html">
-  Publications
- </a>
-</li>
-
     
 </ul>
       </div>
@@ -178,7 +171,7 @@
             <label class="sr-only">Anaconda Cloud</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://hub.docker.com/repository/docker/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
             <label class="sr-only">Docker Hub</label></a>
         </li>
         <li class="nav-item">
@@ -530,65 +523,14 @@
               <article class="bd-article" role="main">
                 
   <section id="imate-interpolateschatten-kind-ext">
-<span id="imate-interpolateschatten-ext"></span><h1>imate.InterpolateSchatten(kind=’ext’)<a class="headerlink" href="#imate-interpolateschatten-kind-ext" title="Permalink to this headline">#</a></h1>
+<span id="imate-interpolateschatten-ext"></span><h1>imate.InterpolateSchatten(kind=’ext’)<a class="headerlink" href="#imate-interpolateschatten-kind-ext" title="Permalink to this heading">#</a></h1>
 <dl class="custom-domain class">
 <dt class="sig sig-object custom-domain">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">InterpolateSchatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'ext'</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A}
-+ t \mathbf{B}\)</span> using exact method (no interpolation is performed).
-This class does not accept interpolant points as the result is not
-interpolated, rather, used as a benchmark to compare the exact versus the
-interpolated solution of the other classes.</p>
-<blockquote>
-<div><div class="admonition seealso">
+<dd><div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>This page describes only the <cite>ext</cite> method. For other
 kinds, see <a class="reference internal" href="../generated/imate.InterpolateSchatten.html#imate.InterpolateSchatten" title="imate.InterpolateSchatten"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.InterpolateSchatten()</span></code></a>.</p>
-</div>
-</div></blockquote>
-<p><strong>Class Inheritance:</strong></p>
-<div class="graphviz"><img src="../_images/inheritance-a4a51305631980eca1deea5c981a6205815a8596.png" alt="Inheritance diagram of imate.interpolator._exact_method.ExactMethod" class="inheritance graphviz" /></div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>A</strong> (<em>numpy.ndarray</em><em> or </em><em>scipy.sparse.csc_matrix</em>) – A positive-definite matrix. Matrix can be dense or sparse.</p></li>
-<li><p><strong>B</strong> (<em>numpy.ndarray</em><em> or </em><em>scipy.sparse.csc_matrix</em>) – A positive-definite matrix.
-If <code class="docutils literal notranslate"><span class="pre">None</span></code> or not provided, it is assumed that <code class="docutils literal notranslate"><span class="pre">B</span></code> is an identity
-matrix of the shape of <code class="docutils literal notranslate"><span class="pre">A</span></code>.</p></li>
-<li><p><strong>options</strong> (<em>dict</em>) – A dictionary of arguments to pass to
-<a class="reference internal" href="../generated/imate.traceinv.html#imate.traceinv" title="imate.traceinv"><code class="xref py py-mod docutils literal notranslate"><span class="pre">imate.traceinv</span></code></a> module.</p></li>
-<li><p><strong>verbose</strong> (<em>bool</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, prints some information on the computation
-process. Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Example</dt>
-<dd class="field-even"><p></p></dd>
-</dl>
-<dl class="simple">
-<dt>This class can be invoked from</dt><dd><p><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.InterpolateTraceinv.InterpolateTraceinv</span></code> module</p>
-</dd>
-</dl>
-<p>using <code class="docutils literal notranslate"><span class="pre">method='EXT'</span></code> argument.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">generate_matrix</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">InterpolateTraceinv</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a symmetric positive-definite matrix, size (20**2, 20**2)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">generate_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an object that interpolates trace of inverse of A+tI</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># where I is identity matrix</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">TI</span> <span class="o">=</span> <span class="n">InterpolateTraceinv</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;EXT&#39;</span><span class="p">)</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Interpolate A+tI at some input point t</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="mf">4e-1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">TI</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p>The result of the <code class="docutils literal notranslate"><span class="pre">EXT</span></code> method is identical with the eigenvalue
-method <code class="docutils literal notranslate"><span class="pre">EIG</span></code>, which is given by
-<code class="xref py py-class docutils literal notranslate"><span class="pre">imate.InterpolateTraceinv.EigenvaluesMethod</span></code>.</p>
 </div>
 </dd></dl>
 
@@ -639,7 +581,7 @@ method <code class="docutils literal notranslate"><span class="pre">EIG</span></
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
 </p>
   </div>
   

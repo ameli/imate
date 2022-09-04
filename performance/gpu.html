@@ -3,10 +3,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Performance on GPU Farm &#8212; imate Manual</title>
 <script>
@@ -30,7 +30,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -38,6 +38,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/clipboard.min.js"></script>
@@ -65,7 +66,7 @@
 
     
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
 
   </head>
   
@@ -85,7 +86,7 @@
   
 
 
-<a class="navbar-brand logo" href="../index.html">
+<a class="navbar-brand logo" href="../contents.html">
   
   
   
@@ -132,12 +133,6 @@
  </a>
 </li>
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../cite.html">
-  Publications
- </a>
-</li>
-
     
 </ul>
       </div>
@@ -176,7 +171,7 @@
             <label class="sr-only">Anaconda Cloud</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://hub.docker.com/repository/docker/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
             <label class="sr-only">Docker Hub</label></a>
         </li>
         <li class="nav-item">
@@ -299,13 +294,13 @@
               <article class="bd-article" role="main">
                 
   <section id="performance-on-gpu-farm">
-<span id="perf-gpu"></span><h1>Performance on GPU Farm<a class="headerlink" href="#performance-on-gpu-farm" title="Permalink to this headline">#</a></h1>
+<span id="perf-gpu"></span><h1>Performance on GPU Farm<a class="headerlink" href="#performance-on-gpu-farm" title="Permalink to this heading">#</a></h1>
 <p>To test the performance on both GPU and compare with CPU, we run a benchmark task by compares</p>
 <div class="math notranslate nohighlight" id="equation-traceinv">
 <span class="eqno">(1)<a class="headerlink" href="#equation-traceinv" title="Permalink to this equation">#</a></span>\[\mathrm{trace}(\mathbf{A}^{-1}),\]</div>
 <p>on several large matrices <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>.</p>
 <section id="test-matrices">
-<h2>Test Matrices<a class="headerlink" href="#test-matrices" title="Permalink to this headline">#</a></h2>
+<h2>Test Matrices<a class="headerlink" href="#test-matrices" title="Permalink to this heading">#</a></h2>
 <p>The following sparse matrices from real applications chosen from <a class="reference external" href="https://sparse.tamu.edu">SparseSuite Matrix Collection</a>.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://sparse.tamu.edu/HB/nos5">nos5</a></p></li>
@@ -324,13 +319,13 @@
 <p>Alternatively, set <code class="docutils literal notranslate"><span class="pre">UNSIGNED_LONG_INT=1</span></code> in <a class="reference external" href="https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L57"><code class="docutils literal notranslate"><span class="pre">/imate/_definitions/definition.h</span></code></a>. By default, <code class="docutils literal notranslate"><span class="pre">UNSIGNED_LONG_INT</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
 </section>
 <section id="results">
-<h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">#</a></h2>
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this heading">#</a></h2>
 <a class="custom-dark reference internal image-reference" href="../_images/benchmark_speed_time.png"><img alt="../_images/benchmark_speed_time.png" class="custom-dark align-center" src="../_images/benchmark_speed_time.png" style="height: 375px;" /></a>
 <a class="custom-dark reference internal image-reference" href="../_images/benchmark_speed_accuracy.png"><img alt="../_images/benchmark_speed_accuracy.png" class="custom-dark align-center" src="../_images/benchmark_speed_accuracy.png" style="height: 375px;" /></a>
 <a class="custom-dark reference internal image-reference" href="../_images/benchmark_speed_cores.png"><img alt="../_images/benchmark_speed_cores.png" class="custom-dark align-center" src="../_images/benchmark_speed_cores.png" style="height: 375px;" /></a>
 </section>
 <section id="considerations">
-<h2>Considerations<a class="headerlink" href="#considerations" title="Permalink to this headline">#</a></h2>
+<h2>Considerations<a class="headerlink" href="#considerations" title="Permalink to this heading">#</a></h2>
 <p><strong>Parameters:</strong></p>
 <ul class="simple">
 <li><p>In SLQ and Hutchinson methods, <cite>min_num_samples</cite> and <cite>max_num_samples</cite> are fixed to 200.</p></li>
@@ -345,10 +340,10 @@
 </ul>
 </section>
 <section id="how-to-reproduce-results">
-<h2>How to Reproduce Results<a class="headerlink" href="#how-to-reproduce-results" title="Permalink to this headline">#</a></h2>
+<h2>How to Reproduce Results<a class="headerlink" href="#how-to-reproduce-results" title="Permalink to this heading">#</a></h2>
 <p>Run the code both on CPU and GPU as follows.</p>
 <section id="run-on-local-cpu">
-<h3>Run on Local CPU<a class="headerlink" href="#run-on-local-cpu" title="Permalink to this headline">#</a></h3>
+<h3>Run on Local CPU<a class="headerlink" href="#run-on-local-cpu" title="Permalink to this heading">#</a></h3>
 <p>Run <code class="docutils literal notranslate"><span class="pre">/benchmark/scripts/benchmark_speed.py</span></code> by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">benchmark</span><span class="o">/</span><span class="n">scripts</span>
 <span class="n">python</span> <span class="o">./</span><span class="n">benchmark_speed</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">c</span>
@@ -361,7 +356,7 @@
 </div></blockquote>
 </section>
 <section id="run-on-cpu-cluster">
-<h3>Run on CPU Cluster<a class="headerlink" href="#run-on-cpu-cluster" title="Permalink to this headline">#</a></h3>
+<h3>Run on CPU Cluster<a class="headerlink" href="#run-on-cpu-cluster" title="Permalink to this heading">#</a></h3>
 <p>To run this script on a cluster with SLURM:</p>
 <blockquote>
 <div><p>cd jobfiles
@@ -370,7 +365,7 @@ sbatch jobfile_benchmark_speed_cpu.sh</p>
 <p>When submitting the jobs, make sure that the cpu is the same as the previous runs. For isnatnce, nodes on savio2 cluster between <cite>n027</cite> and <cite>n150</cite> are <em>Intel Xeon E5-2670 v3</em>.</p>
 </section>
 <section id="run-on-local-gpu">
-<h3>Run on Local GPU<a class="headerlink" href="#run-on-local-gpu" title="Permalink to this headline">#</a></h3>
+<h3>Run on Local GPU<a class="headerlink" href="#run-on-local-gpu" title="Permalink to this heading">#</a></h3>
 <p>Run <code class="docutils literal notranslate"><span class="pre">/benchmark/scripts/benchmark_speed.py</span></code> by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">benchmark</span><span class="o">/</span><span class="n">scripts</span>
 <span class="n">module</span> <span class="n">load</span> <span class="n">cuda</span><span class="o">/</span><span class="mf">11.2</span>
@@ -384,7 +379,7 @@ sbatch jobfile_benchmark_speed_cpu.sh</p>
 </div></blockquote>
 </section>
 <section id="run-on-gpu-cluster">
-<h3>Run on GPU Cluster<a class="headerlink" href="#run-on-gpu-cluster" title="Permalink to this headline">#</a></h3>
+<h3>Run on GPU Cluster<a class="headerlink" href="#run-on-gpu-cluster" title="Permalink to this heading">#</a></h3>
 <p>To run this script on a cluster with SLURM:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">jobfiles</span>
 <span class="n">sbatch</span> <span class="n">jobfile_benchmark_speed_gpu</span><span class="o">.</span><span class="n">sh</span>
@@ -393,7 +388,7 @@ sbatch jobfile_benchmark_speed_cpu.sh</p>
 <p>When submitting the jobs, make sure that the cpu is the same as the previous runs. For isnatnce, nodes on savio2 cluster between <cite>n027</cite> and <cite>n150</cite> are <em>Intel Xeon E5-2670 v3</em>.</p>
 </section>
 <section id="run-on-cluster-gpu-using-docker-image">
-<h3>Run on Cluster GPU Using Docker Image<a class="headerlink" href="#run-on-cluster-gpu-using-docker-image" title="Permalink to this headline">#</a></h3>
+<h3>Run on Cluster GPU Using Docker Image<a class="headerlink" href="#run-on-cluster-gpu-using-docker-image" title="Permalink to this heading">#</a></h3>
 <p>On a virtual machine, it is better to install <span class="synco">imate</span> using the it’s <a class="reference external" href="https://hub.docker.com/repository/docker/sameli/imate">docker image</a>.</p>
 <ul>
 <li><p><a class="reference external" href="https://docs.docker.com/engine/install/ubuntu/">Install docker</a></p></li>
@@ -440,7 +435,7 @@ sbatch jobfile_benchmark_speed_cpu.sh</p>
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
 </p>
   </div>
   

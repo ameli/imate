@@ -3,10 +3,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>imate.AffineMatrixFunction &#8212; imate Manual</title>
 <script>
@@ -30,7 +30,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -38,6 +38,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/clipboard.min.js"></script>
@@ -67,7 +68,7 @@
 
     
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
 
   </head>
   
@@ -87,7 +88,7 @@
   
 
 
-<a class="navbar-brand logo" href="../index.html">
+<a class="navbar-brand logo" href="../contents.html">
   
   
   
@@ -134,12 +135,6 @@
  </a>
 </li>
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../cite.html">
-  Publications
- </a>
-</li>
-
     
 </ul>
       </div>
@@ -178,7 +173,7 @@
             <label class="sr-only">Anaconda Cloud</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://hub.docker.com/repository/docker/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
             <label class="sr-only">Docker Hub</label></a>
         </li>
         <li class="nav-item">
@@ -582,7 +577,7 @@
               <article class="bd-article" role="main">
                 
   <section id="imate-affinematrixfunction">
-<h1>imate.AffineMatrixFunction<a class="headerlink" href="#imate-affinematrixfunction" title="Permalink to this headline">#</a></h1>
+<h1>imate.AffineMatrixFunction<a class="headerlink" href="#imate-affinematrixfunction" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="imate.AffineMatrixFunction">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">AffineMatrixFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.AffineMatrixFunction" title="Permalink to this definition">#</a></dt>
@@ -600,7 +595,7 @@ with high performance on both CPU or GPU devices.</p>
 <p>An instance of this class can be used as an input matrix to any function in
 <a class="reference internal" href="../index.html#module-imate" title="imate"><code class="xref py py-mod docutils literal notranslate"><span class="pre">imate</span></code></a> that accepts <code class="docutils literal notranslate"><span class="pre">slq</span></code> method.</p>
 <dl class="field-list">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
 <dt><strong>A</strong><span class="classifier">numpy.ndarray or scipy.sparse</span></dt><dd><p>The input matrix <cite>A</cite> can be dense or sparse (both <cite>CSR</cite> and <cite>CSC</cite>
 formats are supported). Also, the matrix data type can be either
@@ -753,7 +748,7 @@ multi-GPU devices (then, it will be available on both CPU and GPU devices).</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Attributes</dt>
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>A</strong><span class="classifier">numpy.ndarray or scipy.sparse, (n, n)</span></dt><dd><p>Input matrix <cite>A</cite> from python object.</p>
 </dd>
@@ -783,11 +778,7 @@ this parameter is always <cite>1</cite> corresponding to the parameter <cite>t</
 </dd>
 </dl>
 <p class="rubric">Methods</p>
-<table class="longtable table autosummary">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
+<table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="imate.AffineMatrixFunction.initialize.html#imate.AffineMatrixFunction.initialize" title="imate.AffineMatrixFunction.initialize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize</span></code></a>(gpu, num_gpu_devices)</p></td>
 <td><p>Initializes the object.</p></td>
@@ -867,7 +858,7 @@ this parameter is always <cite>1</cite> corresponding to the parameter <cite>t</
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
 </p>
   </div>
   

@@ -3,10 +3,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>Overview &#8212; imate Manual</title>
 <script>
@@ -30,7 +30,7 @@
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/css/custom-pydata.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -38,6 +38,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/toggleprompt.js"></script>
     <script src="_static/clipboard.min.js"></script>
@@ -65,7 +66,7 @@
 
     
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
 
   </head>
   
@@ -85,7 +86,7 @@
   
 
 
-<a class="navbar-brand logo" href="index.html">
+<a class="navbar-brand logo" href="contents.html">
   
   
   
@@ -132,12 +133,6 @@
  </a>
 </li>
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="cite.html">
-  Publications
- </a>
-</li>
-
     
 </ul>
       </div>
@@ -176,7 +171,7 @@
             <label class="sr-only">Anaconda Cloud</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://hub.docker.com/repository/docker/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
             <label class="sr-only">Docker Hub</label></a>
         </li>
         <li class="nav-item">
@@ -235,22 +230,18 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#common-matrix-functions">
-   Common Matrix Functions
+  <a class="reference internal nav-link" href="#why-this-is-important">
+   Why This Is Important
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#how-project-computes">
-   How
-   <span class="synco">
-    imate
-   </span>
-   Computes
+  <a class="reference internal nav-link" href="#the-challenge-of-big-data">
+   The Challenge of Big Data
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#interpolators">
-   Interpolators
+  <a class="reference internal nav-link" href="#the-challenge-of-optimization">
+   The Challenge of Optimization
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -285,71 +276,101 @@
               <article class="bd-article" role="main">
                 
   <section id="overview">
-<span id="id1"></span><h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h1>
+<span id="id1"></span><h1>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h1>
 <section id="what-project-does">
-<h2>What <span class="synco">imate</span> Does<a class="headerlink" href="#what-project-does" title="Permalink to this headline">#</a></h2>
-<p>The main functionality of <span class="synco">imate</span> is to estimate the algebraic quantity</p>
-<div class="math notranslate nohighlight" id="equation-tracef">
-<span class="eqno">(1)<a class="headerlink" href="#equation-tracef" title="Permalink to this equation">#</a></span>\[ \mathrm{trace} \left( f(\mathbf{A}) \right),\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is a square matrix, <span class="math notranslate nohighlight">\(f\)</span> is a matrix function, and <span class="math notranslate nohighlight">\(\mathrm{trace}(\cdot)\)</span> is the trace operator. <span class="synco">imate</span> can also compute variants of <a class="reference internal" href="#equation-tracef">(1)</a>, such as</p>
-<div class="math notranslate nohighlight">
-\[\mathrm{trace} \left(\mathbf{B} f(\mathbf{A}) \right),\]</div>
+<h2>What <span class="synco">imate</span> Does<a class="headerlink" href="#what-project-does" title="Permalink to this heading">#</a></h2>
+<p>The main purpose of <span class="synco">imate</span> is to estimate the algebraic quantity</p>
+<div class="math notranslate nohighlight" id="equation-tracef-1">
+<span class="eqno">(1)<a class="headerlink" href="#equation-tracef-1" title="Permalink to this equation">#</a></span>\[ \mathrm{trace} \left( f(\mathbf{A}) \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is a square matrix, <span class="math notranslate nohighlight">\(f\)</span> is a matrix function, and <span class="math notranslate nohighlight">\(\mathrm{trace}(\cdot)\)</span> is the trace operator. <span class="synco">imate</span> can also compute variants of <a class="reference internal" href="#equation-tracef-1">(1)</a>, such as</p>
+<div class="math notranslate nohighlight" id="equation-tracef-2">
+<span class="eqno">(2)<a class="headerlink" href="#equation-tracef-2" title="Permalink to this equation">#</a></span>\[\mathrm{trace} \left(\mathbf{B} f(\mathbf{A}) \right),\]</div>
 <p>and</p>
-<div class="math notranslate nohighlight">
-\[\mathrm{trace} \left(\mathbf{B} f(\mathbf{A}) \mathbf{C} f(\mathbf{A}) \right),\]</div>
+<div class="math notranslate nohighlight" id="equation-tracef-3">
+<span class="eqno">(3)<a class="headerlink" href="#equation-tracef-3" title="Permalink to this equation">#</a></span>\[ \mathrm{trace} \left(\mathbf{B} f(\mathbf{A}) \mathbf{C} f(\mathbf{A}) \right),\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{C}\)</span> are matrices. Other variations include the cases where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is replaced by <span class="math notranslate nohighlight">\(\mathbf{A}^{\intercal} \mathbf{A}\)</span> in the above expressions.</p>
 </section>
-<section id="common-matrix-functions">
-<h2>Common Matrix Functions<a class="headerlink" href="#common-matrix-functions" title="Permalink to this headline">#</a></h2>
-<p>The expression <a class="reference internal" href="#equation-tracef">(1)</a> is ubiquitous in variety of important applications <a class="reference internal" href="#r1" id="id2"><span>[R1]</span></a>, and in fact, it is often the most computationally expensive term in such applications <a class="reference internal" href="#r2" id="id3"><span>[R2]</span></a>. Some common examples of <span class="math notranslate nohighlight">\(f\)</span> leads to the following forms of <a class="reference internal" href="#equation-tracef">(1)</a>:</p>
-<dl class="glossary simple">
-<dt id="term-Log-Determinant">Log-Determinant<a class="headerlink" href="#term-Log-Determinant" title="Permalink to this term">#</a></dt><dd><p>If <span class="math notranslate nohighlight">\(f: x \mapsto \log \vert x \vert\)</span>, then <span class="math notranslate nohighlight">\(\mathrm{trace} \left(f(\mathbf{A}) \right) = \log \vert \det \mathbf{A} \vert\)</span> is the log-determinant of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, which frequently appears in statistics and machine learning, particularly in log-likelihood functions.</p>
+<section id="why-this-is-important">
+<h2>Why This Is Important<a class="headerlink" href="#why-this-is-important" title="Permalink to this heading">#</a></h2>
+<p>Despite <span class="synco">imate</span>’s aim being tailored to specific algebraic computations, it addresses a demanding and challenging computational task with wide a range of applications. Namely, the expression <a class="reference internal" href="#equation-tracef-1">(1)</a> is ubiquitous in a variety of applications <a class="reference internal" href="#r1" id="id2"><span>[R1]</span></a>, and in fact, it is often the most computationally expensive term in such applications. Some common examples of <span class="math notranslate nohighlight">\(f\)</span> lead to the following forms of <a class="reference internal" href="#equation-tracef-1">(1)</a>:</p>
+<dl class="simple glossary">
+<dt id="term-Log-Determinant">Log-Determinant<a class="headerlink" href="#term-Log-Determinant" title="Permalink to this term">#</a></dt><dd><p>If <span class="math notranslate nohighlight">\(f: \lambda \mapsto \log \vert \lambda \vert\)</span>, then <span class="math notranslate nohighlight">\(\mathrm{trace} \left(f(\mathbf{A}) \right) = \log \vert \det \mathbf{A} \vert\)</span> is the log-determinant of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, which frequently appears in statistics and machine learning, particularly in <cite>log-likelihood functions</cite> <a class="reference internal" href="#r2" id="id3"><span>[R2]</span></a>.</p>
 </dd>
-<dt id="term-Trace-of-Matrix-Powers">Trace of Matrix Powers<a class="headerlink" href="#term-Trace-of-Matrix-Powers" title="Permalink to this term">#</a></dt><dd><p>If <span class="math notranslate nohighlight">\(f: x \mapsto x^p\)</span>, <span class="math notranslate nohighlight">\(p \in \mathbb{R}\)</span>, then <a class="reference internal" href="#equation-tracef">(1)</a> is <span class="math notranslate nohighlight">\(\mathrm{trace} (\mathbf{A}^p)\)</span>. Interesting cases are the nagative powers, such as the trace of inverse, <span class="math notranslate nohighlight">\(\mathrm{trace} (\mathbf{A}^{-1})\)</span>, where <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span> is implicitly known. This function frequently appears in statistics and machine learning. In particular, <span class="math notranslate nohighlight">\(p=-1\)</span> and <span class="math notranslate nohighlight">\(p=-2\)</span> appear in the <strong>Jacobian</strong> and <strong>Hessian</strong> of log-likelihood functions, respectively.</p>
+<dt id="term-Trace-of-Matrix-Powers">Trace of Matrix Powers<a class="headerlink" href="#term-Trace-of-Matrix-Powers" title="Permalink to this term">#</a></dt><dd><p>If <span class="math notranslate nohighlight">\(f: \lambda \mapsto \lambda^p\)</span>, <span class="math notranslate nohighlight">\(p \in \mathbb{R}\)</span>, then <a class="reference internal" href="#equation-tracef-1">(1)</a> is <span class="math notranslate nohighlight">\(\mathrm{trace} (\mathbf{A}^p)\)</span>. Interesting cases are the negative powers, such as the trace of inverse, <span class="math notranslate nohighlight">\(\mathrm{trace} (\mathbf{A}^{-1})\)</span>, where <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span> is implicitly known. These class of functions frequently appears in statistics and machine learning. For instance, <span class="math notranslate nohighlight">\(p=-1\)</span> and <span class="math notranslate nohighlight">\(p=-2\)</span> appear in the <em>Jacobian</em> and <em>Hessian</em> of log-likelihood functions, respectively <a class="reference internal" href="#r3" id="id4"><span>[R3]</span></a>.</p>
 </dd>
-<dt id="term-Schatten-p-norm-and-Schatten-p-anti-norm">Schatten <span class="math notranslate nohighlight">\(p\)</span>-norm and Schatten <span class="math notranslate nohighlight">\(p\)</span>-anti-norm<a class="headerlink" href="#term-Schatten-p-norm-and-Schatten-p-anti-norm" title="Permalink to this term">#</a></dt><dd><p>If <span class="math notranslate nohighlight">\(f: x \mapsto x^{\frac{p}{2}}\)</span>, then <span class="math notranslate nohighlight">\(\mathrm{trace} (\mathbf{A}^{\frac{p}{2}})\)</span> is the Schatten <span class="math notranslate nohighlight">\(p\)</span>-norm (if <span class="math notranslate nohighlight">\(p &gt; 0\)</span>), and is the Schatten <span class="math notranslate nohighlight">\(p\)</span>-anti-norm (if <span class="math notranslate nohighlight">\(p &lt; 0\)</span>). Schatten norm has applications in rank-constrained optimization in machine learning.</p>
+<dt id="term-Schatten-p-norm-and-Schatten-p-anti-norm">Schatten <span class="math notranslate nohighlight">\(p\)</span>-norm and Schatten <span class="math notranslate nohighlight">\(p\)</span>-anti-norm<a class="headerlink" href="#term-Schatten-p-norm-and-Schatten-p-anti-norm" title="Permalink to this term">#</a></dt><dd><p>If <span class="math notranslate nohighlight">\(f: \lambda \mapsto \lambda^{\frac{p}{2}}\)</span>, then <span class="math notranslate nohighlight">\(\mathrm{trace} (\mathbf{A}^{\frac{p}{2}})\)</span> is the Schatten <span class="math notranslate nohighlight">\(p\)</span>-norm (if <span class="math notranslate nohighlight">\(p &gt; 0\)</span>), and is the Schatten <span class="math notranslate nohighlight">\(p\)</span>-anti-norm (if <span class="math notranslate nohighlight">\(p &lt; 0\)</span>). Schatten norm has applications in <cite>rank-constrained optimization</cite> in machine learning.</p>
 </dd>
-<dt id="term-Eigencount-and-Numerical-Rank">Eigencount and Numerical Rank<a class="headerlink" href="#term-Eigencount-and-Numerical-Rank" title="Permalink to this term">#</a></dt><dd><p>If <span class="math notranslate nohighlight">\(f: x \mapsto \mathbf{1}_{[a,b]}(x)\)</span> is the indicator (step) function in the interval <span class="math notranslate nohighlight">\([a, b]\)</span>, then <span class="math notranslate nohighlight">\(\mathrm{trace}(\mathbf{1}(\mathbf{A}))\)</span> estimates number of non-zero eigenvalues of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> in that interval, which is an inexpensive method to estimate the rank of a large matrix. Eigencount is closely related to the Principal Component Analysis (PCA) and low-rank approximations in machine learning.</p>
+<dt id="term-Eigencount-and-Numerical-Rank">Eigencount and Numerical Rank<a class="headerlink" href="#term-Eigencount-and-Numerical-Rank" title="Permalink to this term">#</a></dt><dd><p>If <span class="math notranslate nohighlight">\(f: \lambda \mapsto \mathbf{1}_{[a,b]}(\lambda)\)</span> is the indicator (step) function in the interval <span class="math notranslate nohighlight">\([a, b]\)</span>, then <span class="math notranslate nohighlight">\(\mathrm{trace}(\mathbf{1}(\mathbf{A}))\)</span> estimates the number of non-zero eigenvalues of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> in that interval, which is an inexpensive method to estimate the rank of a large matrix. Eigencount is closely related to the <cite>Principal Component Analysis (PCA)</cite> and <cite>low-rank approximations</cite> in machine learning.</p>
 </dd>
-<dt id="term-Extrada-Index-of-Graphs">Extrada Index of Graphs<a class="headerlink" href="#term-Extrada-Index-of-Graphs" title="Permalink to this term">#</a></dt><dd><p>If <span class="math notranslate nohighlight">\(f: x \mapsto \exp(x)\)</span>, then <span class="math notranslate nohighlight">\(\mathrm{trace} \left( \exp(\mathbf{A}) \right)\)</span> is the <a class="reference external" href="https://en.wikipedia.org/wiki/Estrada_index">Estrada index</a> of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, which has applications in computational biology such as in protein folding.</p>
+<dt id="term-Estrada-Index-of-Graphs">Estrada Index of Graphs<a class="headerlink" href="#term-Estrada-Index-of-Graphs" title="Permalink to this term">#</a></dt><dd><p>If <span class="math notranslate nohighlight">\(f: \lambda \mapsto \exp(\lambda)\)</span>, then <span class="math notranslate nohighlight">\(\mathrm{trace} \left( \exp(\mathbf{A}) \right)\)</span> is the <a class="reference external" href="https://en.wikipedia.org/wiki/Estrada_index">Estrada index</a> of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, which has applications in computational biology such as in <cite>protein folding</cite>.</p>
 </dd>
-<dt id="term-Spectral-Density">Spectral Density<a class="headerlink" href="#term-Spectral-Density" title="Permalink to this term">#</a></dt><dd><p>If <span class="math notranslate nohighlight">\(f: x \mapsto \delta(x - \lambda)\)</span>, where <span class="math notranslate nohighlight">\(\delta(x)\)</span> is the Dirac’s delta function, then <span class="math notranslate nohighlight">\(\mathrm{trace} \left( f(\mathbf{A})\right)\)</span> yields the spectral density of the eigenvalues of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>. Estimating the spectral density of matrices, which is also known as <a class="reference external" href="https://en.wikipedia.org/wiki/Density_of_states">Density of States (DOS)</a>, is a common problem in solid state physics.</p>
+<dt id="term-Spectral-Density">Spectral Density<a class="headerlink" href="#term-Spectral-Density" title="Permalink to this term">#</a></dt><dd><p>If <span class="math notranslate nohighlight">\(f: \lambda \mapsto \delta(\lambda - \mu)\)</span>, where <span class="math notranslate nohighlight">\(\delta(\lambda)\)</span> is the Dirac’s delta function, then <span class="math notranslate nohighlight">\(\mathrm{trace} \left( f(\mathbf{A})\right)\)</span> yields the spectral density of the eigenvalues of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>. Estimating the spectral density of matrices, which is also known as <a class="reference external" href="https://en.wikipedia.org/wiki/Density_of_states">Density of States (DOS)</a>, is a common problem in solid state physics.</p>
 </dd>
 </dl>
 </section>
-<section id="how-project-computes">
-<h2>How <span class="synco">imate</span> Computes<a class="headerlink" href="#how-project-computes" title="Permalink to this headline">#</a></h2>
-<p>Calculating <a class="reference internal" href="#equation-tracef">(1)</a> and its variants is a computational challenge when</p>
+<section id="the-challenge-of-big-data">
+<h2>The Challenge of Big Data<a class="headerlink" href="#the-challenge-of-big-data" title="Permalink to this heading">#</a></h2>
+<p>Calculating <a class="reference internal" href="#equation-tracef-1">(1)</a> and its variants is a computational challenge when</p>
 <ul class="simple">
-<li><p>Matrices are very large. In practical applications, matrix size could ranging from million to billion.</p></li>
+<li><p>Matrices are very large. In practical applications, matrix size could range from million to billion.</p></li>
 <li><p><span class="math notranslate nohighlight">\(f(\mathbf{A})\)</span> cannot be computed directly, or only known <em>implicitly</em>, such as <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span>.</p></li>
 </ul>
-<p><span class="synco">imate</span> employs <strong>randomized (stochastic) algorithms</strong> to fulfill the demand for computing <a class="reference internal" href="#equation-tracef">(1)</a> on massive data. Such class of algorithms are fast and scalable to large matrices. <span class="synco">imate</span> implements the following randomized algorithms:</p>
-<ul class="simple">
-<li><p>Hutchinson’s method.</p></li>
-<li><p>Stochastic Lanczos Quadrature method.</p></li>
-</ul>
+<p><span class="synco">imate</span> employs <strong>randomized (stochastic) algorithms</strong> <a class="reference internal" href="#r5" id="id5"><span>[R5]</span></a> to fulfill the demand for computing <a class="reference internal" href="#equation-tracef-1">(1)</a> on massive data. Such classes of algorithms are fast and scalable to large matrices. <span class="synco">imate</span> currently implements the following randomized algorithms:</p>
+<dl class="simple glossary">
+<dt id="term-Hutchinson-s-Method">Hutchinson’s Method<a class="headerlink" href="#term-Hutchinson-s-Method" title="Permalink to this term">#</a></dt><dd><p>Hutchinson technique is the earliest randomized method employed to estimate the trace of the inverse of an invertible matrix <a class="reference internal" href="#r6" id="id6"><span>[R6]</span></a>. <span class="synco">imate</span> implements Hutchinson’s method to compute <a class="reference internal" href="#equation-tracef-1">(1)</a>, <a class="reference internal" href="#equation-tracef-2">(2)</a>, and <a class="reference internal" href="#equation-tracef-3">(3)</a> for <span class="math notranslate nohighlight">\(f(\lambda) = \lambda^{-1}\)</span>.</p>
+</dd>
+<dt id="term-Stochastic-Lanczos-Quadrature-Method">Stochastic Lanczos Quadrature Method<a class="headerlink" href="#term-Stochastic-Lanczos-Quadrature-Method" title="Permalink to this term">#</a></dt><dd><p>The Stochastic Lanczos Quadrature (SLQ) method <a class="reference internal" href="#r7" id="id7"><span>[R7]</span></a> combines two of the greatest algorithms of the century in applied mathematics, namely the Monte-Carlo method and Lanczaos algorithm (also, Golub-Kahn-Lanczos algoritm) <a class="reference internal" href="#r8" id="id8"><span>[R8]</span></a> <a class="reference internal" href="#r9" id="id9"><span>[R9]</span></a>, together with Gauss quadrature to estimate <a class="reference internal" href="#equation-tracef-1">(1)</a> for an analytic function <span class="math notranslate nohighlight">\(f\)</span> and symmetric positive-definite matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>. <span class="synco">imate</span> provides an efficient and scalable implementation of SLQ method.</p>
+</dd>
+</dl>
+<p>Along with the randomized methods, <span class="synco">imate</span> also provides direct (non-stochastic) methods which are only for benchmarking purposes to test the accuracy of the randomized methods on small matrices.</p>
 </section>
-<section id="interpolators">
-<h2>Interpolators<a class="headerlink" href="#interpolators" title="Permalink to this headline">#</a></h2>
+<section id="the-challenge-of-optimization">
+<h2>The Challenge of Optimization<a class="headerlink" href="#the-challenge-of-optimization" title="Permalink to this heading">#</a></h2>
 <p>A novel feature of <span class="synco">imate</span> is the interpolation of the above quantities when the matrix is a <strong>one-parameter affine operator</strong></p>
 <div class="math notranslate nohighlight">
 \[\mathbf{A}(t): t \mapsto \mathbf{A} + t \mathbf{B}.\]</div>
-<p>In such cases, <span class="synco">imate</span> can interpolate <span class="math notranslate nohighlight">\(\mathrm{trace} f(\mathbf{A}(t))\)</span> for a large logarithmic range of the parameter <span class="math notranslate nohighlight">\(t\)</span>. This novel method is very useful in optimization of hyperparameters of models with such affine matrix formulations <a class="reference internal" href="#r3" id="id4"><span>[R3]</span></a>.</p>
+<p>In such cases, <span class="synco">imate</span> can interpolate <span class="math notranslate nohighlight">\(\mathrm{trace} f(\mathbf{A}(t))\)</span> for a large logarithmic range of the parameter <span class="math notranslate nohighlight">\(t\)</span>. This novel method is very useful in the optimization of hyperparameters of models with such affine matrix formulations <a class="reference internal" href="#r4" id="id10"><span>[R4]</span></a>.</p>
 </section>
 <section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">#</a></h2>
-<dl class="citation">
-<dt class="label" id="r1"><span class="brackets"><a class="fn-backref" href="#id2">R1</a></span></dt>
-<dd><p>Ubaru, S., Saad, Y. (2018). Applications of Trace Estimation Techniques. In: High Performance Computing in Science and Engineering. HPCSE 2017. Lecture Notes in Computer Science, vol 11087. Springer, Cham. <a class="reference external" href="https://doi.org/10.1007/978-3-319-97136-0_2">doi: 10.1007/978-3-319-97136-0_2</a></p>
-</dd>
-<dt class="label" id="r2"><span class="brackets"><a class="fn-backref" href="#id3">R2</a></span></dt>
-<dd><p>Ameli, S. and Shadden, S. C. (2022). Noise Estimation in Gaussian Process Regression. <a class="reference external" href="https://arxiv.org/abs/2206.09976">arXiv: 2206.09976 [cs.LG]</a></p>
-</dd>
-<dt class="label" id="r3"><span class="brackets"><a class="fn-backref" href="#id4">R3</a></span></dt>
-<dd><p>Ameli, S. and Shadden, S. C. (2022). Interpolating Log-Determinant and Trace of the Powers of Matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span>. <a class="reference external" href="https://arxiv.org/abs/2009.07385">arXiv: 2009.07385 [math.NA]</a></p>
-</dd>
-</dl>
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<div role="list" class="citation-list">
+<div class="citation" id="r1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">R1</a><span class="fn-bracket">]</span></span>
+<p>Ubaru, S., Saad, Y. (2018). Applications of Trace Estimation Techniques. In: High-Performance Computing in Science and Engineering. HPCSE 2017. Lecture Notes in Computer Science, vol 11087. Springer, Cham. <a class="reference external" href="https://doi.org/10.1007/978-3-319-97136-0_2">doi: 10.1007/978-3-319-97136-0_2</a></p>
+</div>
+<div class="citation" id="r2" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">R2</a><span class="fn-bracket">]</span></span>
+<p>Ameli, S. and Shadden, S. C. (2022). A Singular Woodbury and Pseudo-Determinant Matrix Identities and Application to Gaussian Process Regression. <a class="reference external" href="https://arxiv.org/abs/2207.08038">arXiv: 2207.08038 [math.ST]</a>.</p>
+</div>
+<div class="citation" id="r3" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">R3</a><span class="fn-bracket">]</span></span>
+<p>Ameli, S. and Shadden, S. C. (2022). Noise Estimation in Gaussian Process Regression. <a class="reference external" href="https://arxiv.org/abs/2206.09976">arXiv: 2206.09976 [cs.LG]</a></p>
+</div>
+<div class="citation" id="r4" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id10">R4</a><span class="fn-bracket">]</span></span>
+<p>Ameli, S. and Shadden, S. C. (2022). Interpolating Log-Determinant and Trace of the Powers of Matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span>. <a class="reference external" href="https://arxiv.org/abs/2009.07385">arXiv: 2009.07385 [math.NA]</a></p>
+</div>
+<div class="citation" id="r5" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">R5</a><span class="fn-bracket">]</span></span>
+<p>Mahoney, M. W. (2011). Randomized algorithms for matrices and data. <a class="reference external" href="https://arxiv.org/abs/1104.5557">arXiv: 1104.5557 [cs.DS]</a>.</p>
+</div>
+<div class="citation" id="r6" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">R6</a><span class="fn-bracket">]</span></span>
+<p>Hutchinson, M. F. (1990). A stochastic estimator of the trace of the influence matrix for Laplacian smoothing splines. Comm. Statist. Simulation Comput. Volume 19, Number 2, pp. 433-450. Taylor &amp; Francis. <a class="reference external" href="https://www.tandfonline.com/doi/abs/10.1080/03610919008812866">doi: 10.1080/03610919008812866</a>.</p>
+</div>
+<div class="citation" id="r7" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">R7</a><span class="fn-bracket">]</span></span>
+<p>Golub, G. H. and Meurant, G. (2010). Matrices, Moments and Quadrature with Applications. Princeton University Press. isbn: 0691143412. <a class="reference external" href="http://www.jstor.org/stable/j.ctt7tbvs">jstor.org/stable/j.ctt7tbvs</a>.</p>
+</div>
+<div class="citation" id="r8" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">R8</a><span class="fn-bracket">]</span></span>
+<p>Dongarra, J. and Sullivan, F. (2000). The Top 10 Algorithms. Computing in Science and Eng. 2, 1, pp. 22–23. <a class="reference external" href="https://doi.org/10.1109/MCISE.2000.814652">doi: 10.1109/MCISE.2000.814652</a>.</p>
+</div>
+<div class="citation" id="r9" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id9">R9</a><span class="fn-bracket">]</span></span>
+<p>Higham, N. J. (2016). <a class="reference external" href="https://press.princeton.edu/ideas/nicholas-higham-on-the-top-10-algorithms-in-applied-mathematics">Nicholas J. Higham on the top 10 algorithms in applied mathematics</a>. The Princeton Companion to Applied Mathematics. Princeton University Press. isbn: 786842300.</p>
+</div>
+</div>
 </section>
 </section>
 
@@ -384,7 +405,7 @@
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
 </p>
   </div>
   

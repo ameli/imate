@@ -3,10 +3,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>3. Using GPU Devices &#8212; imate Manual</title>
 <script>
@@ -30,7 +30,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -38,6 +38,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/clipboard.min.js"></script>
@@ -65,7 +66,7 @@
 
     
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
 
   </head>
   
@@ -85,7 +86,7 @@
   
 
 
-<a class="navbar-brand logo" href="../index.html">
+<a class="navbar-brand logo" href="../contents.html">
   
   
   
@@ -132,12 +133,6 @@
  </a>
 </li>
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../cite.html">
-  Publications
- </a>
-</li>
-
     
 </ul>
       </div>
@@ -176,7 +171,7 @@
             <label class="sr-only">Anaconda Cloud</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://hub.docker.com/repository/docker/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
             <label class="sr-only">Docker Hub</label></a>
         </li>
         <li class="nav-item">
@@ -440,8 +435,8 @@
               <article class="bd-article" role="main">
                 
   <section id="using-gpu-devices">
-<span id="imate-gpu"></span><h1><a class="toc-backref" href="#id5"><span class="section-number">3. </span>Using GPU Devices</a><a class="headerlink" href="#using-gpu-devices" title="Permalink to this headline">#</a></h1>
-<div class="contents topic" id="contents">
+<span id="imate-gpu"></span><h1><a class="toc-backref" href="#id5" role="doc-backlink"><span class="section-number">3. </span>Using GPU Devices</a><a class="headerlink" href="#using-gpu-devices" title="Permalink to this heading">#</a></h1>
+<nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#using-gpu-devices" id="id5">Using GPU Devices</a></p>
@@ -496,8 +491,8 @@
 </ul>
 </li>
 </ul>
-</div>
-<p><span class="synco">imate</span> can run on <cite>CUDA-capable</cite> GPU devices with the followings installed:</p>
+</nav>
+<p><span class="synco">imate</span> can run on <cite>CUDA-capable</cite> GPU devices with the following installed:</p>
 <ol class="arabic simple">
 <li><p>NVIDIA graphic driver,</p></li>
 <li><p>CUDA libraries.</p></li>
@@ -506,31 +501,31 @@
 <p>The version of CUDA libraries installed on the user’s machine should match the version of the CUDA libraries that <span class="synco">imate</span> package was compiled with. This includes matching both <em>major</em> and <em>minor</em> parts of the version numbers. However, the version’s <em>patch</em> numbers do not need to be matched.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <span class="synco">imate</span> package that is installed with either <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code> already has built-in support for CUDA Toolkit. The latest version of <span class="synco">imate</span> is compatible with <strong>CUDA 11.7.x</strong>, which should match the CUDA version installed in the user’s machine.</p>
+<p>The <span class="synco">imate</span> package that is installed with either <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code> already has built-in support for CUDA Toolkit. The latest version of <span class="synco">imate</span> is compatible with <strong>CUDA 11.7.x</strong>, which should match the CUDA version installed on the user’s machine.</p>
 </div>
-<div class="topic">
+<aside class="topic">
 <p class="topic-title">Methods of Setting up CUDA and <span class="synco">imate</span></p>
 <p>There are three ways to use <span class="synco">imate</span> with a compatible version of CUDA Toolkit:</p>
 <ol class="arabic simple">
-<li><p><a class="reference internal" href="#gpu-install-cuda"><span class="std std-ref">Install NVIDIA CUDA Toolkit</span></a> with a CUDA version compatible with an existing <span class="synco">imate</span> installation. By this way, you can keep the <span class="synco">imate</span> package that is already installed with <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code>.</p></li>
-<li><p><a class="reference internal" href="#gpu-compile-imate"><span class="std std-ref">Compile imate from the source</span></a> for a specific version of CUDA to use an existing CUDA library. By this way, you can keep the current CUDA installation.</p></li>
+<li><p><a class="reference internal" href="#gpu-install-cuda"><span class="std std-ref">Install NVIDIA CUDA Toolkit</span></a> with a CUDA version compatible with an existing <span class="synco">imate</span> installation. In this way, you can keep the <span class="synco">imate</span> package that is already installed with <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code>.</p></li>
+<li><p><a class="reference internal" href="#gpu-compile-imate"><span class="std std-ref">Compile imate from the source</span></a> for a specific version of CUDA to use an existing CUDA library. In this way, you can keep the current CUDA installation.</p></li>
 <li><p><a class="reference internal" href="#gpu-docker"><span class="std std-ref">Use docker image</span></a> with pre-installed <span class="synco">imate</span>, CUDA libraries, and NVIDIA graphic driver. This is the most convenient way as no compilation or installation of <span class="synco">imate</span> and CUDA Toolkit is required.</p></li>
 </ol>
-</div>
+</aside>
 <p>The above methods are described in order below.</p>
 <section id="install-nvidia-cuda-toolkit">
-<span id="gpu-install-cuda"></span><h2><a class="toc-backref" href="#id6"><span class="section-number">3.1. </span>Install NVIDIA CUDA Toolkit</a><a class="headerlink" href="#install-nvidia-cuda-toolkit" title="Permalink to this headline">#</a></h2>
+<span id="gpu-install-cuda"></span><h2><a class="toc-backref" href="#id6" role="doc-backlink"><span class="section-number">3.1. </span>Install NVIDIA CUDA Toolkit</a><a class="headerlink" href="#install-nvidia-cuda-toolkit" title="Permalink to this heading">#</a></h2>
 <p>The following instruction describes installing <cite>CUDA 11.7</cite> for <cite>Ubuntu 22.04</cite>, <cite>CentOS 7</cite>, and <cite>Red Hat 9 (RHEL 9)</cite> on the <cite>X86_64</cite> platform. You may refer to <a class="reference external" href="https://developer.nvidia.com/cuda-downloads">CUDA installation guide</a> from NVIDIA developer documentation for other operating systems and platforms.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>NVIDIA does not support macOS. You can install NVIDIA CUDA Toolkit on Linux and Windows only.</p>
+<p>NVIDIA does not support macOS. You can install the NVIDIA CUDA Toolkit on Linux and Windows only.</p>
 </div>
 <section id="install-nvidia-graphic-driver">
-<span id="install-graphic-driver"></span><h3><a class="toc-backref" href="#id7"><span class="section-number">3.1.1. </span>Install NVIDIA Graphic Driver</a><a class="headerlink" href="#install-nvidia-graphic-driver" title="Permalink to this headline">#</a></h3>
+<span id="install-graphic-driver"></span><h3><a class="toc-backref" href="#id7" role="doc-backlink"><span class="section-number">3.1.1. </span>Install NVIDIA Graphic Driver</a><a class="headerlink" href="#install-nvidia-graphic-driver" title="Permalink to this heading">#</a></h3>
 <p>Register NVIDIA CUDA repository by</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="1eb38608-9e86-42d4-b38e-3158462bbb58" name="8141d2ea-21eb-4b71-a1fa-ed5ebbe139ce" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="1eb38608-9e86-42d4-b38e-3158462bbb58">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-0">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
 span.prompt1:before {
@@ -540,14 +535,14 @@ span.prompt1:before {
 <span class="prompt1">sudo dpkg -i cuda-keyring_1.0-1_all.deb</span>
 <span class="prompt1">sudo apt update</span>
 </pre></div></div></div>
-<input id="247788da-ff64-4809-ba9e-367591aa88b1" name="8141d2ea-21eb-4b71-a1fa-ed5ebbe139ce" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="247788da-ff64-4809-ba9e-367591aa88b1">
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-1">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum-config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-rhel7.repo</span>
 <span class="prompt1">sudo yum clean all</span>
 </pre></div></div></div>
-<input id="9320c9f5-faf4-459c-b195-f89a010a8231" name="8141d2ea-21eb-4b71-a1fa-ed5ebbe139ce" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="9320c9f5-faf4-459c-b195-f89a010a8231">
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-2">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/cuda-rhel9.repo</span>
 <span class="prompt1">sudo dnf clean all</span>
@@ -555,19 +550,19 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </div>
 <p>Install <em>NVIDIA graphic driver</em> with</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="1b68a56c-b7f8-427f-ab95-2ce5d242aa2d" name="a02d3fa1-4cd0-4a75-94ab-b40a1e582d8e" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="1b68a56c-b7f8-427f-ab95-2ce5d242aa2d">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-3">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive</span>
 <span class="prompt1">sudo -E apt install cuda-drivers -y</span>
 </pre></div></div></div>
-<input id="6bccc607-614f-43e3-ba7b-09bdbc2465fe" name="a02d3fa1-4cd0-4a75-94ab-b40a1e582d8e" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="6bccc607-614f-43e3-ba7b-09bdbc2465fe">
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-4">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum -y install nvidia-driver-latest-dkms</span>
 </pre></div></div></div>
-<input id="4da72798-3236-47bf-8e91-c3a3ce715331" name="a02d3fa1-4cd0-4a75-94ab-b40a1e582d8e" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="4da72798-3236-47bf-8e91-c3a3ce715331">
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-5">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf -y module install nvidia-driver:latest-dkms</span>
 </pre></div></div></div>
@@ -576,22 +571,30 @@ RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">nvidia-smi</span>
 </pre></div></div></section>
 <section id="install-cuda-toolkit">
-<span id="id1"></span><h3><a class="toc-backref" href="#id8"><span class="section-number">3.1.2. </span>Install CUDA Toolkit</a><a class="headerlink" href="#install-cuda-toolkit" title="Permalink to this headline">#</a></h3>
+<span id="id1"></span><h3><a class="toc-backref" href="#id8" role="doc-backlink"><span class="section-number">3.1.2. </span>Install CUDA Toolkit</a><a class="headerlink" href="#install-cuda-toolkit" title="Permalink to this heading">#</a></h3>
 <p>It is not required to install the entire CUDA Toolkit (2.6GB). Rather, only the CUDA runtime library, cuBLAS, and cuSparse libraries are sufficient (700MB in total). These can be installed by</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="055254dd-878b-4d7c-abeb-882c620dd57a" name="5656a6a7-fe0a-4d2e-8332-5463a32decc5" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="055254dd-878b-4d7c-abeb-882c620dd57a">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-6">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install cuda-cudart-11-7 libcublas-11-7 libcusparse-11-7 -y</span>
 </pre></div></div></div>
-<input id="2d014718-98a3-4f55-b3ea-97b5801fa8e2" name="5656a6a7-fe0a-4d2e-8332-5463a32decc5" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="2d014718-98a3-4f55-b3ea-97b5801fa8e2">
+<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-7">
 CentOS 7</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre></pre></div></div></div>
-<input id="433f5777-0912-47fc-b7a7-8bfb056916a0" name="5656a6a7-fe0a-4d2e-8332-5463a32decc5" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="433f5777-0912-47fc-b7a7-8bfb056916a0">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install --setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span> -y <span class="se">\</span>
+     cuda-nvcc-11-7.x86_64 <span class="se">\</span>
+     libcublas-11-7.x86_64 <span class="se">\</span>
+     libcusparse-11-7.x86_64</span>
+</pre></div></div></div>
+<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-8">
 RHEL 9</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre></pre></div></div></div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install --setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span> -y <span class="se">\</span>
+     cuda-nvcc-11-7.x86_64 <span class="se">\</span>
+     libcublas-11-7.x86_64 <span class="se">\</span>
+     libcusparse-11-7.x86_64</span>
+</pre></div></div></div>
 </div>
 <p>Update <code class="docutils literal notranslate"><span class="pre">PATH</span></code> with the CUDA installation location by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">echo</span> <span class="s1">&#39;export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}&#39;</span> &gt;&gt; ~/.bashrc</span>
@@ -599,21 +602,21 @@ RHEL 9</label><div class="sd-tab-content docutils">
 <span class="prompt1"><span class="nb">source</span> ~/.bashrc</span>
 </pre></div></div></section>
 <section id="install-openmp">
-<h3><a class="toc-backref" href="#id9"><span class="section-number">3.1.3. </span>Install OpenMP</a><a class="headerlink" href="#install-openmp" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id9" role="doc-backlink"><span class="section-number">3.1.3. </span>Install OpenMP</a><a class="headerlink" href="#install-openmp" title="Permalink to this heading">#</a></h3>
 <p>In addition to CUDA Toolkit, make sure the <cite>OpenMP</cite> library is also installed using</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="713e4434-82e9-4550-ac9a-080f8b7ddd27" name="28c6209d-f9f7-4cb3-8fc6-f5c8512ba63e" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="713e4434-82e9-4550-ac9a-080f8b7ddd27">
+<input checked="checked" id="sd-tab-item-9" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-9">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install libgomp1 -y</span>
 </pre></div></div></div>
-<input id="371d791a-e1d6-4b31-844f-ff24c5d9d2e3" name="28c6209d-f9f7-4cb3-8fc6-f5c8512ba63e" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="371d791a-e1d6-4b31-844f-ff24c5d9d2e3">
+<input id="sd-tab-item-10" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-10">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install libgomp -y</span>
 </pre></div></div></div>
-<input id="7a9ff8ef-cd96-4536-9375-12914683f9d7" name="28c6209d-f9f7-4cb3-8fc6-f5c8512ba63e" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="7a9ff8ef-cd96-4536-9375-12914683f9d7">
+<input id="sd-tab-item-11" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-11">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install libgomp -y</span>
 </pre></div></div></div>
@@ -621,24 +624,24 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </section>
 </section>
 <section id="compile-project-from-source-with-cuda">
-<span id="gpu-compile-imate"></span><h2><a class="toc-backref" href="#id10"><span class="section-number">3.2. </span>Compile <span class="synco">imate</span> from Source with CUDA</a><a class="headerlink" href="#compile-project-from-source-with-cuda" title="Permalink to this headline">#</a></h2>
+<span id="gpu-compile-imate"></span><h2><a class="toc-backref" href="#id10" role="doc-backlink"><span class="section-number">3.2. </span>Compile <span class="synco">imate</span> from Source with CUDA</a><a class="headerlink" href="#compile-project-from-source-with-cuda" title="Permalink to this heading">#</a></h2>
 <section id="install-c-compiler-and-openmp">
-<h3><a class="toc-backref" href="#id11"><span class="section-number">3.2.1. </span>Install C++ Compiler and OpenMP</a><a class="headerlink" href="#install-c-compiler-and-openmp" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id11" role="doc-backlink"><span class="section-number">3.2.1. </span>Install C++ Compiler and OpenMP</a><a class="headerlink" href="#install-c-compiler-and-openmp" title="Permalink to this heading">#</a></h3>
 <p>Compile <span class="synco">imate</span> with either of GCC, Clang/LLVM, or Intel C++ compiler.</p>
 <p class="rubric">Install GNU GCC Compiler</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="eb5eebdb-0928-4d85-9c19-4a2ca0181915" name="f9160479-52e2-41f5-90cd-19a591998f45" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="eb5eebdb-0928-4d85-9c19-4a2ca0181915">
+<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-4" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-12">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install build-essential libomp-dev</span>
 </pre></div></div></div>
-<input id="7dbf5671-b2bc-4232-aaec-931df7d31cea" name="f9160479-52e2-41f5-90cd-19a591998f45" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="7dbf5671-b2bc-4232-aaec-931df7d31cea">
+<input id="sd-tab-item-13" name="sd-tab-set-4" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-13">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum group install <span class="s2">&quot;Development Tools&quot;</span></span>
 </pre></div></div></div>
-<input id="d4726872-186b-419f-92fd-77a8ee140bd6" name="f9160479-52e2-41f5-90cd-19a591998f45" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="d4726872-186b-419f-92fd-77a8ee140bd6">
+<input id="sd-tab-item-14" name="sd-tab-set-4" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-14">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf group install <span class="s2">&quot;Development Tools&quot;</span></span>
 </pre></div></div></div>
@@ -648,21 +651,21 @@ RHEL 9</label><div class="sd-tab-content docutils">
 <span class="prompt1"><span class="nb">export</span> <span class="nv">CXX</span><span class="o">=</span>/usr/local/bin/g++</span>
 </pre></div></div><p class="rubric">Install Clang/LLVN Compiler</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="df23428d-054e-4afc-8134-2f7295f81f60" name="985fa0e1-f015-4edf-a0b4-b10b27e1775e" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="df23428d-054e-4afc-8134-2f7295f81f60">
+<input checked="checked" id="sd-tab-item-15" name="sd-tab-set-5" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-15">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install clang libomp-dev</span>
 </pre></div></div></div>
-<input id="dba75ea9-f19b-4814-995e-dd574a0b1a48" name="985fa0e1-f015-4edf-a0b4-b10b27e1775e" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="dba75ea9-f19b-4814-995e-dd574a0b1a48">
+<input id="sd-tab-item-16" name="sd-tab-set-5" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-16">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install yum-utils</span>
 <span class="prompt1">sudo yum-config-manager --enable extras</span>
 <span class="prompt1">sudo yum makecache</span>
 <span class="prompt1">sudo yum install clang</span>
 </pre></div></div></div>
-<input id="a262b354-000f-4da3-9f81-e12073663e78" name="985fa0e1-f015-4edf-a0b4-b10b27e1775e" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="a262b354-000f-4da3-9f81-e12073663e78">
+<input id="sd-tab-item-17" name="sd-tab-set-5" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-17">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install yum-utils</span>
 <span class="prompt1">sudo dnf config-manager --enable extras</span>
@@ -677,15 +680,15 @@ RHEL 9</label><div class="sd-tab-content docutils">
 <p>To install <cite>Intel Compiler</cite> see <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=linux&amp;distributions=aptpackagemanager">Intel oneAPI Base Toolkit</a>.</p>
 </section>
 <section id="install-cuda-compiler-and-development-libraries">
-<h3><a class="toc-backref" href="#id12"><span class="section-number">3.2.2. </span>Install CUDA Compiler and Development Libraries</a><a class="headerlink" href="#install-cuda-compiler-and-development-libraries" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id12" role="doc-backlink"><span class="section-number">3.2.2. </span>Install CUDA Compiler and Development Libraries</a><a class="headerlink" href="#install-cuda-compiler-and-development-libraries" title="Permalink to this heading">#</a></h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>The minimum version of CUDA to compile <span class="synco">imate</span> is <cite>CUDA 10.0</cite>.</p>
 </div>
 <p>If CUDA Toolkit is installed, skip this part. Otherwise, Make sure the CUDA compiler and the development libraries of cuBLAS and cuSparse are installed by</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="b5873bdb-342c-4618-b939-d95717d5fc3e" name="c9c729aa-7776-4951-9390-09e55b0905b2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="b5873bdb-342c-4618-b939-d95717d5fc3e">
+<input checked="checked" id="sd-tab-item-18" name="sd-tab-set-6" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-18">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install -y <span class="se">\</span>
     cuda-nvcc-11-7 <span class="se">\</span>
@@ -694,8 +697,8 @@ Ubuntu/Debian</label><div class="sd-tab-content docutils">
     libcusparse-11-7 -y <span class="se">\</span>
     libcusparse-dev-11-7</span>
 </pre></div></div></div>
-<input id="f6b17b0a-6cca-4ea3-8b9a-c8306a00cdf5" name="c9c729aa-7776-4951-9390-09e55b0905b2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="f6b17b0a-6cca-4ea3-8b9a-c8306a00cdf5">
+<input id="sd-tab-item-19" name="sd-tab-set-6" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-19">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install --setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span> -y <span class="se">\</span>
     cuda-nvcc-11-7.x86_64 <span class="se">\</span>
@@ -705,8 +708,8 @@ CentOS 7</label><div class="sd-tab-content docutils">
     libcusparse-11-7.x86_64 <span class="se">\</span>
     libcusparse-devel-11-7.x86_64</span>
 </pre></div></div></div>
-<input id="28937531-5b54-43f0-baa9-1cd46018b5c8" name="c9c729aa-7776-4951-9390-09e55b0905b2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="28937531-5b54-43f0-baa9-1cd46018b5c8">
+<input id="sd-tab-item-20" name="sd-tab-set-6" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-20">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install --setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span> -y <span class="se">\</span>
     cuda-nvcc-11-7.x86_64 <span class="se">\</span>
@@ -723,7 +726,7 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </pre></div></div><p>Check if the CUDA compiler is available with <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">nvcc</span></code>.</p>
 </section>
 <section id="load-cuda-compiler-on-gpu-cluster">
-<h3><a class="toc-backref" href="#id13"><span class="section-number">3.2.3. </span>Load CUDA Compiler on GPU Cluster</a><a class="headerlink" href="#load-cuda-compiler-on-gpu-cluster" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id13" role="doc-backlink"><span class="section-number">3.2.3. </span>Load CUDA Compiler on GPU Cluster</a><a class="headerlink" href="#load-cuda-compiler-on-gpu-cluster" title="Permalink to this heading">#</a></h3>
 <p>If you are compiling <span class="synco">imate</span> on a GPU cluster, chances are the CUDA Toolkit is already installed. If the cluster uses <code class="docutils literal notranslate"><span class="pre">module</span></code> interface, load CUDA as follows.</p>
 <p>First, check if a CUDA module is available by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module avail</span>
@@ -734,7 +737,7 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </pre></div></div><p>You may check if CUDA Compiler is available with <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">nvcc</span></code>.</p>
 </section>
 <section id="configure-compile-time-environment-variables">
-<h3><a class="toc-backref" href="#id14"><span class="section-number">3.2.4. </span>Configure Compile-Time Environment Variables</a><a class="headerlink" href="#configure-compile-time-environment-variables" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id14" role="doc-backlink"><span class="section-number">3.2.4. </span>Configure Compile-Time Environment Variables</a><a class="headerlink" href="#configure-compile-time-environment-variables" title="Permalink to this heading">#</a></h3>
 <p>Specify the home directory of CUDA Toolkit by setting either of the variables <code class="docutils literal notranslate"><span class="pre">CUDA_HOME</span></code>, <code class="docutils literal notranslate"><span class="pre">CUDA_ROOT</span></code>, or <code class="docutils literal notranslate"><span class="pre">CUDA_PATH</span></code>. The home directory should be a path containing the executable <code class="docutils literal notranslate"><span class="pre">/bin/nvcc</span></code>. For instance, if <code class="docutils literal notranslate"><span class="pre">/usr/local/cuda/bin/nvcc</span></code> exists, export the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">CUDA_HOME</span><span class="o">=</span>/usr/local/cuda</span>
 </pre></div></div><p>To permanently set this variable, place the above line in a profile file, such as in <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code>, or <code class="docutils literal notranslate"><span class="pre">~/.profile</span></code>, and source this file, for instance by</p>
@@ -744,12 +747,12 @@ RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">USE_CUDA</span><span class="o">=</span><span class="m">1</span></span>
 </pre></div></div></section>
 <section id="enable-dynamic-loading-optional">
-<h3><a class="toc-backref" href="#id15"><span class="section-number">3.2.5. </span>Enable Dynamic Loading (<em>optional</em>)</a><a class="headerlink" href="#enable-dynamic-loading-optional" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id15" role="doc-backlink"><span class="section-number">3.2.5. </span>Enable Dynamic Loading (<em>optional</em>)</a><a class="headerlink" href="#enable-dynamic-loading-optional" title="Permalink to this heading">#</a></h3>
 <p>When <span class="synco">imate</span> is complied, the CUDA libraries bundle with the final installation of <span class="synco">imate</span> package, making it over 700MB. While this is generally not an issue for most users, often a small package is preferable if the installed package has to be distributed to other machines. To this end, enable the <cite>dynamic loading</cite> feature of <span class="synco">imate</span>. In this case, the CUDA libraries do not bundle with the <span class="synco">imate</span> installation, rather, <span class="synco">imate</span> loads the existing CUDA libraries of the host machine at runtime. To enable dynamic loading, simply set:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">CUDA_DYNAMIC_LOADING</span><span class="o">=</span><span class="m">1</span></span>
 </pre></div></div></section>
 <section id="compile-and-install">
-<h3><a class="toc-backref" href="#id16"><span class="section-number">3.2.6. </span>Compile and Install</a><a class="headerlink" href="#compile-and-install" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id16" role="doc-backlink"><span class="section-number">3.2.6. </span>Compile and Install</a><a class="headerlink" href="#compile-and-install" title="Permalink to this heading">#</a></h3>
 <p><a class="reference external" href="https://github.com/ameli/imate"><img alt="repo-size" src="https://img.shields.io/github/repo-size/ameli/imate" /></a></p>
 <p>Get the source code of <span class="synco">imate</span> with</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git clone https://github.com/ameli/imate.git</span>
@@ -759,28 +762,28 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </pre></div></div></section>
 </section>
 <section id="use-project-docker-container-on-gpu">
-<span id="gpu-docker"></span><h2><a class="toc-backref" href="#id17"><span class="section-number">3.3. </span>Use <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#use-project-docker-container-on-gpu" title="Permalink to this headline">#</a></h2>
+<span id="gpu-docker"></span><h2><a class="toc-backref" href="#id17" role="doc-backlink"><span class="section-number">3.3. </span>Use <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#use-project-docker-container-on-gpu" title="Permalink to this heading">#</a></h2>
 <p>This method neither requires installing CUDA nor <span class="synco">imate</span> as all are pre-installed in a docker image.</p>
 <section id="install-docker">
-<h3><a class="toc-backref" href="#id18"><span class="section-number">3.3.1. </span>Install Docker</a><a class="headerlink" href="#install-docker" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id18" role="doc-backlink"><span class="section-number">3.3.1. </span>Install Docker</a><a class="headerlink" href="#install-docker" title="Permalink to this heading">#</a></h3>
 <p>First, <a class="reference external" href="https://docs.docker.com/engine/install/ubuntu/">install docker</a>. Briefly:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="40910449-f0d1-464c-b1b4-3176d33af62d" name="6e01c8b9-3dbb-4786-8724-aa3f040a259b" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="40910449-f0d1-464c-b1b4-3176d33af62d">
+<input checked="checked" id="sd-tab-item-21" name="sd-tab-set-7" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-21">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt-get update</span>
-<span class="prompt1">sudo apt-get install ca-certificates curl gnupg lsb-release</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt update</span>
+<span class="prompt1">sudo apt install ca-certificates curl gnupg lsb-release</span>
 <span class="prompt1">sudo mkdir -p /etc/apt/keyrings</span>
 <span class="prompt1">curl -fsSL https://download.docker.com/linux/ubuntu/gpg <span class="p">|</span> <span class="se">\</span>
     sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg</span>
 <span class="prompt1"><span class="nb">echo</span> <span class="s2">&quot;deb [arch=</span><span class="k">$(</span>dpkg --print-architecture<span class="k">)</span><span class="s2"> signed-by=/etc/apt/keyrings/docker.gpg] \</span>
 <span class="s2">    https://download.docker.com/linux/ubuntu \</span>
 <span class="s2">    </span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> stable&quot;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</span>
-<span class="prompt1">sudo apt-get update</span>
-<span class="prompt1">sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span>
+<span class="prompt1">sudo apt update</span>
+<span class="prompt1">sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span>
 </pre></div></div></div>
-<input id="f146a603-b10f-4015-9aab-5336024f5881" name="6e01c8b9-3dbb-4786-8724-aa3f040a259b" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="f146a603-b10f-4015-9aab-5336024f5881">
+<input id="sd-tab-item-22" name="sd-tab-set-7" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-22">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install -y yum-utils</span>
 <span class="prompt1">sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span>
@@ -789,8 +792,8 @@ CentOS 7</label><div class="sd-tab-content docutils">
 <span class="prompt1">sudo systemctl <span class="nb">enable</span> containerd.service</span>
 <span class="prompt1">sudo systemctl start docker</span>
 </pre></div></div></div>
-<input id="9ae2d1eb-f16e-4aa0-a5ef-b28cc5eb719f" name="6e01c8b9-3dbb-4786-8724-aa3f040a259b" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="9ae2d1eb-f16e-4aa0-a5ef-b28cc5eb719f">
+<input id="sd-tab-item-23" name="sd-tab-set-7" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-23">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install -y yum-utils</span>
 <span class="prompt1">sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span>
@@ -806,43 +809,43 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </pre></div></div><p>Then, log out and log back. If docker is installed on a <em>virtual machine</em>, restart the virtual machine for changes to take effect.</p>
 </section>
 <section id="install-nvidia-container-toolkit">
-<h3><a class="toc-backref" href="#id19"><span class="section-number">3.3.2. </span>Install NVIDIA Container Toolkit</a><a class="headerlink" href="#install-nvidia-container-toolkit" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id19" role="doc-backlink"><span class="section-number">3.3.2. </span>Install NVIDIA Container Toolkit</a><a class="headerlink" href="#install-nvidia-container-toolkit" title="Permalink to this heading">#</a></h3>
 <p>To access host’s GPU device from a docker container, <a class="reference external" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html">install NVIDIA Container Toolkit</a> as follows.</p>
 <p>Add the package to the repository:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="75d02ad4-1abe-48c2-8c48-d6525ebaaa4c" name="c77f8c8b-6b1e-4d18-8b73-f433fcea4758" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="75d02ad4-1abe-48c2-8c48-d6525ebaaa4c">
+<input checked="checked" id="sd-tab-item-24" name="sd-tab-set-8" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-24">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nv">distribution</span><span class="o">=</span><span class="k">$(</span>. /etc/os-release<span class="p">;</span><span class="nb">echo</span> <span class="nv">$ID$VERSION_ID</span><span class="k">)</span></span>
 <span class="prompt1">curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey <span class="p">|</span> sudo apt-key add -</span>
 <span class="prompt1">curl -s -L https://nvidia.github.io/nvidia-docker/<span class="nv">$distribution</span>/nvidia-docker.list <span class="p">|</span> sudo tee /etc/apt/sources.list.d/nvidia-docker.list</span>
 </pre></div></div></div>
-<input id="278c01dd-42c0-4662-883c-a2e141c2e7c1" name="c77f8c8b-6b1e-4d18-8b73-f433fcea4758" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="278c01dd-42c0-4662-883c-a2e141c2e7c1">
+<input id="sd-tab-item-25" name="sd-tab-set-8" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-25">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum-config-manager --add-repo<span class="o">=</span>https://download.docker.com/linux/centos/docker-ce.repo</span>
 </pre></div></div></div>
-<input id="be214af0-7113-4ef9-b688-3c31e05d881b" name="c77f8c8b-6b1e-4d18-8b73-f433fcea4758" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="be214af0-7113-4ef9-b688-3c31e05d881b">
+<input id="sd-tab-item-26" name="sd-tab-set-8" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-26">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf config-manager --add-repo<span class="o">=</span>https://download.docker.com/linux/centos/docker-ce.repo</span>
 </pre></div></div></div>
 </div>
 <p>Install <cite>nvidia-contaner-toolkit</cite> by:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="a6162202-0aeb-4476-9b0e-7e93b3aa702b" name="1989e4fb-2acd-4c41-8e39-49a264952e5f" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="a6162202-0aeb-4476-9b0e-7e93b3aa702b">
+<input checked="checked" id="sd-tab-item-27" name="sd-tab-set-9" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-27">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt-get update</span>
-<span class="prompt1">sudo apt-get install -y nvidia-container-toolkit</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt update</span>
+<span class="prompt1">sudo apt install -y nvidia-container-toolkit</span>
 </pre></div></div></div>
-<input id="aa9b0c96-a2c0-4832-abad-883f4a99ac1c" name="1989e4fb-2acd-4c41-8e39-49a264952e5f" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="aa9b0c96-a2c0-4832-abad-883f4a99ac1c">
+<input id="sd-tab-item-28" name="sd-tab-set-9" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-28">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm</span>
 </pre></div></div></div>
-<input id="1a7a42df-692b-402a-ac73-1fe49f31afe7" name="1989e4fb-2acd-4c41-8e39-49a264952e5f" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="1a7a42df-692b-402a-ac73-1fe49f31afe7">
+<input id="sd-tab-item-29" name="sd-tab-set-9" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-29">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.4.3-3.1.el7.x86_64.rpm</span>
 </pre></div></div></div>
@@ -851,8 +854,8 @@ RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo systemctl restart docker</span>
 </pre></div></div></section>
 <section id="get-project-docker-image">
-<h3><a class="toc-backref" href="#id20"><span class="section-number">3.3.3. </span>Get <span class="synco">imate</span> Docker image</a><a class="headerlink" href="#get-project-docker-image" title="Permalink to this headline">#</a></h3>
-<p><a class="reference external" href="https://hub.docker.com/repository/docker/sameli/imate"><img alt="docker-size" src="https://img.shields.io/docker/image-size/sameli/imate" /></a></p>
+<h3><a class="toc-backref" href="#id20" role="doc-backlink"><span class="section-number">3.3.3. </span>Get <span class="synco">imate</span> Docker image</a><a class="headerlink" href="#get-project-docker-image" title="Permalink to this heading">#</a></h3>
+<p><a class="reference external" href="https://hub.docker.com/r/sameli/imate"><img alt="docker-size" src="https://img.shields.io/docker/image-size/sameli/imate" /></a></p>
 <p>Get the <span class="synco">imate</span> docker image by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker pull sameli/imate</span>
 </pre></div></div><p>The docker image has the followings pre-installed:</p>
@@ -864,7 +867,7 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </ul>
 </section>
 <section id="id4">
-<h3><a class="toc-backref" href="#id21"><span class="section-number">3.3.4. </span>Use <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id21" role="doc-backlink"><span class="section-number">3.3.4. </span>Use <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>To use host’s GPU from the docker container, add  <code class="docutils literal notranslate"><span class="pre">--gpus</span> <span class="pre">all</span></code> to any of the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> commands, such as by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker run --gpus all -it sameli/imate</span>
 </pre></div></div><p>The followings are some examples of using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> with various options:</p>
@@ -890,10 +893,10 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </section>
 </section>
 <section id="inquiry-gpu-and-cuda-with-project">
-<h2><a class="toc-backref" href="#id22"><span class="section-number">3.4. </span>Inquiry GPU and CUDA with <span class="synco">imate</span></a><a class="headerlink" href="#inquiry-gpu-and-cuda-with-project" title="Permalink to this headline">#</a></h2>
+<h2><a class="toc-backref" href="#id22" role="doc-backlink"><span class="section-number">3.4. </span>Inquiry GPU and CUDA with <span class="synco">imate</span></a><a class="headerlink" href="#inquiry-gpu-and-cuda-with-project" title="Permalink to this heading">#</a></h2>
 <p>First, make sure <span class="synco">imate</span> recognizes the CUDA libraries and GPU device. There are a number of functions available in <a class="reference internal" href="../api.html#device-inquiry"><span class="std std-ref">imate.device</span></a> module to inquiry GPU device.</p>
 <section id="locate-cuda-toolkit">
-<h3><a class="toc-backref" href="#id23"><span class="section-number">3.4.1. </span>Locate CUDA Toolkit</a><a class="headerlink" href="#locate-cuda-toolkit" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id23" role="doc-backlink"><span class="section-number">3.4.1. </span>Locate CUDA Toolkit</a><a class="headerlink" href="#locate-cuda-toolkit" title="Permalink to this heading">#</a></h3>
 <p>Use <a class="reference internal" href="../generated/imate.device.locate_cuda.html#imate.device.locate_cuda" title="imate.device.locate_cuda"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.locate_cuda()</span></code></a> function to find the location of CUDA home directory.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">imate</span>
 
@@ -913,13 +916,13 @@ RHEL 9</label><div class="sd-tab-content docutils">
 <span class="go">}</span>
 </pre></div>
 </div>
-<p>If the above function does not return an output such as in the above, this is because either <cite>CUDA Toolkit</cite> is not installed, or the directory of CUDA Toolkit is nit set. To do so, set the directory of CUDA Toolkit to either of the variables <code class="docutils literal notranslate"><span class="pre">CUDA_HOME</span></code>, <code class="docutils literal notranslate"><span class="pre">CUDA_ROOT</span></code>, or <code class="docutils literal notranslate"><span class="pre">CUDA_PATH</span></code>, such as by</p>
+<p>If the above function does not return an output such as in the above, it is because either <cite>CUDA Toolkit</cite> is not installed, or the directory of the CUDA Toolkit is not set. To do so, set the directory of CUDA Toolkit to either of the variables <code class="docutils literal notranslate"><span class="pre">CUDA_HOME</span></code>, <code class="docutils literal notranslate"><span class="pre">CUDA_ROOT</span></code>, or <code class="docutils literal notranslate"><span class="pre">CUDA_PATH</span></code>, such as by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">echo</span> <span class="s1">&#39;export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}&#39;</span> &gt;&gt; ~/.bashrc</span>
 <span class="prompt1"><span class="nb">echo</span> <span class="s1">&#39;export CUDA_HOME=/usr/local/cuda${CUDA_HOME:+:${CUDA_HOME}}&#39;</span> &gt;&gt; ~/.bashrc</span>
 <span class="prompt1"><span class="nb">source</span> ~/.bashrc</span>
 </pre></div></div></section>
 <section id="detect-nvidia-graphic-driver">
-<h3><a class="toc-backref" href="#id24"><span class="section-number">3.4.2. </span>Detect NVIDIA Graphic Driver</a><a class="headerlink" href="#detect-nvidia-graphic-driver" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id24" role="doc-backlink"><span class="section-number">3.4.2. </span>Detect NVIDIA Graphic Driver</a><a class="headerlink" href="#detect-nvidia-graphic-driver" title="Permalink to this heading">#</a></h3>
 <p>Use <a class="reference internal" href="../generated/imate.device.get_nvidia_driver_version.html#imate.device.get_nvidia_driver_version" title="imate.device.get_nvidia_driver_version"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_nvidia_driver_version()</span></code></a> function to make sure <span class="synco">imate</span> can detect the NVIDIA driver.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get the version of NVIDIA graphic driver</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_nvidia_driver_version</span><span class="p">()</span>
@@ -928,7 +931,7 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </div>
 </section>
 <section id="detect-gpu-devices">
-<h3><a class="toc-backref" href="#id25"><span class="section-number">3.4.3. </span>Detect GPU Devices</a><a class="headerlink" href="#detect-gpu-devices" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id25" role="doc-backlink"><span class="section-number">3.4.3. </span>Detect GPU Devices</a><a class="headerlink" href="#detect-gpu-devices" title="Permalink to this heading">#</a></h3>
 <p>Use <a class="reference internal" href="../generated/imate.device.get_processor_name.html#imate.device.get_processor_name" title="imate.device.get_processor_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_processor_name()</span></code></a> and <a class="reference internal" href="../generated/imate.device.get_gpu_name.html#imate.device.get_gpu_name" title="imate.device.get_gpu_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_gpu_name()</span></code></a> to find the name of CPU and GPU devices, respectively.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get the name of CPU processor</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_processor_name</span><span class="p">()</span>
@@ -941,7 +944,7 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the name of GPU device is empty, this is because either there is no GPU device detected, or <em>NVIDIA graphic driver</em> is not installed, or its location is not on the PATH. To do so, set the location of <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> executable to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable. On UNIX, this executbale should be on <code class="docutils literal notranslate"><span class="pre">/usr/bin</span></code> directory and by default it should be already on the <cite>PATH</cite>.</p>
+<p>If the name of the GPU device is empty, this is because either there is no GPU device detected, or <em>NVIDIA graphic driver</em> is not installed, or its location is not on the PATH. To do so, set the location of <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> executable to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable. On UNIX, this executable should be on <code class="docutils literal notranslate"><span class="pre">/usr/bin</span></code> directory and by default it should be already on the <cite>PATH</cite>.</p>
 </div>
 <p>The number of CPU threads and GPU devices can be obtained respectively by <a class="reference internal" href="../generated/imate.device.get_num_cpu_threads.html#imate.device.get_num_cpu_threads" title="imate.device.get_num_cpu_threads"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_num_cpu_threads()</span></code></a> and <a class="reference internal" href="../generated/imate.device.get_num_gpu_devices.html#imate.device.get_num_gpu_devices" title="imate.device.get_num_gpu_devices"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_num_gpu_devices()</span></code></a> functions.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get number of processor threads</span>
@@ -1007,10 +1010,10 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </pre></div></div></section>
 </section>
 <section id="run-project-functions-on-gpu">
-<h2><a class="toc-backref" href="#id26"><span class="section-number">3.5. </span>Run <span class="synco">imate</span> Functions on GPU</a><a class="headerlink" href="#run-project-functions-on-gpu" title="Permalink to this headline">#</a></h2>
+<h2><a class="toc-backref" href="#id26" role="doc-backlink"><span class="section-number">3.5. </span>Run <span class="synco">imate</span> Functions on GPU</a><a class="headerlink" href="#run-project-functions-on-gpu" title="Permalink to this heading">#</a></h2>
 <p>All functions in <span class="synco">imate</span> that accept the <cite>SLQ</cite> method (using <code class="docutils literal notranslate"><span class="pre">method=slq</span></code> argument) can perform computations on GPU devices. To do so, include <code class="docutils literal notranslate"><span class="pre">gpu=True</span></code> argument to the function syntax. The following examples show using multi-GPU devices to compute the log-determinant of a large matrix.</p>
 <section id="a-simple-example">
-<h3><a class="toc-backref" href="#id27"><span class="section-number">3.5.1. </span>A Simple Example</a><a class="headerlink" href="#a-simple-example" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id27" role="doc-backlink"><span class="section-number">3.5.1. </span>A Simple Example</a><a class="headerlink" href="#a-simple-example" title="Permalink to this heading">#</a></h3>
 <p>First, create a sample Toeplitz matrix with ten million in size using <a class="reference internal" href="../generated/imate.toeplitz.html#imate.toeplitz" title="imate.toeplitz"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.toeplitz()</span></code></a> function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import toeplitz matrix</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span>
@@ -1039,7 +1042,7 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </div>
 </section>
 <section id="get-process-information">
-<h3><a class="toc-backref" href="#id28"><span class="section-number">3.5.2. </span>Get Process Information</a><a class="headerlink" href="#get-process-information" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id28" role="doc-backlink"><span class="section-number">3.5.2. </span>Get Process Information</a><a class="headerlink" href="#get-process-information" title="Permalink to this heading">#</a></h3>
 <p>It is useful pass the argument <code class="docutils literal notranslate"><span class="pre">return_info=True</span></code> to get information about the computation process.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ld</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1067,7 +1070,7 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </div>
 </section>
 <section id="verbose-output">
-<h3><a class="toc-backref" href="#id29"><span class="section-number">3.5.3. </span>Verbose Output</a><a class="headerlink" href="#verbose-output" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id29" role="doc-backlink"><span class="section-number">3.5.3. </span>Verbose Output</a><a class="headerlink" href="#verbose-output" title="Permalink to this heading">#</a></h3>
 <p>Alternatively, to print verbose information, including the information about GPU devices, pass <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code> to the function argument:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1108,8 +1111,8 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </div>
 </section>
 <section id="set-number-of-gpu-devices">
-<h3><a class="toc-backref" href="#id30"><span class="section-number">3.5.4. </span>Set Number of GPU Devices</a><a class="headerlink" href="#set-number-of-gpu-devices" title="Permalink to this headline">#</a></h3>
-<p>By default, <span class="synco">imate</span> employs the maximum number of available GPU devices. To employ specific number of GPU devices, set <code class="docutils literal notranslate"><span class="pre">num_gpu-devices</span></code> in the function arguments. For instance</p>
+<h3><a class="toc-backref" href="#id30" role="doc-backlink"><span class="section-number">3.5.4. </span>Set Number of GPU Devices</a><a class="headerlink" href="#set-number-of-gpu-devices" title="Permalink to this heading">#</a></h3>
+<p>By default, <span class="synco">imate</span> employs the maximum number of available GPU devices. To employ a specific number of GPU devices, set <code class="docutils literal notranslate"><span class="pre">num_gpu-devices</span></code> in the function arguments. For instance</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import logdet function</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">logdet</span>
 
@@ -1130,10 +1133,10 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </section>
 </section>
 <section id="deploy-project-on-gpu-clusters">
-<span id="gpu-cluster"></span><h2><a class="toc-backref" href="#id31"><span class="section-number">3.6. </span>Deploy <span class="synco">imate</span> on GPU Clusters</a><a class="headerlink" href="#deploy-project-on-gpu-clusters" title="Permalink to this headline">#</a></h2>
+<span id="gpu-cluster"></span><h2><a class="toc-backref" href="#id31" role="doc-backlink"><span class="section-number">3.6. </span>Deploy <span class="synco">imate</span> on GPU Clusters</a><a class="headerlink" href="#deploy-project-on-gpu-clusters" title="Permalink to this heading">#</a></h2>
 <p>On GPU clusters, the NVIDIA graphic driver and CUDA libraries are pre-installed and they only need to be loaded.</p>
 <section id="load-modules">
-<h3><a class="toc-backref" href="#id32"><span class="section-number">3.6.1. </span>Load Modules</a><a class="headerlink" href="#load-modules" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id32" role="doc-backlink"><span class="section-number">3.6.1. </span>Load Modules</a><a class="headerlink" href="#load-modules" title="Permalink to this heading">#</a></h3>
 <p>Check which modules are available on the machine</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module avail</span>
 </pre></div></div><p>Load python and a compatible CUDA version by</p>
@@ -1143,9 +1146,9 @@ RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module list</span>
 </pre></div></div></section>
 <section id="interactive-session-with-slurm">
-<h3><a class="toc-backref" href="#id33"><span class="section-number">3.6.2. </span>Interactive Session with SLURM</a><a class="headerlink" href="#interactive-session-with-slurm" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id33" role="doc-backlink"><span class="section-number">3.6.2. </span>Interactive Session with SLURM</a><a class="headerlink" href="#interactive-session-with-slurm" title="Permalink to this heading">#</a></h3>
 <p>There are two ways to work with GPU on a cluster. The first method is to <code class="docutils literal notranslate"><span class="pre">ssh</span></code> to a GPU node and for hands-on interaction with the GPU device. If the GPU cluster uses <a class="reference external" href="https://slurm.schedmd.com/documentation.html">SLURM manager</a>, use <code class="docutils literal notranslate"><span class="pre">srun</span></code> to initiate a session as follows</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">srun -A fc_biome -p savio2_gpu --gres<span class="o">=</span>gpu:1 --ntasks <span class="m">2</span> -t <span class="m">2</span>:00:00 --pty Bash -i</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">srun -A fc_biome -p savio2_gpu --gres<span class="o">=</span>gpu:1 --ntasks <span class="m">2</span> -t <span class="m">2</span>:00:00 --pty bash -i</span>
 </pre></div></div><p>In the above example:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">-A</span> <span class="pre">fc_biome</span></code> sets the group account associated with the user.</p></li>
@@ -1153,21 +1156,21 @@ RHEL 9</label><div class="sd-tab-content docutils">
 <li><p><code class="docutils literal notranslate"><span class="pre">--gres=gpu:1</span></code> requests one GPU device on the node.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">--ntasks</span> <span class="pre">2</span></code> requests two parallel CPU threads on the node.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">2:00:00</span></code> requests a two-hour session.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--pty</span> <span class="pre">Bash</span></code> starts a Bash shell.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--pty</span> <span class="pre">bash</span></code> starts a Bash shell.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">-i</span></code> redirects std input to the user’s terminal for interactive use.</p></li>
 </ul>
-<p>See the list of <a class="reference external" href="https://slurm.schedmd.com/srun.html">options of srun</a> for details. As an other example, to request a GPU node named <code class="docutils literal notranslate"><span class="pre">savio2_1080ti</span></code> with 4 GPU devices and 8 CPU threads for 10 hours, run</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">srun -A fc_biome -p savio2_1080ti --gres<span class="o">=</span>gpu:4 --ntasks <span class="m">8</span> -t <span class="m">10</span>:00:00 --pty Bash -i</span>
+<p>See the list of <a class="reference external" href="https://slurm.schedmd.com/srun.html">options of srun</a> for details. As another example, to request a GPU node named <code class="docutils literal notranslate"><span class="pre">savio2_1080ti</span></code> with 4 GPU devices and 8 CPU threads for 10 hours, run</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">srun -A fc_biome -p savio2_1080ti --gres<span class="o">=</span>gpu:4 --ntasks <span class="m">8</span> -t <span class="m">10</span>:00:00 --pty bash -i</span>
 </pre></div></div><div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Replace the name of nodes and accounts in the above example with yours. The name of GPU nodes and accounts in the above examples are obtained from <a class="reference external" href="https://docs-research-it.berkeley.edu/services/high-performance-computing/overview/">SAVIO Cluster</a> (an institutional Cluster at UC Berkeley).</p>
 </div>
 </section>
 <section id="submit-jobs-to-gpu-with-slurm">
-<h3><a class="toc-backref" href="#id34"><span class="section-number">3.6.3. </span>Submit Jobs to GPU with SLURM</a><a class="headerlink" href="#submit-jobs-to-gpu-with-slurm" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id34" role="doc-backlink"><span class="section-number">3.6.3. </span>Submit Jobs to GPU with SLURM</a><a class="headerlink" href="#submit-jobs-to-gpu-with-slurm" title="Permalink to this heading">#</a></h3>
 <p>To submit a parallel job to GPU nodes on a cluster with <cite>SLURM manager</cite>, use <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> command, such as</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sbatch jobfile.sh</span>
-</pre></div></div><p>See the list of <a class="reference external" href="https://slurm.schedmd.com/sbatch.html">options of sbatch</a> for details. A sample job file, <code class="docutils literal notranslate"><span class="pre">jobfile.sh</span></code> is as shown below. The highlighted line in the file instructs <cite>SLURM</cite> to request number of GPU devices with <code class="docutils literal notranslate"><span class="pre">--gres</span></code> option.</p>
+</pre></div></div><p>See the list of <a class="reference external" href="https://slurm.schedmd.com/sbatch.html">options of sbatch</a> for details. A sample job file, <code class="docutils literal notranslate"><span class="pre">jobfile.sh</span></code> is shown below. The highlighted line in the file instructs <cite>SLURM</cite> to request the number of GPU devices with <code class="docutils literal notranslate"><span class="pre">--gres</span></code> option.</p>
 <div class="highlight-Slurm notranslate"><div class="highlight"><pre><span></span> <span class="c1">#!/bin/bash</span>
 
  <span class="kp">#SBATCH --job-name=your_project</span>
@@ -1203,7 +1206,7 @@ RHEL 9</label><div class="sd-tab-content docutils">
  <span class="nv">$PYTHON_DIR</span>/bin/python <span class="si">${</span><span class="nv">SCRIPTS_DIR</span><span class="si">}</span>/script.py &gt; <span class="si">${</span><span class="nv">LOG_DIR</span><span class="si">}</span>/output.txt
 </pre></div>
 </div>
-<p>In the above job file, modify <code class="docutils literal notranslate"><span class="pre">--partition</span></code>, <code class="docutils literal notranslate"><span class="pre">--account</span></code>, and <code class="docutils literal notranslate"><span class="pre">--qos</span></code> according to your user account allowance on cluster.</p>
+<p>In the above job file, modify <code class="docutils literal notranslate"><span class="pre">--partition</span></code>, <code class="docutils literal notranslate"><span class="pre">--account</span></code>, and <code class="docutils literal notranslate"><span class="pre">--qos</span></code> according to your user account allowance on the cluster.</p>
 </section>
 </section>
 </section>
@@ -1253,7 +1256,7 @@ RHEL 9</label><div class="sd-tab-content docutils">
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
 </p>
   </div>
   

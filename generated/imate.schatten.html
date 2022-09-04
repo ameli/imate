@@ -3,10 +3,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>imate.schatten &#8212; imate Manual</title>
 <script>
@@ -30,7 +30,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -38,6 +38,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/clipboard.min.js"></script>
@@ -67,7 +68,7 @@
 
     
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
 
   </head>
   
@@ -87,7 +88,7 @@
   
 
 
-<a class="navbar-brand logo" href="../index.html">
+<a class="navbar-brand logo" href="../contents.html">
   
   
   
@@ -134,12 +135,6 @@
  </a>
 </li>
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../cite.html">
-  Publications
- </a>
-</li>
-
     
 </ul>
       </div>
@@ -178,7 +173,7 @@
             <label class="sr-only">Anaconda Cloud</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://hub.docker.com/repository/docker/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
             <label class="sr-only">Docker Hub</label></a>
         </li>
         <li class="nav-item">
@@ -530,13 +525,13 @@
               <article class="bd-article" role="main">
                 
   <section id="imate-schatten">
-<h1>imate.schatten<a class="headerlink" href="#imate-schatten" title="Permalink to this headline">#</a></h1>
+<h1>imate.schatten<a class="headerlink" href="#imate-schatten" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="imate.schatten">
-<span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">schatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gram</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cholesky'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.schatten" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">schatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gram</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'eigenvalue'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.schatten" title="Permalink to this definition">#</a></dt>
 <dd><p>Schatten <cite>p</cite>-norm and p-anti-norm of matrix.</p>
 <dl class="field-list">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
 <dt><strong>A</strong><span class="classifier">numpy.ndarray, scipy.sparse, <a class="reference internal" href="imate.Matrix.html#imate.Matrix" title="imate.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.Matrix</span></code></a>, or             <a class="reference internal" href="imate.AffineMatrixFunction.html#imate.AffineMatrixFunction" title="imate.AffineMatrixFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.AffineMatrixFunction</span></code></a></span></dt><dd><p>A non-singular sparse or dense matrix or linear operator. The linear
 operators <a class="reference internal" href="imate.Matrix.html#imate.Matrix" title="imate.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.Matrix</span></code></a> and <a class="reference internal" href="imate.AffineMatrixFunction.html#imate.AffineMatrixFunction" title="imate.AffineMatrixFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.AffineMatrixFunction</span></code></a>
@@ -558,7 +553,7 @@ information about the inner computation, such as process time,
 algorithm settings, etc. See the documentation for each <cite>method</cite> for
 details.</p>
 </dd>
-<dt><strong>method</strong><span class="classifier">{‘exact’, ‘eigenvalue’, ‘cholesky’, ‘hutchinson’, ‘slq’},             default=’exact’</span></dt><dd><p>The method of computing Schatten norm. Note that</p>
+<dt><strong>method</strong><span class="classifier">{‘exact’, ‘eigenvalue’, ‘cholesky’, ‘hutchinson’, ‘slq’},             default=’eigenvalue’</span></dt><dd><p>The method of computing Schatten norm. Note that</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">exact</span></code> is only available for <span class="math notranslate nohighlight">\(p&gt;0\)</span></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cholesky</span></code> is only available for <span class="math notranslate nohighlight">\(p \leq 0\)</span>.</p></li>
@@ -597,7 +592,7 @@ particular:</p>
 </dd>
 </dl>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
 <dt><strong>norm</strong><span class="classifier">float or numpy.array</span></dt><dd><p>Schatten norm of matrix. If <code class="docutils literal notranslate"><span class="pre">method=slq</span></code> and if <cite>A</cite> is of type
 <a class="reference internal" href="imate.AffineMatrixFunction.html#imate.AffineMatrixFunction" title="imate.AffineMatrixFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.AffineMatrixFunction</span></code></a> with an array of <code class="docutils literal notranslate"><span class="pre">parameters</span></code>,
@@ -663,7 +658,7 @@ only the algorithm execution.</p></li>
 </dd>
 </dl>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt>LinAlgError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">method=cholesky</span></code> and <cite>A</cite> is not positive-definite.</p>
 </dd>
@@ -694,9 +689,9 @@ and recompile the source code of the package.</p>
     \left| \mathrm{det}(\mathbf{A})
     \right|^{\frac{1}{n}}, &amp; p=0, \\
     \left| \frac{1}{n}
-    \mathrm{trace}(\mathbf{A}^{\frac{1}{p}})
+    \mathrm{trace}(\mathbf{A}^{p})
     \right|^{\frac{1}{p}}, &amp; p \neq 0,
-\end{cases},\end{split}\]</div>
+\end{cases}\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(n\)</span> is the size of the matrix. When <span class="math notranslate nohighlight">\(p \geq 0\)</span>, the
 above definition is the Schatten <strong>norm</strong>, and when <span class="math notranslate nohighlight">\(p &lt; 0\)</span>, the
 above is the Schatten <strong>anti-norm</strong>.</p>
@@ -725,13 +720,14 @@ passed to the above functions directly. Hence, depending on the sign of
 <span class="math notranslate nohighlight">\(p\)</span>, see usage of the arguments in the documentation of the above
 functions.</p>
 <p class="rubric">References</p>
-<dl class="citation">
-<dt class="label" id="rc803f24236ae-1"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant
+<div role="list" class="citation-list">
+<div class="citation" id="rc803f24236ae-1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant
 and Trace of the Powers of Matrix <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span>.
 <a class="reference external" href="https://arxiv.org/abs/2207.08038">arXiv: 2009.07385</a> [math.NA].</p>
-</dd>
-</dl>
+</div>
+</div>
 <p class="rubric">Examples</p>
 <p><strong>Basic Usage:</strong></p>
 <p>Compute Schatten norm for various orders <span class="math notranslate nohighlight">\(p\)</span>:</p>
@@ -742,7 +738,7 @@ and Trace of the Powers of Matrix <span class="math notranslate nohighlight">\(\
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample matrix</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
 
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute Schatten 2-norm using the exact method</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute Schatten 2-norm using the default (eigenvalue) method</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">schatten</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 <span class="go">9.742355891729794</span>
 
@@ -983,7 +979,7 @@ and zero order <span class="math notranslate nohighlight">\(p\)</span> among oth
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
 </p>
   </div>
   

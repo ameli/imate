@@ -3,10 +3,10 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
     <title>1. Install &#8212; imate Manual</title>
 <script>
@@ -30,7 +30,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -38,6 +38,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/clipboard.min.js"></script>
@@ -49,7 +50,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="2. Using imate on Docker" href="docker.html" />
-    <link rel="prev" title="imate Documentation" href="../index.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="../contents.html" />
     <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
 
     <!-- Adobe Embed API -->
@@ -65,7 +66,7 @@
 
     
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="docsearch:language" content="None">
+<meta name="docsearch:language" content="en">
 
   </head>
   
@@ -85,7 +86,7 @@
   
 
 
-<a class="navbar-brand logo" href="../index.html">
+<a class="navbar-brand logo" href="../contents.html">
   
   
   
@@ -132,12 +133,6 @@
  </a>
 </li>
 
-<li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../cite.html">
-  Publications
- </a>
-</li>
-
     
 </ul>
       </div>
@@ -176,7 +171,7 @@
             <label class="sr-only">Anaconda Cloud</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://hub.docker.com/repository/docker/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
             <label class="sr-only">Docker Hub</label></a>
         </li>
         <li class="nav-item">
@@ -398,9 +393,26 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#compile-documentation">
-   1.5. Compile Documentation
+  <a class="reference internal nav-link" href="#generate-documentation">
+   1.5. Generate Documentation
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generate-doxygen-documentation">
+     1.5.1. Generate Doxygen Documentation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#compile-package">
+     1.5.2. Compile Package
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generate-sphinx-documentation">
+     1.5.3. Generate Sphinx Documentation
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#test-with-pytest">
@@ -439,8 +451,8 @@
               <article class="bd-article" role="main">
                 
   <section id="install">
-<span id="id1"></span><h1><a class="toc-backref" href="#id3"><span class="section-number">1. </span>Install</a><a class="headerlink" href="#install" title="Permalink to this headline">#</a></h1>
-<div class="contents topic" id="contents">
+<span id="id1"></span><h1><a class="toc-backref" href="#id3" role="doc-backlink"><span class="section-number">1. </span>Install</a><a class="headerlink" href="#install" title="Permalink to this heading">#</a></h1>
+<nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#install" id="id3">Install</a></p>
@@ -476,17 +488,23 @@
 <li><p><a class="reference internal" href="#compile-and-install" id="id22">Compile and Install</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#compile-documentation" id="id23">Compile Documentation</a></p></li>
-<li><p><a class="reference internal" href="#test-with-pytest" id="id24">Test with <code class="docutils literal notranslate"><span class="pre">pytest</span></code></a></p></li>
+<li><p><a class="reference internal" href="#generate-documentation" id="id23">Generate Documentation</a></p>
+<ul>
+<li><p><a class="reference internal" href="#generate-doxygen-documentation" id="id24">Generate Doxygen Documentation</a></p></li>
+<li><p><a class="reference internal" href="#compile-package" id="id25">Compile Package</a></p></li>
+<li><p><a class="reference internal" href="#generate-sphinx-documentation" id="id26">Generate Sphinx Documentation</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#test-with-pytest" id="id27">Test with <code class="docutils literal notranslate"><span class="pre">pytest</span></code></a></p></li>
 </ul>
 </li>
 </ul>
-</div>
+</nav>
 <section id="install-project-from-wheels">
-<h2><a class="toc-backref" href="#id4"><span class="section-number">1.1. </span>Install <span class="synco">imate</span> From Wheels</a><a class="headerlink" href="#install-project-from-wheels" title="Permalink to this headline">#</a></h2>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink"><span class="section-number">1.1. </span>Install <span class="synco">imate</span> From Wheels</a><a class="headerlink" href="#install-project-from-wheels" title="Permalink to this heading">#</a></h2>
 <p>Python wheels for <span class="synco">imate</span> are available for various operating systems and Python versions on both PyPI and Anaconda Cloud.</p>
 <section id="install-with-pip">
-<h3><a class="toc-backref" href="#id5"><span class="section-number">1.1.1. </span>Install with <code class="docutils literal notranslate"><span class="pre">pip</span></code></a><a class="headerlink" href="#install-with-pip" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id5" role="doc-backlink"><span class="section-number">1.1.1. </span>Install with <code class="docutils literal notranslate"><span class="pre">pip</span></code></a><a class="headerlink" href="#install-with-pip" title="Permalink to this heading">#</a></h3>
 <p><img alt="pypi" src="https://img.shields.io/pypi/v/imate" /></p>
 <p>Install <span class="synco">imate</span> and its Python dependencies through <a class="reference external" href="https://pypi.org/project/imate">PyPI</a> by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
@@ -497,17 +515,17 @@ span.prompt1:before {
 <span class="prompt1">python -m pip install imate</span>
 </pre></div></div></section>
 <section id="install-with-conda">
-<h3><a class="toc-backref" href="#id6"><span class="section-number">1.1.2. </span>Install with <code class="docutils literal notranslate"><span class="pre">conda</span></code></a><a class="headerlink" href="#install-with-conda" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id6" role="doc-backlink"><span class="section-number">1.1.2. </span>Install with <code class="docutils literal notranslate"><span class="pre">conda</span></code></a><a class="headerlink" href="#install-with-conda" title="Permalink to this heading">#</a></h3>
 <p><a class="reference external" href="https://anaconda.org/s-ameli/imate"><img alt="conda-version" src="https://img.shields.io/conda/v/s-ameli/imate" /></a></p>
 <p>Alternately, install <span class="synco">imate</span> and its Python dependencies from <a class="reference external" href="https://anaconda.org/s-ameli/imate">Anaconda Cloud</a> by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">conda install -c s-ameli imate -y</span>
 </pre></div></div></section>
 </section>
 <section id="install-project-in-virtual-environments">
-<span id="virtual-env"></span><h2><a class="toc-backref" href="#id7"><span class="section-number">1.2. </span>Install <span class="synco">imate</span> in Virtual Environments</a><a class="headerlink" href="#install-project-in-virtual-environments" title="Permalink to this headline">#</a></h2>
+<span id="virtual-env"></span><h2><a class="toc-backref" href="#id7" role="doc-backlink"><span class="section-number">1.2. </span>Install <span class="synco">imate</span> in Virtual Environments</a><a class="headerlink" href="#install-project-in-virtual-environments" title="Permalink to this heading">#</a></h2>
 <p>If you do not want the installation to occupy your main python’s site-packages (either you are testing or the dependencies may clutter your existing installed packages), install the package in an isolated virtual environment. Two common virtual environments are <a class="reference internal" href="#virtualenv-env"><span class="std std-ref">virtualenv</span></a> and <a class="reference internal" href="#conda-env"><span class="std std-ref">conda</span></a>.</p>
 <section id="install-in-virtualenv-environment">
-<span id="virtualenv-env"></span><h3><a class="toc-backref" href="#id8"><span class="section-number">1.2.1. </span>Install in <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code> Environment</a><a class="headerlink" href="#install-in-virtualenv-environment" title="Permalink to this headline">#</a></h3>
+<span id="virtualenv-env"></span><h3><a class="toc-backref" href="#id8" role="doc-backlink"><span class="section-number">1.2.1. </span>Install in <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code> Environment</a><a class="headerlink" href="#install-in-virtualenv-environment" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
 <li><p>Install <code class="docutils literal notranslate"><span class="pre">virtualenv</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">python -m pip install virtualenv</span>
@@ -528,12 +546,12 @@ span.prompt1:before {
 </ol>
 </section>
 <section id="install-in-conda-environment">
-<span id="conda-env"></span><h3><a class="toc-backref" href="#id9"><span class="section-number">1.2.2. </span>Install in <code class="docutils literal notranslate"><span class="pre">conda</span></code> Environment</a><a class="headerlink" href="#install-in-conda-environment" title="Permalink to this headline">#</a></h3>
+<span id="conda-env"></span><h3><a class="toc-backref" href="#id9" role="doc-backlink"><span class="section-number">1.2.2. </span>Install in <code class="docutils literal notranslate"><span class="pre">conda</span></code> Environment</a><a class="headerlink" href="#install-in-conda-environment" title="Permalink to this heading">#</a></h3>
 <p>In the followings, it is assumed <a class="reference external" href="https://www.anaconda.com/products/individual#Downloads">anaconda</a> (or <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">miniconda</a>) is installed.</p>
 <ol class="arabic">
 <li><p>Initialize conda</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">conda init</span>
-</pre></div></div><p>You may need to close and reopen terminal after the above command. Alternatively, instead of the above, you can do</p>
+</pre></div></div><p>You may need to close and reopen your terminal after the above command. Alternatively, instead of the above, you can do</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo sh <span class="k">$(</span>conda info --root<span class="k">)</span>/etc/profile.d/conda.sh</span>
 </pre></div></div></li>
 <li><p>Create a virtual environment and give it a name, such as <code class="docutils literal notranslate"><span class="pre">imate_env</span></code></p>
@@ -554,43 +572,43 @@ span.prompt1:before {
 </section>
 </section>
 <section id="optional-runtime-dependencies">
-<span id="compile-imate"></span><h2><a class="toc-backref" href="#id10"><span class="section-number">1.3. </span>Optional Runtime Dependencies</a><a class="headerlink" href="#optional-runtime-dependencies" title="Permalink to this headline">#</a></h2>
-<p>Runtime libraries are not required to present during the installation of <span class="synco">imate</span>. However, they may be required to be installed during running <span class="synco">imate</span>.</p>
+<span id="compile-imate"></span><h2><a class="toc-backref" href="#id10" role="doc-backlink"><span class="section-number">1.3. </span>Optional Runtime Dependencies</a><a class="headerlink" href="#optional-runtime-dependencies" title="Permalink to this heading">#</a></h2>
+<p>Runtime libraries are not required to be present during the installation of <span class="synco">imate</span>. However, they may be required to be installed during running <span class="synco">imate</span>.</p>
 <section id="cuda-toolkit-and-nvidia-graphic-driver-optional">
-<h3><a class="toc-backref" href="#id11"><span class="section-number">1.3.1. </span>CUDA Toolkit and NVIDIA Graphic Driver (<cite>Optional</cite>)</a><a class="headerlink" href="#cuda-toolkit-and-nvidia-graphic-driver-optional" title="Permalink to this headline">#</a></h3>
-<p>To use GPU devices, install NVIDIA Graphic Driver and CUDA Toolkit. See instructions below.</p>
+<h3><a class="toc-backref" href="#id11" role="doc-backlink"><span class="section-number">1.3.1. </span>CUDA Toolkit and NVIDIA Graphic Driver (<cite>Optional</cite>)</a><a class="headerlink" href="#cuda-toolkit-and-nvidia-graphic-driver-optional" title="Permalink to this heading">#</a></h3>
+<p>To use GPU devices, install NVIDIA Graphic Driver and CUDA Toolkit. See the instructions below.</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="gpu.html#install-graphic-driver"><span class="std std-ref">Install NVIDIA Graphic Driver</span></a>.</p></li>
 <li><p><a class="reference internal" href="gpu.html#install-cuda-toolkit"><span class="std std-ref">Install CUDA Toolkit</span></a>.</p></li>
 </ul>
 </section>
 <section id="sparse-suite-optional">
-<h3><a class="toc-backref" href="#id12"><span class="section-number">1.3.2. </span>Sparse Suite (<cite>Optional</cite>)</a><a class="headerlink" href="#sparse-suite-optional" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id12" role="doc-backlink"><span class="section-number">1.3.2. </span>Sparse Suite (<cite>Optional</cite>)</a><a class="headerlink" href="#sparse-suite-optional" title="Permalink to this heading">#</a></h3>
 <p><a class="reference external" href="https://people.engr.tamu.edu/davis/suitesparse.html">Suite Sarse</a> is a library for efficient calculations on sparse matrices. <span class="synco">imate</span> does not require this library as it has its own library for sparse matrices. However, if this library is available, <span class="synco">imate</span> uses it.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The Sparse Suite library is only used for those functions in <span class="synco">imate</span> that uses Cholesky decomposition method by passing <code class="docutils literal notranslate"><span class="pre">method=cholesky</span></code> argument to the functions. See <a class="reference internal" href="../api.html#functions"><span class="std std-ref">API reference for Functions</span></a> for details.</p>
+<p>The Sparse Suite library is only used for those functions in <span class="synco">imate</span> that uses the Cholesky decomposition method by passing <code class="docutils literal notranslate"><span class="pre">method=cholesky</span></code> argument to the functions. See <a class="reference internal" href="../api.html#functions"><span class="std std-ref">API reference for Functions</span></a> for details.</p>
 </div>
 <ol class="arabic">
 <li><p>Install Sparse Suite development library by</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="01b56dfe-611c-4268-abc5-ac8dd8505554" name="eb5480bc-f8e2-44e9-9455-0ada77c8d4fa" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="01b56dfe-611c-4268-abc5-ac8dd8505554">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-0">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install libsuitesparse-dev</span>
 </pre></div></div></div>
-<input id="8d25f988-12b8-4dcd-904a-6598773e8911" name="eb5480bc-f8e2-44e9-9455-0ada77c8d4fa" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="8d25f988-12b8-4dcd-904a-6598773e8911">
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-1">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install libsuitesparse-devel</span>
 </pre></div></div></div>
-<input id="ef78b099-ea84-47d6-9344-c61654c44d49" name="eb5480bc-f8e2-44e9-9455-0ada77c8d4fa" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="ef78b099-ea84-47d6-9344-c61654c44d49">
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-2">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install libsuitesparse-devel</span>
 </pre></div></div></div>
-<input id="d7c8322e-1d53-4cba-b861-ceafd035bfbf" name="eb5480bc-f8e2-44e9-9455-0ada77c8d4fa" type="radio">
-</input><label class="sd-tab-label" data-sync-id="osx" for="d7c8322e-1d53-4cba-b861-ceafd035bfbf">
+<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="osx" for="sd-tab-item-3">
 macOS</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo brew install suite-sparse</span>
 </pre></div></div></div>
@@ -604,7 +622,7 @@ macOS</label><div class="sd-tab-content docutils">
 </ol>
 </section>
 <section id="openblas-optional">
-<h3><a class="toc-backref" href="#id13"><span class="section-number">1.3.3. </span>OpenBLAS (<cite>Optional</cite>)</a><a class="headerlink" href="#openblas-optional" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id13" role="doc-backlink"><span class="section-number">1.3.3. </span>OpenBLAS (<cite>Optional</cite>)</a><a class="headerlink" href="#openblas-optional" title="Permalink to this heading">#</a></h3>
 <p><a class="reference external" href="https://www.openblas.net/">OpenBLAS</a> is a library for efficient dense matrix operations. <span class="synco">imate</span> does not require this library as it has its own library for dense matrices. However, if you compiled <span class="synco">imate</span> to use OpenBLAS (see <a class="reference internal" href="#compile-imate"><span class="std std-ref">Compile from Source</span></a>), OpenBLAS library should be available at runtime.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -612,23 +630,23 @@ macOS</label><div class="sd-tab-content docutils">
 </div>
 <p>Install OpenBLAS library by</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="e12f2e64-2c7c-49e1-b8dc-402bff7745b0" name="d6df6600-93a3-4841-9cde-0a428bd02188" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="e12f2e64-2c7c-49e1-b8dc-402bff7745b0">
+<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-4">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt-get install libopenblas-dev</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install libopenblas-dev</span>
 </pre></div></div></div>
-<input id="93a0cc58-e038-470f-a6e2-638e8c514da8" name="d6df6600-93a3-4841-9cde-0a428bd02188" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="93a0cc58-e038-470f-a6e2-638e8c514da8">
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-5">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install openblas-devel</span>
 </pre></div></div></div>
-<input id="04a04f99-0d5c-42f8-a5b7-2b5aba8f5460" name="d6df6600-93a3-4841-9cde-0a428bd02188" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="04a04f99-0d5c-42f8-a5b7-2b5aba8f5460">
+<input id="sd-tab-item-6" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-6">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install openblas-devel</span>
 </pre></div></div></div>
-<input id="baefdcd5-f755-4761-91b8-706e01ce5cc3" name="d6df6600-93a3-4841-9cde-0a428bd02188" type="radio">
-</input><label class="sd-tab-label" data-sync-id="osx" for="baefdcd5-f755-4761-91b8-706e01ce5cc3">
+<input id="sd-tab-item-7" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="osx" for="sd-tab-item-7">
 macOS</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo brew install openblas</span>
 </pre></div></div></div>
@@ -638,15 +656,15 @@ macOS</label><div class="sd-tab-content docutils">
 </pre></div></div></section>
 </section>
 <section id="compile-from-source">
-<span id="install-wheels"></span><h2><a class="toc-backref" href="#id14"><span class="section-number">1.4. </span>Compile from Source</a><a class="headerlink" href="#compile-from-source" title="Permalink to this headline">#</a></h2>
+<span id="install-wheels"></span><h2><a class="toc-backref" href="#id14" role="doc-backlink"><span class="section-number">1.4. </span>Compile from Source</a><a class="headerlink" href="#compile-from-source" title="Permalink to this heading">#</a></h2>
 <section id="when-to-compile-project">
-<h3><a class="toc-backref" href="#id15"><span class="section-number">1.4.1. </span>When to Compile <span class="synco">imate</span></a><a class="headerlink" href="#when-to-compile-project" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id15" role="doc-backlink"><span class="section-number">1.4.1. </span>When to Compile <span class="synco">imate</span></a><a class="headerlink" href="#when-to-compile-project" title="Permalink to this heading">#</a></h3>
 <p>Generally, it is not required to compile <span class="synco">imate</span> as the installation through <code class="docutils literal notranslate"><span class="pre">pip</span></code> and <code class="docutils literal notranslate"><span class="pre">conda</span></code> contains most of its features, including support for GPU devices. You may compile <span class="synco">imate</span> if you want to:</p>
 <ul class="simple">
 <li><p>modify <span class="synco">imate</span>.</p></li>
 <li><p>use <cite>OpenBLAS</cite> instead of the built-in matrix library of <span class="synco">imate</span>.</p></li>
 <li><p>build <span class="synco">imate</span> for a <cite>specific version</cite> of CUDA Toolkit.</p></li>
-<li><p>disable <cite>dynamic loading</cite> feature of <span class="synco">imate</span> for CUDA libraries.</p></li>
+<li><p>disable the <cite>dynamic loading</cite> feature of <span class="synco">imate</span> for CUDA libraries.</p></li>
 <li><p>enable <cite>debugging mode</cite>.</p></li>
 <li><p>or, build this <cite>documentation</cite>.</p></li>
 </ul>
@@ -654,27 +672,27 @@ macOS</label><div class="sd-tab-content docutils">
 <p>This section walks you through the compilation process.</p>
 </section>
 <section id="install-c-compiler-and-openmp-required">
-<h3><a class="toc-backref" href="#id16"><span class="section-number">1.4.2. </span>Install C++ Compiler and OpenMP (<cite>Required</cite>)</a><a class="headerlink" href="#install-c-compiler-and-openmp-required" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id16" role="doc-backlink"><span class="section-number">1.4.2. </span>Install C++ Compiler and OpenMP (<cite>Required</cite>)</a><a class="headerlink" href="#install-c-compiler-and-openmp-required" title="Permalink to this heading">#</a></h3>
 <p>Compile <span class="synco">imate</span> with either of GCC, Clang/LLVM, or Intel C++ compiler on UNIX operating systems. For Windows, compile <span class="synco">imate</span> with <a class="reference external" href="https://code.visualstudio.com/docs/cpp/config-msvc#:~:text=You%20can%20install%20the%20C,the%20C%2B%2B%20workload%20is%20checked.">Microsoft Visual Studio (MSVC) Compiler for C++</a>.</p>
 <p class="rubric">Install GNU GCC Compiler</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="14ab2706-c62b-4d80-8dda-afa620daf8f7" name="64fe5910-975d-4cdb-afe5-b8815d06d1ff" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="14ab2706-c62b-4d80-8dda-afa620daf8f7">
+<input checked="checked" id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-8">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install build-essential</span>
 </pre></div></div></div>
-<input id="80195e22-4227-43c2-b041-2a1c9c1ea079" name="64fe5910-975d-4cdb-afe5-b8815d06d1ff" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="80195e22-4227-43c2-b041-2a1c9c1ea079">
+<input id="sd-tab-item-9" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-9">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum group install <span class="s2">&quot;Development Tools&quot;</span></span>
 </pre></div></div></div>
-<input id="d0f8392c-6683-4df9-ad3d-a3fda8d8a307" name="64fe5910-975d-4cdb-afe5-b8815d06d1ff" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="d0f8392c-6683-4df9-ad3d-a3fda8d8a307">
+<input id="sd-tab-item-10" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-10">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf group install <span class="s2">&quot;Development Tools&quot;</span></span>
 </pre></div></div></div>
-<input id="604d2662-5084-406d-9725-1c7f4bfd113b" name="64fe5910-975d-4cdb-afe5-b8815d06d1ff" type="radio">
-</input><label class="sd-tab-label" data-sync-id="osx" for="604d2662-5084-406d-9725-1c7f4bfd113b">
+<input id="sd-tab-item-11" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="osx" for="sd-tab-item-11">
 macOS</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo brew install gcc libomp</span>
 </pre></div></div></div>
@@ -684,29 +702,29 @@ macOS</label><div class="sd-tab-content docutils">
 <span class="prompt1"><span class="nb">export</span> <span class="nv">CXX</span><span class="o">=</span>/usr/local/bin/g++</span>
 </pre></div></div><p class="rubric">Install Clang/LLVN Compiler</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="6c719078-8937-444a-8b1d-2ba872adf371" name="9f45c42f-4731-4432-bb50-bcdcd333909f" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="6c719078-8937-444a-8b1d-2ba872adf371">
+<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-12">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install clang</span>
 </pre></div></div></div>
-<input id="f218b031-ba2c-4546-8d77-6f9b642ed737" name="9f45c42f-4731-4432-bb50-bcdcd333909f" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="f218b031-ba2c-4546-8d77-6f9b642ed737">
+<input id="sd-tab-item-13" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-13">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install yum-utils</span>
 <span class="prompt1">sudo yum-config-manager --enable extras</span>
 <span class="prompt1">sudo yum makecache</span>
 <span class="prompt1">sudo yum install clang</span>
 </pre></div></div></div>
-<input id="41a79d43-d94d-4705-a151-d515a32eac77" name="9f45c42f-4731-4432-bb50-bcdcd333909f" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="41a79d43-d94d-4705-a151-d515a32eac77">
+<input id="sd-tab-item-14" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-14">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install yum-utils</span>
 <span class="prompt1">sudo dnf config-manager --enable extras</span>
 <span class="prompt1">sudo dnf makecache</span>
 <span class="prompt1">sudo dnf install clang</span>
 </pre></div></div></div>
-<input id="a1dd5c80-a086-49c5-8580-dc5bd90178c5" name="9f45c42f-4731-4432-bb50-bcdcd333909f" type="radio">
-</input><label class="sd-tab-label" data-sync-id="osx" for="a1dd5c80-a086-49c5-8580-dc5bd90178c5">
+<input id="sd-tab-item-15" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" data-sync-id="osx" for="sd-tab-item-15">
 macOS</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo brew install llvm libomp-dev</span>
 </pre></div></div></div>
@@ -718,52 +736,52 @@ macOS</label><div class="sd-tab-content docutils">
 <p>To install <cite>Intel Compiler</cite> see <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=linux&amp;distributions=aptpackagemanager">Intel oneAPI Base Toolkit</a>.</p>
 </section>
 <section id="install-openmp-required">
-<h3><a class="toc-backref" href="#id17"><span class="section-number">1.4.3. </span>Install OpenMP (<cite>Required</cite>)</a><a class="headerlink" href="#install-openmp-required" title="Permalink to this headline">#</a></h3>
-<p>OpenMP comes with the C++ compiler installed in the above. However, you may alternatively install it directly on UNIX. Install <cite>OpenMP</cite> library on UNIX as follows:</p>
+<h3><a class="toc-backref" href="#id17" role="doc-backlink"><span class="section-number">1.4.3. </span>Install OpenMP (<cite>Required</cite>)</a><a class="headerlink" href="#install-openmp-required" title="Permalink to this heading">#</a></h3>
+<p>OpenMP comes with the C++ compiler installed. However, you may alternatively install it directly on UNIX. Install <cite>OpenMP</cite> library on UNIX as follows:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="ecae43f1-ebac-4ab6-bf8d-b84f645919d1" name="c240d264-d218-4af4-8c0d-53b4e186b495" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="ecae43f1-ebac-4ab6-bf8d-b84f645919d1">
+<input checked="checked" id="sd-tab-item-16" name="sd-tab-set-4" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-16">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install libgomp1 -y</span>
 </pre></div></div></div>
-<input id="522eaf65-3e10-4d44-bf4b-f1075322d4d7" name="c240d264-d218-4af4-8c0d-53b4e186b495" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="522eaf65-3e10-4d44-bf4b-f1075322d4d7">
+<input id="sd-tab-item-17" name="sd-tab-set-4" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-17">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install libgomp -y</span>
 </pre></div></div></div>
-<input id="379be4f3-f69b-442d-b849-3fe04896cc80" name="c240d264-d218-4af4-8c0d-53b4e186b495" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="379be4f3-f69b-442d-b849-3fe04896cc80">
+<input id="sd-tab-item-18" name="sd-tab-set-4" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-18">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install libgomp -y</span>
 </pre></div></div></div>
-<input id="a9a5b18d-a795-4bba-928b-31c7a504a62a" name="c240d264-d218-4af4-8c0d-53b4e186b495" type="radio">
-</input><label class="sd-tab-label" data-sync-id="osx" for="a9a5b18d-a795-4bba-928b-31c7a504a62a">
+<input id="sd-tab-item-19" name="sd-tab-set-4" type="radio">
+</input><label class="sd-tab-label" data-sync-id="osx" for="sd-tab-item-19">
 macOS</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo brew install libomp</span>
 </pre></div></div></div>
 </div>
 </section>
 <section id="install-openblas">
-<span id="id2"></span><h3><a class="toc-backref" href="#id18"><span class="section-number">1.4.4. </span>OpenBLAS (<cite>Optional</cite>)</a><a class="headerlink" href="#install-openblas" title="Permalink to this headline">#</a></h3>
+<span id="id2"></span><h3><a class="toc-backref" href="#id18" role="doc-backlink"><span class="section-number">1.4.4. </span>OpenBLAS (<cite>Optional</cite>)</a><a class="headerlink" href="#install-openblas" title="Permalink to this heading">#</a></h3>
 <p><span class="synco">imate</span> can be compiled with and without OpenBLAS. If you are compiling <span class="synco">imate</span> with OpenBLAS, install OpenBLAS library by</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="bdf66519-de3e-43f2-aa57-8d5d5ea52038" name="92c365d9-c2a6-4291-9ff1-fd42f1559eb0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="bdf66519-de3e-43f2-aa57-8d5d5ea52038">
+<input checked="checked" id="sd-tab-item-20" name="sd-tab-set-5" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-20">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt-get install libopenblas-dev</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install libopenblas-dev</span>
 </pre></div></div></div>
-<input id="9711bdf6-0474-494c-862f-7221857926cb" name="92c365d9-c2a6-4291-9ff1-fd42f1559eb0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="9711bdf6-0474-494c-862f-7221857926cb">
+<input id="sd-tab-item-21" name="sd-tab-set-5" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-21">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install openblas-devel</span>
 </pre></div></div></div>
-<input id="f698277c-e8bd-4353-b24d-dc5e1ac2ffc4" name="92c365d9-c2a6-4291-9ff1-fd42f1559eb0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="f698277c-e8bd-4353-b24d-dc5e1ac2ffc4">
+<input id="sd-tab-item-22" name="sd-tab-set-5" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-22">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install openblas-devel</span>
 </pre></div></div></div>
-<input id="2f295d93-da29-49c8-b6a2-14a6156d065b" name="92c365d9-c2a6-4291-9ff1-fd42f1559eb0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="osx" for="2f295d93-da29-49c8-b6a2-14a6156d065b">
+<input id="sd-tab-item-23" name="sd-tab-set-5" type="radio">
+</input><label class="sd-tab-label" data-sync-id="osx" for="sd-tab-item-23">
 macOS</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo brew install openblas</span>
 </pre></div></div></div>
@@ -776,7 +794,7 @@ macOS</label><div class="sd-tab-content docutils">
 </div>
 </section>
 <section id="install-cuda-compiler-optional">
-<span id="install-cuda"></span><h3><a class="toc-backref" href="#id19"><span class="section-number">1.4.5. </span>Install CUDA Compiler (<cite>Optional</cite>)</a><a class="headerlink" href="#install-cuda-compiler-optional" title="Permalink to this headline">#</a></h3>
+<span id="install-cuda"></span><h3><a class="toc-backref" href="#id19" role="doc-backlink"><span class="section-number">1.4.5. </span>Install CUDA Compiler (<cite>Optional</cite>)</a><a class="headerlink" href="#install-cuda-compiler-optional" title="Permalink to this heading">#</a></h3>
 <p>To use <span class="synco">imate</span> on GPU devices, it should be compiled with CUDA compiler. Skip this part if you are not using GPU.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -784,12 +802,12 @@ macOS</label><div class="sd-tab-content docutils">
 </div>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>NVIDIA does not support macOS. You can install NVIDIA CUDA Toolkit on Linux and Windows only.</p>
+<p>NVIDIA does not support macOS. You can install the NVIDIA CUDA Toolkit on Linux and Windows only.</p>
 </div>
 <p>It is not required to install the entire CUDA Toolkit. Install only the CUDA compiler and the development libraries of cuBLAS and cuSparse by</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="2dea304e-40e6-4a93-bd67-448f8125ae78" name="304c5832-9d6e-4a36-8aaa-445410e0c05b" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="2dea304e-40e6-4a93-bd67-448f8125ae78">
+<input checked="checked" id="sd-tab-item-24" name="sd-tab-set-6" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-24">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install -y <span class="se">\</span>
     cuda-nvcc-11-7 <span class="se">\</span>
@@ -798,8 +816,8 @@ Ubuntu/Debian</label><div class="sd-tab-content docutils">
     libcusparse-11-7 -y <span class="se">\</span>
     libcusparse-dev-11-7</span>
 </pre></div></div></div>
-<input id="ed7a3e9e-383a-4a54-bf44-7a882836f8ed" name="304c5832-9d6e-4a36-8aaa-445410e0c05b" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="ed7a3e9e-383a-4a54-bf44-7a882836f8ed">
+<input id="sd-tab-item-25" name="sd-tab-set-6" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-25">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install --setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span> -y <span class="se">\</span>
     cuda-nvcc-11-7.x86_64 <span class="se">\</span>
@@ -809,8 +827,8 @@ CentOS 7</label><div class="sd-tab-content docutils">
     libcusparse-11-7.x86_64 <span class="se">\</span>
     libcusparse-devel-11-7.x86_64</span>
 </pre></div></div></div>
-<input id="a8891b93-6789-441f-8560-1fe1a731a2b8" name="304c5832-9d6e-4a36-8aaa-445410e0c05b" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="a8891b93-6789-441f-8560-1fe1a731a2b8">
+<input id="sd-tab-item-26" name="sd-tab-set-6" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-26">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install --setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span> -y <span class="se">\</span>
     cuda-nvcc-11-7.x86_64 <span class="se">\</span>
@@ -827,13 +845,13 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </pre></div></div><p>Check if the CUDA compiler is available with <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">nvcc</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>To build <span class="synco">imate</span> with CUDA, you should also set <code class="docutils literal notranslate"><span class="pre">CUDA_HOME</span></code>, <code class="docutils literal notranslate"><span class="pre">USE_CUDA</span></code>, and optionally set <code class="docutils literal notranslate"><span class="pre">CUDA_DYNAMIC_LOADING</span></code> environment variabls as described in <a class="reference internal" href="#config-env-variables"><span class="std std-ref">Configure Compile-Time Environment Variables</span></a>.</p>
+<p>To build <span class="synco">imate</span> with CUDA, you should also set <code class="docutils literal notranslate"><span class="pre">CUDA_HOME</span></code>, <code class="docutils literal notranslate"><span class="pre">USE_CUDA</span></code>, and optionally set <code class="docutils literal notranslate"><span class="pre">CUDA_DYNAMIC_LOADING</span></code> environment variables as described in <a class="reference internal" href="#config-env-variables"><span class="std std-ref">Configure Compile-Time Environment Variables</span></a>.</p>
 </div>
 </section>
 <section id="load-cuda-compiler-on-gpu-cluster-optional">
-<h3><a class="toc-backref" href="#id20"><span class="section-number">1.4.6. </span>Load CUDA Compiler on GPU Cluster (<cite>Optional</cite>)</a><a class="headerlink" href="#load-cuda-compiler-on-gpu-cluster-optional" title="Permalink to this headline">#</a></h3>
-<p>This section is relevant if you are using GPU on a cluster, and skip this section otherwise.</p>
-<p>On a GPU cluster, chances are the CUDA Toolkit is already installed. If the cluster uses <code class="docutils literal notranslate"><span class="pre">module</span></code> interface, load CUDA as follows.</p>
+<h3><a class="toc-backref" href="#id20" role="doc-backlink"><span class="section-number">1.4.6. </span>Load CUDA Compiler on GPU Cluster (<cite>Optional</cite>)</a><a class="headerlink" href="#load-cuda-compiler-on-gpu-cluster-optional" title="Permalink to this heading">#</a></h3>
+<p>This section is relevant if you are using GPU on a cluster and skip this section otherwise.</p>
+<p>On a GPU cluster, chances are the CUDA Toolkit is already installed. If the cluster uses the <cite>module</cite> interface, load CUDA as follows.</p>
 <p>First, check if a CUDA module is available by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module avail</span>
 </pre></div></div><p>Load both CUDA and GCC by</p>
@@ -843,18 +861,18 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </pre></div></div><p>You may check if CUDA Compiler is available with <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">nvcc</span></code>.</p>
 </section>
 <section id="configure-compile-time-environment-variables-optional">
-<span id="config-env-variables"></span><h3><a class="toc-backref" href="#id21"><span class="section-number">1.4.7. </span>Configure Compile-Time Environment Variables (<cite>Optional</cite>)</a><a class="headerlink" href="#configure-compile-time-environment-variables-optional" title="Permalink to this headline">#</a></h3>
+<span id="config-env-variables"></span><h3><a class="toc-backref" href="#id21" role="doc-backlink"><span class="section-number">1.4.7. </span>Configure Compile-Time Environment Variables (<cite>Optional</cite>)</a><a class="headerlink" href="#configure-compile-time-environment-variables-optional" title="Permalink to this heading">#</a></h3>
 <p>Set the following environment variables as desired to configure the compilation process.</p>
 <dl class="glossary">
-<dt id="term-CUDA_HOME-CUDA_PATH-CUDA_ROOT"><code class="docutils literal notranslate"><span class="pre">CUDA_HOME</span></code>, <code class="docutils literal notranslate"><span class="pre">CUDA_PATH</span></code>, <code class="docutils literal notranslate"><span class="pre">CUDA_ROOT</span></code><a class="headerlink" href="#term-CUDA_HOME-CUDA_PATH-CUDA_ROOT" title="Permalink to this term">#</a></dt><dd><p>These variables are relevant only if you are compiling with CUDA compiler. <a class="reference internal" href="#install-cuda"><span class="std std-ref">Install CUDA Toolkit</span></a> and specify the home directory of CUDA Toolkit by setting either of these variables. The home directory should be a path containing the executable <code class="docutils literal notranslate"><span class="pre">/bin/nvcc</span></code> (or <code class="docutils literal notranslate"><span class="pre">\bin\nvcc.exe</span></code> on Windows). For instance, if <code class="docutils literal notranslate"><span class="pre">/usr/local/cuda/bin/nvcc</span></code> exists, export the following:</p>
+<dt id="term-CUDA_HOME-CUDA_PATH-CUDA_ROOT"><code class="docutils literal notranslate"><span class="pre">CUDA_HOME</span></code>, <code class="docutils literal notranslate"><span class="pre">CUDA_PATH</span></code>, <code class="docutils literal notranslate"><span class="pre">CUDA_ROOT</span></code><a class="headerlink" href="#term-CUDA_HOME-CUDA_PATH-CUDA_ROOT" title="Permalink to this term">#</a></dt><dd><p>These variables are relevant only if you are compiling with the CUDA compiler. <a class="reference internal" href="#install-cuda"><span class="std std-ref">Install CUDA Toolkit</span></a> and specify the home directory of CUDA Toolkit by setting either of these variables. The home directory should be a path containing the executable <code class="docutils literal notranslate"><span class="pre">/bin/nvcc</span></code> (or <code class="docutils literal notranslate"><span class="pre">\bin\nvcc.exe</span></code> on Windows). For instance, if <code class="docutils literal notranslate"><span class="pre">/usr/local/cuda/bin/nvcc</span></code> exists, export the following:</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="be50bc6a-c42f-4f93-a51b-a7b660f9e26c" name="9fcb1eb1-acce-4cfb-8575-1151099dcc6b" type="radio">
-</input><label class="sd-tab-label" data-sync-id="unix" for="be50bc6a-c42f-4f93-a51b-a7b660f9e26c">
+<input checked="checked" id="sd-tab-item-27" name="sd-tab-set-7" type="radio">
+</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-27">
 UNIX</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">CUDA_HOME</span><span class="o">=</span>/usr/local/cuda</span>
 </pre></div></div></div>
-<input id="4db66564-c31e-4189-ae1c-449b404e47e8" name="9fcb1eb1-acce-4cfb-8575-1151099dcc6b" type="radio">
-</input><label class="sd-tab-label" data-sync-id="win" for="4db66564-c31e-4189-ae1c-449b404e47e8">
+<input id="sd-tab-item-28" name="sd-tab-set-7" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-28">
 Windows (Powershell)</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
 span.prompt2:before {
@@ -864,43 +882,43 @@ span.prompt2:before {
 </pre></div></div></div>
 </div>
 </dd>
-<dt id="term-USE_CUDA"><code class="docutils literal notranslate"><span class="pre">USE_CUDA</span></code><a class="headerlink" href="#term-USE_CUDA" title="Permalink to this term">#</a></dt><dd><p>This variable is relevant only if you are compiling with CUDA compiler. By default, this variable is set to <cite>0</cite>. To compile <span class="synco">imate</span> with CUDA, <a class="reference internal" href="#install-cuda"><span class="std std-ref">install CUDA Toolkit</span></a> and set this variable to <cite>1</cite> by</p>
+<dt id="term-USE_CUDA"><code class="docutils literal notranslate"><span class="pre">USE_CUDA</span></code><a class="headerlink" href="#term-USE_CUDA" title="Permalink to this term">#</a></dt><dd><p>This variable is relevant only if you are compiling with the CUDA compiler. By default, this variable is set to <cite>0</cite>. To compile <span class="synco">imate</span> with CUDA, <a class="reference internal" href="#install-cuda"><span class="std std-ref">install CUDA Toolkit</span></a> and set this variable to <cite>1</cite> by</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="b696c871-2367-4a2c-bf20-de2b49987b92" name="50cb8014-4435-4c52-b564-7b72cb749ed2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="unix" for="b696c871-2367-4a2c-bf20-de2b49987b92">
+<input checked="checked" id="sd-tab-item-29" name="sd-tab-set-8" type="radio">
+</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-29">
 UNIX</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">USE_CUDA</span><span class="o">=</span><span class="m">1</span></span>
 </pre></div></div></div>
-<input id="196a37a1-0168-41e1-a98a-d4691029fe2e" name="50cb8014-4435-4c52-b564-7b72cb749ed2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="win" for="196a37a1-0168-41e1-a98a-d4691029fe2e">
+<input id="sd-tab-item-30" name="sd-tab-set-8" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-30">
 Windows (Powershell)</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="nv">$env:export</span> <span class="n">USE_CUDA</span> <span class="p">=</span> <span class="s2">&quot;1&quot;</span></span>
 </pre></div></div></div>
 </div>
 </dd>
-<dt id="term-CUDA_DYNAMIC_LOADING"><code class="docutils literal notranslate"><span class="pre">CUDA_DYNAMIC_LOADING</span></code><a class="headerlink" href="#term-CUDA_DYNAMIC_LOADING" title="Permalink to this term">#</a></dt><dd><p>This variable is relevant only if you are compiling with CUDA compiler. By default, this variable is set to <cite>0</cite>.  When <span class="synco">imate</span> is complied with CUDA, the CUDA runtime libraries bundle with the final installation of <span class="synco">imate</span> package, making it over 700MB. While this is generally not an issue for most users, often a small package is preferable if the installed package has to be distributed to other machines. To this end, enable the custom-made <cite>dynamic loading</cite> feature of <span class="synco">imate</span>. In this case, the CUDA libraries will not bundle with the <span class="synco">imate</span> installation, rather, <span class="synco">imate</span> is instructed to load the existing CUDA libraries of the host machine at runtime. To enable dynamic loading, make sure <a class="reference internal" href="#install-cuda"><span class="std std-ref">CUDA Toolkit</span></a> is installed, then set this variable to <cite>1</cite> by</p>
+<dt id="term-CUDA_DYNAMIC_LOADING"><code class="docutils literal notranslate"><span class="pre">CUDA_DYNAMIC_LOADING</span></code><a class="headerlink" href="#term-CUDA_DYNAMIC_LOADING" title="Permalink to this term">#</a></dt><dd><p>This variable is relevant only if you are compiling with the CUDA compiler. By default, this variable is set to <cite>0</cite>.  When <span class="synco">imate</span> is complied with CUDA, the CUDA runtime libraries bundle with the final installation of <span class="synco">imate</span> package, making it over 700MB. While this is generally not an issue for most users, often a small package is preferable if the installed package has to be distributed to other machines. To this end, enable the custom-made <cite>dynamic loading</cite> feature of <span class="synco">imate</span>. In this case, the CUDA libraries will not bundle with the <span class="synco">imate</span> installation, rather, <span class="synco">imate</span> is instructed to load the existing CUDA libraries of the host machine at runtime. To enable dynamic loading, make sure <a class="reference internal" href="#install-cuda"><span class="std std-ref">CUDA Toolkit</span></a> is installed, then set this variable to <cite>1</cite> by</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="6034f396-96a3-47ec-9f9e-cafa2b6c53dd" name="640da445-be85-4eaf-80f5-0a3c10e4a3cb" type="radio">
-</input><label class="sd-tab-label" data-sync-id="unix" for="6034f396-96a3-47ec-9f9e-cafa2b6c53dd">
+<input checked="checked" id="sd-tab-item-31" name="sd-tab-set-9" type="radio">
+</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-31">
 UNIX</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">CUDA_DYNAMIC_LOADING</span><span class="o">=</span><span class="m">1</span></span>
 </pre></div></div></div>
-<input id="5696aa81-1ebd-4851-8a80-5c929c37a3da" name="640da445-be85-4eaf-80f5-0a3c10e4a3cb" type="radio">
-</input><label class="sd-tab-label" data-sync-id="win" for="5696aa81-1ebd-4851-8a80-5c929c37a3da">
+<input id="sd-tab-item-32" name="sd-tab-set-9" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-32">
 Windows (Powershell)</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="nv">$env:export</span> <span class="n">CUDA_DYNAMIC_LOADING</span> <span class="p">=</span> <span class="s2">&quot;1&quot;</span></span>
 </pre></div></div></div>
 </div>
 </dd>
-<dt id="term-CYTHON_BUILD_IN_SOURCE"><code class="docutils literal notranslate"><span class="pre">CYTHON_BUILD_IN_SOURCE</span></code><a class="headerlink" href="#term-CYTHON_BUILD_IN_SOURCE" title="Permalink to this term">#</a></dt><dd><p>By default, this variable is set to <cite>0</cite>, in which the compilation process generates source files in outside of the source directry, in <code class="docutils literal notranslate"><span class="pre">/build</span></code> directry. When it is set to <cite>1</cite>, the build files are generated in source directory. To set this variable, run</p>
+<dt id="term-CYTHON_BUILD_IN_SOURCE"><code class="docutils literal notranslate"><span class="pre">CYTHON_BUILD_IN_SOURCE</span></code><a class="headerlink" href="#term-CYTHON_BUILD_IN_SOURCE" title="Permalink to this term">#</a></dt><dd><p>By default, this variable is set to <cite>0</cite>, in which the compilation process generates source files outside of the source directory, in <code class="docutils literal notranslate"><span class="pre">/build</span></code> directry. When it is set to <cite>1</cite>, the build files are generated in the source directory. To set this variable, run</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="cc4de11c-3631-4f07-97dc-fde2b5af868a" name="df1d28b9-82a5-4d09-b884-bb06482798ed" type="radio">
-</input><label class="sd-tab-label" data-sync-id="unix" for="cc4de11c-3631-4f07-97dc-fde2b5af868a">
+<input checked="checked" id="sd-tab-item-33" name="sd-tab-set-10" type="radio">
+</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-33">
 UNIX</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">CYTHON_BUILD_IN_SOURCE</span><span class="o">=</span><span class="m">1</span></span>
 </pre></div></div></div>
-<input id="624f34fb-7a06-4962-b3ae-1320262990dc" name="df1d28b9-82a5-4d09-b884-bb06482798ed" type="radio">
-</input><label class="sd-tab-label" data-sync-id="win" for="624f34fb-7a06-4962-b3ae-1320262990dc">
+<input id="sd-tab-item-34" name="sd-tab-set-10" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-34">
 Windows (Powershell)</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="nv">$env:export</span> <span class="n">CYTHON_BUILD_IN_SOURCE</span> <span class="p">=</span> <span class="s2">&quot;1&quot;</span></span>
 </pre></div></div></div>
@@ -912,35 +930,35 @@ Windows (Powershell)</label><div class="sd-tab-content docutils">
 </dd>
 <dt id="term-CYTHON_BUILD_FOR_DOC"><code class="docutils literal notranslate"><span class="pre">CYTHON_BUILD_FOR_DOC</span></code><a class="headerlink" href="#term-CYTHON_BUILD_FOR_DOC" title="Permalink to this term">#</a></dt><dd><p>Set this variable if you are building this documentation. By default, this variable is set to <cite>0</cite>. When it is set to <cite>1</cite>, the package will be built suitable for generating the documentation. To set this variable, run</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="c0ad4a34-03ba-4e24-803f-3a27deeaa434" name="34a6fdbd-2dd1-410f-8e57-e0fe2a18eb12" type="radio">
-</input><label class="sd-tab-label" data-sync-id="unix" for="c0ad4a34-03ba-4e24-803f-3a27deeaa434">
+<input checked="checked" id="sd-tab-item-35" name="sd-tab-set-11" type="radio">
+</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-35">
 UNIX</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">CYTHON_BUILD_FOR_DOC</span><span class="o">=</span><span class="m">1</span></span>
 </pre></div></div></div>
-<input id="a35717c9-5402-4b5a-9541-bc88bc3ee5af" name="34a6fdbd-2dd1-410f-8e57-e0fe2a18eb12" type="radio">
-</input><label class="sd-tab-label" data-sync-id="win" for="a35717c9-5402-4b5a-9541-bc88bc3ee5af">
+<input id="sd-tab-item-36" name="sd-tab-set-11" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-36">
 Windows (Powershell)</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="nv">$env:export</span> <span class="n">CYTHON_BUILD_FOR_DOC</span> <span class="p">=</span> <span class="s2">&quot;1&quot;</span></span>
 </pre></div></div></div>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Do not use this option to build the package for <cite>production</cite> (release) as it has a slower performance. Building the package by enabling this variable is only sitable for generting the documentation.</p>
+<p>Do not use this option to build the package for <cite>production</cite> (release) as it has a slower performance. Building the package by enabling this variable is only suitable for generating the documentation.</p>
 </div>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>By enabling this variable, the build will be <cite>in-source</cite>, similar to setting <code class="docutils literal notranslate"><span class="pre">CYTHON_BUILD_IN_SOURCE=1</span></code>. To clean the source directory from the generated files, see <a class="reference internal" href="#clean-files"><span class="std std-ref">Clean Compilation Files</span></a>.</p>
 </div>
 </dd>
-<dt id="term-USE_CBLAS"><code class="docutils literal notranslate"><span class="pre">USE_CBLAS</span></code><a class="headerlink" href="#term-USE_CBLAS" title="Permalink to this term">#</a></dt><dd><p>By default, this variable is set to <cite>0</cite>. Set this variable to <cite>1</cite> if you want to use OpenBLAS instead of the built-in library of <span class="synco">imate</span>. <a class="reference internal" href="#install-openblas"><span class="std std-ref">Install OpenBLAS</span></a> and set by</p>
+<dt id="term-USE_CBLAS"><code class="docutils literal notranslate"><span class="pre">USE_CBLAS</span></code><a class="headerlink" href="#term-USE_CBLAS" title="Permalink to this term">#</a></dt><dd><p>By default, this variable is set to <cite>0</cite>. Set this variable to <cite>1</cite> if you want to use OpenBLAS instead of the built-in library of <span class="synco">imate</span>. <a class="reference internal" href="#install-openblas"><span class="std std-ref">Install OpenBLAS</span></a> and set</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="5d93826c-2247-493a-81ac-466f9a3dd285" name="46d53d16-3ee9-4bed-bbd7-e0048289d326" type="radio">
-</input><label class="sd-tab-label" data-sync-id="unix" for="5d93826c-2247-493a-81ac-466f9a3dd285">
+<input checked="checked" id="sd-tab-item-37" name="sd-tab-set-12" type="radio">
+</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-37">
 UNIX</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">USE_CBLAS</span><span class="o">=</span><span class="m">1</span></span>
 </pre></div></div></div>
-<input id="69ce4beb-3e7e-4c3c-8153-4ff37fce969d" name="46d53d16-3ee9-4bed-bbd7-e0048289d326" type="radio">
-</input><label class="sd-tab-label" data-sync-id="win" for="69ce4beb-3e7e-4c3c-8153-4ff37fce969d">
+<input id="sd-tab-item-38" name="sd-tab-set-12" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-38">
 Windows (Powershell)</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="nv">$env:export</span> <span class="n">USE_CBLAS</span> <span class="p">=</span> <span class="s2">&quot;1&quot;</span></span>
 </pre></div></div></div>
@@ -948,13 +966,13 @@ Windows (Powershell)</label><div class="sd-tab-content docutils">
 </dd>
 <dt id="term-DEBUG_MODE"><code class="docutils literal notranslate"><span class="pre">DEBUG_MODE</span></code><a class="headerlink" href="#term-DEBUG_MODE" title="Permalink to this term">#</a></dt><dd><p>By default, this variable is set to <cite>0</cite>, meaning that <span class="synco">imate</span> is compiled without debugging mode enabled. By enabling debug mode, you can debug the code with tools such as <code class="docutils literal notranslate"><span class="pre">gdb</span></code>. Set this variable to <cite>1</cite> to enable debugging mode by</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="cbe1cdcb-bf4e-4c3b-9e8b-49f6bf9eb9f1" name="f82db599-a2ec-4a30-be4e-31639c1a0718" type="radio">
-</input><label class="sd-tab-label" data-sync-id="unix" for="cbe1cdcb-bf4e-4c3b-9e8b-49f6bf9eb9f1">
+<input checked="checked" id="sd-tab-item-39" name="sd-tab-set-13" type="radio">
+</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-39">
 UNIX</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">DEBUG_MODE</span><span class="o">=</span><span class="m">1</span></span>
 </pre></div></div></div>
-<input id="72120b13-6fec-4d0a-9683-539f0cabb266" name="f82db599-a2ec-4a30-be4e-31639c1a0718" type="radio">
-</input><label class="sd-tab-label" data-sync-id="win" for="72120b13-6fec-4d0a-9683-539f0cabb266">
+<input id="sd-tab-item-40" name="sd-tab-set-13" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-40">
 Windows (Powershell)</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="nv">$env:export</span> <span class="n">DEBUG_MODE</span> <span class="p">=</span> <span class="s2">&quot;1&quot;</span></span>
 </pre></div></div></div>
@@ -967,9 +985,9 @@ Windows (Powershell)</label><div class="sd-tab-content docutils">
 </dl>
 </section>
 <section id="compile-and-install">
-<h3><a class="toc-backref" href="#id22"><span class="section-number">1.4.8. </span>Compile and Install</a><a class="headerlink" href="#compile-and-install" title="Permalink to this headline">#</a></h3>
+<h3><a class="toc-backref" href="#id22" role="doc-backlink"><span class="section-number">1.4.8. </span>Compile and Install</a><a class="headerlink" href="#compile-and-install" title="Permalink to this heading">#</a></h3>
 <p><a class="reference external" href="https://github.com/ameli/imate"><img alt="repo-size" src="https://img.shields.io/github/repo-size/ameli/imate" /></a></p>
-<p>Get the source code of <span class="synco">imate</span> from the Github repository by</p>
+<p>Get the source code of <span class="synco">imate</span> from the GitHub repository by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git clone https://github.com/ameli/imate.git</span>
 <span class="prompt1"><span class="nb">cd</span> imate</span>
 </pre></div></div><p>To compile and install, run</p>
@@ -978,8 +996,8 @@ Windows (Powershell)</label><div class="sd-tab-content docutils">
 <p class="rubric">A Note on Using <code class="docutils literal notranslate"><span class="pre">sudo</span></code></p>
 <p>If you are using <code class="docutils literal notranslate"><span class="pre">sudo</span></code> for the above command, add <code class="docutils literal notranslate"><span class="pre">-E</span></code> option to <code class="docutils literal notranslate"><span class="pre">sudo</span></code> to make sure the environment variables (if you have set any) are accessible to the root user. For instance</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="eb11ed71-f7fa-48da-8bbb-835392f44961" name="b88a8fa5-b4fd-482e-8fc9-04f9e92f0e19" type="radio">
-</input><label class="sd-tab-label" data-sync-id="unix" for="eb11ed71-f7fa-48da-8bbb-835392f44961">
+<input checked="checked" id="sd-tab-item-41" name="sd-tab-set-14" type="radio">
+</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-41">
 UNIX</label><div class="sd-tab-content docutils">
 <div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CUDA_HOME</span><span class="o">=</span>/usr/local/cuda
 <span class="nb">export</span> <span class="nv">USE_CUDA</span><span class="o">=</span><span class="m">1</span>
@@ -989,8 +1007,8 @@ UNIX</label><div class="sd-tab-content docutils">
 </span></pre></div>
 </div>
 </div>
-<input id="5a66554c-55af-42bb-bd33-ea8477b9fd04" name="b88a8fa5-b4fd-482e-8fc9-04f9e92f0e19" type="radio">
-</input><label class="sd-tab-label" data-sync-id="win" for="5a66554c-55af-42bb-bd33-ea8477b9fd04">
+<input id="sd-tab-item-42" name="sd-tab-set-14" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-42">
 Windows (Powershell)</label><div class="sd-tab-content docutils">
 <div class="highlight-PowerShell notranslate"><div class="highlight"><pre><span></span><span class="nv">$env:export</span> <span class="n">CUDA_HOME</span> <span class="p">=</span> <span class="s2">&quot;/usr/local/cuda&quot;</span>
 <span class="nv">$env:export</span> <span class="n">USE_CUDA</span> <span class="p">=</span> <span class="s2">&quot;1&quot;</span>
@@ -1016,75 +1034,131 @@ process memory  : 61.4 (Mb)
 </div>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>Do not load imate if your current working directory is the root directory of the source code of <span class="synco">imate</span>, since python cannot load the installed package properly. Always change the current direcotry to somewhere else (for example, <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">..</span></code> as shown in the above).</p>
+<p>Do not load imate if your current working directory is the root directory of the source code of <span class="synco">imate</span>, since python cannot load the installed package properly. Always change the current directory to somewhere else (for example, <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">..</span></code> as shown in the above).</p>
 </div>
 <p class="rubric" id="clean-files">Cleaning Compilation Files</p>
 <p>If you set <code class="docutils literal notranslate"><span class="pre">CYTHON_BUILD_IN_SOURCE</span></code> or <code class="docutils literal notranslate"><span class="pre">CYTHON_BUILD_FOR_DOC</span></code> to <code class="docutils literal notranslate"><span class="pre">1</span></code>, the output files of Cython’s compiler will be generated inside the source code directories. To clean the source code from these files (<cite>optional</cite>), run the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">python setup.py clean</span>
 </pre></div></div></section>
 </section>
-<section id="compile-documentation">
-<h2><a class="toc-backref" href="#id23"><span class="section-number">1.5. </span>Compile Documentation</a><a class="headerlink" href="#compile-documentation" title="Permalink to this headline">#</a></h2>
-<p>To generate this documentation, you should build the package first.</p>
-<p>Get the source code from Github repository.</p>
+<section id="generate-documentation">
+<h2><a class="toc-backref" href="#id23" role="doc-backlink"><span class="section-number">1.5. </span>Generate Documentation</a><a class="headerlink" href="#generate-documentation" title="Permalink to this heading">#</a></h2>
+<p>The documentation consists of a Doxygen documentation and a Sphinx documentation. You should generate the Doxygen documentation first. Before generating the Sphinx documentation, you should compile the package.</p>
+<p>Get the source code from the GitHub repository.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git clone https://github.com/ameli/imate.git</span>
 <span class="prompt1"><span class="nb">cd</span> imate</span>
 </pre></div></div><p>If you already had the source code, clean it from any previous build (especially if you built <cite>in-source</cite>):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">python setup.py clean</span>
-</pre></div></div><p>Compile and install the package as follows:</p>
+</pre></div></div><section id="generate-doxygen-documentation">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink"><span class="section-number">1.5.1. </span>Generate Doxygen Documentation</a><a class="headerlink" href="#generate-doxygen-documentation" title="Permalink to this heading">#</a></h3>
+<p>Install <cite>doxygen</cite> and <cite>graphviz</cite> by</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="f9b68b48-01da-4df8-8cf1-9fd1428b639b" name="c8456f85-e377-4b96-a687-a25906c86d87" type="radio">
-</input><label class="sd-tab-label" data-sync-id="unix" for="f9b68b48-01da-4df8-8cf1-9fd1428b639b">
+<input checked="checked" id="sd-tab-item-43" name="sd-tab-set-15" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-43">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo apt install doxygen graphviz -y</span>
+</pre></div></div></div>
+<input id="sd-tab-item-44" name="sd-tab-set-15" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-44">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo yum install doxygen graphviz -y</span>
+</pre></div></div></div>
+<input id="sd-tab-item-45" name="sd-tab-set-15" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-45">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo dnf install doxygen graphviz -y</span>
+</pre></div></div></div>
+<input id="sd-tab-item-46" name="sd-tab-set-15" type="radio">
+</input><label class="sd-tab-label" data-sync-id="osx" for="sd-tab-item-46">
+macOS</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo brew install doxygen graphviz -y</span>
+</pre></div></div></div>
+<input id="sd-tab-item-47" name="sd-tab-set-15" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-47">
+Windows (Powershell)</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="n">scoop</span> <span class="n">install</span> <span class="n">doxygen</span> <span class="n">graphviz</span></span>
+</pre></div></div></div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Make sure you ran <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">clean</span></code> as mentioned previously. Otherwise, if the source directory is not cleaned from any previous built (if there is any), Doxygen unwantedly generates all auto-generated cython files.</p>
+</div>
+<p>Generating the Doxygen documentation by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> docs/doxygen</span>
+<span class="prompt1">doxygen doxyfile.in</span>
+<span class="prompt1"><span class="nb">cd</span> ../..</span>
+</pre></div></div></section>
+<section id="compile-package">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink"><span class="section-number">1.5.2. </span>Compile Package</a><a class="headerlink" href="#compile-package" title="Permalink to this heading">#</a></h3>
+<p>Set <code class="docutils literal notranslate"><span class="pre">CYTHON_BUILD_FOR_DOC</span></code> to <cite>1</cite> (see <a class="reference internal" href="#config-env-variables"><span class="std std-ref">Configure Compile-Time Environment variables</span></a>). Compile and install the package by</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-48" name="sd-tab-set-16" type="radio">
+</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-48">
 UNIX</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">CYTHON_BUILD_FOR_DOC</span><span class="o">=</span><span class="m">1</span></span>
 <span class="prompt1"><span class="nb">export</span> <span class="nv">USE_CUDA</span><span class="o">=</span><span class="m">0</span></span>
 <span class="prompt1">sudo -E python setup.py install</span>
 </pre></div></div></div>
-<input id="c8cc42e7-c486-4f18-9d8f-8ff159af47ba" name="c8456f85-e377-4b96-a687-a25906c86d87" type="radio">
-</input><label class="sd-tab-label" data-sync-id="win" for="c8cc42e7-c486-4f18-9d8f-8ff159af47ba">
+<input id="sd-tab-item-49" name="sd-tab-set-16" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-49">
 Windows (Powershell)</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="nv">$env:export</span> <span class="n">CYTHON_BUILD_FOR_DOC</span> <span class="p">=</span> <span class="s2">&quot;1&quot;</span></span>
 <span class="prompt2"><span class="nv">$env:export</span> <span class="n">USE_CUDA</span> <span class="p">=</span> <span class="s2">&quot;0&quot;</span></span>
 <span class="prompt2"><span class="n">sudo</span> <span class="n">-E</span> <span class="n">python</span> <span class="n">setup</span><span class="p">.</span><span class="n">py</span> <span class="n">install</span></span>
 </pre></div></div></div>
 </div>
-<p>Install the requirements</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> docs</span>
-<span class="prompt1">python -m pip install -r requirements.txt</span>
-</pre></div></div><p>The above installs requirement packages in the Python’s path directory. Make sure python’s directory is on the <cite>PATH</cite>, for instance, by</p>
+</section>
+<section id="generate-sphinx-documentation">
+<h3><a class="toc-backref" href="#id26" role="doc-backlink"><span class="section-number">1.5.3. </span>Generate Sphinx Documentation</a><a class="headerlink" href="#generate-sphinx-documentation" title="Permalink to this heading">#</a></h3>
+<p>Install the requirements for the Sphinx documentation by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">python -m pip install -r docs/requirements.txt</span>
+</pre></div></div><p>The above command installs the required packages in Python’s path directory. Make sure python’s directory is on the <cite>PATH</cite>, for instance, by</p>
 <div class="sd-tab-set docutils">
-<input checked="checked" id="dc022bd9-2fa9-418f-8b34-9c0802ecf2f9" name="e91aa3a3-18a8-4593-b04a-0a21d62f0aee" type="radio">
-</input><label class="sd-tab-label" data-sync-id="unix" for="dc022bd9-2fa9-418f-8b34-9c0802ecf2f9">
+<input checked="checked" id="sd-tab-item-50" name="sd-tab-set-17" type="radio">
+</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-50">
 UNIX</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nv">PYTHON_PATH</span><span class="o">=</span><span class="sb">`</span>python -c <span class="s2">&quot;import os, sys; print(os.path.dirname(sys.executable))&quot;</span><span class="sb">`</span></span>
 <span class="prompt1"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">PYTHON_PATH</span><span class="si">}</span>:<span class="nv">$PATH</span></span>
 </pre></div></div></div>
-<input id="59346d95-969d-481a-9dce-f92a2e6c5da7" name="e91aa3a3-18a8-4593-b04a-0a21d62f0aee" type="radio">
-</input><label class="sd-tab-label" data-sync-id="win" for="59346d95-969d-481a-9dce-f92a2e6c5da7">
+<input id="sd-tab-item-51" name="sd-tab-set-17" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-51">
 Windows (Powershell)</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="nv">$PYTHON_PATH</span> <span class="p">=</span> <span class="p">(</span><span class="n">python</span> <span class="n">-c</span> <span class="s2">&quot;import os, sys; print(os.path.dirname(sys.executable))&quot;</span><span class="p">)</span></span>
 <span class="prompt2"><span class="nv">$env:Path</span> <span class="p">+=</span> <span class="s2">&quot;;$PYTHON_PATH&quot;</span></span>
 </pre></div></div></div>
 </div>
 <p>Now, build the documentation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">make clean html</span>
-</pre></div></div><p>The main page of the documentation can be found in <code class="docutils literal notranslate"><span class="pre">/docs/build/html/index.html</span></code>.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-52" name="sd-tab-set-18" type="radio">
+</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-52">
+UNIX</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">make clean html --directory<span class="o">=</span>docs</span>
+</pre></div></div></div>
+<input id="sd-tab-item-53" name="sd-tab-set-18" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-53">
+Windows (Powershell)</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="nb">cd </span><span class="n">docs</span></span>
+<span class="prompt2"><span class="n">make</span><span class="p">.</span><span class="n">bat</span> <span class="n">clean</span> <span class="n">html</span></span>
+</pre></div></div></div>
+</div>
+<p>The main page of the documentation can be found in <code class="docutils literal notranslate"><span class="pre">/docs/build/html/index.html</span></code>.</p>
+</section>
 </section>
 <section id="test-with-pytest">
-<h2><a class="toc-backref" href="#id24"><span class="section-number">1.6. </span>Test with <code class="docutils literal notranslate"><span class="pre">pytest</span></code></a><a class="headerlink" href="#test-with-pytest" title="Permalink to this headline">#</a></h2>
+<h2><a class="toc-backref" href="#id27" role="doc-backlink"><span class="section-number">1.6. </span>Test with <code class="docutils literal notranslate"><span class="pre">pytest</span></code></a><a class="headerlink" href="#test-with-pytest" title="Permalink to this heading">#</a></h2>
 <p><a class="reference external" href="https://codecov.io/gh/ameli/imate"><img alt="codecov-devel" src="https://img.shields.io/codecov/c/github/ameli/imate" /></a></p>
-<p>The package can be tested by running several <a class="reference external" href="https://github.com/ameli/imate/tree/main/tests">test scripts</a>, which tests all <a class="reference external" href="https://github.com/ameli/imate/tree/main/imate">sub-packages</a> and the <a class="reference external" href="https://github.com/ameli/imate/tree/main/examples">examples</a>.</p>
+<p>The package can be tested by running several <a class="reference external" href="https://github.com/ameli/imate/tree/main/tests">test scripts</a>, which test all <a class="reference external" href="https://github.com/ameli/imate/tree/main/imate">sub-packages</a> and <a class="reference external" href="https://github.com/ameli/imate/tree/main/examples">examples</a>.</p>
 <p>Clone the source code from the repository and install the required test packages by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git clone https://github.com/ameli/imate.git</span>
 <span class="prompt1"><span class="nb">cd</span> imate</span>
 <span class="prompt1">python -m pip install -r tests/requirements.txt</span>
 <span class="prompt1">python setup.py install</span>
-</pre></div></div><p>To automatically run all tests, use <code class="docutils literal notranslate"><span class="pre">pytest</span></code>:</p>
+</pre></div></div><p>To automatically run all tests, use <code class="docutils literal notranslate"><span class="pre">pytest</span></code> which is installed by the above commands.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">mv imate imate-do-not-import</span>
 <span class="prompt1">pytest</span>
 </pre></div></div><div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>To use <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, change the name of <code class="docutils literal notranslate"><span class="pre">/imate/imate</span></code> directory as shown in the above code. This causes <code class="docutils literal notranslate"><span class="pre">pytest</span></code> to properly import <span class="synco">imate</span> from the installed location, not from the source code directory.</p>
+<p>To properly run <code class="docutils literal notranslate"><span class="pre">pytest</span></code>, rename <code class="docutils literal notranslate"><span class="pre">/imate/imate</span></code> directory as shown in the above code. This makes <code class="docutils literal notranslate"><span class="pre">pytest</span></code> to properly import <span class="synco">imate</span> from the installed location, not from the source code directory.</p>
 </div>
 </section>
 </section>
@@ -1097,11 +1171,11 @@ Windows (Powershell)</label><div class="sd-tab-content docutils">
               <footer class="bd-footer-article">
                   <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="../index.html" title="previous page">
+  <a class='left-prev' id="prev-link" href="../contents.html" title="previous page">
       <i class="fas fa-angle-left"></i>
       <div class="prev-next-info">
           <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title"><span class="synco">imate</span> Documentation</p>
+          <p class="prev-next-title">&lt;no title&gt;</p>
       </div>
   </a>
   <a class='right-next' id="next-link" href="docker.html" title="next page">
@@ -1134,7 +1208,7 @@ Windows (Powershell)</label><div class="sd-tab-content docutils">
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
 </p>
   </div>
   

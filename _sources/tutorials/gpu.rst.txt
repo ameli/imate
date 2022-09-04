@@ -5,7 +5,7 @@ Using GPU Devices
 
 .. contents::
 
-|project| can run on `CUDA-capable` GPU devices with the followings installed:
+|project| can run on `CUDA-capable` GPU devices with the following installed:
 
 1. NVIDIA graphic driver,
 2. CUDA libraries.
@@ -16,14 +16,14 @@ The version of CUDA libraries installed on the user's machine should match the v
 
 .. note::
 
-    The |project| package that is installed with either ``pip`` or ``conda`` already has built-in support for CUDA Toolkit. The latest version of |project| is compatible with **CUDA 11.7.x**, which should match the CUDA version installed in the user's machine.
+    The |project| package that is installed with either ``pip`` or ``conda`` already has built-in support for CUDA Toolkit. The latest version of |project| is compatible with **CUDA 11.7.x**, which should match the CUDA version installed on the user's machine.
 
 .. topic:: Methods of Setting up CUDA and |project|
 
     There are three ways to use |project| with a compatible version of CUDA Toolkit:
 
-    1. :ref:`Install NVIDIA CUDA Toolkit <gpu-install-cuda>` with a CUDA version compatible with an existing |project| installation. By this way, you can keep the |project| package that is already installed with ``pip`` or ``conda``.
-    2. :ref:`Compile imate from the source <gpu-compile-imate>` for a specific version of CUDA to use an existing CUDA library. By this way, you can keep the current CUDA installation.
+    1. :ref:`Install NVIDIA CUDA Toolkit <gpu-install-cuda>` with a CUDA version compatible with an existing |project| installation. In this way, you can keep the |project| package that is already installed with ``pip`` or ``conda``.
+    2. :ref:`Compile imate from the source <gpu-compile-imate>` for a specific version of CUDA to use an existing CUDA library. In this way, you can keep the current CUDA installation.
     3. :ref:`Use docker image <gpu-docker>` with pre-installed |project|, CUDA libraries, and NVIDIA graphic driver. This is the most convenient way as no compilation or installation of |project| and CUDA Toolkit is required.
 
 The above methods are described in order below.
@@ -37,7 +37,7 @@ The following instruction describes installing `CUDA 11.7` for `Ubuntu 22.04`, `
 
 .. attention::
 
-    NVIDIA does not support macOS. You can install NVIDIA CUDA Toolkit on Linux and Windows only.
+    NVIDIA does not support macOS. You can install the NVIDIA CUDA Toolkit on Linux and Windows only.
 
 .. _install-graphic-driver:
 
@@ -129,7 +129,7 @@ It is not required to install the entire CUDA Toolkit (2.6GB). Rather, only the 
            sudo yum install --setopt=obsoletes=0 -y \
                 cuda-nvcc-11-7.x86_64 \
                 libcublas-11-7.x86_64 \
-                libcusparse-11-7.x86_64 \
+                libcusparse-11-7.x86_64
 
     .. tab-item:: RHEL 9
         :sync: rhel
@@ -139,7 +139,7 @@ It is not required to install the entire CUDA Toolkit (2.6GB). Rather, only the 
            sudo dnf install --setopt=obsoletes=0 -y \
                 cuda-nvcc-11-7.x86_64 \
                 libcublas-11-7.x86_64 \
-                libcusparse-11-7.x86_64 \
+                libcusparse-11-7.x86_64
 
 Update ``PATH`` with the CUDA installation location by
 
@@ -412,16 +412,16 @@ First, `install docker <https://docs.docker.com/engine/install/ubuntu/>`_. Brief
 
         .. prompt:: bash
 
-            sudo apt-get update
-            sudo apt-get install ca-certificates curl gnupg lsb-release
+            sudo apt update
+            sudo apt install ca-certificates curl gnupg lsb-release
             sudo mkdir -p /etc/apt/keyrings
             curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
                 sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
             echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
                 https://download.docker.com/linux/ubuntu \
                 $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-            sudo apt-get update
-            sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+            sudo apt update
+            sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
     .. tab-item:: CentOS 7
         :sync: centos
@@ -497,8 +497,8 @@ Install `nvidia-contaner-toolkit` by:
 
         .. prompt:: bash
 
-            sudo apt-get update
-            sudo apt-get install -y nvidia-container-toolkit
+            sudo apt update
+            sudo apt install -y nvidia-container-toolkit
 
     .. tab-item:: CentOS 7
         :sync: centos
@@ -612,7 +612,7 @@ Use :func:`imate.device.locate_cuda` function to find the location of CUDA home 
         }
     }
 
-If the above function does not return an output such as in the above, this is because either `CUDA Toolkit` is not installed, or the directory of CUDA Toolkit is nit set. To do so, set the directory of CUDA Toolkit to either of the variables ``CUDA_HOME``, ``CUDA_ROOT``, or ``CUDA_PATH``, such as by
+If the above function does not return an output such as in the above, it is because either `CUDA Toolkit` is not installed, or the directory of the CUDA Toolkit is not set. To do so, set the directory of CUDA Toolkit to either of the variables ``CUDA_HOME``, ``CUDA_ROOT``, or ``CUDA_PATH``, such as by
 
 .. prompt:: bash
 
@@ -648,7 +648,7 @@ Use :func:`imate.device.get_processor_name()` and :func:`imate.device.get_gpu_na
 
 .. note::
 
-    If the name of GPU device is empty, this is because either there is no GPU device detected, or *NVIDIA graphic driver* is not installed, or its location is not on the PATH. To do so, set the location of ``nvidia-smi`` executable to the ``PATH`` environment variable. On UNIX, this executbale should be on ``/usr/bin`` directory and by default it should be already on the `PATH`.
+    If the name of the GPU device is empty, this is because either there is no GPU device detected, or *NVIDIA graphic driver* is not installed, or its location is not on the PATH. To do so, set the location of ``nvidia-smi`` executable to the ``PATH`` environment variable. On UNIX, this executable should be on ``/usr/bin`` directory and by default it should be already on the `PATH`.
 
 The number of CPU threads and GPU devices can be obtained respectively by :func:`imate.device.get_num_cpu_threads` and :func:`imate.device.get_num_gpu_devices()` functions.
 
@@ -821,7 +821,7 @@ The above script prints the following table. The last section of the table shows
 Set Number of GPU Devices
 -------------------------
 
-By default, |project| employs the maximum number of available GPU devices. To employ specific number of GPU devices, set ``num_gpu-devices`` in the function arguments. For instance
+By default, |project| employs the maximum number of available GPU devices. To employ a specific number of GPU devices, set ``num_gpu-devices`` in the function arguments. For instance
 
 .. code-block:: python
     :emphasize-lines: 6, 12
@@ -878,7 +878,7 @@ There are two ways to work with GPU on a cluster. The first method is to ``ssh``
 
 .. prompt:: bash
 
-    srun -A fc_biome -p savio2_gpu --gres=gpu:1 --ntasks 2 -t 2:00:00 --pty Bash -i
+    srun -A fc_biome -p savio2_gpu --gres=gpu:1 --ntasks 2 -t 2:00:00 --pty bash -i
 
 In the above example:
 
@@ -887,14 +887,14 @@ In the above example:
 * ``--gres=gpu:1`` requests one GPU device on the node.
 * ``--ntasks 2`` requests two parallel CPU threads on the node.
 * ``-t 2:00:00`` requests a two-hour session.
-* ``--pty Bash`` starts a Bash shell.
+* ``--pty bash`` starts a Bash shell.
 * ``-i`` redirects std input to the user's terminal for interactive use.
 
-See the list of `options of srun <https://slurm.schedmd.com/srun.html>`_ for details. As an other example, to request a GPU node named ``savio2_1080ti`` with 4 GPU devices and 8 CPU threads for 10 hours, run
+See the list of `options of srun <https://slurm.schedmd.com/srun.html>`_ for details. As another example, to request a GPU node named ``savio2_1080ti`` with 4 GPU devices and 8 CPU threads for 10 hours, run
 
 .. prompt:: bash
 
-    srun -A fc_biome -p savio2_1080ti --gres=gpu:4 --ntasks 8 -t 10:00:00 --pty Bash -i
+    srun -A fc_biome -p savio2_1080ti --gres=gpu:4 --ntasks 8 -t 10:00:00 --pty bash -i
 
 .. note::
 
@@ -909,7 +909,7 @@ To submit a parallel job to GPU nodes on a cluster with `SLURM manager`, use ``s
 
     sbatch jobfile.sh
 
-See the list of `options of sbatch <https://slurm.schedmd.com/sbatch.html>`_ for details. A sample job file, ``jobfile.sh`` is as shown below. The highlighted line in the file instructs `SLURM` to request number of GPU devices with ``--gres`` option.
+See the list of `options of sbatch <https://slurm.schedmd.com/sbatch.html>`_ for details. A sample job file, ``jobfile.sh`` is shown below. The highlighted line in the file instructs `SLURM` to request the number of GPU devices with ``--gres`` option.
 
 .. code-block:: Slurm
    :emphasize-lines: 11
@@ -948,9 +948,9 @@ See the list of `options of sbatch <https://slurm.schedmd.com/sbatch.html>`_ for
     # Run the script
     $PYTHON_DIR/bin/python ${SCRIPTS_DIR}/script.py > ${LOG_DIR}/output.txt
 
-In the above job file, modify ``--partition``, ``--account``, and ``--qos`` according to your user account allowance on cluster.
+In the above job file, modify ``--partition``, ``--account``, and ``--qos`` according to your user account allowance on the cluster.
 
 .. |repo-size| image:: https://img.shields.io/github/repo-size/ameli/imate
    :target: https://github.com/ameli/imate
 .. |docker-size| image:: https://img.shields.io/docker/image-size/sameli/imate
-   :target: https://hub.docker.com/repository/docker/sameli/imate
+   :target: https://hub.docker.com/r/sameli/imate
