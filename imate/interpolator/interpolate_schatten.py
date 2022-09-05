@@ -128,6 +128,7 @@ class InterpolateSchatten(object):
 
     Attributes
     ----------
+    
     kind : str
         Method of interpolation
 
@@ -216,8 +217,9 @@ class InterpolateSchatten(object):
     ----------
 
     .. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant
-           and Trace of the Powers of Matrix :math:`\mathbf{A} + t \mathbf{B}`.
-           `arXiv: 2009.07385 <https://arxiv.org/abs/2207.08038>`_ [math.NA].
+           and Trace of the Powers of Matrix
+           :math:`\\mathbf{A} + t\\mathbf{B}`. `arXiv: 2009.07385
+           <https://arxiv.org/abs/2207.08038>`_ [math.NA].
 
     Examples
     --------
@@ -373,7 +375,7 @@ class InterpolateSchatten(object):
     .. image:: ../_static/images/plots/interpolate_schatten_1.png
         :align: center
         :class: custom-dark
-        :width: 60%
+        :width: 50%
 
     **Plotting Interpolation and Compare with Exact Solution:**
 
@@ -399,7 +401,7 @@ class InterpolateSchatten(object):
         \\Vert \\mathbf{B} \\Vert_p}.
 
     To compare with the true values (without interpolation), pass
-    ``compare=True`` to the above function. 
+    ``compare=True`` to the above function.
 
     .. warning::
 
@@ -467,7 +469,7 @@ class InterpolateSchatten(object):
                     **kwargs)
 
         elif kind.lower() == 'crf':
-            # Chebushev Rational Functions
+            # Chebyshev Rational Functions
             self.interpolator = ChebyshevRationalFunctionsMethod(
                     A, B, p=self.p, ti=ti, options=options, verbose=verbose,
                     **kwargs)
@@ -564,7 +566,7 @@ class InterpolateSchatten(object):
         ----------
 
         t : float or array_like[float]
-            An inquiry point (or list of points) to interpolate. 
+            An inquiry point (or list of points) to interpolate.
 
         Returns
         -------
@@ -736,26 +738,126 @@ class InterpolateSchatten(object):
 
     def bound(self, t):
         """
-        Lower bound of the function :math:`t \\mapsto \\mathrm{trace} \\left(
-        (\\mathbf{A} + t \\mathbf{B})^{-1} \\right)`.
+        Bound of the interpolation function.
 
-        The lower bound is given by
-
-        .. math::
-
-            \\mathrm{trace}((\\mathbf{A}+t\\mathbf{B})^{-1}) \\geq
-            \\frac{n^2}{\\mathrm{trace}(\\mathbf{A}) +
-            \\mathrm{trace}(t \\mathbf{B})}
+        If :math:`p < 1`, this function is lower bound, and if :math:`p > 1`,
+        this function is an upper bound of the interpolation function.
 
         Parameters
         ----------
+
         t : float or numpy.array
             An inquiry point or an array of inquiry points.
 
         Returns
         -------
-            lb : float or numpy.array
-                Lower bound of the affine matrix function.
+
+        bound : float or numpy.array
+            Bound function evaluated at `t`. If `t` is an array, the output is
+            also an array of the size of `t`.
+
+        See Also
+        --------
+
+        imate.InterpolateSchatten.upper_bound
+
+        Notes
+        -----
+
+        Define
+
+        .. math::
+
+                \\tau_{p}(t) = \\frac{\\Vert (\\mathbf{A} + t \\mathbf{B})^{p}
+                \\Vert_p}{\\Vert \\mathbf{B} \\Vert_p}
+
+        and :math:`\\tau_{p,0} = \\tau_{p}(0)`. A sharp bound of the function
+        :math:`\\tau_{p}` is (see [1]_, Section 3):
+
+        .. math::
+
+                \\tau_{p}(t) \\leq \\tau_{p, 0} + t, \\quad p \\geq 1, \\quad
+                t \\in [0, \\infty),
+
+        .. math::
+
+                \\tau_{p}(t) \\geq \\tau_{p, 0} + t, \\quad p < 1, \\quad
+                t \\in [0, \\infty),
+
+        .. math::
+
+                \\tau_{p}(t) \\geq \\tau_{p, 0} + t, \\quad p \\geq 1, \\quad
+                t \\in (t_{\\inf}, o],
+
+        .. math::
+
+                \\tau_{p}(t) \\leq \\tau_{p, 0} + t, \\quad p < 1, \\quad
+                t \\in (t_{\\inf}, o],
+
+        References
+        ----------
+
+        .. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating
+               Log-Determinant and Trace of the Powers of Matrix
+               :math:`\\mathbf{A} + t \\mathbf{B}`. `arXiv: 2009.07385
+               <https://arxiv.org/abs/2207.08038>`_ [math.NA].
+
+        Examples
+        --------
+
+        Create an interpolator object :math:`f` using four interpolant points
+        :math:`t_i`:
+
+        .. code-block:: python
+
+            >>> # Generate sample matrices (symmetric positive-definite)
+            >>> from imate.sample_matrices import correlation_matrix
+            >>> A = correlation_matrix(size=20, scale=1e-1)
+            >>> B = correlation_matrix(size=20, scale=2e-2)
+
+            >>> # Initialize interpolator object
+            >>> from imate import InterpolateSchatten
+            >>> ti = [1e-2, 1e-1, 1, 1e1]
+            >>> f = InterpolateSchatten(A, B, p=2, ti=ti)
+
+        Create an array `t` and evaluate upper bound on `t`. Also, interpolate
+        the function :math:`f` on the array `t`.
+
+        .. code-block:: python
+
+            >>> # Interpolate at an array of points
+            >>> import numpy
+            >>> t = numpy.logspace(-2, 1, 1000)
+            >>> bound = f.bound(t)
+            >>> interp = f.interpolate(t)
+
+        Plot the results:
+
+        .. code-block:: python
+
+            >>> import matplotlib.pyplot as plt
+            >>> import seaborn as sns
+
+            >>> # Plot settings (optional)
+            >>> sns.set(font_scale=1.15)
+            >>> sns.set_style("white")
+            >>> sns.set_style("ticks")
+
+            >>> plt.semilogx(t, interp, color='black', label='Interpolation')
+            >>> plt.semilogx(t, bound, '--', color='black',
+            ...              label='Bound')
+            >>> plt.xlim([t[0], t[-1]])
+            >>> plt.ylim([0, 10])
+            >>> plt.xlabel('$t$')
+            >>> plt.ylabel('$\\Vert \\mathbf{A} + t \\mathbf{B} \\Vert_{2}$')
+            >>> plt.title('Interpolation of Schatten Norm')
+            >>> plt.legend()
+            >>> plt.show()
+
+        .. image:: ../_static/images/plots/interpolate_schatten_bound.png
+            :align: center
+            :class: custom-dark
+            :width: 60%
         """
 
         if isinstance(t, Number):
@@ -776,34 +878,114 @@ class InterpolateSchatten(object):
 
     def upper_bound(self, t):
         """
-        Upper bound of the function :math:`t \\mapsto \\mathrm{trace} \\left(
-        (\\mathbf{A} + t \\mathbf{B})^{-1} \\right)`.
+        Upper bound of the interpolation function.
 
-        The upper bound is given by
+        .. note::
 
-        .. math::
-
-                \\frac{1}{\\tau(t)} \\geq \\frac{1}{\\tau_0} + t
-
-        where
-
-        .. math::
-
-                \\tau(t) = \\frac{\\mathrm{trace}\\left( (\\mathbf{A} +
-                t \\mathbf{B})^{-1}
-                \\right)}{\\mathrm{trace}(\\mathbf{B}^{-1})}
-
-        and :math:`\\tau_0 = \\tau(0)`.
+            This function only applies to :math:`p=-1`.
 
         Parameters
         ----------
+
         t : float or numpy.array
             An inquiry point or an array of inquiry points.
 
         Returns
         -------
+
         ub : float or numpy.array
-            bound of the affine matrix function.
+            Upper bound. If `t` is an array, the output is also an array of the
+            size of `t`.
+
+        Raises
+        ------
+
+        ValueError
+            If :math:`p \\neq -1`.
+
+        See Also
+        --------
+
+        imate.InterpolateSchatten.bound
+
+        Notes
+        -----
+
+        A upper bound of the function
+        :math:`\\Vert \\mathbf{A} + t \\mathbf{B} \\Vert_{-1}` is (see [1]_)
+
+        .. math::
+
+            \\Vert \\mathbf{A} + t \\mathbf{B} \\Vert_{-1} \\leq
+            \\frac{\\mathrm{trace}(\\mathbf{A}) +
+            t \\mathrm{trace}(\\mathbf{B})}{n}.
+
+        Note that the above bound is not sharp as :math:`t \\to 0`.
+
+        References
+        ----------
+
+        .. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating
+               Log-Determinant and Trace of the Powers of Matrix
+               :math:`\\mathbf{A} + t \\mathbf{B}`. `arXiv: 2009.07385
+               <https://arxiv.org/abs/2207.08038>`_ [math.NA].
+
+        Examples
+        --------
+
+        Create an interpolator object :math:`f` using four interpolant points
+        :math:`t_i`:
+
+        .. code-block:: python
+
+            >>> # Generate sample matrices (symmetric positive-definite)
+            >>> from imate.sample_matrices import correlation_matrix
+            >>> A = correlation_matrix(size=20, scale=1e-1)
+            >>> B = correlation_matrix(size=20, scale=2e-2)
+
+            >>> # Initialize interpolator object
+            >>> from imate import InterpolateSchatten
+            >>> ti = [1e-2, 1e-1, 1, 1e1]
+            >>> f = InterpolateSchatten(A, B, p=-1, ti=ti)
+
+        Create an array `t` and evaluate upper bound on `t`. Also, interpolate
+        the function :math:`f` on the array `t`.
+
+        .. code-block:: python
+
+            >>> # Interpolate at an array of points
+            >>> import numpy
+            >>> t = numpy.logspace(-2, 1, 1000)
+            >>> upper_bound = f.upper_bound(t)
+            >>> interp = f.interpolate(t)
+
+        Plot the results:
+
+        .. code-block:: python
+
+            >>> import matplotlib.pyplot as plt
+            >>> import seaborn as sns
+
+            >>> # Plot settings (optional)
+            >>> sns.set(font_scale=1.15)
+            >>> sns.set_style("white")
+            >>> sns.set_style("ticks")
+
+            >>> plt.semilogx(t, interp, color='black', label='Interpolation')
+            >>> plt.semilogx(t, upper_bound, '--', color='black',
+            ...              label='Upper bound')
+            >>> plt.xlim([t[0], t[-1]])
+            >>> plt.ylim([0, 10])
+            >>> plt.xlabel('$t$')
+            >>> plt.ylabel('$\\Vert \\mathbf{A} + t \\mathbf{B} \\Vert_{-1}$')
+            >>> plt.title('Interpolation of Schatten Anti-Norm')
+            >>> plt.legend()
+            >>> plt.show()
+
+        .. image:: ../_static/images/plots/interpolate_schatten_ub.png
+            :align: center
+            :class: custom-dark
+            :width: 60%
         """
 
         if isinstance(t, Number):
@@ -843,9 +1025,9 @@ class InterpolateSchatten(object):
 
             .. math::
 
-                \\frac{\\Vert \\mathbf{A} + t \\mathbf{B} \\Vert_{p}}{
-                \\Vert \\mathbf{B} \\Vert_p}.
-            
+                \\tau_p(t) = \\frac{\\Vert \\mathbf{A} + t \\mathbf{B}
+                \\Vert_{p}}{\\Vert \\mathbf{B} \\Vert_p}.
+
         compare : bool, default=False
             If `True`, it computes the exact function values (without
             interpolation), then compares it with the interpolated solution to
@@ -856,38 +1038,45 @@ class InterpolateSchatten(object):
                 When this option is enabled, the exact solution will be
                 computed for all inquiry points, which can take a very long
                 time.
-            
+
+        Raises
+        ------
+
+        ImportError
+            If `matplotlib` and `seaborn` are not installed.
+
+        ValueError
+            If ``inquiry_points`` is not an array of size greater than one.
+
         Notes
         -----
 
         **Plotted Function:**
 
         * When ``kind`` is either of ``ext``, ``eig``, ``mbf``, ``imbf``,
-          ``rpf``, or ``rbf``, the function :math:``\\tau_p(t)`` if plotted,
-          which is defined as follows. if ``normalize`` is `False`, then
+          ``rpf``, or ``rbf``, the function :math:`\\tau_p(t)` is plotted,
+          which is defined as follows. If ``normalize`` is `False`, then
 
           .. math::
 
-              \\tau_p(t) = \\Vert \\mathbf{A} + t \\mathbf{B} \\Vert_r.
+              \\tau_p(t) = \\Vert \\mathbf{A} + t \\mathbf{B} \\Vert_p.
 
-          If ``normalize`` is `True`, then the following is plotted:
+          If ``normalize`` is `True`, then
 
           .. math::
 
               \\frac{\\Vert \\mathbf{A} + t \\mathbf{B} \\Vert_{p}}{
               \\Vert \\mathbf{B} \\Vert_p}.
 
-        * On the other hand, if ``kind=crf`` (see
-          :ref:`imate.InterpolateSchatten.crf`) or ``kind=spl`` (see
-          :ref:`imate.InterpolateSchatten.spl`), the plot, the function
+        * On the other hand, if ``kind=crf`` or ``kind=spl``, the function
           :math:`y_p(x)` is plotted, which is defined as follows:
 
           .. math::
 
-              x = \\frac{t - \\alpha}{t + \\alpha}
+              x = \\frac{t - \\alpha}{t + \\alpha},
 
           where :math:`\\alpha` is the ``scale`` parameter in
-          :ref:`imate.InterpolateSchatten.crf` assuming ``kind=crf``. If
+          :ref:`imate.InterpolateSchatten.crf` for ``kind=crf``. If
           ``kind=spl``, then :math:`\\alpha=1`. Also
 
           .. math::
@@ -920,7 +1109,7 @@ class InterpolateSchatten(object):
 
         Create an interpolator object :math:`f` using four interpolant points
         :math:`t_i`:
-        
+
         .. code-block:: python
 
             >>> # Generate sample matrices (symmetric positive-definite)
@@ -949,7 +1138,7 @@ class InterpolateSchatten(object):
             :width: 60%
 
         To compare with the true values (without interpolation), pass
-        ``compare=True`` to the above function. 
+        ``compare=True`` to the above function.
 
         .. warning::
 

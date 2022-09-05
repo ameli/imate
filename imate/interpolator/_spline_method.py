@@ -72,7 +72,7 @@ class SplineMethod(InterpolantBase):
     # Init
     # ====
 
-    def __init__(self, A, B=None, p=0, options={}, verbose=False, ti=[], 
+    def __init__(self, A, B=None, p=0, options={}, verbose=False, ti=[],
                  func_type=1):
         """
         Initializes the base class and attributes.

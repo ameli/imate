@@ -203,9 +203,9 @@ class InterpolateTrace(InterpolateSchatten):
           will not be shown, rather, it will ve saved as an ``svg`` file in
           the current directory.
         * If the executable ``latex`` is on the path, the plot is rendered
-          using :math:`\\rm\\laTeX`, which then, it takes a bit
+          using :math:`\\rm\\LaTeX`, which then, it takes a bit
           longer to produce the plot.
-        * If :math:`\\rm\\laTeX` is not installed, it uses any available
+        * If :math:`\\rm\\LaTeX` is not installed, it uses any available
           San-Serif font to render the plot.
 
         To manually disable interactive plot display, and save the plot as

@@ -23,23 +23,6 @@ from ._interpolant_base import InterpolantBase
 
 class EigenvaluesMethod(InterpolantBase):
     """
-    Note: B is always None (identity) in EIG method.
-
-    Computes the trace of inverse of an invertible matrix :math:`\\mathbf{A} +
-    t \\mathbf{B}` using eigenvalues of :math:`\\mathbf{A}`  and
-    :math:`\\mathbf{B}`.
-
-    The trace of computed by
-
-    .. math::
-
-        \\mathrm{trace}\\left( (\\mathbf{A} + t \\mathbf{B})^{-1} \\right)
-        = \\sum_{i = 1}^n \\frac{1}{\\lambda_i + t \\mu_i}
-
-    where :math:`\\lambda_i` is the eigenvalue of :math:`\\mathbf{A}`
-    and :math:`\\mu_i` is the eigenvalue of :math:`\\mathbf{B}`.
-    This class does not accept interpolant points as the result is not
-    interpolated.
 
 
     non_zero_ratio
@@ -65,6 +48,246 @@ class EigenvaluesMethod(InterpolantBase):
         eigenvalues over the total number of eigenvalues can be set by
         ``non_zero_ratio``. The tolerance at which the eigenvalues are computed
         can be set by ``tol``.
+
+
+
+
+
+        
+    Evaluates Schatten norm (or anti-norm) of an affine matrix function (no
+    interpolation).
+
+    .. note::
+
+        This class does not interpolate. Rather, it only returns the exact
+        function value, which could be used as a benchmark to test the other
+        interpolation methods.
+
+    Parameters
+    ----------
+
+    A : numpy.ndarray, scipy.sparse matrix
+        A square matrix. Matrix can be dense or sparse.
+
+    B : None
+        In this method, `B` should always be `None`, indicating the matrix `B`
+        is the identity matrix.
+
+    p : float, default=2
+        The order :math:`p` in the Schatten :math:`p`-norm which can be real
+        positive, negative or zero.
+
+    options : dict, default={}
+        At each interpolation point :math:`t_i`, the value of the Schatten norm
+        is computed using :func:`imate.schatten` function which itself calls
+        either of
+
+        * :func:`imate.logdet` (if :math:`p=0`)
+        * :func:`imate.trace` (if :math:`p>0`)
+        * :func:`imate.traceinv` (if :math:`p < 0`).
+
+        To pass extra parameters to the above functions, pass a dictionary of
+        function arguments to ``options``.
+
+    verbose : bool, default=False
+        If `True`, it prints some information about the computation process.
+
+    Raises
+    ------
+
+    ValueError
+        If `B` is not `None`.
+
+    See Also
+    --------
+
+    imate.InterpolateTrace
+    imate.InterpolateLogdet
+    imate.schatten
+
+    Attributes
+    ----------
+    
+    kind : str
+        Method of interpolation. For this class, ``kind`` is ``ext``.
+
+    verbose : bool
+        Verbosity of the computation process
+
+    n : int
+        Since of the matrix
+
+    q : int
+        Number of interpolant points. For this class, `q` is zero.
+
+    p : float
+        Order of Schatten :math:`p`-norm
+
+    Methods
+    -------
+
+    __call__
+    eval
+    interpolate
+    bound
+    upper_bound
+    plot
+
+    Notes
+    -----
+
+    **Schatten Norm:**
+
+    In this class, the Schatten :math:`p`-norm of the matrix
+    :math:`\\mathbf{A}` is defined by
+
+    .. math::
+        :label: schatten-eq-3
+
+        \\Vert \\mathbf{A} \\Vert_p =
+        \\begin{cases}
+            \\left| \\mathrm{det}(\\mathbf{A})
+            \\right|^{\\frac{1}{n}}, & p=0, \\\\
+            \\left| \\frac{1}{n}
+            \\mathrm{trace}(\\mathbf{A}^{p})
+            \\right|^{\\frac{1}{p}}, & p \\neq 0,
+        \\end{cases}
+
+    where :math:`n` is the size of the matrix. When :math:`p \\geq 0`, the
+    above definition is the Schatten **norm**, and when :math:`p < 0`, the
+    above is the Schatten **anti-norm**.
+
+    .. note::
+
+        Conventionally, the Schatten norm is defined without the normalizing
+        factor :math:`\\frac{1}{n}` in :math:numref:`schatten-eq-3`. However,
+        this factor is justified by the continuity granted by
+
+        .. math::
+            :label: schatten-continuous-3
+
+            \\lim_{p \\to 0} \\Vert \\mathbf{A} \\Vert_p =
+            \\Vert \\mathbf{A} \\Vert_0.
+
+        See [1]_ (Section 2) and the examples in :func:`imate.schatten` for
+        details.
+
+    **Affine Matrix Function:**
+
+    This class evaluates the one-parameter matrix function:
+
+    .. math::
+
+        \\tau_p: t \\mapsto \\| \\mathbf{A} + t \\mathbf{I} \\|_p,
+
+    where :math:`t` is a real parameter and :math:`\\mathbf{I}` is the
+    identity matrix.
+
+    **Eigenvalue Method:**
+
+    This class uses the eigenvalues, :math:`\\lambda_i`, of the matrix
+    :math:`\\mathbf{A}` to compute :math:`\\tau_p(t)` as follows:
+
+    .. math::
+
+        \\mathrm{trace}\\left( (\\mathbf{A} + t \\mathbf{B})^{-1} \\right)
+        = \\sum_{i = 1}^n \\frac{1}{\\lambda_i + t \\mu_i}
+
+    ----------
+
+    .. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant
+           and Trace of the Powers of Matrix
+           :math:`\\mathbf{A} + t\\mathbf{B}`. `arXiv: 2009.07385
+           <https://arxiv.org/abs/2207.08038>`_ [math.NA].
+
+    Examples
+    --------
+
+    **Basic Usage:**
+
+    Evaluate the Schatten `2`-norm of the affine matrix function
+    :math:`\\mathbf{A} + t \\mathbf{B}`:
+
+    .. code-block:: python
+        :emphasize-lines: 8, 12
+
+        >>> # Generate two sample matrices (symmetric and positive-definite)
+        >>> from imate.sample_matrices import correlation_matrix
+        >>> A = correlation_matrix(size=20, scale=1e-1)
+        >>> B = correlation_matrix(size=20, scale=2e-2)
+
+        >>> # Initialize interpolator object
+        >>> from imate import InterpolateSchatten
+        >>> f = InterpolateSchatten(A, B, p=2, kind='ext')
+
+        >>> # Evaluate at inquiry point t = 0.4
+        >>> t = 4e-1
+        >>> f(t)
+        1.7374809371539666
+
+    Alternatively, call :meth:`imate.InterpolateSchatten.eval` to
+    evaluate at points `t`:
+
+    .. code-block:: python
+
+        >>> # This is the same as f(t)
+        >>> f.eval(t)
+        1.7374809371539666
+
+    **Passing Options:**
+
+    The above examples, the internal computation is passed to
+    :func:`imate.trace` function since :math:`p=2` is positive. You can pass
+    arguments to the latter function using ``options`` argument. To do so,
+    create a dictionary with the keys as the name of the argument. For
+    instance, to use :ref:`imate.trace.slq` method with ``min_num_samples=20``
+    and ``max_num_samples=100``, create the following dictionary:
+
+    .. code-block:: python
+
+        >>> # Specify arguments as a dictionary
+        >>> options = {
+        ...     'method': 'slq',
+        ...     'min_num_samples': 20,
+        ...     'max_num_samples': 100
+        ... }
+
+        >>> # Pass the options to the interpolator
+        >>> f = InterpolateSchatten(A, B, options=options, kind='ext')
+        >>> f(t)
+        1.7158884669614174
+
+    **Evaluate on Range of Points:**
+
+    Evaluate an array of inquiry points
+
+    .. code-block:: python
+
+        >>> # Initialize interpolator object
+        >>> from imate import InterpolateSchatten
+        >>> f = InterpolateSchatten(A, B, kind='ext')
+
+        >>> # Interpolate at an array of points
+        >>> import numpy
+        >>> t_array = numpy.logspace(-2, 1, 1000)
+        >>> norm_array = f(t_array)
+
+    **Plotting:**
+
+    To plot the function, call :meth:`imate.InterpolateSchatten.plot` method.
+    To compare with the true function values, pass ``compare=True`` argument.
+
+    .. code-block:: python
+
+        >>> f.plot(t_array, compare=True)
+
+    .. image:: ../_static/images/plots/interpolate_schatten_ext.png
+        :align: center
+        :class: custom-dark
+
+    Since the `ext` method exactly evaluates the function (without
+    interpolation), the error of the result is zero, as shown on the
+    right-hand side plot.
     """
 
     # ====
