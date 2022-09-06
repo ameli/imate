@@ -16,6 +16,7 @@
          InterpolateLogdet.__call__
          InterpolateLogdet.bound
          InterpolateLogdet.eval
+         InterpolateLogdet.get_scale
          InterpolateLogdet.interpolate
          InterpolateLogdet.lower_bound
          InterpolateLogdet.plot

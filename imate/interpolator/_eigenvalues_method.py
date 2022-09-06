@@ -23,37 +23,6 @@ from ._interpolant_base import InterpolantBase
 
 class EigenvaluesMethod(InterpolantBase):
     """
-
-
-    non_zero_ratio
-
-    The ratio of the number of eigenvalues to be assumed
-    non-zero over all eigenvalues. This option is only used for sparse
-    matrices where as assume some of eigenvalues are very small and we are
-    only interested in computing non-zero eigenvalues. In practice, it is
-    not possible to compute all eigenvalues of a large sparse matrix.
-    Default is ``0.9`` indicating to compute 90 percent of the eigenvalues
-    with the largest magnitude and assume the rest of the eigenvalues are
-    zero.
-
-    tol: tol of computing eigenvalues. This option is only
-    used for sparse matrices. Default value is ``1e-3``.
-
-    .. note::
-
-        The input matrices :math:`\\mathbf{A}` and :math:`\\mathbf{B}` can be
-        either sparse or dense. In case of a **sparse matrix**, only some of
-        the eigenvalues with the largest magnitude is computed  and the rest of
-        its eigenvalues is assumed to be negligible. The ratio of computed
-        eigenvalues over the total number of eigenvalues can be set by
-        ``non_zero_ratio``. The tolerance at which the eigenvalues are computed
-        can be set by ``tol``.
-
-
-
-
-
-        
     Evaluates Schatten norm (or anti-norm) of an affine matrix function (no
     interpolation).
 
@@ -92,6 +61,16 @@ class EigenvaluesMethod(InterpolantBase):
     verbose : bool, default=False
         If `True`, it prints some information about the computation process.
 
+    non_zero_ratio : float, default=0.9
+        The ratio of the number of eigenvalues to be assumed non-zero over all
+        eigenvalues. This option is only used for sparse matrices where not all
+        its eigenvalues can be computed, rather, it is assumed some of
+        the eigenvalues are very small and ignored.
+
+    tol : float, default=1e-3
+        Tolerance of computing eigenvalues. This option is only used for sparse
+        matrices.
+
     Raises
     ------
 
@@ -107,7 +86,7 @@ class EigenvaluesMethod(InterpolantBase):
 
     Attributes
     ----------
-    
+
     kind : str
         Method of interpolation. For this class, ``kind`` is ``ext``.
 
@@ -115,7 +94,7 @@ class EigenvaluesMethod(InterpolantBase):
         Verbosity of the computation process
 
     n : int
-        Since of the matrix
+        Size of the matrix
 
     q : int
         Number of interpolant points. For this class, `q` is zero.
@@ -142,7 +121,7 @@ class EigenvaluesMethod(InterpolantBase):
     :math:`\\mathbf{A}` is defined by
 
     .. math::
-        :label: schatten-eq-3
+        :label: schatten-eq-4
 
         \\Vert \\mathbf{A} \\Vert_p =
         \\begin{cases}
@@ -160,11 +139,11 @@ class EigenvaluesMethod(InterpolantBase):
     .. note::
 
         Conventionally, the Schatten norm is defined without the normalizing
-        factor :math:`\\frac{1}{n}` in :math:numref:`schatten-eq-3`. However,
+        factor :math:`\\frac{1}{n}` in :math:numref:`schatten-eq-4`. However,
         this factor is justified by the continuity granted by
 
         .. math::
-            :label: schatten-continuous-3
+            :label: schatten-continuous-4
 
             \\lim_{p \\to 0} \\Vert \\mathbf{A} \\Vert_p =
             \\Vert \\mathbf{A} \\Vert_0.
@@ -183,16 +162,22 @@ class EigenvaluesMethod(InterpolantBase):
     where :math:`t` is a real parameter and :math:`\\mathbf{I}` is the
     identity matrix.
 
-    **Eigenvalue Method:**
+    **Method of Evaluation:**
 
     This class uses the eigenvalues, :math:`\\lambda_i`, of the matrix
     :math:`\\mathbf{A}` to compute :math:`\\tau_p(t)` as follows:
 
     .. math::
 
-        \\mathrm{trace}\\left( (\\mathbf{A} + t \\mathbf{B})^{-1} \\right)
-        = \\sum_{i = 1}^n \\frac{1}{\\lambda_i + t \\mu_i}
+        \\tau_p(t) =
+        \\begin{cases}
+        \\left( \\prod_{i=1}^n (\\lambda_i + t) \\right)^{\\frac{1}{n}},
+        & p=0, \\\\
+        \\left( \\frac{1}{n} \\sum_{i=1}^n (\\lambda_i + t)^p
+        \\right)^{\\frac{1}{p}}, & p \\neq 0.
+        \\end{cases}
 
+    References
     ----------
 
     .. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant
@@ -206,24 +191,23 @@ class EigenvaluesMethod(InterpolantBase):
     **Basic Usage:**
 
     Evaluate the Schatten `2`-norm of the affine matrix function
-    :math:`\\mathbf{A} + t \\mathbf{B}`:
+    :math:`\\mathbf{A} + t \\mathbf{I}`:
 
     .. code-block:: python
-        :emphasize-lines: 8, 12
+        :emphasize-lines: 7, 12
 
         >>> # Generate two sample matrices (symmetric and positive-definite)
         >>> from imate.sample_matrices import correlation_matrix
         >>> A = correlation_matrix(size=20, scale=1e-1)
-        >>> B = correlation_matrix(size=20, scale=2e-2)
 
         >>> # Initialize interpolator object
         >>> from imate import InterpolateSchatten
-        >>> f = InterpolateSchatten(A, B, p=2, kind='ext')
+        >>> f = InterpolateSchatten(A, p=2, kind='eig')
 
         >>> # Evaluate at inquiry point t = 0.4
         >>> t = 4e-1
         >>> f(t)
-        1.7374809371539666
+        1.7175340160001518
 
     Alternatively, call :meth:`imate.InterpolateSchatten.eval` to
     evaluate at points `t`:
@@ -232,7 +216,7 @@ class EigenvaluesMethod(InterpolantBase):
 
         >>> # This is the same as f(t)
         >>> f.eval(t)
-        1.7374809371539666
+        1.7175340160001518
 
     **Passing Options:**
 
@@ -253,19 +237,19 @@ class EigenvaluesMethod(InterpolantBase):
         ... }
 
         >>> # Pass the options to the interpolator
-        >>> f = InterpolateSchatten(A, B, options=options, kind='ext')
+        >>> f = InterpolateSchatten(A, B, options=options, kind='eig')
         >>> f(t)
-        1.7158884669614174
+        1.7175340160001518
 
     **Evaluate on Range of Points:**
 
-    Evaluate an array of inquiry points
+    Evaluate an array of inquiry points ``t_array``:
 
     .. code-block:: python
 
         >>> # Initialize interpolator object
         >>> from imate import InterpolateSchatten
-        >>> f = InterpolateSchatten(A, B, kind='ext')
+        >>> f = InterpolateSchatten(A, B, kind='eig')
 
         >>> # Interpolate at an array of points
         >>> import numpy
@@ -281,11 +265,11 @@ class EigenvaluesMethod(InterpolantBase):
 
         >>> f.plot(t_array, compare=True)
 
-    .. image:: ../_static/images/plots/interpolate_schatten_ext.png
+    .. image:: ../_static/images/plots/interpolate_schatten_ext_eig.png
         :align: center
         :class: custom-dark
 
-    Since the `ext` method exactly evaluates the function (without
+    Since the `eig` method exactly evaluates the function (without
     interpolation), the error of the result is zero, as shown on the
     right-hand side plot.
     """
@@ -294,7 +278,7 @@ class EigenvaluesMethod(InterpolantBase):
     # Init
     # ====
 
-    def __init__(self, A, B=None, p=0, options={}, verbose=False,
+    def __init__(self, A, B=None, p=2, options={}, verbose=False,
                  non_zero_ratio=0.9, tol=1e-3):
         """
         Constructor of the class, which initializes the bases class and

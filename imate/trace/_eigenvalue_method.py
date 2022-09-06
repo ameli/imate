@@ -328,7 +328,7 @@ def eigenvalue_method(
     angle_rtol = 1e-6
     if isinstance(trace, numpy.complex128):
         angle = numpy.abs(numpy.angle(trace))
-        if angle > angle_rtol * A.shape[0]:
+        if numpy.abs(numpy.mod(angle, numpy.pi)) > angle_rtol * A.shape[0]:
             raise RuntimeError(
                     'Trace is not a purely real number. Angle : %f' % angle)
         else:

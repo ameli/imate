@@ -72,16 +72,15 @@ class InterpolateSchatten(object):
         positive, negative or zero.
 
     options : dict, default={}
-        At each interpolation point :math:`t_i`, the value of the Schatten norm
-        is computed using :func:`imate.schatten` function which itself calls
-        either of
+        At each interpolation point :math:`t_i`, the Schatten norm is computed
+        using :func:`imate.schatten` function which itself calls either of
 
         * :func:`imate.logdet` (if :math:`p=0`)
         * :func:`imate.trace` (if :math:`p>0`)
         * :func:`imate.traceinv` (if :math:`p < 0`).
 
-        To pass extra parameters to the above functions, pass a dictionary of
-        function arguments to ``options``.
+        The ``options`` passes a dictionary of arguments to the above
+        functions.
 
     verbose : bool, default=False
         If `True`, it prints some information about the computation process.
@@ -103,10 +102,10 @@ class InterpolateSchatten(object):
     ti : float or array_like(float), default=None
         Interpolation points, which can be a single point, a list, or an array
         of points. The interpolator honors the exact function values at the
-        interpolant points. If an empty list is give, `i.e.`, ``[]``, depending
-        on the algorithm, a default list of interpolant points is used. Also,
-        the size of the array of `ti` depends on the algorithm as follows. If
-        ``kind`` is:
+        interpolant points. If an empty list is given, `i.e.`, ``[]``,
+        depending on the algorithm, a default list of interpolant points is
+        used. Also, the size of the array of `ti` depends on the algorithm as
+        follows. If ``kind`` is:
 
         * ``ext`` or ``eig``, the no ``ti`` is required.
         * ``mbf``, then a single point ``ti`` may be specified.
@@ -128,7 +127,7 @@ class InterpolateSchatten(object):
 
     Attributes
     ----------
-    
+
     kind : str
         Method of interpolation
 
@@ -136,7 +135,7 @@ class InterpolateSchatten(object):
         Verbosity of the computation process
 
     n : int
-        Since of the matrix
+        Size of the matrix
 
     q : int
         Number of interpolant points
@@ -150,6 +149,7 @@ class InterpolateSchatten(object):
     __call__
     eval
     interpolate
+    get_scale
     bound
     upper_bound
     plot
@@ -339,7 +339,7 @@ class InterpolateSchatten(object):
     a list of inquiry points `t` has almost no computational cost. The next
     example inquires interpolation on `1000` points `t`:
 
-    Interpolate an array of inquiry points
+    Interpolate an array of inquiry points ``t_array``:
 
     .. code-block:: python
 
@@ -453,43 +453,101 @@ class InterpolateSchatten(object):
         elif kind.lower() == 'mbf':
             # Monomial Basis Functions kind
             self.interpolator = MonomialBasisFunctionsMethod(
-                    A, B, p=self.p, ti=ti, options=options, verbose=verbose,
+                    A, B, p=self.p, options=options, verbose=verbose, ti=ti,
                     **kwargs)
 
         elif kind.lower() == 'imbf':
             # Inverse Monomial Basis Functions kind
             self.interpolator = InverseMonomialBasisFunctionsMethod(
-                    A, B, p=self.p, ti=ti, options=options, verbose=verbose,
+                    A, B, p=self.p, options=options, verbose=verbose, ti=ti,
                     **kwargs)
 
         elif kind.lower() == 'rbf':
             # Radial Basis Functions kind
             self.interpolator = RadialBasisFunctionsMethod(
-                    A, B, p=self.p, ti=ti, options=options, verbose=verbose,
+                    A, B, p=self.p, options=options, verbose=verbose, ti=ti,
                     **kwargs)
 
         elif kind.lower() == 'crf':
             # Chebyshev Rational Functions
             self.interpolator = ChebyshevRationalFunctionsMethod(
-                    A, B, p=self.p, ti=ti, options=options, verbose=verbose,
+                    A, B, p=self.p, options=options, verbose=verbose, ti=ti,
                     **kwargs)
 
         elif kind.lower() == 'spl':
             # Spline
             self.interpolator = SplineMethod(
-                    A, B, p=self.p, ti=ti, options=options, verbose=verbose,
+                    A, B, p=self.p, options=options, verbose=verbose, ti=ti,
                     **kwargs)
 
         elif kind.lower() == 'rpf':
             # Rational Polynomial Functions kind
             self.interpolator = RationalPolynomialFunctionsMethod(
-                    A, B, p=self.p, ti=ti, options=options, verbose=verbose,
+                    A, B, p=self.p, options=options, verbose=verbose, ti=ti,
                     **kwargs)
 
         else:
             raise ValueError("'kind' is invalid. Select one of 'ext', " +
                              "'eig', 'mbf', 'imbf', 'rbf', 'crf', 'spl', or " +
                              "'rpf'.")
+
+    # =========
+    # get scale
+    # =========
+
+    def get_scale(self):
+        """
+        Returns the scale parameter of the interpolator.
+
+        This function can be called if ``kind=crf`` or ``kind=spl``.
+
+        Returns
+        -------
+
+        scale : float
+            Scale parameter of the interpolator.
+
+        Raises
+        ------
+
+        NotImplementedError
+            If ``kind`` is neither ``crf`` nor ``spl``.
+
+        Examples
+        --------
+
+        In the following scale, since the input argument ``scale`` is set to
+        `None`, it i automatically generated by optimization. Its value can be
+        accessed by :meth:`imate.InterpolateSchatten.get_scale` function.
+
+        .. code-block:: python
+            :emphasize-lines: 11
+
+            >>> # Generate two sample matrices (symmetric positive-definite)
+            >>> from imate.sample_matrices import correlation_matrix
+            >>> A = correlation_matrix(size=20, scale=1e-1)
+
+            >>> # Initialize interpolator object
+            >>> from imate import InterpolateSchatten
+            >>> ti = [1e-2, 1e-1, 1, 1e1]
+            >>> f = InterpolateSchatten(A, B, p=2, kind='crf', ti=ti,
+            ...                         scale=None)
+
+            >>> f.get_scale()
+            1.4101562500000009
+        """
+
+        if self.kind not in ['crf', 'spl']:
+            raise NotImplementedError('This function can be called only if' +
+                                      '"kind" is set to either "crf" or ' +
+                                      '"spl".')
+
+        scale = self.interpolator.scale
+
+        if not isinstance(scale, Number):
+            scale = scale[0]
+
+        return scale
 
     # ========
     # __call__

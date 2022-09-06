@@ -78,7 +78,7 @@ class SplineMethod(InterpolantBase):
         Initializes the base class and attributes.
         """
 
-        if not isinstance(ti, (list, numpy.ndarray)):
+        if (ti is None) or (ti == []):
             raise ValueError('"ti" should be a list or array.')
 
         # Base class constructor. This will compute self.tau0 and self.t_i

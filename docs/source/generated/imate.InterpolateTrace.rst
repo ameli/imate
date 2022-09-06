@@ -16,6 +16,7 @@
          InterpolateTrace.__call__
          InterpolateTrace.bound
          InterpolateTrace.eval
+         InterpolateTrace.get_scale
          InterpolateTrace.interpolate
          InterpolateTrace.lower_bound
          InterpolateTrace.plot

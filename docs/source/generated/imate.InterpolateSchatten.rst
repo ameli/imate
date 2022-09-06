@@ -16,6 +16,7 @@
          InterpolateSchatten.__call__
          InterpolateSchatten.bound
          InterpolateSchatten.eval
+         InterpolateSchatten.get_scale
          InterpolateSchatten.interpolate
          InterpolateSchatten.plot
          InterpolateSchatten.upper_bound

@@ -64,7 +64,7 @@ class RationalPolynomialFunctionsMethod(InterpolantBase):
         Initializes the base class and attributes.
         """
 
-        if ti is None:
+        if (ti is None) or (ti == []):
             raise ValueError('"ti" should be a list or array.')
 
         # Base class constructor

@@ -14,6 +14,7 @@
 from ..schatten import schatten
 import numpy
 import scipy
+from numbers import Number
 
 
 # ================
@@ -63,7 +64,7 @@ class InterpolantBase(object):
     # Init
     # ====
 
-    def __init__(self, A, B=None, p=0, ti=None, options={},
+    def __init__(self, A, B=None, p=2, ti=None, options={},
                  verbose=False):
         """
         The initialization function does the followings:
@@ -122,6 +123,8 @@ class InterpolantBase(object):
             if ti != []:
 
                 # Compute schatten norm at interpolant points
+                if isinstance(ti, Number):
+                    ti = [ti]
                 self.t_i = numpy.array(ti)
                 self.q = self.t_i.size
                 self.schatten_i = self._compute_for_array(self.t_i)
@@ -244,6 +247,7 @@ class InterpolantBase(object):
             print('Evaluate function at interpolant points ...', end='')
 
         if numpy.isscalar(t_i):
+
             # Compute for scalar input
             trace_i = self._compute(t_i)
 

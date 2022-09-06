@@ -302,7 +302,7 @@ def eigenvalue_method(
     angle_rtol = 1e-6
     if isinstance(logdet_, numpy.complex128):
         angle = numpy.abs(numpy.angle(logdet_))
-        if angle > angle_rtol * A.shape[0]:
+        if numpy.abs(numpy.mod(angle, numpy.pi)) > angle_rtol * A.shape[0]:
             raise RuntimeError(
                     'Determinant is not a purely real number. Angle : %f'
                     % angle)

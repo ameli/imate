@@ -43,16 +43,15 @@ class ExactMethod(InterpolantBase):
         positive, negative or zero.
 
     options : dict, default={}
-        At each interpolation point :math:`t_i`, the value of the Schatten norm
-        is computed using :func:`imate.schatten` function which itself calls
-        either of
+        The Schatten norm is computed using :func:`imate.schatten` function
+        which itself calls either of
 
         * :func:`imate.logdet` (if :math:`p=0`)
         * :func:`imate.trace` (if :math:`p>0`)
         * :func:`imate.traceinv` (if :math:`p < 0`).
 
-        To pass extra parameters to the above functions, pass a dictionary of
-        function arguments to ``options``.
+        The ``options`` passes a dictionary of arguments to the above
+        functions.
 
     verbose : bool, default=False
         If `True`, it prints some information about the computation process.
@@ -66,7 +65,7 @@ class ExactMethod(InterpolantBase):
 
     Attributes
     ----------
-    
+
     kind : str
         Method of interpolation. For this class, ``kind`` is ``ext``.
 
@@ -74,7 +73,7 @@ class ExactMethod(InterpolantBase):
         Verbosity of the computation process
 
     n : int
-        Since of the matrix
+        Size of the matrix
 
     q : int
         Number of interpolant points. For this class, `q` is zero.
@@ -101,7 +100,7 @@ class ExactMethod(InterpolantBase):
     :math:`\\mathbf{A}` is defined by
 
     .. math::
-        :label: schatten-eq-3
+        :label: schatten-eq-9
 
         \\Vert \\mathbf{A} \\Vert_p =
         \\begin{cases}
@@ -119,11 +118,11 @@ class ExactMethod(InterpolantBase):
     .. note::
 
         Conventionally, the Schatten norm is defined without the normalizing
-        factor :math:`\\frac{1}{n}` in :math:numref:`schatten-eq-3`. However,
+        factor :math:`\\frac{1}{n}` in :math:numref:`schatten-eq-9`. However,
         this factor is justified by the continuity granted by
 
         .. math::
-            :label: schatten-continuous-3
+            :label: schatten-continuous-9
 
             \\lim_{p \\to 0} \\Vert \\mathbf{A} \\Vert_p =
             \\Vert \\mathbf{A} \\Vert_0.
@@ -155,24 +154,23 @@ class ExactMethod(InterpolantBase):
     **Basic Usage:**
 
     Evaluate the Schatten `2`-norm of the affine matrix function
-    :math:`\\mathbf{A} + t \\mathbf{B}`:
+    :math:`\\mathbf{A} + t \\mathbf{I}`:
 
     .. code-block:: python
-        :emphasize-lines: 8, 12
+        :emphasize-lines: 7, 12
 
         >>> # Generate two sample matrices (symmetric and positive-definite)
         >>> from imate.sample_matrices import correlation_matrix
         >>> A = correlation_matrix(size=20, scale=1e-1)
-        >>> B = correlation_matrix(size=20, scale=2e-2)
 
         >>> # Initialize interpolator object
         >>> from imate import InterpolateSchatten
-        >>> f = InterpolateSchatten(A, B, p=2, kind='ext')
+        >>> f = InterpolateSchatten(A, p=2, kind='ext')
 
         >>> # Evaluate at inquiry point t = 0.4
         >>> t = 4e-1
         >>> f(t)
-        1.7374809371539666
+        1.7175340160001527
 
     Alternatively, call :meth:`imate.InterpolateSchatten.eval` to
     evaluate at points `t`:
@@ -181,7 +179,7 @@ class ExactMethod(InterpolantBase):
 
         >>> # This is the same as f(t)
         >>> f.eval(t)
-        1.7374809371539666
+        1.7175340160001527
 
     **Passing Options:**
 
@@ -204,17 +202,17 @@ class ExactMethod(InterpolantBase):
         >>> # Pass the options to the interpolator
         >>> f = InterpolateSchatten(A, B, options=options, kind='ext')
         >>> f(t)
-        1.7158884669614174
+        1.7047510802581667
 
     **Evaluate on Range of Points:**
 
-    Evaluate an array of inquiry points
+    Evaluate an array of inquiry points ``t_array``:
 
     .. code-block:: python
 
         >>> # Initialize interpolator object
         >>> from imate import InterpolateSchatten
-        >>> f = InterpolateSchatten(A, B, kind='ext')
+        >>> f = InterpolateSchatten(A, kind='ext')
 
         >>> # Interpolate at an array of points
         >>> import numpy
@@ -230,7 +228,7 @@ class ExactMethod(InterpolantBase):
 
         >>> f.plot(t_array, compare=True)
 
-    .. image:: ../_static/images/plots/interpolate_schatten_ext.png
+    .. image:: ../_static/images/plots/interpolate_schatten_ext_eig.png
         :align: center
         :class: custom-dark
 
@@ -243,7 +241,7 @@ class ExactMethod(InterpolantBase):
     # Init
     # ====
 
-    def __init__(self, A, B=None, p=0, options={}, verbose=False):
+    def __init__(self, A, B=None, p=2, options={}, verbose=False):
         """
         Initializes the parent class.
         """
