@@ -1,0 +1,796 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>imate.Timer &#8212; imate Manual</title>
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
+
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/toggleprompt.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/custom-pydata.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="shortcut icon" href="../_static/logo-imate.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="imate.Timer.tic" href="imate.Timer.tic.html" />
+    <link rel="prev" title="imate.sample_matrices.toeplitz_schatten" href="imate.sample_matrices.toeplitz_schatten.html" />
+    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
+
+    <!-- Adobe Embed API -->
+    <script src="https://documentcloud.adobe.com/view-sdk/viewer.js"></script>
+
+    <!-- My custom JS -->
+    <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
+
+    <!-- Syntax highlighting for BibTex code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs-bibtex@2.0.1/prism-bibtex.min.js"></script>
+
+    
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="en">
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="auto">
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
+
+    
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
+
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../contents.html">
+  
+  
+  
+  
+    <img src="../_static/images/icons/logo-imate-light.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/images/icons/logo-imate-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fas fa-bars"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorials/install.html">
+  1. Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorials/docker.html">
+  2. Docker
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorials/gpu.html">
+  3. GPU
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API Reference
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/imate/" rel="noopener" target="_blank" title="PyPI"><span><i class="fab fa-python"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://anaconda.org/s-ameli/imate" rel="noopener" target="_blank" title="Anaconda Cloud"><span><i class="fa fa-circle-notch"></i></span>
+            <label class="sr-only">Anaconda Cloud</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+            <label class="sr-only">Docker Hub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" rel="noopener" target="_blank" title="Lanuch Jupyter on Binder"><span><i class="fa fa-chart-line"></i></span>
+            <label class="sr-only">Lanuch Jupyter on Binder</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
+          
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+    <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  logdet
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.logdet.html">
+   imate.logdet
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.logdet.eigenvalue.html">
+   imate.logdet(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.logdet.cholesky.html">
+   imate.logdet(method=’cholesky’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.logdet.slq.html">
+   imate.logdet(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  traceinv
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.traceinv.html">
+   imate.traceinv
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.traceinv.eigenvalue.html">
+   imate.traceinv(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.traceinv.cholesky.html">
+   imate.traceinv(method=’cholesky’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.traceinv.hutchinson.html">
+   imate.traceinv(method=’hutchinson’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.traceinv.slq.html">
+   imate.traceinv(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  trace
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.trace.html">
+   imate.trace
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.trace.exact.html">
+   imate.trace(method=’exact’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.trace.eigenvalue.html">
+   imate.trace(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.trace.slq.html">
+   imate.trace(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Schatten Norm
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.schatten.html">
+   imate.schatten
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Interpolators
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateLogdet.html">
+   imate.InterpolateLogdet
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateTrace.html">
+   imate.InterpolateTrace
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateSchatten.html">
+   imate.InterpolateSchatten
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.InterpolateSchatten.ext.html">
+   imate.InterpolateSchatten(kind=’ext’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.InterpolateSchatten.eig.html">
+   imate.InterpolateSchatten(kind=’eig’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.InterpolateSchatten.mbf.html">
+   imate.InterpolateSchatten(kind=’mbf’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.InterpolateSchatten.imbf.html">
+   imate.InterpolateSchatten(kind=’imbf’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.InterpolateSchatten.rbf.html">
+   imate.InterpolateSchatten(kind=’rbf’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.InterpolateSchatten.crf.html">
+   imate.InterpolateSchatten(kind=’crf’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.InterpolateSchatten.spl.html">
+   imate.InterpolateSchatten(kind=’spl’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.InterpolateSchatten.rpf.html">
+   imate.InterpolateSchatten(kind=’rpf’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Linear Operators
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.Matrix.html">
+   imate.Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.AffineMatrixFunction.html">
+   imate.AffineMatrixFunction
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Sample Matrices
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.correlation_matrix.html">
+   imate.correlation_matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.toeplitz.html">
+   imate.toeplitz
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.sample_matrices.toeplitz_logdet.html">
+   imate.sample_matrices.toeplitz_logdet
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.sample_matrices.toeplitz_trace.html">
+   imate.sample_matrices.toeplitz_trace
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.sample_matrices.toeplitz_traceinv.html">
+   imate.sample_matrices.toeplitz_traceinv
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.sample_matrices.toeplitz_schatten.html">
+   imate.sample_matrices.toeplitz_schatten
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Device Inquiry
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
+   imate.Timer
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="imate.Timer.tic.html">
+     imate.Timer.tic
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="imate.Timer.toc.html">
+     imate.Timer.toc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="imate.Timer.reset.html">
+     imate.Timer.reset
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.Memory.html">
+   imate.Memory
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.info.html">
+   imate.info
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.get_processor_name.html">
+   imate.device.get_processor_name
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.get_gpu_name.html">
+   imate.device.get_gpu_name
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.get_num_cpu_threads.html">
+   imate.device.get_num_cpu_threads
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.get_num_gpu_devices.html">
+   imate.device.get_num_gpu_devices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.get_nvidia_driver_version.html">
+   imate.device.get_nvidia_driver_version
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.locate_cuda.html">
+   imate.device.locate_cuda
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.restrict_to_single_processor.html">
+   imate.device.restrict_to_single_processor
+  </a>
+ </li>
+</ul>
+
+    
+  </div>
+</nav>
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
+
+          
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
+
+<nav id="bd-toc-nav">
+    
+</nav>
+    </div>
+    
+    <div class="toc-item">
+      
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/https://github.com/ameli/imate/edit/main/docs/source/generated/imate.Timer.rst">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+    
+  
+</div>
+
+
+          
+          
+          <div class="bd-content col-12 col-md-9 col-xl-7">
+              
+              <article class="bd-article" role="main">
+                
+  <section id="imate-timer">
+<h1>imate.Timer<a class="headerlink" href="#imate-timer" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="imate.Timer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">Timer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.Timer" title="Permalink to this definition">#</a></dt>
+<dd><p>A timer to measure elapsed wall time and CPU process time of Python
+process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>hold</strong><span class="classifier">bool, default=True</span></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">hold</span></code> is <cite>True</cite>, measuring time between successive <cite>tic-toc</cite>
+calls are cumulative.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="imate.Memory.html#imate.Memory" title="imate.Memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.Memory</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="imate.device.restrict_to_single_processor.html#imate.device.restrict_to_single_processor" title="imate.device.restrict_to_single_processor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.device.restrict_to_single_processor</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p><strong>Difference Between Wall and Process Times:</strong></p>
+<p>The <em>wall</em> time (<code class="docutils literal notranslate"><span class="pre">Timer.wall_time</span></code>) measures the wall’s clock time in
+between the execution of two tasks, including. This includes when the
+processor is idle or performs other tasks other the Python process.</p>
+<p>On the other hand, the <em>process</em> time (<code class="docutils literal notranslate"><span class="pre">Timer.proc_time</span></code>) is the combined
+CPU clock on all cores of the CPU processor of the process. It excludes the
+time when the processor is idle. Namely, it only measures how much the
+processor was busy. Also, it only measures the time it takes to run the
+<em>current</em> process, and not other tasks that the process might perform
+concurrently.</p>
+<p>As a rule of thumb, the process time is larger than the wall time by the
+order of the number of CPU cores (see
+<a class="reference internal" href="imate.device.get_num_cpu_threads.html#imate.device.get_num_cpu_threads" title="imate.device.get_num_cpu_threads"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_num_cpu_threads()</span></code></a>). However, the process time can
+in some cases deviate from this rule significantly (or even be less than
+the wall time if the processor was largely idle).</p>
+<p>Generally, the process time is the preferred measure to benchmark a
+computational task.</p>
+<p class="rubric">Examples</p>
+<p><strong>Using Tic-Toc:</strong></p>
+<p>A simple usage of measuring wall and process time to compute the
+log-determinant of a sample matrix:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Load Timer class</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">Timer</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Instantiate a timer object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">()</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Start tracking time</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">tic</span><span class="p">()</span>
+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># do something time-consuming</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">logdet</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ld</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">logdet</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Register a time-stamp right here in the code</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">toc</span><span class="p">()</span>
+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Read wall time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">wall_time</span>
+<span class="go">2.727652072906494</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Read process time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">proc_time</span>
+<span class="go">17.752098541000002</span>
+</pre></div>
+</div>
+<p>The <cite>toc</cite> calls can continue (multiple <cite>toc</cite> calls). In each of the <cite>toc</cite>
+calls, the measured time is updated from the time s <cite>toc</cite> is called
+with respect to the last <cite>tic</cite> call.</p>
+<p><strong>Alternative Way of Measuring Time Using Function Returns:</strong></p>
+<p>In the above example we also passed <code class="docutils literal notranslate"><span class="pre">return_info=True</span></code> argument to the
+<a class="reference internal" href="imate.logdet.html#imate.logdet" title="imate.logdet"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.logdet()</span></code></a> function, which returns the dictionary <code class="docutils literal notranslate"><span class="pre">info</span></code>.
+The key <code class="docutils literal notranslate"><span class="pre">info['time']</span></code> also keeps the track of computation time of this
+function, which can be compared with the wall and process times  measured
+by <a class="reference internal" href="#imate.Timer" title="imate.Timer"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.Timer</span></code></a> as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+<span class="go">{</span>
+<span class="go">    &#39;tot_wall_time&#39;: 2.617882580962032,</span>
+<span class="go">    &#39;alg_wall_time&#39;: 2.5974619388580322,</span>
+<span class="go">    &#39;cpu_proc_time&#39;: 17.642682527999998</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<p><strong>Resetting Timer:</strong></p>
+<p>The above timer can be reset as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Reset timer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="go">17.752098541000002</span>
+
+<span class="go"># By resetting, all attributes of the object set back to zero</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">wall_time</span>
+<span class="go">0.0</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">time</span><span class="o">.</span><span class="n">proc_time</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+<p><strong>Accumulative Time Measure Using Hold:</strong></p>
+<p>Often it is useful to measure times accumulatively, in between multiple
+pairs of <cite>tic-toc</cite> calls. To do so, set <code class="docutils literal notranslate"><span class="pre">hold</span></code> to <cite>True</cite> as follows. The
+measured time in the example below is the addition of the first two and the
+second two calls to the pair of <cite>tic</cite> and <cite>toc</cite> on the highlighted lines,
+which includes the time to process matrices <cite>A</cite> and <cite>C</cite>, but excludes the
+matrix <cite>B</cite>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Load Timer class</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">Timer</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Instantiate a timer object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="n">hold</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># The first call to tic</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">tic</span><span class="p">()</span>
+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># The first task with matrix A.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">logdet</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># The first call to toc stops tracking time since last tic.</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">toc</span><span class="p">()</span>
+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># A second task with matrix B. Elapsed time for this task is not</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># recorded.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Resume tracking time.</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">tic</span><span class="p">()</span>
+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># The third task with matrix C. Time for this job is added to the</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># time tracking since timer is resumed.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># The second call to toc stops tracking time since last tic.</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">toc</span><span class="p">()</span>
+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Read wall time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">wall_time</span>
+<span class="go">5.431022644042969</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Read process time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">timer</span><span class="o">.</span><span class="n">proc_time</span>
+<span class="go">36.046730618</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>init_wall_time</strong><span class="classifier">float, default=0</span></dt><dd><p>The initial wall time in seconds. This is set by
+<a class="reference internal" href="imate.Timer.tic.html#imate.Timer.tic" title="imate.Timer.tic"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.Timer.tic()</span></code></a>.</p>
+</dd>
+<dt><strong>init_proc_time</strong><span class="classifier">float, default=0</span></dt><dd><p>The initial CPU process time in seconds. This is set by
+<a class="reference internal" href="imate.Timer.tic.html#imate.Timer.tic" title="imate.Timer.tic"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.Timer.tic()</span></code></a>.</p>
+</dd>
+<dt><strong>tic_initiated</strong><span class="classifier">bool, default=False</span></dt><dd><p>Indicates whether the function <a class="reference internal" href="imate.Timer.tic.html#imate.Timer.tic" title="imate.Timer.tic"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.Timer.tic()</span></code></a> has been called
+to initiate tracking time.</p>
+</dd>
+<dt><strong>hold</strong><span class="classifier">bool</span></dt><dd><p>Initialized by the argument <code class="docutils literal notranslate"><span class="pre">hold</span></code>, and indicates whether to
+accumulate the recording of time between successive tic-toc calls.</p>
+</dd>
+<dt><strong>wall_time</strong><span class="classifier">float, default=0</span></dt><dd><p>The wall time between a <cite>tic</cite> and a <cite>toc</cite> in seconds. This variable is
+updated by calling <a class="reference internal" href="imate.Timer.toc.html#imate.Timer.toc" title="imate.Timer.toc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.Timer.toc()</span></code></a>.</p>
+</dd>
+<dt><strong>proc_time</strong><span class="classifier">float, default=0</span></dt><dd><p>The CPU process time between a <cite>tic</cite> and a <cite>toc</cite> in seconds. This
+variable is updated by calling <a class="reference internal" href="imate.Timer.toc.html#imate.Timer.toc" title="imate.Timer.toc"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.Timer.toc()</span></code></a>.</p>
+</dd>
+<dt><strong>count</strong><span class="classifier">int, default=0</span></dt><dd><p>Counts how many pairs of <cite>tic-toc</cite> is called. That is, the counter
+counts a completed pair of <cite>tic-toc</cite> calls. If there is one tic but
+multiple toc calls later, this is counted as only once.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="imate.Timer.tic.html#imate.Timer.tic" title="imate.Timer.tic"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tic</span></code></a>()</p></td>
+<td><p>Initializes tracking time.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="imate.Timer.toc.html#imate.Timer.toc" title="imate.Timer.toc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">toc</span></code></a>()</p></td>
+<td><p>Measures time from the last call to <a class="reference internal" href="imate.Timer.tic.html#imate.Timer.tic" title="imate.Timer.tic"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.Timer.tic()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="imate.Timer.reset.html#imate.Timer.reset" title="imate.Timer.reset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset</span></code></a>()</p></td>
+<td><p>Resets time counters.</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</section>
+
+
+              </article>
+              
+
+              
+              <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="imate.sample_matrices.toeplitz_schatten.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">imate.sample_matrices.toeplitz_schatten</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="imate.Timer.tic.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">imate.Timer.tic</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+              </footer>
+              
+          </div>
+          
+      </div>
+    </div>
+
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+
+<footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    <p class="copyright">
+    &copy; Copyright 2022, Siavash Ameli.<br>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
+</p>
+  </div>
+  
+</div>
+</footer>
+  </body>
+</html>

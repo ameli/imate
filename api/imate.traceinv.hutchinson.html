@@ -1,0 +1,1107 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>imate.traceinv(method=’hutchinson’) &#8212; imate Manual</title>
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
+
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/toggleprompt.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/custom-pydata.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../_static/logo-imate.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="imate.traceinv(method=’slq’)" href="imate.traceinv.slq.html" />
+    <link rel="prev" title="imate.traceinv(method=’cholesky’)" href="imate.traceinv.cholesky.html" />
+    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
+
+    <!-- Adobe Embed API -->
+    <script src="https://documentcloud.adobe.com/view-sdk/viewer.js"></script>
+
+    <!-- My custom JS -->
+    <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
+
+    <!-- Syntax highlighting for BibTex code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs-bibtex@2.0.1/prism-bibtex.min.js"></script>
+
+    
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="en">
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="auto">
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
+
+    
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
+
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../contents.html">
+  
+  
+  
+  
+    <img src="../_static/images/icons/logo-imate-light.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/images/icons/logo-imate-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fas fa-bars"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorials/install.html">
+  1. Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorials/docker.html">
+  2. Docker
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorials/gpu.html">
+  3. GPU
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API Reference
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/imate/" rel="noopener" target="_blank" title="PyPI"><span><i class="fab fa-python"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://anaconda.org/s-ameli/imate" rel="noopener" target="_blank" title="Anaconda Cloud"><span><i class="fa fa-circle-notch"></i></span>
+            <label class="sr-only">Anaconda Cloud</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+            <label class="sr-only">Docker Hub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" rel="noopener" target="_blank" title="Lanuch Jupyter on Binder"><span><i class="fa fa-chart-line"></i></span>
+            <label class="sr-only">Lanuch Jupyter on Binder</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
+          
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+    <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  logdet
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.logdet.html">
+   imate.logdet
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.logdet.eigenvalue.html">
+   imate.logdet(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.logdet.cholesky.html">
+   imate.logdet(method=’cholesky’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.logdet.slq.html">
+   imate.logdet(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  traceinv
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.traceinv.html">
+   imate.traceinv
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.traceinv.eigenvalue.html">
+   imate.traceinv(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.traceinv.cholesky.html">
+   imate.traceinv(method=’cholesky’)
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   imate.traceinv(method=’hutchinson’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.traceinv.slq.html">
+   imate.traceinv(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  trace
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.trace.html">
+   imate.trace
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.trace.exact.html">
+   imate.trace(method=’exact’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.trace.eigenvalue.html">
+   imate.trace(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.trace.slq.html">
+   imate.trace(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Schatten Norm
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.schatten.html">
+   imate.schatten
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Interpolators
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.InterpolateLogdet.html">
+   imate.InterpolateLogdet
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.InterpolateTrace.html">
+   imate.InterpolateTrace
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.InterpolateSchatten.html">
+   imate.InterpolateSchatten
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateSchatten.ext.html">
+   imate.InterpolateSchatten(kind=’ext’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateSchatten.eig.html">
+   imate.InterpolateSchatten(kind=’eig’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateSchatten.mbf.html">
+   imate.InterpolateSchatten(kind=’mbf’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateSchatten.imbf.html">
+   imate.InterpolateSchatten(kind=’imbf’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateSchatten.rbf.html">
+   imate.InterpolateSchatten(kind=’rbf’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateSchatten.crf.html">
+   imate.InterpolateSchatten(kind=’crf’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateSchatten.spl.html">
+   imate.InterpolateSchatten(kind=’spl’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateSchatten.rpf.html">
+   imate.InterpolateSchatten(kind=’rpf’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Linear Operators
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.Matrix.html">
+   imate.Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.AffineMatrixFunction.html">
+   imate.AffineMatrixFunction
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Sample Matrices
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.correlation_matrix.html">
+   imate.correlation_matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.toeplitz.html">
+   imate.toeplitz
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.sample_matrices.toeplitz_logdet.html">
+   imate.sample_matrices.toeplitz_logdet
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.sample_matrices.toeplitz_trace.html">
+   imate.sample_matrices.toeplitz_trace
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.sample_matrices.toeplitz_traceinv.html">
+   imate.sample_matrices.toeplitz_traceinv
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.sample_matrices.toeplitz_schatten.html">
+   imate.sample_matrices.toeplitz_schatten
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Device Inquiry
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.Timer.html">
+   imate.Timer
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.Memory.html">
+   imate.Memory
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.info.html">
+   imate.info
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.device.get_processor_name.html">
+   imate.device.get_processor_name
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.device.get_gpu_name.html">
+   imate.device.get_gpu_name
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.device.get_num_cpu_threads.html">
+   imate.device.get_num_cpu_threads
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.device.get_num_gpu_devices.html">
+   imate.device.get_num_gpu_devices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.device.get_nvidia_driver_version.html">
+   imate.device.get_nvidia_driver_version
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.device.locate_cuda.html">
+   imate.device.locate_cuda
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.device.restrict_to_single_processor.html">
+   imate.device.restrict_to_single_processor
+  </a>
+ </li>
+</ul>
+
+    
+  </div>
+</nav>
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
+
+          
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
+
+<nav id="bd-toc-nav">
+    
+</nav>
+    </div>
+    
+    <div class="toc-item">
+      
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/https://github.com/ameli/imate/edit/main/docs/source/api/imate.traceinv.hutchinson.rst">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+    
+  
+</div>
+
+
+          
+          
+          <div class="bd-content col-12 col-md-9 col-xl-7">
+              
+              <article class="bd-article" role="main">
+                
+  <section id="imate-traceinv-method-hutchinson">
+<span id="imate-traceinv-hutchinson"></span><h1>imate.traceinv(method=’hutchinson’)<a class="headerlink" href="#imate-traceinv-method-hutchinson" title="Permalink to this heading">#</a></h1>
+<dl class="custom-domain function">
+<dt class="sig sig-object custom-domain">
+<span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">traceinv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gram</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hutchinson'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assume_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'gen'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_num_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outlier_significance_level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">orthogonalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_threads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span></dt>
+<dd><blockquote>
+<div><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>This page describes only the <cite>hutchinson</cite> method. For other
+methods, see <a class="reference internal" href="../generated/imate.traceinv.html#imate.traceinv" title="imate.traceinv"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.traceinv()</span></code></a>.</p>
+</div>
+</div></blockquote>
+<p>Trace of matrix or linear operator using stochastic Lanczos quadrature
+method.</p>
+<p>If <cite>C</cite> is <cite>None</cite>, given the matrices <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and
+<span class="math notranslate nohighlight">\(\mathbf{B}\)</span> and the integer exponent <span class="math notranslate nohighlight">\(p\)</span>, the following is
+computed:</p>
+<div class="math notranslate nohighlight">
+\[\mathrm{trace} \left(\mathbf{B} \mathbf{A}^{-p} \right).\]</div>
+<p>If <cite>B</cite> is <cite>None</cite>, it is assumed that <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> is the identity
+matrix.</p>
+<p>If <cite>C</cite> is not <cite>None</cite>, given the matrix <span class="math notranslate nohighlight">\(\mathbf{C}\)</span>, the following
+is instead computed:</p>
+<div class="math notranslate nohighlight">
+\[\mathrm{trace} \left(\mathbf{B} \mathbf{A}^{-p} \mathbf{C}
+\mathbf{A}^{-p} \right).\]</div>
+<p>If <code class="docutils literal notranslate"><span class="pre">gram</span></code> is <cite>True</cite>, then <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> in the above is replaced by
+the Gramian matrix <span class="math notranslate nohighlight">\(\mathbf{A}^{\intercal} \mathbf{A}\)</span>. Namely, if
+<cite>C</cite> is <cite>None</cite>:</p>
+<div class="math notranslate nohighlight">
+\[\mathrm{trace} \left(\mathbf{B} 
+(\mathbf{A}^{\intercal}\mathbf{A})^{-p} \right),\]</div>
+<p>and if <cite>C</cite> is not <cite>None</cite>,</p>
+<div class="math notranslate nohighlight">
+\[\mathrm{trace} \left(\mathbf{B} 
+(\mathbf{A}^{\intercal}\mathbf{A})^{-p} \mathbf{C}
+(\mathbf{A}^{\intercal}\mathbf{A})^{-p} \right).\]</div>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>A</strong><span class="classifier">numpy.ndarray, scipy.sparse</span></dt><dd><p>A sparse or dense matrix.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the Hutchinson method, the matrix cannot be a type of
+<a class="reference internal" href="../generated/imate.Matrix.html#imate.Matrix" title="imate.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">Matrix</span></code></a> or <a class="reference internal" href="../generated/imate.AffineMatrixFunction.html#imate.AffineMatrixFunction" title="imate.AffineMatrixFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.AffineMatrixFunction</span></code></a> classes.</p>
+</div>
+</dd>
+<dt><strong>gram</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, the trace of the Gramian matrix,
+<span class="math notranslate nohighlight">\((\mathbf{A}^{\intercal}\mathbf{A})^p\)</span>, is computed. The
+Gramian matrix itself is not directly computed. If <cite>False</cite>, the
+trace of <span class="math notranslate nohighlight">\(\mathbf{A}^p\)</span> is computed.</p>
+</dd>
+<dt><strong>p</strong><span class="classifier">float, default=1.0</span></dt><dd><p>The integer exponent <span class="math notranslate nohighlight">\(p\)</span> in <span class="math notranslate nohighlight">\(\mathbf{A}^{-p}\)</span>.</p>
+</dd>
+<dt><strong>return_info</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, this function also returns a dictionary containing
+information about the inner computation, such as process time,
+algorithm settings, etc.</p>
+</dd>
+<dt><strong>B</strong><span class="classifier">numpy.ndarray, scipy.sparse</span></dt><dd><p>A sparse or dense matrix. <cite>B</cite> should be the same size and type of <cite>A</cite>.
+if <cite>B</cite> is <cite>None</cite>, it is assumed that <cite>B</cite> is the identity matrix.</p>
+</dd>
+<dt><strong>C</strong><span class="classifier">numpy.ndarray, scipy.sparse</span></dt><dd><p>A sparse or dense matrix. <cite>C</cite> should be the same size and type of <cite>A</cite>.</p>
+</dd>
+<dt><strong>assume_matrix</strong><span class="classifier">str {‘gen’, ‘sym’, ‘pos’, ‘sym_pos’}, default: ‘gen’</span></dt><dd><p>Type of matrix <cite>A</cite>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gen</span></code> assumes <cite>A</cite> is a generic matrix.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sym</span></code> assumes <cite>A</cite> is symmetric.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pos</span></code> assumes <cite>A</cite> is positive-definite.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sym_pos</span></code> assumes <cite>A</cite> is symmetric and positive-definite.</p></li>
+</ul>
+</dd>
+<dt><strong>min_num_samples</strong><span class="classifier">int, default=10</span></dt><dd><p>The minimum number of Monte-Carlo samples. If the convergence criterion
+is reached before finishing the minimum number of iterations, the
+iterations are forced to continue till the minimum number of iterations
+is finished. This value should be smaller than
+<code class="docutils literal notranslate"><span class="pre">maximum_num_samples</span></code>.</p>
+</dd>
+<dt><strong>max_num_samples</strong><span class="classifier">int, default=50</span></dt><dd><p>The maximum number of Monte-Carlo samples. If the convergence criterion
+is not reached by the maximum number of iterations, the iterations are
+forced to stop. This value should be larger than
+<code class="docutils literal notranslate"><span class="pre">minimum_num_samples</span></code>.</p>
+</dd>
+<dt><strong>error_atol</strong><span class="classifier">float, default=None</span></dt><dd><p>Tolerance of the absolute error of convergence of the output. Once the
+error of convergence reaches <code class="docutils literal notranslate"><span class="pre">error_atol</span> <span class="pre">+</span> <span class="pre">error_rtol</span> <span class="pre">*</span> <span class="pre">output</span></code>, the
+iteration is terminated. If the convergence criterion is not met by the
+tolerance, then the iterations continue till reaching
+<code class="docutils literal notranslate"><span class="pre">max_num_samples</span></code> iterations. If <cite>None</cite>, the termination criterion
+does not depend on this parameter.</p>
+</dd>
+<dt><strong>error_rtol</strong><span class="classifier">float, default=None</span></dt><dd><p>Tolerance of the relative error of convergence of the output. Once the
+error of convergence reaches <code class="docutils literal notranslate"><span class="pre">error_atol</span> <span class="pre">+</span> <span class="pre">error_rtol</span> <span class="pre">*</span> <span class="pre">output</span></code>, the
+iteration is terminated. If the convergence criterion is not met by the
+tolerance, then the iterations continue till reaching
+<code class="docutils literal notranslate"><span class="pre">max_num_samples</span></code> iterations. If <cite>None</cite>, the termination criterion
+does not depend on this parameter.</p>
+</dd>
+<dt><strong>confidence_level</strong><span class="classifier">float, default=0.95</span></dt><dd><p>Confidence level of error, which is a number between <cite>0</cite> and <cite>1</cite>. The
+error of convergence of the population of samples is defined by their
+standard deviation times the Z-score, which depends on the confidence
+level. See notes below for details.</p>
+</dd>
+<dt><strong>outlier_significance_level</strong><span class="classifier">float, default=0.001</span></dt><dd><p>One minus the confidence level of the uncertainty of the outliers of
+the output samples. This is a number between <cite>0</cite> and <cite>1</cite>.</p>
+</dd>
+<dt><strong>solver_tol</strong><span class="classifier">float, default=1e-6</span></dt><dd><p>Tolerance of solving linear system.</p>
+</dd>
+<dt><strong>orthogonalize</strong><span class="classifier">int, default=0</span></dt><dd><p>If <cite>True</cite>, it orthogonalizes the set of random vectors used for
+Monte-Carlo sampling. This might lead to a better estimation of the
+output.</p>
+</dd>
+<dt><strong>num_threads</strong><span class="classifier">int, default=0</span></dt><dd><p>Number of processor threads to employ for parallel computation on CPU.
+If set to <cite>0</cite> or a number larger than the available number of threads,
+all threads of the processor are used. The parallelization is performed
+over the Monte-Carlo iterations.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">bool, default=False</span></dt><dd><p>Prints extra information about the computations.</p>
+</dd>
+<dt><strong>plot</strong><span class="classifier">bool, default=False</span></dt><dd><p>Plots convergence of samples. For this, the packages <cite>matplotlib</cite> and
+<cite>seaborn</cite> should be installed. If no display is available (such as
+running this code on remote machines), the plots are saved as an <cite>SVG</cite>
+file in the current directory.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>traceinv</strong><span class="classifier">float or numpy.array</span></dt><dd><p>Trace of inverse of matrix.</p>
+</dd>
+<dt><strong>info</strong><span class="classifier">dict</span></dt><dd><p>(Only if <code class="docutils literal notranslate"><span class="pre">return_info</span></code> is <cite>True</cite>) A dictionary of information with
+the following.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">matrix</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_type</span></code>: <cite>str</cite>, {<cite>float32</cite>, <cite>float64</cite>, <cite>float128</cite>}. Type of
+the matrix data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gram</span></code>: <cite>bool</cite>, whether the matrix <cite>A</cite> or its Gramian is
+considered.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exponent</span></code>: <cite>float</cite>, the exponent <cite>p</cite> in <span class="math notranslate nohighlight">\(\mathbf{A}^p\)</span>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">assume_matrix</span></code>: <cite>str</cite>, {<cite>gen</cite>, <cite>sym</cite>, <cite>pos</cite>, <cite>sym_pos</cite>},
+determines the type of matrix <cite>A</cite>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: (int) The size of matrix <cite>A</cite>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sparse</span></code>: <cite>bool</cite>, whether the matrix <cite>A</cite> is sparse or dense.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nnz</span></code>: <cite>int</cite>, if <cite>A</cite> is sparse, the number of non-zero elements
+of <cite>A</cite>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">density</span></code>: <cite>float</cite>, if <cite>A</cite> is sparse, the density of <cite>A</cite>, which
+is the <cite>nnz</cite> divided by size squared.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_inquiries</span></code>: <cite>int</cite>, the size of inquiries of each parameter
+of the linear operator <cite>A</cite>. If <cite>A</cite> is a matrix, this is always
+<cite>1</cite>. If <cite>A</cite> is a type of <a class="reference internal" href="../generated/imate.AffineMatrixFunction.html#imate.AffineMatrixFunction" title="imate.AffineMatrixFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">AffineMatrixFunction</span></code></a>, this
+value is the number of <span class="math notranslate nohighlight">\(t_i\)</span> parameters.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">convergence</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">converged</span></code>: <cite>bool</cite>, whether the Monte-Carlo sampling
+converged.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">min_num_samples</span></code>: <cite>int</cite>, the minimum number of Monte-Carlo
+iterations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_num_samples</span></code>: <cite>int</cite>, the maximum number of Monte-Carlo
+iterations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_outliers</span></code>: <cite>int</cite>, number of outliers found during search
+for outliers among the array of output.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_samples_used</span></code>: <cite>int</cite>, number of Monte-Carlo samples used
+to produce the output. This is the total number of iterations
+minus the number of outliers.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">samples</span></code>: <cite>array</cite> [<cite>float</cite>], an array of the size
+<cite>max_num_samples</cite>. The first few entries (<cite>num_samples_used</cite>) of
+this array are the output results of the Monte-Carlo sampling.
+The average of these samples is the final result. The rest of
+this array is <cite>nan</cite>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">samples_mean</span></code>: <cite>float</cite>, mean of the <cite>samples</cite> array, excluding
+the <cite>nan</cite> values.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">samples_processed_order</span></code>: <cite>array</cite> [<cite>int</cite>], in parallel
+processing, samples are processed in non-sequential order. This
+array, which has the same size as <cite>samples</cite>, keeps track of the
+order in which each sample is processed.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">error</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">absolute_error</span></code>: <cite>float</cite>, the absolute error of the
+convergence of samples.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">confidence_level</span></code>: <cite>float</cite>, the confidence level used to
+calculate the error from standard deviation of samples.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">error_atol</span></code>: <cite>float</cite>, the tolerance of absolute error of the
+convergence of samples.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">error_rtol</span></code>: <cite>float</cite>, the tolerance of relative error of the
+convergence of samples.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">outlier_significance_level</span></code>: <cite>float</cite>, the significance level
+used to determine the outliers in samples.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">relative_error</span></code>: <cite>float</cite>, the relative error of the
+convergence of samples.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">device</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_cpu_threads</span></code>: <cite>int</cite>, number of CPU threads used in shared
+memory parallel processing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_gpu_devices</span></code>: <cite>int</cite>, number of GPU devices used in the
+multi-GPU (GPU farm) computation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_gpu_multiprocessors</span></code>: <cite>int</cite>, number of GPU
+multi-processors.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num_gpu_threads_per_multiprocessor</span></code>: <cite>int</cite>, number of GPU
+threads on each GPU multi-processor.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">time</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">tot_wall_time</span></code>: <cite>float</cite>, total elapsed time of computation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">alg_wall_time</span></code>: <cite>float</cite>, elapsed time of computation during
+only the algorithm execution.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpu_proc_time</span></code>: <cite>float</cite>, the CPU processing time of
+computation.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">solver</span></code>:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">version</span></code>: <cite>str</cite>, version of imate.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">method</span></code>: ‘hutchinson’.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">solver_tol</span></code>: <cite>float</cite>, tolerance of solving linear system.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">orthogonalize</span></code>: <cite>bool</cite>, orthogonalization flag.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ImportError</dt><dd><p>If the package has not been compiled with GPU support, but <code class="docutils literal notranslate"><span class="pre">gpu</span></code> is
+set to <cite>True</cite>. To resolve the issue, set <code class="docutils literal notranslate"><span class="pre">gpu</span></code> to <cite>False</cite> to be able
+to use the existing installation. Alternatively,  export the
+environment variable <code class="docutils literal notranslate"><span class="pre">USE_CUDA=1</span></code> and recompile the source code of
+the package.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../generated/imate.logdet.html#imate.logdet" title="imate.logdet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.logdet</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="../generated/imate.trace.html#imate.trace" title="imate.trace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.trace</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="../generated/imate.schatten.html#imate.schatten" title="imate.schatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.schatten</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p><strong>Computational Complexity:</strong></p>
+<p>This method uses the Hutchinson, which is a randomized algorithm. The
+computational complexity of this method is</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{O}((\rho n^2s),\]</div>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the matrix size, <span class="math notranslate nohighlight">\(\rho\)</span> is the density of
+sparse matrix (for dense matrix, <span class="math notranslate nohighlight">\(\rho=1\)</span>), and <span class="math notranslate nohighlight">\(s\)</span> is the
+number of samples (set with <code class="docutils literal notranslate"><span class="pre">min_num_samples</span></code> and <code class="docutils literal notranslate"><span class="pre">max_num_samples</span></code>).</p>
+<p>This method can be used on very large matrices (<span class="math notranslate nohighlight">\(n &gt; 2^{12}\)</span>). The
+solution is an approximation.</p>
+<p><strong>Convergence criterion:</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(n_{\min}\)</span> and <span class="math notranslate nohighlight">\(n_{\max}\)</span> be the minimum and maximum
+number of iterations respectively defined by <code class="docutils literal notranslate"><span class="pre">min_num_samples</span></code> and
+<code class="docutils literal notranslate"><span class="pre">max_num_samples</span></code>. The iterations terminate at
+<span class="math notranslate nohighlight">\(n_{\min} \leq i \leq n_{\max}\)</span> where <span class="math notranslate nohighlight">\(i\)</span> is the
+iteration counter. The iterations stop earlier at <span class="math notranslate nohighlight">\(i &lt; n_{\max}\)</span> if
+the convergence error of the mean of the samples is satisfied, as follows.</p>
+<p>Suppose <span class="math notranslate nohighlight">\(s(j)\)</span> and <span class="math notranslate nohighlight">\(\sigma(i)\)</span> are respectively the mean and
+standard deviation of samples after <span class="math notranslate nohighlight">\(j\)</span> iterations. The error of
+convergence, <span class="math notranslate nohighlight">\(e(j)\)</span>, is defined by</p>
+<div class="math notranslate nohighlight">
+\[e(j) = \frac{\sigma(j)}{\sqrt{j}} Z\]</div>
+<p>where <span class="math notranslate nohighlight">\(Z\)</span> is the Z-score defined by</p>
+<div class="math notranslate nohighlight">
+\[Z = \sqrt{2} \mathrm{erf}^{-1}(\phi).\]</div>
+<p>In the above, <span class="math notranslate nohighlight">\(\phi\)</span> is the confidence level and set by
+<code class="docutils literal notranslate"><span class="pre">confidence_level</span></code> argument, and <span class="math notranslate nohighlight">\(\mathrm{erf}^{-1}\)</span> is the
+inverse error function. A confidence level of 95%, for instance, means that
+the Z-score is 1.96, which means the confidence interval is
+<span class="math notranslate nohighlight">\(\pm 1.96 \sigma\)</span>.</p>
+<p>The termination criterion is</p>
+<div class="math notranslate nohighlight">
+\[e(j) &lt; \epsilon_a + s(j) \epsilon_r,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\epsilon_{a}\)</span> and <span class="math notranslate nohighlight">\(\epsilon_r\)</span> are the absolute and
+relative error tolerances respectively, and they are set by <code class="docutils literal notranslate"><span class="pre">error_atol</span></code>
+and <code class="docutils literal notranslate"><span class="pre">error_rtol</span></code>.</p>
+<p><strong>Plotting:</strong></p>
+<p>If <code class="docutils literal notranslate"><span class="pre">plot</span></code> is set to <cite>True</cite>, it plots the convergence of samples and their
+relative error.</p>
+<ul class="simple">
+<li><p>If no graphical backend exists (such as running the code on a remote
+server or manually disabling the X11 backend), the plot will not be
+shown, rather, it will be saved as an <code class="docutils literal notranslate"><span class="pre">svg</span></code> file in the current
+directory.</p></li>
+<li><p>If the executable <code class="docutils literal notranslate"><span class="pre">latex</span></code> is available on <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, the plot is
+rendered using <span class="math notranslate nohighlight">\(\rm\LaTeX\)</span> and it may take slightly longer to
+produce the plot.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\rm\LaTeX\)</span> is not installed, it uses any available San-Serif
+font to render the plot.</p></li>
+</ul>
+<p>To manually disable interactive plot display and save the plot as
+<code class="docutils literal notranslate"><span class="pre">svg</span></code> instead, add the following at the very beginning of your code
+before importing <a class="reference internal" href="../index.html#module-imate" title="imate"><code class="xref py py-mod docutils literal notranslate"><span class="pre">imate</span></code></a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;IMATE_NO_DISPLAY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www-users.cs.umn.edu/~saad/PDF/ys-2016-04.pdf">Ubaru, S., Chen, J., and Saad, Y. (2017)</a>,
+Fast Estimation of <span class="math notranslate nohighlight">\(\mathrm{tr}(F(A))\)</span> Via Stochastic Lanczos
+Quadrature, SIAM J. Matrix Anal. Appl., 38(4), 1075-1099.</p></li>
+</ul>
+<p class="rubric">Examples</p>
+<p><strong>Basic Usage:</strong></p>
+<p>Compute the trace of <span class="math notranslate nohighlight">\(\mathbf{A}^{-2}\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import packages</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">traceinv</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute trace of inverse</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traceinv</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">)</span>
+<span class="go">24.73726368966402</span>
+</pre></div>
+</div>
+<p>Compute the trace of <span class="math notranslate nohighlight">\((\mathbf{A}^{\intercal} \mathbf{A})^{-2}\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using Gramian matrix of A</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traceinv</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">)</span>
+<span class="go">17.751659383784748</span>
+</pre></div>
+</div>
+<p>Compute the trace of <span class="math notranslate nohighlight">\(\mathbf{B} \mathbf{A}^{-2}\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate another sample matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using Gramian matrix of A</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traceinv</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">)</span>
+<span class="go">99.8817360381704</span>
+</pre></div>
+</div>
+<p>Compute the trace of <span class="math notranslate nohighlight">\(\mathbf{B} \mathbf{A}^{-2} \mathbf{C}
+\mathbf{A}^{-2}\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate another sample matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using Gramian matrix of A</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traceinv</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="n">C</span><span class="p">)</span>
+<span class="go">124.45436379980006</span>
+</pre></div>
+</div>
+<p>Compute the trace of <span class="math notranslate nohighlight">\(\mathbf{B} (\mathbf{A}^{\intercal}
+\mathbf{A})^{-2} \mathbf{C} (\mathbf{A}^{\intercal} \mathbf{A})^{-2}\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using Gramian matrix of A</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traceinv</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="n">C</span><span class="p">)</span>
+<span class="go">5.517453125230929</span>
+</pre></div>
+</div>
+<p><strong>Verbose output:</strong></p>
+<p>By setting <code class="docutils literal notranslate"><span class="pre">verbose</span></code> to <cite>True</cite>, useful info about the process is
+printed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ti</span> <span class="o">=</span> <span class="n">traceinv</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="go">                                    results                                   </span>
+<span class="go">==============================================================================</span>
+<span class="go">     inquiries                            error            samples            </span>
+<span class="go">--------------------              ---------------------   ---------           </span>
+<span class="go">i         parameters       trace    absolute   relative   num   out  converged</span>
+<span class="go">==============================================================================</span>
+<span class="go">1               none  +5.014e+01   7.364e-01     1.469%    50     0      False</span>
+
+<span class="go">                                    config                                    </span>
+<span class="go">==============================================================================</span>
+<span class="go">                matrix                            stochastic estimator        </span>
+<span class="go">-------------------------------------    -------------------------------------</span>
+<span class="go">gram:                           False    method:                    hutchinson</span>
+<span class="go">assumption:                   generic    solver tol:                 1.000e-06</span>
+<span class="go">exponent:                           1    orthogonalization:               True</span>
+<span class="go">data type:                     64-bit                                         </span>
+
+<span class="go">             convergence                                 error     </span>
+<span class="go">-------------------------------------    -------------------------------------</span>
+<span class="go">min num samples:                   10    abs error tol:              0.000e+00</span>
+<span class="go">max num samples:                   50    rel error tol:                  1.00%</span>
+<span class="go">outlier significance level:     0.00%    confidence level:              95.00%</span>
+
+<span class="go">                                   process                                    </span>
+<span class="go">==============================================================================</span>
+<span class="go">                 time                                   device                  </span>
+<span class="go">-------------------------------------    -------------------------------------</span>
+<span class="go">tot wall time (sec):        2.967e-02    num cpu threads:                    8</span>
+<span class="go">alg wall time (sec):        2.879e-02    num gpu devices, multiproc:     0,  0</span>
+<span class="go">cpu proc time (sec):        4.370e-02    num gpu threads per multiproc:      0</span>
+</pre></div>
+</div>
+<p><strong>Output information:</strong></p>
+<p>Print information about the inner computation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ti</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">traceinv</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ti</span><span class="p">)</span>
+<span class="go">50.059307947603585</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Print dictionary neatly using pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
+<span class="go">{</span>
+<span class="go">    &#39;matrix&#39;: {</span>
+<span class="go">        &#39;assume_matrix&#39;: &#39;gen&#39;,</span>
+<span class="go">        &#39;data_type&#39;: b&#39;float64&#39;,</span>
+<span class="go">        &#39;density&#39;: 0.0199,</span>
+<span class="go">        &#39;exponent&#39;: 1,</span>
+<span class="go">        &#39;gram&#39;: False,</span>
+<span class="go">        &#39;nnz&#39;: 199,</span>
+<span class="go">        &#39;num_inquiries&#39;: 1,</span>
+<span class="go">        &#39;size&#39;: 100,</span>
+<span class="go">        &#39;sparse&#39;: True</span>
+<span class="go">    },</span>
+<span class="go">    &#39;convergence&#39;: {</span>
+<span class="go">        &#39;converged&#39;: False,</span>
+<span class="go">         &#39;max_num_samples&#39;: 50,</span>
+<span class="go">         &#39;min_num_samples&#39;: 10,</span>
+<span class="go">         &#39;num_outliers&#39;: 0,</span>
+<span class="go">         &#39;num_samples_used&#39;: 50,</span>
+<span class="go">         &#39;samples&#39;: array([52.237154, ..., 51.37932704]),</span>
+<span class="go">         &#39;samples_mean&#39;: 50.059307947603585,</span>
+<span class="go">         &#39;samples_processed_order&#39;: array([ 0, ..., 49])</span>
+<span class="go">    },</span>
+<span class="go">    &#39;error&#39;: {</span>
+<span class="go">        &#39;absolute_error&#39;: 0.8111131801161796,</span>
+<span class="go">       &#39;confidence_level&#39;: 0.95,</span>
+<span class="go">       &#39;error_atol&#39;: 0.0,</span>
+<span class="go">       &#39;error_rtol&#39;: 0.01,</span>
+<span class="go">       &#39;outlier_significance_level&#39;: 0.001,</span>
+<span class="go">       &#39;relative_error&#39;: 0.016203044216375525</span>
+<span class="go">    },</span>
+<span class="go">    &#39;solver&#39;: {</span>
+<span class="go">        &#39;method&#39;: &#39;hutchinson&#39;,</span>
+<span class="go">        &#39;orthogonalize&#39;: True,</span>
+<span class="go">        &#39;solver_tol&#39;: 1e-06,</span>
+<span class="go">        &#39;version&#39;: &#39;0.16.0&#39;</span>
+<span class="go">    },</span>
+<span class="go">    &#39;device&#39;: {</span>
+<span class="go">        &#39;num_cpu_threads&#39;: 8,</span>
+<span class="go">        &#39;num_gpu_devices&#39;: 0,</span>
+<span class="go">        &#39;num_gpu_multiprocessors&#39;: 0,</span>
+<span class="go">        &#39;num_gpu_threads_per_multiprocessor&#39;: 0</span>
+<span class="go">    },</span>
+<span class="go">    &#39;time&#39;: {</span>
+<span class="go">        &#39;alg_wall_time&#39;: 0.03236744087189436,</span>
+<span class="go">      &#39;cpu_proc_time&#39;: 0.047695197999999994,</span>
+<span class="go">      &#39;tot_wall_time&#39;: 0.033352302853018045</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<p><strong>Large matrix:</strong></p>
+<p>Compute the trace of <span class="math notranslate nohighlight">\(\mathbf{A}^{-1}\)</span> for a very large sparse
+matrix using at least <cite>100</cite> samples.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a symmetric positive-definite matrix of size one million.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Approximate trace using hutchinson method</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">ti</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">traceinv</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">,</span> <span class="n">solver_tol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>
+</span><span class="hll"><span class="gp">... </span>                    <span class="n">assume_matrix</span><span class="o">=</span><span class="s1">&#39;sym_pos&#39;</span><span class="p">,</span> <span class="n">min_num_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+</span><span class="hll"><span class="gp">... </span>                    <span class="n">max_num_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">ti</span><span class="p">)</span>
+<span class="go">333292.3226031165</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Find the time it took to compute the above</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+<span class="go">{</span>
+<span class="go">    &#39;tot_wall_time&#39;: 175.93423152901232,</span>
+<span class="go">    &#39;alg_wall_time&#39;: 119.86316476506181,</span>
+<span class="go">    &#39;cpu_proc_time&#39;: 572.180877451</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<p>Compare the result of the above approximation with the exact solution of
+the trace using the analytic relation for Toeplitz matrix. See
+<a class="reference internal" href="../generated/imate.sample_matrices.toeplitz_traceinv.html#imate.sample_matrices.toeplitz_traceinv" title="imate.sample_matrices.toeplitz_traceinv"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.sample_matrices.toeplitz_traceinv()</span></code></a> for details.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.sample_matrices</span> <span class="kn">import</span> <span class="n">toeplitz_traceinv</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">toeplitz_traceinv</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">333333.2222222222</span>
+</pre></div>
+</div>
+<p>It can be seen that the error of approximation is <span class="math notranslate nohighlight">\(0.012 \%\)</span>. This
+accuracy is remarkable considering that the computation on such a large
+matrix took on 119 seconds. Computing the trace of such a large matrix
+using any of the exact methods (such as <code class="docutils literal notranslate"><span class="pre">exact</span></code> or <code class="docutils literal notranslate"><span class="pre">eigenvalue</span></code>) is
+infeasible.</p>
+<p><strong>Plotting:</strong></p>
+<p>By setting <code class="docutils literal notranslate"><span class="pre">plot</span></code> to <cite>True</cite>, plots of samples during Monte-Carlo
+iterations and the convergence of their mean are generated.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">traceinv</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;hutchinson&#39;</span><span class="p">,</span> <span class="n">assume_matrix</span><span class="o">=</span><span class="s1">&#39;sym_pos&#39;</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="n">solver_tol</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">min_num_samples</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">max_num_samples</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="n">error_rtol</span><span class="o">=</span><span class="mf">2e-4</span><span class="p">,</span> <span class="n">confidence_level</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span>
+<span class="gp">... </span>         <span class="n">outlier_significance_level</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/traceinv_hutchinson_convergence.png" class="custom-dark align-center" src="../_images/traceinv_hutchinson_convergence.png" />
+<p>In the left plot, the samples are shown in circles and the cumulative mean
+of the samples is shown by a solid black curve. The shaded area corresponds
+to the 95% confidence interval <span class="math notranslate nohighlight">\(\pm 1.96 \sigma\)</span>, which is set by
+<code class="docutils literal notranslate"><span class="pre">confidence_level=0.95</span></code>. The samples outside the interval of 99.9% are
+considered outliers, which is set by the significance level
+<code class="docutils literal notranslate"><span class="pre">outlier_significance_level=0.001</span></code>.</p>
+<p>In the right plot, the darker shaded area in the interval <span class="math notranslate nohighlight">\([0, 50]\)</span>
+shows the minimum number of samples and is set by <code class="docutils literal notranslate"><span class="pre">min_num_samples=50</span></code>.
+The iterations do not stop till the minimum number of iterations is passed.
+We can observe that sampling is terminated after 140 iterations where the
+relative error of samples reaches 0.02% since we set <code class="docutils literal notranslate"><span class="pre">error_rtol=2e-4</span></code>.
+The lighter shaded area in the interval <span class="math notranslate nohighlight">\([140, 150]\)</span> corresponds to
+the iterations that were not performed to reach the specified maximum
+iterations by <code class="docutils literal notranslate"><span class="pre">max_num_samples=150</span></code>.</p>
+</dd></dl>
+
+</section>
+
+
+              </article>
+              
+
+              
+              <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="imate.traceinv.cholesky.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">imate.traceinv(method=’cholesky’)</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="imate.traceinv.slq.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">imate.traceinv(method=’slq’)</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+              </footer>
+              
+          </div>
+          
+      </div>
+    </div>
+
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+
+<footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    <p class="copyright">
+    &copy; Copyright 2022, Siavash Ameli.<br>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
+</p>
+  </div>
+  
+</div>
+</footer>
+  </body>
+</html>

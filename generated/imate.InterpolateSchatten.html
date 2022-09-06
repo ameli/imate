@@ -1,0 +1,951 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>imate.InterpolateSchatten &#8212; imate Manual</title>
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
+
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/toggleprompt.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/custom-pydata.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="../_static/logo-imate.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="imate.InterpolateSchatten.__call__" href="imate.InterpolateSchatten.__call__.html" />
+    <link rel="prev" title="imate.InterpolateTrace" href="imate.InterpolateTrace.html" />
+    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
+
+    <!-- Adobe Embed API -->
+    <script src="https://documentcloud.adobe.com/view-sdk/viewer.js"></script>
+
+    <!-- My custom JS -->
+    <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
+
+    <!-- Syntax highlighting for BibTex code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs-bibtex@2.0.1/prism-bibtex.min.js"></script>
+
+    
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="en">
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="auto">
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
+
+    
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
+
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../contents.html">
+  
+  
+  
+  
+    <img src="../_static/images/icons/logo-imate-light.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/images/icons/logo-imate-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fas fa-bars"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorials/install.html">
+  1. Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorials/docker.html">
+  2. Docker
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorials/gpu.html">
+  3. GPU
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API Reference
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/imate/" rel="noopener" target="_blank" title="PyPI"><span><i class="fab fa-python"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://anaconda.org/s-ameli/imate" rel="noopener" target="_blank" title="Anaconda Cloud"><span><i class="fa fa-circle-notch"></i></span>
+            <label class="sr-only">Anaconda Cloud</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+            <label class="sr-only">Docker Hub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" rel="noopener" target="_blank" title="Lanuch Jupyter on Binder"><span><i class="fa fa-chart-line"></i></span>
+            <label class="sr-only">Lanuch Jupyter on Binder</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
+          
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+    <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  logdet
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.logdet.html">
+   imate.logdet
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.logdet.eigenvalue.html">
+   imate.logdet(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.logdet.cholesky.html">
+   imate.logdet(method=’cholesky’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.logdet.slq.html">
+   imate.logdet(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  traceinv
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.traceinv.html">
+   imate.traceinv
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.traceinv.eigenvalue.html">
+   imate.traceinv(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.traceinv.cholesky.html">
+   imate.traceinv(method=’cholesky’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.traceinv.hutchinson.html">
+   imate.traceinv(method=’hutchinson’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.traceinv.slq.html">
+   imate.traceinv(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  trace
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.trace.html">
+   imate.trace
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.trace.exact.html">
+   imate.trace(method=’exact’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.trace.eigenvalue.html">
+   imate.trace(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.trace.slq.html">
+   imate.trace(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Schatten Norm
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.schatten.html">
+   imate.schatten
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Interpolators
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateLogdet.html">
+   imate.InterpolateLogdet
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.InterpolateTrace.html">
+   imate.InterpolateTrace
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="current reference internal" href="#">
+   imate.InterpolateSchatten
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="imate.InterpolateSchatten.__call__.html">
+     imate.InterpolateSchatten.__call__
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="imate.InterpolateSchatten.eval.html">
+     imate.InterpolateSchatten.eval
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="imate.InterpolateSchatten.interpolate.html">
+     imate.InterpolateSchatten.interpolate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="imate.InterpolateSchatten.get_scale.html">
+     imate.InterpolateSchatten.get_scale
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="imate.InterpolateSchatten.bound.html">
+     imate.InterpolateSchatten.bound
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="imate.InterpolateSchatten.upper_bound.html">
+     imate.InterpolateSchatten.upper_bound
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="imate.InterpolateSchatten.plot.html">
+     imate.InterpolateSchatten.plot
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.InterpolateSchatten.ext.html">
+   imate.InterpolateSchatten(kind=’ext’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.InterpolateSchatten.eig.html">
+   imate.InterpolateSchatten(kind=’eig’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.InterpolateSchatten.mbf.html">
+   imate.InterpolateSchatten(kind=’mbf’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.InterpolateSchatten.imbf.html">
+   imate.InterpolateSchatten(kind=’imbf’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.InterpolateSchatten.rbf.html">
+   imate.InterpolateSchatten(kind=’rbf’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.InterpolateSchatten.crf.html">
+   imate.InterpolateSchatten(kind=’crf’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.InterpolateSchatten.spl.html">
+   imate.InterpolateSchatten(kind=’spl’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api/imate.InterpolateSchatten.rpf.html">
+   imate.InterpolateSchatten(kind=’rpf’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Linear Operators
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.Matrix.html">
+   imate.Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.AffineMatrixFunction.html">
+   imate.AffineMatrixFunction
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Sample Matrices
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.correlation_matrix.html">
+   imate.correlation_matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.toeplitz.html">
+   imate.toeplitz
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.sample_matrices.toeplitz_logdet.html">
+   imate.sample_matrices.toeplitz_logdet
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.sample_matrices.toeplitz_trace.html">
+   imate.sample_matrices.toeplitz_trace
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.sample_matrices.toeplitz_traceinv.html">
+   imate.sample_matrices.toeplitz_traceinv
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.sample_matrices.toeplitz_schatten.html">
+   imate.sample_matrices.toeplitz_schatten
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Device Inquiry
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.Timer.html">
+   imate.Timer
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.Memory.html">
+   imate.Memory
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.info.html">
+   imate.info
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.get_processor_name.html">
+   imate.device.get_processor_name
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.get_gpu_name.html">
+   imate.device.get_gpu_name
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.get_num_cpu_threads.html">
+   imate.device.get_num_cpu_threads
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.get_num_gpu_devices.html">
+   imate.device.get_num_gpu_devices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.get_nvidia_driver_version.html">
+   imate.device.get_nvidia_driver_version
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.locate_cuda.html">
+   imate.device.locate_cuda
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.device.restrict_to_single_processor.html">
+   imate.device.restrict_to_single_processor
+  </a>
+ </li>
+</ul>
+
+    
+  </div>
+</nav>
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
+
+          
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
+
+<nav id="bd-toc-nav">
+    
+</nav>
+    </div>
+    
+    <div class="toc-item">
+      
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/https://github.com/ameli/imate/edit/main/docs/source/generated/imate.InterpolateSchatten.rst">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+    
+  
+</div>
+
+
+          
+          
+          <div class="bd-content col-12 col-md-9 col-xl-7">
+              
+              <article class="bd-article" role="main">
+                
+  <section id="imate-interpolateschatten">
+<h1>imate.InterpolateSchatten<a class="headerlink" href="#imate-interpolateschatten" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="imate.InterpolateSchatten">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">InterpolateSchatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'imbf'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ti</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.InterpolateSchatten" title="Permalink to this definition">#</a></dt>
+<dd><p>Interpolate Schatten norm (or anti-norm) of an affine matrix function.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>A</strong><span class="classifier">numpy.ndarray, scipy.sparse matrix</span></dt><dd><p>Symmetric positive-definite matrix (positive-definite if <cite>p</cite> is
+non-positive). Matrix can be dense or sparse.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Symmetry and positive (semi-) definiteness of <cite>A</cite> will not be
+checked. Make sure <cite>A</cite> satisfies these conditions.</p>
+</div>
+</dd>
+<dt><strong>B</strong><span class="classifier">numpy.ndarray, scipy.sparse matrix, default=None</span></dt><dd><p>Symmetric positive-definite matrix (positive-definite if <cite>p</cite> is
+non-positive). Matrix can be dense or sparse. <cite>B</cite> should have the same
+size and type of <cite>A</cite>. If <cite>B</cite> is <cite>None</cite> (default value), it is assumed
+that <cite>B</cite> is the identity matrix.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Symmetry and positive (semi-) definiteness of <cite>B</cite> will not be
+checked. Make sure <cite>B</cite> satisfies these conditions.</p>
+</div>
+</dd>
+<dt><strong>p</strong><span class="classifier">float, default=2</span></dt><dd><p>The order <span class="math notranslate nohighlight">\(p\)</span> in the Schatten <span class="math notranslate nohighlight">\(p\)</span>-norm which can be real
+positive, negative or zero.</p>
+</dd>
+<dt><strong>options</strong><span class="classifier">dict, default={}</span></dt><dd><p>At each interpolation point <span class="math notranslate nohighlight">\(t_i\)</span>, the Schatten norm is computed
+using <a class="reference internal" href="imate.schatten.html#imate.schatten" title="imate.schatten"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.schatten()</span></code></a> function which itself calls either of</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="imate.logdet.html#imate.logdet" title="imate.logdet"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.logdet()</span></code></a> (if <span class="math notranslate nohighlight">\(p=0\)</span>)</p></li>
+<li><p><a class="reference internal" href="imate.trace.html#imate.trace" title="imate.trace"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.trace()</span></code></a> (if <span class="math notranslate nohighlight">\(p&gt;0\)</span>)</p></li>
+<li><p><a class="reference internal" href="imate.traceinv.html#imate.traceinv" title="imate.traceinv"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.traceinv()</span></code></a> (if <span class="math notranslate nohighlight">\(p &lt; 0\)</span>).</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">options</span></code> passes a dictionary of arguments to the above
+functions.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, it prints some information about the computation process.</p>
+</dd>
+<dt><strong>kind</strong><span class="classifier">{<cite>‘ext’</cite>, <cite>‘eig’</cite>, <cite>‘mbf’</cite>, <cite>‘imbf’</cite>, <cite>‘rbf’</cite>, <cite>‘crf’</cite>, <cite>‘spl’</cite>,             <cite>‘rpf’</cite>}, default: <cite>‘imbf’</cite></span></dt><dd><p>The algorithm of interpolation. See documentation for each specific
+algorithm:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/imate.InterpolateSchatten.ext.html#imate-interpolateschatten-ext"><span class="std std-ref">imate.InterpolateSchatten(kind=’ext’)</span></a></p></li>
+<li><p><a class="reference internal" href="../api/imate.InterpolateSchatten.eig.html#imate-interpolateschatten-eig"><span class="std std-ref">imate.InterpolateSchatten(kind=’eig’)</span></a></p></li>
+<li><p><a class="reference internal" href="../api/imate.InterpolateSchatten.mbf.html#imate-interpolateschatten-mbf"><span class="std std-ref">imate.InterpolateSchatten(kind=’mbf’)</span></a></p></li>
+<li><p><a class="reference internal" href="../api/imate.InterpolateSchatten.imbf.html#imate-interpolateschatten-imbf"><span class="std std-ref">imate.InterpolateSchatten(kind=’imbf’)</span></a></p></li>
+<li><p><a class="reference internal" href="../api/imate.InterpolateSchatten.rbf.html#imate-interpolateschatten-rbf"><span class="std std-ref">imate.InterpolateSchatten(kind=’rbf’)</span></a></p></li>
+<li><p><a class="reference internal" href="../api/imate.InterpolateSchatten.crf.html#imate-interpolateschatten-crf"><span class="std std-ref">imate.InterpolateSchatten(kind=’crf’)</span></a></p></li>
+<li><p><a class="reference internal" href="../api/imate.InterpolateSchatten.spl.html#imate-interpolateschatten-spl"><span class="std std-ref">imate.InterpolateSchatten(kind=’spl’)</span></a></p></li>
+<li><p><a class="reference internal" href="../api/imate.InterpolateSchatten.rpf.html#imate-interpolateschatten-rpf"><span class="std std-ref">imate.InterpolateSchatten(kind=’rpf’)</span></a></p></li>
+</ul>
+</dd>
+<dt><strong>ti</strong><span class="classifier">float or array_like(float), default=None</span></dt><dd><p>Interpolation points, which can be a single point, a list, or an array
+of points. The interpolator honors the exact function values at the
+interpolant points. If an empty list is given, <cite>i.e.</cite>, <code class="docutils literal notranslate"><span class="pre">[]</span></code>,
+depending on the algorithm, a default list of interpolant points is
+used. Also, the size of the array of <cite>ti</cite> depends on the algorithm as
+follows. If <code class="docutils literal notranslate"><span class="pre">kind</span></code> is:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ext</span></code> or <code class="docutils literal notranslate"><span class="pre">eig</span></code>, the no <code class="docutils literal notranslate"><span class="pre">ti</span></code> is required.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mbf</span></code>, then a single point <code class="docutils literal notranslate"><span class="pre">ti</span></code> may be specified.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">imbf</span></code>, <code class="docutils literal notranslate"><span class="pre">spl</span></code>, or <code class="docutils literal notranslate"><span class="pre">rbf</span></code>, then a list of <code class="docutils literal notranslate"><span class="pre">ti</span></code> with arbitrary
+size may be specified.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">crf</span></code> or <code class="docutils literal notranslate"><span class="pre">rpf</span></code>, then a list of <code class="docutils literal notranslate"><span class="pre">ti</span></code> points with even size may
+be specified.</p></li>
+</ul>
+</dd>
+<dt><strong>kwargs</strong><span class="classifier">**kwargs</span></dt><dd><p>Additional arguments to pass to each specific algorithm. See
+documentation for each <code class="docutils literal notranslate"><span class="pre">kind</span></code> in the above.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="imate.InterpolateTrace.html#imate.InterpolateTrace" title="imate.InterpolateTrace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.InterpolateTrace</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="imate.InterpolateLogdet.html#imate.InterpolateLogdet" title="imate.InterpolateLogdet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.InterpolateLogdet</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="imate.schatten.html#imate.schatten" title="imate.schatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.schatten</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p><strong>Schatten Norm:</strong></p>
+<p>In this class, the Schatten <span class="math notranslate nohighlight">\(p\)</span>-norm of the matrix
+<span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is defined by</p>
+<div class="math notranslate nohighlight" id="equation-schatten-eq-3">
+<span class="eqno">(1)<a class="headerlink" href="#equation-schatten-eq-3" title="Permalink to this equation">#</a></span>\[\begin{split}\Vert \mathbf{A} \Vert_p =
+\begin{cases}
+    \left| \mathrm{det}(\mathbf{A})
+    \right|^{\frac{1}{n}}, &amp; p=0, \\
+    \left| \frac{1}{n}
+    \mathrm{trace}(\mathbf{A}^{p})
+    \right|^{\frac{1}{p}}, &amp; p \neq 0,
+\end{cases}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the size of the matrix. When <span class="math notranslate nohighlight">\(p \geq 0\)</span>, the
+above definition is the Schatten <strong>norm</strong>, and when <span class="math notranslate nohighlight">\(p &lt; 0\)</span>, the
+above is the Schatten <strong>anti-norm</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Conventionally, the Schatten norm is defined without the normalizing
+factor <span class="math notranslate nohighlight">\(\frac{1}{n}\)</span> in <a class="reference internal" href="#equation-schatten-eq-3">(1)</a>. However,
+this factor is justified by the continuity granted by</p>
+<div class="math notranslate nohighlight" id="equation-schatten-continuous-3">
+<span class="eqno">(2)<a class="headerlink" href="#equation-schatten-continuous-3" title="Permalink to this equation">#</a></span>\[\lim_{p \to 0} \Vert \mathbf{A} \Vert_p =
+\Vert \mathbf{A} \Vert_0.\]</div>
+<p>See <a class="reference internal" href="#rf65036c0cd3f-1" id="id1">[1]</a> (Section 2) and the examples in <a class="reference internal" href="imate.schatten.html#imate.schatten" title="imate.schatten"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.schatten()</span></code></a> for
+details.</p>
+</div>
+<p><strong>Interpolation of Affine Matrix Function:</strong></p>
+<p>This class interpolates the one-parameter matrix function:</p>
+<div class="math notranslate nohighlight">
+\[\tau_p: t \mapsto \| \mathbf{A} + t \mathbf{B} \|_p,\]</div>
+<p>where the matrices <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> are
+symmetric and positive semi-definite (positive-definite if <span class="math notranslate nohighlight">\(p &lt; 0\)</span>)
+and <span class="math notranslate nohighlight">\(t \in [t_{\inf}, \infty)\)</span> is a real parameter where
+<span class="math notranslate nohighlight">\(t_{\inf}\)</span> is the minimum <span class="math notranslate nohighlight">\(t\)</span> such that
+<span class="math notranslate nohighlight">\(\mathbf{A} + t_{\inf} \mathbf{B}\)</span> remains positive-definite.</p>
+<p>The interpolator is initialized by providing <span class="math notranslate nohighlight">\(q\)</span> interpolant points
+<span class="math notranslate nohighlight">\(t_i\)</span>, <span class="math notranslate nohighlight">\(i = 1, \dots, q\)</span>, which are often given in a
+logarithmically spaced interval <span class="math notranslate nohighlight">\(t_i \in [t_1, t_p]\)</span>. The
+interpolator can interpolate the above function at arbitrary inquiry points
+<span class="math notranslate nohighlight">\(t \in [t_1, t_p]\)</span> using various methods.</p>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="rf65036c0cd3f-1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant
+and Trace of the Powers of Matrix
+<span class="math notranslate nohighlight">\(\mathbf{A} + t\mathbf{B}\)</span>. <a class="reference external" href="https://arxiv.org/abs/2207.08038">arXiv: 2009.07385</a> [math.NA].</p>
+</div>
+</div>
+<p class="rubric">Examples</p>
+<p><strong>Basic Usage:</strong></p>
+<p>Interpolate the Schatten <cite>2</cite>-norm of the affine matrix function
+<span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using <code class="docutils literal notranslate"><span class="pre">imbf</span></code> algorithm and the
+interpolating points <span class="math notranslate nohighlight">\(t_i = [10^{-2}, 10^{-1}, 1, 10]\)</span>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate two sample matrices (symmetric and positive-definite)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.sample_matrices</span> <span class="kn">import</span> <span class="n">correlation_matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1e-1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">2e-2</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Initialize interpolator object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">InterpolateSchatten</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ti</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e-1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1e1</span><span class="p">]</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">InterpolateSchatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;imbf&#39;</span><span class="p">,</span> <span class="n">ti</span><span class="o">=</span><span class="n">ti</span><span class="p">)</span>
+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Interpolate at an inquiry point t = 0.4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="mf">4e-1</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span class="go">1.7328745175033962</span>
+</pre></div>
+</div>
+<p>Alternatively, call <a class="reference internal" href="imate.InterpolateSchatten.interpolate.html#imate.InterpolateSchatten.interpolate" title="imate.InterpolateSchatten.interpolate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.interpolate()</span></code></a> to
+interpolate at points <cite>t</cite>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># This is the same as f(t)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="go">1.7328745175033962</span>
+</pre></div>
+</div>
+<p>To evaluate the exact value of the Schatten norm at point <cite>t</cite> without
+interpolation, call <a class="reference internal" href="imate.InterpolateSchatten.eval.html#imate.InterpolateSchatten.eval" title="imate.InterpolateSchatten.eval"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.eval()</span></code></a> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># This evaluates the function value at t exactly (no interpolation)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="go">1.7374809371539666</span>
+</pre></div>
+</div>
+<p>It can be seen that the relative error of interpolation compared to the
+exact solution in the above is <span class="math notranslate nohighlight">\(0.26 \%\)</span> using only four
+interpolation points <span class="math notranslate nohighlight">\(t_i\)</span>, which is a remarkable result.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Calling <a class="reference internal" href="imate.InterpolateSchatten.eval.html#imate.InterpolateSchatten.eval" title="imate.InterpolateSchatten.eval"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.eval()</span></code></a> may take a longer time
+to compute as it computes the function exactly. Particularly, if <cite>t</cite> is
+a large array, it may take a very long time to return the exact values.</p>
+</div>
+<p><strong>Arguments Specific to Algorithms:</strong></p>
+<p>In the above example, the <code class="docutils literal notranslate"><span class="pre">imbf</span></code> algorithm is used. See more arguments
+of this algorithm at <a class="reference internal" href="../api/imate.InterpolateSchatten.imbf.html#imate-interpolateschatten-imbf"><span class="std std-ref">imate.InterpolateSchatten(kind=’imbf’)</span></a>. In the next
+example, we pass <code class="docutils literal notranslate"><span class="pre">basis_func_type</span></code> specific to this algorithm:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Passing kwatgs specific to imbf algorithm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">InterpolateSchatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;imbf&#39;</span><span class="p">,</span> <span class="n">ti</span><span class="o">=</span><span class="n">ti</span><span class="p">,</span>
+<span class="hll"><span class="gp">... </span>                        <span class="n">basis_func_type</span><span class="o">=</span><span class="s1">&#39;ortho2&#39;</span><span class="p">)</span>
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="go">1.7328745175033962</span>
+</pre></div>
+</div>
+<p>You may choose other algorithms using <code class="docutils literal notranslate"><span class="pre">kind</span></code> argument. For instance, the
+next example uses the Chebyshev rational functions with an additional
+argument <code class="docutils literal notranslate"><span class="pre">func_type</span></code> specific to this method. See more details at
+<a class="reference internal" href="../api/imate.InterpolateSchatten.crf.html#imate-interpolateschatten-crf"><span class="std std-ref">imate.InterpolateSchatten(kind=’crf’)</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate two sample matrices (symmetric and positive-definite)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">InterpolateSchatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;crf&#39;</span><span class="p">,</span> <span class="n">ti</span><span class="o">=</span><span class="n">ti</span><span class="p">,</span>
+<span class="hll"><span class="gp">... </span>                        <span class="n">func_type</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="go">1.737489512386539</span>
+</pre></div>
+</div>
+<p><strong>Passing Options:</strong></p>
+<p>The above examples, the internal computation is passed to
+<a class="reference internal" href="imate.trace.html#imate.trace" title="imate.trace"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.trace()</span></code></a> function since <span class="math notranslate nohighlight">\(p=2\)</span> is positive. You can pass
+arguments to the latter function using <code class="docutils literal notranslate"><span class="pre">options</span></code> argument. To do so,
+create a dictionary with the keys as the name of the argument. For
+instance, to use <a class="reference internal" href="../api/imate.trace.slq.html#imate-trace-slq"><span class="std std-ref">imate.trace(method=’slq’)</span></a> method with <code class="docutils literal notranslate"><span class="pre">min_num_samples=20</span></code>
+and <code class="docutils literal notranslate"><span class="pre">max_num_samples=100</span></code>, create the following dictionary:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Specify arguments as a dictionary</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;slq&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;min_num_samples&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;max_num_samples&#39;</span><span class="p">:</span> <span class="mi">100</span>
+<span class="gp">... </span><span class="p">}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Pass the options to the interpolator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">InterpolateSchatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;imbf&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                        <span class="n">ti</span><span class="o">=</span><span class="n">ti</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="go">1.7291144488066212</span>
+</pre></div>
+</div>
+<p>You may get a different result than the above as the <cite>slq</cite> method is a
+randomized method.</p>
+<p><strong>Interpolate on Range of Points:</strong></p>
+<p>Once the interpolation object <code class="docutils literal notranslate"><span class="pre">f</span></code> in the above example is
+instantiated, calling <a class="reference internal" href="imate.InterpolateSchatten.interpolate.html#imate.InterpolateSchatten.interpolate" title="imate.InterpolateSchatten.interpolate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.interpolate()</span></code></a> on
+a list of inquiry points <cite>t</cite> has almost no computational cost. The next
+example inquires interpolation on <cite>1000</cite> points <cite>t</cite>:</p>
+<p>Interpolate an array of inquiry points <code class="docutils literal notranslate"><span class="pre">t_array</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an interpolator object again</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ti</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e-1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1e1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">InterpolateSchatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">ti</span><span class="o">=</span><span class="n">ti</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Interpolate at an array of points</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_array</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">norm_array</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">t_array</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>One may plot the above interpolated results as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Plot settings (optional)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">font_scale</span><span class="o">=</span><span class="mf">1.15</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">t_array</span><span class="p">,</span> <span class="n">norm_array</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="n">t_array</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t_array</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$t$&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\Vert \mathbf</span><span class="si">{A}</span><span class="s1"> + t \mathbf</span><span class="si">{B}</span><span class="s1"> \Vert_</span><span class="si">{2}</span><span class="s1">$&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Interpolation of Schatten 2-Norm&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="custom-dark reference internal image-reference" href="../_images/interpolate_schatten_1.png"><img alt="../_images/interpolate_schatten_1.png" class="custom-dark align-center" src="../_images/interpolate_schatten_1.png" style="width: 50%;" /></a>
+<p><strong>Plotting Interpolation and Compare with Exact Solution:</strong></p>
+<p>A more convenient way to plot the interpolation result is to call
+<a class="reference internal" href="imate.InterpolateSchatten.plot.html#imate.InterpolateSchatten.plot" title="imate.InterpolateSchatten.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.plot()</span></code></a> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_array</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="custom-dark reference internal image-reference" href="../_images/interpolate_schatten_2.png"><img alt="../_images/interpolate_schatten_2.png" class="custom-dark align-center" src="../_images/interpolate_schatten_2.png" style="width: 60%;" /></a>
+<p>In the above, <span class="math notranslate nohighlight">\(\tau_p = \Vert \mathbf{A} + t \mathbf{B}
+\Vert_p\)</span>. If you set <code class="docutils literal notranslate"><span class="pre">normalize</span></code> to <cite>True</cite>, it plots the normalized
+function</p>
+<div class="math notranslate nohighlight">
+\[\frac{\Vert \mathbf{A} + t \mathbf{B} \Vert_{p}}{
+\Vert \mathbf{B} \Vert_p}.\]</div>
+<p>To compare with the true values (without interpolation), pass
+<code class="docutils literal notranslate"><span class="pre">compare=True</span></code> to the above function.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>By setting <code class="docutils literal notranslate"><span class="pre">compare</span></code> to <cite>True</cite>, every point in the array <cite>t</cite> is
+evaluated both using interpolation and with the exact method (no
+interpolation). If the size of <cite>t</cite> is large, this may take a very
+long run time.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_array</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/interpolate_schatten_3.png" class="custom-dark align-center" src="../_images/interpolate_schatten_3.png" />
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>kind</strong><span class="classifier">str</span></dt><dd><p>Method of interpolation</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">bool</span></dt><dd><p>Verbosity of the computation process</p>
+</dd>
+<dt><strong>n</strong><span class="classifier">int</span></dt><dd><p>Size of the matrix</p>
+</dd>
+<dt><strong>q</strong><span class="classifier">int</span></dt><dd><p>Number of interpolant points</p>
+</dd>
+<dt><strong>p</strong><span class="classifier">float</span></dt><dd><p>Order of Schatten <span class="math notranslate nohighlight">\(p\)</span>-norm</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="autosummary longtable table autosummary">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="imate.InterpolateSchatten.__call__.html#imate.InterpolateSchatten.__call__" title="imate.InterpolateSchatten.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__call__</span></code></a>(t)</p></td>
+<td><p>Interpolate at the input point <cite>t</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="imate.InterpolateSchatten.eval.html#imate.InterpolateSchatten.eval" title="imate.InterpolateSchatten.eval"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eval</span></code></a>(t)</p></td>
+<td><p>Evaluate the exact value of the function at the input point <cite>t</cite> without interpolation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="imate.InterpolateSchatten.interpolate.html#imate.InterpolateSchatten.interpolate" title="imate.InterpolateSchatten.interpolate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interpolate</span></code></a>(t)</p></td>
+<td><p>Interpolate at the input point <cite>t</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="imate.InterpolateSchatten.get_scale.html#imate.InterpolateSchatten.get_scale" title="imate.InterpolateSchatten.get_scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scale</span></code></a>()</p></td>
+<td><p>Returns the scale parameter of the interpolator.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="imate.InterpolateSchatten.bound.html#imate.InterpolateSchatten.bound" title="imate.InterpolateSchatten.bound"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bound</span></code></a>(t)</p></td>
+<td><p>Bound of the interpolation function.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="imate.InterpolateSchatten.upper_bound.html#imate.InterpolateSchatten.upper_bound" title="imate.InterpolateSchatten.upper_bound"><code class="xref py py-obj docutils literal notranslate"><span class="pre">upper_bound</span></code></a>(t)</p></td>
+<td><p>Upper bound of the interpolation function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="imate.InterpolateSchatten.plot.html#imate.InterpolateSchatten.plot" title="imate.InterpolateSchatten.plot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a>(inquiry_points[, normalize, compare])</p></td>
+<td><p>Plot the interpolation results.</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</section>
+
+
+              </article>
+              
+
+              
+              <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="imate.InterpolateTrace.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">imate.InterpolateTrace</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="imate.InterpolateSchatten.__call__.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">imate.InterpolateSchatten.__call__</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+              </footer>
+              
+          </div>
+          
+      </div>
+    </div>
+
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+
+<footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    <p class="copyright">
+    &copy; Copyright 2022, Siavash Ameli.<br>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
+</p>
+  </div>
+  
+</div>
+</footer>
+  </body>
+</html>

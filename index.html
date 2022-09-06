@@ -1,0 +1,825 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>imate Documentation &#8212; imate Manual</title>
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
+
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/custom-pydata.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/toggleprompt.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/js/custom-pydata.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="shortcut icon" href="_static/logo-imate.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
+
+    <!-- Adobe Embed API -->
+    <script src="https://documentcloud.adobe.com/view-sdk/viewer.js"></script>
+
+    <!-- My custom JS -->
+    <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
+
+    <!-- Syntax highlighting for BibTex code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs-bibtex@2.0.1/prism-bibtex.min.js"></script>
+
+    
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="en">
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="auto">
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
+
+    
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
+
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="contents.html">
+  
+  
+  
+  
+    <img src="_static/images/icons/logo-imate-light.png" class="logo__image only-light" alt="Logo image">
+    <img src="_static/images/icons/logo-imate-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fas fa-bars"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="tutorials/install.html">
+  1. Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="tutorials/docker.html">
+  2. Docker
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="tutorials/gpu.html">
+  3. GPU
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="api.html">
+  API Reference
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/imate/" rel="noopener" target="_blank" title="PyPI"><span><i class="fab fa-python"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://anaconda.org/s-ameli/imate" rel="noopener" target="_blank" title="Anaconda Cloud"><span><i class="fa fa-circle-notch"></i></span>
+            <label class="sr-only">Anaconda Cloud</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+            <label class="sr-only">Docker Hub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" rel="noopener" target="_blank" title="Lanuch Jupyter on Binder"><span><i class="fa fa-chart-line"></i></span>
+            <label class="sr-only">Lanuch Jupyter on Binder</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
+          
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+    
+    
+  </div>
+</nav>
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
+
+          
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#supported-platforms">
+   Supported Platforms
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#install">
+   Install
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#docker">
+   Docker
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gpu">
+   GPU
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#performance">
+   Performance
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tutorials">
+   Tutorials
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#api-reference">
+   API Reference
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#features">
+   Features
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#technical-notes">
+   Technical Notes
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-to-contribute">
+   How to Contribute
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#publications">
+   Publications
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#license">
+   License
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#related-projects">
+   Related Projects
+  </a>
+ </li>
+</ul>
+
+</nav>
+    </div>
+    
+    <div class="toc-item">
+      
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/https://github.com/ameli/imate/edit/main/docs/source/index.rst">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+    
+  
+</div>
+
+
+          
+          
+          <div class="bd-content col-12 col-md-9 col-xl-7">
+              
+              <article class="bd-article" role="main">
+                
+  <span class="target" id="module-imate"></span><section id="project-documentation">
+<h1><span class="synco">imate</span> Documentation<a class="headerlink" href="#project-documentation" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://github.com/ameli/imate/actions?query=workflow%3Adeploy-docs"><img alt="deploy-docs" src="https://img.shields.io/github/workflow/status/ameli/imate/deploy-docs?label=docs" /></a></p>
+<p><span class="synco">imate</span>, short for <strong>I</strong>mplicit <strong>Ma</strong>trix <strong>T</strong>race <strong>E</strong>stimator, is a C++/CUDA library that provides high-performance randomized algorithms for the computationally expensive matrix functions in machine learning in Python.</p>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-4 sd-row-cols-xs-4 sd-row-cols-sm-4 sd-row-cols-md-4 sd-row-cols-lg-4 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover sd-text-center custom-card-link docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+GitHub</div>
+</div>
+<a class="sd-stretched-link reference external" href="https://github.com/ameli/imate"></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover sd-text-center custom-card-link docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+PyPI</div>
+</div>
+<a class="sd-stretched-link reference external" href="https://pypi.org/project/imate/"></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover sd-text-center custom-card-link docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Anaconda Cloud</div>
+</div>
+<a class="sd-stretched-link reference external" href="https://anaconda.org/s-ameli/imate"></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover sd-text-center custom-card-link docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Docker Hub</div>
+</div>
+<a class="sd-stretched-link reference external" href="https://hub.docker.com/r/sameli/imate"></a></div>
+</div>
+</div>
+</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-4 sd-row-cols-xs-4 sd-row-cols-sm-4 sd-row-cols-md-4 sd-row-cols-lg-4 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover sd-text-center custom-card-link docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Install</div>
+</div>
+<a class="sd-stretched-link reference internal" href="tutorials/install.html#install"><span class="std std-ref"></span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover sd-text-center custom-card-link docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+Getting started</div>
+</div>
+<span class="sd-stretched-link"></span></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover sd-text-center custom-card-link docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+User guide</div>
+</div>
+<span class="sd-stretched-link"></span></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover sd-text-center custom-card-link docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+API reference</div>
+</div>
+<a class="sd-stretched-link reference internal" href="api.html#api"><span class="std std-ref"></span></a></div>
+</div>
+</div>
+</div>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<p>To learn more about <span class="synco">imate</span> functionality, see:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#what-project-does">What <span class="synco">imate</span> Does</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#why-this-is-important">Why This Is Important</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#the-challenge-of-big-data">The Challenge of Big Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#the-challenge-of-optimization">The Challenge of Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#references">References</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="supported-platforms">
+<h2>Supported Platforms<a class="headerlink" href="#supported-platforms" title="Permalink to this heading">#</a></h2>
+<p>Successful installation and tests performed on the following operating systems, architectures, and Python and <a class="reference external" href="https://www.pypy.org/">PyPy</a> versions:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head" rowspan="2"><p>Platform</p></th>
+<th class="head" rowspan="2"><p>Arch</p></th>
+<th class="head" rowspan="2"><p>Device</p></th>
+<th class="head" colspan="5"><p>Python Version</p></th>
+<th class="head" colspan="2"><p>PyPy Version</p></th>
+<th class="head" rowspan="2"><p>Continuous
+Integration</p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>3.6</p></th>
+<th class="head"><p>3.7</p></th>
+<th class="head"><p>3.8</p></th>
+<th class="head"><p>3.9</p></th>
+<th class="head"><p>3.10</p></th>
+<th class="head"><p>3.6</p></th>
+<th class="head"><p>3.7</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td rowspan="2"><p>Linux</p></td>
+<td rowspan="2"><p>X86-64</p></td>
+<td><p>CPU</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td rowspan="2"><p><a class="reference external" href="https://github.com/ameli/imate/actions?query=workflow%3Abuild-linux"><img alt="build-linux" src="https://img.shields.io/github/workflow/status/ameli/imate/build-linux" /></a></p></td>
+</tr>
+<tr class="row-even"><td><p>GPU</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>macOS</p></td>
+<td rowspan="2"><p>X86-64</p></td>
+<td><p>CPU</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+<td rowspan="2"><p><a class="reference external" href="https://github.com/ameli/imate/actions?query=workflow%3Abuild-macos"><img alt="build-macos" src="https://img.shields.io/github/workflow/status/ameli/imate/build-macos" /></a></p></td>
+</tr>
+<tr class="row-even"><td><p>GPU</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>Windows</p></td>
+<td rowspan="2"><p>X86-64</p></td>
+<td><p>CPU</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+<td rowspan="2"><p><a class="reference external" href="https://github.com/ameli/imate/actions?query=workflow%3Abuild-windows"><img alt="build-windows" src="https://img.shields.io/github/workflow/status/ameli/imate/build-windows" /></a></p></td>
+</tr>
+<tr class="row-even"><td><p>GPU</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+</tr>
+</tbody>
+</table>
+<p>Python wheels for <span class="synco">imate</span> for all supported platforms and versions in the above are available through <a class="reference external" href="https://pypi.org/project/imate/">PyPI</a> and <a class="reference external" href="https://anaconda.org/s-ameli/imate">Anaconda Cloud</a>. If you need <span class="synco">imate</span> on other platforms, architectures, and Python or PyPy versions, <a class="reference external" href="https://github.com/ameli/imate/issues">raise an issue</a> on GitHub to build its Python Wheel for you.</p>
+</section>
+<section id="install">
+<h2>Install<a class="headerlink" href="#install" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://anaconda.org/s-ameli/imate"><img alt="conda-downloads" src="https://img.shields.io/conda/dn/s-ameli/imate" /></a></p>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Install with <code class="docutils literal notranslate"><span class="pre">pip</span></code> from <a class="reference external" href="https://pypi.org/project/imate/">PyPI</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">pip install imate</span>
+</pre></div></div></div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Install with <code class="docutils literal notranslate"><span class="pre">conda</span></code> from <a class="reference external" href="https://anaconda.org/s-ameli/imate">Anaconda Cloud</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">conda install -c s-ameli imate</span>
+</pre></div></div></div>
+</div>
+</div>
+</div>
+</div>
+<p>For complete installation guide, see:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/install.html">1. Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/install.html#install-project-from-wheels">1.1. Install <span class="synco">imate</span> From Wheels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/install.html#install-project-in-virtual-environments">1.2. Install <span class="synco">imate</span> in Virtual Environments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/install.html#optional-runtime-dependencies">1.3. Optional Runtime Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/install.html#compile-from-source">1.4. Compile from Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/install.html#generate-documentation">1.5. Generate Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/install.html#test-with-pytest">1.6. Test with <code class="docutils literal notranslate"><span class="pre">pytest</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="docker">
+<h2>Docker<a class="headerlink" href="#docker" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://hub.docker.com/r/sameli/imate"><img alt="docker-pull" src="https://img.shields.io/docker/pulls/sameli/imate?color=green&amp;label=downloads" /></a> <a class="reference external" href="https://github.com/ameli/imate/actions?query=workflow%3Adeploy-docker"><img alt="deploy-docker" src="https://img.shields.io/github/workflow/status/ameli/imate/deploy-docker?label=build%20docker" /></a></p>
+<p>The docker image comes with a pre-installed <span class="synco">imate</span>, an NVIDIA graphic driver, and a compatible version of CUDA Toolkit libraries.</p>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-1 sd-row-cols-md-1 sd-row-cols-lg-1 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<p class="sd-card-text">Pull docker image from <a class="reference external" href="https://hub.docker.com/r/sameli/imate">Docker Hub</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker pull sameli/imate</span>
+</pre></div></div></div>
+</div>
+</div>
+</div>
+</div>
+<p>For a complete guide, see:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/docker.html">2. Docker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/docker.html#why-using-docker">2.1. Why Using Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/docker.html#install-docker">2.2. Install Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/docker.html#get-project-docker-image">2.3. Get <span class="synco">imate</span> Docker Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/docker.html#examples-of-using-project-docker-container">2.4. Examples of Using <span class="synco">imate</span> Docker Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/docker.html#deploy-project-docker-container-on-gpu">2.5. Deploy <span class="synco">imate</span> Docker Container on GPU</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="gpu">
+<h2>GPU<a class="headerlink" href="#gpu" title="Permalink to this heading">#</a></h2>
+<p><span class="synco">imate</span> can run on CUDA-capable <strong>multi</strong>-GPU devices, which can be set up in multiple ways. Using the <strong>docker container</strong> is the easiest way to run <span class="synco">imate</span> on GPU devices. For a comprehensive guide, see:</p>
+<div class="toctree-wrapper compound" id="using-gpu">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials/gpu.html">3. GPU</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/gpu.html#install-nvidia-cuda-toolkit">3.1. Install NVIDIA CUDA Toolkit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/gpu.html#compile-project-from-source-with-cuda">3.2. Compile <span class="synco">imate</span> from Source with CUDA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/gpu.html#use-project-docker-container-on-gpu">3.3. Use <span class="synco">imate</span> Docker Container on GPU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/gpu.html#inquiry-gpu-and-cuda-with-project">3.4. Inquiry GPU and CUDA with <span class="synco">imate</span></a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/gpu.html#run-project-functions-on-gpu">3.5. Run <span class="synco">imate</span> Functions on GPU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/gpu.html#deploy-project-on-gpu-clusters">3.6. Deploy <span class="synco">imate</span> on GPU Clusters</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>The supported GPU micro-architectures and CUDA version are as follows:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Version \ Arch</p></th>
+<th class="head"><p>Fermi</p></th>
+<th class="head"><p>Kepler</p></th>
+<th class="head"><p>Maxwell</p></th>
+<th class="head"><p>Pascal</p></th>
+<th class="head"><p>Volta</p></th>
+<th class="head"><p>Turing</p></th>
+<th class="head"><p>Ampere</p></th>
+<th class="head"><p>Hopper</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CUDA 9</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+</tr>
+<tr class="row-odd"><td><p>CUDA 10</p></td>
+<td><p>✖</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+</tr>
+<tr class="row-even"><td><p>CUDA 11</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+<td><p>✖</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+<td><p>✔</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="performance">
+<h2>Performance<a class="headerlink" href="#performance" title="Permalink to this heading">#</a></h2>
+<p><span class="synco">imate</span> is scalable to <strong>very large matrices</strong>. Its core library for basic linear algebraic operations is <strong>faster than OpenBLAS</strong>, and its <strong>pseudo-random generator</strong> is a hundred-fold faster than the implementation in the standard C++ library.</p>
+<p>Read about the performance of <span class="synco">imate</span> in practical applications:</p>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover sd-text-center custom-card-link-2 docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+<a class="reference internal" href="performance/gpu.html#perf-gpu"><span class="std std-ref">Performance on GPU Farm</span></a></div>
+<a class="custom-dark reference internal image-reference" href="_images/benchmark_speed_time.png"><img alt="_images/benchmark_speed_time.png" class="custom-dark align-center" src="_images/benchmark_speed_time.png" style="width: 320px; height: 200px;" /></a>
+</div>
+<a class="sd-stretched-link reference internal" href="performance/gpu.html#perf-gpu"><span class="std std-ref"></span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover sd-text-center custom-card-link-2 docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+<a class="reference internal" href="performance/scalability.html#perf-scalability"><span class="std std-ref">Performance on CPU</span></a></div>
+<a class="custom-dark reference internal image-reference" href="_images/compare_methods_practical_matrix_logdet_time.png"><img alt="_images/compare_methods_practical_matrix_logdet_time.png" class="custom-dark align-center" src="_images/compare_methods_practical_matrix_logdet_time.png" style="width: 320px; height: 200px;" /></a>
+</div>
+<a class="sd-stretched-link reference internal" href="performance/scalability.html#perf-scalability"><span class="std std-ref"></span></a></div>
+</div>
+</div>
+</div>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover sd-text-center custom-card-link-2 docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+<a class="reference internal" href="performance/openblas.html#perf-openblas"><span class="std std-ref">Comparison With and Without OpenBLAS</span></a></div>
+<a class="custom-dark reference internal image-reference" href="_images/benchmark_openblas_sparse_time.png"><img alt="_images/benchmark_openblas_sparse_time.png" class="custom-dark align-center" src="_images/benchmark_openblas_sparse_time.png" style="width: 320px; height: 200px;" /></a>
+</div>
+<a class="sd-stretched-link reference internal" href="performance/openblas.html#perf-openblas"><span class="std std-ref"></span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover sd-text-center custom-card-link-2 docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+<a class="reference internal" href="performance/interpolation.html#interpolation"><span class="std std-ref">Interpolation of Affine Matrix Functions</span></a></div>
+<a class="custom-dark reference internal image-reference" href="_images/affine_matrix_function_logdet.png"><img alt="_images/affine_matrix_function_logdet.png" class="custom-dark align-center" src="_images/affine_matrix_function_logdet.png" style="width: 320px; height: 200px;" /></a>
+</div>
+<a class="sd-stretched-link reference internal" href="performance/interpolation.html#interpolation"><span class="std std-ref"></span></a></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tutorials">
+<h2>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb"><img alt="binder" src="https://mybinder.org/badge_logo.svg" /></a></p>
+<p>Launch online interactive demonstration of examples with</p>
+</section>
+<section id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h2>
+<p>Check the list of functions, classes, and modules of <span class="synco">imate</span> with their usage, options, and examples.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#interpolators">Interpolators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#linear-operators">Linear Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#sample-matrices">Sample Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#device-inquiry">Device Inquiry</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Matrices can be dense or sparse (<cite>CSR</cite> or <cite>CSC</cite> format), with 32-bit, 64-bit, or 128-bit data types, and stored either by row-ordering (<cite>C</cite> style) or column-ordering (<cite>Fortran</cite> style).</p></li>
+<li><p>Matrices can be <strong>linear operators</strong> with parameters (see <a class="reference internal" href="generated/imate.Matrix.html#imate.Matrix" title="imate.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.Matrix</span></code></a> and <a class="reference internal" href="generated/imate.AffineMatrixFunction.html#imate.AffineMatrixFunction" title="imate.AffineMatrixFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.AffineMatrixFunction</span></code></a> classes).</p></li>
+<li><p><strong>Randomized algorithms</strong> using Hutchinson and stochastic Lanczos quadrature algorithms (see <a class="reference internal" href="performance/slq.html#slq"><span class="std std-ref">Stochastic Lanczos Quadrature Method</span></a>)</p></li>
+<li><p>Novel method to <strong>interpolate</strong> matrix functions. See <a class="reference internal" href="performance/interpolation.html#interpolation"><span class="std std-ref">Interpolation of Affine Matrix Functions</span></a>.</p></li>
+<li><p>Parallel processing both on <strong>shared memory</strong> and CUDA Capable <strong>multi-GPU</strong> devices.</p></li>
+</ul>
+</section>
+<section id="technical-notes">
+<h2>Technical Notes<a class="headerlink" href="#technical-notes" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://github.com/ameli/imate"><img alt="tokei-2" src="https://img.shields.io/badge/code%20lines-59.3k-blue" /></a> <a class="reference external" href="https://github.com/ameli/imate"><img alt="languages" src="https://img.shields.io/github/languages/count/ameli/imate" /></a></p>
+<p>The core of <span class="synco">imate</span>, which is implemented in C++ and NVIDIA CUDA framework, is a standalone modular library for high-performance low-level algebraic operations on linear operators (including matrices and affine matrix functions). This library provides a unified interface for computations on both CPU and GPU, a unified interface for dense and sparse matrices, a unified container for various data types, and fully automatic memory management and data transfer between CPU and GPU devices on demand. This library can be employed independently for projects other than <span class="synco">imate</span>. The Doxygen generated reference of <a class="reference external" href="doxygen/html/annotated.html">C++/CUDA Classes and Namespaces</a> of <span class="synco">imate</span> is available for developers.</p>
+<p>The front-end interface of <span class="synco">imate</span> is implemented in Cython and Python (see Python <a class="reference internal" href="api.html#api"><span class="std std-ref">API Reference</span></a> for end-users).</p>
+<p>Some notable implementation techniques used to develop <span class="synco">imate</span> are:</p>
+<ul class="simple">
+<li><p>Polymorphic and curiously recurring template pattern programming (CRTP) technique.</p></li>
+<li><p>OS-independent customized <cite>dynamic loading</cite> of CUDA libraries.</p></li>
+<li><p>Static dispatching enables executing <span class="synco">imate</span> with and without CUDA on the user’s machine with the same pre-compiled <span class="synco">imate</span> installation.</p></li>
+<li><p>Completely <cite>GIL-free</cite> Cython implementation.</p></li>
+<li><p>Providing <cite>manylinux</cite> wheels build upon customized docker images with CUDA support (see <a class="reference external" href="https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_10">CUDA 10</a> and <a class="reference external" href="https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_11">CUDA 11</a> images on Docker Hub).</p></li>
+</ul>
+</section>
+<section id="how-to-contribute">
+<h2>How to Contribute<a class="headerlink" href="#how-to-contribute" title="Permalink to this heading">#</a></h2>
+<p>We welcome contributions via <a class="reference external" href="https://github.com/ameli/imate/pulls">GitHub’s pull request</a>. If you do not feel comfortable modifying the code, we also welcome feature requests and bug reports as <a class="reference external" href="https://github.com/ameli/imate/issues">GitHub issues</a>.</p>
+</section>
+<section id="publications">
+<h2>Publications<a class="headerlink" href="#publications" title="Permalink to this heading">#</a></h2>
+<p>For information on how to cite <span class="synco">imate</span>, publications, and software packages that used <span class="synco">imate</span>, see:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cite.html">Publications</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cite.html#how-to-cite">How to Cite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cite.html#publications-software-using-project">Publications/Software Using <span class="synco">imate</span></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://opensource.org/licenses/BSD-3-Clause"><img alt="license" src="https://img.shields.io/github/license/ameli/imate" /></a></p>
+<p>This project uses a <a class="reference external" href="https://github.com/ameli/imate/blob/main/LICENSE.txt">BSD 3-clause license</a>, in hopes that it will be accessible to most projects. If you require a different license, please raise an <a class="reference external" href="https://github.com/ameli/imate/issues">issue</a> and we will consider a dual license.</p>
+</section>
+<section id="related-projects">
+<h2>Related Projects<a class="headerlink" href="#related-projects" title="Permalink to this heading">#</a></h2>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-3 sd-row-cols-xs-3 sd-row-cols-sm-3 sd-row-cols-md-3 sd-row-cols-lg-3 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover sd-text-center custom-card-link docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+<a class="only-light reference internal" href="_images/logo-glearn-light.svg"><img alt="glearn-light" class="only-light" height="30" src="_images/logo-glearn-light.svg" /></a> <a class="only-dark reference internal" href="_images/logo-glearn-dark.svg"><img alt="glearn-dark" class="only-dark" height="30" src="_images/logo-glearn-dark.svg" /></a></div>
+<p class="sd-card-text">A high-performance python package for machine learning using Gaussian process regression.</p>
+</div>
+<a class="sd-stretched-link reference external" href="https://ameli.github.io/glearn/index.html"></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover sd-text-center custom-card-link docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+<a class="only-light reference internal" href="_images/logo-detkit-light.svg"><img alt="detkit-light" class="only-light" height="27" src="_images/logo-detkit-light.svg" /></a> <a class="only-dark reference internal" href="_images/logo-detkit-dark.svg"><img alt="detkit-dark" class="only-dark" height="27" src="_images/logo-detkit-dark.svg" /></a></div>
+<p class="sd-card-text">A python package for matrix determinant functions used in machine learning.</p>
+</div>
+<a class="sd-stretched-link reference external" href="https://ameli.github.io/detkit/index.html"></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover sd-text-center custom-card-link docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+<a class="only-light reference internal" href="_images/logo-ortho-light.svg"><img alt="ortho-light" class="only-light" height="24" src="_images/logo-ortho-light.svg" /></a> <a class="only-dark reference internal" href="_images/logo-ortho-dark.svg"><img alt="ortho-dark" class="only-dark" height="24" src="_images/logo-ortho-dark.svg" /></a></div>
+<p class="sd-card-text">A python package to generate orthogonal basis functions for matrix functions interpolation.</p>
+</div>
+<a class="sd-stretched-link reference external" href="https://ameli.github.io/ortho/index.html"></a></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+
+              </article>
+              
+
+              
+              <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              </footer>
+              
+          </div>
+          
+      </div>
+    </div>
+
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+
+<footer class="bd-footer"><div class="bd-footer__inner container">
+  
+  <div class="footer-item">
+    <p class="copyright">
+    &copy; Copyright 2022, Siavash Ameli.<br>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
+</p>
+  </div>
+  
+</div>
+</footer>
+  </body>
+</html>
