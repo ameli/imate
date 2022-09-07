@@ -116,11 +116,17 @@ class MonomialBasisFunctionsMethod(InterpolantBase):
     -------
 
     __call__
+        See :meth:`imate.InterpolateSchatten.__call__`.
     eval
+        See :meth:`imate.InterpolateSchatten.eval`.
     interpolate
+        See :meth:`imate.InterpolateSchatten.interpolate`.
     bound
+        See :meth:`imate.InterpolateSchatten.bound`.
     upper_bound
+        See :meth:`imate.InterpolateSchatten.upper_bound`.
     plot
+        See :meth:`imate.InterpolateSchatten.plot`.
 
     Notes
     -----
@@ -216,8 +222,8 @@ class MonomialBasisFunctionsMethod(InterpolantBase):
     References
     ----------
 
-    .. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant
-           and Trace of the Powers of Matrix
+    .. [1] Ameli, S., and Shadden. S. C. (2022). *Interpolating Log-Determinant
+           and Trace of the Powers of Matrix*
            :math:`\\mathbf{A} + t\\mathbf{B}`. `arXiv: 2009.07385
            <https://arxiv.org/abs/2207.08038>`_ [math.NA].
 

@@ -104,11 +104,17 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
     -------
 
     __call__
+        See :meth:`imate.InterpolateSchatten.__call__`.
     eval
+        See :meth:`imate.InterpolateSchatten.eval`.
     interpolate
+        See :meth:`imate.InterpolateSchatten.interpolate`.
     bound
+        See :meth:`imate.InterpolateSchatten.bound`.
     upper_bound
+        See :meth:`imate.InterpolateSchatten.upper_bound`.
     plot
+        See :meth:`imate.InterpolateSchatten.plot`.
 
     Notes
     -----
@@ -269,8 +275,8 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
     References
     ----------
 
-    .. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant
-           and Trace of the Powers of Matrix
+    .. [1] Ameli, S., and Shadden. S. C. (2022). *Interpolating Log-Determinant
+           and Trace of the Powers of Matrix*
            :math:`\\mathbf{A} + t\\mathbf{B}`. `arXiv: 2009.07385
            <https://arxiv.org/abs/2207.08038>`_ [math.NA].
 
@@ -400,10 +406,10 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
 
     From the error plot in the above, it can be seen that with only four
     interpolation points, the error of interpolation for a wide range of
-    :math:`t`is no more than :math:`0.3 \\%`, which is a remarkable result.
-    Also, note that the error on the interpolant points
-    :math:`t_i=[10^{-2}, 10^{-1}, 1, 10]` is zero since the interpolation
-    scheme honors the exact function value at the interpolation points.
+    :math:`t` is no more than :math:`0.3 \\%`. Also, note that the error on the
+    interpolant points :math:`t_i=[10^{-2}, 10^{-1}, 1, 10]` is zero since the
+    interpolation scheme honors the exact function value at the interpolation
+    points.
     """
 
     # ====

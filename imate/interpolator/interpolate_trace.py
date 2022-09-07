@@ -13,6 +13,7 @@
 
 from .interpolate_schatten import InterpolateSchatten
 import numpy
+from numbers import Number
 
 try:
     from .._utilities.plot_utilities import *                # noqa: F401, F403
@@ -29,6 +30,347 @@ except ImportError:
 
 class InterpolateTrace(InterpolateSchatten):
     """
+    Interpolate the trace of the powers of an affine matrix function.
+
+    Parameters
+    ----------
+
+    A : numpy.ndarray, scipy.sparse matrix
+        Symmetric positive-definite matrix (positive-definite if `p` is
+        non-positive). Matrix can be dense or sparse.
+
+        .. warning::
+
+            Symmetry and positive (semi-) definiteness of `A` will not be
+            checked. Make sure `A` satisfies these conditions.
+
+    B : numpy.ndarray, scipy.sparse matrix, default=None
+        Symmetric positive-definite matrix (positive-definite if `p` is
+        non-positive). Matrix can be dense or sparse. `B` should have the same
+        size and type of `A`. If `B` is `None` (default value), it is assumed
+        that `B` is the identity matrix.
+
+        .. warning::
+
+            Symmetry and positive (semi-) definiteness of `B` will not be
+            checked. Make sure `B` satisfies these conditions.
+
+    p : float, default=-1
+        The power :math:`p` of the matrix which can be real positive or
+        negative, but not zero. For zero power see
+        :class:`imate.InterpolateLogdet`.
+
+    options : dict, default={}
+        At each interpolation point :math:`t_i`, the trace is computed
+        using the following functions:
+
+        * :func:`imate.trace` (if :math:`p>0`)
+        * :func:`imate.traceinv` (if :math:`p < 0`).
+
+        The ``options`` passes a dictionary of arguments to the above
+        functions.
+
+    verbose : bool, default=False
+        If `True`, it prints some information about the computation process.
+
+    kind : {`'ext'`, `'eig'`, `'mbf'`, `'imbf'`, `'rbf'`, `'crf'`, `'spl'`, \
+            `'rpf'`}, default: `'imbf'`
+        The algorithm of interpolation, which are the same as the algorithms
+        in :class:`imate.InterpolateSchatten`. See documentation for each
+        specific algorithm:
+
+        * :ref:`imate.InterpolateSchatten.ext`
+        * :ref:`imate.InterpolateSchatten.eig`
+        * :ref:`imate.InterpolateSchatten.mbf`
+        * :ref:`imate.InterpolateSchatten.imbf`
+        * :ref:`imate.InterpolateSchatten.rbf`
+        * :ref:`imate.InterpolateSchatten.crf`
+        * :ref:`imate.InterpolateSchatten.spl`
+        * :ref:`imate.InterpolateSchatten.rpf`
+
+    ti : float or array_like(float), default=None
+        Interpolation points, which can be a single point, a list, or an array
+        of points. The interpolator honors the exact function values at the
+        interpolant points. If an empty list is given, `i.e.`, ``[]``,
+        depending on the algorithm, a default list of interpolant points is
+        used. Also, the size of the array of `ti` depends on the algorithm as
+        follows. If ``kind`` is:
+
+        * ``ext`` or ``eig``, the no ``ti`` is required.
+        * ``mbf``, then a single point ``ti`` may be specified.
+        * ``imbf``, ``spl``, or ``rbf``, then a list of ``ti`` with arbitrary
+          size may be specified.
+        * ``crf`` or ``rpf``, then a list of ``ti`` points with even size may
+          be specified.
+
+    kwargs : \\*\\*kwargs
+        Additional arguments to pass to each specific algorithm. See
+        documentation for each ``kind`` in the above.
+
+    See Also
+    --------
+
+    imate.InterpolateSchatten
+    imate.InterpolateLogdet
+    imate.trace
+    imate.traceinv
+
+    Attributes
+    ----------
+
+    kind : str
+        Method of interpolation
+
+    verbose : bool
+        Verbosity of the computation process
+
+    n : int
+        Size of the matrix
+
+    q : int
+        Number of interpolant points
+
+    p : float
+        The power :math:`p` of the matrix.
+
+    Methods
+    -------
+
+    __call__
+    eval
+    interpolate
+    get_scale
+    upper_bound
+    lower_bound
+    plot
+
+    Notes
+    -----
+
+    **Interpolation of Affine Matrix Function:**
+
+    This class interpolates the trace of powers of the one-parameter matrix
+    function:
+
+    .. math::
+
+        t \\mapsto \\left( \\mathbf{A} + t \\mathbf{B} \\right)^p,
+
+    where the matrices :math:`\\mathbf{A}` and :math:`\\mathbf{B}` are
+    symmetric and positive semi-definite (positive-definite if :math:`p < 0`)
+    and :math:`t \\in [t_{\\inf}, \\infty)` is a real parameter where
+    :math:`t_{\\inf}` is the minimum :math:`t` such that
+    :math:`\\mathbf{A} + t_{\\inf} \\mathbf{B}` remains positive-definite.
+
+    The interpolator is initialized by providing :math:`q` interpolant points
+    :math:`t_i`, :math:`i = 1, \\dots, q`, which are often given in a
+    logarithmically spaced interval :math:`t_i \\in [t_1, t_p]`. The
+    interpolator can interpolate the above function at arbitrary inquiry points
+    :math:`t \\in [t_1, t_p]` using various methods.
+
+    References
+    ----------
+
+    .. [1] Ameli, S., and Shadden. S. C. (2022). *Interpolating Log-Determinant
+           and Trace of the Powers of Matrix*
+           :math:`\\mathbf{A} + t\\mathbf{B}`. `arXiv: 2009.07385
+           <https://arxiv.org/abs/2207.08038>`_ [math.NA].
+
+    Examples
+    --------
+
+    **Basic Usage:**
+
+    Interpolate the trace of the affine matrix function
+    :math:`(\\mathbf{A} + t \\mathbf{B})^{-1}` using ``imbf`` algorithm and the
+    interpolating points :math:`t_i = [10^{-2}, 10^{-1}, 1, 10]`.
+
+    .. code-block:: python
+        :emphasize-lines: 9, 13
+
+        >>> # Generate two sample matrices (symmetric and positive-definite)
+        >>> from imate.sample_matrices import correlation_matrix
+        >>> A = correlation_matrix(size=20, scale=1e-1)
+        >>> B = correlation_matrix(size=20, scale=2e-2)
+
+        >>> # Initialize interpolator object
+        >>> from imate import InterpolateTrace
+        >>> ti = [1e-2, 1e-1, 1, 1e1]
+        >>> f = InterpolateTrace(A, B, p=-1, kind='imbf', ti=ti)
+
+        >>> # Interpolate at an inquiry point t = 0.4
+        >>> t = 4e-1
+        >>> f(t)
+        20.56849471404019
+
+    Alternatively, call :meth:`imate.InterpolateTrace.interpolate` to
+    interpolate at points `t`:
+
+    .. code-block:: python
+
+        >>> # This is the same as f(t)
+        >>> f.interpolate(t)
+        20.56849471404019
+
+    To evaluate the exact value of the trace at point `t` without
+    interpolation, call :meth:`imate.InterpolateTrace.eval` function:
+
+    .. code-block:: python
+
+        >>> # This evaluates the function value at t exactly (no interpolation)
+        >>> f.eval(t)
+        20.625083538250383
+
+    It can be seen that the relative error of interpolation compared to the
+    exact solution in the above is :math:`0.27 \\%` using only four
+    interpolation points :math:`t_i`, which is a remarkable result.
+
+    .. warning::
+
+        Calling :meth:`imate.InterpolateTrace.eval` may take a longer time
+        to compute as it computes the function exactly. Particularly, if `t` is
+        a large array, it may take a very long time to return the exact values.
+
+    **Arguments Specific to Algorithms:**
+
+    In the above example, the ``imbf`` algorithm is used. See more arguments
+    of this algorithm at :ref:`imate.InterpolateSchatten.imbf`. In the next
+    example, we pass ``basis_func_type`` specific to this algorithm:
+
+    .. code-block:: python
+        :emphasize-lines: 3
+
+        >>> # Passing kwatgs specific to imbf algorithm
+        >>> f = InterpolateTrace(A, B, p=-1, kind='imbf', ti=ti,
+        ...                      basis_func_type='ortho2')
+        >>> f(t)
+        20.56849471404019
+
+    You may choose other algorithms using ``kind`` argument. For instance, the
+    next example uses the Chebyshev rational functions with an additional
+    argument ``func_type`` specific to this method. See more details at
+    :ref:`imate.InterpolateSchatten.crf`.
+
+    .. code-block:: python
+        :emphasize-lines: 3
+
+        >>> # Generate two sample matrices (symmetric and positive-definite)
+        >>> f = InterpolateTrace(A, B, p=-1, kind='crf', ti=ti, func_type=1)
+        >>> f(t)
+        20.63092837950084
+
+    **Passing Options:**
+
+    The above examples, the internal computation is passed to
+    :func:`imate.traceinv` function since :math:`p=-1` is negative. You can
+    pass arguments to the latter function using ``options`` argument. To do so,
+    create a dictionary with the keys as the name of the argument. For
+    instance, to use :ref:`imate.trace.slq` method with ``min_num_samples=20``
+    and ``max_num_samples=100``, create the following dictionary:
+
+    .. code-block:: python
+
+        >>> # Specify arguments as a dictionary
+        >>> options = {
+        ...     'method': 'slq',
+        ...     'min_num_samples': 20,
+        ...     'max_num_samples': 100
+        ... }
+
+        >>> # Pass the options to the interpolator
+        >>> f = InterpolateTrace(A, B, p=-1, options=options, kind='imbf',
+        ...                      ti=ti)
+        >>> f(t)
+        20.43067873913403
+
+    You may get a different result than the above as the `slq` method is a
+    randomized method.
+
+    **Interpolate on Range of Points:**
+
+    Once the interpolation object ``f`` in the above example is
+    instantiated, calling :meth:`imate.InterpolateTrace.interpolate` on
+    a list of inquiry points `t` has almost no computational cost. The next
+    example inquires interpolation on `1000` points `t`:
+
+    Interpolate an array of inquiry points ``t_array``:
+
+    .. code-block:: python
+
+        >>> # Create an interpolator object again
+        >>> ti = [1e-2, 1e-1, 1, 1e1]
+        >>> f = InterpolateTrace(A, B, p=-1, ti=ti)
+
+        >>> # Interpolate at an array of points
+        >>> import numpy
+        >>> t_array = numpy.logspace(-2, 1, 1000)
+        >>> norm_array = f.interpolate(t_array)
+
+    One may plot the above interpolated results as follows:
+
+    .. code-block:: python
+
+        >>> import matplotlib.pyplot as plt
+        >>> import seaborn as sns
+
+        >>> # Plot settings (optional)
+        >>> sns.set(font_scale=1.15)
+        >>> sns.set_style("white")
+        >>> sns.set_style("ticks")
+
+        >>> plt.semilogx(t_array, norm_array, color='black')
+        >>> plt.xlim([t_array[0], t_array[-1]])
+        >>> plt.ylim([0, 40])
+        >>> plt.xlabel('$t$')
+        >>> plt.ylabel('$\\mathrm{trace} (\\mathbf{A} + t \\mathbf{B})^{-1}$')
+        >>> plt.title('Interpolation of Trace of Inverse')
+        >>> plt.show()
+
+    .. image:: ../_static/images/plots/interpolate_trace_1.png
+        :align: center
+        :class: custom-dark
+        :width: 60%
+
+    **Plotting Interpolation and Compare with Exact Solution:**
+
+    A more convenient way to plot the interpolation result is to call
+    :meth:`imate.InterpolateTrace.plot` function.
+
+    .. code-block:: python
+
+        >>> f.plot(t_array)
+
+    .. image:: ../_static/images/plots/interpolate_trace_2.png
+        :align: center
+        :class: custom-dark
+        :width: 60%
+
+    In the above, :math:`f_p(t) = \\mathrm{trace} (\\mathbf{A} +
+    t \\mathbf{B})^p` is the Schatten norm. If you set ``normalize`` to `True`,
+    it plots the normalized function
+
+    .. math::
+
+        g_p(t) = \\frac{\\mathrm{trace}(\\mathbf{A} + t \\mathbf{B})^{p}}{
+        \\mathrm{trace}(\\mathbf{B})^p}.
+
+    To compare with the true values (without interpolation), pass
+    ``compare=True`` to the above function.
+
+    .. warning::
+
+        By setting ``compare`` to `True`, every point in the array `t` is
+        evaluated both using interpolation and with the exact method (no
+        interpolation). If the size of `t` is large, this may take a very
+        long run time.
+
+    .. code-block:: python
+
+        >>> f.plot(t_array, normalize=True, compare=True)
+
+    .. image:: ../_static/images/plots/interpolate_trace_3.png
+        :align: center
+        :class: custom-dark
     """
 
     # ====
@@ -74,17 +416,118 @@ class InterpolateTrace(InterpolateSchatten):
         schatten = (tracep / self.n)**(1.0/self.p)
         return schatten
 
+    # =========
+    # get scale
+    # =========
+
+    def get_scale(self):
+        """
+        Returns the scale parameter of the interpolator.
+
+        This function can be called if ``kind=crf`` or ``kind=spl``.
+
+        Returns
+        -------
+
+        scale : float
+            Scale parameter of the interpolator.
+
+        Raises
+        ------
+
+        NotImplementedError
+            If ``kind`` is not ``crf``.
+
+        Examples
+        --------
+
+        In the following scale, since the input argument ``scale`` is set to
+        `None`, it i automatically generated by optimization. Its value can be
+        accessed by :meth:`imate.InterpolateTrace.get_scale` function.
+
+        .. code-block:: python
+            :emphasize-lines: 11
+
+            >>> # Generate two sample matrices (symmetric positive-definite)
+            >>> from imate.sample_matrices import correlation_matrix
+            >>> A = correlation_matrix(size=20, scale=1e-1)
+
+            >>> # Initialize interpolator object
+            >>> from imate import InterpolateTrace
+            >>> ti = [1e-2, 1e-1, 1, 1e1]
+            >>> f = InterpolateTrace(A, B, p=2, kind='crf', ti=ti, scale=None)
+
+            >>> f.get_scale()
+            1.4101562500000009
+        """
+
+        if self.kind.lower() != 'crf':
+            raise NotImplementedError('This function can be called only if' +
+                                      '"kind" is set to "crf"')
+
+        scale = self.interpolator.scale
+
+        if not isinstance(scale, Number):
+            scale = scale[0]
+
+        return scale
+
     # ========
     # __call__
     # ========
 
     def __call__(self, t):
         """
-        Same as :func:`InterpolateSchatten.interpolate` method.
+        Interpolate at the input point `t`.
+
+        This function calls :func:`InterpolateTrace.interpolate` method.
+
+        Parameters
+        ----------
+
+        t : float or array_like[float]
+            An inquiry point (or list of points) to interpolate.
+
+        Returns
+        -------
+
+        trace : float or numpy.array
+            Interpolated values. If the input `t` is a list or array, the
+            output is an array of the same size of `t`.
+
+        See Also
+        --------
+
+        imate.InterpolateTrace.interpolate
+        imate.InterpolateTrace.eval
+
+        Examples
+        --------
+
+        .. code-block:: python
+            :emphasize-lines: 12, 17
+
+            >>> # Generate two sample matrices (symmetric positive-definite)
+            >>> from imate.sample_matrices import correlation_matrix
+            >>> A = correlation_matrix(size=20, scale=1e-1)
+
+            >>> # Initialize interpolator object
+            >>> from imate import InterpolateTrace
+            >>> ti = [1e-2, 1e-1, 1, 1e1]
+            >>> f = InterpolateTrace(A, ti=ti)
+
+            >>> # Interpolate at an inquiry point t = 0.4
+            >>> t = 4e-1
+            >>> f(t)
+            19.863691407876665
+
+            >>> # Array of input points
+            >>> t = [4e-1, 4, 4e+1]
+            >>> f(t)
+            array([19.86369141,  4.12685164,  0.49096648])
         """
 
-        schatten = super(InterpolateTrace, self).__call__(t)
-        return self._schatten_to_tracep(schatten)
+        return self.interpolate(t)
 
     # ====
     # eval
@@ -92,28 +535,60 @@ class InterpolateTrace(InterpolateSchatten):
 
     def eval(self, t):
         """
-        Computes the function :math:`\\mathrm{trace}\\left( (\\mathbf{A} +
-        t \\mathbf{B})^{-1} \\right)` at the input point :math:`t` using exact
-        method.
+        Evaluate the exact value of the function at the input point `t` without
+        interpolation.
 
-        The computation method used in this function is exact (no
-        interpolation). This function  is primarily used to compute traceinv on
-        the *interpolant points*.
+        .. warning::
+
+            If `t` is an array of large size, this may take a very long run
+            time as all input points are evaluated without.
 
         Parameters
         ----------
-            t : float or numpy.array
-                An inquiry point, which can be a single number, or an array of
-                numbers.
+
+        t : float or array_like[float]
+            An inquiry point (or list of points) to interpolate.
 
         Returns
         -------
-            traceinv : float or numpy.array
-                The exact value of the traceinv function.
+
+        norm : float or numpy.array
+            Exact values of the function. If the input `t` is a list or array,
+            the output is an array of the same size of `t`.
+
+        See Also
+        --------
+
+        imate.InterpolateTrace.__call__
+        imate.InterpolateTrace.interpolate
+
+        Examples
+        --------
+
+        .. code-block:: python
+            :emphasize-lines: 12, 17
+
+            >>> # Generate two sample matrices (symmetric positive-definite)
+            >>> from imate.sample_matrices import correlation_matrix
+            >>> A = correlation_matrix(size=20, scale=1e-1)
+
+            >>> # Initialize interpolator object
+            >>> from imate import InterpolateTrace
+            >>> ti = [1e-2, 1e-1, 1, 1e1]
+            >>> f = InterpolateTrace(A, ti=ti)
+
+            >>> # Exact function value at an inquiry point t = 0.4
+            >>> t = 4e-1
+            >>> f.eval(t)
+            19.932296005392935
+
+            >>> # Array of input points
+            >>> t = [4e-1, 4, 4e+1]
+            >>> f.eval(t)
+            array([19.93229601,  4.12887133,  0.48808245])
         """
 
         schatten = super(InterpolateTrace, self).eval(t)
-
         return self._schatten_to_tracep(schatten)
 
     # ===========================
@@ -163,40 +638,384 @@ class InterpolateTrace(InterpolateSchatten):
 
     def interpolate(self, t):
         """
-        Interpolates :math:`\\mathrm{trace} \\left( (\\mathbf{A} +
-        t \\mathbf{B})^{-1} \\right)` at :math:`t`.
+        Interpolate at the input point `t`.
+
+        .. note::
+
+            You may alternatively, call :func:`InterpolateTrace.__call__`
+            method.
 
         Parameters
         ----------
-        t : float, list, numpy.array
-            The inquiry point(s) to be interpolated.
 
-        compare_with_exact : bool, default=False
-            If `True`, it computes the trace with exact solution, then compares
-            it with the interpolated solution. The return values of the
-            :func:`InterpolateSchatten.interpolate` function become
-            interpolated trace, exact solution, and relative error. **Note:**
-            When this option is enabled, the exact solution will be computed
-            for all inquiry points, which can take a very long time.
-
-        plot : bool, default=False
-            If `True`, it plots the interpolated trace versus the inquiry
-            points. In addition, if the option `compare_with_exact` is also set
-            to `True`, the plotted diagram contains both interpolated and exact
-            solutions and the relative error of interpolated solution with
-            respect to the exact solution.
+        t : float or array_like[float]
+            An inquiry point (or list of points) to interpolate.
 
         Returns
         -------
-        trace : float or numpy.array
-            The interpolated value of the traceinv function.
+
+        norm : float or numpy.array
+            Interpolated values. If the input `t` is a list or array, the
+            output is an array of the same size of `t`.
+
+        See Also
+        --------
+
+        imate.InterpolateTrace.__call__
+        imate.InterpolateTrace.eval
+
+        Examples
+        --------
+
+        .. code-block:: python
+            :emphasize-lines: 12, 17
+
+            >>> # Generate two sample matrices (symmetric positive-definite)
+            >>> from imate.sample_matrices import correlation_matrix
+            >>> A = correlation_matrix(size=20, scale=1e-1)
+
+            >>> # Initialize interpolator object
+            >>> from imate import InterpolateTrace
+            >>> ti = [1e-2, 1e-1, 1, 1e1]
+            >>> f = InterpolateTrace(A, ti=ti)
+
+            >>> # Interpolate at an inquiry point t = 0.4
+            >>> t = 4e-1
+            >>> f.interpolate(t)
+            19.863691407876665
+
+            >>> # Array of input points
+            >>> t = [4e-1, 4, 4e+1]
+            >>> f.interpolate(t)
+            array([ 1.71161666,  5.09395567, 41.32038322])
+        """
+
+        schatten = super(InterpolateTrace, self).interpolate(t)
+        return self._schatten_to_tracep(schatten)
+
+    # ===========
+    # upper bound
+    # ===========
+
+    def upper_bound(self, t):
+        """
+        Upper bound of the interpolation function.
+
+        Parameters
+        ----------
+
+        t : float or numpy.array
+            An inquiry point or an array of inquiry points.
+
+        Returns
+        -------
+
+        bound : float or numpy.array
+            Bound function evaluated at `t`. If `t` is an array, the output is
+            also an array of the size of `t`.
+
+        See Also
+        --------
+
+        imate.InterpolateTrace.lower_bound
 
         Notes
         -----
 
-        **Plotting:**
+        **Bound Function:**
 
-        Regarding the plotting of the graph of interpolation:
+        An upper bound function for :math:`\\mathrm{trace} (\\mathbf{A} + t
+        \\mathbf{B})^p` is obtained as follows.
+
+        For :math:`p \\neq 0`, define
+
+        .. math::
+
+                \\tau_{p}(t) = \\frac{\\Vert \\mathbf{A} + t \\mathbf{B}
+                \\Vert_p}{\\Vert \\mathbf{B} \\Vert_p},
+
+        where the Schatten norm (or anti-norm) :math:`\\Vert \cdot \\Vert_p` is
+        defined by
+
+        .. math::
+
+            \\Vert \\mathbf{A} \\Vert_p =
+            \\left| \\frac{1}{n} \\mathrm{trace}(\\mathbf{A}^{p})
+            \\right|^{\\frac{1}{p}},
+
+        where :math:`n` is the size of the matrix. When :math:`p \\geq 0`, the
+        above definition is the Schatten **norm**, and when :math:`p < 0`, the
+        above is the Schatten **anti-norm**.
+
+
+        A sharp bound of the function
+        :math:`\\tau_{p}` is (see [1]_, Section 3):
+
+        .. math::
+
+                \\tau_{p}(t) \\leq \\tau_{p, 0} + t, \\quad p \\geq 1, \\quad
+                t \\in [0, \\infty),
+
+        .. math::
+
+                \\tau_{p}(t) \\geq \\tau_{p, 0} + t, \\quad p < 1, \\quad
+                t \\in [0, \\infty),
+
+        .. math::
+
+                \\tau_{p}(t) \\geq \\tau_{p, 0} + t, \\quad p \\geq 1, \\quad
+                t \\in (t_{\\inf}, o],
+
+        .. math::
+
+                \\tau_{p}(t) \\leq \\tau_{p, 0} + t, \\quad p < 1, \\quad
+                t \\in (t_{\\inf}, o],
+
+        References
+        ----------
+
+        .. [1] Ameli, S., and Shadden. S. C. (2022). *Interpolating
+               Log-Determinant and Trace of the Powers of Matrix*
+               :math:`\\mathbf{A} + t \\mathbf{B}`. `arXiv: 2009.07385
+               <https://arxiv.org/abs/2207.08038>`_ [math.NA].
+
+        Examples
+        --------
+
+        Create an interpolator object :math:`f` using four interpolant points
+        :math:`t_i`:
+
+        .. code-block:: python
+
+            >>> # Generate sample matrices (symmetric positive-definite)
+            >>> from imate.sample_matrices import correlation_matrix
+            >>> A = correlation_matrix(size=20, scale=1e-1)
+            >>> B = correlation_matrix(size=20, scale=2e-2)
+
+            >>> # Initialize interpolator object
+            >>> from imate import InterpolateTrace
+            >>> ti = [1e-2, 1e-1, 1, 1e1]
+            >>> f = InterpolateTrace(A, B, p=-1, ti=ti)
+
+        Create an array `t` and evaluate upper bound on `t`. Also, interpolate
+        the function :math:`f` on the array `t`.
+
+        .. code-block:: python
+            :emphasize-lines: 4
+
+            >>> # Interpolate at an array of points
+            >>> import numpy
+            >>> t = numpy.logspace(-2, 1, 1000)
+            >>> ub = f.upper_bound(t)
+            >>> interp = f.interpolate(t)
+
+        Plot the results:
+
+        .. code-block:: python
+
+            >>> import matplotlib.pyplot as plt
+            >>> import seaborn as sns
+
+            >>> # Plot settings (optional)
+            >>> sns.set(font_scale=1.15)
+            >>> sns.set_style("white")
+            >>> sns.set_style("ticks")
+
+            >>> plt.semilogx(t, interp, color='black', label='Interpolation')
+            >>> plt.semilogx(t, ub, '--', color='black', label='Upper Bound')
+            >>> plt.xlim([t[0], t[-1]])
+            >>> plt.ylim([0, 40])
+            >>> plt.xlabel('$t$')
+            >>> plt.ylabel('$\\mathrm{trace}(\\mathbf{A}+t\\mathbf{B})^{-1}$')
+            >>> plt.title('Interpolation of Trace of Inverse')
+            >>> plt.legend()
+            >>> plt.show()
+
+        .. image:: ../_static/images/plots/interpolate_trace_ub.png
+            :align: center
+            :class: custom-dark
+            :width: 70%
+        """
+
+        schatten_ub = super(InterpolateTrace, self).bound(t)
+
+        tracep_ub = self._schatten_to_tracep(schatten_ub)
+        return tracep_ub
+
+    # ===========
+    # lower bound
+    # ===========
+
+    def lower_bound(self, t):
+        """
+        Upper bound of the interpolation function.
+
+        .. note::
+
+            This function only applies to :math:`p=-1`.
+
+        Parameters
+        ----------
+
+        t : float or numpy.array
+            An inquiry point or an array of inquiry points.
+
+        Returns
+        -------
+
+        ub : float or numpy.array
+            Upper bound. If `t` is an array, the output is also an array of the
+            size of `t`.
+
+        Raises
+        ------
+
+        ValueError
+            If :math:`p \\neq -1`.
+
+        See Also
+        --------
+
+        imate.InterpolateTrace.upper_bound
+
+        Notes
+        -----
+
+        A lower bound function for :math:`\\mathrm{trace} (\\mathbf{A} + t
+        \\mathbf{B})^p` is
+
+        .. math::
+
+            \\mathrm{trace}((\\mathbf{A}+t\\mathbf{B})^{-1}) \\geq
+            \\frac{n^2}{\\mathrm{trace}(\\mathbf{A}) + t \,
+            \\mathrm{trace}(\\mathbf{B})}
+
+        Note that the above bound is not sharp as :math:`t \\to 0`.
+
+        References
+        ----------
+
+        .. [1] Ameli, S., and Shadden. S. C. (2022). *Interpolating
+               Log-Determinant and Trace of the Powers of Matrix*
+               :math:`\\mathbf{A} + t \\mathbf{B}`. `arXiv: 2009.07385
+               <https://arxiv.org/abs/2207.08038>`_ [math.NA].
+
+        Examples
+        --------
+
+        Create an interpolator object :math:`f` using four interpolant points
+        :math:`t_i`:
+
+        .. code-block:: python
+
+            >>> # Generate sample matrices (symmetric positive-definite)
+            >>> from imate.sample_matrices import correlation_matrix
+            >>> A = correlation_matrix(size=20, scale=1e-1)
+            >>> B = correlation_matrix(size=20, scale=2e-2)
+
+            >>> # Initialize interpolator object
+            >>> from imate import InterpolateTrace
+            >>> ti = [1e-2, 1e-1, 1, 1e1]
+            >>> f = InterpolateTrace(A, B, p=-1, ti=ti)
+
+        Create an array `t` and evaluate upper bound on `t`. Also, interpolate
+        the function :math:`f` on the array `t`.
+
+        .. code-block:: python
+            :emphasize-lines: 4
+
+            >>> # Interpolate at an array of points
+            >>> import numpy
+            >>> t = numpy.logspace(-2, 1, 1000)
+            >>> lb = f.lower_bound(t)
+            >>> interp = f.interpolate(t)
+
+        Plot the results:
+
+        .. code-block:: python
+
+            >>> import matplotlib.pyplot as plt
+            >>> import seaborn as sns
+
+            >>> # Plot settings (optional)
+            >>> sns.set(font_scale=1.15)
+            >>> sns.set_style("white")
+            >>> sns.set_style("ticks")
+
+            >>> plt.semilogx(t, interp, color='black', label='Interpolation')
+            >>> plt.semilogx(t, lb, '--', color='black', label='Lower bound')
+            >>> plt.xlim([t[0], t[-1]])
+            >>> plt.ylim([0, 10])
+            >>> plt.xlabel('$t$')
+            >>> plt.ylabel('$\\mathrm{trace}(\\mathbf{A}+t\\mathbf{B})^{-1}$')
+            >>> plt.title('Interpolation of Trace of Inverse')
+            >>> plt.legend()
+            >>> plt.show()
+
+        .. image:: ../_static/images/plots/interpolate_trace_lb.png
+            :align: center
+            :class: custom-dark
+            :width: 70%
+        """
+
+        schatten_lb = super(InterpolateTrace, self).upper_bound(t)
+
+        tracep_lb = self._schatten_to_tracep(schatten_lb)
+        return tracep_lb
+
+    # ====
+    # plot
+    # ====
+
+    def plot(
+            self,
+            t,
+            normalize=False,
+            compare=False):
+        """
+        Plot the interpolation results.
+
+        Parameters
+        ----------
+
+        t : numpy.array
+            Inquiry points to be interpolated.
+
+        normalize : bool, default: False
+            If set to `False` the function
+            :math:`f_p(t) = \\mathrm{trace} (\\mathbf{A} + t \\mathbf{B})^p` is
+            plotted. If set to `True`, the following normalized function is
+            plotted:
+
+            .. math::
+
+                g_p(t) = \\frac{\\mathrm{trace}(\\mathbf{A} + t
+                \\mathbf{B})^{p}}{\\mathrm{trace}(\\mathbf{B})^p}.
+
+        compare : bool, default=False
+            If `True`, it computes the exact function values (without
+            interpolation), then compares it with the interpolated solution to
+            estimate the relative error of interpolation.
+
+            .. note::
+
+                When this option is enabled, the exact solution will be
+                computed for all inquiry points, which can take a very long
+                time.
+
+        Raises
+        ------
+
+        ImportError
+            If `matplotlib` and `seaborn` are not installed.
+
+        ValueError
+            If ``t`` is not an array of size greater than one.
+
+        Notes
+        -----
+
+        **Graphical Backend:**
 
         * If no graphical backend exists (such as running the code on a
           remote server or manually disabling the X11 backend), the plot
@@ -216,105 +1035,57 @@ class InterpolateTrace(InterpolateSchatten):
 
             >>> import os
             >>> os.environ['IMATE_NO_DISPLAY'] = 'True'
-        """
 
-        schatten = super(InterpolateTrace, self).interpolate(t)
-        return self._schatten_to_tracep(schatten)
+        Examples
+        --------
 
-    # ===========
-    # lower bound
-    # ===========
+        Create an interpolator object :math:`f` using four interpolant points
+        :math:`t_i`:
 
-    def lower_bound(self, t):
-        """
-        Lower bound of the function :math:`t \\mapsto \\mathrm{trace} \\left(
-        (\\mathbf{A} + t \\mathbf{B})^{-1} \\right)`.
+        .. code-block:: python
 
-        The lower bound is given by
+            >>> # Generate sample matrices (symmetric positive-definite)
+            >>> from imate.sample_matrices import correlation_matrix
+            >>> A = correlation_matrix(size=20, scale=1e-1)
+            >>> B = correlation_matrix(size=20, scale=2e-2)
 
-        .. math::
+            >>> # Initialize interpolator object
+            >>> from imate import InterpolateTrace
+            >>> ti = [1e-2, 1e-1, 1, 1e1]
+            >>> f = InterpolateTrace(A, B, p=-1, ti=ti)
 
-            \\mathrm{trace}((\\mathbf{A}+t\\mathbf{B})^{-1}) \\geq
-            \\frac{n^2}{\\mathrm{trace}(\\mathbf{A}) +
-            \\mathrm{trace}(t \\mathbf{B})}
+        Define an array if inquiry point `t` and call
+        :meth:`imate.InterpolateTrace.plot` function to plot the
+        interpolation of the function :math:`f(t)`:
 
-        Parameters
-        ----------
-        t : float or numpy.array
-            An inquiry point or an array of inquiry points.
+        .. code-block:: python
 
-        Returns
-        -------
-            lb : float or numpy.array
-                Lower bound of the affine matrix function.
-        """
+            >>> import numpy
+            >>> t_array = numpy.logspace(-2, 1, 1000)
+            >>> f.plot(t_array)
 
-        schatten_lb = super(InterpolateTrace, self).bound(t)
+        .. image:: ../_static/images/plots/interpolate_trace_2.png
+            :align: center
+            :class: custom-dark
+            :width: 60%
 
-        tracep_lb = self._schatten_to_tracep(schatten_lb)
-        return tracep_lb
+        To compare with the true values (without interpolation), pass
+        ``compare=True`` to the above function.
 
-    # ===========
-    # upper bound
-    # ===========
+        .. warning::
 
-    def upper_bound(self, t):
-        """
-        Upper bound of the function :math:`t \\mapsto \\mathrm{trace} \\left(
-        (\\mathbf{A} + t \\mathbf{B})^{-1} \\right)`.
+            By setting ``compare`` to `True`, every point in the array `t` is
+            evaluated both using interpolation and with the exact method (no
+            interpolation). If the size of `t` is large, this may take a very
+            long run time.
 
-        The upper bound is given by
+        .. code-block:: python
 
-        .. math::
+            >>> f.plot(t_array, normalize=True, compare=True)
 
-                \\frac{1}{\\tau(t)} \\geq \\frac{1}{\\tau_0} + t
-
-        where
-
-        .. math::
-
-                \\tau(t) = \\frac{\\mathrm{trace}\\left( (\\mathbf{A} +
-                t \\mathbf{B})^{-1}
-                \\right)}{\\mathrm{trace}(\\mathbf{B}^{-1})}
-
-        and :math:`\\tau_0 = \\tau(0)`.
-
-        Parameters
-        ----------
-        t : float or numpy.array
-            An inquiry point or an array of inquiry points.
-
-        Returns
-        -------
-        ub : float or numpy.array
-            bound of the affine matrix function.
-        """
-
-        schatten_ub = super(InterpolateTrace, self).upper_bound(t)
-
-        tracep_ub = self._schatten_to_tracep(schatten_ub)
-        return tracep_ub
-
-    # ====
-    # plot
-    # ====
-
-    def plot(
-            self,
-            inquiry_points,
-            normalize=True,
-            compare=False):
-        """
-        Plots the interpolation results, together with the comparison with the
-        exact solution and the relative error of the interpolation.
-
-        To plot, set ``Plot=True`` argument in
-        :mod:`imate.InterpolateSchatten`.
-
-        Parameters
-        ----------
-        inquiry_points: numpy.array
-            Inquiry points to be interpolated
+        .. image:: ../_static/images/plots/interpolate_trace_3.png
+            :align: center
+            :class: custom-dark
         """
 
         if not plot_modules_exist:
@@ -331,16 +1102,15 @@ class InterpolateTrace(InterpolateSchatten):
                               'or set "plot=False".')
 
         # Check t should be an array
-        if numpy.isscalar(inquiry_points) or (inquiry_points.size == 1):
-            raise ValueError("Argument 'inquiry_points' should be an " +
-                             "array of length greater than one to be able " +
-                             " to plot results.")
+        if numpy.isscalar(t) or (t.size == 1):
+            raise ValueError("Argument 't' should be an array of length " +
+                             "greater than one to be able to plot results.")
 
         # Generate interpolation
-        tracep_interpolated = self.interpolate(inquiry_points)
+        tracep_interpolated = self.interpolate(t)
 
         if compare:
-            tracep_exact = self.eval(inquiry_points)
+            tracep_exact = self.eval(t)
 
         # Normalize tracep to tau
         if normalize:
@@ -387,11 +1157,11 @@ class InterpolateTrace(InterpolateSchatten):
 
         # Plot exact values
         if compare:
-            ax[0].loglog(inquiry_points, tau_exact, color=exact_color,
+            ax[0].loglog(t, tau_exact, color=exact_color,
                          label='Exact')
 
         # Plot interpolated results
-        ax[0].loglog(inquiry_points, tau_interpolated, color=interp_color,
+        ax[0].loglog(t, tau_interpolated, color=interp_color,
                      label='Interpolated')
 
         if compare:
@@ -404,7 +1174,7 @@ class InterpolateTrace(InterpolateSchatten):
         tau_max_snap = 10**(numpy.ceil(numpy.log10(tau_max)))
 
         ax[0].grid(axis='x')
-        ax[0].set_xlim([inquiry_points[0], inquiry_points[-1]])
+        ax[0].set_xlim([t[0], t[-1]])
         ax[0].set_ylim([tau_min_snap, tau_max_snap])
         ax[0].set_xlabel(r'$t$')
 
@@ -430,12 +1200,12 @@ class InterpolateTrace(InterpolateSchatten):
                                numpy.zeros(self.interpolator.q), 'o',
                                color=exact_color, markersize=markersize,
                                label='Interpolant points', zorder=20)
-            ax[1].semilogx(inquiry_points, 100.0*tau_relative_error,
-                           color=interp_color, label='Interpolated')
+            ax[1].semilogx(t, 100.0*tau_relative_error, color=interp_color,
+                           label='Interpolated')
             ax[1].grid(axis='x')
             ax[1].semilogx(ax[1].get_xlim(), [0, 0], color='#CCCCCC',
                            linewidth=0.75)
-            ax[1].set_xlim([inquiry_points[0], inquiry_points[-1]])
+            ax[1].set_xlim([t[0], t[-1]])
             ax[1].set_xlabel('$t$')
             if normalize:
                 ax[1].set_ylabel(r'$1-g_{\mathrm{approx}}(t) / ' +

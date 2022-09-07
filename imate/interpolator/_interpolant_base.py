@@ -271,7 +271,7 @@ class InterpolantBase(object):
         Upper bound of the function :math:`t \\mapsto \\mathrm{trace} \\left(
         (\\mathbf{A} + t \\mathbf{B})^{-1} \\right)`.
 
-        The lower bound is given by Remark 2.2 of [Ameli-2020]_ as
+        The lower bound is given by
 
         .. math::
 
@@ -308,7 +308,7 @@ class InterpolantBase(object):
         Lower bound of the function :math:`t \\mapsto \\mathrm{trace} \\left(
         (\\mathbf{A} + t \\mathbf{B})^{-1} \\right)`.
 
-        The upper bound is given by Theorem 1 of [Ameli-2020]_ as
+        The upper bound is given by
 
         .. math::
 

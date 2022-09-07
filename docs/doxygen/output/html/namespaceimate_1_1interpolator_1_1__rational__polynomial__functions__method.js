@@ -1,4 +1,0 @@
-var namespaceimate_1_1interpolator_1_1__rational__polynomial__functions__method =
-[
-    [ "RationalPolynomialFunctionsMethod", "classimate_1_1interpolator_1_1__rational__polynomial__functions__method_1_1RationalPolynomialFunctionsMethod.html", "classimate_1_1interpolator_1_1__rational__polynomial__functions__method_1_1RationalPolynomialFunctionsMethod" ]
-];

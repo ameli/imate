@@ -8,7 +8,7 @@ How to Cite
 
 If you publish work that uses |project|, please consider citing the following manuscripts. This list will update as more publications are in progress.
 
-.. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant and Trace of the Powers of Matrix :math:`\mathbf{A} + t \mathbf{B}`. |ameli-interp| |btn-bib-1| |btn-view-pdf-1|
+.. [1] Ameli, S., and Shadden. S. C. (2022). *Interpolating Log-Determinant and Trace of the Powers of Matrix* :math:`\mathbf{A} + t \mathbf{B}`. |ameli-interp| |btn-bib-1| |btn-view-pdf-1|
 
    .. raw:: html
 
@@ -28,7 +28,7 @@ If you publish work that uses |project|, please consider citing the following ma
         </div>
         </div>
 
-.. [2] Ameli, S. (2022). IMATE, a high-performance python package for implicit matrix trace estimation. |imate-zenodo| |btn-bib-2|
+.. [2] Ameli, S. (2022). *IMATE, a high-performance python package for implicit matrix trace estimation*. |imate-zenodo| |btn-bib-2|
 
    .. raw:: html
 
@@ -48,7 +48,7 @@ Publications/Software Using |project|
 =====================================
 
 
-.. [3] Ameli, S., and Shadden. S. C. (2022). Noise Estimation in Gaussian Process Regression. |ameli-gpr| |btn-bib-3| |btn-view-pdf-2|
+.. [3] Ameli, S., and Shadden. S. C. (2022). *Noise Estimation in Gaussian Process Regression*. |ameli-gpr| |btn-bib-3| |btn-view-pdf-2|
 
    .. raw:: html
 
@@ -68,7 +68,7 @@ Publications/Software Using |project|
         </div>
         </div>
 
-.. [4] Ameli, S. (2022). GLearn, a high-performance python package for machine learning using Gaussian process. |glearn-zenodo| |btn-bib-4|
+.. [4] Ameli, S. (2022). *GLearn, a high-performance python package for machine learning using Gaussian process*. |glearn-zenodo| |btn-bib-4|
 
    .. raw:: html
 

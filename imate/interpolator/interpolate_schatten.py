@@ -195,7 +195,8 @@ class InterpolateSchatten(object):
 
     **Interpolation of Affine Matrix Function:**
 
-    This class interpolates the one-parameter matrix function:
+    This class interpolates the Schatten norm (or anti-norm) of the
+    one-parameter matrix function:
 
     .. math::
 
@@ -216,8 +217,8 @@ class InterpolateSchatten(object):
     References
     ----------
 
-    .. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant
-           and Trace of the Powers of Matrix
+    .. [1] Ameli, S., and Shadden. S. C. (2022). *Interpolating Log-Determinant
+           and Trace of the Powers of Matrix*
            :math:`\\mathbf{A} + t\\mathbf{B}`. `arXiv: 2009.07385
            <https://arxiv.org/abs/2207.08038>`_ [math.NA].
 
@@ -511,7 +512,7 @@ class InterpolateSchatten(object):
         ------
 
         NotImplementedError
-            If ``kind`` is neither ``crf`` nor ``spl``.
+            If ``kind`` is not ``crf``.
 
         Examples
         --------
@@ -530,17 +531,15 @@ class InterpolateSchatten(object):
             >>> # Initialize interpolator object
             >>> from imate import InterpolateSchatten
             >>> ti = [1e-2, 1e-1, 1, 1e1]
-            >>> f = InterpolateSchatten(A, B, p=2, kind='crf', ti=ti,
-            ...                         scale=None)
+            >>> f = InterpolateSchatten(A, p=2, kind='crf', ti=ti, scale=None)
 
             >>> f.get_scale()
             1.4101562500000009
         """
 
-        if self.kind not in ['crf', 'spl']:
+        if self.kind.lower() != 'crf':
             raise NotImplementedError('This function can be called only if' +
-                                      '"kind" is set to either "crf" or ' +
-                                      '"spl".')
+                                      '"kind" is set to "crf"')
 
         scale = self.interpolator.scale
 
@@ -798,7 +797,7 @@ class InterpolateSchatten(object):
         """
         Bound of the interpolation function.
 
-        If :math:`p < 1`, this function is lower bound, and if :math:`p > 1`,
+        If :math:`p < 1`, this function is a lower bound, and if :math:`p > 1`,
         this function is an upper bound of the interpolation function.
 
         Parameters
@@ -826,7 +825,7 @@ class InterpolateSchatten(object):
 
         .. math::
 
-                \\tau_{p}(t) = \\frac{\\Vert (\\mathbf{A} + t \\mathbf{B})^{p}
+                \\tau_{p}(t) = \\frac{\\Vert \\mathbf{A} + t \\mathbf{B}
                 \\Vert_p}{\\Vert \\mathbf{B} \\Vert_p}
 
         and :math:`\\tau_{p,0} = \\tau_{p}(0)`. A sharp bound of the function
@@ -855,8 +854,8 @@ class InterpolateSchatten(object):
         References
         ----------
 
-        .. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating
-               Log-Determinant and Trace of the Powers of Matrix
+        .. [1] Ameli, S., and Shadden. S. C. (2022). *Interpolating
+               Log-Determinant and Trace of the Powers of Matrix*
                :math:`\\mathbf{A} + t \\mathbf{B}`. `arXiv: 2009.07385
                <https://arxiv.org/abs/2207.08038>`_ [math.NA].
 
@@ -882,6 +881,7 @@ class InterpolateSchatten(object):
         the function :math:`f` on the array `t`.
 
         .. code-block:: python
+            :emphasize-lines: 4
 
             >>> # Interpolate at an array of points
             >>> import numpy
@@ -915,7 +915,7 @@ class InterpolateSchatten(object):
         .. image:: ../_static/images/plots/interpolate_schatten_bound.png
             :align: center
             :class: custom-dark
-            :width: 60%
+            :width: 70%
         """
 
         if isinstance(t, Number):
@@ -983,8 +983,8 @@ class InterpolateSchatten(object):
         References
         ----------
 
-        .. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating
-               Log-Determinant and Trace of the Powers of Matrix
+        .. [1] Ameli, S., and Shadden. S. C. (2022). *Interpolating
+               Log-Determinant and Trace of the Powers of Matrix*
                :math:`\\mathbf{A} + t \\mathbf{B}`. `arXiv: 2009.07385
                <https://arxiv.org/abs/2207.08038>`_ [math.NA].
 
@@ -1010,11 +1010,12 @@ class InterpolateSchatten(object):
         the function :math:`f` on the array `t`.
 
         .. code-block:: python
+            :emphasize-lines: 4
 
             >>> # Interpolate at an array of points
             >>> import numpy
             >>> t = numpy.logspace(-2, 1, 1000)
-            >>> upper_bound = f.upper_bound(t)
+            >>> ub = f.upper_bound(t)
             >>> interp = f.interpolate(t)
 
         Plot the results:
@@ -1030,8 +1031,7 @@ class InterpolateSchatten(object):
             >>> sns.set_style("ticks")
 
             >>> plt.semilogx(t, interp, color='black', label='Interpolation')
-            >>> plt.semilogx(t, upper_bound, '--', color='black',
-            ...              label='Upper bound')
+            >>> plt.semilogx(t, ub, '--', color='black', label='Upper bound')
             >>> plt.xlim([t[0], t[-1]])
             >>> plt.ylim([0, 10])
             >>> plt.xlabel('$t$')
@@ -1043,7 +1043,7 @@ class InterpolateSchatten(object):
         .. image:: ../_static/images/plots/interpolate_schatten_ub.png
             :align: center
             :class: custom-dark
-            :width: 60%
+            :width: 70%
         """
 
         if isinstance(t, Number):
@@ -1064,7 +1064,7 @@ class InterpolateSchatten(object):
 
     def plot(
             self,
-            inquiry_points,
+            t,
             normalize=True,
             compare=False):
         """
@@ -1073,7 +1073,7 @@ class InterpolateSchatten(object):
         Parameters
         ----------
 
-        inquiry_points : numpy.array
+        t : numpy.array
             Inquiry points to be interpolated.
 
         normalize : bool, default: False
@@ -1104,7 +1104,7 @@ class InterpolateSchatten(object):
             If `matplotlib` and `seaborn` are not installed.
 
         ValueError
-            If ``inquiry_points`` is not an array of size greater than one.
+            If ``t`` is not an array of size greater than one.
 
         Notes
         -----
@@ -1233,12 +1233,10 @@ class InterpolateSchatten(object):
 
         if self.kind.lower() in ['crf', 'spl']:
             # Plots tau where abscissa is the finite domain [-1, 1]
-            self._plot_finite(
-                    inquiry_points, normalize=normalize, compare=compare)
+            self._plot_finite(t, normalize=normalize, compare=compare)
         else:
             # Plots tau where abscissa is the semi-infinite domain [0, inf)
-            self._plot_semi_infinite(
-                    inquiry_points, normalize=normalize, compare=compare)
+            self._plot_semi_infinite(t, normalize=normalize, compare=compare)
 
     # ==================
     # plot semi infinite
@@ -1246,7 +1244,7 @@ class InterpolateSchatten(object):
 
     def _plot_semi_infinite(
             self,
-            inquiry_points,
+            t,
             normalize=True,
             compare=False):
         """
@@ -1258,7 +1256,7 @@ class InterpolateSchatten(object):
 
         Parameters
         ----------
-        inquiry_points: numpy.array
+        t : numpy.array
             Inquiry points to be interpolated
         """
 
@@ -1276,16 +1274,16 @@ class InterpolateSchatten(object):
                               'or set "plot=False".')
 
         # Check t should be an array
-        if numpy.isscalar(inquiry_points) or (inquiry_points.size == 1):
-            raise ValueError("Argument 'inquiry_points' should be an " +
+        if numpy.isscalar(t) or (t.size == 1):
+            raise ValueError("Argument 't' should be an " +
                              "array of length greater than one to be able " +
                              " to plot results.")
 
         # Generate interpolation
-        schatten_interpolated = self.interpolate(inquiry_points)
+        schatten_interpolated = self.interpolate(t)
 
         if compare:
-            schatten_exact = self.eval(inquiry_points)
+            schatten_exact = self.eval(t)
 
         # Normalize schatten to tau
         if normalize:
@@ -1331,11 +1329,11 @@ class InterpolateSchatten(object):
 
         # Plot exact values
         if compare:
-            ax[0].loglog(inquiry_points, tau_exact, color=exact_color,
+            ax[0].loglog(t, tau_exact, color=exact_color,
                          label='Exact')
 
         # Plot interpolated results
-        ax[0].loglog(inquiry_points, tau_interpolated, color=interp_color,
+        ax[0].loglog(t, tau_interpolated, color=interp_color,
                      label='Interpolated')
 
         if compare:
@@ -1348,7 +1346,7 @@ class InterpolateSchatten(object):
         tau_max_snap = 10**(numpy.round(numpy.log10(tau_max)))
 
         ax[0].grid(axis='x')
-        ax[0].set_xlim([inquiry_points[0], inquiry_points[-1]])
+        ax[0].set_xlim([t[0], t[-1]])
         ax[0].set_ylim([tau_min_snap, tau_max_snap])
         ax[0].set_xlabel(r'$t$')
 
@@ -1374,12 +1372,12 @@ class InterpolateSchatten(object):
                                numpy.zeros(self.interpolator.q), 'o',
                                color=exact_color, markersize=markersize,
                                label='Interpolant points', zorder=20)
-            ax[1].semilogx(inquiry_points, 100.0*tau_relative_error,
-                           color=interp_color, label='Interpolated')
+            ax[1].semilogx(t, 100.0*tau_relative_error, color=interp_color,
+                           label='Interpolated')
             ax[1].grid(axis='x')
             ax[1].semilogx(ax[1].get_xlim(), [0, 0], color='#CCCCCC',
                            linewidth=0.75)
-            ax[1].set_xlim([inquiry_points[0], inquiry_points[-1]])
+            ax[1].set_xlim([t[0], t[-1]])
             ax[1].set_xlabel('$t$')
             if normalize:
                 ax[1].set_ylabel(r'$1-\tau_{\mathrm{approx}}(t) / ' +
@@ -1414,8 +1412,8 @@ class InterpolateSchatten(object):
 
     def _plot_finite(
             self,
-            inquiry_points,
-            normalize=True,
+            t,
+            normalize=False,
             compare=False):
         """
         Plots the interpolation results, together with the comparison with the
@@ -1426,7 +1424,7 @@ class InterpolateSchatten(object):
 
         Parameters
         ----------
-        inquiry_points: numpy.array
+        t : numpy.array
             Inquiry points to be interpolated
 
         schatten_interpolated : numpy.array
@@ -1457,16 +1455,15 @@ class InterpolateSchatten(object):
                               'or set "plot=False".')
 
         # Check t should be an array
-        if numpy.isscalar(inquiry_points) or (inquiry_points.size == 1):
-            raise ValueError("Argument 'inquiry_points' should be an " +
-                             "array of length greater than one to be able " +
-                             " to plot results.")
+        if numpy.isscalar(t) or (t.size == 1):
+            raise ValueError("Argument 't' should be an array of length " +
+                             "greater than one to be able to plot results.")
 
         # If no data is provided, generate interpolation
-        schatten_interpolated = self.interpolate(inquiry_points)
+        schatten_interpolated = self.interpolate(t)
 
         if compare:
-            schatten_exact = self.eval(inquiry_points)
+            schatten_exact = self.eval(t)
 
         # Normalize schatten to tau
         if normalize:
@@ -1491,7 +1488,6 @@ class InterpolateSchatten(object):
 
         tau_0 = self.interpolator.tau0
         t_i = self.interpolator.t_i
-        t = inquiry_points
 
         if self.kind.lower() == 'crf':
             scale = self.interpolator.scale
@@ -1588,12 +1584,12 @@ class InterpolateSchatten(object):
                                numpy.zeros(self.interpolator.q), 'o',
                                color=exact_color, markersize=markersize,
                                label='Interpolant points', zorder=20)
-            ax[1].semilogx(inquiry_points, 100.0*tau_relative_error,
+            ax[1].semilogx(t, 100.0*tau_relative_error,
                            color=interp_color, label='Interpolated')
             ax[1].grid(axis='x')
             ax[1].semilogx(ax[1].get_xlim(), [0, 0], color='#CCCCCC',
                            linewidth=0.75)
-            ax[1].set_xlim([inquiry_points[0], inquiry_points[-1]])
+            ax[1].set_xlim([t[0], t[-1]])
             ax[1].set_xlabel('$t$')
             if normalize:
                 ax[1].set_ylabel(r'$1-\tau_{\mathrm{approx}}(t) / ' +

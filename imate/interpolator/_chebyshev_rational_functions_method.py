@@ -117,11 +117,19 @@ class ChebyshevRationalFunctionsMethod(InterpolantBase):
     -------
 
     __call__
+        See :meth:`imate.InterpolateSchatten.__call__`.
     eval
+        See :meth:`imate.InterpolateSchatten.eval`.
     interpolate
+        See :meth:`imate.InterpolateSchatten.interpolate`.
+    get_scale
+        See :meth:`imate.InterpolateSchatten.get_scale`.
     bound
+        See :meth:`imate.InterpolateSchatten.bound`.
     upper_bound
+        See :meth:`imate.InterpolateSchatten.upper_bound`.
     plot
+        See :meth:`imate.InterpolateSchatten.plot`.
 
     Notes
     -----
@@ -240,6 +248,14 @@ class ChebyshevRationalFunctionsMethod(InterpolantBase):
         {(1 + \\vert y'_{\\alpha}(x) \\vert^2)^{\\frac{5}{2}}}
         \\mathrm{d} x.
 
+    **Boundary Conditions:**
+
+    The following boundary conditions are added to the data :math:`(x, y)`:
+
+    * If ``func_type`` is `1`, then the point :math:`(-1, 0)` is imposed to the
+      regression.
+    * If ``func_type`` is `2`, no boundary condition is added to the data.
+
     **Interpolation Points:**
 
     The best practice is to provide an array of interpolation points that are
@@ -252,7 +268,7 @@ class ChebyshevRationalFunctionsMethod(InterpolantBase):
         >>> ti = numpy.logspace(-2, 1, 4)
 
     If ``ti`` is an integer, then `ti` number of interpolation points are
-    automatically generated on Chebyshev nodesi or degree `ti`, which are
+    automatically generated on Chebyshev nodes of degree `ti`, which are
     defined by
 
     .. math::
@@ -264,8 +280,8 @@ class ChebyshevRationalFunctionsMethod(InterpolantBase):
     References
     ----------
 
-    .. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant
-           and Trace of the Powers of Matrix
+    .. [1] Ameli, S., and Shadden. S. C. (2022). *Interpolating Log-Determinant
+           and Trace of the Powers of Matrix*
            :math:`\\mathbf{A} + t\\mathbf{B}`. `arXiv: 2009.07385
            <https://arxiv.org/abs/2207.08038>`_ [math.NA].
 
@@ -275,7 +291,7 @@ class ChebyshevRationalFunctionsMethod(InterpolantBase):
     **Basic Usage:**
 
     Interpolate the Schatten `2`-norm of the affine matrix function
-    :math:`\\mathbf{A} + t \\mathbf{B}` using ``imbf`` algorithm and the
+    :math:`\\mathbf{A} + t \\mathbf{B}` using ``crf`` algorithm and the
     interpolating points :math:`t_i = [10^{-2}, 10^{-1}, 1, 10]`.
 
     .. code-block:: python
@@ -404,10 +420,10 @@ class ChebyshevRationalFunctionsMethod(InterpolantBase):
 
     From the error plot in the above, it can be seen that with only four
     interpolation points, the error of interpolation for a wide range of
-    :math:`t`is no more than :math:`0.003 \\%`, which is a remarkable result.
-    Also, note that the error on the interpolant points
-    :math:`t_i=[10^{-2}, 10^{-1}, 1, 10]` is zero since the interpolation
-    scheme honors the exact function value at the interpolation points.
+    :math:`t` is no more than :math:`0.003 \\%`. Also, note that the error on
+    the interpolant points :math:`t_i=[10^{-2}, 10^{-1}, 1, 10]` is zero since
+    the interpolation scheme honors the exact function value at the
+    interpolation points.
     """
 
     # ====
