@@ -122,10 +122,27 @@ def get_num_cpu_threads():
     Examples
     --------
 
+    Find the number of *available* CPU threads:
+
     .. code-block:: python
 
         >>> from imate.device import get_num_cpu_threads
         >>> get_num_cpu_threads()
+        2
+
+    Find the total number of CPU threads on the device (all may not be
+    available/allocated to the user):
+
+    .. code-block:: python
+
+        >>> # Method 1
+        >>> import os
+        >>> os.cpu_count()
+        8
+
+        >>> # Method 2
+        >>> import multiprocessing
+        >>> multiprocessing.cpu_count()
         8
     """
 

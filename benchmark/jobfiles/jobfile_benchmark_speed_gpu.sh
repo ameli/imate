@@ -20,4 +20,4 @@ LOG_DIR=$PWD
 
 module load cuda/11.2
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-$PYTHON_DIR/bin/python ${SCRIPTS_DIR}/benchmark.py -g > ${LOG_DIR}/stream_output_gpu.txt
+$PYTHON_DIR/bin/python ${SCRIPTS_DIR}/benchmark_speed.py -g > ${LOG_DIR}/stream_output_gpu.txt

@@ -15,8 +15,8 @@
             "imate/functions/functions.h"
         ],
         "include_dirs": [
-            "./imate/_c_linear_operator",
             "./imate/functions",
+            "./imate/_c_linear_operator",
             "./imate/_c_trace_estimator",
             "i",
             "m",

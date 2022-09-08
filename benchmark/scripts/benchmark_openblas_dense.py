@@ -11,6 +11,7 @@ import pickle
 import numpy
 import getopt
 import re
+import imate
 from imate import traceinv
 from imate import Matrix
 from imate import AffineMatrixFunction                             # noqa: F401
@@ -75,75 +76,6 @@ Required arguments:
     return arguments
 
 
-# ==================
-# get processor name
-# ==================
-
-def get_processor_name():
-    """
-    Gets the name of CPU.
-
-    For windows operating system, this function still does not get the full
-    brand name of the cpu.
-    """
-
-    if platform.system() == "Windows":
-        return platform.processor()
-
-    elif platform.system() == "Darwin":
-        os.environ['PATH'] = os.environ['PATH'] + os.pathsep + '/usr/sbin'
-        command = "sysctl -n machdep.cpu.brand_string"
-        return subprocess.getoutput(command).strip()
-
-    elif platform.system() == "Linux":
-        command = "cat /proc/cpuinfo"
-        all_info = subprocess.getoutput(command).strip()
-        for line in all_info.split("\n"):
-            if "model name" in line:
-                return re.sub(".*model name.*:", "", line, 1)[1:]
-
-    return ""
-
-
-# ============
-# get gpu name
-# ============
-
-def get_gpu_name():
-    """
-    Gets the name of gpu device.
-    """
-
-    command = 'nvidia-smi -a | grep -i "Product Name" -m 1 | grep -o ":.*"' + \
-              ' | cut -c 3-'
-    return subprocess.getoutput(command).strip()
-
-
-# =======================
-# get num all gpu devices
-# =======================
-
-def get_num_all_gpu_devices():
-    """
-    Get number of all gpu devices
-    """
-
-    command = ['nvidia-smi', '--list-gpus', '|', 'wc', '-l']
-    process = subprocess.Popen(command, stdout=subprocess.PIPE,
-                               stderr=subprocess.PIPE)
-    stdout, _ = process.communicate()
-    error_code = process.poll()
-
-    # Error code 127 means nvidia-smi is not a recognized command. Error code
-    # 9 means nvidia-smi could not find any device.
-    if error_code != 0:
-        num_gpu = 0
-    else:
-        num_gpu = int(stdout)
-
-    return num_gpu
-
-
 # =========
 # benchmark
 # =========
@@ -185,10 +117,10 @@ def benchmark(argv):
     }
 
     devices = {
-        'cpu_name': get_processor_name(),
-        'gpu_name': get_gpu_name(),
-        'num_all_cpu_threads': multiprocessing.cpu_count(),
-        'num_all_gpu_devices': get_num_all_gpu_devices()
+        'cpu_name': imate.device.get_processor_name(),
+        'gpu_name': imate.device.get_gpu_name(),
+        'num_all_cpu_threads': imate.device.get_num_cpu_threads(),
+        'num_all_gpu_devices': imate.device.get_num_gpu_devices()
     }
 
     data_results = []

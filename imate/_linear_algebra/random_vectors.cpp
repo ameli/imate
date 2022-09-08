@@ -15,8 +15,8 @@
             "imate/_random_generator/random_number_generator.h"
         ],
         "include_dirs": [
-            "./imate/_c_basic_algebra",
             "./imate/_random_generator",
+            "./imate/_c_basic_algebra",
             "./imate/_linear_algebra",
             "i",
             "m",

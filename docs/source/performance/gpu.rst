@@ -3,36 +3,82 @@
 Performance on GPU Farm
 ***********************
 
-To test the performance on both GPU and compare with CPU, we run a benchmark task by compares
+The performance of |project| is tested on multi-GPU devices and the results are compared with the performance on a CPU cluster.
+
+Task
+====
+
+In these tests, the trace of inverse of matrix :math:`\mathbf{A}`, *i.e.*,
 
 .. math::
     :label: traceinv
     
     \mathrm{trace}(\mathbf{A}^{-1}),
 
-on several large matrices :math:`\mathbf{A}`.
+is computed on several benchmark matrices that are symmetric and positive-definite. To compute :math:numref:`traceinv`, the stochastic Lanczos quadrature (SLQ) algorithm is employed. SLQ is a randomized algorithm to compute the trace of matrix functions, such as the inverse of matrix.
 
-Test Matrices
-=============
+Benchmark Matrices
+==================
 
-The following sparse matrices from real applications chosen from `SparseSuite Matrix Collection <https://sparse.tamu.edu>`_. 
+The following table shows the name of benchmark matrices used in the test, which are chosen from `SparseSuite Matrix Collection <https://sparse.tamu.edu>`_. The matrices are generated for numerical simulation in practical applications. The selected matrices below are all symmetric positive-definite, which is a requirement for the SLQ method. The `NNZ` in the third column of the table indicates the number of non-zero elements of the sparse matrix.
 
-* `nos5 <https://sparse.tamu.edu/HB/nos5>`_
-* `mhd4800b <https://sparse.tamu.edu/Bai/mhd4800b>`_
-* `bodyy6 <https://sparse.tamu.edu/Pothen/bodyy6>`_
-* `G2_circuit <https://sparse.tamu.edu/AMD/G2_circuit>`_
-* `parabolic_fem <https://sparse.tamu.edu/Wissgott/parabolic_fem>`_
-* `StocF-1465 <https://sparse.tamu.edu/Janna/StocF-1465>`_
-* `Bump_2911 <https://sparse.tamu.edu/Janna/Bump_2911>`_
-* `Queen_4147 <https://sparse.tamu.edu/Janna/Queen_4147>`_
-  
-All the above matrices are symmetric positive-definite. The last matrix (`Queen_4147`) is so large that 32-bit ``int`` type integers cannot hold the column and row indexing of this matrix. Rather, 32-bit ``unsigned int`` should be used. To do so, the |project| has to be compiled by exporting the environment variable:
+.. table::
+   :class: right2 right3
 
-::
+   =================  =========  ===========  ============================
+   Matrix Name             Size  NNZ          Application
+   =================  =========  ===========  ============================
+   |nos5|_                  468        5,172  Structural Problem
+   |mhd4800b|_            4,800       27,520  Electromagnetics
+   |bodyy6|_             19,366      134,208  Structural Problem
+   |G2_circuit|_        150,102      726,674  Circuit Simulation
+   |parabolic_fem|_     525,825    3,674,625  Computational Fluid Dynamics
+   |StocF-1465|_      1,465,137   21,005,389  Computational Fluid Dynamics 
+   |Bump_2911|_       2,911,419  127,729,899  Structural Problem
+   |Queen_4147|_      4,147,110  329,499,284  Structural Problem
+   =================  =========  ===========  ============================
 
-    export UNSIGNED_LONG_INT=1
+.. note::
 
-Alternatively, set ``UNSIGNED_LONG_INT=1`` in |def-use-cblas-2|_. By default, ``UNSIGNED_LONG_INT`` is ``0``.
+    The matrix |Queen_4147|_ is exceptionally large, beyound the matrix sizes that most numerical software could handle. Particularly, a 32-bit ``int`` type integers cannot hold the column and row indexing of this matrix beyound :math:`2^{31}-1`. Rather, a 32-bit ``unsigned int`` should be used. |project| can handle such massive data, however, it has to be recompiled with ``UNSIGNED_LONG_INT=1`` flag to use larger integer space for matrix indices to :math:`2^{32}-1` limit. To do so, change ``UNSIGNED_LONG_INT=1`` in |def-use-cblas-2|_ file, or in terminal set
+
+    .. tab-set::
+
+        .. tab-item:: UNIX
+            :sync: unix
+
+            .. prompt:: bash
+
+                export UNSIGNED_LONG_INT=1
+
+        .. tab-item:: Windows (Powershell)
+            :sync: win
+
+            .. prompt:: powershell
+
+                $env:export UNSIGNED_LONG_INT = "1"
+
+    Then, recompile |project|. See :ref:`Compile from Source <compile-source>`.
+
+.. |def-use-cblas-2|  replace:: ``/imate/imate/_definitions/definition.h``
+.. _def-use-cblas-2: https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L57
+.. |nos5| replace:: ``nos5``
+.. _nos5: https://sparse.tamu.edu/HB/nos5
+.. |mhd4800b| replace:: ``mhd4800b``
+.. _mhd4800b: https://sparse.tamu.edu/Bai/mhd4800b
+.. |bodyy6| replace:: ``bodyy6``
+.. _bodyy6: https://sparse.tamu.edu/Pothen/bodyy6
+.. |G2_circuit| replace:: ``G2_circuit``
+.. _G2_circuit: https://sparse.tamu.edu/AMD/G2_circuit
+.. |parabolic_fem| replace:: ``parabolic_fem``
+.. _parabolic_fem: https://sparse.tamu.edu/Wissgott/parabolic_fem
+.. |StocF-1465| replace:: ``StocF-1465``
+.. _StocF-1465: https://sparse.tamu.edu/Janna/StocF-1465
+.. |Bump_2911| replace:: ``Bump_2911``
+.. _Bump_2911: https://sparse.tamu.edu/Janna/Bump_2911
+.. |Queen_4147| replace:: ``Queen_4147``
+.. _Queen_4147: https://sparse.tamu.edu/Janna/Queen_4147
+
 
 Results
 =======
@@ -51,9 +97,6 @@ Results
    :align: center
    :height: 375
    :class: custom-dark
-
-.. |def-use-cblas-2|  replace:: ``/imate/_definitions/definition.h``
-.. _def-use-cblas-2: https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L57
 
 Considerations
 ==============

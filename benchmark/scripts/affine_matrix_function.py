@@ -12,6 +12,7 @@ import getopt
 import numpy
 import scipy
 import scipy.sparse
+import imate
 from imate import traceinv, logdet
 from imate import AffineMatrixFunction                             # noqa: F401
 from imate.sample_matrices import toeplitz
@@ -78,36 +79,6 @@ Required arguments:
     return arguments
 
 
-# ==================
-# get processor name
-# ==================
-
-def get_processor_name():
-    """
-    Gets the name of CPU.
-
-    For windows operating system, this function still does not get the full
-    brand name of the cpu.
-    """
-
-    if platform.system() == "Windows":
-        return platform.processor()
-
-    elif platform.system() == "Darwin":
-        os.environ['PATH'] = os.environ['PATH'] + os.pathsep + '/usr/sbin'
-        command = "sysctl -n machdep.cpu.brand_string"
-        return subprocess.getoutput(command).strip()
-
-    elif platform.system() == "Linux":
-        command = "cat /proc/cpuinfo"
-        all_info = subprocess.getoutput(command).strip()
-        for line in all_info.split("\n"):
-            if "model name" in line:
-                return re.sub(".*model name.*:", "", line, 1)[1:]
-
-    return ""
-
-
 # =========
 # benchmark
 # =========
@@ -150,8 +121,8 @@ def benchmark(argv):
     }
 
     devices = {
-        'cpu_name': get_processor_name(),
-        'num_all_cpu_threads': multiprocessing.cpu_count(),
+        'cpu_name': imate.device.get_processor_name(),
+        'num_all_cpu_threads': imate.device.get_num_cpu_threads(),
     }
 
     # Generate matrix
