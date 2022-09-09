@@ -109,6 +109,13 @@ rst_epilog = f'''
 .. |project| replace:: :synco:`imate`
 '''
 
+# Figure, Tables, etc numbering
+# numfig = True
+# numfig_format = {
+#     'figure': 'Figure %s',
+#     'table': 'Table %s'
+# }
+
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
