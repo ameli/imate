@@ -5,29 +5,35 @@ Comparison of Performance with and without OpenBLAS
 
 Almost all computational software are built upon existing numerical libraries for basic linear algebraic subprograms, such as BLAS, OpenBLAS, NVIDIA® cuBLAS, and Intel® Math Kernel Library, to name a few. |project| uses cuBLAS and cuSparse for basic vector and matrix operations on GPU devices. However, for computation on CPU, |project| comes with its comes with its own library for basic numerical operations for vector and matrix operations, which supports both dense and sparse matrices. Despite this, |project| can also be compiled with `OpenBLAS <https://www.openblas.net/>`_ instead of its own library.
 
-.. tip::
-
-    To compile |project| using OpenBLAS, export the environment variable:
-
-    ::
-
-        export USE_CBLAS=1
-
-    or set ``USE_CBLAS=1`` in |def-use-cblas|_. By default, ``USE_CBLAS`` is set to ``0``.
-
 .. note::
 
     OpenBLAS library has three levels of functionalities: level one, two, and three, for vector-vector, matrix-vector, and matrix-matrix operations, respectively. OpenBLAS, however, only supports operations on dense matrices. As such, when |project| is compiled with OpenBLAS, it only uses level one functionalities of OpenBLAS for sparse data. For level two and three operations, |project| uses its own library.
 
+The following numerical experiment compares the performance and accuracy of |project| with and without using OpenBLAS.
 
-Here we compare the performance and accuracy of |project| with and without using OpenBLAS. In this numerical experiment, we compute
+Test Description
+================
+
+In this numerical experiment, the goal is to compute
 
 .. math::
-    :label: perf-traceinv
+    :label: traceinv2
     
-    \mathrm{trace}(\mathbf{A}^{-1})
-    
-using :func:`imate.traceinv` function on both dense and sparse matrix :math:`\mathbf{A}`.
+    \mathrm{trace}(\mathbf{A}^{-1}),
+
+where :math:`\mathbf{A}` is symmetric and positive-definite. The above quantity is a computationally expensive expression that frequently appears in the Jacobian and Hessian of likelihood functions in machine learning.
+
+Algorithm
+---------
+
+To compute :math:numref:`traceinv`, the stochastic Lanczos quadrature (SLQ) algorithm is employed. The complexity of this algorithm is
+
+.. math::
+   :label: complexity1
+
+    \mathcal{O} \left( (\mathrm{nnz}(\mathbf{A}) l + n l^2) s \right),
+
+where :math:`n` is the matrix size, :math:`\mathrm{nnz}(\mathbf{A})` is the number of nonzero elements of the sparse matrix :math:`\mathbf{A}`, :math:`l` is the number of Lanczos iterations, and :math:`s` is the number of Monte-Carlo iterations (see details in :ref:`imate.traceinv.slq`).  The numerical experiment is performed with :math:`l=80` and :math:`s=200`. The computations were carried out on Intel(R) Xeon(R) CPU E5-2670 v3  with 24 threads.
 
 Using Dense Matrices
 --------------------
@@ -80,64 +86,9 @@ We can use :func:`imate.sample_matrices.toeplitz_traceinv` function to compute :
 We use the above exact value as benchmark for our experiment.
 
 
-Using Stochastic Estimator
---------------------------
-
-We use stochastic Lanczos quadrature (SLQ) method using :func:`imate.traceinv` by setting ``method=slq``. We also specify the number of Monte-Carlo sampling with `min_num_samples` and `max_num_samples` to `200`, and we set `lanczos_degree` to `50`.
-
-.. code-block:: python
-
-   >>> from imate import tracein
-   >>> trace, info = traceinv(A, method='slq', min_num_samples=200, max_num_samples=200,
-   ...                        lanczos_degree=50, return_info=True)
-   >>> print(trace)
-
-
-
-
-Run Benchmark Script
---------------------
-
-1. Run locally
-~~~~~~~~~~~~~~
-
-Run `/benchmark/scripts/benchmark_openblas_dense.py` twice as follows:
-
-1. Compile `imate` using OpenBLAS:
-
-   ::
-
-       export USE_CBLAS=1
-       python setup.py install
-       python ./benchmark_openblas_dense.py -o True     # Uses openblas
-
-2. Compile `mate` without OpenBLAS:
-
-   ::
-
-       export USE_CBLAS=0
-       python setup.py install
-       python ./benchmark_openblas_dense.py -o False    # Does not use openblas
-
-The outputs are stored in
-
-* `/benchnmark/pickle_results/benchmark_with_openblas_dense.pickle` for using OpenBLAS.
-* `/benchnmark/pickle_results/benchmark_without_openblas_dense.pickle` for not using OpenBLAS.
-
-2. Run on cluster
-~~~~~~~~~~~~~~~~~
-
-To run on a cluster with SLURM:
-
-::
-
-    cd jobfiles
-    sbatch jobfile_benchmark_openblas_dense.sh
-
-When submitting the jobs on the cluster, make sure that the cpu is the same as the previous runs. For example, nodes on savio2 between `n027` and `n150` are *Intel Xeon E5-2670 v3*.
 
 Results
--------
+=======
 
 * All 24 cores of Intel Xeon E5-2670 v3 processor are used.
 * Each result is repeated 10 times and the wall time is averaged between these 10 repeats. However, only the last repeat is used to store the value of traceinv. This is becase if we average traceinv between these repeats, the number of samples would be 10*200, not 200. But, we onlt want to show the error of traceinv for 200 samples.
@@ -173,3 +124,53 @@ Using Sparse Matrices
 .. _def-use-cblas: https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L67
 
 
+How to Reproduce Results
+========================
+
+.. tip::
+
+    To compile |project| using OpenBLAS, export the environment variable:
+
+    ::
+
+        export USE_CBLAS=1
+
+    or set ``USE_CBLAS=1`` in |def-use-cblas|_. By default, ``USE_CBLAS`` is set to ``0``.
+
+Run locally
+-----------
+
+Run `/benchmark/scripts/benchmark_openblas_dense.py` twice as follows:
+
+1. Compile `imate` using OpenBLAS:
+
+   ::
+
+       export USE_CBLAS=1
+       python setup.py install
+       python ./benchmark_openblas_dense.py -o True     # Uses openblas
+
+2. Compile `mate` without OpenBLAS:
+
+   ::
+
+       export USE_CBLAS=0
+       python setup.py install
+       python ./benchmark_openblas_dense.py -o False    # Does not use openblas
+
+The outputs are stored in
+
+* `/benchnmark/pickle_results/benchmark_with_openblas_dense.pickle` for using OpenBLAS.
+* `/benchnmark/pickle_results/benchmark_without_openblas_dense.pickle` for not using OpenBLAS.
+
+Submit Job to Cluster with SLURM
+--------------------------------
+
+To run on a cluster with SLURM:
+
+::
+
+    cd jobfiles
+    sbatch jobfile_benchmark_openblas_dense.sh
+
+When submitting the jobs on the cluster, make sure that the cpu is the same as the previous runs. For example, nodes on savio2 between `n027` and `n150` are *Intel Xeon E5-2670 v3*.

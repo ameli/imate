@@ -235,13 +235,11 @@
      Hardware
     </a>
    </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#benchmark-matrices">
-   Benchmark Matrices
-  </a>
-  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#benchmark-matrices">
+     Benchmark Matrices
+    </a>
+   </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#arithmetic-types">
      Arithmetic Types
@@ -350,9 +348,8 @@
 <li><p>For <strong>GPU</strong> test: a cluster of eight <a class="reference external" href="https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090-3090ti/">NVIDIA® GeForce RTX 3090</a> GPUs and Intel Xeon Processor (Skylake, IBRS) with 32 threads.</p></li>
 </ul>
 </section>
-</section>
 <section id="benchmark-matrices">
-<h2>Benchmark Matrices<a class="headerlink" href="#benchmark-matrices" title="Permalink to this heading">#</a></h2>
+<h3>Benchmark Matrices<a class="headerlink" href="#benchmark-matrices" title="Permalink to this heading">#</a></h3>
 <p>The table below shows the matrices used in the test, which are chosen from <a class="reference external" href="https://sparse.tamu.edu">SuiteSparse Matrix Collection</a> that are generated for real applications. The matrices in the table below are all symmetric positive-definite and the number of nonzero elements (nnz) of these matrices increase approximately by the factor of 5 on average.</p>
 <table class="right2 right3 table">
 <thead>
@@ -405,6 +402,7 @@
 </tr>
 </tbody>
 </table>
+</section>
 <section id="arithmetic-types">
 <h3>Arithmetic Types<a class="headerlink" href="#arithmetic-types" title="Permalink to this heading">#</a></h3>
 <p>The benchmark test also examines the performance and accuracy of <span class="synco">imate</span> on various arithmetic types of the matrix data. To this end, each of the above matrices were re-cast into 32-bit, 64-bit, and 128-bit floating point arithmetics. Depending on the hardware, the followings data types were tested:</p>
@@ -470,7 +468,7 @@
 <p>The computation on GPU is advantageous over CPU at nnz larger than roughly <span class="math notranslate nohighlight">\(10^{5}\)</span>. The elapsed time <span class="math notranslate nohighlight">\(t\)</span> is related to the number of nonzero elements <span class="math notranslate nohighlight">\(\mathrm{nnz}\)</span> by</p>
 <div class="math notranslate nohighlight">
 \[t \propto \mathcal{O}((\mathrm{nnz}(\mathbf{A}))^{\alpha}),\]</div>
-<p>where the exponent <span class="math notranslate nohighlight">\(\alpha\)</span> for each experiment asymptotically approaches to the values shown in the table below. It can be seen that the performance is close to the theoretical complexity <a class="reference internal" href="#equation-complexity1">(2)</a>.</p>
+<p>where the exponent <span class="math notranslate nohighlight">\(\alpha\)</span> for each experiment asymptotically approaches to the values shown in the table below. It can be seen that the performance is close to the theoretical complexity <a class="reference internal" href="openblas.html#equation-complexity1">(2)</a>.</p>
 <p>Also, the figure shows that processing 32-bit data is at most twice faster than 64-bit data on both CPU and GPU, and 64-bit data is at least twice faster than 128-bit on CPU.</p>
 <section id="extreme-array-sizes">
 <h4>Extreme Array Sizes<a class="headerlink" href="#extreme-array-sizes" title="Permalink to this heading">#</a></h4>

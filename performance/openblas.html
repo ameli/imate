@@ -221,33 +221,23 @@
 <nav id="bd-toc-nav">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-dense-matrices">
-   Using Dense Matrices
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#exact-solution">
-   Exact Solution
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-stochastic-estimator">
-   Using Stochastic Estimator
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#run-benchmark-script">
-   Run Benchmark Script
+  <a class="reference internal nav-link" href="#test-description">
+   Test Description
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#run-locally">
-     1. Run locally
+    <a class="reference internal nav-link" href="#algorithm">
+     Algorithm
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#run-on-cluster">
-     2. Run on cluster
+    <a class="reference internal nav-link" href="#using-dense-matrices">
+     Using Dense Matrices
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exact-solution">
+     Exact Solution
     </a>
    </li>
   </ul>
@@ -256,11 +246,30 @@
   <a class="reference internal nav-link" href="#results">
    Results
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-sparse-matrices">
+     Using Sparse Matrices
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-sparse-matrices">
-   Using Sparse Matrices
+  <a class="reference internal nav-link" href="#how-to-reproduce-results">
+   How to Reproduce Results
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#run-locally">
+     Run locally
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#submit-job-to-cluster-with-slurm">
+     Submit Job to Cluster with SLURM
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -291,24 +300,26 @@
   <section id="comparison-of-performance-with-and-without-openblas">
 <span id="perf-openblas"></span><h1>Comparison of Performance with and without OpenBLAS<a class="headerlink" href="#comparison-of-performance-with-and-without-openblas" title="Permalink to this heading">#</a></h1>
 <p>Almost all computational software are built upon existing numerical libraries for basic linear algebraic subprograms, such as BLAS, OpenBLAS, NVIDIA® cuBLAS, and Intel® Math Kernel Library, to name a few. <span class="synco">imate</span> uses cuBLAS and cuSparse for basic vector and matrix operations on GPU devices. However, for computation on CPU, <span class="synco">imate</span> comes with its comes with its own library for basic numerical operations for vector and matrix operations, which supports both dense and sparse matrices. Despite this, <span class="synco">imate</span> can also be compiled with <a class="reference external" href="https://www.openblas.net/">OpenBLAS</a> instead of its own library.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>To compile <span class="synco">imate</span> using OpenBLAS, export the environment variable:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">USE_CBLAS</span><span class="o">=</span><span class="mi">1</span>
-</pre></div>
-</div>
-<p>or set <code class="docutils literal notranslate"><span class="pre">USE_CBLAS=1</span></code> in <a class="reference external" href="https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L67"><code class="docutils literal notranslate"><span class="pre">/imate/_definitions/definition.h</span></code></a>. By default, <code class="docutils literal notranslate"><span class="pre">USE_CBLAS</span></code> is set to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
-</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>OpenBLAS library has three levels of functionalities: level one, two, and three, for vector-vector, matrix-vector, and matrix-matrix operations, respectively. OpenBLAS, however, only supports operations on dense matrices. As such, when <span class="synco">imate</span> is compiled with OpenBLAS, it only uses level one functionalities of OpenBLAS for sparse data. For level two and three operations, <span class="synco">imate</span> uses its own library.</p>
 </div>
-<p>Here we compare the performance and accuracy of <span class="synco">imate</span> with and without using OpenBLAS. In this numerical experiment, we compute</p>
-<div class="math notranslate nohighlight" id="equation-perf-traceinv">
-<span class="eqno">(1)<a class="headerlink" href="#equation-perf-traceinv" title="Permalink to this equation">#</a></span>\[\mathrm{trace}(\mathbf{A}^{-1})\]</div>
-<p>using <a class="reference internal" href="../generated/imate.traceinv.html#imate.traceinv" title="imate.traceinv"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.traceinv()</span></code></a> function on both dense and sparse matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>.</p>
+<p>The following numerical experiment compares the performance and accuracy of <span class="synco">imate</span> with and without using OpenBLAS.</p>
+<section id="test-description">
+<h2>Test Description<a class="headerlink" href="#test-description" title="Permalink to this heading">#</a></h2>
+<p>In this numerical experiment, the goal is to compute</p>
+<div class="math notranslate nohighlight" id="equation-traceinv2">
+<span class="eqno">(1)<a class="headerlink" href="#equation-traceinv2" title="Permalink to this equation">#</a></span>\[\mathrm{trace}(\mathbf{A}^{-1}),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is symmetric and positive-definite. The above quantity is a computationally expensive expression that frequently appears in the Jacobian and Hessian of likelihood functions in machine learning.</p>
+<section id="algorithm">
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this heading">#</a></h3>
+<p>To compute <a class="reference internal" href="gpu.html#equation-traceinv">(1)</a>, the stochastic Lanczos quadrature (SLQ) algorithm is employed. The complexity of this algorithm is</p>
+<div class="math notranslate nohighlight" id="equation-complexity1">
+<span class="eqno">(2)<a class="headerlink" href="#equation-complexity1" title="Permalink to this equation">#</a></span>\[ \mathcal{O} \left( (\mathrm{nnz}(\mathbf{A}) l + n l^2) s \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the matrix size, <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A})\)</span> is the number of nonzero elements of the sparse matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, <span class="math notranslate nohighlight">\(l\)</span> is the number of Lanczos iterations, and <span class="math notranslate nohighlight">\(s\)</span> is the number of Monte-Carlo iterations (see details in <a class="reference internal" href="../api/imate.traceinv.slq.html#imate-traceinv-slq"><span class="std std-ref">imate.traceinv(method=’slq’)</span></a>).  The numerical experiment is performed with <span class="math notranslate nohighlight">\(l=80\)</span> and <span class="math notranslate nohighlight">\(s=200\)</span>. The computations were carried out on Intel(R) Xeon(R) CPU E5-2670 v3  with 24 threads.</p>
+</section>
 <section id="using-dense-matrices">
-<h2>Using Dense Matrices<a class="headerlink" href="#using-dense-matrices" title="Permalink to this heading">#</a></h2>
+<h3>Using Dense Matrices<a class="headerlink" href="#using-dense-matrices" title="Permalink to this heading">#</a></h3>
 <p>For our experiment, we create a Gramian matrix <span class="math notranslate nohighlight">\(\mathbf{A} = \mathbf{C}^{\intercal} \mathbf{C}\)</span> where <span class="math notranslate nohighlight">\(\mathbf{C}\)</span> a Toeplitz matrix defined by</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}C_{ij} =
@@ -333,11 +344,11 @@
 </div>
 </section>
 <section id="exact-solution">
-<h2>Exact Solution<a class="headerlink" href="#exact-solution" title="Permalink to this heading">#</a></h2>
-<p>The analytic value of <a class="reference internal" href="#equation-perf-traceinv">(1)</a> for <span class="math notranslate nohighlight">\(a \neq b\)</span> and <span class="math notranslate nohighlight">\(n \gg 1\)</span> can be obtained as</p>
+<h3>Exact Solution<a class="headerlink" href="#exact-solution" title="Permalink to this heading">#</a></h3>
+<p>The analytic value of <code class="xref math math-numref docutils literal notranslate"><span class="pre">perf-traceinv</span></code> for <span class="math notranslate nohighlight">\(a \neq b\)</span> and <span class="math notranslate nohighlight">\(n \gg 1\)</span> can be obtained as</p>
 <div class="math notranslate nohighlight">
 \[\mathrm{trace}(\mathbf{A}^{-1}) = \frac{1}{a^2 - b^2} \left( n - \frac{q^{2}}{1 - q^2} \right).\]</div>
-<p>We can use <a class="reference internal" href="../generated/imate.sample_matrices.toeplitz_traceinv.html#imate.sample_matrices.toeplitz_traceinv" title="imate.sample_matrices.toeplitz_traceinv"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.sample_matrices.toeplitz_traceinv()</span></code></a> function to compute <a class="reference internal" href="#equation-perf-traceinv">(1)</a> for the Toeplitz matrix by:</p>
+<p>We can use <a class="reference internal" href="../generated/imate.sample_matrices.toeplitz_traceinv.html#imate.sample_matrices.toeplitz_traceinv" title="imate.sample_matrices.toeplitz_traceinv"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.sample_matrices.toeplitz_traceinv()</span></code></a> function to compute <code class="xref math math-numref docutils literal notranslate"><span class="pre">perf-traceinv</span></code> for the Toeplitz matrix by:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.sample_matrices</span> <span class="kn">import</span> <span class="n">toeplitz_traceinv</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz_traceinv</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">5461.222222222222</span>
@@ -345,20 +356,35 @@
 </div>
 <p>We use the above exact value as benchmark for our experiment.</p>
 </section>
-<section id="using-stochastic-estimator">
-<h2>Using Stochastic Estimator<a class="headerlink" href="#using-stochastic-estimator" title="Permalink to this heading">#</a></h2>
-<p>We use stochastic Lanczos quadrature (SLQ) method using <a class="reference internal" href="../generated/imate.traceinv.html#imate.traceinv" title="imate.traceinv"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.traceinv()</span></code></a> by setting <code class="docutils literal notranslate"><span class="pre">method=slq</span></code>. We also specify the number of Monte-Carlo sampling with <cite>min_num_samples</cite> and <cite>max_num_samples</cite> to <cite>200</cite>, and we set <cite>lanczos_degree</cite> to <cite>50</cite>.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">tracein</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">traceinv</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">min_num_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">max_num_samples</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-<span class="gp">... </span>                       <span class="n">lanczos_degree</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>All 24 cores of Intel Xeon E5-2670 v3 processor are used.</p></li>
+<li><p>Each result is repeated 10 times and the wall time is averaged between these 10 repeats. However, only the last repeat is used to store the value of traceinv. This is becase if we average traceinv between these repeats, the number of samples would be 10*200, not 200. But, we onlt want to show the error of traceinv for 200 samples.</p></li>
+<li><p>Cholesky method is not repeated, since it is not a stochatic method and it runtime is more-or-less very similar in each test.</p></li>
+</ul>
+<img alt="../_images/benchmark_openblas_dense_accuracy.png" class="custom-dark align-center" src="../_images/benchmark_openblas_dense_accuracy.png" />
+<img alt="../_images/benchmark_openblas_dense_time.png" class="custom-dark align-center" src="../_images/benchmark_openblas_dense_time.png" />
+<section id="using-sparse-matrices">
+<h3>Using Sparse Matrices<a class="headerlink" href="#using-sparse-matrices" title="Permalink to this heading">#</a></h3>
+<a class="custom-dark reference internal image-reference" href="../_images/benchmark_openblas_sparse_cores.png"><img alt="../_images/benchmark_openblas_sparse_cores.png" class="custom-dark align-center" src="../_images/benchmark_openblas_sparse_cores.png" style="height: 375px;" /></a>
+<a class="custom-dark reference internal image-reference" href="../_images/benchmark_openblas_sparse_accuracy.png"><img alt="../_images/benchmark_openblas_sparse_accuracy.png" class="custom-dark align-center" src="../_images/benchmark_openblas_sparse_accuracy.png" style="height: 375px;" /></a>
+<img alt="../_images/benchmark_openblas_sparse_time.png" class="custom-dark align-center" src="../_images/benchmark_openblas_sparse_time.png" />
+</section>
+</section>
+<section id="how-to-reproduce-results">
+<h2>How to Reproduce Results<a class="headerlink" href="#how-to-reproduce-results" title="Permalink to this heading">#</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To compile <span class="synco">imate</span> using OpenBLAS, export the environment variable:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">USE_CBLAS</span><span class="o">=</span><span class="mi">1</span>
 </pre></div>
 </div>
-</section>
-<section id="run-benchmark-script">
-<h2>Run Benchmark Script<a class="headerlink" href="#run-benchmark-script" title="Permalink to this heading">#</a></h2>
+<p>or set <code class="docutils literal notranslate"><span class="pre">USE_CBLAS=1</span></code> in <a class="reference external" href="https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L67"><code class="docutils literal notranslate"><span class="pre">/imate/_definitions/definition.h</span></code></a>. By default, <code class="docutils literal notranslate"><span class="pre">USE_CBLAS</span></code> is set to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+</div>
 <section id="run-locally">
-<h3>1. Run locally<a class="headerlink" href="#run-locally" title="Permalink to this heading">#</a></h3>
+<h3>Run locally<a class="headerlink" href="#run-locally" title="Permalink to this heading">#</a></h3>
 <p>Run <cite>/benchmark/scripts/benchmark_openblas_dense.py</cite> twice as follows:</p>
 <ol class="arabic">
 <li><p>Compile <cite>imate</cite> using OpenBLAS:</p>
@@ -382,8 +408,8 @@
 <li><p><cite>/benchnmark/pickle_results/benchmark_without_openblas_dense.pickle</cite> for not using OpenBLAS.</p></li>
 </ul>
 </section>
-<section id="run-on-cluster">
-<h3>2. Run on cluster<a class="headerlink" href="#run-on-cluster" title="Permalink to this heading">#</a></h3>
+<section id="submit-job-to-cluster-with-slurm">
+<h3>Submit Job to Cluster with SLURM<a class="headerlink" href="#submit-job-to-cluster-with-slurm" title="Permalink to this heading">#</a></h3>
 <p>To run on a cluster with SLURM:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">jobfiles</span>
 <span class="n">sbatch</span> <span class="n">jobfile_benchmark_openblas_dense</span><span class="o">.</span><span class="n">sh</span>
@@ -391,22 +417,6 @@
 </div>
 <p>When submitting the jobs on the cluster, make sure that the cpu is the same as the previous runs. For example, nodes on savio2 between <cite>n027</cite> and <cite>n150</cite> are <em>Intel Xeon E5-2670 v3</em>.</p>
 </section>
-</section>
-<section id="results">
-<h2>Results<a class="headerlink" href="#results" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>All 24 cores of Intel Xeon E5-2670 v3 processor are used.</p></li>
-<li><p>Each result is repeated 10 times and the wall time is averaged between these 10 repeats. However, only the last repeat is used to store the value of traceinv. This is becase if we average traceinv between these repeats, the number of samples would be 10*200, not 200. But, we onlt want to show the error of traceinv for 200 samples.</p></li>
-<li><p>Cholesky method is not repeated, since it is not a stochatic method and it runtime is more-or-less very similar in each test.</p></li>
-</ul>
-<img alt="../_images/benchmark_openblas_dense_accuracy.png" class="custom-dark align-center" src="../_images/benchmark_openblas_dense_accuracy.png" />
-<img alt="../_images/benchmark_openblas_dense_time.png" class="custom-dark align-center" src="../_images/benchmark_openblas_dense_time.png" />
-</section>
-<section id="using-sparse-matrices">
-<h2>Using Sparse Matrices<a class="headerlink" href="#using-sparse-matrices" title="Permalink to this heading">#</a></h2>
-<a class="custom-dark reference internal image-reference" href="../_images/benchmark_openblas_sparse_cores.png"><img alt="../_images/benchmark_openblas_sparse_cores.png" class="custom-dark align-center" src="../_images/benchmark_openblas_sparse_cores.png" style="height: 375px;" /></a>
-<a class="custom-dark reference internal image-reference" href="../_images/benchmark_openblas_sparse_accuracy.png"><img alt="../_images/benchmark_openblas_sparse_accuracy.png" class="custom-dark align-center" src="../_images/benchmark_openblas_sparse_accuracy.png" style="height: 375px;" /></a>
-<img alt="../_images/benchmark_openblas_sparse_time.png" class="custom-dark align-center" src="../_images/benchmark_openblas_sparse_time.png" />
 </section>
 </section>
 
