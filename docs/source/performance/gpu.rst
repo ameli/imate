@@ -38,7 +38,7 @@ The computations were carried out on the following hardware:
 * For **GPU** test: a cluster of eight `NVIDIA® GeForce RTX 3090 <https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090-3090ti/>`_ GPUs and Intel Xeon Processor (Skylake, IBRS) with 32 threads.
 
 Benchmark Matrices
-==================
+------------------
 
 The table below shows the matrices used in the test, which are chosen from `SuiteSparse Matrix Collection <https://sparse.tamu.edu>`_ that are generated for real applications. The matrices in the table below are all symmetric positive-definite and the number of nonzero elements (nnz) of these matrices increase approximately by the factor of 5 on average.
 
