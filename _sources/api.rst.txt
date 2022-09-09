@@ -148,7 +148,11 @@ This function computes the Schatten norm of :math:`\mathbf{A}^p` or the Gramian 
 Interpolators
 =============
 
-Interpolate the various matrix functions of the one-parameter family of affine matrix functions.
+Interpolate the various matrix functions of the one-parameter family of affine matrix function:
+
+.. math::
+
+    t \mapsto \mathbf{A} + t \mathbf{B}.
 
 .. autosummary::
     :toctree: generated

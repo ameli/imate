@@ -580,7 +580,7 @@
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt>NotImplementedError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">kind</span></code> is neither <code class="docutils literal notranslate"><span class="pre">crf</span></code> nor <code class="docutils literal notranslate"><span class="pre">spl</span></code>.</p>
+<dt>NotImplementedError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">kind</span></code> is not <code class="docutils literal notranslate"><span class="pre">crf</span></code>.</p>
 </dd>
 </dl>
 </dd>
@@ -596,12 +596,11 @@ accessed by <a class="reference internal" href="#imate.InterpolateSchatten.get_s
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Initialize interpolator object</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">InterpolateSchatten</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ti</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e-1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1e1</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">InterpolateSchatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;crf&#39;</span><span class="p">,</span> <span class="n">ti</span><span class="o">=</span><span class="n">ti</span><span class="p">,</span>
-<span class="gp">... </span>                        <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">InterpolateSchatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;crf&#39;</span><span class="p">,</span> <span class="n">ti</span><span class="o">=</span><span class="n">ti</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 
-<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">get_scale</span><span class="p">()</span>
-</span><span class="go">1.4101562500000009</span>
-</pre></div>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">get_scale</span><span class="p">()</span>
+<span class="hll"><span class="go">1.4101562500000009</span>
+</span></pre></div>
 </div>
 </dd></dl>
 

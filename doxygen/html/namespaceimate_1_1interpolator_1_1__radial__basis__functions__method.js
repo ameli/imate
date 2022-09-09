@@ -1,4 +1,0 @@
-var namespaceimate_1_1interpolator_1_1__radial__basis__functions__method =
-[
-    [ "RadialBasisFunctionsMethod", "classimate_1_1interpolator_1_1__radial__basis__functions__method_1_1RadialBasisFunctionsMethod.html", "classimate_1_1interpolator_1_1__radial__basis__functions__method_1_1RadialBasisFunctionsMethod" ]
-];

@@ -246,17 +246,11 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="imate.InterpolateLogdet.upper_bound">
 <span class="sig-prename descclassname"><span class="pre">InterpolateLogdet.</span></span><span class="sig-name descname"><span class="pre">upper_bound</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.InterpolateLogdet.upper_bound" title="Permalink to this definition">#</a></dt>
-<dd><p>Upper bound of the function <span class="math notranslate nohighlight">\(t \mapsto \mathrm{trace} \left(
-(\mathbf{A} + t \mathbf{B})^{-1} \right)\)</span>.</p>
-<p>The upper bound is given by</p>
-<div class="math notranslate nohighlight">
-\[\frac{1}{\tau(t)} \geq \frac{1}{\tau_0} + t\]</div>
-<p>where</p>
-<div class="math notranslate nohighlight">
-\[\tau(t) = \frac{\mathrm{trace}\left( (\mathbf{A} +
-t \mathbf{B})^{-1}
-\right)}{\mathrm{trace}(\mathbf{B}^{-1})}\]</div>
-<p>and <span class="math notranslate nohighlight">\(\tau_0 = \tau(0)\)</span>.</p>
+<dd><p>Upper bound of the interpolation function.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function only applies to <span class="math notranslate nohighlight">\(p=-1\)</span>.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -266,11 +260,85 @@ t \mathbf{B})^{-1}
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>ub</strong><span class="classifier">float or numpy.array</span></dt><dd><p>bound of the affine matrix function.</p>
+<dt><strong>ub</strong><span class="classifier">float or numpy.array</span></dt><dd><p>Upper bound. If <cite>t</cite> is an array, the output is also an array of the
+size of <cite>t</cite>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>ValueError</dt><dd><p>If <span class="math notranslate nohighlight">\(p \neq -1\)</span>.</p>
 </dd>
 </dl>
 </dd>
 </dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="imate.InterpolateSchatten.bound.html#imate.InterpolateSchatten.bound" title="imate.InterpolateSchatten.bound"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.bound</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>A upper bound of the function
+<span class="math notranslate nohighlight">\(\Vert \mathbf{A} + t \mathbf{B} \Vert_{-1}\)</span> is (see <a class="reference internal" href="#r570a6f8cfb59-1" id="id1">[1]</a>)</p>
+<div class="math notranslate nohighlight">
+\[\Vert \mathbf{A} + t \mathbf{B} \Vert_{-1} \leq
+\frac{\mathrm{trace}(\mathbf{A}) +
+t \mathrm{trace}(\mathbf{B})}{n}.\]</div>
+<p>Note that the above bound is not sharp as <span class="math notranslate nohighlight">\(t \to 0\)</span>.</p>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="r570a6f8cfb59-1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Ameli, S., and Shadden. S. C. (2022). <em>Interpolating
+Log-Determinant and Trace of the Powers of Matrix</em>
+<span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span>. <a class="reference external" href="https://arxiv.org/abs/2207.08038">arXiv: 2009.07385</a> [math.NA].</p>
+</div>
+</div>
+<p class="rubric">Examples</p>
+<p>Create an interpolator object <span class="math notranslate nohighlight">\(f\)</span> using four interpolant points
+<span class="math notranslate nohighlight">\(t_i\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate sample matrices (symmetric positive-definite)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.sample_matrices</span> <span class="kn">import</span> <span class="n">correlation_matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1e-1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">2e-2</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Initialize interpolator object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">InterpolateSchatten</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ti</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e-1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1e1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">InterpolateSchatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">p</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ti</span><span class="o">=</span><span class="n">ti</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Create an array <cite>t</cite> and evaluate upper bound on <cite>t</cite>. Also, interpolate
+the function <span class="math notranslate nohighlight">\(f\)</span> on the array <cite>t</cite>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Interpolate at an array of points</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">ub</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">upper_bound</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">interp</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Plot the results:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Plot settings (optional)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">font_scale</span><span class="o">=</span><span class="mf">1.15</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">interp</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Interpolation&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">semilogx</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Upper bound&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;$t$&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;$\Vert \mathbf</span><span class="si">{A}</span><span class="s1"> + t \mathbf</span><span class="si">{B}</span><span class="s1"> \Vert_{-1}$&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Interpolation of Schatten Anti-Norm&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="custom-dark reference internal image-reference" href="../_images/interpolate_schatten_ub.png"><img alt="../_images/interpolate_schatten_ub.png" class="custom-dark align-center" src="../_images/interpolate_schatten_ub.png" style="width: 70%;" /></a>
 </dd></dl>
 
 </section>

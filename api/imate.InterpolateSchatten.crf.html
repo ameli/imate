@@ -672,6 +672,13 @@ arc-length curvature minimization</p>
 \frac{\vert y''_{\alpha}(x)\vert^2}
 {(1 + \vert y'_{\alpha}(x) \vert^2)^{\frac{5}{2}}}
 \mathrm{d} x.\]</div>
+<p><strong>Boundary Conditions:</strong></p>
+<p>The following boundary conditions are added to the data <span class="math notranslate nohighlight">\((x, y)\)</span>:</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">func_type</span></code> is <cite>1</cite>, then the point <span class="math notranslate nohighlight">\((-1, 0)\)</span> is imposed to the
+regression.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">func_type</span></code> is <cite>2</cite>, no boundary condition is added to the data.</p></li>
+</ul>
 <p><strong>Interpolation Points:</strong></p>
 <p>The best practice is to provide an array of interpolation points that are
 equally distanced on the logarithmic scale. For instance, to produce four
@@ -681,7 +688,7 @@ interpolation points in the interval <span class="math notranslate nohighlight">
 </pre></div>
 </div>
 <p>If <code class="docutils literal notranslate"><span class="pre">ti</span></code> is an integer, then <cite>ti</cite> number of interpolation points are
-automatically generated on Chebyshev nodesi or degree <cite>ti</cite>, which are
+automatically generated on Chebyshev nodes of degree <cite>ti</cite>, which are
 defined by</p>
 <div class="math notranslate nohighlight">
 \[x_i = \cos \left( \frac{(2i+1)\pi}{2n}  \right)\]</div>
@@ -690,15 +697,15 @@ defined by</p>
 <div role="list" class="citation-list">
 <div class="citation" id="rab54e26b4071-1" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant
-and Trace of the Powers of Matrix
+<p>Ameli, S., and Shadden. S. C. (2022). <em>Interpolating Log-Determinant
+and Trace of the Powers of Matrix</em>
 <span class="math notranslate nohighlight">\(\mathbf{A} + t\mathbf{B}\)</span>. <a class="reference external" href="https://arxiv.org/abs/2207.08038">arXiv: 2009.07385</a> [math.NA].</p>
 </div>
 </div>
 <p class="rubric">Examples</p>
 <p><strong>Basic Usage:</strong></p>
 <p>Interpolate the Schatten <cite>2</cite>-norm of the affine matrix function
-<span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using <code class="docutils literal notranslate"><span class="pre">imbf</span></code> algorithm and the
+<span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using <code class="docutils literal notranslate"><span class="pre">crf</span></code> algorithm and the
 interpolating points <span class="math notranslate nohighlight">\(t_i = [10^{-2}, 10^{-1}, 1, 10]\)</span>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate two sample matrices (symmetric and positive-definite)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.sample_matrices</span> <span class="kn">import</span> <span class="n">correlation_matrix</span>
@@ -803,10 +810,10 @@ long run time.</p>
 <img alt="../_images/interpolate_schatten_crf.png" class="custom-dark align-center" src="../_images/interpolate_schatten_crf.png" />
 <p>From the error plot in the above, it can be seen that with only four
 interpolation points, the error of interpolation for a wide range of
-<span class="math notranslate nohighlight">\(t`is no more than :math:`0.003 \%\)</span>, which is a remarkable result.
-Also, note that the error on the interpolant points
-<span class="math notranslate nohighlight">\(t_i=[10^{-2}, 10^{-1}, 1, 10]\)</span> is zero since the interpolation
-scheme honors the exact function value at the interpolation points.</p>
+<span class="math notranslate nohighlight">\(t\)</span> is no more than <span class="math notranslate nohighlight">\(0.003 \%\)</span>. Also, note that the error on
+the interpolant points <span class="math notranslate nohighlight">\(t_i=[10^{-2}, 10^{-1}, 1, 10]\)</span> is zero since
+the interpolation scheme honors the exact function value at the
+interpolation points.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
@@ -827,22 +834,25 @@ scheme honors the exact function value at the interpolation points.</p>
 <table class="table">
 <tbody>
 <tr class="row-odd"><td><p><strong>__call__</strong></p></td>
-<td></td>
+<td><p>See <a class="reference internal" href="../generated/imate.InterpolateSchatten.__call__.html#imate.InterpolateSchatten.__call__" title="imate.InterpolateSchatten.__call__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.__call__()</span></code></a>.</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>eval</strong></p></td>
-<td></td>
+<td><p>See <a class="reference internal" href="../generated/imate.InterpolateSchatten.eval.html#imate.InterpolateSchatten.eval" title="imate.InterpolateSchatten.eval"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.eval()</span></code></a>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>interpolate</strong></p></td>
-<td></td>
+<td><p>See <a class="reference internal" href="../generated/imate.InterpolateSchatten.interpolate.html#imate.InterpolateSchatten.interpolate" title="imate.InterpolateSchatten.interpolate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.interpolate()</span></code></a>.</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>bound</strong></p></td>
-<td></td>
+<tr class="row-even"><td><p><strong>get_scale</strong></p></td>
+<td><p>See <a class="reference internal" href="../generated/imate.InterpolateSchatten.get_scale.html#imate.InterpolateSchatten.get_scale" title="imate.InterpolateSchatten.get_scale"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.get_scale()</span></code></a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><strong>upper_bound</strong></p></td>
-<td></td>
+<tr class="row-odd"><td><p><strong>bound</strong></p></td>
+<td><p>See <a class="reference internal" href="../generated/imate.InterpolateSchatten.bound.html#imate.InterpolateSchatten.bound" title="imate.InterpolateSchatten.bound"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.bound()</span></code></a>.</p></td>
 </tr>
-<tr class="row-even"><td><p><strong>plot</strong></p></td>
-<td></td>
+<tr class="row-even"><td><p><strong>upper_bound</strong></p></td>
+<td><p>See <a class="reference internal" href="../generated/imate.InterpolateSchatten.upper_bound.html#imate.InterpolateSchatten.upper_bound" title="imate.InterpolateSchatten.upper_bound"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.upper_bound()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>plot</strong></p></td>
+<td><p>See <a class="reference internal" href="../generated/imate.InterpolateSchatten.plot.html#imate.InterpolateSchatten.plot" title="imate.InterpolateSchatten.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.plot()</span></code></a>.</p></td>
 </tr>
 </tbody>
 </table>

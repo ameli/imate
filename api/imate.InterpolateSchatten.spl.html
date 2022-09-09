@@ -529,9 +529,8 @@
 <dl class="custom-domain class">
 <dt class="sig sig-object custom-domain">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">InterpolateSchatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ti</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kind</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'spl'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Computes the trace of inverse of an invertible matrix <span class="math notranslate nohighlight">\(\mathbf{A} +
-t \mathbf{B}\)</span> using an interpolation scheme based on rational polynomial
-functions (see details below).</p>
+<dd><p>Interpolate Schatten norm (or anti-norm) of an affine matrix function using
+Spline (spl) method.</p>
 <blockquote>
 <div><div class="admonition seealso">
 <p class="admonition-title">See also</p>
@@ -539,30 +538,282 @@ functions (see details below).</p>
 kinds, see <a class="reference internal" href="../generated/imate.InterpolateSchatten.html#imate.InterpolateSchatten" title="imate.InterpolateSchatten"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.InterpolateSchatten()</span></code></a>.</p>
 </div>
 </div></blockquote>
-<p>function_type: Can be <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, or <code class="docutils literal notranslate"><span class="pre">3</span></code>, which defines
-different radial basis functions (see details below).</p>
-<p><strong>Interpolation Method</strong></p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>A</strong><span class="classifier">numpy.ndarray, scipy.sparse matrix</span></dt><dd><p>Symmetric positive-definite matrix (positive-definite if <cite>p</cite> is
+non-positive). Matrix can be dense or sparse.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Symmetry and positive (semi-) definiteness of <cite>A</cite> will not be
+checked. Make sure <cite>A</cite> satisfies these conditions.</p>
+</div>
+</dd>
+<dt><strong>B</strong><span class="classifier">numpy.ndarray, scipy.sparse matrix, default=None</span></dt><dd><p>Symmetric positive-definite matrix (positive-definite if <cite>p</cite> is
+non-positive). Matrix can be dense or sparse. <cite>B</cite> should have the same
+size and type of <cite>A</cite>. If <cite>B</cite> is <cite>None</cite> (default value), it is assumed
+that <cite>B</cite> is the identity matrix.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Symmetry and positive (semi-) definiteness of <cite>B</cite> will not be
+checked. Make sure <cite>B</cite> satisfies these conditions.</p>
+</div>
+</dd>
+<dt><strong>p</strong><span class="classifier">float, default=2</span></dt><dd><p>The order <span class="math notranslate nohighlight">\(p\)</span> in the Schatten <span class="math notranslate nohighlight">\(p\)</span>-norm which can be real
+positive, negative or zero.</p>
+</dd>
+<dt><strong>options</strong><span class="classifier">dict, default={}</span></dt><dd><p>At each interpolation point <span class="math notranslate nohighlight">\(t_i\)</span>, the Schatten norm is computed
+using <a class="reference internal" href="../generated/imate.schatten.html#imate.schatten" title="imate.schatten"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.schatten()</span></code></a> function which itself calls either of</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../generated/imate.logdet.html#imate.logdet" title="imate.logdet"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.logdet()</span></code></a> (if <span class="math notranslate nohighlight">\(p=0\)</span>)</p></li>
+<li><p><a class="reference internal" href="../generated/imate.trace.html#imate.trace" title="imate.trace"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.trace()</span></code></a> (if <span class="math notranslate nohighlight">\(p&gt;0\)</span>)</p></li>
+<li><p><a class="reference internal" href="../generated/imate.traceinv.html#imate.traceinv" title="imate.traceinv"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.traceinv()</span></code></a> (if <span class="math notranslate nohighlight">\(p &lt; 0\)</span>).</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">options</span></code> passes a dictionary of arguments to the above
+functions.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, it prints some information about the computation process.</p>
+</dd>
+<dt><strong>ti</strong><span class="classifier">float or array_like(float), default=None</span></dt><dd><p>Interpolation points, which can be a single number, a list or an array
+of interpolation points. The interpolator honors the exact function
+values at the interpolant points.</p>
+</dd>
+<dt><strong>func_type: {1, 2}, default=1</strong></dt><dd><p>Type of interpolation function model. See Notes below for details.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="../generated/imate.InterpolateTrace.html#imate.InterpolateTrace" title="imate.InterpolateTrace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.InterpolateTrace</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="../generated/imate.InterpolateLogdet.html#imate.InterpolateLogdet" title="imate.InterpolateLogdet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.InterpolateLogdet</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="../generated/imate.schatten.html#imate.schatten" title="imate.schatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.schatten</span></code></a></dt><dd></dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p><strong>Schatten Norm:</strong></p>
+<p>In this class, the Schatten <span class="math notranslate nohighlight">\(p\)</span>-norm of the matrix
+<span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is defined by</p>
+<div class="math notranslate nohighlight" id="equation-schatten-eq-11">
+<span class="eqno">(1)<a class="headerlink" href="#equation-schatten-eq-11" title="Permalink to this equation">#</a></span>\[\begin{split}\Vert \mathbf{A} \Vert_p =
+\begin{cases}
+    \left| \mathrm{det}(\mathbf{A})
+    \right|^{\frac{1}{n}}, &amp; p=0, \\
+    \left| \frac{1}{n}
+    \mathrm{trace}(\mathbf{A}^{p})
+    \right|^{\frac{1}{p}}, &amp; p \neq 0,
+\end{cases}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the size of the matrix. When <span class="math notranslate nohighlight">\(p \geq 0\)</span>, the
+above definition is the Schatten <strong>norm</strong>, and when <span class="math notranslate nohighlight">\(p &lt; 0\)</span>, the
+above is the Schatten <strong>anti-norm</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Conventionally, the Schatten norm is defined without the normalizing
+factor <span class="math notranslate nohighlight">\(\frac{1}{n}\)</span> in <a class="reference internal" href="#equation-schatten-eq-11">(1)</a>. However,
+this factor is justified by the continuity granted by</p>
+<div class="math notranslate nohighlight" id="equation-schatten-continuous-11">
+<span class="eqno">(2)<a class="headerlink" href="#equation-schatten-continuous-11" title="Permalink to this equation">#</a></span>\[\lim_{p \to 0} \Vert \mathbf{A} \Vert_p =
+\Vert \mathbf{A} \Vert_0.\]</div>
+<p>See <a class="reference internal" href="#r967f1ec3e854-1" id="id1">[1]</a> (Section 2) and the examples in <a class="reference internal" href="../generated/imate.schatten.html#imate.schatten" title="imate.schatten"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.schatten()</span></code></a> for
+details.</p>
+</div>
+<p><strong>Interpolation of Affine Matrix Function:</strong></p>
+<p>This class interpolates the one-parameter matrix function:</p>
+<div class="math notranslate nohighlight">
+\[t \mapsto \| \mathbf{A} + t \mathbf{B} \|_p,\]</div>
+<p>where the matrices <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> are
+symmetric and positive semi-definite (positive-definite if <span class="math notranslate nohighlight">\(p &lt; 0\)</span>)
+and <span class="math notranslate nohighlight">\(t \in [t_{\inf}, \infty)\)</span> is a real parameter where
+<span class="math notranslate nohighlight">\(t_{\inf}\)</span> is the minimum <span class="math notranslate nohighlight">\(t\)</span> such that
+<span class="math notranslate nohighlight">\(\mathbf{A} + t_{\inf} \mathbf{B}\)</span> remains positive-definite.</p>
+<p><strong>Method of Interpolation:</strong></p>
 <p>Define the function</p>
 <div class="math notranslate nohighlight">
-\[\tau(t) = \frac{\mathrm{trace}\left( (\mathbf{A} +
-t \mathbf{B})^{-1} \right)}{\mathrm{trace}(\mathbf{B}^{-1})}\]</div>
-<p>and <span class="math notranslate nohighlight">\(\tau_0 = \tau(0)\)</span>. Then, we approximate <span class="math notranslate nohighlight">\(\tau(t)\)</span> by
-radial basis functions as follows. Define</p>
+\[\tau_p(t) = \frac{\Vert \mathbf{A} + t \mathbf{B} \Vert_p}
+{\Vert \mathbf{B} \Vert_p},\]</div>
+<p>and <span class="math notranslate nohighlight">\(\tau_{p, 0} = \tau_p(0)\)</span>. Then, we approximate
+<span class="math notranslate nohighlight">\(\tau_p(t)\)</span> as follows. Transform the data <span class="math notranslate nohighlight">\((t, \tau_p)\)</span> to
+<span class="math notranslate nohighlight">\((x, y)\)</span> where</p>
 <div class="math notranslate nohighlight">
-\[x(t) = \log t\]</div>
-<p>Depending whether <code class="docutils literal notranslate"><span class="pre">function_type</span></code> is set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">2</span></code>, or <code class="docutils literal notranslate"><span class="pre">3</span></code>, one
-of the following functions is defined:</p>
+\[x = \frac{t - 1}{t + 1},\]</div>
+<p>Also, if <code class="docutils literal notranslate"><span class="pre">func_type=1</span></code>, then <span class="math notranslate nohighlight">\(y\)</span> is defined by</p>
 <div class="math notranslate nohighlight">
-\begin{eqnarray}
-y_1(t) &amp;= \frac{1}{\tau(t)} - \frac{1}{\tau_0} - t, \
-y_2(t) &amp;= \frac{\frac{1}{\tau(t)}}{\frac{1}{\tau_0} + t} - 1, \
-y_3(t) &amp;= 1 - \tau(t) \left( \frac{1}{\tau_0} + t \right).
-\end{eqnarray}</div><ul class="simple">
-<li><p>The set of data <span class="math notranslate nohighlight">\((x, y_1(x))\)</span> are interpolated using
-<em>cubic splines</em>.</p></li>
-<li><p>The set of data <span class="math notranslate nohighlight">\((x, y_2(x))\)</span> and <span class="math notranslate nohighlight">\((x, y_3(x))\)</span> are
-interpolated using <em>Gaussian radial basis functions</em>.</p></li>
+\[y = \frac{\tau_p(t)}{\tau_{p, 0} + t} - 1,\]</div>
+<p>and, if <code class="docutils literal notranslate"><span class="pre">func_type=2</span></code>, then <span class="math notranslate nohighlight">\(y\)</span> is defined by</p>
+<div class="math notranslate nohighlight">
+\[y = \frac{\tau_p(t) -\tau_{p, 0}}{t} - 1.\]</div>
+<p>The spline method interpolates the data <span class="math notranslate nohighlight">\((x, y)\)</span> by cubic
+splines.</p>
+<p><strong>Boundary Conditions:</strong></p>
+<p>The following boundary conditions are added to the data <span class="math notranslate nohighlight">\((x, y)\)</span>:</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">func_type</span></code> is <cite>1</cite>, then the two points <span class="math notranslate nohighlight">\((-1, 0)\)</span> and
+<span class="math notranslate nohighlight">\((1, 0)\)</span> are imposed to the spline.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">func_type</span></code> is <cite>2</cite>, then the point <span class="math notranslate nohighlight">\((1, 0)\)</span> is imposed to the
+spline.</p></li>
 </ul>
+<p><strong>Interpolation Points:</strong></p>
+<p>The best practice is to provide an array of interpolation points that are
+equally distanced on the logarithmic scale. For instance, to produce four
+interpolation points in the interval <span class="math notranslate nohighlight">\([10^{-2}, 1]\)</span>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ti</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="r967f1ec3e854-1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant
+and Trace of the Powers of Matrix
+<span class="math notranslate nohighlight">\(\mathbf{A} + t\mathbf{B}\)</span>. <a class="reference external" href="https://arxiv.org/abs/2207.08038">arXiv: 2009.07385</a> [math.NA].</p>
+</div>
+</div>
+<p class="rubric">Examples</p>
+<p><strong>Basic Usage:</strong></p>
+<p>Interpolate the Schatten <cite>2</cite>-norm of the affine matrix function
+<span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span> using <code class="docutils literal notranslate"><span class="pre">spl</span></code> algorithm and the
+interpolating points <span class="math notranslate nohighlight">\(t_i = [10^{-2}, 10^{-1}, 1, 10]\)</span>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate two sample matrices (symmetric and positive-definite)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.sample_matrices</span> <span class="kn">import</span> <span class="n">correlation_matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1e-1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">2e-2</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Initialize interpolator object</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">InterpolateSchatten</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ti</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e-1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1e1</span><span class="p">]</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">InterpolateSchatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;spl&#39;</span><span class="p">,</span> <span class="n">ti</span><span class="o">=</span><span class="n">ti</span><span class="p">,</span> <span class="n">func_type</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Interpolate at an inquiry point t = 0.4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="mf">4e-1</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span class="go">1.7372898625858328</span>
+</pre></div>
+</div>
+<p>Alternatively, call <a class="reference internal" href="../generated/imate.InterpolateSchatten.interpolate.html#imate.InterpolateSchatten.interpolate" title="imate.InterpolateSchatten.interpolate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.interpolate()</span></code></a> to
+interpolate at points <cite>t</cite>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># This is the same as f(t)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="go">1.7372898625858328</span>
+</pre></div>
+</div>
+<p>To evaluate the exact value of the Schatten norm at point <cite>t</cite> without
+interpolation, call <a class="reference internal" href="../generated/imate.InterpolateSchatten.eval.html#imate.InterpolateSchatten.eval" title="imate.InterpolateSchatten.eval"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.eval()</span></code></a> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># This evaluates the function value at t exactly (no interpolation)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="go">1.7374809371539666</span>
+</pre></div>
+</div>
+<p>It can be seen that the relative error of interpolation compared to the
+exact solution in the above is <span class="math notranslate nohighlight">\(0.01 \%\)</span> using only four
+interpolation points <span class="math notranslate nohighlight">\(t_i\)</span>, which is a remarkable result.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Calling <a class="reference internal" href="../generated/imate.InterpolateSchatten.eval.html#imate.InterpolateSchatten.eval" title="imate.InterpolateSchatten.eval"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.eval()</span></code></a> may take a longer time
+to compute as it computes the function exactly. Particularly, if <cite>t</cite> is
+a large array, it may take a very long time to return the exact values.</p>
+</div>
+<p><strong>Passing Options:</strong></p>
+<p>The above examples, the internal computation is passed to
+<a class="reference internal" href="../generated/imate.trace.html#imate.trace" title="imate.trace"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.trace()</span></code></a> function since <span class="math notranslate nohighlight">\(p=2\)</span> is positive. You can pass
+arguments to the latter function using <code class="docutils literal notranslate"><span class="pre">options</span></code> argument. To do so,
+create a dictionary with the keys as the name of the argument. For
+instance, to use <a class="reference internal" href="imate.trace.slq.html#imate-trace-slq"><span class="std std-ref">imate.trace(method=’slq’)</span></a> method with <code class="docutils literal notranslate"><span class="pre">min_num_samples=20</span></code>
+and <code class="docutils literal notranslate"><span class="pre">max_num_samples=100</span></code>, create the following dictionary:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Specify arguments as a dictionary</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="s1">&#39;slq&#39;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;min_num_samples&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="s1">&#39;max_num_samples&#39;</span><span class="p">:</span> <span class="mi">100</span>
+<span class="gp">... </span><span class="p">}</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Pass the options to the interpolator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">InterpolateSchatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;spl&#39;</span><span class="p">,</span>
+<span class="gp">... </span>                        <span class="n">ti</span><span class="o">=</span><span class="n">ti</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="go">1.7076411989963456</span>
+</pre></div>
+</div>
+<p>You may get a different result than the above as the <cite>slq</cite> method is a
+randomized method.</p>
+<p><strong>Interpolate on Range of Points:</strong></p>
+<p>Once the interpolation object <code class="docutils literal notranslate"><span class="pre">f</span></code> in the above example is
+instantiated, calling <a class="reference internal" href="../generated/imate.InterpolateSchatten.interpolate.html#imate.InterpolateSchatten.interpolate" title="imate.InterpolateSchatten.interpolate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.interpolate()</span></code></a> on
+a list of inquiry points <cite>t</cite> has almost no computational cost. The next
+example inquires interpolation on <cite>1000</cite> points <cite>t</cite>:</p>
+<p>Interpolate an array of inquiry points <code class="docutils literal notranslate"><span class="pre">t_array</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create an interpolator object again</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ti</span> <span class="o">=</span> <span class="mf">1e-1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">InterpolateSchatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;spl&#39;</span><span class="p">,</span> <span class="n">ti</span><span class="o">=</span><span class="n">ti</span><span class="p">)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Interpolate at an array of points</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_array</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">norm_array</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">t_array</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Plotting Interpolation and Compare with Exact Solution:</strong></p>
+<p>To plot the interpolation results, call
+<a class="reference internal" href="../generated/imate.InterpolateSchatten.plot.html#imate.InterpolateSchatten.plot" title="imate.InterpolateSchatten.plot"><code class="xref py py-meth docutils literal notranslate"><span class="pre">imate.InterpolateSchatten.plot()</span></code></a> function. To compare with the true
+values (without interpolation), pass <code class="docutils literal notranslate"><span class="pre">compare=True</span></code> to the above
+function.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>By setting <code class="docutils literal notranslate"><span class="pre">compare</span></code> to <cite>True</cite>, every point in the array <cite>t</cite> is
+evaluated both using interpolation and with the exact method (no
+interpolation). If the size of <cite>t</cite> is large, this may take a very
+long run time.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_array</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">compare</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/interpolate_schatten_spl.png" class="custom-dark align-center" src="../_images/interpolate_schatten_spl.png" />
+<p>From the error plot in the above, it can be seen that with only four
+interpolation points, the error of interpolation for a wide range of
+<span class="math notranslate nohighlight">\(t\)</span> is no more than <span class="math notranslate nohighlight">\(0.0013 \%\)</span>. Also, note that the error on
+the interpolant points <span class="math notranslate nohighlight">\(t_i=[10^{-2}, 10^{-1}, 1, 10]\)</span> is zero since
+the interpolation scheme honors the exact function value at the
+interpolation points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>kind</strong><span class="classifier">str</span></dt><dd><p>Method of interpolation. For this class, <code class="docutils literal notranslate"><span class="pre">kind</span></code> is <code class="docutils literal notranslate"><span class="pre">spl</span></code>.</p>
+</dd>
+<dt><strong>verbose</strong><span class="classifier">bool</span></dt><dd><p>Verbosity of the computation process</p>
+</dd>
+<dt><strong>n</strong><span class="classifier">int</span></dt><dd><p>Size of the matrix</p>
+</dd>
+<dt><strong>q</strong><span class="classifier">int</span></dt><dd><p>Number of interpolant points.</p>
+</dd>
+<dt><strong>p</strong><span class="classifier">float</span></dt><dd><p>Order of Schatten <span class="math notranslate nohighlight">\(p\)</span>-norm</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p><strong>__call__</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>eval</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>interpolate</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>bound</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><strong>upper_bound</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><strong>plot</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </section>

@@ -1,4 +1,0 @@
-var namespaceimate_1_1interpolator_1_1__monomial__basis__functions__method =
-[
-    [ "MonomialBasisFunctionsMethod", "classimate_1_1interpolator_1_1__monomial__basis__functions__method_1_1MonomialBasisFunctionsMethod.html", "classimate_1_1interpolator_1_1__monomial__basis__functions__method_1_1MonomialBasisFunctionsMethod" ]
-];

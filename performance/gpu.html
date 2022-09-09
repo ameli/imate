@@ -221,19 +221,67 @@
 <nav id="bd-toc-nav">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#test-matrices">
-   Test Matrices
+  <a class="reference internal nav-link" href="#test-description">
+   Test Description
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#algorithm">
+     Algorithm
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hardware">
+     Hardware
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#benchmark-matrices">
+   Benchmark Matrices
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#arithmetic-types">
+     Arithmetic Types
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#results">
    Results
   </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#considerations">
-   Considerations
-  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scalability-with-data-size">
+     Scalability with Data Size
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#extreme-array-sizes">
+       Extreme Array Sizes
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#beyond-extreme-array-sizes">
+       Beyond Extreme Array Sizes
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#floating-point-arithmetic-accuracy">
+     Floating Point Arithmetic Accuracy
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scalability-with-increase-of-gpu-devices">
+     Scalability with Increase of GPU Devices
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#how-to-reproduce-results">
@@ -241,28 +289,13 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#run-on-local-cpu">
-     Run on Local CPU
+    <a class="reference internal nav-link" href="#run-locally">
+     Run Locally
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#run-on-cpu-cluster">
-     Run on CPU Cluster
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#run-on-local-gpu">
-     Run on Local GPU
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#run-on-gpu-cluster">
-     Run on GPU Cluster
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#run-on-cluster-gpu-using-docker-image">
-     Run on Cluster GPU Using Docker Image
+    <a class="reference internal nav-link" href="#submit-job-to-cluster-with-slurm">
+     Submit Job to Cluster with SLURM
     </a>
    </li>
   </ul>
@@ -295,110 +328,256 @@
                 
   <section id="performance-on-gpu-farm">
 <span id="perf-gpu"></span><h1>Performance on GPU Farm<a class="headerlink" href="#performance-on-gpu-farm" title="Permalink to this heading">#</a></h1>
-<p>To test the performance on both GPU and compare with CPU, we run a benchmark task by compares</p>
+<p>The performance of <span class="synco">imate</span> is tested on multi-GPU devices and the results are compared with the performance on a CPU cluster.</p>
+<section id="test-description">
+<h2>Test Description<a class="headerlink" href="#test-description" title="Permalink to this heading">#</a></h2>
+<p>The performance test computes the quantity</p>
 <div class="math notranslate nohighlight" id="equation-traceinv">
 <span class="eqno">(1)<a class="headerlink" href="#equation-traceinv" title="Permalink to this equation">#</a></span>\[\mathrm{trace}(\mathbf{A}^{-1}),\]</div>
-<p>on several large matrices <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>.</p>
-<section id="test-matrices">
-<h2>Test Matrices<a class="headerlink" href="#test-matrices" title="Permalink to this heading">#</a></h2>
-<p>The following sparse matrices from real applications chosen from <a class="reference external" href="https://sparse.tamu.edu">SparseSuite Matrix Collection</a>.</p>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is symmetric and positive-definite. The above quantity is a computationally expensive expression that frequently appears in the Jacobian and Hessian of likelihood functions in machine learning.</p>
+<section id="algorithm">
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this heading">#</a></h3>
+<p>To compute <a class="reference internal" href="#equation-traceinv">(1)</a>, the stochastic Lanczos quadrature (SLQ) algorithm is employed. The complexity of this algorithm is</p>
+<div class="math notranslate nohighlight" id="equation-complexity1">
+<span class="eqno">(2)<a class="headerlink" href="#equation-complexity1" title="Permalink to this equation">#</a></span>\[ \mathcal{O} \left( (\mathrm{nnz}(\mathbf{A}) l + n l^2) s \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the matrix size, <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A})\)</span> is the number of nonzero elements of the sparse matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, <span class="math notranslate nohighlight">\(l\)</span> is the number of Lanczos iterations, and <span class="math notranslate nohighlight">\(s\)</span> is the number of Monte-Carlo iterations (see details in <a class="reference internal" href="../api/imate.traceinv.slq.html#imate-traceinv-slq"><span class="std std-ref">imate.traceinv(method=’slq’)</span></a>).  The numerical experiment is performed with <span class="math notranslate nohighlight">\(l=80\)</span> and <span class="math notranslate nohighlight">\(s=200\)</span>.</p>
+</section>
+<section id="hardware">
+<h3>Hardware<a class="headerlink" href="#hardware" title="Permalink to this heading">#</a></h3>
+<p>The computations were carried out on the following hardware:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://sparse.tamu.edu/HB/nos5">nos5</a></p></li>
-<li><p><a class="reference external" href="https://sparse.tamu.edu/Bai/mhd4800b">mhd4800b</a></p></li>
-<li><p><a class="reference external" href="https://sparse.tamu.edu/Pothen/bodyy6">bodyy6</a></p></li>
-<li><p><a class="reference external" href="https://sparse.tamu.edu/AMD/G2_circuit">G2_circuit</a></p></li>
-<li><p><a class="reference external" href="https://sparse.tamu.edu/Wissgott/parabolic_fem">parabolic_fem</a></p></li>
-<li><p><a class="reference external" href="https://sparse.tamu.edu/Janna/StocF-1465">StocF-1465</a></p></li>
-<li><p><a class="reference external" href="https://sparse.tamu.edu/Janna/Bump_2911">Bump_2911</a></p></li>
-<li><p><a class="reference external" href="https://sparse.tamu.edu/Janna/Queen_4147">Queen_4147</a></p></li>
+<li><p>For <strong>CPU</strong> test: Intel(R) Xeon(R) CPU E5-2670 v3  with 24 threads.</p></li>
+<li><p>For <strong>GPU</strong> test: a cluster of eight <a class="reference external" href="https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090-3090ti/">NVIDIA® GeForce RTX 3090</a> GPUs and Intel Xeon Processor (Skylake, IBRS) with 32 threads.</p></li>
 </ul>
-<p>All the above matrices are symmetric positive-definite. The last matrix (<cite>Queen_4147</cite>) is so large that 32-bit <code class="docutils literal notranslate"><span class="pre">int</span></code> type integers cannot hold the column and row indexing of this matrix. Rather, 32-bit <code class="docutils literal notranslate"><span class="pre">unsigned</span> <span class="pre">int</span></code> should be used. To do so, the <span class="synco">imate</span> has to be compiled by exporting the environment variable:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">UNSIGNED_LONG_INT</span><span class="o">=</span><span class="mi">1</span>
-</pre></div>
+</section>
+</section>
+<section id="benchmark-matrices">
+<h2>Benchmark Matrices<a class="headerlink" href="#benchmark-matrices" title="Permalink to this heading">#</a></h2>
+<p>The table below shows the matrices used in the test, which are chosen from <a class="reference external" href="https://sparse.tamu.edu">SuiteSparse Matrix Collection</a> that are generated for real applications. The matrices in the table below are all symmetric positive-definite and the number of nonzero elements (nnz) of these matrices increase approximately by the factor of 5 on average.</p>
+<table class="right2 right3 table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Matrix Name</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>nnz</p></th>
+<th class="head"><p>Application</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://sparse.tamu.edu/HB/nos5"><code class="docutils literal notranslate"><span class="pre">nos5</span></code></a></p></td>
+<td><p>468</p></td>
+<td><p>5,172</p></td>
+<td><p>Structural Problem</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://sparse.tamu.edu/Bai/mhd4800b"><code class="docutils literal notranslate"><span class="pre">mhd4800b</span></code></a></p></td>
+<td><p>4,800</p></td>
+<td><p>27,520</p></td>
+<td><p>Electromagnetics</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://sparse.tamu.edu/Pothen/bodyy6"><code class="docutils literal notranslate"><span class="pre">bodyy6</span></code></a></p></td>
+<td><p>19,366</p></td>
+<td><p>134,208</p></td>
+<td><p>Structural Problem</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://sparse.tamu.edu/AMD/G2_circuit"><code class="docutils literal notranslate"><span class="pre">G2_circuit</span></code></a></p></td>
+<td><p>150,102</p></td>
+<td><p>726,674</p></td>
+<td><p>Circuit Simulation</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://sparse.tamu.edu/Wissgott/parabolic_fem"><code class="docutils literal notranslate"><span class="pre">parabolic_fem</span></code></a></p></td>
+<td><p>525,825</p></td>
+<td><p>3,674,625</p></td>
+<td><p>Computational Fluid Dynamics</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://sparse.tamu.edu/Janna/StocF-1465"><code class="docutils literal notranslate"><span class="pre">StocF-1465</span></code></a></p></td>
+<td><p>1,465,137</p></td>
+<td><p>21,005,389</p></td>
+<td><p>Computational Fluid Dynamics</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://sparse.tamu.edu/Janna/Bump_2911"><code class="docutils literal notranslate"><span class="pre">Bump_2911</span></code></a></p></td>
+<td><p>2,911,419</p></td>
+<td><p>127,729,899</p></td>
+<td><p>Structural Problem</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://sparse.tamu.edu/Janna/Queen_4147"><code class="docutils literal notranslate"><span class="pre">Queen_4147</span></code></a></p></td>
+<td><p>4,147,110</p></td>
+<td><p>329,499,284</p></td>
+<td><p>Structural Problem</p></td>
+</tr>
+</tbody>
+</table>
+<section id="arithmetic-types">
+<h3>Arithmetic Types<a class="headerlink" href="#arithmetic-types" title="Permalink to this heading">#</a></h3>
+<p>The benchmark test also examines the performance and accuracy of <span class="synco">imate</span> on various arithmetic types of the matrix data. To this end, each of the above matrices were re-cast into 32-bit, 64-bit, and 128-bit floating point arithmetics. Depending on the hardware, the followings data types were tested:</p>
+<ul class="simple">
+<li><p>For <strong>CPU</strong> test: 32-bit, 64-bit and 128-bit floating point data.</p></li>
+<li><p>For <strong>GPU</strong> test: 32-bit, 64-bit floating point data.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Supporting 128-bit data types is one of the features if <span class="synco">imate</span>, which is often not available in numerical libraries.</p>
 </div>
-<p>Alternatively, set <code class="docutils literal notranslate"><span class="pre">UNSIGNED_LONG_INT=1</span></code> in <a class="reference external" href="https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L57"><code class="docutils literal notranslate"><span class="pre">/imate/_definitions/definition.h</span></code></a>. By default, <code class="docutils literal notranslate"><span class="pre">UNSIGNED_LONG_INT</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>NVIDIA CUDA libraries do not support 128-data types.</p>
+</div>
+</section>
 </section>
 <section id="results">
 <h2>Results<a class="headerlink" href="#results" title="Permalink to this heading">#</a></h2>
-<a class="custom-dark reference internal image-reference" href="../_images/benchmark_speed_time.png"><img alt="../_images/benchmark_speed_time.png" class="custom-dark align-center" src="../_images/benchmark_speed_time.png" style="height: 375px;" /></a>
-<a class="custom-dark reference internal image-reference" href="../_images/benchmark_speed_accuracy.png"><img alt="../_images/benchmark_speed_accuracy.png" class="custom-dark align-center" src="../_images/benchmark_speed_accuracy.png" style="height: 375px;" /></a>
-<a class="custom-dark reference internal image-reference" href="../_images/benchmark_speed_cores.png"><img alt="../_images/benchmark_speed_cores.png" class="custom-dark align-center" src="../_images/benchmark_speed_cores.png" style="height: 375px;" /></a>
+<section id="scalability-with-data-size">
+<h3>Scalability with Data Size<a class="headerlink" href="#scalability-with-data-size" title="Permalink to this heading">#</a></h3>
+<p>The figure below shows the scalability by the relation between the elapsed (wall) time versus the data size.</p>
+<p>The data size is indicated by the matrix nnz (rather than the matrix size). However, the matrix size can be found by the hollow circle marks in the figure.</p>
+<ul class="simple">
+<li><p><strong>GPU</strong> test: 8 GPU devices were used.</p></li>
+<li><p><strong>CPU</strong> test: 16 CPU cores were used.</p></li>
+</ul>
+<figure class="align-center">
+<a class="custom-dark reference internal image-reference" href="../_images/benchmark_speed_time.png"><img alt="../_images/benchmark_speed_time.png" class="custom-dark" src="../_images/benchmark_speed_time.png" style="height: 375px;" /></a>
+</figure>
+<aside class="custom-sidebar sidebar">
+<p class="sidebar-title">Scalability Exponent</p>
+<blockquote>
+<div><table class="custom-table table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Device</p></th>
+<th class="head"><p>Data</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(\alpha\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="3"><p>CPU</p></td>
+<td><p>32-bit</p></td>
+<td><p>1.08</p></td>
+</tr>
+<tr class="row-odd"><td><p>64-bit</p></td>
+<td><p>0.89</p></td>
+</tr>
+<tr class="row-even"><td><p>128-bit</p></td>
+<td><p>0.93</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>GPU</p></td>
+<td><p>32-bit</p></td>
+<td><p>0.86</p></td>
+</tr>
+<tr class="row-even"><td><p>64-bit</p></td>
+<td><p>0.92</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</aside>
+<p>The computation on GPU is advantageous over CPU at nnz larger than roughly <span class="math notranslate nohighlight">\(10^{5}\)</span>. The elapsed time <span class="math notranslate nohighlight">\(t\)</span> is related to the number of nonzero elements <span class="math notranslate nohighlight">\(\mathrm{nnz}\)</span> by</p>
+<div class="math notranslate nohighlight">
+\[t \propto \mathcal{O}((\mathrm{nnz}(\mathbf{A}))^{\alpha}),\]</div>
+<p>where the exponent <span class="math notranslate nohighlight">\(\alpha\)</span> for each experiment asymptotically approaches to the values shown in the table below. It can be seen that the performance is close to the theoretical complexity <a class="reference internal" href="#equation-complexity1">(2)</a>.</p>
+<p>Also, the figure shows that processing 32-bit data is at most twice faster than 64-bit data on both CPU and GPU, and 64-bit data is at least twice faster than 128-bit on CPU.</p>
+<section id="extreme-array-sizes">
+<h4>Extreme Array Sizes<a class="headerlink" href="#extreme-array-sizes" title="Permalink to this heading">#</a></h4>
+<p>There above results indicate <span class="synco">imate</span> is highly scalable on both CPU and GPU on massive data. However, there are a number of factors that can limit the data size. For instance, hardware memory limit is one such factor. Another limiting factor is the maximum array length in bits to store the content of a sparse matrix. Interestingly, this factor is not a hardware limitation, rather, is related to the maximum integer (often 32-bit <code class="docutils literal notranslate"><span class="pre">int</span></code> type) to index the array (in bits) on the memory. The 128-bit format of <a class="reference external" href="https://sparse.tamu.edu/Janna/Queen_4147"><code class="docutils literal notranslate"><span class="pre">Queen_4147</span></code></a> matrix is indeed close to such limit. The above results show that <span class="synco">imate</span> is scalable to large scales before reaching such an array size limit.</p>
 </section>
-<section id="considerations">
-<h2>Considerations<a class="headerlink" href="#considerations" title="Permalink to this heading">#</a></h2>
-<p><strong>Parameters:</strong></p>
-<ul class="simple">
-<li><p>In SLQ and Hutchinson methods, <cite>min_num_samples</cite> and <cite>max_num_samples</cite> are fixed to 200.</p></li>
-<li><p>In SLQ method, <cite>lanczos_degree</cite> is 80.</p></li>
-<li><p>All 24 cores of Intel Xeon E5-2670 v3 processor are used for all algorithms.</p></li>
-<li><p>The GPU results are obtained by GTX-3090 GPUs.</p></li>
-</ul>
-<p><strong>Notes:</strong></p>
-<ul class="simple">
-<li><p>CPU computations have all 32, 64, and 128 but data types.</p></li>
-<li><p>GPU computations have ony 32, and 64 data types.</p></li>
-</ul>
+<section id="beyond-extreme-array-sizes">
+<h4>Beyond Extreme Array Sizes<a class="headerlink" href="#beyond-extreme-array-sizes" title="Permalink to this heading">#</a></h4>
+<p><span class="synco">imate</span> can be configured to handle even larger data (if one can indeed store such array of data). To do so, increase the integer space for matrix indices by changing <code class="docutils literal notranslate"><span class="pre">UNSIGNED_LONG_INT=1</span></code> in <a class="reference external" href="https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L57"><code class="docutils literal notranslate"><span class="pre">/imate/imate/_definitions/definition.h</span></code></a> file, or in terminal set</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-0">
+UNIX</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1"><span class="nb">export</span> <span class="nv">UNSIGNED_LONG_INT</span><span class="o">=</span><span class="m">1</span></span>
+</pre></div></div></div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-1">
+Windows (Powershell)</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt2:before {
+  content: "PS C:\\> ";
+}
+</style><span class="prompt2"><span class="nv">$env:export</span> <span class="n">UNSIGNED_LONG_INT</span> <span class="p">=</span> <span class="s2">&quot;1&quot;</span></span>
+</pre></div></div></div>
+</div>
+<p>Then, recompile <span class="synco">imate</span>. See <a class="reference internal" href="../tutorials/install.html#compile-source"><span class="std std-ref">Compile from Source</span></a>.</p>
+</section>
+</section>
+<section id="floating-point-arithmetic-accuracy">
+<h3>Floating Point Arithmetic Accuracy<a class="headerlink" href="#floating-point-arithmetic-accuracy" title="Permalink to this heading">#</a></h3>
+<p>The error of floating point arithmetic of iterative algorithms is sensible on large data. In this test, the result of 32-bit and 64-bit data are compared with the result of 128-bit as a benchmark and shown in the figure below. The results show that both 32-bit and 64-bit data have less than <span class="math notranslate nohighlight">\(0.1 \%\)</span> error relative to 128-bit data. However, for data larger than <span class="math notranslate nohighlight">\(10^{7}\)</span>, the error of 32-bit data is <span class="math notranslate nohighlight">\(30 \%\)</span> relative to 128-bit data whereas 64-bit data maintain <span class="math notranslate nohighlight">\(0.1 \sim 1 \%\)</span> error. Because of this, 64-bit data is often a good balance between accuracy and speed.</p>
+<a class="custom-dark reference internal image-reference" href="../_images/benchmark_speed_accuracy.png"><img alt="../_images/benchmark_speed_accuracy.png" class="custom-dark align-center" src="../_images/benchmark_speed_accuracy.png" style="height: 375px;" /></a>
+</section>
+<section id="scalability-with-increase-of-gpu-devices">
+<h3>Scalability with Increase of GPU Devices<a class="headerlink" href="#scalability-with-increase-of-gpu-devices" title="Permalink to this heading">#</a></h3>
+<p>The scalability of <span class="synco">imate</span> is examined by the increase of the number of CPU threads or GPU devices as shown in the figure below.</p>
+<a class="custom-dark reference internal image-reference" href="../_images/benchmark_speed_cores.png"><img alt="../_images/benchmark_speed_cores.png" class="custom-dark align-center" src="../_images/benchmark_speed_cores.png" style="height: 375px;" /></a>
+<br/><aside class="custom-sidebar sidebar">
+<p class="sidebar-title">Scalability Exponent</p>
+<blockquote>
+<div><table class="custom-table table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Device</p></th>
+<th class="head"><p>Data</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(\beta\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="3"><p>CPU</p></td>
+<td><p>32-bit</p></td>
+<td><p>0.83</p></td>
+</tr>
+<tr class="row-odd"><td><p>64-bit</p></td>
+<td><p>0.80</p></td>
+</tr>
+<tr class="row-even"><td><p>128-bit</p></td>
+<td><p>0.76</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>GPU</p></td>
+<td><p>32-bit</p></td>
+<td><p>0.98</p></td>
+</tr>
+<tr class="row-even"><td><p>64-bit</p></td>
+<td><p>0.96</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</aside>
+<p>The above results correspond to only <a class="reference external" href="https://sparse.tamu.edu/Janna/Queen_4147"><code class="docutils literal notranslate"><span class="pre">Queen_4147</span></code></a>, which is the largest matrix on the list. The performance on GPUs are over thirty-fold faster than the CPU for the same number of threads and GPU devices, although, this may not be a fair comparison. However, the performance of one GPU device is yet five times faster than 8 CPU threads.</p>
+<p>The elapsed (wall) time, <span class="math notranslate nohighlight">\(t\)</span>, can be related to the number of CPU threads or GPU devices, <span class="math notranslate nohighlight">\(m\)</span>, as</p>
+<div class="math notranslate nohighlight">
+\[t \propto \mathcal{O}(m^{-\beta}).\]</div>
+<p>The estimated values of <span class="math notranslate nohighlight">\(\beta\)</span> from the curves on the figure are shown in the table below. The speed (inverse of elapsed time) per CPU thread tend to saturate by the increase off the number of CPU threads. In contrast, the GPU results show better scalability as it maintains the linear behaviour by the increase of the number of GPU devices.</p>
+</section>
 </section>
 <section id="how-to-reproduce-results">
 <h2>How to Reproduce Results<a class="headerlink" href="#how-to-reproduce-results" title="Permalink to this heading">#</a></h2>
-<p>Run the code both on CPU and GPU as follows.</p>
-<section id="run-on-local-cpu">
-<h3>Run on Local CPU<a class="headerlink" href="#run-on-local-cpu" title="Permalink to this heading">#</a></h3>
-<p>Run <code class="docutils literal notranslate"><span class="pre">/benchmark/scripts/benchmark_speed.py</span></code> by</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">benchmark</span><span class="o">/</span><span class="n">scripts</span>
-<span class="n">python</span> <span class="o">./</span><span class="n">benchmark_speed</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">c</span>
-</pre></div>
-</div>
-<p>where <code class="docutils literal notranslate"><span class="pre">-c</span></code> runs the code on CPU on all 32-bit, 64-bit, and 128-bit data types.</p>
-<p>The output is stored in <cite>/benchnmark/pickle_results/benchmark_results_cpu.pickle</cite>. Rename the results on CPU to</p>
-<blockquote>
-<div><p>/benchmark/pickle_results/benchmark_results_cpu_2670v3.pickle</p>
-</div></blockquote>
-</section>
-<section id="run-on-cpu-cluster">
-<h3>Run on CPU Cluster<a class="headerlink" href="#run-on-cpu-cluster" title="Permalink to this heading">#</a></h3>
-<p>To run this script on a cluster with SLURM:</p>
-<blockquote>
-<div><p>cd jobfiles
-sbatch jobfile_benchmark_speed_cpu.sh</p>
-</div></blockquote>
-<p>When submitting the jobs, make sure that the cpu is the same as the previous runs. For isnatnce, nodes on savio2 cluster between <cite>n027</cite> and <cite>n150</cite> are <em>Intel Xeon E5-2670 v3</em>.</p>
-</section>
-<section id="run-on-local-gpu">
-<h3>Run on Local GPU<a class="headerlink" href="#run-on-local-gpu" title="Permalink to this heading">#</a></h3>
-<p>Run <code class="docutils literal notranslate"><span class="pre">/benchmark/scripts/benchmark_speed.py</span></code> by</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">benchmark</span><span class="o">/</span><span class="n">scripts</span>
-<span class="n">module</span> <span class="n">load</span> <span class="n">cuda</span><span class="o">/</span><span class="mf">11.2</span>
-<span class="n">python</span> <span class="o">./</span><span class="n">benchmark_speed</span><span class="o">.</span><span class="n">py</span> <span class="o">-</span><span class="n">g</span>
-</pre></div>
-</div>
-<p>where <code class="docutils literal notranslate"><span class="pre">-g</span></code> runs the code on CPU on all 32-bit, 64-bit, and 128-bit data types.</p>
-<p>The output is stored in <code class="docutils literal notranslate"><span class="pre">/benchnmark/pickle_results/benchmark_results_cpu.pickle</span></code>. Rename the results to</p>
-<blockquote>
-<div><p>/benchmark/pickle_results/benchmark_results_gpu_3090.pickle</p>
-</div></blockquote>
-</section>
-<section id="run-on-gpu-cluster">
-<h3>Run on GPU Cluster<a class="headerlink" href="#run-on-gpu-cluster" title="Permalink to this heading">#</a></h3>
-<p>To run this script on a cluster with SLURM:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">jobfiles</span>
-<span class="n">sbatch</span> <span class="n">jobfile_benchmark_speed_gpu</span><span class="o">.</span><span class="n">sh</span>
-</pre></div>
-</div>
-<p>When submitting the jobs, make sure that the cpu is the same as the previous runs. For isnatnce, nodes on savio2 cluster between <cite>n027</cite> and <cite>n150</cite> are <em>Intel Xeon E5-2670 v3</em>.</p>
-</section>
-<section id="run-on-cluster-gpu-using-docker-image">
-<h3>Run on Cluster GPU Using Docker Image<a class="headerlink" href="#run-on-cluster-gpu-using-docker-image" title="Permalink to this heading">#</a></h3>
-<p>On a virtual machine, it is better to install <span class="synco">imate</span> using the it’s <a class="reference external" href="https://hub.docker.com/repository/docker/sameli/imate">docker image</a>.</p>
+<p>Scripts to reproduce the above results is available</p>
+<section id="run-locally">
+<h3>Run Locally<a class="headerlink" href="#run-locally" title="Permalink to this heading">#</a></h3>
+<p>Run the script <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/benchmark_speed.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/benchmark_speed.py</span></code></a> as follows.</p>
 <ul>
-<li><p><a class="reference external" href="https://docs.docker.com/engine/install/ubuntu/">Install docker</a></p></li>
-<li><p>Set docker <a class="reference external" href="https://docs.docker.com/engine/install/linux-postinstall/">without sudo</a> password.</p></li>
-<li><p>Install <cite>imate</cite>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">pull</span> <span class="n">sameli</span><span class="o">/</span><span class="n">imate</span>
-</pre></div>
-</div>
-</li>
-<li><p>Follow instruction for <a class="reference external" href="https://hub.docker.com/repository/docker/sameli/imate">using docker’s host’s GPU</a>.</p></li>
+<li><p>To test CPU:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
+<span class="prompt1">python ./benchmark_speed.py -c</span>
+</pre></div></div></li>
+<li><p>To test GPU:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
+<span class="prompt1">python ./benchmark_speed.py -g</span>
+</pre></div></div></li>
+</ul>
+</section>
+<section id="submit-job-to-cluster-with-slurm">
+<h3>Submit Job to Cluster with SLURM<a class="headerlink" href="#submit-job-to-cluster-with-slurm" title="Permalink to this heading">#</a></h3>
+<ul>
+<li><p>The SLURM job file to submit the CPU test is available at <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh</span></code></a>. Submit the job by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch jobfile_benchmark_speed_cpu.sh</span>
+</pre></div></div></li>
+<li><p>The SLURM job file to submit the GPU test is available at <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_speed_gpu.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_speed_gpu.sh</span></code></a>. Submit the job by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch jobfile_benchmark_speed_gpu.sh</span>
+</pre></div></div></li>
 </ul>
 </section>
 </section>

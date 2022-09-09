@@ -85,3 +85,41 @@ pre[class*=language-bib] {
 html[data-theme="dark"] button.copybtn {
     filter: invert(0.88) brightness(1.1);
 }
+
+/* Logo color */
+img.logo__image {
+    /* filter: grayscale(1) brightness(1.5); */
+    filter: brightness(1.1);
+}
+
+img.logo__image:hover {
+    filter: brightness(1.3);
+}
+
+/* Tables where the second column it right-aligned */
+table.right2 td:nth-child(2),
+table.right2 th:nth-child(2) {
+    text-align: right;
+}
+
+/* Body and header of the third column */
+table.right3 td:nth-child(3),
+table.right3 th:nth-child(3) {
+    text-align: right;
+}
+
+table.custom-table {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sidebar.custom-sidebar {
+    border-color: var(--pst-color-border);
+    background-color: var(--pst-color-surface);
+    font-size: smaller;
+}
+
+.sidebar.custom-sidebar p.sidebar-title {
+    text-align: center;
+}

@@ -550,8 +550,22 @@ number of available CPU threads that is allocated to the user is returned.
 For instance, if on a device with <cite>8</cite> threads, only <cite>2</cite> threads are
 allocated to a user, the return value of this function is <cite>2</cite>.</p>
 <p class="rubric">Examples</p>
+<p>Find the number of <em>available</em> CPU threads:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.device</span> <span class="kn">import</span> <span class="n">get_num_cpu_threads</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">get_num_cpu_threads</span><span class="p">()</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<p>Find the total number of CPU threads on the device (all may not be
+available/allocated to the user):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Method 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
+<span class="go">8</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Method 2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">multiprocessing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
 <span class="go">8</span>
 </pre></div>
 </div>

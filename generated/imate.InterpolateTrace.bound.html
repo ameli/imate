@@ -247,7 +247,7 @@
 <dt class="sig sig-object py" id="imate.InterpolateTrace.bound">
 <span class="sig-prename descclassname"><span class="pre">InterpolateTrace.</span></span><span class="sig-name descname"><span class="pre">bound</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.InterpolateTrace.bound" title="Permalink to this definition">#</a></dt>
 <dd><p>Bound of the interpolation function.</p>
-<p>If <span class="math notranslate nohighlight">\(p &lt; 1\)</span>, this function is lower bound, and if <span class="math notranslate nohighlight">\(p &gt; 1\)</span>,
+<p>If <span class="math notranslate nohighlight">\(p &lt; 1\)</span>, this function is a lower bound, and if <span class="math notranslate nohighlight">\(p &gt; 1\)</span>,
 this function is an upper bound of the interpolation function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -273,7 +273,7 @@ also an array of the size of <cite>t</cite>.</p>
 <p class="rubric">Notes</p>
 <p>Define</p>
 <div class="math notranslate nohighlight">
-\[\tau_{p}(t) = \frac{\Vert (\mathbf{A} + t \mathbf{B})^{p}
+\[\tau_{p}(t) = \frac{\Vert \mathbf{A} + t \mathbf{B}
 \Vert_p}{\Vert \mathbf{B} \Vert_p}\]</div>
 <p>and <span class="math notranslate nohighlight">\(\tau_{p,0} = \tau_{p}(0)\)</span>. A sharp bound of the function
 <span class="math notranslate nohighlight">\(\tau_{p}\)</span> is (see <a class="reference internal" href="#r81bd88c2574d-1" id="id1">[1]</a>, Section 3):</p>
@@ -293,8 +293,8 @@ t \in (t_{\inf}, o],\]</div>
 <div role="list" class="citation-list">
 <div class="citation" id="r81bd88c2574d-1" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>Ameli, S., and Shadden. S. C. (2022). Interpolating
-Log-Determinant and Trace of the Powers of Matrix
+<p>Ameli, S., and Shadden. S. C. (2022). <em>Interpolating
+Log-Determinant and Trace of the Powers of Matrix</em>
 <span class="math notranslate nohighlight">\(\mathbf{A} + t \mathbf{B}\)</span>. <a class="reference external" href="https://arxiv.org/abs/2207.08038">arXiv: 2009.07385</a> [math.NA].</p>
 </div>
 </div>
@@ -317,8 +317,8 @@ the function <span class="math notranslate nohighlight">\(f\)</span> on the arra
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Interpolate at an array of points</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">bound</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">bound</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">interp</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">bound</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">bound</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">interp</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Plot the results:</p>
@@ -342,7 +342,7 @@ the function <span class="math notranslate nohighlight">\(f\)</span> on the arra
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<a class="custom-dark reference internal image-reference" href="../_images/interpolate_schatten_bound.png"><img alt="../_images/interpolate_schatten_bound.png" class="custom-dark align-center" src="../_images/interpolate_schatten_bound.png" style="width: 60%;" /></a>
+<a class="custom-dark reference internal image-reference" href="../_images/interpolate_schatten_bound.png"><img alt="../_images/interpolate_schatten_bound.png" class="custom-dark align-center" src="../_images/interpolate_schatten_bound.png" style="width: 70%;" /></a>
 </dd></dl>
 
 </section>

@@ -5,6 +5,8 @@ Install
 
 .. contents::
 
+.. _install-wheels:
+
 Install |project| From Wheels
 =============================
 
@@ -239,7 +241,7 @@ Alternatively, you can install OpenBLAS using ``conda``:
 
     conda install -c anaconda openblas
 
-.. _install-wheels:
+.. _compile-source:
 
 Compile from Source
 ===================
