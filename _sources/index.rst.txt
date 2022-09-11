@@ -97,7 +97,7 @@ Successful installation and tests performed on the following operating systems, 
 .. |build-windows| image:: https://img.shields.io/github/workflow/status/ameli/imate/build-windows
    :target: https://github.com/ameli/imate/actions?query=workflow%3Abuild-windows
 
-Python wheels for |project| for all supported platforms and versions in the above are available through `PyPI <https://pypi.org/project/imate/>`_ and `Anaconda Cloud <https://anaconda.org/s-ameli/imate>`_. If you need |project| on other platforms, architectures, and Python or PyPy versions, `raise an issue <https://github.com/ameli/imate/issues>`_ on GitHub to build its Python Wheel for you.
+Python wheels for |project| for all supported platforms and versions in the above are available through `PyPI <https://pypi.org/project/imate/>`_ and `Anaconda Cloud <https://anaconda.org/s-ameli/imate>`_. If you need |project| on other platforms, architectures, and Python or PyPy versions, `raise an issue <https://github.com/ameli/imate/issues>`_ on GitHub and we build its Python Wheel for you.
 
 Install
 =======
@@ -159,7 +159,7 @@ For a complete guide, see:
 GPU
 ===
 
-|project| can run on CUDA-capable **multi**-GPU devices, which can be set up in multiple ways. Using the **docker container** is the easiest way to run |project| on GPU devices. For a comprehensive guide, see:
+|project| can run on CUDA-capable **multi**-GPU devices, which can be set up in several ways. Using the **docker container** is the easiest way to run |project| on GPU devices. For a comprehensive guide, see:
 
 .. toctree::
     :maxdepth: 2
@@ -186,6 +186,17 @@ Performance
 |project| is scalable to **very large matrices**. Its core library for basic linear algebraic operations is **faster than OpenBLAS**, and its **pseudo-random generator** is a hundred-fold faster than the implementation in the standard C++ library.
 
 Read about the performance of |project| in practical applications:
+
+.. toctree::
+    :maxdepth: 1
+    :numbered:
+    :hidden:
+
+    Performance on GPU Farm <performance/gpu>
+    Performance on CPU <performance/scalability>
+    Comparison With and Without OpenBLAS <performance/openblas>
+    Interpolation of Affine Matrix Functions <performance/interpolation>
+
 
 .. grid:: 2
 
@@ -281,8 +292,8 @@ Some notable implementation techniques used to develop |project| are:
 * Polymorphic and curiously recurring template pattern programming (CRTP) technique.
 * OS-independent customized `dynamic loading` of CUDA libraries.
 * Static dispatching enables executing |project| with and without CUDA on the user's machine with the same pre-compiled |project| installation.
-* Completely `GIL-free` Cython implementation.
-* Providing `manylinux` wheels build upon customized docker images with CUDA support (see `CUDA 10 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_10>`_ and `CUDA 11 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_11>`_ images on Docker Hub).
+* Completely `GIL <https://en.wikipedia.org/wiki/Global_interpreter_lock>`_-*free* Cython implementation.
+* Providing `manylinux wheels <https://pypi.org/project/imate/#files>`_ build upon customized docker images with CUDA support (see `manylinux CUDA 10 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_10>`_ and `manylinux CUDA 11 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_11>`_ docker images on Docker Hub).
 
 How to Contribute
 =================

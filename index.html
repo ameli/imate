@@ -494,7 +494,7 @@ Integration</p></th>
 </tr>
 </tbody>
 </table>
-<p>Python wheels for <span class="synco">imate</span> for all supported platforms and versions in the above are available through <a class="reference external" href="https://pypi.org/project/imate/">PyPI</a> and <a class="reference external" href="https://anaconda.org/s-ameli/imate">Anaconda Cloud</a>. If you need <span class="synco">imate</span> on other platforms, architectures, and Python or PyPy versions, <a class="reference external" href="https://github.com/ameli/imate/issues">raise an issue</a> on GitHub to build its Python Wheel for you.</p>
+<p>Python wheels for <span class="synco">imate</span> for all supported platforms and versions in the above are available through <a class="reference external" href="https://pypi.org/project/imate/">PyPI</a> and <a class="reference external" href="https://anaconda.org/s-ameli/imate">Anaconda Cloud</a>. If you need <span class="synco">imate</span> on other platforms, architectures, and Python or PyPy versions, <a class="reference external" href="https://github.com/ameli/imate/issues">raise an issue</a> on GitHub and we build its Python Wheel for you.</p>
 </section>
 <section id="install">
 <h2>Install<a class="headerlink" href="#install" title="Permalink to this heading">#</a></h2>
@@ -570,7 +570,7 @@ span.prompt1:before {
 </section>
 <section id="gpu">
 <h2>GPU<a class="headerlink" href="#gpu" title="Permalink to this heading">#</a></h2>
-<p><span class="synco">imate</span> can run on CUDA-capable <strong>multi</strong>-GPU devices, which can be set up in multiple ways. Using the <strong>docker container</strong> is the easiest way to run <span class="synco">imate</span> on GPU devices. For a comprehensive guide, see:</p>
+<p><span class="synco">imate</span> can run on CUDA-capable <strong>multi</strong>-GPU devices, which can be set up in several ways. Using the <strong>docker container</strong> is the easiest way to run <span class="synco">imate</span> on GPU devices. For a comprehensive guide, see:</p>
 <div class="toctree-wrapper compound" id="using-gpu">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/gpu.html">3. GPU</a><ul>
@@ -636,6 +636,8 @@ span.prompt1:before {
 <h2>Performance<a class="headerlink" href="#performance" title="Permalink to this heading">#</a></h2>
 <p><span class="synco">imate</span> is scalable to <strong>very large matrices</strong>. Its core library for basic linear algebraic operations is <strong>faster than OpenBLAS</strong>, and its <strong>pseudo-random generator</strong> is a hundred-fold faster than the implementation in the standard C++ library.</p>
 <p>Read about the performance of <span class="synco">imate</span> in practical applications:</p>
+<div class="toctree-wrapper compound">
+</div>
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
 <div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 docutils">
 <div class="sd-col sd-d-flex-row docutils">
@@ -722,8 +724,8 @@ span.prompt1:before {
 <li><p>Polymorphic and curiously recurring template pattern programming (CRTP) technique.</p></li>
 <li><p>OS-independent customized <cite>dynamic loading</cite> of CUDA libraries.</p></li>
 <li><p>Static dispatching enables executing <span class="synco">imate</span> with and without CUDA on the user’s machine with the same pre-compiled <span class="synco">imate</span> installation.</p></li>
-<li><p>Completely <cite>GIL-free</cite> Cython implementation.</p></li>
-<li><p>Providing <cite>manylinux</cite> wheels build upon customized docker images with CUDA support (see <a class="reference external" href="https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_10">CUDA 10</a> and <a class="reference external" href="https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_11">CUDA 11</a> images on Docker Hub).</p></li>
+<li><p>Completely <a class="reference external" href="https://en.wikipedia.org/wiki/Global_interpreter_lock">GIL</a>-<em>free</em> Cython implementation.</p></li>
+<li><p>Providing <a class="reference external" href="https://pypi.org/project/imate/#files">manylinux wheels</a> build upon customized docker images with CUDA support (see <a class="reference external" href="https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_10">manylinux CUDA 10</a> and <a class="reference external" href="https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_11">manylinux CUDA 11</a> docker images on Docker Hub).</p></li>
 </ul>
 </section>
 <section id="how-to-contribute">
