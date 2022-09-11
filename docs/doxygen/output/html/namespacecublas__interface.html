@@ -1,0 +1,1620 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>imate: cublas_interface Namespace Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js", "TeX/AMSfonts.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom-alternative.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/ameli/imate" class="github-corner" title="View source on GitHub" target="_blank">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo-imate-light.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">imate
+   </div>
+   <div id="projectbrief">C++/CUDA Reference</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Search','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('namespacecublas__interface.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle">
+<div class="title">cublas_interface Namespace Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>A collection of templates to wrapper cublas functions.  
+<a href="namespacecublas__interface.html#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a03e5b052ebf979af3acdcdd005a724d2"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a03e5b052ebf979af3acdcdd005a724d2"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#a03e5b052ebf979af3acdcdd005a724d2">cublasXgemv&lt; float &gt;</a> (cublasHandle_t handle, cublasOperation_t trans, int m, int n, const float *alpha, const float *A, int lda, const float *x, int incx, const float *beta, float *y, int incy)</td></tr>
+<tr class="memdesc:a03e5b052ebf979af3acdcdd005a724d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">A template wrapper for <code>cublasSgemv</code>.  <a href="namespacecublas__interface.html#a03e5b052ebf979af3acdcdd005a724d2">More...</a><br /></td></tr>
+<tr class="separator:a03e5b052ebf979af3acdcdd005a724d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a949907e4805099b5e00f2448429bb4e0"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a949907e4805099b5e00f2448429bb4e0"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#a949907e4805099b5e00f2448429bb4e0">cublasXgemv&lt; double &gt;</a> (cublasHandle_t handle, cublasOperation_t trans, int m, int n, const double *alpha, const double *A, int lda, const double *x, int incx, const double *beta, double *y, int incy)</td></tr>
+<tr class="memdesc:a949907e4805099b5e00f2448429bb4e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">A template wrapper for <code>cublasDgemv</code>.  <a href="namespacecublas__interface.html#a949907e4805099b5e00f2448429bb4e0">More...</a><br /></td></tr>
+<tr class="separator:a949907e4805099b5e00f2448429bb4e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad4b6aa34461efc1afa3d01f368f6e7a"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:aad4b6aa34461efc1afa3d01f368f6e7a"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#aad4b6aa34461efc1afa3d01f368f6e7a">cublasXcopy&lt; float &gt;</a> (cublasHandle_t handle, int n, const float *x, int incx, float *y, int incy)</td></tr>
+<tr class="memdesc:aad4b6aa34461efc1afa3d01f368f6e7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">A template wrapper for <code>cublasScopy</code>.  <a href="namespacecublas__interface.html#aad4b6aa34461efc1afa3d01f368f6e7a">More...</a><br /></td></tr>
+<tr class="separator:aad4b6aa34461efc1afa3d01f368f6e7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3148d241a7bbbda4197942130e07a78b"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a3148d241a7bbbda4197942130e07a78b"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#a3148d241a7bbbda4197942130e07a78b">cublasXcopy&lt; double &gt;</a> (cublasHandle_t handle, int n, const double *x, int incx, double *y, int incy)</td></tr>
+<tr class="memdesc:a3148d241a7bbbda4197942130e07a78b"><td class="mdescLeft">&#160;</td><td class="mdescRight">A template wrapper for <code>cublasDcopy</code>.  <a href="namespacecublas__interface.html#a3148d241a7bbbda4197942130e07a78b">More...</a><br /></td></tr>
+<tr class="separator:a3148d241a7bbbda4197942130e07a78b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14a2b23b2f35a3104f77cc737afaf4a6"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a14a2b23b2f35a3104f77cc737afaf4a6"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#a14a2b23b2f35a3104f77cc737afaf4a6">cublasXaxpy&lt; float &gt;</a> (cublasHandle_t handle, int n, const float *alpha, const float *x, int incx, float *y, int incy)</td></tr>
+<tr class="memdesc:a14a2b23b2f35a3104f77cc737afaf4a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A template wrapper for <code>cublasSaxpy</code>.  <a href="namespacecublas__interface.html#a14a2b23b2f35a3104f77cc737afaf4a6">More...</a><br /></td></tr>
+<tr class="separator:a14a2b23b2f35a3104f77cc737afaf4a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1426a2550ba9261e7f7f564c86c7df27"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a1426a2550ba9261e7f7f564c86c7df27"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#a1426a2550ba9261e7f7f564c86c7df27">cublasXaxpy&lt; double &gt;</a> (cublasHandle_t handle, int n, const double *alpha, const double *x, int incx, double *y, int incy)</td></tr>
+<tr class="memdesc:a1426a2550ba9261e7f7f564c86c7df27"><td class="mdescLeft">&#160;</td><td class="mdescRight">A template wrapper for <code>cublasDaxpy</code>.  <a href="namespacecublas__interface.html#a1426a2550ba9261e7f7f564c86c7df27">More...</a><br /></td></tr>
+<tr class="separator:a1426a2550ba9261e7f7f564c86c7df27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a105dbe8185e9ee5e06c73dec639b34"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a3a105dbe8185e9ee5e06c73dec639b34"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#a3a105dbe8185e9ee5e06c73dec639b34">cublasXdot&lt; float &gt;</a> (cublasHandle_t handle, int n, const float *x, int incx, const float *y, int incy, float *result)</td></tr>
+<tr class="memdesc:a3a105dbe8185e9ee5e06c73dec639b34"><td class="mdescLeft">&#160;</td><td class="mdescRight">A template wrapper for <code>cublasSdot</code>.  <a href="namespacecublas__interface.html#a3a105dbe8185e9ee5e06c73dec639b34">More...</a><br /></td></tr>
+<tr class="separator:a3a105dbe8185e9ee5e06c73dec639b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0fa1ca80f7a2b6b8aa462a823097827"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:ae0fa1ca80f7a2b6b8aa462a823097827"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#ae0fa1ca80f7a2b6b8aa462a823097827">cublasXdot&lt; double &gt;</a> (cublasHandle_t handle, int n, const double *x, int incx, const double *y, int incy, double *result)</td></tr>
+<tr class="memdesc:ae0fa1ca80f7a2b6b8aa462a823097827"><td class="mdescLeft">&#160;</td><td class="mdescRight">A template wrapper for <code>cublasDdot</code>.  <a href="namespacecublas__interface.html#ae0fa1ca80f7a2b6b8aa462a823097827">More...</a><br /></td></tr>
+<tr class="separator:ae0fa1ca80f7a2b6b8aa462a823097827"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bc10835797655e0793c76c914f03f09"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a0bc10835797655e0793c76c914f03f09"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#a0bc10835797655e0793c76c914f03f09">cublasXnrm2&lt; float &gt;</a> (cublasHandle_t handle, int n, const float *x, int incx, float *result)</td></tr>
+<tr class="memdesc:a0bc10835797655e0793c76c914f03f09"><td class="mdescLeft">&#160;</td><td class="mdescRight">A template wrapper to <code>cublasSnrm2</code>.  <a href="namespacecublas__interface.html#a0bc10835797655e0793c76c914f03f09">More...</a><br /></td></tr>
+<tr class="separator:a0bc10835797655e0793c76c914f03f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe1d950b2616c22aaa1419f86c56bd74"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:afe1d950b2616c22aaa1419f86c56bd74"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#afe1d950b2616c22aaa1419f86c56bd74">cublasXnrm2&lt; double &gt;</a> (cublasHandle_t handle, int n, const double *x, int incx, double *result)</td></tr>
+<tr class="memdesc:afe1d950b2616c22aaa1419f86c56bd74"><td class="mdescLeft">&#160;</td><td class="mdescRight">A template wrapper to <code>cublasDnrm2</code>.  <a href="namespacecublas__interface.html#afe1d950b2616c22aaa1419f86c56bd74">More...</a><br /></td></tr>
+<tr class="separator:afe1d950b2616c22aaa1419f86c56bd74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a393cc1d5e5b4ad695c1dc5f26a6df9bd"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a393cc1d5e5b4ad695c1dc5f26a6df9bd"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#a393cc1d5e5b4ad695c1dc5f26a6df9bd">cublasXscal&lt; float &gt;</a> (cublasHandle_t handle, int n, const float *alpha, float *x, int incx)</td></tr>
+<tr class="memdesc:a393cc1d5e5b4ad695c1dc5f26a6df9bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">A template wrapper for <code>cublasSscal</code>.  <a href="namespacecublas__interface.html#a393cc1d5e5b4ad695c1dc5f26a6df9bd">More...</a><br /></td></tr>
+<tr class="separator:a393cc1d5e5b4ad695c1dc5f26a6df9bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b34f7b520de77a0e915aa8d726ac886"><td class="memItemLeft" align="right" valign="top">template&lt;&gt; </td></tr>
+<tr class="memitem:a2b34f7b520de77a0e915aa8d726ac886"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#a2b34f7b520de77a0e915aa8d726ac886">cublasXscal&lt; double &gt;</a> (cublasHandle_t handle, int n, const double *alpha, double *x, int incx)</td></tr>
+<tr class="memdesc:a2b34f7b520de77a0e915aa8d726ac886"><td class="mdescLeft">&#160;</td><td class="mdescRight">A template wrapper for <code>cublasDscal</code>.  <a href="namespacecublas__interface.html#a2b34f7b520de77a0e915aa8d726ac886">More...</a><br /></td></tr>
+<tr class="separator:a2b34f7b520de77a0e915aa8d726ac886"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4f7c12ce59f4e8701116a92173763db"><td class="memTemplParams" colspan="2">template&lt;typename DataType &gt; </td></tr>
+<tr class="memitem:ac4f7c12ce59f4e8701116a92173763db"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#ac4f7c12ce59f4e8701116a92173763db">cublasXgemv</a> (cublasHandle_t handle, cublasOperation_t trans, int m, int n, const DataType *alpha, const DataType *A, int lda, const DataType *x, int incx, const DataType *beta, DataType *y, int incy)</td></tr>
+<tr class="separator:ac4f7c12ce59f4e8701116a92173763db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7baec66eaf5a126362956ed808c8e9ce"><td class="memTemplParams" colspan="2">template&lt;typename DataType &gt; </td></tr>
+<tr class="memitem:a7baec66eaf5a126362956ed808c8e9ce"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#a7baec66eaf5a126362956ed808c8e9ce">cublasXcopy</a> (cublasHandle_t handle, int n, const DataType *x, int incx, DataType *y, int incy)</td></tr>
+<tr class="separator:a7baec66eaf5a126362956ed808c8e9ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1a3b8bc292abb02f3146d71f1acc90d"><td class="memTemplParams" colspan="2">template&lt;typename DataType &gt; </td></tr>
+<tr class="memitem:ae1a3b8bc292abb02f3146d71f1acc90d"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#ae1a3b8bc292abb02f3146d71f1acc90d">cublasXaxpy</a> (cublasHandle_t handle, int n, const DataType *alpha, const DataType *x, int incx, DataType *y, int incy)</td></tr>
+<tr class="separator:ae1a3b8bc292abb02f3146d71f1acc90d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a143bcc56d4d99a7a05219b3ee8dd10fc"><td class="memTemplParams" colspan="2">template&lt;typename DataType &gt; </td></tr>
+<tr class="memitem:a143bcc56d4d99a7a05219b3ee8dd10fc"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#a143bcc56d4d99a7a05219b3ee8dd10fc">cublasXdot</a> (cublasHandle_t handle, int n, const DataType *x, int incx, const DataType *y, int incy, DataType *result)</td></tr>
+<tr class="separator:a143bcc56d4d99a7a05219b3ee8dd10fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cdb08fd9dbcb3df01c1988004a8ff63"><td class="memTemplParams" colspan="2">template&lt;typename DataType &gt; </td></tr>
+<tr class="memitem:a4cdb08fd9dbcb3df01c1988004a8ff63"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#a4cdb08fd9dbcb3df01c1988004a8ff63">cublasXnrm2</a> (cublasHandle_t handle, int n, const DataType *x, int incx, DataType *result)</td></tr>
+<tr class="separator:a4cdb08fd9dbcb3df01c1988004a8ff63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a373969305e12857bb6463ab630cb9b4c"><td class="memTemplParams" colspan="2">template&lt;typename DataType &gt; </td></tr>
+<tr class="memitem:a373969305e12857bb6463ab630cb9b4c"><td class="memTemplItemLeft" align="right" valign="top">cublasStatus_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacecublas__interface.html#a373969305e12857bb6463ab630cb9b4c">cublasXscal</a> (cublasHandle_t handle, int n, const DataType *alpha, DataType *x, int incx)</td></tr>
+<tr class="separator:a373969305e12857bb6463ab630cb9b4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A collection of templates to wrapper cublas functions. </p>
+<dl class="section note"><dt>Note</dt><dd>The implementation in the <code>cu</code> file is wrapped inside the namepsace clause. This is not necessary in general, however, it is needed to avoid the old gcc compiler error (this is a gcc bug) which complains "no instance of function template matches
+           the argument list const float". </dd></dl>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="ae1a3b8bc292abb02f3146d71f1acc90d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1a3b8bc292abb02f3146d71f1acc90d">&#9670;&nbsp;</a></span>cublasXaxpy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t cublas_interface::cublasXaxpy </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const DataType *&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const DataType *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DataType *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="cu__vector__operations_8cu_source.html#l00126">cuVectorOperations&lt; DataType &gt;::subtract_scaled_vector()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacecublas__interface_ae1a3b8bc292abb02f3146d71f1acc90d_icgraph.png" border="0" usemap="#anamespacecublas__interface_ae1a3b8bc292abb02f3146d71f1acc90d_icgraph" alt=""/></div>
+<map name="anamespacecublas__interface_ae1a3b8bc292abb02f3146d71f1acc90d_icgraph" id="anamespacecublas__interface_ae1a3b8bc292abb02f3146d71f1acc90d_icgraph">
+<area shape="rect" title=" " alt="" coords="1097,123,1260,164"/>
+<area shape="rect" href="classcuVectorOperations.html#a516e90d70f99436cf48cd5b7deeb69c7" title="Subtracts the scaled input vector from the output vector." alt="" coords="884,123,1049,164"/>
+<area shape="rect" href="classcuAffineMatrixFunction.html#af0a51e03280f6700f6534a94874436c1" title="Performs the operation , where &#160;is an input vector scaled by &#160;and &#160;it the output vector." alt="" coords="675,5,831,47"/>
+<area shape="rect" href="cu__golub__kahn__bidiagonalization_8cu.html#aa755f765f48f41b63d9dab3528b5f0b2" title="Bi&#45;diagonalizes the positive&#45;definite matrix A using Golub&#45;Kahn&#45;Lanczos method." alt="" coords="411,105,623,131"/>
+<area shape="rect" href="cu__lanczos__tridiagonalization_8cu.html#a30ec831ebcc2ce17eefefb770b13773d" title="Tri&#45;diagonalizes matrix A to T using the start vector v. is the Lanczos degree, which will be the siz..." alt="" coords="421,155,613,182"/>
+<area shape="rect" href="classcuOrthogonalization.html#a47d7334cf9d9b69bb2feb047d40e0a23" title="Modified Gram&#45;Schmidt orthogonalization process to orthogonalize the vector v against a subset of the..." alt="" coords="671,123,836,164"/>
+<area shape="rect" href="classcuOrthogonalization.html#aefd27369921be5760a998a60aca49b56" title="Orthogonalizes set of vectors mutually using modified Gram&#45;Schmidt process." alt="" coords="675,240,832,281"/>
+<area shape="rect" href="classcuTraceEstimator.html#ab4edc323dc7dcc98f401eeec9276e245" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="200,115,363,171"/>
+<area shape="rect" href="classcuTraceEstimator.html#aac1cf44a9dc5522d3104b2cdf3b05285" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,123,152,164"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a1426a2550ba9261e7f7f564c86c7df27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1426a2550ba9261e7f7f564c86c7df27">&#9670;&nbsp;</a></span>cublasXaxpy&lt; double &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t <a class="el" href="namespacecublas__interface.html#ae1a3b8bc292abb02f3146d71f1acc90d">cublas_interface::cublasXaxpy</a>&lt; double &gt; </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A template wrapper for <code>cublasDaxpy</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="cublas__interface_8cu_source.html#l00156">156</a> of file <a class="el" href="cublas__interface_8cu_source.html">cublas_interface.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="cublas__symbols_8cpp.html#a6c84951f2c95eb556e60cc0f0be709a1">cublasDaxpy</a>(handle, n, alpha, x, incx, y, incy);</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    }</div>
+<div class="ttc" id="acublas__symbols_8cpp_html_a6c84951f2c95eb556e60cc0f0be709a1"><div class="ttname"><a href="cublas__symbols_8cpp.html#a6c84951f2c95eb556e60cc0f0be709a1">cublasDaxpy</a></div><div class="ttdeci">cublasStatus_t cublasDaxpy(cublasHandle_t handle, int n, const double *alpha, const double *x, int incx, double *y, int incy)</div><div class="ttdoc">Definition of CUDA's cublasDaxpy function using dynamically loaded cublas library.</div><div class="ttdef"><b>Definition:</b> <a href="cublas__symbols_8cpp_source.html#l00308">cublas_symbols.cpp:308</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cublas__symbols_8cpp_source.html#l00308">cublasDaxpy()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacecublas__interface_a1426a2550ba9261e7f7f564c86c7df27_cgraph.png" border="0" usemap="#anamespacecublas__interface_a1426a2550ba9261e7f7f564c86c7df27_cgraph" alt=""/></div>
+<map name="anamespacecublas__interface_a1426a2550ba9261e7f7f564c86c7df27_cgraph" id="anamespacecublas__interface_a1426a2550ba9261e7f7f564c86c7df27_cgraph">
+<area shape="rect" title="A template wrapper for cublasDaxpy." alt="" coords="5,5,168,47"/>
+<area shape="rect" href="cublas__symbols_8cpp.html#a6c84951f2c95eb556e60cc0f0be709a1" title="Definition of CUDA&#39;s cublasDaxpy function using dynamically loaded cublas library." alt="" coords="216,13,315,39"/>
+<area shape="rect" href="classcublasSymbols.html#add91bfdd2054c14a73877f0f7ea65dc9" title="Returns the name of cublas shared library." alt="" coords="363,5,500,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a14a2b23b2f35a3104f77cc737afaf4a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14a2b23b2f35a3104f77cc737afaf4a6">&#9670;&nbsp;</a></span>cublasXaxpy&lt; float &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t <a class="el" href="namespacecublas__interface.html#ae1a3b8bc292abb02f3146d71f1acc90d">cublas_interface::cublasXaxpy</a>&lt; float &gt; </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A template wrapper for <code>cublasSaxpy</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="cublas__interface_8cu_source.html#l00135">135</a> of file <a class="el" href="cublas__interface_8cu_source.html">cublas_interface.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="cublas__symbols_8cpp.html#a62acf2de66cac606d7a4bd27112aa803">cublasSaxpy</a>(handle, n, alpha, x, incx, y, incy);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    }</div>
+<div class="ttc" id="acublas__symbols_8cpp_html_a62acf2de66cac606d7a4bd27112aa803"><div class="ttname"><a href="cublas__symbols_8cpp.html#a62acf2de66cac606d7a4bd27112aa803">cublasSaxpy</a></div><div class="ttdeci">cublasStatus_t cublasSaxpy(cublasHandle_t handle, int n, const float *alpha, const float *x, int incx, float *y, int incy)</div><div class="ttdoc">Definition of CUDA's cublasSaxpy function using dynamically loaded cublas library.</div><div class="ttdef"><b>Definition:</b> <a href="cublas__symbols_8cpp_source.html#l00277">cublas_symbols.cpp:277</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cublas__symbols_8cpp_source.html#l00277">cublasSaxpy()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacecublas__interface_a14a2b23b2f35a3104f77cc737afaf4a6_cgraph.png" border="0" usemap="#anamespacecublas__interface_a14a2b23b2f35a3104f77cc737afaf4a6_cgraph" alt=""/></div>
+<map name="anamespacecublas__interface_a14a2b23b2f35a3104f77cc737afaf4a6_cgraph" id="anamespacecublas__interface_a14a2b23b2f35a3104f77cc737afaf4a6_cgraph">
+<area shape="rect" title="A template wrapper for cublasSaxpy." alt="" coords="5,5,168,47"/>
+<area shape="rect" href="cublas__symbols_8cpp.html#a62acf2de66cac606d7a4bd27112aa803" title="Definition of CUDA&#39;s cublasSaxpy function using dynamically loaded cublas library." alt="" coords="216,13,313,39"/>
+<area shape="rect" href="classcublasSymbols.html#add91bfdd2054c14a73877f0f7ea65dc9" title="Returns the name of cublas shared library." alt="" coords="361,5,499,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a7baec66eaf5a126362956ed808c8e9ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7baec66eaf5a126362956ed808c8e9ce">&#9670;&nbsp;</a></span>cublasXcopy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t cublas_interface::cublasXcopy </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const DataType *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DataType *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="cu__vector__operations_8cu_source.html#l00073">cuVectorOperations&lt; DataType &gt;::copy_scaled_vector()</a>, and <a class="el" href="cu__vector__operations_8cu_source.html#l00038">cuVectorOperations&lt; DataType &gt;::copy_vector()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacecublas__interface_a7baec66eaf5a126362956ed808c8e9ce_icgraph.png" border="0" usemap="#anamespacecublas__interface_a7baec66eaf5a126362956ed808c8e9ce_icgraph" alt=""/></div>
+<map name="anamespacecublas__interface_a7baec66eaf5a126362956ed808c8e9ce_icgraph" id="anamespacecublas__interface_a7baec66eaf5a126362956ed808c8e9ce_icgraph">
+<area shape="rect" title=" " alt="" coords="845,75,1008,117"/>
+<area shape="rect" href="classcuVectorOperations.html#a18e8a8069b986b0b559f8ac97b72a495" title="Scales a vector and stores to a new vector." alt="" coords="651,42,797,83"/>
+<area shape="rect" href="classcuVectorOperations.html#a08467db301f35f715fb07e4ec4907406" title="Copies a vector to a new vector. Result is written in&#45;place." alt="" coords="655,107,793,149"/>
+<area shape="rect" href="cu__lanczos__tridiagonalization_8cu.html#a30ec831ebcc2ce17eefefb770b13773d" title="Tri&#45;diagonalizes matrix A to T using the start vector v. is the Lanczos degree, which will be the siz..." alt="" coords="411,20,603,47"/>
+<area shape="rect" href="classcuVectorOperations.html#ace661476791a4a662aab05c9af19b94a" title="Normalizes a vector based on Euclidean 2&#45;norm. The result is written into another vector." alt="" coords="411,71,603,113"/>
+<area shape="rect" href="classcuTraceEstimator.html#ab4edc323dc7dcc98f401eeec9276e245" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="200,5,363,61"/>
+<area shape="rect" href="classcuTraceEstimator.html#aac1cf44a9dc5522d3104b2cdf3b05285" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,13,152,54"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a3148d241a7bbbda4197942130e07a78b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3148d241a7bbbda4197942130e07a78b">&#9670;&nbsp;</a></span>cublasXcopy&lt; double &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t <a class="el" href="namespacecublas__interface.html#a7baec66eaf5a126362956ed808c8e9ce">cublas_interface::cublasXcopy</a>&lt; double &gt; </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A template wrapper for <code>cublasDcopy</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="cublas__interface_8cu_source.html#l00115">115</a> of file <a class="el" href="cublas__interface_8cu_source.html">cublas_interface.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    {</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="cublas__symbols_8cpp.html#a0f1595e513448a76b5f2c5dcc8b35b36">cublasDcopy</a>(handle, n, x, incx, y, incy);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    }</div>
+<div class="ttc" id="acublas__symbols_8cpp_html_a0f1595e513448a76b5f2c5dcc8b35b36"><div class="ttname"><a href="cublas__symbols_8cpp.html#a0f1595e513448a76b5f2c5dcc8b35b36">cublasDcopy</a></div><div class="ttdeci">cublasStatus_t cublasDcopy(cublasHandle_t handle, int n, const double *x, int incx, double *y, int incy)</div><div class="ttdoc">Definition of CUDA's cublasDcopy function using dynamically loaded cublas library.</div><div class="ttdef"><b>Definition:</b> <a href="cublas__symbols_8cpp_source.html#l00248">cublas_symbols.cpp:248</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cublas__symbols_8cpp_source.html#l00248">cublasDcopy()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacecublas__interface_a3148d241a7bbbda4197942130e07a78b_cgraph.png" border="0" usemap="#anamespacecublas__interface_a3148d241a7bbbda4197942130e07a78b_cgraph" alt=""/></div>
+<map name="anamespacecublas__interface_a3148d241a7bbbda4197942130e07a78b_cgraph" id="anamespacecublas__interface_a3148d241a7bbbda4197942130e07a78b_cgraph">
+<area shape="rect" title="A template wrapper for cublasDcopy." alt="" coords="5,5,168,47"/>
+<area shape="rect" href="cublas__symbols_8cpp.html#a0f1595e513448a76b5f2c5dcc8b35b36" title="Definition of CUDA&#39;s cublasDcopy function using dynamically loaded cublas library." alt="" coords="216,13,315,39"/>
+<area shape="rect" href="classcublasSymbols.html#add91bfdd2054c14a73877f0f7ea65dc9" title="Returns the name of cublas shared library." alt="" coords="363,5,500,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aad4b6aa34461efc1afa3d01f368f6e7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad4b6aa34461efc1afa3d01f368f6e7a">&#9670;&nbsp;</a></span>cublasXcopy&lt; float &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t <a class="el" href="namespacecublas__interface.html#a7baec66eaf5a126362956ed808c8e9ce">cublas_interface::cublasXcopy</a>&lt; float &gt; </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A template wrapper for <code>cublasScopy</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="cublas__interface_8cu_source.html#l00095">95</a> of file <a class="el" href="cublas__interface_8cu_source.html">cublas_interface.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="cublas__symbols_8cpp.html#a89ae1ea2d0e82912eb230b596bcbe10a">cublasScopy</a>(handle, n, x, incx, y, incy);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    }</div>
+<div class="ttc" id="acublas__symbols_8cpp_html_a89ae1ea2d0e82912eb230b596bcbe10a"><div class="ttname"><a href="cublas__symbols_8cpp.html#a89ae1ea2d0e82912eb230b596bcbe10a">cublasScopy</a></div><div class="ttdeci">cublasStatus_t cublasScopy(cublasHandle_t handle, int n, const float *x, int incx, float *y, int incy)</div><div class="ttdoc">Definition of CUDA's cublasScopy function using dynamically loaded cublas library.</div><div class="ttdef"><b>Definition:</b> <a href="cublas__symbols_8cpp_source.html#l00219">cublas_symbols.cpp:219</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cublas__symbols_8cpp_source.html#l00219">cublasScopy()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacecublas__interface_aad4b6aa34461efc1afa3d01f368f6e7a_cgraph.png" border="0" usemap="#anamespacecublas__interface_aad4b6aa34461efc1afa3d01f368f6e7a_cgraph" alt=""/></div>
+<map name="anamespacecublas__interface_aad4b6aa34461efc1afa3d01f368f6e7a_cgraph" id="anamespacecublas__interface_aad4b6aa34461efc1afa3d01f368f6e7a_cgraph">
+<area shape="rect" title="A template wrapper for cublasScopy." alt="" coords="5,5,168,47"/>
+<area shape="rect" href="cublas__symbols_8cpp.html#a89ae1ea2d0e82912eb230b596bcbe10a" title="Definition of CUDA&#39;s cublasScopy function using dynamically loaded cublas library." alt="" coords="216,13,313,39"/>
+<area shape="rect" href="classcublasSymbols.html#add91bfdd2054c14a73877f0f7ea65dc9" title="Returns the name of cublas shared library." alt="" coords="361,5,499,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a143bcc56d4d99a7a05219b3ee8dd10fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a143bcc56d4d99a7a05219b3ee8dd10fc">&#9670;&nbsp;</a></span>cublasXdot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t cublas_interface::cublasXdot </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const DataType *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const DataType *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DataType *&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="cu__vector__operations_8cu_source.html#l00166">cuVectorOperations&lt; DataType &gt;::inner_product()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacecublas__interface_a143bcc56d4d99a7a05219b3ee8dd10fc_icgraph.png" border="0" usemap="#anamespacecublas__interface_a143bcc56d4d99a7a05219b3ee8dd10fc_icgraph" alt=""/></div>
+<map name="anamespacecublas__interface_a143bcc56d4d99a7a05219b3ee8dd10fc_icgraph" id="anamespacecublas__interface_a143bcc56d4d99a7a05219b3ee8dd10fc_icgraph">
+<area shape="rect" title=" " alt="" coords="1069,56,1260,83"/>
+<area shape="rect" href="classcuVectorOperations.html#a88c6373da3d2fef0dca236aef3ef1ec1" title="Computes Euclidean inner product of two vectors." alt="" coords="884,49,1021,90"/>
+<area shape="rect" href="cu__lanczos__tridiagonalization_8cu.html#a30ec831ebcc2ce17eefefb770b13773d" title="Tri&#45;diagonalizes matrix A to T using the start vector v. is the Lanczos degree, which will be the siz..." alt="" coords="421,5,613,32"/>
+<area shape="rect" href="classcuOrthogonalization.html#a47d7334cf9d9b69bb2feb047d40e0a23" title="Modified Gram&#45;Schmidt orthogonalization process to orthogonalize the vector v against a subset of the..." alt="" coords="671,49,836,90"/>
+<area shape="rect" href="classcuOrthogonalization.html#aefd27369921be5760a998a60aca49b56" title="Orthogonalizes set of vectors mutually using modified Gram&#45;Schmidt process." alt="" coords="675,114,832,155"/>
+<area shape="rect" href="classcuTraceEstimator.html#ab4edc323dc7dcc98f401eeec9276e245" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="200,16,363,72"/>
+<area shape="rect" href="classcuTraceEstimator.html#aac1cf44a9dc5522d3104b2cdf3b05285" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,23,152,65"/>
+<area shape="rect" href="cu__golub__kahn__bidiagonalization_8cu.html#aa755f765f48f41b63d9dab3528b5f0b2" title="Bi&#45;diagonalizes the positive&#45;definite matrix A using Golub&#45;Kahn&#45;Lanczos method." alt="" coords="411,56,623,83"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ae0fa1ca80f7a2b6b8aa462a823097827"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0fa1ca80f7a2b6b8aa462a823097827">&#9670;&nbsp;</a></span>cublasXdot&lt; double &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t <a class="el" href="namespacecublas__interface.html#a143bcc56d4d99a7a05219b3ee8dd10fc">cublas_interface::cublasXdot</a>&lt; double &gt; </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A template wrapper for <code>cublasDdot</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="cublas__interface_8cu_source.html#l00198">198</a> of file <a class="el" href="cublas__interface_8cu_source.html">cublas_interface.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    {</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="cublas__symbols_8cpp.html#ab702f83f2aab0befc7aa8eb65313a960">cublasDdot</a>(handle, n, x, incx, y, incy, result);</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    }</div>
+<div class="ttc" id="acublas__symbols_8cpp_html_ab702f83f2aab0befc7aa8eb65313a960"><div class="ttname"><a href="cublas__symbols_8cpp.html#ab702f83f2aab0befc7aa8eb65313a960">cublasDdot</a></div><div class="ttdeci">cublasStatus_t cublasDdot(cublasHandle_t handle, int n, const double *x, int incx, const double *y, int incy, double *result)</div><div class="ttdoc">Definition of CUDA's cublasDdot function using dynamically loaded cublas library.</div><div class="ttdef"><b>Definition:</b> <a href="cublas__symbols_8cpp_source.html#l00370">cublas_symbols.cpp:370</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cublas__symbols_8cpp_source.html#l00370">cublasDdot()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacecublas__interface_ae0fa1ca80f7a2b6b8aa462a823097827_cgraph.png" border="0" usemap="#anamespacecublas__interface_ae0fa1ca80f7a2b6b8aa462a823097827_cgraph" alt=""/></div>
+<map name="anamespacecublas__interface_ae0fa1ca80f7a2b6b8aa462a823097827_cgraph" id="anamespacecublas__interface_ae0fa1ca80f7a2b6b8aa462a823097827_cgraph">
+<area shape="rect" title="A template wrapper for cublasDdot." alt="" coords="5,5,168,47"/>
+<area shape="rect" href="cublas__symbols_8cpp.html#ab702f83f2aab0befc7aa8eb65313a960" title="Definition of CUDA&#39;s cublasDdot function using dynamically loaded cublas library." alt="" coords="216,13,304,39"/>
+<area shape="rect" href="classcublasSymbols.html#add91bfdd2054c14a73877f0f7ea65dc9" title="Returns the name of cublas shared library." alt="" coords="352,5,489,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a3a105dbe8185e9ee5e06c73dec639b34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a105dbe8185e9ee5e06c73dec639b34">&#9670;&nbsp;</a></span>cublasXdot&lt; float &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t <a class="el" href="namespacecublas__interface.html#a143bcc56d4d99a7a05219b3ee8dd10fc">cublas_interface::cublasXdot</a>&lt; float &gt; </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A template wrapper for <code>cublasSdot</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="cublas__interface_8cu_source.html#l00177">177</a> of file <a class="el" href="cublas__interface_8cu_source.html">cublas_interface.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="cublas__symbols_8cpp.html#a44c8284e4c9bdd530f002f7bee7792e5">cublasSdot</a>(handle, n, x, incx, y, incy, result);</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    }</div>
+<div class="ttc" id="acublas__symbols_8cpp_html_a44c8284e4c9bdd530f002f7bee7792e5"><div class="ttname"><a href="cublas__symbols_8cpp.html#a44c8284e4c9bdd530f002f7bee7792e5">cublasSdot</a></div><div class="ttdeci">cublasStatus_t cublasSdot(cublasHandle_t handle, int n, const float *x, int incx, const float *y, int incy, float *result)</div><div class="ttdoc">Definition of CUDA's cublasSdot function using dynamically loaded cublas library.</div><div class="ttdef"><b>Definition:</b> <a href="cublas__symbols_8cpp_source.html#l00339">cublas_symbols.cpp:339</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cublas__symbols_8cpp_source.html#l00339">cublasSdot()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacecublas__interface_a3a105dbe8185e9ee5e06c73dec639b34_cgraph.png" border="0" usemap="#anamespacecublas__interface_a3a105dbe8185e9ee5e06c73dec639b34_cgraph" alt=""/></div>
+<map name="anamespacecublas__interface_a3a105dbe8185e9ee5e06c73dec639b34_cgraph" id="anamespacecublas__interface_a3a105dbe8185e9ee5e06c73dec639b34_cgraph">
+<area shape="rect" title="A template wrapper for cublasSdot." alt="" coords="5,5,168,47"/>
+<area shape="rect" href="cublas__symbols_8cpp.html#a44c8284e4c9bdd530f002f7bee7792e5" title="Definition of CUDA&#39;s cublasSdot function using dynamically loaded cublas library." alt="" coords="216,13,303,39"/>
+<area shape="rect" href="classcublasSymbols.html#add91bfdd2054c14a73877f0f7ea65dc9" title="Returns the name of cublas shared library." alt="" coords="351,5,488,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ac4f7c12ce59f4e8701116a92173763db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4f7c12ce59f4e8701116a92173763db">&#9670;&nbsp;</a></span>cublasXgemv()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t cublas_interface::cublasXgemv </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">cublasOperation_t&#160;</td>
+          <td class="paramname"><em>trans</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const DataType *&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const DataType *&#160;</td>
+          <td class="paramname"><em>A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>lda</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const DataType *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const DataType *&#160;</td>
+          <td class="paramname"><em>beta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DataType *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="cu__matrix__operations_8cu_source.html#l00052">cuMatrixOperations&lt; DataType &gt;::dense_matvec()</a>, <a class="el" href="cu__matrix__operations_8cu_source.html#l00128">cuMatrixOperations&lt; DataType &gt;::dense_matvec_plus()</a>, <a class="el" href="cu__matrix__operations_8cu_source.html#l00203">cuMatrixOperations&lt; DataType &gt;::dense_transposed_matvec()</a>, and <a class="el" href="cu__matrix__operations_8cu_source.html#l00280">cuMatrixOperations&lt; DataType &gt;::dense_transposed_matvec_plus()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacecublas__interface_ac4f7c12ce59f4e8701116a92173763db_icgraph.png" border="0" usemap="#anamespacecublas__interface_ac4f7c12ce59f4e8701116a92173763db_icgraph" alt=""/></div>
+<map name="anamespacecublas__interface_ac4f7c12ce59f4e8701116a92173763db_icgraph" id="anamespacecublas__interface_ac4f7c12ce59f4e8701116a92173763db_icgraph">
+<area shape="rect" title=" " alt="" coords="519,104,681,145"/>
+<area shape="rect" href="classcuMatrixOperations.html#a607abe26c3a8e0aa65a03895b1c3b66e" title="Computes the matrix vector multiplication &#160;where &#160;is a dense matrix." alt="" coords="295,5,429,47"/>
+<area shape="rect" href="classcuMatrixOperations.html#afd343508b61995018e3a76a461254414" title="Computes the operation &#160;where &#160;is a dense matrix." alt="" coords="289,71,435,112"/>
+<area shape="rect" href="classcuMatrixOperations.html#a87b2dab8b53b2d2095d1a7d87b425348" title="Computes matrix vector multiplication &#160;where &#160;is dense, and &#160;is the transpose of the matrix ." alt="" coords="269,136,455,177"/>
+<area shape="rect" href="classcuMatrixOperations.html#a7f9fbf9751a63bf21744f7f343570c9e" title="Computes &#160;where &#160;is dense, and &#160;is the transpose of the matrix ." alt="" coords="253,201,471,243"/>
+<area shape="rect" href="classcuDenseMatrix.html#acda42015f534adec6df3728f53f2a6d7" title=" " alt="" coords="37,13,173,39"/>
+<area shape="rect" href="classcuDenseMatrix.html#a5be7f76677e25f81d4a1edbedfbf3f35" title=" " alt="" coords="22,78,189,105"/>
+<area shape="rect" href="classcuDenseMatrix.html#a36bcdf696c8a5b30d818f43d63a1a0ff" title=" " alt="" coords="5,143,205,170"/>
+<area shape="rect" href="classcuDenseMatrix.html#a04afe283c6f3570cbaffb36b8043d940" title=" " alt="" coords="18,201,193,243"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a949907e4805099b5e00f2448429bb4e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a949907e4805099b5e00f2448429bb4e0">&#9670;&nbsp;</a></span>cublasXgemv&lt; double &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t <a class="el" href="namespacecublas__interface.html#ac4f7c12ce59f4e8701116a92173763db">cublas_interface::cublasXgemv</a>&lt; double &gt; </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">cublasOperation_t&#160;</td>
+          <td class="paramname"><em>trans</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>lda</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>beta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A template wrapper for <code>cublasDgemv</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="cublas__interface_8cu_source.html#l00067">67</a> of file <a class="el" href="cublas__interface_8cu_source.html">cublas_interface.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">return</span> cublasDgemv(handle, trans, m, n, alpha, A, lda, x, incx, beta,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                           y, incy);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a03e5b052ebf979af3acdcdd005a724d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03e5b052ebf979af3acdcdd005a724d2">&#9670;&nbsp;</a></span>cublasXgemv&lt; float &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t <a class="el" href="namespacecublas__interface.html#ac4f7c12ce59f4e8701116a92173763db">cublas_interface::cublasXgemv</a>&lt; float &gt; </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">cublasOperation_t&#160;</td>
+          <td class="paramname"><em>trans</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>A</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>lda</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>beta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incy</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A template wrapper for <code>cublasSgemv</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="cublas__interface_8cu_source.html#l00040">40</a> of file <a class="el" href="cublas__interface_8cu_source.html">cublas_interface.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> cublasSgemv(handle, trans, m, n, alpha, A, lda, x, incx, beta,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                           y, incy);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a4cdb08fd9dbcb3df01c1988004a8ff63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cdb08fd9dbcb3df01c1988004a8ff63">&#9670;&nbsp;</a></span>cublasXnrm2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t cublas_interface::cublasXnrm2 </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const DataType *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DataType *&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="cu__vector__operations_8cu_source.html#l00201">cuVectorOperations&lt; DataType &gt;::euclidean_norm()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacecublas__interface_a4cdb08fd9dbcb3df01c1988004a8ff63_icgraph.png" border="0" usemap="#anamespacecublas__interface_a4cdb08fd9dbcb3df01c1988004a8ff63_icgraph" alt=""/></div>
+<map name="anamespacecublas__interface_a4cdb08fd9dbcb3df01c1988004a8ff63_icgraph" id="anamespacecublas__interface_a4cdb08fd9dbcb3df01c1988004a8ff63_icgraph">
+<area shape="rect" title=" " alt="" coords="1096,106,1259,147"/>
+<area shape="rect" href="classcuVectorOperations.html#adc247988515923e3c79226e891c9f3e1" title="Computes the Euclidean 2&#45;norm of a 1D array." alt="" coords="911,106,1048,147"/>
+<area shape="rect" href="cu__lanczos__tridiagonalization_8cu.html#a30ec831ebcc2ce17eefefb770b13773d" title="Tri&#45;diagonalizes matrix A to T using the start vector v. is the Lanczos degree, which will be the siz..." alt="" coords="421,22,613,49"/>
+<area shape="rect" href="classcuOrthogonalization.html#a47d7334cf9d9b69bb2feb047d40e0a23" title="Modified Gram&#45;Schmidt orthogonalization process to orthogonalize the vector v against a subset of the..." alt="" coords="684,40,849,82"/>
+<area shape="rect" href="classcuVectorOperations.html#ace661476791a4a662aab05c9af19b94a" title="Normalizes a vector based on Euclidean 2&#45;norm. The result is written into another vector." alt="" coords="671,106,863,147"/>
+<area shape="rect" href="classcuVectorOperations.html#a624e0023a7be0d361c31be756229b68c" title="Normalizes a vector based on Euclidean 2&#45;norm. The result is written in&#45;place." alt="" coords="675,171,859,212"/>
+<area shape="rect" href="classcuOrthogonalization.html#aefd27369921be5760a998a60aca49b56" title="Orthogonalizes set of vectors mutually using modified Gram&#45;Schmidt process." alt="" coords="688,236,845,278"/>
+<area shape="rect" href="classcuTraceEstimator.html#ab4edc323dc7dcc98f401eeec9276e245" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="200,33,363,89"/>
+<area shape="rect" href="classcuTraceEstimator.html#aac1cf44a9dc5522d3104b2cdf3b05285" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,40,152,82"/>
+<area shape="rect" href="cu__golub__kahn__bidiagonalization_8cu.html#aa755f765f48f41b63d9dab3528b5f0b2" title="Bi&#45;diagonalizes the positive&#45;definite matrix A using Golub&#45;Kahn&#45;Lanczos method." alt="" coords="411,73,623,100"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="afe1d950b2616c22aaa1419f86c56bd74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe1d950b2616c22aaa1419f86c56bd74">&#9670;&nbsp;</a></span>cublasXnrm2&lt; double &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t <a class="el" href="namespacecublas__interface.html#a4cdb08fd9dbcb3df01c1988004a8ff63">cublas_interface::cublasXnrm2</a>&lt; double &gt; </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A template wrapper to <code>cublasDnrm2</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="cublas__interface_8cu_source.html#l00238">238</a> of file <a class="el" href="cublas__interface_8cu_source.html">cublas_interface.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    {</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="cublas__symbols_8cpp.html#a9413f9e26fd99ee1c5997c4838fca230">cublasDnrm2</a>(handle, n, x, incx, result);</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    }</div>
+<div class="ttc" id="acublas__symbols_8cpp_html_a9413f9e26fd99ee1c5997c4838fca230"><div class="ttname"><a href="cublas__symbols_8cpp.html#a9413f9e26fd99ee1c5997c4838fca230">cublasDnrm2</a></div><div class="ttdeci">cublasStatus_t cublasDnrm2(cublasHandle_t handle, int n, const double *x, int incx, double *result)</div><div class="ttdoc">Definition of CUDA's cublasDnrm2 function using dynamically loaded cublas library.</div><div class="ttdef"><b>Definition:</b> <a href="cublas__symbols_8cpp_source.html#l00430">cublas_symbols.cpp:430</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cublas__symbols_8cpp_source.html#l00430">cublasDnrm2()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacecublas__interface_afe1d950b2616c22aaa1419f86c56bd74_cgraph.png" border="0" usemap="#anamespacecublas__interface_afe1d950b2616c22aaa1419f86c56bd74_cgraph" alt=""/></div>
+<map name="anamespacecublas__interface_afe1d950b2616c22aaa1419f86c56bd74_cgraph" id="anamespacecublas__interface_afe1d950b2616c22aaa1419f86c56bd74_cgraph">
+<area shape="rect" title="A template wrapper to cublasDnrm2." alt="" coords="5,5,168,47"/>
+<area shape="rect" href="cublas__symbols_8cpp.html#a9413f9e26fd99ee1c5997c4838fca230" title="Definition of CUDA&#39;s cublasDnrm2 function using dynamically loaded cublas library." alt="" coords="216,13,315,39"/>
+<area shape="rect" href="classcublasSymbols.html#add91bfdd2054c14a73877f0f7ea65dc9" title="Returns the name of cublas shared library." alt="" coords="363,5,500,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a0bc10835797655e0793c76c914f03f09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bc10835797655e0793c76c914f03f09">&#9670;&nbsp;</a></span>cublasXnrm2&lt; float &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t <a class="el" href="namespacecublas__interface.html#a4cdb08fd9dbcb3df01c1988004a8ff63">cublas_interface::cublasXnrm2</a>&lt; float &gt; </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A template wrapper to <code>cublasSnrm2</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="cublas__interface_8cu_source.html#l00219">219</a> of file <a class="el" href="cublas__interface_8cu_source.html">cublas_interface.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    {</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="cublas__symbols_8cpp.html#a5e52724d6890361c8cbf8ba1e8aa1097">cublasSnrm2</a>(handle, n, x, incx, result);</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    }</div>
+<div class="ttc" id="acublas__symbols_8cpp_html_a5e52724d6890361c8cbf8ba1e8aa1097"><div class="ttname"><a href="cublas__symbols_8cpp.html#a5e52724d6890361c8cbf8ba1e8aa1097">cublasSnrm2</a></div><div class="ttdeci">cublasStatus_t cublasSnrm2(cublasHandle_t handle, int n, const float *x, int incx, float *result)</div><div class="ttdoc">Definition of CUDA's cublasSnrm2 function using dynamically loaded cublas library.</div><div class="ttdef"><b>Definition:</b> <a href="cublas__symbols_8cpp_source.html#l00401">cublas_symbols.cpp:401</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cublas__symbols_8cpp_source.html#l00401">cublasSnrm2()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacecublas__interface_a0bc10835797655e0793c76c914f03f09_cgraph.png" border="0" usemap="#anamespacecublas__interface_a0bc10835797655e0793c76c914f03f09_cgraph" alt=""/></div>
+<map name="anamespacecublas__interface_a0bc10835797655e0793c76c914f03f09_cgraph" id="anamespacecublas__interface_a0bc10835797655e0793c76c914f03f09_cgraph">
+<area shape="rect" title="A template wrapper to cublasSnrm2." alt="" coords="5,5,168,47"/>
+<area shape="rect" href="cublas__symbols_8cpp.html#a5e52724d6890361c8cbf8ba1e8aa1097" title="Definition of CUDA&#39;s cublasSnrm2 function using dynamically loaded cublas library." alt="" coords="216,13,315,39"/>
+<area shape="rect" href="classcublasSymbols.html#add91bfdd2054c14a73877f0f7ea65dc9" title="Returns the name of cublas shared library." alt="" coords="363,5,500,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a373969305e12857bb6463ab630cb9b4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a373969305e12857bb6463ab630cb9b4c">&#9670;&nbsp;</a></span>cublasXscal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename DataType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t cublas_interface::cublasXscal </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const DataType *&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">DataType *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="reference">Referenced by <a class="el" href="cu__vector__operations_8cu_source.html#l00073">cuVectorOperations&lt; DataType &gt;::copy_scaled_vector()</a>, and <a class="el" href="cu__vector__operations_8cu_source.html#l00234">cuVectorOperations&lt; DataType &gt;::normalize_vector_in_place()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacecublas__interface_a373969305e12857bb6463ab630cb9b4c_icgraph.png" border="0" usemap="#anamespacecublas__interface_a373969305e12857bb6463ab630cb9b4c_icgraph" alt=""/></div>
+<map name="anamespacecublas__interface_a373969305e12857bb6463ab630cb9b4c_icgraph" id="anamespacecublas__interface_a373969305e12857bb6463ab630cb9b4c_icgraph">
+<area shape="rect" title=" " alt="" coords="903,83,1065,125"/>
+<area shape="rect" href="classcuVectorOperations.html#a18e8a8069b986b0b559f8ac97b72a495" title="Scales a vector and stores to a new vector." alt="" coords="689,50,836,91"/>
+<area shape="rect" href="classcuVectorOperations.html#a624e0023a7be0d361c31be756229b68c" title="Normalizes a vector based on Euclidean 2&#45;norm. The result is written in&#45;place." alt="" coords="671,115,855,157"/>
+<area shape="rect" href="cu__lanczos__tridiagonalization_8cu.html#a30ec831ebcc2ce17eefefb770b13773d" title="Tri&#45;diagonalizes matrix A to T using the start vector v. is the Lanczos degree, which will be the siz..." alt="" coords="421,5,613,32"/>
+<area shape="rect" href="classcuVectorOperations.html#ace661476791a4a662aab05c9af19b94a" title="Normalizes a vector based on Euclidean 2&#45;norm. The result is written into another vector." alt="" coords="421,57,613,98"/>
+<area shape="rect" href="classcuTraceEstimator.html#ab4edc323dc7dcc98f401eeec9276e245" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="200,49,363,105"/>
+<area shape="rect" href="classcuTraceEstimator.html#aac1cf44a9dc5522d3104b2cdf3b05285" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,57,152,98"/>
+<area shape="rect" href="cu__golub__kahn__bidiagonalization_8cu.html#aa755f765f48f41b63d9dab3528b5f0b2" title="Bi&#45;diagonalizes the positive&#45;definite matrix A using Golub&#45;Kahn&#45;Lanczos method." alt="" coords="411,123,623,149"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a2b34f7b520de77a0e915aa8d726ac886"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b34f7b520de77a0e915aa8d726ac886">&#9670;&nbsp;</a></span>cublasXscal&lt; double &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t <a class="el" href="namespacecublas__interface.html#a373969305e12857bb6463ab630cb9b4c">cublas_interface::cublasXscal</a>&lt; double &gt; </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double *&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A template wrapper for <code>cublasDscal</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="cublas__interface_8cu_source.html#l00276">276</a> of file <a class="el" href="cublas__interface_8cu_source.html">cublas_interface.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    {</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="cublas__symbols_8cpp.html#a42e36cca17f3a8a8b3caa5c9b0660956">cublasDscal</a>(handle, n, alpha, x, incx);</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    }</div>
+<div class="ttc" id="acublas__symbols_8cpp_html_a42e36cca17f3a8a8b3caa5c9b0660956"><div class="ttname"><a href="cublas__symbols_8cpp.html#a42e36cca17f3a8a8b3caa5c9b0660956">cublasDscal</a></div><div class="ttdeci">cublasStatus_t cublasDscal(cublasHandle_t handle, int n, const double *alpha, double *x, int incx)</div><div class="ttdoc">Definition of CUDA's cublasDscal function using dynamically loaded cublas library.</div><div class="ttdef"><b>Definition:</b> <a href="cublas__symbols_8cpp_source.html#l00488">cublas_symbols.cpp:488</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cublas__symbols_8cpp_source.html#l00488">cublasDscal()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacecublas__interface_a2b34f7b520de77a0e915aa8d726ac886_cgraph.png" border="0" usemap="#anamespacecublas__interface_a2b34f7b520de77a0e915aa8d726ac886_cgraph" alt=""/></div>
+<map name="anamespacecublas__interface_a2b34f7b520de77a0e915aa8d726ac886_cgraph" id="anamespacecublas__interface_a2b34f7b520de77a0e915aa8d726ac886_cgraph">
+<area shape="rect" title="A template wrapper for cublasDscal." alt="" coords="5,5,168,47"/>
+<area shape="rect" href="cublas__symbols_8cpp.html#a42e36cca17f3a8a8b3caa5c9b0660956" title="Definition of CUDA&#39;s cublasDscal function using dynamically loaded cublas library." alt="" coords="216,13,311,39"/>
+<area shape="rect" href="classcublasSymbols.html#add91bfdd2054c14a73877f0f7ea65dc9" title="Returns the name of cublas shared library." alt="" coords="359,5,496,47"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a393cc1d5e5b4ad695c1dc5f26a6df9bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a393cc1d5e5b4ad695c1dc5f26a6df9bd">&#9670;&nbsp;</a></span>cublasXscal&lt; float &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">cublasStatus_t <a class="el" href="namespacecublas__interface.html#a373969305e12857bb6463ab630cb9b4c">cublas_interface::cublasXscal</a>&lt; float &gt; </td>
+          <td>(</td>
+          <td class="paramtype">cublasHandle_t&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float *&#160;</td>
+          <td class="paramname"><em>alpha</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>incx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A template wrapper for <code>cublasSscal</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="cublas__interface_8cu_source.html#l00257">257</a> of file <a class="el" href="cublas__interface_8cu_source.html">cublas_interface.cu</a>.</p>
+<div class="fragment"><div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    {</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="cublas__symbols_8cpp.html#a1d9fddf373b0f2f694aef356e9f7e46c">cublasSscal</a>(handle, n, alpha, x, incx);</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    }</div>
+<div class="ttc" id="acublas__symbols_8cpp_html_a1d9fddf373b0f2f694aef356e9f7e46c"><div class="ttname"><a href="cublas__symbols_8cpp.html#a1d9fddf373b0f2f694aef356e9f7e46c">cublasSscal</a></div><div class="ttdeci">cublasStatus_t cublasSscal(cublasHandle_t handle, int n, const float *alpha, float *x, int incx)</div><div class="ttdoc">Definition of CUDA's cublasSscal function using dynamically loaded cublas library.</div><div class="ttdef"><b>Definition:</b> <a href="cublas__symbols_8cpp_source.html#l00459">cublas_symbols.cpp:459</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cublas__symbols_8cpp_source.html#l00459">cublasSscal()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacecublas__interface_a393cc1d5e5b4ad695c1dc5f26a6df9bd_cgraph.png" border="0" usemap="#anamespacecublas__interface_a393cc1d5e5b4ad695c1dc5f26a6df9bd_cgraph" alt=""/></div>
+<map name="anamespacecublas__interface_a393cc1d5e5b4ad695c1dc5f26a6df9bd_cgraph" id="anamespacecublas__interface_a393cc1d5e5b4ad695c1dc5f26a6df9bd_cgraph">
+<area shape="rect" title="A template wrapper for cublasSscal." alt="" coords="5,5,168,47"/>
+<area shape="rect" href="cublas__symbols_8cpp.html#a1d9fddf373b0f2f694aef356e9f7e46c" title="Definition of CUDA&#39;s cublasSscal function using dynamically loaded cublas library." alt="" coords="216,13,309,39"/>
+<area shape="rect" href="classcublasSymbols.html#add91bfdd2054c14a73877f0f7ea65dc9" title="Returns the name of cublas shared library." alt="" coords="357,5,495,47"/>
+</map>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespacecublas__interface.html">cublas_interface</a></li>
+    <li class="footer">Generated on Fri Sep 9 2022 16:02:16 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

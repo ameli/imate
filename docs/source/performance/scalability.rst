@@ -1,7 +1,7 @@
 .. _perf-scalability:
 
 Scalability and Processing Large Matrices
-=========================================
+*****************************************
 
 
 Results

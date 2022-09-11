@@ -1,0 +1,1319 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classcMatrixOperations" kind="class" language="C++" prot="public">
+    <compoundname>cMatrixOperations</compoundname>
+    <includes refid="c__matrix__operations_8h" local="no">c_matrix_operations.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename DataType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classcMatrixOperations_1a9cbdb4219168b9b01af18c6ec2a1bfd0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cMatrixOperations&lt; DataType &gt;::dense_matvec</definition>
+        <argsstring>(const DataType *A, const DataType *b, const LongIndexType num_rows, const LongIndexType num_columns, const FlagType A_is_row_major, DataType *c)</argsstring>
+        <name>dense_matvec</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>A_is_row_major</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes the matrix vector multiplication <formula id="0">$ \boldsymbol{c} = \mathbf{A} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is a dense matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The reduction variable (here, <computeroutput>sum</computeroutput> ) is of the type <computeroutput>long double</computeroutput>. This is becase when <computeroutput>DataType</computeroutput> is <computeroutput>float</computeroutput>, the summation loses the precision, especially when the vector size is large. It seems that using <computeroutput>long double</computeroutput> is slightly faster than using <computeroutput>double</computeroutput>. The advantage of using a type with larger bits for the reduction variable is only sensible if the compiler is optimized with <computeroutput>-O2</computeroutput> or <computeroutput>-O3</computeroutput> flags.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">A</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1D array that represents a 2D dense array with either C (row) major ordering or Fortran (column) major ordering. The major ordering should de defined by <computeroutput>A_is_row_major</computeroutput> flag. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of <computeroutput>A</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of <computeroutput>A</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_is_row_major</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean, can be <computeroutput>0</computeroutput> or <computeroutput>1</computeroutput> as follows:<itemizedlist>
+<listitem><para>If <computeroutput>A</computeroutput> is row major (C ordering where the last index is contiguous) this value should be <computeroutput>1</computeroutput>.</para>
+</listitem><listitem><para>If <computeroutput>A</computeroutput> is column major (Fortran ordering where the first index is contiguous), this value should be set to <computeroutput>0</computeroutput>. </para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The output column vector (written in-place). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.h" line="61" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.cpp" bodystart="61" bodyend="139"/>
+        <referencedby refid="classcDenseMatrix_1af74821f413996e44b0a7ecf767054bda" compoundref="c__dense__matrix_8cpp" startline="122" endline="133">cDenseMatrix&lt; DataType &gt;::dot</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcMatrixOperations_1a56db0fa0cfacf5502db28c8015e4ab19" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cMatrixOperations&lt; DataType &gt;::dense_matvec_plus</definition>
+        <argsstring>(const DataType *A, const DataType *b, const DataType alpha, const LongIndexType num_rows, const LongIndexType num_columns, const FlagType A_is_row_major, DataType *c)</argsstring>
+        <name>dense_matvec_plus</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>A_is_row_major</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes the operation <formula id="2">$ \boldsymbol{c} = \boldsymbol{c} + \alpha \mathbf{A} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is a dense matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The reduction variable (here, <computeroutput>sum</computeroutput> ) is of the type <computeroutput>long double</computeroutput>. This is becase when <computeroutput>DataType</computeroutput> is <computeroutput>float</computeroutput> the summation loses the precision, especially when the vector size is large. It seems that using <computeroutput>long double </computeroutput> is slightly faster than using <computeroutput>double</computeroutput>. The advantage of using a type with larger bits for the reduction variable is only sensible if the compiler is optimized with <computeroutput>-O2</computeroutput> or <computeroutput>-O3</computeroutput> flags.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">A</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1D array that represents a 2D dense array with either C (row) major ordering or Fortran (column) major ordering. The major ordering should de defined by <computeroutput>A_is_row_major</computeroutput> flag. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A scalar that scales the matrix vector multiplication. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of <computeroutput>A</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of <computeroutput>A</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_is_row_major</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean, can be <computeroutput>0</computeroutput> or <computeroutput>1</computeroutput> as follows:<itemizedlist>
+<listitem><para>If <computeroutput>A</computeroutput> is row major (C ordering where the last index is contiguous) this value should be <computeroutput>1</computeroutput>.</para>
+</listitem><listitem><para>If <computeroutput>A</computeroutput> is column major (Fortran ordering where the first index is contiguous), this value should be set to <computeroutput>0</computeroutput>. </para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The output column vector (written in-place). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.h" line="70" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.cpp" bodystart="181" bodyend="237"/>
+        <referencedby refid="classcDenseMatrix_1a9ea1621bef79d3410e3617798ec0fd59" compoundref="c__dense__matrix_8cpp" startline="141" endline="154">cDenseMatrix&lt; DataType &gt;::dot_plus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcMatrixOperations_1a425ded0e2f58d74e832597f90edec440" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cMatrixOperations&lt; DataType &gt;::dense_transposed_matvec</definition>
+        <argsstring>(const DataType *A, const DataType *b, const LongIndexType num_rows, const LongIndexType num_columns, const FlagType A_is_row_major, DataType *c)</argsstring>
+        <name>dense_transposed_matvec</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>A_is_row_major</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes matrix vector multiplication <formula id="3">$\boldsymbol{c} = \mathbf{A}^{\intercal} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is dense, and <formula id="4">$ \mathbf{A}^{\intercal} $</formula> is the transpose of the matrix <formula id="1">$ \mathbf{A} $</formula>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The reduction variable (here, <computeroutput>sum</computeroutput> ) is of the type <computeroutput>long double</computeroutput>. This is becase when <computeroutput>DataType</computeroutput> is <computeroutput>float</computeroutput>, the summation loses the precision, especially when the vector size is large. It seems that using <computeroutput>long double</computeroutput> is slightly faster than using <computeroutput>double</computeroutput>. The advantage of using a type with larger bits for the reduction variable is only sensible if the compiler is optimized with <computeroutput>-O2</computeroutput> or <computeroutput>-O3</computeroutput> flags.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">A</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1D array that represents a 2D dense array with either C (row) major ordering or Fortran (column) major ordering. The major ordering should de defined by <computeroutput>A_is_row_major</computeroutput> flag. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of <computeroutput>A</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of <computeroutput>A</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_is_row_major</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean, can be <computeroutput>0</computeroutput> or <computeroutput>1</computeroutput> as follows:<itemizedlist>
+<listitem><para>If <computeroutput>A</computeroutput> is row major (C ordering where the last index is contiguous) this value should be <computeroutput>1</computeroutput>.</para>
+</listitem><listitem><para>f <computeroutput>A</computeroutput> is column major (Fortran ordering where the first index is contiguous), this value should be set to <computeroutput>0</computeroutput>. </para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The output column vector (written in-place). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.h" line="80" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.cpp" bodystart="278" bodyend="328"/>
+        <referencedby refid="classcDenseMatrix_1ac1bae9c2baf5e8cd552505ead3c244c8" compoundref="c__dense__matrix_8cpp" startline="162" endline="173">cDenseMatrix&lt; DataType &gt;::transpose_dot</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcMatrixOperations_1a07fd8da6a3ac71d3abe67bbbac92f94c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cMatrixOperations&lt; DataType &gt;::dense_transposed_matvec_plus</definition>
+        <argsstring>(const DataType *A, const DataType *b, const DataType alpha, const LongIndexType num_rows, const LongIndexType num_columns, const FlagType A_is_row_major, DataType *c)</argsstring>
+        <name>dense_transposed_matvec_plus</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>A_is_row_major</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="5">$ \boldsymbol{c} = \boldsymbol{c} + \alpha \mathbf{A}^{\intercal} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is dense, and <formula id="4">$ \mathbf{A}^{\intercal} $</formula> is the transpose of the matrix <formula id="1">$ \mathbf{A} $</formula>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The reduction variable (here, <computeroutput>sum</computeroutput> ) is of the type <computeroutput>long double</computeroutput>. This is becase when <computeroutput>DataType</computeroutput> is <computeroutput>float</computeroutput> the summation loses the precision, especially when the vector size is large. It seems that using <computeroutput>long double </computeroutput> is slightly faster than using <computeroutput>double</computeroutput>. The advantage of using a type with larger bits for the reduction variable is only sensible if the compiler is optimized with <computeroutput>-O2</computeroutput> or <computeroutput>-O3</computeroutput> flags.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">A</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1D array that represents a 2D dense array with either C (row) major ordering or Fortran (column) major ordering. The major ordering should de defined by <computeroutput>A_is_row_major</computeroutput> flag. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A scalar that scales the matrix vector multiplication. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of <computeroutput>A</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of <computeroutput>A</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_is_row_major</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean, can be <computeroutput>0</computeroutput> or <computeroutput>1</computeroutput> as follows:<itemizedlist>
+<listitem><para>If <computeroutput>A</computeroutput> is row major (C ordering where the last index is contiguous) this value should be <computeroutput>1</computeroutput>.</para>
+</listitem><listitem><para>f <computeroutput>A</computeroutput> is column major (Fortran ordering where the first index is contiguous), this value should be set to <computeroutput>0</computeroutput>. </para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The output column vector (written in-place). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.h" line="89" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.cpp" bodystart="371" bodyend="427"/>
+        <referencedby refid="classcDenseMatrix_1a3932df3fb31e974f74931a99c8892e9b" compoundref="c__dense__matrix_8cpp" startline="181" endline="194">cDenseMatrix&lt; DataType &gt;::transpose_dot_plus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcMatrixOperations_1a0643a3fb0e5bf4f05869bb22440775d2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cMatrixOperations&lt; DataType &gt;::csr_matvec</definition>
+        <argsstring>(const DataType *A_data, const LongIndexType *A_column_indices, const LongIndexType *A_index_pointer, const DataType *b, const LongIndexType num_rows, DataType *c)</argsstring>
+        <name>csr_matvec</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_column_indices</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="0">$ \boldsymbol{c} = \mathbf{A} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is compressed sparse row (CSR) matrix and <formula id="6">$ \boldsymbol{b} $</formula> is a dense vector. The output <formula id="7">$ \boldsymbol{c} $</formula> is a dense vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The reduction variable (here, <computeroutput>sum</computeroutput> ) is of the type <computeroutput>long double</computeroutput>. This is becase when <computeroutput>DataType</computeroutput> is <computeroutput>float</computeroutput>, the summation loses the precision, especially when the vector size is large. It seems that using <computeroutput>long double</computeroutput> is slightly faster than using <computeroutput>double</computeroutput>. The advantage of using a type with larger bits for the reduction variable is only sensible if the compiler is optimized with <computeroutput>-O2</computeroutput> or <computeroutput>-O3</computeroutput> flags.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">A_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format data array of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_column_indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format column indices of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_index_pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format index pointer. The length of this array is one plus the number of rows of the matrix. Also, the first element of this array is <computeroutput>0</computeroutput>, and the last element is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector with same size of the number of columns of <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of the matrix <computeroutput>A</computeroutput>. This is essentially the size of <computeroutput>A_index_pointer</computeroutput> array minus one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output column vector with the same size as <computeroutput>b</computeroutput>. This array is written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.h" line="99" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.cpp" bodystart="469" bodyend="494"/>
+        <referencedby refid="classcCSRMatrix_1a5074b2a9d415dd6e867713341a00f9be" compoundref="c__csr__matrix_8cpp" startline="138" endline="149">cCSRMatrix&lt; DataType &gt;::dot</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcMatrixOperations_1a11d441f9b2383ff78c4fffb48251f784" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cMatrixOperations&lt; DataType &gt;::csr_matvec_plus</definition>
+        <argsstring>(const DataType *A_data, const LongIndexType *A_column_indices, const LongIndexType *A_index_pointer, const DataType *b, const DataType alpha, const LongIndexType num_rows, DataType *c)</argsstring>
+        <name>csr_matvec_plus</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_column_indices</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="2">$ \boldsymbol{c} = \boldsymbol{c} + \alpha \mathbf{A} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is compressed sparse row (CSR) matrix and <formula id="6">$ \boldsymbol{b} $</formula> is a dense vector. The output <formula id="7">$ \boldsymbol{c} $</formula> is a dense vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The reduction variable (here, <computeroutput>sum</computeroutput> ) is of the type <computeroutput>long double</computeroutput>. This is becase when <computeroutput>DataType</computeroutput> is <computeroutput>float</computeroutput> the summation loses the precision, especially when the vector size is large. It seems that using <computeroutput>long double </computeroutput> is slightly faster than using <computeroutput>double</computeroutput>. The advantage of using a type with larger bits for the reduction variable is only sensible if the compiler is optimized with <computeroutput>-O2</computeroutput> or <computeroutput>-O3</computeroutput> flags.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">A_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format data array of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_column_indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format column indices of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_index_pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format index pointer. The length of this array is one plus the number of rows of the matrix. Also, the first element of this array is <computeroutput>0</computeroutput>, and the last element is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector with same size of the number of columns of <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A scalar that scales the matrix vector multiplication. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of the matrix <computeroutput>A</computeroutput>. This is essentially the size of <computeroutput>A_index_pointer</computeroutput> array minus one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output column vector with the same size as <computeroutput>b</computeroutput>. This array is written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.h" line="108" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.cpp" bodystart="540" bodyend="571"/>
+        <referencedby refid="classcCSRMatrix_1aeea882fee0e29e012c140ae2f99efffb" compoundref="c__csr__matrix_8cpp" startline="157" endline="170">cCSRMatrix&lt; DataType &gt;::dot_plus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcMatrixOperations_1a03977700d838557830edcc96d35e1720" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cMatrixOperations&lt; DataType &gt;::csr_transposed_matvec</definition>
+        <argsstring>(const DataType *A_data, const LongIndexType *A_column_indices, const LongIndexType *A_index_pointer, const DataType *b, const LongIndexType num_rows, const LongIndexType num_columns, DataType *c)</argsstring>
+        <name>csr_transposed_matvec</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_column_indices</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="8">$\boldsymbol{c} =\mathbf{A}^{\intercal} \boldsymbol{b}$</formula> where <formula id="1">$ \mathbf{A} $</formula> is compressed sparse row (CSR) matrix and <formula id="6">$ \boldsymbol{b} $</formula> is a dense vector. The output <formula id="7">$ \boldsymbol{c} $</formula> is a dense vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">A_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format data array of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_column_indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format column indices of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_index_pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format index pointer. The length of this array is one plus the number of rows of the matrix. Also, the first element of this array is <computeroutput>0</computeroutput>, and the last element is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector with same size of the number of columns of <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of the matrix <computeroutput>A</computeroutput>. This is essentially the size of <computeroutput>A_index_pointer</computeroutput> array minus one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of the matrix <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output column vector with the same size as <computeroutput>b</computeroutput>. This array is written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.h" line="118" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.cpp" bodystart="606" bodyend="635"/>
+        <referencedby refid="classcCSRMatrix_1a481e0733264a9befe5286bda9c1832d5" compoundref="c__csr__matrix_8cpp" startline="178" endline="190">cCSRMatrix&lt; DataType &gt;::transpose_dot</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcMatrixOperations_1a61d07d405149cf9ead02af227bfbb8b3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cMatrixOperations&lt; DataType &gt;::csr_transposed_matvec_plus</definition>
+        <argsstring>(const DataType *A_data, const LongIndexType *A_column_indices, const LongIndexType *A_index_pointer, const DataType *b, const DataType alpha, const LongIndexType num_rows, DataType *c)</argsstring>
+        <name>csr_transposed_matvec_plus</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_column_indices</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="9">$ \boldsymbol{c} = \boldsymbol{c} + \alpha \mathbf{A}^{\intercal} \boldsymbol{b}$</formula> where <formula id="1">$ \mathbf{A} $</formula> is compressed sparse row (CSR) matrix and <formula id="6">$ \boldsymbol{b} $</formula> is a dense vector. The output <formula id="7">$ \boldsymbol{c} $</formula> is a dense vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">A_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format data array of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_column_indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format column indices of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_index_pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format index pointer. The length of this array is one plus the number of rows of the matrix. Also, the first element of this array is <computeroutput>0</computeroutput>, and the last element is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector with same size of the number of columns of <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A scalar that scales the matrix vector multiplication. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of the matrix <computeroutput>A</computeroutput>. This is essentially the size of <computeroutput>A_index_pointer</computeroutput> array minus one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output column vector with the same size as <computeroutput>b</computeroutput>. This array is written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.h" line="128" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.cpp" bodystart="672" bodyend="700"/>
+        <referencedby refid="classcCSRMatrix_1a25f9120cad4f8e2f36134a22a4661a92" compoundref="c__csr__matrix_8cpp" startline="198" endline="211">cCSRMatrix&lt; DataType &gt;::transpose_dot_plus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcMatrixOperations_1a57bc2a9bd5ac90d0ca113d73dddc3d7e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cMatrixOperations&lt; DataType &gt;::csc_matvec</definition>
+        <argsstring>(const DataType *A_data, const LongIndexType *A_row_indices, const LongIndexType *A_index_pointer, const DataType *b, const LongIndexType num_rows, const LongIndexType num_columns, DataType *c)</argsstring>
+        <name>csc_matvec</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_row_indices</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="0">$ \boldsymbol{c} = \mathbf{A} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is compressed sparse column (CSC) matrix and <formula id="6">$ \boldsymbol{b} $</formula> is a dense vector. The output <formula id="7">$ \boldsymbol{c} $</formula> is a dense vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">A_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format data array of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_row_indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format column indices of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_index_pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format index pointer. The length of this array is one plus the number of columns of the matrix. Also, the first element of this array is <computeroutput>0</computeroutput>, and the last element is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector with same size of the number of columns of <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of the matrix <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of the matrix <computeroutput>A</computeroutput>. This is essentially the size of <computeroutput>A_index_pointer</computeroutput> array minus one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output column vector with the same size as <computeroutput>b</computeroutput>. This array is written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.h" line="138" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.cpp" bodystart="735" bodyend="764"/>
+        <referencedby refid="classcCSCMatrix_1a3780d212eb797641bf36772eeb864462" compoundref="c__csc__matrix_8cpp" startline="139" endline="151">cCSCMatrix&lt; DataType &gt;::dot</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcMatrixOperations_1ac6186968f06112c759ede25a8077d5fc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cMatrixOperations&lt; DataType &gt;::csc_matvec_plus</definition>
+        <argsstring>(const DataType *A_data, const LongIndexType *A_row_indices, const LongIndexType *A_index_pointer, const DataType *b, const DataType alpha, const LongIndexType num_columns, DataType *c)</argsstring>
+        <name>csc_matvec_plus</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_row_indices</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="2">$ \boldsymbol{c} = \boldsymbol{c} + \alpha \mathbf{A} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is compressed sparse column (CSC) matrix and <formula id="6">$ \boldsymbol{b} $</formula> is a dense vector. The output <formula id="7">$ \boldsymbol{c} $</formula> is a dense vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">A_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format data array of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_row_indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format column indices of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_index_pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format index pointer. The length of this array is one plus the number of columns of the matrix. Also, the first element of this array is <computeroutput>0</computeroutput>, and the last element is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector with same size of the number of columns of <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A scalar that scales the matrix vector multiplication. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of the matrix <computeroutput>A</computeroutput>. This is essentially the size of <computeroutput>A_index_pointer</computeroutput> array minus one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output column vector with the same size as <computeroutput>b</computeroutput>. This array is written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.h" line="148" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.cpp" bodystart="801" bodyend="829"/>
+        <referencedby refid="classcCSCMatrix_1a9c016188ebff671e8df98a6cf96ce1c4" compoundref="c__csc__matrix_8cpp" startline="159" endline="172">cCSCMatrix&lt; DataType &gt;::dot_plus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcMatrixOperations_1a56a1448dd6cd08a046cff022c25296cd" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cMatrixOperations&lt; DataType &gt;::csc_transposed_matvec</definition>
+        <argsstring>(const DataType *A_data, const LongIndexType *A_row_indices, const LongIndexType *A_index_pointer, const DataType *b, const LongIndexType num_columns, DataType *c)</argsstring>
+        <name>csc_transposed_matvec</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_row_indices</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="10">$\boldsymbol{c} =\mathbf{A}^{\intercal} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is compressed sparse column (CSC) matrix and <formula id="6">$ \boldsymbol{b} $</formula> is a dense vector. The output <formula id="7">$ \boldsymbol{c} $</formula> is a dense vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The reduction variable (here, <computeroutput>sum</computeroutput> ) is of the type <computeroutput>long double</computeroutput>. This is becase when <computeroutput>DataType</computeroutput> is <computeroutput>float</computeroutput>, the summation loses the precision, especially when the vector size is large. It seems that using <computeroutput>long double</computeroutput> is slightly faster than using <computeroutput>double</computeroutput>. The advantage of using a type with larger bits for the reduction variable is only sensible if the compiler is optimized with <computeroutput>-O2</computeroutput> or <computeroutput>-O3</computeroutput> flags.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">A_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format data array of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_row_indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format column indices of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_index_pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format index pointer. The length of this array is one plus the number of columns of the matrix. Also, the first element of this array is <computeroutput>0</computeroutput>, and the last element is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector with same size of the number of columns of <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of the matrix <computeroutput>A</computeroutput>. This is essentially the size of <computeroutput>A_index_pointer</computeroutput> array minus one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output column vector with the same size as <computeroutput>b</computeroutput>. This array is written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.h" line="158" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.cpp" bodystart="872" bodyend="897"/>
+        <referencedby refid="classcCSCMatrix_1a3061588e0400fbceabad9d7f49736d86" compoundref="c__csc__matrix_8cpp" startline="180" endline="191">cCSCMatrix&lt; DataType &gt;::transpose_dot</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcMatrixOperations_1a40a779f4dfbddbabbb2e798280391ca6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cMatrixOperations&lt; DataType &gt;::csc_transposed_matvec_plus</definition>
+        <argsstring>(const DataType *A_data, const LongIndexType *A_row_indices, const LongIndexType *A_index_pointer, const DataType *b, const DataType alpha, const LongIndexType num_columns, DataType *c)</argsstring>
+        <name>csc_transposed_matvec_plus</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_row_indices</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="5">$ \boldsymbol{c} = \boldsymbol{c} + \alpha \mathbf{A}^{\intercal} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is compressed sparse column (CSC) matrix and <formula id="6">$ \boldsymbol{b} $</formula> is a dense vector. The output <formula id="7">$ \boldsymbol{c} $</formula> is a dense vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The reduction variable (here, <computeroutput>sum</computeroutput> ) is of the type <computeroutput>long double</computeroutput>. This is becase when <computeroutput>DataType</computeroutput> is <computeroutput>float</computeroutput> the summation loses the precision, especially when the vector size is large. It seems that using <computeroutput>long double </computeroutput> is slightly faster than using <computeroutput>double</computeroutput>. The advantage of using a type with larger bits for the reduction variable is only sensible if the compiler is optimized with <computeroutput>-O2</computeroutput> or <computeroutput>-O3</computeroutput> flags.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">A_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format data array of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_row_indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format column indices of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_index_pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format index pointer. The length of this array is one plus the number of columns of the matrix. Also, the first element of this array is <computeroutput>0</computeroutput>, and the last element is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector with same size of the number of columns of <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A scalar that scales the matrix vector multiplication. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of the matrix <computeroutput>A</computeroutput>. This is essentially the size of <computeroutput>A_index_pointer</computeroutput> array minus one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output column vector with the same size as <computeroutput>b</computeroutput>. This array is written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.h" line="167" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.cpp" bodystart="943" bodyend="974"/>
+        <referencedby refid="classcCSCMatrix_1ada140e4a0a6d3a1d4efc88c234afd650" compoundref="c__csc__matrix_8cpp" startline="199" endline="212">cCSCMatrix&lt; DataType &gt;::transpose_dot_plus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcMatrixOperations_1ad6bfcbd359aed480e7e6f5611c62cf81" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cMatrixOperations&lt; DataType &gt;::create_band_matrix</definition>
+        <argsstring>(const DataType *diagonals, const DataType *supdiagonals, const IndexType non_zero_size, const FlagType tridiagonal, DataType **matrix)</argsstring>
+        <name>create_band_matrix</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>diagonals</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>supdiagonals</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref></type>
+          <declname>non_zero_size</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>tridiagonal</declname>
+        </param>
+        <param>
+          <type>DataType **</type>
+          <declname>matrix</declname>
+        </param>
+        <briefdescription>
+<para>Creates bi-diagonal or symmetric tri-diagonal matrix from the diagonal array (<computeroutput>diagonals</computeroutput>) and off-diagonal array (<computeroutput>supdiagonals</computeroutput>). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The output is written in place (in <computeroutput>matrix</computeroutput>). The output is only written up to the <computeroutput>non_zero_size</computeroutput> element, that is: <computeroutput>matrix</computeroutput>[:non_zero_size,:non_zero_size] is filled, and the rest is assumed to be zero.</para>
+<para>Depending on <computeroutput>tridiagonal</computeroutput>, the matrix is upper bi-diagonal or symmetric tri-diagonal.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">diagonals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An array of length <computeroutput>n</computeroutput>. All elements <computeroutput>diagonals</computeroutput> create the diagonals of <computeroutput>matrix</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">supdiagonals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An array of length <computeroutput>n</computeroutput>. Elements <computeroutput>supdiagonals</computeroutput>[0:-1] create the upper off-diagonal of <computeroutput>matrix</computeroutput>, making <computeroutput>matrix</computeroutput> an upper bi-diagonal matrix. In addition, if <computeroutput>tridiagonal</computeroutput> is set to <computeroutput>1</computeroutput>, the lower off-diagonal is also created similar to the upper off-diagonal, making <computeroutput>matrix</computeroutput> a symmetric tri-diagonal matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">non_zero_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Up to the <computeroutput>matrix</computeroutput>[:non_zero_size,:non_zero_size] of <computeroutput>matrix</computeroutput> will be written. At most, <computeroutput>non_zero_size</computeroutput> can be <computeroutput>n</computeroutput>, which is the size of <computeroutput>diagonals</computeroutput> array and the size of the square matrix. If <computeroutput>non_zero_size</computeroutput> is less than <computeroutput>n</computeroutput>, it is due to the fact that either <computeroutput>diagonals</computeroutput> or <computeroutput>supdiagonals</computeroutput> has zero elements after the <computeroutput>size</computeroutput> element (possibly due to early termination of Lanczos iterations method). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">tridiagonal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean. If set to <computeroutput>0</computeroutput>, the matrix <computeroutput>T</computeroutput> becomes upper bi-diagonal. If set to <computeroutput>1</computeroutput>, the matrix becomes symmetric tri-diagonal. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">matrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A 2D matrix (written in place) of the shape <computeroutput></computeroutput>(n,n). This is the output of this function. This matrix is assumed to be initialized to zero before calling this function. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.h" line="177" column="21" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.cpp" bodystart="1021" bodyend="1046"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A static class for matrix-vector operations, which are similar to the level-2 operations of the BLAS library. This class acts as a templated namespace, where all member methods are <emphasis>public</emphasis> and <emphasis>static</emphasis>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This class implements matrix-ector multiplication for three types of matrices:</para>
+<para><itemizedlist>
+<listitem><para>Dense matrix (both row major and column major)</para>
+</listitem><listitem><para>Compressed sparse row matrix (CSR)</para>
+</listitem><listitem><para>Compressed sparse column matrix (CSC)</para>
+</listitem></itemizedlist>
+</para>
+<para>For each of the above matrix types, there are four kinds of matrix vector multiplications implemented.</para>
+<para><orderedlist>
+<listitem><para><computeroutput>dot</computeroutput> : performs <formula id="0">$ \boldsymbol{c} = \mathbf{A} \boldsymbol{b} $</formula>.</para>
+</listitem><listitem><para><computeroutput>dot_plus</computeroutput> : performs <formula id="2">$ \boldsymbol{c} = \boldsymbol{c} + \alpha \mathbf{A} \boldsymbol{b} $</formula>.</para>
+</listitem><listitem><para><computeroutput>transpose_dot</computeroutput> : performs <formula id="11">$ \boldsymbol{c} = \mathbf{A}^{\intercal} \boldsymbol{b} $</formula>.</para>
+</listitem><listitem><para><computeroutput>transpose_dot_plus</computeroutput> : performs <formula id="5">$ \boldsymbol{c} = \boldsymbol{c} + \alpha \mathbf{A}^{\intercal} \boldsymbol{b} $</formula>.</para>
+</listitem></orderedlist>
+</para>
+<para><simplesect kind="see"><para><ref refid="classcVectorOperations" kindref="compound">cVectorOperations</ref> </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.h" line="56" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_basic_algebra/c_matrix_operations.h" bodystart="57" bodyend="183"/>
+    <listofallmembers>
+      <member refid="classcMatrixOperations_1ad6bfcbd359aed480e7e6f5611c62cf81" prot="public" virt="non-virtual"><scope>cMatrixOperations</scope><name>create_band_matrix</name></member>
+      <member refid="classcMatrixOperations_1a57bc2a9bd5ac90d0ca113d73dddc3d7e" prot="public" virt="non-virtual"><scope>cMatrixOperations</scope><name>csc_matvec</name></member>
+      <member refid="classcMatrixOperations_1ac6186968f06112c759ede25a8077d5fc" prot="public" virt="non-virtual"><scope>cMatrixOperations</scope><name>csc_matvec_plus</name></member>
+      <member refid="classcMatrixOperations_1a56a1448dd6cd08a046cff022c25296cd" prot="public" virt="non-virtual"><scope>cMatrixOperations</scope><name>csc_transposed_matvec</name></member>
+      <member refid="classcMatrixOperations_1a40a779f4dfbddbabbb2e798280391ca6" prot="public" virt="non-virtual"><scope>cMatrixOperations</scope><name>csc_transposed_matvec_plus</name></member>
+      <member refid="classcMatrixOperations_1a0643a3fb0e5bf4f05869bb22440775d2" prot="public" virt="non-virtual"><scope>cMatrixOperations</scope><name>csr_matvec</name></member>
+      <member refid="classcMatrixOperations_1a11d441f9b2383ff78c4fffb48251f784" prot="public" virt="non-virtual"><scope>cMatrixOperations</scope><name>csr_matvec_plus</name></member>
+      <member refid="classcMatrixOperations_1a03977700d838557830edcc96d35e1720" prot="public" virt="non-virtual"><scope>cMatrixOperations</scope><name>csr_transposed_matvec</name></member>
+      <member refid="classcMatrixOperations_1a61d07d405149cf9ead02af227bfbb8b3" prot="public" virt="non-virtual"><scope>cMatrixOperations</scope><name>csr_transposed_matvec_plus</name></member>
+      <member refid="classcMatrixOperations_1a9cbdb4219168b9b01af18c6ec2a1bfd0" prot="public" virt="non-virtual"><scope>cMatrixOperations</scope><name>dense_matvec</name></member>
+      <member refid="classcMatrixOperations_1a56db0fa0cfacf5502db28c8015e4ab19" prot="public" virt="non-virtual"><scope>cMatrixOperations</scope><name>dense_matvec_plus</name></member>
+      <member refid="classcMatrixOperations_1a425ded0e2f58d74e832597f90edec440" prot="public" virt="non-virtual"><scope>cMatrixOperations</scope><name>dense_transposed_matvec</name></member>
+      <member refid="classcMatrixOperations_1a07fd8da6a3ac71d3abe67bbbac92f94c" prot="public" virt="non-virtual"><scope>cMatrixOperations</scope><name>dense_transposed_matvec_plus</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

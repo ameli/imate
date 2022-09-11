@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="split__mix__64_8cpp" kind="file" language="C++">
+    <compoundname>split_mix_64.cpp</compoundname>
+    <includes refid="split__mix__64_8h" local="yes">./split_mix_64.h</includes>
+    <includes local="no">cassert</includes>
+    <includes local="no">ctime</includes>
+    <incdepgraph>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="4">
+        <label>cassert</label>
+      </node>
+      <node id="5">
+        <label>ctime</label>
+      </node>
+      <node id="2">
+        <label>./split_mix_64.h</label>
+        <link refid="split__mix__64_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_random_generator/split_mix_64.cpp</label>
+        <link refid="split__mix__64_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-FileCopyrightText:<sp/>Copyright<sp/>2021,<sp/>Siavash<sp/>Ameli<sp/>&lt;sameli@berkeley.edu&gt;</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-License-Identifier:<sp/>BSD-3-Clause</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-FileType:<sp/>SOURCE</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/>This<sp/>program<sp/>is<sp/>free<sp/>software:<sp/>you<sp/>can<sp/>redistribute<sp/>it<sp/>and/or<sp/>modify<sp/>it</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/><sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>license<sp/>found<sp/>in<sp/>the<sp/>LICENSE.txt<sp/>file<sp/>in<sp/>the<sp/>root</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/><sp/>directory<sp/>of<sp/>this<sp/>source<sp/>tree.</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Headers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="split__mix__64_8h" kindref="compound">./split_mix_64.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cassert&gt;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>assert</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;ctime&gt;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>std::time</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===========</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Constructor</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===========</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28" refid="classSplitMix64_1af7238c806c795612ef638565972de272" refkind="member"><highlight class="normal"><ref refid="classSplitMix64_1af7238c806c795612ef638565972de272" kindref="member">SplitMix64::SplitMix64</ref>()</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>std::time<sp/>gives<sp/>the<sp/>second<sp/>since<sp/>epoch.<sp/>This,<sp/>if<sp/>this<sp/>function<sp/>is<sp/>called</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>multiple<sp/>times<sp/>a<sp/>second,<sp/>the<sp/>std::time()<sp/>results<sp/>the<sp/>same<sp/>number.<sp/>To</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>make<sp/>it<sp/>differ<sp/>between<sp/>each<sp/>milliseconds,<sp/>the<sp/>std::clock<sp/>is<sp/>added,<sp/>which</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>is<sp/>the<sp/>cpu<sp/>time<sp/>(in<sp/>POSIX)<sp/>or<sp/>wall<sp/>time<sp/>(in<sp/>windows)<sp/>and<sp/>in<sp/>the<sp/>unit<sp/>of</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>system&apos;s<sp/>clocks<sp/>per<sp/>second.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>seed<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint64_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::time(0))<sp/>+</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint64_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::clock());</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Seeding<sp/>as<sp/>follow<sp/>only<sp/>fills<sp/>the<sp/>first<sp/>32<sp/>bits<sp/>of<sp/>the<sp/>64-bit<sp/>integer.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Repeat<sp/>the<sp/>first<sp/>32<sp/>bits<sp/>on<sp/>the<sp/>second<sp/>32-bits<sp/>to<sp/>create<sp/>a<sp/>better<sp/>64-bit</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>random<sp/>number</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>this-&gt;<ref refid="classSplitMix64_1a1e881c1af3d1b11f39045eacf87ea7cd" kindref="member">state</ref><sp/>=<sp/>(seed<sp/>&lt;&lt;<sp/>32)<sp/>|<sp/>seed;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===========</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Constructor</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===========</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="classSplitMix64_1a656bd12b8d2e496575719ba68efae163" refkind="member"><highlight class="normal"><ref refid="classSplitMix64_1af7238c806c795612ef638565972de272" kindref="member">SplitMix64::SplitMix64</ref>(uint64_t<sp/>state_):</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>state(state_)</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initial<sp/>state<sp/>must<sp/>not<sp/>be<sp/>zero.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>assert(state_<sp/>!=<sp/>0);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">//<sp/>====</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">//<sp/>next</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">//<sp/>====</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="classSplitMix64_1a3c6791320e1260d9f559bda1039c9206" refkind="member"><highlight class="normal">uint64_t<sp/><ref refid="classSplitMix64_1a3c6791320e1260d9f559bda1039c9206" kindref="member">SplitMix64::next</ref>()</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>z<sp/>=<sp/>(<ref refid="classSplitMix64_1a1e881c1af3d1b11f39045eacf87ea7cd" kindref="member">state</ref><sp/>+=<sp/>0x9e3779b97f4a7c15);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>z<sp/>=<sp/>(z<sp/>^<sp/>(z<sp/>&gt;&gt;<sp/>30))<sp/>*<sp/>0xbf58476d1ce4e5b9;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>z<sp/>=<sp/>(z<sp/>^<sp/>(z<sp/>&gt;&gt;<sp/>27))<sp/>*<sp/>0x94d049bb133111eb;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>z<sp/>^<sp/>(z<sp/>&gt;&gt;<sp/>31);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_random_generator/split_mix_64.cpp"/>
+  </compounddef>
+</doxygen>

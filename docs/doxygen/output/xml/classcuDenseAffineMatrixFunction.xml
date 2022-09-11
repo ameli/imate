@@ -1,0 +1,317 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classcuDenseAffineMatrixFunction" kind="class" language="C++" prot="public">
+    <compoundname>cuDenseAffineMatrixFunction</compoundname>
+    <basecompoundref refid="classcuAffineMatrixFunction" prot="public" virt="non-virtual">cuAffineMatrixFunction&lt; DataType &gt;</basecompoundref>
+    <includes refid="cu__dense__affine__matrix__function_8h" local="no">cu_dense_affine_matrix_function.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename DataType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classcuDenseAffineMatrixFunction_1a19eeefc3d48677a73232e478cb6fe899" prot="protected" static="no" mutable="no">
+        <type><ref refid="classcuDenseMatrix" kindref="compound">cuDenseMatrix</ref>&lt; DataType &gt;</type>
+        <definition>cuDenseMatrix&lt;DataType&gt; cuDenseAffineMatrixFunction&lt; DataType &gt;::A</definition>
+        <argsstring></argsstring>
+        <name>A</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_affine_matrix_function.h" line="64" column="23" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_affine_matrix_function.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcuDenseAffineMatrixFunction_1ad5b67e8bbcdfb48cb4034d0992d83b73" prot="protected" static="no" mutable="no">
+        <type><ref refid="classcuDenseMatrix" kindref="compound">cuDenseMatrix</ref>&lt; DataType &gt;</type>
+        <definition>cuDenseMatrix&lt;DataType&gt; cuDenseAffineMatrixFunction&lt; DataType &gt;::B</definition>
+        <argsstring></argsstring>
+        <name>B</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_affine_matrix_function.h" line="65" column="23" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_affine_matrix_function.h" bodystart="65" bodyend="-1"/>
+        <referencedby refid="classcuDenseAffineMatrixFunction_1a7de7ef13efd509b44340239a9e64a6bc" compoundref="cu__dense__affine__matrix__function_8cu" startline="59" endline="84">cuDenseAffineMatrixFunction&lt; DataType &gt;::cuDenseAffineMatrixFunction</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classcuDenseAffineMatrixFunction_1a7b3a93e837ea2d2d7f6ed6eb0dfbf40a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>cuDenseAffineMatrixFunction&lt; DataType &gt;::cuDenseAffineMatrixFunction</definition>
+        <argsstring>(const DataType *A_, const FlagType A_is_row_major_, const LongIndexType num_rows_, const LongIndexType num_colums_, const int num_gpu_devices_)</argsstring>
+        <name>cuDenseAffineMatrixFunction</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>A_is_row_major_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_colums_</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>num_gpu_devices_</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. Matrix <computeroutput>B</computeroutput> is assumed to be the identity matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_affine_matrix_function.h" line="35" column="9" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_affine_matrix_function.cu" bodystart="30" bodyend="51"/>
+        <references refid="classcuAffineMatrixFunction_1ae7d34c20db47d0ebaa06ec6276fe2577" compoundref="cu__affine__matrix__function_8h" startline="66">cuAffineMatrixFunction&lt; DataType &gt;::B_is_identity</references>
+        <references refid="classcLinearOperator_1ac4c88c2dcdc8a4d33a77df3979789d42" compoundref="c__linear__operator_8h" startline="77">cLinearOperator&lt; DataType &gt;::eigenvalue_relation_known</references>
+        <references refid="classcuLinearOperator_1ae2bec474007baff1b7e598a869e83e12" compoundref="cu__linear__operator_8cu" startline="185" endline="206">cuLinearOperator&lt; DataType &gt;::initialize_cublas_handle</references>
+      </memberdef>
+      <memberdef kind="function" id="classcuDenseAffineMatrixFunction_1a7de7ef13efd509b44340239a9e64a6bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>cuDenseAffineMatrixFunction&lt; DataType &gt;::cuDenseAffineMatrixFunction</definition>
+        <argsstring>(const DataType *A_, const FlagType A_is_row_major_, const LongIndexType num_rows_, const LongIndexType num_columns_, const DataType *B_, const FlagType B_is_row_major_, const int num_gpu_devices_)</argsstring>
+        <name>cuDenseAffineMatrixFunction</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>A_is_row_major_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns_</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>B_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>B_is_row_major_</declname>
+        </param>
+        <param>
+          <type>const int</type>
+          <declname>num_gpu_devices_</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_affine_matrix_function.h" line="42" column="9" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_affine_matrix_function.cu" bodystart="59" bodyend="84"/>
+        <references refid="classcuDenseAffineMatrixFunction_1ad5b67e8bbcdfb48cb4034d0992d83b73" compoundref="cu__dense__affine__matrix__function_8h" startline="65">cuDenseAffineMatrixFunction&lt; DataType &gt;::B</references>
+        <references refid="classcuAffineMatrixFunction_1ae7d34c20db47d0ebaa06ec6276fe2577" compoundref="cu__affine__matrix__function_8h" startline="66">cuAffineMatrixFunction&lt; DataType &gt;::B_is_identity</references>
+        <references refid="classcLinearOperator_1ac4c88c2dcdc8a4d33a77df3979789d42" compoundref="c__linear__operator_8h" startline="77">cLinearOperator&lt; DataType &gt;::eigenvalue_relation_known</references>
+        <references refid="classcuLinearOperator_1ae2bec474007baff1b7e598a869e83e12" compoundref="cu__linear__operator_8cu" startline="185" endline="206">cuLinearOperator&lt; DataType &gt;::initialize_cublas_handle</references>
+      </memberdef>
+      <memberdef kind="function" id="classcuDenseAffineMatrixFunction_1a72d45a15d9bba830c2ef39c3448dc069" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>cuDenseAffineMatrixFunction&lt; DataType &gt;::~cuDenseAffineMatrixFunction</definition>
+        <argsstring>()</argsstring>
+        <name>~cuDenseAffineMatrixFunction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_affine_matrix_function.h" line="51" column="17" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_affine_matrix_function.cu" bodystart="92" bodyend="94"/>
+      </memberdef>
+      <memberdef kind="function" id="classcuDenseAffineMatrixFunction_1a22bf1848160453d4a54f3ea2c44f02c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void cuDenseAffineMatrixFunction&lt; DataType &gt;::dot</definition>
+        <argsstring>(const DataType *vector, DataType *product)</argsstring>
+        <name>dot</name>
+        <reimplements refid="classcLinearOperator_1a48c76860a74f00fefaa1297368d17a77">dot</reimplements>
+        <param>
+          <type>const DataType *</type>
+          <declname>vector</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>product</declname>
+        </param>
+        <briefdescription>
+<para>Computes the matrix vector product: </para>
+        </briefdescription>
+        <detaileddescription>
+<para><formula id="25">\[ \boldsymbol{c} = (\mathbf{A} + t \mathbf{B}) \boldsymbol{b}. \]</formula></para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">vector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input vector :math:<computeroutput>\\boldsymbol{b}</computeroutput> is given by <computeroutput>vector</computeroutput>. If <formula id="1">$ \mathbf{A} $</formula> and <formula id="26">$ \mathbf{B} $</formula> are <formula id="27">$ m \times n $</formula> matrices, the length of input c vector is <computeroutput>n</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">product</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The output of the product, <formula id="7">$ \boldsymbol{c} $</formula>, is written in-place into this array. Let <linebreak/>
+ m be the number of rows of <formula id="1">$ \mathbf{A} $</formula> and <formula id="26">$ \mathbf{B} $</formula>, then, the output vector <computeroutput>product</computeroutput> is 1D column array of length <computeroutput>m</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_affine_matrix_function.h" line="53" column="22" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_affine_matrix_function.cu" bodystart="118" bodyend="149"/>
+        <references refid="debugging_8h_1aa06eedd6f738a415870e97a375337d51" compoundref="debugging_8h" startline="20">ASSERT</references>
+      </memberdef>
+      <memberdef kind="function" id="classcuDenseAffineMatrixFunction_1ae7b4134ea90ecc89c1a2551628cd82b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void cuDenseAffineMatrixFunction&lt; DataType &gt;::transpose_dot</definition>
+        <argsstring>(const DataType *vector, DataType *product)</argsstring>
+        <name>transpose_dot</name>
+        <reimplements refid="classcLinearOperator_1a40f5051c4399ebfa153ef7147e10a6e6">transpose_dot</reimplements>
+        <param>
+          <type>const DataType *</type>
+          <declname>vector</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>product</declname>
+        </param>
+        <briefdescription>
+<para>Computes the matrix vector product: </para>
+        </briefdescription>
+        <detaileddescription>
+<para><formula id="28">\[ \boldsymbol{c} = (\mathbf{A} + t \mathbf{B})^{\intercal} \boldsymbol{b}. \]</formula></para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">vector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input vector <formula id="6">$ \boldsymbol{b} $</formula> is given by <computeroutput>vector</computeroutput>. If <formula id="1">$ \mathbf{A} $</formula> and <formula id="26">$ \mathbf{B} $</formula> are <formula id="27">$ m \times n $</formula> matrices, the length of input <computeroutput>vector</computeroutput> is <computeroutput>n</computeroutput>.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">product</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The output of the product, <formula id="7">$ \boldsymbol{c} $</formula>, is written in-place into this array. Let <computeroutput>n</computeroutput> be the number of columns of <formula id="1">$ \mathbf{A} $</formula> and <formula id="26">$ \mathbf{B} $</formula>, then, the output vector <computeroutput>product</computeroutput> is 1D column array of length <computeroutput>m</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_affine_matrix_function.h" line="57" column="22" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_affine_matrix_function.cu" bodystart="174" bodyend="205"/>
+        <references refid="debugging_8h_1aa06eedd6f738a415870e97a375337d51" compoundref="debugging_8h" startline="20">ASSERT</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>cuDenseAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcuDenseAffineMatrixFunction"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>cuLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcuLinearOperator"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>cuAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcuAffineMatrixFunction"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>cLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcLinearOperator"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>cuDenseAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcuDenseAffineMatrixFunction"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>cuLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcuLinearOperator"/>
+        <childnode refid="4" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>cuAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcuAffineMatrixFunction"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>cLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcLinearOperator"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_affine_matrix_function.h" line="30" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_affine_matrix_function.h" bodystart="31" bodyend="66"/>
+    <listofallmembers>
+      <member refid="classcuAffineMatrixFunction_1af0a51e03280f6700f6534a94874436c1" prot="protected" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>_add_scaled_vector</name></member>
+      <member refid="classcuDenseAffineMatrixFunction_1a19eeefc3d48677a73232e478cb6fe899" prot="protected" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>A</name></member>
+      <member refid="classcuDenseAffineMatrixFunction_1ad5b67e8bbcdfb48cb4034d0992d83b73" prot="protected" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>B</name></member>
+      <member refid="classcuAffineMatrixFunction_1ae7d34c20db47d0ebaa06ec6276fe2577" prot="protected" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>B_is_identity</name></member>
+      <member refid="classcLinearOperator_1acb0880fed1d5599d721a9438c207ee5b" prot="public" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>cLinearOperator</name></member>
+      <member refid="classcLinearOperator_1ac844c5dd7b83eb1e95f3c96181366629" prot="public" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>cLinearOperator</name></member>
+      <member refid="classcuLinearOperator_1ac5b5c2becca5fd6368acd5c98de7bbe5" prot="protected" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>copied_host_to_device</name></member>
+      <member refid="classcuAffineMatrixFunction_1a577ffadfc3b5d791b152d7c03d257dda" prot="public" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>cuAffineMatrixFunction</name></member>
+      <member refid="classcuLinearOperator_1a46558cb4eb689bf6131c2e2415efea0d" prot="protected" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>cublas_handle</name></member>
+      <member refid="classcuDenseAffineMatrixFunction_1a7b3a93e837ea2d2d7f6ed6eb0dfbf40a" prot="public" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>cuDenseAffineMatrixFunction</name></member>
+      <member refid="classcuDenseAffineMatrixFunction_1a7de7ef13efd509b44340239a9e64a6bc" prot="public" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>cuDenseAffineMatrixFunction</name></member>
+      <member refid="classcuLinearOperator_1a003b67351f4a3cf2e574a1e8631e1b24" prot="public" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>cuLinearOperator</name></member>
+      <member refid="classcuLinearOperator_1a8a27f677cbfb7c9c26d07904cdd0ee74" prot="public" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>cuLinearOperator</name></member>
+      <member refid="classcuLinearOperator_1ab097cf1372d598ceac08237e26bafc6d" prot="protected" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>cusparse_handle</name></member>
+      <member refid="classcuDenseAffineMatrixFunction_1a22bf1848160453d4a54f3ea2c44f02c4" prot="public" virt="virtual"><scope>cuDenseAffineMatrixFunction</scope><name>dot</name></member>
+      <member refid="classcLinearOperator_1ac4c88c2dcdc8a4d33a77df3979789d42" prot="protected" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>eigenvalue_relation_known</name></member>
+      <member refid="classcuLinearOperator_1aa0bf630097fc3820d7ec27ec4e1a2994" prot="public" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>get_cublas_handle</name></member>
+      <member refid="classcuAffineMatrixFunction_1acdf545a2c27a4cb6988548d808474c42" prot="public" virt="virtual"><scope>cuDenseAffineMatrixFunction</scope><name>get_eigenvalue</name></member>
+      <member refid="classcLinearOperator_1a08a2eb3bd8ff1f47d1141dc164af1c61" prot="public" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>get_num_columns</name></member>
+      <member refid="classcLinearOperator_1af9be60b44a47eed5b2c98f077ff54987" prot="public" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>get_num_parameters</name></member>
+      <member refid="classcLinearOperator_1aecc5b62db1d8a41f5112b289c7031aaf" prot="public" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>get_num_rows</name></member>
+      <member refid="classcuLinearOperator_1ae2bec474007baff1b7e598a869e83e12" prot="protected" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>initialize_cublas_handle</name></member>
+      <member refid="classcuLinearOperator_1a118f2b8f1523da52441070340f7c43f9" prot="protected" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>initialize_cusparse_handle</name></member>
+      <member refid="classcLinearOperator_1af0c980ca87c2795e0dbfda1c84f74591" prot="public" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>is_eigenvalue_relation_known</name></member>
+      <member refid="classcLinearOperator_1acdafe59b033d5a73f5abe380f63f40a1" prot="protected" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>num_columns</name></member>
+      <member refid="classcuLinearOperator_1a701c8a301638c78c66a3290b0848483e" prot="protected" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>num_gpu_devices</name></member>
+      <member refid="classcLinearOperator_1aab9f0063e55c2a1a92a7e643f086348b" prot="protected" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>num_parameters</name></member>
+      <member refid="classcLinearOperator_1a6786391614f08ef1575554f78717fbb0" prot="protected" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>num_rows</name></member>
+      <member refid="classcLinearOperator_1a22683aa9286bfd651f1f2dbae3660545" prot="protected" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>parameters</name></member>
+      <member refid="classcuLinearOperator_1a8dac55aff04e3f372468b21367a6dab8" prot="protected" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>query_gpu_devices</name></member>
+      <member refid="classcuAffineMatrixFunction_1a61f06f563a69f9c5a1580814786a4e20" prot="public" virt="non-virtual"><scope>cuDenseAffineMatrixFunction</scope><name>set_parameters</name></member>
+      <member refid="classcuDenseAffineMatrixFunction_1ae7b4134ea90ecc89c1a2551628cd82b3" prot="public" virt="virtual"><scope>cuDenseAffineMatrixFunction</scope><name>transpose_dot</name></member>
+      <member refid="classcLinearOperator_1a53065884c6a1349054a96a9fb8838e65" prot="public" virt="virtual"><scope>cuDenseAffineMatrixFunction</scope><name>~cLinearOperator</name></member>
+      <member refid="classcuAffineMatrixFunction_1a253fbd0015b06edbd80b62d6f791486c" prot="public" virt="virtual"><scope>cuDenseAffineMatrixFunction</scope><name>~cuAffineMatrixFunction</name></member>
+      <member refid="classcuDenseAffineMatrixFunction_1a72d45a15d9bba830c2ef39c3448dc069" prot="public" virt="virtual"><scope>cuDenseAffineMatrixFunction</scope><name>~cuDenseAffineMatrixFunction</name></member>
+      <member refid="classcuLinearOperator_1ad1d14172ed32afa599208af04ec4db0c" prot="public" virt="virtual"><scope>cuDenseAffineMatrixFunction</scope><name>~cuLinearOperator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

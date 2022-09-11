@@ -1,0 +1,336 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classcCSCMatrix" kind="class" language="C++" prot="public">
+    <compoundname>cCSCMatrix</compoundname>
+    <basecompoundref refid="classcMatrix" prot="public" virt="non-virtual">cMatrix&lt; DataType &gt;</basecompoundref>
+    <derivedcompoundref refid="classcuCSCMatrix" prot="public" virt="non-virtual">cuCSCMatrix&lt; DataType &gt;</derivedcompoundref>
+    <includes refid="c__csc__matrix_8h" local="no">c_csc_matrix.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename DataType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classcCSCMatrix_1a6d66a176437c03989a756a6a294445e0" prot="protected" static="no" mutable="no">
+        <type>const DataType *</type>
+        <definition>const DataType* cCSCMatrix&lt; DataType &gt;::A_data</definition>
+        <argsstring></argsstring>
+        <name>A_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" line="70" column="24" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcCSCMatrix_1a93daf6e75d9b8a242ed20d29970a8311" prot="protected" static="no" mutable="no">
+        <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+        <definition>const LongIndexType* cCSCMatrix&lt; DataType &gt;::A_indices</definition>
+        <argsstring></argsstring>
+        <name>A_indices</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" line="71" column="29" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcCSCMatrix_1a9bbfccdbd98839daf89f6d938e511280" prot="protected" static="no" mutable="no">
+        <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+        <definition>const LongIndexType* cCSCMatrix&lt; DataType &gt;::A_index_pointer</definition>
+        <argsstring></argsstring>
+        <name>A_index_pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" line="72" column="29" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classcCSCMatrix_1ac295de3fd670c38d5489c5d4168a4881" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>cCSCMatrix&lt; DataType &gt;::cCSCMatrix</definition>
+        <argsstring>()</argsstring>
+        <name>cCSCMatrix</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" line="34" column="9" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.cpp" bodystart="26" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classcCSCMatrix_1a5c56f3bc5e43a5d82b3553946c60b85e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>cCSCMatrix&lt; DataType &gt;::cCSCMatrix</definition>
+        <argsstring>(const DataType *A_data_, const LongIndexType *A_indices_, const LongIndexType *A_index_pointer_, const LongIndexType num_rows_, const LongIndexType num_columns_)</argsstring>
+        <name>cCSCMatrix</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_indices_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns_</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" line="36" column="9" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.cpp" bodystart="39" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classcCSCMatrix_1a33d71bf920e7622d5c8ff940f68f463e" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>cCSCMatrix&lt; DataType &gt;::~cCSCMatrix</definition>
+        <argsstring>()</argsstring>
+        <name>~cCSCMatrix</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" line="43" column="17" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.cpp" bodystart="62" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classcCSCMatrix_1a79d28a5222adf5aa510c3e859285dd2c" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+        <definition>FlagType cCSCMatrix&lt; DataType &gt;::is_identity_matrix</definition>
+        <argsstring>() const</argsstring>
+        <name>is_identity_matrix</name>
+        <reimplements refid="classcMatrix_1a1ad379eba2ec9877da2ddd43aa7e2021">is_identity_matrix</reimplements>
+        <briefdescription>
+<para>Checks whether the matrix is identity. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The identity check is primarily performed in the <computeroutput><ref refid="classcAffineMatrixFunction" kindref="compound">cAffineMatrixFunction</ref></computeroutput> class.</para>
+<para><simplesect kind="return"><para>Returns <computeroutput>1</computeroutput> if the input matrix is identity, and <computeroutput>0</computeroutput> otherwise.</para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classcAffineMatrixFunction" kindref="compound">cAffineMatrixFunction</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" line="45" column="26" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.cpp" bodystart="81" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="classcCSCMatrix_1a012110acfbc3dc645bb20036279df9f3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+        <definition>LongIndexType cCSCMatrix&lt; DataType &gt;::get_nnz</definition>
+        <argsstring>() const</argsstring>
+        <name>get_nnz</name>
+        <briefdescription>
+<para>Returns the number of non-zero elements of the sparse matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The nnz of a CSC matrix can be obtained from the last element of <computeroutput>A_index_pointer</computeroutput>. The size of array <computeroutput>A_index_pointer</computeroutput> is one plus the number of columns of the matrix.</para>
+<para><simplesect kind="return"><para>The nnz of the matrix. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" line="47" column="23" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.cpp" bodystart="128" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="classcCSCMatrix_1a3780d212eb797641bf36772eeb864462" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void cCSCMatrix&lt; DataType &gt;::dot</definition>
+        <argsstring>(const DataType *vector, DataType *product)</argsstring>
+        <name>dot</name>
+        <reimplements refid="classcLinearOperator_1a48c76860a74f00fefaa1297368d17a77">dot</reimplements>
+        <reimplementedby refid="classcuCSCMatrix_1a1eb47019eaa7abd083d644e37893fc3a">dot</reimplementedby>
+        <param>
+          <type>const DataType *</type>
+          <declname>vector</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>product</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" line="49" column="22" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.cpp" bodystart="139" bodyend="151"/>
+        <references refid="classcMatrixOperations_1a57bc2a9bd5ac90d0ca113d73dddc3d7e" compoundref="c__matrix__operations_8cpp" startline="735" endline="764">cMatrixOperations&lt; DataType &gt;::csc_matvec</references>
+      </memberdef>
+      <memberdef kind="function" id="classcCSCMatrix_1a9c016188ebff671e8df98a6cf96ce1c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void cCSCMatrix&lt; DataType &gt;::dot_plus</definition>
+        <argsstring>(const DataType *vector, const DataType alpha, DataType *product)</argsstring>
+        <name>dot_plus</name>
+        <reimplements refid="classcMatrix_1a0f5d440b2d592259b6dc26e00335b847">dot_plus</reimplements>
+        <reimplementedby refid="classcuCSCMatrix_1ac4759c30ffb86521f4ae29eac739db42">dot_plus</reimplementedby>
+        <param>
+          <type>const DataType *</type>
+          <declname>vector</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>product</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" line="53" column="22" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.cpp" bodystart="159" bodyend="172"/>
+        <references refid="classcMatrixOperations_1ac6186968f06112c759ede25a8077d5fc" compoundref="c__matrix__operations_8cpp" startline="801" endline="829">cMatrixOperations&lt; DataType &gt;::csc_matvec_plus</references>
+      </memberdef>
+      <memberdef kind="function" id="classcCSCMatrix_1a3061588e0400fbceabad9d7f49736d86" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void cCSCMatrix&lt; DataType &gt;::transpose_dot</definition>
+        <argsstring>(const DataType *vector, DataType *product)</argsstring>
+        <name>transpose_dot</name>
+        <reimplements refid="classcLinearOperator_1a40f5051c4399ebfa153ef7147e10a6e6">transpose_dot</reimplements>
+        <reimplementedby refid="classcuCSCMatrix_1a0af6927d0301ce630c70a88c1d799300">transpose_dot</reimplementedby>
+        <param>
+          <type>const DataType *</type>
+          <declname>vector</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>product</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" line="58" column="22" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.cpp" bodystart="180" bodyend="191"/>
+        <references refid="classcMatrixOperations_1a56a1448dd6cd08a046cff022c25296cd" compoundref="c__matrix__operations_8cpp" startline="872" endline="897">cMatrixOperations&lt; DataType &gt;::csc_transposed_matvec</references>
+      </memberdef>
+      <memberdef kind="function" id="classcCSCMatrix_1ada140e4a0a6d3a1d4efc88c234afd650" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void cCSCMatrix&lt; DataType &gt;::transpose_dot_plus</definition>
+        <argsstring>(const DataType *vector, const DataType alpha, DataType *product)</argsstring>
+        <name>transpose_dot_plus</name>
+        <reimplements refid="classcMatrix_1af2feaf32d99537897767b14c2c1708b2">transpose_dot_plus</reimplements>
+        <reimplementedby refid="classcuCSCMatrix_1a19f87522864944c7d622c1a3653bf883">transpose_dot_plus</reimplementedby>
+        <param>
+          <type>const DataType *</type>
+          <declname>vector</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>product</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" line="62" column="22" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.cpp" bodystart="199" bodyend="212"/>
+        <references refid="classcMatrixOperations_1a40a779f4dfbddbabbb2e798280391ca6" compoundref="c__matrix__operations_8cpp" startline="943" endline="974">cMatrixOperations&lt; DataType &gt;::csc_transposed_matvec_plus</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>cMatrix&lt; DataType &gt;</label>
+        <link refid="classcMatrix"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>cuCSCMatrix&lt; DataType &gt;</label>
+        <link refid="classcuCSCMatrix"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>cLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcLinearOperator"/>
+      </node>
+      <node id="1">
+        <label>cCSCMatrix&lt; DataType &gt;</label>
+        <link refid="classcCSCMatrix"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>cMatrix&lt; DataType &gt;</label>
+        <link refid="classcMatrix"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>cLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcLinearOperator"/>
+      </node>
+      <node id="1">
+        <label>cCSCMatrix&lt; DataType &gt;</label>
+        <link refid="classcCSCMatrix"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" line="29" column="1" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_linear_operator/c_csc_matrix.h" bodystart="30" bodyend="73"/>
+    <listofallmembers>
+      <member refid="classcCSCMatrix_1a6d66a176437c03989a756a6a294445e0" prot="protected" virt="non-virtual"><scope>cCSCMatrix</scope><name>A_data</name></member>
+      <member refid="classcCSCMatrix_1a9bbfccdbd98839daf89f6d938e511280" prot="protected" virt="non-virtual"><scope>cCSCMatrix</scope><name>A_index_pointer</name></member>
+      <member refid="classcCSCMatrix_1a93daf6e75d9b8a242ed20d29970a8311" prot="protected" virt="non-virtual"><scope>cCSCMatrix</scope><name>A_indices</name></member>
+      <member refid="classcCSCMatrix_1ac295de3fd670c38d5489c5d4168a4881" prot="public" virt="non-virtual"><scope>cCSCMatrix</scope><name>cCSCMatrix</name></member>
+      <member refid="classcCSCMatrix_1a5c56f3bc5e43a5d82b3553946c60b85e" prot="public" virt="non-virtual"><scope>cCSCMatrix</scope><name>cCSCMatrix</name></member>
+      <member refid="classcLinearOperator_1acb0880fed1d5599d721a9438c207ee5b" prot="public" virt="non-virtual"><scope>cCSCMatrix</scope><name>cLinearOperator</name></member>
+      <member refid="classcLinearOperator_1ac844c5dd7b83eb1e95f3c96181366629" prot="public" virt="non-virtual"><scope>cCSCMatrix</scope><name>cLinearOperator</name></member>
+      <member refid="classcMatrix_1a3e7134e2fe4ad377d33b730ac49ee4c5" prot="public" virt="non-virtual"><scope>cCSCMatrix</scope><name>cMatrix</name></member>
+      <member refid="classcCSCMatrix_1a3780d212eb797641bf36772eeb864462" prot="public" virt="virtual"><scope>cCSCMatrix</scope><name>dot</name></member>
+      <member refid="classcCSCMatrix_1a9c016188ebff671e8df98a6cf96ce1c4" prot="public" virt="virtual"><scope>cCSCMatrix</scope><name>dot_plus</name></member>
+      <member refid="classcLinearOperator_1ac4c88c2dcdc8a4d33a77df3979789d42" prot="protected" virt="non-virtual"><scope>cCSCMatrix</scope><name>eigenvalue_relation_known</name></member>
+      <member refid="classcMatrix_1afb08422559c53336b4515a6627a9d990" prot="public" virt="virtual"><scope>cCSCMatrix</scope><name>get_eigenvalue</name></member>
+      <member refid="classcCSCMatrix_1a012110acfbc3dc645bb20036279df9f3" prot="public" virt="non-virtual"><scope>cCSCMatrix</scope><name>get_nnz</name></member>
+      <member refid="classcLinearOperator_1a08a2eb3bd8ff1f47d1141dc164af1c61" prot="public" virt="non-virtual"><scope>cCSCMatrix</scope><name>get_num_columns</name></member>
+      <member refid="classcLinearOperator_1af9be60b44a47eed5b2c98f077ff54987" prot="public" virt="non-virtual"><scope>cCSCMatrix</scope><name>get_num_parameters</name></member>
+      <member refid="classcLinearOperator_1aecc5b62db1d8a41f5112b289c7031aaf" prot="public" virt="non-virtual"><scope>cCSCMatrix</scope><name>get_num_rows</name></member>
+      <member refid="classcLinearOperator_1af0c980ca87c2795e0dbfda1c84f74591" prot="public" virt="non-virtual"><scope>cCSCMatrix</scope><name>is_eigenvalue_relation_known</name></member>
+      <member refid="classcCSCMatrix_1a79d28a5222adf5aa510c3e859285dd2c" prot="public" virt="virtual"><scope>cCSCMatrix</scope><name>is_identity_matrix</name></member>
+      <member refid="classcLinearOperator_1acdafe59b033d5a73f5abe380f63f40a1" prot="protected" virt="non-virtual"><scope>cCSCMatrix</scope><name>num_columns</name></member>
+      <member refid="classcLinearOperator_1aab9f0063e55c2a1a92a7e643f086348b" prot="protected" virt="non-virtual"><scope>cCSCMatrix</scope><name>num_parameters</name></member>
+      <member refid="classcLinearOperator_1a6786391614f08ef1575554f78717fbb0" prot="protected" virt="non-virtual"><scope>cCSCMatrix</scope><name>num_rows</name></member>
+      <member refid="classcLinearOperator_1a22683aa9286bfd651f1f2dbae3660545" prot="protected" virt="non-virtual"><scope>cCSCMatrix</scope><name>parameters</name></member>
+      <member refid="classcLinearOperator_1ad7395bd04ec8014c9dd0e66c318ae125" prot="public" virt="non-virtual"><scope>cCSCMatrix</scope><name>set_parameters</name></member>
+      <member refid="classcCSCMatrix_1a3061588e0400fbceabad9d7f49736d86" prot="public" virt="virtual"><scope>cCSCMatrix</scope><name>transpose_dot</name></member>
+      <member refid="classcCSCMatrix_1ada140e4a0a6d3a1d4efc88c234afd650" prot="public" virt="virtual"><scope>cCSCMatrix</scope><name>transpose_dot_plus</name></member>
+      <member refid="classcCSCMatrix_1a33d71bf920e7622d5c8ff940f68f463e" prot="public" virt="virtual"><scope>cCSCMatrix</scope><name>~cCSCMatrix</name></member>
+      <member refid="classcLinearOperator_1a53065884c6a1349054a96a9fb8838e65" prot="public" virt="virtual"><scope>cCSCMatrix</scope><name>~cLinearOperator</name></member>
+      <member refid="classcMatrix_1a0b7276e140f160bdfbb5cdbd14f4265e" prot="public" virt="virtual"><scope>cCSCMatrix</scope><name>~cMatrix</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,545 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="cu__lanczos__tridiagonalization_8cu" kind="file" language="C++">
+    <compoundname>cu_lanczos_tridiagonalization.cu</compoundname>
+    <includes refid="cu__lanczos__tridiagonalization_8h" local="yes">./cu_lanczos_tridiagonalization.h</includes>
+    <includes local="no">cublas_v2.h</includes>
+    <includes local="no">cmath</includes>
+    <includes refid="cu__orthogonalization_8h" local="yes">./cu_orthogonalization.h</includes>
+    <includes refid="cu__vector__operations_8h" local="yes">../_cu_basic_algebra/cu_vector_operations.h</includes>
+    <includes refid="cuda__interface_8h" local="yes">../_cuda_utilities/cuda_interface.h</includes>
+    <incdepgraph>
+      <node id="2">
+        <label>./cu_lanczos_tridiagonalization.h</label>
+        <link refid="cu__lanczos__tridiagonalization_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>../_cu_basic_algebra/cu_vector_operations.h</label>
+        <link refid="cu__vector__operations_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>../_c_linear_operator/c_linear_operator.h</label>
+        <link refid="c__linear__operator_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>cublas_v2.h</label>
+      </node>
+      <node id="9">
+        <label>cmath</label>
+      </node>
+      <node id="7">
+        <label>./definitions.h</label>
+        <link refid="definitions_8h"/>
+      </node>
+      <node id="12">
+        <label>../_cuda_utilities/cuda_interface.h</label>
+        <link refid="cuda__interface_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu</label>
+        <link refid="cu__lanczos__tridiagonalization_8cu"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>../_cu_linear_operator/cu_linear_operator.h</label>
+        <link refid="cu__linear__operator_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>cuda_runtime_api.h</label>
+      </node>
+      <node id="10">
+        <label>./cu_orthogonalization.h</label>
+        <link refid="cu__orthogonalization_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>cusparse.h</label>
+      </node>
+      <node id="6">
+        <label>../_definitions/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="cu__lanczos__tridiagonalization_8cu_1a30ec831ebcc2ce17eefefb770b13773d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename DataType</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref></type>
+        <definition>IndexType cu_lanczos_tridiagonalization</definition>
+        <argsstring>(cuLinearOperator&lt; DataType &gt; *A, const DataType *v, const LongIndexType n, const IndexType m, const DataType lanczos_tol, const FlagType orthogonalize, DataType *alpha, DataType *beta)</argsstring>
+        <name>cu_lanczos_tridiagonalization</name>
+        <param>
+          <type><ref refid="classcuLinearOperator" kindref="compound">cuLinearOperator</ref>&lt; DataType &gt; *</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref></type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>lanczos_tol</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>orthogonalize</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>beta</declname>
+        </param>
+        <briefdescription>
+<para>Tri-diagonalizes matrix <computeroutput>A</computeroutput> to <computeroutput>T</computeroutput> using the start vector <computeroutput>v</computeroutput>. <computeroutput>is</computeroutput> the Lanczos degree, which will be the size of square matrix <computeroutput>T</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The output of this function is not an explicit matrix <computeroutput>T</computeroutput>, rather are the two arrays <computeroutput>alpha</computeroutput> of length <computeroutput>m</computeroutput> and <computeroutput>beta</computeroutput> of length <computeroutput>m+1</computeroutput>. The array <computeroutput>alpha</computeroutput>[:] represents the diagonal elements and <computeroutput>beta</computeroutput>[1:] represents the off-diagonal elements of the tri-diagonal <computeroutput></computeroutput>(m,m) symmetric and positive-definite matrix <computeroutput>T</computeroutput>.</para>
+<sect4 id="cu__lanczos__tridiagonalization_8h_1autotoc_md11">
+<title>Lanczos tridiagonalization vs Golub-Kahn bidiagonalization</title>
+<para><itemizedlist>
+<listitem><para>The Lanczos tri-diagonalization is twice faster (in runtime), as it has only one matrix-vector multiplication. Whereas the Golub-Kahn bi-diagonalization has two matrix-vector multiplications.</para>
+</listitem><listitem><para>The Lanczos tri-diagonalization can only be applied to symmetric matrices. Whereas the Golub-Kahn bi-diagonalization can be applied to any matrix.</para>
+</listitem></itemizedlist>
+</para>
+</sect4>
+<sect4 id="cu__lanczos__tridiagonalization_8h_1autotoc_md12">
+<title>Algorithm</title>
+<para>The algorithm and notations are obtained from [DEMMEL], p. 57, Algorithm 4.6 (see also [SAAD] p. 137, Algorithm 6.5). However there are four ways to implement the iteration. [PAIGE]_ has shown that the iteration that is implemented below is the most stable against loosing orthogonality of the eigenvectors. For details, see [CULLUM]_ p. 46, and p.48, particularly the algorithm denoted by A(2,7). The differences of these implementations are the order in which <formula id="29">$ \alpha_j $</formula> and <formula id="30">$ \beta_j $</formula> are defined and the order in which vectors are subtracted from <computeroutput>r</computeroutput> .</para>
+</sect4>
+<sect4 id="cu__lanczos__tridiagonalization_8h_1autotoc_md13">
+<title>References</title>
+<para><itemizedlist>
+<listitem><para>[DEMMEL] Demmel, J., Templates for solution of Algebraic Eigenvalue Problems, p. 57.</para>
+</listitem><listitem><para>[SAAD] Saad, Numerical Methods for Large Eigenvalue Problems, p. 137.</para>
+</listitem><listitem><para>[PAIGE] Paige (1980) Accuracy and effectiveness of the Lanczos algorithm for the symmetric eigenproblem.</para>
+</listitem><listitem><para>[CULLUM] Cullum; Willoughby. Lanczos Algorithms for Large Symmetric Eigenvalue Computations. 1. pp.46-48.</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">A</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A linear operator that represents a matrix of size <computeroutput></computeroutput>(n,n) and can perform matrix-vector operation with <computeroutput>dot()</computeroutput> method. This matrix should be positive-definite. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">v</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Start vector for the Lanczos tri-diagonalization. Column vector of size c n. It could be generated randomly. Often it is generated by the Rademacher distribution with entries c +1 and <computeroutput>-1</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Size of the square matrix <computeroutput>A</computeroutput>, which is also the size of the vector <computeroutput>v</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Lanczos degree, which is the number of Lanczos iterations. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">lanczos_tol</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The tolerance of the residual error of the Lanczos iteration. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">orthogonalize</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Indicates whether to orthogonalize the orthogonal eigenvectors during Lanczos recursive iterations.<itemizedlist>
+<listitem><para>If set to <computeroutput>0</computeroutput>, no orthogonalization is performed.</para>
+</listitem><listitem><para>If set to a negative integer, a newly computed eigenvector is orthogonalized against all the previous eigenvectors (full reorthogonalization).</para>
+</listitem><listitem><para>If set to a positive integer, say <computeroutput>q</computeroutput> less than <computeroutput>lanczos_degree</computeroutput>, the newly computed eigenvector is orthogonalized against the last <computeroutput>q</computeroutput> previous eigenvectors (partial reorthogonalization).</para>
+</listitem><listitem><para>If set to an integer larger than <computeroutput>lanczos_degree</computeroutput>, it is cut to <computeroutput>lanczos_degree</computeroutput>, which effectively orthogonalizes against all previous eigenvectors (full reorthogonalization). </para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>This is a 1D array of size <computeroutput>m</computeroutput>. The array <computeroutput>alpha</computeroutput>[:] constitute the diagonal elements of the tri-diagonal matrix <computeroutput>T</computeroutput>. This is the output and written in place. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">beta</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>This is a 1D array of size <computeroutput>m</computeroutput>. The array <computeroutput>beta</computeroutput>[:] constitute the off-diagonals of the tri-diagonal matrix <computeroutput>T</computeroutput>. This array is the output and written in place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Counter for the Lanczos iterations. Normally, the size of the output matrix should be <computeroutput></computeroutput>(m,m), which is the Lanczos degree. However, if the algorithm terminates early, the size of <computeroutput>alpha</computeroutput> and <computeroutput>beta</computeroutput>, and hence the output tri-diagonal matrix, is smaller. This counter keeps track of the <emphasis>non-zero</emphasis> size of <computeroutput>alpha</computeroutput> and <computeroutput>beta</computeroutput>. </para>
+</simplesect>
+</para>
+</sect4>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu" line="119" column="11" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu" bodystart="119" bodyend="248"/>
+        <references refid="classCudaInterface_1a65875bf1fdfe213562b31e3459f04b33" compoundref="cuda__interface_8cu" startline="36" endline="60">CudaInterface&lt; ArrayType &gt;::alloc</references>
+        <references refid="classcuVectorOperations_1a18e8a8069b986b0b559f8ac97b72a495" compoundref="cu__vector__operations_8cu" startline="73" endline="96">cuVectorOperations&lt; DataType &gt;::copy_scaled_vector</references>
+        <references refid="classCudaInterface_1a95efada2ca34b3490f96ccfa97b4d6eb" compoundref="cuda__interface_8cu" startline="142" endline="151">CudaInterface&lt; ArrayType &gt;::copy_to_device</references>
+        <references refid="classCudaInterface_1a427b7203f73cf821e35234e5f724064b" compoundref="cuda__interface_8cu" startline="166" endline="174">CudaInterface&lt; ArrayType &gt;::del</references>
+        <references refid="classcLinearOperator_1a48c76860a74f00fefaa1297368d17a77">cLinearOperator&lt; DataType &gt;::dot</references>
+        <references refid="classcuVectorOperations_1adc247988515923e3c79226e891c9f3e1" compoundref="cu__vector__operations_8cu" startline="201" endline="215">cuVectorOperations&lt; DataType &gt;::euclidean_norm</references>
+        <references refid="classcuLinearOperator_1aa0bf630097fc3820d7ec27ec4e1a2994" compoundref="cu__linear__operator_8cu" startline="168" endline="174">cuLinearOperator&lt; DataType &gt;::get_cublas_handle</references>
+        <references refid="classcuOrthogonalization_1a47d7334cf9d9b69bb2feb047d40e0a23" compoundref="cu__orthogonalization_8cu" startline="128" endline="228">cuOrthogonalization&lt; DataType &gt;::gram_schmidt_process</references>
+        <references refid="classcuVectorOperations_1a88c6373da3d2fef0dca236aef3ef1ec1" compoundref="cu__vector__operations_8cu" startline="166" endline="183">cuVectorOperations&lt; DataType &gt;::inner_product</references>
+        <references refid="classcuVectorOperations_1a516e90d70f99436cf48cd5b7deeb69c7" compoundref="cu__vector__operations_8cu" startline="126" endline="147">cuVectorOperations&lt; DataType &gt;::subtract_scaled_vector</references>
+        <referencedby refid="classcuTraceEstimator_1ab4edc323dc7dcc98f401eeec9276e245" compoundref="cu__trace__estimator_8cu" startline="409" endline="652">cuTraceEstimator&lt; DataType &gt;::_cu_stochastic_lanczos_quadrature</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="cu__lanczos__tridiagonalization_8cu_1a2acc4942cc9d0bbc3bd583732a352f77" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>template <ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref></type>
+        <definition>template IndexType cu_lanczos_tridiagonalization&lt; float &gt;</definition>
+        <argsstring>(cuLinearOperator&lt; float &gt; *A, const float *v, const LongIndexType n, const IndexType m, const float lanczos_tol, const FlagType orthogonalize, float *alpha, float *beta)</argsstring>
+        <name>cu_lanczos_tridiagonalization&lt; float &gt;</name>
+        <param>
+          <type><ref refid="classcuLinearOperator" kindref="compound">cuLinearOperator</ref>&lt; float &gt; *</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>const float *</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref></type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>const float</type>
+          <declname>lanczos_tol</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>orthogonalize</declname>
+        </param>
+        <param>
+          <type>float *</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>float *</type>
+          <declname>beta</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu" line="256" column="10" declfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu" declline="256" declcolumn="10"/>
+      </memberdef>
+      <memberdef kind="function" id="cu__lanczos__tridiagonalization_8cu_1a10f5c1a993a52c09115fcc2ac127fb85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>template <ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref></type>
+        <definition>template IndexType cu_lanczos_tridiagonalization&lt; double &gt;</definition>
+        <argsstring>(cuLinearOperator&lt; double &gt; *A, const double *v, const LongIndexType n, const IndexType m, const double lanczos_tol, const FlagType orthogonalize, double *alpha, double *beta)</argsstring>
+        <name>cu_lanczos_tridiagonalization&lt; double &gt;</name>
+        <param>
+          <type><ref refid="classcuLinearOperator" kindref="compound">cuLinearOperator</ref>&lt; double &gt; *</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>const double *</type>
+          <declname>v</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref></type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>const double</type>
+          <declname>lanczos_tol</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>orthogonalize</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>double *</type>
+          <declname>beta</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu" line="266" column="10" declfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu" declline="266" declcolumn="10"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-FileCopyrightText:<sp/>Copyright<sp/>2021,<sp/>Siavash<sp/>Ameli<sp/>&lt;sameli@berkeley.edu&gt;</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-License-Identifier:<sp/>BSD-3-Clause</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-FileType:<sp/>SOURCE</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/>This<sp/>program<sp/>is<sp/>free<sp/>software:<sp/>you<sp/>can<sp/>redistribute<sp/>it<sp/>and/or<sp/>modify<sp/>it</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/><sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>license<sp/>found<sp/>in<sp/>the<sp/>LICENSE.txt<sp/>file<sp/>in<sp/>the<sp/>root</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/><sp/>directory<sp/>of<sp/>this<sp/>source<sp/>tree.</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Headers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="cu__lanczos__tridiagonalization_8h" kindref="compound">./cu_lanczos_tridiagonalization.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cublas_v2.h&gt;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>cublasHandle_t</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>sqrt</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="cu__orthogonalization_8h" kindref="compound">./cu_orthogonalization.h</ref>&quot;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>cuOrthogonalization</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../_cu_basic_algebra/cu_vector_operations.h&quot;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>cuVectorOperations</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../_cuda_utilities/cuda_interface.h&quot;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>alloc,<sp/>copy_to_device,<sp/>del</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>============================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/>c<sp/>lanczos<sp/>tridiagonalization</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/>============================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>DataType&gt;</highlight></codeline>
+<codeline lineno="119" refid="cu__lanczos__tridiagonalization_8cu_1a30ec831ebcc2ce17eefefb770b13773d" refkind="member"><highlight class="normal"><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref><sp/><ref refid="cu__lanczos__tridiagonalization_8cu_1a30ec831ebcc2ce17eefefb770b13773d" kindref="member">cu_lanczos_tridiagonalization</ref>(</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcuLinearOperator" kindref="compound">cuLinearOperator&lt;DataType&gt;</ref>*<sp/>A,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>DataType*<sp/>v,</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref><sp/>n,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref><sp/>m,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>DataType<sp/>lanczos_tol,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref><sp/>orthogonalize,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataType*<sp/>alpha,</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataType*<sp/>beta)</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Get<sp/>cublas<sp/>handle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/>cublasHandle_t<sp/>cublas_handle<sp/>=<sp/>A-&gt;<ref refid="classcuLinearOperator_1aa0bf630097fc3820d7ec27ec4e1a2994" kindref="member">get_cublas_handle</ref>();</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>buffer_size<sp/>is<sp/>number<sp/>of<sp/>last<sp/>orthogonal<sp/>vectors<sp/>to<sp/>keep<sp/>in<sp/>the<sp/>buffer<sp/>V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref><sp/>buffer_size;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(orthogonalize<sp/>==<sp/>0<sp/>||<sp/>orthogonalize<sp/>==<sp/>1)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>At<sp/>least<sp/>two<sp/>vectors<sp/>must<sp/>be<sp/>stored<sp/>in<sp/>buffer<sp/>for<sp/>Lanczos<sp/>recursion</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buffer_size<sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((orthogonalize<sp/>&lt;<sp/>0)<sp/>||</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(orthogonalize<sp/>&gt;<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal"><ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(m)))</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Using<sp/>full<sp/>reorthogonalization,<sp/>keep<sp/>all<sp/>of<sp/>the<sp/>m<sp/>vectors<sp/>in<sp/>buffer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buffer_size<sp/>=<sp/>m;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Orthogonalize<sp/>with<sp/>less<sp/>than<sp/>m<sp/>vectors<sp/>(0<sp/>&lt;<sp/>orthogonalize<sp/>&lt;<sp/>m)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buffer_size<sp/>=<sp/>orthogonalize;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Allocate<sp/>2D<sp/>array<sp/>(as<sp/>1D<sp/>array,<sp/>and<sp/>coalesced<sp/>row-wise)<sp/>to<sp/>store</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>last<sp/>buffer_size<sp/>of<sp/>orthogonalized<sp/>vectors<sp/>of<sp/>length<sp/>n.<sp/>New<sp/>vectors</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>are<sp/>stored<sp/>by<sp/>cycling<sp/>through<sp/>the<sp/>buffer<sp/>to<sp/>replace<sp/>with<sp/>old<sp/>ones.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/>DataType*<sp/>device_V<sp/>=<sp/><ref refid="classCudaInterface_1a65875bf1fdfe213562b31e3459f04b33" kindref="member">CudaInterface&lt;DataType&gt;::alloc</ref>(n<sp/>*<sp/>buffer_size);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Allocate<sp/>vector<sp/>r</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/>DataType*<sp/>device_r<sp/>=<sp/><ref refid="classCudaInterface_1a65875bf1fdfe213562b31e3459f04b33" kindref="member">CudaInterface&lt;DataType&gt;::alloc</ref>(n);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Copy<sp/>v<sp/>into<sp/>r</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCudaInterface_1a95efada2ca34b3490f96ccfa97b4d6eb" kindref="member">CudaInterface&lt;DataType&gt;::copy_to_device</ref>(v,<sp/>n,<sp/>device_r);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initial<sp/>beta</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/>DataType<sp/>initial_beta<sp/>=<sp/><ref refid="classcuVectorOperations_1adc247988515923e3c79226e891c9f3e1" kindref="member">cuVectorOperations&lt;DataType&gt;::euclidean_norm</ref>(</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublas_handle,<sp/>device_r,<sp/>n);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Declare<sp/>iterators</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref><sp/>j;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref><sp/>lanczos_size<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref><sp/>num_ortho;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>In<sp/>the<sp/>following,<sp/>beta[j]<sp/>means<sp/>beta[j-1]<sp/>in<sp/>the<sp/>Demmel<sp/>text</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(j=0;<sp/>j<sp/>&lt;<sp/>m;<sp/>++j)</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Update<sp/>the<sp/>size<sp/>of<sp/>Lanczos<sp/>tridiagonal<sp/>matrix</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++lanczos_size;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Normalize<sp/>r<sp/>and<sp/>copy<sp/>to<sp/>the<sp/>j-th<sp/>column<sp/>of<sp/>V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(j<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcuVectorOperations_1a18e8a8069b986b0b559f8ac97b72a495" kindref="member">cuVectorOperations&lt;DataType&gt;::copy_scaled_vector</ref>(</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublas_handle,<sp/>device_r,<sp/>n,<sp/>1.0/initial_beta,</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;device_V[(j<sp/>%<sp/>buffer_size)*n]);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcuVectorOperations_1a18e8a8069b986b0b559f8ac97b72a495" kindref="member">cuVectorOperations&lt;DataType&gt;::copy_scaled_vector</ref>(</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublas_handle,<sp/>device_r,<sp/>n,<sp/>1.0/beta[j-1],</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;device_V[(j<sp/>%<sp/>buffer_size)*n]);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Multiply<sp/>A<sp/>to<sp/>the<sp/>j-th<sp/>column<sp/>of<sp/>V,<sp/>write<sp/>into<sp/>r</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>A-&gt;<ref refid="classcLinearOperator_1a48c76860a74f00fefaa1297368d17a77" kindref="member">dot</ref>(&amp;device_V[(j<sp/>%<sp/>buffer_size)*n],<sp/>device_r);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>alpha[j]<sp/>is<sp/>V[:,<sp/>j]<sp/>dot<sp/>r</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alpha[j]<sp/>=<sp/><ref refid="classcuVectorOperations_1a88c6373da3d2fef0dca236aef3ef1ec1" kindref="member">cuVectorOperations&lt;DataType&gt;::inner_product</ref>(</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublas_handle,<sp/>&amp;device_V[(j<sp/>%<sp/>buffer_size)*n],<sp/>device_r,<sp/>n);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Subtract<sp/>V[:,j]<sp/>*<sp/>alpha[j]<sp/>from<sp/>r</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcuVectorOperations_1a516e90d70f99436cf48cd5b7deeb69c7" kindref="member">cuVectorOperations&lt;DataType&gt;::subtract_scaled_vector</ref>(</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublas_handle,<sp/>&amp;device_V[(j<sp/>%<sp/>buffer_size)*n],<sp/>n,<sp/>alpha[j],</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>device_r);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Subtract<sp/>V[:,j-1]<sp/>*<sp/>beta[j]<sp/>from<sp/>r</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(j<sp/>&gt;<sp/>0)</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcuVectorOperations_1a516e90d70f99436cf48cd5b7deeb69c7" kindref="member">cuVectorOperations&lt;DataType&gt;::subtract_scaled_vector</ref>(</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublas_handle,<sp/>&amp;device_V[((j-1)<sp/>%<sp/>buffer_size)*n],<sp/>n,</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>beta[j-1],<sp/>device_r);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Gram-Schmidt<sp/>process<sp/>(full<sp/>re-orthogonalization)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(orthogonalize<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Find<sp/>how<sp/>many<sp/>column<sp/>vectors<sp/>are<sp/>filled<sp/>so<sp/>far<sp/>in<sp/>the<sp/>buffer<sp/>V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(j<sp/>&lt;<sp/>buffer_size)</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_ortho<sp/>=<sp/>j+1;</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_ortho<sp/>=<sp/>buffer_size;</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Gram-Schmidt<sp/>process</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcuOrthogonalization_1a47d7334cf9d9b69bb2feb047d40e0a23" kindref="member">cuOrthogonalization&lt;DataType&gt;::gram_schmidt_process</ref>(</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublas_handle,<sp/>&amp;device_V[0],<sp/>n,<sp/>buffer_size,<sp/>j%buffer_size,</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>num_ortho,<sp/>device_r);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>beta<sp/>is<sp/>norm<sp/>of<sp/>r</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>beta[j]<sp/>=<sp/><ref refid="classcuVectorOperations_1adc247988515923e3c79226e891c9f3e1" kindref="member">cuVectorOperations&lt;DataType&gt;::euclidean_norm</ref>(</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublas_handle,<sp/>device_r,<sp/>n);</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Exit<sp/>criterion<sp/>when<sp/>the<sp/>vector<sp/>r<sp/>is<sp/>zero.<sp/>If<sp/>each<sp/>component<sp/>of<sp/>a</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>zero<sp/>vector<sp/>has<sp/>the<sp/>tolerance<sp/>epsilon,<sp/>(which<sp/>is<sp/>called<sp/>lanczos_tol</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>here),<sp/>the<sp/>tolerance<sp/>of<sp/>norm<sp/>of<sp/>r<sp/>is<sp/>epsilon<sp/>times<sp/>sqrt<sp/>of<sp/>n.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(beta[j]<sp/>&lt;<sp/>lanczos_tol<sp/>*<sp/>sqrt(n))</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Free<sp/>dynamic<sp/>memory</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCudaInterface_1a427b7203f73cf821e35234e5f724064b" kindref="member">CudaInterface&lt;DataType&gt;::del</ref>(device_V);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="classCudaInterface_1a427b7203f73cf821e35234e5f724064b" kindref="member">CudaInterface&lt;DataType&gt;::del</ref>(device_r);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>lanczos_size;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===============================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Explicit<sp/>template<sp/>instantiation</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===============================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight><highlight class="comment">//<sp/>lanczos<sp/>tridiagonalization</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256" refid="cu__lanczos__tridiagonalization_8cu_1a2acc4942cc9d0bbc3bd583732a352f77" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref><sp/><ref refid="cu__lanczos__tridiagonalization_8cu_1a2acc4942cc9d0bbc3bd583732a352f77" kindref="member">cu_lanczos_tridiagonalization&lt;float&gt;</ref>(</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcuLinearOperator" kindref="compound">cuLinearOperator&lt;float&gt;</ref>*<sp/>A,</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">*<sp/>v,</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref><sp/>n,</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref><sp/>m,</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>lanczos_tol,</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref><sp/>orthogonalize,</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">*<sp/>alpha,</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">*<sp/>beta);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266" refid="cu__lanczos__tridiagonalization_8cu_1a10f5c1a993a52c09115fcc2ac127fb85" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref><sp/><ref refid="cu__lanczos__tridiagonalization_8cu_1a10f5c1a993a52c09115fcc2ac127fb85" kindref="member">cu_lanczos_tridiagonalization&lt;double&gt;</ref>(</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcuLinearOperator" kindref="compound">cuLinearOperator&lt;double&gt;</ref>*<sp/>A,</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>v,</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref><sp/>n,</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref><sp/>m,</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>lanczos_tol,</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref><sp/>orthogonalize,</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>alpha,</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>beta);</highlight></codeline>
+    </programlisting>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu"/>
+  </compounddef>
+</doxygen>

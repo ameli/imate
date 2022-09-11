@@ -10,7 +10,8 @@ on:
 
 jobs:
     build-and-deploy:
-        runs-on: ubuntu-latest
+        # runs-on: ubuntu-latest  # this uses ubuntu-20.04 (not 22.04) and installs old doxygen.
+        runs-on: ubuntu-22.04
         steps:
             - name: Checkout
               uses: actions/checkout@v3
@@ -23,8 +24,8 @@ jobs:
             # Build doxygen files in /docs/doxygen/output/html
             - name: Build doxygen
               run: |
-                sudo apt update
-                sudo apt install doxygen -y
+                sudo apt-get update
+                sudo apt-get install doxygen -y
                 sudo apt-get install graphviz -y
                 cd docs/doxygen
                 doxygen doxyfile.in
@@ -40,7 +41,7 @@ jobs:
             # Build sphinx in /docs/build, copy /docs/doxygen/output/html to /docs/build/doxygen
             - name: Build Sphinx
               run: |
-                sudo apt install pandoc -y
+                sudo apt-get install pandoc -y
                 python -m pip install -r docs/requirements.txt
                 export PATH=$HOME/.local/bin:$PATH
                 make clean html --directory=docs

@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="random__array__generator_8h" kind="file" language="C++">
+    <compoundname>random_array_generator.h</compoundname>
+    <includes refid="types_8h" local="yes">../_definitions/types.h</includes>
+    <includes refid="random__number__generator_8h" local="yes">./random_number_generator.h</includes>
+    <includedby refid="c__orthogonalization_8cpp" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_orthogonalization.cpp</includedby>
+    <includedby refid="c__trace__estimator_8cpp" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_trace_estimator.cpp</includedby>
+    <includedby refid="cu__orthogonalization_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_orthogonalization.cu</includedby>
+    <includedby refid="cu__trace__estimator_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_trace_estimator.cu</includedby>
+    <includedby refid="random__array__generator_8cpp" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_random_generator/random_array_generator.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_random_generator/random_array_generator.h</label>
+        <link refid="random__array__generator_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>./random_number_generator.h</label>
+        <link refid="random__number__generator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>stdint.h</label>
+      </node>
+      <node id="3">
+        <label>./definitions.h</label>
+        <link refid="definitions_8h"/>
+      </node>
+      <node id="2">
+        <label>../_definitions/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_random_generator/random_array_generator.h</label>
+        <link refid="random__array__generator_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_trace_estimator.cu</label>
+        <link refid="cu__trace__estimator_8cu"/>
+      </node>
+      <node id="4">
+        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_orthogonalization.cu</label>
+        <link refid="cu__orthogonalization_8cu"/>
+      </node>
+      <node id="6">
+        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_random_generator/random_array_generator.cpp</label>
+        <link refid="random__array__generator_8cpp"/>
+      </node>
+      <node id="3">
+        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_trace_estimator.cpp</label>
+        <link refid="c__trace__estimator_8cpp"/>
+      </node>
+      <node id="2">
+        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_orthogonalization.cpp</label>
+        <link refid="c__orthogonalization_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="classRandomArrayGenerator" prot="public">RandomArrayGenerator</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-FileCopyrightText:<sp/>Copyright<sp/>2021,<sp/>Siavash<sp/>Ameli<sp/>&lt;sameli@berkeley.edu&gt;</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-License-Identifier:<sp/>BSD-3-Clause</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-FileType:<sp/>SOURCE</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/>This<sp/>program<sp/>is<sp/>free<sp/>software:<sp/>you<sp/>can<sp/>redistribute<sp/>it<sp/>and/or<sp/>modify<sp/>it</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/><sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>license<sp/>found<sp/>in<sp/>the<sp/>LICENSE.txt<sp/>file<sp/>in<sp/>the<sp/>root</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/><sp/>directory<sp/>of<sp/>this<sp/>source<sp/>tree.</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_RANDOM_GENERATOR_RANDOM_ARRAY_GENERATOR_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>_RANDOM_GENERATOR_RANDOM_ARRAY_GENERATOR_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Headers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;../_definitions/types.h&quot;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>IndexType,<sp/>LongIndexType</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="random__number__generator_8h" kindref="compound">./random_number_generator.h</ref>&quot;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>RandomNumberGenerator</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==============</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Random<sp/>Vectors</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/>==============</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/>&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>DataType&gt;</highlight></codeline>
+<codeline lineno="37" refid="classRandomArrayGenerator" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classRandomArrayGenerator" kindref="compound">RandomArrayGenerator</ref></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>generate<sp/>random<sp/>array</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="classRandomArrayGenerator_1a3a577526f391d531fe4d66bdfa0107db" kindref="member">generate_random_array</ref>(</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classRandomNumberGenerator" kindref="compound">RandomNumberGenerator</ref>&amp;<sp/>random_number_generator,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>DataType*<sp/>array,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref><sp/>array_size,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref><sp/>num_threads);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>_RANDOM_GENERATOR_RANDOM_ARRAY_GENERATOR_H_</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_random_generator/random_array_generator.h"/>
+  </compounddef>
+</doxygen>
