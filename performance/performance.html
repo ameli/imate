@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>Scalability and Processing Large Matrices &#8212; imate Manual</title>
+    <title>Performance &#8212; imate Manual</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -194,14 +194,14 @@
   <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <div class="bd-toc-item active">
     
-    <ul class="current nav bd-sidenav">
+    <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="gpu.html">
    Performance on GPU Farm
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="scalability.html">
    Performance on CPU
   </a>
  </li>
@@ -234,19 +234,9 @@
     
     <div class="toc-item">
       
-<div class="tocsection onthispage mt-5 pt-1 pb-3">
-    <i class="fas fa-list"></i> On this page
-</div>
 
 <nav id="bd-toc-nav">
-    <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#results">
-   Results
-  </a>
- </li>
-</ul>
-
+    
 </nav>
     </div>
     
@@ -254,7 +244,7 @@
       
 
 <div class="tocsection editthispage">
-    <a href="https://github.com/https://github.com/ameli/imate/edit/main/docs/source/performance/scalability.rst">
+    <a href="https://github.com/https://github.com/ameli/imate/edit/main/docs/source/performance/performance.rst">
         <i class="fas fa-pencil-alt"></i> Edit this page
     </a>
 </div>
@@ -271,17 +261,30 @@
               
               <article class="bd-article" role="main">
                 
-  <section id="scalability-and-processing-large-matrices">
-<span id="perf-scalability"></span><h1>Scalability and Processing Large Matrices<a class="headerlink" href="#scalability-and-processing-large-matrices" title="Permalink to this heading">#</a></h1>
-<section id="results">
-<h2>Results<a class="headerlink" href="#results" title="Permalink to this heading">#</a></h2>
-<a class="custom-dark reference internal image-reference" href="../_images/compare_methods_analytic_matrix_logdet_time.png"><img alt="../_images/compare_methods_analytic_matrix_logdet_time.png" class="custom-dark align-center" src="../_images/compare_methods_analytic_matrix_logdet_time.png" style="height: 375px;" /></a>
-<a class="custom-dark reference internal image-reference" href="../_images/compare_methods_analytic_matrix_logdet_accuracy.png"><img alt="../_images/compare_methods_analytic_matrix_logdet_accuracy.png" class="custom-dark align-center" src="../_images/compare_methods_analytic_matrix_logdet_accuracy.png" style="height: 375px;" /></a>
-<img alt="../_images/compare_methods_analytic_matrix_traceinv_time.png" class="custom-dark align-center" src="../_images/compare_methods_analytic_matrix_traceinv_time.png" />
-<a class="custom-dark reference internal image-reference" href="../_images/compare_methods_analytic_matrix_traceinv_accuracy.png"><img alt="../_images/compare_methods_analytic_matrix_traceinv_accuracy.png" class="custom-dark align-center" src="../_images/compare_methods_analytic_matrix_traceinv_accuracy.png" style="height: 375px;" /></a>
-<img alt="../_images/compare_methods_practical_matrix_logdet_time.png" class="custom-dark align-center" src="../_images/compare_methods_practical_matrix_logdet_time.png" />
-<a class="custom-dark reference internal image-reference" href="../_images/compare_methods_practical_matrix_logdet_accuracy.png"><img alt="../_images/compare_methods_practical_matrix_logdet_accuracy.png" class="custom-dark align-center" src="../_images/compare_methods_practical_matrix_logdet_accuracy.png" style="height: 375px;" /></a>
-</section>
+  <section id="performance">
+<span id="id1"></span><h1>Performance<a class="headerlink" href="#performance" title="Permalink to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gpu.html">Performance on GPU Farm</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gpu.html#test-description">Test Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpu.html#results">Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpu.html#how-to-reproduce-results">How to Reproduce Results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="scalability.html">Performance on CPU</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="scalability.html#results">Results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="openblas.html">Comparison With and Without OpenBLAS</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="openblas.html#test-description">Test Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openblas.html#results-for-dense-matrices">Results for Dense Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openblas.html#results-for-sparse-matrices">Results for Sparse Matrices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openblas.html#how-to-reproduce-results">How to Reproduce Results</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="interpolation.html">Interpolation of Affine Matrix Functions</a></li>
+</ul>
+</div>
 </section>
 
 
