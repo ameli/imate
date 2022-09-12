@@ -1,7 +1,7 @@
 .. module:: imate
 
 |project| Documentation
-****************************
+***********************
 
 |deploy-docs|
 
@@ -189,13 +189,14 @@ Read about the performance of |project| in practical applications:
 
 .. toctree::
     :maxdepth: 1
-    :numbered:
     :hidden:
 
-    Performance on GPU Farm <performance/gpu>
-    Performance on CPU <performance/scalability>
-    Comparison With and Without OpenBLAS <performance/openblas>
-    Interpolation of Affine Matrix Functions <performance/interpolation>
+    performance <performance/performance>
+
+.. Performance on GPU Farm <performance/gpu>
+.. Performance on CPU <performance/scalability>
+.. Comparison With and Without OpenBLAS <performance/openblas>
+.. Interpolation of Affine Matrix Functions <performance/interpolation>
 
 
 .. grid:: 2
