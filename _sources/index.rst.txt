@@ -213,8 +213,8 @@ Read about the performance of |project| in practical applications:
            :height: 200px
            :class: custom-dark
 
-   .. grid-item-card:: :ref:`Performance on CPU <perf-scalability>`
-        :link: perf-scalability
+   .. grid-item-card:: :ref:`Comparison of Randomized Algorithms <perf-algorithms>`
+        :link: perf-algorithms
         :link-type: ref
         :text-align: center
         :class-card: custom-card-link-2

@@ -7,6 +7,6 @@ Performance
     :maxdepth: 2
 
     Performance on GPU Farm <gpu>
-    Performance on CPU <scalability>
+    Comparison of Randomized Algorithms <algorithms>
     Comparison With and Without OpenBLAS <openblas>
     Interpolation of Affine Matrix Functions <interpolation>

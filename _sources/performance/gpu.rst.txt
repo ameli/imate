@@ -91,11 +91,8 @@ The benchmark test also examines the performance and accuracy of |project| on va
 
     NVIDIA CUDA libraries do not support 128-data types.
 
-Results
-=======
-
 Scalability with Data Size
---------------------------
+==========================
 
 The figure below shows the scalability by the relation between the elapsed (wall) time versus the data size.
 
@@ -141,12 +138,12 @@ The exponent :math:`\alpha` for each experiment at :math:`\mathrm{nnz}(\mathbf{A
 Also, the figure implies that processing 32-bit data is at roughly twice faster than 64-bit data on both CPU and GPU, and processing 64-bit data is roughly twice faster than 128-bit on CPU.
 
 Extreme Array Sizes
-...................
+-------------------
 
 The above results indicate |project| is highly scalable on both CPU and GPU on massive data. However, there are a number of factors that can limit the data size. For instance, the hardware memory limit is one such factor. Another limiting factor is the maximum array length in bits to store the content of a sparse matrix. Interestingly, this factor is not a hardware limitation, rather, is related to the maximum integer (often 32-bit ``int`` type) to index the array (in bits) on the memory. The 128-bit format of |Queen_4147|_ matrix is indeed close to such a limit. The above results show that |project| is scalable to large scales before reaching such an array size limit.
 
 Beyond Extreme Array Sizes
-..........................
+--------------------------
 
 |project| can be configured to handle even larger data (if one can indeed store such an array of data). To do so, increase the integer space for matrix indices by changing ``UNSIGNED_LONG_INT=1`` in |def-use-cblas-2|_ file, or in the terminal set
 
@@ -172,7 +169,7 @@ Then, recompile |project|. See :ref:`Compile from Source <compile-source>`.
 .. _def-use-cblas-2: https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L57
 
 Floating Point Arithmetic Accuracy
-----------------------------------
+==================================
 
 The advantage of the 32-bit data type in faster processing comes with the cost of higher arithmetic errors. While such errors are negligible for small data, they can be significant for larger data sizes. To examine this, the results of 32-bit and 64-bit data were compared with the result of 128-bit as the benchmark. The figure below shows that both 32-bit and 64-bit data have less than :math:`0.1 \%` error relative to 128-bit data. However, for data size larger than :math:`10^{7}`, the error of 32-bit data reaches :math:`30 \%` relative to 128-bit data whereas the 64-bit data maintain :math:`0.1 \sim 1 \%` error. Because of this, 64-bit data is often considered for scientific computing since it balances accuracy and speed.
 
@@ -184,7 +181,7 @@ The advantage of the 32-bit data type in faster processing comes with the cost o
 Note that the results of the SLQ method, as a randomized algorithm, is not deterministic. To eliminate the stochastic outcomes as much as possible, the experiments were repeated ten times and the results were averaged. The standard deviation of the results are shown by the error bars in the figure.
 
 Scalability with Increase of GPU Devices
-----------------------------------------
+========================================
 
 Another method to examine the scalability of |project| is to observe the performance by the increase of the number of CPU threads or GPU devices as shown in the figure below.
 

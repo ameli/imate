@@ -203,8 +203,8 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="scalability.html">
-   Performance on CPU
+  <a class="reference internal" href="algorithms.html">
+   Comparison of Randomized Algorithms
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -253,23 +253,6 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#benchmark-matrices">
-     Benchmark Matrices
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#dense-matrices">
-       Dense Matrices
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#sparse-matrices">
-       Sparse Matrices
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#arithmetic-types">
      Arithmetic Types
     </a>
@@ -277,14 +260,52 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#results-for-dense-matrices">
-   Results for Dense Matrices
+  <a class="reference internal nav-link" href="#test-on-dense-matrices">
+   Test on Dense Matrices
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#process-time">
+     Process Time
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#floating-point-arithmetic-accuracy">
+     Floating Point Arithmetic Accuracy
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#results-for-sparse-matrices">
-   Results for Sparse Matrices
+  <a class="reference internal nav-link" href="#test-on-sparse-matrices">
+   Test on Sparse Matrices
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Floating Point Arithmetic Accuracy
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#why-project-has-better-arithmetic-accuracy">
+     Why
+     <span class="synco">
+      imate
+     </span>
+     Has Better Arithmetic Accuracy?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#elapsed-time">
+     Elapsed Time
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#scalability-with-cpu-cores">
+     Scalability with CPU Cores
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#how-to-reproduce-results">
@@ -292,13 +313,23 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#run-locally">
-     Run locally
+    <a class="reference internal nav-link" href="#dense-matrices-run-locally">
+     Dense Matrices, Run Locally
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#submit-job-to-cluster-with-slurm">
-     Submit Job to Cluster with SLURM
+    <a class="reference internal nav-link" href="#dense-matrices-submit-to-cluster-with-slurm">
+     Dense Matrices, Submit to Cluster with SLURM
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sparse-matrices-run-locally">
+     Sparse Matrices, Run Locally
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sparse-matrices-submit-to-cluster-with-slurm">
+     Sparse Matrices, Submit to Cluster with SLURM
     </a>
    </li>
   </ul>
@@ -331,15 +362,15 @@
                 
   <section id="comparison-of-performance-with-and-without-openblas">
 <span id="perf-openblas"></span><h1>Comparison of Performance with and without OpenBLAS<a class="headerlink" href="#comparison-of-performance-with-and-without-openblas" title="Permalink to this heading">#</a></h1>
-<p>Almost all computational software are built upon existing numerical libraries for basic linear algebraic subprograms, such as <a class="reference external" href="https://netlib.org/blas/">BLAS</a>, <a class="reference external" href="https://www.openblas.net">OpenBLAS</a>, <a class="reference external" href="https://developer.nvidia.com/cublas">NVIDIA® cuBLAS</a>, <a class="reference external" href="https://docs.nvidia.com/cuda/cusparse/index.html">NVIDIA® cuSparse</a>, and <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl.html#gs.bafzhk">Intel® Math Kernel Library</a>, to name a few. <span class="synco">imate</span> uses cuBLAS and cuSparse for basic vector and matrix operations on GPU devices. However, for computation on CPU, <span class="synco">imate</span> comes with its comes with <a class="reference external" href="../doxygen/html/annotated.html">its own library</a> for basic numerical operations for vector and matrix operations, which supports both dense and sparse matrices. Despite this, <span class="synco">imate</span> can also be compiled with <a class="reference external" href="https://www.openblas.net/">OpenBLAS</a> instead of its own library.</p>
+<p>Almost all computational software are built upon existing numerical libraries for basic linear algebraic subprograms, such as <a class="reference external" href="https://netlib.org/blas/">BLAS</a>, <a class="reference external" href="https://www.openblas.net">OpenBLAS</a>, <a class="reference external" href="https://developer.nvidia.com/cublas">NVIDIA® cuBLAS</a>, <a class="reference external" href="https://docs.nvidia.com/cuda/cusparse/index.html">NVIDIA® cuSparse</a>, and <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl.html#gs.bafzhk">Intel® Math Kernel Library</a>, to name a few. <span class="synco">imate</span> uses cuBLAS and cuSparse for basic vector and matrix operations on GPU devices. However, for computation on CPU, <span class="synco">imate</span> uses its comes with <a class="reference external" href="../doxygen/html/annotated.html">its own library</a> for basic numerical operations for vector and matrix operations, which supports both dense and sparse matrices. Despite this, <span class="synco">imate</span> can also be compiled with <a class="reference external" href="https://www.openblas.net/">OpenBLAS</a> instead of its own library.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>OpenBLAS library has three levels of functionalities: level one, two, and three, for vector-vector, matrix-vector, and matrix-matrix operations, respectively. OpenBLAS, however, only supports operations on dense matrices. As such, when <span class="synco">imate</span> is compiled with OpenBLAS, it only uses level one functionalities of OpenBLAS for sparse data. For level two and three operations, <span class="synco">imate</span> uses its own library.</p>
+<p>OpenBLAS library has three levels of functionalities: levels one, two, and three, respectively for vector-vector, matrix-vector, and matrix-matrix operations. OpenBLAS, however, only supports operations on dense matrices. As such, when <span class="synco">imate</span> is compiled with OpenBLAS, it only uses level one functionalities of OpenBLAS for sparse data. For level two and three operations, <span class="synco">imate</span> uses its own library.</p>
 </div>
 <p>The following numerical experiment compares the performance and accuracy of <span class="synco">imate</span> with and without using OpenBLAS.</p>
 <section id="test-description">
 <h2>Test Description<a class="headerlink" href="#test-description" title="Permalink to this heading">#</a></h2>
-<p>In this numerical experiment, the goal is to compute</p>
+<p>In the following numerical experiments, the goal is to compute</p>
 <div class="math notranslate nohighlight" id="equation-traceinv2">
 <span class="eqno">(1)<a class="headerlink" href="#equation-traceinv2" title="Permalink to this equation">#</a></span>\[\mathrm{trace}(\mathbf{A}^{-1}),\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is symmetric and positive-definite. The above quantity is a computationally expensive expression that frequently appears in the Jacobian and Hessian of likelihood functions in machine learning.</p>
@@ -350,12 +381,18 @@
 <span class="eqno">(2)<a class="headerlink" href="#equation-complexity1" title="Permalink to this equation">#</a></span>\[ \mathcal{O} \left( (\mathrm{nnz}(\mathbf{A}) l + n l^2) s \right),\]</div>
 <p>where <span class="math notranslate nohighlight">\(n\)</span> is the matrix size, <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A})\)</span> is the number of nonzero elements of the sparse matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, <span class="math notranslate nohighlight">\(l\)</span> is the number of Lanczos iterations, and <span class="math notranslate nohighlight">\(s\)</span> is the number of Monte-Carlo iterations (see details in <a class="reference internal" href="../api/imate.traceinv.slq.html#imate-traceinv-slq"><span class="std std-ref">imate.traceinv(method=’slq’)</span></a>).  The numerical experiment is performed with <span class="math notranslate nohighlight">\(l=80\)</span> and <span class="math notranslate nohighlight">\(s=200\)</span>. The computations were carried out on Intel(R) Xeon(R) CPU E5-2670 v3  with 24 threads.</p>
 </section>
-<section id="benchmark-matrices">
-<h3>Benchmark Matrices<a class="headerlink" href="#benchmark-matrices" title="Permalink to this heading">#</a></h3>
-<p>As noted in the above, OpenBLAS only supports dense matrices. However, <span class="synco">imate</span> can yet utilize level one functions of OpenBLAS for sparse matrices. In the following tests, both dense and sparse matrices were used.</p>
-<section id="dense-matrices">
-<h4>Dense Matrices<a class="headerlink" href="#dense-matrices" title="Permalink to this heading">#</a></h4>
-<p>The dense matrix <span class="math notranslate nohighlight">\(\mathbf{A} = \mathbf{B}^{\intercal} \mathbf{B}\)</span> is considered for the test where <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> is a bi-diagonal Toeplitz matrix defined by</p>
+<section id="arithmetic-types">
+<h3>Arithmetic Types<a class="headerlink" href="#arithmetic-types" title="Permalink to this heading">#</a></h3>
+<p>The benchmark test also examines the performance and accuracy of <span class="synco">imate</span> on various arithmetic types of the matrix data. To this end, the matrices that are described below are re-cast into 32-bit, 64-bit, and 128-bit floating point types.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Supporting 128-bit data types is one of the features if <span class="synco">imate</span>, which is often not available in numerical libraries, such as OpenBLAS.</p>
+</div>
+</section>
+</section>
+<section id="test-on-dense-matrices">
+<h2>Test on Dense Matrices<a class="headerlink" href="#test-on-dense-matrices" title="Permalink to this heading">#</a></h2>
+<p>The Gramian matrix <span class="math notranslate nohighlight">\(\mathbf{A} = \mathbf{B}^{\intercal} \mathbf{B}\)</span> is considered for the test where <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> is a bi-diagonal Toeplitz matrix defined by</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}B_{ij} =
 \begin{cases}
@@ -364,12 +401,24 @@
 \end{cases}\end{split}\]</div>
 <p>The above matrix can be generated by <a class="reference internal" href="../generated/imate.toeplitz.html#imate.toeplitz" title="imate.toeplitz"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.toeplitz()</span></code></a> function. In this experiment, <span class="math notranslate nohighlight">\(a = 2\)</span>, <span class="math notranslate nohighlight">\(b = 1\)</span>, and the matrix size is varied by powers of two, <span class="math notranslate nohighlight">\(n = 2^8, 2^9, \dots, 2^{14}\)</span>.</p>
 <p>An advantage of using the above matrix is that an analytic formula for <a class="reference internal" href="#equation-traceinv2">(1)</a> for <span class="math notranslate nohighlight">\(n \gg 1\)</span> is known by</p>
-<div class="math notranslate nohighlight">
-\[\mathrm{trace}(\mathbf{A}^{-1}) \approx \frac{1}{a^2 - b^2} \left( n - \frac{q^{2}}{1 - q^2} \right),\]</div>
+<div class="math notranslate nohighlight" id="equation-analytic-formula">
+<span class="eqno">(3)<a class="headerlink" href="#equation-analytic-formula" title="Permalink to this equation">#</a></span>\[ \mathrm{trace}(\mathbf{A}^{-1}) \approx \frac{1}{a^2 - b^2} \left( n - \frac{q^{2}}{1 - q^2} \right),\]</div>
 <p>where <span class="math notranslate nohighlight">\(q = b/a\)</span>. See <a class="reference internal" href="../generated/imate.sample_matrices.toeplitz_traceinv.html#imate.sample_matrices.toeplitz_traceinv" title="imate.sample_matrices.toeplitz_traceinv"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.sample_matrices.toeplitz_traceinv()</span></code></a> for details. The above analytic formula is used as the benchmark solution to test the accuracy of the results.</p>
+<section id="process-time">
+<h3>Process Time<a class="headerlink" href="#process-time" title="Permalink to this heading">#</a></h3>
+<p>The processing time of the computations is shown in the figure below. The speed of computation with and without using OpenBLAS for <span class="math notranslate nohighlight">\(n &lt; 10^{12}\)</span> shows mixed results. However, at <span class="math notranslate nohighlight">\(n \geq 2^{12}\)</span>, the speed of computation without using OpenBLAS is consistently superior by a factor of roughly 1.5 to 2.5.</p>
+<img alt="../_images/benchmark_openblas_dense_time.png" class="custom-dark align-center" src="../_images/benchmark_openblas_dense_time.png" />
 </section>
-<section id="sparse-matrices">
-<h4>Sparse Matrices<a class="headerlink" href="#sparse-matrices" title="Permalink to this heading">#</a></h4>
+<section id="floating-point-arithmetic-accuracy">
+<h3>Floating Point Arithmetic Accuracy<a class="headerlink" href="#floating-point-arithmetic-accuracy" title="Permalink to this heading">#</a></h3>
+<p>The accuracy of floating point arithmetic is compared with and without using OpenBLAS in the next figure. The error is obtained by comparing the results with <a class="reference internal" href="#equation-analytic-formula">(3)</a> as the benchmark. The figure implies that the results of both 32-bit and 64-bit data types with and without openBLAS are almost insignificant.</p>
+<img alt="../_images/benchmark_openblas_dense_accuracy.png" class="custom-dark align-center" src="../_images/benchmark_openblas_dense_accuracy.png" />
+<p>Recall that the SLQ method is a randomized algorithm, hence, the results are not deterministic. To diminish the effect of the randomness of the algorithm, the numerical experiment is repeated ten times. The standard deviation of the results is shown by the error bars in the figure. However, the values of the plot itself are not the average of the results, rather, only the result of one of the repeats is shown in order to demonstrate the error after 200 Monte-Carlo iterations (and not 10 times 200 iterations).</p>
+</section>
+</section>
+<section id="test-on-sparse-matrices">
+<h2>Test on Sparse Matrices<a class="headerlink" href="#test-on-sparse-matrices" title="Permalink to this heading">#</a></h2>
+<p>As noted above, OpenBLAS only supports dense matrices. However, <span class="synco">imate</span> can yet utilize level one functions of OpenBLAS for sparse matrices. The following examines the performance on sparse matrices.</p>
 <p>The table below shows the sparse matrices used in the test, which are chosen from <a class="reference external" href="https://sparse.tamu.edu">SuiteSparse Matrix Collection</a> and are obtained from real applications. The matrices in the table below are all symmetric positive-definite. The number of nonzero elements (nnz) of these matrices increases approximately by a factor of 5 on average and their sparse density remains at the same order of magnitude (except for the first three).</p>
 <table class="right2 right3 table">
 <thead>
@@ -431,37 +480,58 @@
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="arithmetic-types">
-<h3>Arithmetic Types<a class="headerlink" href="#arithmetic-types" title="Permalink to this heading">#</a></h3>
-<p>The benchmark test also examines the performance and accuracy of <span class="synco">imate</span> on various arithmetic types of the matrix data. To this end, each of the above matrices was re-cast into 32-bit, 64-bit, and 128-bit floating point types.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Supporting 128-bit data types is one of the features if <span class="synco">imate</span>, which is often not available in numerical libraries, such as OpenBLAS.</p>
-</div>
-</section>
-</section>
-<section id="results-for-dense-matrices">
-<h2>Results for Dense Matrices<a class="headerlink" href="#results-for-dense-matrices" title="Permalink to this heading">#</a></h2>
-<p>The CPU processing time of the computations are shown in the figure below. The speed of computation with and without using OpenBLAS for <span class="math notranslate nohighlight">\(n &lt; 10^{12}\)</span> shows mixed results. However, at <span class="math notranslate nohighlight">\(n \geq 2^{12}\)</span>, the speed of computation without using OpenBLAS is consistently superior by the factor of roughly 1.5 to 2.5.</p>
-<img alt="../_images/benchmark_openblas_dense_time.png" class="custom-dark align-center" src="../_images/benchmark_openblas_dense_time.png" />
-<p>The accuracy of floating point arithmetic is compared with and without using OpenBLAS in the next figure. The error is obtained by comparing the results with the computation on 128-bit data type without using OpenBLAS as the benchmark. The figure implies that the results of both 32-bit and 64-bit data types with and without openBLAS are almost insignificant.</p>
-<img alt="../_images/benchmark_openblas_dense_accuracy.png" class="custom-dark align-center" src="../_images/benchmark_openblas_dense_accuracy.png" />
-<p>Recall that the SLQ method is a randomized algorithm, hence, the results are not deterministic. To eliminate the randomness of the outcomes, the numerical experiment is repeated ten times. The standard deviation of the results are shown by the error bars in the figure. However, the values of plot itself is not the average of the results, rather, is the value of the last repeat of the experiment in order to demonstrate the error after 200 Monte-Carlo iterations (and not 10 times 200 iterations).</p>
-</section>
-<section id="results-for-sparse-matrices">
-<h2>Results for Sparse Matrices<a class="headerlink" href="#results-for-sparse-matrices" title="Permalink to this heading">#</a></h2>
-<a class="custom-dark reference internal image-reference" href="../_images/benchmark_openblas_sparse_cores.png"><img alt="../_images/benchmark_openblas_sparse_cores.png" class="custom-dark align-center" src="../_images/benchmark_openblas_sparse_cores.png" style="height: 375px;" /></a>
+<section id="id2">
+<h3>Floating Point Arithmetic Accuracy<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>The accuracy of floating point arithmetic is compared with and without using OpenBLAS in the next figure. The error is obtained by comparing the results with the computation on 128-bit data type without using OpenBLAS as the benchmark. The figure implies that the results of both 32-bit and 64-bit data types with and without openBLAS are almost insignificant at <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A}) &lt; 10^7\)</span> or for 32-bit data types. In contrast, for larger matrices and 64-bit data type, the <span class="synco">imate</span> library without OpenBLAS significantly produces less arithmetic error compared with OpenBLAS.</p>
 <a class="custom-dark reference internal image-reference" href="../_images/benchmark_openblas_sparse_accuracy.png"><img alt="../_images/benchmark_openblas_sparse_accuracy.png" class="custom-dark align-center" src="../_images/benchmark_openblas_sparse_accuracy.png" style="height: 375px;" /></a>
+</section>
+<section id="why-project-has-better-arithmetic-accuracy">
+<h3>Why <span class="synco">imate</span> Has Better Arithmetic Accuracy?<a class="headerlink" href="#why-project-has-better-arithmetic-accuracy" title="Permalink to this heading">#</a></h3>
+<aside class="custom-sidebar sidebar">
+<p class="sidebar-title">Types in Reduction Operation</p>
+<table class="custom-table table">
+<thead>
+<tr class="row-odd"><th class="head" rowspan="2"><p><span class="math notranslate nohighlight">\(a, b\)</span></p></th>
+<th class="head" colspan="2"><p class="centered">
+<strong><span class="math notranslate nohighlight">\(c\)</span></strong></p></th>
+</tr>
+<tr class="row-even"><th class="head"><p>BLAS</p></th>
+<th class="head"><p><span class="synco">imate</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-odd"><td><p>32-bit</p></td>
+<td><p>32-bit</p></td>
+<td><p>128-bit</p></td>
+</tr>
+<tr class="row-even"><td><p>64-bit</p></td>
+<td><p>64-bit</p></td>
+<td><p>128-bit</p></td>
+</tr>
+<tr class="row-odd"><td><p>128-bit</p></td>
+<td><p>N/A</p></td>
+<td><p>128-bit</p></td>
+</tr>
+</tbody>
+</table>
+</aside>
+<p>The difference in arithmetic error between OpenBLAS and <span class="synco">imate</span> is surprisingly simple and is related to how the <em>sum-reduction</em> operation <span class="math notranslate nohighlight">\(c \gets \sum_{i=1}^n a_i b_i\)</span> is implemented. In OpenBLAS (and several other BLAS-type libraries), the type of the summation variable <span class="math notranslate nohighlight">\(c\)</span> is the same as the type of input variables <span class="math notranslate nohighlight">\(a_i\)</span> and <span class="math notranslate nohighlight">\(b_i\)</span>. In contrast, in <span class="synco">imate</span>, the type of <span class="math notranslate nohighlight">\(c\)</span> is always 128-bit (see table below), and once the sum-reduction operation is done, <span class="math notranslate nohighlight">\(c\)</span> is cast down to the type of <span class="math notranslate nohighlight">\(a_i\)</span> and <span class="math notranslate nohighlight">\(b_i\)</span>.</p>
+<p>When <span class="math notranslate nohighlight">\(a_i\)</span> and <span class="math notranslate nohighlight">\(b_i\)</span> is 32-bit, the effect of the above resolution is negligible compared to large arithmetic errors of 32-bit type. However, for 64-bit data, which has smaller arithmetic errors, the effect of the above resolution is noticeable as shown by the above figure.</p>
+</section>
+<section id="elapsed-time">
+<h3>Elapsed Time<a class="headerlink" href="#elapsed-time" title="Permalink to this heading">#</a></h3>
+<p>The figure below shows the elapsed (wall) time of the computation. For small matrices, <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A}) &lt; 10^{5}\)</span>, the results with and without OpenBLAS are comparable. However, for larger matrices, there is a significant difference between the two experiments where OpenBLAS is consistently slower than the built-in <span class="synco">imate</span> library by a factor of at least two.</p>
 <img alt="../_images/benchmark_openblas_sparse_time.png" class="custom-dark align-center" src="../_images/benchmark_openblas_sparse_time.png" />
+</section>
+<section id="scalability-with-cpu-cores">
+<h3>Scalability with CPU Cores<a class="headerlink" href="#scalability-with-cpu-cores" title="Permalink to this heading">#</a></h3>
+<p>The scalability of computation is shown in the figure below by the elapsed time versus the number of CPU cores. OpenBLAS is less scalable as the curves in the figure saturate (depart from the linear behavior) more quickly compared to no OpenBLAS.</p>
+<a class="custom-dark reference internal image-reference" href="../_images/benchmark_openblas_sparse_cores.png"><img alt="../_images/benchmark_openblas_sparse_cores.png" class="custom-dark align-center" src="../_images/benchmark_openblas_sparse_cores.png" style="height: 375px;" /></a>
+</section>
 </section>
 <section id="how-to-reproduce-results">
 <h2>How to Reproduce Results<a class="headerlink" href="#how-to-reproduce-results" title="Permalink to this heading">#</a></h2>
-<ul class="simple">
-<li><p>To reproduce results of the dense matrices, use <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/benchmark_openblas_dense.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/benchmark_openblas_dense.py</span></code></a> script.</p></li>
-<li><p>To reproduce results of the sparse  matrices, use <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/benchmark_speed.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/benchmark_speed.py</span></code></a> script.</p></li>
-</ul>
+<p>Run each of the scripts described below with and without using OpenBLAS support in <span class="synco">imate</span> to compare their performance. The default installation of <span class="synco">imate</span> (if you installed it with <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">cond</span></code>) does not come with OpenBLAS support. To use OpenBLAS, <span class="synco">imate</span> has to be compiled from the source.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>To compile <span class="synco">imate</span> using OpenBLAS, export the environment variable:</p>
@@ -472,36 +542,39 @@ span.prompt1:before {
 </style><span class="prompt1"><span class="nb">export</span> <span class="nv">USE_CBLAS</span><span class="o">=</span><span class="m">1</span></span>
 </pre></div></div><p>or set <code class="docutils literal notranslate"><span class="pre">USE_CBLAS=1</span></code> in <a class="reference external" href="https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L67"><code class="docutils literal notranslate"><span class="pre">/imate/_definitions/definition.h</span></code></a>. By default, <code class="docutils literal notranslate"><span class="pre">USE_CBLAS</span></code> is set to <code class="docutils literal notranslate"><span class="pre">0</span></code>. Then, recompile <span class="synco">imate</span>. See <a class="reference internal" href="../tutorials/install.html#compile-source"><span class="std std-ref">Compile from Source</span></a>.</p>
 </div>
-<section id="run-locally">
-<h3>Run locally<a class="headerlink" href="#run-locally" title="Permalink to this heading">#</a></h3>
+<section id="dense-matrices-run-locally">
+<h3>Dense Matrices, Run Locally<a class="headerlink" href="#dense-matrices-run-locally" title="Permalink to this heading">#</a></h3>
+<p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/benchmark_openblas_dense.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/benchmark_openblas_dense.py</span></code></a> as follows:</p>
 <ol class="arabic">
-<li><p>To reproduce the results for dense matrices <em>without OpenBLAS</em>:</p>
+<li><p>To reproduce the results <em>without OpenBLAS</em>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
 <span class="prompt1">python ./benchmark_openblas_dense.py -o False</span>
 </pre></div></div></li>
-<li><p>To reproduce the results for dense matrices <em>with OpenBLAS</em>, first compile <span class="synco">imate</span> with OpenBLAS (see above), then run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
-<span class="prompt1">python ./benchmark_openblas_dense.py -o True</span>
-</pre></div></div></li>
-<li><p>To reproduce the results for sparse matrices either with or without OpenBLAS, first compile <span class="synco">imate</span> run:</p>
+<li><p>To reproduce the results <em>with OpenBLAS</em>, first, compile <span class="synco">imate</span> with OpenBLAS (see above), then run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
 <span class="prompt1">python ./benchmark_openblas_dense.py -o True</span>
 </pre></div></div></li>
 </ol>
 </section>
-<section id="submit-job-to-cluster-with-slurm">
-<h3>Submit Job to Cluster with SLURM<a class="headerlink" href="#submit-job-to-cluster-with-slurm" title="Permalink to this heading">#</a></h3>
-<ul>
-<li><p>The SLURM job file for the test on <em>dense matrices</em> is available at <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_openblas_dense.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_openblas_dense.sh</span></code></a>. Submit the job by</p>
+<section id="dense-matrices-submit-to-cluster-with-slurm">
+<h3>Dense Matrices, Submit to Cluster with SLURM<a class="headerlink" href="#dense-matrices-submit-to-cluster-with-slurm" title="Permalink to this heading">#</a></h3>
+<p>Submit the job file <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_openblas_dense.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_openblas_dense.sh</span></code></a> by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
 <span class="prompt1">sbatch jobfile_benchmark_openblas_dense.sh</span>
-</pre></div></div></li>
-<li><p>The SLURM job file for the test on <em>sparse matrices</em> is available at <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh</span></code></a>. Submit the job by</p>
+</pre></div></div><p>To use with or without OpenBLAS, modify the above job files (uncomment lines the corresponding).</p>
+</section>
+<section id="sparse-matrices-run-locally">
+<h3>Sparse Matrices, Run Locally<a class="headerlink" href="#sparse-matrices-run-locally" title="Permalink to this heading">#</a></h3>
+<p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/benchmark_speed.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/benchmark_speed.py</span></code></a> script as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
+<span class="prompt1">python ./benchmark_speed.py -c</span>
+</pre></div></div></section>
+<section id="sparse-matrices-submit-to-cluster-with-slurm">
+<h3>Sparse Matrices, Submit to Cluster with SLURM<a class="headerlink" href="#sparse-matrices-submit-to-cluster-with-slurm" title="Permalink to this heading">#</a></h3>
+<p>Submit the job file <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh</span></code></a> by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
 <span class="prompt1">sbatch jobfile_benchmark_speed_cpu.sh</span>
-</pre></div></div></li>
-</ul>
-</section>
+</pre></div></div></section>
 </section>
 </section>
 

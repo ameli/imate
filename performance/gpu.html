@@ -203,8 +203,8 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="scalability.html">
-   Performance on CPU
+  <a class="reference internal" href="algorithms.html">
+   Comparison of Randomized Algorithms
   </a>
  </li>
  <li class="toctree-l1">
@@ -270,38 +270,31 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#results">
-   Results
+  <a class="reference internal nav-link" href="#scalability-with-data-size">
+   Scalability with Data Size
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#scalability-with-data-size">
-     Scalability with Data Size
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#extreme-array-sizes">
-       Extreme Array Sizes
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#beyond-extreme-array-sizes">
-       Beyond Extreme Array Sizes
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#floating-point-arithmetic-accuracy">
-     Floating Point Arithmetic Accuracy
+    <a class="reference internal nav-link" href="#extreme-array-sizes">
+     Extreme Array Sizes
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#scalability-with-increase-of-gpu-devices">
-     Scalability with Increase of GPU Devices
+    <a class="reference internal nav-link" href="#beyond-extreme-array-sizes">
+     Beyond Extreme Array Sizes
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#floating-point-arithmetic-accuracy">
+   Floating Point Arithmetic Accuracy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scalability-with-increase-of-gpu-devices">
+   Scalability with Increase of GPU Devices
+  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#how-to-reproduce-results">
@@ -451,10 +444,8 @@
 </div>
 </section>
 </section>
-<section id="results">
-<h2>Results<a class="headerlink" href="#results" title="Permalink to this heading">#</a></h2>
 <section id="scalability-with-data-size">
-<h3>Scalability with Data Size<a class="headerlink" href="#scalability-with-data-size" title="Permalink to this heading">#</a></h3>
+<h2>Scalability with Data Size<a class="headerlink" href="#scalability-with-data-size" title="Permalink to this heading">#</a></h2>
 <p>The figure below shows the scalability by the relation between the elapsed (wall) time versus the data size.</p>
 <p>Here, the data size is measured by the matrix nnz rather than the matrix size. However, the matrix size is indicated by the hollow circle marks in the figure.</p>
 <ul class="simple">
@@ -502,11 +493,11 @@
 <p>The exponent <span class="math notranslate nohighlight">\(\alpha\)</span> for each experiment at <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A}) &gt; 10^{8}\)</span> asymptotically approaches to the values shown in the table below. It can be seen that <span class="math notranslate nohighlight">\(\alpha \approx 1\)</span>, which is the theoretical complexity in <a class="reference internal" href="openblas.html#equation-complexity1">(2)</a>.</p>
 <p>Also, the figure implies that processing 32-bit data is at roughly twice faster than 64-bit data on both CPU and GPU, and processing 64-bit data is roughly twice faster than 128-bit on CPU.</p>
 <section id="extreme-array-sizes">
-<h4>Extreme Array Sizes<a class="headerlink" href="#extreme-array-sizes" title="Permalink to this heading">#</a></h4>
+<h3>Extreme Array Sizes<a class="headerlink" href="#extreme-array-sizes" title="Permalink to this heading">#</a></h3>
 <p>The above results indicate <span class="synco">imate</span> is highly scalable on both CPU and GPU on massive data. However, there are a number of factors that can limit the data size. For instance, the hardware memory limit is one such factor. Another limiting factor is the maximum array length in bits to store the content of a sparse matrix. Interestingly, this factor is not a hardware limitation, rather, is related to the maximum integer (often 32-bit <code class="docutils literal notranslate"><span class="pre">int</span></code> type) to index the array (in bits) on the memory. The 128-bit format of <a class="reference external" href="https://sparse.tamu.edu/Janna/Queen_4147"><code class="docutils literal notranslate"><span class="pre">Queen_4147</span></code></a> matrix is indeed close to such a limit. The above results show that <span class="synco">imate</span> is scalable to large scales before reaching such an array size limit.</p>
 </section>
 <section id="beyond-extreme-array-sizes">
-<h4>Beyond Extreme Array Sizes<a class="headerlink" href="#beyond-extreme-array-sizes" title="Permalink to this heading">#</a></h4>
+<h3>Beyond Extreme Array Sizes<a class="headerlink" href="#beyond-extreme-array-sizes" title="Permalink to this heading">#</a></h3>
 <p><span class="synco">imate</span> can be configured to handle even larger data (if one can indeed store such an array of data). To do so, increase the integer space for matrix indices by changing <code class="docutils literal notranslate"><span class="pre">UNSIGNED_LONG_INT=1</span></code> in <a class="reference external" href="https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L57"><code class="docutils literal notranslate"><span class="pre">/imate/imate/_definitions/definition.h</span></code></a> file, or in the terminal set</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
@@ -532,13 +523,13 @@ span.prompt2:before {
 </section>
 </section>
 <section id="floating-point-arithmetic-accuracy">
-<h3>Floating Point Arithmetic Accuracy<a class="headerlink" href="#floating-point-arithmetic-accuracy" title="Permalink to this heading">#</a></h3>
+<h2>Floating Point Arithmetic Accuracy<a class="headerlink" href="#floating-point-arithmetic-accuracy" title="Permalink to this heading">#</a></h2>
 <p>The advantage of the 32-bit data type in faster processing comes with the cost of higher arithmetic errors. While such errors are negligible for small data, they can be significant for larger data sizes. To examine this, the results of 32-bit and 64-bit data were compared with the result of 128-bit as the benchmark. The figure below shows that both 32-bit and 64-bit data have less than <span class="math notranslate nohighlight">\(0.1 \%\)</span> error relative to 128-bit data. However, for data size larger than <span class="math notranslate nohighlight">\(10^{7}\)</span>, the error of 32-bit data reaches <span class="math notranslate nohighlight">\(30 \%\)</span> relative to 128-bit data whereas the 64-bit data maintain <span class="math notranslate nohighlight">\(0.1 \sim 1 \%\)</span> error. Because of this, 64-bit data is often considered for scientific computing since it balances accuracy and speed.</p>
 <a class="custom-dark reference internal image-reference" href="../_images/benchmark_speed_accuracy.png"><img alt="../_images/benchmark_speed_accuracy.png" class="custom-dark align-center" src="../_images/benchmark_speed_accuracy.png" style="height: 375px;" /></a>
 <p>Note that the results of the SLQ method, as a randomized algorithm, is not deterministic. To eliminate the stochastic outcomes as much as possible, the experiments were repeated ten times and the results were averaged. The standard deviation of the results are shown by the error bars in the figure.</p>
 </section>
 <section id="scalability-with-increase-of-gpu-devices">
-<h3>Scalability with Increase of GPU Devices<a class="headerlink" href="#scalability-with-increase-of-gpu-devices" title="Permalink to this heading">#</a></h3>
+<h2>Scalability with Increase of GPU Devices<a class="headerlink" href="#scalability-with-increase-of-gpu-devices" title="Permalink to this heading">#</a></h2>
 <p>Another method to examine the scalability of <span class="synco">imate</span> is to observe the performance by the increase of the number of CPU threads or GPU devices as shown in the figure below.</p>
 <a class="custom-dark reference internal image-reference" href="../_images/benchmark_speed_cores.png"><img alt="../_images/benchmark_speed_cores.png" class="custom-dark align-center" src="../_images/benchmark_speed_cores.png" style="height: 375px;" /></a>
 <br/><aside class="custom-sidebar sidebar">
@@ -578,7 +569,6 @@ span.prompt2:before {
 <div class="math notranslate nohighlight">
 \[t \propto \frac{1}{m^{\beta}}.\]</div>
 <p>The estimated values of <span class="math notranslate nohighlight">\(\beta\)</span> from the curves in the figure are shown in the table below, which implies the GPU test achieves better scalability. Moreover, The speed (inverse of elapsed time) per CPU thread tends to <em>saturate</em> with the increase in the number of CPU threads. In contrast, the GPU results maintain the linear behavior by the increase in the number of GPU devices.</p>
-</section>
 </section>
 <section id="how-to-reproduce-results">
 <h2>How to Reproduce Results<a class="headerlink" href="#how-to-reproduce-results" title="Permalink to this heading">#</a></h2>
