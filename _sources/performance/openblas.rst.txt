@@ -159,7 +159,12 @@ Why |project| Has Better Arithmetic Accuracy?
       | 128-bit      | N/A      | 128-bit      |
       +--------------+----------+--------------+
 
-The difference in arithmetic error between OpenBLAS and |project| is surprisingly simple and is related to how the *sum-reduction* operation :math:`c \gets \sum_{i=1}^n a_i b_i` is implemented. In OpenBLAS (and several other BLAS-type libraries), the type of the summation variable :math:`c` is the same as the type of input variables :math:`a_i` and :math:`b_i`. In contrast, in |project|, the type of :math:`c` is always 128-bit (see table below), and once the sum-reduction operation is done, :math:`c` is cast down to the type of :math:`a_i` and :math:`b_i`.
+The difference in arithmetic error between OpenBLAS and |project| is surprisingly simple and is related to how the *sum-reduction* operation
+
+.. math::
+   c \gets \sum_{i=1}^n a_i b_i,
+
+is implemented. In OpenBLAS (and several other BLAS-type libraries), the type of the summation variable :math:`c` is the same as the type of input variables :math:`a_i` and :math:`b_i`. In contrast, in |project|, the type of :math:`c` is always 128-bit (see table below), and once the sum-reduction operation is done, :math:`c` is cast down to the type of :math:`a_i` and :math:`b_i`.
 
 When :math:`a_i` and :math:`b_i` is 32-bit, the effect of the above resolution is negligible compared to large arithmetic errors of 32-bit type. However, for 64-bit data, which has smaller arithmetic errors, the effect of the above resolution is noticeable as shown by the above figure.
 
@@ -185,6 +190,29 @@ The scalability of computation is shown in the figure below by the elapsed time 
 How to Reproduce Results
 ========================
 
+Prepare Matrix Data
+-------------------
+
+1. Download all the above-mentioned sparse matrices from `SuiteSparse Matrix Collection <https://sparse.tamu.edu>`_. For instance, download ``Queen_4147.mat`` from |Queen_4147|_.
+2. Run |read_matrix_m|_ to extract sparse matrix data from ``Queen_4147.mat``:
+
+   .. code-block:: matlab
+
+        read_matrix('Queen_4147.mat');
+
+3. Run |read_matrix_py|_ to convert the outputs of the above Octave script to generate a python pickle file:
+
+   .. code-block:: python
+
+        read_matrix.py Queen_4147 float32    # to generate 32-bit data
+        read_matrix.py Queen_4147 float64    # to generate 64-bit data
+        read_matrix.py Queen_4147 float128   # to generate 128-bit data
+
+   The output of the above script will be stored in |matrices|_.
+
+Perform Numerical Test
+----------------------
+
 Run each of the scripts described below with and without using OpenBLAS support in |project| to compare their performance. The default installation of |project| (if you installed it with ``pip`` or ``cond``) does not come with OpenBLAS support. To use OpenBLAS, |project| has to be compiled from the source.
 
 .. tip::
@@ -201,7 +229,7 @@ Run each of the scripts described below with and without using OpenBLAS support 
 .. _def-use-cblas: https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L67
 
 Dense Matrices, Run Locally
----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Run |benchmark_openblas_py|_ as follows:
 
@@ -220,7 +248,7 @@ Run |benchmark_openblas_py|_ as follows:
        python ./benchmark_openblas_dense.py -o True
 
 Dense Matrices, Submit to Cluster with SLURM
---------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Submit the job file |jobfile_openblas_sh|_ by
 
@@ -232,7 +260,7 @@ Submit the job file |jobfile_openblas_sh|_ by
 To use with or without OpenBLAS, modify the above job files (uncomment lines the corresponding).
 
 Sparse Matrices, Run Locally
-----------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Run |benchmark_speed_py|_ script as follows:
 
@@ -242,7 +270,7 @@ Run |benchmark_speed_py|_ script as follows:
     python ./benchmark_speed.py -c
 
 Sparse Matrices, Submit to Cluster with SLURM
----------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Submit the job file |jobfile_speed_cpu_sh|_ by
 
@@ -250,6 +278,23 @@ Submit the job file |jobfile_speed_cpu_sh|_ by
 
     cd /imate/benchmark/jobfiles
     sbatch jobfile_benchmark_speed_cpu.sh
+    
+Plot Results
+------------
+
+* Run |notebook_openblas_dense_ipynb|_ to generate plots for the dense matrices shown in the above
+* Run |notebook_openblas_sparse_ipynb|_ to generate plots for the sparse matrices shown in the above
+
+These notebooks stores `svg` plots in |svg_plots|_.
+    
+.. |read_matrix_m| replace:: ``/imate/benchmark/matrices/read_matrix.m``
+.. _read_matrix_m: https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.m
+
+.. |read_matrix_py| replace:: ``/imate/benchmark/matrices/read_matrix.py``
+.. _read_matrix_py: https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.py
+
+.. |matrices| replace:: ``/imate/benchmark/matrices/``
+.. _matrices: https://github.com/ameli/imate/blob/main/benchmark/matrices
 
 .. |benchmark_openblas_py| replace:: ``/imate/benchmark/scripts/benchmark_openblas_dense.py``
 .. _benchmark_openblas_py: https://github.com/ameli/imate/blob/main/benchmark/scripts/benchmark_openblas_dense.py
@@ -262,3 +307,12 @@ Submit the job file |jobfile_speed_cpu_sh|_ by
 
 .. |jobfile_openblas_sh| replace:: ``/imate/benchmark/jobfiles/jobfile_benchmark_openblas_dense.sh``
 .. _jobfile_openblas_sh: https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_openblas_dense.sh
+
+.. |notebook_openblas_dense_ipynb| replace:: ``/imate/benchmark/notebooks/plot_benchmark_openblas_dense.ipynb``
+.. _notebook_openblas_dense_ipynb: https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_benchmark_openblas_dense.ipynb
+
+.. |notebook_openblas_sparse_ipynb| replace:: ``/imate/benchmark/notebooks/plot_benchmark_openblas_sparse.ipynb``
+.. _notebook_openblas_sparse_ipynb: https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_benchmark_openblas_sparse.ipynb
+
+.. |svg_plots| replace:: ``/imate/benchmark/svg_plots/``
+.. _svg_plots: https://github.com/ameli/imate/blob/main/benchmark/svg_plots

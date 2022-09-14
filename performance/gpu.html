@@ -30,6 +30,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -302,13 +303,30 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#run-locally">
-     Run Locally
+    <a class="reference internal nav-link" href="#prepare-matrix-data">
+     Prepare Matrix Data
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#submit-job-to-cluster-with-slurm">
-     Submit Job to Cluster with SLURM
+    <a class="reference internal nav-link" href="#perform-numerical-test">
+     Perform Numerical Test
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#run-locally">
+       Run Locally
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#submit-job-to-cluster-with-slurm">
+       Submit Job to Cluster with SLURM
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-results">
+     Plot Results
     </a>
    </li>
   </ul>
@@ -572,9 +590,30 @@ span.prompt2:before {
 </section>
 <section id="how-to-reproduce-results">
 <h2>How to Reproduce Results<a class="headerlink" href="#how-to-reproduce-results" title="Permalink to this heading">#</a></h2>
-<p>Script to reproduce the above results is available at <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/benchmark_speed.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/benchmark_speed.py</span></code></a>.</p>
+<section id="prepare-matrix-data">
+<h3>Prepare Matrix Data<a class="headerlink" href="#prepare-matrix-data" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Download all the above-mentioned sparse matrices from <a class="reference external" href="https://sparse.tamu.edu">SuiteSparse Matrix Collection</a>. For instance, download <code class="docutils literal notranslate"><span class="pre">Queen_4147.mat</span></code> from <a class="reference external" href="https://sparse.tamu.edu/Janna/Queen_4147"><code class="docutils literal notranslate"><span class="pre">Queen_4147</span></code></a>.</p></li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.m"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.m</span></code></a> to extract sparse matrix data from <code class="docutils literal notranslate"><span class="pre">Queen_4147.mat</span></code>:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">read_matrix</span><span class="p">(</span><span class="s">&#39;Queen_4147.mat&#39;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.py</span></code></a> to convert the outputs of the above Octave script to generate a python pickle file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float32</span>    <span class="c1"># to generate 32-bit data</span>
+<span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float64</span>    <span class="c1"># to generate 64-bit data</span>
+<span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float128</span>   <span class="c1"># to generate 128-bit data</span>
+</pre></div>
+</div>
+<p>The output of the above script will be stored in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/</span></code></a>.</p>
+</li>
+</ol>
+</section>
+<section id="perform-numerical-test">
+<h3>Perform Numerical Test<a class="headerlink" href="#perform-numerical-test" title="Permalink to this heading">#</a></h3>
+<p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/benchmark_speed.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/benchmark_speed.py</span></code></a> to read the matrices and generate results. The output of this script is written to <a class="reference external" href="https://github.com/ameli/imate/tree/main/benchmark/pickle_results"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/pickle_results</span></code></a> as a pickle file.</p>
 <section id="run-locally">
-<h3>Run Locally<a class="headerlink" href="#run-locally" title="Permalink to this heading">#</a></h3>
+<h4>Run Locally<a class="headerlink" href="#run-locally" title="Permalink to this heading">#</a></h4>
 <ul>
 <li><p>For the CPU test, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
@@ -587,17 +626,22 @@ span.prompt2:before {
 </ul>
 </section>
 <section id="submit-job-to-cluster-with-slurm">
-<h3>Submit Job to Cluster with SLURM<a class="headerlink" href="#submit-job-to-cluster-with-slurm" title="Permalink to this heading">#</a></h3>
+<h4>Submit Job to Cluster with SLURM<a class="headerlink" href="#submit-job-to-cluster-with-slurm" title="Permalink to this heading">#</a></h4>
 <ul>
-<li><p>The SLURM job file to submit the CPU test is available at <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh</span></code></a>. Submit the job by</p>
+<li><p>Submit the job file <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh</span></code></a> to perform the CPU test by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
 <span class="prompt1">sbatch jobfile_benchmark_speed_cpu.sh</span>
 </pre></div></div></li>
-<li><p>The SLURM job file to submit the GPU test is available at <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_speed_gpu.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_speed_gpu.sh</span></code></a>. Submit the job by</p>
+<li><p>Submit the job file <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_speed_gpu.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_speed_gpu.sh</span></code></a> to perform the GPU test by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
 <span class="prompt1">sbatch jobfile_benchmark_speed_gpu.sh</span>
 </pre></div></div></li>
 </ul>
+</section>
+</section>
+<section id="plot-results">
+<h3>Plot Results<a class="headerlink" href="#plot-results" title="Permalink to this heading">#</a></h3>
+<p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_benchmark_speed.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_benchmark_speed.ipynb</span></code></a> to generate plots shown in the above from the pickled results. This notebook stores <cite>svg</cite> plots in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/svg_plots"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/svg_plots/</span></code></a>.</p>
 </section>
 </section>
 </section>

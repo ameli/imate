@@ -30,6 +30,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -313,23 +314,40 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#dense-matrices-run-locally">
-     Dense Matrices, Run Locally
+    <a class="reference internal nav-link" href="#prepare-matrix-data">
+     Prepare Matrix Data
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#dense-matrices-submit-to-cluster-with-slurm">
-     Dense Matrices, Submit to Cluster with SLURM
+    <a class="reference internal nav-link" href="#perform-numerical-test">
+     Perform Numerical Test
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#dense-matrices-run-locally">
+       Dense Matrices, Run Locally
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#dense-matrices-submit-to-cluster-with-slurm">
+       Dense Matrices, Submit to Cluster with SLURM
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#sparse-matrices-run-locally">
+       Sparse Matrices, Run Locally
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#sparse-matrices-submit-to-cluster-with-slurm">
+       Sparse Matrices, Submit to Cluster with SLURM
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sparse-matrices-run-locally">
-     Sparse Matrices, Run Locally
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#sparse-matrices-submit-to-cluster-with-slurm">
-     Sparse Matrices, Submit to Cluster with SLURM
+    <a class="reference internal nav-link" href="#plot-results">
+     Plot Results
     </a>
    </li>
   </ul>
@@ -515,7 +533,10 @@
 </tbody>
 </table>
 </aside>
-<p>The difference in arithmetic error between OpenBLAS and <span class="synco">imate</span> is surprisingly simple and is related to how the <em>sum-reduction</em> operation <span class="math notranslate nohighlight">\(c \gets \sum_{i=1}^n a_i b_i\)</span> is implemented. In OpenBLAS (and several other BLAS-type libraries), the type of the summation variable <span class="math notranslate nohighlight">\(c\)</span> is the same as the type of input variables <span class="math notranslate nohighlight">\(a_i\)</span> and <span class="math notranslate nohighlight">\(b_i\)</span>. In contrast, in <span class="synco">imate</span>, the type of <span class="math notranslate nohighlight">\(c\)</span> is always 128-bit (see table below), and once the sum-reduction operation is done, <span class="math notranslate nohighlight">\(c\)</span> is cast down to the type of <span class="math notranslate nohighlight">\(a_i\)</span> and <span class="math notranslate nohighlight">\(b_i\)</span>.</p>
+<p>The difference in arithmetic error between OpenBLAS and <span class="synco">imate</span> is surprisingly simple and is related to how the <em>sum-reduction</em> operation</p>
+<div class="math notranslate nohighlight">
+\[c \gets \sum_{i=1}^n a_i b_i,\]</div>
+<p>is implemented. In OpenBLAS (and several other BLAS-type libraries), the type of the summation variable <span class="math notranslate nohighlight">\(c\)</span> is the same as the type of input variables <span class="math notranslate nohighlight">\(a_i\)</span> and <span class="math notranslate nohighlight">\(b_i\)</span>. In contrast, in <span class="synco">imate</span>, the type of <span class="math notranslate nohighlight">\(c\)</span> is always 128-bit (see table below), and once the sum-reduction operation is done, <span class="math notranslate nohighlight">\(c\)</span> is cast down to the type of <span class="math notranslate nohighlight">\(a_i\)</span> and <span class="math notranslate nohighlight">\(b_i\)</span>.</p>
 <p>When <span class="math notranslate nohighlight">\(a_i\)</span> and <span class="math notranslate nohighlight">\(b_i\)</span> is 32-bit, the effect of the above resolution is negligible compared to large arithmetic errors of 32-bit type. However, for 64-bit data, which has smaller arithmetic errors, the effect of the above resolution is noticeable as shown by the above figure.</p>
 </section>
 <section id="elapsed-time">
@@ -531,6 +552,27 @@
 </section>
 <section id="how-to-reproduce-results">
 <h2>How to Reproduce Results<a class="headerlink" href="#how-to-reproduce-results" title="Permalink to this heading">#</a></h2>
+<section id="prepare-matrix-data">
+<h3>Prepare Matrix Data<a class="headerlink" href="#prepare-matrix-data" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Download all the above-mentioned sparse matrices from <a class="reference external" href="https://sparse.tamu.edu">SuiteSparse Matrix Collection</a>. For instance, download <code class="docutils literal notranslate"><span class="pre">Queen_4147.mat</span></code> from <a class="reference external" href="https://sparse.tamu.edu/Janna/Queen_4147"><code class="docutils literal notranslate"><span class="pre">Queen_4147</span></code></a>.</p></li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.m"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.m</span></code></a> to extract sparse matrix data from <code class="docutils literal notranslate"><span class="pre">Queen_4147.mat</span></code>:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">read_matrix</span><span class="p">(</span><span class="s">&#39;Queen_4147.mat&#39;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.py</span></code></a> to convert the outputs of the above Octave script to generate a python pickle file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float32</span>    <span class="c1"># to generate 32-bit data</span>
+<span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float64</span>    <span class="c1"># to generate 64-bit data</span>
+<span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float128</span>   <span class="c1"># to generate 128-bit data</span>
+</pre></div>
+</div>
+<p>The output of the above script will be stored in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/</span></code></a>.</p>
+</li>
+</ol>
+</section>
+<section id="perform-numerical-test">
+<h3>Perform Numerical Test<a class="headerlink" href="#perform-numerical-test" title="Permalink to this heading">#</a></h3>
 <p>Run each of the scripts described below with and without using OpenBLAS support in <span class="synco">imate</span> to compare their performance. The default installation of <span class="synco">imate</span> (if you installed it with <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">cond</span></code>) does not come with OpenBLAS support. To use OpenBLAS, <span class="synco">imate</span> has to be compiled from the source.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -543,7 +585,7 @@ span.prompt1:before {
 </pre></div></div><p>or set <code class="docutils literal notranslate"><span class="pre">USE_CBLAS=1</span></code> in <a class="reference external" href="https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L67"><code class="docutils literal notranslate"><span class="pre">/imate/_definitions/definition.h</span></code></a>. By default, <code class="docutils literal notranslate"><span class="pre">USE_CBLAS</span></code> is set to <code class="docutils literal notranslate"><span class="pre">0</span></code>. Then, recompile <span class="synco">imate</span>. See <a class="reference internal" href="../tutorials/install.html#compile-source"><span class="std std-ref">Compile from Source</span></a>.</p>
 </div>
 <section id="dense-matrices-run-locally">
-<h3>Dense Matrices, Run Locally<a class="headerlink" href="#dense-matrices-run-locally" title="Permalink to this heading">#</a></h3>
+<h4>Dense Matrices, Run Locally<a class="headerlink" href="#dense-matrices-run-locally" title="Permalink to this heading">#</a></h4>
 <p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/benchmark_openblas_dense.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/benchmark_openblas_dense.py</span></code></a> as follows:</p>
 <ol class="arabic">
 <li><p>To reproduce the results <em>without OpenBLAS</em>:</p>
@@ -557,24 +599,33 @@ span.prompt1:before {
 </ol>
 </section>
 <section id="dense-matrices-submit-to-cluster-with-slurm">
-<h3>Dense Matrices, Submit to Cluster with SLURM<a class="headerlink" href="#dense-matrices-submit-to-cluster-with-slurm" title="Permalink to this heading">#</a></h3>
+<h4>Dense Matrices, Submit to Cluster with SLURM<a class="headerlink" href="#dense-matrices-submit-to-cluster-with-slurm" title="Permalink to this heading">#</a></h4>
 <p>Submit the job file <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_openblas_dense.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_openblas_dense.sh</span></code></a> by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
 <span class="prompt1">sbatch jobfile_benchmark_openblas_dense.sh</span>
 </pre></div></div><p>To use with or without OpenBLAS, modify the above job files (uncomment lines the corresponding).</p>
 </section>
 <section id="sparse-matrices-run-locally">
-<h3>Sparse Matrices, Run Locally<a class="headerlink" href="#sparse-matrices-run-locally" title="Permalink to this heading">#</a></h3>
+<h4>Sparse Matrices, Run Locally<a class="headerlink" href="#sparse-matrices-run-locally" title="Permalink to this heading">#</a></h4>
 <p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/benchmark_speed.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/benchmark_speed.py</span></code></a> script as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
 <span class="prompt1">python ./benchmark_speed.py -c</span>
 </pre></div></div></section>
 <section id="sparse-matrices-submit-to-cluster-with-slurm">
-<h3>Sparse Matrices, Submit to Cluster with SLURM<a class="headerlink" href="#sparse-matrices-submit-to-cluster-with-slurm" title="Permalink to this heading">#</a></h3>
+<h4>Sparse Matrices, Submit to Cluster with SLURM<a class="headerlink" href="#sparse-matrices-submit-to-cluster-with-slurm" title="Permalink to this heading">#</a></h4>
 <p>Submit the job file <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh</span></code></a> by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
 <span class="prompt1">sbatch jobfile_benchmark_speed_cpu.sh</span>
 </pre></div></div></section>
+</section>
+<section id="plot-results">
+<h3>Plot Results<a class="headerlink" href="#plot-results" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_benchmark_openblas_dense.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_benchmark_openblas_dense.ipynb</span></code></a> to generate plots for the dense matrices shown in the above</p></li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_benchmark_openblas_sparse.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_benchmark_openblas_sparse.ipynb</span></code></a> to generate plots for the sparse matrices shown in the above</p></li>
+</ul>
+<p>These notebooks stores <cite>svg</cite> plots in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/svg_plots"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/svg_plots/</span></code></a>.</p>
+</section>
 </section>
 </section>
 

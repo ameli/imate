@@ -30,6 +30,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
     <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
@@ -248,8 +249,8 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#algorithm">
-     Algorithm
+    <a class="reference internal nav-link" href="#algorithms">
+     Algorithms
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -279,6 +280,55 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#algorithm-parameters">
    Algorithm Parameters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-to-reproduce-results">
+   How to Reproduce Results
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#prepare-matrix-data">
+     Prepare Matrix Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#perform-numerical-test">
+     Perform Numerical Test
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#dense-matrices-run-locally">
+       Dense Matrices, Run Locally
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#dense-matrices-submit-to-cluster-with-slurm">
+       Dense Matrices, Submit to Cluster with SLURM
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#sparse-matrices-run-locally">
+       Sparse Matrices, Run Locally
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#sparse-matrices-submit-to-cluster-with-slurm">
+       Sparse Matrices, Submit to Cluster with SLURM
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-results">
+     Plot Results
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
   </a>
  </li>
 </ul>
@@ -312,19 +362,40 @@
 <p><span class="synco">imate</span> implements various deterministic and randomized algorithms on dense and sparse matrices. The goal of the following numerical experiments is to compare the performance, scalability, and accuracy of these algorithms.</p>
 <section id="test-description">
 <h2>Test Description<a class="headerlink" href="#test-description" title="Permalink to this heading">#</a></h2>
-<p>In the following numerical experiments, the goal is to compute</p>
+<p>In the following numerical experiments compute</p>
 <div class="math notranslate nohighlight" id="equation-logdet3">
 <span class="eqno">(1)<a class="headerlink" href="#equation-logdet3" title="Permalink to this equation">#</a></span>\[\log \det (\mathbf{A}),\]</div>
 <p>and</p>
 <div class="math notranslate nohighlight" id="equation-traceinv3">
 <span class="eqno">(2)<a class="headerlink" href="#equation-traceinv3" title="Permalink to this equation">#</a></span>\[\mathrm{trace}(\mathbf{A}^{-1}),\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is symmetric and positive-definite. The above quantities is a computationally expensive expression that frequently appears in the likelihood funcitons and their Jacobian and Hessian.</p>
-<section id="algorithm">
-<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this heading">#</a></h3>
-<p>To compute <a class="reference internal" href="gpu.html#equation-traceinv">(1)</a>, the stochastic Lanczos quadrature (SLQ) algorithm is employed. The complexity of this algorithm is</p>
-<div class="math notranslate nohighlight" id="equation-complexity1">
-<span class="eqno">(3)<a class="headerlink" href="#equation-complexity1" title="Permalink to this equation">#</a></span>\[ \mathcal{O} \left( (\mathrm{nnz}(\mathbf{A}) l + n l^2) s \right),\]</div>
-<p>where <span class="math notranslate nohighlight">\(n\)</span> is the matrix size, <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A})\)</span> is the number of nonzero elements of the sparse matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, <span class="math notranslate nohighlight">\(l\)</span> is the number of Lanczos iterations, and <span class="math notranslate nohighlight">\(s\)</span> is the number of Monte-Carlo iterations (see details in <a class="reference internal" href="../api/imate.traceinv.slq.html#imate-traceinv-slq"><span class="std std-ref">imate.traceinv(method=’slq’)</span></a>).  The numerical experiment is performed with <span class="math notranslate nohighlight">\(l=80\)</span> and <span class="math notranslate nohighlight">\(s=200\)</span>. The computations were carried out on Intel(R) Xeon(R) CPU E5-2670 v3  with 24 threads.</p>
+<section id="algorithms">
+<h3>Algorithms<a class="headerlink" href="#algorithms" title="Permalink to this heading">#</a></h3>
+<p>The following Algorithms were tested on Intel(R) Xeon(R) CPU E5-2670 v3  with 24 threads.</p>
+<dl class="glossary">
+<dt id="term-Cholesky-Decomposition">Cholesky Decomposition<a class="headerlink" href="#term-Cholesky-Decomposition" title="Permalink to this term">#</a></dt><dd><p>This method is implemented by the following functions:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/imate.logdet.cholesky.html#imate-logdet-cholesky"><span class="std std-ref">imate.logdet(method=’cholesky’)</span></a> to compute <a class="reference internal" href="#equation-logdet3">(1)</a>.</p></li>
+<li><p><a class="reference internal" href="../api/imate.traceinv.cholesky.html#imate-traceinv-cholesky"><span class="std std-ref">imate.traceinv(method=’cholesky’)</span></a> to compute <a class="reference internal" href="#equation-traceinv3">(2)</a>.</p></li>
+</ul>
+<p>The complexity of computing <a class="reference internal" href="#equation-logdet3">(1)</a> is close to <span class="math notranslate nohighlight">\(\mathcal{O}((\mathrm{nnz}(\mathbf{L}))^{\frac{3}{2}})\)</span> (see for instance <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>) where <span class="math notranslate nohighlight">\(\mathbf{A} = \mathbf{L} \mathbf{L}^{\intercal}\)</span>. The complexity of computing <a class="reference internal" href="#equation-traceinv3">(2)</a> for sparse matrices is <span class="math notranslate nohighlight">\(\mathcal{O}(n^2)\)</span> where <span class="math notranslate nohighlight">\(n\)</span> is the matrix size.</p>
+</dd>
+<dt id="term-Hutchinson-Method">Hutchinson Method<a class="headerlink" href="#term-Hutchinson-Method" title="Permalink to this term">#</a></dt><dd><p>This method is only applied to <a class="reference internal" href="#equation-traceinv3">(2)</a> and implemented by <a class="reference internal" href="../api/imate.traceinv.hutchinson.html#imate-traceinv-hutchinson"><span class="std std-ref">imate.traceinv(method=’hutchinson’)</span></a> fucntion. The complexity of this method is:</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{O}(\mathrm{nnz}(\mathbf{A})s),\]</div>
+<p>where <span class="math notranslate nohighlight">\(s\)</span> is the number of Monte-Carlo iterations in the algorithm and <span class="math notranslate nohighlight">\(\rho\)</span> is the sparse matrix density. In this experiemnt, <span class="math notranslate nohighlight">\(s = 80\)</span>.</p>
+</dd>
+<dt id="term-Stochastic-Lanczos-Quadrature-Method">Stochastic Lanczos Quadrature Method<a class="headerlink" href="#term-Stochastic-Lanczos-Quadrature-Method" title="Permalink to this term">#</a></dt><dd><p>This method is implemented by:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/imate.logdet.cholesky.html#imate-logdet-cholesky"><span class="std std-ref">imate.logdet(method=’cholesky’)</span></a> to compute <a class="reference internal" href="#equation-logdet3">(1)</a>.</p></li>
+<li><p><a class="reference internal" href="../api/imate.traceinv.cholesky.html#imate-traceinv-cholesky"><span class="std std-ref">imate.traceinv(method=’cholesky’)</span></a> to compute <a class="reference internal" href="#equation-traceinv3">(2)</a>.</p></li>
+</ul>
+<p>The complexity of this method is:</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{O} \left( (\mathrm{nnz}(\mathbf{A}) l + n l^2) s \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(l\)</span> is the number of Lanczos iterations, and <span class="math notranslate nohighlight">\(s\)</span> is the number of Monte-Carlo iterations.  The numerical experiment is performed with <span class="math notranslate nohighlight">\(l=80\)</span> and <span class="math notranslate nohighlight">\(s=200\)</span>.</p>
+</dd>
+</dl>
 </section>
 <section id="arithmetic-types">
 <h3>Arithmetic Types<a class="headerlink" href="#arithmetic-types" title="Permalink to this heading">#</a></h3>
@@ -347,7 +418,7 @@
 <p>The above matrix can be generated by <a class="reference internal" href="../generated/imate.toeplitz.html#imate.toeplitz" title="imate.toeplitz"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.toeplitz()</span></code></a> function. In this experiment, <span class="math notranslate nohighlight">\(a = 2\)</span>, <span class="math notranslate nohighlight">\(b = 1\)</span>, and the matrix size is varied by powers of two, <span class="math notranslate nohighlight">\(n = 2^8, 2^9, \dots, 2^{14}\)</span>.</p>
 <p>An advantage of using the above matrix is that an analytic formula for <a class="reference internal" href="#equation-traceinv3">(2)</a> for <span class="math notranslate nohighlight">\(n \gg 1\)</span> is known by</p>
 <div class="math notranslate nohighlight" id="equation-analytic-formula">
-<span class="eqno">(4)<a class="headerlink" href="#equation-analytic-formula" title="Permalink to this equation">#</a></span>\[ \mathrm{trace}(\mathbf{A}^{-1}) \approx \frac{1}{a^2 - b^2} \left( n - \frac{q^{2}}{1 - q^2} \right),\]</div>
+<span class="eqno">(3)<a class="headerlink" href="#equation-analytic-formula" title="Permalink to this equation">#</a></span>\[ \mathrm{trace}(\mathbf{A}^{-1}) \approx \frac{1}{a^2 - b^2} \left( n - \frac{q^{2}}{1 - q^2} \right),\]</div>
 <p>where <span class="math notranslate nohighlight">\(q = b/a\)</span>. See <a class="reference internal" href="../generated/imate.sample_matrices.toeplitz_traceinv.html#imate.sample_matrices.toeplitz_traceinv" title="imate.sample_matrices.toeplitz_traceinv"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.sample_matrices.toeplitz_traceinv()</span></code></a> for details. The above analytic formula is used as the benchmark solution to test the accuracy of the results.</p>
 <section id="process-time">
 <h3>Process Time<a class="headerlink" href="#process-time" title="Permalink to this heading">#</a></h3>
@@ -369,6 +440,92 @@
 <a class="custom-dark reference internal image-reference" href="../_images/vary_lanczos_degree_analytic_matrix_accuracy.png"><img alt="../_images/vary_lanczos_degree_analytic_matrix_accuracy.png" class="custom-dark align-center" src="../_images/vary_lanczos_degree_analytic_matrix_accuracy.png" style="height: 340px;" /></a>
 <img alt="../_images/vary_lanczos_degree_practical_matrix_time.png" class="custom-dark align-center" src="../_images/vary_lanczos_degree_practical_matrix_time.png" />
 <a class="custom-dark reference internal image-reference" href="../_images/vary_lanczos_degree_practical_matrix_accuracy.png"><img alt="../_images/vary_lanczos_degree_practical_matrix_accuracy.png" class="custom-dark align-center" src="../_images/vary_lanczos_degree_practical_matrix_accuracy.png" style="height: 340px;" /></a>
+</section>
+<section id="how-to-reproduce-results">
+<h2>How to Reproduce Results<a class="headerlink" href="#how-to-reproduce-results" title="Permalink to this heading">#</a></h2>
+<section id="prepare-matrix-data">
+<h3>Prepare Matrix Data<a class="headerlink" href="#prepare-matrix-data" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Download all the above-mentioned sparse matrices from <a class="reference external" href="https://sparse.tamu.edu">SuiteSparse Matrix Collection</a>. For instance, download <code class="docutils literal notranslate"><span class="pre">Queen_4147.mat</span></code> from <a href="#id5"><span class="problematic" id="id6">|Queen_4147|_</span></a>.</p></li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.m"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.m</span></code></a> to extract sparse matrix data from <code class="docutils literal notranslate"><span class="pre">Queen_4147.mat</span></code>:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">read_matrix</span><span class="p">(</span><span class="s">&#39;Queen_4147.mat&#39;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+</div>
+</li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.py</span></code></a> to convert the outputs of the above Octave script to generate a python pickle file:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float32</span>    <span class="c1"># to generate 32-bit data</span>
+<span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float64</span>    <span class="c1"># to generate 64-bit data</span>
+<span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float128</span>   <span class="c1"># to generate 128-bit data</span>
+</pre></div>
+</div>
+<p>The output of the above script will be stored in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/</span></code></a>.</p>
+</li>
+</ol>
+</section>
+<section id="perform-numerical-test">
+<h3>Perform Numerical Test<a class="headerlink" href="#perform-numerical-test" title="Permalink to this heading">#</a></h3>
+<p>Run each of the scripts described below with and without using OpenBLAS support in <span class="synco">imate</span> to compare their performance. The default installation of <span class="synco">imate</span> (if you installed it with <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">cond</span></code>) does not come with OpenBLAS support. To use OpenBLAS, <span class="synco">imate</span> has to be compiled from the source.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To compile <span class="synco">imate</span> using OpenBLAS, export the environment variable:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1"><span class="nb">export</span> <span class="nv">USE_CBLAS</span><span class="o">=</span><span class="m">1</span></span>
+</pre></div></div><p>or set <code class="docutils literal notranslate"><span class="pre">USE_CBLAS=1</span></code> in <a class="reference external" href="https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L67"><code class="docutils literal notranslate"><span class="pre">/imate/_definitions/definition.h</span></code></a>. By default, <code class="docutils literal notranslate"><span class="pre">USE_CBLAS</span></code> is set to <code class="docutils literal notranslate"><span class="pre">0</span></code>. Then, recompile <span class="synco">imate</span>. See <a class="reference internal" href="../tutorials/install.html#compile-source"><span class="std std-ref">Compile from Source</span></a>.</p>
+</div>
+<section id="dense-matrices-run-locally">
+<h4>Dense Matrices, Run Locally<a class="headerlink" href="#dense-matrices-run-locally" title="Permalink to this heading">#</a></h4>
+<p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/benchmark_openblas_dense.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/benchmark_openblas_dense.py</span></code></a> as follows:</p>
+<ol class="arabic">
+<li><p>To reproduce the results <em>without OpenBLAS</em>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
+<span class="prompt1">python ./benchmark_openblas_dense.py -o False</span>
+</pre></div></div></li>
+<li><p>To reproduce the results <em>with OpenBLAS</em>, first, compile <span class="synco">imate</span> with OpenBLAS (see above), then run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
+<span class="prompt1">python ./benchmark_openblas_dense.py -o True</span>
+</pre></div></div></li>
+</ol>
+</section>
+<section id="dense-matrices-submit-to-cluster-with-slurm">
+<h4>Dense Matrices, Submit to Cluster with SLURM<a class="headerlink" href="#dense-matrices-submit-to-cluster-with-slurm" title="Permalink to this heading">#</a></h4>
+<p>Submit the job file <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_openblas_dense.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_openblas_dense.sh</span></code></a> by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch jobfile_benchmark_openblas_dense.sh</span>
+</pre></div></div><p>To use with or without OpenBLAS, modify the above job files (uncomment lines the corresponding).</p>
+</section>
+<section id="sparse-matrices-run-locally">
+<h4>Sparse Matrices, Run Locally<a class="headerlink" href="#sparse-matrices-run-locally" title="Permalink to this heading">#</a></h4>
+<p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/benchmark_speed.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/benchmark_speed.py</span></code></a> script as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
+<span class="prompt1">python ./benchmark_speed.py -c</span>
+</pre></div></div></section>
+<section id="sparse-matrices-submit-to-cluster-with-slurm">
+<h4>Sparse Matrices, Submit to Cluster with SLURM<a class="headerlink" href="#sparse-matrices-submit-to-cluster-with-slurm" title="Permalink to this heading">#</a></h4>
+<p>Submit the job file <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh</span></code></a> by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch jobfile_benchmark_speed_cpu.sh</span>
+</pre></div></div></section>
+</section>
+<section id="plot-results">
+<h3>Plot Results<a class="headerlink" href="#plot-results" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_benchmark_openblas_dense.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_benchmark_openblas_dense.ipynb</span></code></a> to generate plots for the dense matrices shown in the above</p></li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_benchmark_openblas_sparse.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_benchmark_openblas_sparse.ipynb</span></code></a> to generate plots for the sparse matrices shown in the above</p></li>
+</ul>
+<p>These notebooks stores <cite>svg</cite> plots in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/svg_plots"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/svg_plots/</span></code></a>.</p>
+</section>
+</section>
+<section id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="note">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>George, A. and Ng, E. (1988). <em>On the Complexity of Sparse QR and LU Factorization of Finite-Element Matrices</em>. SIAM Journal on Scientific and Statistical Computing, volume 9, number 5, pp. 849-861. <a class="reference external" href="https://doi.org/10.1137/0909057">doi: 10.1137/0909057</a>.</p>
+</aside>
+</aside>
 </section>
 </section>
 

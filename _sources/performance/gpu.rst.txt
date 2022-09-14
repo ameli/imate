@@ -227,10 +227,34 @@ The estimated values of :math:`\beta` from the curves in the figure are shown in
 How to Reproduce Results
 ========================
 
-Script to reproduce the above results is available at |benchmark_speed_py|_.
+Prepare Matrix Data
+-------------------
+
+1. Download all the above-mentioned sparse matrices from `SuiteSparse Matrix Collection <https://sparse.tamu.edu>`_. For instance, download ``Queen_4147.mat`` from |Queen_4147|_.
+2. Run |read_matrix_m|_ to extract sparse matrix data from ``Queen_4147.mat``:
+
+   .. code-block:: matlab
+
+        read_matrix('Queen_4147.mat');
+
+3. Run |read_matrix_py|_ to convert the outputs of the above Octave script to generate a python pickle file:
+
+   .. code-block:: python
+
+        read_matrix.py Queen_4147 float32    # to generate 32-bit data
+        read_matrix.py Queen_4147 float64    # to generate 64-bit data
+        read_matrix.py Queen_4147 float128   # to generate 128-bit data
+
+   The output of the above script will be stored in |matrices|_.
+
+Perform Numerical Test
+----------------------
+
+Run |benchmark_speed_py|_ to read the matrices and generate results. The output of this script is written to |pickle_results|_ as a pickle file.
+
 
 Run Locally
------------
+~~~~~~~~~~~
 
 * For the CPU test, run:
 
@@ -247,21 +271,35 @@ Run Locally
       python ./benchmark_speed.py -g
 
 Submit Job to Cluster with SLURM
---------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* The SLURM job file to submit the CPU test is available at |jobfile_speed_cpu_sh|_. Submit the job by
+* Submit the job file |jobfile_speed_cpu_sh|_ to perform the CPU test by
 
   .. prompt:: bash
   
       cd /imate/benchmark/jobfiles
       sbatch jobfile_benchmark_speed_cpu.sh
 
-* The SLURM job file to submit the GPU test is available at |jobfile_speed_gpu_sh|_. Submit the job by
+* Submit the job file |jobfile_speed_gpu_sh|_ to perform the GPU test by
 
   .. prompt:: bash
   
       cd /imate/benchmark/jobfiles
       sbatch jobfile_benchmark_speed_gpu.sh
+
+Plot Results
+------------
+
+Run |notebook_speed_ipynb|_ to generate plots shown in the above from the pickled results. This notebook stores `svg` plots in |svg_plots|_.
+
+.. |read_matrix_m| replace:: ``/imate/benchmark/matrices/read_matrix.m``
+.. _read_matrix_m: https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.m
+
+.. |read_matrix_py| replace:: ``/imate/benchmark/matrices/read_matrix.py``
+.. _read_matrix_py: https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.py
+
+.. |matrices| replace:: ``/imate/benchmark/matrices/``
+.. _matrices: https://github.com/ameli/imate/blob/main/benchmark/matrices
 
 .. |benchmark_speed_py| replace:: ``/imate/benchmark/scripts/benchmark_speed.py``
 .. _benchmark_speed_py: https://github.com/ameli/imate/blob/main/benchmark/scripts/benchmark_speed.py
@@ -271,3 +309,12 @@ Submit Job to Cluster with SLURM
 
 .. |jobfile_speed_gpu_sh| replace:: ``/imate/benchmark/jobfiles/jobfile_benchmark_speed_gpu.sh``
 .. _jobfile_speed_gpu_sh: https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_speed_gpu.sh
+
+.. |pickle_results| replace:: ``/imate/benchmark/pickle_results``
+.. _pickle_results: https://github.com/ameli/imate/tree/main/benchmark/pickle_results
+
+.. |notebook_speed_ipynb| replace:: ``/imate/benchmark/notebooks/plot_benchmark_speed.ipynb``
+.. _notebook_speed_ipynb: https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_benchmark_speed.ipynb
+
+.. |svg_plots| replace:: ``/imate/benchmark/svg_plots/``
+.. _svg_plots: https://github.com/ameli/imate/blob/main/benchmark/svg_plots
