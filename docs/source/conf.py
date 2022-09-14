@@ -89,7 +89,7 @@ nitpicky = True
 # both page and sidebar menu. There is no way we can have only one of these,
 # for instance, toc only in the page, but not in the menu. A solution to 
 # this is as follows:
-#   1. set "root_doc= 'content'". Then add those toc that should go into the
+#   1. Set "root_doc= 'content'". Then add those toc that should go into the
 #      menu in the content.rst file.
 #   2. Add those toc that should go into the page in index.rst file.
 # This way, we can control which toc appears where.
@@ -134,11 +134,12 @@ extensions = [
     # 'sphinx_automodapi.automodapi',
     # 'sphinxcontrib.napoleon',               # either use napoleon or numpydoc
     'numpydoc',                               # either use napoleon or numpydoc
-    'nbsphinx',
     'sphinx_design',
     'sphinx_multitoc_numbering',
     'sphinx-prompt',
     'sphinx_copybutton',
+    'nbsphinx',
+   'sphinx_gallery.load_style',
 ]
 
 # Breathe settings
