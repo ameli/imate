@@ -50,7 +50,7 @@ def slq_method(
 
     .. math::
 
-        \\mathrm{trace} \\left(\\mathbf{A}^p \\right).
+        \\mathrm{trace} \\left(\\mathbf{A}^{-p} \\right).
 
     If ``gram`` is `True`, then :math:`\\mathbf{A}` in the above is replaced by
     the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`, and the
@@ -58,7 +58,7 @@ def slq_method(
 
     .. math::
 
-        \\mathrm{trace} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^p
+        \\mathrm{trace} \\left((\\mathbf{A}^{\\intercal}\\mathbf{A})^{-p}
         \\right).
 
     If :math:`\\mathbf{A} = \\mathbf{A}(t)` is a linear operator of the class
@@ -68,7 +68,7 @@ def slq_method(
 
     .. math::
 
-        \\mathrm{trace} \\left((\\mathbf{A}(t_i))^p \\right),
+        \\mathrm{trace} \\left((\\mathbf{A}(t_i))^{-p} \\right),
         \\quad i=1, \\dots, q.
 
     Parameters

@@ -170,10 +170,12 @@ def cholesky_method(
     **Computational Complexity:**
 
     The computational complexity of this method is
-    :math:`\\mathcal{O}(\\frac{1}{3}n^3)` for dense matrices and
-    :math:`\\mathcal{O}(\\frac{\\rho}{3} n^2)` for sparse matrices where
-    :math:`n` is the matrix size and :math:`\\rho` is the sparse matrix
-    density.
+    :math:`\\mathcal{O}(\\frac{1}{3}n^3)` for dense matrices.
+
+    For sparse matrices obtained from 1D, 2D, and 3D meshes, the computational
+    complexity of this method is respectively :math:`\\mathcal{O}(n)`,
+    :math:`\\mathcal{O}(n^{\\frac{3}{2}})`, and :math:`\\mathcal{O}(n^2)` (see
+    for instance [1]_ and [2]_).
 
     **Implementation:**
 
@@ -184,6 +186,18 @@ def cholesky_method(
     uses the `Suite Sparse
     <https://people.engr.tamu.edu/davis/suitesparse.html>`_ package to compute
     the Cholesky decomposition.
+
+    References
+    ----------
+
+    .. [1] George, A. and Ng, E. (1988). *On the Complexity of Sparse QR and LU
+           Factorization of Finite-Element Matrices*. SIAM Journal on
+           Scientific and Statistical Computing, volume 9, number 5, pp.
+           849-861. `doi: 10.1137/0909057 <https://doi.org/10.1137/0909057>`_.
+
+    .. [2] Davis, T. (2006). *Direct Methods for Sparse Linear Systems*. SIAM.
+           `doi: 10.1137/1.9780898718881
+           <https://epubs.siam.org/doi/book/10.1137/1.9780898718881>`_.
 
     Examples
     --------

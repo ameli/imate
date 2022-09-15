@@ -8,14 +8,14 @@ Using |project| on Docker
 Why Using Docker
 ================
 
-|project|'s docker image can be very useful if you want to deploy |project| on GPU devices. The |project| package which is installed via ``pip`` or ``conda``, natively comes with support on GPU devices. However, the version of CUDA Toolkit that |project| was built with it, should match the version of CUDA Toolkit that you have on your machine. This might often be a problem, as your CUDA Toolkit might not have the same version as the one that |project| supports.
+|project|'s docker image can be very useful if you want to deploy |project| on GPU devices. The |project| package which is installed via ``pip`` or ``conda``, natively supports GPU devices. However, the version of CUDA Toolkit that |project| was built with it, should match the version of CUDA Toolkit that you have on your machine. This might often be a problem, as your CUDA Toolkit might not have the same version as the one that |project| supports.
 
 Workarounds to this problem are either:
 
 * Change your CUDA installation. See :ref:`Install CUDA Toolkit <gpu-install-cuda>`.
 * Compile |project| with a specific CUDA version compatible with your existing CUDA installation. See :ref:`Compile imate from Source <compile-imate>`.
 
-Alternatively, you can simply use |project|'s docker image without installing |project| or a compatible CUDA Toolkit as both are installed in the docker container and ready to use out of the box.
+Alternatively, as the third option, you can simply use |project|'s docker image without installing |project| or a compatible CUDA Toolkit as both are installed in the docker container and ready to use out of the box.
 
 Install Docker
 ==============

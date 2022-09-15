@@ -29,11 +29,11 @@ Algorithm
 To compute :math:numref:`traceinv`, the stochastic Lanczos quadrature (SLQ) algorithm is employed. The complexity of this algorithm is
 
 .. math::
-   :label: complexity1
+   :label: complexity2
 
     \mathcal{O} \left( (\mathrm{nnz}(\mathbf{A}) l + n l^2) s \right),
 
-where :math:`n` is the matrix size, :math:`\mathrm{nnz}(\mathbf{A})` is the number of nonzero elements of the sparse matrix :math:`\mathbf{A}`, :math:`l` is the number of Lanczos iterations, and :math:`s` is the number of Monte-Carlo iterations (see details in :ref:`imate.traceinv.slq`).  The numerical experiment is performed with :math:`l=80` and :math:`s=200`. The computations were carried out on Intel(R) Xeon(R) CPU E5-2670 v3  with 24 threads.
+where :math:`n` is the matrix size, :math:`\mathrm{nnz}(\mathbf{A})` is the number of nonzero elements of the sparse matrix :math:`\mathbf{A}`, :math:`l` is the number of Lanczos iterations, and :math:`s` is the number of Monte-Carlo iterations (see details in :ref:`imate.traceinv.slq`).  The numerical experiment is performed with :math:`l=80` and :math:`s=200`. The computations were carried out on Intel® Xeon CPU E5-2670 v3  with 24 threads.
 
 Arithmetic Types
 ----------------
@@ -42,7 +42,7 @@ The benchmark test also examines the performance and accuracy of |project| on va
 
 .. note::
 
-    Supporting 128-bit data types is one of the features if |project|, which is often not available in numerical libraries, such as OpenBLAS.
+    Supporting 128-bit data types is one of the features of |project|, which is often not available in numerical libraries, such as OpenBLAS.
 
 Test on Dense Matrices
 ======================
@@ -200,15 +200,15 @@ Prepare Matrix Data
 
         read_matrix('Queen_4147.mat');
 
-3. Run |read_matrix_py|_ to convert the outputs of the above Octave script to generate a python pickle file:
+3. Run |read_matrix_py|_ to convert the outputs of the above script to generate a python pickle file:
 
-   .. code-block:: python
+   .. prompt:: bash
 
         read_matrix.py Queen_4147 float32    # to generate 32-bit data
         read_matrix.py Queen_4147 float64    # to generate 64-bit data
         read_matrix.py Queen_4147 float128   # to generate 128-bit data
 
-   The output of the above script will be stored in |matrices|_.
+   The output of the above script will be written in |matrices|_.
 
 Perform Numerical Test
 ----------------------
@@ -285,7 +285,7 @@ Plot Results
 * Run |notebook_openblas_dense_ipynb|_ to generate plots for the dense matrices shown in the above
 * Run |notebook_openblas_sparse_ipynb|_ to generate plots for the sparse matrices shown in the above
 
-These notebooks stores `svg` plots in |svg_plots|_.
+These notebooks stores the plots as `svg` files in |svg_plots|_.
     
 .. |read_matrix_m| replace:: ``/imate/benchmark/matrices/read_matrix.m``
 .. _read_matrix_m: https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.m

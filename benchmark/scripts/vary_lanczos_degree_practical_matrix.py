@@ -149,7 +149,7 @@ def benchmark(argv):
         'matrix_nnz': M.nnz
     }
 
-    # Exact soluton using Cholesky maethod
+    # Exact solution using Cholesky method
     print('Exact solution ...', end='')
     trace_c, info_c = traceinv(
             M,

@@ -226,7 +226,7 @@ def cholesky_method(
 
     The computational complexity of this method is
     :math:`\\mathcal{O}(\\frac{1}{3}n^3)` for dense matrices and
-    :math:`\\mathcal{O}(\\frac{\\rho}{3} n^2)` for sparse matrices where
+    :math:`\\mathcal{O}(\\rho n^2)` for sparse matrices where
     :math:`n` is the matrix size and :math:`\\rho` is the sparse matrix
     density.
 

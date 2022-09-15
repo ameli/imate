@@ -5,7 +5,7 @@
 
 |deploy-docs|
 
-|project|, short for **I**\ mplicit **Ma**\ trix **T**\ race **E**\ stimator, is a C++/CUDA library that provides high-performance randomized algorithms for the computationally expensive matrix functions in machine learning in Python.
+|project|, short for **I**\ mplicit **Ma**\ trix **T**\ race **E**\ stimator, is a modular and high-performance C++/CUDA library distributed as a Python package which provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.
 
 .. grid:: 4
 
@@ -37,20 +37,20 @@
         :text-align: center
         :class-card: custom-card-link
 
-    .. grid-item-card:: Getting started
-        :link: getting-started
-        :link-type: ref
-        :text-align: center
-        :class-card: custom-card-link
-
-    .. grid-item-card:: User guide
-        :link: user-guide
+    .. grid-item-card:: Tutorials
+        :link: index_tutorials
         :link-type: ref
         :text-align: center
         :class-card: custom-card-link
 
     .. grid-item-card:: API reference
         :link: api
+        :link-type: ref
+        :text-align: center
+        :class-card: custom-card-link
+
+    .. grid-item-card:: Performance
+        :link: index_performance
         :link-type: ref
         :text-align: center
         :class-card: custom-card-link
@@ -179,6 +179,27 @@ The supported GPU micro-architectures and CUDA version are as follows:
 | CUDA 11         |   |n|   |   |n|   |   |n|   |   |y|   |   |y|   |   |y|   |   |y|   |   |y|  |
 +-----------------+---------+---------+---------+---------+---------+---------+---------+--------+
 
+.. _index_tutorials:
+
+Tutorials
+=========
+
+|binder|
+
+Launch online interactive demonstration of examples with
+
+API Reference
+=============
+
+Check the list of functions, classes, and modules of |project| with their usage, options, and examples.
+
+.. toctree::
+   :maxdepth: 2
+   
+   API Reference <api>
+
+.. _index_performance:
+
 Performance
 ===========
 
@@ -251,30 +272,12 @@ Read about the performance of |project| in practical applications:
            :height: 200px
            :class: custom-dark
 
-
-Tutorials
-=========
-
-|binder|
-
-Launch online interactive demonstration of examples with
-
-API Reference
-=============
-
-Check the list of functions, classes, and modules of |project| with their usage, options, and examples.
-
-.. toctree::
-   :maxdepth: 2
-   
-   API Reference <api>
-
 Features
 ========
 
 * Matrices can be dense or sparse (`CSR` or `CSC` format), with 32-bit, 64-bit, or 128-bit data types, and stored either by row-ordering (`C` style) or column-ordering (`Fortran` style).
 * Matrices can be **linear operators** with parameters (see :class:`imate.Matrix` and :class:`imate.AffineMatrixFunction` classes).
-* **Randomized algorithms** using Hutchinson and stochastic Lanczos quadrature algorithms (see :ref:`Stochastic Lanczos Quadrature Method <slq>`)
+* **Randomized algorithms** using Hutchinson and stochastic Lanczos quadrature algorithms (see :ref:`Overview <overview>`)
 * Novel method to **interpolate** matrix functions. See :ref:`Interpolation of Affine Matrix Functions <interpolation>`.
 * Parallel processing both on **shared memory** and CUDA Capable **multi-GPU** devices.
 
