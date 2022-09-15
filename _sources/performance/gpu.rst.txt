@@ -34,8 +34,8 @@ Hardware
 
 The computations were carried out on the following hardware:
 
-* For test on **CPU**: Intel(R) Xeon(R) CPU E5-2670 v3  with 24 threads.
-* For test on **GPU**: a cluster of eight `NVIDIA® GeForce RTX 3090 <https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090-3090ti/>`_ GPUs and Intel Xeon Processor (Skylake, IBRS) with 32 threads.
+* For test on **CPU**: Intel® Xeon CPU E5-2670 v3  with 24 threads.
+* For test on **GPU**: a cluster of eight `NVIDIA® GeForce RTX 3090 <https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090-3090ti/>`_ GPUs and Intel® Xeon Processor (Skylake, IBRS) with 32 threads.
 
 Benchmark Matrices
 ------------------
@@ -85,7 +85,7 @@ The benchmark test also examines the performance and accuracy of |project| on va
 
 .. note::
 
-    Supporting 128-bit data types is one of the features if |project|, which is often not available in numerical libraries.
+    Supporting 128-bit data types is one of the features of |project|, which is often not available in numerical libraries.
 
 .. note::
 
@@ -239,13 +239,13 @@ Prepare Matrix Data
 
 3. Run |read_matrix_py|_ to convert the outputs of the above Octave script to generate a python pickle file:
 
-   .. code-block:: python
+   .. prompt:: bash
 
         read_matrix.py Queen_4147 float32    # to generate 32-bit data
         read_matrix.py Queen_4147 float64    # to generate 64-bit data
         read_matrix.py Queen_4147 float128   # to generate 128-bit data
 
-   The output of the above script will be stored in |matrices|_.
+   The output of the above script will be written in |matrices|_.
 
 Perform Numerical Test
 ----------------------
@@ -290,7 +290,7 @@ Submit Job to Cluster with SLURM
 Plot Results
 ------------
 
-Run |notebook_speed_ipynb|_ to generate plots shown in the above from the pickled results. This notebook stores `svg` plots in |svg_plots|_.
+Run |notebook_speed_ipynb|_ to generate plots shown in the above from the pickled results. This notebook stores plots as `svg` files in |svg_plots|_.
 
 .. |read_matrix_m| replace:: ``/imate/benchmark/matrices/read_matrix.m``
 .. _read_matrix_m: https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.m

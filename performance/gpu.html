@@ -377,8 +377,8 @@
 <h3>Hardware<a class="headerlink" href="#hardware" title="Permalink to this heading">#</a></h3>
 <p>The computations were carried out on the following hardware:</p>
 <ul class="simple">
-<li><p>For test on <strong>CPU</strong>: Intel(R) Xeon(R) CPU E5-2670 v3  with 24 threads.</p></li>
-<li><p>For test on <strong>GPU</strong>: a cluster of eight <a class="reference external" href="https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090-3090ti/">NVIDIA® GeForce RTX 3090</a> GPUs and Intel Xeon Processor (Skylake, IBRS) with 32 threads.</p></li>
+<li><p>For test on <strong>CPU</strong>: Intel® Xeon CPU E5-2670 v3  with 24 threads.</p></li>
+<li><p>For test on <strong>GPU</strong>: a cluster of eight <a class="reference external" href="https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090-3090ti/">NVIDIA® GeForce RTX 3090</a> GPUs and Intel® Xeon Processor (Skylake, IBRS) with 32 threads.</p></li>
 </ul>
 </section>
 <section id="benchmark-matrices">
@@ -454,7 +454,7 @@
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Supporting 128-bit data types is one of the features if <span class="synco">imate</span>, which is often not available in numerical libraries.</p>
+<p>Supporting 128-bit data types is one of the features of <span class="synco">imate</span>, which is often not available in numerical libraries.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -508,7 +508,7 @@
 <p>The results show that the computation on GPU is advantageous over CPU when <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A}) &gt; 10^{5}\)</span>. The empirical complexity can be computed by the relation between the elapsed time <span class="math notranslate nohighlight">\(t\)</span> and the data size by</p>
 <div class="math notranslate nohighlight">
 \[t \propto (\mathrm{nnz}(\mathbf{A}))^{\alpha}.\]</div>
-<p>The exponent <span class="math notranslate nohighlight">\(\alpha\)</span> for each experiment at <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A}) &gt; 10^{8}\)</span> asymptotically approaches to the values shown in the table below. It can be seen that <span class="math notranslate nohighlight">\(\alpha \approx 1\)</span>, which is the theoretical complexity in <a class="reference internal" href="openblas.html#equation-complexity1">(2)</a>.</p>
+<p>The exponent <span class="math notranslate nohighlight">\(\alpha\)</span> for each experiment at <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A}) &gt; 10^{8}\)</span> asymptotically approaches to the values shown in the table below. It can be seen that <span class="math notranslate nohighlight">\(\alpha \approx 1\)</span>, which is the theoretical complexity in <a class="reference internal" href="#equation-complexity1">(2)</a>.</p>
 <p>Also, the figure implies that processing 32-bit data is at roughly twice faster than 64-bit data on both CPU and GPU, and processing 64-bit data is roughly twice faster than 128-bit on CPU.</p>
 <section id="extreme-array-sizes">
 <h3>Extreme Array Sizes<a class="headerlink" href="#extreme-array-sizes" title="Permalink to this heading">#</a></h3>
@@ -600,12 +600,10 @@ span.prompt2:before {
 </div>
 </li>
 <li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.py</span></code></a> to convert the outputs of the above Octave script to generate a python pickle file:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float32</span>    <span class="c1"># to generate 32-bit data</span>
-<span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float64</span>    <span class="c1"># to generate 64-bit data</span>
-<span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float128</span>   <span class="c1"># to generate 128-bit data</span>
-</pre></div>
-</div>
-<p>The output of the above script will be stored in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/</span></code></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">read_matrix.py Queen_4147 float32    <span class="c1"># to generate 32-bit data</span></span>
+<span class="prompt1">read_matrix.py Queen_4147 float64    <span class="c1"># to generate 64-bit data</span></span>
+<span class="prompt1">read_matrix.py Queen_4147 float128   <span class="c1"># to generate 128-bit data</span></span>
+</pre></div></div><p>The output of the above script will be written in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/</span></code></a>.</p>
 </li>
 </ol>
 </section>
@@ -641,7 +639,7 @@ span.prompt2:before {
 </section>
 <section id="plot-results">
 <h3>Plot Results<a class="headerlink" href="#plot-results" title="Permalink to this heading">#</a></h3>
-<p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_benchmark_speed.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_benchmark_speed.ipynb</span></code></a> to generate plots shown in the above from the pickled results. This notebook stores <cite>svg</cite> plots in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/svg_plots"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/svg_plots/</span></code></a>.</p>
+<p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_benchmark_speed.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_benchmark_speed.ipynb</span></code></a> to generate plots shown in the above from the pickled results. This notebook stores plots as <cite>svg</cite> files in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/svg_plots"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/svg_plots/</span></code></a>.</p>
 </section>
 </section>
 </section>

@@ -227,22 +227,31 @@
    <span class="synco">
     imate
    </span>
-   Does
+   Does?
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#why-this-is-important">
-   Why This Is Important
+  <a class="reference internal nav-link" href="#where-project-can-be-applied">
+   Where
+   <span class="synco">
+    imate
+   </span>
+   Can Be Applied?
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-challenge-of-big-data">
-   The Challenge of Big Data
+  <a class="reference internal nav-link" href="#randomized-algorithms-for-massive-data">
+   Randomized Algorithms For Massive Data
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-challenge-of-optimization">
-   The Challenge of Optimization
+  <a class="reference internal nav-link" href="#applications-in-optimization">
+   Applications in Optimization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#petascale-computing">
+   Petascale Computing
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -279,7 +288,7 @@
   <section id="overview">
 <span id="id1"></span><h1>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h1>
 <section id="what-project-does">
-<h2>What <span class="synco">imate</span> Does<a class="headerlink" href="#what-project-does" title="Permalink to this heading">#</a></h2>
+<h2>What <span class="synco">imate</span> Does?<a class="headerlink" href="#what-project-does" title="Permalink to this heading">#</a></h2>
 <p>The main purpose of <span class="synco">imate</span> is to estimate the algebraic quantity</p>
 <div class="math notranslate nohighlight" id="equation-tracef-1">
 <span class="eqno">(1)<a class="headerlink" href="#equation-tracef-1" title="Permalink to this equation">#</a></span>\[ \mathrm{trace} \left( f(\mathbf{A}) \right),\]</div>
@@ -291,8 +300,8 @@
 <span class="eqno">(3)<a class="headerlink" href="#equation-tracef-3" title="Permalink to this equation">#</a></span>\[ \mathrm{trace} \left(\mathbf{B} f(\mathbf{A}) \mathbf{C} f(\mathbf{A}) \right),\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{C}\)</span> are matrices. Other variations include the cases where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is replaced by <span class="math notranslate nohighlight">\(\mathbf{A}^{\intercal} \mathbf{A}\)</span> in the above expressions.</p>
 </section>
-<section id="why-this-is-important">
-<h2>Why This Is Important<a class="headerlink" href="#why-this-is-important" title="Permalink to this heading">#</a></h2>
+<section id="where-project-can-be-applied">
+<h2>Where <span class="synco">imate</span> Can Be Applied?<a class="headerlink" href="#where-project-can-be-applied" title="Permalink to this heading">#</a></h2>
 <p>Despite <span class="synco">imate</span>’s aim being tailored to specific algebraic computations, it addresses a demanding and challenging computational task with wide a range of applications. Namely, the expression <a class="reference internal" href="#equation-tracef-1">(1)</a> is ubiquitous in a variety of applications <a class="reference internal" href="#r1" id="id2"><span>[R1]</span></a>, and in fact, it is often the most computationally expensive term in such applications. Some common examples of <span class="math notranslate nohighlight">\(f\)</span> lead to the following forms of <a class="reference internal" href="#equation-tracef-1">(1)</a>:</p>
 <dl class="simple glossary">
 <dt id="term-Log-Determinant">Log-Determinant<a class="headerlink" href="#term-Log-Determinant" title="Permalink to this term">#</a></dt><dd><p>If <span class="math notranslate nohighlight">\(f: \lambda \mapsto \log \vert \lambda \vert\)</span>, then <span class="math notranslate nohighlight">\(\mathrm{trace} \left(f(\mathbf{A}) \right) = \log \vert \det \mathbf{A} \vert\)</span> is the log-determinant of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, which frequently appears in statistics and machine learning, particularly in <cite>log-likelihood functions</cite> <a class="reference internal" href="#r2" id="id3"><span>[R2]</span></a>.</p>
@@ -309,8 +318,8 @@
 </dd>
 </dl>
 </section>
-<section id="the-challenge-of-big-data">
-<h2>The Challenge of Big Data<a class="headerlink" href="#the-challenge-of-big-data" title="Permalink to this heading">#</a></h2>
+<section id="randomized-algorithms-for-massive-data">
+<h2>Randomized Algorithms For Massive Data<a class="headerlink" href="#randomized-algorithms-for-massive-data" title="Permalink to this heading">#</a></h2>
 <p>Calculating <a class="reference internal" href="#equation-tracef-1">(1)</a> and its variants is a computational challenge when</p>
 <ul class="simple">
 <li><p>Matrices are very large. In practical applications, matrix size could range from million to billion.</p></li>
@@ -325,12 +334,18 @@
 </dl>
 <p>Along with the randomized methods, <span class="synco">imate</span> also provides direct (non-stochastic) methods which are only for benchmarking purposes to test the accuracy of the randomized methods on small matrices.</p>
 </section>
-<section id="the-challenge-of-optimization">
-<h2>The Challenge of Optimization<a class="headerlink" href="#the-challenge-of-optimization" title="Permalink to this heading">#</a></h2>
-<p>A novel feature of <span class="synco">imate</span> is the interpolation of the above quantities when the matrix is a <strong>one-parameter affine operator</strong></p>
+<section id="applications-in-optimization">
+<h2>Applications in Optimization<a class="headerlink" href="#applications-in-optimization" title="Permalink to this heading">#</a></h2>
+<p>A unique and novel feature of <span class="synco">imate</span> is the ability to interpolate the trace of the arbitrary functions of the affine matrix function <span class="math notranslate nohighlight">\(t \mapsto \mathbf{A} + t \mathbf{B}\)</span>. Such an affine matrix function appears in variety of optimization formulations in machine learning. Often in these applications, the hyperparameter <span class="math notranslate nohighlight">\(t\)</span> has to be tuned. To this end, the optimization scheme should compute</p>
 <div class="math notranslate nohighlight">
-\[\mathbf{A}(t): t \mapsto \mathbf{A} + t \mathbf{B}.\]</div>
-<p>In such cases, <span class="synco">imate</span> can interpolate <span class="math notranslate nohighlight">\(\mathrm{trace} f(\mathbf{A}(t))\)</span> for a large logarithmic range of the parameter <span class="math notranslate nohighlight">\(t\)</span>. This novel method is very useful in the optimization of hyperparameters of models with such affine matrix formulations <a class="reference internal" href="#r4" id="id10"><span>[R4]</span></a>.</p>
+\[t \mapsto \mathrm{trace} \left(f(\mathbf{A} + t \mathbf{B}) \right),\]</div>
+<p>for a large number of input hyperparameter <span class="math notranslate nohighlight">\(t \in \mathbb{R}\)</span>. See common examples of the function <span class="math notranslate nohighlight">\(f\)</span> in <a class="reference internal" href="#overview"><span class="std std-ref">Overview</span></a>.</p>
+<p>Instead of directly computing the above function for every <span class="math notranslate nohighlight">\(t\)</span>, <span class="synco">imate</span> can interpolate the above function for a wide range of <span class="math notranslate nohighlight">\(t\)</span> with a high accuracy with only a handful number of evaluation of the above function. This solution can enhance the processing time of an optimization scheme by several orders of magnitude with only less than <span class="math notranslate nohighlight">\(1 \%\)</span> error <a class="reference internal" href="#r4" id="id10"><span>[R4]</span></a>.</p>
+</section>
+<section id="petascale-computing">
+<h2>Petascale Computing<a class="headerlink" href="#petascale-computing" title="Permalink to this heading">#</a></h2>
+<p>The core of <span class="synco">imate</span> is a high-performance C++/CUDA library capable of performing on parallel CPUs or GPU farm with multiple GPU devices. <span class="synco">imate</span> can fairly perform at petascale, for instance on a cluster node of twenty GPUs with NVIDIA Hopper architecture, each with 60 TFLOPS.</p>
+<p>For a gallery of the performance of <span class="synco">imate</span> on GPU and CPU on massive matrices, see <a class="reference internal" href="index.html#index-performance"><span class="std std-ref">Performance</span></a>.</p>
 </section>
 <section id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>

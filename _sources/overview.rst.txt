@@ -3,8 +3,8 @@
 Overview
 ********
 
-What |project| Does
-===================
+What |project| Does?
+====================
 
 The main purpose of |project| is to estimate the algebraic quantity
 
@@ -29,9 +29,8 @@ and
 
 where :math:`\mathbf{B}` and :math:`\mathbf{C}` are matrices. Other variations include the cases where :math:`\mathbf{A}` is replaced by :math:`\mathbf{A}^{\intercal} \mathbf{A}` in the above expressions.
 
-
-Why This Is Important
-=====================
+Where |project| Can Be Applied?
+===============================
 
 Despite |project|'s aim being tailored to specific algebraic computations, it addresses a demanding and challenging computational task with wide a range of applications. Namely, the expression :math:numref:`tracef-1` is ubiquitous in a variety of applications [R1]_, and in fact, it is often the most computationally expensive term in such applications. Some common examples of :math:`f` lead to the following forms of :math:numref:`tracef-1`:
 
@@ -61,8 +60,8 @@ Despite |project|'s aim being tailored to specific algebraic computations, it ad
 
         If :math:`f: \lambda \mapsto \delta(\lambda - \mu)`, where :math:`\delta(\lambda)` is the Dirac's delta function, then :math:`\mathrm{trace} \left( f(\mathbf{A})\right)` yields the spectral density of the eigenvalues of :math:`\mathbf{A}`. Estimating the spectral density of matrices, which is also known as `Density of States (DOS) <https://en.wikipedia.org/wiki/Density_of_states>`_, is a common problem in solid state physics.
 
-The Challenge of Big Data
-=========================
+Randomized Algorithms For Massive Data
+======================================
 
 Calculating :math:numref:`tracef-1` and its variants is a computational challenge when
 
@@ -83,16 +82,26 @@ Calculating :math:numref:`tracef-1` and its variants is a computational challeng
 
 Along with the randomized methods, |project| also provides direct (non-stochastic) methods which are only for benchmarking purposes to test the accuracy of the randomized methods on small matrices.
 
-The Challenge of Optimization
-=============================
+Applications in Optimization
+============================
 
-A novel feature of |project| is the interpolation of the above quantities when the matrix is a **one-parameter affine operator**
+A unique and novel feature of |project| is the ability to interpolate the trace of the arbitrary functions of the affine matrix function :math:`t \mapsto \mathbf{A} + t \mathbf{B}`. Such an affine matrix function appears in variety of optimization formulations in machine learning. Often in these applications, the hyperparameter :math:`t` has to be tuned. To this end, the optimization scheme should compute
 
 .. math::
 
-    \mathbf{A}(t): t \mapsto \mathbf{A} + t \mathbf{B}.
+    t \mapsto \mathrm{trace} \left(f(\mathbf{A} + t \mathbf{B}) \right),
 
-In such cases, |project| can interpolate :math:`\mathrm{trace} f(\mathbf{A}(t))` for a large logarithmic range of the parameter :math:`t`. This novel method is very useful in the optimization of hyperparameters of models with such affine matrix formulations [R4]_.
+for a large number of input hyperparameter :math:`t \in \mathbb{R}`. See common examples of the function :math:`f` in :ref:`Overview <overview>`.
+
+Instead of directly computing the above function for every :math:`t`, |project| can interpolate the above function for a wide range of :math:`t` with a high accuracy with only a handful number of evaluation of the above function. This solution can enhance the processing time of an optimization scheme by several orders of magnitude with only less than :math:`1 \%` error [R4]_.
+
+
+Petascale Computing
+===================
+
+The core of |project| is a high-performance C++/CUDA library capable of performing on parallel CPUs or GPU farm with multiple GPU devices. |project| can fairly perform at petascale, for instance on a cluster node of twenty GPUs with NVIDIA Hopper architecture, each with 60 TFLOPS.
+
+For a gallery of the performance of |project| on GPU and CPU on massive matrices, see :ref:`Performance <index_performance>`.
 
 References
 ==========

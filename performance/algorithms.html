@@ -261,26 +261,75 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#test-on-dense-matrices">
-   Test on Dense Matrices
+  <a class="reference internal nav-link" href="#test-on-simple-matrices">
+   Test on Simple Matrices
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#process-time">
-     Process Time
+    <a class="reference internal nav-link" href="#elapsed-time-of-computing-log-determinant">
+     Elapsed Time of Computing Log-Determinant
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#accuracy-of-computing-log-determinant">
+     Accuracy of Computing Log-Determinant
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#elapsed-time-of-computing-trace-of-inverse">
+     Elapsed Time of Computing Trace of Inverse
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#accuracy-of-computing-trace-of-inverse">
+     Accuracy of Computing Trace of Inverse
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#results">
-   Results
+  <a class="reference internal nav-link" href="#test-on-practical-matrices">
+   Test on Practical Matrices
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#process-time-of-computing-log-determinant">
+     Process Time of Computing Log-Determinant
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Accuracy of Computing Log-Determinant
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#algorithm-parameters">
-   Algorithm Parameters
+  <a class="reference internal nav-link" href="#varying-algorithm-parameters">
+   Varying Algorithm Parameters
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Process Time of Computing Log-Determinant
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     Accuracy of Computing Log-Determinant
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#process-time-of-computing-trace-of-inverse">
+     Process Time of Computing Trace of Inverse
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id6">
+     Accuracy of Computing Trace of Inverse
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#how-to-reproduce-results">
@@ -298,23 +347,13 @@
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#dense-matrices-run-locally">
-       Dense Matrices, Run Locally
+      <a class="reference internal nav-link" href="#run-locally">
+       Run Locally
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#dense-matrices-submit-to-cluster-with-slurm">
-       Dense Matrices, Submit to Cluster with SLURM
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#sparse-matrices-run-locally">
-       Sparse Matrices, Run Locally
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#sparse-matrices-submit-to-cluster-with-slurm">
-       Sparse Matrices, Submit to Cluster with SLURM
+      <a class="reference internal nav-link" href="#submit-to-cluster-with-slurm">
+       Submit to Cluster with SLURM
       </a>
      </li>
     </ul>
@@ -325,11 +364,6 @@
     </a>
    </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#references">
-   References
-  </a>
  </li>
 </ul>
 
@@ -362,37 +396,37 @@
 <p><span class="synco">imate</span> implements various deterministic and randomized algorithms on dense and sparse matrices. The goal of the following numerical experiments is to compare the performance, scalability, and accuracy of these algorithms.</p>
 <section id="test-description">
 <h2>Test Description<a class="headerlink" href="#test-description" title="Permalink to this heading">#</a></h2>
-<p>In the following numerical experiments compute</p>
+<p>The following numerical experiments aims to estimate</p>
 <div class="math notranslate nohighlight" id="equation-logdet3">
 <span class="eqno">(1)<a class="headerlink" href="#equation-logdet3" title="Permalink to this equation">#</a></span>\[\log \det (\mathbf{A}),\]</div>
 <p>and</p>
 <div class="math notranslate nohighlight" id="equation-traceinv3">
 <span class="eqno">(2)<a class="headerlink" href="#equation-traceinv3" title="Permalink to this equation">#</a></span>\[\mathrm{trace}(\mathbf{A}^{-1}),\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is symmetric and positive-definite. The above quantities is a computationally expensive expression that frequently appears in the likelihood funcitons and their Jacobian and Hessian.</p>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is symmetric and positive-definite. The above quantities are computationally expensive expressions that frequently appears in the likelihood functions and their Jacobian and Hessian.</p>
 <section id="algorithms">
 <h3>Algorithms<a class="headerlink" href="#algorithms" title="Permalink to this heading">#</a></h3>
-<p>The following Algorithms were tested on Intel(R) Xeon(R) CPU E5-2670 v3  with 24 threads.</p>
+<p>The following Algorithms were tested on Intel® Xeon CPU E5-2670 v3  with 24 threads.</p>
 <dl class="glossary">
 <dt id="term-Cholesky-Decomposition">Cholesky Decomposition<a class="headerlink" href="#term-Cholesky-Decomposition" title="Permalink to this term">#</a></dt><dd><p>This method is implemented by the following functions:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../api/imate.logdet.cholesky.html#imate-logdet-cholesky"><span class="std std-ref">imate.logdet(method=’cholesky’)</span></a> to compute <a class="reference internal" href="#equation-logdet3">(1)</a>.</p></li>
 <li><p><a class="reference internal" href="../api/imate.traceinv.cholesky.html#imate-traceinv-cholesky"><span class="std std-ref">imate.traceinv(method=’cholesky’)</span></a> to compute <a class="reference internal" href="#equation-traceinv3">(2)</a>.</p></li>
 </ul>
-<p>The complexity of computing <a class="reference internal" href="#equation-logdet3">(1)</a> is close to <span class="math notranslate nohighlight">\(\mathcal{O}((\mathrm{nnz}(\mathbf{L}))^{\frac{3}{2}})\)</span> (see for instance <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>) where <span class="math notranslate nohighlight">\(\mathbf{A} = \mathbf{L} \mathbf{L}^{\intercal}\)</span>. The complexity of computing <a class="reference internal" href="#equation-traceinv3">(2)</a> for sparse matrices is <span class="math notranslate nohighlight">\(\mathcal{O}(n^2)\)</span> where <span class="math notranslate nohighlight">\(n\)</span> is the matrix size.</p>
+<p>The complexity of computing <a class="reference internal" href="#equation-logdet3">(1)</a> for matrices obtained from 1D, 2D, and 3D grids are respectively <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span>, <span class="math notranslate nohighlight">\(\mathcal{O}(n^{\frac{3}{2}})\)</span>, and <span class="math notranslate nohighlight">\(\mathcal{O}(n^2)\)</span> where <span class="math notranslate nohighlight">\(n\)</span> is the matrix size. The complexity of computing <a class="reference internal" href="#equation-traceinv3">(2)</a> for sparse matrices is <span class="math notranslate nohighlight">\(\mathcal{O}(\rho n^2)\)</span> where <span class="math notranslate nohighlight">\(\rho\)</span> is the sparse matrix density.</p>
 </dd>
-<dt id="term-Hutchinson-Method">Hutchinson Method<a class="headerlink" href="#term-Hutchinson-Method" title="Permalink to this term">#</a></dt><dd><p>This method is only applied to <a class="reference internal" href="#equation-traceinv3">(2)</a> and implemented by <a class="reference internal" href="../api/imate.traceinv.hutchinson.html#imate-traceinv-hutchinson"><span class="std std-ref">imate.traceinv(method=’hutchinson’)</span></a> fucntion. The complexity of this method is:</p>
-<div class="math notranslate nohighlight">
-\[\mathcal{O}(\mathrm{nnz}(\mathbf{A})s),\]</div>
-<p>where <span class="math notranslate nohighlight">\(s\)</span> is the number of Monte-Carlo iterations in the algorithm and <span class="math notranslate nohighlight">\(\rho\)</span> is the sparse matrix density. In this experiemnt, <span class="math notranslate nohighlight">\(s = 80\)</span>.</p>
+<dt id="term-Hutchinson-Algorithm">Hutchinson Algorithm<a class="headerlink" href="#term-Hutchinson-Algorithm" title="Permalink to this term">#</a></dt><dd><p>This method is only applied to <a class="reference internal" href="#equation-traceinv3">(2)</a> and implemented by <a class="reference internal" href="../api/imate.traceinv.hutchinson.html#imate-traceinv-hutchinson"><span class="std std-ref">imate.traceinv(method=’hutchinson’)</span></a> function. The complexity of this method is:</p>
+<div class="math notranslate nohighlight" id="equation-comp-hutch">
+<span class="eqno">(3)<a class="headerlink" href="#equation-comp-hutch" title="Permalink to this equation">#</a></span>\[\mathcal{O}(\mathrm{nnz}(\mathbf{A})s),\]</div>
+<p>where <span class="math notranslate nohighlight">\(s\)</span> is the number of Monte-Carlo iterations in the algorithm and <span class="math notranslate nohighlight">\(\rho\)</span> is the sparse matrix density. In this experiment, <span class="math notranslate nohighlight">\(s = 80\)</span>.</p>
 </dd>
-<dt id="term-Stochastic-Lanczos-Quadrature-Method">Stochastic Lanczos Quadrature Method<a class="headerlink" href="#term-Stochastic-Lanczos-Quadrature-Method" title="Permalink to this term">#</a></dt><dd><p>This method is implemented by:</p>
+<dt id="term-Stochastic-Lanczos-Quadrature-Algorithm">Stochastic Lanczos Quadrature Algorithm<a class="headerlink" href="#term-Stochastic-Lanczos-Quadrature-Algorithm" title="Permalink to this term">#</a></dt><dd><p>This method is implemented by:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../api/imate.logdet.cholesky.html#imate-logdet-cholesky"><span class="std std-ref">imate.logdet(method=’cholesky’)</span></a> to compute <a class="reference internal" href="#equation-logdet3">(1)</a>.</p></li>
 <li><p><a class="reference internal" href="../api/imate.traceinv.cholesky.html#imate-traceinv-cholesky"><span class="std std-ref">imate.traceinv(method=’cholesky’)</span></a> to compute <a class="reference internal" href="#equation-traceinv3">(2)</a>.</p></li>
 </ul>
 <p>The complexity of this method is:</p>
-<div class="math notranslate nohighlight">
-\[\mathcal{O} \left( (\mathrm{nnz}(\mathbf{A}) l + n l^2) s \right),\]</div>
+<div class="math notranslate nohighlight" id="equation-comp-slq">
+<span class="eqno">(4)<a class="headerlink" href="#equation-comp-slq" title="Permalink to this equation">#</a></span>\[\mathcal{O} \left( (\mathrm{nnz}(\mathbf{A}) l + n l^2) s \right),\]</div>
 <p>where <span class="math notranslate nohighlight">\(l\)</span> is the number of Lanczos iterations, and <span class="math notranslate nohighlight">\(s\)</span> is the number of Monte-Carlo iterations.  The numerical experiment is performed with <span class="math notranslate nohighlight">\(l=80\)</span> and <span class="math notranslate nohighlight">\(s=200\)</span>.</p>
 </dd>
 </dl>
@@ -402,13 +436,13 @@
 <p>The benchmark test also examines the performance and accuracy of <span class="synco">imate</span> on various arithmetic types of the matrix data. To this end, the matrices that are described below are re-cast into 32-bit, 64-bit, and 128-bit floating point types.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Supporting 128-bit data types is one of the features if <span class="synco">imate</span>, which is often not available in numerical libraries, such as OpenBLAS.</p>
+<p>Supporting 128-bit data types is one of the features of <span class="synco">imate</span>, which is often not available in numerical libraries, such as BLAS, OpenBLAS, Cholmod, etc.</p>
 </div>
 </section>
 </section>
-<section id="test-on-dense-matrices">
-<h2>Test on Dense Matrices<a class="headerlink" href="#test-on-dense-matrices" title="Permalink to this heading">#</a></h2>
-<p>The Gramian matrix <span class="math notranslate nohighlight">\(\mathbf{A} = \mathbf{B}^{\intercal} \mathbf{B}\)</span> is considered for the test where <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> is a bi-diagonal Toeplitz matrix defined by</p>
+<section id="test-on-simple-matrices">
+<span id="simple-mat"></span><h2>Test on Simple Matrices<a class="headerlink" href="#test-on-simple-matrices" title="Permalink to this heading">#</a></h2>
+<p>The Gramian matrix <span class="math notranslate nohighlight">\(\mathbf{A} = \mathbf{B}^{\intercal} \mathbf{B}\)</span> is considered for the test where <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> is a sparse bi-diagonal Toeplitz matrix defined by</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}B_{ij} =
 \begin{cases}
@@ -416,116 +450,242 @@
     b, &amp; i+1 = j.
 \end{cases}\end{split}\]</div>
 <p>The above matrix can be generated by <a class="reference internal" href="../generated/imate.toeplitz.html#imate.toeplitz" title="imate.toeplitz"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.toeplitz()</span></code></a> function. In this experiment, <span class="math notranslate nohighlight">\(a = 2\)</span>, <span class="math notranslate nohighlight">\(b = 1\)</span>, and the matrix size is varied by powers of two, <span class="math notranslate nohighlight">\(n = 2^8, 2^9, \dots, 2^{14}\)</span>.</p>
-<p>An advantage of using the above matrix is that an analytic formula for <a class="reference internal" href="#equation-traceinv3">(2)</a> for <span class="math notranslate nohighlight">\(n \gg 1\)</span> is known by</p>
-<div class="math notranslate nohighlight" id="equation-analytic-formula">
-<span class="eqno">(3)<a class="headerlink" href="#equation-analytic-formula" title="Permalink to this equation">#</a></span>\[ \mathrm{trace}(\mathbf{A}^{-1}) \approx \frac{1}{a^2 - b^2} \left( n - \frac{q^{2}}{1 - q^2} \right),\]</div>
-<p>where <span class="math notranslate nohighlight">\(q = b/a\)</span>. See <a class="reference internal" href="../generated/imate.sample_matrices.toeplitz_traceinv.html#imate.sample_matrices.toeplitz_traceinv" title="imate.sample_matrices.toeplitz_traceinv"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.sample_matrices.toeplitz_traceinv()</span></code></a> for details. The above analytic formula is used as the benchmark solution to test the accuracy of the results.</p>
-<section id="process-time">
-<h3>Process Time<a class="headerlink" href="#process-time" title="Permalink to this heading">#</a></h3>
-<p>The processing time of the computations is shown in the figure below. The speed of computation with and without using OpenBLAS for <span class="math notranslate nohighlight">\(n &lt; 10^{12}\)</span> shows mixed results. However, at <span class="math notranslate nohighlight">\(n \geq 2^{12}\)</span>, the speed of computation without using OpenBLAS is consistently superior by a factor of roughly 1.5 to 2.5.</p>
-</section>
-</section>
-<section id="results">
-<h2>Results<a class="headerlink" href="#results" title="Permalink to this heading">#</a></h2>
+<p>The Cholesky factor of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is <span class="math notranslate nohighlight">\(\mathbf{B}^{\intercal}\)</span>. Also, <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A}) = 3n\)</span>. An advantage of using the above matrix is that an analytic formula for <a class="reference internal" href="#equation-logdet3">(1)</a> and <a class="reference internal" href="#equation-traceinv3">(2)</a> is known. Namely,</p>
+<div class="math notranslate nohighlight" id="equation-formula-logdet3">
+<span class="eqno">(5)<a class="headerlink" href="#equation-formula-logdet3" title="Permalink to this equation">#</a></span>\[ \log \det \mathbf{A} = 2n \log_e a.\]</div>
+<p>See <a class="reference internal" href="../generated/imate.sample_matrices.toeplitz_logdet.html#imate.sample_matrices.toeplitz_logdet" title="imate.sample_matrices.toeplitz_logdet"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.sample_matrices.toeplitz_logdet()</span></code></a> for details. Also, if <span class="math notranslate nohighlight">\(n \gg 1\)</span>, then</p>
+<div class="math notranslate nohighlight" id="equation-formula-traceinv3">
+<span class="eqno">(6)<a class="headerlink" href="#equation-formula-traceinv3" title="Permalink to this equation">#</a></span>\[ \mathrm{trace}(\mathbf{A}^{-1}) \approx \frac{1}{a^2 - b^2} \left( n - \frac{q^{2}}{1 - q^2} \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(q = b/a\)</span>. See <a class="reference internal" href="../generated/imate.sample_matrices.toeplitz_traceinv.html#imate.sample_matrices.toeplitz_traceinv" title="imate.sample_matrices.toeplitz_traceinv"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.sample_matrices.toeplitz_traceinv()</span></code></a> for details. The above analytic formulas are used as the benchmark solution to test the accuracy of the results.</p>
+<section id="elapsed-time-of-computing-log-determinant">
+<h3>Elapsed Time of Computing Log-Determinant<a class="headerlink" href="#elapsed-time-of-computing-log-determinant" title="Permalink to this heading">#</a></h3>
+<p>The elapsed (wall) time of the computations is shown in the figure below. The Cholesky method is faster than the SLQ method by an order of magnitude, hence it could be considered the preferred algorithm to compute log-determinant.</p>
+<p>For large matrix sizes, <span class="math notranslate nohighlight">\(n \geq 2^{19}\)</span>, the elapsed time can be related to the matrix size as <span class="math notranslate nohighlight">\(t \propto n^{\alpha}\)</span>. It can be seen from the slope of the fitted lines in the figure that for the SLQ method, <span class="math notranslate nohighlight">\(\alpha\)</span> is close to 1. This result is consistent with the analytic complexity <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span> derived from <a class="reference internal" href="interpolation.html#equation-comp-slq">(4)</a> and using <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A}) \sim n\)</span> for a tri-diagonal matrix. Similarly, for the Cholesky method, <span class="math notranslate nohighlight">\(\alpha \approx 1\)</span>, which corresponds to the analytic complexity of computing log-determinant for matrices obtained from 1D meshes.</p>
 <a class="custom-dark reference internal image-reference" href="../_images/compare_methods_analytic_matrix_logdet_time.png"><img alt="../_images/compare_methods_analytic_matrix_logdet_time.png" class="custom-dark align-center" src="../_images/compare_methods_analytic_matrix_logdet_time.png" style="height: 375px;" /></a>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Cholesky method <a class="reference internal" href="../api/imate.logdet.cholesky.html#imate-logdet-cholesky"><span class="std std-ref">imate.logdet(method=’cholesky’)</span></a> uses <a class="reference external" href="https://scikit-sparse.readthedocs.io/en/latest/cholmod.html#sksparse.cholmod.Factor.logdet">logdet</a> function from SuiteSparse’s Cholmod library, which only supports 64-bit data types. Because of this, the performance test for 32-bit and 128-bit is not available. In contrast, <span class="synco">imate</span>’s implementation of randomized algorithms supports all data types shown in the above figure.</p>
+</div>
+</section>
+<section id="accuracy-of-computing-log-determinant">
+<h3>Accuracy of Computing Log-Determinant<a class="headerlink" href="#accuracy-of-computing-log-determinant" title="Permalink to this heading">#</a></h3>
+<p>The error of computing <a class="reference internal" href="#equation-logdet3">(1)</a> is shown in the figure below, which is obtained by comparing the results with the benchmark solution <a class="reference internal" href="#equation-formula-logdet3">(5)</a>. The error of the Cholesky method is close to the machine precision (almost zero) since it is a direct method. On the other hand, the error of the <cite>SLQ</cite> method, as a randomized algorithm, is non-zero, yet very small. Such a remarkably small error of the SLQ method is due to the specific matrix used in the test and can be explained by the localized distribution of the eigenvalues of <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> which makes the SLQ method very effective in estimating <a class="reference internal" href="#equation-logdet3">(1)</a> with only a few Lanczos iterations. However, for practical matrices, usually, the error of randomized methods is larger than the figure below.</p>
 <a class="custom-dark reference internal image-reference" href="../_images/compare_methods_analytic_matrix_logdet_accuracy.png"><img alt="../_images/compare_methods_analytic_matrix_logdet_accuracy.png" class="custom-dark align-center" src="../_images/compare_methods_analytic_matrix_logdet_accuracy.png" style="height: 375px;" /></a>
+</section>
+<section id="elapsed-time-of-computing-trace-of-inverse">
+<h3>Elapsed Time of Computing Trace of Inverse<a class="headerlink" href="#elapsed-time-of-computing-trace-of-inverse" title="Permalink to this heading">#</a></h3>
+<p>The elapsed (wall) time of the computations is shown in the figure below. Unlike the above results for log-determinant, the Cholesky method here is significantly slower than the SLQ method. In fact, computing the trace of inverse of matrices is one of the applications where the performance of randomized methods surpasses the direct methods significantly.</p>
+<p>The computational complexity can be quantified by the relation between the elapsed time and the matrix size as <span class="math notranslate nohighlight">\(t \propto n^{\alpha}\)</span>. It can be seen from the slope of the fitted lines in the figure that for Hutchinson and SLQ methods, <span class="math notranslate nohighlight">\(\alpha\)</span> is close to 1. This result is consistent with the analytic complexity <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span> derived from <a class="reference internal" href="interpolation.html#equation-comp-hutch">(3)</a> and <a class="reference internal" href="interpolation.html#equation-comp-slq">(4)</a> and using <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A}) \sim n\)</span> for a tri-diagonal matrix. Similarly, for the Cholesky method, <span class="math notranslate nohighlight">\(\alpha \approx 2\)</span>, which corresponds to the analytic complexity <span class="math notranslate nohighlight">\(\mathcal{O}(n^2)\)</span> for computing the trace of matrix inverse.</p>
 <img alt="../_images/compare_methods_analytic_matrix_traceinv_time.png" class="custom-dark align-center" src="../_images/compare_methods_analytic_matrix_traceinv_time.png" />
+</section>
+<section id="accuracy-of-computing-trace-of-inverse">
+<h3>Accuracy of Computing Trace of Inverse<a class="headerlink" href="#accuracy-of-computing-trace-of-inverse" title="Permalink to this heading">#</a></h3>
+<p>The error of computing <a class="reference internal" href="#equation-traceinv3">(2)</a> is obtained from the benchmark solution <a class="reference internal" href="#equation-formula-traceinv3">(6)</a> and shown in the figure below. The error of the Cholesky method is close to the machine precision (almost zero) since it is a direct method. On the other hand, the <cite>SLQ</cite> method, as a randomized algorithm, is non-zero. As mentioned previously, such a remarkable small error of the SLQ method is due to the specific matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> used in the test as its eigenvalues have a localized distribution, allowing the SLQ method to estimate <a class="reference internal" href="#equation-traceinv3">(2)</a> with a few Lanczos iterations.</p>
 <a class="custom-dark reference internal image-reference" href="../_images/compare_methods_analytic_matrix_traceinv_accuracy.png"><img alt="../_images/compare_methods_analytic_matrix_traceinv_accuracy.png" class="custom-dark align-center" src="../_images/compare_methods_analytic_matrix_traceinv_accuracy.png" style="height: 375px;" /></a>
+</section>
+</section>
+<section id="test-on-practical-matrices">
+<span id="prac-mat"></span><h2>Test on Practical Matrices<a class="headerlink" href="#test-on-practical-matrices" title="Permalink to this heading">#</a></h2>
+<p>The performance of algorithms was also examined on practical matrices. The table below shows the practical matrices used in the test, which are chosen from <a class="reference external" href="https://sparse.tamu.edu">SuiteSparse Matrix Collection</a> and are obtained from real applications. The matrices in the table below are all symmetric positive-definite. The number of nonzero elements (nnz) of these matrices increases approximately by a factor of 5 on average and their sparse density remains at the same order of magnitude (except for the first three).</p>
+<table class="right2 right3 table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Matrix Name</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>nnz</p></th>
+<th class="head"><p>Density</p></th>
+<th class="head"><p>Application</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://sparse.tamu.edu/HB/nos5"><code class="docutils literal notranslate"><span class="pre">nos5</span></code></a></p></td>
+<td><p>468</p></td>
+<td><p>5,172</p></td>
+<td><p>0.02</p></td>
+<td><p>Structural Problem</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://sparse.tamu.edu/Bai/mhd4800b"><code class="docutils literal notranslate"><span class="pre">mhd4800b</span></code></a></p></td>
+<td><p>4,800</p></td>
+<td><p>27,520</p></td>
+<td><p>0.001</p></td>
+<td><p>Electromagnetics</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://sparse.tamu.edu/Pothen/bodyy6"><code class="docutils literal notranslate"><span class="pre">bodyy6</span></code></a></p></td>
+<td><p>19,366</p></td>
+<td><p>134,208</p></td>
+<td><p>0.0003</p></td>
+<td><p>Structural Problem</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://sparse.tamu.edu/AMD/G2_circuit"><code class="docutils literal notranslate"><span class="pre">G2_circuit</span></code></a></p></td>
+<td><p>150,102</p></td>
+<td><p>726,674</p></td>
+<td><p>0.00003</p></td>
+<td><p>Circuit Simulation</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://sparse.tamu.edu/Wissgott/parabolic_fem"><code class="docutils literal notranslate"><span class="pre">parabolic_fem</span></code></a></p></td>
+<td><p>525,825</p></td>
+<td><p>3,674,625</p></td>
+<td><p>0.00001</p></td>
+<td><p>Computational Fluid Dynamics</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://sparse.tamu.edu/Janna/StocF-1465"><code class="docutils literal notranslate"><span class="pre">StocF-1465</span></code></a></p></td>
+<td><p>1,465,137</p></td>
+<td><p>21,005,389</p></td>
+<td><p>0.00001</p></td>
+<td><p>Computational Fluid Dynamics</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://sparse.tamu.edu/Janna/Bump_2911"><code class="docutils literal notranslate"><span class="pre">Bump_2911</span></code></a></p></td>
+<td><p>2,911,419</p></td>
+<td><p>127,729,899</p></td>
+<td><p>0.00001</p></td>
+<td><p>Structural Problem</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://sparse.tamu.edu/Janna/Queen_4147"><code class="docutils literal notranslate"><span class="pre">Queen_4147</span></code></a></p></td>
+<td><p>4,147,110</p></td>
+<td><p>329,499,284</p></td>
+<td><p>0.00002</p></td>
+<td><p>Structural Problem</p></td>
+</tr>
+</tbody>
+</table>
+<section id="process-time-of-computing-log-determinant">
+<h3>Process Time of Computing Log-Determinant<a class="headerlink" href="#process-time-of-computing-log-determinant" title="Permalink to this heading">#</a></h3>
+<p>The elapsed (wall) time of the computations is shown in the figure below. Unlike the results of the Toeplitz matrices, here, the result of comparing the Cholesky method and SLQ method is mixed with the Cholesky method often being marginally faster than the SLQ method. However, the SLQ method is scalable to larger matrices, whereas the Cholesky method often crashes at <span class="math notranslate nohighlight">\(n &gt; 10^8\)</span>.</p>
 <img alt="../_images/compare_methods_practical_matrix_logdet_time.png" class="custom-dark align-center" src="../_images/compare_methods_practical_matrix_logdet_time.png" />
+</section>
+<section id="id1">
+<h3>Accuracy of Computing Log-Determinant<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>The error of computing log-determinant using the SLQ method is shown in the figure below, which is obtained by comparing with the result of the Cholesky method as a benchmark. For four of the matrices, the error is less than <span class="math notranslate nohighlight">\(1 \%\)</span>. However, for the second and the sixth matrices in the figure, the error is above <span class="math notranslate nohighlight">\(10 \%\)</span>. To reduce the error, a higher number of Monte-Carlo iterations are needed on these matrices.</p>
 <a class="custom-dark reference internal image-reference" href="../_images/compare_methods_practical_matrix_logdet_accuracy.png"><img alt="../_images/compare_methods_practical_matrix_logdet_accuracy.png" class="custom-dark align-center" src="../_images/compare_methods_practical_matrix_logdet_accuracy.png" style="height: 375px;" /></a>
 </section>
-<section id="algorithm-parameters">
-<h2>Algorithm Parameters<a class="headerlink" href="#algorithm-parameters" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="varying-algorithm-parameters">
+<h2>Varying Algorithm Parameters<a class="headerlink" href="#varying-algorithm-parameters" title="Permalink to this heading">#</a></h2>
+<p>A known issue of the Lanczos algorithm is that the eigenvectors computed during the recusance Lanczos iterations lose their orthogonality. A solution to this issue is the re-orthogonalization of the newly computed eigenvectors with either some or all previous eigenvectors, which is known as partial or full orthogonalization, respectively. <a href="#id8"><span class="problematic" id="id9">|prpject|</span></a> supports both types of orthogonalization techniques.</p>
+<p>In the following tests, the effect of re-orthogonalizations of the eigenvectors and the effect of varying the number of Lanczos iterations are examined.</p>
+<section id="id2">
+<h3>Process Time of Computing Log-Determinant<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>The test below corresponds to the tri-diagonal matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> (See <a class="reference internal" href="#simple-mat"><span class="std std-ref">Test on Simple Matrices</span></a>) with <span class="math notranslate nohighlight">\(n = 2^{14}\)</span>. The figure below shows the elapsed time (left) and process time (right) of computing the log-determinant versus the number of Lanczos iterations, <span class="math notranslate nohighlight">\(l\)</span> (also known as Lanczos degree). The orange and red curves respectively show the results with and without orthogonalization of the eigenvectors in the Lanczos algorithm. The processing time is proportional to <span class="math notranslate nohighlight">\(\mathcal{O}(l)\)</span> without orthogonalization, which is consistent with the complexity given in <a class="reference internal" href="interpolation.html#equation-comp-slq">(4)</a> when <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A})\)</span> is large. However, the processing time is almost <span class="math notranslate nohighlight">\(\mathcal{O}(l^{2})\)</span> with orthogonalization for <span class="math notranslate nohighlight">\(l &lt; 300\)</span>, which is consistent with the complexity of the Gram-Schmit orthogonalization process.</p>
 <img alt="../_images/vary_lanczos_degree_analytic_matrix_time.png" class="custom-dark align-center" src="../_images/vary_lanczos_degree_analytic_matrix_time.png" />
+<p>Note that at <span class="math notranslate nohighlight">\(l &gt; 300\)</span>, the processing time suddenly increases. This effect does not reflect a mathematical complexity, rather, is due to the fact that the Gram-Schmidt process is a memory-bounded process when the number of vectors is large. Specifically, when <em>full-orthogonalization</em> is used, all previous eigenvectors of the Lanczos iterations should be stored on the memory in a single large array. However, by increasing the number of eigenvectors, the size of the arrays grows larger than the memory bandwidth of the CPU cache, making the memory access significantly inefficient.</p>
+</section>
+<section id="id3">
+<h3>Accuracy of Computing Log-Determinant<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<p>The figure below shows the error of computing log-determinant by comparing the results with the analytic value in <a class="reference internal" href="#equation-formula-logdet3">(5)</a>. While the full-orthogonalization process in the Lanczos algorithm is an order of magnitude slower than without using orthogonalization, it provides a higher accuracy by an order of magnitude. The figure also implies that only a few Lanczos iterations, <span class="math notranslate nohighlight">\(l = 30 \sim 60\)</span> are sufficient to obtain a reasonable order of accuracy. This result holds for most applications.</p>
 <a class="custom-dark reference internal image-reference" href="../_images/vary_lanczos_degree_analytic_matrix_accuracy.png"><img alt="../_images/vary_lanczos_degree_analytic_matrix_accuracy.png" class="custom-dark align-center" src="../_images/vary_lanczos_degree_analytic_matrix_accuracy.png" style="height: 340px;" /></a>
+</section>
+<section id="process-time-of-computing-trace-of-inverse">
+<h3>Process Time of Computing Trace of Inverse<a class="headerlink" href="#process-time-of-computing-trace-of-inverse" title="Permalink to this heading">#</a></h3>
+<p>The above tests were also performed on the practical matrices (see <a href="#id4"><span class="problematic" id="id5">:ref:`Test on Practical Matrices &lt;prac_mat&gt;`_</span></a>). The figure below corresponds to computing the race of inverse of the matrix <a class="reference external" href="http://sparse.tamu.edu/GHS_psdef/jnlbrng1">jnlbrng1</a> with <span class="math notranslate nohighlight">\(n = 40000\)</span>. The results are very similar to the previous test on simple matrices. Namely, the complexity of the process with and without orthogonalization is <span class="math notranslate nohighlight">\(\mathcal{O}(l^2)\)</span> and <span class="math notranslate nohighlight">\(\mathcal{O}(l)\)</span>, respectively. Also, orthogonalization is by an order of magnitude slower than without orthogonalization and the effect of the cache memory bandwidth can be seen at <span class="math notranslate nohighlight">\(l &gt; 300\)</span>.;</p>
 <img alt="../_images/vary_lanczos_degree_practical_matrix_time.png" class="custom-dark align-center" src="../_images/vary_lanczos_degree_practical_matrix_time.png" />
+</section>
+<section id="id6">
+<h3>Accuracy of Computing Trace of Inverse<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<p>The error of computing the trace of inverse of the test matrix is shown below, which is obtained by comparison of the results with the Cholesky method (not shown here). The difference between the error of the process with and without orthogonalization is insignificant, hence, one may not use orthogonalization as it is effectively faster. Also, as suggested by the figure’s results, a practical choice for the number of Lanczos iterations is <span class="math notranslate nohighlight">\(l = 20 \sim 50\)</span> for most applications.</p>
 <a class="custom-dark reference internal image-reference" href="../_images/vary_lanczos_degree_practical_matrix_accuracy.png"><img alt="../_images/vary_lanczos_degree_practical_matrix_accuracy.png" class="custom-dark align-center" src="../_images/vary_lanczos_degree_practical_matrix_accuracy.png" style="height: 340px;" /></a>
+</section>
 </section>
 <section id="how-to-reproduce-results">
 <h2>How to Reproduce Results<a class="headerlink" href="#how-to-reproduce-results" title="Permalink to this heading">#</a></h2>
 <section id="prepare-matrix-data">
 <h3>Prepare Matrix Data<a class="headerlink" href="#prepare-matrix-data" title="Permalink to this heading">#</a></h3>
 <ol class="arabic">
-<li><p>Download all the above-mentioned sparse matrices from <a class="reference external" href="https://sparse.tamu.edu">SuiteSparse Matrix Collection</a>. For instance, download <code class="docutils literal notranslate"><span class="pre">Queen_4147.mat</span></code> from <a href="#id5"><span class="problematic" id="id6">|Queen_4147|_</span></a>.</p></li>
+<li><p>Download all the above-mentioned sparse matrices from <a class="reference external" href="https://sparse.tamu.edu">SuiteSparse Matrix Collection</a>. For instance, download <code class="docutils literal notranslate"><span class="pre">Queen_4147.mat</span></code> from <a class="reference external" href="https://sparse.tamu.edu/Janna/Queen_4147"><code class="docutils literal notranslate"><span class="pre">Queen_4147</span></code></a>.</p></li>
 <li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.m"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.m</span></code></a> to extract sparse matrix data from <code class="docutils literal notranslate"><span class="pre">Queen_4147.mat</span></code>:</p>
 <div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">read_matrix</span><span class="p">(</span><span class="s">&#39;Queen_4147.mat&#39;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </li>
-<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.py</span></code></a> to convert the outputs of the above Octave script to generate a python pickle file:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float32</span>    <span class="c1"># to generate 32-bit data</span>
-<span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float64</span>    <span class="c1"># to generate 64-bit data</span>
-<span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float128</span>   <span class="c1"># to generate 128-bit data</span>
-</pre></div>
-</div>
-<p>The output of the above script will be stored in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/</span></code></a>.</p>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.py</span></code></a> to convert the outputs of the above script to generate a python pickle file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">read_matrix.py Queen_4147 float32    <span class="c1"># to generate 32-bit data</span></span>
+<span class="prompt1">read_matrix.py Queen_4147 float64    <span class="c1"># to generate 64-bit data</span></span>
+<span class="prompt1">read_matrix.py Queen_4147 float128   <span class="c1"># to generate 128-bit data</span></span>
+</pre></div></div><p>The output of the above script will be written in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/</span></code></a>.</p>
 </li>
 </ol>
 </section>
 <section id="perform-numerical-test">
 <h3>Perform Numerical Test<a class="headerlink" href="#perform-numerical-test" title="Permalink to this heading">#</a></h3>
-<p>Run each of the scripts described below with and without using OpenBLAS support in <span class="synco">imate</span> to compare their performance. The default installation of <span class="synco">imate</span> (if you installed it with <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">cond</span></code>) does not come with OpenBLAS support. To use OpenBLAS, <span class="synco">imate</span> has to be compiled from the source.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>To compile <span class="synco">imate</span> using OpenBLAS, export the environment variable:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
-span.prompt1:before {
-  content: "$ ";
-}
-</style><span class="prompt1"><span class="nb">export</span> <span class="nv">USE_CBLAS</span><span class="o">=</span><span class="m">1</span></span>
-</pre></div></div><p>or set <code class="docutils literal notranslate"><span class="pre">USE_CBLAS=1</span></code> in <a class="reference external" href="https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L67"><code class="docutils literal notranslate"><span class="pre">/imate/_definitions/definition.h</span></code></a>. By default, <code class="docutils literal notranslate"><span class="pre">USE_CBLAS</span></code> is set to <code class="docutils literal notranslate"><span class="pre">0</span></code>. Then, recompile <span class="synco">imate</span>. See <a class="reference internal" href="../tutorials/install.html#compile-source"><span class="std std-ref">Compile from Source</span></a>.</p>
-</div>
-<section id="dense-matrices-run-locally">
-<h4>Dense Matrices, Run Locally<a class="headerlink" href="#dense-matrices-run-locally" title="Permalink to this heading">#</a></h4>
-<p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/benchmark_openblas_dense.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/benchmark_openblas_dense.py</span></code></a> as follows:</p>
-<ol class="arabic">
-<li><p>To reproduce the results <em>without OpenBLAS</em>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
-<span class="prompt1">python ./benchmark_openblas_dense.py -o False</span>
-</pre></div></div></li>
-<li><p>To reproduce the results <em>with OpenBLAS</em>, first, compile <span class="synco">imate</span> with OpenBLAS (see above), then run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
-<span class="prompt1">python ./benchmark_openblas_dense.py -o True</span>
-</pre></div></div></li>
-</ol>
+<section id="run-locally">
+<h4>Run Locally<a class="headerlink" href="#run-locally" title="Permalink to this heading">#</a></h4>
+<ul>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/compare_methods_analytic_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/compare_methods_analytic_matrix.py</span></code></a> to reproduce results for Toeplitz matrices as follows</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
+<span class="prompt1">python ./compare_methods_analytic_matrix.py -a -f logdet     <span class="c1"># log-determinant test</span></span>
+<span class="prompt1">python ./compare_methods_analytic_matrix.py -a -f traceinv   <span class="c1"># trace of inverse test</span></span>
+</pre></div></div></div></blockquote>
+</li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/compare_methods_practical_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/compare_methods_practical_matrix.py</span></code></a> to reproduce results for practical matrices as follows</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
+<span class="prompt1">python ./compare_methods_practical_matrix.py -a -f logdet     <span class="c1"># log-determinant test</span></span>
+</pre></div></div></div></blockquote>
+</li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/vary_lanczos_degree_analytic_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/vary_lanczos_degree_analytic_matrix.py</span></code></a> to reproduce results for varying algorithm parameters on simple matrices:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
+<span class="prompt1">python ./vary_lanczos_degree_analytic_matrix.py</span>
+</pre></div></div></div></blockquote>
+</li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/vary_lanczos_degree_practical_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/vary_lanczos_degree_practical_matrix.py</span></code></a> to reproduce results for varying algorithm parameters on practical matrices:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
+<span class="prompt1">python ./vary_lanczos_degree_practical_matrix.py</span>
+</pre></div></div></div></blockquote>
+</li>
+</ul>
 </section>
-<section id="dense-matrices-submit-to-cluster-with-slurm">
-<h4>Dense Matrices, Submit to Cluster with SLURM<a class="headerlink" href="#dense-matrices-submit-to-cluster-with-slurm" title="Permalink to this heading">#</a></h4>
-<p>Submit the job file <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_openblas_dense.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_openblas_dense.sh</span></code></a> by</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
-<span class="prompt1">sbatch jobfile_benchmark_openblas_dense.sh</span>
-</pre></div></div><p>To use with or without OpenBLAS, modify the above job files (uncomment lines the corresponding).</p>
+<section id="submit-to-cluster-with-slurm">
+<h4>Submit to Cluster with SLURM<a class="headerlink" href="#submit-to-cluster-with-slurm" title="Permalink to this heading">#</a></h4>
+<ul>
+<li><p>Submit <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_compare_methods_analytic_matrix_logdet.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/jobfile_compare_methods_analytic_matrix_logdet.sh</span></code></a> to reproduce results of log-determinant of simple matrices:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch ./jobfile_compare_methods_analytic_matrix_logdet.sh</span>
+</pre></div></div></div></blockquote>
+</li>
+<li><p>Submit <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_compare_methods_analytic_matrix_traceinv.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/jobfile_compare_methods_analytic_matrix_traceinv.sh</span></code></a> to reproduce results of the trace of inverse of simple matrices:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch ./jobfile_compare_methods_analytic_matrix_traceinv.sh</span>
+</pre></div></div></div></blockquote>
+</li>
+<li><p>Submit <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_compare_methods_practical_matrix_logdet.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/jobfile_compare_methods_practical_matrix_logdet.sh</span></code></a> to reproduce results of log-determinant of simple matrices:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch ./jobfile_compare_methods_practical_matrix_logdet.sh</span>
+</pre></div></div></div></blockquote>
+</li>
+<li><p>Submit <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_vary_lanczos_degree_analytic_matrix.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/jobfile_vary_lanczos_degree_analytic_matrix.sh</span></code></a> to reproduce results of varying parameters on simple matrices:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch ./jobfile_vary_lanczos_degree_analytic_matrix.sh</span>
+</pre></div></div></div></blockquote>
+</li>
+<li><p>Submit <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_vary_lanczos_degree_practical_matrix.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/jobfile_vary_lanczos_degree_practical_matrix.sh</span></code></a> to reproduce results of varying parameters on practical matrices:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch ./jobfile_vary_lanczos_degree_practical_matrix.sh</span>
+</pre></div></div></div></blockquote>
+</li>
+</ul>
 </section>
-<section id="sparse-matrices-run-locally">
-<h4>Sparse Matrices, Run Locally<a class="headerlink" href="#sparse-matrices-run-locally" title="Permalink to this heading">#</a></h4>
-<p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/benchmark_speed.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/benchmark_speed.py</span></code></a> script as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
-<span class="prompt1">python ./benchmark_speed.py -c</span>
-</pre></div></div></section>
-<section id="sparse-matrices-submit-to-cluster-with-slurm">
-<h4>Sparse Matrices, Submit to Cluster with SLURM<a class="headerlink" href="#sparse-matrices-submit-to-cluster-with-slurm" title="Permalink to this heading">#</a></h4>
-<p>Submit the job file <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh</span></code></a> by</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
-<span class="prompt1">sbatch jobfile_benchmark_speed_cpu.sh</span>
-</pre></div></div></section>
 </section>
 <section id="plot-results">
 <h3>Plot Results<a class="headerlink" href="#plot-results" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_benchmark_openblas_dense.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_benchmark_openblas_dense.ipynb</span></code></a> to generate plots for the dense matrices shown in the above</p></li>
-<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_benchmark_openblas_sparse.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_benchmark_openblas_sparse.ipynb</span></code></a> to generate plots for the sparse matrices shown in the above</p></li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_compare_methods_analytic_matrix_logdet.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_compare_methods_analytic_matrix_logdet.ipynb</span></code></a> to generate plots for computing the log-determinants of Toeplitz matrices.</p></li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_compare_methods_analytic_matrix_traceinv.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_compare_methods_analytic_matrix_traceinv.ipynb</span></code></a> to generate plots for computing the trace of inverse of Toeplitz matrices.</p></li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_compare_methods_analytic_matrix_logdet.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_compare_methods_analytic_matrix_logdet.ipynb</span></code></a> to generate plots for computing the log-determinants of the practical matrices.</p></li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_vary_lanczos_degree_analytic_matrix.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_vary_lanczos_degree_analytic_matrix.ipynb</span></code></a> to generate plots for varying algorithm parameters on Toeplitz matrices.</p></li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_vary_lanczos_degree_practical_matrix.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_vary_lanczos_degree_practical_matrix.ipynb</span></code></a> to generate plots for varying algorithm parameters on practical matrices.</p></li>
 </ul>
-<p>These notebooks stores <cite>svg</cite> plots in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/svg_plots"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/svg_plots/</span></code></a>.</p>
+<p>These notebooks stores the plots as <cite>svg</cite> files in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/svg_plots"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/svg_plots/</span></code></a>.</p>
 </section>
-</section>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="id2" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>George, A. and Ng, E. (1988). <em>On the Complexity of Sparse QR and LU Factorization of Finite-Element Matrices</em>. SIAM Journal on Scientific and Statistical Computing, volume 9, number 5, pp. 849-861. <a class="reference external" href="https://doi.org/10.1137/0909057">doi: 10.1137/0909057</a>.</p>
-</aside>
-</aside>
 </section>
 </section>
 

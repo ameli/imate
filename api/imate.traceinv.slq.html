@@ -542,19 +542,19 @@ quadrature method.</p>
 <p>Given the matrix or the linear operator <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and the real
 non-negative exponent <span class="math notranslate nohighlight">\(p \geq 0\)</span>, the following is computed:</p>
 <div class="math notranslate nohighlight">
-\[\mathrm{trace} \left(\mathbf{A}^p \right).\]</div>
+\[\mathrm{trace} \left(\mathbf{A}^{-p} \right).\]</div>
 <p>If <code class="docutils literal notranslate"><span class="pre">gram</span></code> is <cite>True</cite>, then <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> in the above is replaced by
 the Gramian matrix <span class="math notranslate nohighlight">\(\mathbf{A}^{\intercal} \mathbf{A}\)</span>, and the
 following is instead computed:</p>
 <div class="math notranslate nohighlight">
-\[\mathrm{trace} \left((\mathbf{A}^{\intercal}\mathbf{A})^p
+\[\mathrm{trace} \left((\mathbf{A}^{\intercal}\mathbf{A})^{-p}
 \right).\]</div>
 <p>If <span class="math notranslate nohighlight">\(\mathbf{A} = \mathbf{A}(t)\)</span> is a linear operator of the class
 <a class="reference internal" href="../generated/imate.AffineMatrixFunction.html#imate.AffineMatrixFunction" title="imate.AffineMatrixFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.AffineMatrixFunction</span></code></a> with the parameter <span class="math notranslate nohighlight">\(t\)</span>, then for
 an input  tuple <span class="math notranslate nohighlight">\(t = (t_1, \dots, t_q)\)</span>, an array output of the
 size <span class="math notranslate nohighlight">\(q\)</span> is returned, namely:</p>
 <div class="math notranslate nohighlight">
-\[\mathrm{trace} \left((\mathbf{A}(t_i))^p \right),
+\[\mathrm{trace} \left((\mathbf{A}(t_i))^{-p} \right),
 \quad i=1, \dots, q.\]</div>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

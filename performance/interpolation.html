@@ -47,6 +47,8 @@
     <script src="../_static/js/custom-pydata.js"></script>
     <script src="../_static/design-tabs.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="../_static/logo-imate.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -235,9 +237,58 @@
     
     <div class="toc-item">
       
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
 
 <nav id="bd-toc-nav">
-    
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test-description">
+   Test Description
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#algorithms">
+     Algorithms
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#interpolating-log-determinant">
+   Interpolating Log-Determinant
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#interpolating-trace-of-inverse">
+   Interpolating Trace of Inverse
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-to-reproduce-results">
+   How to Reproduce Results
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#run-locally">
+     Run Locally
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#submit-to-cluster-with-slurm">
+     Submit to Cluster with SLURM
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-results">
+     Plot Results
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
 </nav>
     </div>
     
@@ -264,8 +315,87 @@
                 
   <section id="interpolation-of-affine-matrix-functions">
 <span id="interpolation"></span><h1>Interpolation of Affine Matrix Functions<a class="headerlink" href="#interpolation-of-affine-matrix-functions" title="Permalink to this heading">#</a></h1>
+<p>One of the unique and novel features of <span class="synco">imate</span> is the ability to interpolate the trace of the arbitrary functions of the affine matrix function <span class="math notranslate nohighlight">\(t \mapsto \mathbf{A} + t \mathbf{B}\)</span>. Such an affine matrix function appears in variety of optimization formulations in machine learning. Often in these applications, the hyperparameter <span class="math notranslate nohighlight">\(t\)</span> has to be tuned. To this end, the optimization scheme should compute</p>
+<div class="math notranslate nohighlight">
+\[t \mapsto \mathrm{trace} \left(f(\mathbf{A} + t \mathbf{B}) \right),\]</div>
+<p>for a large number of input hyperparameter <span class="math notranslate nohighlight">\(t \in \mathbb{R}\)</span>. See common examples of the function <span class="math notranslate nohighlight">\(f\)</span> in <a class="reference internal" href="../overview.html#overview"><span class="std std-ref">Overview</span></a>.</p>
+<p>Instead of directly computing the above function for every <span class="math notranslate nohighlight">\(t\)</span>, <span class="synco">imate</span> can interpolate the above function for a wide range of <span class="math notranslate nohighlight">\(t\)</span> with a high accuracy with only a handful number of evaluation of the above function. This solution can enhance the processing time of an optimization scheme by several orders of magnitude with only less than <span class="math notranslate nohighlight">\(1 \%\)</span> error.</p>
+<section id="test-description">
+<h2>Test Description<a class="headerlink" href="#test-description" title="Permalink to this heading">#</a></h2>
+<p>The goal of the following numerical experiments is to interpolate the functions</p>
+<div class="math notranslate nohighlight" id="equation-afm-logdet">
+<span class="eqno">(1)<a class="headerlink" href="#equation-afm-logdet" title="Permalink to this equation">#</a></span>\[t \mapsto \log \det (\mathbf{M} + t \mathbf{I}),\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight" id="equation-afm-traceinv">
+<span class="eqno">(2)<a class="headerlink" href="#equation-afm-traceinv" title="Permalink to this equation">#</a></span>\[t \mapsto \mathrm{trace}(\mathbf{A} + t \mathbf{I})^{-1},\]</div>
+<p>for a wide range of <span class="math notranslate nohighlight">\(t \in \mathbb{R}_{&gt; 0}\)</span> where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span> are symmetric and positive-definite.</p>
+<section id="algorithms">
+<h3>Algorithms<a class="headerlink" href="#algorithms" title="Permalink to this heading">#</a></h3>
+<p>The following Algorithms were tested on Intel® Xeon CPU E5-2670 v3  with 24 threads.</p>
+<dl class="glossary">
+<dt id="term-Cholesky-Decomposition">Cholesky Decomposition<a class="headerlink" href="#term-Cholesky-Decomposition" title="Permalink to this term">#</a></dt><dd><p>This method is implemented by the following functions:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/imate.logdet.cholesky.html#imate-logdet-cholesky"><span class="std std-ref">imate.logdet(method=’cholesky’)</span></a> to compute <a class="reference internal" href="algorithms.html#equation-logdet3">(1)</a>.</p></li>
+<li><p><a class="reference internal" href="../api/imate.traceinv.cholesky.html#imate-traceinv-cholesky"><span class="std std-ref">imate.traceinv(method=’cholesky’)</span></a> to compute <a class="reference internal" href="algorithms.html#equation-traceinv3">(2)</a>.</p></li>
+</ul>
+<p>The complexity of computing <a class="reference internal" href="algorithms.html#equation-logdet3">(1)</a> for matrices obtained from 1D, 2D, and 3D grids are respectively <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span>, <span class="math notranslate nohighlight">\(\mathcal{O}(n^{\frac{3}{2}})\)</span>, and <span class="math notranslate nohighlight">\(\mathcal{O}(n^2)\)</span> where <span class="math notranslate nohighlight">\(n\)</span> is the matrix size. The complexity of computing <a class="reference internal" href="algorithms.html#equation-traceinv3">(2)</a> for sparse matrices is <span class="math notranslate nohighlight">\(\mathcal{O}(\rho n^2)\)</span> where <span class="math notranslate nohighlight">\(\rho\)</span> is the sparse matrix density.</p>
+</dd>
+<dt id="term-Hutchinson-Algorithm">Hutchinson Algorithm<a class="headerlink" href="#term-Hutchinson-Algorithm" title="Permalink to this term">#</a></dt><dd><p>This method is only applied to <a class="reference internal" href="algorithms.html#equation-traceinv3">(2)</a> and implemented by <a class="reference internal" href="../api/imate.traceinv.hutchinson.html#imate-traceinv-hutchinson"><span class="std std-ref">imate.traceinv(method=’hutchinson’)</span></a> function. The complexity of this method is:</p>
+<div class="math notranslate nohighlight" id="equation-comp-hutch">
+<span class="eqno">(3)<a class="headerlink" href="#equation-comp-hutch" title="Permalink to this equation">#</a></span>\[\mathcal{O}(\mathrm{nnz}(\mathbf{A})s),\]</div>
+<p>where <span class="math notranslate nohighlight">\(s\)</span> is the number of Monte-Carlo iterations in the algorithm and <span class="math notranslate nohighlight">\(\rho\)</span> is the sparse matrix density. In this experiment, <span class="math notranslate nohighlight">\(s = 80\)</span>.</p>
+</dd>
+<dt id="term-Stochastic-Lanczos-Quadrature-Algorithm">Stochastic Lanczos Quadrature Algorithm<a class="headerlink" href="#term-Stochastic-Lanczos-Quadrature-Algorithm" title="Permalink to this term">#</a></dt><dd><p>This method is implemented by:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/imate.logdet.cholesky.html#imate-logdet-cholesky"><span class="std std-ref">imate.logdet(method=’cholesky’)</span></a> to compute <a class="reference internal" href="algorithms.html#equation-logdet3">(1)</a>.</p></li>
+<li><p><a class="reference internal" href="../api/imate.traceinv.cholesky.html#imate-traceinv-cholesky"><span class="std std-ref">imate.traceinv(method=’cholesky’)</span></a> to compute <a class="reference internal" href="algorithms.html#equation-traceinv3">(2)</a>.</p></li>
+</ul>
+<p>The complexity of this method is:</p>
+<div class="math notranslate nohighlight" id="equation-comp-slq">
+<span class="eqno">(4)<a class="headerlink" href="#equation-comp-slq" title="Permalink to this equation">#</a></span>\[\mathcal{O} \left( (\mathrm{nnz}(\mathbf{A}) l + n l^2) s \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(l\)</span> is the number of Lanczos iterations, and <span class="math notranslate nohighlight">\(s\)</span> is the number of Monte-Carlo iterations.  The numerical experiment is performed with <span class="math notranslate nohighlight">\(l=80\)</span> and <span class="math notranslate nohighlight">\(s=200\)</span>.</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="interpolating-log-determinant">
+<h2>Interpolating Log-Determinant<a class="headerlink" href="#interpolating-log-determinant" title="Permalink to this heading">#</a></h2>
 <img alt="../_images/affine_matrix_function_logdet.png" class="custom-dark align-center" src="../_images/affine_matrix_function_logdet.png" />
+</section>
+<section id="interpolating-trace-of-inverse">
+<h2>Interpolating Trace of Inverse<a class="headerlink" href="#interpolating-trace-of-inverse" title="Permalink to this heading">#</a></h2>
 <img alt="../_images/affine_matrix_function_traceinv.png" class="custom-dark align-center" src="../_images/affine_matrix_function_traceinv.png" />
+</section>
+<section id="how-to-reproduce-results">
+<h2>How to Reproduce Results<a class="headerlink" href="#how-to-reproduce-results" title="Permalink to this heading">#</a></h2>
+<section id="run-locally">
+<h3>Run Locally<a class="headerlink" href="#run-locally" title="Permalink to this heading">#</a></h3>
+<p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/affine_matrix_function.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/affine_matrix_function.py</span></code></a> as follows:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
+<span class="prompt1">python ./affine_matrix_function.py -f logdet       <span class="c1"># for log-determinant</span></span>
+<span class="prompt1">python ./affine_matrix_function.py -f logdet -g    <span class="c1"># for log-determinanrt on Gram matrix</span></span>
+<span class="prompt1">python ./affine_matrix_function.py -f traceinv     <span class="c1"># for trace of inverse</span></span>
+<span class="prompt1">python ./affine_matrix_function.py -f traceinv -g  <span class="c1"># for trace of inverse of Gram matrix</span></span>
+</pre></div></div></div></blockquote>
+</section>
+<section id="submit-to-cluster-with-slurm">
+<h3>Submit to Cluster with SLURM<a class="headerlink" href="#submit-to-cluster-with-slurm" title="Permalink to this heading">#</a></h3>
+<p>Submit <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_affine_matrix_function.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/jobfile_affine_matrix_function.sh</span></code></a> by</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch ./jobfile_affine_matrix_function.sh</span>
+</pre></div></div></div></blockquote>
+</section>
+<section id="plot-results">
+<h3>Plot Results<a class="headerlink" href="#plot-results" title="Permalink to this heading">#</a></h3>
+<p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_affine_matrix_function.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_affine_matrix_function.ipynb</span></code></a> to generate plots. This notebook stores the plots as <cite>svg</cite> files in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/svg_plots"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/svg_plots/</span></code></a>.</p>
+</section>
+</section>
 </section>
 
 

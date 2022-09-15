@@ -395,16 +395,16 @@
 <section id="algorithm">
 <h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this heading">#</a></h3>
 <p>To compute <a class="reference internal" href="gpu.html#equation-traceinv">(1)</a>, the stochastic Lanczos quadrature (SLQ) algorithm is employed. The complexity of this algorithm is</p>
-<div class="math notranslate nohighlight" id="equation-complexity1">
-<span class="eqno">(2)<a class="headerlink" href="#equation-complexity1" title="Permalink to this equation">#</a></span>\[ \mathcal{O} \left( (\mathrm{nnz}(\mathbf{A}) l + n l^2) s \right),\]</div>
-<p>where <span class="math notranslate nohighlight">\(n\)</span> is the matrix size, <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A})\)</span> is the number of nonzero elements of the sparse matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, <span class="math notranslate nohighlight">\(l\)</span> is the number of Lanczos iterations, and <span class="math notranslate nohighlight">\(s\)</span> is the number of Monte-Carlo iterations (see details in <a class="reference internal" href="../api/imate.traceinv.slq.html#imate-traceinv-slq"><span class="std std-ref">imate.traceinv(method=’slq’)</span></a>).  The numerical experiment is performed with <span class="math notranslate nohighlight">\(l=80\)</span> and <span class="math notranslate nohighlight">\(s=200\)</span>. The computations were carried out on Intel(R) Xeon(R) CPU E5-2670 v3  with 24 threads.</p>
+<div class="math notranslate nohighlight" id="equation-complexity2">
+<span class="eqno">(2)<a class="headerlink" href="#equation-complexity2" title="Permalink to this equation">#</a></span>\[ \mathcal{O} \left( (\mathrm{nnz}(\mathbf{A}) l + n l^2) s \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the matrix size, <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A})\)</span> is the number of nonzero elements of the sparse matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, <span class="math notranslate nohighlight">\(l\)</span> is the number of Lanczos iterations, and <span class="math notranslate nohighlight">\(s\)</span> is the number of Monte-Carlo iterations (see details in <a class="reference internal" href="../api/imate.traceinv.slq.html#imate-traceinv-slq"><span class="std std-ref">imate.traceinv(method=’slq’)</span></a>).  The numerical experiment is performed with <span class="math notranslate nohighlight">\(l=80\)</span> and <span class="math notranslate nohighlight">\(s=200\)</span>. The computations were carried out on Intel® Xeon CPU E5-2670 v3  with 24 threads.</p>
 </section>
 <section id="arithmetic-types">
 <h3>Arithmetic Types<a class="headerlink" href="#arithmetic-types" title="Permalink to this heading">#</a></h3>
 <p>The benchmark test also examines the performance and accuracy of <span class="synco">imate</span> on various arithmetic types of the matrix data. To this end, the matrices that are described below are re-cast into 32-bit, 64-bit, and 128-bit floating point types.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Supporting 128-bit data types is one of the features if <span class="synco">imate</span>, which is often not available in numerical libraries, such as OpenBLAS.</p>
+<p>Supporting 128-bit data types is one of the features of <span class="synco">imate</span>, which is often not available in numerical libraries, such as OpenBLAS.</p>
 </div>
 </section>
 </section>
@@ -561,13 +561,15 @@
 </pre></div>
 </div>
 </li>
-<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.py</span></code></a> to convert the outputs of the above Octave script to generate a python pickle file:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float32</span>    <span class="c1"># to generate 32-bit data</span>
-<span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float64</span>    <span class="c1"># to generate 64-bit data</span>
-<span class="n">read_matrix</span><span class="o">.</span><span class="n">py</span> <span class="n">Queen_4147</span> <span class="n">float128</span>   <span class="c1"># to generate 128-bit data</span>
-</pre></div>
-</div>
-<p>The output of the above script will be stored in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/</span></code></a>.</p>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.py</span></code></a> to convert the outputs of the above script to generate a python pickle file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">read_matrix.py Queen_4147 float32    <span class="c1"># to generate 32-bit data</span></span>
+<span class="prompt1">read_matrix.py Queen_4147 float64    <span class="c1"># to generate 64-bit data</span></span>
+<span class="prompt1">read_matrix.py Queen_4147 float128   <span class="c1"># to generate 128-bit data</span></span>
+</pre></div></div><p>The output of the above script will be written in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/</span></code></a>.</p>
 </li>
 </ol>
 </section>
@@ -577,11 +579,7 @@
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>To compile <span class="synco">imate</span> using OpenBLAS, export the environment variable:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
-span.prompt1:before {
-  content: "$ ";
-}
-</style><span class="prompt1"><span class="nb">export</span> <span class="nv">USE_CBLAS</span><span class="o">=</span><span class="m">1</span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span> <span class="nv">USE_CBLAS</span><span class="o">=</span><span class="m">1</span></span>
 </pre></div></div><p>or set <code class="docutils literal notranslate"><span class="pre">USE_CBLAS=1</span></code> in <a class="reference external" href="https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L67"><code class="docutils literal notranslate"><span class="pre">/imate/_definitions/definition.h</span></code></a>. By default, <code class="docutils literal notranslate"><span class="pre">USE_CBLAS</span></code> is set to <code class="docutils literal notranslate"><span class="pre">0</span></code>. Then, recompile <span class="synco">imate</span>. See <a class="reference internal" href="../tutorials/install.html#compile-source"><span class="std std-ref">Compile from Source</span></a>.</p>
 </div>
 <section id="dense-matrices-run-locally">
@@ -624,7 +622,7 @@ span.prompt1:before {
 <li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_benchmark_openblas_dense.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_benchmark_openblas_dense.ipynb</span></code></a> to generate plots for the dense matrices shown in the above</p></li>
 <li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_benchmark_openblas_sparse.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_benchmark_openblas_sparse.ipynb</span></code></a> to generate plots for the sparse matrices shown in the above</p></li>
 </ul>
-<p>These notebooks stores <cite>svg</cite> plots in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/svg_plots"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/svg_plots/</span></code></a>.</p>
+<p>These notebooks stores the plots as <cite>svg</cite> files in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/svg_plots"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/svg_plots/</span></code></a>.</p>
 </section>
 </section>
 </section>
