@@ -5,7 +5,17 @@
 
 |deploy-docs|
 
-|project|, short for **I**\ mplicit **Ma**\ trix **T**\ race **E**\ stimator, is a modular and high-performance C++/CUDA library distributed as a Python package which provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.
+|project|, short for **I**\ mplicit **Ma**\ trix **T**\ race **E**\ stimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.
+
+.. .. toctree::
+    :maxdepth: 1
+
+    old/ComputeLogDeterminant.rst
+    old/ComputeTraceOfInverse.rst
+    old/examples.rst
+    old/generate_matrix.rst
+    old/InterpolateTraceOfInverse.rst
+    old/introduction.rst
 
 .. grid:: 4
 
