@@ -82,14 +82,14 @@ def hutchinson_method(
 
     .. math::
 
-        \\mathrm{trace} \\left(\\mathbf{B} 
+        \\mathrm{trace} \\left(\\mathbf{B}
         (\\mathbf{A}^{\\intercal}\\mathbf{A})^{-p} \\right),
 
     and if `C` is not `None`,
 
     .. math::
 
-        \\mathrm{trace} \\left(\\mathbf{B} 
+        \\mathrm{trace} \\left(\\mathbf{B}
         (\\mathbf{A}^{\\intercal}\\mathbf{A})^{-p} \\mathbf{C}
         (\\mathbf{A}^{\\intercal}\\mathbf{A})^{-p} \\right).
 

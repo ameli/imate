@@ -734,8 +734,8 @@ class InterpolateTrace(InterpolateSchatten):
                 \\tau_{p}(t) = \\frac{\\Vert \\mathbf{A} + t \\mathbf{B}
                 \\Vert_p}{\\Vert \\mathbf{B} \\Vert_p},
 
-        where the Schatten norm (or anti-norm) :math:`\\Vert \cdot \\Vert_p` is
-        defined by
+        where the Schatten norm (or anti-norm) :math:`\\Vert \\cdot \\Vert_p`
+        is defined by
 
         .. math::
 
@@ -887,7 +887,7 @@ class InterpolateTrace(InterpolateSchatten):
         .. math::
 
             \\mathrm{trace}((\\mathbf{A}+t\\mathbf{B})^{-1}) \\geq
-            \\frac{n^2}{\\mathrm{trace}(\\mathbf{A}) + t \,
+            \\frac{n^2}{\\mathrm{trace}(\\mathbf{A}) + t \\,
             \\mathrm{trace}(\\mathbf{B})}
 
         Note that the above bound is not sharp as :math:`t \\to 0`.

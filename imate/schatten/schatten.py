@@ -63,7 +63,7 @@ def schatten(
             default='eigenvalue'
         The method of computing Schatten norm. Note that
 
-        * ``exact`` is only available for :math:`p>0` 
+        * ``exact`` is only available for :math:`p>0`
         * ``cholesky`` is only available for :math:`p \\leq 0`.
         * ``hutchinson`` is only available for :math:`p < 0`.
 
@@ -141,7 +141,7 @@ def schatten(
         * ``solver``:
             * ``version``: `str`, version of imate.
             * ``method``: `str`, method of computation.
-        
+
     Raises
     ------
 
@@ -221,7 +221,7 @@ def schatten(
 
     .. [1] Ameli, S., and Shadden. S. C. (2022). *Interpolating Log-Determinant
            and Trace of the Powers of Matrix*
-           :math:`\mathbf{A} + t \mathbf{B}`.
+           :math:`\\mathbf{A} + t \\mathbf{B}`.
            `arXiv: 2009.07385 <https://arxiv.org/abs/2207.08038>`_ [math.NA].
 
     Examples
@@ -401,7 +401,7 @@ def schatten(
 
         >>> # Plotting
         >>> plt.semilogy(p, norm, color='black')
-        >>> plt.semilogy(0, norm0, 'o', color='black')  
+        >>> plt.semilogy(0, norm0, 'o', color='black')
         >>> plt.xlim([p[0], p[-1]])
         >>> plt.ylim([1e-2, 1e2])
         >>> plt.xlabel('$p$')

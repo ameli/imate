@@ -515,7 +515,7 @@ def slq_method(
         differs after each run.
 
     **Gramian Matrix:**
-    
+
     Passing ``gram=True`` to :func:`imate.trace` function uses the Gramian
     of the input matrix. In this case, the input matrix can be non-symmetric.
     In the next example, generate a non-symmetric matrix, :math:`\\mathbf{B}`,

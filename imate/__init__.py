@@ -48,15 +48,15 @@ def _check_import():
                            'package. Importing the package will fail. To ' +
                            'resolve this issue, consider changing the ' +
                            'current directory outside of the directory of ' +
-                           'the source-code of this package. Your current' +
+                           'the source-code of this package. Your current ' +
                            'directory is: %s.' % _user_current_dir)
 
-    elif (_executable_dir == _project_dir):
+    if (_executable_dir == _project_dir):
         raise RuntimeError('You are running a script in the source-code ' +
                            'directory of this package. Importing the ' +
                            'package will fail. To resolve this issue, ' +
-                           'consider changing the script directory outside' +
-                           'of the directory of the source-code of this' +
+                           'consider changing the script directory outside ' +
+                           'of the directory of the source-code of this ' +
                            'package. Your current directory is: %s.'
                            % _executable_dir)
 

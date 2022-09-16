@@ -142,10 +142,6 @@ extensions = [
    'sphinx_gallery.load_style',
 ]
 
-# Breathe settings
-breathe_default_project = "imate"
-breathe_projects = {"imate": "../doxygen/output/xml"}
-
 # Copy button settings
 copybutton_prompt_is_regexp = True
 copybutton_prompt_text = r'>>> |\.\.\. '

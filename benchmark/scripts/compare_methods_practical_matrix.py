@@ -13,15 +13,10 @@
 # =======
 
 import sys
-import os
 from os.path import join
 import getopt
-import re
 import numpy
 import pickle
-import platform
-import subprocess
-import multiprocessing
 from datetime import datetime
 import imate
 from imate import traceinv, logdet

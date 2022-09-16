@@ -1,12 +1,19 @@
 # .coveragerc to control coverage
 [run]
+plugins = Cython.Coverage
 source = imate
-omit = setup.py, imate/__version__.py
+omit = 
+    tests
+    setup.py
+    imate/__version__.py
+    *__init__.py
+    *__init__.pxd
 
 [report]
 # Regexes for lines to exclude from consideration
 exclude_lines =
     # Don't complain if tests don't hit defensive assertion code:
+    pragma: no cover
     raise
     except
     pass

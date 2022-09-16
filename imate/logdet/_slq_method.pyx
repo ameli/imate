@@ -516,7 +516,7 @@ def slq_method(
         differs after each run.
 
     **Gramian Matrix:**
-    
+
     Passing ``gram=True`` to :func:`imate.logdet` function uses the Gramian
     of the input matrix. n this case, the input matrix can be non-symmetric.
     In the next example, generate a non-symmetric matrix, :math:`\\mathbf{B}`,

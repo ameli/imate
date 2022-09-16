@@ -77,7 +77,7 @@ def trace(
         The exponent :math:`p` in :math:`\\mathbf{A}^p`.
 
         * If ``method=exact``, :math:`p` should be a non-negative integer.
-        * If ``method=eigenvalue``, :math:`p` can be any real number. 
+        * If ``method=eigenvalue``, :math:`p` can be any real number.
         * If ``method=slq``, :math:`p` should be non-negative real number.
 
         .. note::

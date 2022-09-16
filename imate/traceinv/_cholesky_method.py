@@ -219,7 +219,7 @@ def cholesky_method(
     where :math:`\\boldsymbol{b}_i` is the :math:`i`-th column of
     :math:`\\mathbf{L}_{\\mathbf{B}}`. If `B` is `None`, then
     :math:`\\mathbf{B}` is assumed to be the identity and hence,
-    :math:`\\boldsymbol{b}_i = (0, \dots, 0, 1, 0, \dots, 0)` is a
+    :math:`\\boldsymbol{b}_i = (0, \\dots, 0, 1, 0, \\dots, 0)` is a
     vector of zeross, except its :math:`i`-th element is `1`.
 
     **Computational Complexity:**

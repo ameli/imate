@@ -335,7 +335,7 @@ class InterpolateLogdet(InterpolateSchatten):
 
     .. math::
 
-        g_p(t) = \\mathrm{logdet}(\\mathbf{A} + t \\mathbf{B}) - 
+        g_p(t) = \\mathrm{logdet}(\\mathbf{A} + t \\mathbf{B}) -
         \\mathrm{logdet}(\\mathbf{B}).
 
     To compare with the true values (without interpolation), pass
@@ -711,7 +711,7 @@ class InterpolateLogdet(InterpolateSchatten):
 
         .. math::
 
-                \\Vert \\mathbf{A} \\Vert_0 = 
+                \\Vert \\mathbf{A} \\Vert_0 =
                 \\left| \\mathrm{det}(\\mathbf{A}) \\right|^{\\frac{1}{n}}
 
         Also, let
@@ -830,7 +830,7 @@ class InterpolateLogdet(InterpolateSchatten):
 
             .. math::
 
-                g_p(t) = \\mathrm{logdet}(\\mathbf{A} + t \\mathbf{B}) - 
+                g_p(t) = \\mathrm{logdet}(\\mathbf{A} + t \\mathbf{B}) -
                 \\mathrm{logdet}(\\mathbf{B}).
 
         compare : bool, default=False

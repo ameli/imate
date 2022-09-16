@@ -12,7 +12,6 @@
 # Imports
 # =======
 
-import os
 from os.path import join
 import sys
 import pickle
@@ -24,10 +23,6 @@ import imate
 from imate import traceinv, logdet
 from imate import AffineMatrixFunction                             # noqa: F401
 from imate.sample_matrices import toeplitz
-import subprocess
-import multiprocessing
-import platform
-import re
 from time import process_time
 from datetime import datetime
 

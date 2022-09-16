@@ -12,7 +12,6 @@
 # Imports
 # =======
 
-import os
 import getopt
 from os.path import join
 import sys
@@ -22,10 +21,6 @@ import imate
 from imate import traceinv
 from imate import Matrix
 from imate import AffineMatrixFunction                             # noqa: F401
-import subprocess
-import multiprocessing
-import platform
-import re
 from datetime import datetime
 
 

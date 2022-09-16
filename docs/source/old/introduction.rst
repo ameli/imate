@@ -2,43 +2,6 @@
 Introduction
 ************
 
-This package computes the trace of inverse of two forms of matrices:
-
-===============
-1. Fixed Matrix
-===============
-
-For an invertible matrix :math:`\mathbf{A}`, this package computes :math:`\mathrm{trace}(\mathbf{A}^{-1})` for both sparse and dense matrices.
-
-**Computing Methods:**
-    The following methods are implemented:
-
-    #. **Cholesky Decomposition**:  accurate, suitable for small matrices.
-    #. **Hutchinson's Randomized Estimator**: approximation, suitable for large matrices.
-    #. **Stochastic Lanczos Quadrature**: approximation, suitable for large matrices.
-
-=======================================
-2. One-Parameter Affine Matrix Function
-=======================================
-
-Consider the matrix function :math:`t\mapsto\mathbf{A}+t\mathbf{B}`, where :math:`\mathbf{A}` and :math:`\mathbf{B}` are symmetric and positive-definite matrices and :math:`t` is a real parameter. This package can interpolate the function
-
-.. math:: 
-   :label: map
-
-   t \mapsto \mathrm{trace}\left((\mathbf{A}+t\mathbf{B})^{-1}\right).
-
-**Interpolation Methods**
-    Various interpolation methods of the above function are implemented in this package, namely
-
-    #. **Eigenvalues Method**
-    #. **Monomial Basis Functions**
-    #. **Root Monomial Basis Functions**
-    #. **Rational Polynomial Functions**
-    #. **Radial Basis Functions**
-
-    These interpolation methods are described in [Ameli-2020]_. 
-
 ============
 Applications
 ============
@@ -52,32 +15,6 @@ A common example of such an application can be found in regularization technique
     \frac{\partial}{\partial t} \log \det (\mathbf{A} + t \mathbf{I}) = \mathrm{trace} \left( (\mathbf{A} + t \mathbf{I})^{-1} \right),
 
 frequently appears. Other examples of :eq:`map` are in the optimal design of experiment, probabilistic principal component analysis (see Sec. 12.2 of [Bishop-2006]_), relevance vector machines [Tipping-2001]_ and [Bishop-2006]_, kernel smoothing (see Sec. 2.6 of [Rasmussen-2006]_, and Bayesian linear models (see Sec. 3.3 of [Bishop-2006]_.
-
-==============================
-Advantages of imate Package
-==============================
-
-TODO
-
-**Interpolation**
-
-The greatest benefit that imate offers is its ability to interpolate the trace of the inverse of *affine matrix functions*, which is implemented in :mod:`imate.InterpolateTraceOfInverse` module based.
-
-**Speed**
-
-In a table, compare single core performance between pure python and pure cython of logdet and traceinv, also 20 core on the cluster, to show the scalability.
-
-Explain the pure cythonic code is free of gil, and explain what gil free code is. In this package, gil is completely released for all high-performance parts of the code (often not easy task). Without completely releasing gil-lock, a cython program cannot achieve a pure C++ performance.
-
-If Interpolate() function can also be called within a n gil environment, create a tutorial page on how to call it within cython.
-
-=====================
-Other Useful Packages
-=====================
-
-TODO
-
-imate does not replace many sophisticated computational packages in linear algebra and machine learning. Rather, some if its features were implemented on top of other packages. 
 
 ==========
 References

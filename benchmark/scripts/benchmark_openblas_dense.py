@@ -12,21 +12,16 @@
 # Imports
 # =======
 
-import os
 from os.path import join
 import sys
 import pickle
 import numpy
 import getopt
-import re
 import imate
 from imate import traceinv
 from imate import Matrix
 from imate import AffineMatrixFunction                             # noqa: F401
 from imate.sample_matrices import toeplitz
-import subprocess
-import multiprocessing
-import platform
 from datetime import datetime
 
 

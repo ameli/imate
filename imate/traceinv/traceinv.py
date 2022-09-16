@@ -76,9 +76,9 @@ def traceinv(
         trace of :math:`\\mathbf{A}^{-p}` is computed.
 
     p : float, default=1.0
-        The exponent :math:`p` in :math:`\\mathbf{A}^{-p}`. 
+        The exponent :math:`p` in :math:`\\mathbf{A}^{-p}`.
 
-        * If ``method=eigenvalue``, :math:`p` can be any real number. 
+        * If ``method=eigenvalue``, :math:`p` can be any real number.
         * If ``method=cholesky``, :math:`p` should be an integer.
         * If ``method=hutchinson``, :math:`p` should be an integer.
         * If ``method=slq``, :math:`p` should be non-negative real number.
@@ -183,8 +183,9 @@ def traceinv(
 
     See documentation for each method below.
 
-    * :ref:`eigenvalue <imate.traceinv.eigenvalue>`: uses spectral decomposition.
-      Suitable for small matrices (:math:`n < 2^{12}`). The solution is exact.
+    * :ref:`eigenvalue <imate.traceinv.eigenvalue>`: uses spectral
+      decomposition. Suitable for small matrices (:math:`n < 2^{12}`). The
+      solution is exact.
     * :ref:`cholesky <imate.traceinv.cholesky>`: uses Cholesky decomposition.
       Suitable for moderate-size matrices (:math:`n < 2^{15}`). Can only be
       applied to positive-definite matrices. The solution is exact.

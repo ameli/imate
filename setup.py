@@ -885,7 +885,7 @@ class CustomBuildExtension(build_ext):
         if compiler_type == 'msvc':
 
             # This is Microsoft Windows Visual C++ compiler
-            msvc_compile_args = ['/O2', '/W4', '/openmp']
+            msvc_compile_args = ['/O2', '/Wall', '/openmp']
             msvc_link_args = []
             msvc_has_openmp_flag = check_compiler_has_flag(
                     self.compiler,
@@ -1010,8 +1010,7 @@ class CustomBuildExtension(build_ext):
             if debug_mode:
                 extra_compile_args_nvcc += ['-g', '-G']
             else:
-                extra_compile_args_nvcc += [
-                        '--linker-options', '--strip-all']
+                extra_compile_args_nvcc += ['--linker-options', '--strip-all']
 
             # Redefine extra_compile_args list to be a dictionary
             extra_compile_args = {
@@ -1227,7 +1226,7 @@ def create_extension(
 
         include_dirs += other_include_dirs
 
-    # Glob entire source c, cpp and cufiles in other source directories
+    # Glob entire source c, cpp and cu files in other source directories
     if other_source_dirs is not None:
 
         for other_source_dir in other_source_dirs:
@@ -1389,7 +1388,7 @@ def cythonize_extensions(extensions):
     """
 
     # Build in source or out of source
-    if cython_build_in_source or cython_build_for_doc:
+    if bool(cython_build_in_source) or bool(cython_build_for_doc):
         cython_build_dir = None    # builds *.c in source alongside *.pyx files
     else:
         cython_build_dir = 'build'
@@ -1404,7 +1403,7 @@ def cythonize_extensions(extensions):
     }
 
     # Used for sphinx to find docstring of pyx files
-    if cython_build_for_doc:
+    if bool(cython_build_for_doc):
 
         # Add cython signatures for sphinx
         for extension in extensions:
