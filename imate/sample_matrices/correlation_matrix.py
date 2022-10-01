@@ -203,7 +203,7 @@ def correlation_matrix(
           \\kappa(r | \\alpha) =
           \\left(1 + \\frac{r^2}{2\\alpha} \\right)^{-\\alpha}.
 
-    * Maren correlation (set :math:`\\nu` by ``kernel_param``)
+    * Matern correlation (set :math:`\\nu` by ``kernel_param``)
 
       .. math::
 
@@ -211,7 +211,7 @@ def correlation_matrix(
           \\sqrt{2 \\nu} r \\right)^{\\nu}
           K_{\\nu}\\left( \\sqrt{2 \\nu} r \\right),
 
-      where :math:`\\kappa_{\\nu}` is the modified Bessel function of the
+      where :math:`K_{\\nu}` is the modified Bessel function of the
       second kind and :math:`\\Gamma` is the Gamma function. Both
       :math:`K_{\\nu}` and :math:`\\Gamma` are computed efficiently using the
       python package `special_functions

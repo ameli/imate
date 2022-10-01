@@ -296,18 +296,25 @@ def eigenvalue_method(
 
     # Compute logdet of matrix
     not_nan = numpy.logical_not(numpy.isnan(eigenvalues))
-    logdet_ = numpy.sum(numpy.log((eigenvalues[not_nan]**p)))
+    eig_Ap = eigenvalues[not_nan]**p
+    logdet_ = numpy.sum(numpy.log(eig_Ap.astype(numpy.complex128)))
 
     # Return only the real part
-    angle_rtol = 1e-6
+    imag_rtol = 1e-8
     if isinstance(logdet_, numpy.complex128):
-        angle = numpy.abs(numpy.angle(logdet_))
-        if numpy.abs(numpy.mod(angle, numpy.pi)) > angle_rtol * A.shape[0]:
+        imag = numpy.mod(logdet_.imag, numpy.pi)
+        if imag > imag_rtol * A.shape[0]:
             raise RuntimeError(
-                    'Determinant is not a purely real number. Angle : %f'
-                    % angle)
+                    'Determinant is not a purely real number. Imaginary: %f'
+                    % imag)
         else:
-            logdet_ = logdet_.real
+            quotient = int(numpy.abs(logdet_.imag) / numpy.pi + 0.5)
+
+            # For odd quotient, logdet has i*\pi
+            if (quotient // 2) == int(quotient / 2.0 + 0.5):
+                logdet_ = logdet_.real
+            else:
+                logdet_ = logdet_.real + complex(0.0, numpy.pi)
 
     # Gramian matrix
     if gram:

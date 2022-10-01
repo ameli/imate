@@ -175,7 +175,7 @@ templates_path = ['_templates']
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['build', 'Thumbs.db', '.DS_Store']
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -247,7 +247,8 @@ html_theme_options = {
 
 html_context = {
     "default_mode": "auto",
-    "github_user": "https://github.com/ameli",
+    "github_url": "https://github.com",
+    "github_user": "ameli",
     "github_repo": "imate",
     "github_version": "main",
     "doc_path": "docs/source",
@@ -296,12 +297,11 @@ html_static_path = ['_static']
 
 # # Add css
 # html_css_files = ["css/custom.css"]
-# html_css_files = ["css/custom.css"]
 # html_css_files = ['css/custom-anaconda-doc.css']
 
-html_is_files = ["js/custom-pydata.css"]
+html_js_files = ["js/custom-pydata.css"]
 # html_logo = '_static/images/icons/logo-imate-light.png'
-html_favicon = '_static/images/icons/logo-imate.ico'
+html_favicon = '_static/images/icons/favicon.ico'
 
 # =====
 # setup
@@ -310,7 +310,7 @@ html_favicon = '_static/images/icons/logo-imate.ico'
 def setup(app):
     """
     This function is used to employ a css file to the themes.
-    Note: paths are relative to /docs/_static
+    Note: paths are relative to /docs/source/_static
     """
 
     app.add_css_file('css/custom-pydata.css')

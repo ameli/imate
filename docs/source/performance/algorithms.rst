@@ -220,7 +220,7 @@ The error of computing log-determinant using the SLQ method is shown in the figu
 Varying Algorithm Parameters
 ============================
 
-A known issue of the Lanczos algorithm is that the eigenvectors computed during the recusance Lanczos iterations lose their orthogonality. A solution to this issue is the re-orthogonalization of the newly computed eigenvectors with either some or all previous eigenvectors, which is known as partial or full orthogonalization, respectively. |prpject| supports both types of orthogonalization techniques.
+A known issue of the Lanczos algorithm is that the eigenvectors computed during the recusance Lanczos iterations lose their orthogonality. A solution to this issue is the re-orthogonalization of the newly computed eigenvectors with either some or all previous eigenvectors, which is known as partial or full orthogonalization, respectively. |project| supports both types of orthogonalization techniques.
 
 In the following tests, the effect of re-orthogonalizations of the eigenvectors and the effect of varying the number of Lanczos iterations are examined.
 
@@ -248,7 +248,7 @@ The figure below shows the error of computing log-determinant by comparing the r
 Process Time of Computing Trace of Inverse
 ------------------------------------------
 
-The above tests were also performed on the practical matrices (see :ref:`Test on Practical Matrices <prac_mat>`_). The figure below corresponds to computing the race of inverse of the matrix `jnlbrng1 <http://sparse.tamu.edu/GHS_psdef/jnlbrng1>`_ with :math:`n = 40000`. The results are very similar to the previous test on simple matrices. Namely, the complexity of the process with and without orthogonalization is :math:`\mathcal{O}(l^2)` and :math:`\mathcal{O}(l)`, respectively. Also, orthogonalization is by an order of magnitude slower than without orthogonalization and the effect of the cache memory bandwidth can be seen at :math:`l > 300`.;
+The above tests were also performed on the practical matrices (see :ref:`Test on Practical Matrices <prac_mat>`). The figure below corresponds to computing the race of inverse of the matrix `jnlbrng1 <http://sparse.tamu.edu/GHS_psdef/jnlbrng1>`_ with :math:`n = 40000`. The results are very similar to the previous test on simple matrices. Namely, the complexity of the process with and without orthogonalization is :math:`\mathcal{O}(l^2)` and :math:`\mathcal{O}(l)`, respectively. Also, orthogonalization is by an order of magnitude slower than without orthogonalization and the effect of the cache memory bandwidth can be seen at :math:`l > 300`.;
 
 .. image:: ../_static/images/performance/vary_lanczos_degree_practical_matrix_time.png
    :align: center
