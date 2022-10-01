@@ -65,11 +65,11 @@ function showPDF(urlToPDF) {
 
 document.addEventListener("adobe_dc_view_sdk.ready", function () {
 
-    document.getElementById("showPDF01").addEventListener("click", function () {
+    document.getElementById("showPDF-int").addEventListener("click", function () {
         showPDF("https://arxiv.org/pdf/2009.07385.pdf")
     });
 
-    document.getElementById("showPDF02").addEventListener("click", function () {
+    document.getElementById("showPDF-gpr").addEventListener("click", function () {
         showPDF("https://arxiv.org/pdf/2206.09976.pdf")
     });
 });

@@ -8,11 +8,11 @@ How to Cite
 
 If you publish work that uses |project|, please consider citing the following manuscripts. This list will be updated as more publications are in progress.
 
-.. [1] Ameli, S., and Shadden. S. C. (2022). *Interpolating Log-Determinant and Trace of the Powers of Matrix* :math:`\mathbf{A} + t \mathbf{B}`. |ameli-interp| |btn-bib-1| |btn-view-pdf-1|
+.. [1] Ameli, S., and Shadden. S. C. (2022). *Interpolating Log-Determinant and Trace of the Powers of Matrix* :math:`\mathbf{A} + t \mathbf{B}`. |ameli-int| |btn-bib-int| |btn-view-pdf-int|
 
    .. raw:: html
 
-        <div class="highlight-BibTeX notranslate collapse" id="collapse-bib1">
+        <div class="highlight-BibTeX notranslate collapse" id="collapse-bib-int">
         <div class="highlight">
         <pre class="language-bib">
         <code class="language-bib">@misc{arxiv.2009.07385,
@@ -28,11 +28,11 @@ If you publish work that uses |project|, please consider citing the following ma
         </div>
         </div>
 
-.. [2] Ameli, S. (2022). *IMATE, a high-performance python package for implicit matrix trace estimation*. |imate-zenodo| |btn-bib-2|
+.. [2] Ameli, S. (2022). *IMATE, a high-performance python package for implicit matrix trace estimation*. |imate-zenodo| |btn-bib-imate|
 
    .. raw:: html
 
-        <div class="highlight-BibTeX notranslate collapse" id="collapse-bib2">
+        <div class="highlight-BibTeX notranslate collapse" id="collapse-bib-imate">
         <div class="highlight">
         <pre class="language-bib">
         <code class="language-bib">@misc{zenodo.308965310,
@@ -48,11 +48,11 @@ Publications/Software Using |project|
 =====================================
 
 
-.. [3] Ameli, S., and Shadden. S. C. (2022). *Noise Estimation in Gaussian Process Regression*. |ameli-gpr| |btn-bib-3| |btn-view-pdf-2|
+.. [3] Ameli, S., and Shadden. S. C. (2022). *Noise Estimation in Gaussian Process Regression*. |ameli-gpr| |btn-bib-gpr| |btn-view-pdf-gpr|
 
    .. raw:: html
 
-        <div class="highlight-BibTeX notranslate collapse" id="collapse-bib3">
+        <div class="highlight-BibTeX notranslate collapse" id="collapse-bib-gpr">
         <div class="highlight">
         <pre class="language-bib">
         <code class="language-bib">@misc{arxiv.2206.09976,
@@ -68,11 +68,11 @@ Publications/Software Using |project|
         </div>
         </div>
 
-.. [4] Ameli, S. (2022). *GLearn, a high-performance python package for machine learning using Gaussian process*. |glearn-zenodo| |btn-bib-4|
+.. [4] Ameli, S. (2022). *GLearn, a high-performance python package for machine learning using Gaussian process*. |glearn-zenodo| |btn-bib-glearn|
 
    .. raw:: html
 
-        <div class="highlight-BibTeX notranslate collapse" id="collapse-bib4">
+        <div class="highlight-BibTeX notranslate collapse" id="collapse-bib-glearn">
         <div class="highlight">
         <pre class="language-bib">
         <code class="language-bib">@misc{zenodo.373664668,
@@ -86,43 +86,43 @@ Publications/Software Using |project|
 
 .. <div id="adobe-dc-view" style="height: 600px;"></div>
 
-.. |btn-bib-1| raw:: html
+.. |btn-bib-int| raw:: html
 
-    <button class="btn btn-outline-info btn-sm btn-extra-sm" type="button" data-toggle="collapse" data-target="#collapse-bib1">
+    <button class="btn btn-outline-info btn-sm btn-extra-sm" type="button" data-toggle="collapse" data-target="#collapse-bib-int">
         BibTeX
     </button>
 
-.. |btn-bib-2| raw:: html
+.. |btn-bib-gpr| raw:: html
 
-    <button class="btn btn-outline-info btn-sm btn-extra-sm" type="button" data-toggle="collapse" data-target="#collapse-bib2">
+    <button class="btn btn-outline-info btn-sm btn-extra-sm" type="button" data-toggle="collapse" data-target="#collapse-bib-gpr">
         BibTeX
     </button>
 
-.. |btn-bib-3| raw:: html
+.. |btn-bib-imate| raw:: html
 
-    <button class="btn btn-outline-info btn-sm btn-extra-sm" type="button" data-toggle="collapse" data-target="#collapse-bib3">
+    <button class="btn btn-outline-info btn-sm btn-extra-sm" type="button" data-toggle="collapse" data-target="#collapse-bib-imate">
         BibTeX
     </button>
 
-.. |btn-bib-4| raw:: html
+.. |btn-bib-glearn| raw:: html
 
-    <button class="btn btn-outline-info btn-sm btn-extra-sm" type="button" data-toggle="collapse" data-target="#collapse-bib4">
+    <button class="btn btn-outline-info btn-sm btn-extra-sm" type="button" data-toggle="collapse" data-target="#collapse-bib-glearn">
         BibTeX
     </button>
 
-.. |btn-view-pdf-1| raw:: html
+.. |btn-view-pdf-int| raw:: html
 
-    <button class="btn btn-outline-info btn-sm btn-extra-sm" type="button" id="showPDF01">
+    <button class="btn btn-outline-info btn-sm btn-extra-sm" type="button" id="showPDF-int">
         View Article
     </button>
 
-.. |btn-view-pdf-2| raw:: html
+.. |btn-view-pdf-gpr| raw:: html
 
-    <button class="btn btn-outline-info btn-sm btn-extra-sm" type="button" id="showPDF02">
+    <button class="btn btn-outline-info btn-sm btn-extra-sm" type="button" id="showPDF-gpr">
         View Article
     </button>
 
-.. |ameli-interp| image:: https://img.shields.io/badge/arXiv-2009.07385-b31b1b.svg
+.. |ameli-int| image:: https://img.shields.io/badge/arXiv-2009.07385-b31b1b.svg
    :target: https://doi.org/10.48550/arXiv.2009.07385
    :alt: arXiv 2009.07385
 

@@ -76,7 +76,7 @@ Configure docker to run docker `without sudo password <https://docs.docker.com/e
 Then, log out and log back. If docker is installed on a *virtual machine*, restart the virtual machine for changes to take effect.
 
 Get |project| Docker Image
-===============================
+==========================
 
 |docker-size|
 

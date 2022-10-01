@@ -41,13 +41,15 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/toggleprompt.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script src="_static/js/custom-pydata.js"></script>
     <script src="_static/design-tabs.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <link rel="shortcut icon" href="_static/logo-imate.ico"/>
+    <script src="_static/js/custom-pydata.css"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
@@ -298,7 +300,7 @@
       
 
 <div class="tocsection editthispage">
-    <a href="https://github.com/https://github.com/ameli/imate/edit/main/docs/source/index.rst">
+    <a href="https://github.com/ameli/imate/edit/main/docs/source/index.rst">
         <i class="fas fa-pencil-alt"></i> Edit this page
     </a>
 </div>
@@ -636,8 +638,13 @@ span.prompt1:before {
 </section>
 <section id="tutorials">
 <span id="index-tutorials"></span><h2>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this heading">#</a></h2>
-<p><a class="reference external" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb"><img alt="binder" src="https://mybinder.org/badge_logo.svg" /></a></p>
-<p>Launch online interactive demonstration of examples with</p>
+<p><a class="reference external" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2Fquick_start.ipynb"><img alt="binder" src="https://mybinder.org/badge_logo.svg" /></a></p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/quick_start.html">Jupyter Notebook</a></li>
+</ul>
+</div>
+<p>Launch <a class="reference external" href="https://mybinder.org/v2/gh/ameli/glearn/HEAD?filepath=notebooks%2Fquick_start.ipynb">online interactive notebook</a> with Binder.</p>
 </section>
 <section id="api-reference">
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h2>
@@ -724,7 +731,7 @@ span.prompt1:before {
 <p>Some notable implementation techniques used to develop <span class="synco">imate</span> are:</p>
 <ul class="simple">
 <li><p>Polymorphic and curiously recurring template pattern programming (CRTP) technique.</p></li>
-<li><p>OS-independent customized <cite>dynamic loading</cite> of CUDA libraries.</p></li>
+<li><p>OS-independent customized <cite>dynamic loading</cite> of CUDA libraries (as opposed to dynamic linking).</p></li>
 <li><p>Static dispatching enables executing <span class="synco">imate</span> with and without CUDA on the user’s machine with the same pre-compiled <span class="synco">imate</span> installation.</p></li>
 <li><p>Completely <a class="reference external" href="https://en.wikipedia.org/wiki/Global_interpreter_lock">GIL</a>-<em>free</em> Cython implementation.</p></li>
 <li><p>Providing <a class="reference external" href="https://pypi.org/project/imate/#files">manylinux wheels</a> build upon customized docker images with CUDA support (see <a class="reference external" href="https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_10">manylinux CUDA 10</a> and <a class="reference external" href="https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_11">manylinux CUDA 11</a> docker images on Docker Hub).</p></li>
@@ -819,7 +826,7 @@ span.prompt1:before {
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.3.<br>
 </p>
   </div>
   

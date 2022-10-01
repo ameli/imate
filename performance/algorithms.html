@@ -41,6 +41,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/toggleprompt.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -49,7 +50,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <link rel="shortcut icon" href="../_static/logo-imate.ico"/>
+    <script src="../_static/js/custom-pydata.css"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
@@ -325,7 +327,7 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id6">
+    <a class="reference internal nav-link" href="#id4">
      Accuracy of Computing Trace of Inverse
     </a>
    </li>
@@ -374,7 +376,7 @@
       
 
 <div class="tocsection editthispage">
-    <a href="https://github.com/https://github.com/ameli/imate/edit/main/docs/source/performance/algorithms.rst">
+    <a href="https://github.com/ameli/imate/edit/main/docs/source/performance/algorithms.rst">
         <i class="fas fa-pencil-alt"></i> Edit this page
     </a>
 </div>
@@ -560,7 +562,7 @@
 </section>
 <section id="varying-algorithm-parameters">
 <h2>Varying Algorithm Parameters<a class="headerlink" href="#varying-algorithm-parameters" title="Permalink to this heading">#</a></h2>
-<p>A known issue of the Lanczos algorithm is that the eigenvectors computed during the recusance Lanczos iterations lose their orthogonality. A solution to this issue is the re-orthogonalization of the newly computed eigenvectors with either some or all previous eigenvectors, which is known as partial or full orthogonalization, respectively. <a href="#id8"><span class="problematic" id="id9">|prpject|</span></a> supports both types of orthogonalization techniques.</p>
+<p>A known issue of the Lanczos algorithm is that the eigenvectors computed during the recusance Lanczos iterations lose their orthogonality. A solution to this issue is the re-orthogonalization of the newly computed eigenvectors with either some or all previous eigenvectors, which is known as partial or full orthogonalization, respectively. <span class="synco">imate</span> supports both types of orthogonalization techniques.</p>
 <p>In the following tests, the effect of re-orthogonalizations of the eigenvectors and the effect of varying the number of Lanczos iterations are examined.</p>
 <section id="id2">
 <h3>Process Time of Computing Log-Determinant<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
@@ -575,11 +577,11 @@
 </section>
 <section id="process-time-of-computing-trace-of-inverse">
 <h3>Process Time of Computing Trace of Inverse<a class="headerlink" href="#process-time-of-computing-trace-of-inverse" title="Permalink to this heading">#</a></h3>
-<p>The above tests were also performed on the practical matrices (see <a href="#id4"><span class="problematic" id="id5">:ref:`Test on Practical Matrices &lt;prac_mat&gt;`_</span></a>). The figure below corresponds to computing the race of inverse of the matrix <a class="reference external" href="http://sparse.tamu.edu/GHS_psdef/jnlbrng1">jnlbrng1</a> with <span class="math notranslate nohighlight">\(n = 40000\)</span>. The results are very similar to the previous test on simple matrices. Namely, the complexity of the process with and without orthogonalization is <span class="math notranslate nohighlight">\(\mathcal{O}(l^2)\)</span> and <span class="math notranslate nohighlight">\(\mathcal{O}(l)\)</span>, respectively. Also, orthogonalization is by an order of magnitude slower than without orthogonalization and the effect of the cache memory bandwidth can be seen at <span class="math notranslate nohighlight">\(l &gt; 300\)</span>.;</p>
+<p>The above tests were also performed on the practical matrices (see <a class="reference internal" href="#prac-mat"><span class="std std-ref">Test on Practical Matrices</span></a>). The figure below corresponds to computing the race of inverse of the matrix <a class="reference external" href="http://sparse.tamu.edu/GHS_psdef/jnlbrng1">jnlbrng1</a> with <span class="math notranslate nohighlight">\(n = 40000\)</span>. The results are very similar to the previous test on simple matrices. Namely, the complexity of the process with and without orthogonalization is <span class="math notranslate nohighlight">\(\mathcal{O}(l^2)\)</span> and <span class="math notranslate nohighlight">\(\mathcal{O}(l)\)</span>, respectively. Also, orthogonalization is by an order of magnitude slower than without orthogonalization and the effect of the cache memory bandwidth can be seen at <span class="math notranslate nohighlight">\(l &gt; 300\)</span>.;</p>
 <img alt="../_images/vary_lanczos_degree_practical_matrix_time.png" class="custom-dark align-center" src="../_images/vary_lanczos_degree_practical_matrix_time.png" />
 </section>
-<section id="id6">
-<h3>Accuracy of Computing Trace of Inverse<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<section id="id4">
+<h3>Accuracy of Computing Trace of Inverse<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <p>The error of computing the trace of inverse of the test matrix is shown below, which is obtained by comparison of the results with the Cholesky method (not shown here). The difference between the error of the process with and without orthogonalization is insignificant, hence, one may not use orthogonalization as it is effectively faster. Also, as suggested by the figure’s results, a practical choice for the number of Lanczos iterations is <span class="math notranslate nohighlight">\(l = 20 \sim 50\)</span> for most applications.</p>
 <a class="custom-dark reference internal image-reference" href="../_images/vary_lanczos_degree_practical_matrix_accuracy.png"><img alt="../_images/vary_lanczos_degree_practical_matrix_accuracy.png" class="custom-dark align-center" src="../_images/vary_lanczos_degree_practical_matrix_accuracy.png" style="height: 340px;" /></a>
 </section>
@@ -720,7 +722,7 @@ span.prompt1:before {
   
   <div class="footer-item">
     <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.1.1.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.2.3.<br>
 </p>
   </div>
   

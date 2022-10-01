@@ -196,7 +196,12 @@ Tutorials
 
 |binder|
 
-Launch online interactive demonstration of examples with
+.. toctree::
+    :maxdepth: 1
+
+    Jupyter Notebook <notebooks/quick_start.ipynb>
+
+Launch `online interactive notebook <https://mybinder.org/v2/gh/ameli/glearn/HEAD?filepath=notebooks%2Fquick_start.ipynb>`_ with Binder.
 
 API Reference
 =============
@@ -303,7 +308,7 @@ The front-end interface of |project| is implemented in Cython and Python (see Py
 Some notable implementation techniques used to develop |project| are:
 
 * Polymorphic and curiously recurring template pattern programming (CRTP) technique.
-* OS-independent customized `dynamic loading` of CUDA libraries.
+* OS-independent customized `dynamic loading` of CUDA libraries (as opposed to dynamic linking).
 * Static dispatching enables executing |project| with and without CUDA on the user's machine with the same pre-compiled |project| installation.
 * Completely `GIL <https://en.wikipedia.org/wiki/Global_interpreter_lock>`_-*free* Cython implementation.
 * Providing `manylinux wheels <https://pypi.org/project/imate/#files>`_ build upon customized docker images with CUDA support (see `manylinux CUDA 10 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_10>`_ and `manylinux CUDA 11 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_11>`_ docker images on Docker Hub).
@@ -375,7 +380,7 @@ Related Projects
 .. |conda-version| image:: https://img.shields.io/conda/v/s-ameli/traceinv
    :target: https://anaconda.org/s-ameli/traceinv
 .. |binder| image:: https://mybinder.org/badge_logo.svg
-   :target: https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb
+   :target: https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2Fquick_start.ipynb
 .. |conda-downloads| image:: https://img.shields.io/conda/dn/s-ameli/imate
    :target: https://anaconda.org/s-ameli/imate
 .. |tokei| image:: https://tokei.rs/b1/github/ameli/imate?category=lines
