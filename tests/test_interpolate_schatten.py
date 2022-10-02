@@ -114,17 +114,15 @@ def _interpolate_trace_exp(p):
     Schatten05 = TI05.interpolate(inquiry_point)
     Error05 = 100.0 * numpy.abs(Schatten05 - Schatten00) / Schatten00
 
-    # Radial Basis Functions, function_type 1
+    # Radial Basis Functions, func_type 1
     TI06 = InterpolateSchatten(A, B=B, p=p, ti=interpolant_points, kind='RBF',
-                               function_type=1, options=options,
-                               verbose=verbose)
+                               func_type=1, options=options, verbose=verbose)
     Schatten06 = TI06.interpolate(inquiry_point)
     Error06 = 100.0 * numpy.abs(Schatten06 - Schatten00) / Schatten00
 
-    # Radial Basis Functions, function_type 2
+    # Radial Basis Functions, func_type 2
     TI07 = InterpolateSchatten(A, B=B, p=p, ti=interpolant_points, kind='RBF',
-                               function_type=2, options=options,
-                               verbose=verbose)
+                               func_type=2, options=options, verbose=verbose)
     Schatten07 = TI07.interpolate(inquiry_point)
     Error07 = 100.0 * numpy.abs(Schatten07 - Schatten00) / Schatten00
 

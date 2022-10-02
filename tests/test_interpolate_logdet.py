@@ -108,15 +108,15 @@ def test_interpolate_logdet():
     Logdet05 = TI05.interpolate(inquiry_point)
     Error05 = 100.0 * numpy.abs(Logdet05 - Logdet00) / Logdet00
 
-    # Radial Basis Functions, function_type 1
+    # Radial Basis Functions, func_type 1
     TI06 = InterpolateLogdet(A, B=B, ti=interpolant_points, kind='RBF',
-                             function_type=1, options=options, verbose=verbose)
+                             func_type=1, options=options, verbose=verbose)
     Logdet06 = TI06.interpolate(inquiry_point)
     Error06 = 100.0 * numpy.abs(Logdet06 - Logdet00) / Logdet00
 
-    # Radial Basis Functions, function_type 2
+    # Radial Basis Functions, func_type 2
     TI07 = InterpolateLogdet(A, B=B, ti=interpolant_points, kind='RBF',
-                             function_type=2, options=options, verbose=verbose)
+                             func_type=2, options=options, verbose=verbose)
     Logdet07 = TI07.interpolate(inquiry_point)
     Error07 = 100.0 * numpy.abs(Logdet07 - Logdet00) / Logdet00
 
