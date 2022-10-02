@@ -12,6 +12,33 @@ Links
 * `Anaconda <https://anaconda.org/s-ameli/imate>`_
 * `Docker Hub <https://hub.docker.com/r/sameli/imate>`_
 * `Git Hub <https://github.com/ameli/imate>`_
+
+Install with ``pip``
+====================
+
+|pypi|
+
+::
+
+    pip install imate
+
+Install with ``conda``
+======================
+
+|conda-version|
+
+::
+
+    conda install -c s-ameli imate
+
+Docker Image
+============
+
+|docker-pull| |deploy-docker|
+
+::
+
+    docker pull sameli/imate
   
 Supported Platforms
 ===================
@@ -65,39 +92,6 @@ Supported GPU Architectures
 | CUDA 11         |   |n|   |   |n|   |   |n|   |   |y|   |   |y|   |   |y|   |   |y|   |   |y|  |
 +-----------------+---------+---------+---------+---------+---------+---------+---------+--------+
 
-Install with ``pip``
-====================
-
-|pypi|
-
-Install through `PyPi <https://pypi.org/project/imate>`_:
-
-::
-
-    pip install imate
-
-Install with ``conda``
-======================
-
-|conda-version|
-
-Install through `Anaconda <https://anaconda.org/s-ameli/imate>`_:
-
-::
-
-    conda install -c s-ameli imate
-
-Docker Image
-============
-
-|docker-pull| |deploy-docker|
-
-Pull docker image from `Docker Hub <https://hub.docker.com/r/sameli/imate>`_:
-
-::
-
-    docker pull sameli/imate
-
 Documentation
 =============
 
@@ -109,7 +103,7 @@ See `documentation <https://ameli.github.io/imate/index.html>`_, including:
 * `Comprehensive Installation Guide <https://ameli.github.io/imate/tutorials/install.html>`_
 * `How to Work with Docker Container? <https://ameli.github.io/imate/tutorials/docker.html>`_
 * `How to Deploy on GPU Devices? <https://ameli.github.io/imate/tutorials/gpu.html>`_
-* `API Reference <ihttps://ameli.github.io/imate/api.html>`_
+* `API Reference <https://ameli.github.io/imate/api.html>`_
 * `Interactive Notebook Tutorials <https://mybinder.org/v2/gh/ameli/glearn/HEAD?filepath=notebooks%2Fquick_start.ipynb>`_
 * `Publications <https://ameli.github.io/imate/cite.html>`_
 
@@ -144,7 +138,7 @@ This project uses a `BSD 3-clause license <https://github.com/ameli/imate/blob/m
 
 .. |logo| image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg
    :width: 160
-.. |licence| image:: https://img.shields.io/github/license/ameli/imate
+.. |license| image:: https://img.shields.io/github/license/ameli/imate
    :target: https://opensource.org/licenses/BSD-3-Clause
 .. |deploy-docs| image:: https://img.shields.io/github/workflow/status/ameli/imate/deploy-docs?label=docs
    :target: https://github.com/ameli/imate/actions?query=workflow%3Adeploy-docs
