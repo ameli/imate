@@ -13,8 +13,11 @@ Links
 * `Docker Hub <https://hub.docker.com/r/sameli/imate>`_
 * `Git Hub <https://github.com/ameli/imate>`_
 
+Install
+=======
+
 Install with ``pip``
-====================
+--------------------
 
 |pypi|
 
@@ -23,7 +26,7 @@ Install with ``pip``
     pip install imate
 
 Install with ``conda``
-======================
+----------------------
 
 |conda-version|
 
@@ -32,7 +35,7 @@ Install with ``conda``
     conda install -c s-ameli imate
 
 Docker Image
-============
+------------
 
 |docker-pull| |deploy-docker|
 
