@@ -1432,7 +1432,8 @@ def cythonize_extensions(extensions):
 # get requirements
 # ================
 
-def get_requirements(directory, subdirectory="", ignore=False):
+def get_requirements(directory, subdirectory="", filename='requirements',
+                     ignore=False):
     """
     Returns a list containing the package requirements given in a file named
     "requirements.txt" in a subdirectory.
@@ -1444,7 +1445,7 @@ def get_requirements(directory, subdirectory="", ignore=False):
     See `.dockerignore` file.
     """
 
-    requirements_filename = join(directory, subdirectory, "requirements.txt")
+    requirements_filename = join(directory, subdirectory, filename + ".txt")
 
     # Check file exists
     if os.path.exists(requirements_filename):
@@ -1483,6 +1484,8 @@ def main(argv):
 
     # Requirements
     requirements = get_requirements(directory)
+    plot_requirements = get_requirements(directory,
+                                         filename='requirements_plot')
     test_requirements = get_requirements(directory, subdirectory="tests",
                                          ignore=True)
     docs_requirements = get_requirements(directory, subdirectory="docs",
@@ -1631,10 +1634,7 @@ def main(argv):
             },
         zip_safe=False,  # False: package can be "cimported" by another package
         extras_require={
-            ':implementation_name == "cpython"': [
-                'matplotlib>=2.0',
-                'seaborn'
-                ],
+            ':implementation_name == "cpython"': plot_requirements,
             'extra': [
                 'scikit-sparse',
                 ],

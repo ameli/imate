@@ -31,11 +31,12 @@ jobs:
                 doxygen doxyfile.in
 
             # Compile package with in-source build
-            # (use force-reinstall to downgrade packages if necessary to make them compatible)
+            # Use force-reinstall to downgrade matplotlib if necessary to be compatible with seaborn
             - name: Install
               run: |
                 python -m pip install --upgrade pip
-                python -m pip install --force-reinstall -r requirements.txt
+                python -m pip install -r requirements.txt
+                python -m pip install --force-reinstall -r requirements_plot.txt
                 export CYTHON_BUILD_FOR_DOC=1
                 python setup.py install
 
