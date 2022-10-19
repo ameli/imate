@@ -42,11 +42,9 @@ Docker Image
 ::
 
     docker pull sameli/imate
-  
+
 Supported Platforms
 ===================
-
-|codecov-devel|
 
 Successful installation and tests performed on the following operating systems, architectures, and Python and `PyPy <https://www.pypy.org/>`_ versions:
 
@@ -100,7 +98,7 @@ Documentation
 
 |deploy-docs| |binder|
 
-See `documentation <https://ameli.github.io/imate/index.html>`_, including:
+See `documentation <https://ameli.github.io/imate/index.html>`__, including:
 
 * `What This Packages Does? <https://ameli.github.io/imate/overview.html>`_
 * `Comprehensive Installation Guide <https://ameli.github.io/imate/tutorials/install.html>`_
@@ -149,8 +147,6 @@ This project uses a `BSD 3-clause license <https://github.com/ameli/imate/blob/m
    :target: https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2Fquick_start.ipynb
 .. |pypi| image:: https://img.shields.io/pypi/v/imate
    :target: https://pypi.org/project/imate/
-.. |codecov-devel| image:: https://img.shields.io/codecov/c/github/ameli/imate
-   :target: https://codecov.io/gh/ameli/imate
 .. |deploy-docker| image:: https://img.shields.io/github/workflow/status/ameli/imate/deploy-docker?label=build%20docker
    :target: https://github.com/ameli/imate/actions?query=workflow%3Adeploy-docker
 .. |docker-pull| image:: https://img.shields.io/docker/pulls/sameli/imate?color=green&label=downloads

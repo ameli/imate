@@ -779,7 +779,7 @@ The output to the above command should be similar to the following:
 
 .. attention::
 
-    Do not load imate if your current working directory is the root directory of the source code of |project|, since python cannot load the installed package properly. Always change the current directory to somewhere else (for example, ``cd ..`` as shown in the above).
+    Do not load |project| if your current working directory is the root directory of the source code of |project|, since python cannot load the installed package properly. Always change the current directory to somewhere else (for example, ``cd ..`` as shown in the above).
 
 .. _clean-files:
    

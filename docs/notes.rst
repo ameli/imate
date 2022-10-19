@@ -42,12 +42,12 @@ Some notes to myself when completing the documentation later.
   ``this->dot()``function. Previously, the ``dot()`` function had ``const``
   at the end of its signature. However, because we call ``allocate_buffer``,
   and it changes a member data, the ``dot()`` function for this class and
-  ALL of its base classes, and even the other non-cuda classes that are
+  ALL of its base classes, and even the other non-CUDA classes that are
   derived from the ``cLinearOperator`` class has to be non ``const`` member
   functions.
 
   If I can be certain that the buffer size is always zero, I can return back
-  the constness to these functions and do not call the allocate buffer.
+  the const-ness to these functions and do not call the allocate buffer.
   Or, I can call allocate buffer to compute the buffer size, but do not
   allocate it. In this case, I should do ``assert(buffer_size==0)`` just in
   case if in some applications it has to be non-zero buffer.
@@ -120,7 +120,7 @@ TODO
 ====
 
 * Implement ``keep`` functionality for slq method.
-* Hutchinson methed can be implemented in C++ and also in CUDA on GPU.
+* Hutchinson method can be implemented in C++ and also in CUDA on GPU.
 * Other functions (besides traceinv and logdet)
 * doxygen for c_linear_operator and its derived classes
 * Get memory usage info for GPU. See for example:
@@ -155,8 +155,8 @@ Local Installation
   pypy on windows and macos. On Linux, pypy-3.6 and pypy-3.7 is supported.
 
 - CUDA support:
-  CUDA is only availble in linux and windows. NVIDIA no longer supports CUDA in
-  macos, and Apple does not include NVIDA in apple products either.
+  CUDA is only available in linux and windows. NVIDIA no longer supports CUDA in
+  macOS, and Apple does not include NVIDA in apple products either.
 
 =====
 Ideas
@@ -267,6 +267,17 @@ Implementation Techniques
   independent sequences of random numbers on each thread. The random array
   generator can be used on 2^64 parallel threads, each generating a sequence
   of 2^128 long.
-- The basic algebra module seems to perform faster than OpenBlas. Not only
-  that, for very large arrays, the dot product is more accurate than OpenBlas,
+- The basic algebra module seems to perform faster than OpenBLAS. Not only
+  that, for very large arrays, the dot product is more accurate than OpenBLAS,
   since the reduction variable is cast to long double.
+
+=============
+Documentation
+=============
+
+Things yet remained in the documentation to be completed:
+
+* docs/source/performance/interpolation.rst
+* a Few more tutorials in jupyter notebook
+* Incorporate /imate/examples (reproduce results of  interpolation paper) into
+  the documentation.
