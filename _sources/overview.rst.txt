@@ -108,18 +108,19 @@ References
 
 .. [R1] Ubaru, S., Saad, Y. (2018). *Applications of Trace Estimation Techniques*. In: High-Performance Computing in Science and Engineering. HPCSE 2017. Lecture Notes in Computer Science, vol 11087. Springer, Cham. `doi: 10.1007/978-3-319-97136-0_2 <https://doi.org/10.1007/978-3-319-97136-0_2>`_
 
-.. [R2] Ameli, S. and Shadden, S. C. (2022). *A Singular Woodbury and Pseudo-Determinant Matrix Identities and Application to Gaussian Process Regression*. `arXiv: 2207.08038 [math.ST] <https://arxiv.org/abs/2207.08038>`_.
+.. [R2] Ameli, S., and Shadden, S. C. (2022). *A Singular Woodbury and Pseudo-Determinant Matrix Identities and Application to Gaussian Process Regression*. `arXiv: 2207.08038 [math.ST] <https://arxiv.org/abs/2207.08038>`_.
 
-.. [R3] Ameli, S. and Shadden, S. C. (2022). *Noise Estimation in Gaussian Process Regression*. `arXiv: 2206.09976 [cs.LG] <https://arxiv.org/abs/2206.09976>`_
+.. [R3] Ameli, S., and Shadden, S. C. (2022). *Noise Estimation in Gaussian Process Regression*. `arXiv: 2206.09976 [cs.LG] <https://arxiv.org/abs/2206.09976>`_
 
-.. [R4] Ameli, S. and Shadden, S. C. (2022). *Interpolating Log-Determinant and Trace of the Powers of Matrix* :math:`\mathbf{A} + t \mathbf{B}`. `arXiv: 2009.07385 [math.NA] <https://arxiv.org/abs/2009.07385>`_
+.. [R4] Ameli, S., and Shadden. S. C. (2022). *Interpolating Log-Determinant and Trace of the Powers of Matrix* :math:`\mathbf{A} + t \mathbf{B}`. Statistics and Computing 32, 108 (2022). `DOI <https://doi.org/10.1007/s11222-022-10173-4>`__
+
 
 .. [R5] Mahoney, M. W. (2011). *Randomized algorithms for matrices and data*. `arXiv: 1104.5557 [cs.DS] <https://arxiv.org/abs/1104.5557>`_.
 
 .. [R6]  Hutchinson, M. F. (1990). *A stochastic estimator of the trace of the influence matrix for Laplacian smoothing splines*. Comm. Statist. Simulation Comput. Volume 19, Number 2, pp. 433-450. Taylor \& Francis. `doi: 10.1080/03610919008812866 <https://www.tandfonline.com/doi/abs/10.1080/03610919008812866>`_.
 
-.. [R7] Golub, G. H. and Meurant, G. (2010). *Matrices, Moments and Quadrature with Applications*. Princeton University Press. isbn: 0691143412. `jstor.org/stable/j.ctt7tbvs <http://www.jstor.org/stable/j.ctt7tbvs>`_.
+.. [R7] Golub, G. H., and Meurant, G. (2010). *Matrices, Moments and Quadrature with Applications*. Princeton University Press. isbn: 0691143412. `jstor.org/stable/j.ctt7tbvs <http://www.jstor.org/stable/j.ctt7tbvs>`_.
 
-.. [R8] Dongarra, J. and Sullivan, F. (2000). *The Top 10 Algorithms. Computing in Science and Eng*. 2, 1, pp. 22–23. `doi: 10.1109/MCISE.2000.814652 <https://doi.org/10.1109/MCISE.2000.814652>`_.
+.. [R8] Dongarra, J., and Sullivan, F. (2000). *The Top 10 Algorithms. Computing in Science and Eng*. 2, 1, pp. 22–23. `doi: 10.1109/MCISE.2000.814652 <https://doi.org/10.1109/MCISE.2000.814652>`_.
 
-.. [R9] Higham, N. J. (2016). `Nicholas J. Higham on the top 10 algorithms in applied mathematics <https://press.princeton.edu/ideas/nicholas-higham-on-the-top-10-algorithms-in-applied-mathematics>`_. The Princeton Companion to Applied Mathematics. Princeton University Press. isbn: 786842300.
+.. [R9] Higham, N. J., (2016). `Nicholas J. Higham on the top 10 algorithms in applied mathematics <https://press.princeton.edu/ideas/nicholas-higham-on-the-top-10-algorithms-in-applied-mathematics>`_. The Princeton Companion to Applied Mathematics. Princeton University Press. isbn: 786842300.
