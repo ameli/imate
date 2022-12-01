@@ -112,7 +112,7 @@ References
 
 .. [R3] Ameli, S., and Shadden, S. C. (2022). *Noise Estimation in Gaussian Process Regression*. `arXiv: 2206.09976 [cs.LG] <https://arxiv.org/abs/2206.09976>`_
 
-.. [R4] Ameli, S., and Shadden. S. C. (2022). *Interpolating Log-Determinant and Trace of the Powers of Matrix* :math:`\mathbf{A} + t \mathbf{B}`. Statistics and Computing 32, 108 (2022). `DOI <https://doi.org/10.1007/s11222-022-10173-4>`__
+.. [R4] Ameli, S., and Shadden. S. C. (2022). *Interpolating Log-Determinant and Trace of the Powers of Matrix* :math:`\mathbf{A} + t \mathbf{B}`. Statistics and Computing 32, 108. `DOI <https://doi.org/10.1007/s11222-022-10173-4>`__
 
 
 .. [R5] Mahoney, M. W. (2011). *Randomized algorithms for matrices and data*. `arXiv: 1104.5557 [cs.DS] <https://arxiv.org/abs/1104.5557>`_.
