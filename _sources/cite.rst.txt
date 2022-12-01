@@ -15,20 +15,17 @@ If you publish work that uses |project|, please consider citing the following ma
         <div class="highlight-BibTeX notranslate collapse" id="collapse-bib-int">
         <div class="highlight">
         <pre class="language-bib">
-        <code class="language-bib">@Article{Ameli2022,
-            author={Ameli, Siavash
-            and Shadden, Shawn C.},
-            title={Interpolating log-determinant and trace of the powers of matrix $\textbf{A} + t\textbf{B}$},
-            journal={Statistics and Computing},
-            year={2022},
-            month={Nov},
-            day={10},
-            volume={32},
-            number={6},
-            pages={108},
-            issn={1573-1375},
-            doi={10.1007/s11222-022-10173-4},
-            url={https://doi.org/10.1007/s11222-022-10173-4}
+        <code class="language-bib">@article{Ameli2022,
+            title    = {Interpolating log-determinant and trace of the powers of matrix \(\mathbf{A} + t \mathbf{B}\)},
+            author   = {Ameli, Siavash and Shadden, Shawn C.},
+            journal  = {Statistics and Computing},
+            volume   = {32},
+            number   = {6},
+            pages    = {108},
+            month    = {Nov},
+            year     = {2022},
+            doi      = {10.1007/s11222-022-10173-4},
+            url      = {https://doi.org/10.1007/s11222-022-10173-4},
         }</code></pre>
         </div>
         </div>
@@ -118,13 +115,13 @@ Publications/Software Using |project|
 .. |btn-view-pdf-int| raw:: html
 
     <button class="btn btn-outline-info btn-sm btn-extra-sm" type="button" id="showPDF-int">
-        View Article
+        PDF
     </button>
 
 .. |btn-view-pdf-gpr| raw:: html
 
     <button class="btn btn-outline-info btn-sm btn-extra-sm" type="button" id="showPDF-gpr">
-        View Article
+        PDF
     </button>
 
 .. |btn-int-doi| raw:: html
