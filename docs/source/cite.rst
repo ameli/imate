@@ -8,7 +8,7 @@ How to Cite
 
 If you publish work that uses |project|, please consider citing the following manuscripts. This list will be updated as more publications are in progress.
 
-.. [1] Ameli, S., and Shadden. S. C. *Interpolating Log-Determinant and Trace of the Powers of Matrix* :math:`\mathbf{A} + t \mathbf{B}`. Statistics and Computing 32, 108 (2022). |btn-int-doi| |ameli-int-arxiv| |btn-bib-int| |btn-view-pdf-int|
+.. [1] Ameli, S., and Shadden. S. C. (2022). *Interpolating Log-Determinant and Trace of the Powers of Matrix* :math:`\mathbf{A} + t \mathbf{B}`. Statistics and Computing 32, 108. |btn-int-doi| |ameli-int-arxiv| |btn-bib-int| |btn-view-pdf-int|
 
    .. raw:: html
 
