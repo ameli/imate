@@ -535,7 +535,7 @@ UNIX</label><div class="sd-tab-content docutils">
 span.prompt1:before {
   content: "$ ";
 }
-</style><span class="prompt1"><span class="nb">export</span> <span class="nv">UNSIGNED_LONG_INT</span><span class="o">=</span><span class="m">1</span></span>
+</style><span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">UNSIGNED_LONG_INT</span><span class="o">=</span><span class="m">1</span></span>
 </pre></div></div></div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
 </input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-1">
@@ -605,14 +605,14 @@ span.prompt2:before {
 <ol class="arabic">
 <li><p>Download all the above-mentioned sparse matrices from <a class="reference external" href="https://sparse.tamu.edu">SuiteSparse Matrix Collection</a>. For instance, download <code class="docutils literal notranslate"><span class="pre">Queen_4147.mat</span></code> from <a class="reference external" href="https://sparse.tamu.edu/Janna/Queen_4147"><code class="docutils literal notranslate"><span class="pre">Queen_4147</span></code></a>.</p></li>
 <li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.m"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.m</span></code></a> to extract sparse matrix data from <code class="docutils literal notranslate"><span class="pre">Queen_4147.mat</span></code>:</p>
-<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">read_matrix</span><span class="p">(</span><span class="s">&#39;Queen_4147.mat&#39;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">read_matrix</span><span class="p">(</span><span class="s">&#39;Queen_4147.mat&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
 <li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.py</span></code></a> to convert the outputs of the above Octave script to generate a python pickle file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">read_matrix.py Queen_4147 float32    <span class="c1"># to generate 32-bit data</span></span>
-<span class="prompt1">read_matrix.py Queen_4147 float64    <span class="c1"># to generate 64-bit data</span></span>
-<span class="prompt1">read_matrix.py Queen_4147 float128   <span class="c1"># to generate 128-bit data</span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">read_matrix.py<span class="w"> </span>Queen_4147<span class="w"> </span>float32<span class="w">    </span><span class="c1"># to generate 32-bit data</span></span>
+<span class="prompt1">read_matrix.py<span class="w"> </span>Queen_4147<span class="w"> </span>float64<span class="w">    </span><span class="c1"># to generate 64-bit data</span></span>
+<span class="prompt1">read_matrix.py<span class="w"> </span>Queen_4147<span class="w"> </span>float128<span class="w">   </span><span class="c1"># to generate 128-bit data</span></span>
 </pre></div></div><p>The output of the above script will be written in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/</span></code></a>.</p>
 </li>
 </ol>
@@ -624,12 +624,12 @@ span.prompt2:before {
 <h4>Run Locally<a class="headerlink" href="#run-locally" title="Permalink to this heading">#</a></h4>
 <ul>
 <li><p>For the CPU test, run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
-<span class="prompt1">python ./benchmark_speed.py -c</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/scripts</span>
+<span class="prompt1">python<span class="w"> </span>./benchmark_speed.py<span class="w"> </span>-c</span>
 </pre></div></div></li>
 <li><p>For the GPU test:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
-<span class="prompt1">python ./benchmark_speed.py -g</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/scripts</span>
+<span class="prompt1">python<span class="w"> </span>./benchmark_speed.py<span class="w"> </span>-g</span>
 </pre></div></div></li>
 </ul>
 </section>
@@ -637,12 +637,12 @@ span.prompt2:before {
 <h4>Submit Job to Cluster with SLURM<a class="headerlink" href="#submit-job-to-cluster-with-slurm" title="Permalink to this heading">#</a></h4>
 <ul>
 <li><p>Submit the job file <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh</span></code></a> to perform the CPU test by</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
-<span class="prompt1">sbatch jobfile_benchmark_speed_cpu.sh</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch<span class="w"> </span>jobfile_benchmark_speed_cpu.sh</span>
 </pre></div></div></li>
 <li><p>Submit the job file <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_speed_gpu.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_speed_gpu.sh</span></code></a> to perform the GPU test by</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
-<span class="prompt1">sbatch jobfile_benchmark_speed_gpu.sh</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch<span class="w"> </span>jobfile_benchmark_speed_gpu.sh</span>
 </pre></div></div></li>
 </ul>
 </section>

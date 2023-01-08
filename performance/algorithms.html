@@ -601,7 +601,7 @@
 <ol class="arabic">
 <li><p>Download all the above-mentioned sparse matrices from <a class="reference external" href="https://sparse.tamu.edu">SuiteSparse Matrix Collection</a>. For instance, download <code class="docutils literal notranslate"><span class="pre">Queen_4147.mat</span></code> from <a class="reference external" href="https://sparse.tamu.edu/Janna/Queen_4147"><code class="docutils literal notranslate"><span class="pre">Queen_4147</span></code></a>.</p></li>
 <li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.m"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.m</span></code></a> to extract sparse matrix data from <code class="docutils literal notranslate"><span class="pre">Queen_4147.mat</span></code>:</p>
-<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">read_matrix</span><span class="p">(</span><span class="s">&#39;Queen_4147.mat&#39;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">read_matrix</span><span class="p">(</span><span class="s">&#39;Queen_4147.mat&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </li>
@@ -610,9 +610,9 @@
 span.prompt1:before {
   content: "$ ";
 }
-</style><span class="prompt1">read_matrix.py Queen_4147 float32    <span class="c1"># to generate 32-bit data</span></span>
-<span class="prompt1">read_matrix.py Queen_4147 float64    <span class="c1"># to generate 64-bit data</span></span>
-<span class="prompt1">read_matrix.py Queen_4147 float128   <span class="c1"># to generate 128-bit data</span></span>
+</style><span class="prompt1">read_matrix.py<span class="w"> </span>Queen_4147<span class="w"> </span>float32<span class="w">    </span><span class="c1"># to generate 32-bit data</span></span>
+<span class="prompt1">read_matrix.py<span class="w"> </span>Queen_4147<span class="w"> </span>float64<span class="w">    </span><span class="c1"># to generate 64-bit data</span></span>
+<span class="prompt1">read_matrix.py<span class="w"> </span>Queen_4147<span class="w"> </span>float128<span class="w">   </span><span class="c1"># to generate 128-bit data</span></span>
 </pre></div></div><p>The output of the above script will be written in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/</span></code></a>.</p>
 </li>
 </ol>
@@ -624,27 +624,27 @@ span.prompt1:before {
 <ul>
 <li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/compare_methods_analytic_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/compare_methods_analytic_matrix.py</span></code></a> to reproduce results for Toeplitz matrices as follows</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
-<span class="prompt1">python ./compare_methods_analytic_matrix.py -a -f logdet     <span class="c1"># log-determinant test</span></span>
-<span class="prompt1">python ./compare_methods_analytic_matrix.py -a -f traceinv   <span class="c1"># trace of inverse test</span></span>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/scripts</span>
+<span class="prompt1">python<span class="w"> </span>./compare_methods_analytic_matrix.py<span class="w"> </span>-a<span class="w"> </span>-f<span class="w"> </span>logdet<span class="w">     </span><span class="c1"># log-determinant test</span></span>
+<span class="prompt1">python<span class="w"> </span>./compare_methods_analytic_matrix.py<span class="w"> </span>-a<span class="w"> </span>-f<span class="w"> </span>traceinv<span class="w">   </span><span class="c1"># trace of inverse test</span></span>
 </pre></div></div></div></blockquote>
 </li>
 <li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/compare_methods_practical_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/compare_methods_practical_matrix.py</span></code></a> to reproduce results for practical matrices as follows</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
-<span class="prompt1">python ./compare_methods_practical_matrix.py -a -f logdet     <span class="c1"># log-determinant test</span></span>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/scripts</span>
+<span class="prompt1">python<span class="w"> </span>./compare_methods_practical_matrix.py<span class="w"> </span>-a<span class="w"> </span>-f<span class="w"> </span>logdet<span class="w">     </span><span class="c1"># log-determinant test</span></span>
 </pre></div></div></div></blockquote>
 </li>
 <li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/vary_lanczos_degree_analytic_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/vary_lanczos_degree_analytic_matrix.py</span></code></a> to reproduce results for varying algorithm parameters on simple matrices:</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
-<span class="prompt1">python ./vary_lanczos_degree_analytic_matrix.py</span>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/scripts</span>
+<span class="prompt1">python<span class="w"> </span>./vary_lanczos_degree_analytic_matrix.py</span>
 </pre></div></div></div></blockquote>
 </li>
 <li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/vary_lanczos_degree_practical_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/vary_lanczos_degree_practical_matrix.py</span></code></a> to reproduce results for varying algorithm parameters on practical matrices:</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/scripts</span>
-<span class="prompt1">python ./vary_lanczos_degree_practical_matrix.py</span>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/scripts</span>
+<span class="prompt1">python<span class="w"> </span>./vary_lanczos_degree_practical_matrix.py</span>
 </pre></div></div></div></blockquote>
 </li>
 </ul>
@@ -654,32 +654,32 @@ span.prompt1:before {
 <ul>
 <li><p>Submit <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_compare_methods_analytic_matrix_logdet.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/jobfile_compare_methods_analytic_matrix_logdet.sh</span></code></a> to reproduce results of log-determinant of simple matrices:</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
-<span class="prompt1">sbatch ./jobfile_compare_methods_analytic_matrix_logdet.sh</span>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch<span class="w"> </span>./jobfile_compare_methods_analytic_matrix_logdet.sh</span>
 </pre></div></div></div></blockquote>
 </li>
 <li><p>Submit <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_compare_methods_analytic_matrix_traceinv.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/jobfile_compare_methods_analytic_matrix_traceinv.sh</span></code></a> to reproduce results of the trace of inverse of simple matrices:</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
-<span class="prompt1">sbatch ./jobfile_compare_methods_analytic_matrix_traceinv.sh</span>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch<span class="w"> </span>./jobfile_compare_methods_analytic_matrix_traceinv.sh</span>
 </pre></div></div></div></blockquote>
 </li>
 <li><p>Submit <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_compare_methods_practical_matrix_logdet.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/jobfile_compare_methods_practical_matrix_logdet.sh</span></code></a> to reproduce results of log-determinant of simple matrices:</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
-<span class="prompt1">sbatch ./jobfile_compare_methods_practical_matrix_logdet.sh</span>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch<span class="w"> </span>./jobfile_compare_methods_practical_matrix_logdet.sh</span>
 </pre></div></div></div></blockquote>
 </li>
 <li><p>Submit <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_vary_lanczos_degree_analytic_matrix.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/jobfile_vary_lanczos_degree_analytic_matrix.sh</span></code></a> to reproduce results of varying parameters on simple matrices:</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
-<span class="prompt1">sbatch ./jobfile_vary_lanczos_degree_analytic_matrix.sh</span>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch<span class="w"> </span>./jobfile_vary_lanczos_degree_analytic_matrix.sh</span>
 </pre></div></div></div></blockquote>
 </li>
 <li><p>Submit <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_vary_lanczos_degree_practical_matrix.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/jobfile_vary_lanczos_degree_practical_matrix.sh</span></code></a> to reproduce results of varying parameters on practical matrices:</p>
 <blockquote>
-<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span> /imate/benchmark/jobfiles</span>
-<span class="prompt1">sbatch ./jobfile_vary_lanczos_degree_practical_matrix.sh</span>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch<span class="w"> </span>./jobfile_vary_lanczos_degree_practical_matrix.sh</span>
 </pre></div></div></div></blockquote>
 </li>
 </ul>

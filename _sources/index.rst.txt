@@ -100,11 +100,11 @@ Successful installation and tests performed on the following operating systems, 
 |          |        | GPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |                 |
 +----------+--------+--------+-------+-------+-------+-------+-------+-------+-------+-----------------+
 
-.. |build-linux| image:: https://img.shields.io/github/workflow/status/ameli/imate/build-linux
+.. |build-linux| image:: https://img.shields.io/github/actions/workflow/status/ameli/imate/build-linux.yml
    :target: https://github.com/ameli/imate/actions?query=workflow%3Abuild-linux 
-.. |build-macos| image:: https://img.shields.io/github/workflow/status/ameli/imate/build-macos
+.. |build-macos| image:: https://img.shields.io/github/actions/workflow/status/ameli/imate/build-macos.yml
    :target: https://github.com/ameli/imate/actions?query=workflow%3Abuild-macos
-.. |build-windows| image:: https://img.shields.io/github/workflow/status/ameli/imate/build-windows
+.. |build-windows| image:: https://img.shields.io/github/actions/workflow/status/ameli/imate/build-windows.yml
    :target: https://github.com/ameli/imate/actions?query=workflow%3Abuild-windows
 
 Python wheels for |project| for all supported platforms and versions in the above are available through `PyPI <https://pypi.org/project/imate/>`_ and `Anaconda Cloud <https://anaconda.org/s-ameli/imate>`_. If you need |project| on other platforms, architectures, and Python or PyPy versions, `raise an issue <https://github.com/ameli/imate/issues>`_ on GitHub and we build its Python Wheel for you.
@@ -361,9 +361,9 @@ Related Projects
 
       A python package to generate orthogonal basis functions for matrix functions interpolation.
 
-.. |deploy-docs| image:: https://img.shields.io/github/workflow/status/ameli/imate/deploy-docs?label=docs
+.. |deploy-docs| image:: https://img.shields.io/github/actions/workflow/status/ameli/imate/deploy-docs.yml?label=docs
    :target: https://github.com/ameli/imate/actions?query=workflow%3Adeploy-docs
-.. |deploy-docker| image:: https://img.shields.io/github/workflow/status/ameli/imate/deploy-docker?label=build%20docker
+.. |deploy-docker| image:: https://img.shields.io/github/actions/workflow/status/ameli/imate/deploy-docker.yml?label=build%20docker
    :target: https://github.com/ameli/imate/actions?query=workflow%3Adeploy-docker
 .. |codecov-devel| image:: https://img.shields.io/codecov/c/github/ameli/imate
    :target: https://codecov.io/gh/ameli/imate
