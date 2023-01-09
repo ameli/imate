@@ -1,0 +1,685 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>Performance on GPU Farm &#8212; imate Manual</title>
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
+
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/toggleprompt.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/custom-pydata.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>window.MathJax = {"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]]}, "tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/custom-pydata.css"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-4JHJ15SKEY');
+    </script>
+
+    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
+
+    <!-- My custom JS -->
+    <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
+
+    <!-- Syntax highlighting for BibTex code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs-bibtex@2.0.1/prism-bibtex.min.js"></script>
+
+    
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="en">
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="auto">
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
+
+    
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
+
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../contents.html">
+  
+  
+  
+  
+    <img src="../_static/images/icons/logo-imate-light.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/images/icons/logo-imate-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fas fa-bars"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorials/install.html">
+  1. Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorials/docker.html">
+  2. Docker
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../tutorials/gpu.html">
+  3. GPU
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API Reference
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/imate/" rel="noopener" target="_blank" title="PyPI"><span><i class="fab fa-python"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://anaconda.org/s-ameli/imate" rel="noopener" target="_blank" title="Anaconda Cloud"><span><i class="fa fa-circle-notch"></i></span>
+            <label class="sr-only">Anaconda Cloud</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+            <label class="sr-only">Docker Hub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" rel="noopener" target="_blank" title="Lanuch Jupyter on Binder"><span><i class="fa fa-chart-line"></i></span>
+            <label class="sr-only">Lanuch Jupyter on Binder</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
+          
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Performance on GPU Farm
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="algorithms.html">
+   Comparison of Randomized Algorithms
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="openblas.html">
+   Comparison With and Without OpenBLAS
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="interpolation.html">
+   Interpolation of Affine Matrix Functions
+  </a>
+ </li>
+</ul>
+
+    
+  </div>
+</nav>
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
+
+          
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#test-description">
+   Test Description
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#algorithm">
+     Algorithm
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#hardware">
+     Hardware
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#benchmark-matrices">
+     Benchmark Matrices
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#arithmetic-types">
+     Arithmetic Types
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scalability-with-data-size">
+   Scalability with Data Size
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extreme-array-sizes">
+     Extreme Array Sizes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#beyond-extreme-array-sizes">
+     Beyond Extreme Array Sizes
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#floating-point-arithmetic-accuracy">
+   Floating Point Arithmetic Accuracy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scalability-with-increase-of-gpu-devices">
+   Scalability with Increase of GPU Devices
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-to-reproduce-results">
+   How to Reproduce Results
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#prepare-matrix-data">
+     Prepare Matrix Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#perform-numerical-test">
+     Perform Numerical Test
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#run-locally">
+       Run Locally
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#submit-job-to-cluster-with-slurm">
+       Submit Job to Cluster with SLURM
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plot-results">
+     Plot Results
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+</nav>
+    </div>
+    
+    <div class="toc-item">
+      
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/ameli/imate/edit/main/docs/source/performance/gpu.rst">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+    
+  
+</div>
+
+
+          
+          
+          <div class="bd-content col-12 col-md-9 col-xl-7">
+              
+              <article class="bd-article" role="main">
+                
+  <section id="performance-on-gpu-farm">
+<span id="perf-gpu"></span><h1>Performance on GPU Farm<a class="headerlink" href="#performance-on-gpu-farm" title="Permalink to this heading">#</a></h1>
+<p>The performance of <span class="synco">imate</span> is tested on multi-GPU devices and the results are compared with the performance on a CPU cluster.</p>
+<section id="test-description">
+<h2>Test Description<a class="headerlink" href="#test-description" title="Permalink to this heading">#</a></h2>
+<p>The following test computes</p>
+<div class="math notranslate nohighlight" id="equation-traceinv">
+<span class="eqno">(1)<a class="headerlink" href="#equation-traceinv" title="Permalink to this equation">#</a></span>\[\mathrm{trace}(\mathbf{A}^{-1}),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> is symmetric and positive-definite. The above quantity is a computationally expensive expression that frequently appears in the Jacobian and Hessian of likelihood functions in machine learning.</p>
+<section id="algorithm">
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this heading">#</a></h3>
+<p>To compute <a class="reference internal" href="#equation-traceinv">(1)</a>, the stochastic Lanczos quadrature (SLQ) algorithm was employed. The complexity of this algorithm is</p>
+<div class="math notranslate nohighlight" id="equation-complexity1">
+<span class="eqno">(2)<a class="headerlink" href="#equation-complexity1" title="Permalink to this equation">#</a></span>\[ \mathcal{O} \left( (\mathrm{nnz}(\mathbf{A}) l + n l^2) s \right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(n\)</span> is the matrix size, <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A})\)</span> is the number of nonzero elements of the sparse matrix <span class="math notranslate nohighlight">\(\mathbf{A}\)</span>, <span class="math notranslate nohighlight">\(l\)</span> is the number of Lanczos iterations, and <span class="math notranslate nohighlight">\(s\)</span> is the number of Monte-Carlo iterations (see details in <a class="reference internal" href="../api/imate.traceinv.slq.html#imate-traceinv-slq"><span class="std std-ref">imate.traceinv(method=’slq’)</span></a>).  The numerical experiment was performed with <span class="math notranslate nohighlight">\(l=80\)</span> and <span class="math notranslate nohighlight">\(s=200\)</span>.</p>
+</section>
+<section id="hardware">
+<h3>Hardware<a class="headerlink" href="#hardware" title="Permalink to this heading">#</a></h3>
+<p>The computations were carried out on the following hardware:</p>
+<ul class="simple">
+<li><p>For test on <strong>CPU</strong>: Intel® Xeon CPU E5-2670 v3  with 24 threads.</p></li>
+<li><p>For test on <strong>GPU</strong>: a cluster of eight <a class="reference external" href="https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/rtx-3090-3090ti/">NVIDIA® GeForce RTX 3090</a> GPUs and Intel® Xeon Processor (Skylake, IBRS) with 32 threads.</p></li>
+</ul>
+</section>
+<section id="benchmark-matrices">
+<h3>Benchmark Matrices<a class="headerlink" href="#benchmark-matrices" title="Permalink to this heading">#</a></h3>
+<p>The table below shows the sparse matrices used in the test, which are chosen from <a class="reference external" href="https://sparse.tamu.edu">SuiteSparse Matrix Collection</a> and are obtained from real applications. The matrices in the table below are all symmetric positive-definite. The number of nonzero elements (nnz) of these matrices increases approximately by a factor of 5 on average and their sparse density remains at the same order of magnitude (except for the first three).</p>
+<table class="right2 right3 table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Matrix Name</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>nnz</p></th>
+<th class="head"><p>Density</p></th>
+<th class="head"><p>Application</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://sparse.tamu.edu/HB/nos5"><code class="docutils literal notranslate"><span class="pre">nos5</span></code></a></p></td>
+<td><p>468</p></td>
+<td><p>5,172</p></td>
+<td><p>0.02</p></td>
+<td><p>Structural Problem</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://sparse.tamu.edu/Bai/mhd4800b"><code class="docutils literal notranslate"><span class="pre">mhd4800b</span></code></a></p></td>
+<td><p>4,800</p></td>
+<td><p>27,520</p></td>
+<td><p>0.001</p></td>
+<td><p>Electromagnetics</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://sparse.tamu.edu/Pothen/bodyy6"><code class="docutils literal notranslate"><span class="pre">bodyy6</span></code></a></p></td>
+<td><p>19,366</p></td>
+<td><p>134,208</p></td>
+<td><p>0.0003</p></td>
+<td><p>Structural Problem</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://sparse.tamu.edu/AMD/G2_circuit"><code class="docutils literal notranslate"><span class="pre">G2_circuit</span></code></a></p></td>
+<td><p>150,102</p></td>
+<td><p>726,674</p></td>
+<td><p>0.00003</p></td>
+<td><p>Circuit Simulation</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://sparse.tamu.edu/Wissgott/parabolic_fem"><code class="docutils literal notranslate"><span class="pre">parabolic_fem</span></code></a></p></td>
+<td><p>525,825</p></td>
+<td><p>3,674,625</p></td>
+<td><p>0.00001</p></td>
+<td><p>Computational Fluid Dynamics</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://sparse.tamu.edu/Janna/StocF-1465"><code class="docutils literal notranslate"><span class="pre">StocF-1465</span></code></a></p></td>
+<td><p>1,465,137</p></td>
+<td><p>21,005,389</p></td>
+<td><p>0.00001</p></td>
+<td><p>Computational Fluid Dynamics</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://sparse.tamu.edu/Janna/Bump_2911"><code class="docutils literal notranslate"><span class="pre">Bump_2911</span></code></a></p></td>
+<td><p>2,911,419</p></td>
+<td><p>127,729,899</p></td>
+<td><p>0.00001</p></td>
+<td><p>Structural Problem</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://sparse.tamu.edu/Janna/Queen_4147"><code class="docutils literal notranslate"><span class="pre">Queen_4147</span></code></a></p></td>
+<td><p>4,147,110</p></td>
+<td><p>329,499,284</p></td>
+<td><p>0.00002</p></td>
+<td><p>Structural Problem</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="arithmetic-types">
+<h3>Arithmetic Types<a class="headerlink" href="#arithmetic-types" title="Permalink to this heading">#</a></h3>
+<p>The benchmark test also examines the performance and accuracy of <span class="synco">imate</span> on various arithmetic types of the matrix data. To this end, each of the above matrices was re-cast into 32-bit, 64-bit, and 128-bit floating point types. Depending on the hardware, the followings data types were tested:</p>
+<ul class="simple">
+<li><p>For the test on <strong>CPU</strong>: 32-bit, 64-bit, and 128-bit floating point data.</p></li>
+<li><p>For the test on <strong>GPU</strong>: 32-bit, 64-bit floating point data.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Supporting 128-bit data types is one of the features of <span class="synco">imate</span>, which is often not available in numerical libraries.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>NVIDIA CUDA libraries do not support 128-data types.</p>
+</div>
+</section>
+</section>
+<section id="scalability-with-data-size">
+<h2>Scalability with Data Size<a class="headerlink" href="#scalability-with-data-size" title="Permalink to this heading">#</a></h2>
+<p>The figure below shows the scalability by the relation between the elapsed (wall) time versus the data size.</p>
+<p>Here, the data size is measured by the matrix nnz rather than the matrix size. However, the matrix size is indicated by the hollow circle marks in the figure.</p>
+<ul class="simple">
+<li><p>For the test on <strong>GPU</strong>: 8 GPU devices were used.</p></li>
+<li><p>For the test on <strong>CPU</strong>: 16 CPU threads were used.</p></li>
+</ul>
+<figure class="align-center">
+<a class="custom-dark reference internal image-reference" href="../_images/benchmark_speed_time.png"><img alt="../_images/benchmark_speed_time.png" class="custom-dark" src="../_images/benchmark_speed_time.png" style="height: 375px;" /></a>
+</figure>
+<aside class="custom-sidebar sidebar">
+<p class="sidebar-title">Scalability Exponent</p>
+<blockquote>
+<div><table class="custom-table table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Device</p></th>
+<th class="head"><p>Data</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(\alpha\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="3"><p>CPU</p></td>
+<td><p>32-bit</p></td>
+<td><p>1.08</p></td>
+</tr>
+<tr class="row-odd"><td><p>64-bit</p></td>
+<td><p>0.89</p></td>
+</tr>
+<tr class="row-even"><td><p>128-bit</p></td>
+<td><p>0.93</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>GPU</p></td>
+<td><p>32-bit</p></td>
+<td><p>0.86</p></td>
+</tr>
+<tr class="row-even"><td><p>64-bit</p></td>
+<td><p>0.92</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</aside>
+<p>The results show that the computation on GPU is advantageous over CPU when <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A}) &gt; 10^{5}\)</span>. The empirical complexity can be computed by the relation between the elapsed time <span class="math notranslate nohighlight">\(t\)</span> and the data size by</p>
+<div class="math notranslate nohighlight">
+\[t \propto (\mathrm{nnz}(\mathbf{A}))^{\alpha}.\]</div>
+<p>The exponent <span class="math notranslate nohighlight">\(\alpha\)</span> for each experiment at <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A}) &gt; 10^{8}\)</span> asymptotically approaches to the values shown in the table below. It can be seen that <span class="math notranslate nohighlight">\(\alpha \approx 1\)</span>, which is the theoretical complexity in <a class="reference internal" href="#equation-complexity1">(2)</a>.</p>
+<p>Also, the figure implies that processing 32-bit data is at roughly twice faster than 64-bit data on both CPU and GPU, and processing 64-bit data is roughly twice faster than 128-bit on CPU.</p>
+<section id="extreme-array-sizes">
+<h3>Extreme Array Sizes<a class="headerlink" href="#extreme-array-sizes" title="Permalink to this heading">#</a></h3>
+<p>The above results indicate <span class="synco">imate</span> is highly scalable on both CPU and GPU on massive data. However, there are a number of factors that can limit the data size. For instance, the hardware memory limit is one such factor. Another limiting factor is the maximum array length in bits to store the content of a sparse matrix. Interestingly, this factor is not a hardware limitation, rather, is related to the maximum integer (often 32-bit <code class="docutils literal notranslate"><span class="pre">int</span></code> type) to index the array (in bits) on the memory. The 128-bit format of <a class="reference external" href="https://sparse.tamu.edu/Janna/Queen_4147"><code class="docutils literal notranslate"><span class="pre">Queen_4147</span></code></a> matrix is indeed close to such a limit. The above results show that <span class="synco">imate</span> is scalable to large scales before reaching such an array size limit.</p>
+</section>
+<section id="beyond-extreme-array-sizes">
+<h3>Beyond Extreme Array Sizes<a class="headerlink" href="#beyond-extreme-array-sizes" title="Permalink to this heading">#</a></h3>
+<p><span class="synco">imate</span> can be configured to handle even larger data (if one can indeed store such an array of data). To do so, increase the integer space for matrix indices by changing <code class="docutils literal notranslate"><span class="pre">UNSIGNED_LONG_INT=1</span></code> in <a class="reference external" href="https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L57"><code class="docutils literal notranslate"><span class="pre">/imate/imate/_definitions/definition.h</span></code></a> file, or in the terminal set</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-0">
+UNIX</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">UNSIGNED_LONG_INT</span><span class="o">=</span><span class="m">1</span></span>
+</pre></div></div></div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-1">
+Windows (Powershell)</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt2:before {
+  content: "PS C:\\> ";
+}
+</style><span class="prompt2"><span class="nv">$env:export</span> <span class="n">UNSIGNED_LONG_INT</span> <span class="p">=</span> <span class="s2">&quot;1&quot;</span></span>
+</pre></div></div></div>
+</div>
+<p>Then, recompile <span class="synco">imate</span>. See <a class="reference internal" href="../tutorials/install.html#compile-source"><span class="std std-ref">Compile from Source</span></a>.</p>
+</section>
+</section>
+<section id="floating-point-arithmetic-accuracy">
+<h2>Floating Point Arithmetic Accuracy<a class="headerlink" href="#floating-point-arithmetic-accuracy" title="Permalink to this heading">#</a></h2>
+<p>The advantage of the 32-bit data type in faster processing comes with the cost of higher arithmetic errors. While such errors are negligible for small data, they can be significant for larger data sizes. To examine this, the results of 32-bit and 64-bit data were compared with the result of 128-bit as the benchmark. The figure below shows that both 32-bit and 64-bit data have less than <span class="math notranslate nohighlight">\(0.1 \%\)</span> error relative to 128-bit data. However, for data size larger than <span class="math notranslate nohighlight">\(10^{7}\)</span>, the error of 32-bit data reaches <span class="math notranslate nohighlight">\(30 \%\)</span> relative to 128-bit data whereas the 64-bit data maintain <span class="math notranslate nohighlight">\(0.1 \sim 1 \%\)</span> error. Because of this, 64-bit data is often considered for scientific computing since it balances accuracy and speed.</p>
+<a class="custom-dark reference internal image-reference" href="../_images/benchmark_speed_accuracy.png"><img alt="../_images/benchmark_speed_accuracy.png" class="custom-dark align-center" src="../_images/benchmark_speed_accuracy.png" style="height: 375px;" /></a>
+<p>Note that the results of the SLQ method, as a randomized algorithm, is not deterministic. To eliminate the stochastic outcomes as much as possible, the experiments were repeated ten times and the results were averaged. The standard deviation of the results are shown by the error bars in the figure.</p>
+</section>
+<section id="scalability-with-increase-of-gpu-devices">
+<h2>Scalability with Increase of GPU Devices<a class="headerlink" href="#scalability-with-increase-of-gpu-devices" title="Permalink to this heading">#</a></h2>
+<p>Another method to examine the scalability of <span class="synco">imate</span> is to observe the performance by the increase of the number of CPU threads or GPU devices as shown in the figure below.</p>
+<a class="custom-dark reference internal image-reference" href="../_images/benchmark_speed_cores.png"><img alt="../_images/benchmark_speed_cores.png" class="custom-dark align-center" src="../_images/benchmark_speed_cores.png" style="height: 375px;" /></a>
+<br/><aside class="custom-sidebar sidebar">
+<p class="sidebar-title">Scalability Exponent</p>
+<blockquote>
+<div><table class="custom-table table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Device</p></th>
+<th class="head"><p>Data</p></th>
+<th class="head"><p><span class="math notranslate nohighlight">\(\beta\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="3"><p>CPU</p></td>
+<td><p>32-bit</p></td>
+<td><p>0.83</p></td>
+</tr>
+<tr class="row-odd"><td><p>64-bit</p></td>
+<td><p>0.80</p></td>
+</tr>
+<tr class="row-even"><td><p>128-bit</p></td>
+<td><p>0.76</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>GPU</p></td>
+<td><p>32-bit</p></td>
+<td><p>0.98</p></td>
+</tr>
+<tr class="row-even"><td><p>64-bit</p></td>
+<td><p>0.96</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</aside>
+<p>The above results correspond to the largest matrix in the test, namely <a class="reference external" href="https://sparse.tamu.edu/Janna/Queen_4147"><code class="docutils literal notranslate"><span class="pre">Queen_4147</span></code></a>. The performance on GPUs is over thirty-fold faster than the CPU for the same number of threads and GPU devices, although, this may not be a fair comparison. However, the performance of only one GPU device is yet five times faster than 8 CPU threads. Note that the elapsed time includes the data transfer between host and GPU device which is significantly slower than the data transfer between shared memory of the CPU cluster. Despite this, the overall performance on GPU is yet remarkably faster.</p>
+<p>The scalability can be quantified by relating the elapsed (wall) time, <span class="math notranslate nohighlight">\(t\)</span>, and the number of computing components <span class="math notranslate nohighlight">\(m\)</span> (CPU threads or GPU devices) by</p>
+<div class="math notranslate nohighlight">
+\[t \propto \frac{1}{m^{\beta}}.\]</div>
+<p>The estimated values of <span class="math notranslate nohighlight">\(\beta\)</span> from the curves in the figure are shown in the table below, which implies the GPU test achieves better scalability. Moreover, The speed (inverse of elapsed time) per CPU thread tends to <em>saturate</em> with the increase in the number of CPU threads. In contrast, the GPU results maintain the linear behavior by the increase in the number of GPU devices.</p>
+</section>
+<section id="how-to-reproduce-results">
+<h2>How to Reproduce Results<a class="headerlink" href="#how-to-reproduce-results" title="Permalink to this heading">#</a></h2>
+<section id="prepare-matrix-data">
+<h3>Prepare Matrix Data<a class="headerlink" href="#prepare-matrix-data" title="Permalink to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Download all the above-mentioned sparse matrices from <a class="reference external" href="https://sparse.tamu.edu">SuiteSparse Matrix Collection</a>. For instance, download <code class="docutils literal notranslate"><span class="pre">Queen_4147.mat</span></code> from <a class="reference external" href="https://sparse.tamu.edu/Janna/Queen_4147"><code class="docutils literal notranslate"><span class="pre">Queen_4147</span></code></a>.</p></li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.m"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.m</span></code></a> to extract sparse matrix data from <code class="docutils literal notranslate"><span class="pre">Queen_4147.mat</span></code>:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">read_matrix</span><span class="p">(</span><span class="s">&#39;Queen_4147.mat&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices/read_matrix.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/read_matrix.py</span></code></a> to convert the outputs of the above Octave script to generate a python pickle file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">read_matrix.py<span class="w"> </span>Queen_4147<span class="w"> </span>float32<span class="w">    </span><span class="c1"># to generate 32-bit data</span></span>
+<span class="prompt1">read_matrix.py<span class="w"> </span>Queen_4147<span class="w"> </span>float64<span class="w">    </span><span class="c1"># to generate 64-bit data</span></span>
+<span class="prompt1">read_matrix.py<span class="w"> </span>Queen_4147<span class="w"> </span>float128<span class="w">   </span><span class="c1"># to generate 128-bit data</span></span>
+</pre></div></div><p>The output of the above script will be written in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/matrices"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/matrices/</span></code></a>.</p>
+</li>
+</ol>
+</section>
+<section id="perform-numerical-test">
+<h3>Perform Numerical Test<a class="headerlink" href="#perform-numerical-test" title="Permalink to this heading">#</a></h3>
+<p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/scripts/benchmark_speed.py"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/scripts/benchmark_speed.py</span></code></a> to read the matrices and generate results. The output of this script is written to <a class="reference external" href="https://github.com/ameli/imate/tree/main/benchmark/pickle_results"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/pickle_results</span></code></a> as a pickle file.</p>
+<section id="run-locally">
+<h4>Run Locally<a class="headerlink" href="#run-locally" title="Permalink to this heading">#</a></h4>
+<ul>
+<li><p>For the CPU test, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/scripts</span>
+<span class="prompt1">python<span class="w"> </span>./benchmark_speed.py<span class="w"> </span>-c</span>
+</pre></div></div></li>
+<li><p>For the GPU test:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/scripts</span>
+<span class="prompt1">python<span class="w"> </span>./benchmark_speed.py<span class="w"> </span>-g</span>
+</pre></div></div></li>
+</ul>
+</section>
+<section id="submit-job-to-cluster-with-slurm">
+<h4>Submit Job to Cluster with SLURM<a class="headerlink" href="#submit-job-to-cluster-with-slurm" title="Permalink to this heading">#</a></h4>
+<ul>
+<li><p>Submit the job file <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_speed_cpu.sh</span></code></a> to perform the CPU test by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch<span class="w"> </span>jobfile_benchmark_speed_cpu.sh</span>
+</pre></div></div></li>
+<li><p>Submit the job file <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/jobfiles/jobfile_benchmark_speed_gpu.sh"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/jobfiles/jobfile_benchmark_speed_gpu.sh</span></code></a> to perform the GPU test by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>/imate/benchmark/jobfiles</span>
+<span class="prompt1">sbatch<span class="w"> </span>jobfile_benchmark_speed_gpu.sh</span>
+</pre></div></div></li>
+</ul>
+</section>
+</section>
+<section id="plot-results">
+<h3>Plot Results<a class="headerlink" href="#plot-results" title="Permalink to this heading">#</a></h3>
+<p>Run <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/notebooks/plot_benchmark_speed.ipynb"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/notebooks/plot_benchmark_speed.ipynb</span></code></a> to generate plots shown in the above from the pickled results. This notebook stores plots as <cite>svg</cite> files in <a class="reference external" href="https://github.com/ameli/imate/blob/main/benchmark/svg_plots"><code class="docutils literal notranslate"><span class="pre">/imate/benchmark/svg_plots/</span></code></a>.</p>
+</section>
+</section>
+</section>
+
+
+              </article>
+              
+
+              
+              <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              </footer>
+              
+          </div>
+          
+      </div>
+    </div>
+
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+
+
+    <!-- Adobe Embed API -->
+    
+    <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+
+
+  </body>
+</html>

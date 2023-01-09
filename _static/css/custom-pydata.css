@@ -1,0 +1,125 @@
+/* Provided by Sphinx 'basic' theme, and included in the final set of assets */
+@import "../basic.css";
+
+html[data-theme="light"] {
+    --pst-color-panel-background: #fafafa;
+    --sd-color-card-background: #fafafa;
+}
+
+html[data-theme="dark"] {
+    --pst-color-panel-background: rgb(28, 28, 28);
+    --sd-color-card-background: rgb(28, 28, 28);
+}
+
+/* Invert the color of all png images in dark mode */
+html[data-theme=dark] img.custom-dark {
+    /* filter: invert(0.828) brightness(.8) contrast(1.2); */
+    filter: invert(1) hue-rotate(180deg) brightness(.94) contrast(1.0);
+}
+
+@font-face {
+    font-family: 'syncopate';
+    /* src: url('../assets/fonts/syncopate.regular.ttf') format('truetype'); */
+    src: url('../assets/fonts/synconew.regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'syncopate';
+    src: url('../assets/fonts/syncopate.bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Font used for the logo and project name */
+span.synco{
+    font-family: syncopate;
+    font-size: 80%;
+}
+
+/* img { */
+/*   shape-rendering: geometricprecision; */
+/* } */
+
+/* BibTex highlighting */
+pre[class*=language-bib] {
+    font-size: 0.85em !important;
+}
+
+/* Small buttons (see publications section, like BibTex button) */
+.btn-extra-sm {
+    padding: .0rem .4rem;
+    line-height: 1.35;
+}
+
+/* .highlight-BibTeX { */
+:not(pre)>code[class*=language-], pre[class*=language-] {
+    background-color: var(--pst-color-surface) !important;
+}
+
+/* Use for generic grid-cards so the card gets darker on hover. */
+.custom-card-link:hover {
+    /* --pst-color-panel-background: blue; */
+    filter: invert(4%);
+}
+
+/* Use for grid-cards with images so the card gets brighter instead of darker
+ * on hover. */
+.custom-card-link-2:hover {
+    filter: contrast(1.05);
+}
+
+/* copybutton overlaps with toggle-prompt in code-blocks for python.
+ * For those code-block that is only for python, change the location of
+ * copy-button slightly to the left so it does not overlap with
+ * toggle-button. */
+.highlight-python .copybtn {
+    top: 0.2em !important;
+    right: 2.5em !important;
+}
+
+/* .copybtn { */
+/*     color: var(--pst-color-text-muted); */
+/* } */
+html[data-theme="dark"] button.copybtn {
+    filter: invert(0.88) brightness(1.1);
+}
+
+/* Logo color */
+img.logo__image {
+    /* filter: grayscale(1) brightness(1.5); */
+    filter: brightness(1.1);
+}
+
+img.logo__image:hover {
+    filter: brightness(1.3);
+}
+
+/* Tables where the second column it right-aligned */
+table.right2 td:nth-child(2),
+table.right2 th:nth-child(2) {
+    text-align: right;
+}
+
+/* Body and header of the third column */
+table.right3 td:nth-child(3),
+table.right3 th:nth-child(3) {
+    text-align: right;
+}
+
+table.custom-table {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.custom-sidebar {
+    border-color: var(--pst-color-border) !important;
+    background-color: var(--pst-color-surface) !important;
+    font-size: smaller;
+}
+
+.custom-sidebar p.sidebar-title {
+    text-align: center !important;
+}
