@@ -879,7 +879,6 @@ class CustomBuildExtension(build_ext):
         compiler_type = self.compiler.compiler_type
 
         # Initialize flags
-        include_dirs = []  # Test
         extra_compile_args = []
         extra_link_args = []
 
@@ -946,10 +945,6 @@ class CustomBuildExtension(build_ext):
                 # -fopenmp can be passed through preprocessor. This is how
                 # clang compiler accepts -fopenmp.
                 clang_compile_args = ['-Xpreprocessor', '-fopenmp']
-                # clang_compile_args = ['-I/opt/homebrew/opt/libomp/include',
-                #                       '-L/opt/homebrew/opt/libomp/lib',
-                #                       '-Xpreprocessor', '-fopenmp']
-                include_dirs += ['-I/opt/homebrew/opt/libomp/include']  # Test
                 clang_link_args = ['-Xpreprocessor', '-fopenmp', '-lomp',
                                    '-headerpad_max_install_names']
                 clang_has_openmp_flag = check_compiler_has_flag(
@@ -1025,7 +1020,6 @@ class CustomBuildExtension(build_ext):
 
         # Add the flags to all extensions
         for ext in self.extensions:
-            ext.include_dirs = include_dirs  # Test
             ext.extra_compile_args = extra_compile_args
             ext.extra_link_args = extra_link_args
 
