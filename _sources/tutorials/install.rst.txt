@@ -269,8 +269,8 @@ Otherwise, install |project| through the :ref:`Python Wheels <install-wheels>`.
 
 This section walks you through the compilation process.
 
-Install C++ Compiler and OpenMP (`Required`)
---------------------------------------------
+Install C++ Compiler (`Required`)
+---------------------------------
 
 Compile |project| with either of GCC, Clang/LLVM, or Intel C++ compiler on UNIX operating systems. For Windows, compile |project| with `Microsoft Visual Studio (MSVC) Compiler for C++ <https://code.visualstudio.com/docs/cpp/config-msvc#:~:text=You%20can%20install%20the%20C,the%20C%2B%2B%20workload%20is%20checked.>`_.
 
@@ -397,6 +397,18 @@ OpenMP comes with the C++ compiler installed. However, you may alternatively ins
         .. prompt:: bash
 
             sudo brew install libomp
+
+.. note::
+
+    In *macOS*, starting from ``libomp`` with version ``15`` and above, Homebrew installs OpenMP as *keg-only*. As a result, create the following symbolic links to be able to use the OpenMP installation
+
+    .. prompt:: bash
+
+        ln -s /usr/local/opt/libomp/include/omp-tools.h /usr/local/include/omp-tools.h
+        ln -s /usr/local/opt/libomp/include/omp.h /usr/local/include/omp.h
+        ln -s /usr/local/opt/libomp/include/ompt.h /usr/local/include/ompt.h
+        ln -s /usr/local/opt/libomp/lib/libomp.a /usr/local/lib/libomp.a
+        ln -s /usr/local/opt/libomp/lib/libomp.dylib /usr/local/lib/libomp.dylib
 
 .. _install-openblas:
 
