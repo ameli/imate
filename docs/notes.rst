@@ -106,6 +106,19 @@ Some notes to myself when completing the documentation later.
   matrix :math:`\mathbf{A}`, which is O(n^3) expensive. See:
   https://scicomp.stackexchange.com/questions/10630/full-rank-update-to-cholesky-decomposition
 
+* Related to libomp in  macOS:
+  The new version of libomp (version 15) is a "keg-only" library. Meaning that
+  libomp only installs OpenMP in the directory of homebrew, and does not copy
+  the installation to /usr/local/ to avoid conflict with other OpenMP
+  installations by GCC. Hence, to use libomp>=15 in macOS, create the following
+  symbolic links:
+
+  ln -s /usr/local/opt/libomp/include/omp-tools.h /usr/local/include/omp-tools.h
+  ln -s /usr/local/opt/libomp/include/omp.h /usr/local/include/omp.h
+  ln -s /usr/local/opt/libomp/include/ompt.h /usr/local/include/ompt.h
+  ln -s /usr/local/opt/libomp/lib/libomp.a /usr/local/lib/libomp.a
+  ln -s /usr/local/opt/libomp/lib/libomp.dylib /usr/local/lib/libomp.dylib
+
 ====
 Name
 ====
@@ -129,6 +142,14 @@ TODO
   return trace. However, in the arguments, include "full_output=False". If
   True, it then outputs the dictionary of info. See scipy.optimize.fsolve.
   https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.fsolve.html
+
+* Related to generating docs with python 3.11 (/docs/source/custom_domain.py):
+  In Python 3.11, the function inspect.formatargsspec() is deprecated and is
+  replaced by inspect.signature() and inspect.Signature. Because of this, in
+  deploy-doc.yml workflow, keep using python 3.10 (do not yet upgrade to python
+  3.11) unless the file custom_domain.py is updated.
+
+* Check compilation with CUDA 12.
 
 ========================
 Compile and Build Issues
