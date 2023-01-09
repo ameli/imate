@@ -1025,7 +1025,7 @@ class CustomBuildExtension(build_ext):
 
         # Add the flags to all extensions
         for ext in self.extensions:
-            ext.include_dirs += include_dirs  # Test
+            ext.include_dirs = include_dirs  # Test
             ext.extra_compile_args = extra_compile_args
             ext.extra_link_args = extra_link_args
 

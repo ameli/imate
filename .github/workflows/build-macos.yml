@@ -39,6 +39,11 @@ jobs:
                   # ls /usr/local/lib
                   ls /usr/local/opt/libomp/lib
                   # brew reinstall libomp
+                  ln -s /usr/local/opt/libomp/include/omp-tools.h /usr/local/include/omp-tools.h
+                  ln -s /usr/local/opt/libomp/include/omp.h /usr/local/include/omp.h
+                  ln -s /usr/local/opt/libomp/include/ompt.h /usr/local/include/ompt.h
+                  ln -s /usr/local/opt/libomp/lib/libomp.a /usr/local/lib/libomp.a
+                  ln -s /usr/local/opt/libomp/lib/libomp.dylib /usr/local/lib/libomp.dylib
 
                   # This is needed to import numpy in pypy3 (but not needed for
                   # pypy2 and CPython)
