@@ -11,7 +11,8 @@ on:
 jobs:
     build:
 
-        runs-on: macos-latest
+        # runs-on: macos-latest
+        runs-on: macos-11
         strategy:
             fail-fast: false
             matrix:
@@ -30,12 +31,12 @@ jobs:
               run: |
                   brew install suite-sparse
                   # brew install llvm
-                  ls /opt/homebrew/opt/libomp/lib
-                  echo "---------"
-                  ls /usr/local/lib
+                  # ls /opt/homebrew/opt/libomp/lib
+                  # echo "---------"
+                  # ls /usr/local/lib
 
                   # brew reinstall libomp
-                  # brew install libomp
+                  brew install libomp
 
                   # This is needed to import numpy in pypy3 (but not needed for
                   # pypy2 and CPython)
