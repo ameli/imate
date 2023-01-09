@@ -944,7 +944,10 @@ class CustomBuildExtension(build_ext):
                 # Assume compiler is clang (we do not know yet). Check if
                 # -fopenmp can be passed through preprocessor. This is how
                 # clang compiler accepts -fopenmp.
-                clang_compile_args = ['-Xpreprocessor', '-fopenmp']
+                # clang_compile_args = ['-Xpreprocessor', '-fopenmp']
+                clang_compile_args = ['-I/opt/homebrew/opt/libomp/include',
+                                      '-L/opt/homebrew/opt/libomp/lib',
+                                      '-Xpreprocessor', '-fopenmp']
                 clang_link_args = ['-Xpreprocessor', '-fopenmp', '-lomp',
                                    '-headerpad_max_install_names']
                 clang_has_openmp_flag = check_compiler_has_flag(
