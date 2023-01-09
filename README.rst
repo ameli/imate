@@ -143,13 +143,13 @@ This project uses a `BSD 3-clause license <https://github.com/ameli/imate/blob/m
    :width: 160
 .. |license| image:: https://img.shields.io/github/license/ameli/imate
    :target: https://opensource.org/licenses/BSD-3-Clause
-.. |deploy-docs| image:: https://img.shields.io/actions/github/workflow/status/ameli/imate/deploy-docs.yml?label=docs
+.. |deploy-docs| image:: https://img.shields.io/github/actions/workflow/status/ameli/imate/deploy-docs.yml?label=docs
    :target: https://github.com/ameli/imate/actions?query=workflow%3Adeploy-docs
 .. |binder| image:: https://mybinder.org/badge_logo.svg
    :target: https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2Fquick_start.ipynb
 .. |pypi| image:: https://img.shields.io/pypi/v/imate
    :target: https://pypi.org/project/imate/
-.. |deploy-docker| image:: https://img.shields.io/actions/github/workflow/status/ameli/imate/deploy-docker.yml?label=build%20docker
+.. |deploy-docker| image:: https://img.shields.io/github/actions/workflow/status/ameli/imate/deploy-docker.yml?label=build%20docker
    :target: https://github.com/ameli/imate/actions?query=workflow%3Adeploy-docker
 .. |docker-pull| image:: https://img.shields.io/docker/pulls/sameli/imate?color=green&label=downloads
    :target: https://hub.docker.com/r/sameli/imate
