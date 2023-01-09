@@ -54,7 +54,7 @@ Successful installation and tests performed on the following operating systems, 
 +----------+--------+--------+-------+-------+-------+-------+-------+-------+-------+-----------------+
 | Platform | Arch   | Device | Python Version                        | PyPy Version  | Continuous      |
 +          |        +        +-------+-------+-------+-------+-------+-------+-------+ Integration     +
-|          |        |        |  3.6  |  3.7  |  3.8  |  3.9  |  3.10 |  3.6  |  3.7  |                 |
+|          |        |        |  3.7  |  3.8  |  3.9  |  3.10 |  3.11 |  3.6  |  3.7  |                 |
 +==========+========+========+=======+=======+=======+=======+=======+=======+=======+=================+
 | Linux    | X86-64 | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  | |build-linux|   |
 +          +        +--------+-------+-------+-------+-------+-------+-------+-------+                 +
@@ -69,11 +69,11 @@ Successful installation and tests performed on the following operating systems, 
 |          |        | GPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |                 |
 +----------+--------+--------+-------+-------+-------+-------+-------+-------+-------+-----------------+
 
-.. |build-linux| image:: https://img.shields.io/actions/github/workflow/status/ameli/imate/build-linux.yml
+.. |build-linux| image:: https://img.shields.io/github/actions/workflow/status/ameli/imate/build-linux.yml
    :target: https://github.com/ameli/imate/actions?query=workflow%3Abuild-linux 
-.. |build-macos| image:: https://img.shields.io/actions/github/workflow/status/ameli/imate/build-macos.yml
+.. |build-macos| image:: https://img.shields.io/github/actions/workflow/status/ameli/imate/build-macos.yml
    :target: https://github.com/ameli/imate/actions?query=workflow%3Abuild-macos
-.. |build-windows| image:: https://img.shields.io/actions/github/workflow/status/ameli/imate/build-windows.yml
+.. |build-windows| image:: https://img.shields.io/github/actions/workflow/status/ameli/imate/build-windows.yml
    :target: https://github.com/ameli/imate/actions?query=workflow%3Abuild-windows
 
 Python wheels for ``imate`` for all supported platforms and versions in the above are available through `PyPI <https://pypi.org/project/imate/>`_ and `Anaconda Cloud <https://anaconda.org/s-ameli/imate>`_. If you need ``imate`` on other platforms, architectures, and Python or PyPy versions, `raise an issue <https://github.com/ameli/imate/issues>`_ on GitHub and we build its Python Wheel for you.
