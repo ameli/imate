@@ -1,3 +1,14 @@
+#!/usr/bin/env python
+
+# SPDX-FileCopyrightText: Copyright 2021, Siavash Ameli <sameli@berkeley.edu>
+# SPDX-License-Identifier: BSD-3-Clause
+# SPDX-FileType: SOURCE
+#
+# This program is free software: you can redistribute it and/or modify it
+# under the terms of the license found in the LICENSE.txt file in the root
+# directory of this source tree.
+
+
 """
 Reference:
 
@@ -7,15 +18,15 @@ Reference:
 What this script does:
 
     This script creates a new custom sphinx domain and two directives for it.
-    
+
     Sphinx terminology:
 
     .. py:funtion:: some_function_name
     .. py:module:: some_module_name
     .. py:class:: some_class_name
 
-    In the above, "py" is called a domain, and "functon", "module", "class" are
-    called the directives of that domain.
+    In the above, "py" is called a domain, and "function", "module", "class"
+    are called the directives of that domain.
 
     This script creates a domain called "custom-domain" with two directives
     called "function" and "class".
@@ -103,7 +114,7 @@ Why this custom domain is needed:
             imate.logdet
             imate.logdet._slq_method.slq_method
 
-    and 
+    and
         .. autosummary::
             :toctree: generated
             :caption: Classes
@@ -118,7 +129,7 @@ Why this custom domain is needed:
         imate.logdet._slq_method.slq_method(A, p, method='slq', lanczos_degr..)
         ... content of _slq_method
 
-    and 
+    and
 
         imate.Interpolate._IMBF_method.IMBF_method(A, p, kind='IMBF', ti=...)
         ... content of _EXT_method
@@ -179,7 +190,8 @@ How the custom domain solves this issue:
 """
 
 
-import os, sys
+import os
+import sys
 
 # -- Path setup --------------------------------------------------------------
 
@@ -235,21 +247,21 @@ for build_subdirectory in build_subdirectories:
 
 # ------------
 
-import re, pydoc
-import sphinx
-import inspect
-import collections
-import textwrap
-import warnings
+import re                                                           # noqa E402
+import pydoc                                                        # noqa E402
+import sphinx                                                       # noqa E402
+import textwrap                                                     # noqa E402
+import warnings                                                     # noqa E402
+from _inspect import formatargspec                                  # noqa E402
 
 if sphinx.__version__ < '1.0.1':
     raise RuntimeError("Sphinx 1.0.1 or newer is required")
 
-from numpydoc.numpydoc import mangle_docstrings
-from docutils.parsers.rst import Directive
-from docutils.statemachine import ViewList
-from sphinx.domains.python import PythonDomain
-from scipy._lib._util import getfullargspec_no_self
+from numpydoc.numpydoc import mangle_docstrings                     # noqa E402
+from docutils.parsers.rst import Directive                          # noqa E402
+from docutils.statemachine import ViewList                          # noqa E402
+from sphinx.domains.python import PythonDomain                      # noqa E402
+from scipy._lib._util import getfullargspec_no_self                 # noqa E402
 
 
 # =====
@@ -336,14 +348,14 @@ def wrap_mangling_directive(base_directive, directive_type):
             iface is related to interface function.
             impl is related to implementation function.
             """
-            
+
             env = self.state.document.settings.env
 
             # Interface function (we only use its name, but not its signature)
             iface_name = self.arguments[0].strip()
             iface_obj = _import_object(iface_name)
             iface_args, iface_varargs, iface_keywords, iface_defaults = \
-                    getfullargspec_no_self(iface_obj)[:4]
+                getfullargspec_no_self(iface_obj)[:4]
 
             # Get options from function or class directive
             if directive_type == 'function':
@@ -367,7 +379,7 @@ def wrap_mangling_directive(base_directive, directive_type):
             # Implementation function (we use its signature, but not its name)
             impl_obj = _import_object(impl_name)
             impl_args, impl_varargs, impl_keywords, impl_defaults = \
-                    getfullargspec_no_self(impl_obj)[:4]
+                getfullargspec_no_self(impl_obj)[:4]
 
             # Insert 'method' to impl_args
             num_iface_args = len(iface_args)
@@ -385,7 +397,8 @@ def wrap_mangling_directive(base_directive, directive_type):
             # function.
             with warnings.catch_warnings(record=True):
                 warnings.simplefilter('ignore')
-                signature = inspect.formatargspec(
+                # signature = inspect.formatargspec(
+                signature = formatargspec(
                     impl_args, impl_varargs, impl_keywords, impl_defaults)
 
             # Custom signature consists of the name of interface function plus

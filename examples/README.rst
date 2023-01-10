@@ -2,7 +2,7 @@
 Examples
 ========
 
-The scripts provided in |examplesdir|_ directory reproduces the figures and tables presented in [Ameli-2020]_.
+The scripts provided in |examplesdir|_ directory reproduces the figures and tables presented in [1]_.
 
 ---------------
 Install Package
@@ -154,7 +154,7 @@ The script generates the table below.
 References
 ----------
 
-.. [Ameli-2020] Ameli, S., and Shadden. S. C. (2020). Interpolating Log-Determinant and Trace of the Powers of Matrix **A** + t **B**. `arXiv:2009.07385 <https://arxiv.org/abs/2009.07385>`__ [math.NA]
+.. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant and Trace of the Powers of Matrix **A** + t **B**. *Statistics and Computing* 32, 108. `DOI <https://doi.org/10.1007/s11222-022-10173-4>`__, `arXiv <https://arxiv.org/abs/2009.07385>`__.
 
 .. |examplesdir| replace:: ``/examples`` 
 .. _examplesdir: https://github.com/ameli/imate/blob/main/examples

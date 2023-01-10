@@ -1,9 +1,9 @@
 name: deploy-docs
 
 on:
-    # push:
-    #     branches:
-    #         - main
+    push:
+        branches:
+            - main
     pull_request:
         branches:
             - main
@@ -19,8 +19,7 @@ jobs:
             - name: Set up Python
               uses: actions/setup-python@v4
               with:
-                  python-version: '3.10'  # do not upgrade to 3.11 yet. Because in docs/source/custom_domain.py
-                                          # the function inspect.formatargsspec() is deprecated in python 3.11.
+                  python-version: '3.11'
 
             # Build doxygen files in /docs/doxygen/output/html
             - name: Build doxygen
