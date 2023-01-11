@@ -300,13 +300,19 @@ def eigenvalue_method(
     logdet_ = numpy.sum(numpy.log(eig_Ap.astype(numpy.complex128)))
 
     # Return only the real part
+    imag_atol = 1e-8
     imag_rtol = 1e-8
     if isinstance(logdet_, numpy.complex128):
+
+        # Get imaginary part as mod of pi
         imag = numpy.mod(logdet_.imag, numpy.pi)
+        if (numpy.abs(imag) < imag_atol) or \
+                (numpy.abs(imag - numpy.pi) < imag_atol):
+            imag = 0
         if imag > imag_rtol * A.shape[0]:
             raise RuntimeError(
-                    'Determinant is not a purely real number. Imaginary: %f'
-                    % imag)
+                    'Determinant is not a purely real number. ' +
+                    'Real part: %f, Imaginary part: %f' % (logdet_, imag))
         else:
             quotient = int(numpy.abs(logdet_.imag) / numpy.pi + 0.5)
 

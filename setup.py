@@ -264,11 +264,19 @@ def clean_extensions(extensions):
                 path = os.path.dirname(path_base)
 
                 # Status of finding files to be deleted
+                found_h = False
                 found_c = False
                 found_cpp = False
                 found_lib = False
 
                 if ext == '.pyx':
+
+                    # Search for generated Ch file corresponding to *.pxd file
+                    h_file = path_base + '.h'
+                    if os.path.exists(h_file):
+                        if check_cython_generated(h_file):
+                            os.remove(h_file)
+                            found_h = True
 
                     # Search for generated C file corresponding to *.pyx file
                     c_file = path_base + '.c'
@@ -296,8 +304,10 @@ def clean_extensions(extensions):
                             found_lib = True
 
                     # Print removed files
-                    if found_c or found_cpp or found_lib:
+                    if found_h or found_c or found_cpp or found_lib:
                         print('Detects: %s' % file)
+                        if found_h:
+                            print('Removes: %s' % h_file)
                         if found_c:
                             print('Removes: %s' % c_file)
                         if found_cpp:
@@ -1616,7 +1626,7 @@ def main(argv):
         ext_modules=external_modules,
         include_dirs=[numpy.get_include()],
         install_requires=requirements,
-        python_requires='>=3.6',
+        python_requires='>=3.7',
         setup_requires=[
             'setuptools',
             'wheel',

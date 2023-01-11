@@ -397,7 +397,6 @@ def wrap_mangling_directive(base_directive, directive_type):
             # function.
             with warnings.catch_warnings(record=True):
                 warnings.simplefilter('ignore')
-                # signature = inspect.formatargspec(
                 signature = formatargspec(
                     impl_args, impl_varargs, impl_keywords, impl_defaults)
 
