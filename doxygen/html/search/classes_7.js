@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['power_480',['Power',['../classPower.html',1,'']]]
+  ['power_478',['Power',['../classPower.html',1,'']]]
 ];

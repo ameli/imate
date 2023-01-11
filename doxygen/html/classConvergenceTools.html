@@ -269,13 +269,13 @@ template&lt;typename DataType &gt; </div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <a class="code" href="types_8h.html#a67de833a333e9264ce27ee3d6e4b2732">FlagType</a>* outlier_indices = <span class="keyword">new</span> <a class="code" href="types_8h.html#a67de833a333e9264ce27ee3d6e4b2732">FlagType</a>[max_num_samples];</div>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160; </div>
 <div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="comment">// Quantile of normal distribution (usually known as the &quot;z&quot; coefficient)</span></div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    DataType error_z_score = sqrt(2) * <a class="code" href="py__c__trace__estimator_8h.html#a46ed18cec69b159501e7cf93de3ab500">erf_inv</a>(confidence_level);</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    DataType error_z_score = sqrt(2) * <a class="code" href="special__functions_8h.html#a704df509fee471570474355a9ed09365">erf_inv</a>(confidence_level);</div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="comment">// Confidence level of outlier is the complement of significance level</span></div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    DataType outlier_confidence_level = 1.0 - outlier_significance_level;</div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160; </div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="comment">// Quantile of normal distribution area where is not considered as outlier</span></div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    DataType outlier_z_score = sqrt(2.0) * <a class="code" href="py__c__trace__estimator_8h.html#a46ed18cec69b159501e7cf93de3ab500">erf_inv</a>(outlier_confidence_level);</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    DataType outlier_z_score = sqrt(2.0) * <a class="code" href="special__functions_8h.html#a704df509fee471570474355a9ed09365">erf_inv</a>(outlier_confidence_level);</div>
 <div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160; </div>
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="keywordflow">for</span> (j=0; j &lt; num_inquiries; ++j)</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    {</div>
@@ -366,11 +366,11 @@ template&lt;typename DataType &gt; </div>
 <div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160; </div>
 <div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    <span class="keyword">delete</span>[] outlier_indices;</div>
 <div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;}</div>
-<div class="ttc" id="apy__c__trace__estimator_8h_html_a46ed18cec69b159501e7cf93de3ab500"><div class="ttname"><a href="py__c__trace__estimator_8h.html#a46ed18cec69b159501e7cf93de3ab500">erf_inv</a></div><div class="ttdeci">__PYX_EXTERN_C double erf_inv(double)</div></div>
+<div class="ttc" id="aspecial__functions_8h_html_a704df509fee471570474355a9ed09365"><div class="ttname"><a href="special__functions_8h.html#a704df509fee471570474355a9ed09365">erf_inv</a></div><div class="ttdeci">double erf_inv(double x)</div></div>
 <div class="ttc" id="atypes_8h_html_a67de833a333e9264ce27ee3d6e4b2732"><div class="ttname"><a href="types_8h.html#a67de833a333e9264ce27ee3d6e4b2732">FlagType</a></div><div class="ttdeci">int FlagType</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00068">types.h:68</a></div></div>
 <div class="ttc" id="atypes_8h_html_ab1b7173c76e5040d0161e695a129dafe"><div class="ttname"><a href="types_8h.html#ab1b7173c76e5040d0161e695a129dafe">IndexType</a></div><div class="ttdeci">int IndexType</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00065">types.h:65</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="py__c__trace__estimator_8h.html#a46ed18cec69b159501e7cf93de3ab500">erf_inv()</a>.</p>
+<p class="reference">References <a class="el" href="special__functions_8h.html#a704df509fee471570474355a9ed09365">erf_inv()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="c__trace__estimator_8cpp_source.html#l00183">cTraceEstimator&lt; DataType &gt;::c_trace_estimator()</a>, and <a class="el" href="cu__trace__estimator_8cu_source.html#l00188">cuTraceEstimator&lt; DataType &gt;::cu_trace_estimator()</a>.</p>
 <div class="dynheader">
@@ -378,8 +378,8 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classConvergenceTools_a88ae9fc09aa9af950d41cf803934c028_cgraph.png" border="0" usemap="#aclassConvergenceTools_a88ae9fc09aa9af950d41cf803934c028_cgraph" alt=""/></div>
 <map name="aclassConvergenceTools_a88ae9fc09aa9af950d41cf803934c028_cgraph" id="aclassConvergenceTools_a88ae9fc09aa9af950d41cf803934c028_cgraph">
-<area shape="rect" title="Averages the estimates of trace. Removes outliers and reevaluates the error to take into account for ..." alt="" coords="5,5,189,47"/>
-<area shape="rect" href="py__c__trace__estimator_8h.html#a46ed18cec69b159501e7cf93de3ab500" title=" " alt="" coords="237,13,299,39"/>
+<area shape="rect" title="Averages the estimates of trace. Removes outliers and reevaluates the error to take into account for ..." alt="" coords="5,5,207,47"/>
+<area shape="rect" href="special__functions_8h.html#a704df509fee471570474355a9ed09365" title=" " alt="" coords="255,13,321,39"/>
 </map>
 </div>
 <div class="dynheader">
@@ -542,7 +542,7 @@ template&lt;typename DataType &gt; </div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="comment">// Quantile of normal distribution (usually known as the &quot;z&quot; coefficient)</span></div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    DataType standard_z_score = sqrt(2) * \</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        static_cast&lt;DataType&gt;(<a class="code" href="py__c__trace__estimator_8h.html#a46ed18cec69b159501e7cf93de3ab500">erf_inv</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(confidence_level)));</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        static_cast&lt;DataType&gt;(<a class="code" href="special__functions_8h.html#a704df509fee471570474355a9ed09365">erf_inv</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(confidence_level)));</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="comment">// For each column of samples, compute error of all processed rows</span></div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordflow">for</span> (j=0; j &lt; num_inquiries; ++j)</div>
@@ -603,7 +603,7 @@ template&lt;typename DataType &gt; </div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordflow">return</span> all_converged;</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="py__c__trace__estimator_8h.html#a46ed18cec69b159501e7cf93de3ab500">erf_inv()</a>.</p>
+<p class="reference">References <a class="el" href="special__functions_8h.html#a704df509fee471570474355a9ed09365">erf_inv()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="c__trace__estimator_8cpp_source.html#l00183">cTraceEstimator&lt; DataType &gt;::c_trace_estimator()</a>, and <a class="el" href="cu__trace__estimator_8cu_source.html#l00188">cuTraceEstimator&lt; DataType &gt;::cu_trace_estimator()</a>.</p>
 <div class="dynheader">
@@ -611,8 +611,8 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classConvergenceTools_a5a0602ee4f933a4521ccf9ea137dd191_cgraph.png" border="0" usemap="#aclassConvergenceTools_a5a0602ee4f933a4521ccf9ea137dd191_cgraph" alt=""/></div>
 <map name="aclassConvergenceTools_a5a0602ee4f933a4521ccf9ea137dd191_cgraph" id="aclassConvergenceTools_a5a0602ee4f933a4521ccf9ea137dd191_cgraph">
-<area shape="rect" title="Checks if the standard deviation of the set of the cumulative averages of trace estimators converged ..." alt="" coords="5,5,179,47"/>
-<area shape="rect" href="py__c__trace__estimator_8h.html#a46ed18cec69b159501e7cf93de3ab500" title=" " alt="" coords="227,13,288,39"/>
+<area shape="rect" title="Checks if the standard deviation of the set of the cumulative averages of trace estimators converged ..." alt="" coords="5,5,192,47"/>
+<area shape="rect" href="special__functions_8h.html#a704df509fee471570474355a9ed09365" title=" " alt="" coords="240,13,307,39"/>
 </map>
 </div>
 <div class="dynheader">
@@ -638,7 +638,7 @@ Here is the caller graph for this function:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="classConvergenceTools.html">ConvergenceTools</a></li>
-    <li class="footer">Generated on Tue Jan 10 2023 00:10:43 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Jan 11 2023 03:21:20 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
