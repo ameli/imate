@@ -400,7 +400,7 @@ OpenMP comes with the C++ compiler installed. However, you may alternatively ins
 
 .. note::
 
-    In *macOS*, starting from ``libomp`` with version ``15`` and above, Homebrew installs OpenMP as *keg-only*. As a result, create the following symbolic links to be able to use the OpenMP installation
+    In *macOS*, starting from ``libomp`` with version ``15`` and above, Homebrew installs OpenMP as *keg-only*. To be able to use the OpenMP installation, create the following symbolic links :
 
     .. prompt:: bash
 

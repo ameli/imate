@@ -1,9 +1,9 @@
 name: deploy-conda
 
 on:
-    # push:
-    #     branches:
-    #         - main
+    push:
+        branches:
+            - main
     release:
         types: 
             - published
@@ -123,7 +123,7 @@ jobs:
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=0 CUDA_HOME=/usr/local/cuda"
             
             - name: Upload artifacts
-              uses: actions/upload-artifact@v2
+              uses: actions/upload-artifact@v3
               with:
                   name: wheel-artifacts
                   path: ./wheelhouse/*.whl
@@ -165,6 +165,7 @@ jobs:
             - name: Setup Miniconda
               uses: conda-incubator/setup-miniconda@v2
               with:
+                  miniconda-version: "latest"
                   auto-update-conda: true
 
             - name: Install OpenMP and numpy for mac
@@ -172,8 +173,20 @@ jobs:
               run: |
                   brew install libomp
 
+                  # Starting from libomp>=15.0, the libomp installation in homebrew is "keg-only",
+                  # meaning that libomp is only installed in homebrew's directory, but not moved
+                  # to /usr/local to avoid other OpenMP installations (such as with gcc's version
+                  # of OpenMP). To use the homebrew's version of OpenMP,the following symbolic
+                  # links are created. Without these, the installation will fail with the error
+                  # of "fatal error: omp.h file found"
+                  ln -s /usr/local/opt/libomp/include/omp-tools.h /usr/local/include/omp-tools.h
+                  ln -s /usr/local/opt/libomp/include/omp.h /usr/local/include/omp.h
+                  ln -s /usr/local/opt/libomp/include/ompt.h /usr/local/include/ompt.h
+                  ln -s /usr/local/opt/libomp/lib/libomp.a /usr/local/lib/libomp.a
+                  ln -s /usr/local/opt/libomp/lib/libomp.dylib /usr/local/lib/libomp.dylib
+
             - name: Build and upload package
-              shell: bash -l {0}
+              shell: bash -el {0}
               run: |
                   conda install -y conda-build anaconda-client
                   conda config --set anaconda_upload yes
@@ -201,7 +214,8 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest, windows-latest, macos-latest]
-                python-version: [3.7, 3.8, 3.9, 3.10, 3.11]
+                # python-version: ['3.7', '3.8', '3.9', '3.10', '3.11']
+                python-version: ['3.7', '3.8', '3.9', '3.10']
 
         steps:
             - name: Setup Miniconda
