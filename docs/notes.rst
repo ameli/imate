@@ -143,6 +143,35 @@ TODO
   True, it then outputs the dictionary of info. See scipy.optimize.fsolve.
   https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.fsolve.html
 * Check compilation with CUDA 12.
+* Imate compiled with scipy==1.9.3 leads to the following runtime error:
+
+    File "imate/_c_trace_estimator/py_c_trace_estimator.pyx", line 1, in init
+    imate._c_trace_estimator.py_c_trace_estimator
+    ImportError: scipy.special.cython_special does not export expected C
+    function __pyx_fuse_0erfinv
+
+  When imate is installed with conda, unfortunately, scipy=1.9.3 is installed
+  with imate, and it causes the above error. This also causes some tests to
+  fail (test/test_logdet.py, etc) when running deploy_conda.yaml.
+
+  The issue seems to be related to inverse of error function. An alternative
+  method (instead of erfinv from scipy.special) is to implement erfinv myself.
+  See:
+
+  Some short codes in C for inverse off error functions
+  https://stackoverflow.com/questions/27229371/inverse-error-function-in-c
+
+  or
+
+  A github script in C++
+  https://github.com/lakshayg/erfinv
+
+  I may do something like:
+
+  try:
+    from scipy.special.cython_special cimport erfinv
+  except:
+    from ._erfinv cimport erfinv  # my implementation
 
 ========================
 Compile and Build Issues
@@ -160,12 +189,12 @@ Local Installation
   function in ``cython_special``. The first version of scipy that includes
   ``erfinv`` as cython function is scipy 1.5.0.
 
-- Pythn 3.5:
+- Python 3.5:
   For some reasons, this package cannot be installed on python 3.5. However,
   py35 is deprecated as of last year.
 
 - pypy:
-  Build on pypy is only suppported on Linux. The package cannot be built on
+  Build on pypy is only supported on Linux. The package cannot be built on
   pypy on windows and macos. On Linux, pypy-3.6 and pypy-3.7 is supported.
 
 - CUDA support:
