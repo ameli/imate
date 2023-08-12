@@ -7,8 +7,7 @@
 # of this source tree.
 
 
-from imate._linear_algebra.orthogonalization cimport \
-        orthogonalize_vectors
+from imate._linear_algebra.orthogonalization cimport orthogonalize_vectors
+from imate._linear_algebra.random_vectors cimport generate_random_column_vectors
 
-from imate._linear_algebra.random_vectors cimport \
-        generate_random_column_vectors
+__all__ = ['orthogonalize_vectors', 'generate_random_column_vectors']

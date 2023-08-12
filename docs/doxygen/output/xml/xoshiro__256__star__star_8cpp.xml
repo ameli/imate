@@ -6,20 +6,23 @@
     <includes local="no">cstdlib</includes>
     <includes refid="split__mix__64_8h" local="yes">./split_mix_64.h</includes>
     <incdepgraph>
-      <node id="3">
-        <label>stdint.h</label>
-      </node>
       <node id="5">
         <label>./split_mix_64.h</label>
         <link refid="split__mix__64_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="4">
-        <label>cstdlib</label>
+      <node id="2">
+        <label>./xoshiro_256_star_star.h</label>
+        <link refid="xoshiro__256__star__star_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
       </node>
       <node id="1">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_random_generator/xoshiro_256_star_star.cpp</label>
+        <label>/home/sia/work/github/imate/imate/_random_generator/xoshiro_256_star_star.cpp</label>
         <link refid="xoshiro__256__star__star_8cpp"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -28,11 +31,8 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="2">
-        <label>./xoshiro_256_star_star.h</label>
-        <link refid="xoshiro__256__star__star_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
+      <node id="4">
+        <label>cstdlib</label>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -46,7 +46,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_random_generator/xoshiro_256_star_star.cpp" line="22" column="13" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_random_generator/xoshiro_256_star_star.cpp" bodystart="22" bodyend="-1"/>
+        <location file="/home/sia/work/github/imate/imate/_random_generator/xoshiro_256_star_star.cpp" line="22" column="13" bodyfile="/home/sia/work/github/imate/imate/_random_generator/xoshiro_256_star_star.cpp" bodystart="22" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -232,6 +232,6 @@
 <codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(x<sp/>&lt;&lt;<sp/>k)<sp/>|<sp/>(x<sp/>&gt;&gt;<sp/>(64<sp/>-<sp/>k));</highlight></codeline>
 <codeline lineno="197"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_random_generator/xoshiro_256_star_star.cpp"/>
+    <location file="/home/sia/work/github/imate/imate/_random_generator/xoshiro_256_star_star.cpp"/>
   </compounddef>
 </doxygen>

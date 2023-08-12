@@ -10,14 +10,12 @@
     <includes refid="cusparse__interface_8h" local="yes">../_cu_basic_algebra/cusparse_interface.h</includes>
     <includes refid="cuda__interface_8h" local="yes">../_cuda_utilities/cuda_interface.h</includes>
     <incdepgraph>
-      <node id="2">
-        <label>./cu_csc_matrix.h</label>
-        <link refid="cu__csc__matrix_8h"/>
+      <node id="16">
+        <label>../_cu_basic_algebra/cusparse_interface.h</label>
+        <link refid="cusparse__interface_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
         <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
         </childnode>
       </node>
       <node id="7">
@@ -26,22 +24,31 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
+      <node id="5">
+        <label>../_c_linear_operator/c_csc_matrix.h</label>
+        <link refid="c__csc__matrix_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>./cu_linear_operator.h</label>
+        <link refid="cu__linear__operator_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
       <node id="10">
         <label>cublas_v2.h</label>
       </node>
-      <node id="14">
-        <label>cassert</label>
-      </node>
-      <node id="8">
-        <label>./cu_matrix.h</label>
-        <link refid="cu__matrix_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-      </node>
       <node id="1">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_csc_matrix.cu</label>
+        <label>/home/sia/work/github/imate/imate/_cu_linear_operator/cu_csc_matrix.cu</label>
         <link refid="cu__csc__matrix_8cu"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -58,6 +65,19 @@
         <childnode refid="17" relation="include">
         </childnode>
       </node>
+      <node id="2">
+        <label>./cu_csc_matrix.h</label>
+        <link refid="cu__csc__matrix_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>cassert</label>
+      </node>
       <node id="12">
         <label>omp.h</label>
       </node>
@@ -73,20 +93,10 @@
         <label>./definitions.h</label>
         <link refid="definitions_8h"/>
       </node>
-      <node id="5">
-        <label>../_c_linear_operator/c_csc_matrix.h</label>
-        <link refid="c__csc__matrix_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-      </node>
-      <node id="16">
-        <label>../_cu_basic_algebra/cusparse_interface.h</label>
-        <link refid="cusparse__interface_8h"/>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
+      <node id="3">
+        <label>../_definitions/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="4" relation="include">
         </childnode>
       </node>
       <node id="15">
@@ -99,26 +109,6 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="17">
-        <label>../_cuda_utilities/cuda_interface.h</label>
-        <link refid="cuda__interface_8h"/>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
-      <node id="9">
-        <label>./cu_linear_operator.h</label>
-        <link refid="cu__linear__operator_8h"/>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
       <node id="13">
         <label>cstddef</label>
       </node>
@@ -128,10 +118,20 @@
       <node id="11">
         <label>cusparse.h</label>
       </node>
-      <node id="3">
-        <label>../_definitions/types.h</label>
-        <link refid="types_8h"/>
-        <childnode refid="4" relation="include">
+      <node id="17">
+        <label>../_cuda_utilities/cuda_interface.h</label>
+        <link refid="cuda__interface_8h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>./cu_matrix.h</label>
+        <link refid="cu__matrix_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -608,6 +608,6 @@
 <codeline lineno="486"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classcuCSCMatrix" kindref="compound">cuCSCMatrix&lt;float&gt;</ref>;</highlight></codeline>
 <codeline lineno="487"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="classcuCSCMatrix" kindref="compound">cuCSCMatrix&lt;double&gt;</ref>;</highlight></codeline>
     </programlisting>
-    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_csc_matrix.cu"/>
+    <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_csc_matrix.cu"/>
   </compounddef>
 </doxygen>

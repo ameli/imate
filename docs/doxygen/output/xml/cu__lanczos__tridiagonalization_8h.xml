@@ -4,29 +4,14 @@
     <compoundname>cu_lanczos_tridiagonalization.h</compoundname>
     <includes refid="cu__linear__operator_8h" local="yes">../_cu_linear_operator/cu_linear_operator.h</includes>
     <includes refid="types_8h" local="yes">../_definitions/types.h</includes>
-    <includedby refid="cu__lanczos__tridiagonalization_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu</includedby>
-    <includedby refid="cu__trace__estimator_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_trace_estimator.cu</includedby>
+    <includedby refid="cu__lanczos__tridiagonalization_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu</includedby>
+    <includedby refid="cu__trace__estimator_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_trace_estimator.cu</includedby>
     <incdepgraph>
-      <node id="1">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.h</label>
-        <link refid="cu__lanczos__tridiagonalization_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-      </node>
       <node id="7">
         <label>../_c_linear_operator/c_linear_operator.h</label>
         <link refid="c__linear__operator_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-      </node>
-      <node id="3">
-        <label>cublas_v2.h</label>
-      </node>
-      <node id="6">
-        <label>./definitions.h</label>
-        <link refid="definitions_8h"/>
       </node>
       <node id="2">
         <label>../_cu_linear_operator/cu_linear_operator.h</label>
@@ -40,8 +25,20 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="4">
-        <label>cusparse.h</label>
+      <node id="3">
+        <label>cublas_v2.h</label>
+      </node>
+      <node id="1">
+        <label>/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.h</label>
+        <link refid="cu__lanczos__tridiagonalization_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>./definitions.h</label>
+        <link refid="definitions_8h"/>
       </node>
       <node id="5">
         <label>../_definitions/types.h</label>
@@ -49,22 +46,25 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
+      <node id="4">
+        <label>cusparse.h</label>
+      </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_trace_estimator.cu</label>
-        <link refid="cu__trace__estimator_8cu"/>
-      </node>
       <node id="1">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.h</label>
+        <label>/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.h</label>
         <link refid="cu__lanczos__tridiagonalization_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
+      <node id="3">
+        <label>/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_trace_estimator.cu</label>
+        <link refid="cu__trace__estimator_8cu"/>
+      </node>
       <node id="2">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu</label>
+        <label>/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu</label>
         <link refid="cu__lanczos__tridiagonalization_8cu"/>
       </node>
     </invincdepgraph>
@@ -215,7 +215,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.h" line="29" column="11" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu" bodystart="119" bodyend="248" declfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.h" declline="29" declcolumn="11"/>
+        <location file="/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.h" line="29" column="11" bodyfile="/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu" bodystart="119" bodyend="248" declfile="/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.h" declline="29" declcolumn="11"/>
         <references refid="classCudaInterface_1a65875bf1fdfe213562b31e3459f04b33" compoundref="cuda__interface_8cu" startline="36" endline="60">CudaInterface&lt; ArrayType &gt;::alloc</references>
         <references refid="classcuVectorOperations_1a18e8a8069b986b0b559f8ac97b72a495" compoundref="cu__vector__operations_8cu" startline="73" endline="96">cuVectorOperations&lt; DataType &gt;::copy_scaled_vector</references>
         <references refid="classCudaInterface_1a95efada2ca34b3490f96ccfa97b4d6eb" compoundref="cuda__interface_8cu" startline="142" endline="151">CudaInterface&lt; ArrayType &gt;::copy_to_device</references>
@@ -274,6 +274,6 @@
 <codeline lineno="38"><highlight class="normal"></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>_CU_TRACE_ESTIMATOR_CU_LANCZOS_TRIDIAGONALIZATION_H_</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.h"/>
+    <location file="/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.h"/>
   </compounddef>
 </doxygen>

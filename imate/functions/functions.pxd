@@ -19,7 +19,7 @@ cdef extern from "functions.h":
         double function(const double lambda_) nogil
         long double function(const long double lambda_) nogil
 
-    # Indentity
+    # Identity
     cdef cppclass Identity(Function):
         float function(const float lambda_) nogil
         double function(const double lambda_) nogil

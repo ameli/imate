@@ -6,5 +6,6 @@
 # the terms of the license found in the LICENSE.txt file in the root directory
 # of this source tree.
 
+
 from imate._cuda_utilities.py_query_device cimport py_query_device
 from imate._cuda_utilities.query_device cimport DeviceProperties

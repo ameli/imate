@@ -201,7 +201,7 @@ def plot(TI, p, test):
     filename = 'traceinv_full_rank_p' + str(int(numpy.abs(p)))
     if test:
         filename = "test_" + filename
-    save_plot(plt, filename, transparent_background=False)
+    save_plot(plt, filename, transparent_background=True)
 
     # If no display backend is enabled, do not plot in the interactive mode
     if (not test) and (matplotlib.get_backend() != 'agg'):

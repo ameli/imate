@@ -4,22 +4,22 @@
     <compoundname>cu_vector_operations.h</compoundname>
     <includes local="no">cublas_v2.h</includes>
     <includes refid="types_8h" local="yes">../_definitions/types.h</includes>
-    <includedby refid="cu__vector__operations_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_basic_algebra/cu_vector_operations.cu</includedby>
-    <includedby refid="cu__affine__matrix__function_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_affine_matrix_function.cu</includedby>
-    <includedby refid="cu__golub__kahn__bidiagonalization_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_golub_kahn_bidiagonalization.cu</includedby>
-    <includedby refid="cu__lanczos__tridiagonalization_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu</includedby>
-    <includedby refid="cu__orthogonalization_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_orthogonalization.cu</includedby>
+    <includedby refid="cu__vector__operations_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_vector_operations.cu</includedby>
+    <includedby refid="cu__affine__matrix__function_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.cu</includedby>
+    <includedby refid="cu__golub__kahn__bidiagonalization_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_golub_kahn_bidiagonalization.cu</includedby>
+    <includedby refid="cu__lanczos__tridiagonalization_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu</includedby>
+    <includedby refid="cu__orthogonalization_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_orthogonalization.cu</includedby>
     <incdepgraph>
+      <node id="2">
+        <label>cublas_v2.h</label>
+      </node>
       <node id="1">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_basic_algebra/cu_vector_operations.h</label>
+        <label>/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_vector_operations.h</label>
         <link refid="cu__vector__operations_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-      </node>
-      <node id="2">
-        <label>cublas_v2.h</label>
       </node>
       <node id="4">
         <label>./definitions.h</label>
@@ -33,12 +33,8 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_affine_matrix_function.cu</label>
-        <link refid="cu__affine__matrix__function_8cu"/>
-      </node>
       <node id="1">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_basic_algebra/cu_vector_operations.h</label>
+        <label>/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_vector_operations.h</label>
         <link refid="cu__vector__operations_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -51,21 +47,25 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
+      <node id="4">
+        <label>/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_golub_kahn_bidiagonalization.cu</label>
+        <link refid="cu__golub__kahn__bidiagonalization_8cu"/>
+      </node>
       <node id="2">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_basic_algebra/cu_vector_operations.cu</label>
+        <label>/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_vector_operations.cu</label>
         <link refid="cu__vector__operations_8cu"/>
       </node>
+      <node id="3">
+        <label>/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.cu</label>
+        <link refid="cu__affine__matrix__function_8cu"/>
+      </node>
       <node id="6">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_orthogonalization.cu</label>
+        <label>/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_orthogonalization.cu</label>
         <link refid="cu__orthogonalization_8cu"/>
       </node>
       <node id="5">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu</label>
+        <label>/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu</label>
         <link refid="cu__lanczos__tridiagonalization_8cu"/>
-      </node>
-      <node id="4">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_golub_kahn_bidiagonalization.cu</label>
-        <link refid="cu__golub__kahn__bidiagonalization_8cu"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classcuVectorOperations" prot="public">cuVectorOperations</innerclass>
@@ -158,6 +158,6 @@
 <codeline lineno="89"><highlight class="normal"></highlight></codeline>
 <codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>_CU_BASIC_ALGEBRA_CU_VECTOR_OPERATIONS_H_</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_basic_algebra/cu_vector_operations.h"/>
+    <location file="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_vector_operations.h"/>
   </compounddef>
 </doxygen>

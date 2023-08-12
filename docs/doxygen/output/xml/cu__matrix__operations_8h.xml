@@ -5,10 +5,10 @@
     <includes local="no">cublas_v2.h</includes>
     <includes local="no">cusparse.h</includes>
     <includes refid="types_8h" local="yes">../_definitions/types.h</includes>
-    <includedby refid="cu__matrix__operations_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu</includedby>
-    <includedby refid="cu__csc__matrix_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_csc_matrix.cu</includedby>
-    <includedby refid="cu__csr__matrix_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_csr_matrix.cu</includedby>
-    <includedby refid="cu__dense__matrix_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_matrix.cu</includedby>
+    <includedby refid="cu__matrix__operations_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu</includedby>
+    <includedby refid="cu__csc__matrix_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_linear_operator/cu_csc_matrix.cu</includedby>
+    <includedby refid="cu__csr__matrix_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_linear_operator/cu_csr_matrix.cu</includedby>
+    <includedby refid="cu__dense__matrix_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_linear_operator/cu_dense_matrix.cu</includedby>
     <incdepgraph>
       <node id="2">
         <label>cublas_v2.h</label>
@@ -17,8 +17,14 @@
         <label>./definitions.h</label>
         <link refid="definitions_8h"/>
       </node>
+      <node id="4">
+        <label>../_definitions/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
       <node id="1">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_basic_algebra/cu_matrix_operations.h</label>
+        <label>/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h</label>
         <link refid="cu__matrix__operations_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -30,28 +36,18 @@
       <node id="3">
         <label>cusparse.h</label>
       </node>
-      <node id="4">
-        <label>../_definitions/types.h</label>
-        <link refid="types_8h"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-      </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu</label>
-        <link refid="cu__matrix__operations_8cu"/>
-      </node>
-      <node id="5">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_matrix.cu</label>
-        <link refid="cu__dense__matrix_8cu"/>
-      </node>
       <node id="3">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_csc_matrix.cu</label>
+        <label>/home/sia/work/github/imate/imate/_cu_linear_operator/cu_csc_matrix.cu</label>
         <link refid="cu__csc__matrix_8cu"/>
       </node>
+      <node id="5">
+        <label>/home/sia/work/github/imate/imate/_cu_linear_operator/cu_dense_matrix.cu</label>
+        <link refid="cu__dense__matrix_8cu"/>
+      </node>
       <node id="1">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_basic_algebra/cu_matrix_operations.h</label>
+        <label>/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h</label>
         <link refid="cu__matrix__operations_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -63,8 +59,12 @@
         </childnode>
       </node>
       <node id="4">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_csr_matrix.cu</label>
+        <label>/home/sia/work/github/imate/imate/_cu_linear_operator/cu_csr_matrix.cu</label>
         <link refid="cu__csr__matrix_8cu"/>
+      </node>
+      <node id="2">
+        <label>/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu</label>
+        <link refid="cu__matrix__operations_8cu"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classcuMatrixOperations" prot="public">cuMatrixOperations</innerclass>
@@ -248,6 +248,6 @@
 <codeline lineno="201"><highlight class="normal"></highlight></codeline>
 <codeline lineno="202"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>_CU_BASIC_ALGEBRA_CU_MATRIX_OPERATIONS_H_</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_basic_algebra/cu_matrix_operations.h"/>
+    <location file="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h"/>
   </compounddef>
 </doxygen>

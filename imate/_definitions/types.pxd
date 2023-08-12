@@ -18,7 +18,7 @@ include "definitions.pxi"
 # =====
 
 """
-Use ``long_IndexType`` type for long indices where parallelization could be
+Use ``LongIndexType`` type for long indices where parallelization could be
 important. This could include, for instance, indices of long columns of
 matrices, but not short rows.
 

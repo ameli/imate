@@ -46,7 +46,7 @@ The following Algorithms were tested on Intel® Xeon CPU E5-2670 v3  with 24 thr
         This method is only applied to :math:numref:`traceinv3` and implemented by :ref:`imate.traceinv.hutchinson` function. The complexity of this method is:
 
         .. math::
-            :label: comp-hutch
+            :label: comp-hutch-alg
 
             \mathcal{O}(\mathrm{nnz}(\mathbf{A})s),
 
@@ -62,7 +62,7 @@ The following Algorithms were tested on Intel® Xeon CPU E5-2670 v3  with 24 thr
         The complexity of this method is:
 
         .. math::
-            :label: comp-slq
+            :label: comp-slq-alg
 
             \mathcal{O} \left( (\mathrm{nnz}(\mathbf{A}) l + n l^2) s \right),
 
@@ -115,7 +115,7 @@ Elapsed Time of Computing Log-Determinant
 
 The elapsed (wall) time of the computations is shown in the figure below. The Cholesky method is faster than the SLQ method by an order of magnitude, hence it could be considered the preferred algorithm to compute log-determinant.
 
-For large matrix sizes, :math:`n \geq 2^{19}`, the elapsed time can be related to the matrix size as :math:`t \propto n^{\alpha}`. It can be seen from the slope of the fitted lines in the figure that for the SLQ method, :math:`\alpha` is close to 1. This result is consistent with the analytic complexity :math:`\mathcal{O}(n)` derived from :math:numref:`comp-slq` and using :math:`\mathrm{nnz}(\mathbf{A}) \sim n` for a tri-diagonal matrix. Similarly, for the Cholesky method, :math:`\alpha \approx 1`, which corresponds to the analytic complexity of computing log-determinant for matrices obtained from 1D meshes.
+For large matrix sizes, :math:`n \geq 2^{19}`, the elapsed time can be related to the matrix size as :math:`t \propto n^{\alpha}`. It can be seen from the slope of the fitted lines in the figure that for the SLQ method, :math:`\alpha` is close to 1. This result is consistent with the analytic complexity :math:`\mathcal{O}(n)` derived from :math:numref:`comp-slq-alg` and using :math:`\mathrm{nnz}(\mathbf{A}) \sim n` for a tri-diagonal matrix. Similarly, for the Cholesky method, :math:`\alpha \approx 1`, which corresponds to the analytic complexity of computing log-determinant for matrices obtained from 1D meshes.
 
 .. image:: ../_static/images/performance/compare_methods_analytic_matrix_logdet_time.png
    :align: center
@@ -141,7 +141,7 @@ Elapsed Time of Computing Trace of Inverse
 
 The elapsed (wall) time of the computations is shown in the figure below. Unlike the above results for log-determinant, the Cholesky method here is significantly slower than the SLQ method. In fact, computing the trace of inverse of matrices is one of the applications where the performance of randomized methods surpasses the direct methods significantly.
 
-The computational complexity can be quantified by the relation between the elapsed time and the matrix size as :math:`t \propto n^{\alpha}`. It can be seen from the slope of the fitted lines in the figure that for Hutchinson and SLQ methods, :math:`\alpha` is close to 1. This result is consistent with the analytic complexity :math:`\mathcal{O}(n)` derived from :math:numref:`comp-hutch` and :math:numref:`comp-slq` and using :math:`\mathrm{nnz}(\mathbf{A}) \sim n` for a tri-diagonal matrix. Similarly, for the Cholesky method, :math:`\alpha \approx 2`, which corresponds to the analytic complexity :math:`\mathcal{O}(n^2)` for computing the trace of matrix inverse.
+The computational complexity can be quantified by the relation between the elapsed time and the matrix size as :math:`t \propto n^{\alpha}`. It can be seen from the slope of the fitted lines in the figure that for Hutchinson and SLQ methods, :math:`\alpha` is close to 1. This result is consistent with the analytic complexity :math:`\mathcal{O}(n)` derived from :math:numref:`comp-hutch-alg` and :math:numref:`comp-slq-alg` and using :math:`\mathrm{nnz}(\mathbf{A}) \sim n` for a tri-diagonal matrix. Similarly, for the Cholesky method, :math:`\alpha \approx 2`, which corresponds to the analytic complexity :math:`\mathcal{O}(n^2)` for computing the trace of matrix inverse.
 
 .. image:: ../_static/images/performance/compare_methods_analytic_matrix_traceinv_time.png
    :align: center
@@ -227,7 +227,7 @@ In the following tests, the effect of re-orthogonalizations of the eigenvectors 
 Process Time of Computing Log-Determinant
 -----------------------------------------
 
-The test below corresponds to the tri-diagonal matrix :math:`\mathbf{A}` (See :ref:`Test on Simple Matrices <simple_mat>`) with :math:`n = 2^{14}`. The figure below shows the elapsed time (left) and process time (right) of computing the log-determinant versus the number of Lanczos iterations, :math:`l` (also known as Lanczos degree). The orange and red curves respectively show the results with and without orthogonalization of the eigenvectors in the Lanczos algorithm. The processing time is proportional to :math:`\mathcal{O}(l)` without orthogonalization, which is consistent with the complexity given in :math:numref:`comp-slq` when :math:`\mathrm{nnz}(\mathbf{A})` is large. However, the processing time is almost :math:`\mathcal{O}(l^{2})` with orthogonalization for :math:`l < 300`, which is consistent with the complexity of the Gram-Schmit orthogonalization process.
+The test below corresponds to the tri-diagonal matrix :math:`\mathbf{A}` (See :ref:`Test on Simple Matrices <simple_mat>`) with :math:`n = 2^{14}`. The figure below shows the elapsed time (left) and process time (right) of computing the log-determinant versus the number of Lanczos iterations, :math:`l` (also known as Lanczos degree). The orange and red curves respectively show the results with and without orthogonalization of the eigenvectors in the Lanczos algorithm. The processing time is proportional to :math:`\mathcal{O}(l)` without orthogonalization, which is consistent with the complexity given in :math:numref:`comp-slq-alg` when :math:`\mathrm{nnz}(\mathbf{A})` is large. However, the processing time is almost :math:`\mathcal{O}(l^{2})` with orthogonalization for :math:`l < 300`, which is consistent with the complexity of the Gram-Schmit orthogonalization process.
 
 .. image:: ../_static/images/performance/vary_lanczos_degree_analytic_matrix_time.png
    :align: center

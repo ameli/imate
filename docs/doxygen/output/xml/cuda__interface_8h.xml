@@ -4,31 +4,20 @@
     <compoundname>cuda_interface.h</compoundname>
     <includes local="no">cuda_runtime_api.h</includes>
     <includes refid="types_8h" local="yes">../_definitions/types.h</includes>
-    <includedby refid="cu__affine__matrix__function_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_affine_matrix_function.cu</includedby>
-    <includedby refid="cu__csc__matrix_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_csc_matrix.cu</includedby>
-    <includedby refid="cu__csr__matrix_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_csr_matrix.cu</includedby>
-    <includedby refid="cu__dense__matrix_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_matrix.cu</includedby>
-    <includedby refid="cu__linear__operator_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_linear_operator.cu</includedby>
-    <includedby refid="cu__golub__kahn__bidiagonalization_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_golub_kahn_bidiagonalization.cu</includedby>
-    <includedby refid="cu__lanczos__tridiagonalization_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu</includedby>
-    <includedby refid="cu__orthogonalization_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_orthogonalization.cu</includedby>
-    <includedby refid="cu__trace__estimator_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_trace_estimator.cu</includedby>
-    <includedby refid="cuda__interface_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.cu</includedby>
+    <includedby refid="cu__affine__matrix__function_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.cu</includedby>
+    <includedby refid="cu__csc__matrix_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_linear_operator/cu_csc_matrix.cu</includedby>
+    <includedby refid="cu__csr__matrix_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_linear_operator/cu_csr_matrix.cu</includedby>
+    <includedby refid="cu__dense__matrix_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_linear_operator/cu_dense_matrix.cu</includedby>
+    <includedby refid="cu__linear__operator_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.cu</includedby>
+    <includedby refid="cu__golub__kahn__bidiagonalization_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_golub_kahn_bidiagonalization.cu</includedby>
+    <includedby refid="cu__lanczos__tridiagonalization_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu</includedby>
+    <includedby refid="cu__orthogonalization_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_orthogonalization.cu</includedby>
+    <includedby refid="cu__trace__estimator_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_trace_estimator.cu</includedby>
+    <includedby refid="cuda__interface_8cu" local="yes">/home/sia/work/github/imate/imate/_cuda_utilities/cuda_interface.cu</includedby>
     <incdepgraph>
       <node id="4">
         <label>./definitions.h</label>
         <link refid="definitions_8h"/>
-      </node>
-      <node id="1">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.h</label>
-        <link refid="cuda__interface_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
-      <node id="2">
-        <label>cuda_runtime_api.h</label>
       </node>
       <node id="3">
         <label>../_definitions/types.h</label>
@@ -36,34 +25,57 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
+      <node id="2">
+        <label>cuda_runtime_api.h</label>
+      </node>
+      <node id="1">
+        <label>/home/sia/work/github/imate/imate/_cuda_utilities/cuda_interface.h</label>
+        <link refid="cuda__interface_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="10">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_trace_estimator.cu</label>
-        <link refid="cu__trace__estimator_8cu"/>
+      <node id="3">
+        <label>/home/sia/work/github/imate/imate/_cu_linear_operator/cu_csc_matrix.cu</label>
+        <link refid="cu__csc__matrix_8cu"/>
+      </node>
+      <node id="7">
+        <label>/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_golub_kahn_bidiagonalization.cu</label>
+        <link refid="cu__golub__kahn__bidiagonalization_8cu"/>
       </node>
       <node id="2">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_affine_matrix_function.cu</label>
+        <label>/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.cu</label>
         <link refid="cu__affine__matrix__function_8cu"/>
       </node>
       <node id="5">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_dense_matrix.cu</label>
+        <label>/home/sia/work/github/imate/imate/_cu_linear_operator/cu_dense_matrix.cu</label>
         <link refid="cu__dense__matrix_8cu"/>
       </node>
       <node id="11">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.cu</label>
+        <label>/home/sia/work/github/imate/imate/_cuda_utilities/cuda_interface.cu</label>
         <link refid="cuda__interface_8cu"/>
       </node>
-      <node id="3">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_csc_matrix.cu</label>
-        <link refid="cu__csc__matrix_8cu"/>
+      <node id="4">
+        <label>/home/sia/work/github/imate/imate/_cu_linear_operator/cu_csr_matrix.cu</label>
+        <link refid="cu__csr__matrix_8cu"/>
       </node>
       <node id="9">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_orthogonalization.cu</label>
+        <label>/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_orthogonalization.cu</label>
         <link refid="cu__orthogonalization_8cu"/>
       </node>
+      <node id="6">
+        <label>/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.cu</label>
+        <link refid="cu__linear__operator_8cu"/>
+      </node>
+      <node id="10">
+        <label>/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_trace_estimator.cu</label>
+        <link refid="cu__trace__estimator_8cu"/>
+      </node>
       <node id="1">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.h</label>
+        <label>/home/sia/work/github/imate/imate/_cuda_utilities/cuda_interface.h</label>
         <link refid="cuda__interface_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -87,20 +99,8 @@
         </childnode>
       </node>
       <node id="8">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu</label>
+        <label>/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_lanczos_tridiagonalization.cu</label>
         <link refid="cu__lanczos__tridiagonalization_8cu"/>
-      </node>
-      <node id="4">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_csr_matrix.cu</label>
-        <link refid="cu__csr__matrix_8cu"/>
-      </node>
-      <node id="7">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_golub_kahn_bidiagonalization.cu</label>
-        <link refid="cu__golub__kahn__bidiagonalization_8cu"/>
-      </node>
-      <node id="6">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_linear_operator/cu_linear_operator.cu</label>
-        <link refid="cu__linear__operator_8cu"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classCudaInterface" prot="public">CudaInterface</innerclass>
@@ -174,6 +174,6 @@
 <codeline lineno="68"><highlight class="normal"></highlight></codeline>
 <codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>_CUDA_UTILITIES_CUDA_INTERFACE_H_</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_utilities/cuda_interface.h"/>
+    <location file="/home/sia/work/github/imate/imate/_cuda_utilities/cuda_interface.h"/>
   </compounddef>
 </doxygen>

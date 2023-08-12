@@ -4,28 +4,22 @@
     <compoundname>random_array_generator.h</compoundname>
     <includes refid="types_8h" local="yes">../_definitions/types.h</includes>
     <includes refid="random__number__generator_8h" local="yes">./random_number_generator.h</includes>
-    <includedby refid="c__orthogonalization_8cpp" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_orthogonalization.cpp</includedby>
-    <includedby refid="c__trace__estimator_8cpp" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_trace_estimator.cpp</includedby>
-    <includedby refid="cu__orthogonalization_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_orthogonalization.cu</includedby>
-    <includedby refid="cu__trace__estimator_8cu" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_trace_estimator.cu</includedby>
-    <includedby refid="random__array__generator_8cpp" local="yes">/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_random_generator/random_array_generator.cpp</includedby>
+    <includedby refid="c__orthogonalization_8cpp" local="yes">/home/sia/work/github/imate/imate/_c_trace_estimator/c_orthogonalization.cpp</includedby>
+    <includedby refid="c__trace__estimator_8cpp" local="yes">/home/sia/work/github/imate/imate/_c_trace_estimator/c_trace_estimator.cpp</includedby>
+    <includedby refid="cu__orthogonalization_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_orthogonalization.cu</includedby>
+    <includedby refid="cu__trace__estimator_8cu" local="yes">/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_trace_estimator.cu</includedby>
+    <includedby refid="random__array__generator_8cpp" local="yes">/home/sia/work/github/imate/imate/_random_generator/random_array_generator.cpp</includedby>
     <incdepgraph>
+      <node id="5">
+        <label>stdint.h</label>
+      </node>
       <node id="1">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_random_generator/random_array_generator.h</label>
+        <label>/home/sia/work/github/imate/imate/_random_generator/random_array_generator.h</label>
         <link refid="random__array__generator_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-      </node>
-      <node id="4">
-        <label>./random_number_generator.h</label>
-        <link refid="random__number__generator_8h"/>
-        <childnode refid="5" relation="include">
-        </childnode>
-      </node>
-      <node id="5">
-        <label>stdint.h</label>
       </node>
       <node id="3">
         <label>./definitions.h</label>
@@ -37,10 +31,20 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
+      <node id="4">
+        <label>./random_number_generator.h</label>
+        <link refid="random__number__generator_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="3">
+        <label>/home/sia/work/github/imate/imate/_c_trace_estimator/c_trace_estimator.cpp</label>
+        <link refid="c__trace__estimator_8cpp"/>
+      </node>
       <node id="1">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_random_generator/random_array_generator.h</label>
+        <label>/home/sia/work/github/imate/imate/_random_generator/random_array_generator.h</label>
         <link refid="random__array__generator_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -53,25 +57,21 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="5">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_trace_estimator.cu</label>
-        <link refid="cu__trace__estimator_8cu"/>
+      <node id="2">
+        <label>/home/sia/work/github/imate/imate/_c_trace_estimator/c_orthogonalization.cpp</label>
+        <link refid="c__orthogonalization_8cpp"/>
       </node>
       <node id="4">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cu_trace_estimator/cu_orthogonalization.cu</label>
+        <label>/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_orthogonalization.cu</label>
         <link refid="cu__orthogonalization_8cu"/>
       </node>
       <node id="6">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_random_generator/random_array_generator.cpp</label>
+        <label>/home/sia/work/github/imate/imate/_random_generator/random_array_generator.cpp</label>
         <link refid="random__array__generator_8cpp"/>
       </node>
-      <node id="3">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_trace_estimator.cpp</label>
-        <link refid="c__trace__estimator_8cpp"/>
-      </node>
-      <node id="2">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_c_trace_estimator/c_orthogonalization.cpp</label>
-        <link refid="c__orthogonalization_8cpp"/>
+      <node id="5">
+        <label>/home/sia/work/github/imate/imate/_cu_trace_estimator/cu_trace_estimator.cu</label>
+        <link refid="cu__trace__estimator_8cu"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classRandomArrayGenerator" prot="public">RandomArrayGenerator</innerclass>
@@ -124,6 +124,6 @@
 <codeline lineno="49"><highlight class="normal"></highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>_RANDOM_GENERATOR_RANDOM_ARRAY_GENERATOR_H_</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_random_generator/random_array_generator.h"/>
+    <location file="/home/sia/work/github/imate/imate/_random_generator/random_array_generator.h"/>
   </compounddef>
 </doxygen>

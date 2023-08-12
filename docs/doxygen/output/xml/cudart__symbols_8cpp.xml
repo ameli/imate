@@ -8,12 +8,10 @@
     <includes local="no">sstream</includes>
     <includes refid="dynamic__loading_8h" local="yes">./dynamic_loading.h</includes>
     <incdepgraph>
-      <node id="8">
-        <label>./dynamic_loading.h</label>
-        <link refid="dynamic__loading_8h"/>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
+      <node id="4">
+        <label>./cudart_types.h</label>
+        <link refid="cudart__types_8h"/>
+        <childnode refid="5" relation="include">
         </childnode>
       </node>
       <node id="9">
@@ -21,12 +19,6 @@
       </node>
       <node id="3">
         <label>string</label>
-      </node>
-      <node id="4">
-        <label>./cudart_types.h</label>
-        <link refid="cudart__types_8h"/>
-        <childnode refid="5" relation="include">
-        </childnode>
       </node>
       <node id="2">
         <label>./cudart_symbols.h</label>
@@ -36,8 +28,17 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
+      <node id="7">
+        <label>sstream</label>
+      </node>
+      <node id="6">
+        <label>cstdlib</label>
+      </node>
+      <node id="5">
+        <label>cuda_runtime_api.h</label>
+      </node>
       <node id="1">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp</label>
+        <label>/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp</label>
         <link refid="cudart__symbols_8cpp"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -50,14 +51,13 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="7">
-        <label>sstream</label>
-      </node>
-      <node id="6">
-        <label>cstdlib</label>
-      </node>
-      <node id="5">
-        <label>cuda_runtime_api.h</label>
+      <node id="8">
+        <label>./dynamic_loading.h</label>
+        <link refid="dynamic__loading_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -77,7 +77,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="106" column="13" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="106" bodyend="120"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="106" column="13" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="106" bodyend="120"/>
         <references refid="classcudartSymbols_1a156c42bf5798d18233e5ebe315226d15" compoundref="cudart__symbols_8h" startline="54">cudartSymbols::cudaEventCreate</references>
         <references refid="classcudartSymbols_1a9ecf36abdbb090bbc573672be6e538eb" compoundref="cudart__symbols_8cpp" startline="54" endline="91">cudartSymbols::get_lib_name</references>
         <referencedby refid="classCudaTimer_1add52b7f92343ff892346eb3f9d6f9173" compoundref="cuda__timer_8cu" startline="26" endline="30">CudaTimer::CudaTimer</referencedby>
@@ -98,7 +98,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="130" column="13" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="130" bodyend="144"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="130" column="13" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="130" bodyend="144"/>
         <references refid="classcudartSymbols_1a99161bd609c1844125807f92a6de2413" compoundref="cudart__symbols_8h" startline="55">cudartSymbols::cudaEventDestroy</references>
         <references refid="classcudartSymbols_1a9ecf36abdbb090bbc573672be6e538eb" compoundref="cudart__symbols_8cpp" startline="54" endline="91">cudartSymbols::get_lib_name</references>
         <referencedby refid="classCudaTimer_1a1399cfa1437978db51c918ef5b9eeb70" compoundref="cuda__timer_8cu" startline="40" endline="44">CudaTimer::~CudaTimer</referencedby>
@@ -127,7 +127,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="154" column="13" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="154" bodyend="171"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="154" column="13" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="154" bodyend="171"/>
         <references refid="classcudartSymbols_1ae4c104f14a430b3fbe81ea0dde0e89bd" compoundref="cudart__symbols_8h" startline="56">cudartSymbols::cudaEventElapsedTime</references>
         <references refid="classcudartSymbols_1a9ecf36abdbb090bbc573672be6e538eb" compoundref="cudart__symbols_8cpp" startline="54" endline="91">cudartSymbols::get_lib_name</references>
         <referencedby refid="classCudaTimer_1ab7853cd930e7c0500da53565d8e431d2" compoundref="cuda__timer_8cu" startline="80" endline="88">CudaTimer::elapsed</referencedby>
@@ -152,7 +152,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="181" column="13" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="181" bodyend="195"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="181" column="13" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="181" bodyend="195"/>
         <references refid="classcudartSymbols_1a8e99a02eb0fb34f9883507103e79d40f" compoundref="cudart__symbols_8h" startline="57">cudartSymbols::cudaEventRecord</references>
         <references refid="classcudartSymbols_1a9ecf36abdbb090bbc573672be6e538eb" compoundref="cudart__symbols_8cpp" startline="54" endline="91">cudartSymbols::get_lib_name</references>
         <referencedby refid="classCudaTimer_1a5db3e05cd63573015bf1a9f55cc37e32" compoundref="cuda__timer_8cu" startline="54" endline="57">CudaTimer::start</referencedby>
@@ -174,7 +174,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="205" column="13" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="205" bodyend="219"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="205" column="13" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="205" bodyend="219"/>
         <references refid="classcudartSymbols_1a1740daff311a7b25a02b7b46b8087a6a" compoundref="cudart__symbols_8h" startline="58">cudartSymbols::cudaEventSynchronize</references>
         <references refid="classcudartSymbols_1a9ecf36abdbb090bbc573672be6e538eb" compoundref="cudart__symbols_8cpp" startline="54" endline="91">cudartSymbols::get_lib_name</references>
         <referencedby refid="classCudaTimer_1ab7853cd930e7c0500da53565d8e431d2" compoundref="cuda__timer_8cu" startline="80" endline="88">CudaTimer::elapsed</referencedby>
@@ -195,7 +195,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="229" column="13" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="229" bodyend="243"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="229" column="13" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="229" bodyend="243"/>
         <references refid="classcudartSymbols_1a866844e71c33e007d14ffde7777fc16d" compoundref="cudart__symbols_8h" startline="59">cudartSymbols::cudaGetDevice</references>
         <references refid="classcudartSymbols_1a9ecf36abdbb090bbc573672be6e538eb" compoundref="cudart__symbols_8cpp" startline="54" endline="91">cudartSymbols::get_lib_name</references>
         <referencedby refid="classCudaInterface_1a29ab521266d2670951510179d719ead1" compoundref="cuda__interface_8cu" startline="206" endline="213">CudaInterface&lt; ArrayType &gt;::get_device</referencedby>
@@ -216,7 +216,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="253" column="13" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="253" bodyend="267"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="253" column="13" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="253" bodyend="267"/>
         <references refid="classcudartSymbols_1a9db146f9df12943d584c85215c64b2eb" compoundref="cudart__symbols_8h" startline="60">cudartSymbols::cudaGetDeviceCount</references>
         <references refid="classcudartSymbols_1a9ecf36abdbb090bbc573672be6e538eb" compoundref="cudart__symbols_8cpp" startline="54" endline="91">cudartSymbols::get_lib_name</references>
         <referencedby refid="query__device_8cu_1a6738c790bb99e337eb12d743f0b0652b" compoundref="query__device_8cu" startline="31" endline="67">query_device</referencedby>
@@ -242,7 +242,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="277" column="13" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="277" bodyend="293"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="277" column="13" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="277" bodyend="293"/>
         <references refid="classcudartSymbols_1af4687160fc8cc14c5548fbd8eb50fb1c" compoundref="cudart__symbols_8h" startline="61">cudartSymbols::cudaGetDeviceProperties</references>
         <references refid="classcudartSymbols_1a9ecf36abdbb090bbc573672be6e538eb" compoundref="cudart__symbols_8cpp" startline="54" endline="91">cudartSymbols::get_lib_name</references>
         <referencedby refid="query__device_8cu_1a6738c790bb99e337eb12d743f0b0652b" compoundref="query__device_8cu" startline="31" endline="67">query_device</referencedby>
@@ -263,7 +263,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="303" column="13" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="303" bodyend="316"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="303" column="13" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="303" bodyend="316"/>
         <references refid="classcudartSymbols_1adddc0765e7978f269faf9a8eb4489d09" compoundref="cudart__symbols_8h" startline="62">cudartSymbols::cudaFree</references>
         <references refid="classcudartSymbols_1a9ecf36abdbb090bbc573672be6e538eb" compoundref="cudart__symbols_8cpp" startline="54" endline="91">cudartSymbols::get_lib_name</references>
         <referencedby refid="classCudaInterface_1a427b7203f73cf821e35234e5f724064b" compoundref="cuda__interface_8cu" startline="166" endline="174">CudaInterface&lt; ArrayType &gt;::del</referencedby>
@@ -288,7 +288,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="326" column="13" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="326" bodyend="340"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="326" column="13" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="326" bodyend="340"/>
         <references refid="classcudartSymbols_1a27c13dcf820b6d1f8ff2774ba0c58a67" compoundref="cudart__symbols_8h" startline="63">cudartSymbols::cudaMalloc</references>
         <references refid="classcudartSymbols_1a9ecf36abdbb090bbc573672be6e538eb" compoundref="cudart__symbols_8cpp" startline="54" endline="91">cudartSymbols::get_lib_name</references>
         <referencedby refid="classCudaInterface_1a65875bf1fdfe213562b31e3459f04b33" compoundref="cuda__interface_8cu" startline="36" endline="60">CudaInterface&lt; ArrayType &gt;::alloc</referencedby>
@@ -322,7 +322,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="350" column="13" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="350" bodyend="368"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="350" column="13" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="350" bodyend="368"/>
         <references refid="classcudartSymbols_1a4143994a7240140b2f0fd9caf85926d1" compoundref="cudart__symbols_8h" startline="64">cudartSymbols::cudaMemcpy</references>
         <references refid="classcudartSymbols_1a9ecf36abdbb090bbc573672be6e538eb" compoundref="cudart__symbols_8cpp" startline="54" endline="91">cudartSymbols::get_lib_name</references>
         <referencedby refid="classCudaInterface_1a95efada2ca34b3490f96ccfa97b4d6eb" compoundref="cuda__interface_8cu" startline="142" endline="151">CudaInterface&lt; ArrayType &gt;::copy_to_device</referencedby>
@@ -343,7 +343,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="378" column="13" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="378" bodyend="392"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="378" column="13" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="378" bodyend="392"/>
         <references refid="classcudartSymbols_1ac7eb5608f9c5a0f79b3049bb1abda5b8" compoundref="cudart__symbols_8h" startline="65">cudartSymbols::cudaSetDevice</references>
         <references refid="classcudartSymbols_1a9ecf36abdbb090bbc573672be6e538eb" compoundref="cudart__symbols_8cpp" startline="54" endline="91">cudartSymbols::get_lib_name</references>
         <referencedby refid="classCudaInterface_1aba5754e3b4c02d3b151fdee31fa0fd46" compoundref="cuda__interface_8cu" startline="188" endline="192">CudaInterface&lt; ArrayType &gt;::set_device</referencedby>
@@ -364,7 +364,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="402" column="6" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="402" bodyend="416"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="402" column="6" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="402" bodyend="416"/>
         <references refid="classcudartSymbols_1a5dc1251d3782a5040c8bff90202995b6" compoundref="cudart__symbols_8h" startline="66">cudartSymbols::__cudaRegisterFatBinary</references>
         <references refid="classcudartSymbols_1a9ecf36abdbb090bbc573672be6e538eb" compoundref="cudart__symbols_8cpp" startline="54" endline="91">cudartSymbols::get_lib_name</references>
       </memberdef>
@@ -384,7 +384,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="426" column="6" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="426" bodyend="440"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="426" column="6" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="426" bodyend="440"/>
         <references refid="classcudartSymbols_1a1985af1646384a14fea66aaaf35377dd" compoundref="cudart__symbols_8h" startline="67">cudartSymbols::__cudaRegisterFatBinaryEnd</references>
         <references refid="classcudartSymbols_1a9ecf36abdbb090bbc573672be6e538eb" compoundref="cudart__symbols_8cpp" startline="54" endline="91">cudartSymbols::get_lib_name</references>
       </memberdef>
@@ -404,7 +404,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="450" column="6" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="450" bodyend="464"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" line="450" column="6" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp" bodystart="450" bodyend="464"/>
         <references refid="classcudartSymbols_1a1ab071e3a3d72de31406b954dbddde28" compoundref="cudart__symbols_8h" startline="68">cudartSymbols::__cudaUnregisterFatBinary</references>
         <references refid="classcudartSymbols_1a9ecf36abdbb090bbc573672be6e538eb" compoundref="cudart__symbols_8cpp" startline="54" endline="91">cudartSymbols::get_lib_name</references>
       </memberdef>
@@ -852,6 +852,6 @@
 <codeline lineno="468"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="469"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp"/>
+    <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cudart_symbols.cpp"/>
   </compounddef>
 </doxygen>

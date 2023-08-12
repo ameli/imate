@@ -136,9 +136,8 @@ For complete installation guide, see:
 
 .. toctree::
     :maxdepth: 2
-    :numbered:
 
-    Install <tutorials/install>
+    Install <install/install>
 
 Docker
 ======
@@ -161,9 +160,8 @@ For a complete guide, see:
 
 .. toctree::
     :maxdepth: 2
-    :numbered:
 
-    Docker <tutorials/docker>
+    Docker <docker/docker>
 
 GPU
 ===
@@ -172,10 +170,8 @@ GPU
 
 .. toctree::
     :maxdepth: 2
-    :name: Using GPU
-    :numbered:
 
-    GPU <tutorials/gpu>
+    GPU <gpu/gpu>
 
 The supported GPU micro-architectures and CUDA version are as follows:
 
@@ -313,7 +309,13 @@ Some notable implementation techniques used to develop |project| are:
 * OS-independent customized `dynamic loading` of CUDA libraries (as opposed to dynamic linking).
 * Static dispatching enables executing |project| with and without CUDA on the user's machine with the same pre-compiled |project| installation.
 * Completely `GIL <https://en.wikipedia.org/wiki/Global_interpreter_lock>`_-*free* Cython implementation.
-* Providing `manylinux wheels <https://pypi.org/project/imate/#files>`_ build upon customized docker images with CUDA support (see `manylinux CUDA 10 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_10>`_ and `manylinux CUDA 11 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_11>`_ docker images on Docker Hub).
+* Providing `manylinux wheels <https://pypi.org/project/imate/#files>`_ build upon customized docker images with CUDA support available on DockerHub:
+     
+  * `manylinux CUDA 10.2 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_10.2>`_
+  * `manylinux CUDA 11.7 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_11.7>`_
+  * `manylinux CUDA 11.8 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_11.8>`_
+  * `manylinux CUDA 12.0 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_12.0>`_
+  * `manylinux CUDA 12.2 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_12.2>`_
 
 How to Contribute
 =================

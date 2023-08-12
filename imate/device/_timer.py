@@ -362,7 +362,7 @@ class Timer(object):
             proc_time_ = time.process_time() - self.init_proc_time
 
         if self.hold:
-            # Commulative time between successive tic-toc
+            # Cumulative time between successive tic-toc
             self.wall_time += wall_time_
             self.proc_time += proc_time_
         else:

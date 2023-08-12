@@ -8,8 +8,28 @@
     <includes local="no">sstream</includes>
     <includes refid="dynamic__loading_8h" local="yes">./dynamic_loading.h</includes>
     <incdepgraph>
+      <node id="2">
+        <label>./cusparse_symbols.h</label>
+        <link refid="cusparse__symbols_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>stdexcept</label>
+      </node>
+      <node id="3">
+        <label>string</label>
+      </node>
+      <node id="7">
+        <label>sstream</label>
+      </node>
+      <node id="6">
+        <label>cstdlib</label>
+      </node>
       <node id="1">
-        <label>/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp</label>
+        <label>/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp</label>
         <link refid="cusparse__symbols_8cpp"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -22,34 +42,6 @@
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="8">
-        <label>./dynamic_loading.h</label>
-        <link refid="dynamic__loading_8h"/>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
-      <node id="9">
-        <label>stdexcept</label>
-      </node>
-      <node id="3">
-        <label>string</label>
-      </node>
-      <node id="2">
-        <label>./cusparse_symbols.h</label>
-        <link refid="cusparse__symbols_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>sstream</label>
-      </node>
-      <node id="6">
-        <label>cstdlib</label>
-      </node>
       <node id="4">
         <label>./cusparse_types.h</label>
         <link refid="cusparse__types_8h"/>
@@ -58,6 +50,14 @@
       </node>
       <node id="5">
         <label>cusparse.h</label>
+      </node>
+      <node id="8">
+        <label>./dynamic_loading.h</label>
+        <link refid="dynamic__loading_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="func">
@@ -77,7 +77,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="92" column="18" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="92" bodyend="106"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="92" column="18" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="92" bodyend="106"/>
         <references refid="classcusparseSymbols_1ade8efe7665227cb14709abd0ea3bbc58" compoundref="cusparse__symbols_8h" startline="54">cusparseSymbols::cusparseCreate</references>
         <references refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" compoundref="cusparse__symbols_8cpp" startline="44" endline="77">cusparseSymbols::get_lib_name</references>
         <referencedby refid="classcuLinearOperator_1a118f2b8f1523da52441070340f7c43f9" compoundref="cu__linear__operator_8cu" startline="217" endline="238">cuLinearOperator&lt; DataType &gt;::initialize_cusparse_handle</referencedby>
@@ -98,7 +98,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="116" column="18" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="116" bodyend="130"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="116" column="18" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="116" bodyend="130"/>
         <references refid="classcusparseSymbols_1a78e13bb5dc2a3b3ce253f423a82d4c4b" compoundref="cusparse__symbols_8h" startline="55">cusparseSymbols::cusparseDestroy</references>
         <references refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" compoundref="cusparse__symbols_8cpp" startline="44" endline="77">cusparseSymbols::get_lib_name</references>
         <referencedby refid="classcuLinearOperator_1ad1d14172ed32afa599208af04ec4db0c" compoundref="cu__linear__operator_8cu" startline="103" endline="148">cuLinearOperator&lt; DataType &gt;::~cuLinearOperator</referencedby>
@@ -159,7 +159,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="140" column="18" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="140" bodyend="167"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="140" column="18" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="140" bodyend="167"/>
         <references refid="classcusparseSymbols_1a51d52cbc237d3f59b7244d954c1b5462" compoundref="cusparse__symbols_8h" startline="56">cusparseSymbols::cusparseCreateCsr</references>
         <references refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" compoundref="cusparse__symbols_8cpp" startline="44" endline="77">cusparseSymbols::get_lib_name</references>
         <referencedby refid="namespacecusparse__interface_1a299874ed85d8789ae48d3d7b9826c3fe" compoundref="cusparse__interface_8cu" startline="67" endline="83">cusparse_interface::create_cusparse_matrix&lt; double &gt;</referencedby>
@@ -193,7 +193,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="177" column="18" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="177" bodyend="196"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="177" column="18" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="177" bodyend="196"/>
         <references refid="classcusparseSymbols_1a4a123899d5a1e03864f4e0a4155b269a" compoundref="cusparse__symbols_8h" startline="57">cusparseSymbols::cusparseCreateDnVec</references>
         <references refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" compoundref="cusparse__symbols_8cpp" startline="44" endline="77">cusparseSymbols::get_lib_name</references>
         <referencedby refid="namespacecusparse__interface_1a3d268461daf7d42e2a41d13ea8f3b762" compoundref="cusparse__interface_8cu" startline="122" endline="131">cusparse_interface::create_cusparse_vector&lt; double &gt;</referencedby>
@@ -215,7 +215,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="206" column="18" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="206" bodyend="221"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="206" column="18" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="206" bodyend="221"/>
         <references refid="classcusparseSymbols_1ad584b159e6b0e784435abb2e63166e64" compoundref="cusparse__symbols_8h" startline="58">cusparseSymbols::cusparseDestroySpMat</references>
         <references refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" compoundref="cusparse__symbols_8cpp" startline="44" endline="77">cusparseSymbols::get_lib_name</references>
         <referencedby refid="namespacecusparse__interface_1a5ab766d1794cea863c5d79815e9b7537" compoundref="cusparse__interface_8cu" startline="141" endline="146">cusparse_interface::destroy_cusparse_matrix</referencedby>
@@ -236,7 +236,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="231" column="18" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="231" bodyend="246"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="231" column="18" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="231" bodyend="246"/>
         <references refid="classcusparseSymbols_1a67e7ca43456e20074db7a35827bd3531" compoundref="cusparse__symbols_8h" startline="59">cusparseSymbols::cusparseDestroyDnVec</references>
         <references refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" compoundref="cusparse__symbols_8cpp" startline="44" endline="77">cusparseSymbols::get_lib_name</references>
         <referencedby refid="namespacecusparse__interface_1a5bde38e93d3b432f9342e83682db4f2e" compoundref="cusparse__interface_8cu" startline="156" endline="161">cusparse_interface::destroy_cusparse_vector</referencedby>
@@ -293,7 +293,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="256" column="18" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="256" bodyend="282"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="256" column="18" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="256" bodyend="282"/>
         <references refid="classcusparseSymbols_1a992bc5da8fef13610b0aa7a419d8053f" compoundref="cusparse__symbols_8h" startline="60">cusparseSymbols::cusparseSpMV_bufferSize</references>
         <references refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" compoundref="cusparse__symbols_8cpp" startline="44" endline="77">cusparseSymbols::get_lib_name</references>
         <referencedby refid="namespacecusparse__interface_1ac67669d75f177e0954adb194b94628fb" compoundref="cusparse__interface_8cu" startline="204" endline="221">cusparse_interface::cusparse_matrix_buffer_size&lt; double &gt;</referencedby>
@@ -351,7 +351,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="292" column="18" bodyfile="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="292" bodyend="318"/>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="292" column="18" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="292" bodyend="318"/>
         <references refid="classcusparseSymbols_1a7457b71806ba434a5a7f1f67a42af4bf" compoundref="cusparse__symbols_8h" startline="61">cusparseSymbols::cusparseSpMV</references>
         <references refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" compoundref="cusparse__symbols_8cpp" startline="44" endline="77">cusparseSymbols::get_lib_name</references>
         <referencedby refid="namespacecusparse__interface_1a0da64dcd32e3cf5c84476e8bc2d46bbc" compoundref="cusparse__interface_8cu" startline="263" endline="283">cusparse_interface::cusparse_matvec&lt; double &gt;</referencedby>
@@ -669,6 +669,6 @@
 <codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="323"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="/home/sia/work/ADCP/Noise-Estimation/code/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp"/>
+    <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp"/>
   </compounddef>
 </doxygen>

@@ -1505,7 +1505,7 @@ def main(argv):
     readme_file = join(directory, 'README.rst')
     long_description = open(readme_file, 'r').read()
 
-    # Cyhton cpp extensions
+    # Cython cpp extensions
     extensions = []
 
     extensions.append(create_extension(package_name, 'sample_matrices'))
@@ -1543,7 +1543,7 @@ def main(argv):
     extensions.append(create_extension(package_name, 'logdet',
                                        other_source_dirs=['functions']))
 
-    # Cyhton CUDA extensions
+    # Cython CUDA extensions
     if use_cuda:
         extensions.append(create_extension(package_name, '_cuda_utilities'))
 
@@ -1617,7 +1617,7 @@ def main(argv):
             "Tracker": tracker_url,
         },
         platforms=['Linux', 'OSX', 'Windows'],
-        packages=setuptools.find_packages(exclude=[
+        packages=setuptools.find_namespace_packages(exclude=[
             'tests.*',
             'tests',
             'examples.*',
