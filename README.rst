@@ -11,7 +11,7 @@ Links
 * `PyPI <https://pypi.org/project/imate/>`_
 * `Anaconda <https://anaconda.org/s-ameli/imate>`_
 * `Docker Hub <https://hub.docker.com/r/sameli/imate>`_
-* `Git Hub <https://github.com/ameli/imate>`_
+* `Github <https://github.com/ameli/imate>`_
 
 Install
 =======
