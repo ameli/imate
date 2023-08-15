@@ -7,8 +7,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="Using imate on Docker" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ameli.github.io/docker/docker.html" />
+<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:description" content="Contents: Using imate on Docker- Why Using Docker, Install Docker, Get imate Docker Image, Examples of Using imate Docker Container, Deploy imate Docker Container on GPU- Install NVIDIA Container Toolkit, Run imate Docker Container on GPU... Why Using Docker: imate ’s docker image can be very use..." />
+<meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
+<meta property="og:image:alt" content="RestoreIO" />
+<meta name="description" content="Contents: Using imate on Docker- Why Using Docker, Install Docker, Get imate Docker Image, Examples of Using imate Docker Container, Deploy imate Docker Container on GPU- Install NVIDIA Container Toolkit, Run imate Docker Container on GPU... Why Using Docker: imate ’s docker image can be very use..." />
+<meta property="og:title" content="RestoreIO">
+<meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
-    <title>2. Using imate on Docker &#8212; imate Manual</title>
+    <title>Using imate on Docker &#8212; imate Manual</title>
 <script>
   document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
   document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
@@ -31,7 +41,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -52,8 +62,8 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="3. Using GPU Devices" href="gpu.html" />
-    <link rel="prev" title="1. Install" href="install.html" />
+    <link rel="next" title="Using GPU Devices" href="../gpu/gpu.html" />
+    <link rel="prev" title="6. Test Package" href="../install/test_package.html" />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
@@ -121,20 +131,20 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="install.html">
-  1. Install
+ <a class="reference internal nav-link" href="../install/install.html">
+  Install
  </a>
 </li>
 
 <li class="toctree-l1 current active nav-item">
  <a class="current reference internal nav-link" href="#">
-  2. Docker
+  Docker
  </a>
 </li>
 
 <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="gpu.html">
-  3. GPU
+ <a class="reference internal nav-link" href="../gpu/gpu.html">
+  GPU
  </a>
 </li>
 
@@ -233,17 +243,17 @@
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#why-using-docker">
-   2.1. Why Using Docker
+   Why Using Docker
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#install-docker">
-   2.2. Install Docker
+   Install Docker
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#get-project-docker-image">
-   2.3. Get
+   Get
    <span class="synco">
     imate
    </span>
@@ -252,7 +262,7 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#examples-of-using-project-docker-container">
-   2.4. Examples of Using
+   Examples of Using
    <span class="synco">
     imate
    </span>
@@ -261,7 +271,7 @@
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#deploy-project-docker-container-on-gpu">
-   2.5. Deploy
+   Deploy
    <span class="synco">
     imate
    </span>
@@ -270,12 +280,12 @@
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#install-nvidia-container-toolkit">
-     2.5.1. Install NVIDIA Container Toolkit
+     Install NVIDIA Container Toolkit
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#run-project-docker-container-on-gpu">
-     2.5.2. Run
+     Run
      <span class="synco">
       imate
      </span>
@@ -293,7 +303,7 @@
       
 
 <div class="tocsection editthispage">
-    <a href="https://github.com/ameli/imate/edit/main/docs/source/tutorials/docker.rst">
+    <a href="https://github.com/ameli/imate/edit/main/docs/source/docker/docker.rst">
         <i class="fas fa-pencil-alt"></i> Edit this page
     </a>
 </div>
@@ -311,7 +321,7 @@
               <article class="bd-article" role="main">
                 
   <section id="using-project-on-docker">
-<span id="imate-docker"></span><h1><a class="toc-backref" href="#id1" role="doc-backlink"><span class="section-number">2. </span>Using <span class="synco">imate</span> on Docker</a><a class="headerlink" href="#using-project-on-docker" title="Permalink to this heading">#</a></h1>
+<span id="imate-docker"></span><h1><a class="toc-backref" href="#id1" role="doc-backlink">Using <span class="synco">imate</span> on Docker</a><a class="headerlink" href="#using-project-on-docker" title="Permalink to this heading">#</a></h1>
 <nav class="contents" id="contents">
 <p class="topic-title">Contents</p>
 <ul class="simple">
@@ -332,17 +342,17 @@
 </ul>
 </nav>
 <section id="why-using-docker">
-<h2><a class="toc-backref" href="#id2" role="doc-backlink"><span class="section-number">2.1. </span>Why Using Docker</a><a class="headerlink" href="#why-using-docker" title="Permalink to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Why Using Docker</a><a class="headerlink" href="#why-using-docker" title="Permalink to this heading">#</a></h2>
 <p><span class="synco">imate</span>’s docker image can be very useful if you want to deploy <span class="synco">imate</span> on GPU devices. The <span class="synco">imate</span> package which is installed via <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code>, natively supports GPU devices. However, the version of CUDA Toolkit that <span class="synco">imate</span> was built with it, should match the version of CUDA Toolkit that you have on your machine. This might often be a problem, as your CUDA Toolkit might not have the same version as the one that <span class="synco">imate</span> supports.</p>
 <p>Workarounds to this problem are either:</p>
 <ul class="simple">
-<li><p>Change your CUDA installation. See <a class="reference internal" href="gpu.html#gpu-install-cuda"><span class="std std-ref">Install CUDA Toolkit</span></a>.</p></li>
-<li><p>Compile <span class="synco">imate</span> with a specific CUDA version compatible with your existing CUDA installation. See <a class="reference internal" href="install.html#compile-imate"><span class="std std-ref">Compile imate from Source</span></a>.</p></li>
+<li><p>Change your CUDA installation. See <a class="reference internal" href="../gpu/gpu_install_cuda.html#gpu-install-cuda"><span class="std std-ref">Install CUDA Toolkit</span></a>.</p></li>
+<li><p>Compile <span class="synco">imate</span> with a specific CUDA version compatible with your existing CUDA installation. See <a class="reference internal" href="../install/compile_source.html#compile-source"><span class="std std-ref">Compile imate from Source</span></a>.</p></li>
 </ul>
 <p>Alternatively, as the third option, you can simply use <span class="synco">imate</span>’s docker image without installing <span class="synco">imate</span> or a compatible CUDA Toolkit as both are installed in the docker container and ready to use out of the box.</p>
 </section>
 <section id="install-docker">
-<h2><a class="toc-backref" href="#id3" role="doc-backlink"><span class="section-number">2.2. </span>Install Docker</a><a class="headerlink" href="#install-docker" title="Permalink to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Install Docker</a><a class="headerlink" href="#install-docker" title="Permalink to this heading">#</a></h2>
 <p>The followings are instructions to install docker on Linux. To install on other operating systems, see <a class="reference external" href="https://docs.docker.com/engine/install/ubuntu/">Install Docker Engine</a> from Docker documentation.</p>
 <p>Install docker by</p>
 <div class="sd-tab-set docutils">
@@ -391,7 +401,7 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </pre></div></div><p>Then, log out and log back. If docker is installed on a <em>virtual machine</em>, restart the virtual machine for changes to take effect.</p>
 </section>
 <section id="get-project-docker-image">
-<h2><a class="toc-backref" href="#id4" role="doc-backlink"><span class="section-number">2.3. </span>Get <span class="synco">imate</span> Docker Image</a><a class="headerlink" href="#get-project-docker-image" title="Permalink to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Get <span class="synco">imate</span> Docker Image</a><a class="headerlink" href="#get-project-docker-image" title="Permalink to this heading">#</a></h2>
 <p><a class="reference external" href="https://hub.docker.com/r/sameli/imate"><img alt="docker-size" src="https://img.shields.io/docker/image-size/sameli/imate" /></a></p>
 <p>Get the <span class="synco">imate</span> docker image by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker<span class="w"> </span>pull<span class="w"> </span>sameli/imate</span>
@@ -404,7 +414,7 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </ul>
 </section>
 <section id="examples-of-using-project-docker-container">
-<span id="docker-examples"></span><h2><a class="toc-backref" href="#id5" role="doc-backlink"><span class="section-number">2.4. </span>Examples of Using <span class="synco">imate</span> Docker Container</a><a class="headerlink" href="#examples-of-using-project-docker-container" title="Permalink to this heading">#</a></h2>
+<span id="docker-examples"></span><h2><a class="toc-backref" href="#id5" role="doc-backlink">Examples of Using <span class="synco">imate</span> Docker Container</a><a class="headerlink" href="#examples-of-using-project-docker-container" title="Permalink to this heading">#</a></h2>
 <p>The followings are some examples of using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> with various options:</p>
 <ul>
 <li><p>To check the host’s NVIDIA driver version, CUDA runtime library version, and list of available GPU devices, run <code class="docutils literal notranslate"><span class="pre">nvida-smi</span></code> command by:</p>
@@ -427,10 +437,10 @@ RHEL 9</label><div class="sd-tab-content docutils">
 </ul>
 </section>
 <section id="deploy-project-docker-container-on-gpu">
-<h2><a class="toc-backref" href="#id6" role="doc-backlink"><span class="section-number">2.5. </span>Deploy <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#deploy-project-docker-container-on-gpu" title="Permalink to this heading">#</a></h2>
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Deploy <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#deploy-project-docker-container-on-gpu" title="Permalink to this heading">#</a></h2>
 <p>To access the host’s GPU device from inside the docker container, you should install NVIDIA Container Toolkit.</p>
 <section id="install-nvidia-container-toolkit">
-<h3><a class="toc-backref" href="#id7" role="doc-backlink"><span class="section-number">2.5.1. </span>Install NVIDIA Container Toolkit</a><a class="headerlink" href="#install-nvidia-container-toolkit" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Install NVIDIA Container Toolkit</a><a class="headerlink" href="#install-nvidia-container-toolkit" title="Permalink to this heading">#</a></h3>
 <p>Install <a class="reference external" href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html">NVIDIA Container Toolkit</a> as follows.</p>
 <p>Add the package to the repository:</p>
 <div class="sd-tab-set docutils">
@@ -475,7 +485,7 @@ RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>docker</span>
 </pre></div></div></section>
 <section id="run-project-docker-container-on-gpu">
-<h3><a class="toc-backref" href="#id8" role="doc-backlink"><span class="section-number">2.5.2. </span>Run <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#run-project-docker-container-on-gpu" title="Permalink to this heading">#</a></h3>
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Run <span class="synco">imate</span> Docker Container on GPU</a><a class="headerlink" href="#run-project-docker-container-on-gpu" title="Permalink to this heading">#</a></h3>
 <p>To use the host’s GPU from the docker container, simply add  <code class="docutils literal notranslate"><span class="pre">--gpus</span> <span class="pre">all</span></code> to any of the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> commands <a class="reference internal" href="#docker-examples"><span class="std std-ref">described earlier</span></a>, such as by</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">docker<span class="w"> </span>run<span class="w"> </span>--gpus<span class="w"> </span>all<span class="w"> </span>-it<span class="w"> </span>sameli/imate</span>
 </pre></div></div></section>
@@ -490,17 +500,17 @@ RHEL 9</label><div class="sd-tab-content docutils">
               <footer class="bd-footer-article">
                   <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="install.html" title="previous page">
+  <a class='left-prev' id="prev-link" href="../install/test_package.html" title="previous page">
       <i class="fas fa-angle-left"></i>
       <div class="prev-next-info">
           <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title"><span class="section-number">1. </span>Install</p>
+          <p class="prev-next-title"><span class="section-number">6. </span>Test Package</p>
       </div>
   </a>
-  <a class='right-next' id="next-link" href="gpu.html" title="next page">
+  <a class='right-next' id="next-link" href="../gpu/gpu.html" title="next page">
   <div class="prev-next-info">
       <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title"><span class="section-number">3. </span>Using GPU Devices</p>
+      <p class="prev-next-title">Using GPU Devices</p>
   </div>
   <i class="fas fa-angle-right"></i>
   </a>

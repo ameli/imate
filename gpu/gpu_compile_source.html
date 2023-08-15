@@ -1,0 +1,555 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="2. Compile imate from Source with CUDA" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ameli.github.io/gpu/gpu_compile_source.html" />
+<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:description" content="Compile imate from Source with CUDA: Contents: Compile imate from Source with CUDA- Install C++ Compiler and OpenMP, Install CUDA Compiler and Development Libraries, Load CUDA Compiler on GPU Cluster, Configure Compile-Time Environment Variables, Enable Dynamic Loading ( optional), Compile and In..." />
+<meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
+<meta property="og:image:alt" content="RestoreIO" />
+<meta name="description" content="Compile imate from Source with CUDA: Contents: Compile imate from Source with CUDA- Install C++ Compiler and OpenMP, Install CUDA Compiler and Development Libraries, Load CUDA Compiler on GPU Cluster, Configure Compile-Time Environment Variables, Enable Dynamic Loading ( optional), Compile and In..." />
+<meta property="og:title" content="RestoreIO">
+<meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
+
+    <title>2. Compile imate from Source with CUDA &#8212; imate Manual</title>
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
+
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/toggleprompt.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/custom-pydata.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/custom-pydata.css"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Use imate Docker Container on GPU" href="gpu_docker.html" />
+    <link rel="prev" title="1. Install NVIDIA CUDA Toolkit" href="gpu_install_cuda.html" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-4JHJ15SKEY');
+    </script>
+
+    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
+
+    <!-- My custom JS -->
+    <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
+
+    <!-- Syntax highlighting for BibTex code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs-bibtex@2.0.1/prism-bibtex.min.js"></script>
+
+    
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="en">
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="auto">
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
+
+    
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
+
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../contents.html">
+  
+  
+  
+  
+    <img src="../_static/images/icons/logo-imate-light.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/images/icons/logo-imate-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fas fa-bars"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../install/install.html">
+  Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../docker/docker.html">
+  Docker
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="gpu.html">
+  GPU
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API Reference
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/imate/" rel="noopener" target="_blank" title="PyPI"><span><i class="fab fa-python"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://anaconda.org/s-ameli/imate" rel="noopener" target="_blank" title="Anaconda Cloud"><span><i class="fa fa-circle-notch"></i></span>
+            <label class="sr-only">Anaconda Cloud</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+            <label class="sr-only">Docker Hub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" rel="noopener" target="_blank" title="Lanuch Jupyter on Binder"><span><i class="fa fa-chart-line"></i></span>
+            <label class="sr-only">Lanuch Jupyter on Binder</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
+          
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+    <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu.html">
+   Using GPU Devices
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Installing imate on GPU
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu_install_cuda.html">
+   1. Install NVIDIA CUDA Toolkit
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   2. Compile imate from Source with CUDA
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu_docker.html">
+   3. Use imate Docker Container on GPU
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Using imate on GPU
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="inquiry_gpu.html">
+   1. Inquiry GPU and CUDA with imate
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="run_functions_gpu.html">
+   2. Run imate Functions on GPU
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu_cluster.html">
+   3. Deploy imate on GPU Clusters
+  </a>
+ </li>
+</ul>
+
+    
+  </div>
+</nav>
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
+
+          
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#install-c-compiler-and-openmp">
+   2.1. Install C++ Compiler and OpenMP
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#install-cuda-compiler-and-development-libraries">
+   2.2. Install CUDA Compiler and Development Libraries
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#load-cuda-compiler-on-gpu-cluster">
+   2.3. Load CUDA Compiler on GPU Cluster
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#configure-compile-time-environment-variables">
+   2.4. Configure Compile-Time Environment Variables
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#enable-dynamic-loading-optional">
+   2.5. Enable Dynamic Loading (
+   <em>
+    optional
+   </em>
+   )
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#compile-and-install">
+   2.6. Compile and Install
+  </a>
+ </li>
+</ul>
+
+</nav>
+    </div>
+    
+    <div class="toc-item">
+      
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/ameli/imate/edit/main/docs/source/gpu/gpu_compile_source.rst">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+    
+  
+</div>
+
+
+          
+          
+          <div class="bd-content col-12 col-md-9 col-xl-7">
+              
+              <article class="bd-article" role="main">
+                
+  <section id="compile-project-from-source-with-cuda">
+<span id="gpu-compile-source"></span><h1><a class="toc-backref" href="#id1" role="doc-backlink"><span class="section-number">2. </span>Compile <span class="synco">imate</span> from Source with CUDA</a><a class="headerlink" href="#compile-project-from-source-with-cuda" title="Permalink to this heading">#</a></h1>
+<nav class="contents" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#compile-project-from-source-with-cuda" id="id1">Compile <span class="synco">imate</span> from Source with CUDA</a></p>
+<ul>
+<li><p><a class="reference internal" href="#install-c-compiler-and-openmp" id="id2">Install C++ Compiler and OpenMP</a></p></li>
+<li><p><a class="reference internal" href="#install-cuda-compiler-and-development-libraries" id="id3">Install CUDA Compiler and Development Libraries</a></p></li>
+<li><p><a class="reference internal" href="#load-cuda-compiler-on-gpu-cluster" id="id4">Load CUDA Compiler on GPU Cluster</a></p></li>
+<li><p><a class="reference internal" href="#configure-compile-time-environment-variables" id="id5">Configure Compile-Time Environment Variables</a></p></li>
+<li><p><a class="reference internal" href="#enable-dynamic-loading-optional" id="id6">Enable Dynamic Loading (<em>optional</em>)</a></p></li>
+<li><p><a class="reference internal" href="#compile-and-install" id="id7">Compile and Install</a></p></li>
+</ul>
+</li>
+</ul>
+</nav>
+<section id="install-c-compiler-and-openmp">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink"><span class="section-number">2.1. </span>Install C++ Compiler and OpenMP</a><a class="headerlink" href="#install-c-compiler-and-openmp" title="Permalink to this heading">#</a></h2>
+<p>Compile <span class="synco">imate</span> with either of GCC, Clang/LLVM, or Intel C++ compiler.</p>
+<p class="rubric">Install GNU GCC Compiler</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-0">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>build-essential<span class="w"> </span>libomp-dev</span>
+</pre></div></div></div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-1">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>group<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;Development Tools&quot;</span></span>
+</pre></div></div></div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-2">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>group<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;Development Tools&quot;</span></span>
+</pre></div></div></div>
+</div>
+<p>Then, export <code class="docutils literal notranslate"><span class="pre">C</span></code> and <code class="docutils literal notranslate"><span class="pre">CXX</span></code> variables by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">CC</span><span class="o">=</span>/usr/local/bin/gcc</span>
+<span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">CXX</span><span class="o">=</span>/usr/local/bin/g++</span>
+</pre></div></div><p class="rubric">Install Clang/LLVN Compiler</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-3">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>clang<span class="w"> </span>libomp-dev</span>
+</pre></div></div></div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-4">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>yum-utils</span>
+<span class="prompt1">sudo<span class="w"> </span>yum-config-manager<span class="w"> </span>--enable<span class="w"> </span>extras</span>
+<span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>makecache</span>
+<span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>clang</span>
+</pre></div></div></div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-5">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>yum-utils</span>
+<span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>config-manager<span class="w"> </span>--enable<span class="w"> </span>extras</span>
+<span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>makecache</span>
+<span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>clang</span>
+</pre></div></div></div>
+</div>
+<p>Then, export <code class="docutils literal notranslate"><span class="pre">C</span></code> and <code class="docutils literal notranslate"><span class="pre">CXX</span></code> variables by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">CC</span><span class="o">=</span>/usr/local/bin/clang</span>
+<span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">CXX</span><span class="o">=</span>/usr/local/bin/clang++</span>
+</pre></div></div><p class="rubric">Install Intel oneAPI Compiler</p>
+<p>To install <cite>Intel Compiler</cite> see <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=linux&amp;distributions=aptpackagemanager">Intel oneAPI Base Toolkit</a>.</p>
+</section>
+<section id="install-cuda-compiler-and-development-libraries">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink"><span class="section-number">2.2. </span>Install CUDA Compiler and Development Libraries</a><a class="headerlink" href="#install-cuda-compiler-and-development-libraries" title="Permalink to this heading">#</a></h2>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>The minimum version of CUDA to compile <span class="synco">imate</span> is <cite>CUDA 10.0</cite>.</p>
+</div>
+<p>If CUDA Toolkit is installed, skip this part. Otherwise, Make sure the CUDA compiler and the development libraries of cuBLAS and cuSparse are installed by</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-6">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>cuda-nvcc-11-7<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcublas-11-7<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcublas-dev-11-7<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcusparse-11-7<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcusparse-dev-11-7</span>
+</pre></div></div></div>
+<input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-7">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>--setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>cuda-nvcc-11-7.x86_64<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>cuda-cudart-devel-11-7.x86_64<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcublas-11-7.x86_64<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcublas-devel-11-7.x86_64<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcusparse-11-7.x86_64<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcusparse-devel-11-7.x86_64</span>
+</pre></div></div></div>
+<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-8">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>--setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>cuda-nvcc-11-7.x86_64<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>cuda-cudart-devel-11-7.x86_64<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcublas-11-7.x86_64<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcublas-devel-11-7.x86_64<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcusparse-11-7.x86_64<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcusparse-devel-11-7.x86_64</span>
+</pre></div></div></div>
+</div>
+<p>Update <code class="docutils literal notranslate"><span class="pre">PATH</span></code> with the CUDA installation location by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc</span>
+<span class="prompt1"><span class="nb">source</span><span class="w"> </span>~/.bashrc</span>
+</pre></div></div><p>Check if the CUDA compiler is available with <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">nvcc</span></code>.</p>
+</section>
+<section id="load-cuda-compiler-on-gpu-cluster">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink"><span class="section-number">2.3. </span>Load CUDA Compiler on GPU Cluster</a><a class="headerlink" href="#load-cuda-compiler-on-gpu-cluster" title="Permalink to this heading">#</a></h2>
+<p>If you are compiling <span class="synco">imate</span> on a GPU cluster, chances are the CUDA Toolkit is already installed. If the cluster uses <code class="docutils literal notranslate"><span class="pre">module</span></code> interface, load CUDA as follows.</p>
+<p>First, check if a CUDA module is available by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>avail</span>
+</pre></div></div><p>Load both CUDA and GCC by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>load<span class="w"> </span>cuda<span class="w"> </span>gcc</span>
+</pre></div></div><p>You may specify CUDA version if multiple CUDA versions are available, such as by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">module<span class="w"> </span>load<span class="w"> </span>cuda/11.7<span class="w"> </span>gcc/6.3</span>
+</pre></div></div><p>You may check if CUDA Compiler is available with <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">nvcc</span></code>.</p>
+</section>
+<section id="configure-compile-time-environment-variables">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink"><span class="section-number">2.4. </span>Configure Compile-Time Environment Variables</a><a class="headerlink" href="#configure-compile-time-environment-variables" title="Permalink to this heading">#</a></h2>
+<p>Specify the home directory of CUDA Toolkit by setting either of the variables <code class="docutils literal notranslate"><span class="pre">CUDA_HOME</span></code>, <code class="docutils literal notranslate"><span class="pre">CUDA_ROOT</span></code>, or <code class="docutils literal notranslate"><span class="pre">CUDA_PATH</span></code>. The home directory should be a path containing the executable <code class="docutils literal notranslate"><span class="pre">/bin/nvcc</span></code>. For instance, if <code class="docutils literal notranslate"><span class="pre">/usr/local/cuda/bin/nvcc</span></code> exists, export the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">CUDA_HOME</span><span class="o">=</span>/usr/local/cuda</span>
+</pre></div></div><p>To permanently set this variable, place the above line in a profile file, such as in <code class="docutils literal notranslate"><span class="pre">~/.bashrc</span></code>, or <code class="docutils literal notranslate"><span class="pre">~/.profile</span></code>, and source this file, for instance by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export CUDA_HOME=/usr/local/cuda${CUDA_HOME:+:${CUDA_HOME}}&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc</span>
+<span class="prompt1"><span class="nb">source</span><span class="w"> </span>~/.bashrc</span>
+</pre></div></div><p>To compile <span class="synco">imate</span> with CUDA, export the following flag variable</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">USE_CUDA</span><span class="o">=</span><span class="m">1</span></span>
+</pre></div></div></section>
+<section id="enable-dynamic-loading-optional">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink"><span class="section-number">2.5. </span>Enable Dynamic Loading (<em>optional</em>)</a><a class="headerlink" href="#enable-dynamic-loading-optional" title="Permalink to this heading">#</a></h2>
+<p>When <span class="synco">imate</span> is complied, the CUDA libraries bundle with the final installation of <span class="synco">imate</span> package, making it over 700MB. While this is generally not an issue for most users, often a small package is preferable if the installed package has to be distributed to other machines. To this end, enable the <cite>dynamic loading</cite> feature of <span class="synco">imate</span>. In this case, the CUDA libraries do not bundle with the <span class="synco">imate</span> installation, rather, <span class="synco">imate</span> loads the existing CUDA libraries of the host machine at runtime. To enable dynamic loading, simply set:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">CUDA_DYNAMIC_LOADING</span><span class="o">=</span><span class="m">1</span></span>
+</pre></div></div></section>
+<section id="compile-and-install">
+<h2><a class="toc-backref" href="#id7" role="doc-backlink"><span class="section-number">2.6. </span>Compile and Install</a><a class="headerlink" href="#compile-and-install" title="Permalink to this heading">#</a></h2>
+<p><a class="reference external" href="https://github.com/ameli/imate"><img alt="repo-size" src="https://img.shields.io/github/repo-size/ameli/imate" /></a></p>
+<p>Get the source code of <span class="synco">imate</span> with</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ameli/imate.git</span>
+</pre></div></div><p>Compile and install by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>imate</span>
+<span class="prompt1">python<span class="w"> </span>setup.py<span class="w"> </span>install</span>
+</pre></div></div></section>
+</section>
+
+
+              </article>
+              
+
+              
+              <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="gpu_install_cuda.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title"><span class="section-number">1. </span>Install NVIDIA CUDA Toolkit</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="gpu_docker.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title"><span class="section-number">3. </span>Use <span class="synco">imate</span> Docker Container on GPU</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+              </footer>
+              
+          </div>
+          
+      </div>
+    </div>
+
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+
+
+    <!-- Adobe Embed API -->
+    
+    <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+
+
+  </body>
+</html>

@@ -39,7 +39,7 @@ The following Algorithms were tested on Intel® Xeon CPU E5-2670 v3  with 24 thr
 
 .. glossary::
 
-    Cholesky Decomposition
+    1. Cholesky Decomposition
 
         This method is implemented by the following functions:
 
@@ -49,7 +49,7 @@ The following Algorithms were tested on Intel® Xeon CPU E5-2670 v3  with 24 thr
 
         The complexity of computing :math:numref:`logdet3` for matrices obtained from 1D, 2D, and 3D grids are respectively :math:`\mathcal{O}(n)`, :math:`\mathcal{O}(n^{\frac{3}{2}})`, and :math:`\mathcal{O}(n^2)` where :math:`n` is the matrix size. The complexity of computing :math:numref:`traceinv3` for sparse matrices is :math:`\mathcal{O}(\rho n^2)` where :math:`\rho` is the sparse matrix density.
 
-    Hutchinson Algorithm
+    2. Hutchinson Algorithm
 
         This method is only applied to :math:numref:`traceinv3` and implemented by :ref:`imate.traceinv.hutchinson` function. The complexity of this method is:
 
@@ -60,7 +60,7 @@ The following Algorithms were tested on Intel® Xeon CPU E5-2670 v3  with 24 thr
 
         where :math:`s` is the number of Monte-Carlo iterations in the algorithm and :math:`\rho` is the sparse matrix density. In this experiment, :math:`s = 80`.
 
-    Stochastic Lanczos Quadrature Algorithm
+    3. Stochastic Lanczos Quadrature Algorithm
 
         This method is implemented by:
 

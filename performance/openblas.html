@@ -7,6 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="Comparison of Performance with and without OpenBLAS" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ameli.github.io/performance/openblas.html" />
+<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:description" content="Almost all computational software are built upon existing numerical libraries for basic linear algebraic subprograms (BLAS), such as BLAS, OpenBLAS, NVIDIA® cuBLAS, NVIDIA® cuSparse, and Intel® Math Kernel Library, to name a few. imate uses cuBLAS and cuSparse for basic vector and matrix operatio..." />
+<meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
+<meta property="og:image:alt" content="RestoreIO" />
+<meta name="description" content="Almost all computational software are built upon existing numerical libraries for basic linear algebraic subprograms (BLAS), such as BLAS, OpenBLAS, NVIDIA® cuBLAS, NVIDIA® cuSparse, and Intel® Math Kernel Library, to name a few. imate uses cuBLAS and cuSparse for basic vector and matrix operatio..." />
+<meta property="og:title" content="RestoreIO">
+<meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
     <title>Comparison of Performance with and without OpenBLAS &#8212; imate Manual</title>
 <script>
@@ -31,7 +41,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -121,20 +131,20 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../tutorials/install.html">
-  1. Install
+ <a class="reference internal nav-link" href="../install/install.html">
+  Install
  </a>
 </li>
 
 <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../tutorials/docker.html">
-  2. Docker
+ <a class="reference internal nav-link" href="../docker/docker.html">
+  Docker
  </a>
 </li>
 
 <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../tutorials/gpu.html">
-  3. GPU
+ <a class="reference internal nav-link" href="../gpu/gpu.html">
+  GPU
  </a>
 </li>
 
@@ -293,7 +303,7 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#id2">
+    <a class="reference internal nav-link" href="#id1">
      Floating Point Arithmetic Accuracy
     </a>
    </li>
@@ -508,8 +518,8 @@
 </tr>
 </tbody>
 </table>
-<section id="id2">
-<h3>Floating Point Arithmetic Accuracy<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<section id="id1">
+<h3>Floating Point Arithmetic Accuracy<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>The accuracy of floating point arithmetic is compared with and without using OpenBLAS in the next figure. The error is obtained by comparing the results with the computation on 128-bit data type without using OpenBLAS as the benchmark. The figure implies that the results of both 32-bit and 64-bit data types with and without openBLAS are almost insignificant at <span class="math notranslate nohighlight">\(\mathrm{nnz}(\mathbf{A}) &lt; 10^7\)</span> or for 32-bit data types. In contrast, for larger matrices and 64-bit data type, the <span class="synco">imate</span> library without OpenBLAS significantly produces less arithmetic error compared with OpenBLAS.</p>
 <a class="custom-dark reference internal image-reference" href="../_images/benchmark_openblas_sparse_accuracy.png"><img alt="../_images/benchmark_openblas_sparse_accuracy.png" class="custom-dark align-center" src="../_images/benchmark_openblas_sparse_accuracy.png" style="height: 375px;" /></a>
 </section>
@@ -590,7 +600,7 @@ span.prompt1:before {
 <p class="admonition-title">Tip</p>
 <p>To compile <span class="synco">imate</span> using OpenBLAS, export the environment variable:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">USE_CBLAS</span><span class="o">=</span><span class="m">1</span></span>
-</pre></div></div><p>or set <code class="docutils literal notranslate"><span class="pre">USE_CBLAS=1</span></code> in <a class="reference external" href="https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L67"><code class="docutils literal notranslate"><span class="pre">/imate/_definitions/definition.h</span></code></a>. By default, <code class="docutils literal notranslate"><span class="pre">USE_CBLAS</span></code> is set to <code class="docutils literal notranslate"><span class="pre">0</span></code>. Then, recompile <span class="synco">imate</span>. See <a class="reference internal" href="../tutorials/install.html#compile-source"><span class="std std-ref">Compile from Source</span></a>.</p>
+</pre></div></div><p>or set <code class="docutils literal notranslate"><span class="pre">USE_CBLAS=1</span></code> in <a class="reference external" href="https://github.com/ameli/imate/blob/main/imate/_definitions/definitions.h#L67"><code class="docutils literal notranslate"><span class="pre">/imate/_definitions/definition.h</span></code></a>. By default, <code class="docutils literal notranslate"><span class="pre">USE_CBLAS</span></code> is set to <code class="docutils literal notranslate"><span class="pre">0</span></code>. Then, recompile <span class="synco">imate</span>. See <a class="reference internal" href="../install/compile_source.html#compile-source"><span class="std std-ref">Compile from Source</span></a>.</p>
 </div>
 <section id="dense-matrices-run-locally">
 <h4>Dense Matrices, Run Locally<a class="headerlink" href="#dense-matrices-run-locally" title="Permalink to this heading">#</a></h4>

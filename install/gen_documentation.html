@@ -1,0 +1,506 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="5. Generate Documentation" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ameli.github.io/install/gen_documentation.html" />
+<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:description" content="The documentation consists of a Doxygen documentation and a Sphinx documentation. You should generate the Doxygen documentation first. Before generating the Sphinx documentation, you should compile the package. Get the source code from the GitHub repository. If you already had the source code, cl..." />
+<meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
+<meta property="og:image:alt" content="RestoreIO" />
+<meta name="description" content="The documentation consists of a Doxygen documentation and a Sphinx documentation. You should generate the Doxygen documentation first. Before generating the Sphinx documentation, you should compile the package. Get the source code from the GitHub repository. If you already had the source code, cl..." />
+<meta property="og:title" content="RestoreIO">
+<meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
+
+    <title>5. Generate Documentation &#8212; imate Manual</title>
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
+
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/toggleprompt.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/custom-pydata.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/custom-pydata.css"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. Test Package" href="test_package.html" />
+    <link rel="prev" title="4. Compile from Source" href="compile_source.html" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-4JHJ15SKEY');
+    </script>
+
+    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
+
+    <!-- My custom JS -->
+    <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
+
+    <!-- Syntax highlighting for BibTex code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs-bibtex@2.0.1/prism-bibtex.min.js"></script>
+
+    
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="en">
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="auto">
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
+
+    
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
+
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../contents.html">
+  
+  
+  
+  
+    <img src="../_static/images/icons/logo-imate-light.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/images/icons/logo-imate-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fas fa-bars"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="install.html">
+  Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../docker/docker.html">
+  Docker
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../gpu/gpu.html">
+  GPU
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API Reference
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/imate/" rel="noopener" target="_blank" title="PyPI"><span><i class="fab fa-python"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://anaconda.org/s-ameli/imate" rel="noopener" target="_blank" title="Anaconda Cloud"><span><i class="fa fa-circle-notch"></i></span>
+            <label class="sr-only">Anaconda Cloud</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+            <label class="sr-only">Docker Hub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" rel="noopener" target="_blank" title="Lanuch Jupyter on Binder"><span><i class="fa fa-chart-line"></i></span>
+            <label class="sr-only">Lanuch Jupyter on Binder</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
+          
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+    <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="install.html">
+   Install
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="install_wheels.html">
+   1. Install from Wheels
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="virtual_env.html">
+   2. Install in Virtual Environment
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="optional_dependencies.html">
+   3. Optional Runtime Dependencies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="compile_source.html">
+   4. Compile from Source
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   5. Generate Documentation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="test_package.html">
+   6. Test Package
+  </a>
+ </li>
+</ul>
+
+    
+  </div>
+</nav>
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
+
+          
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generate-doxygen-documentation">
+   5.1. Generate Doxygen Documentation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#compile-package">
+   5.2. Compile Package
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generate-sphinx-documentation">
+   5.3. Generate Sphinx Documentation
+  </a>
+ </li>
+</ul>
+
+</nav>
+    </div>
+    
+    <div class="toc-item">
+      
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/ameli/imate/edit/main/docs/source/install/gen_documentation.rst">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+    
+  
+</div>
+
+
+          
+          
+          <div class="bd-content col-12 col-md-9 col-xl-7">
+              
+              <article class="bd-article" role="main">
+                
+  <section id="generate-documentation">
+<span id="gen-documentation"></span><h1><span class="section-number">5. </span>Generate Documentation<a class="headerlink" href="#generate-documentation" title="Permalink to this heading">#</a></h1>
+<p>The documentation consists of a Doxygen documentation and a Sphinx documentation. You should generate the Doxygen documentation first. Before generating the Sphinx documentation, you should compile the package.</p>
+<p>Get the source code from the GitHub repository.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">git<span class="w"> </span>clone<span class="w"> </span>https://github.com/ameli/imate.git</span>
+<span class="prompt1"><span class="nb">cd</span><span class="w"> </span>imate</span>
+</pre></div></div><p>If you already had the source code, clean it from any previous build (especially if you built <cite>in-source</cite>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">python<span class="w"> </span>setup.py<span class="w"> </span>clean</span>
+</pre></div></div><section id="generate-doxygen-documentation">
+<h2><span class="section-number">5.1. </span>Generate Doxygen Documentation<a class="headerlink" href="#generate-doxygen-documentation" title="Permalink to this heading">#</a></h2>
+<p>Install <cite>doxygen</cite> and <cite>graphviz</cite> by</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-0">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>doxygen<span class="w"> </span>graphviz<span class="w"> </span>-y</span>
+</pre></div></div></div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-1">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>doxygen<span class="w"> </span>graphviz<span class="w"> </span>-y</span>
+</pre></div></div></div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-2">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>doxygen<span class="w"> </span>graphviz<span class="w"> </span>-y</span>
+</pre></div></div></div>
+<input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="osx" for="sd-tab-item-3">
+macOS</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>brew<span class="w"> </span>install<span class="w"> </span>doxygen<span class="w"> </span>graphviz<span class="w"> </span>-y</span>
+</pre></div></div></div>
+<input id="sd-tab-item-4" name="sd-tab-set-0" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-4">
+Windows (Powershell)</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt2:before {
+  content: "PS C:\\> ";
+}
+</style><span class="prompt2"><span class="n">scoop</span> <span class="n">install</span> <span class="n">doxygen</span> <span class="n">graphviz</span></span>
+</pre></div></div></div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Make sure you ran <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">clean</span></code> as mentioned previously. Otherwise, if the source directory is not cleaned from any previous built (if there is any), Doxygen unwantedly generates all auto-generated cython files.</p>
+</div>
+<p>Generating the Doxygen documentation by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">cd</span><span class="w"> </span>docs/doxygen</span>
+<span class="prompt1">doxygen<span class="w"> </span>doxyfile.in</span>
+<span class="prompt1"><span class="nb">cd</span><span class="w"> </span>../..</span>
+</pre></div></div></section>
+<section id="compile-package">
+<h2><span class="section-number">5.2. </span>Compile Package<a class="headerlink" href="#compile-package" title="Permalink to this heading">#</a></h2>
+<p>Set <code class="docutils literal notranslate"><span class="pre">CYTHON_BUILD_FOR_DOC</span></code> to <cite>1</cite> (see <a class="reference internal" href="compile_source.html#config-env-variables"><span class="std std-ref">Configure Compile-Time Environment variables</span></a>). Compile and install the package by</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-5">
+UNIX</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">CYTHON_BUILD_FOR_DOC</span><span class="o">=</span><span class="m">1</span></span>
+<span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">USE_CUDA</span><span class="o">=</span><span class="m">0</span></span>
+<span class="prompt1">sudo<span class="w"> </span>-E<span class="w"> </span>python<span class="w"> </span>setup.py<span class="w"> </span>install</span>
+</pre></div></div></div>
+<input id="sd-tab-item-6" name="sd-tab-set-1" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-6">
+Windows (Powershell)</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="nv">$env:export</span> <span class="n">CYTHON_BUILD_FOR_DOC</span> <span class="p">=</span> <span class="s2">&quot;1&quot;</span></span>
+<span class="prompt2"><span class="nv">$env:export</span> <span class="n">USE_CUDA</span> <span class="p">=</span> <span class="s2">&quot;0&quot;</span></span>
+<span class="prompt2"><span class="n">sudo</span> <span class="n">-E</span> <span class="n">python</span> <span class="n">setup</span><span class="p">.</span><span class="n">py</span> <span class="n">install</span></span>
+</pre></div></div></div>
+</div>
+</section>
+<section id="generate-sphinx-documentation">
+<h2><span class="section-number">5.3. </span>Generate Sphinx Documentation<a class="headerlink" href="#generate-sphinx-documentation" title="Permalink to this heading">#</a></h2>
+<p>Install <a class="reference external" href="https://pandoc.org/">Pandoc</a> by</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-7">
+Ubuntu/Debian</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>pandoc<span class="w"> </span>-y</span>
+</pre></div></div></div>
+<input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-8">
+CentOS 7</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>pandoc<span class="w"> </span>-y</span>
+</pre></div></div></div>
+<input id="sd-tab-item-9" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-9">
+RHEL 9</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>pandoc<span class="w"> </span>-y</span>
+</pre></div></div></div>
+<input id="sd-tab-item-10" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="osx" for="sd-tab-item-10">
+macOS</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>brew<span class="w"> </span>install<span class="w"> </span>pandoc<span class="w"> </span>-y</span>
+</pre></div></div></div>
+<input id="sd-tab-item-11" name="sd-tab-set-2" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-11">
+Windows (Powershell)</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="n">scoop</span> <span class="n">install</span> <span class="n">pandoc</span></span>
+</pre></div></div></div>
+</div>
+<p>Install the requirements for the Sphinx documentation by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>docs/requirements.txt</span>
+</pre></div></div><p>The above command installs the required packages in Python’s path directory. Make sure python’s directory is on the <cite>PATH</cite>, for instance, by</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-12">
+UNIX</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nv">PYTHON_PATH</span><span class="o">=</span><span class="sb">`</span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import os, sys; print(os.path.dirname(sys.executable))&quot;</span><span class="sb">`</span></span>
+<span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">PYTHON_PATH</span><span class="si">}</span>:<span class="nv">$PATH</span></span>
+</pre></div></div></div>
+<input id="sd-tab-item-13" name="sd-tab-set-3" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-13">
+Windows (Powershell)</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="nv">$PYTHON_PATH</span> <span class="p">=</span> <span class="p">(</span><span class="n">python</span> <span class="n">-c</span> <span class="s2">&quot;import os, sys; print(os.path.dirname(sys.executable))&quot;</span><span class="p">)</span></span>
+<span class="prompt2"><span class="nv">$env:Path</span> <span class="p">+=</span> <span class="s2">&quot;;$PYTHON_PATH&quot;</span></span>
+</pre></div></div></div>
+</div>
+<p>Now, build the documentation:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-14" name="sd-tab-set-4" type="radio">
+</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-14">
+UNIX</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">make<span class="w"> </span>clean<span class="w"> </span>html<span class="w"> </span>--directory<span class="o">=</span>docs</span>
+</pre></div></div></div>
+<input id="sd-tab-item-15" name="sd-tab-set-4" type="radio">
+</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-15">
+Windows (Powershell)</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="nb">cd </span><span class="n">docs</span></span>
+<span class="prompt2"><span class="n">make</span><span class="p">.</span><span class="n">bat</span> <span class="n">clean</span> <span class="n">html</span></span>
+</pre></div></div></div>
+</div>
+<p>The main page of the documentation can be found in <code class="docutils literal notranslate"><span class="pre">/docs/build/html/index.html</span></code>.</p>
+</section>
+</section>
+
+
+              </article>
+              
+
+              
+              <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="compile_source.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title"><span class="section-number">4. </span>Compile from Source</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="test_package.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title"><span class="section-number">6. </span>Test Package</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+              </footer>
+              
+          </div>
+          
+      </div>
+    </div>
+
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+
+
+    <!-- Adobe Embed API -->
+    
+    <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+
+
+  </body>
+</html>

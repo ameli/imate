@@ -1,0 +1,507 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="2. Run imate Functions on GPU" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ameli.github.io/gpu/run_functions_gpu.html" />
+<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:description" content="Run imate Functions on GPU: All functions in imate that accept the SLQ method (using method=slq argument) can perform computations on GPU devices. To do so, include gpu=True argument to the function syntax. The following examples show using multi-GPU devices to compute the log-determinant of a la..." />
+<meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
+<meta property="og:image:alt" content="RestoreIO" />
+<meta name="description" content="Run imate Functions on GPU: All functions in imate that accept the SLQ method (using method=slq argument) can perform computations on GPU devices. To do so, include gpu=True argument to the function syntax. The following examples show using multi-GPU devices to compute the log-determinant of a la..." />
+<meta property="og:title" content="RestoreIO">
+<meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
+
+    <title>2. Run imate Functions on GPU &#8212; imate Manual</title>
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
+
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/toggleprompt.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/custom-pydata.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/custom-pydata.css"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Deploy imate on GPU Clusters" href="gpu_cluster.html" />
+    <link rel="prev" title="1. Inquiry GPU and CUDA with imate" href="inquiry_gpu.html" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-4JHJ15SKEY');
+    </script>
+
+    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
+
+    <!-- My custom JS -->
+    <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
+
+    <!-- Syntax highlighting for BibTex code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs-bibtex@2.0.1/prism-bibtex.min.js"></script>
+
+    
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="en">
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="auto">
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
+
+    
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
+
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../contents.html">
+  
+  
+  
+  
+    <img src="../_static/images/icons/logo-imate-light.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/images/icons/logo-imate-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fas fa-bars"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../install/install.html">
+  Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../docker/docker.html">
+  Docker
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="gpu.html">
+  GPU
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API Reference
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/imate/" rel="noopener" target="_blank" title="PyPI"><span><i class="fab fa-python"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://anaconda.org/s-ameli/imate" rel="noopener" target="_blank" title="Anaconda Cloud"><span><i class="fa fa-circle-notch"></i></span>
+            <label class="sr-only">Anaconda Cloud</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+            <label class="sr-only">Docker Hub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" rel="noopener" target="_blank" title="Lanuch Jupyter on Binder"><span><i class="fa fa-chart-line"></i></span>
+            <label class="sr-only">Lanuch Jupyter on Binder</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
+          
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+    <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu.html">
+   Using GPU Devices
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Installing imate on GPU
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu_install_cuda.html">
+   1. Install NVIDIA CUDA Toolkit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu_compile_source.html">
+   2. Compile imate from Source with CUDA
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu_docker.html">
+   3. Use imate Docker Container on GPU
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Using imate on GPU
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="inquiry_gpu.html">
+   1. Inquiry GPU and CUDA with imate
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   2. Run imate Functions on GPU
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu_cluster.html">
+   3. Deploy imate on GPU Clusters
+  </a>
+ </li>
+</ul>
+
+    
+  </div>
+</nav>
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
+
+          
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-simple-example">
+   2.1. A Simple Example
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#get-process-information">
+   2.2. Get Process Information
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#verbose-output">
+   2.3. Verbose Output
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#set-number-of-gpu-devices">
+   2.4. Set Number of GPU Devices
+  </a>
+ </li>
+</ul>
+
+</nav>
+    </div>
+    
+    <div class="toc-item">
+      
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/ameli/imate/edit/main/docs/source/gpu/run_functions_gpu.rst">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+    
+  
+</div>
+
+
+          
+          
+          <div class="bd-content col-12 col-md-9 col-xl-7">
+              
+              <article class="bd-article" role="main">
+                
+  <section id="run-project-functions-on-gpu">
+<span id="run-functions-gpu"></span><h1><span class="section-number">2. </span>Run <span class="synco">imate</span> Functions on GPU<a class="headerlink" href="#run-project-functions-on-gpu" title="Permalink to this heading">#</a></h1>
+<p>All functions in <span class="synco">imate</span> that accept the <cite>SLQ</cite> method (using <code class="docutils literal notranslate"><span class="pre">method=slq</span></code> argument) can perform computations on GPU devices. To do so, include <code class="docutils literal notranslate"><span class="pre">gpu=True</span></code> argument to the function syntax. The following examples show using multi-GPU devices to compute the log-determinant of a large matrix.</p>
+<section id="a-simple-example">
+<h2><span class="section-number">2.1. </span>A Simple Example<a class="headerlink" href="#a-simple-example" title="Permalink to this heading">#</a></h2>
+<p>First, create a sample Toeplitz matrix with ten million in size using <a class="reference internal" href="../generated/imate.toeplitz.html#imate.toeplitz" title="imate.toeplitz"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.toeplitz()</span></code></a> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import toeplitz matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample matrix (a toeplitz matrix)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="mi">10000000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Next, create an <a class="reference internal" href="../generated/imate.Matrix.html#imate.Matrix" title="imate.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.Matrix</span></code></a> object from matrix <cite>A</cite>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import Matrix class</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">Matrix</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a matrix operator object from matrix A</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Aop</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Compute the log-determinant of the above matrix on GPU by passing <code class="docutils literal notranslate"><span class="pre">gpu=True</span></code> to <a class="reference internal" href="../generated/imate.logdet.html#imate.logdet" title="imate.logdet"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.logdet()</span></code></a> function. Recall GPU can only be employed using <cite>SLQ</cite> method by passing <code class="docutils literal notranslate"><span class="pre">method=slq</span></code> argument.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import logdet function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">logdet</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span class="go">13862193.020813728</span>
+</pre></div>
+</div>
+</section>
+<section id="get-process-information">
+<h2><span class="section-number">2.2. </span>Get Process Information<a class="headerlink" href="#get-process-information" title="Permalink to this heading">#</a></h2>
+<p>It is useful pass the argument <code class="docutils literal notranslate"><span class="pre">return_info=True</span></code> to get information about the computation process.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ld</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The information about GPU devices used during the computation can be found in <code class="docutils literal notranslate"><span class="pre">info['device']</span></code> key:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">])</span>
+<span class="go">{</span>
+<span class="go">    &#39;num_cpu_threads&#39;: 8,</span>
+<span class="hll"><span class="go">    &#39;num_gpu_devices&#39;: 4,</span>
+</span><span class="hll"><span class="go">    &#39;num_gpu_multiprocessors&#39;: 28,</span>
+</span><span class="hll"><span class="go">    &#39;num_gpu_threads_per_multiprocessor&#39;: 2048</span>
+</span><span class="go">}</span>
+</pre></div>
+</div>
+<p>The processing time can be obtained by <code class="docutils literal notranslate"><span class="pre">info['time']</span></code> key:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
+<span class="go">{</span>
+<span class="go">    &#39;alg_wall_time&#39;: 1.7192635536193848,</span>
+<span class="go">    &#39;cpu_proc_time&#39;: 3.275628339,</span>
+<span class="go">    &#39;tot_wall_time&#39;: 3.5191736351698637</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</section>
+<section id="verbose-output">
+<h2><span class="section-number">2.3. </span>Verbose Output<a class="headerlink" href="#verbose-output" title="Permalink to this heading">#</a></h2>
+<p>Alternatively, to print verbose information, including the information about GPU devices, pass <code class="docutils literal notranslate"><span class="pre">verbose=True</span></code> to the function argument:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above script prints the following table. The last section of the table shows device information.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>                                    <span class="n">results</span>                                   
+<span class="o">==============================================================================</span>
+     <span class="n">inquiries</span>                            <span class="n">error</span>            <span class="n">samples</span>            
+<span class="o">--------------------</span>              <span class="o">---------------------</span>   <span class="o">---------</span>           
+<span class="n">i</span>         <span class="n">parameters</span>       <span class="n">trace</span>    <span class="n">absolute</span>   <span class="n">relative</span>   <span class="n">num</span>   <span class="n">out</span>  <span class="n">converged</span>
+<span class="o">==============================================================================</span>
+<span class="mi">1</span>               <span class="n">none</span>  <span class="o">+</span><span class="mf">1.386e+07</span>   <span class="mf">1.715e+03</span>     <span class="mf">0.012</span><span class="o">%</span>    <span class="mi">10</span>     <span class="mi">0</span>       <span class="kc">True</span>
+
+                                    <span class="n">config</span>                                    
+<span class="o">==============================================================================</span>
+                <span class="n">matrix</span>                            <span class="n">stochastic</span> <span class="n">estimator</span>        
+<span class="o">-------------------------------------</span>    <span class="o">-------------------------------------</span>
+<span class="n">gram</span><span class="p">:</span>                           <span class="kc">False</span>    <span class="n">method</span><span class="p">:</span>                           <span class="n">slq</span>
+<span class="n">exponent</span><span class="p">:</span>                           <span class="mi">1</span>    <span class="n">lanczos</span> <span class="n">degree</span><span class="p">:</span>                    <span class="mi">20</span>
+<span class="n">num</span> <span class="n">matrix</span> <span class="n">parameters</span><span class="p">:</span>              <span class="mi">0</span>    <span class="n">lanczos</span> <span class="n">tol</span><span class="p">:</span>                <span class="mf">2.220e-16</span>
+<span class="n">data</span> <span class="nb">type</span><span class="p">:</span>                     <span class="mi">64</span><span class="o">-</span><span class="n">bit</span>    <span class="n">orthogonalization</span><span class="p">:</span>               <span class="n">none</span>
+
+             <span class="n">convergence</span>                                 <span class="n">error</span>                
+<span class="o">-------------------------------------</span>    <span class="o">-------------------------------------</span>
+<span class="nb">min</span> <span class="n">num</span> <span class="n">samples</span><span class="p">:</span>                   <span class="mi">10</span>    <span class="nb">abs</span> <span class="n">error</span> <span class="n">tol</span><span class="p">:</span>              <span class="mf">0.000e+00</span>
+<span class="nb">max</span> <span class="n">num</span> <span class="n">samples</span><span class="p">:</span>                   <span class="mi">50</span>    <span class="n">rel</span> <span class="n">error</span> <span class="n">tol</span><span class="p">:</span>                  <span class="mf">1.00</span><span class="o">%</span>
+<span class="n">outlier</span> <span class="n">significance</span> <span class="n">level</span><span class="p">:</span>     <span class="mf">0.00</span><span class="o">%</span>    <span class="n">confidence</span> <span class="n">level</span><span class="p">:</span>              <span class="mf">95.00</span><span class="o">%</span>
+
+                                   <span class="n">process</span>                                    
+<span class="o">==============================================================================</span>
+                 <span class="n">time</span>                                   <span class="n">device</span>                
+<span class="o">-------------------------------------</span>    <span class="o">-------------------------------------</span>
+<span class="hll"><span class="n">tot</span> <span class="n">wall</span> <span class="n">time</span> <span class="p">(</span><span class="n">sec</span><span class="p">):</span>        <span class="mf">1.744e+00</span>    <span class="n">num</span> <span class="n">cpu</span> <span class="n">threads</span><span class="p">:</span>                    <span class="mi">8</span>
+</span><span class="hll"><span class="n">alg</span> <span class="n">wall</span> <span class="n">time</span> <span class="p">(</span><span class="n">sec</span><span class="p">):</span>        <span class="mf">1.722e+00</span>    <span class="n">num</span> <span class="n">gpu</span> <span class="n">devices</span><span class="p">,</span> <span class="n">multiproc</span><span class="p">:</span>     <span class="mi">4</span><span class="p">,</span> <span class="mi">28</span>
+</span><span class="hll"><span class="n">cpu</span> <span class="n">proc</span> <span class="n">time</span> <span class="p">(</span><span class="n">sec</span><span class="p">):</span>        <span class="mf">1.752e+00</span>    <span class="n">num</span> <span class="n">gpu</span> <span class="n">threads</span> <span class="n">per</span> <span class="n">multiproc</span><span class="p">:</span>   <span class="mi">2048</span>
+</span></pre></div>
+</div>
+</section>
+<section id="set-number-of-gpu-devices">
+<h2><span class="section-number">2.4. </span>Set Number of GPU Devices<a class="headerlink" href="#set-number-of-gpu-devices" title="Permalink to this heading">#</a></h2>
+<p>By default, <span class="synco">imate</span> employs the maximum number of available GPU devices. To employ a specific number of GPU devices, set <code class="docutils literal notranslate"><span class="pre">num_gpu-devices</span></code> in the function arguments. For instance</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import logdet function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">logdet</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ld</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="hll"><span class="gp">... </span>                  <span class="n">num_gpu_devices</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Check how many GPU devices used</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">])</span>
+<span class="go">{</span>
+<span class="go">    &#39;num_cpu_threads&#39;: 8,</span>
+<span class="hll"><span class="go">    &#39;num_gpu_devices&#39;: 2,</span>
+</span><span class="go">    &#39;num_gpu_multiprocessors&#39;: 28,</span>
+<span class="go">    &#39;num_gpu_threads_per_multiprocessor&#39;: 2048</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+              </article>
+              
+
+              
+              <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="inquiry_gpu.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title"><span class="section-number">1. </span>Inquiry GPU and CUDA with <span class="synco">imate</span></p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="gpu_cluster.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title"><span class="section-number">3. </span>Deploy <span class="synco">imate</span> on GPU Clusters</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+              </footer>
+              
+          </div>
+          
+      </div>
+    </div>
+
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+
+
+    <!-- Adobe Embed API -->
+    
+    <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+
+
+  </body>
+</html>

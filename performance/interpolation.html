@@ -7,6 +7,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="Interpolation of Affine Matrix Functions" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ameli.github.io/performance/interpolation.html" />
+<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:description" content="One of the unique and novel features of imate is the ability to interpolate the trace of the arbitrary functions of the affine matrix function t \mapsto \mathbf{A} + t \mathbf{B}. Such an affine matrix function appears in variety of optimization formulations in machine learning. Often in these ap..." />
+<meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
+<meta property="og:image:alt" content="RestoreIO" />
+<meta name="description" content="One of the unique and novel features of imate is the ability to interpolate the trace of the arbitrary functions of the affine matrix function t \mapsto \mathbf{A} + t \mathbf{B}. Such an affine matrix function appears in variety of optimization formulations in machine learning. Often in these ap..." />
+<meta property="og:title" content="RestoreIO">
+<meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
     <title>Interpolation of Affine Matrix Functions &#8212; imate Manual</title>
 <script>
@@ -31,7 +41,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -121,20 +131,20 @@
       <div class="navbar-center-item">
         <ul id="navbar-main-elements" class="navbar-nav">
     <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../tutorials/install.html">
-  1. Install
+ <a class="reference internal nav-link" href="../install/install.html">
+  Install
  </a>
 </li>
 
 <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../tutorials/docker.html">
-  2. Docker
+ <a class="reference internal nav-link" href="../docker/docker.html">
+  Docker
  </a>
 </li>
 
 <li class="toctree-l1 nav-item">
- <a class="reference internal nav-link" href="../tutorials/gpu.html">
-  3. GPU
+ <a class="reference internal nav-link" href="../gpu/gpu.html">
+  GPU
  </a>
 </li>
 
@@ -343,19 +353,19 @@
 <h3>Algorithms<a class="headerlink" href="#algorithms" title="Permalink to this heading">#</a></h3>
 <p>The following Algorithms were tested on Intel® Xeon CPU E5-2670 v3  with 24 threads.</p>
 <dl class="glossary">
-<dt id="term-Cholesky-Decomposition">Cholesky Decomposition<a class="headerlink" href="#term-Cholesky-Decomposition" title="Permalink to this term">#</a></dt><dd><p>This method is implemented by the following functions:</p>
+<dt id="term-1.-Cholesky-Decomposition">1. Cholesky Decomposition<a class="headerlink" href="#term-1.-Cholesky-Decomposition" title="Permalink to this term">#</a></dt><dd><p>This method is implemented by the following functions:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../api/imate.logdet.cholesky.html#imate-logdet-cholesky"><span class="std std-ref">imate.logdet(method=’cholesky’)</span></a> to compute <a class="reference internal" href="algorithms.html#equation-logdet3">(1)</a>.</p></li>
 <li><p><a class="reference internal" href="../api/imate.traceinv.cholesky.html#imate-traceinv-cholesky"><span class="std std-ref">imate.traceinv(method=’cholesky’)</span></a> to compute <a class="reference internal" href="algorithms.html#equation-traceinv3">(2)</a>.</p></li>
 </ul>
 <p>The complexity of computing <a class="reference internal" href="algorithms.html#equation-logdet3">(1)</a> for matrices obtained from 1D, 2D, and 3D grids are respectively <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span>, <span class="math notranslate nohighlight">\(\mathcal{O}(n^{\frac{3}{2}})\)</span>, and <span class="math notranslate nohighlight">\(\mathcal{O}(n^2)\)</span> where <span class="math notranslate nohighlight">\(n\)</span> is the matrix size. The complexity of computing <a class="reference internal" href="algorithms.html#equation-traceinv3">(2)</a> for sparse matrices is <span class="math notranslate nohighlight">\(\mathcal{O}(\rho n^2)\)</span> where <span class="math notranslate nohighlight">\(\rho\)</span> is the sparse matrix density.</p>
 </dd>
-<dt id="term-Hutchinson-Algorithm">Hutchinson Algorithm<a class="headerlink" href="#term-Hutchinson-Algorithm" title="Permalink to this term">#</a></dt><dd><p>This method is only applied to <a class="reference internal" href="algorithms.html#equation-traceinv3">(2)</a> and implemented by <a class="reference internal" href="../api/imate.traceinv.hutchinson.html#imate-traceinv-hutchinson"><span class="std std-ref">imate.traceinv(method=’hutchinson’)</span></a> function. The complexity of this method is:</p>
+<dt id="term-2.-Hutchinson-Algorithm">2. Hutchinson Algorithm<a class="headerlink" href="#term-2.-Hutchinson-Algorithm" title="Permalink to this term">#</a></dt><dd><p>This method is only applied to <a class="reference internal" href="algorithms.html#equation-traceinv3">(2)</a> and implemented by <a class="reference internal" href="../api/imate.traceinv.hutchinson.html#imate-traceinv-hutchinson"><span class="std std-ref">imate.traceinv(method=’hutchinson’)</span></a> function. The complexity of this method is:</p>
 <div class="math notranslate nohighlight" id="equation-comp-hutch">
 <span class="eqno">(3)<a class="headerlink" href="#equation-comp-hutch" title="Permalink to this equation">#</a></span>\[\mathcal{O}(\mathrm{nnz}(\mathbf{A})s),\]</div>
 <p>where <span class="math notranslate nohighlight">\(s\)</span> is the number of Monte-Carlo iterations in the algorithm and <span class="math notranslate nohighlight">\(\rho\)</span> is the sparse matrix density. In this experiment, <span class="math notranslate nohighlight">\(s = 80\)</span>.</p>
 </dd>
-<dt id="term-Stochastic-Lanczos-Quadrature-Algorithm">Stochastic Lanczos Quadrature Algorithm<a class="headerlink" href="#term-Stochastic-Lanczos-Quadrature-Algorithm" title="Permalink to this term">#</a></dt><dd><p>This method is implemented by:</p>
+<dt id="term-3.-Stochastic-Lanczos-Quadrature-Algorithm">3. Stochastic Lanczos Quadrature Algorithm<a class="headerlink" href="#term-3.-Stochastic-Lanczos-Quadrature-Algorithm" title="Permalink to this term">#</a></dt><dd><p>This method is implemented by:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../api/imate.logdet.cholesky.html#imate-logdet-cholesky"><span class="std std-ref">imate.logdet(method=’cholesky’)</span></a> to compute <a class="reference internal" href="algorithms.html#equation-logdet3">(1)</a>.</p></li>
 <li><p><a class="reference internal" href="../api/imate.traceinv.cholesky.html#imate-traceinv-cholesky"><span class="std std-ref">imate.traceinv(method=’cholesky’)</span></a> to compute <a class="reference internal" href="algorithms.html#equation-traceinv3">(2)</a>.</p></li>

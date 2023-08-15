@@ -1,0 +1,437 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="Using GPU Devices" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ameli.github.io/gpu/gpu.html" />
+<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:description" content="imate can run on CUDA-capable GPU devices with the following installed: NVIDIA graphic driver,, CUDA libraries.. CUDA Version The version of CUDA libraries installed on the user’s machine should match the version of the CUDA libraries that imate package was compiled with. This includes matching b..." />
+<meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
+<meta property="og:image:alt" content="RestoreIO" />
+<meta name="description" content="imate can run on CUDA-capable GPU devices with the following installed: NVIDIA graphic driver,, CUDA libraries.. CUDA Version The version of CUDA libraries installed on the user’s machine should match the version of the CUDA libraries that imate package was compiled with. This includes matching b..." />
+<meta property="og:title" content="RestoreIO">
+<meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
+
+    <title>Using GPU Devices &#8212; imate Manual</title>
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
+
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/toggleprompt.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/custom-pydata.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/custom-pydata.css"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1. Install NVIDIA CUDA Toolkit" href="gpu_install_cuda.html" />
+    <link rel="prev" title="Using imate on Docker" href="../docker/docker.html" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-4JHJ15SKEY');
+    </script>
+
+    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
+
+    <!-- My custom JS -->
+    <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
+
+    <!-- Syntax highlighting for BibTex code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs-bibtex@2.0.1/prism-bibtex.min.js"></script>
+
+    
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="en">
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="auto">
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
+
+    
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
+
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../contents.html">
+  
+  
+  
+  
+    <img src="../_static/images/icons/logo-imate-light.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/images/icons/logo-imate-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fas fa-bars"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../install/install.html">
+  Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../docker/docker.html">
+  Docker
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="current reference internal nav-link" href="#">
+  GPU
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API Reference
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/imate/" rel="noopener" target="_blank" title="PyPI"><span><i class="fab fa-python"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://anaconda.org/s-ameli/imate" rel="noopener" target="_blank" title="Anaconda Cloud"><span><i class="fa fa-circle-notch"></i></span>
+            <label class="sr-only">Anaconda Cloud</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+            <label class="sr-only">Docker Hub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" rel="noopener" target="_blank" title="Lanuch Jupyter on Binder"><span><i class="fa fa-chart-line"></i></span>
+            <label class="sr-only">Lanuch Jupyter on Binder</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
+          
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Using GPU Devices
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Installing imate on GPU
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu_install_cuda.html">
+   1. Install NVIDIA CUDA Toolkit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu_compile_source.html">
+   2. Compile imate from Source with CUDA
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu_docker.html">
+   3. Use imate Docker Container on GPU
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Using imate on GPU
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="inquiry_gpu.html">
+   1. Inquiry GPU and CUDA with imate
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="run_functions_gpu.html">
+   2. Run imate Functions on GPU
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu_cluster.html">
+   3. Deploy imate on GPU Clusters
+  </a>
+ </li>
+</ul>
+
+    
+  </div>
+</nav>
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
+
+          
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
+
+<nav id="bd-toc-nav">
+    
+</nav>
+    </div>
+    
+    <div class="toc-item">
+      
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/ameli/imate/edit/main/docs/source/gpu/gpu.rst">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+    
+  
+</div>
+
+
+          
+          
+          <div class="bd-content col-12 col-md-9 col-xl-7">
+              
+              <article class="bd-article" role="main">
+                
+  <section id="using-gpu-devices">
+<span id="imate-gpu"></span><h1>Using GPU Devices<a class="headerlink" href="#using-gpu-devices" title="Permalink to this heading">#</a></h1>
+<p><span class="synco">imate</span> can run on <cite>CUDA-capable</cite> GPU devices with the following installed:</p>
+<ol class="arabic simple">
+<li><p>NVIDIA graphic driver,</p></li>
+<li><p>CUDA libraries.</p></li>
+</ol>
+<p class="rubric">CUDA Version</p>
+<p>The version of CUDA libraries installed on the user’s machine should match the version of the CUDA libraries that <span class="synco">imate</span> package was compiled with. This includes matching both <em>major</em> and <em>minor</em> parts of the version numbers. However, the version’s <em>patch</em> numbers do not need to be matched.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <span class="synco">imate</span> package that is installed with either <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code> already has built-in support for CUDA Toolkit. The latest version of <span class="synco">imate</span> is compatible with <strong>CUDA 12.2.x</strong>, which should match the CUDA version installed on the user’s machine.</p>
+</div>
+<aside class="topic">
+<p class="topic-title">Methods of Setting up CUDA and <span class="synco">imate</span></p>
+<p>There are three ways to use <span class="synco">imate</span> with a compatible version of CUDA Toolkit:</p>
+<ol class="arabic simple">
+<li><p><a class="reference internal" href="gpu_install_cuda.html#gpu-install-cuda"><span class="std std-ref">Install NVIDIA CUDA Toolkit</span></a> with a CUDA version compatible with an existing <span class="synco">imate</span> installation. In this way, you can keep the <span class="synco">imate</span> package that is already installed with <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code>.</p></li>
+<li><p><a class="reference internal" href="gpu_compile_source.html#gpu-compile-source"><span class="std std-ref">Compile imate from the source</span></a> for a specific version of CUDA to use an existing CUDA library. In this way, you can keep the current CUDA installation.</p></li>
+<li><p><a class="reference internal" href="gpu_docker.html#gpu-docker"><span class="std std-ref">Use docker image</span></a> with pre-installed <span class="synco">imate</span>, CUDA libraries, and NVIDIA graphic driver. This is the most convenient way as no compilation or installation of <span class="synco">imate</span> and CUDA Toolkit is required.</p></li>
+</ol>
+</aside>
+<p>The above methods are described in the following sections:</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Installing imate on GPU</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gpu_install_cuda.html">1. Install NVIDIA CUDA Toolkit</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gpu_install_cuda.html#install-nvidia-graphic-driver">1.1. Install NVIDIA Graphic Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpu_install_cuda.html#install-cuda-toolkit">1.2. Install CUDA Toolkit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpu_install_cuda.html#install-openmp">1.3. Install OpenMP</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gpu_compile_source.html">2. Compile imate from Source with CUDA</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gpu_compile_source.html#install-c-compiler-and-openmp">2.1. Install C++ Compiler and OpenMP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpu_compile_source.html#install-cuda-compiler-and-development-libraries">2.2. Install CUDA Compiler and Development Libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpu_compile_source.html#load-cuda-compiler-on-gpu-cluster">2.3. Load CUDA Compiler on GPU Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpu_compile_source.html#configure-compile-time-environment-variables">2.4. Configure Compile-Time Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpu_compile_source.html#enable-dynamic-loading-optional">2.5. Enable Dynamic Loading (<em>optional</em>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpu_compile_source.html#compile-and-install">2.6. Compile and Install</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gpu_docker.html">3. Use imate Docker Container on GPU</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gpu_docker.html#install-docker">3.1. Install Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpu_docker.html#install-nvidia-container-toolkit">3.2. Install NVIDIA Container Toolkit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpu_docker.html#get-project-docker-image">3.3. Get <span class="synco">imate</span> Docker image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpu_docker.html#id3">3.4. Use <span class="synco">imate</span> Docker Container on GPU</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Once you have set up <span class="synco">imate</span> on GPU devices, you can refer to the following sections to learn how to execute <span class="synco">imate</span> functions on GPUs:</p>
+<div class="toctree-wrapper compound">
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using imate on GPU</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="inquiry_gpu.html">1. Inquiry GPU and CUDA with imate</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="inquiry_gpu.html#locate-cuda-toolkit">1.1. Locate CUDA Toolkit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inquiry_gpu.html#detect-nvidia-graphic-driver">1.2. Detect NVIDIA Graphic Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inquiry_gpu.html#detect-gpu-devices">1.3. Detect GPU Devices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="run_functions_gpu.html">2. Run imate Functions on GPU</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="run_functions_gpu.html#a-simple-example">2.1. A Simple Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_functions_gpu.html#get-process-information">2.2. Get Process Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_functions_gpu.html#verbose-output">2.3. Verbose Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_functions_gpu.html#set-number-of-gpu-devices">2.4. Set Number of GPU Devices</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gpu_cluster.html">3. Deploy imate on GPU Clusters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gpu_cluster.html#load-modules">3.1. Load Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpu_cluster.html#interactive-session-with-slurm">3.2. Interactive Session with SLURM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gpu_cluster.html#submit-jobs-to-gpu-with-slurm">3.3. Submit Jobs to GPU with SLURM</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+              </article>
+              
+
+              
+              <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="../docker/docker.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title">Using <span class="synco">imate</span> on Docker</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="gpu_install_cuda.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title"><span class="section-number">1. </span>Install NVIDIA CUDA Toolkit</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+              </footer>
+              
+          </div>
+          
+      </div>
+    </div>
+
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+
+
+    <!-- Adobe Embed API -->
+    
+    <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+
+
+  </body>
+</html>

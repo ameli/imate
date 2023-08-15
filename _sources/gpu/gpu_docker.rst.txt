@@ -1,28 +1,14 @@
-.. _imate-docker:
+.. _gpu-docker:
 
-Using |project| on Docker
-*************************
-
-.. contents::
-
-Why Using Docker
-================
-
-|project|'s docker image can be very useful if you want to deploy |project| on GPU devices. The |project| package which is installed via ``pip`` or ``conda``, natively supports GPU devices. However, the version of CUDA Toolkit that |project| was built with it, should match the version of CUDA Toolkit that you have on your machine. This might often be a problem, as your CUDA Toolkit might not have the same version as the one that |project| supports.
-
-Workarounds to this problem are either:
-
-* Change your CUDA installation. See :ref:`Install CUDA Toolkit <gpu-install-cuda>`.
-* Compile |project| with a specific CUDA version compatible with your existing CUDA installation. See :ref:`Compile imate from Source <compile-imate>`.
-
-Alternatively, as the third option, you can simply use |project|'s docker image without installing |project| or a compatible CUDA Toolkit as both are installed in the docker container and ready to use out of the box.
+Use |project| Docker Container on GPU
+=====================================
+   
+This method neither requires installing CUDA nor |project| as all are pre-installed in a docker image.
 
 Install Docker
-==============
+--------------
 
-The followings are instructions to install docker on Linux. To install on other operating systems, see `Install Docker Engine <https://docs.docker.com/engine/install/ubuntu/>`_ from Docker documentation.
-
-Install docker by
+First, `install docker <https://docs.docker.com/engine/install/ubuntu/>`_. Briefly:
 
 .. tab-set::
 
@@ -75,74 +61,10 @@ Configure docker to run docker `without sudo password <https://docs.docker.com/e
 
 Then, log out and log back. If docker is installed on a *virtual machine*, restart the virtual machine for changes to take effect.
 
-Get |project| Docker Image
-==========================
-
-|docker-size|
-
-Get the |project| docker image by
-
-.. prompt:: bash
-
-  docker pull sameli/imate
-
-The docker image has the following pre-installed:
-
-* CUDA: in ``/usr/local/cuda``
-* Python 3.9: in ``/usr/bin/python3``
-* Python interpreters: `ipython`, `jupyter`
-* Editor: `vim`
-
-.. _docker-examples:
-
-Examples of Using |project| Docker Container
-============================================
-
-The followings are some examples of using ``docker run`` with various options:
-
-* To check the host's NVIDIA driver version, CUDA runtime library version, and list of available GPU devices, run ``nvida-smi`` command by:
-
-  .. prompt:: bash
-  
-      docker run sameli/imate nvidia-smi
-  
-* To run the container and open *Python* interpreter directly at startup:
-  
-  .. prompt:: bash
-  
-      docker run -it sameli/imate
-  
-  This also imports |project| package automatically.
-  
-* To run the container and open *IPython* interpreter directly at startup:
-  
-  .. prompt:: bash
-
-        docker run -it sameli/imate ipython
-  
-  This also imports `imate` package automatically.
-  
-* To open *Bash shell* only:
-  
-  .. prompt:: bash
-
-        docker run -it --entrypoint /bin/bash sameli/imate
-  
-* To *mount* a host's directory, such as ``/home/user/project``, onto a directory of the docker's container, such as ``/root``, use:
-  
-  .. prompt:: bash
-  
-        docker run -it -v /home/user/project:/root sameli/imate
-
-Deploy |project| Docker Container on GPU
-========================================
-
-To access the host's GPU device from inside the docker container, you should install NVIDIA Container Toolkit.
-
 Install NVIDIA Container Toolkit
 --------------------------------
 
-Install `NVIDIA Container Toolkit <https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html>`_ as follows.
+To access host's GPU device from a docker container, `install NVIDIA Container Toolkit <https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html>`_ as follows.
 
 Add the package to the repository:
 
@@ -203,14 +125,68 @@ Restart docker:
 
     sudo systemctl restart docker
 
-Run |project| Docker Container on GPU
+Get |project| Docker image
+--------------------------
+
+|docker-size|
+
+Get the |project| docker image by
+
+.. prompt:: bash
+
+  docker pull sameli/imate
+
+The docker image has the followings pre-installed:
+
+* CUDA: in ``/usr/local/cuda``
+* Python 3.9: in ``/usr/bin/python3``
+* Python interpreters: `ipython`, `jupyter`
+* Editor: `vim`
+
+Use |project| Docker Container on GPU
 -------------------------------------
-      
-To use the host's GPU from the docker container, simply add  ``--gpus all`` to any of the ``docker run`` commands :ref:`described earlier <docker-examples>`, such as by
+
+To use host's GPU from the docker container, add  ``--gpus all`` to any of the ``docker run`` commands, such as by
 
 .. prompt:: bash
 
     docker run --gpus all -it sameli/imate
+
+The followings are some examples of using ``docker run`` with various options:
+
+* To check the host's NVIDIA driver version, CUDA runtime library version, and list of available GPU devices, run ``nvida-smi`` command by:
+
+  .. prompt:: bash
+  
+      docker run --gpus all sameli/imate nvidia-smi
+  
+* To run the container and open *Python* interpreter directly at startup:
+  
+  .. prompt:: bash
+  
+      docker run -it --gpus all sameli/imate
+  
+  This also imports |project| package automatically.
+  
+* To run the container and open *IPython* interpreter directly at startup:
+  
+  .. prompt:: bash
+
+        docker run -it --gpus all sameli/imate ipython
+  
+  This also imports `imate` package automatically.
+  
+* To open *Bash shell* only:
+  
+  .. prompt:: bash
+
+        docker run -it --gpus all --entrypoint /bin/bash sameli/imate
+  
+* To *mount* a host's directory, such as ``/home/user/project``, onto a directory of the docker's container, such as ``/root``, use:
+  
+  .. prompt:: bash
+  
+        docker run -it --gpus all -v /home/user/project:/root sameli/imate
 
 .. |docker-size| image:: https://img.shields.io/docker/image-size/sameli/imate
    :target: https://hub.docker.com/r/sameli/imate

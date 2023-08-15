@@ -3,7 +3,7 @@
 Comparison of Performance with and without OpenBLAS
 ***************************************************
 
-Almost all computational software are built upon existing numerical libraries for basic linear algebraic subprograms (BLAS), such as `BLAS <https://netlib.org/blas/>`_, `OpenBLAS <https://www.openblas.net>`_, `NVIDIA® cuBLAS <https://developer.nvidia.com/cublas>`_, `NVIDIA® cuSparse <https://docs.nvidia.com/cuda/cusparse/index.html>`_, and `Intel® Math Kernel Library <https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl.html#gs.bafzhk>`_, to name a few. |project| uses cuBLAS and cuSparse for basic vector and matrix operations on GPU devices. However, for computation on CPU, |project| comes with `its own library <../doxygen/html/annotated.html>`_ for basic numerical operations for vector and matrix operations, which supports both dense and sparse matrices. Despite this, |project| can also be compiled with `OpenBLAS <https://www.openblas.net/>`_ instead of its own library.
+Almost all computational software are built upon existing numerical libraries for basic linear algebraic subprograms (BLAS), such as `BLAS <https://netlib.org/blas/>`__, `OpenBLAS <https://www.openblas.net>`__, `NVIDIA® cuBLAS <https://developer.nvidia.com/cublas>`__, `NVIDIA® cuSparse <https://docs.nvidia.com/cuda/cusparse/index.html>`__, and `Intel® Math Kernel Library <https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl.html#gs.bafzhk>`__, to name a few. |project| uses cuBLAS and cuSparse for basic vector and matrix operations on GPU devices. However, for computation on CPU, |project| comes with `its own library <../doxygen/html/annotated.html>`__ for basic numerical operations for vector and matrix operations, which supports both dense and sparse matrices. Despite this, |project| can also be compiled with `OpenBLAS <https://www.openblas.net/>`__ instead of its own library.
 
 .. note::
 
@@ -93,7 +93,7 @@ Test on Sparse Matrices
 
 As noted above, OpenBLAS only supports dense matrices. However, |project| can yet utilize level one functions of OpenBLAS for sparse matrices. The following examines the performance on sparse matrices.
 
-The table below shows the sparse matrices used in the test, which are chosen from `SuiteSparse Matrix Collection <https://sparse.tamu.edu>`_ and are obtained from real applications. The matrices in the table below are all symmetric positive-definite. The number of nonzero elements (nnz) of these matrices increases approximately by a factor of 5 on average and their sparse density remains at the same order of magnitude (except for the first three).
+The table below shows the sparse matrices used in the test, which are chosen from `SuiteSparse Matrix Collection <https://sparse.tamu.edu>`__ and are obtained from real applications. The matrices in the table below are all symmetric positive-definite. The number of nonzero elements (nnz) of these matrices increases approximately by a factor of 5 on average and their sparse density remains at the same order of magnitude (except for the first three).
 
 .. table::
    :class: right2 right3
@@ -193,7 +193,7 @@ How to Reproduce Results
 Prepare Matrix Data
 -------------------
 
-1. Download all the above-mentioned sparse matrices from `SuiteSparse Matrix Collection <https://sparse.tamu.edu>`_. For instance, download ``Queen_4147.mat`` from |Queen_4147|_.
+1. Download all the above-mentioned sparse matrices from `SuiteSparse Matrix Collection <https://sparse.tamu.edu>`__. For instance, download ``Queen_4147.mat`` from |Queen_4147|_.
 2. Run |read_matrix_m|_ to extract sparse matrix data from ``Queen_4147.mat``:
 
    .. code-block:: matlab

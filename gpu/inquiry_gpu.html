@@ -1,0 +1,500 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<meta property="og:title" content="1. Inquiry GPU and CUDA with imate" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ameli.github.io/gpu/inquiry_gpu.html" />
+<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:description" content="Inquiry GPU and CUDA with imate: First, make sure imate recognizes the CUDA libraries and GPU device. There are a number of functions available in imate.device module to inquiry GPU device. Locate CUDA Toolkit: Use imate.device.locate_cuda() function to find the location of CUDA home directory. I..." />
+<meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
+<meta property="og:image:alt" content="RestoreIO" />
+<meta name="description" content="Inquiry GPU and CUDA with imate: First, make sure imate recognizes the CUDA libraries and GPU device. There are a number of functions available in imate.device module to inquiry GPU device. Locate CUDA Toolkit: Use imate.device.locate_cuda() function to find the location of CUDA home directory. I..." />
+<meta property="og:title" content="RestoreIO">
+<meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
+
+    <title>1. Inquiry GPU and CUDA with imate &#8212; imate Manual</title>
+<script>
+  document.documentElement.dataset.mode = localStorage.getItem("mode") || "auto";
+  document.documentElement.dataset.theme = localStorage.getItem("theme") || "light"
+</script>
+
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=92025949c220c2e29695" rel="stylesheet">
+
+
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/toggleprompt.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/custom-pydata.js"></script>
+    <script src="../_static/design-tabs.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/custom-pydata.css"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2. Run imate Functions on GPU" href="run_functions_gpu.html" />
+    <link rel="prev" title="3. Use imate Docker Container on GPU" href="gpu_docker.html" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-4JHJ15SKEY');
+    </script>
+
+    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
+
+    <!-- My custom JS -->
+    <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
+
+    <!-- Syntax highlighting for BibTex code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism-solarizedlight.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs-bibtex@2.0.1/prism-bibtex.min.js"></script>
+
+    
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="docsearch:language" content="en">
+
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="auto">
+    <div class="bd-header-announcement container-fluid" id="banner">
+      
+
+    </div>
+
+    
+    <nav class="bd-header navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="bd-header__inner container-xl">
+
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="../contents.html">
+  
+  
+  
+  
+    <img src="../_static/images/icons/logo-imate-light.png" class="logo__image only-light" alt="Logo image">
+    <img src="../_static/images/icons/logo-imate-dark.png" class="logo__image only-dark" alt="Logo image">
+  
+  
+</a>
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fas fa-bars"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../install/install.html">
+  Install
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../docker/docker.html">
+  Docker
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="gpu.html">
+  GPU
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../api.html">
+  API Reference
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <span id="theme-switch" class="btn btn-sm btn-outline-primary navbar-btn rounded-circle">
+    <a class="theme-switch" data-mode="light"><i class="fas fa-sun"></i></a>
+    <a class="theme-switch" data-mode="dark"><i class="far fa-moon"></i></a>
+    <a class="theme-switch" data-mode="auto"><i class="fas fa-adjust"></i></a>
+</span>
+      </div>
+      
+      <div class="navbar-end-item">
+        <form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/ameli/imate" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://pypi.org/project/imate/" rel="noopener" target="_blank" title="PyPI"><span><i class="fab fa-python"></i></span>
+            <label class="sr-only">PyPI</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://anaconda.org/s-ameli/imate" rel="noopener" target="_blank" title="Anaconda Cloud"><span><i class="fa fa-circle-notch"></i></span>
+            <label class="sr-only">Anaconda Cloud</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://hub.docker.com/r/sameli/imate" rel="noopener" target="_blank" title="Docker Hub"><span><i class="fab fa-docker"></i></span>
+            <label class="sr-only">Docker Hub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=notebooks%2FInterpolateTraceOfInverse.ipynb" rel="noopener" target="_blank" title="Lanuch Jupyter on Binder"><span><i class="fa fa-chart-line"></i></span>
+            <label class="sr-only">Lanuch Jupyter on Binder</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="bd-container container-xl">
+      <div class="bd-container__inner row">
+          
+
+<!-- Only show if we have sidebars configured, else just a small margin  -->
+<div class="bd-sidebar-primary col-12 col-md-3 bd-sidebar">
+  <div class="sidebar-start-items"><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+    <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu.html">
+   Using GPU Devices
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Installing imate on GPU
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu_install_cuda.html">
+   1. Install NVIDIA CUDA Toolkit
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu_compile_source.html">
+   2. Compile imate from Source with CUDA
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu_docker.html">
+   3. Use imate Docker Container on GPU
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Using imate on GPU
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   1. Inquiry GPU and CUDA with imate
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="run_functions_gpu.html">
+   2. Run imate Functions on GPU
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="gpu_cluster.html">
+   3. Deploy imate on GPU Clusters
+  </a>
+ </li>
+</ul>
+
+    
+  </div>
+</nav>
+  </div>
+  <div class="sidebar-end-items">
+  </div>
+</div>
+
+
+          
+
+
+<div class="bd-sidebar-secondary d-none d-xl-block col-xl-2 bd-toc">
+  
+    
+    <div class="toc-item">
+      
+<div class="tocsection onthispage mt-5 pt-1 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#locate-cuda-toolkit">
+   1.1. Locate CUDA Toolkit
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#detect-nvidia-graphic-driver">
+   1.2. Detect NVIDIA Graphic Driver
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#detect-gpu-devices">
+   1.3. Detect GPU Devices
+  </a>
+ </li>
+</ul>
+
+</nav>
+    </div>
+    
+    <div class="toc-item">
+      
+
+<div class="tocsection editthispage">
+    <a href="https://github.com/ameli/imate/edit/main/docs/source/gpu/inquiry_gpu.rst">
+        <i class="fas fa-pencil-alt"></i> Edit this page
+    </a>
+</div>
+
+    </div>
+    
+  
+</div>
+
+
+          
+          
+          <div class="bd-content col-12 col-md-9 col-xl-7">
+              
+              <article class="bd-article" role="main">
+                
+  <section id="inquiry-gpu-and-cuda-with-project">
+<span id="inquiry-gpu"></span><h1><span class="section-number">1. </span>Inquiry GPU and CUDA with <span class="synco">imate</span><a class="headerlink" href="#inquiry-gpu-and-cuda-with-project" title="Permalink to this heading">#</a></h1>
+<p>First, make sure <span class="synco">imate</span> recognizes the CUDA libraries and GPU device. There are a number of functions available in <a class="reference internal" href="../api.html#device-inquiry"><span class="std std-ref">imate.device</span></a> module to inquiry GPU device.</p>
+<section id="locate-cuda-toolkit">
+<h2><span class="section-number">1.1. </span>Locate CUDA Toolkit<a class="headerlink" href="#locate-cuda-toolkit" title="Permalink to this heading">#</a></h2>
+<p>Use <a class="reference internal" href="../generated/imate.device.locate_cuda.html#imate.device.locate_cuda" title="imate.device.locate_cuda"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.locate_cuda()</span></code></a> function to find the location of CUDA home directory.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">imate</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get the location and version of CUDA Toolkit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">locate_cuda</span><span class="p">()</span>
+<span class="go">{</span>
+<span class="go">    &#39;home&#39;: &#39;/global/software/sl-7.x86_64/modules/langs/cuda/11.2&#39;,</span>
+<span class="go">    &#39;include&#39;: &#39;/global/software/sl-7.x86_64/modules/langs/cuda/11.2/include&#39;,</span>
+<span class="go">    &#39;lib&#39;: &#39;/global/software/sl-7.x86_64/modules/langs/cuda/11.2/lib64&#39;,</span>
+<span class="go">    &#39;nvcc&#39;: &#39;/global/software/sl-7.x86_64/modules/langs/cuda/11.2/bin/nvcc&#39;,</span>
+<span class="go">    &#39;version&#39;:</span>
+<span class="go">    {</span>
+<span class="go">        &#39;major&#39;: 11,</span>
+<span class="go">        &#39;minor&#39;: 2,</span>
+<span class="go">        &#39;patch&#39;: 0</span>
+<span class="go">    }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+<p>If the above function does not return an output such as in the above, it is because either <cite>CUDA Toolkit</cite> is not installed, or the directory of the CUDA Toolkit is not set. To do so, set the directory of CUDA Toolkit to either of the variables <code class="docutils literal notranslate"><span class="pre">CUDA_HOME</span></code>, <code class="docutils literal notranslate"><span class="pre">CUDA_ROOT</span></code>, or <code class="docutils literal notranslate"><span class="pre">CUDA_PATH</span></code>, such as by</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1"><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc</span>
+<span class="prompt1"><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export CUDA_HOME=/usr/local/cuda${CUDA_HOME:+:${CUDA_HOME}}&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc</span>
+<span class="prompt1"><span class="nb">source</span><span class="w"> </span>~/.bashrc</span>
+</pre></div></div></section>
+<section id="detect-nvidia-graphic-driver">
+<h2><span class="section-number">1.2. </span>Detect NVIDIA Graphic Driver<a class="headerlink" href="#detect-nvidia-graphic-driver" title="Permalink to this heading">#</a></h2>
+<p>Use <a class="reference internal" href="../generated/imate.device.get_nvidia_driver_version.html#imate.device.get_nvidia_driver_version" title="imate.device.get_nvidia_driver_version"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_nvidia_driver_version()</span></code></a> function to make sure <span class="synco">imate</span> can detect the NVIDIA driver.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get the version of NVIDIA graphic driver</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_nvidia_driver_version</span><span class="p">()</span>
+<span class="go">460.84</span>
+</pre></div>
+</div>
+</section>
+<section id="detect-gpu-devices">
+<h2><span class="section-number">1.3. </span>Detect GPU Devices<a class="headerlink" href="#detect-gpu-devices" title="Permalink to this heading">#</a></h2>
+<p>Use <a class="reference internal" href="../generated/imate.device.get_processor_name.html#imate.device.get_processor_name" title="imate.device.get_processor_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_processor_name()</span></code></a> and <a class="reference internal" href="../generated/imate.device.get_gpu_name.html#imate.device.get_gpu_name" title="imate.device.get_gpu_name"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_gpu_name()</span></code></a> to find the name of CPU and GPU devices, respectively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get the name of CPU processor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_processor_name</span><span class="p">()</span>
+<span class="go">&#39;Intel(R) Xeon(R) CPU E5-2623 v3 @ 3.00GHz&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get the name of GPU devices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_gpu_name</span><span class="p">()</span>
+<span class="go">&#39;GeForce GTX 1080 Ti&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the name of the GPU device is empty, this is because either there is no GPU device detected, or <em>NVIDIA graphic driver</em> is not installed, or its location is not on the PATH. To do so, set the location of <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> executable to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment variable. On UNIX, this executable should be on <code class="docutils literal notranslate"><span class="pre">/usr/bin</span></code> directory and by default it should be already on the <cite>PATH</cite>.</p>
+</div>
+<p>The number of CPU threads and GPU devices can be obtained respectively by <a class="reference internal" href="../generated/imate.device.get_num_cpu_threads.html#imate.device.get_num_cpu_threads" title="imate.device.get_num_cpu_threads"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_num_cpu_threads()</span></code></a> and <a class="reference internal" href="../generated/imate.device.get_num_gpu_devices.html#imate.device.get_num_gpu_devices" title="imate.device.get_num_gpu_devices"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.get_num_gpu_devices()</span></code></a> functions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get number of processor threads</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_num_cpu_threads</span><span class="p">()</span>
+<span class="go">8</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get number of GPU devices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get_num_gpu_devices</span><span class="p">()</span>
+<span class="go">4</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="../generated/imate.info.html#imate.info" title="imate.info"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.info()</span></code></a> function also obtains general information about <span class="synco">imate</span> configuration and devices.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="o">&gt;&gt;&gt;</span> <span class="n">imate</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+ <span class="n">imate</span> <span class="n">version</span>   <span class="p">:</span> <span class="mf">0.13.0</span>
+ <span class="n">processor</span>       <span class="p">:</span> <span class="n">Intel</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">Xeon</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="n">CPU</span> <span class="n">E5</span><span class="o">-</span><span class="mi">2623</span> <span class="n">v3</span> <span class="o">@</span> <span class="mf">3.00</span><span class="n">GHz</span>
+ <span class="n">num</span> <span class="n">threads</span>     <span class="p">:</span> <span class="mi">8</span>
+<span class="hll"> <span class="n">gpu</span> <span class="n">device</span>      <span class="p">:</span> <span class="s1">&#39;GeForce GTX 1080 Ti&#39;</span>
+</span><span class="hll"> <span class="n">num</span> <span class="n">gpu</span> <span class="n">devices</span> <span class="p">:</span> <span class="mi">4</span>
+</span><span class="hll"> <span class="n">cuda</span> <span class="n">version</span>    <span class="p">:</span> <span class="mf">11.2.0</span>
+</span><span class="hll"> <span class="n">nvidia</span> <span class="n">driver</span>   <span class="p">:</span> <span class="mf">460.84</span>
+</span> <span class="n">process</span> <span class="n">memory</span>  <span class="p">:</span> <span class="mf">1.7</span> <span class="p">(</span><span class="n">Gb</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Alternatively, one may directly use <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> command to inquiry the GPU devices.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">nvidia-smi</span>
+</pre></div></div><p>Output:</p>
+<div class="highlight-Text notranslate"><div class="highlight"><pre><span></span>+-----------------------------------------------------------------------------+
+| NVIDIA-SMI 460.84       Driver Version: 460.84       CUDA Version: 11.2     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  GeForce GTX 108...  Off  | 00000000:02:00.0 Off |                  N/A |
+| 33%   57C    P2    62W / 250W |    147MiB / 11178MiB |     25%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   1  GeForce GTX 108...  Off  | 00000000:03:00.0 Off |                  N/A |
+| 27%   48C    P2    61W / 250W |    147MiB / 11178MiB |     23%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   2  GeForce GTX 108...  Off  | 00000000:81:00.0 Off |                  N/A |
+| 18%   32C    P0    59W / 250W |      0MiB / 11178MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   3  GeForce GTX 108...  Off  | 00000000:82:00.0 Off |                  N/A |
+| 18%   32C    P0    59W / 250W |      0MiB / 11178MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A       654      C   python                            145MiB |
+|    1   N/A  N/A       839      C   python                            145MiB |
++-----------------------------------------------------------------------------+
+</pre></div>
+</div>
+<p>The output of <code class="docutils literal notranslate"><span class="pre">nvidia-smi</span></code> in the above shows there are four GPU devices available on the machine. For more complete information on the GPU devices, use</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">nvidia-smi<span class="w"> </span>-q</span>
+</pre></div></div></section>
+</section>
+
+
+              </article>
+              
+
+              
+              <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+  <a class='left-prev' id="prev-link" href="gpu_docker.html" title="previous page">
+      <i class="fas fa-angle-left"></i>
+      <div class="prev-next-info">
+          <p class="prev-next-subtitle">previous</p>
+          <p class="prev-next-title"><span class="section-number">3. </span>Use <span class="synco">imate</span> Docker Container on GPU</p>
+      </div>
+  </a>
+  <a class='right-next' id="next-link" href="run_functions_gpu.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title"><span class="section-number">2. </span>Run <span class="synco">imate</span> Functions on GPU</p>
+  </div>
+  <i class="fas fa-angle-right"></i>
+  </a>
+</div>
+              </footer>
+              
+          </div>
+          
+      </div>
+    </div>
+
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695"></script>
+
+
+    <!-- Adobe Embed API -->
+    
+    <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+
+
+  </body>
+</html>
