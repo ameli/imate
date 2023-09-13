@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['timer_483',['Timer',['../classTimer.html',1,'']]]
+  ['smoothstep_531',['SmoothStep',['../classSmoothStep.html',1,'']]],
+  ['splitmix64_532',['SplitMix64',['../classSplitMix64.html',1,'']]]
 ];

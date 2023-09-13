@@ -115,7 +115,7 @@ cpdef trace_estimator(
         num_threads = openmp.omp_get_max_threads()
 
     # Check operator A, and convert to a linear operator (if not already)
-    Aop = get_operator(A)
+    Aop = get_operator(A, gram)
 
     # data type name is either float32 (float), float64 double), or float128
     # (long double). This will be used to choose a template function
@@ -274,7 +274,8 @@ cpdef trace_estimator(
     cpu_proc_time = time.process_time() - init_proc_time
 
     # Matrix size info
-    matrix_size = Aop.get_num_rows()
+    matrix_rows = Aop.get_num_rows()
+    matrix_cols = Aop.get_num_columns()
     matrix_nnz = Aop.get_nnz()
     matrix_density = Aop.get_density()
     sparse = Aop.is_sparse()
@@ -286,7 +287,7 @@ cpdef trace_estimator(
             'data_type': data_type_name,
             'gram': gram,
             'exponent': exponent,
-            'size': matrix_size,
+            'size': (matrix_rows, matrix_cols),
             'sparse': sparse,
             'nnz': matrix_nnz,
             'density': matrix_density,

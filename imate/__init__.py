@@ -70,6 +70,10 @@ try:
     from .logdet import logdet                                     # noqa: E402
     from .trace import trace                                       # noqa: E402
     from .traceinv import traceinv                                 # noqa: E402
+    from .trexp import trexp                                       # noqa: E402
+    from .trlinfrac import trlinfrac                               # noqa: E402
+    from .eigencount import eigencount                             # noqa: E402
+    from .density import density                                   # noqa: E402
     from .schatten import schatten                                 # npqa: E402
     from .linear_operator import Matrix, AffineMatrixFunction      # noqa: E402
     from .interpolator import InterpolateSchatten                  # noqa: E402
@@ -89,9 +93,13 @@ except Exception as e:
     raise e
 
 __all__ = [
+        'logdet',
         'trace',
         'traceinv',
-        'logdet',
+        'trexp',
+        'trlinfrac',
+        'eigencount',
+        'density',
         'schatten',
         'InterpolateLogdet',
         'InterpolateTrace',

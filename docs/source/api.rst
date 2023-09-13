@@ -5,14 +5,10 @@ API Reference
 
 The API reference contains:
 
-* :ref:`Functions <Functions>`: compute log-determinant and trace of functions
-  of matrices.
-* :ref:`Interpolators <Interpolators>`: interpolate functions of one-parameter
-  family of affine matrix functions.
-* :ref:`Linear Operators <Linear Operators>`: classes that represent matrices
-  and affine matrix functions.
-* :ref:`Sample Matrices <Sample Matrices>`: generate matrices for test
-  purposes.
+* :ref:`Functions <Functions>`: compute log-determinant and trace of functions of matrices.
+* :ref:`Interpolators <Interpolators>`: interpolate functions of one-parameter family of affine matrix functions.
+* :ref:`Linear Operators <Linear Operators>`: classes that represent matrices and affine matrix functions.
+* :ref:`Sample Matrices <Sample Matrices>`: generate matrices for test purposes.
 * :ref:`Device Inquiry <Device Inquiry>`: inquiry information about CPU and GPU devices.
 
 .. _Functions:
@@ -23,12 +19,13 @@ Functions
 The functions of this package are:
 
 * :ref:`Log-Determinant <Log-Determinant>`: computes log-determinant of matrix.
-* :ref:`Trace of Inverses <Trace of Inverses>`: computes trace of the inverse of
-  a matrix or any negative power of the matrix.
-* :ref:`Trace <Trace>`: computes the trace of matrix or any positive power of
-  the matrix.
-* :ref:`Schatten Norm <Schatten Norm>`: computes the Schatten norm of order
-  :math:`p`, which includes the above three functions. 
+* :ref:`Trace of Inverses <Trace of Inverses>`: computes trace of the inverse of a matrix or any negative power of the matrix.
+* :ref:`Trace <Trace>`: computes the trace of matrix or any positive power of the matrix.
+* :ref:`TrExp <TrExp>`: computes the trace of matrix exponential.
+* :ref:`TrLinFrac <TrLinFrac>`: computes the trace of the linear fractional transformation of a matrix.
+* :ref:`EigenCount <EigenCount>`: computes the number of eigenvalues of a matrix within an interval.
+* :ref:`Density <Density>`: computes the spectral density of a matrix within evaluated at a given eigenvalue.
+* :ref:`Schatten Norm <Schatten Norm>`: computes the Schatten norm of order :math:`p`, which includes the above three functions. 
 
 Each of the above functions are implemented using both direct and randomized algorithms, suitable for various matrices sizes.
 
@@ -126,7 +123,122 @@ Method        Algorithm                      Matrix Size               Notes
 `eigenvalue`  Eigenvalue decomposition       Small :math:`n < 2^{12}`  For testing and benchmarking other methods
 `slq`         Stochastic Lanczos Quadrature  Large :math:`2^{12} < n`  Randomized method using Monte-Carlo sampling
 ============  =============================  ========================  ============================================
- 
+
+.. _TrExp:
+
+TrExp
+-----
+
+.. autosummary::
+    :toctree: generated
+    :caption: trexp
+    :recursive:
+    :template: autosummary/member.rst
+
+    imate.trexp
+
+This function computes the trace of the exponential function of :math:`\mathbf{A}^p` or the Gramian matrix :math:`(\mathbf{A}^{\intercal} \mathbf{A})^p` where :math:`p` is a positive real exponent.
+
+The `imate.trexp` function has the following methods:
+
+.. toctree::
+
+    api/imate.trexp.eigenvalue
+    api/imate.trexp.slq
+
+============  =============================  ========================  ============================================
+Method        Algorithm                      Matrix Size               Notes
+============  =============================  ========================  ============================================
+`eigenvalue`  Eigenvalue decomposition       Small :math:`n < 2^{12}`  For testing and benchmarking other methods
+`slq`         Stochastic Lanczos Quadrature  Large :math:`2^{12} < n`  Randomized method using Monte-Carlo sampling
+============  =============================  ========================  ============================================
+
+.. _TrLinFrac:
+
+TrLinFrac
+---------
+
+.. autosummary::
+    :toctree: generated
+    :caption: trlinfrac
+    :recursive:
+    :template: autosummary/member.rst
+
+    imate.trlinfrac
+
+This function computes the trace of the linear fractional transformation of :math:`\mathbf{A}^p` or the Gramian matrix :math:`(\mathbf{A}^{\intercal} \mathbf{A})^p` where :math:`p` is a positive real exponent.
+
+The `imate.trlinfrac` function has the following methods:
+
+.. toctree::
+
+    api/imate.trlinfrac.eigenvalue
+    api/imate.trlinfrac.slq
+
+============  =============================  ========================  ============================================
+Method        Algorithm                      Matrix Size               Notes
+============  =============================  ========================  ============================================
+`eigenvalue`  Eigenvalue decomposition       Small :math:`n < 2^{12}`  For testing and benchmarking other methods
+`slq`         Stochastic Lanczos Quadrature  Large :math:`2^{12} < n`  Randomized method using Monte-Carlo sampling
+============  =============================  ========================  ============================================
+
+.. _EigenCount:
+
+EigenCount
+----------
+
+.. autosummary::
+    :toctree: generated
+    :caption: eigencount
+    :recursive:
+    :template: autosummary/member.rst
+
+    imate.eigencount
+
+This function approximates the number of eigenvalues of :math:`\mathbf{A}^p` or the Gramian matrix :math:`(\mathbf{A}^{\intercal} \mathbf{A})^p` within a given interval where :math:`p` is a positive real exponent.
+
+The `imate.eigencount` function has the following methods:
+
+.. toctree::
+
+    api/imate.eigencount.eigenvalue
+    api/imate.eigencount.slq
+
+============  =============================  ========================  ============================================
+Method        Algorithm                      Matrix Size               Notes
+============  =============================  ========================  ============================================
+`eigenvalue`  Eigenvalue decomposition       Small :math:`n < 2^{12}`  For testing and benchmarking other methods
+`slq`         Stochastic Lanczos Quadrature  Large :math:`2^{12} < n`  Randomized method using Monte-Carlo sampling
+============  =============================  ========================  ============================================
+
+.. _Density:
+
+Density
+-------
+
+.. autosummary::
+    :toctree: generated
+    :caption: density
+    :recursive:
+    :template: autosummary/member.rst
+
+    imate.density
+
+This function approximates the spectral density of :math:`\mathbf{A}^p` or the Gramian matrix :math:`(\mathbf{A}^{\intercal} \mathbf{A})^p` for a given eigenvalue where :math:`p` is a positive real exponent.
+
+The `imate.density` function has the following methods:
+
+.. toctree::
+
+    api/imate.density.eigenvalue
+    api/imate.density.slq
+
+============  =============================  ========================  ============================================
+Method        Algorithm                      Matrix Size               Notes
+============  =============================  ========================  ============================================
+`eigenvalue`  Eigenvalue decomposition       Small :math:`n < 2^{12}`  For testing and benchmarking other methods
+`slq`         Stochastic Lanczos Quadrature  Large :math:`2^{12} < n`  Randomized method using Monte-Carlo sampling
+============  =============================  ========================  ============================================ 
 
 .. _Schatten Norm:
 

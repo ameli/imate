@@ -39,8 +39,9 @@ def logdet(
         \\det (\\mathbf{A}) \\vert.
 
     If ``gram`` is `True`, then :math:`\\mathbf{A}` in the above is replaced by
-    the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`, and the
-    following is instead computed:
+    the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`. In this
+    case, if the matrix :math:`\\mathvf{A}` is square, then the following is
+    instead computed:
 
     .. math::
 
@@ -67,7 +68,8 @@ def logdet(
         can be used only if ``method=slq``. See details in
         :ref:`slq method <imate.logdet.slq>`. If ``method=cholesky``, the
         matrix `A` should be positive-definite. If ``method=slq`` and
-        ``gram=False``, the input matrix `A` should be symmetric.
+        ``gram=False``, the input matrix `A` should be symmetric. If
+        ``gram=True``, the matrix can be non-square.
 
     gram : bool, default=False
         If `True`, the log-determinant of the Gramian matrix,
@@ -115,7 +117,7 @@ def logdet(
             * ``gram``: `bool`, whether the matrix `A` or its Gramian is
               considered.
             * ``exponent``: `float`, the exponent `p` in :math:`\\mathbf{A}^p`.
-            * ``size``: `int`, The size of matrix `A`.
+            * ``size``: `(int, int)`, The size of matrix `A`.
             * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
             * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
               of `A`.
@@ -262,7 +264,7 @@ def logdet(
                 'gram': False,
                 'nnz': 298,
                 'num_inquiries': 1,
-                'size': 100,
+                'size': (100, 100),
                 'sparse': True
             },
             'solver': {

@@ -25,6 +25,7 @@ def check_arguments(
         C,
         gram,
         exponent,
+        return_info,
         assume_matrix,
         min_num_samples,
         max_num_samples,
@@ -45,8 +46,12 @@ def check_arguments(
     if (not isinstance(A, numpy.ndarray)) and (not isspmatrix(A)):
         raise TypeError('Input matrix should be either a "numpy.ndarray" or ' +
                         'a "scipy.sparse" matrix.')
-    elif A.shape[0] != A.shape[1]:
-        raise ValueError('Input matrix should be a square matrix.')
+
+    # Check if the matrix is square or not
+    if (A.shape[0] != A.shape[1]):
+        square = False
+    else:
+        square = True
 
     # Check B
     if B is not None:
@@ -59,9 +64,12 @@ def check_arguments(
             raise TypeError('When the input matrix "A" is of type ' +
                             '"scipy.sparse", matrix "B" should also be of ' +
                             'the same type.')
-        elif A.shape != B.shape:
+        elif square and (A.shape != B.shape):
             raise ValueError('Matrix "B" should have the same size as ' +
                              'matrix "A".')
+        elif (not square) and (A.shape[1] != B.shape[0]):
+            raise ValueError('Matrix "B" should have the same number of ' +
+                             'rows as the number of columns of "A".')
 
     # Check C
     if C is not None:
@@ -76,9 +84,12 @@ def check_arguments(
             raise TypeError('When the input matrix "A" is of type ' +
                             '"scipy.sparse", matrix "C" should also be of ' +
                             'the same type.')
-        elif A.shape != C.shape:
+        elif square and (A.shape != C.shape):
             raise ValueError('Matrix "C" should have the same size as ' +
                              'matrix "A".')
+        elif (not square) and (A.shape[1] != C.shape[0]):
+            raise ValueError('Matrix "C" should have the same number of ' +
+                             'rows as the number of columns of "A".')
 
     # Check gram
     if gram is None:
@@ -95,6 +106,10 @@ def check_arguments(
         raise TypeError('"exponent" should be a scalar value.')
     elif not isinstance(exponent, (int, numpy.integer)):
         TypeError('"exponent" cannot be an integer.')
+
+    # Check return info
+    if not isinstance(return_info, bool):
+        raise TypeError('"return_info" should be boolean.')
 
     # Check assume_matrix
     if assume_matrix is None:
@@ -232,7 +247,7 @@ def check_arguments(
                               'install "matplotlib" and "seaborn" packages, ' +
                               'or set "plot=False".')
 
-    return error_atol, error_rtol
+    return error_atol, error_rtol, square
 
 
 # =============

@@ -222,7 +222,7 @@ def schatten(
     .. [1] Ameli, S., and Shadden. S. C. (2022). *Interpolating Log-Determinant
            and Trace of the Powers of Matrix*
            :math:`\\mathbf{A} + t \\mathbf{B}`.
-           `arXiv: 2009.07385 <https://arxiv.org/abs/2207.08038>`_ [math.NA].
+           `arXiv: 2009.07385 <https://arxiv.org/abs/2009.07385>`_ [math.NA].
 
     Examples
     --------

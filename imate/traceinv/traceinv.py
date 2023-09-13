@@ -67,7 +67,8 @@ def traceinv(
         can be used only if ``method=slq``. See details in
         :ref:`slq method <imate.traceinv.slq>`. If ``method=cholesky``, the
         matrix `A` should be positive-definite. If ``method=slq`` and
-        ``gram=False``, the input matrix `A` should be symmetric.
+        ``gram=False``, the input matrix `A` should be symmetric. If
+        ``gram=True``, the matrix can be non-square.
 
     gram : bool, default=False
         If `True`, the trace of the Gramian matrix,
@@ -127,7 +128,7 @@ def traceinv(
               considered.
             * ``exponent``: `float`, the exponent `p` in
               :math:`\\mathbf{A}^{-p}`.
-            * ``size``: `int`, The size of matrix `A`.
+            * ``size``: `(int, int)`, The size of matrix `A`.
             * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
             * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
               of `A`.
@@ -278,7 +279,7 @@ def traceinv(
                 'gram': False,
                 'nnz': 199,
                 'num_inquiries': 1,
-                'size': 100,
+                'size': (100, 100),
                 'sparse': True
             },
             'solver': {

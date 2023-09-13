@@ -16,7 +16,7 @@
 // Headers
 // ======
 
-#include "../_definitions/types.h"  // IndexType, FlagType
+#include "../_definitions/types.h"  // DataType, IndexType, FlagType
 
 
 // =================

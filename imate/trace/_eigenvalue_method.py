@@ -60,7 +60,8 @@ def eigenvalue_method(
     ----------
 
     A : numpy.ndarray, scipy.sparse
-        A sparse or dense matrix.
+        A non-singular sparse or dense matrix. If ``gram`` is `True`, the
+        matrix can be non-square.
 
         .. note::
 
@@ -115,7 +116,7 @@ def eigenvalue_method(
             * ``exponent``: `float`, the exponent `p` in :math:`\\mathbf{A}^p`.
             * ``assume_matrix``: `str`, {`gen`, `sym`}, determines whether
               matrix is generic or symmetric.
-            * ``size``: `int`, the size of matrix `A`.
+            * ``size``: `(int, int)`, the size of matrix `A`.
             * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
             * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
               of `A`.
@@ -243,7 +244,7 @@ def eigenvalue_method(
                 'gram': False,
                 'nnz': 10000,
                 'num_inquiries': 1,
-                'size': 100,
+                'size': (100, 100),
                 'sparse': False
             },
             'solver': {
@@ -293,7 +294,7 @@ def eigenvalue_method(
     """
 
     # Checking input arguments
-    check_arguments(A, eigenvalues, gram, p, assume_matrix,
+    check_arguments(A, eigenvalues, gram, p, return_info, assume_matrix,
                     non_zero_eig_fraction)
 
     init_tot_wall_time = time.perf_counter()
@@ -345,7 +346,7 @@ def eigenvalue_method(
             'gram': gram,
             'exponent': p,
             'assume_matrix': assume_matrix,
-            'size': A.shape[0],
+            'size': A.shape,
             'sparse': isspmatrix(A),
             'nnz': get_nnz(A),
             'density': get_density(A),
@@ -386,6 +387,7 @@ def check_arguments(
         eigenvalues,
         gram,
         p,
+        return_info,
         assume_matrix,
         non_zero_eig_fraction):
     """
@@ -396,8 +398,6 @@ def check_arguments(
     if (not isinstance(A, numpy.ndarray)) and (not scipy.sparse.issparse(A)):
         raise TypeError('Input matrix should be either a "numpy.ndarray" or ' +
                         'a "scipy.sparse" matrix.')
-    elif A.shape[0] != A.shape[1]:
-        raise ValueError('Input matrix should be a square matrix.')
 
     # Check eigenvalues
     if eigenvalues is not None:
@@ -407,6 +407,12 @@ def check_arguments(
             raise ValueError('The length of "eigenvalues" does not match ' +
                              'the size of matrix "A".')
 
+    # Check if the matrix is square or not
+    if (A.shape[0] != A.shape[1]):
+        square = False
+    else:
+        square = True
+
     # Check gram
     if gram is None:
         raise TypeError('"gram" cannot be None.')
@@ -415,6 +421,10 @@ def check_arguments(
     elif not isinstance(gram, bool):
         raise TypeError('"gram" should be boolean.')
 
+    # Check non gram should be square
+    if (not gram) and (not square):
+        raise ValueError('Non Gramian matrix should be square.')
+
     # Check p
     if p is None:
         raise TypeError('"p" cannot be None.')
@@ -422,6 +432,10 @@ def check_arguments(
         raise TypeError('"p" should be a scalar value.')
     elif not isinstance(p, (int, numpy.integer)):
         TypeError('"p" cannot be an integer.')
+
+    # Check return info
+    if not isinstance(return_info, bool):
+        raise TypeError('"return_info" should be boolean.')
 
     # Check assume_matrix
     if assume_matrix is None:

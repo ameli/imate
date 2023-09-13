@@ -11,7 +11,11 @@
 #ifndef _C_TRACE_ESTIMATOR_LAPACK_API_H_
 #define _C_TRACE_ESTIMATOR_LAPACK_API_H_
 
-extern "C"
+// The "CYTHON_EXTERN_C" is defined in Cython>=3.0.1 by default, and is defined
+// to "extern C++". This macro is not defined in Cython<3.0.1. However, to make
+// sure this works in lower versions of Cython, I also defined this macro in
+// setup.py in define_macro variable.
+CYTHON_EXTERN_C
 {
     // lapack sstev
     void lapack_sstev(char* jobz, int* n, float* d, float* e, float* z,

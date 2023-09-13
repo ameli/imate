@@ -3,7 +3,7 @@
   <compounddef id="classGaussian" kind="class" language="C++" prot="public">
     <compoundname>Gaussian</compoundname>
     <basecompoundref refid="classFunction" prot="public" virt="non-virtual">Function</basecompoundref>
-    <includes refid="functions_8h" local="no">functions.h</includes>
+    <includes refid="gaussian_8h" local="no">gaussian.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="classGaussian_1a8817a6b8a77b65a1cfe69c01cf959fe8" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -16,8 +16,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/github/imate/imate/functions/functions.h" line="218" column="16" bodyfile="/home/sia/work/github/imate/imate/functions/functions.h" bodystart="218" bodyend="-1"/>
-        <referencedby refid="classGaussian_1a5ec3ee1581fa298163b49dfc80795150" compoundref="functions_8cpp" startline="282" endline="288">function</referencedby>
+        <location file="/home/sia/work/github/imate/imate/functions/gaussian.h" line="54" column="16" bodyfile="/home/sia/work/github/imate/imate/functions/gaussian.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="classGaussian_1a5ec3ee1581fa298163b49dfc80795150" compoundref="gaussian_8cpp" startline="48" endline="54">function</referencedby>
+        <referencedby refid="classGaussian_1ae1e4c3d76cd8885be26fff0ea1b2571c" compoundref="gaussian_8cpp" startline="34" endline="38">Gaussian</referencedby>
       </memberdef>
       <memberdef kind="variable" id="classGaussian_1ac92be5609debc97ed363b701e77e70e9" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -30,16 +31,25 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/github/imate/imate/functions/functions.h" line="219" column="16" bodyfile="/home/sia/work/github/imate/imate/functions/functions.h" bodystart="219" bodyend="-1"/>
-        <referencedby refid="classGaussian_1a5ec3ee1581fa298163b49dfc80795150" compoundref="functions_8cpp" startline="282" endline="288">function</referencedby>
+        <location file="/home/sia/work/github/imate/imate/functions/gaussian.h" line="55" column="16" bodyfile="/home/sia/work/github/imate/imate/functions/gaussian.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="classGaussian_1a5ec3ee1581fa298163b49dfc80795150" compoundref="gaussian_8cpp" startline="48" endline="54">function</referencedby>
+        <referencedby refid="classGaussian_1ae1e4c3d76cd8885be26fff0ea1b2571c" compoundref="gaussian_8cpp" startline="34" endline="38">Gaussian</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="classGaussian_1aa201bf4a8fe1192c9a701e9537691426" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classGaussian_1ae1e4c3d76cd8885be26fff0ea1b2571c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>Gaussian::Gaussian</definition>
-        <argsstring>()</argsstring>
+        <argsstring>(double mu_, double sigma_)</argsstring>
         <name>Gaussian</name>
+        <param>
+          <type>double</type>
+          <declname>mu_</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>sigma_</declname>
+        </param>
         <briefdescription>
 <para>Sets the default for the parameter <computeroutput>mu</computeroutput> to <computeroutput>0.0</computeroutput> and for the parameter <computeroutput>sigma</computeroutput> to <computeroutput>1.0</computeroutput>. </para>
         </briefdescription>
@@ -47,7 +57,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/github/imate/imate/functions/functions.h" line="214" column="9" bodyfile="/home/sia/work/github/imate/imate/functions/functions.cpp" bodystart="269" bodyend="272"/>
+        <location file="/home/sia/work/github/imate/imate/functions/gaussian.h" line="50" column="9" bodyfile="/home/sia/work/github/imate/imate/functions/gaussian.cpp" bodystart="34" bodyend="38"/>
+        <references refid="classGaussian_1a8817a6b8a77b65a1cfe69c01cf959fe8" compoundref="gaussian_8h" startline="54">mu</references>
+        <references refid="classGaussian_1ac92be5609debc97ed363b701e77e70e9" compoundref="gaussian_8h" startline="55">sigma</references>
       </memberdef>
       <memberdef kind="function" id="classGaussian_1a5ec3ee1581fa298163b49dfc80795150" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>float</type>
@@ -77,9 +89,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/github/imate/imate/functions/functions.h" line="215" column="23" bodyfile="/home/sia/work/github/imate/imate/functions/functions.cpp" bodystart="282" bodyend="288"/>
-        <references refid="classGaussian_1a8817a6b8a77b65a1cfe69c01cf959fe8" compoundref="functions_8h" startline="218">mu</references>
-        <references refid="classGaussian_1ac92be5609debc97ed363b701e77e70e9" compoundref="functions_8h" startline="219">sigma</references>
+        <location file="/home/sia/work/github/imate/imate/functions/gaussian.h" line="51" column="23" bodyfile="/home/sia/work/github/imate/imate/functions/gaussian.cpp" bodystart="48" bodyend="54"/>
+        <references refid="classGaussian_1a8817a6b8a77b65a1cfe69c01cf959fe8" compoundref="gaussian_8h" startline="54">mu</references>
+        <references refid="classGaussian_1ac92be5609debc97ed363b701e77e70e9" compoundref="gaussian_8h" startline="55">sigma</references>
       </memberdef>
       <memberdef kind="function" id="classGaussian_1a0b3dc75613303f5530e1521f012612e4" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>double</type>
@@ -109,9 +121,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/github/imate/imate/functions/functions.h" line="216" column="24" bodyfile="/home/sia/work/github/imate/imate/functions/functions.cpp" bodystart="299" bodyend="303"/>
-        <references refid="classGaussian_1a8817a6b8a77b65a1cfe69c01cf959fe8" compoundref="functions_8h" startline="218">mu</references>
-        <references refid="classGaussian_1ac92be5609debc97ed363b701e77e70e9" compoundref="functions_8h" startline="219">sigma</references>
+        <location file="/home/sia/work/github/imate/imate/functions/gaussian.h" line="52" column="24" bodyfile="/home/sia/work/github/imate/imate/functions/gaussian.cpp" bodystart="65" bodyend="69"/>
+        <references refid="classGaussian_1a8817a6b8a77b65a1cfe69c01cf959fe8" compoundref="gaussian_8h" startline="54">mu</references>
+        <references refid="classGaussian_1ac92be5609debc97ed363b701e77e70e9" compoundref="gaussian_8h" startline="55">sigma</references>
       </memberdef>
       <memberdef kind="function" id="classGaussian_1ac8d10edec313d5f0807e7f8d0cdf2c70" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>long double</type>
@@ -141,16 +153,16 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/github/imate/imate/functions/functions.h" line="217" column="29" bodyfile="/home/sia/work/github/imate/imate/functions/functions.cpp" bodystart="314" bodyend="320"/>
-        <references refid="classGaussian_1a8817a6b8a77b65a1cfe69c01cf959fe8" compoundref="functions_8h" startline="218">mu</references>
-        <references refid="classGaussian_1ac92be5609debc97ed363b701e77e70e9" compoundref="functions_8h" startline="219">sigma</references>
+        <location file="/home/sia/work/github/imate/imate/functions/gaussian.h" line="53" column="29" bodyfile="/home/sia/work/github/imate/imate/functions/gaussian.cpp" bodystart="80" bodyend="86"/>
+        <references refid="classGaussian_1a8817a6b8a77b65a1cfe69c01cf959fe8" compoundref="gaussian_8h" startline="54">mu</references>
+        <references refid="classGaussian_1ac92be5609debc97ed363b701e77e70e9" compoundref="gaussian_8h" startline="55">sigma</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Defines the function. </para>
     </briefdescription>
     <detaileddescription>
-<para><formula id="47">\[ f: \lambda \mapsto \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{1}{2} \frac{(\lambda - \mu)^2}{\sigma^2}}, \]</formula> where <formula id="48">$ \mu $</formula> and <formula id="49">$ \sigma $</formula> parameters are the mean and standard deviation of the <ref refid="classGaussian" kindref="compound">Gaussian</ref> function and should be set by <computeroutput>this-&gt;mu</computeroutput> and <computeroutput>this-&gt;sigma</computeroutput> members, respectively.</para>
+<para><formula id="43">\[ f: \lambda \mapsto \frac{1}{\sigma \sqrt{2 \pi}} e^{-\frac{1}{2} \frac{(\lambda - \mu)^2}{\sigma^2}}, \]</formula> where <formula id="44">$ \mu $</formula> and <formula id="45">$ \sigma $</formula> parameters are the mean and standard deviation of the <ref refid="classGaussian" kindref="compound">Gaussian</ref> function and should be set by <computeroutput>this-&gt;mu</computeroutput> and <computeroutput>this-&gt;sigma</computeroutput> members, respectively.</para>
 <para>The matrix function <formula id="39">$ f: \mathbb{R}^{n \times n} \to \mathbb{R}^{n \times n} $</formula> is used in</para>
 <para><formula id="40">\[ \mathrm{trace} \left( f(\mathbf{A}) \right). \]</formula></para>
 <para>However, instead of a matrix function, the equivalent scalar function <formula id="41">$ f: \mathbb{R} \to \mathbb{R} $</formula> is defiend which acts on the eigenvalues of the matrix. </para>
@@ -179,12 +191,12 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/sia/work/github/imate/imate/functions/functions.h" line="211" column="1" bodyfile="/home/sia/work/github/imate/imate/functions/functions.h" bodystart="212" bodyend="220"/>
+    <location file="/home/sia/work/github/imate/imate/functions/gaussian.h" line="47" column="1" bodyfile="/home/sia/work/github/imate/imate/functions/gaussian.h" bodystart="48" bodyend="56"/>
     <listofallmembers>
       <member refid="classGaussian_1a5ec3ee1581fa298163b49dfc80795150" prot="public" virt="virtual"><scope>Gaussian</scope><name>function</name></member>
       <member refid="classGaussian_1a0b3dc75613303f5530e1521f012612e4" prot="public" virt="virtual"><scope>Gaussian</scope><name>function</name></member>
       <member refid="classGaussian_1ac8d10edec313d5f0807e7f8d0cdf2c70" prot="public" virt="virtual"><scope>Gaussian</scope><name>function</name></member>
-      <member refid="classGaussian_1aa201bf4a8fe1192c9a701e9537691426" prot="public" virt="non-virtual"><scope>Gaussian</scope><name>Gaussian</name></member>
+      <member refid="classGaussian_1ae1e4c3d76cd8885be26fff0ea1b2571c" prot="public" virt="non-virtual"><scope>Gaussian</scope><name>Gaussian</name></member>
       <member refid="classGaussian_1a8817a6b8a77b65a1cfe69c01cf959fe8" prot="public" virt="non-virtual"><scope>Gaussian</scope><name>mu</name></member>
       <member refid="classGaussian_1ac92be5609debc97ed363b701e77e70e9" prot="public" virt="non-virtual"><scope>Gaussian</scope><name>sigma</name></member>
       <member refid="classFunction_1a3b03f7cf0b75d16edebdda1dee1db6fd" prot="public" virt="virtual"><scope>Gaussian</scope><name>~Function</name></member>

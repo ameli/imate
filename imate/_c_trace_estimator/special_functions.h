@@ -12,6 +12,17 @@
 #ifndef _C_TRACE_ESTIMATOR_SPECIAL_FUNCTIONS_H_
 #define _C_TRACE_ESTIMATOR_SPECIAL_FUNCTIONS_H_
 
-extern "C" double erf_inv(double x);
+// ======
+// Headers
+// ======
+
+#include "../_definitions/types.h"  // DataType, IndexType, FlagType
+
+// ============
+// Declarations
+// ============
+
+// erf inv
+double erf_inv(const double x);
 
 #endif  // _C_TRACE_ESTIMATOR_SPECIAL_FUNCTIONS_H_

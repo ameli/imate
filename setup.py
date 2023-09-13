@@ -1194,7 +1194,7 @@ def create_extension(
 
     # Pyx file sources
     pyx_sources = join('.', package_name, subpackage_name, '*.pyx')
-    
+
     # Either create a module for each pyx file or a module for all cpp files
     if glob(pyx_sources) != []:
 
@@ -1219,6 +1219,13 @@ def create_extension(
     libraries = []
     language = 'c++'
     define_macros += [('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')]
+
+    # When compiled with Cython>=3.0.1, all externs are defined as
+    # "extern C++", however, Cython<=0.29.36 uses "extern C". To avoid this
+    # disambiguation, here we define CYTHON_EXTERN_C, which is already defined
+    # in Cython>=3.0.0 but not defined in lower version. In all C++ codes, I
+    # should replace any extern clause with this macro.
+    define_macros += [("CYTHON_EXTERN_C", 'extern "C"')]
 
     # Include any additional source files
     if other_source_files is not None:
@@ -1414,6 +1421,7 @@ def cythonize_extensions(extensions):
         'wraparound': False,
         'nonecheck': False,
         'embedsignature': True,
+        'language_level': "3",
     }
 
     # Used for sphinx to find docstring of pyx files
@@ -1545,6 +1553,18 @@ def main(argv):
                                                           '_c_basic_algebra']))
 
     extensions.append(create_extension(package_name, 'logdet',
+                                       other_source_dirs=['functions']))
+
+    extensions.append(create_extension(package_name, 'trexp',
+                                       other_source_dirs=['functions']))
+
+    extensions.append(create_extension(package_name, 'trlinfrac',
+                                       other_source_dirs=['functions']))
+
+    extensions.append(create_extension(package_name, 'eigencount',
+                                       other_source_dirs=['functions']))
+
+    extensions.append(create_extension(package_name, 'density',
                                        other_source_dirs=['functions']))
 
     # Cython CUDA extensions

@@ -16,8 +16,7 @@
 #include "./diagonalization.h"
 #include <cassert>  // assert
 #include <cstdlib>  // NULL
-#include "./lapack_api.h"  // lapack_xstev, lapack_xstev, lapack_xbdsdc,
-                           // lapack_xbdsdc
+#include "./lapack_api.h"  // lapack_xstev, lapack_xbdsdc,
 
 
 // ================

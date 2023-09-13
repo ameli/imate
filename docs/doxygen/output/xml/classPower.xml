@@ -3,7 +3,7 @@
   <compounddef id="classPower" kind="class" language="C++" prot="public">
     <compoundname>Power</compoundname>
     <basecompoundref refid="classFunction" prot="public" virt="non-virtual">Function</basecompoundref>
-    <includes refid="functions_8h" local="no">functions.h</includes>
+    <includes refid="power_8h" local="no">power.h</includes>
       <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="classPower_1ac33f3893f520dc540a11782c5e4711cd" prot="public" static="no" mutable="no">
         <type>double</type>
@@ -16,8 +16,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/github/imate/imate/functions/functions.h" line="182" column="16" bodyfile="/home/sia/work/github/imate/imate/functions/functions.h" bodystart="182" bodyend="-1"/>
-        <referencedby refid="classPower_1ae7607f79541b3d8c239ded5b823cfb55" compoundref="functions_8cpp" startline="228" endline="231">function</referencedby>
+        <location file="/home/sia/work/github/imate/imate/functions/power.h" line="49" column="16" bodyfile="/home/sia/work/github/imate/imate/functions/power.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="classPower_1ae7607f79541b3d8c239ded5b823cfb55" compoundref="power_8cpp" startline="41" endline="44">function</referencedby>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -33,7 +33,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/github/imate/imate/functions/functions.h" line="178" column="9" bodyfile="/home/sia/work/github/imate/imate/functions/functions.cpp" bodystart="214" bodyend="217"/>
+        <location file="/home/sia/work/github/imate/imate/functions/power.h" line="45" column="9" bodyfile="/home/sia/work/github/imate/imate/functions/power.cpp" bodystart="27" bodyend="30"/>
       </memberdef>
       <memberdef kind="function" id="classPower_1ae7607f79541b3d8c239ded5b823cfb55" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>float</type>
@@ -63,8 +63,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/github/imate/imate/functions/functions.h" line="179" column="23" bodyfile="/home/sia/work/github/imate/imate/functions/functions.cpp" bodystart="228" bodyend="231"/>
-        <references refid="classPower_1ac33f3893f520dc540a11782c5e4711cd" compoundref="functions_8h" startline="182">exponent</references>
+        <location file="/home/sia/work/github/imate/imate/functions/power.h" line="46" column="23" bodyfile="/home/sia/work/github/imate/imate/functions/power.cpp" bodystart="41" bodyend="44"/>
+        <references refid="classPower_1ac33f3893f520dc540a11782c5e4711cd" compoundref="power_8h" startline="49">exponent</references>
       </memberdef>
       <memberdef kind="function" id="classPower_1ad89b37a8ec090fa2265207d234688f62" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>double</type>
@@ -94,8 +94,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/github/imate/imate/functions/functions.h" line="180" column="24" bodyfile="/home/sia/work/github/imate/imate/functions/functions.cpp" bodystart="242" bodyend="245"/>
-        <references refid="classPower_1ac33f3893f520dc540a11782c5e4711cd" compoundref="functions_8h" startline="182">exponent</references>
+        <location file="/home/sia/work/github/imate/imate/functions/power.h" line="47" column="24" bodyfile="/home/sia/work/github/imate/imate/functions/power.cpp" bodystart="55" bodyend="58"/>
+        <references refid="classPower_1ac33f3893f520dc540a11782c5e4711cd" compoundref="power_8h" startline="49">exponent</references>
       </memberdef>
       <memberdef kind="function" id="classPower_1a05eff78d58cfd11a41766688b9277edc" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>long double</type>
@@ -125,12 +125,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/sia/work/github/imate/imate/functions/functions.h" line="181" column="29" bodyfile="/home/sia/work/github/imate/imate/functions/functions.cpp" bodystart="256" bodyend="259"/>
-        <references refid="classPower_1ac33f3893f520dc540a11782c5e4711cd" compoundref="functions_8h" startline="182">exponent</references>
+        <location file="/home/sia/work/github/imate/imate/functions/power.h" line="48" column="29" bodyfile="/home/sia/work/github/imate/imate/functions/power.cpp" bodystart="69" bodyend="72"/>
+        <references refid="classPower_1ac33f3893f520dc540a11782c5e4711cd" compoundref="power_8h" startline="49">exponent</references>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Defines the function <formula id="45">$ f: \lambda \mapsto \lambda^{p} $</formula>, where <formula id="46">$ p \in \mathbb{R} $</formula> is a parameter and should be set by <computeroutput>this-&gt;exponent</computeroutput> member. </para>
+<para>Defines the function <formula id="51">$ f: \lambda \mapsto \lambda^{p} $</formula>, where <formula id="52">$ p \in \mathbb{R} $</formula> is a parameter and should be set by <computeroutput>this-&gt;exponent</computeroutput> member. </para>
     </briefdescription>
     <detaileddescription>
 <para>The matrix function <formula id="39">$ f: \mathbb{R}^{n \times n} \to \mathbb{R}^{n \times n} $</formula> is used in</para>
@@ -161,7 +161,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="/home/sia/work/github/imate/imate/functions/functions.h" line="175" column="1" bodyfile="/home/sia/work/github/imate/imate/functions/functions.h" bodystart="176" bodyend="183"/>
+    <location file="/home/sia/work/github/imate/imate/functions/power.h" line="42" column="1" bodyfile="/home/sia/work/github/imate/imate/functions/power.h" bodystart="43" bodyend="50"/>
     <listofallmembers>
       <member refid="classPower_1ac33f3893f520dc540a11782c5e4711cd" prot="public" virt="non-virtual"><scope>Power</scope><name>exponent</name></member>
       <member refid="classPower_1ae7607f79541b3d8c239ded5b823cfb55" prot="public" virt="virtual"><scope>Power</scope><name>function</name></member>

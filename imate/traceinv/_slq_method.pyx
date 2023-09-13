@@ -77,7 +77,8 @@ def slq_method(
     A : numpy.ndarray, scipy.sparse, :class:`imate.Matrix`, or \
             :class:`imate.AffineMatrixFunction`
         A sparse or dense matrix or linear operator. If ``gram`` is `False`,
-        then `A` should be symmetric.
+        then `A` should be symmetric. If ``gram`` is `True`, the matrix can be
+        non-square.
 
         .. warning::
 
@@ -228,7 +229,7 @@ def slq_method(
               considered.
             * ``exponent``: `float`, the exponent `p` in
               :math:`\\mathbf{A}^{-p}`.
-            * ``size``: (int) The size of matrix `A`.
+            * ``size``: (int, int) The size of matrix `A`.
             * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
             * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
               of `A`.
@@ -570,7 +571,7 @@ def slq_method(
                 'num_inquiries': 1,
                 'num_operator_parameters': 0,
                 'parameters': None,
-                'size': 100,
+                'size': (100, 100),
                 'sparse': True
             },
             'convergence': {
@@ -799,8 +800,13 @@ def slq_method(
         :class: custom-dark
     """
 
-    # Define inverse matrix function
+    # Check arguments
+    check_arguments(return_info)
+
+    # Define matrix function
     cdef Function* matrix_function = new Inverse()
+
+    # Embed matrix function in python object
     py_matrix_function = pyFunction()
     py_matrix_function.set_function(matrix_function)
 
@@ -831,3 +837,17 @@ def slq_method(
         return trace, info
     else:
         return trace
+
+    
+# ===============
+# check arguments
+# ===============
+
+def check_arguments(return_info):
+    """
+    Checks the type and value of the parameters.
+    """
+
+    # Check return info
+    if not isinstance(return_info, bool):
+        raise TypeError('"return_info" should be boolean.')

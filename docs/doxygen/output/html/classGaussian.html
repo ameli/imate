@@ -134,7 +134,7 @@ $(document).ready(function(){initNavTree('classGaussian.html',''); initResizable
 <p>Defines the function.  
  <a href="classGaussian.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="functions_8h_source.html">functions.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="gaussian_8h_source.html">gaussian.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Gaussian:</div>
 <div class="dyncontent">
@@ -156,9 +156,9 @@ Collaboration diagram for Gaussian:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa201bf4a8fe1192c9a701e9537691426"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGaussian.html#aa201bf4a8fe1192c9a701e9537691426">Gaussian</a> ()</td></tr>
-<tr class="memdesc:aa201bf4a8fe1192c9a701e9537691426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the default for the parameter <code>mu</code> to <code>0.0</code> and for the parameter <code>sigma</code> to <code>1.0</code>.  <a href="classGaussian.html#aa201bf4a8fe1192c9a701e9537691426">More...</a><br /></td></tr>
-<tr class="separator:aa201bf4a8fe1192c9a701e9537691426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1e4c3d76cd8885be26fff0ea1b2571c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGaussian.html#ae1e4c3d76cd8885be26fff0ea1b2571c">Gaussian</a> (double mu_, double sigma_)</td></tr>
+<tr class="memdesc:ae1e4c3d76cd8885be26fff0ea1b2571c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the default for the parameter <code>mu</code> to <code>0.0</code> and for the parameter <code>sigma</code> to <code>1.0</code>.  <a href="classGaussian.html#ae1e4c3d76cd8885be26fff0ea1b2571c">More...</a><br /></td></tr>
+<tr class="separator:ae1e4c3d76cd8885be26fff0ea1b2571c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ec3ee1581fa298163b49dfc80795150"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGaussian.html#a5ec3ee1581fa298163b49dfc80795150">function</a> (const float lambda_) const</td></tr>
 <tr class="separator:a5ec3ee1581fa298163b49dfc80795150"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b3dc75613303f5530e1521f012612e4"><td class="memItemLeft" align="right" valign="top">virtual double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGaussian.html#a0b3dc75613303f5530e1521f012612e4">function</a> (const double lambda_) const</td></tr>
@@ -189,10 +189,10 @@ Public Attributes</h2></td></tr>
 </p>
 <p>However, instead of a matrix function, the equivalent scalar function \( f: \mathbb{R} \to \mathbb{R} \) is defiend which acts on the eigenvalues of the matrix. </p>
 
-<p class="definition">Definition at line <a class="el" href="functions_8h_source.html#l00211">211</a> of file <a class="el" href="functions_8h_source.html">functions.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="gaussian_8h_source.html#l00047">47</a> of file <a class="el" href="gaussian_8h_source.html">gaussian.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa201bf4a8fe1192c9a701e9537691426"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa201bf4a8fe1192c9a701e9537691426">&#9670;&nbsp;</a></span>Gaussian()</h2>
+<a id="ae1e4c3d76cd8885be26fff0ea1b2571c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1e4c3d76cd8885be26fff0ea1b2571c">&#9670;&nbsp;</a></span>Gaussian()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -200,22 +200,35 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">Gaussian::Gaussian </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>mu_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>sigma_</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Sets the default for the parameter <code>mu</code> to <code>0.0</code> and for the parameter <code>sigma</code> to <code>1.0</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="functions_8cpp_source.html#l00269">269</a> of file <a class="el" href="functions_8cpp_source.html">functions.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                  :</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <a class="code" href="classGaussian.html#a8817a6b8a77b65a1cfe69c01cf959fe8">mu</a>(0.0), <a class="code" href="classGaussian.html#ac92be5609debc97ed363b701e77e70e9">sigma</a>(1.0)</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;{</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;}</div>
-<div class="ttc" id="aclassGaussian_html_a8817a6b8a77b65a1cfe69c01cf959fe8"><div class="ttname"><a href="classGaussian.html#a8817a6b8a77b65a1cfe69c01cf959fe8">Gaussian::mu</a></div><div class="ttdeci">double mu</div><div class="ttdef"><b>Definition:</b> <a href="functions_8h_source.html#l00218">functions.h:218</a></div></div>
-<div class="ttc" id="aclassGaussian_html_ac92be5609debc97ed363b701e77e70e9"><div class="ttname"><a href="classGaussian.html#ac92be5609debc97ed363b701e77e70e9">Gaussian::sigma</a></div><div class="ttdeci">double sigma</div><div class="ttdef"><b>Definition:</b> <a href="functions_8h_source.html#l00219">functions.h:219</a></div></div>
+<p class="definition">Definition at line <a class="el" href="gaussian_8cpp_source.html#l00034">34</a> of file <a class="el" href="gaussian_8cpp_source.html">gaussian.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    this-&gt;<a class="code" href="classGaussian.html#a8817a6b8a77b65a1cfe69c01cf959fe8">mu</a> = mu_;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    this-&gt;<a class="code" href="classGaussian.html#ac92be5609debc97ed363b701e77e70e9">sigma</a> = sigma_;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
+<div class="ttc" id="aclassGaussian_html_a8817a6b8a77b65a1cfe69c01cf959fe8"><div class="ttname"><a href="classGaussian.html#a8817a6b8a77b65a1cfe69c01cf959fe8">Gaussian::mu</a></div><div class="ttdeci">double mu</div><div class="ttdef"><b>Definition:</b> <a href="gaussian_8h_source.html#l00054">gaussian.h:54</a></div></div>
+<div class="ttc" id="aclassGaussian_html_ac92be5609debc97ed363b701e77e70e9"><div class="ttname"><a href="classGaussian.html#ac92be5609debc97ed363b701e77e70e9">Gaussian::sigma</a></div><div class="ttdeci">double sigma</div><div class="ttdef"><b>Definition:</b> <a href="gaussian_8h_source.html#l00055">gaussian.h:55</a></div></div>
 </div><!-- fragment -->
+<p class="reference">References <a class="el" href="gaussian_8h_source.html#l00054">mu</a>, and <a class="el" href="gaussian_8h_source.html#l00055">sigma</a>.</p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -252,13 +265,13 @@ Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classFunction.html#abb983ee238adf9b49ed7f1a7442e3019">Function</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="functions_8cpp_source.html#l00299">299</a> of file <a class="el" href="functions_8cpp_source.html">functions.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;{</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keywordtype">double</span> x = (lambda_ - this-&gt;<a class="code" href="classGaussian.html#a8817a6b8a77b65a1cfe69c01cf959fe8">mu</a>) / this-&gt;<a class="code" href="classGaussian.html#ac92be5609debc97ed363b701e77e70e9">sigma</a>;</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="keywordflow">return</span> (0.5 * M_SQRT1_2 * M_2_SQRTPI / this-&gt;<a class="code" href="classGaussian.html#ac92be5609debc97ed363b701e77e70e9">sigma</a>) * exp(-0.5 * x * x);</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="gaussian_8cpp_source.html#l00065">65</a> of file <a class="el" href="gaussian_8cpp_source.html">gaussian.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;{</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">double</span> x = (lambda_ - this-&gt;<a class="code" href="classGaussian.html#a8817a6b8a77b65a1cfe69c01cf959fe8">mu</a>) / this-&gt;<a class="code" href="classGaussian.html#ac92be5609debc97ed363b701e77e70e9">sigma</a>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">return</span> (0.5 * M_SQRT1_2 * M_2_SQRTPI / this-&gt;<a class="code" href="classGaussian.html#ac92be5609debc97ed363b701e77e70e9">sigma</a>) * exp(-0.5 * x * x);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="functions_8h_source.html#l00218">mu</a>, and <a class="el" href="functions_8h_source.html#l00219">sigma</a>.</p>
+<p class="reference">References <a class="el" href="gaussian_8h_source.html#l00054">mu</a>, and <a class="el" href="gaussian_8h_source.html#l00055">sigma</a>.</p>
 
 </div>
 </div>
@@ -295,15 +308,15 @@ Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classFunction.html#a603a10dedebd89b477a23a5f8f705935">Function</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="functions_8cpp_source.html#l00282">282</a> of file <a class="el" href="functions_8cpp_source.html">functions.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;{</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="keywordtype">float</span> mu_ = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(this-&gt;<a class="code" href="classGaussian.html#a8817a6b8a77b65a1cfe69c01cf959fe8">mu</a>);</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="keywordtype">float</span> sigma_ = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(this-&gt;<a class="code" href="classGaussian.html#ac92be5609debc97ed363b701e77e70e9">sigma</a>);</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keywordtype">float</span> x = (lambda_ - mu_) / sigma_;</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    <span class="keywordflow">return</span> (0.5 * M_SQRT1_2 * M_2_SQRTPI / sigma_) * exp(-0.5 * x * x);</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="gaussian_8cpp_source.html#l00048">48</a> of file <a class="el" href="gaussian_8cpp_source.html">gaussian.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;{</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">float</span> mu_ = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(this-&gt;<a class="code" href="classGaussian.html#a8817a6b8a77b65a1cfe69c01cf959fe8">mu</a>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">float</span> sigma_ = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(this-&gt;<a class="code" href="classGaussian.html#ac92be5609debc97ed363b701e77e70e9">sigma</a>);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">float</span> x = (lambda_ - mu_) / sigma_;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">return</span> (0.5 * M_SQRT1_2 * M_2_SQRTPI / sigma_) * exp(-0.5 * x * x);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="functions_8h_source.html#l00218">mu</a>, and <a class="el" href="functions_8h_source.html#l00219">sigma</a>.</p>
+<p class="reference">References <a class="el" href="gaussian_8h_source.html#l00054">mu</a>, and <a class="el" href="gaussian_8h_source.html#l00055">sigma</a>.</p>
 
 </div>
 </div>
@@ -340,15 +353,15 @@ Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classFunction.html#a1e83c965a17529850d96015fb2d91968">Function</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="functions_8cpp_source.html#l00314">314</a> of file <a class="el" href="functions_8cpp_source.html">functions.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;{</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keywordtype">long</span> <span class="keywordtype">double</span> mu_ = <span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span> <span class="keywordtype">double</span><span class="keyword">&gt;</span>(this-&gt;<a class="code" href="classGaussian.html#a8817a6b8a77b65a1cfe69c01cf959fe8">mu</a>);</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    <span class="keywordtype">long</span> <span class="keywordtype">double</span> sigma_ = <span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span> <span class="keywordtype">double</span><span class="keyword">&gt;</span>(this-&gt;<a class="code" href="classGaussian.html#ac92be5609debc97ed363b701e77e70e9">sigma</a>);</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    <span class="keywordtype">long</span> <span class="keywordtype">double</span> x = (lambda_ - mu_) / sigma_;</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    <span class="keywordflow">return</span> (0.5 * M_SQRT1_2 * M_2_SQRTPI / sigma_) * exp(-0.5 * x * x);</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="gaussian_8cpp_source.html#l00080">80</a> of file <a class="el" href="gaussian_8cpp_source.html">gaussian.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;{</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">long</span> <span class="keywordtype">double</span> mu_ = <span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span> <span class="keywordtype">double</span><span class="keyword">&gt;</span>(this-&gt;<a class="code" href="classGaussian.html#a8817a6b8a77b65a1cfe69c01cf959fe8">mu</a>);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">long</span> <span class="keywordtype">double</span> sigma_ = <span class="keyword">static_cast&lt;</span><span class="keywordtype">long</span> <span class="keywordtype">double</span><span class="keyword">&gt;</span>(this-&gt;<a class="code" href="classGaussian.html#ac92be5609debc97ed363b701e77e70e9">sigma</a>);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">long</span> <span class="keywordtype">double</span> x = (lambda_ - mu_) / sigma_;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">return</span> (0.5 * M_SQRT1_2 * M_2_SQRTPI / sigma_) * exp(-0.5 * x * x);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="functions_8h_source.html#l00218">mu</a>, and <a class="el" href="functions_8h_source.html#l00219">sigma</a>.</p>
+<p class="reference">References <a class="el" href="gaussian_8h_source.html#l00054">mu</a>, and <a class="el" href="gaussian_8h_source.html#l00055">sigma</a>.</p>
 
 </div>
 </div>
@@ -365,9 +378,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="functions_8h_source.html#l00218">218</a> of file <a class="el" href="functions_8h_source.html">functions.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="gaussian_8h_source.html#l00054">54</a> of file <a class="el" href="gaussian_8h_source.html">gaussian.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="functions_8cpp_source.html#l00282">function()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="gaussian_8cpp_source.html#l00048">function()</a>, and <a class="el" href="gaussian_8cpp_source.html#l00034">Gaussian()</a>.</p>
 
 </div>
 </div>
@@ -383,15 +396,15 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="functions_8h_source.html#l00219">219</a> of file <a class="el" href="functions_8h_source.html">functions.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="gaussian_8h_source.html#l00055">55</a> of file <a class="el" href="gaussian_8h_source.html">gaussian.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="functions_8cpp_source.html#l00282">function()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="gaussian_8cpp_source.html#l00048">function()</a>, and <a class="el" href="gaussian_8cpp_source.html#l00034">Gaussian()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/sia/work/github/imate/imate/functions/<a class="el" href="functions_8h_source.html">functions.h</a></li>
-<li>/home/sia/work/github/imate/imate/functions/<a class="el" href="functions_8cpp_source.html">functions.cpp</a></li>
+<li>/home/sia/work/github/imate/imate/functions/<a class="el" href="gaussian_8h_source.html">gaussian.h</a></li>
+<li>/home/sia/work/github/imate/imate/functions/<a class="el" href="gaussian_8cpp_source.html">gaussian.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -399,7 +412,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="classGaussian.html">Gaussian</a></li>
-    <li class="footer">Generated on Fri Aug 11 2023 13:16:47 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Sep 13 2023 13:50:51 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

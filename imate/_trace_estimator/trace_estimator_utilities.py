@@ -21,7 +21,7 @@ from ..linear_operator import LinearOperator, Matrix
 # get operator
 # ============
 
-def get_operator(A):
+def get_operator(A, gram):
     """
     Check the input operator (or matrix) has proper type and shape. If A is a
     numpy dense matrix or a scipy sparse matrix, it will be converted to an
@@ -33,14 +33,14 @@ def get_operator(A):
         # Check matrix dimension and shape
         if A.ndim != 2:
             raise ValueError('Input matrix should be a 2-dimensional array.')
-        elif A.shape[0] != A.shape[1]:
+        elif (not gram) and (A.shape[0] != A.shape[1]):
             raise ValueError('Input matrix should be a square matrix.')
 
         # Convert matrix A to a linear operator A
         return Matrix(A)
 
     elif isinstance(A, LinearOperator):
-        if A.get_num_rows() != A.get_num_columns():
+        if (not gram) and (A.get_num_rows() != A.get_num_columns()):
             raise ValueError('Input operator should have the same number ' +
                              'of rows and columns.')
 

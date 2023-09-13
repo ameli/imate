@@ -54,8 +54,9 @@ def slq_method(
         \\det (\\mathbf{A}) \\vert.
 
     If ``gram`` is `True`, then :math:`\\mathbf{A}` in the above is replaced by
-    the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`, and the
-    following is instead computed:
+    the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`. In this
+    case, if the matrix :math:`\\mathvf{A}` is square, then the following is
+    instead computed:
 
     .. math::
 
@@ -228,7 +229,7 @@ def slq_method(
             * ``gram``: `bool`, whether the matrix `A` or its Gramian is
               considered.
             * ``exponent``: `float`, the exponent `p` in :math:`\\mathbf{A}^p`.
-            * ``size``: (int) The size of matrix `A`.
+            * ``size``: (int, int) The size of matrix `A`.
             * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
             * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
               of `A`.
@@ -570,7 +571,7 @@ def slq_method(
                 'num_inquiries': 1,
                 'num_operator_parameters': 0,
                 'parameters': None,
-                'size': 100,
+                'size': (100, 100),
                 'sparse': True
             },
             'convergence': {
@@ -796,8 +797,13 @@ def slq_method(
         :class: custom-dark
     """
 
-    # Define inverse matrix function
+    # Check arguments
+    check_arguments(return_info)
+
+    # Define matrix function
     cdef Function* matrix_function = new Logarithm()
+
+    # Embed matrix function in python object
     py_matrix_function = pyFunction()
     py_matrix_function.set_function(matrix_function)
 

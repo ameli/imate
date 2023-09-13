@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xoshiro256starstar_484',['Xoshiro256StarStar',['../classXoshiro256StarStar.html',1,'']]]
+  ['timer_533',['Timer',['../classTimer.html',1,'']]]
 ];

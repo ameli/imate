@@ -97,7 +97,8 @@ def hutchinson_method(
     ----------
 
     A : numpy.ndarray, scipy.sparse
-        A sparse or dense matrix.
+        A sparse or dense matrix. If ``gram`` is `True`, the matrix can be
+        non-square.
 
         .. note::
 
@@ -213,7 +214,7 @@ def hutchinson_method(
             * ``exponent``: `float`, the exponent `p` in :math:`\\mathbf{A}^p`.
             * ``assume_matrix``: `str`, {`gen`, `sym`, `pos`, `sym_pos`},
               determines the type of matrix `A`.
-            * ``size``: (int) The size of matrix `A`.
+            * ``size``: (int, int) The size of matrix `A`.
             * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
             * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
               of `A`.
@@ -481,7 +482,7 @@ def hutchinson_method(
                 'gram': False,
                 'nnz': 199,
                 'num_inquiries': 1,
-                'size': 100,
+                'size': (100, 100),
                 'sparse': True
             },
             'convergence': {
@@ -598,19 +599,19 @@ def hutchinson_method(
     """
 
     # Checking input arguments
-    error_atol, error_rtol = check_arguments(
-            A, B, C, gram, p, assume_matrix, min_num_samples, max_num_samples,
-            error_atol, error_rtol, confidence_level,
+    error_atol, error_rtol, square = check_arguments(
+            A, B, C, gram, p, return_info, assume_matrix, min_num_samples,
+            max_num_samples, error_atol, error_rtol, confidence_level,
             outlier_significance_level, solver_tol, orthogonalize, num_threads,
             verbose, plot)
 
     # If the number of random vectors exceed the size of the vectors they
     # cannot be linearly independent and extra calculation with them will be
     # redundant.
-    if A.shape[0] < max_num_samples:
-        max_num_samples = A.shape[0]
-    if A.shape[0] < min_num_samples:
-        min_num_samples = A.shape[0]
+    if A.shape[1] < max_num_samples:
+        max_num_samples = A.shape[1]
+    if A.shape[1] < min_num_samples:
+        min_num_samples = A.shape[1]
 
     # Parallel processing
     if num_threads < 1:
@@ -652,7 +653,7 @@ def hutchinson_method(
             'gram': gram,
             'exponent': p,
             'assume_matrix': assume_matrix,
-            'size': A.shape[0],
+            'size': A.shape,
             'sparse': isspmatrix(A),
             'nnz': get_nnz(A),
             'density': get_density(A),

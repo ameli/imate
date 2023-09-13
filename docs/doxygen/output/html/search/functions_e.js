@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['randomnumbergenerator_776',['RandomNumberGenerator',['../classRandomNumberGenerator.html#a8e7e711ea58f13f3ed95becbe33684e9',1,'RandomNumberGenerator::RandomNumberGenerator()'],['../classRandomNumberGenerator.html#a66bfd206144c1f0edfade8d8d6153b75',1,'RandomNumberGenerator::RandomNumberGenerator(int num_threads_)']]],
-  ['rotation_5fleft_777',['rotation_left',['../classXoshiro256StarStar.html#a3b10c22cbac4ff9bf4447e28e57f7a72',1,'Xoshiro256StarStar']]]
+  ['query_5fdevice_865',['query_device',['../query__device_8cu.html#a6738c790bb99e337eb12d743f0b0652b',1,'query_device(DeviceProperties &amp;device_properties):&#160;query_device.cu'],['../query__device_8h.html#a6738c790bb99e337eb12d743f0b0652b',1,'query_device(DeviceProperties &amp;device_properties):&#160;query_device.cu']]],
+  ['query_5fgpu_5fdevices_866',['query_gpu_devices',['../classcuLinearOperator.html#a8dac55aff04e3f372468b21367a6dab8',1,'cuLinearOperator']]]
 ];

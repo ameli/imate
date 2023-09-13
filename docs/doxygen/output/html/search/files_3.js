@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['lapack_5fapi_2ecpp_578',['lapack_api.cpp',['../lapack__api_8cpp.html',1,'']]],
-  ['lapack_5fapi_2eh_579',['lapack_api.h',['../lapack__api_8h.html',1,'']]]
+  ['exponential_2ecpp_633',['exponential.cpp',['../exponential_8cpp.html',1,'']]],
+  ['exponential_2eh_634',['exponential.h',['../exponential_8h.html',1,'']]]
 ];

@@ -49,8 +49,9 @@ def eigenvalue_method(
         \\det (\\mathbf{A}) \\vert.
 
     If ``gram`` is `True`, then :math:`\\mathbf{A}` in the above is replaced by
-    the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`, and the
-    following is instead computed:
+    the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`. In this
+    case, if the matrix :math:`\\mathvf{A}` is square, then the following is
+    instead computed:
 
     .. math::
 
@@ -61,7 +62,8 @@ def eigenvalue_method(
     ----------
 
     A : numpy.ndarray, scipy.sparse
-        A non-singular sparse or dense matrix.
+        A non-singular sparse or dense matrix. If ``gram`` is `True`, the
+        input matrix can be non-square.
 
         .. note::
 
@@ -116,7 +118,7 @@ def eigenvalue_method(
             * ``exponent``: `float`, the exponent `p` in :math:`\\mathbf{A}^p`.
             * ``assume_matrix``: `str`, {`gen`, `sym`}, determines whether
               matrix is generic or symmetric.
-            * ``size``: `int`, the size of matrix `A`.
+            * ``size``: `(int, int)`, the size of matrix `A`.
             * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
             * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
               of `A`.
@@ -234,7 +236,7 @@ def eigenvalue_method(
                 'gram': False,
                 'nnz': 10000,
                 'num_inquiries': 1,
-                'size': 100,
+                'size': (100, 100),
                 'sparse': False
             },
             'solver': {
@@ -284,15 +286,29 @@ def eigenvalue_method(
     """
 
     # Checking input arguments
-    check_arguments(A, eigenvalues, gram, p, return_info, assume_matrix,
-                    non_zero_eig_fraction)
+    square = check_arguments(A, eigenvalues, gram, p, return_info,
+                             assume_matrix, non_zero_eig_fraction)
 
     init_tot_wall_time = time.perf_counter()
     init_cpu_proc_time = time.process_time()
 
     if eigenvalues is None:
-        eigenvalues = compute_eigenvalues(A, assume_matrix,
-                                          non_zero_eig_fraction)
+
+        if square:
+            # Matrix is square, either gram or not gram. For the case of gram,
+            # we will multiply the logdet by two later.
+            eigenvalues = compute_eigenvalues(A, assume_matrix,
+                                              non_zero_eig_fraction)
+
+        else:
+            # Matrix is gram but A is not square. Compute singular values
+            # instead.
+            singularvalues = compute_singularvalues(A, non_zero_eig_fraction)
+
+            # Compute eigenvalues of gram matrix from the singular values. Note
+            # in this case, there is no need to multiply the logdet by two
+            # later.
+            eigenvalues = singularvalues ** 2
 
     # Compute logdet of matrix
     not_nan = numpy.logical_not(numpy.isnan(eigenvalues))
@@ -322,8 +338,9 @@ def eigenvalue_method(
             else:
                 logdet_ = logdet_.real + complex(0.0, numpy.pi)
 
-    # Gramian matrix
-    if gram:
+    # Gramian matrix. Make this adjustment only when matrix is square. For non
+    # square gram matrix, we already used the square of singularvalues.
+    if gram and square:
         logdet_ = 2.0 * logdet_
 
     tot_wall_time = time.perf_counter() - init_tot_wall_time
@@ -337,7 +354,7 @@ def eigenvalue_method(
             'gram': gram,
             'exponent': p,
             'assume_matrix': assume_matrix,
-            'size': A.shape[0],
+            'size': A.shape,
             'sparse': isspmatrix(A),
             'nnz': get_nnz(A),
             'density': get_density(A),
@@ -389,8 +406,6 @@ def check_arguments(
     if (not isinstance(A, numpy.ndarray)) and (not scipy.sparse.issparse(A)):
         raise TypeError('Input matrix should be either a "numpy.ndarray" or ' +
                         'a "scipy.sparse" matrix.')
-    elif A.shape[0] != A.shape[1]:
-        raise ValueError('Input matrix should be a square matrix.')
 
     # Check eigenvalues
     if eigenvalues is not None:
@@ -400,6 +415,12 @@ def check_arguments(
             raise ValueError('The length of "eigenvalues" does not match ' +
                              'the size of matrix "A".')
 
+    # Check if the matrix is square or not
+    if (A.shape[0] != A.shape[1]):
+        square = False
+    else:
+        square = True
+
     # Check gram
     if gram is None:
         raise TypeError('"gram" cannot be None.')
@@ -407,6 +428,10 @@ def check_arguments(
         raise TypeError('"gram" should be a scalar value.')
     elif not isinstance(gram, bool):
         raise TypeError('"gram" should be boolean.')
+
+    # Check non gram should be square
+    if (not gram) and (not square):
+        raise ValueError('Non Gramian matrix should be square.')
 
     # Check p
     if p is None:
@@ -438,6 +463,8 @@ def check_arguments(
     elif non_zero_eig_fraction <= 0 or non_zero_eig_fraction >= 1.0:
         raise ValueError('"non_zero_eig_fraction" should be greater then 0.0' +
                          'and smaller than 1.0.')
+
+    return square
 
 
 # ===================
@@ -504,3 +531,47 @@ def compute_eigenvalues(
             eigenvalues = scipy.linalg.eig(A, check_finite=False)[0]
 
     return eigenvalues
+
+
+# ======================
+# compute singularvalues
+# ======================
+
+def compute_singularvalues(
+        A,
+        non_zero_eig_fraction,
+        tol=1e-4):
+    """
+    """
+
+    if scipy.sparse.isspmatrix(A):
+
+        # Sparse matrix
+        n = numpy.min([A.shape[0], A.shape[1]])
+        singularvalues = numpy.empty(n)
+        singularvalues[:] = numpy.nan
+
+        # find 90% of singularvalues, assume the rest are very close to zero.
+        num_none_zero_eig = int(n*non_zero_eig_fraction)
+
+        # Computing half of singularvalues from the largest magnitude
+        singularvalues_large = scipy.sparse.linalg.svds(
+                A, num_none_zero_eig//2, which='LM',
+                return_singular_vectors=False, tol=tol)
+
+        # Computing half of singularvalues from the smallest magnitude
+        singularvalues_small = scipy.sparse.linalg.svds(
+                A, num_none_zero_eig//2, which='SM',
+                return_singular_vectors=False, tol=tol)
+
+        # Combine large and small singularvalues into one array
+        num_singularvalues = singularvalues_large.size + \
+            singularvalues_small.size
+        singularvalues[:num_singularvalues] = numpy.r_[singularvalues_large,
+                                                       singularvalues_small]
+    else:
+
+        # Dense matrix
+        singularvalues = scipy.linalg.svdvals(A, check_finite=False)
+
+    return singularvalues

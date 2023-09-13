@@ -65,7 +65,8 @@ def trace(
         operators :class:`imate.Matrix` and :class:`imate.AffineMatrixFunction`
         can be used only if ``method=slq``. See details in
         :ref:`slq method <imate.trace.slq>`. If ``method=slq`` and
-        ``gram=False``, the input matrix `A` should be symmetric.
+        ``gram=False``, the input matrix `A` should be symmetric. If
+        ``gram=True``, the matrix can be non-square.
 
     gram : bool, default=False
         If `True`, the trace of the Gramian matrix,

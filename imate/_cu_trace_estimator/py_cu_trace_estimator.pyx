@@ -26,7 +26,6 @@ from ..functions cimport pyFunction, Function
 
 # Include cython wrapper functions to be compiled in C++ api.
 include "../_c_trace_estimator/lapack_api.pxi"
-include "../_c_trace_estimator/special_functions.pxi"
 
 
 # ====================

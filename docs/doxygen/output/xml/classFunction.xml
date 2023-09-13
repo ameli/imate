@@ -4,7 +4,9 @@
     <compoundname>Function</compoundname>
     <derivedcompoundref refid="classExponential" prot="public" virt="non-virtual">Exponential</derivedcompoundref>
     <derivedcompoundref refid="classGaussian" prot="public" virt="non-virtual">Gaussian</derivedcompoundref>
+    <derivedcompoundref refid="classHomographic" prot="public" virt="non-virtual">Homographic</derivedcompoundref>
     <derivedcompoundref refid="classIdentity" prot="public" virt="non-virtual">Identity</derivedcompoundref>
+    <derivedcompoundref refid="classIndicator" prot="public" virt="non-virtual">Indicator</derivedcompoundref>
     <derivedcompoundref refid="classInverse" prot="public" virt="non-virtual">Inverse</derivedcompoundref>
     <derivedcompoundref refid="classLogarithm" prot="public" virt="non-virtual">Logarithm</derivedcompoundref>
     <derivedcompoundref refid="classPower" prot="public" virt="non-virtual">Power</derivedcompoundref>
@@ -30,12 +32,14 @@
         <definition>virtual float Function::function</definition>
         <argsstring>(const float lambda_) const =0</argsstring>
         <name>function</name>
+        <reimplementedby refid="classExponential_1ab3f2d3de0ef66c88746ead4801cf3250">function</reimplementedby>
+        <reimplementedby refid="classGaussian_1a5ec3ee1581fa298163b49dfc80795150">function</reimplementedby>
+        <reimplementedby refid="classHomographic_1abe72d2ca72265c9b556f425f6030f76e">function</reimplementedby>
         <reimplementedby refid="classIdentity_1a3d50a8681f6ee06103f27755bb098fdc">function</reimplementedby>
+        <reimplementedby refid="classIndicator_1a808a21e63c2b7449a16ddcbfc440bb08">function</reimplementedby>
         <reimplementedby refid="classInverse_1ae76b2dfc34a33becb930b61f0be2788e">function</reimplementedby>
         <reimplementedby refid="classLogarithm_1aac7c57d6fa2c60e1d8235894405b5caf">function</reimplementedby>
-        <reimplementedby refid="classExponential_1ab3f2d3de0ef66c88746ead4801cf3250">function</reimplementedby>
         <reimplementedby refid="classPower_1ae7607f79541b3d8c239ded5b823cfb55">function</reimplementedby>
-        <reimplementedby refid="classGaussian_1a5ec3ee1581fa298163b49dfc80795150">function</reimplementedby>
         <reimplementedby refid="classSmoothStep_1af4ff0fd64f152b6b7b7d233be2efb1cf">function</reimplementedby>
         <param>
           <type>const float</type>
@@ -54,12 +58,14 @@
         <definition>virtual double Function::function</definition>
         <argsstring>(const double lambda_) const =0</argsstring>
         <name>function</name>
+        <reimplementedby refid="classExponential_1aaedbd96805d9afb80ff0046a56c2f20b">function</reimplementedby>
+        <reimplementedby refid="classGaussian_1a0b3dc75613303f5530e1521f012612e4">function</reimplementedby>
+        <reimplementedby refid="classHomographic_1acd71853b063cab8de2102bbd3e9768eb">function</reimplementedby>
         <reimplementedby refid="classIdentity_1a8adf764d26a5cb8e858d76cc2f331a71">function</reimplementedby>
+        <reimplementedby refid="classIndicator_1ab68d7d45a8119a18a7f79cb202ea66e8">function</reimplementedby>
         <reimplementedby refid="classInverse_1a028e322d734b7ede2baf2bce490271a7">function</reimplementedby>
         <reimplementedby refid="classLogarithm_1a57bd4094533400976784a94b2516341f">function</reimplementedby>
-        <reimplementedby refid="classExponential_1aaedbd96805d9afb80ff0046a56c2f20b">function</reimplementedby>
         <reimplementedby refid="classPower_1ad89b37a8ec090fa2265207d234688f62">function</reimplementedby>
-        <reimplementedby refid="classGaussian_1a0b3dc75613303f5530e1521f012612e4">function</reimplementedby>
         <reimplementedby refid="classSmoothStep_1a1ec4fe15e82fb5b8d12ebab674b55844">function</reimplementedby>
         <param>
           <type>const double</type>
@@ -78,12 +84,14 @@
         <definition>virtual long double Function::function</definition>
         <argsstring>(const long double lambda_) const =0</argsstring>
         <name>function</name>
+        <reimplementedby refid="classExponential_1ab016309f22ba6adce5b19c078162c686">function</reimplementedby>
+        <reimplementedby refid="classGaussian_1ac8d10edec313d5f0807e7f8d0cdf2c70">function</reimplementedby>
+        <reimplementedby refid="classHomographic_1a700e3939e14a4cc17abf97cd62b8238c">function</reimplementedby>
         <reimplementedby refid="classIdentity_1a75fb1deefe32816d79aa05c15ded292b">function</reimplementedby>
+        <reimplementedby refid="classIndicator_1a6f68ee56a8dab67c7192789f47e5fdda">function</reimplementedby>
         <reimplementedby refid="classInverse_1ab6135270a313da4b0d30a2fcb7255e5e">function</reimplementedby>
         <reimplementedby refid="classLogarithm_1adad5c679c0bf152b0bda05fdd4ee357c">function</reimplementedby>
-        <reimplementedby refid="classExponential_1ab016309f22ba6adce5b19c078162c686">function</reimplementedby>
         <reimplementedby refid="classPower_1a05eff78d58cfd11a41766688b9277edc">function</reimplementedby>
-        <reimplementedby refid="classGaussian_1ac8d10edec313d5f0807e7f8d0cdf2c70">function</reimplementedby>
         <reimplementedby refid="classSmoothStep_1ac7b9bc61a6d47a63b0b9a279010fd14a">function</reimplementedby>
         <param>
           <type>const long double</type>
@@ -99,7 +107,7 @@
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Defines the function <formula id="38">$ f: \lambda \mapsto \lambda $</formula>. </para>
+<para>Defines the function <formula id="42">$ f: \lambda \mapsto \lambda $</formula>. </para>
     </briefdescription>
     <detaileddescription>
 <para>The matrix function <formula id="39">$ f: \mathbb{R}^{n \times n} \to \mathbb{R}^{n \times n} $</formula> is used in</para>
@@ -114,25 +122,31 @@
         <label>Function</label>
         <link refid="classFunction"/>
       </node>
+      <node id="6">
+        <label>Indicator</label>
+        <link refid="classIndicator"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
       <node id="3">
         <label>Gaussian</label>
         <link refid="classGaussian"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="6">
+      <node id="8">
         <label>Logarithm</label>
         <link refid="classLogarithm"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="7">
+      <node id="9">
         <label>Power</label>
         <link refid="classPower"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="5">
+      <node id="7">
         <label>Inverse</label>
         <link refid="classInverse"/>
         <childnode refid="1" relation="public-inheritance">
@@ -144,15 +158,21 @@
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="4">
+      <node id="5">
         <label>Identity</label>
         <link refid="classIdentity"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="8">
+      <node id="10">
         <label>SmoothStep</label>
         <link refid="classSmoothStep"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Homographic</label>
+        <link refid="classHomographic"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>

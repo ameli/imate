@@ -26,7 +26,6 @@ from ..functions cimport pyFunction, Function
 
 # Include cython wrapper functions to be compiled in C++ api.
 include "lapack_api.pxi"
-include "special_functions.pxi"
 
 # To avoid cython's bug that does not recognizes "long double" in template []
 ctypedef long double long_double

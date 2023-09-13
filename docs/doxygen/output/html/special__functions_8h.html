@@ -128,13 +128,25 @@ $(document).ready(function(){initNavTree('special__functions_8h.html',''); initR
 <div class="title">special_functions.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="dynheader">
+<div class="textblock"><code>#include &quot;<a class="el" href="types_8h_source.html">../_definitions/types.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for special_functions.h:</div>
+<div class="dyncontent">
+<div class="center"><img src="special__functions_8h__incl.png" border="0" usemap="#a_2home_2sia_2work_2github_2imate_2imate_2__c__trace__estimator_2special__functions_8h" alt=""/></div>
+<map name="a_2home_2sia_2work_2github_2imate_2imate_2__c__trace__estimator_2special__functions_8h" id="a_2home_2sia_2work_2github_2imate_2imate_2__c__trace__estimator_2special__functions_8h">
+<area shape="rect" title=" " alt="" coords="5,5,204,61"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="31,109,178,136"/>
+<area shape="rect" href="definitions_8h.html" title=" " alt="" coords="55,184,155,211"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="special__functions_8h__dep__incl.png" border="0" usemap="#a_2home_2sia_2work_2github_2imate_2imate_2__c__trace__estimator_2special__functions_8hdep" alt=""/></div>
 <map name="a_2home_2sia_2work_2github_2imate_2imate_2__c__trace__estimator_2special__functions_8hdep" id="a_2home_2sia_2work_2github_2imate_2imate_2__c__trace__estimator_2special__functions_8hdep">
-<area shape="rect" title=" " alt="" coords="5,5,204,61"/>
-<area shape="rect" href="convergence__tools_8cpp.html" title=" " alt="" coords="24,109,185,180"/>
+<area shape="rect" title=" " alt="" coords="92,5,291,61"/>
+<area shape="rect" href="convergence__tools_8cpp.html" title=" " alt="" coords="5,109,167,180"/>
+<area shape="rect" href="special__functions_8cpp.html" title=" " alt="" coords="191,117,405,173"/>
 </map>
 </div>
 </div>
@@ -142,12 +154,13 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a704df509fee471570474355a9ed09365"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="special__functions_8h.html#a704df509fee471570474355a9ed09365">erf_inv</a> (double x)</td></tr>
-<tr class="separator:a704df509fee471570474355a9ed09365"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44303dd28715725483ae9bb6e214fc17"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="special__functions_8h.html#a44303dd28715725483ae9bb6e214fc17">erf_inv</a> (const double x)</td></tr>
+<tr class="memdesc:a44303dd28715725483ae9bb6e214fc17"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classInverse.html" title="Defines the function .">Inverse</a> error function.  <a href="special__functions_8h.html#a44303dd28715725483ae9bb6e214fc17">More...</a><br /></td></tr>
+<tr class="separator:a44303dd28715725483ae9bb6e214fc17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a704df509fee471570474355a9ed09365"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a704df509fee471570474355a9ed09365">&#9670;&nbsp;</a></span>erf_inv()</h2>
+<a id="a44303dd28715725483ae9bb6e214fc17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44303dd28715725483ae9bb6e214fc17">&#9670;&nbsp;</a></span>erf_inv()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -155,20 +168,87 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">double erf_inv </td>
           <td>(</td>
-          <td class="paramtype">double&#160;</td>
+          <td class="paramtype">const double&#160;</td>
           <td class="paramname"><em>x</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p><a class="el" href="classInverse.html" title="Defines the function .">Inverse</a> error function. </p>
+<p>The function inverse is found based on Newton method using the evaluation of the error function <code>erf</code> from standard math library and its derivative. The Newton method here uses two refinements.</p>
+<p>For further details on the algorithm, refer to: <a href="http://www.mimirgames.com/articles/programming/approximations-">http://www.mimirgames.com/articles/programming/approximations-</a> of-the-inverse-error-function/</p>
+<p>The accuracy of this method for the whole input interval of <code></code>[-1, 1] is in the order of 1e-15 compared to <code>scipy.special.erfinv</code> function.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">Input</td><td>value, a float number between -1 to 1.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The inverse error function ranging from -INFINITY to INFINITY. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="special__functions_8cpp_source.html#l00056">56</a> of file <a class="el" href="special__functions_8cpp_source.html">special_functions.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">// Output</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">double</span> r;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="comment">// Check extreme values</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">if</span> ((x == 1.0) || (x == -1.0))</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        r = <a class="code" href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b">sign</a>(x) * INFINITY;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">return</span> r;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">double</span> a[4] = {0.886226899, -1.645349621, 0.914624893, -0.140543331};</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">double</span> b[5] = {1.0, -2.118377725, 1.442710462, -0.329097515, 0.012229801};</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">double</span> c[4] = {-1.970840454, -1.62490649, 3.429567803, 1.641345311};</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">double</span> d[3] = {1.0, 3.543889200, 1.637067800};</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">double</span> z = <a class="code" href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b">sign</a>(x) * x;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">if</span> (z &lt;= 0.7)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordtype">double</span> x2 = z * z;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        r = z * (((a[3] * x2 + a[2]) * x2 + a[1]) * x2 + a[0]);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        r /= (((b[4] * x2 + b[3]) * x2 + b[2]) * x2 + b[1]) * x2 + b[0];</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordtype">double</span> y = sqrt(-log((1.0 - z) / 2.0));</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        r = (((c[3] * y + c[2]) * y + c[1]) * y + c[0]);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        r /= ((d[2] * y + d[1]) * y + d[0]);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    }</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    r = r * <a class="code" href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b">sign</a>(x);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    z = z * <a class="code" href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b">sign</a>(x);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="comment">// These two lines below are identical and repeated for double refinement.</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="comment">// Comment one line below for a single refinement of the Newton method.</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    r -= (erf(r) - z) / ((2.0 / sqrt(M_PI)) * exp(-r * r));</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    r -= (erf(r) - z) / ((2.0 / sqrt(M_PI)) * exp(-r * r));</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">return</span> r;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
+<div class="ttc" id="aspecial__functions_8cpp_html_a8df1c56975179584e0485c5ddcb1e71b"><div class="ttname"><a href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b">sign</a></div><div class="ttdeci">double sign(const double x)</div><div class="ttdoc">sign function.</div><div class="ttdef"><b>Definition:</b> <a href="special__functions_8cpp_source.html#l00027">special_functions.cpp:27</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="special__functions_8cpp_source.html#l00027">sign()</a>.</p>
+
 <p class="reference">Referenced by <a class="el" href="convergence__tools_8cpp_source.html#l00256">ConvergenceTools&lt; DataType &gt;::average_estimates()</a>, and <a class="el" href="convergence__tools_8cpp_source.html#l00095">ConvergenceTools&lt; DataType &gt;::check_convergence()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="special__functions_8h_a44303dd28715725483ae9bb6e214fc17_cgraph.png" border="0" usemap="#aspecial__functions_8h_a44303dd28715725483ae9bb6e214fc17_cgraph" alt=""/></div>
+<map name="aspecial__functions_8h_a44303dd28715725483ae9bb6e214fc17_cgraph" id="aspecial__functions_8h_a44303dd28715725483ae9bb6e214fc17_cgraph">
+<area shape="rect" title="Inverse error function." alt="" coords="5,5,67,32"/>
+<area shape="rect" href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b" title="sign function." alt="" coords="115,5,161,32"/>
+</map>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="special__functions_8h_a704df509fee471570474355a9ed09365_icgraph.png" border="0" usemap="#aspecial__functions_8h_a704df509fee471570474355a9ed09365_icgraph" alt=""/></div>
-<map name="aspecial__functions_8h_a704df509fee471570474355a9ed09365_icgraph" id="aspecial__functions_8h_a704df509fee471570474355a9ed09365_icgraph">
-<area shape="rect" title=" " alt="" coords="432,46,493,73"/>
+<div class="center"><img src="special__functions_8h_a44303dd28715725483ae9bb6e214fc17_icgraph.png" border="0" usemap="#aspecial__functions_8h_a44303dd28715725483ae9bb6e214fc17_icgraph" alt=""/></div>
+<map name="aspecial__functions_8h_a44303dd28715725483ae9bb6e214fc17_icgraph" id="aspecial__functions_8h_a44303dd28715725483ae9bb6e214fc17_icgraph">
+<area shape="rect" title="Inverse error function." alt="" coords="432,46,493,73"/>
 <area shape="rect" href="classConvergenceTools.html#a88ae9fc09aa9af950d41cf803934c028" title="Averages the estimates of trace. Removes outliers and reevaluates the error to take into account for ..." alt="" coords="200,5,384,47"/>
 <area shape="rect" href="classConvergenceTools.html#a5a0602ee4f933a4521ccf9ea137dd191" title="Checks if the standard deviation of the set of the cumulative averages of trace estimators converged ..." alt="" coords="205,71,379,112"/>
 <area shape="rect" href="classcTraceEstimator.html#a29144b4d62c71f0889002754384f57f4" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="12,5,145,47"/>
@@ -184,7 +264,7 @@ Here is the caller graph for this function:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_7cbdf7f1e0681c65fd455a0f383ae44b.html">imate</a></li><li class="navelem"><a class="el" href="dir_5951bf1a1af500d6bf056d938250a591.html">_c_trace_estimator</a></li><li class="navelem"><a class="el" href="special__functions_8h.html">special_functions.h</a></li>
-    <li class="footer">Generated on Fri Aug 11 2023 13:16:47 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Sep 13 2023 13:50:51 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -52,8 +52,9 @@ def cholesky_method(
         \\det (\\mathbf{A}) \\vert.
 
     If ``gram`` is `True`, then :math:`\\mathbf{A}` in the above is replaced by
-    the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`, and the
-    following is instead computed:
+    the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`. In this
+    case, if the matrix :math:`\\mathvf{A}` is square, then the following is
+    instead computed:
 
     .. math::
 
@@ -113,7 +114,7 @@ def cholesky_method(
             * ``gram``: `bool`, whether the matrix `A` or its Gramian is
               considered.
             * ``exponent``: `float`, the exponent `p` in :math:`\\mathbf{A}^p`.
-            * ``size``: `int`, the size of matrix `A`.
+            * ``size``: `(int, int)`, the size of matrix `A`.
             * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
             * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
               of `A`.
@@ -235,7 +236,7 @@ def cholesky_method(
                 'gram': False,
                 'nnz': 298,
                 'num_inquiries': 1,
-                'size': 100,
+                'size': (100, 100),
                 'sparse': True
             },
             'solver': {
@@ -258,7 +259,7 @@ def cholesky_method(
     """
 
     # Check input arguments
-    check_arguments(A, gram, p, return_info, cholmod)
+    square = check_arguments(A, gram, p, return_info, cholmod)
 
     # Determine to use Sparse
     sparse = False
@@ -281,25 +282,32 @@ def cholesky_method(
 
     else:
 
+        # When A is not square and it Gramian is considered, compute the
+        # Gramian directly.
+        if gram and (not square):
+            Ag = A.T @ A
+        else:
+            Ag = A
+
         # Compute logdet of A without the exponent
         if sparse:
 
             # Sparse matrix
             if use_cholmod:
                 # Use Suite Sparse
-                Factor = sk_cholesky(A)
+                Factor = sk_cholesky(Ag)
                 trace = Factor.logdet()
             else:
                 # Use scipy
                 diag_L = sparse_cholesky(
-                        A, diagonal_only=True).astype(numpy.complex128)
+                        Ag, diagonal_only=True).astype(numpy.complex128)
                 logdet_L = numpy.real(numpy.sum(numpy.log(diag_L)))
                 trace = 2.0*logdet_L
 
         else:
 
             # Dense matrix. Use scipy
-            L = scipy.linalg.cholesky(A, lower=True)
+            L = scipy.linalg.cholesky(Ag, lower=True)
             diag_L = numpy.diag(L).astype(numpy.complex128)
             logdet_L = numpy.real(numpy.sum(numpy.log(diag_L)))
             trace = 2.0*logdet_L
@@ -307,8 +315,9 @@ def cholesky_method(
         # Taking into account of the exponent p
         trace = trace*p
 
-    # Gramian matrix
-    if gram:
+    # Gramian matrix. Make this adjustment only when matrix is square. For non
+    # square gram matrix, we already used A.T @ A
+    if gram and square:
         trace = 2.0 * trace
 
     tot_wall_time = time.perf_counter() - init_tot_wall_time
@@ -321,7 +330,7 @@ def cholesky_method(
             'data_type': get_data_type_name(A),
             'gram': gram,
             'exponent': p,
-            'size': A.shape[0],
+            'size': A.shape,
             'sparse': isspmatrix(A),
             'nnz': get_nnz(A),
             'density': get_density(A),
@@ -372,8 +381,12 @@ def check_arguments(
     if (not isinstance(A, numpy.ndarray)) and (not scipy.sparse.issparse(A)):
         raise TypeError('Input matrix should be either a "numpy.ndarray" or ' +
                         'a "scipy.sparse" matrix.')
-    elif A.shape[0] != A.shape[1]:
-        raise ValueError('Input matrix should be a square matrix.')
+
+    # Check if the matrix is square or not
+    if (A.shape[0] != A.shape[1]):
+        square = False
+    else:
+        square = True
 
     # Check gram
     if gram is None:
@@ -382,6 +395,10 @@ def check_arguments(
         raise TypeError('"gram" should be a scalar value.')
     elif not isinstance(gram, bool):
         raise TypeError('"gram" should be boolean.')
+
+    # Check non gram should be square
+    if (not gram) and (not square):
+        raise ValueError('Non Gramian matrix should be square.')
 
     # Check p
     if p is None:
@@ -405,3 +422,5 @@ def check_arguments(
             raise RuntimeError('"cholmod" method is not available. Either ' +
                                'install "scikit-sparse" package, or set ' +
                                '"cholmod" to "False" or "None".')
+
+    return square

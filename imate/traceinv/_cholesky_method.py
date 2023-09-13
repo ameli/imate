@@ -72,7 +72,8 @@ def cholesky_method(
     ----------
 
     A : numpy.ndarray, scipy.sparse
-        A positive-definite sparse or dense matrix.
+        A positive-definite sparse or dense matrix. If ``gram`` is `True`, the
+        matrix can be non-square.
 
         .. warning::
 
@@ -138,7 +139,7 @@ def cholesky_method(
               considered.
             * ``exponent``: `float`, the exponent `p` in
               :math:`\\mathbf{A}^{-p}`.
-            * ``size``: `int`, the size of matrix `A`.
+            * ``size``: `(int, int)`, the size of matrix `A`.
             * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
             * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
               of `A`.
@@ -276,7 +277,7 @@ def cholesky_method(
                 'gram': False,
                 'nnz': 298,
                 'num_inquiries': 1,
-                'size': 100,
+                'size': (100, 100),
                 'sparse': True
             },
             'solver': {
@@ -300,7 +301,7 @@ def cholesky_method(
     """
 
     # Check input arguments
-    check_arguments(A, B, gram, p, invert_cholesky, cholmod)
+    check_arguments(A, B, gram, p, return_info, invert_cholesky, cholmod)
 
     # Determine to use Sparse
     sparse = False
@@ -425,7 +426,7 @@ def cholesky_method(
             'data_type': get_data_type_name(A),
             'gram': gram,
             'exponent': p,
-            'size': A.shape[0],
+            'size': A.shape,
             'sparse': isspmatrix(A),
             'nnz': get_nnz(A),
             'density': get_density(A),
@@ -463,7 +464,7 @@ def cholesky_method(
 # check arguments
 # ===============
 
-def check_arguments(A, B, gram, p, invert_cholesky, cholmod):
+def check_arguments(A, B, gram, p, return_info, invert_cholesky, cholmod):
     """
     Checks the type and value of the parameters.
     """
@@ -472,8 +473,12 @@ def check_arguments(A, B, gram, p, invert_cholesky, cholmod):
     if (not isinstance(A, numpy.ndarray)) and (not isspmatrix(A)):
         raise TypeError('Input matrix should be either a "numpy.ndarray" or ' +
                         'a "scipy.sparse" matrix.')
-    elif A.shape[0] != A.shape[1]:
-        raise ValueError('Input matrix should be a square matrix.')
+
+    # Check if the matrix is square or not
+    if (A.shape[0] != A.shape[1]):
+        square = False
+    else:
+        square = True
 
     # Check B
     if B is not None:
@@ -486,9 +491,12 @@ def check_arguments(A, B, gram, p, invert_cholesky, cholmod):
             raise TypeError('When the input matrix "A" is of type ' +
                             '"scipy.sparse", matrix "B" should also be of ' +
                             'the same type.')
-        elif A.shape != B.shape:
+        elif square and (A.shape != B.shape):
             raise ValueError('Matrix "B" should have the same size as ' +
                              'matrix "A".')
+        elif (not square) and (A.shape[1] != B.shape[0]):
+            raise ValueError('Matrix "B" should have the same number of ' +
+                             'rows as the number of columns of "A".')
 
     # Check gram
     if gram is None:
@@ -498,6 +506,10 @@ def check_arguments(A, B, gram, p, invert_cholesky, cholmod):
     elif not isinstance(gram, bool):
         raise TypeError('"gram" should be boolean.')
 
+    # Check non gram should be square
+    if (not gram) and (not square):
+        raise ValueError('Non Gramian matrix should be square.')
+
     # Check p
     if p is None:
         raise TypeError('"p" cannot be None.')
@@ -505,6 +517,10 @@ def check_arguments(A, B, gram, p, invert_cholesky, cholmod):
         raise TypeError('"p" should be a scalar value.')
     elif not isinstance(p, (int, numpy.integer)):
         raise TypeError('"p" should be an integer.')
+
+    # Check return info
+    if not isinstance(return_info, bool):
+        raise TypeError('"return_info" should be boolean.')
 
     # Check invert_cholesky
     if not numpy.isscalar(invert_cholesky):

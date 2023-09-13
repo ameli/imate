@@ -55,7 +55,8 @@ def exact_method(
     ----------
 
     A : numpy.ndarray, scipy.sparse
-        A sparse or dense matrix.
+        A sparse or dense matrix. If ``gram`` is `True`, the matrix can be
+        non-square.
 
         .. note::
 
@@ -92,7 +93,7 @@ def exact_method(
             * ``gram``: `bool`, whether the matrix `A` or its Gramian is
               considered.
             * ``exponent``: `float`, the exponent `p` in :math:`\\mathbf{A}^p`.
-            * ``size``: `int`, the size of matrix `A`.
+            * ``size``: `(int, int)`, the size of matrix `A`.
             * ``sparse``: `bool`, whether the matrix `A` is sparse or dense.
             * ``nnz``: `int`, if `A` is sparse, the number of non-zero elements
               of `A`.
@@ -203,7 +204,7 @@ def exact_method(
                 'gram': False,
                 'nnz': 199,
                 'num_inquiries': 1,
-                'size': 100,
+                'size': (100, 100),
                 'sparse': True
             },
             'solver': {
@@ -248,7 +249,7 @@ def exact_method(
         }
     """
     # Checking input arguments
-    check_arguments(A, gram, p)
+    check_arguments(A, gram, p, return_info)
 
     init_tot_wall_time = time.perf_counter()
     init_cpu_proc_time = time.process_time()
@@ -340,7 +341,7 @@ def exact_method(
             'data_type': get_data_type_name(A),
             'gram': gram,
             'exponent': p,
-            'size': A.shape[0],
+            'size': A.shape,
             'sparse': isspmatrix(A),
             'nnz': get_nnz(A),
             'density': get_density(A),
@@ -376,7 +377,7 @@ def exact_method(
 # check arguments
 # ===============
 
-def check_arguments(A, gram, p):
+def check_arguments(A, gram, p, return_info):
     """
     Checks the type and value of the parameters.
     """
@@ -385,8 +386,12 @@ def check_arguments(A, gram, p):
     if (not isinstance(A, numpy.ndarray)) and (not scipy.sparse.issparse(A)):
         raise TypeError('Input matrix should be either a "numpy.ndarray" or ' +
                         'a "scipy.sparse" matrix.')
-    elif A.shape[0] != A.shape[1]:
-        raise ValueError('Input matrix should be a square matrix.')
+
+    # Check if the matrix is square or not
+    if (A.shape[0] != A.shape[1]):
+        square = False
+    else:
+        square = True
 
     # Check gram
     if gram is None:
@@ -395,6 +400,10 @@ def check_arguments(A, gram, p):
         raise TypeError('"gram" should be a scalar value.')
     elif not isinstance(gram, bool):
         raise TypeError('"gram" should be boolean.')
+
+    # Check non gram should be square
+    if (not gram) and (not square):
+        raise ValueError('Non Gramian matrix should be square.')
 
     # Check p
     if p is None:
@@ -405,3 +414,7 @@ def check_arguments(A, gram, p):
         TypeError('"p" cannot be an integer.')
     elif p < 0:
         ValueError('"p" should be a non-negative integer.')
+
+    # Check return info
+    if not isinstance(return_info, bool):
+        raise TypeError('"return_info" should be boolean.')

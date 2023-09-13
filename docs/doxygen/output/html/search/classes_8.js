@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['randomarraygenerator_479',['RandomArrayGenerator',['../classRandomArrayGenerator.html',1,'']]],
-  ['randomnumbergenerator_480',['RandomNumberGenerator',['../classRandomNumberGenerator.html',1,'']]]
+  ['power_528',['Power',['../classPower.html',1,'']]]
 ];

@@ -9,7 +9,17 @@ var dir_7cbdf7f1e0681c65fd455a0f383ae44b =
     [ "_cuda_dynamic_loading", "dir_840a0c0b74a381937dddd569631ad4e4.html", "dir_840a0c0b74a381937dddd569631ad4e4" ],
     [ "_cuda_utilities", "dir_63c857fa666e30b2d1e86870013e15a3.html", "dir_63c857fa666e30b2d1e86870013e15a3" ],
     [ "_definitions", "dir_2ff42a6f7227c02b81ec09c474d04963.html", "dir_2ff42a6f7227c02b81ec09c474d04963" ],
+    [ "_linear_algebra", "dir_22d7a0ae3f3400c421604f67c0f79eff.html", "dir_22d7a0ae3f3400c421604f67c0f79eff" ],
     [ "_random_generator", "dir_77b32d754a5600b39cb38f56cd86ee8c.html", "dir_77b32d754a5600b39cb38f56cd86ee8c" ],
+    [ "_trace_estimator", "dir_3393a7783634724554d0ec61af9e365d.html", "dir_3393a7783634724554d0ec61af9e365d" ],
     [ "_utilities", "dir_ec4e484f3d193ae05ef37ec16f521131.html", "dir_ec4e484f3d193ae05ef37ec16f521131" ],
-    [ "functions", "dir_b9c2215538fdb66ef13c462a340a5421.html", "dir_b9c2215538fdb66ef13c462a340a5421" ]
+    [ "density", "dir_995cb16d94070b535421c7669276e131.html", "dir_995cb16d94070b535421c7669276e131" ],
+    [ "eigencount", "dir_252481aa54807199ce969a4183015d90.html", "dir_252481aa54807199ce969a4183015d90" ],
+    [ "functions", "dir_b9c2215538fdb66ef13c462a340a5421.html", "dir_b9c2215538fdb66ef13c462a340a5421" ],
+    [ "logdet", "dir_2e6b88e880d4ed0c8d29bcb5dc1c081a.html", "dir_2e6b88e880d4ed0c8d29bcb5dc1c081a" ],
+    [ "sample_matrices", "dir_bf3638a693d868d52fe1af2fbe806d71.html", "dir_bf3638a693d868d52fe1af2fbe806d71" ],
+    [ "trace", "dir_e3bb5764ec53cbaf363b7e95572c646a.html", "dir_e3bb5764ec53cbaf363b7e95572c646a" ],
+    [ "traceinv", "dir_c5d4372ae8ae30301856ec938103ed72.html", "dir_c5d4372ae8ae30301856ec938103ed72" ],
+    [ "trexp", "dir_609b5eef4cf9b6b61f7f202bd8601f0b.html", "dir_609b5eef4cf9b6b61f7f202bd8601f0b" ],
+    [ "trlinfrac", "dir_5ea0a5bd98507b8b777669db28aeb08d.html", "dir_5ea0a5bd98507b8b777669db28aeb08d" ]
 ];

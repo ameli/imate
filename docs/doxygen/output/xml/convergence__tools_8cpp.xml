@@ -16,6 +16,8 @@
       <node id="7">
         <label>./special_functions.h</label>
         <link refid="special__functions_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
       </node>
       <node id="5">
         <label>cmath</label>
@@ -118,7 +120,7 @@
 <codeline lineno="132"><highlight class="normal"></highlight></codeline>
 <codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Quantile<sp/>of<sp/>normal<sp/>distribution<sp/>(usually<sp/>known<sp/>as<sp/>the<sp/>&quot;z&quot;<sp/>coefficient)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>DataType<sp/>standard_z_score<sp/>=<sp/>sqrt(2)<sp/>*<sp/>\</highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_cast&lt;DataType&gt;(<ref refid="special__functions_8h_1a704df509fee471570474355a9ed09365" kindref="member">erf_inv</ref>(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(confidence_level)));</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>static_cast&lt;DataType&gt;(<ref refid="special__functions_8cpp_1a44303dd28715725483ae9bb6e214fc17" kindref="member">erf_inv</ref>(</highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">double</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(confidence_level)));</highlight></codeline>
 <codeline lineno="136"><highlight class="normal"></highlight></codeline>
 <codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>For<sp/>each<sp/>column<sp/>of<sp/>samples,<sp/>compute<sp/>error<sp/>of<sp/>all<sp/>processed<sp/>rows</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(j=0;<sp/>j<sp/>&lt;<sp/>num_inquiries;<sp/>++j)</highlight></codeline>
@@ -210,13 +212,13 @@
 <codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref>*<sp/>outlier_indices<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref>[max_num_samples];</highlight></codeline>
 <codeline lineno="278"><highlight class="normal"></highlight></codeline>
 <codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Quantile<sp/>of<sp/>normal<sp/>distribution<sp/>(usually<sp/>known<sp/>as<sp/>the<sp/>&quot;z&quot;<sp/>coefficient)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/>DataType<sp/>error_z_score<sp/>=<sp/>sqrt(2)<sp/>*<sp/><ref refid="special__functions_8h_1a704df509fee471570474355a9ed09365" kindref="member">erf_inv</ref>(confidence_level);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/>DataType<sp/>error_z_score<sp/>=<sp/>sqrt(2)<sp/>*<sp/><ref refid="special__functions_8cpp_1a44303dd28715725483ae9bb6e214fc17" kindref="member">erf_inv</ref>(confidence_level);</highlight></codeline>
 <codeline lineno="281"><highlight class="normal"></highlight></codeline>
 <codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Confidence<sp/>level<sp/>of<sp/>outlier<sp/>is<sp/>the<sp/>complement<sp/>of<sp/>significance<sp/>level</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/>DataType<sp/>outlier_confidence_level<sp/>=<sp/>1.0<sp/>-<sp/>outlier_significance_level;</highlight></codeline>
 <codeline lineno="284"><highlight class="normal"></highlight></codeline>
 <codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Quantile<sp/>of<sp/>normal<sp/>distribution<sp/>area<sp/>where<sp/>is<sp/>not<sp/>considered<sp/>as<sp/>outlier</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/>DataType<sp/>outlier_z_score<sp/>=<sp/>sqrt(2.0)<sp/>*<sp/><ref refid="special__functions_8h_1a704df509fee471570474355a9ed09365" kindref="member">erf_inv</ref>(outlier_confidence_level);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/>DataType<sp/>outlier_z_score<sp/>=<sp/>sqrt(2.0)<sp/>*<sp/><ref refid="special__functions_8cpp_1a44303dd28715725483ae9bb6e214fc17" kindref="member">erf_inv</ref>(outlier_confidence_level);</highlight></codeline>
 <codeline lineno="287"><highlight class="normal"></highlight></codeline>
 <codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(j=0;<sp/>j<sp/>&lt;<sp/>num_inquiries;<sp/>++j)</highlight></codeline>
 <codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>

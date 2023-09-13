@@ -94,6 +94,10 @@ void RandomArrayGenerator<DataType>::generate_random_array(
     const int bits_per_byte = 8;
     const int num_bits = sizeof(uint64_t) * bits_per_byte;
 
+    // Number of chunks of divided array each in num_bits length
+    const LongIndexType num_chunks = \
+            static_cast<LongIndexType>(array_size/num_bits);
+
     // Shared-memory parallelism over individual row vectors. The parallel
     // section only works if num_threads is non-zero. Otherwise it runs in
     // serial order.
@@ -109,8 +113,7 @@ void RandomArrayGenerator<DataType>::generate_random_array(
         }
 
         #pragma omp for schedule(static)
-        for (LongIndexType i=0;
-             i < static_cast<LongIndexType>(array_size/num_bits); ++i)
+        for (LongIndexType i=0; i < num_chunks; ++i)
         {
             // Generate 64 bits (one integer)
             uint64_t bits = random_number_generator.next(thread_id);
@@ -139,23 +142,25 @@ void RandomArrayGenerator<DataType>::generate_random_array(
     // it suffice to generate only 64 bits (one integer) for the rest of the
     // elements of the array
     uint64_t bits = random_number_generator.next(thread_id);
+    IndexType j = 0;
 
     // This loop should have less than 64 iterations.
-    for (LongIndexType j = \
-            static_cast<LongIndexType>(array_size/num_bits) * num_bits;
-         j < array_size; ++j)
+    for (LongIndexType i = num_chunks * num_bits; i < array_size; ++i)
     {
         // Check if the j-th bit (from right to left) is 1 or 0
         if (bits & ( uint64_t(1) << j))
         {
             // Bit is 1. Write +1.0 in array
-            array[j] = 1.0;
+            array[i] = 1.0;
         }
         else
         {
             // Bit is 0. Write -1.0 in array
-            array[j] = -1.0;
+            array[i] = -1.0;
         }
+
+        // Increment bit counter
+        ++j;
     }
 }
 
