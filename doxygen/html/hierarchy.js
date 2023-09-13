@@ -49,7 +49,9 @@ var hierarchy =
     [ "Function", "classFunction.html", [
       [ "Exponential", "classExponential.html", null ],
       [ "Gaussian", "classGaussian.html", null ],
+      [ "Homographic", "classHomographic.html", null ],
       [ "Identity", "classIdentity.html", null ],
+      [ "Indicator", "classIndicator.html", null ],
       [ "Inverse", "classInverse.html", null ],
       [ "Logarithm", "classLogarithm.html", null ],
       [ "Power", "classPower.html", null ],

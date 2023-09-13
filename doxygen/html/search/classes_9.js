@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['smoothstep_481',['SmoothStep',['../classSmoothStep.html',1,'']]],
-  ['splitmix64_482',['SplitMix64',['../classSplitMix64.html',1,'']]]
+  ['randomarraygenerator_504',['RandomArrayGenerator',['../classRandomArrayGenerator.html',1,'']]],
+  ['randomnumbergenerator_505',['RandomNumberGenerator',['../classRandomNumberGenerator.html',1,'']]]
 ];

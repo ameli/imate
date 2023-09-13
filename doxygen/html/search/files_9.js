@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['xoshiro_5f256_5fstar_5fstar_2ecpp_594',['xoshiro_256_star_star.cpp',['../xoshiro__256__star__star_8cpp.html',1,'']]],
-  ['xoshiro_5f256_5fstar_5fstar_2eh_595',['xoshiro_256_star_star.h',['../xoshiro__256__star__star_8h.html',1,'']]]
+  ['query_5fdevice_2ecu_621',['query_device.cu',['../query__device_8cu.html',1,'']]],
+  ['query_5fdevice_2eh_622',['query_device.h',['../query__device_8h.html',1,'']]]
 ];

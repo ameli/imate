@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['py_5fcu_5ftrace_5festimator_2eh_580',['py_cu_trace_estimator.h',['../py__cu__trace__estimator_8h.html',1,'']]]
+  ['gaussian_2ecpp_605',['gaussian.cpp',['../gaussian_8cpp.html',1,'']]],
+  ['gaussian_2eh_606',['gaussian.h',['../gaussian_8h.html',1,'']]]
 ];

@@ -22,5 +22,6 @@ var dir_5951bf1a1af500d6bf056d938250a591 =
     ] ],
     [ "lapack_api.cpp", "lapack__api_8cpp.html", "lapack__api_8cpp" ],
     [ "lapack_api.h", "lapack__api_8h.html", "lapack__api_8h" ],
+    [ "special_functions.cpp", "special__functions_8cpp.html", "special__functions_8cpp" ],
     [ "special_functions.h", "special__functions_8h.html", "special__functions_8h" ]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['functions_2ecpp_576',['functions.cpp',['../functions_8cpp.html',1,'']]],
-  ['functions_2eh_577',['functions.h',['../functions_8h.html',1,'']]]
+  ['exponential_2ecpp_601',['exponential.cpp',['../exponential_8cpp.html',1,'']]],
+  ['exponential_2eh_602',['exponential.h',['../exponential_8h.html',1,'']]]
 ];

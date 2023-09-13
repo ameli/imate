@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['power_478',['Power',['../classPower.html',1,'']]]
+  ['logarithm_502',['Logarithm',['../classLogarithm.html',1,'']]]
 ];

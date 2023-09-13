@@ -11,6 +11,5 @@ var dir_59d5e17feeae2d3397badb0c8eed906c =
     [ "cu_trace_estimator.cu", "cu__trace__estimator_8cu.html", null ],
     [ "cu_trace_estimator.h", "cu__trace__estimator_8h.html", [
       [ "cuTraceEstimator", "classcuTraceEstimator.html", "classcuTraceEstimator" ]
-    ] ],
-    [ "py_cu_trace_estimator.h", "py__cu__trace__estimator_8h.html", "py__cu__trace__estimator_8h" ]
+    ] ]
 ];

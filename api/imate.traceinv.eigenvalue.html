@@ -311,6 +311,102 @@
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
+  trexp
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.trexp.html">
+   imate.trexp
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.trexp.eigenvalue.html">
+   imate.trexp(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.trexp.slq.html">
+   imate.trexp(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  trlinfrac
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.trlinfrac.html">
+   imate.trlinfrac
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.trlinfrac.eigenvalue.html">
+   imate.trlinfrac(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.trlinfrac.slq.html">
+   imate.trlinfrac(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  eigencount
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.eigencount.html">
+   imate.eigencount
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.eigencount.eigenvalue.html">
+   imate.eigencount(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.eigencount.slq.html">
+   imate.eigencount(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  density
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.density.html">
+   imate.density
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.density.eigenvalue.html">
+   imate.density(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.density.slq.html">
+   imate.density(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
   Schatten Norm
  </span>
 </p>
@@ -569,7 +665,8 @@ following is instead computed:</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>A</strong><span class="classifier">numpy.ndarray, scipy.sparse</span></dt><dd><p>A non-singular sparse or dense matrix.</p>
+<dt><strong>A</strong><span class="classifier">numpy.ndarray, scipy.sparse</span></dt><dd><p>A non-singular sparse or dense matrix. If <code class="docutils literal notranslate"><span class="pre">gram</span></code> is <cite>True</cite>, the
+matrix can be non-square.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In the eigenvalue method, the matrix cannot be a type of
@@ -619,7 +716,7 @@ considered.</p></li>
 <span class="math notranslate nohighlight">\(\mathbf{A}^{-p}\)</span>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">assume_matrix</span></code>: <cite>str</cite>, {<cite>gen</cite>, <cite>sym</cite>}, determines whether
 matrix is generic or symmetric.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: <cite>int</cite>, the size of matrix <cite>A</cite>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: <cite>(int, int)</cite>, the size of matrix <cite>A</cite>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sparse</span></code>: <cite>bool</cite>, whether the matrix <cite>A</cite> is sparse or dense.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">nnz</span></code>: <cite>int</cite>, if <cite>A</cite> is sparse, the number of non-zero elements
 of <cite>A</cite>.</p></li>
@@ -748,7 +845,7 @@ may change, such as <cite>p</cite>.</p>
 <span class="go">        &#39;gram&#39;: False,</span>
 <span class="go">        &#39;nnz&#39;: 10000,</span>
 <span class="go">        &#39;num_inquiries&#39;: 1,</span>
-<span class="go">        &#39;size&#39;: 100,</span>
+<span class="go">        &#39;size&#39;: (100, 100),</span>
 <span class="go">        &#39;sparse&#39;: False</span>
 <span class="go">    },</span>
 <span class="go">    &#39;solver&#39;: {</span>

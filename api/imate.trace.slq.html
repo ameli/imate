@@ -62,7 +62,7 @@
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="imate.schatten" href="../generated/imate.schatten.html" />
+    <link rel="next" title="imate.trexp" href="../generated/imate.trexp.html" />
     <link rel="prev" title="imate.trace(method=’eigenvalue’)" href="imate.trace.eigenvalue.html" />
 
     <!-- Google tag (gtag.js) -->
@@ -306,6 +306,102 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    imate.trace(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  trexp
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.trexp.html">
+   imate.trexp
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.trexp.eigenvalue.html">
+   imate.trexp(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.trexp.slq.html">
+   imate.trexp(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  trlinfrac
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.trlinfrac.html">
+   imate.trlinfrac
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.trlinfrac.eigenvalue.html">
+   imate.trlinfrac(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.trlinfrac.slq.html">
+   imate.trlinfrac(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  eigencount
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.eigencount.html">
+   imate.eigencount
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.eigencount.eigenvalue.html">
+   imate.eigencount(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.eigencount.slq.html">
+   imate.eigencount(method=’slq’)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  density
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.density.html">
+   imate.density
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.density.eigenvalue.html">
+   imate.density(method=’eigenvalue’)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.density.slq.html">
+   imate.density(method=’slq’)
   </a>
  </li>
 </ul>
@@ -578,7 +674,8 @@ size <span class="math notranslate nohighlight">\(q\)</span> is returned, namely
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
 <dt><strong>A</strong><span class="classifier">numpy.ndarray, scipy.sparse, <a class="reference internal" href="../generated/imate.Matrix.html#imate.Matrix" title="imate.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.Matrix</span></code></a>, or             <a class="reference internal" href="../generated/imate.AffineMatrixFunction.html#imate.AffineMatrixFunction" title="imate.AffineMatrixFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.AffineMatrixFunction</span></code></a></span></dt><dd><p>A sparse or dense matrix or linear operator. If <code class="docutils literal notranslate"><span class="pre">gram</span></code> is <cite>False</cite>,
-then <cite>A</cite> should be symmetric.</p>
+then <cite>A</cite> should be symmetric. If <code class="docutils literal notranslate"><span class="pre">gram</span></code> is <cite>True</cite>, the matrix can be
+non-square.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The symmetry of <cite>A</cite> is not pre-checked by this function. If
@@ -713,7 +810,7 @@ the matrix data.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">gram</span></code>: <cite>bool</cite>, whether the matrix <cite>A</cite> or its Gramian is
 considered.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">exponent</span></code>: <cite>float</cite>, the exponent <cite>p</cite> in <span class="math notranslate nohighlight">\(\mathbf{A}^p\)</span>.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: (int) The size of matrix <cite>A</cite>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">size</span></code>: (int, int) The size of matrix <cite>A</cite>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sparse</span></code>: <cite>bool</cite>, whether the matrix <cite>A</cite> is sparse or dense.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">nnz</span></code>: <cite>int</cite>, if <cite>A</cite> is sparse, the number of non-zero elements
 of <cite>A</cite>.</p></li>
@@ -1085,7 +1182,7 @@ printed.</p>
 <span class="go">        &#39;num_inquiries&#39;: 1,</span>
 <span class="go">        &#39;num_operator_parameters&#39;: 0,</span>
 <span class="go">        &#39;parameters&#39;: None,</span>
-<span class="go">        &#39;size&#39;: 100,</span>
+<span class="go">        &#39;size&#39;: (100, 100),</span>
 <span class="go">        &#39;sparse&#39;: True</span>
 <span class="go">    },</span>
 <span class="go">    &#39;solver&#39;: {</span>
@@ -1299,10 +1396,10 @@ a parameter in <code class="docutils literal notranslate"><span class="pre">t</s
           <p class="prev-next-title">imate.trace(method=’eigenvalue’)</p>
       </div>
   </a>
-  <a class='right-next' id="next-link" href="../generated/imate.schatten.html" title="next page">
+  <a class='right-next' id="next-link" href="../generated/imate.trexp.html" title="next page">
   <div class="prev-next-info">
       <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">imate.schatten</p>
+      <p class="prev-next-title">imate.trexp</p>
   </div>
   <i class="fas fa-angle-right"></i>
   </a>

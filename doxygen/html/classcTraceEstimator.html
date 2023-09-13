@@ -523,8 +523,8 @@ template&lt;typename DataType &gt; </div>
 <div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;}</div>
 <div class="ttc" id="ac__golub__kahn__bidiagonalization_8cpp_html_a6125b021cd93b43ab4d9f20813487f85"><div class="ttname"><a href="c__golub__kahn__bidiagonalization_8cpp.html#a6125b021cd93b43ab4d9f20813487f85">c_golub_kahn_bidiagonalization</a></div><div class="ttdeci">IndexType c_golub_kahn_bidiagonalization(cLinearOperator&lt; DataType &gt; *A, const DataType *v, const LongIndexType n, const IndexType m, const DataType lanczos_tol, const FlagType orthogonalize, DataType *alpha, DataType *beta)</div><div class="ttdoc">Bi-diagonalizes the positive-definite matrix A using Golub-Kahn-Lanczos method.</div><div class="ttdef"><b>Definition:</b> <a href="c__golub__kahn__bidiagonalization_8cpp_source.html#l00111">c_golub_kahn_bidiagonalization.cpp:111</a></div></div>
 <div class="ttc" id="ac__lanczos__tridiagonalization_8cpp_html_a88831f1a1ba564b198f446a7c8a8d5ef"><div class="ttname"><a href="c__lanczos__tridiagonalization_8cpp.html#a88831f1a1ba564b198f446a7c8a8d5ef">c_lanczos_tridiagonalization</a></div><div class="ttdeci">IndexType c_lanczos_tridiagonalization(cLinearOperator&lt; DataType &gt; *A, const DataType *v, const LongIndexType n, const IndexType m, const DataType lanczos_tol, const FlagType orthogonalize, DataType *alpha, DataType *beta)</div><div class="ttdoc">Tri-diagonalizes matrix A to T using the start vector v. is the Lanczos degree, which will be the siz...</div><div class="ttdef"><b>Definition:</b> <a href="c__lanczos__tridiagonalization_8cpp_source.html#l00117">c_lanczos_tridiagonalization.cpp:117</a></div></div>
-<div class="ttc" id="aclassDiagonalization_html_a18924365b0d74983ead3901886d51204"><div class="ttname"><a href="classDiagonalization.html#a18924365b0d74983ead3901886d51204">Diagonalization::eigh_tridiagonal</a></div><div class="ttdeci">static int eigh_tridiagonal(DataType *diagonals, DataType *subdiagonals, DataType *eigenvectors, IndexType matrix_size)</div><div class="ttdoc">Computes all eigenvalues and eigenvectors of a real and symmetric tridiagonal matrix.</div><div class="ttdef"><b>Definition:</b> <a href="diagonalization_8cpp_source.html#l00090">diagonalization.cpp:90</a></div></div>
-<div class="ttc" id="aclassDiagonalization_html_a636b5e32ca7211d60dadc62b2258b8ea"><div class="ttname"><a href="classDiagonalization.html#a636b5e32ca7211d60dadc62b2258b8ea">Diagonalization::svd_bidiagonal</a></div><div class="ttdeci">static int svd_bidiagonal(DataType *diagonals, DataType *subdiagonals, DataType *U, DataType *Vt, IndexType matrix_size)</div><div class="ttdoc">Computes all singular-values and left and right eigenvectors of a real and symmetric upper bi-diagona...</div><div class="ttdef"><b>Definition:</b> <a href="diagonalization_8cpp_source.html#l00191">diagonalization.cpp:191</a></div></div>
+<div class="ttc" id="aclassDiagonalization_html_a18924365b0d74983ead3901886d51204"><div class="ttname"><a href="classDiagonalization.html#a18924365b0d74983ead3901886d51204">Diagonalization::eigh_tridiagonal</a></div><div class="ttdeci">static int eigh_tridiagonal(DataType *diagonals, DataType *subdiagonals, DataType *eigenvectors, IndexType matrix_size)</div><div class="ttdoc">Computes all eigenvalues and eigenvectors of a real and symmetric tridiagonal matrix.</div><div class="ttdef"><b>Definition:</b> <a href="diagonalization_8cpp_source.html#l00089">diagonalization.cpp:89</a></div></div>
+<div class="ttc" id="aclassDiagonalization_html_a636b5e32ca7211d60dadc62b2258b8ea"><div class="ttname"><a href="classDiagonalization.html#a636b5e32ca7211d60dadc62b2258b8ea">Diagonalization::svd_bidiagonal</a></div><div class="ttdeci">static int svd_bidiagonal(DataType *diagonals, DataType *subdiagonals, DataType *U, DataType *Vt, IndexType matrix_size)</div><div class="ttdoc">Computes all singular-values and left and right eigenvectors of a real and symmetric upper bi-diagona...</div><div class="ttdef"><b>Definition:</b> <a href="diagonalization_8cpp_source.html#l00190">diagonalization.cpp:190</a></div></div>
 <div class="ttc" id="aclassRandomArrayGenerator_html_a3a577526f391d531fe4d66bdfa0107db"><div class="ttname"><a href="classRandomArrayGenerator.html#a3a577526f391d531fe4d66bdfa0107db">RandomArrayGenerator::generate_random_array</a></div><div class="ttdeci">static void generate_random_array(RandomNumberGenerator &amp;random_number_generator, DataType *array, const LongIndexType array_size, const IndexType num_threads)</div><div class="ttdoc">Generates a pseudo-random array with Rademacher distribution where elements are either +1 or -1.</div><div class="ttdef"><b>Definition:</b> <a href="random__array__generator_8cpp_source.html#l00063">random_array_generator.cpp:63</a></div></div>
 <div class="ttc" id="aclasscLinearOperator_html_a0dd6306a434563e4a48a806b43f23d03"><div class="ttname"><a href="classcLinearOperator.html#a0dd6306a434563e4a48a806b43f23d03">cLinearOperator::get_eigenvalue</a></div><div class="ttdeci">virtual DataType get_eigenvalue(const DataType *known_parameters, const DataType known_eigenvalue, const DataType *inquiry_parameters) const =0</div></div>
 <div class="ttc" id="aclasscLinearOperator_html_ad7395bd04ec8014c9dd0e66c318ae125"><div class="ttname"><a href="classcLinearOperator.html#ad7395bd04ec8014c9dd0e66c318ae125">cLinearOperator::set_parameters</a></div><div class="ttdeci">void set_parameters(DataType *parameters_)</div><div class="ttdoc">Sets the scalar parameter this-&gt;parameters. Parameter is initialized to NULL. However,...</div><div class="ttdef"><b>Definition:</b> <a href="c__linear__operator_8cpp_source.html#l00108">c_linear_operator.cpp:108</a></div></div>
@@ -533,7 +533,7 @@ template&lt;typename DataType &gt; </div>
 <div class="ttc" id="aclasscLinearOperator_html_af9be60b44a47eed5b2c98f077ff54987"><div class="ttname"><a href="classcLinearOperator.html#af9be60b44a47eed5b2c98f077ff54987">cLinearOperator::get_num_parameters</a></div><div class="ttdeci">IndexType get_num_parameters() const</div><div class="ttdef"><b>Definition:</b> <a href="c__linear__operator_8cpp_source.html#l00119">c_linear_operator.cpp:119</a></div></div>
 <div class="ttc" id="atypes_8h_html_ab1b7173c76e5040d0161e695a129dafe"><div class="ttname"><a href="types_8h.html#ab1b7173c76e5040d0161e695a129dafe">IndexType</a></div><div class="ttdeci">int IndexType</div><div class="ttdef"><b>Definition:</b> <a href="types_8h_source.html#l00065">types.h:65</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="c__golub__kahn__bidiagonalization_8cpp_source.html#l00111">c_golub_kahn_bidiagonalization()</a>, <a class="el" href="c__lanczos__tridiagonalization_8cpp_source.html#l00117">c_lanczos_tridiagonalization()</a>, <a class="el" href="diagonalization_8cpp_source.html#l00090">Diagonalization&lt; DataType &gt;::eigh_tridiagonal()</a>, <a class="el" href="random__array__generator_8cpp_source.html#l00063">RandomArrayGenerator&lt; DataType &gt;::generate_random_array()</a>, <a class="el" href="classcLinearOperator.html#a0dd6306a434563e4a48a806b43f23d03">cLinearOperator&lt; DataType &gt;::get_eigenvalue()</a>, <a class="el" href="c__linear__operator_8cpp_source.html#l00119">cLinearOperator&lt; DataType &gt;::get_num_parameters()</a>, <a class="el" href="c__linear__operator_8cpp_source.html#l00079">cLinearOperator&lt; DataType &gt;::get_num_rows()</a>, <a class="el" href="c__linear__operator_8cpp_source.html#l00136">cLinearOperator&lt; DataType &gt;::is_eigenvalue_relation_known()</a>, <a class="el" href="c__linear__operator_8cpp_source.html#l00108">cLinearOperator&lt; DataType &gt;::set_parameters()</a>, and <a class="el" href="diagonalization_8cpp_source.html#l00191">Diagonalization&lt; DataType &gt;::svd_bidiagonal()</a>.</p>
+<p class="reference">References <a class="el" href="c__golub__kahn__bidiagonalization_8cpp_source.html#l00111">c_golub_kahn_bidiagonalization()</a>, <a class="el" href="c__lanczos__tridiagonalization_8cpp_source.html#l00117">c_lanczos_tridiagonalization()</a>, <a class="el" href="diagonalization_8cpp_source.html#l00089">Diagonalization&lt; DataType &gt;::eigh_tridiagonal()</a>, <a class="el" href="random__array__generator_8cpp_source.html#l00063">RandomArrayGenerator&lt; DataType &gt;::generate_random_array()</a>, <a class="el" href="classcLinearOperator.html#a0dd6306a434563e4a48a806b43f23d03">cLinearOperator&lt; DataType &gt;::get_eigenvalue()</a>, <a class="el" href="c__linear__operator_8cpp_source.html#l00119">cLinearOperator&lt; DataType &gt;::get_num_parameters()</a>, <a class="el" href="c__linear__operator_8cpp_source.html#l00079">cLinearOperator&lt; DataType &gt;::get_num_rows()</a>, <a class="el" href="c__linear__operator_8cpp_source.html#l00136">cLinearOperator&lt; DataType &gt;::is_eigenvalue_relation_known()</a>, <a class="el" href="c__linear__operator_8cpp_source.html#l00108">cLinearOperator&lt; DataType &gt;::set_parameters()</a>, and <a class="el" href="diagonalization_8cpp_source.html#l00190">Diagonalization&lt; DataType &gt;::svd_bidiagonal()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="c__trace__estimator_8cpp_source.html#l00183">cTraceEstimator&lt; DataType &gt;::c_trace_estimator()</a>.</p>
 <div class="dynheader">
@@ -541,32 +541,32 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcTraceEstimator_a02afa505a915c58380b99a62e4d56b30_cgraph.png" border="0" usemap="#aclasscTraceEstimator_a02afa505a915c58380b99a62e4d56b30_cgraph" alt=""/></div>
 <map name="aclasscTraceEstimator_a02afa505a915c58380b99a62e4d56b30_cgraph" id="aclasscTraceEstimator_a02afa505a915c58380b99a62e4d56b30_cgraph">
-<area shape="rect" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="5,718,147,774"/>
-<area shape="rect" href="c__golub__kahn__bidiagonalization_8cpp.html#a6125b021cd93b43ab4d9f20813487f85" title="Bi&#45;diagonalizes the positive&#45;definite matrix A using Golub&#45;Kahn&#45;Lanczos method." alt="" coords="195,187,400,214"/>
-<area shape="rect" href="c__lanczos__tridiagonalization_8cpp.html#a88831f1a1ba564b198f446a7c8a8d5ef" title="Tri&#45;diagonalizes matrix A to T using the start vector v. is the Lanczos degree, which will be the siz..." alt="" coords="205,430,390,457"/>
-<area shape="rect" href="classDiagonalization.html#a18924365b0d74983ead3901886d51204" title="Computes all eigenvalues and eigenvectors of a real and symmetric tridiagonal matrix." alt="" coords="226,561,369,603"/>
-<area shape="rect" href="classRandomArrayGenerator.html#a3a577526f391d531fe4d66bdfa0107db" title="Generates a pseudo&#45;random array with Rademacher distribution where elements are either +1 or &#45;1." alt="" coords="214,627,381,668"/>
-<area shape="rect" href="classcLinearOperator.html#a0dd6306a434563e4a48a806b43f23d03" title=" " alt="" coords="227,692,367,733"/>
-<area shape="rect" href="classcLinearOperator.html#af9be60b44a47eed5b2c98f077ff54987" title=" " alt="" coords="227,757,367,799"/>
-<area shape="rect" href="classcLinearOperator.html#aecc5b62db1d8a41f5112b289c7031aaf" title=" " alt="" coords="227,823,367,864"/>
-<area shape="rect" href="classcLinearOperator.html#af0c980ca87c2795e0dbfda1c84f74591" title="Returns a flag that determines whether a relation between the parameters of the operator and its eige..." alt="" coords="205,888,390,929"/>
-<area shape="rect" href="classcLinearOperator.html#ad7395bd04ec8014c9dd0e66c318ae125" title="Sets the scalar parameter this&#45;&gt;parameters. Parameter is initialized to NULL. However,..." alt="" coords="227,953,367,995"/>
-<area shape="rect" href="classDiagonalization.html#a636b5e32ca7211d60dadc62b2258b8ea" title="Computes all singular&#45;values and left and right eigenvectors of a real and symmetric upper bi&#45;diagona..." alt="" coords="227,1019,367,1060"/>
-<area shape="rect" href="classcLinearOperator.html#a48c76860a74f00fefaa1297368d17a77" title=" " alt="" coords="480,238,620,265"/>
-<area shape="rect" href="classcOrthogonalization.html#a1b1bcbb636f1a1608ce7a22d4538b3b3" title="Modified Gram&#45;Schmidt orthogonalization process to orthogonalize the vector v against a subset of the..." alt="" coords="467,391,633,432"/>
-<area shape="rect" href="classcVectorOperations.html#a9bd28bd08f5a6b096d99a4a2f7d23e90" title="Subtracts the scaled input vector from the output vector." alt="" coords="700,391,857,432"/>
-<area shape="rect" href="classcVectorOperations.html#aeb0171f2644e3036907bbbddf47ce998" title="Normalizes a vector based on Euclidean 2&#45;norm. The result is written into another vector." alt="" coords="458,71,642,112"/>
-<area shape="rect" href="classcVectorOperations.html#ab0991d74cadf3a3969f0723dbff55dc9" title="Normalizes a vector based on Euclidean 2&#45;norm. The result is written in&#45;place." alt="" coords="462,5,638,47"/>
-<area shape="rect" href="classcLinearOperator.html#a40f5051c4399ebfa153ef7147e10a6e6" title=" " alt="" coords="448,137,652,163"/>
-<area shape="rect" href="classcVectorOperations.html#abd0d2c941f9d3598f42026755cbc4709" title="Computes the Euclidean norm of a 1D array." alt="" coords="709,119,848,160"/>
-<area shape="rect" href="classcVectorOperations.html#ab8b945baba573b4479e8095ca87f8b3f" title="Computes Euclidean inner product of two vectors." alt="" coords="709,511,848,552"/>
-<area shape="rect" href="classcVectorOperations.html#a6627fe95659faa224dca2af1dab1fab3" title="Scales a vector and stores to a new vector." alt="" coords="709,231,848,272"/>
-<area shape="rect" href="classcVectorOperations.html#a492894cdc368a4f60b28aa15109cf9bc" title="Copies a vector to a new vector. Result is written in&#45;place." alt="" coords="481,456,619,497"/>
-<area shape="rect" href="lapack__api_8h.html#a829a495cf9df4ce926be95ee1c6163a8" title=" " alt="" coords="501,623,599,650"/>
-<area shape="rect" href="classRandomNumberGenerator.html#a91d8b9726bda7dcd40f9b992b2a1bccd" title="Generates the next random number in the sequence, depending on the thread id." alt="" coords="463,675,637,716"/>
-<area shape="rect" href="classXoshiro256StarStar.html#a6a99f74d2ed5f6e3667d785c46bf9569" title="Generates the next presudo&#45;random number." alt="" coords="711,675,846,716"/>
-<area shape="rect" href="classXoshiro256StarStar.html#a3b10c22cbac4ff9bf4447e28e57f7a72" title="Rotates the bits of a 64 bit integer toward left." alt="" coords="905,675,1040,716"/>
-<area shape="rect" href="lapack__api_8h.html#a14ad2b140c825a35e626fadf98fe495b" title=" " alt="" coords="495,1026,605,1053"/>
+<area shape="rect" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="5,718,156,774"/>
+<area shape="rect" href="c__golub__kahn__bidiagonalization_8cpp.html#a6125b021cd93b43ab4d9f20813487f85" title="Bi&#45;diagonalizes the positive&#45;definite matrix A using Golub&#45;Kahn&#45;Lanczos method." alt="" coords="204,187,433,214"/>
+<area shape="rect" href="c__lanczos__tridiagonalization_8cpp.html#a88831f1a1ba564b198f446a7c8a8d5ef" title="Tri&#45;diagonalizes matrix A to T using the start vector v. is the Lanczos degree, which will be the siz..." alt="" coords="215,430,422,457"/>
+<area shape="rect" href="classDiagonalization.html#a18924365b0d74983ead3901886d51204" title="Computes all eigenvalues and eigenvectors of a real and symmetric tridiagonal matrix." alt="" coords="239,561,399,603"/>
+<area shape="rect" href="classRandomArrayGenerator.html#a3a577526f391d531fe4d66bdfa0107db" title="Generates a pseudo&#45;random array with Rademacher distribution where elements are either +1 or &#45;1." alt="" coords="225,627,412,668"/>
+<area shape="rect" href="classcLinearOperator.html#a0dd6306a434563e4a48a806b43f23d03" title=" " alt="" coords="241,692,396,733"/>
+<area shape="rect" href="classcLinearOperator.html#af9be60b44a47eed5b2c98f077ff54987" title=" " alt="" coords="241,757,396,799"/>
+<area shape="rect" href="classcLinearOperator.html#aecc5b62db1d8a41f5112b289c7031aaf" title=" " alt="" coords="241,823,396,864"/>
+<area shape="rect" href="classcLinearOperator.html#af0c980ca87c2795e0dbfda1c84f74591" title="Returns a flag that determines whether a relation between the parameters of the operator and its eige..." alt="" coords="215,888,423,929"/>
+<area shape="rect" href="classcLinearOperator.html#ad7395bd04ec8014c9dd0e66c318ae125" title="Sets the scalar parameter this&#45;&gt;parameters. Parameter is initialized to NULL. However,..." alt="" coords="241,953,396,995"/>
+<area shape="rect" href="classDiagonalization.html#a636b5e32ca7211d60dadc62b2258b8ea" title="Computes all singular&#45;values and left and right eigenvectors of a real and symmetric upper bi&#45;diagona..." alt="" coords="241,1019,396,1060"/>
+<area shape="rect" href="classcLinearOperator.html#a48c76860a74f00fefaa1297368d17a77" title=" " alt="" coords="517,238,672,265"/>
+<area shape="rect" href="classcOrthogonalization.html#a1b1bcbb636f1a1608ce7a22d4538b3b3" title="Modified Gram&#45;Schmidt orthogonalization process to orthogonalize the vector v against a subset of the..." alt="" coords="505,391,685,432"/>
+<area shape="rect" href="classcVectorOperations.html#a9bd28bd08f5a6b096d99a4a2f7d23e90" title="Subtracts the scaled input vector from the output vector." alt="" coords="756,391,928,432"/>
+<area shape="rect" href="classcVectorOperations.html#aeb0171f2644e3036907bbbddf47ce998" title="Normalizes a vector based on Euclidean 2&#45;norm. The result is written into another vector." alt="" coords="493,71,697,112"/>
+<area shape="rect" href="classcVectorOperations.html#ab0991d74cadf3a3969f0723dbff55dc9" title="Normalizes a vector based on Euclidean 2&#45;norm. The result is written in&#45;place." alt="" coords="497,5,693,47"/>
+<area shape="rect" href="classcLinearOperator.html#a40f5051c4399ebfa153ef7147e10a6e6" title=" " alt="" coords="481,137,708,163"/>
+<area shape="rect" href="classcVectorOperations.html#abd0d2c941f9d3598f42026755cbc4709" title="Computes the Euclidean norm of a 1D array." alt="" coords="767,119,917,160"/>
+<area shape="rect" href="classcVectorOperations.html#ab8b945baba573b4479e8095ca87f8b3f" title="Computes Euclidean inner product of two vectors." alt="" coords="767,511,917,552"/>
+<area shape="rect" href="classcVectorOperations.html#a6627fe95659faa224dca2af1dab1fab3" title="Scales a vector and stores to a new vector." alt="" coords="767,231,917,272"/>
+<area shape="rect" href="classcVectorOperations.html#a492894cdc368a4f60b28aa15109cf9bc" title="Copies a vector to a new vector. Result is written in&#45;place." alt="" coords="520,456,669,497"/>
+<area shape="rect" href="lapack__api_8h.html#a829a495cf9df4ce926be95ee1c6163a8" title=" " alt="" coords="541,623,649,650"/>
+<area shape="rect" href="classRandomNumberGenerator.html#a91d8b9726bda7dcd40f9b992b2a1bccd" title="Generates the next random number in the sequence, depending on the thread id." alt="" coords="498,675,691,716"/>
+<area shape="rect" href="classXoshiro256StarStar.html#a6a99f74d2ed5f6e3667d785c46bf9569" title="Generates the next presudo&#45;random number." alt="" coords="769,675,915,716"/>
+<area shape="rect" href="classXoshiro256StarStar.html#a3b10c22cbac4ff9bf4447e28e57f7a72" title="Rotates the bits of a 64 bit integer toward left." alt="" coords="976,675,1123,716"/>
+<area shape="rect" href="lapack__api_8h.html#a14ad2b140c825a35e626fadf98fe495b" title=" " alt="" coords="535,1026,654,1053"/>
 </map>
 </div>
 <div class="dynheader">
@@ -574,8 +574,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcTraceEstimator_a02afa505a915c58380b99a62e4d56b30_icgraph.png" border="0" usemap="#aclasscTraceEstimator_a02afa505a915c58380b99a62e4d56b30_icgraph" alt=""/></div>
 <map name="aclasscTraceEstimator_a02afa505a915c58380b99a62e4d56b30_icgraph" id="aclasscTraceEstimator_a02afa505a915c58380b99a62e4d56b30_icgraph">
-<area shape="rect" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="187,5,328,61"/>
-<area shape="rect" href="classcTraceEstimator.html#a29144b4d62c71f0889002754384f57f4" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,13,139,54"/>
+<area shape="rect" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="195,5,345,61"/>
+<area shape="rect" href="classcTraceEstimator.html#a29144b4d62c71f0889002754384f57f4" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,13,147,54"/>
 </map>
 </div>
 
@@ -904,40 +904,41 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcTraceEstimator_a29144b4d62c71f0889002754384f57f4_cgraph.png" border="0" usemap="#aclasscTraceEstimator_a29144b4d62c71f0889002754384f57f4_cgraph" alt=""/></div>
 <map name="aclasscTraceEstimator_a29144b4d62c71f0889002754384f57f4_cgraph" id="aclasscTraceEstimator_a29144b4d62c71f0889002754384f57f4_cgraph">
-<area shape="rect" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,810,139,851"/>
-<area shape="rect" href="classcTraceEstimator.html#a02afa505a915c58380b99a62e4d56b30" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="208,435,349,491"/>
-<area shape="rect" href="classcLinearOperator.html#aecc5b62db1d8a41f5112b289c7031aaf" title=" " alt="" coords="451,703,591,745"/>
-<area shape="rect" href="classConvergenceTools.html#a88ae9fc09aa9af950d41cf803934c028" title="Averages the estimates of trace. Removes outliers and reevaluates the error to take into account for ..." alt="" coords="187,810,371,851"/>
-<area shape="rect" href="classConvergenceTools.html#a5a0602ee4f933a4521ccf9ea137dd191" title="Checks if the standard deviation of the set of the cumulative averages of trace estimators converged ..." alt="" coords="192,745,365,786"/>
-<area shape="rect" href="classTimer.html#a6a89a613c2af9b0d1e5f7e4ba9e46c54" title="Returns the elapsed time in seconds." alt="" coords="225,876,333,903"/>
-<area shape="rect" href="classTimer.html#a3a8b5272198d029779dc9302a54305a8" title="Starts the timer." alt="" coords="234,977,323,1004"/>
-<area shape="rect" href="classTimer.html#a63f0eb44b27402196590a03781515dba" title="Stops the timer." alt="" coords="235,927,323,953"/>
-<area shape="rect" href="c__golub__kahn__bidiagonalization_8cpp.html#a6125b021cd93b43ab4d9f20813487f85" title="Bi&#45;diagonalizes the positive&#45;definite matrix A using Golub&#45;Kahn&#45;Lanczos method." alt="" coords="419,289,624,316"/>
-<area shape="rect" href="c__lanczos__tridiagonalization_8cpp.html#a88831f1a1ba564b198f446a7c8a8d5ef" title="Tri&#45;diagonalizes matrix A to T using the start vector v. is the Lanczos degree, which will be the siz..." alt="" coords="429,391,614,417"/>
-<area shape="rect" href="classDiagonalization.html#a18924365b0d74983ead3901886d51204" title="Computes all eigenvalues and eigenvectors of a real and symmetric tridiagonal matrix." alt="" coords="450,442,593,483"/>
-<area shape="rect" href="classRandomArrayGenerator.html#a3a577526f391d531fe4d66bdfa0107db" title="Generates a pseudo&#45;random array with Rademacher distribution where elements are either +1 or &#45;1." alt="" coords="438,507,605,549"/>
-<area shape="rect" href="classcLinearOperator.html#a0dd6306a434563e4a48a806b43f23d03" title=" " alt="" coords="451,573,591,614"/>
-<area shape="rect" href="classcLinearOperator.html#af9be60b44a47eed5b2c98f077ff54987" title=" " alt="" coords="451,638,591,679"/>
-<area shape="rect" href="classcLinearOperator.html#af0c980ca87c2795e0dbfda1c84f74591" title="Returns a flag that determines whether a relation between the parameters of the operator and its eige..." alt="" coords="429,93,614,134"/>
-<area shape="rect" href="classcLinearOperator.html#ad7395bd04ec8014c9dd0e66c318ae125" title="Sets the scalar parameter this&#45;&gt;parameters. Parameter is initialized to NULL. However,..." alt="" coords="451,158,591,199"/>
-<area shape="rect" href="classDiagonalization.html#a636b5e32ca7211d60dadc62b2258b8ea" title="Computes all singular&#45;values and left and right eigenvectors of a real and symmetric upper bi&#45;diagona..." alt="" coords="451,223,591,265"/>
-<area shape="rect" href="classcLinearOperator.html#a48c76860a74f00fefaa1297368d17a77" title=" " alt="" coords="704,289,844,316"/>
-<area shape="rect" href="classcOrthogonalization.html#a1b1bcbb636f1a1608ce7a22d4538b3b3" title="Modified Gram&#45;Schmidt orthogonalization process to orthogonalize the vector v against a subset of the..." alt="" coords="691,442,857,483"/>
-<area shape="rect" href="classcVectorOperations.html#a9bd28bd08f5a6b096d99a4a2f7d23e90" title="Subtracts the scaled input vector from the output vector." alt="" coords="924,442,1081,483"/>
-<area shape="rect" href="classcVectorOperations.html#aeb0171f2644e3036907bbbddf47ce998" title="Normalizes a vector based on Euclidean 2&#45;norm. The result is written into another vector." alt="" coords="682,173,866,214"/>
-<area shape="rect" href="classcVectorOperations.html#ab0991d74cadf3a3969f0723dbff55dc9" title="Normalizes a vector based on Euclidean 2&#45;norm. The result is written in&#45;place." alt="" coords="686,107,862,149"/>
-<area shape="rect" href="classcLinearOperator.html#a40f5051c4399ebfa153ef7147e10a6e6" title=" " alt="" coords="672,56,876,83"/>
-<area shape="rect" href="classcVectorOperations.html#abd0d2c941f9d3598f42026755cbc4709" title="Computes the Euclidean norm of a 1D array." alt="" coords="933,207,1072,249"/>
-<area shape="rect" href="classcVectorOperations.html#ab8b945baba573b4479e8095ca87f8b3f" title="Computes Euclidean inner product of two vectors." alt="" coords="933,562,1072,603"/>
-<area shape="rect" href="classcVectorOperations.html#a6627fe95659faa224dca2af1dab1fab3" title="Scales a vector and stores to a new vector." alt="" coords="933,307,1072,349"/>
-<area shape="rect" href="classcVectorOperations.html#a492894cdc368a4f60b28aa15109cf9bc" title="Copies a vector to a new vector. Result is written in&#45;place." alt="" coords="705,507,843,549"/>
-<area shape="rect" href="lapack__api_8h.html#a829a495cf9df4ce926be95ee1c6163a8" title=" " alt="" coords="725,675,823,701"/>
-<area shape="rect" href="classRandomNumberGenerator.html#a91d8b9726bda7dcd40f9b992b2a1bccd" title="Generates the next random number in the sequence, depending on the thread id." alt="" coords="687,726,861,767"/>
-<area shape="rect" href="classXoshiro256StarStar.html#a6a99f74d2ed5f6e3667d785c46bf9569" title="Generates the next presudo&#45;random number." alt="" coords="935,726,1070,767"/>
-<area shape="rect" href="classXoshiro256StarStar.html#a3b10c22cbac4ff9bf4447e28e57f7a72" title="Rotates the bits of a 64 bit integer toward left." alt="" coords="1129,726,1264,767"/>
-<area shape="rect" href="lapack__api_8h.html#a14ad2b140c825a35e626fadf98fe495b" title=" " alt="" coords="719,5,829,32"/>
-<area shape="rect" href="special__functions_8h.html#a704df509fee471570474355a9ed09365" title=" " alt="" coords="491,801,552,828"/>
-<area shape="rect" href="classTimer.html#a46df9c79ce115f9d206c92abcd5969f4" title="Returns the wall time since the epoch." alt="" coords="450,952,593,979"/>
+<area shape="rect" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,1123,147,1165"/>
+<area shape="rect" href="classcTraceEstimator.html#a02afa505a915c58380b99a62e4d56b30" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="220,748,371,804"/>
+<area shape="rect" href="classcLinearOperator.html#aecc5b62db1d8a41f5112b289c7031aaf" title=" " alt="" coords="481,1017,636,1058"/>
+<area shape="rect" href="classConvergenceTools.html#a88ae9fc09aa9af950d41cf803934c028" title="Averages the estimates of trace. Removes outliers and reevaluates the error to take into account for ..." alt="" coords="195,1123,396,1165"/>
+<area shape="rect" href="classConvergenceTools.html#a5a0602ee4f933a4521ccf9ea137dd191" title="Checks if the standard deviation of the set of the cumulative averages of trace estimators converged ..." alt="" coords="202,1058,389,1099"/>
+<area shape="rect" href="classTimer.html#a6a89a613c2af9b0d1e5f7e4ba9e46c54" title="Returns the elapsed time in seconds." alt="" coords="236,1189,355,1216"/>
+<area shape="rect" href="classTimer.html#a3a8b5272198d029779dc9302a54305a8" title="Starts the timer." alt="" coords="246,1291,345,1317"/>
+<area shape="rect" href="classTimer.html#a63f0eb44b27402196590a03781515dba" title="Stops the timer." alt="" coords="247,1240,343,1267"/>
+<area shape="rect" href="c__golub__kahn__bidiagonalization_8cpp.html#a6125b021cd93b43ab4d9f20813487f85" title="Bi&#45;diagonalizes the positive&#45;definite matrix A using Golub&#45;Kahn&#45;Lanczos method." alt="" coords="444,188,673,215"/>
+<area shape="rect" href="c__lanczos__tridiagonalization_8cpp.html#a88831f1a1ba564b198f446a7c8a8d5ef" title="Tri&#45;diagonalizes matrix A to T using the start vector v. is the Lanczos degree, which will be the siz..." alt="" coords="455,428,662,455"/>
+<area shape="rect" href="classDiagonalization.html#a18924365b0d74983ead3901886d51204" title="Computes all eigenvalues and eigenvectors of a real and symmetric tridiagonal matrix." alt="" coords="479,559,639,601"/>
+<area shape="rect" href="classRandomArrayGenerator.html#a3a577526f391d531fe4d66bdfa0107db" title="Generates a pseudo&#45;random array with Rademacher distribution where elements are either +1 or &#45;1." alt="" coords="465,625,652,666"/>
+<area shape="rect" href="classcLinearOperator.html#a0dd6306a434563e4a48a806b43f23d03" title=" " alt="" coords="481,690,636,731"/>
+<area shape="rect" href="classcLinearOperator.html#af9be60b44a47eed5b2c98f077ff54987" title=" " alt="" coords="481,755,636,797"/>
+<area shape="rect" href="classcLinearOperator.html#af0c980ca87c2795e0dbfda1c84f74591" title="Returns a flag that determines whether a relation between the parameters of the operator and its eige..." alt="" coords="455,821,663,862"/>
+<area shape="rect" href="classcLinearOperator.html#ad7395bd04ec8014c9dd0e66c318ae125" title="Sets the scalar parameter this&#45;&gt;parameters. Parameter is initialized to NULL. However,..." alt="" coords="481,886,636,927"/>
+<area shape="rect" href="classDiagonalization.html#a636b5e32ca7211d60dadc62b2258b8ea" title="Computes all singular&#45;values and left and right eigenvectors of a real and symmetric upper bi&#45;diagona..." alt="" coords="481,951,636,993"/>
+<area shape="rect" href="classcLinearOperator.html#a48c76860a74f00fefaa1297368d17a77" title=" " alt="" coords="757,239,912,265"/>
+<area shape="rect" href="classcOrthogonalization.html#a1b1bcbb636f1a1608ce7a22d4538b3b3" title="Modified Gram&#45;Schmidt orthogonalization process to orthogonalize the vector v against a subset of the..." alt="" coords="745,391,925,433"/>
+<area shape="rect" href="classcVectorOperations.html#a9bd28bd08f5a6b096d99a4a2f7d23e90" title="Subtracts the scaled input vector from the output vector." alt="" coords="996,391,1168,433"/>
+<area shape="rect" href="classcVectorOperations.html#aeb0171f2644e3036907bbbddf47ce998" title="Normalizes a vector based on Euclidean 2&#45;norm. The result is written into another vector." alt="" coords="733,122,937,163"/>
+<area shape="rect" href="classcVectorOperations.html#ab0991d74cadf3a3969f0723dbff55dc9" title="Normalizes a vector based on Euclidean 2&#45;norm. The result is written in&#45;place." alt="" coords="737,57,933,98"/>
+<area shape="rect" href="classcLinearOperator.html#a40f5051c4399ebfa153ef7147e10a6e6" title=" " alt="" coords="721,5,948,32"/>
+<area shape="rect" href="classcVectorOperations.html#abd0d2c941f9d3598f42026755cbc4709" title="Computes the Euclidean norm of a 1D array." alt="" coords="1007,157,1157,198"/>
+<area shape="rect" href="classcVectorOperations.html#ab8b945baba573b4479e8095ca87f8b3f" title="Computes Euclidean inner product of two vectors." alt="" coords="1007,479,1157,521"/>
+<area shape="rect" href="classcVectorOperations.html#a6627fe95659faa224dca2af1dab1fab3" title="Scales a vector and stores to a new vector." alt="" coords="1007,257,1157,298"/>
+<area shape="rect" href="classcVectorOperations.html#a492894cdc368a4f60b28aa15109cf9bc" title="Copies a vector to a new vector. Result is written in&#45;place." alt="" coords="760,559,909,601"/>
+<area shape="rect" href="lapack__api_8h.html#a829a495cf9df4ce926be95ee1c6163a8" title=" " alt="" coords="781,625,889,652"/>
+<area shape="rect" href="classRandomNumberGenerator.html#a91d8b9726bda7dcd40f9b992b2a1bccd" title="Generates the next random number in the sequence, depending on the thread id." alt="" coords="738,677,931,718"/>
+<area shape="rect" href="classXoshiro256StarStar.html#a6a99f74d2ed5f6e3667d785c46bf9569" title="Generates the next presudo&#45;random number." alt="" coords="1009,677,1155,718"/>
+<area shape="rect" href="classXoshiro256StarStar.html#a3b10c22cbac4ff9bf4447e28e57f7a72" title="Rotates the bits of a 64 bit integer toward left." alt="" coords="1216,677,1363,718"/>
+<area shape="rect" href="lapack__api_8h.html#a14ad2b140c825a35e626fadf98fe495b" title=" " alt="" coords="775,959,894,985"/>
+<area shape="rect" href="special__functions_8cpp.html#a44303dd28715725483ae9bb6e214fc17" title="Inverse error function." alt="" coords="525,1115,592,1141"/>
+<area shape="rect" href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b" title="sign function." alt="" coords="810,1115,859,1141"/>
+<area shape="rect" href="classTimer.html#a46df9c79ce115f9d206c92abcd5969f4" title="Returns the wall time since the epoch." alt="" coords="479,1265,639,1292"/>
 </map>
 </div>
 
@@ -953,7 +954,7 @@ Here is the call graph for this function:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="classcTraceEstimator.html">cTraceEstimator</a></li>
-    <li class="footer">Generated on Tue Aug 15 2023 23:40:51 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Sep 13 2023 22:36:20 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
