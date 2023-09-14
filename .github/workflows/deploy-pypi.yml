@@ -65,7 +65,7 @@ jobs:
                   # brew install lapack
                   # pip3 install numpy
 
-              # Without this, installing cuda give error: no much space left on device
+            # Without this, installing cuda give error: no much space left on device
             - name: Clear Cache
               run: rm -rf /opt/hostedtoolcache 
 
@@ -79,7 +79,7 @@ jobs:
             # support".
             - name: Install CUDA
               if: matrix.os == 'windows-latest'
-              if: matrix.os == 'windows-latest'
+              uses: Jimver/cuda-toolkit@v0.2.11
               id: cuda-toolkit
               with:
                   cuda: '12.1.0'
