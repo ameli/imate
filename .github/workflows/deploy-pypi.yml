@@ -67,6 +67,7 @@ jobs:
 
             # Without this, installing cuda give error: no much space left on device
             - name: Clear Cache
+              if: matrix.os != 'windows-latest'
               run: rm -rf /opt/hostedtoolcache 
 
             # To install CUDA in windows, uncomment the following lines. Note
