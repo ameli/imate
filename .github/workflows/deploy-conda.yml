@@ -1,9 +1,9 @@
 name: deploy-conda
 
 on:
-    # push:
-    #     branches:
-    #         - main
+    push:
+        branches:
+            - main
     release:
         types: 
             - published
@@ -94,7 +94,9 @@ jobs:
             # longer supports CUDA in the macos.
             - name: Build wheels in mac without CUDA support
               if: matrix.os == 'macos-latest'
-              run: python -m cibuildwheel --output-dir wheelhouse
+              run: |
+                echo "$HOME/.local/bin" >> $GITHUB_PATH
+                python -m cibuildwheel --output-dir wheelhouse
               env:
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
                   CIBW_SKIP: "pp* cp27-* cp35-* cp36-*"
