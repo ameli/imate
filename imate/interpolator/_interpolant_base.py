@@ -120,7 +120,7 @@ class InterpolantBase(object):
             # Compute self.schatten_A, self.schatten_B, and self.tau0
             self._compute_schatten_of_input_matrices()
 
-            if ti != []:
+            if list(ti) != []:
 
                 # Compute schatten norm at interpolant points
                 if isinstance(ti, Number):

@@ -57,6 +57,10 @@ jobs:
                   ln -s /usr/local/opt/libomp/include/ompt.h /usr/local/include/ompt.h
                   ln -s /usr/local/opt/libomp/lib/libomp.a /usr/local/lib/libomp.a
                   ln -s /usr/local/opt/libomp/lib/libomp.dylib /usr/local/lib/libomp.dylib
+                  
+              # Without this, installing cuda give error: no much space left on device
+            - name: Clear Cache
+              run: rm -rf /opt/hostedtoolcache 
 
             # To install CUDA in windows, uncomment the following lines. Note
             # that the Jimver@cuda-toolkit action (below) can only install cuda
@@ -68,10 +72,10 @@ jobs:
             # support".
             - name: Install CUDA
               if: matrix.os == 'windows-latest'
-              uses: Jimver/cuda-toolkit@v0.2.8
+              uses: Jimver/cuda-toolkit@v0.2.11
               id: cuda-toolkit
               with:
-                  cuda: '11.7.0'
+                  cuda: '12.1.0'
 
             # Build wheel for windows with CUDA enabled. Note that cibuildwheel
             # does not need manylinux docker, thuns, CUDA can be installed in
