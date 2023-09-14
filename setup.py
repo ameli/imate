@@ -49,7 +49,8 @@ def install_package(package):
     :type package: string
     """
 
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+    subprocess.check_call([sys.executable, "-m", "pip", "install",
+                           "--prefer-binary", package])
 
 
 # =====================

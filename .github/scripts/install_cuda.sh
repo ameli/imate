@@ -15,7 +15,7 @@ set -x
 # Choose an existing version from the list of CUDA packages here:
 # https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/
 
-VERSION=11-4
+VERSION=12-2
 ARCH=x86_64
 
 yum install -y yum-utils
