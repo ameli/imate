@@ -187,51 +187,51 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The inverse error function ranging from -INFINITY to INFINITY. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="special__functions_8cpp_source.html#l00056">56</a> of file <a class="el" href="special__functions_8cpp_source.html">special_functions.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">// Output</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">double</span> r;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="comment">// Check extreme values</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">if</span> ((x == 1.0) || (x == -1.0))</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        r = <a class="code" href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b">sign</a>(x) * INFINITY;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">return</span> r;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
+<p class="definition">Definition at line <a class="el" href="special__functions_8cpp_source.html#l00063">63</a> of file <a class="el" href="special__functions_8cpp_source.html">special_functions.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;{</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="comment">// Output</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">double</span> r;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">double</span> a[4] = {0.886226899, -1.645349621, 0.914624893, -0.140543331};</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">double</span> b[5] = {1.0, -2.118377725, 1.442710462, -0.329097515, 0.012229801};</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">double</span> c[4] = {-1.970840454, -1.62490649, 3.429567803, 1.641345311};</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">double</span> d[3] = {1.0, 3.543889200, 1.637067800};</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">double</span> z = <a class="code" href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b">sign</a>(x) * x;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">// Check extreme values</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">if</span> ((x == 1.0) || (x == -1.0))</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        r = <a class="code" href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b">sign</a>(x) * INFINITY;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keywordflow">return</span> r;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">if</span> (z &lt;= 0.7)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordtype">double</span> x2 = z * z;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        r = z * (((a[3] * x2 + a[2]) * x2 + a[1]) * x2 + a[0]);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        r /= (((b[4] * x2 + b[3]) * x2 + b[2]) * x2 + b[1]) * x2 + b[0];</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordtype">double</span> y = sqrt(-log((1.0 - z) / 2.0));</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        r = (((c[3] * y + c[2]) * y + c[1]) * y + c[0]);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        r /= ((d[2] * y + d[1]) * y + d[0]);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    r = r * <a class="code" href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b">sign</a>(x);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    z = z * <a class="code" href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b">sign</a>(x);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="comment">// These two lines below are identical and repeated for double refinement.</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="comment">// Comment one line below for a single refinement of the Newton method.</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    r -= (erf(r) - z) / ((2.0 / sqrt(M_PI)) * exp(-r * r));</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    r -= (erf(r) - z) / ((2.0 / sqrt(M_PI)) * exp(-r * r));</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">return</span> r;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
-<div class="ttc" id="aspecial__functions_8cpp_html_a8df1c56975179584e0485c5ddcb1e71b"><div class="ttname"><a href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b">sign</a></div><div class="ttdeci">double sign(const double x)</div><div class="ttdoc">sign function.</div><div class="ttdef"><b>Definition:</b> <a href="special__functions_8cpp_source.html#l00027">special_functions.cpp:27</a></div></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">double</span> a[4] = {0.886226899, -1.645349621, 0.914624893, -0.140543331};</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">double</span> b[5] = {1.0, -2.118377725, 1.442710462, -0.329097515, 0.012229801};</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">double</span> c[4] = {-1.970840454, -1.62490649, 3.429567803, 1.641345311};</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">double</span> d[3] = {1.0, 3.543889200, 1.637067800};</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">double</span> z = <a class="code" href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b">sign</a>(x) * x;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">if</span> (z &lt;= 0.7)</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordtype">double</span> x2 = z * z;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        r = z * (((a[3] * x2 + a[2]) * x2 + a[1]) * x2 + a[0]);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        r /= (((b[4] * x2 + b[3]) * x2 + b[2]) * x2 + b[1]) * x2 + b[0];</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordtype">double</span> y = sqrt(-log((1.0 - z) / 2.0));</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        r = (((c[3] * y + c[2]) * y + c[1]) * y + c[0]);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        r /= ((d[2] * y + d[1]) * y + d[0]);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    r = r * <a class="code" href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b">sign</a>(x);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    z = z * <a class="code" href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b">sign</a>(x);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="comment">// These two lines below are identical and repeated for double refinement.</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="comment">// Comment one line below for a single refinement of the Newton method.</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    r -= (erf(r) - z) / ((2.0 / sqrt(M_PI)) * exp(-r * r));</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    r -= (erf(r) - z) / ((2.0 / sqrt(M_PI)) * exp(-r * r));</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">return</span> r;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
+<div class="ttc" id="aspecial__functions_8cpp_html_a8df1c56975179584e0485c5ddcb1e71b"><div class="ttname"><a href="special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b">sign</a></div><div class="ttdeci">double sign(const double x)</div><div class="ttdoc">sign function.</div><div class="ttdef"><b>Definition:</b> <a href="special__functions_8cpp_source.html#l00034">special_functions.cpp:34</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="special__functions_8cpp_source.html#l00027">sign()</a>.</p>
+<p class="reference">References <a class="el" href="special__functions_8cpp_source.html#l00034">sign()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="convergence__tools_8cpp_source.html#l00256">ConvergenceTools&lt; DataType &gt;::average_estimates()</a>, and <a class="el" href="convergence__tools_8cpp_source.html#l00095">ConvergenceTools&lt; DataType &gt;::check_convergence()</a>.</p>
 <div class="dynheader">
@@ -264,7 +264,7 @@ Here is the caller graph for this function:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_7cbdf7f1e0681c65fd455a0f383ae44b.html">imate</a></li><li class="navelem"><a class="el" href="dir_5951bf1a1af500d6bf056d938250a591.html">_c_trace_estimator</a></li><li class="navelem"><a class="el" href="special__functions_8h.html">special_functions.h</a></li>
-    <li class="footer">Generated on Wed Sep 13 2023 22:36:20 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Sep 14 2023 04:13:46 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

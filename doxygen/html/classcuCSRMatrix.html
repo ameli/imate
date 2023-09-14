@@ -558,7 +558,7 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="classCudaInterface.html#aba5754e3b4c02d3b151fdee31fa0fd46" title="Sets the current device in multi&#45;gpu applications." alt="" coords="287,5,428,47"/>
 <area shape="rect" href="cudart__symbols_8cpp.html#ab17fef862d4d1fefb9dba35bd62a187e" title="Definition of CUDA&#39;s cudaFree function using dynamically loaded cudart library." alt="" coords="548,70,629,97"/>
 <area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="731,33,879,75"/>
-<area shape="rect" href="cusparse__symbols_8cpp.html#a153b1bb75420d84c916c15b38471f44e" title="Definition of CUDA&#39;s cusparseDestroySpMat function using dynamically loaded cublas library." alt="" coords="503,130,675,157"/>
+<area shape="rect" href="cusparse__symbols_8cpp.html#a8a11a0eff8c737a49949a568a0935068" title="Definition of CUDA&#39;s cusparseDestroySpMat function using dynamically loaded cublas library." alt="" coords="503,130,675,157"/>
 <area shape="rect" href="classcusparseSymbols.html#a8195de91cda101a217b527b3240f287d" title="Returns the name of cusparse shared library." alt="" coords="723,123,888,164"/>
 <area shape="rect" href="cudart__symbols_8cpp.html#a418c299b069c4803bfb7cab4943da383" title="Definition of CUDA&#39;s cudaSetDevice function using dynamically loaded cudart library." alt="" coords="529,15,648,42"/>
 </map>
@@ -866,7 +866,7 @@ template&lt;typename DataType &gt; </div>
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    DataType alpha = 1.0;</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    DataType beta = 0.0;</div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    cusparseOperation_t cusparse_operation = CUSPARSE_OPERATION_NON_TRANSPOSE;</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    cusparseSpMVAlg_t algorithm = CUSPARSE_MV_ALG_DEFAULT;</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    cusparseSpMVAlg_t algorithm = <a class="code" href="cusparse__types_8h.html#aa15860fbc431b7df1d83c21bce5c5f0f">CUSPARSE_SPMV_ALG_DEFAULT</a>;</div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="comment">// Get device id</span></div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="keywordtype">int</span> device_id = <a class="code" href="classCudaInterface.html#a29ab521266d2670951510179d719ead1">CudaInterface&lt;DataType&gt;::get_device</a>();</div>
@@ -888,11 +888,12 @@ template&lt;typename DataType &gt; </div>
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;}</div>
 <div class="ttc" id="aclassCudaInterface_html_a29ab521266d2670951510179d719ead1"><div class="ttname"><a href="classCudaInterface.html#a29ab521266d2670951510179d719ead1">CudaInterface::get_device</a></div><div class="ttdeci">static int get_device()</div><div class="ttdoc">Gets the current device in multi-gpu applications.</div><div class="ttdef"><b>Definition:</b> <a href="cuda__interface_8cu_source.html#l00206">cuda_interface.cu:206</a></div></div>
 <div class="ttc" id="aclasscuCSRMatrix_html_ae629d237f7336a31473b637b9aeb2741"><div class="ttname"><a href="classcuCSRMatrix.html#ae629d237f7336a31473b637b9aeb2741">cuCSRMatrix::allocate_buffer</a></div><div class="ttdeci">void allocate_buffer(const int device_id, cusparseOperation_t cusparse_operation, const DataType alpha, const DataType beta, cusparseDnVecDescr_t &amp;cusparse_input_vector, cusparseDnVecDescr_t &amp;cusparse_output_vector, cusparseSpMVAlg_t algorithm)</div><div class="ttdoc">Allocates an external buffer for matrix-vector multiplication using cusparseSpMV function.</div><div class="ttdef"><b>Definition:</b> <a href="cu__csr__matrix_8cu_source.html#l00241">cu_csr_matrix.cu:241</a></div></div>
+<div class="ttc" id="acusparse__types_8h_html_aa15860fbc431b7df1d83c21bce5c5f0f"><div class="ttname"><a href="cusparse__types_8h.html#aa15860fbc431b7df1d83c21bce5c5f0f">CUSPARSE_SPMV_ALG_DEFAULT</a></div><div class="ttdeci">#define CUSPARSE_SPMV_ALG_DEFAULT</div><div class="ttdef"><b>Definition:</b> <a href="cusparse__types_8h_source.html#l00032">cusparse_types.h:32</a></div></div>
 <div class="ttc" id="anamespacecusparse__interface_html_a5bde38e93d3b432f9342e83682db4f2e"><div class="ttname"><a href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e">cusparse_interface::destroy_cusparse_vector</a></div><div class="ttdeci">void destroy_cusparse_vector(cusparseDnVecDescr_t &amp;cusparse_vector)</div><div class="ttdoc">Destroys cusparse vector.</div><div class="ttdef"><b>Definition:</b> <a href="cusparse__interface_8cu_source.html#l00156">cusparse_interface.cu:156</a></div></div>
 <div class="ttc" id="anamespacecusparse__interface_html_a6d9c1654a089e5732deb2e1306b21420"><div class="ttname"><a href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec</a></div><div class="ttdeci">void cusparse_matvec(cusparseHandle_t cusparse_handle, cusparseOperation_t cusparse_operation, const DataType alpha, cusparseSpMatDescr_t cusparse_matrix, cusparseDnVecDescr_t cusparse_input_vector, const DataType beta, cusparseDnVecDescr_t cusparse_output_vector, cusparseSpMVAlg_t algorithm, void *external_buffer)</div></div>
 <div class="ttc" id="anamespacecusparse__interface_html_aaadf25fbb7e80c24cd6ee6ca171aa048"><div class="ttname"><a href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector</a></div><div class="ttdeci">void create_cusparse_vector(cusparseDnVecDescr_t &amp;cusparse_vector, const LongIndexType vector_size, DataType *device_vector)</div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector()</a>, <a class="el" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec()</a>, <a class="el" href="cusparse__interface_8cu_source.html#l00156">cusparse_interface::destroy_cusparse_vector()</a>, and <a class="el" href="cuda__interface_8cu_source.html#l00206">CudaInterface&lt; ArrayType &gt;::get_device()</a>.</p>
+<p class="reference">References <a class="el" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector()</a>, <a class="el" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec()</a>, <a class="el" href="cusparse__types_8h_source.html#l00032">CUSPARSE_SPMV_ALG_DEFAULT</a>, <a class="el" href="cusparse__interface_8cu_source.html#l00156">cusparse_interface::destroy_cusparse_vector()</a>, and <a class="el" href="cuda__interface_8cu_source.html#l00206">CudaInterface&lt; ArrayType &gt;::get_device()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -903,7 +904,7 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420" title=" " alt="" coords="211,71,357,112"/>
 <area shape="rect" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e" title="Destroys cusparse vector." alt="" coords="188,136,380,177"/>
 <area shape="rect" href="classCudaInterface.html#a29ab521266d2670951510179d719ead1" title="Gets the current device in multi&#45;gpu applications." alt="" coords="213,201,355,243"/>
-<area shape="rect" href="cusparse__symbols_8cpp.html#a60b7ee5f6dbd7a6b7a7e3cd2ac34d69f" title="Definition of CUDA&#39;s cusparseDestroyDnVec function using dynamically loaded cublas library." alt="" coords="428,143,600,170"/>
+<area shape="rect" href="cusparse__symbols_8cpp.html#afb122a40700f2f8c14462d9d97447865" title="Definition of CUDA&#39;s cusparseDestroyDnVec function using dynamically loaded cublas library." alt="" coords="428,143,600,170"/>
 <area shape="rect" href="classcusparseSymbols.html#a8195de91cda101a217b527b3240f287d" title="Returns the name of cusparse shared library." alt="" coords="648,136,813,177"/>
 <area shape="rect" href="cudart__symbols_8cpp.html#a1795645d53ca669d84d2aff6f3706917" title="Definition of CUDA&#39;s cudaGetDevice function using dynamically loaded cudart library." alt="" coords="453,209,575,235"/>
 <area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="657,201,805,243"/>
@@ -974,7 +975,7 @@ template&lt;typename DataType &gt; </div>
 <div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="comment">// Matrix vector settings</span></div>
 <div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    DataType beta = 1.0;</div>
 <div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    cusparseOperation_t cusparse_operation = CUSPARSE_OPERATION_NON_TRANSPOSE;</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    cusparseSpMVAlg_t algorithm = CUSPARSE_MV_ALG_DEFAULT;</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    cusparseSpMVAlg_t algorithm = <a class="code" href="cusparse__types_8h.html#aa15860fbc431b7df1d83c21bce5c5f0f">CUSPARSE_SPMV_ALG_DEFAULT</a>;</div>
 <div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160; </div>
 <div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    <span class="comment">// Get device id</span></div>
 <div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    <span class="keywordtype">int</span> device_id = <a class="code" href="classCudaInterface.html#a29ab521266d2670951510179d719ead1">CudaInterface&lt;DataType&gt;::get_device</a>();</div>
@@ -995,7 +996,7 @@ template&lt;typename DataType &gt; </div>
 <div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    <a class="code" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e">cusparse_interface::destroy_cusparse_vector</a>(cusparse_output_vector);</div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector()</a>, <a class="el" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec()</a>, <a class="el" href="cusparse__interface_8cu_source.html#l00156">cusparse_interface::destroy_cusparse_vector()</a>, and <a class="el" href="cuda__interface_8cu_source.html#l00206">CudaInterface&lt; ArrayType &gt;::get_device()</a>.</p>
+<p class="reference">References <a class="el" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector()</a>, <a class="el" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec()</a>, <a class="el" href="cusparse__types_8h_source.html#l00032">CUSPARSE_SPMV_ALG_DEFAULT</a>, <a class="el" href="cusparse__interface_8cu_source.html#l00156">cusparse_interface::destroy_cusparse_vector()</a>, and <a class="el" href="cuda__interface_8cu_source.html#l00206">CudaInterface&lt; ArrayType &gt;::get_device()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1006,7 +1007,7 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420" title=" " alt="" coords="245,71,390,112"/>
 <area shape="rect" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e" title="Destroys cusparse vector." alt="" coords="221,136,413,177"/>
 <area shape="rect" href="classCudaInterface.html#a29ab521266d2670951510179d719ead1" title="Gets the current device in multi&#45;gpu applications." alt="" coords="246,201,389,243"/>
-<area shape="rect" href="cusparse__symbols_8cpp.html#a60b7ee5f6dbd7a6b7a7e3cd2ac34d69f" title="Definition of CUDA&#39;s cusparseDestroyDnVec function using dynamically loaded cublas library." alt="" coords="461,143,633,170"/>
+<area shape="rect" href="cusparse__symbols_8cpp.html#afb122a40700f2f8c14462d9d97447865" title="Definition of CUDA&#39;s cusparseDestroyDnVec function using dynamically loaded cublas library." alt="" coords="461,143,633,170"/>
 <area shape="rect" href="classcusparseSymbols.html#a8195de91cda101a217b527b3240f287d" title="Returns the name of cusparse shared library." alt="" coords="681,136,847,177"/>
 <area shape="rect" href="cudart__symbols_8cpp.html#a1795645d53ca669d84d2aff6f3706917" title="Definition of CUDA&#39;s cudaGetDevice function using dynamically loaded cudart library." alt="" coords="487,209,608,235"/>
 <area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="690,201,838,243"/>
@@ -1072,7 +1073,7 @@ template&lt;typename DataType &gt; </div>
 <div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    DataType alpha = 1.0;</div>
 <div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    DataType beta = 0.0;</div>
 <div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    cusparseOperation_t cusparse_operation = CUSPARSE_OPERATION_TRANSPOSE;</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    cusparseSpMVAlg_t algorithm = CUSPARSE_MV_ALG_DEFAULT;</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    cusparseSpMVAlg_t algorithm = <a class="code" href="cusparse__types_8h.html#aa15860fbc431b7df1d83c21bce5c5f0f">CUSPARSE_SPMV_ALG_DEFAULT</a>;</div>
 <div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160; </div>
 <div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    <span class="comment">// Get device id</span></div>
 <div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <span class="keywordtype">int</span> device_id = <a class="code" href="classCudaInterface.html#a29ab521266d2670951510179d719ead1">CudaInterface&lt;DataType&gt;::get_device</a>();</div>
@@ -1093,7 +1094,7 @@ template&lt;typename DataType &gt; </div>
 <div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;    <a class="code" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e">cusparse_interface::destroy_cusparse_vector</a>(cusparse_output_vector);</div>
 <div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector()</a>, <a class="el" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec()</a>, <a class="el" href="cusparse__interface_8cu_source.html#l00156">cusparse_interface::destroy_cusparse_vector()</a>, and <a class="el" href="cuda__interface_8cu_source.html#l00206">CudaInterface&lt; ArrayType &gt;::get_device()</a>.</p>
+<p class="reference">References <a class="el" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector()</a>, <a class="el" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec()</a>, <a class="el" href="cusparse__types_8h_source.html#l00032">CUSPARSE_SPMV_ALG_DEFAULT</a>, <a class="el" href="cusparse__interface_8cu_source.html#l00156">cusparse_interface::destroy_cusparse_vector()</a>, and <a class="el" href="cuda__interface_8cu_source.html#l00206">CudaInterface&lt; ArrayType &gt;::get_device()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1104,7 +1105,7 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420" title=" " alt="" coords="282,71,427,112"/>
 <area shape="rect" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e" title="Destroys cusparse vector." alt="" coords="259,136,451,177"/>
 <area shape="rect" href="classCudaInterface.html#a29ab521266d2670951510179d719ead1" title="Gets the current device in multi&#45;gpu applications." alt="" coords="283,201,426,243"/>
-<area shape="rect" href="cusparse__symbols_8cpp.html#a60b7ee5f6dbd7a6b7a7e3cd2ac34d69f" title="Definition of CUDA&#39;s cusparseDestroyDnVec function using dynamically loaded cublas library." alt="" coords="499,143,671,170"/>
+<area shape="rect" href="cusparse__symbols_8cpp.html#afb122a40700f2f8c14462d9d97447865" title="Definition of CUDA&#39;s cusparseDestroyDnVec function using dynamically loaded cublas library." alt="" coords="499,143,671,170"/>
 <area shape="rect" href="classcusparseSymbols.html#a8195de91cda101a217b527b3240f287d" title="Returns the name of cusparse shared library." alt="" coords="719,136,884,177"/>
 <area shape="rect" href="cudart__symbols_8cpp.html#a1795645d53ca669d84d2aff6f3706917" title="Definition of CUDA&#39;s cudaGetDevice function using dynamically loaded cudart library." alt="" coords="524,209,645,235"/>
 <area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="727,201,875,243"/>
@@ -1175,7 +1176,7 @@ template&lt;typename DataType &gt; </div>
 <div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    <span class="comment">// Matrix vector settings</span></div>
 <div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    DataType beta = 1.0;</div>
 <div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    cusparseOperation_t cusparse_operation = CUSPARSE_OPERATION_TRANSPOSE;</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    cusparseSpMVAlg_t algorithm = CUSPARSE_MV_ALG_DEFAULT;</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    cusparseSpMVAlg_t algorithm = <a class="code" href="cusparse__types_8h.html#aa15860fbc431b7df1d83c21bce5c5f0f">CUSPARSE_SPMV_ALG_DEFAULT</a>;</div>
 <div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160; </div>
 <div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    <span class="comment">// Get device id</span></div>
 <div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    <span class="keywordtype">int</span> device_id = <a class="code" href="classCudaInterface.html#a29ab521266d2670951510179d719ead1">CudaInterface&lt;DataType&gt;::get_device</a>();</div>
@@ -1196,7 +1197,7 @@ template&lt;typename DataType &gt; </div>
 <div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    <a class="code" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e">cusparse_interface::destroy_cusparse_vector</a>(cusparse_output_vector);</div>
 <div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector()</a>, <a class="el" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec()</a>, <a class="el" href="cusparse__interface_8cu_source.html#l00156">cusparse_interface::destroy_cusparse_vector()</a>, and <a class="el" href="cuda__interface_8cu_source.html#l00206">CudaInterface&lt; ArrayType &gt;::get_device()</a>.</p>
+<p class="reference">References <a class="el" href="namespacecusparse__interface.html#aaadf25fbb7e80c24cd6ee6ca171aa048">cusparse_interface::create_cusparse_vector()</a>, <a class="el" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420">cusparse_interface::cusparse_matvec()</a>, <a class="el" href="cusparse__types_8h_source.html#l00032">CUSPARSE_SPMV_ALG_DEFAULT</a>, <a class="el" href="cusparse__interface_8cu_source.html#l00156">cusparse_interface::destroy_cusparse_vector()</a>, and <a class="el" href="cuda__interface_8cu_source.html#l00206">CudaInterface&lt; ArrayType &gt;::get_device()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1207,7 +1208,7 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="namespacecusparse__interface.html#a6d9c1654a089e5732deb2e1306b21420" title=" " alt="" coords="254,71,399,112"/>
 <area shape="rect" href="namespacecusparse__interface.html#a5bde38e93d3b432f9342e83682db4f2e" title="Destroys cusparse vector." alt="" coords="231,136,423,177"/>
 <area shape="rect" href="classCudaInterface.html#a29ab521266d2670951510179d719ead1" title="Gets the current device in multi&#45;gpu applications." alt="" coords="255,201,398,243"/>
-<area shape="rect" href="cusparse__symbols_8cpp.html#a60b7ee5f6dbd7a6b7a7e3cd2ac34d69f" title="Definition of CUDA&#39;s cusparseDestroyDnVec function using dynamically loaded cublas library." alt="" coords="471,143,643,170"/>
+<area shape="rect" href="cusparse__symbols_8cpp.html#afb122a40700f2f8c14462d9d97447865" title="Definition of CUDA&#39;s cusparseDestroyDnVec function using dynamically loaded cublas library." alt="" coords="471,143,643,170"/>
 <area shape="rect" href="classcusparseSymbols.html#a8195de91cda101a217b527b3240f287d" title="Returns the name of cusparse shared library." alt="" coords="691,136,856,177"/>
 <area shape="rect" href="cudart__symbols_8cpp.html#a1795645d53ca669d84d2aff6f3706917" title="Definition of CUDA&#39;s cudaGetDevice function using dynamically loaded cudart library." alt="" coords="496,209,617,235"/>
 <area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="699,201,847,243"/>
@@ -1387,7 +1388,7 @@ template&lt;typename DataType &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="classcuCSRMatrix.html">cuCSRMatrix</a></li>
-    <li class="footer">Generated on Wed Sep 13 2023 22:36:20 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Sep 14 2023 04:13:47 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

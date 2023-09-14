@@ -72,7 +72,7 @@ var NAVTREEINDEX =
 "annotated.html",
 "classcDenseMatrix.html#abbe448d93aee2b26c12daca4c0ec9250",
 "cu__dense__matrix_8h_source.html",
-"functions_func_t.html"
+"functions_func_q.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

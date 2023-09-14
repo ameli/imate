@@ -143,10 +143,10 @@ Functions</h2></td></tr>
 <div class="textblock"><p>Dynamic loading of shared libraries using <code>dlopen</code> tool. </p>
 <p>The dynamic loading is compiled with <code>CUDA_DYNAMIC_LOADING</code> set to <code>1</code>. When enabeld, the CUDA libraries are loaded at the run- time. This method has an advantage and a disadvatage:</p>
 <ul>
-<li>Advantage: when dynamic loading is enabled, this package can be distributed withoput bundling the large cuda libraris. That is, when the wheel of this package is repaired with <code>auditwheel</code> tool in manylinux platform, the cuda libraries will not be bundled to the wheel, so the size of the wheel does not increase. In contrast, if this package is not compiled with dynamic loading, the cuda <code>*</code>.so (or <code>*</code>.dll) shared library files will be bundled with the wheel and increase the size of the wheel upto 400MB. Such a large wheel file cannot be uploaded to PyPi due to the 100MB size limit. But with dynamic loading, the package requires these libraries only at the run-time, not at the compile time.</li>
+<li>Advantage: when dynamic loading is enabled, this package can be distributed without bundling the large cuda libraries. That is, when the wheel of this package is repaired with <code>auditwheel</code> tool in manylinux platform, the cuda libraries will not be bundled to the wheel, so the size of the wheel does not increase. In contrast, if this package is not compiled with dynamic loading, the cuda <code>*</code>.so (or <code>*</code>.dll) shared library files will be bundled with the wheel and increase the size of the wheel upto 400MB. Such a large wheel file cannot be uploaded to PyPI due to the 100MB size limit. But with dynamic loading, the package requires these libraries only at the run-time, not at the compile time.</li>
 <li>Disadvantage: The end-user must install the <em>same</em> cuda version that this package is compiled with. For example, if this package is compiled with cuda 11.x, the user must install cuda 11.x (such as 11.0, 11.1, etc), but not cuda 10.x.</li>
 </ul>
-<p>The run time with/withput dynamic loading is the same. That is, using the dynamic loading doesn't affect the performance at all.</p>
+<p>The run time with/without dynamic loading is the same. That is, using the dynamic loading doesn't affect the performance at all.</p>
 <p>The functions in this namespace load any generic libraries. We use them to load <code>libcudart</code>, <code>libcublas</code>, and <code>libcusparse</code>.</p>
 <dl class="section note"><dt>Note</dt><dd>When this package is compiled with dynamic loading enabled, make sure that cuda toolkit is available at run-time. For instance on a linux cluster, run: <pre class="fragment">module load cuda
 </pre> </dd></dl>
@@ -242,7 +242,7 @@ template&lt;typename Signature &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacedynamic__loading.html">dynamic_loading</a></li>
-    <li class="footer">Generated on Wed Sep 13 2023 22:36:20 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Sep 14 2023 04:13:47 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
