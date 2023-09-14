@@ -19,17 +19,17 @@ jobs:
                 
         steps:
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
             
             - name: Setup Python 
-              uses: actions/setup-python@v4
+              uses: actions/setup-python@v3
               with:
                 python-version: '3.11'
 
             - name: Install cibuildwheel (not macos)
               if: matrix.os != 'macos-latest'
               run: |
-                  python -m pip install cibuildwheel==2.9.0
+                  python -m pip install cibuildwheel==2.15.0
 
             - name: Install cibuildwheel (macos)
               if: matrix.os == 'macos-latest'
@@ -116,9 +116,7 @@ jobs:
             # wheel is that the end-user does not have to install cuda toolkit.
             - name: Build wheels in linux with CUDA support
               if: matrix.os == 'ubuntu-latest'
-              run: |
-                echo "$HOME/.local/bin" >> $GITHUB_PATH
-                python -m cibuildwheel --output-dir wheelhouse
+              run: python -m cibuildwheel --output-dir wheelhouse
               env:
                   CIBW_MANYLINUX_X86_64_IMAGE: sameli/manylinux2014_x86_64_cuda_12.2
                   # CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
