@@ -296,7 +296,7 @@ void cuCSRMatrix<DataType>::dot(
     DataType alpha = 1.0;
     DataType beta = 0.0;
     cusparseOperation_t cusparse_operation = CUSPARSE_OPERATION_NON_TRANSPOSE;
-    cusparseSpMVAlg_t algorithm = CUSPARSE_MV_ALG_DEFAULT;
+    cusparseSpMVAlg_t algorithm = CUSPARSE_SPMV_ALG_DEFAULT;
 
     // Get device id
     int device_id = CudaInterface<DataType>::get_device();
@@ -344,7 +344,7 @@ void cuCSRMatrix<DataType>::dot_plus(
     // Matrix vector settings
     DataType beta = 1.0;
     cusparseOperation_t cusparse_operation = CUSPARSE_OPERATION_NON_TRANSPOSE;
-    cusparseSpMVAlg_t algorithm = CUSPARSE_MV_ALG_DEFAULT;
+    cusparseSpMVAlg_t algorithm = CUSPARSE_SPMV_ALG_DEFAULT;
 
     // Get device id
     int device_id = CudaInterface<DataType>::get_device();
@@ -392,7 +392,7 @@ void cuCSRMatrix<DataType>::transpose_dot(
     DataType alpha = 1.0;
     DataType beta = 0.0;
     cusparseOperation_t cusparse_operation = CUSPARSE_OPERATION_TRANSPOSE;
-    cusparseSpMVAlg_t algorithm = CUSPARSE_MV_ALG_DEFAULT;
+    cusparseSpMVAlg_t algorithm = CUSPARSE_SPMV_ALG_DEFAULT;
 
     // Get device id
     int device_id = CudaInterface<DataType>::get_device();
@@ -440,7 +440,7 @@ void cuCSRMatrix<DataType>::transpose_dot_plus(
     // Matrix vector settings
     DataType beta = 1.0;
     cusparseOperation_t cusparse_operation = CUSPARSE_OPERATION_TRANSPOSE;
-    cusparseSpMVAlg_t algorithm = CUSPARSE_MV_ALG_DEFAULT;
+    cusparseSpMVAlg_t algorithm = CUSPARSE_SPMV_ALG_DEFAULT;
 
     // Get device id
     int device_id = CudaInterface<DataType>::get_device();

@@ -43,7 +43,7 @@
 ///            time. This method has an advantage and a disadvatage:
 ///
 ///            * Advantage: when dynamic loading is enabled, this package can
-///              be distributed withoput bundling the large cuda libraris.
+///              be distributed without bundling the large cuda libraries.
 ///              That is, when the wheel of this package is repaired with
 ///              \c auditwheel tool in manylinux platform, the cuda libraries
 ///              will not be bundled to the wheel, so the size of the wheel
@@ -51,7 +51,7 @@
 ///              compiled with dynamic loading, the cuda \c *.so (or \c *.dll)
 ///              shared library files will be bundled with the wheel and
 ///              increase the size of the wheel upto 400MB. Such a large wheel
-///              file cannot be uploaded to PyPi due to the 100MB size limit.
+///              file cannot be uploaded to PyPI due to the 100MB size limit.
 ///              But with dynamic loading, the package requires these libraries
 ///              only at the run-time, not at the compile time.
 ///            * Disadvantage: The end-user must install the *same* cuda
@@ -59,7 +59,7 @@
 ///              this package is compiled with cuda 11.x, the user must install
 ///              cuda 11.x (such as 11.0, 11.1, etc), but not cuda 10.x.
 ///
-///            The run time with/withput dynamic loading is the same. That is,
+///            The run time with/without dynamic loading is the same. That is,
 ///            using the dynamic loading doesn't affect the performance at all.
 ///
 ///            The functions in this namespace load any generic libraries.

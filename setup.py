@@ -983,13 +983,17 @@ class CustomBuildExtension(build_ext):
             cuda = locate_cuda()
 
             # Code generations for various device architectures
-            gencodes = ['-gencode', 'arch=compute_35,code=sm_35',
-                        '-gencode', 'arch=compute_50,code=sm_50',
-                        '-gencode', 'arch=compute_52,code=sm_52',
-                        '-gencode', 'arch=compute_60,code=sm_60',
-                        '-gencode', 'arch=compute_61,code=sm_61',
-                        '-gencode', 'arch=compute_70,code=sm_70',
-                        '-gencode', 'arch=compute_75,code=sm_75']
+            gencodes = []
+
+            if cuda['version']['major'] < 12:
+                gencodes += ['-gencode', 'arch=compute_35,code=sm_35']
+
+            gencodes += ['-gencode', 'arch=compute_50,code=sm_50',
+                         '-gencode', 'arch=compute_52,code=sm_52',
+                         '-gencode', 'arch=compute_60,code=sm_60',
+                         '-gencode', 'arch=compute_61,code=sm_61',
+                         '-gencode', 'arch=compute_70,code=sm_70',
+                         '-gencode', 'arch=compute_75,code=sm_75']
 
             if cuda['version']['major'] < 11:
                 gencodes += \

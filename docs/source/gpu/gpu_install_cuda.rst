@@ -89,7 +89,7 @@ It is not required to install the entire CUDA Toolkit (2.6GB). Rather, only the 
 
         .. prompt:: bash
            
-           sudo apt install cuda-cudart-11-7 libcublas-11-7 libcusparse-11-7 -y
+           sudo apt install cuda-cudart-12-2 libcublas-12-2 libcusparse-12-2 -y
 
     .. tab-item:: CentOS 7
         :sync: centos
@@ -97,9 +97,9 @@ It is not required to install the entire CUDA Toolkit (2.6GB). Rather, only the 
         .. prompt:: bash
 
            sudo yum install --setopt=obsoletes=0 -y \
-                cuda-nvcc-11-7.x86_64 \
-                libcublas-11-7.x86_64 \
-                libcusparse-11-7.x86_64
+                cuda-nvcc-12-2.x86_64 \
+                libcublas-12-2.x86_64 \
+                libcusparse-12-2.x86_64
 
     .. tab-item:: RHEL 9
         :sync: rhel
@@ -107,9 +107,9 @@ It is not required to install the entire CUDA Toolkit (2.6GB). Rather, only the 
         .. prompt:: bash
 
            sudo dnf install --setopt=obsoletes=0 -y \
-                cuda-nvcc-11-7.x86_64 \
-                libcublas-11-7.x86_64 \
-                libcusparse-11-7.x86_64
+                cuda-nvcc-12-2.x86_64 \
+                libcublas-12-2.x86_64 \
+                libcusparse-12-2.x86_64
 
 Update ``PATH`` with the CUDA installation location by
 

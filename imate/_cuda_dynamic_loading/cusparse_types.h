@@ -16,13 +16,24 @@
 // Headers
 // =======
 
-#include <cusparse.h>  // cusparseSpMatDescr_t, cusparseDnVecDescr_t,
+#include <cusparse.h>  // cusparseSpMatDescr_t, cusparseConstSpMatDescr_t,
+                       // cusparseDnVecDescr_t, cusparseConstDnVecDescr_t,
                        // CusparseStatus_t, CUSPARSE_STATUS_SUCCESS,
                        // cusparseCreateCsr, cusparseCreateDnVec,
                        // cusparseDestroySpMat, cusparseDestroyDnVec,
                        // CUDA_R_32F, CUDA_R_64F, CUSPARSE_INDEX_32I,
                        // CUSPARSE_INDEX_BASE_ZERO, cusparseHandle_t,
                        // cusparseSpMVAlg_t, cusparseSpMV_buffer_size
+
+// CUDA Version Considerations
+#if CUSPARSE_VER_MAJOR < 12
+    // These types were defined n cusparse version 12, but do not exist in
+    // earlier versions.
+    #define CUSPARSE_SPMV_ALG_DEFAULT CUSPARSE_MV_ALG_DEFAULT
+    #define cusparseConstSpMatDescr_t cusparseSpMatDescr_t
+    #define cusparseConstDnVecDescr_t cusparseDnVecDescr_t
+#endif
+
 
 // =====
 // Types
@@ -57,19 +68,19 @@ typedef cusparseStatus_t (*cusparseCreateDnVec_type)(
 
 // cusparseDestroySpMat
 typedef cusparseStatus_t (*cusparseDestroySpMat_type)(
-        cusparseSpMatDescr_t spMatDescr);
+        cusparseConstSpMatDescr_t spMatDescr);
 
 // cusparseDestroyDnVec
 typedef cusparseStatus_t (*cusparseDestroyDnVec_type)(
-        cusparseDnVecDescr_t dnVecDescr);
+        cusparseConstDnVecDescr_t dnVecDescr);
 
 // cusparseSpMV_buffer_size
 typedef cusparseStatus_t (*cusparseSpMV_bufferSize_type)(
         cusparseHandle_t handle,
         cusparseOperation_t opA,
         const void* alpha,
-        cusparseSpMatDescr_t matA,
-        cusparseDnVecDescr_t vecX,
+        cusparseConstSpMatDescr_t matA,
+        cusparseConstDnVecDescr_t vecX,
         const void* beta,
         cusparseDnVecDescr_t vecY,
         cudaDataType computeType,
@@ -81,8 +92,8 @@ typedef cusparseStatus_t (*cusparseSpMV_type)(
         cusparseHandle_t handle,
         cusparseOperation_t opA,
         const void* alpha,
-        cusparseSpMatDescr_t matA,
-        cusparseDnVecDescr_t vecX,
+        cusparseConstSpMatDescr_t matA,
+        cusparseConstDnVecDescr_t vecX,
         const void* beta,
         cusparseDnVecDescr_t vecY,
         cudaDataType computeType,

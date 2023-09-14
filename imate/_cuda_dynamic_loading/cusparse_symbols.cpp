@@ -204,7 +204,7 @@ cusparseStatus_t cusparseCreateDnVec(
 ///        dynamically loaded cublas library.
 
 cusparseStatus_t cusparseDestroySpMat(
-        cusparseSpMatDescr_t spMatDescr)
+        cusparseConstSpMatDescr_t spMatDescr)
 {
     if (cusparseSymbols::cusparseDestroySpMat == NULL)
     {
@@ -229,7 +229,7 @@ cusparseStatus_t cusparseDestroySpMat(
 ///        dynamically loaded cublas library.
 
 cusparseStatus_t cusparseDestroyDnVec(
-        cusparseDnVecDescr_t dnVecDescr)
+        cusparseConstDnVecDescr_t dnVecDescr)
 {
     if (cusparseSymbols::cusparseDestroyDnVec == NULL)
     {
@@ -250,15 +250,15 @@ cusparseStatus_t cusparseDestroyDnVec(
 // cusparseSpMV_bufferSize
 // =======================
 
-/// \brief Definition of CUDA's \c cusparseSmMV_bufferSize function using
+/// \brief Definition of CUDA's \c cusparseSpMV_bufferSize function using
 ///        dynamically loaded cublas library.
 
 cusparseStatus_t cusparseSpMV_bufferSize(
         cusparseHandle_t handle,
         cusparseOperation_t opA,
         const void* alpha,
-        cusparseSpMatDescr_t matA,
-        cusparseDnVecDescr_t vecX,
+        cusparseConstSpMatDescr_t matA,
+        cusparseConstDnVecDescr_t vecX,
         const void* beta,
         cusparseDnVecDescr_t vecY,
         cudaDataType computeType,
@@ -293,8 +293,8 @@ cusparseStatus_t cusparseSpMV(
         cusparseHandle_t handle,
         cusparseOperation_t opA,
         const void* alpha,
-        cusparseSpMatDescr_t matA,
-        cusparseDnVecDescr_t vecX,
+        cusparseConstSpMatDescr_t matA,
+        cusparseConstDnVecDescr_t vecX,
         const void* beta,
         cusparseDnVecDescr_t vecY,
         cudaDataType computeType,
