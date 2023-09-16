@@ -186,10 +186,12 @@ class EigenvaluesMethod(InterpolantBase):
     References
     ----------
 
-    .. [1] Ameli, S., and Shadden. S. C. (2022). *Interpolating Log-Determinant
-           and Trace of the Powers of Matrix*
-           :math:`\\mathbf{A} + t\\mathbf{B}`. `arXiv: 2009.07385
-           <https://arxiv.org/abs/2207.08038>`_ [math.NA].
+    .. [1] Ameli, S., and Shadden. S. C. (2022). Interpolating Log-Determinant
+           and Trace of the Powers of Matrix
+           :math:`\\mathbf{A} + t \\mathbf{B}`.
+           *Statistics and Computing* 32, 108.
+           `https://doi.org/10.1007/s11222-022-10173-4
+           <https://doi.org/10.1007/s11222-022-10173-4>`_.
 
     Examples
     --------

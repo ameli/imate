@@ -51,7 +51,7 @@ jobs:
                   ln -s /usr/local/opt/libomp/include/ompt.h /usr/local/include/ompt.h
                   ln -s /usr/local/opt/libomp/lib/libomp.a /usr/local/lib/libomp.a
                   ln -s /usr/local/opt/libomp/lib/libomp.dylib /usr/local/lib/libomp.dylib
-                  
+
               # Without this, installing cuda give error: no much space left on device
             - name: Clear Cache
               if: matrix.os != 'windows-latest'
@@ -81,7 +81,7 @@ jobs:
               uses: pypa/cibuildwheel@v2.15.0
               env:
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
-                  CIBW_SKIP: "pp* cp27-* cp35-* cp36-* cp312-*"
+                  CIBW_SKIP: "pp* cp27-* cp35-* cp36-* cp37-* cp38-* cp312-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=0"
               with:
@@ -94,7 +94,7 @@ jobs:
               run: python -m cibuildwheel --output-dir wheelhouse
               env:
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
-                  CIBW_SKIP: "pp* cp27-* cp35-* cp36-* cp312-*"
+                  CIBW_SKIP: "pp* cp27-* cp35-* cp36-* cp37-* cp38-* cp312-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=0"
 
@@ -119,7 +119,7 @@ jobs:
                   # CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
                   # CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
-                  CIBW_SKIP: "pp* cp27-* cp35-* cp36-* cp312-*"
+                  CIBW_SKIP: "pp* cp27-* cp35-* cp36-* cp37-* cp38-* cp312-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=0 CUDA_HOME=/usr/local/cuda"
               with:
@@ -217,8 +217,7 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest, windows-latest, macos-latest]
-                # python-version: ['3.7', '3.8', '3.9', '3.10', '3.11']
-                python-version: ['3.7', '3.8', '3.9', '3.10']
+                python-version: ['3.9', '3.10', '3.11']
 
         steps:
             - name: Setup Miniconda

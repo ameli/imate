@@ -15,7 +15,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                python-version: ['3.7', '3.8', '3.9', '3.10', '3.11']
+                python-version: ['3.9', '3.10', '3.11']
 
         steps:
             - name: Checkout
@@ -30,7 +30,7 @@ jobs:
               run: |
                   brew install suite-sparse
                   # brew install libomp
-                  
+
                   # Starting from libomp>=15.0, the libomp installation in homebrew is "keg-only",
                   # meaning that libomp is only installed in homebrew's directory, but not moved
                   # to /usr/local to avoid other OpenMP installations (such as with gcc's version

@@ -215,7 +215,7 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
     // Allocate 1D array of random vectors We only allocate a random vector
     // per parallel thread. Thus, the total size of the random vectors is
     // matrix_size*num_threads. On each iteration in parallel threads, the
-    // alocated memory is resued. That is, in each iteration, a new random
+    // allocated memory is reused. That is, in each iteration, a new random
     // vector is generated for that specific thread id.
     IndexType random_vectors_size = matrix_size * num_threads;
     DataType* random_vectors = new DataType[random_vectors_size];
@@ -417,7 +417,7 @@ void cTraceEstimator<DataType>::_c_stochastic_lanczos_quadrature(
     IndexType matrix_size = A->get_num_rows();
 
     // Fill random vectors with Rademacher distribution (+1, -1), normalized
-    // but not orthogonalized. Settng num_threads to zero indicates to not
+    // but not orthogonalized. Setting num_threads to zero indicates to not
     // create any new threads in RandomNumbrGenerator since the current
     // function is inside a parallel thread.
     IndexType num_threads = 0;

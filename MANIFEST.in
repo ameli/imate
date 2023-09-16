@@ -35,6 +35,13 @@ recursive-include examples *.rst
 recursive-include notebooks *.ipynb
 recursive-include tests *.py
 recursive-include tests *.rst
+recursive-include scripts *.sh
+
+recursive-exclude notebooks *.pdf
+recursive-exclude notebooks *.svg
+recursive-exclude examples *.pdf
+recursive-exclude examples *.svg
+recursive-exclude tests *.svg
 recursive-include tests *.txt
 recursive-exclude tests *.svg
 recursive-exclude tests *.pdf
@@ -50,13 +57,14 @@ include .coveragerc
 include tox.ini
 include environment.yml
 include .dockerignore
-include .tokeignore
 include docker/Dockerfile
 
 exclude TODO.rst
 exclude .coverage
 exclude .gitattributes
+exclude .tokeignore
 
+prune docs/source/_static/images
 prune docs/build
 prune docs/doxygen/output
 prune .git
