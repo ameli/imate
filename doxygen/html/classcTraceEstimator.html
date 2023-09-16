@@ -296,7 +296,7 @@ template&lt;typename DataType &gt; </div>
 <div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    <a class="code" href="types_8h.html#ab1b7173c76e5040d0161e695a129dafe">IndexType</a> matrix_size = A-&gt;<a class="code" href="classcLinearOperator.html#aecc5b62db1d8a41f5112b289c7031aaf">get_num_rows</a>();</div>
 <div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160; </div>
 <div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    <span class="comment">// Fill random vectors with Rademacher distribution (+1, -1), normalized</span></div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    <span class="comment">// but not orthogonalized. Settng num_threads to zero indicates to not</span></div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    <span class="comment">// but not orthogonalized. Setting num_threads to zero indicates to not</span></div>
 <div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    <span class="comment">// create any new threads in RandomNumbrGenerator since the current</span></div>
 <div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    <span class="comment">// function is inside a parallel thread.</span></div>
 <div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    <a class="code" href="types_8h.html#ab1b7173c76e5040d0161e695a129dafe">IndexType</a> num_threads = 0;</div>
@@ -808,7 +808,7 @@ template&lt;typename DataType &gt; </div>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="comment">// Allocate 1D array of random vectors We only allocate a random vector</span></div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="comment">// per parallel thread. Thus, the total size of the random vectors is</span></div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="comment">// matrix_size*num_threads. On each iteration in parallel threads, the</span></div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="comment">// alocated memory is resued. That is, in each iteration, a new random</span></div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="comment">// allocated memory is reused. That is, in each iteration, a new random</span></div>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="comment">// vector is generated for that specific thread id.</span></div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <a class="code" href="types_8h.html#ab1b7173c76e5040d0161e695a129dafe">IndexType</a> random_vectors_size = matrix_size * num_threads;</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    DataType* random_vectors = <span class="keyword">new</span> DataType[random_vectors_size];</div>
@@ -954,7 +954,7 @@ Here is the call graph for this function:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="classcTraceEstimator.html">cTraceEstimator</a></li>
-    <li class="footer">Generated on Thu Sep 14 2023 04:39:40 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Sat Sep 16 2023 17:32:10 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
