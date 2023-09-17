@@ -127,6 +127,7 @@ jobs:
                   CIBW_SKIP: "pp37-* cp36-* cp37-* cp38-* cp312-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1 CUDA_HOME=/usr/local/cuda"
+                  CIBW_BEFORE_BUILD_LINUX: apt-get update; apt-get install gfortran libopenblas-dev liblapack-dev;
               with:
                 output-dir: wheelhouse
             
