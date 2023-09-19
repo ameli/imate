@@ -51,7 +51,7 @@ def slq_method(
 
     .. math::
 
-        \\mathrn{trace} \\; \\mathrm{exp} \\left(c \\mathbf{A}^p \\right),
+        \\mathrm{trace} \\; \\mathrm{exp} \\left(c \\mathbf{A}^p \\right),
      
     where :math:`c` is a given real coefficient.
 
