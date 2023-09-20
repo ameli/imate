@@ -186,8 +186,8 @@ def _compute_cumulative_statistics(
                 standard_deviation = numpy.nanstd(samples_valid)
                 cumulative_abs_error[i, j] = \
                     quantile * standard_deviation / numpy.sqrt(i+1)
-                cumulative_rel_error[i, j] = \
-                    cumulative_abs_error[i, j] / cumulative_mean[i, j]
+                cumulative_rel_error[i, j] = cumulative_abs_error[i, j] / \
+                    numpy.abs(cumulative_mean[i, j])
 
     return cumulative_mean, cumulative_abs_error, cumulative_rel_error
 

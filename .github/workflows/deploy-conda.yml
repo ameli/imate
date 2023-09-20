@@ -228,6 +228,15 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v3
 
+            # Remove MKL as it causes error in initializing libomp. This only happens in MacOS and
+            # the conda (but not pip) installation of this package.
+            - name: Remove MKL in MacOS
+              if: matrix.os == 'macos-latest'
+              shell: bash -l {0}
+              run: |
+                  conda install nomkl
+                  conda remove mkl mkl-service
+
             - name: Test
               shell: bash -l {0}
               run: |
