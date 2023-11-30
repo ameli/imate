@@ -40,7 +40,7 @@ def logdet(
 
     If ``gram`` is `True`, then :math:`\\mathbf{A}` in the above is replaced by
     the Gramian matrix :math:`\\mathbf{A}^{\\intercal} \\mathbf{A}`. In this
-    case, if the matrix :math:`\\mathvf{A}` is square, then the following is
+    case, if the matrix :math:`\\mathbf{A}` is square, then the following is
     instead computed:
 
     .. math::

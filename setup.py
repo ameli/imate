@@ -87,7 +87,7 @@ try:
     from Cython.Build import cythonize
 except ImportError:
     # Install Cython
-    install_package('cython')
+    install_package('cython>=0.29,<3.0')
     from Cython.Build import cythonize
 
 # Import build_ext
