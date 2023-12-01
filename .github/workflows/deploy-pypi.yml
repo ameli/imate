@@ -97,7 +97,7 @@ jobs:
               uses: pypa/cibuildwheel@v2.15.0
               env:
                   CIBW_ARCHS_MACOS: "x86_64 universal2 arm64"
-                  CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
+                  CIBW_BUILD: "*-manylinux_x86_64 *-macosx_arm64 *-macosx_universal2 *-macosx_x86_64 *-win_amd64"
                   CIBW_SKIP: "pp* cp36-* cp37-* cp38-* cp312-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_CBLAS=0 USE_CUDA=0"
