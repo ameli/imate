@@ -93,6 +93,7 @@ jobs:
                   CIBW_SKIP: "pp* cp36-* cp37-* cp38-* cp312-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=0"
+                  CIBW_BEFORE_BUILD_MACOS: brew install libomp
               with:
                 output-dir: wheelhouse
 
