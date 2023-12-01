@@ -1,9 +1,9 @@
 name: build-macos
 
 on:
-    push:
-        branches:
-            - main
+    # push:
+    #     branches:
+    #         - main
     release:
         types: 
             - published
@@ -11,7 +11,7 @@ on:
 jobs:
     build:
 
-        runs-on: macos-latest-xlarge
+        runs-on: macos-latest
         strategy:
             fail-fast: false
             matrix:
