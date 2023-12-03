@@ -214,7 +214,7 @@ Compile and install by
 .. prompt:: bash
 
     cd imate
-    python setup.py install
+    python -m pip install .
 
 .. |repo-size| image:: https://img.shields.io/github/repo-size/ameli/imate
    :target: https://github.com/ameli/imate

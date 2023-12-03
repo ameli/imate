@@ -45,6 +45,7 @@ jobs:
                   CUDA_DYNAMIC_LOADING: 1
 
             - name: Test
+              if: (matrix.python-version != '3.12')  # matplotlib still depends on deprecated distutils in the new python 3.12
               run: |
                   python -m pip install --upgrade pytest
                   python -m pip install --upgrade pytest-cov

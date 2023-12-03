@@ -23,8 +23,12 @@ import subprocess
 import codecs
 import tempfile
 import shutil
-from distutils.errors import CompileError, LinkError, DistutilsExecError
-from distutils.command.clean import clean
+import setuptools
+from setuptools import Command
+from setuptools.extension import Extension
+from setuptools.errors import CompileError, LinkError, ExecError
+from setuptools.command.build_ext import build_ext
+# from Cython.Distutils import build_ext
 import textwrap
 import multiprocessing
 import re
@@ -72,16 +76,6 @@ except ImportError:
     # Install scipy
     install_package('scipy')
 
-# Import setuptools
-try:
-    import setuptools
-    from setuptools.extension import Extension
-except ImportError:
-    # Install setuptools
-    install_package('setuptools')
-    import setuptools
-    from setuptools.extension import Extension
-
 # Import Cython (to convert pyx to C code)
 try:
     from Cython.Build import cythonize
@@ -89,12 +83,6 @@ except ImportError:
     # Install Cython
     install_package('cython>=0.29,<3.0')
     from Cython.Build import cythonize
-
-# Import build_ext
-try:
-    from Cython.Distutils import build_ext
-except ImportError:
-    from distutils.command import build_ext
 
 
 # =========================
@@ -666,7 +654,7 @@ def customize_windows_compiler_for_nvcc(self, cuda):
                 try:
                     self.spawn([self.rc] + pp_opts +
                                [output_opt] + [input_opt])
-                except DistutilsExecError as msg:
+                except ExecError as msg:
                     raise CompileError(msg)
                 continue
             elif ext in self._mc_extensions:
@@ -693,7 +681,7 @@ def customize_windows_compiler_for_nvcc(self, cuda):
                     self.spawn([self.rc] +
                                ["/fo" + obj] + [rc_file])
 
-                except DistutilsExecError as msg:
+                except ExecError as msg:
                     raise CompileError(msg)
                 continue
             elif ext in ['.cu']:
@@ -722,7 +710,7 @@ def customize_windows_compiler_for_nvcc(self, cuda):
                                [input_opt, output_opt] +
                                extra_postargs)
 
-            except DistutilsExecError as msg:
+            except ExecError as msg:
                 raise CompileError(msg)
 
         return objects
@@ -1620,9 +1608,17 @@ def main(argv):
 
     # Custom clean to remove cython generated *.c, *.cpp, and *.so files.
     # To clean cython generated files, run "python setup.py clean"
-    class CustomClean(clean):
+    class CustomClean(Command):
+
+        user_options = []
+
+        def initialize_options(self):
+            pass
+
+        def finalize_options(self):
+            pass
+
         def run(self):
-            super().run()
             clean_extensions(extensions)
 
     # Inputs to setup

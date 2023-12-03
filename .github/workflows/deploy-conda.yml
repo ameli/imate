@@ -1,9 +1,9 @@
 name: deploy-conda
 
 on:
-    # push:
-    #     branches:
-    #         - main
+    push:
+        branches:
+            - main
     release:
         types: 
             - published
@@ -24,7 +24,7 @@ jobs:
             - name: Setup Python 
               uses: actions/setup-python@v4
               with:
-                python-version: '3.11'
+                python-version: '3.12'
 
             - name: Install numpy
               run: |
@@ -77,7 +77,7 @@ jobs:
               uses: pypa/cibuildwheel@v2.15.0
               env:
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
-                  CIBW_SKIP: "pp* cp36-* cp37-* cp38-* cp312-*"
+                  CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=0"
               with:
@@ -91,7 +91,7 @@ jobs:
               env:
                   CIBW_ARCHS_MACOS: "x86_64 arm64"
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_arm64 *-macosx_x86_64 *-win_amd64"
-                  CIBW_SKIP: "pp* cp36-* cp37-* cp38-* cp312-*"
+                  CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=0"
               with:
@@ -118,7 +118,7 @@ jobs:
                   # CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
                   # CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
                   CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
-                  CIBW_SKIP: "pp* cp36-* cp37-* cp38-* cp312-*"
+                  CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=0 CUDA_HOME=/usr/local/cuda"
               with:
@@ -216,7 +216,7 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest, windows-latest, macos-latest]
-                python-version: ['3.9', '3.10', '3.11']
+                python-version: ['3.9', '3.10', '3.11', '3.12']
 
         steps:
             - name: Setup Miniconda
