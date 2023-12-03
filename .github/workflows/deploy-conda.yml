@@ -1,9 +1,9 @@
 name: deploy-conda
 
 on:
-    # push:
-    #     branches:
-    #         - main
+    push:
+        branches:
+            - main
     release:
         types: 
             - published
@@ -236,7 +236,7 @@ jobs:
               shell: bash -l {0}
               run: |
                   conda install nomkl
-                  conda remove mkl mkl-service
+                  conda remove mkl mkl-service 2>/dev/null
 
             - name: Test
               shell: bash -l {0}
