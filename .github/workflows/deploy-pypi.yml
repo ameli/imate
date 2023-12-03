@@ -156,7 +156,7 @@ jobs:
                   python -m pip install --upgrade numpy
             
             - name: Build sdist
-              run: python setup.py sdist
+              run: python -m build . --sdist
             
             - name: Upload artifacts
               uses: actions/upload-artifact@v3
