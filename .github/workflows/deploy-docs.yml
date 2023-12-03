@@ -19,7 +19,7 @@ jobs:
             - name: Set up Python
               uses: actions/setup-python@v4
               with:
-                  python-version: '3.11'
+                  python-version: '3.12'
 
             # Build doxygen files in /docs/doxygen/output/html
             - name: Build doxygen
@@ -38,7 +38,7 @@ jobs:
                 python -m pip install -r requirements.txt
                 python -m pip install --force-reinstall -r requirements_plot.txt
                 export CYTHON_BUILD_FOR_DOC=1
-                python setup.py install
+                python -m pip install .
 
             # Build sphinx in /docs/build, copy /docs/doxygen/output/html to /docs/build/doxygen
             - name: Build Sphinx
