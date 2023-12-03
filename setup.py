@@ -23,12 +23,6 @@ import subprocess
 import codecs
 import tempfile
 import shutil
-import setuptools
-from setuptools import Command
-from setuptools.extension import Extension
-from setuptools.errors import CompileError, LinkError, ExecError
-from setuptools.command.build_ext import build_ext
-# from Cython.Distutils import build_ext
 import textwrap
 import multiprocessing
 import re
@@ -83,6 +77,20 @@ except ImportError:
     # Install Cython
     install_package('cython>=0.29,<3.0')
     from Cython.Build import cythonize
+
+# Install setuptools package
+try:
+    import setuptools                                               # noqa F401
+except ImportError:
+    # Install setuptools
+    install_package('setuptools')
+    import setuptools                                               # noqa F401
+
+from setuptools import Command
+from setuptools.extension import Extension
+from setuptools.errors import CompileError, LinkError, ExecError
+from setuptools.command.build_ext import build_ext
+# from Cython.Distutils import build_ext
 
 
 # =========================
