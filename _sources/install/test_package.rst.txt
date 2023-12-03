@@ -19,7 +19,7 @@ Clone the source code from the repository and install the required test packages
     git clone https://github.com/ameli/imate.git
     cd imate
     python -m pip install -r tests/requirements.txt
-    python setup.py install
+    python -m pip install .
 
 To automatically run all tests, use ``pytest`` which is installed by the above commands.
 

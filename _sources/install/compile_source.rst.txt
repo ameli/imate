@@ -488,7 +488,7 @@ To compile and install, run
 
 .. prompt:: bash
 
-    python setup.py install
+    python -m pip install .
 
 The above command may need ``sudo`` privilege. 
 
@@ -508,7 +508,7 @@ If you are using ``sudo`` for the above command, add ``-E`` option to ``sudo`` t
             export USE_CUDA=1
             export CUDA_DYNAMIC_LOADING=1
 
-            sudo -E python setup.py install
+            sudo -E python -m pip install .
 
     .. tab-item:: Windows (Powershell)
         :sync: win
@@ -520,7 +520,7 @@ If you are using ``sudo`` for the above command, add ``-E`` option to ``sudo`` t
             $env:export USE_CUDA = "1"
             $env:export CUDA_DYNAMIC_LOADING = "1"
 
-            sudo -E python setup.py install
+            sudo -E python -m pip install .
 
 Once the installation is completed, check the package can be loaded by
 
