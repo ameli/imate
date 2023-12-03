@@ -86,7 +86,7 @@ Set ``CYTHON_BUILD_FOR_DOC`` to `1` (see :ref:`Configure Compile-Time Environmen
 
             export CYTHON_BUILD_FOR_DOC=1
             export USE_CUDA=0
-            sudo -E python -m pip install .
+            sudo -E python setup.py install
 
     .. tab-item:: Windows (Powershell)
         :sync: win
@@ -95,7 +95,7 @@ Set ``CYTHON_BUILD_FOR_DOC`` to `1` (see :ref:`Configure Compile-Time Environmen
 
             $env:export CYTHON_BUILD_FOR_DOC = "1"
             $env:export USE_CUDA = "0"
-            sudo -E python -m pip install .
+            sudo -E python setup.py install
 
 Generate Sphinx Documentation
 -----------------------------
