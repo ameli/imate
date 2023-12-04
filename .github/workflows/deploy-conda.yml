@@ -270,7 +270,7 @@ jobs:
               shell: bash -l {0}
               run: |
                   conda install nomkl
-                  conda remove mkl mkl-service
+                  conda remove mkl mkl-service || true  # use true since if mkl or mkl-service does not exist, conda throw error and fails the whole runner action to continue
 
             - name: Test
               shell: bash -l {0}
