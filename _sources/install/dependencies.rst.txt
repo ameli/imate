@@ -1,9 +1,59 @@
-.. _optional-dependencies:
+.. _dependencies:
 
-Optional Runtime Dependencies
-=============================
+Runtime Dependencies
+====================
 
-Runtime libraries are not required to be present during the installation of |project|. However, they may be required to be installed during running |project|.
+The followings are dependencies used during the runtime of |project|. Note that, among these dependencies, `OpenMP` is **required**, while the rest of the dependencies are optional.
+
+.. _dependencies_openmp:
+
+OpenMP (`Required`)
+-------------------
+
+The |project| requires OpenMP, which is typically included with C++ compilers on Unix-based systems like Linux. By installing a C++ compiler on Linux, you generally obtain OpenMP as well. However, for macOS users, it's crucial to note that OpenMP is not part of the default LLVM Clang C++ compiler. Even if you have Clang installed on macOS, you will still need to install OpenMP separately. For Windows users, OpenMP support depends on the compiler you choose; Microsoft Visual C++ supports OpenMP, but you may need to enable it explicitly. Below are the specific installation for each operating system:
+
+.. tab-set::
+
+    .. tab-item:: Ubuntu/Debian
+        :sync: ubuntu
+
+        .. prompt:: bash
+
+            sudo apt install libgomp1 -y
+
+    .. tab-item:: CentOS 7
+        :sync: centos
+
+        .. prompt:: bash
+
+            sudo yum install libgomp -y
+
+    .. tab-item:: RHEL 9
+        :sync: rhel
+
+        .. prompt:: bash
+
+            sudo dnf install libgomp -y
+
+    .. tab-item:: macOS
+        :sync: osx
+
+        .. prompt:: bash
+
+            sudo brew install libomp
+
+.. note::
+
+    In *macOS*, starting from ``libomp`` with version ``15`` and above, Homebrew installs OpenMP as *keg-only*. To be able to use the OpenMP installation, create the following symbolic links :
+
+    .. prompt:: bash
+
+        ln -s /usr/local/opt/libomp/include/omp-tools.h /usr/local/include/omp-tools.h
+        ln -s /usr/local/opt/libomp/include/omp.h /usr/local/include/omp.h
+        ln -s /usr/local/opt/libomp/include/ompt.h /usr/local/include/ompt.h
+        ln -s /usr/local/opt/libomp/lib/libomp.a /usr/local/lib/libomp.a
+        ln -s /usr/local/opt/libomp/lib/libomp.dylib /usr/local/lib/libomp.dylib
+
 
 CUDA Toolkit and NVIDIA Graphic Driver (`Optional`)
 ---------------------------------------------------

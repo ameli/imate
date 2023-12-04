@@ -20,7 +20,7 @@ For more advanced usage, there may be cases where you need to compile the packag
 
     Install from Wheels <install_wheels>
     Install in Virtual Environment <virtual_env>
-    Optional Runtime Dependencies <optional_dependencies>
+    Runtime Dependencies <dependencies>
     Compile from Source <compile_source>
     Generate Documentation <gen_documentation>
     Test Package <test_package>

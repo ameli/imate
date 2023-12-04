@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ameli.github.io/install/troubleshooting.html" />
 <meta property="og:site_name" content="RestoreIO" />
-<meta property="og:description" content="Issue of Initializing libomp: When using any of the imate functions, specifically with the method=slq option, you may encounter the following error: Workaround Attempt: The above error message suggests a workaround to set the environment variable KMP_DUPLICATE_LIB_OK=TRUE. However, using this wor..." />
+<meta property="og:description" content="Cannot load libomp: Upon importing imate, you may encounter this error: This message indicates that OpenMP is not installed on your system, a requirement for the imate. To resolve this issue, refer to <OpenMP installation instructions dependencies_openmp>. Issue of Initializing libomp: When using..." />
 <meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
 <meta property="og:image:alt" content="RestoreIO" />
-<meta name="description" content="Issue of Initializing libomp: When using any of the imate functions, specifically with the method=slq option, you may encounter the following error: Workaround Attempt: The above error message suggests a workaround to set the environment variable KMP_DUPLICATE_LIB_OK=TRUE. However, using this wor..." />
+<meta name="description" content="Cannot load libomp: Upon importing imate, you may encounter this error: This message indicates that OpenMP is not installed on your system, a requirement for the imate. To resolve this issue, refer to <OpenMP installation instructions dependencies_openmp>. Issue of Initializing libomp: When using..." />
 <meta property="og:title" content="RestoreIO">
 <meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
@@ -236,8 +236,8 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="optional_dependencies.html">
-   3. Optional Runtime Dependencies
+  <a class="reference internal" href="dependencies.html">
+   3. Runtime Dependencies
   </a>
  </li>
  <li class="toctree-l1">
@@ -286,8 +286,18 @@
 <nav id="bd-toc-nav">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cannot-load-libomp">
+   7.1. Cannot load
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     libomp
+    </span>
+   </code>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#issue-of-initializing-libomp">
-   7.1. Issue of Initializing
+   7.2. Issue of Initializing
    <code class="docutils literal notranslate">
     <span class="pre">
      libomp
@@ -323,8 +333,21 @@
                 
   <section id="troubleshooting">
 <span id="id1"></span><h1><span class="section-number">7. </span>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this heading">#</a></h1>
+<section id="cannot-load-libomp">
+<h2><span class="section-number">7.1. </span>Cannot load <code class="docutils literal notranslate"><span class="pre">libomp</span></code><a class="headerlink" href="#cannot-load-libomp" title="Permalink to this heading">#</a></h2>
+<p>Upon importing <span class="synco">imate</span>, you may encounter this error:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ne">ImportError</span><span class="p">:</span> <span class="n">dlopen</span><span class="p">(</span><span class="o">.../</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">imate</span><span class="o">/</span><span class="n">logdet</span><span class="o">/</span><span class="n">_slq_method</span><span class="o">.</span><span class="n">cpython</span><span class="o">-</span><span class="mi">311</span><span class="o">-</span><span class="n">darwin</span><span class="o">.</span><span class="n">so</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+<span class="n">Library</span> <span class="ow">not</span> <span class="n">loaded</span><span class="p">:</span> <span class="nd">@loader_path</span><span class="o">/../.</span><span class="n">dylibs</span><span class="o">/</span><span class="n">libomp</span><span class="o">.</span><span class="n">dylib</span>
+<span class="n">Referenced</span> <span class="n">from</span><span class="p">:</span> <span class="o">.../</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">imate</span><span class="o">/</span><span class="n">logdet</span><span class="o">/</span><span class="n">_slq_method</span><span class="o">.</span><span class="n">cpython</span><span class="o">-</span><span class="mi">311</span><span class="o">-</span><span class="n">darwin</span><span class="o">.</span><span class="n">so</span>
+<span class="n">Reason</span><span class="p">:</span> <span class="n">no</span> <span class="n">suitable</span> <span class="n">image</span> <span class="n">found</span><span class="o">.</span>  <span class="n">Did</span> <span class="n">find</span><span class="p">:</span>
+    <span class="o">.../</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">imate</span><span class="o">/</span><span class="n">logdet</span><span class="o">/../.</span><span class="n">dylibs</span><span class="o">/</span><span class="n">libomp</span><span class="o">.</span><span class="n">dylib</span><span class="p">:</span>
+    <span class="n">cannot</span> <span class="n">load</span> <span class="s1">&#39;libomp.dylib&#39;</span> <span class="p">(</span><span class="n">load</span> <span class="n">command</span> <span class="mh">0x80000034</span> <span class="ow">is</span> <span class="n">unknown</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This message indicates that OpenMP is not installed on your system, a requirement for the <span class="synco">imate</span>. To resolve this issue, refer to &lt;OpenMP installation instructions <cite>dependencies_openmp</cite>&gt;.</p>
+</section>
 <section id="issue-of-initializing-libomp">
-<h2><span class="section-number">7.1. </span>Issue of Initializing <code class="docutils literal notranslate"><span class="pre">libomp</span></code><a class="headerlink" href="#issue-of-initializing-libomp" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">7.2. </span>Issue of Initializing <code class="docutils literal notranslate"><span class="pre">libomp</span></code><a class="headerlink" href="#issue-of-initializing-libomp" title="Permalink to this heading">#</a></h2>
 <p>When using any of the <span class="synco">imate</span> functions, specifically with the <code class="docutils literal notranslate"><span class="pre">method=slq</span></code> option, you may encounter the following error:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OMP</span><span class="p">:</span> <span class="n">Error</span> <span class="c1">#15: Initializing libomp.dylib, but found libiomp5.dylib already initialized.</span>
 <span class="n">OMP</span><span class="p">:</span> <span class="n">Hint</span> <span class="n">This</span> <span class="n">means</span> <span class="n">that</span> <span class="n">multiple</span> <span class="n">copies</span> <span class="n">of</span> <span class="n">the</span> <span class="n">OpenMP</span> <span class="n">runtime</span> <span class="n">have</span> <span class="n">been</span> <span class="n">linked</span> <span class="n">into</span>
