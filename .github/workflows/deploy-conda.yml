@@ -76,7 +76,8 @@ jobs:
               if: matrix.os == 'windows-latest'
               uses: pypa/cibuildwheel@v2.15.0
               env:
-                  CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
+                  CIBW_ARCHS_WINDOWS: "AMD64 x86 ARM64"
+                  CIBW_BUILD: "*-win_amd64 *-win_arm64"
                   CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=0"
@@ -90,7 +91,7 @@ jobs:
               uses: pypa/cibuildwheel@v2.15.0
               env:
                   CIBW_ARCHS_MACOS: "x86_64 arm64"
-                  CIBW_BUILD: "*-manylinux_x86_64 *-macosx_arm64 *-macosx_x86_64 *-win_amd64"
+                  CIBW_BUILD: "*-macosx_arm64 *-macosx_x86_64"
                   CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=0"
@@ -117,7 +118,8 @@ jobs:
                   CIBW_MANYLINUX_X86_64_IMAGE: sameli/manylinux2014_x86_64_cuda_12.2
                   # CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
                   # CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
-                  CIBW_BUILD: "*-manylinux_x86_64 *-macosx_x86_64 *-win_amd64"
+                  CIBW_ARCHS_LINUX: "x86_64 aarch64"
+                  CIBW_BUILD: "*-manylinux_x86_64 *-manylinux_aarch64"
                   CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=0 CUDA_HOME=/usr/local/cuda"
@@ -236,7 +238,7 @@ jobs:
               shell: bash -l {0}
               run: |
                   conda install nomkl
-                  conda remove mkl mkl-service 2>/dev/null
+                  conda remove mkl mkl-service
 
             - name: Test
               shell: bash -l {0}
