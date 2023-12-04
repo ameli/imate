@@ -20,7 +20,7 @@ OpenMP (`Required`)
 
     For **macOS** users:
 
-        It's crucial to note that OpenMP is not part of the default Apple Xcode's LLVM compiler. Even if you have Apple Xcode LLVM compiler readily installed on macOS, you will still need to install OpenMP separately via `libomp` Homebrew package (see below) or as part of the *open source* `LLVM compiler <https://llvm.org/>`__, via `llvm` Homebrew package.
+        It's crucial to note that OpenMP is not part of the default Apple Xcode's LLVM compiler. Even if you have Apple Xcode LLVM compiler readily installed on macOS, you will still need to install OpenMP separately via ``libomp`` Homebrew package (see below) or as part of the *open source* `LLVM compiler <https://llvm.org/>`__, via ``llvm`` Homebrew package.
 
     For **Windows** users:
 
