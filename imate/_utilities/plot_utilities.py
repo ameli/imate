@@ -24,7 +24,7 @@ from matplotlib.ticker import ScalarFormatter, NullFormatter       # noqa: F401
 from matplotlib.ticker import FormatStrFormatter, FuncFormatter    # noqa: F401
 from mpl_toolkits.axes_grid1 import make_axes_locatable            # noqa: F401
 
-from distutils.spawn import find_executable
+import shutil
 from .display_utilities import is_notebook
 import logging
 import warnings
@@ -72,7 +72,7 @@ def load_plot_settings():
     # sns.set()
 
     # LaTeX
-    if find_executable('latex'):
+    if shutil.which('latex'):
         try:
             # plt.rc('text',usetex=True)
             matplotlib.rcParams['text.usetex'] = True

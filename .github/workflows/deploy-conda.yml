@@ -72,15 +72,31 @@ jobs:
             # does not need manylinux docker, thuns, CUDA can be installed in
             # the github action's virtual machine using the Jimver's action
             # in the previous action (see above).
-            - name: Build wheels in windows with CUDA support
+            - name: Build wheels in windows with CUDA support (X86_64)
               if: matrix.os == 'windows-latest'
               uses: pypa/cibuildwheel@v2.15.0
               env:
-                  CIBW_ARCHS_WINDOWS: "AMD64 x86 ARM64"
-                  CIBW_BUILD: "*-win_amd64 *-win_arm64"
+                  CIBW_ARCHS_WINDOWS: "AMD64 x86"
+                  CIBW_BUILD: "*-win_amd64"
                   CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=0"
+              with:
+                output-dir: wheelhouse
+
+            # Build wheel for windows with CUDA enabled. Note that cibuildwheel
+            # does not need manylinux docker, thuns, CUDA can be installed in
+            # the github action's virtual machine using the Jimver's action
+            # in the previous action (see above).
+            - name: Build wheels in windows without CUDA support (ARM64)
+              if: matrix.os == 'windows-latest'
+              uses: pypa/cibuildwheel@v2.15.0
+              env:
+                  CIBW_ARCHS_WINDOWS: "ARM64"
+                  CIBW_BUILD: "*-win_arm64"
+                  CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
+                  CIBW_BUILD_VERBOSITY: 1
+                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=0 CUDA_DYNAMIC_LOADING=0"
               with:
                 output-dir: wheelhouse
            
@@ -111,18 +127,46 @@ jobs:
             # anaconda cloud upload size is 1GB, the large wheel size will not
             # be a problem. The advantage of bundling cuda libraries to the
             # wheel is that the end-user does not have to install cuda toolkit.
-            - name: Build wheels in linux with CUDA support
+            - name: Build wheels in linux with CUDA support (X86_64)
               if: matrix.os == 'ubuntu-latest'
               uses: pypa/cibuildwheel@v2.15.0
               env:
                   CIBW_MANYLINUX_X86_64_IMAGE: sameli/manylinux2014_x86_64_cuda_12.2
                   # CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
                   # CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
-                  CIBW_ARCHS_LINUX: "x86_64 aarch64"
-                  CIBW_BUILD: "*-manylinux_x86_64 *-manylinux_aarch64"
+                  CIBW_ARCHS_LINUX: "x86_64"
+                  CIBW_BUILD: "*-manylinux_x86_64"
                   CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=0 CUDA_HOME=/usr/local/cuda"
+              with:
+                output-dir: wheelhouse
+
+            # Enable compiling with CUDA, only for linux. Note that cuda must
+            # be installed "inside" the manylinux docker image, not in the main
+            # github virtual machine. Also, we should use manylinux2014, but
+            # not manylinux1. Because of this, we will not install CUDA with
+            # the Jimver's action (unlike we did so for the windows wheel in
+            # the above). The ``CUDA_DYNAMIC_LOADING=0`` disables dynamic
+            # loading of CUDA library. Base of this, when the wheels are
+            # created in manylinux platform, the cuda's libraries
+            # (libcudart.so, libcublas.so, libcusparse.so) will bundle to
+            # the wheel. This is increases the wheel size, bit since the
+            # anaconda cloud upload size is 1GB, the large wheel size will not
+            # be a problem. The advantage of bundling cuda libraries to the
+            # wheel is that the end-user does not have to install cuda toolkit.
+            - name: Build wheels in linux without CUDA support (AARCH64)
+              if: matrix.os == 'ubuntu-latest'
+              uses: pypa/cibuildwheel@v2.15.0
+              env:
+                  # CIBW_MANYLINUX_X86_64_IMAGE: sameli/manylinux2014_x86_64_cuda_12.2
+                  CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
+                  # CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
+                  CIBW_ARCHS_LINUX: "aarch64"
+                  CIBW_BUILD: "*-manylinux_aarch64"
+                  CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
+                  CIBW_BUILD_VERBOSITY: 1
+                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=0 CUDA_DYNAMIC_LOADING=0 CUDA_HOME=/usr/local/cuda"
               with:
                 output-dir: wheelhouse
             
@@ -147,7 +191,7 @@ jobs:
         # To publish to pypi on each GitHub Release, use the following:
         # if: github.event_name == 'release' && github.event.action == 'published'
         steps:
-            
+
             - name: Clean runner space
               if: matrix.os == 'ubuntu-latest'
               run: |

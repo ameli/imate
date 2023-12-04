@@ -132,9 +132,6 @@ Fast Trace Estimator
 TODO
 ====
 
-* Python 3.12 completely removes distutils. The distutils package should be
-  replaced with setuptools.
-
 * Implement ``keep`` functionality for slq method.
 * Hutchinson method can be implemented in C++ and also in CUDA on GPU.
 * Other functions (besides traceinv and logdet)
