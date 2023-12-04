@@ -12,9 +12,19 @@ OpenMP (`Required`)
 
 |project| requires OpenMP, which is typically included with most C++ compilers.
 
-* For **Linux** users, by installing a C++ compiler such as GCC or Clang, you also obtain OpenMP as well. You may alternatively install ``libomp`` without the need to install a full compiler.
-* For **macOS** users, it's crucial to note that OpenMP is not part of the default LLVM Clang C++ compiler. Even if you have Clang installed on macOS, you will still need to install OpenMP separately through Homebrew (see below).
-* For **Windows** users, OpenMP support depends on the compiler you choose; Microsoft Visual C++ supports OpenMP, but you may need to enable it explicitly.
+.. glossary::
+
+    For **Linux** users:
+
+        By installing a C++ compiler such as GCC, Clang, or Intel, you also obtain OpenMP as well. You may alternatively install ``libomp`` (see below) without the need to install a full compiler.
+
+    For **macOS** users:
+
+        It's crucial to note that OpenMP is not part of the default Apple Xcode's LLVM compiler. Even if you have Apple Xcode LLVM compiler readily installed on macOS, you will still need to install OpenMP separately via `libomp` Homebrew package (see below) or as part of the *open source* `LLVM compiler <https://llvm.org/>`__, via `llvm` Homebrew package.
+
+    For **Windows** users:
+
+        OpenMP support depends on the compiler you choose; Microsoft Visual C++ supports OpenMP, but you may need to enable it explicitly.
 
 Below are the specific installation for each operating system:
 

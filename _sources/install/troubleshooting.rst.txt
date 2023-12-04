@@ -17,7 +17,7 @@ Upon importing |project|, you may encounter this error:
 	.../site-packages/imate/logdet/../.dylibs/libomp.dylib:
 	cannot load 'libomp.dylib' (load command 0x80000034 is unknown)
 
-This message indicates that OpenMP is not installed on your system, a requirement for the |project|. To resolve this issue, refer to <OpenMP installation instructions `dependencies_openmp`>.
+This message indicates that OpenMP is not installed on your system, a requirement for the |project|. To resolve this issue, refer to `OpenMP installation instructions <dependencies_openmp>`.
 
 Issue of Initializing ``libomp``
 ================================

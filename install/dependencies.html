@@ -11,10 +11,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ameli.github.io/install/dependencies.html" />
 <meta property="og:site_name" content="RestoreIO" />
-<meta property="og:description" content="The followings are dependencies used during the runtime of imate. Note that, among these dependencies, OpenMP is required, while the rest of the dependencies are optional. OpenMP ( Required): imate requires OpenMP, which is typically included with most C++ compilers. For Linux users, by installin..." />
+<meta property="og:description" content="The followings are dependencies used during the runtime of imate. Note that, among these dependencies, OpenMP is required, while the rest of the dependencies are optional. OpenMP ( Required): imate requires OpenMP, which is typically included with most C++ compilers. For Linux users:, By installi..." />
 <meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
 <meta property="og:image:alt" content="RestoreIO" />
-<meta name="description" content="The followings are dependencies used during the runtime of imate. Note that, among these dependencies, OpenMP is required, while the rest of the dependencies are optional. OpenMP ( Required): imate requires OpenMP, which is typically included with most C++ compilers. For Linux users, by installin..." />
+<meta name="description" content="The followings are dependencies used during the runtime of imate. Note that, among these dependencies, OpenMP is required, while the rest of the dependencies are optional. OpenMP ( Required): imate requires OpenMP, which is typically included with most C++ compilers. For Linux users:, By installi..." />
 <meta property="og:title" content="RestoreIO">
 <meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
@@ -353,11 +353,14 @@
 <section id="openmp-required">
 <span id="dependencies-openmp"></span><h2><span class="section-number">3.1. </span>OpenMP (<cite>Required</cite>)<a class="headerlink" href="#openmp-required" title="Permalink to this heading">#</a></h2>
 <p><span class="synco">imate</span> requires OpenMP, which is typically included with most C++ compilers.</p>
-<ul class="simple">
-<li><p>For <strong>Linux</strong> users, by installing a C++ compiler such as GCC or Clang, you also obtain OpenMP as well. You may alternatively install <code class="docutils literal notranslate"><span class="pre">libomp</span></code> without the need to install a full compiler.</p></li>
-<li><p>For <strong>macOS</strong> users, it’s crucial to note that OpenMP is not part of the default LLVM Clang C++ compiler. Even if you have Clang installed on macOS, you will still need to install OpenMP separately through Homebrew (see below).</p></li>
-<li><p>For <strong>Windows</strong> users, OpenMP support depends on the compiler you choose; Microsoft Visual C++ supports OpenMP, but you may need to enable it explicitly.</p></li>
-</ul>
+<dl class="simple glossary">
+<dt id="term-For-Linux-users">For <strong>Linux</strong> users:<a class="headerlink" href="#term-For-Linux-users" title="Permalink to this term">#</a></dt><dd><p>By installing a C++ compiler such as GCC, Clang, or Intel, you also obtain OpenMP as well. You may alternatively install <code class="docutils literal notranslate"><span class="pre">libomp</span></code> (see below) without the need to install a full compiler.</p>
+</dd>
+<dt id="term-For-macOS-users">For <strong>macOS</strong> users:<a class="headerlink" href="#term-For-macOS-users" title="Permalink to this term">#</a></dt><dd><p>It’s crucial to note that OpenMP is not part of the default Apple Xcode’s LLVM compiler. Even if you have Apple Xcode LLVM compiler readily installed on macOS, you will still need to install OpenMP separately via <cite>libomp</cite> Homebrew package (see below) or as part of the <em>open source</em> <a class="reference external" href="https://llvm.org/">LLVM compiler</a>, via <cite>llvm</cite> Homebrew package.</p>
+</dd>
+<dt id="term-For-Windows-users">For <strong>Windows</strong> users:<a class="headerlink" href="#term-For-Windows-users" title="Permalink to this term">#</a></dt><dd><p>OpenMP support depends on the compiler you choose; Microsoft Visual C++ supports OpenMP, but you may need to enable it explicitly.</p>
+</dd>
+</dl>
 <p>Below are the specific installation for each operating system:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
