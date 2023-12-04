@@ -109,7 +109,7 @@ jobs:
            
             # Do not enable compiling with CUDA for macos since NIVDIA no
             # longer supports CUDA in the macos.
-            - name: Build wheels in mac without CUDA support
+            - name: Build wheels in mac without CUDA support (X86_64 and arm64)
               if: matrix.os == 'macos-latest'
               uses: pypa/cibuildwheel@v2.15.0
               env:
@@ -150,34 +150,22 @@ jobs:
               with:
                 output-dir: wheelhouse
 
-            # Enable compiling with CUDA, only for linux. Note that cuda must
-            # be installed "inside" the manylinux docker image, not in the main
-            # github virtual machine. Also, we should use manylinux2014, but
-            # not manylinux1. Because of this, we will not install CUDA with
-            # the Jimver's action (unlike we did so for the windows wheel in
-            # the above). The ``CUDA_DYNAMIC_LOADING=1`` enables dynamic
-            # loading of CUDA library. Base of this, when the wheels are
-            # created in manylinux platform, the cuda's libraries
-            # (libcudart.so, libcublas.so, libcusparse.so) will NOT bundle to
-            # the wheel. This is very good since the size of the wheel does not
-            # increase (cuda libs are large), and the  manylinux wheel can be
-            # uploaded to pypi (pypi has 100MB upload limit). On the down side,
-            # the user has to install cuda library themselves.
-            - name: Build wheels in linux without CUDA support (AARCH64)
-              if: matrix.os == 'ubuntu-latest'
-              uses: pypa/cibuildwheel@v2.15.0
-              env:
-                  # CIBW_MANYLINUX_X86_64_IMAGE: sameli/manylinux2014_x86_64_cuda_12.2
-                  CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
-                  # CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
-                  CIBW_ARCHS_LINUX: "aarch64"
-                  CIBW_BUILD: "*-manylinux_aarch64"
-                  CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
-                  CIBW_BUILD_VERBOSITY: 1
-                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=0 CUDA_DYNAMIC_LOADING=1 CUDA_HOME=/usr/local/cuda"
-                  # CIBW_BEFORE_BUILD_LINUX: yum update; yum install gcc-gfortran openblas-devel.x86_64 lapack-devel.x86_64 -y;
-              with:
-                output-dir: wheelhouse
+            # This does not work, the compilation takes several hours, then fails, even without enabling cuda.
+            # - name: Build wheels in linux without CUDA support (AARCH64)
+            #   if: matrix.os == 'ubuntu-latest'
+            #   uses: pypa/cibuildwheel@v2.15.0
+            #   env:
+            #       # CIBW_MANYLINUX_X86_64_IMAGE: sameli/manylinux2014_x86_64_cuda_12.2
+            #       CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
+            #       # CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
+            #       CIBW_ARCHS_LINUX: "aarch64"
+            #       CIBW_BUILD: "*-manylinux_aarch64"
+            #       CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
+            #       CIBW_BUILD_VERBOSITY: 1
+            #       CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=0 CUDA_DYNAMIC_LOADING=1 CUDA_HOME=/usr/local/cuda"
+            #       # CIBW_BEFORE_BUILD_LINUX: yum update; yum install gcc-gfortran openblas-devel.x86_64 lapack-devel.x86_64 -y;
+            #   with:
+            #     output-dir: wheelhouse
             
             - name: Upload artifacts
               uses: actions/upload-artifact@v3
