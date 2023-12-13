@@ -54,7 +54,7 @@ conda_build_wheels_linux_aarch64_task:
       USE_UNSIGNED_LONG_INT=0
       USE_CBLAS=0
       USE_CUDA=1
-      CUDA_DYNAMIC_LOADING=0
+      CUDA_DYNAMIC_LOADING=1
       CUDA_HOME=/usr/local/cuda
 
   build_script: |
@@ -63,7 +63,6 @@ conda_build_wheels_linux_aarch64_task:
     git fetch origin
     which python
     echo $CIRRUS_CHANGE_MESSAGE
-
   <<: *CONDA_LINUX_AARCH64_CIBW
 
 
