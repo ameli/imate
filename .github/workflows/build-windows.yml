@@ -1,9 +1,9 @@
 name: build-windows
 
 on:
-    # push:
-    #     branches:
-    #         - main
+    push:
+        branches:
+            - main
     release:
         types: 
             - published
@@ -36,7 +36,7 @@ jobs:
               run: |
                   python -m pip install --upgrade pip
                   python -m pip install --upgrade numpy
-                  python -m pip install --upgrade .
+                  python -m pip install --upgrade . -vvv
               env:
                   USE_LONG_INT: 0
                   USE_UNSIGNED_LONG_INT: 0

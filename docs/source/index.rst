@@ -83,7 +83,7 @@ Successful installation and tests performed on the following operating systems, 
 .. |n| unicode:: U+2716
 
 +----------+-------------------+--------+-------+-------+-------+-------+-------+-------+-------+-----------------+
-| Platform | Arch              | Device | Python Version                | PyPy Version          | Continuous      |
+| Platform | Arch              | Device | Python Version                | PyPy Version :sup:`1` | Continuous      |
 +          |                   +        +-------+-------+-------+-------+-------+-------+-------+ Integration     +
 |          |                   |        |  3.9  |  3.10 |  3.11 |  3.12 |  3.8  |  3.9  |  3.10 |                 |
 +==========+===================+========+=======+=======+=======+=======+=======+=======+=======+=================+
@@ -91,15 +91,15 @@ Successful installation and tests performed on the following operating systems, 
 +          +                   +--------+-------+-------+-------+-------+-------+-------+-------+                 +
 |          |                   | GPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |                 |
 +          +-------------------+--------+-------+-------+-------+-------+-------+-------+-------+                 +
-|          | AARCH-64 :sup:`*` | CPU    |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |                 |
+|          | AARCH-64          | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |                 |
 +          +                   +--------+-------+-------+-------+-------+-------+-------+-------+                 +
-|          |                   | GPU    |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |                 |
+|          |                   | GPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |                 |
 +----------+-------------------+--------+-------+-------+-------+-------+-------+-------+-------+-----------------+
 | macOS    | X86-64            | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |  |n|  | |build-macos|   |
 +          +                   +--------+-------+-------+-------+-------+-------+-------+-------+                 +
 |          |                   | GPU    |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |                 |
 +          +-------------------+--------+-------+-------+-------+-------+-------+-------+-------+                 +
-|          | ARM-64 :sup:`*`   | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |  |n|  |                 |
+|          | ARM-64            | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |  |n|  |                 |
 +          +                   +--------+-------+-------+-------+-------+-------+-------+-------+                 +
 |          |                   | GPU    |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |                 |
 +----------+-------------------+--------+-------+-------+-------+-------+-------+-------+-------+-----------------+
@@ -107,7 +107,7 @@ Successful installation and tests performed on the following operating systems, 
 +          +                   +--------+-------+-------+-------+-------+-------+-------+-------+                 +
 |          |                   | GPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |  |n|  |                 |
 +          +-------------------+--------+-------+-------+-------+-------+-------+-------+-------+                 +
-|          | ARM-64 :sup:`*`   | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |  |n|  |                 |
+|          | ARM-64 :sup:`2`   | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |  |n|  |                 |
 +          +                   +--------+-------+-------+-------+-------+-------+-------+-------+                 +
 |          |                   | GPU    |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |                 |
 +----------+-------------------+--------+-------+-------+-------+-------+-------+-------+-------+-----------------+
@@ -121,7 +121,10 @@ Successful installation and tests performed on the following operating systems, 
 
 Python wheels for |project| for all supported platforms and versions in the above are available through `PyPI <https://pypi.org/project/imate/>`_ and `Anaconda Cloud <https://anaconda.org/s-ameli/imate>`_. If you need |project| on other platforms, architectures, and Python or PyPy versions, `raise an issue <https://github.com/ameli/imate/issues>`_ on GitHub and we build its Python Wheel for you.
 
-:sup:`* Wheels compatible with the ARM-64 (also known as AARCH-64) architecture, including those for Apple Silicon M1 machines, are exclusively available for installation through pip and cannot be installed using conda.`
+.. line-block::
+
+    :sup:`1. Wheels for PyPy are exclusively available for installation through pip and cannot be installed using conda.`
+    :sup:`2. Wheels for Windows on ARM-64 architecture are exclusively available for installation through pip and cannot be installed using conda.`
 
 Install
 =======

@@ -7,11 +7,11 @@
 Links
 =====
 
-* `Documentation <https://ameli.github.io/imate>`_
-* `PyPI <https://pypi.org/project/imate/>`_
-* `Anaconda <https://anaconda.org/s-ameli/imate>`_
-* `Docker Hub <https://hub.docker.com/r/sameli/imate>`_
-* `Github <https://github.com/ameli/imate>`_
+* `Documentation <https://ameli.github.io/imate>`__
+* `PyPI <https://pypi.org/project/imate/>`__
+* `Anaconda <https://anaconda.org/s-ameli/imate>`__
+* `Docker Hub <https://hub.docker.com/r/sameli/imate>`__
+* `Github <https://github.com/ameli/imate>`__
 
 Install
 =======
@@ -46,13 +46,13 @@ Docker Image
 Supported Platforms
 ===================
 
-Successful installation and tests performed on the following operating systems, architectures, and Python and `PyPy <https://www.pypy.org/>`_ versions:
+Successful installation and tests performed on the following operating systems, architectures, and Python and `PyPy <https://www.pypy.org/>`__ versions:
 
 .. |y| unicode:: U+2714
 .. |n| unicode:: U+2716
 
 +----------+-------------------+--------+-------+-------+-------+-------+-------+-------+-------+-----------------+
-| Platform | Arch              | Device | Python Version                | PyPy Version          | Continuous      |
+| Platform | Arch              | Device | Python Version                | PyPy Version :sup:`1` | Continuous      |
 +          |                   +        +-------+-------+-------+-------+-------+-------+-------+ Integration     +
 |          |                   |        |  3.9  |  3.10 |  3.11 |  3.12 |  3.8  |  3.9  |  3.10 |                 |
 +==========+===================+========+=======+=======+=======+=======+=======+=======+=======+=================+
@@ -60,15 +60,15 @@ Successful installation and tests performed on the following operating systems, 
 +          +                   +--------+-------+-------+-------+-------+-------+-------+-------+                 +
 |          |                   | GPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |                 |
 +          +-------------------+--------+-------+-------+-------+-------+-------+-------+-------+                 +
-|          | AARCH-64 :sup:`*` | CPU    |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |                 |
+|          | AARCH-64          | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |                 |
 +          +                   +--------+-------+-------+-------+-------+-------+-------+-------+                 +
-|          |                   | GPU    |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |                 |
+|          |                   | GPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |  |y|  |                 |
 +----------+-------------------+--------+-------+-------+-------+-------+-------+-------+-------+-----------------+
 | macOS    | X86-64            | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |  |n|  | |build-macos|   |
 +          +                   +--------+-------+-------+-------+-------+-------+-------+-------+                 +
 |          |                   | GPU    |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |                 |
 +          +-------------------+--------+-------+-------+-------+-------+-------+-------+-------+                 +
-|          | ARM-64 :sup:`*`   | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |  |n|  |                 |
+|          | ARM-64            | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |  |n|  |                 |
 +          +                   +--------+-------+-------+-------+-------+-------+-------+-------+                 +
 |          |                   | GPU    |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |                 |
 +----------+-------------------+--------+-------+-------+-------+-------+-------+-------+-------+-----------------+
@@ -76,7 +76,7 @@ Successful installation and tests performed on the following operating systems, 
 +          +                   +--------+-------+-------+-------+-------+-------+-------+-------+                 +
 |          |                   | GPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |  |n|  |                 |
 +          +-------------------+--------+-------+-------+-------+-------+-------+-------+-------+                 +
-|          | ARM-64 :sup:`*`   | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |  |n|  |                 |
+|          | ARM-64 :sup:`2`   | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |  |n|  |                 |
 +          +                   +--------+-------+-------+-------+-------+-------+-------+-------+                 +
 |          |                   | GPU    |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |                 |
 +----------+-------------------+--------+-------+-------+-------+-------+-------+-------+-------+-----------------+
@@ -88,9 +88,12 @@ Successful installation and tests performed on the following operating systems, 
 .. |build-windows| image:: https://img.shields.io/github/actions/workflow/status/ameli/imate/build-windows.yml
    :target: https://github.com/ameli/imate/actions?query=workflow%3Abuild-windows
 
-Python wheels for ``imate`` for all supported platforms and versions in the above are available through `PyPI <https://pypi.org/project/imate/>`_ and `Anaconda Cloud <https://anaconda.org/s-ameli/imate>`_. If you need ``imate`` on other platforms, architectures, and Python or PyPy versions, `raise an issue <https://github.com/ameli/imate/issues>`_ on GitHub and we build its Python Wheel for you.
+Python wheels for ``imate`` for all supported platforms and versions in the above are available through `PyPI <https://pypi.org/project/imate/>`__ and `Anaconda Cloud <https://anaconda.org/s-ameli/imate>`__. If you need ``imate`` on other platforms, architectures, and Python or PyPy versions, `raise an issue <https://github.com/ameli/imate/issues>`__ on GitHub and we build its Python Wheel for you.
 
-:sup:`* Wheels compatible with the ARM-64 (also known as AARCH-64) architecture, including those for Apple Silicon M1 machines, are exclusively available for installation through pip and cannot be installed using conda.`
+.. line-block::
+
+    :sup:`1. Wheels for PyPy are exclusively available for installation through pip and cannot be installed using conda.`
+    :sup:`2. Wheels for Windows on ARM-64 architecture are exclusively available for installation through pip and cannot be installed using conda.`
 
 Supported GPU Architectures
 ===========================
@@ -116,13 +119,13 @@ Documentation
 
 See `documentation <https://ameli.github.io/imate/index.html>`__, including:
 
-* `What This Packages Does? <https://ameli.github.io/imate/overview.html>`_
-* `Comprehensive Installation Guide <https://ameli.github.io/imate/tutorials/install.html>`_
-* `How to Work with Docker Container? <https://ameli.github.io/imate/tutorials/docker.html>`_
-* `How to Deploy on GPU Devices? <https://ameli.github.io/imate/tutorials/gpu.html>`_
-* `API Reference <https://ameli.github.io/imate/api.html>`_
-* `Interactive Notebook Tutorials <https://mybinder.org/v2/gh/ameli/glearn/HEAD?filepath=notebooks%2Fquick_start.ipynb>`_
-* `Publications <https://ameli.github.io/imate/cite.html>`_
+* `What This Packages Does? <https://ameli.github.io/imate/overview.html>`__
+* `Comprehensive Installation Guide <https://ameli.github.io/imate/tutorials/install.html>`__
+* `How to Work with Docker Container? <https://ameli.github.io/imate/tutorials/docker.html>`__
+* `How to Deploy on GPU Devices? <https://ameli.github.io/imate/tutorials/gpu.html>`__
+* `API Reference <https://ameli.github.io/imate/api.html>`__
+* `Interactive Notebook Tutorials <https://mybinder.org/v2/gh/ameli/glearn/HEAD?filepath=notebooks%2Fquick_start.ipynb>`__
+* `Publications <https://ameli.github.io/imate/cite.html>`__
 
 Performance
 ===========
@@ -131,27 +134,27 @@ Performance
 
 Read about the performance of ``imate`` in practical applications:
 
-* `Performance on GPU Farm <https://ameli.github.io/imate/performance/gpu.html#perf-gpu>`_
-* `Comparison of Randomized Algorithms <https://ameli.github.io/imate/performance/algorithms.html>`_
-* `Comparison With and Without OpenBLAS <https://ameli.github.io/imate/performance/openblas.html#perf-openblas>`_
-* `Interpolation of Affine Matrix Functions <https://ameli.github.io/imate/performance/interpolation.html>`_
+* `Performance on GPU Farm <https://ameli.github.io/imate/performance/gpu.html#perf-gpu>`__
+* `Comparison of Randomized Algorithms <https://ameli.github.io/imate/performance/algorithms.html>`__
+* `Comparison With and Without OpenBLAS <https://ameli.github.io/imate/performance/openblas.html#perf-openblas>`__
+* `Interpolation of Affine Matrix Functions <https://ameli.github.io/imate/performance/interpolation.html>`__
     
 How to Contribute
 =================
 
-We welcome contributions via `GitHub's pull request <https://github.com/ameli/imate/pulls>`_. If you do not feel comfortable modifying the code, we also welcome feature requests and bug reports as `GitHub issues <https://github.com/ameli/imate/issues>`_.
+We welcome contributions via `GitHub's pull request <https://github.com/ameli/imate/pulls>`__. If you do not feel comfortable modifying the code, we also welcome feature requests and bug reports as `GitHub issues <https://github.com/ameli/imate/issues>`__.
 
 How to Cite
 ===========
 
-If you publish work that uses ``imate``, please consider citing the manuscripts available `here <https://ameli.github.io/imate/cite.html>`_.
+If you publish work that uses ``imate``, please consider citing the manuscripts available `here <https://ameli.github.io/imate/cite.html>`__.
 
 License
 =======
 
 |license|
 
-This project uses a `BSD 3-clause license <https://github.com/ameli/imate/blob/main/LICENSE.txt>`_, in hopes that it will be accessible to most projects. If you require a different license, please raise an `issue <https://github.com/ameli/imate/issues>`_ and we will consider a dual license.
+This project uses a `BSD 3-clause license <https://github.com/ameli/imate/blob/main/LICENSE.txt>`__, in hopes that it will be accessible to most projects. If you require a different license, please raise an `issue <https://github.com/ameli/imate/issues>`__ and we will consider a dual license.
 
 .. |logo| image:: https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg
    :width: 160
