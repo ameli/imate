@@ -124,7 +124,7 @@ Python wheels for |project| for all supported platforms and versions in the abov
 .. line-block::
 
     :sup:`1. Wheels for PyPy are exclusively available for installation through pip and cannot be installed using conda.`
-    :sup:`2. For MacOS, Python wheels for GPU are not provided due to MacOS's lack of support for NVIDIA CUDA, as MacOS does not natively support NVIDIA GPUs required for CUDA.`
+    :sup:`2. Wheels on MacOS do not support GPU as MacOS does not natively support NVIDIA GPUs.`
     :sup:`3. Wheels for Windows on ARM-64 architecture are exclusively available for installation through pip and cannot be installed using conda.`
 
 Install
