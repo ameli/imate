@@ -1,9 +1,9 @@
 name: deploy-conda
 
 on:
-    # push:
-    #     branches:
-    #         - main
+    push:
+        branches:
+            - main
     release:
         types:
             - published
@@ -16,7 +16,6 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest, windows-latest, macos-latest]
-                
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -72,19 +71,20 @@ jobs:
             # does not need manylinux docker, thuns, CUDA can be installed in
             # the github action's virtual machine using the Jimver's action
             # in the previous action (see above).
-            - name: Build wheels in windows with CUDA support (X86_64, ARM64)
+            - name: Build wheels in windows with CUDA support (X86_64)
               if: matrix.os == 'windows-latest'
               uses: pypa/cibuildwheel@v2.15.0
               env:
-                  CIBW_ARCHS_WINDOWS: "AMD64 x86 ARM64"
-                  CIBW_BUILD: "*-win_amd64 *-win_arm64"
+                  CIBW_ARCHS_WINDOWS: "AMD64 x86"
+                  CIBW_BUILD: "*-win_amd64"
                   CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 3
-                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=0"
+                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1"
                   CIBW_BEFORE_BUILD_WINDOWS: "pip install delvewheel"
                   CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair -w {dest_dir} {wheel}"
               with:
                 output-dir: wheelhouse
+
            
             # Do not enable compiling with CUDA for macos since NIVDIA no longer supports CUDA in the macos.
             # Build wheel for macos X86_64.
@@ -106,7 +106,7 @@ jobs:
             # github virtual machine. Also, we should use manylinux2014, but
             # not manylinux1. Because of this, we will not install CUDA with
             # the Jimver's action (unlike we did so for the windows wheel in
-            # the above). The ``CUDA_DYNAMIC_LOADING=0`` disables dynamic
+            # the above). The ``CUDA_DYNAMIC_LOADING=1`` enables dynamic
             # loading of CUDA library. Base of this, when the wheels are
             # created in manylinux platform, the cuda's libraries
             # (libcudart.so, libcublas.so, libcusparse.so) will bundle to
@@ -126,10 +126,10 @@ jobs:
                   CIBW_BUILD: "*-manylinux_x86_64"
                   CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 3
-                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=0 CUDA_HOME=/usr/local/cuda"
+                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1 CUDA_HOME=/usr/local/cuda"
               with:
                 output-dir: wheelhouse
-            
+ 
             # Upload all wheels to an artifact
             - name: Upload artifacts
               uses: actions/upload-artifact@v3

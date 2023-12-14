@@ -110,23 +110,35 @@ conda_build_upload_conda_macosx_arm64_task:
 conda_test_macosx_arm64_task:
   use_compute_credits: $CIRRUS_USER_COLLABORATOR == 'true'
   macos_instance:
-    image: ghcr.io/cirruslabs/macos-monterey-xcode:latest
+    image: ghcr.io/cirruslabs/macos-monterey-base:latest
     cpu: 1
     memory: 4G
   depends_on:
     - conda_build_upload_conda_macosx_arm64
+  matrix:
+    - env:
+        PY_VER: "3.9"
+    - env:
+        PY_VER: "3.10"
+    - env:
+        PY_VER: "3.11"
+    - env:
+        PY_VER: "3.12"
 
   test_script:
+    - uname -m
     - source ./tools/wheels/upload_wheels.sh
     - install_anaconda "macosx_arm64"
+    - conda update conda -y
+    - eval "$(conda shell.bash hook)"
+    - conda create --name myenv python=${PY_VER} -y
+    - conda activate myenv
+    - which python
     - set -x
-    - CONDA_BIN_DIR=$(dirname `which conda`)
-    - PYTHON=${CONDA_BIN_DIR}/python
-    - uname -m
-    - ${PYTHON} -c "import platform;print(platform.python_version());print(platform.system());print(platform.machine())"
+    - python -c "import platform;print(platform.python_version());print(platform.system());print(platform.machine())"
     - mv imate imate_do_dot_import
     - conda install -c s-ameli imate -y
-    - ${PYTHON} -m pip install --upgrade pip
-    - ${PYTHON} -m pip install numpy
-    - ${PYTHON} -m pip install -r tests/requirements.txt
-    - ${PYTHON} -m pytest
+    - python -m pip install --upgrade pip
+    - python -m pip install numpy
+    - python -m pip install -r tests/requirements.txt
+    - python -m pytest

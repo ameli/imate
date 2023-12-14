@@ -122,14 +122,14 @@ pypi_test_linux_aarch64_task:
 
   test_script: |
     apt update
-    apt install -y python3
+    apt install -y python${PY_VER}
     set -x
-    which python3
+    which python${PY_VER}
     uname -m
-    python3 -c "import platform;print(platform.python_version());print(platform.system());print(platform.machine())"
+    python${PY_VER} -c "import platform;print(platform.python_version());print(platform.system());print(platform.machine())"
     mv imate imate_do_dot_import
-    python3 -m pip install --upgrade pip
-    python3 -m pip install --prefer-binary --upgrade imate
-    python3 -m pip install numpy
-    python3 -m pip install -r tests/requirements.txt
-    python3 -m pytest
+    python${PY_VER} -m pip install --upgrade pip
+    python${PY_VER} -m pip install --prefer-binary --upgrade imate
+    python${PY_VER} -m pip install numpy
+    python${PY_VER} -m pip install -r tests/requirements.txt
+    python${PY_VER} -m pytest

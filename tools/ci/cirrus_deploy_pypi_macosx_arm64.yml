@@ -119,31 +119,35 @@ pypi_upload_wheels_macosx_arm64_task:
 pypi_test_macosx_arm64_task:
   use_compute_credits: $CIRRUS_USER_COLLABORATOR == 'true'
   macos_instance:
-    image: ghcr.io/cirruslabs/macos-monterey-xcode:latest
+    image: ghcr.io/cirruslabs/macos-monterey-base:latest
     cpu: 1
     memory: 4G
   depends_on:
     - pypi_upload_wheels_macosx_arm64
   matrix:
-    - env:
-        PY_VER: "3.9"
+    # - env:
+    #     PY_VER: "3.9"
     - env:
         PY_VER: "3.10"
-    # - env:
-    #     PY_VER: "3.11"
+    - env:
+        PY_VER: "3.11"
     # - env:
     #     PY_VER: "3.12"
 
   test_script:
-    - brew install python@${PY_VER}
-    - ln -s python3 /opt/homebrew/opt/python@${PY_VER}/bin/python
+    - brew install pyenv
+    - PY_VER_NAME=`pyenv install -l | grep " ${PY_VER}.*" -m 1`
+    - pyenv install ${PY_VER_NAME}
+    - pyenv local ${PY_VER_NAME}
+    - eval "$(command pyenv init -)"
+    - eval "$(command pyenv init --path)"
     - set -x
-    - which python3
+    - which python
     - uname -m
-    - python3 -c "import platform;print(platform.python_version());print(platform.system());print(platform.machine())"
+    - python -c "import platform;print(platform.python_version());print(platform.system());print(platform.machine())"
     - mv imate imate_do_dot_import
-    - python3 -m pip install --upgrade pip
-    - python3 -m pip install --prefer-binary --upgrade imate
-    - python3 -m pip install numpy
-    - python3 -m pip install -r tests/requirements.txt
-    - python3 -m pytest
+    - python -m pip install --upgrade pip
+    - python -m pip install --prefer-binary --upgrade imate
+    - python -m pip install numpy
+    - python -m pip install -r tests/requirements.txt
+    - python -m pytest
