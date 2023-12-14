@@ -17,6 +17,31 @@ import os
 import sys
 
 
+# =================
+# remove saved plot
+# =================
+
+def remove_saved_plot(filename):
+    """
+    When the option ``plot=True`` is used in :mod:`imate.correlationmatrix`, a
+    file named ``CorrelationMatrix.svg`` is saved in the current directory.
+    Call this function to delete this file.
+    """
+
+    save_dir = os.getcwd()
+    fullname = os.path.join(save_dir, filename)
+
+    if os.path.exists(fullname):
+        try:
+            os.remove(fullname)
+            print('File %s is deleted.' % fullname)
+        except OSError:
+            pass
+
+    else:
+        print('File %s does not exists.' % fullname)
+
+
 # ======================================
 # test plot generalized cross validation
 # ======================================
@@ -42,6 +67,13 @@ def test_plot_generalized_cross_validation():
     # Run example
     from examples import plot_generalized_cross_validation
     plot_generalized_cross_validation.main(test=True)
+
+    # Remove saved plot
+    filename = 'test_generalized_cross_validation'
+    filename_svg = filename + '.svg'
+    filename_pdf = filename + '.pdf'
+    remove_saved_plot(filename_svg)
+    remove_saved_plot(filename_pdf)
 
 
 # ===========

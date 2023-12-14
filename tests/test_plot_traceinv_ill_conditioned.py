@@ -17,6 +17,31 @@ import os
 import sys
 
 
+# =================
+# remove saved plot
+# =================
+
+def remove_saved_plot(filename):
+    """
+    When the option ``plot=True`` is used in :mod:`imate.correlationmatrix`, a
+    file named ``CorrelationMatrix.svg`` is saved in the current directory.
+    Call this function to delete this file.
+    """
+
+    save_dir = os.getcwd()
+    fullname = os.path.join(save_dir, filename)
+
+    if os.path.exists(fullname):
+        try:
+            os.remove(fullname)
+            print('File %s is deleted.' % fullname)
+        except OSError:
+            pass
+
+    else:
+        print('File %s does not exists.' % fullname)
+
+
 # ==================================
 # test plot traceinv ill conditioned
 # ==================================
@@ -42,6 +67,12 @@ def test_plot_traceinv_ill_conditioned():
     # Run example
     from examples import plot_traceinv_ill_conditioned
     plot_traceinv_ill_conditioned.main(test=True)
+
+    filename = 'test_traceinv_ill_conditioned'
+    filename_svg = filename + '.svg'
+    filename_pdf = filename + '.pdf'
+    remove_saved_plot(filename_svg)
+    remove_saved_plot(filename_pdf)
 
 
 # ===========
