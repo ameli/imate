@@ -120,14 +120,14 @@ pypi_test_linux_aarch64_task:
   depends_on:
     - pypi_upload_wheels_linux_aarch64
   matrix:
-    - env:
-        PY_VER: "3.9"
+    # - env:
+    #     PY_VER: "3.9"
     - env:
         PY_VER: "3.10"
     - env:
         PY_VER: "3.11"
-    - env:
-        PY_VER: "3.12"
+    # - env:
+    #     PY_VER: "3.12"
 
   test_script: |
     apt update

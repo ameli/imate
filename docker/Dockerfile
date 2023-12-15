@@ -37,6 +37,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         python3-dev \
         python3-pip \
+        python3-venv \
         wget \
         && \
     apt-get clean && \
@@ -55,7 +56,7 @@ RUN rm -rf build dist
 RUN /usr/bin/python3 setup.py clean
 RUN /usr/bin/python3 -m pip install --upgrade pip
 RUN /usr/bin/python3 -m pip install build
-RUN /usr/bin/python3 -m build --wheel
+RUN /usr/bin/python3 -m build --wheel --outdir dist
 
 # -------
 # Runtime
