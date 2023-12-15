@@ -27,7 +27,7 @@ conda_macosx_arm64_cibw: &CONDA_MACOSX_ARM64_CIBW
 conda_build_wheels_macosx_arm64_task:
   use_compute_credits: $CIRRUS_USER_COLLABORATOR == 'true'
   macos_instance:
-    image: ghcr.io/cirruslabs/macos-monterey-xcode:latest
+    image: ghcr.io/cirruslabs/macos-sonoma-xcode:latest
     cpu: 1
     memory: 8G
   matrix:
@@ -81,7 +81,7 @@ conda_build_wheels_macosx_arm64_task:
 conda_build_upload_conda_macosx_arm64_task:
   use_compute_credits: $CIRRUS_USER_COLLABORATOR == 'true'
   macos_instance:
-    image: ghcr.io/cirruslabs/macos-monterey-xcode:latest
+    image: ghcr.io/cirruslabs/macos-sonoma-xcode:latest
     cpu: 1
     memory: 4G
   depends_on:
@@ -110,7 +110,7 @@ conda_build_upload_conda_macosx_arm64_task:
 conda_test_macosx_arm64_task:
   use_compute_credits: $CIRRUS_USER_COLLABORATOR == 'true'
   macos_instance:
-    image: ghcr.io/cirruslabs/macos-monterey-base:latest
+    image: ghcr.io/cirruslabs/macos-sonoma-base:latest
     cpu: 1
     memory: 4G
   depends_on:

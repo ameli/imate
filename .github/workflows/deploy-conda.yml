@@ -1,9 +1,9 @@
 name: deploy-conda
 
 on:
-    # push:
-    #     branches:
-    #         - main
+    push:
+        branches:
+            - main
     release:
         types:
             - published
@@ -84,7 +84,6 @@ jobs:
                   CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair -w {dest_dir} {wheel}"
               with:
                 output-dir: wheelhouse
-
            
             # Do not enable compiling with CUDA for macos since NIVDIA no longer supports CUDA in the macos.
             # Build wheel for macos X86_64.

@@ -27,7 +27,7 @@ pypi_macosx_arm64_cibw: &PYPI_MACOSX_ARM64_CIBW
 pypi_build_wheels_macosx_arm64_task:
   use_compute_credits: $CIRRUS_USER_COLLABORATOR == 'true'
   macos_instance:
-    image: ghcr.io/cirruslabs/macos-monterey-xcode:latest
+    image: ghcr.io/cirruslabs/macos-sonoma-xcode:latest
     cpu: 1
     memory: 8G
   matrix:
@@ -119,7 +119,7 @@ pypi_upload_wheels_macosx_arm64_task:
 pypi_test_macosx_arm64_task:
   use_compute_credits: $CIRRUS_USER_COLLABORATOR == 'true'
   macos_instance:
-    image: ghcr.io/cirruslabs/macos-monterey-base:latest
+    image: ghcr.io/cirruslabs/macos-sonoma-base:latest
     cpu: 1
     memory: 4G
   depends_on:

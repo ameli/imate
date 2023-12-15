@@ -245,12 +245,6 @@ cdef void orthogonalize_vectors(
         # Reorthogonalize against previous vectors
         for j in range(start_j, i):
 
-            # Projecting i-th vector to j-th vector
-            inner_prod = cVectorOperations[DataType].inner_product(
-                    &vectors[i*vector_size],
-                    &vectors[j*vector_size],
-                    vector_size)
-
             # Norm of the j-th vector
             norm = cVectorOperations[DataType].euclidean_norm(
                     &vectors[j*vector_size], vector_size)
@@ -261,6 +255,12 @@ cdef void orthogonalize_vectors(
                 printf('Cannot reorthogonalize against zero vector. ')
                 printf('Skipping.\n')
                 continue
+
+            # Projecting i-th vector to j-th vector
+            inner_prod = cVectorOperations[DataType].inner_product(
+                    &vectors[i*vector_size],
+                    &vectors[j*vector_size],
+                    vector_size)
 
             # Scale of subtraction
             scale = inner_prod / (norm**2)
