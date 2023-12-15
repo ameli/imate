@@ -77,8 +77,8 @@ Successful installation and tests performed on the following operating systems, 
 |                |                   | GPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |  |n|  |                 |
 +                +-------------------+--------+-------+-------+-------+-------+-------+-------+-------+                 +
 |                | ARM-64 :sup:`3`   | CPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |  |n|  |                 |
-+                +                   +--------+-------+-------+-------+-------+-------+-------+-------+                 +
-|                |                   | GPU    |  |y|  |  |y|  |  |y|  |  |y|  |  |n|  |  |n|  |  |n|  |                 |
++                + :sup:`4`          +--------+-------+-------+-------+-------+-------+-------+-------+                 +
+|                |                   | GPU    |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |  |n|  |                 |
 +----------------+-------------------+--------+-------+-------+-------+-------+-------+-------+-------+-----------------+
 
 .. |build-linux| image:: https://img.shields.io/github/actions/workflow/status/ameli/imate/build-linux.yml
@@ -95,6 +95,7 @@ Python wheels for ``imate`` for all supported platforms and versions in the abov
     :sup:`1. Wheels for PyPy are exclusively available for installation through pip and cannot be installed using conda.`
     :sup:`2. Wheels on MacOS do not support GPU as MacOS does not natively support NVIDIA GPUs.`
     :sup:`3. Wheels for Windows on ARM-64 architecture are exclusively available for installation through pip and cannot be installed using conda.`
+    :sup:`4. NVIDIA CUDA does not support ARM64 archetecture on Windows.`
 
 Supported GPU Architectures
 ===========================
