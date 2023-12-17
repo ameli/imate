@@ -21,4 +21,4 @@ from .._definitions.types cimport DataType, LongIndexType, IndexType
 cdef void py_generate_random_array(
         DataType* array,
         const LongIndexType array_size,
-        const IndexType num_threads) except *
+        const IndexType num_threads) nogil

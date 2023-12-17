@@ -22,6 +22,6 @@ cdef extern from "random_number_generator.h":
 
     cdef cppclass RandomNumberGenerator:
 
-        RandomNumberGenerator() except +
-        RandomNumberGenerator(int num_threads_) except +
+        RandomNumberGenerator() except + nogil
+        RandomNumberGenerator(int num_threads_) except + nogil
         uint64_t next(int thread_id) nogil
