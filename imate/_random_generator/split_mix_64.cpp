@@ -15,7 +15,8 @@
 
 #include "./split_mix_64.h"
 #include <cassert>  // assert
-#include <ctime>  // std::time
+// #include <ctime>  // std::time
+#include <chrono>  // high_resolution_clock, duration_cast
 
 
 // ===========
@@ -37,7 +38,7 @@ SplitMix64::SplitMix64()
 
     // Using the highest resolution clock, since we want to have distinct seed
     // values if this function is called subsequently.
-    // std::chrono::high_resolution_clock::time_point current_time = \
+    std::chrono::high_resolution_clock::time_point current_time = \
         std::chrono::high_resolution_clock::now();
 
     // Cast time point to 64-bit integer
