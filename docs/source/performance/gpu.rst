@@ -161,7 +161,7 @@ Beyond Extreme Array Sizes
 
         .. prompt:: powershell
 
-            $env:export UNSIGNED_LONG_INT = "1"
+            $env:UNSIGNED_LONG_INT = "1"
 
 Then, recompile |project|. See :ref:`Compile from Source <compile-source>`.
 

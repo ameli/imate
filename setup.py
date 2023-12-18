@@ -126,8 +126,8 @@ except ImportError:
     export CUDA_DYNAMIC_LOADING=1
 
     # In Windows
-    $env:export CYTHON_BUILD_IN_SOURCE = "1"
-    $env:export CYTHON_BUILD_FOR_DOC = "1"
+    $env:CYTHON_BUILD_IN_SOURCE = "1"
+    $env:CYTHON_BUILD_FOR_DOC = "1"
     $env:USE_CBLAS = "0"
     $env:USE_CUDA = "1"
     $env:DEBUG_MODE = "1"

@@ -321,7 +321,7 @@ Set the following environment variables as desired to configure the compilation 
 
                 .. prompt:: powershell
 
-                    $env:export CUDA_HOME = "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7"
+                    $env:CUDA_HOME = "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7"
 
     ``USE_CUDA``
 
@@ -341,7 +341,7 @@ Set the following environment variables as desired to configure the compilation 
 
                 .. prompt:: powershell
 
-                    $env:export USE_CUDA = "1"
+                    $env:USE_CUDA = "1"
 
     ``CUDA_DYNAMIC_LOADING``
 
@@ -361,7 +361,7 @@ Set the following environment variables as desired to configure the compilation 
 
                 .. prompt:: powershell
 
-                    $env:export CUDA_DYNAMIC_LOADING = "1"
+                    $env:CUDA_DYNAMIC_LOADING = "1"
 
     ``CYTHON_BUILD_IN_SOURCE``
 
@@ -381,7 +381,7 @@ Set the following environment variables as desired to configure the compilation 
 
                 .. prompt:: powershell
 
-                    $env:export CYTHON_BUILD_IN_SOURCE = "1"
+                    $env:CYTHON_BUILD_IN_SOURCE = "1"
 
         .. hint::
 
@@ -405,7 +405,7 @@ Set the following environment variables as desired to configure the compilation 
 
                 .. prompt:: powershell
 
-                    $env:export CYTHON_BUILD_FOR_DOC = "1"
+                    $env:CYTHON_BUILD_FOR_DOC = "1"
 
         .. warning::
 
@@ -433,7 +433,7 @@ Set the following environment variables as desired to configure the compilation 
 
                 .. prompt:: powershell
 
-                    $env:export USE_CBLAS = "1"
+                    $env:USE_CBLAS = "1"
 
     ``DEBUG_MODE``
 
@@ -453,7 +453,7 @@ Set the following environment variables as desired to configure the compilation 
 
                 .. prompt:: powershell
 
-                    $env:export DEBUG_MODE = "1"
+                    $env:DEBUG_MODE = "1"
 
         .. attention::
 
@@ -503,9 +503,9 @@ If you are using ``sudo`` for the above command, add ``-E`` option to ``sudo`` t
         .. code-block:: PowerShell
             :emphasize-lines: 5
 
-            $env:export CUDA_HOME = "/usr/local/cuda"
-            $env:export USE_CUDA = "1"
-            $env:export CUDA_DYNAMIC_LOADING = "1"
+            $env:CUDA_HOME = "/usr/local/cuda"
+            $env:USE_CUDA = "1"
+            $env:CUDA_DYNAMIC_LOADING = "1"
 
             sudo -E python setup.py install
 
