@@ -178,21 +178,31 @@ Protected Attributes</h2></td></tr>
 
 <p>Constructor. Initializes the state with current time. </p>
 
-<p class="definition">Definition at line <a class="el" href="split__mix__64_8cpp_source.html#l00028">28</a> of file <a class="el" href="split__mix__64_8cpp_source.html">split_mix_64.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="comment">// std::time gives the second since epoch. This, if this function is called</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="comment">// multiple times a second, the std::time() results the same number. To</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">// make it differ between each milliseconds, the std::clock is added, which</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="comment">// is the cpu time (in POSIX) or wall time (in windows) and in the unit of</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="comment">// system&#39;s clocks per second.</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    uint64_t seed = <span class="keyword">static_cast&lt;</span>uint64_t<span class="keyword">&gt;</span>(std::time(0)) +</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                    <span class="keyword">static_cast&lt;</span>uint64_t<span class="keyword">&gt;</span>(std::clock());</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="comment">// Seeding as follow only fills the first 32 bits of the 64-bit integer.</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="comment">// Repeat the first 32 bits on the second 32-bits to create a better 64-bit</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="comment">// random number</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    this-&gt;<a class="code" href="classSplitMix64.html#a1e881c1af3d1b11f39045eacf87ea7cd">state</a> = (seed &lt;&lt; 32) | seed;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="split__mix__64_8cpp_source.html#l00029">29</a> of file <a class="el" href="split__mix__64_8cpp_source.html">split_mix_64.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="comment">// std::time gives the second since epoch. This, if this function is called</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">// multiple times a second, the std::time() results the same number. To</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="comment">// make it differ between each milliseconds, the std::clock is added, which</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="comment">// is the cpu time (in POSIX) or wall time (in windows) and in the unit of</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="comment">// system&#39;s clocks per second.</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="comment">// uint64_t seed = static_cast&lt;uint64_t&gt;(std::time(0)) +</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="comment">//                 static_cast&lt;uint64_t&gt;(std::clock());</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="comment">// Using the highest resolution clock, since we want to have distinct seed</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="comment">// values if this function is called subsequently.</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    std::chrono::high_resolution_clock::time_point current_time = \</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        std::chrono::high_resolution_clock::now();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="comment">// Cast time point to 64-bit integer</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    uint64_t seed = <span class="keyword">static_cast&lt;</span>uint64_t<span class="keyword">&gt;</span>(</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        std::chrono::duration_cast&lt;std::chrono::nanoseconds&gt;(</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            current_time.time_since_epoch()).count());</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="comment">// Seeding as follow only fills the first 32 bits of the 64-bit integer.</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">// Repeat the first 32 bits on the second 32-bits to create a better 64-bit</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="comment">// random number</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    this-&gt;<a class="code" href="classSplitMix64.html#a1e881c1af3d1b11f39045eacf87ea7cd">state</a> = (seed &lt;&lt; 32) | seed;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
 <div class="ttc" id="aclassSplitMix64_html_a1e881c1af3d1b11f39045eacf87ea7cd"><div class="ttname"><a href="classSplitMix64.html#a1e881c1af3d1b11f39045eacf87ea7cd">SplitMix64::state</a></div><div class="ttdeci">uint64_t state</div><div class="ttdef"><b>Definition:</b> <a href="split__mix__64_8h_source.html#l00050">split_mix_64.h:50</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="split__mix__64_8h_source.html#l00050">state</a>.</p>
@@ -231,13 +241,13 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="split__mix__64_8cpp_source.html#l00055">55</a> of file <a class="el" href="split__mix__64_8cpp_source.html">split_mix_64.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                                     :</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="classSplitMix64.html#a1e881c1af3d1b11f39045eacf87ea7cd">state</a>(state_)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="comment">// Initial state must not be zero.</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    assert(state_ != 0);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="split__mix__64_8cpp_source.html#l00066">66</a> of file <a class="el" href="split__mix__64_8cpp_source.html">split_mix_64.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                     :</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="classSplitMix64.html#a1e881c1af3d1b11f39045eacf87ea7cd">state</a>(state_)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;{</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="comment">// Initial state must not be zero.</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    assert(state_ != 0);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -259,14 +269,14 @@ Protected Attributes</h2></td></tr>
 
 <p>Generates the next presudo-random number in the sequence. </p>
 
-<p class="definition">Definition at line <a class="el" href="split__mix__64_8cpp_source.html#l00070">70</a> of file <a class="el" href="split__mix__64_8cpp_source.html">split_mix_64.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;{</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    uint64_t z = (<a class="code" href="classSplitMix64.html#a1e881c1af3d1b11f39045eacf87ea7cd">state</a> += 0x9e3779b97f4a7c15);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    z = (z ^ (z &gt;&gt; 30)) * 0xbf58476d1ce4e5b9;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    z = (z ^ (z &gt;&gt; 27)) * 0x94d049bb133111eb;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">return</span> z ^ (z &gt;&gt; 31);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="split__mix__64_8cpp_source.html#l00081">81</a> of file <a class="el" href="split__mix__64_8cpp_source.html">split_mix_64.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;{</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    uint64_t z = (<a class="code" href="classSplitMix64.html#a1e881c1af3d1b11f39045eacf87ea7cd">state</a> += 0x9e3779b97f4a7c15);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    z = (z ^ (z &gt;&gt; 30)) * 0xbf58476d1ce4e5b9;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    z = (z ^ (z &gt;&gt; 27)) * 0x94d049bb133111eb;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">return</span> z ^ (z &gt;&gt; 31);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="split__mix__64_8h_source.html#l00050">state</a>.</p>
 
@@ -306,7 +316,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="split__mix__64_8h_source.html#l00050">50</a> of file <a class="el" href="split__mix__64_8h_source.html">split_mix_64.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="split__mix__64_8cpp_source.html#l00070">next()</a>, and <a class="el" href="split__mix__64_8cpp_source.html#l00028">SplitMix64()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="split__mix__64_8cpp_source.html#l00081">next()</a>, and <a class="el" href="split__mix__64_8cpp_source.html#l00029">SplitMix64()</a>.</p>
 
 </div>
 </div>
@@ -320,7 +330,7 @@ Here is the caller graph for this function:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="classSplitMix64.html">SplitMix64</a></li>
-    <li class="footer">Generated on Sun Dec 17 2023 06:09:51 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Dec 18 2023 06:46:04 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
