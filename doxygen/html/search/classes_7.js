@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logarithm_505',['Logarithm',['../classLogarithm.html',1,'']]]
+  ['logarithm_508',['Logarithm',['../classLogarithm.html',1,'']]]
 ];

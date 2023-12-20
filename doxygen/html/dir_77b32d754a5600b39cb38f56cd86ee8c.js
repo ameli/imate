@@ -1,5 +1,7 @@
 var dir_77b32d754a5600b39cb38f56cd86ee8c =
 [
+    [ "highres_time_stamp.cpp", "highres__time__stamp_8cpp.html", "highres__time__stamp_8cpp" ],
+    [ "highres_time_stamp.h", "highres__time__stamp_8h.html", "highres__time__stamp_8h" ],
     [ "random_array_generator.cpp", "random__array__generator_8cpp.html", null ],
     [ "random_array_generator.h", "random__array__generator_8h.html", [
       [ "RandomArrayGenerator", "classRandomArrayGenerator.html", "classRandomArrayGenerator" ]
