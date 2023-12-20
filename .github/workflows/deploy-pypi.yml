@@ -17,13 +17,13 @@ jobs:
             matrix:
                 os: [ubuntu-latest, windows-latest, macos-latest]
                 python-version: ['cp39', 'cp310', 'cp311', 'cp312']
-                # include:
-                #     - os: ubuntu-latest
-                #       python-version: 'pp38'
-                #     - os: ubuntu-latest
-                #       python-version: 'pp39'
-                #     - os: ubuntu-latest
-                #       python-version: 'pp310'
+                include:
+                    - os: ubuntu-latest
+                      python-version: 'pp38'
+                    - os: ubuntu-latest
+                      python-version: 'pp39'
+                    - os: ubuntu-latest
+                      python-version: 'pp310'
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -138,7 +138,7 @@ jobs:
                   # CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
                   CIBW_ARCHS_LINUX: "x86_64"
                   CIBW_BUILD: "${{ matrix.python-version }}-manylinux_x86_64"
-                  CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
+                  CIBW_SKIP: "pp37-* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 3
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1 CUDA_HOME=/usr/local/cuda"
                   CIBW_BEFORE_BUILD_LINUX: yum update; yum install gcc-gfortran openblas-devel.x86_64 lapack-devel.x86_64 -y;

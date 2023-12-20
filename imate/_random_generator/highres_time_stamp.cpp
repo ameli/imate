@@ -14,7 +14,8 @@
 // =======
 
 #include "./highres_time_stamp.h"
-#include "unistd.h"  // uint64_t
+#include <ctime>  // std::time, std::clock
+#include "stdint.h"  // uint64_t
 
 // The following macros define either USE_QUERY_PERFORMANCE_COUNTER (if
 // windows), or USE_CLOCK_GETTIME (if Linux or MacOS>=10.12), or none.
@@ -32,7 +33,7 @@
 
 // MacOS version 10.12 and above has clock_gettime, but _POSIX_TIMERS is
 // not defined. So, we check this function's availability in a different way.
-#elif defined(__APPLE__)
+#elif defined(__APPLE__) || defined(__MACH__)
     #include <TargetConditionals.h>
     #if TARGET_OS_MAC
         #include <Availability.h>
@@ -51,14 +52,6 @@
             #endif
         #endif
     #endif
-
-#else
-
-    // Use neither clock_gettime nor QueryPerformanceCounter. Rather, fall back
-    // to std functions. Note that std::clock has very low resolution in
-    // windows.
-    #include <ctime>  // std::time, std::clock
-
 #endif
 
 
