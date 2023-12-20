@@ -1696,6 +1696,8 @@ def main(argv):
             'Programming Language :: Python :: Implementation :: PyPy',
             'Environment :: GPU :: NVIDIA CUDA',
             'License :: OSI Approved :: BSD License',
+            'Operating System :: Unix',
+            'Operating System :: POSIX',
             'Operating System :: POSIX :: Linux',
             'Operating System :: Microsoft :: Windows',
             'Operating System :: MacOS',

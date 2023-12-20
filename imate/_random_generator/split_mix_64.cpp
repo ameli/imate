@@ -14,9 +14,8 @@
 // =======
 
 #include "./split_mix_64.h"
+#include "./highres_time_stamp.h"  // get_highres_time_stamp
 #include <cassert>  // assert
-// #include <ctime>  // std::time
-#include <chrono>  // high_resolution_clock, duration_cast
 
 
 // ===========
@@ -28,23 +27,8 @@
 
 SplitMix64::SplitMix64()
 {
-    // std::time gives the second since epoch. This, if this function is called
-    // multiple times a second, the std::time() results the same number. To
-    // make it differ between each milliseconds, the std::clock is added, which
-    // is the cpu time (in POSIX) or wall time (in windows) and in the unit of
-    // system's clocks per second.
-    // uint64_t seed = static_cast<uint64_t>(std::time(0)) +
-    //                 static_cast<uint64_t>(std::clock());
-
-    // Using the highest resolution clock, since we want to have distinct seed
-    // values if this function is called subsequently.
-    std::chrono::high_resolution_clock::time_point current_time = \
-        std::chrono::high_resolution_clock::now();
-
-    // Cast time point to 64-bit integer
-    uint64_t seed = static_cast<uint64_t>(
-        std::chrono::duration_cast<std::chrono::nanoseconds>(
-            current_time.time_since_epoch()).count());
+    // Seed the random generating algorithm with a high resolution time counter
+    uint64_t seed = get_highres_time_stamp();
 
     // Seeding as follow only fills the first 32 bits of the 64-bit integer.
     // Repeat the first 32 bits on the second 32-bits to create a better 64-bit
