@@ -91,7 +91,7 @@ jobs:
               uses: pypa/cibuildwheel@v2.15.0
               env:
                   CIBW_ARCHS_WINDOWS: "AMD64 x86"
-                  CIBW_BUILD: ${{ matrix.python-version }}"-win_amd64"
+                  CIBW_BUILD: "${{ matrix.python-version }}-win_amd64"
                   CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 3
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1"
@@ -108,7 +108,7 @@ jobs:
               uses: pypa/cibuildwheel@v2.15.0
               env:
                   CIBW_ARCHS_MACOS: "x86_64"
-                  CIBW_BUILD: ${{ matrix.python-version }}"-macosx_x86_64"
+                  CIBW_BUILD: "${{ matrix.python-version }}-macosx_x86_64"
                   CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 3
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=0"
@@ -129,7 +129,7 @@ jobs:
             # uploaded to pypi (pypi has 100MB upload limit). On the down side,
             # the user has to install cuda library themselves.
             # Note that wheels for linux AARCH64 will be built on cirrus ci (see /tools/ci)
-            - name: Build wheels in linux with CUDA (X86_64) Pyhton ${{ matrix.python-version }}
+            - name: Build wheels in linux with CUDA (X86_64) Python ${{ matrix.python-version }}
               if: matrix.os == 'ubuntu-latest'
               uses: pypa/cibuildwheel@v2.15.0
               env:
@@ -137,7 +137,7 @@ jobs:
                   # CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
                   # CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
                   CIBW_ARCHS_LINUX: "x86_64"
-                  CIBW_BUILD: ${{ matrix.python-version }}"-manylinux_x86_64"
+                  CIBW_BUILD: "${{ matrix.python-version }}-manylinux_x86_64"
                   CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 3
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1 CUDA_HOME=/usr/local/cuda"
