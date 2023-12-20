@@ -10,7 +10,7 @@ on:
 
 jobs:
     build_wheels:
-        name: Build wheels on ${{ matrix.os }}
+        name: Build wheels on ${{ matrix.os }} ${{ matrix.python-version }}
         runs-on: ${{ matrix.os }}
         strategy:
             fail-fast: false
@@ -133,13 +133,13 @@ jobs:
               if: matrix.os == 'ubuntu-latest'
               uses: pypa/cibuildwheel@v2.15.0
               env:
-                  CIBW_MANYLINUX_X86_64_IMAGE: sameli/manylinux2014_x86_64_cuda_12.2
+                  CIBW_MANYLINUX_X86_64_IMAGE: sameli/manylinux2014_x86_64_cuda_12.3
                   # CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
                   # CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
                   CIBW_ARCHS_LINUX: "x86_64"
                   CIBW_BUILD: "${{ matrix.python-version }}-manylinux_x86_64"
                   CIBW_SKIP: "pp37-* cp36-* cp37-* cp38-*"
-                  CIBW_BUILD_VERBOSITY: 3
+                  CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1 CUDA_HOME=/usr/local/cuda"
                   CIBW_BEFORE_BUILD_LINUX: yum update; yum install gcc-gfortran openblas-devel.x86_64 lapack-devel.x86_64 -y;
               with:
