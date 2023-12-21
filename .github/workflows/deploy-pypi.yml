@@ -111,7 +111,7 @@ jobs:
                   CIBW_BUILD: "${{ matrix.python-version }}-macosx_x86_64"
                   CIBW_SKIP: "pp37-* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 3
-                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=0"
+                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=0 PKG_CONFIG_PATH='/usr/local/opt/openblas/lib/pkgconfig'"
                   # The gcc below installs gfortran. gfortran and openblas are only needed for pypy as it compiles scipy from source.
                   CIBW_BEFORE_BUILD: brew install libomp; brew reinstall gcc; bash ./tools/wheels/install_openblas.sh "${{ matrix.python-version }}"
               with:
