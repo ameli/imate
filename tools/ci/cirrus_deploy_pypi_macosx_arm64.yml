@@ -69,10 +69,10 @@ pypi_build_wheels_macosx_arm64_task:
     CIBW_BUILD_VERBOSITY: "3"
     # CIBW_BEFORE_BUILD: "pip install delocate; brew install libomp"
     CIBW_BEFORE_BUILD: >
-      pip install delocate
-      brew install libomp
-      bash {project}/tools/wheels/install_openblas.sh "${CIBW_BUILD}"
-      bash {project}/tools/wheels/install_gfortran.sh {project}
+      pip install delocate;
+      brew install libomp;
+      bash {project}/tools/wheels/install_openblas.sh "${CIBW_BUILD}";
+      bash {project}/tools/wheels/install_gfortran.sh {project};
     CIBW_TEST_SKIP: "*_universal2:arm64"
 
   build_script:

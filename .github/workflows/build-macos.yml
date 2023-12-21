@@ -54,13 +54,12 @@ jobs:
             
             # Install OpenBLAS when PyPy is used, since it tries to compile numpy and scipt from
             # source, whic needs OpenBLAS
-            - name: Install package and dependencies (OpenBLAS)
+            - name: Install package and dependencies (OpenBLAS, gfortran)
               if: (contains(matrix.python-version, 'pypy'))
               run: |
                   brew install openblas
                   brew install libomp
-                  bash ./tools/wheels/install_openblas.sh "${{ matrix.python-version }}"
-                  bash ./tools/wheels/install_gfortran.sh "."
+                  brew reinstall gcc
                   
             # - name: Install CUDA
             #   uses: Jimver/cuda-toolkit@v0.2.11
