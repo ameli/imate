@@ -31,16 +31,16 @@ pypi_build_wheels_macosx_arm64_task:
     cpu: 1
     memory: 8G
   matrix:
-    # - env:
-    #     CIBW_BUILD: "cp39-macosx_arm64"
-    # - env:
-    #     CIBW_BUILD: "cp310-macosx_arm64"
-    # - env:
-    #     CIBW_BUILD: "cp311-macosx_arm64"
-    # - env:
-    #     CIBW_BUILD: "cp312-macosx_arm64"
     - env:
-        CIBW_BUILD: "pp38-macosx_arm64"
+        CIBW_BUILD: "cp39-macosx_arm64"
+    - env:
+        CIBW_BUILD: "cp310-macosx_arm64"
+    - env:
+        CIBW_BUILD: "cp311-macosx_arm64"
+    - env:
+        CIBW_BUILD: "cp312-macosx_arm64"
+    # - env:
+    #     CIBW_BUILD: "pp38-macosx_arm64"
     - env:
         CIBW_BUILD: "pp39-macosx_arm64"
     - env:
@@ -68,7 +68,6 @@ pypi_build_wheels_macosx_arm64_task:
     # CIBW_BUILD: "*-macosx_arm64"
     CIBW_SKIP: "pp37-* cp36-* cp37-* cp38-*"
     CIBW_BUILD_VERBOSITY: "3"
-    # CIBW_BEFORE_BUILD: "pip install delocate; brew install libomp"
     CIBW_BEFORE_BUILD: >
       pip install delocate;
       brew install libomp;
