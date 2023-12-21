@@ -107,7 +107,11 @@ jobs:
                   USE_CBLAS: 0
                   USE_CUDA: 0
 
+            # Despite the package is built on both cpython and pypy, here we
+            # only test it on cpython, not on pypy, since many other required
+            # dependencies (like matplotlib, etc) need to be compiled on pypy.
             - name: Test
+              if: (!contains(matrix.python-version, 'pypy'))
               run: |
                   python -m pip install --upgrade pytest
                   python -m pip install --upgrade pytest-cov

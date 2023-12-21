@@ -31,14 +31,14 @@ pypi_build_wheels_macosx_arm64_task:
     cpu: 1
     memory: 8G
   matrix:
-    - env:
-        CIBW_BUILD: "cp39-macosx_arm64"
-    - env:
-        CIBW_BUILD: "cp310-macosx_arm64"
-    - env:
-        CIBW_BUILD: "cp311-macosx_arm64"
-    - env:
-        CIBW_BUILD: "cp312-macosx_arm64"
+    # - env:
+    #     CIBW_BUILD: "cp39-macosx_arm64"
+    # - env:
+    #     CIBW_BUILD: "cp310-macosx_arm64"
+    # - env:
+    #     CIBW_BUILD: "cp311-macosx_arm64"
+    # - env:
+    #     CIBW_BUILD: "cp312-macosx_arm64"
     - env:
         CIBW_BUILD: "pp38-macosx_arm64"
     - env:
@@ -59,6 +59,7 @@ pypi_build_wheels_macosx_arm64_task:
       CXXFLAGS="-I/opt/homebrew/opt/libomp/include $CXXFLAGS"
       LDFLAGS="-L/opt/homebrew/opt/libomp/lib $LDFLAGS"
       LIBRARY_PATH="/opt/homebrew/opt/libomp/lib:$LIBRARY_PATH"
+      PKG_CONFIG_PATH="/opt/homebrew/opt/openblas/lib/pkgconfig"
       USE_LONG_INT=0
       USE_UNSIGNED_LONG_INT=0
       USE_CBLAS=0
