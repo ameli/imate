@@ -55,6 +55,10 @@ install_anaconda() {
     # Export PATH
     export PATH=${CONDA_BASE_DIR}:$PATH
     export PATH=${CONDA_BIN_DIR}:$PATH
+
+    # Initialize conda
+    # ${CONDA_BIN_DIR}/conda init bash
+    # source ${CONDA_BIN_DIR}/activate
 }
 
 

@@ -97,7 +97,6 @@ then
         export PKG_CONFIG_PATH="/usr/local/opt/openblas/lib/pkgconfig"
         # export LDFLAGS="-L/usr/local/opt/openblas/lib"
         # export CPPFLAGS="-I/usr/local/opt/openblas/include"
-
     fi
 
 else

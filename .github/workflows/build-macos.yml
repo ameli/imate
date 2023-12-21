@@ -16,7 +16,8 @@ jobs:
             fail-fast: false
             matrix:
                 # python-version: ['3.9', '3.10', '3.11', '3.12']
-                python-version: ['3.9', '3.10', '3.11', '3.12', 'pypy3.8', 'pypy3.9', 'pypy3.10']
+                # python-version: ['3.9', '3.10', '3.11', '3.12', 'pypy3.8', 'pypy3.9', 'pypy3.10']
+                python-version: ['pypy3.8', 'pypy3.9', 'pypy3.10']
 
         steps:
             - name: Checkout
@@ -57,7 +58,9 @@ jobs:
               if: (contains(matrix.python-version, 'pypy'))
               run: |
                   brew install openblas
-                  brew install gfortran
+                  brew install libomp
+                  bash ./tools/wheels/install_openblas.sh "${{ matrix.python-version }}"
+                  bash ./tools/wheels/install_gfortran.sh "."
                   
             # - name: Install CUDA
             #   uses: Jimver/cuda-toolkit@v0.2.11
