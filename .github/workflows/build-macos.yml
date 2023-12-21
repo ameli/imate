@@ -57,6 +57,7 @@ jobs:
               if: (contains(matrix.python-version, 'pypy'))
               run: |
                   brew install openblas
+                  brew install gfortran
                   
             # - name: Install CUDA
             #   uses: Jimver/cuda-toolkit@v0.2.11

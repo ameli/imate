@@ -47,13 +47,28 @@ then
 
     echo "PyPy detected. Install OpenBLAS."
 
-    UNAME_STR=$(uname)
+    PLATFORM=$(uname)
 
-    if [[ ${UNAME_STR} == "Linux" ]];
+    if [[ ${PLATFORM} == "Linux" ]];
     then
 
-        # Install OpenBLAS
+        # Update yum
         yum update
+
+        # On AARCH64, openblas is not in yum, unless EPEL repos are enabled
+        ARCH=`uname -m`
+        if [[ ${ARCH} == "aarch64" ]];
+        then
+            yum install -y epel-release
+
+            # Lib directory on AARCH64
+            LIB_DIR="lib"
+        else
+            # Lib directory on X86_64
+            LIB_DIR="lib64"
+        fi
+
+        # Install OpenBLAS and PkgConfig
         yum install -y openblas-devel
         yum install -y pkgconfig
 
@@ -63,7 +78,7 @@ then
         # Make pkgconfig to be aware of OpenBLAS
         CONTENT="prefix=/usr
         exec_prefix=\${prefix}
-        libdir=\${exec_prefix}/lib64
+        libdir=\${exec_prefix}/${LIB_DIR}
         includedir=\${prefix}/include/openblas
 
         Name: OpenBLAS
@@ -75,7 +90,7 @@ then
 
         echo "$CONTENT" | tee /usr/lib64/pkgconfig/openblas.pc
 
-    elif [[ ${UNAME_STR} == "Darwin" ]];
+    elif [[ ${PLATFORM} == "Darwin" ]];
     then
 
         brew install openblas
