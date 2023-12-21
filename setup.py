@@ -69,14 +69,6 @@ from setuptools.errors import CompileError, LinkError, ExecError
 from setuptools.command.build_ext import build_ext
 # from Cython.Distutils import build_ext
 
-# Import numpy
-try:
-    import numpy
-except ImportError:
-    # Install numpy
-    install_package('numpy>1.11')
-    import numpy
-
 # Check scipy is installed (needed for build, but not required to be imported)
 try:
     import scipy                                                    # noqa F401
@@ -1442,7 +1434,7 @@ def cythonize_extensions(extensions):
     cythonized_extensions = cythonize(
         extensions,
         build_dir=cython_build_dir,
-        include_path=[numpy.get_include(), "."],
+        include_path=["."],
         language_level="3",
         nthreads=multiprocessing.cpu_count(),
         compiler_directives=compiler_derivatives
@@ -1657,16 +1649,13 @@ def main(argv):
             'examples']
         ),
         ext_modules=external_modules,
-        include_dirs=[numpy.get_include()],
         install_requires=requirements,
         python_requires='>=3.9',
         setup_requires=[
             'setuptools',
             'wheel',
-            'numpy>1.11',
             'scipy>=1.5',
-            'cython',
-            'pytest-runner'],
+            'cython'],
         tests_require=[
             'pytest',
             'pytest-cov'],

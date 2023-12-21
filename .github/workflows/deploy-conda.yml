@@ -16,6 +16,7 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest, windows-latest, macos-latest]
+                python-version: ['cp39', 'cp310', 'cp311', 'cp312']
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -71,12 +72,12 @@ jobs:
             # does not need manylinux docker, thuns, CUDA can be installed in
             # the github action's virtual machine using the Jimver's action
             # in the previous action (see above).
-            - name: Build wheels in windows with CUDA support (X86_64)
+            - name: Build wheels in windows with CUDA (X86_64) Python ${{ matrix.python-version }}
               if: matrix.os == 'windows-latest'
               uses: pypa/cibuildwheel@v2.15.0
               env:
                   CIBW_ARCHS_WINDOWS: "AMD64 x86"
-                  CIBW_BUILD: "*-win_amd64"
+                  CIBW_BUILD: "${{ matrix.python-version }}-win_amd64"
                   CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 3
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1"
@@ -88,12 +89,12 @@ jobs:
             # Do not enable compiling with CUDA for macos since NIVDIA no longer supports CUDA in the macos.
             # Build wheel for macos X86_64.
             # Note that wheels for macos ARM64 will be built on cirrus ci (see /tools/ci)
-            - name: Build wheels in mac without CUDA support (X86_64)
+            - name: Build wheels in mac without CUDA (X86_64) Python ${{ matrix.python-version }}
               if: matrix.os == 'macos-latest'
               uses: pypa/cibuildwheel@v2.15.0
               env:
                   CIBW_ARCHS_MACOS: "x86_64"
-                  CIBW_BUILD: "*-macosx_x86_64"
+                  CIBW_BUILD: "${{ matrix.python-version }}-macosx_x86_64"
                   CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 3
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=0"
@@ -114,7 +115,7 @@ jobs:
             # be a problem. The advantage of bundling cuda libraries to the
             # wheel is that the end-user does not have to install cuda toolkit.
             # Note that wheels for linux AARCH64 will be built on cirrus ci (see /tools/ci)
-            - name: Build wheels in linux with CUDA support (X86_64)
+            - name: Build wheels in linux with CUDA (X86_64) Python ${{ matrix.python-version }}
               if: matrix.os == 'ubuntu-latest'
               uses: pypa/cibuildwheel@v2.15.0
               env:
@@ -122,9 +123,9 @@ jobs:
                   # CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
                   # CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
                   CIBW_ARCHS_LINUX: "x86_64"
-                  CIBW_BUILD: "*-manylinux_x86_64"
+                  CIBW_BUILD: "${{ matrix.python-version }}-manylinux_x86_64"
                   CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
-                  CIBW_BUILD_VERBOSITY: 3
+                  CIBW_BUILD_VERBOSITY: 1
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1 CUDA_HOME=/usr/local/cuda"
               with:
                 output-dir: wheelhouse

@@ -15,7 +15,8 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                python-version: ['3.9', '3.10', '3.11', '3.12']
+                # python-version: ['3.9', '3.10', '3.11', '3.12']
+                python-version: ['3.9', '3.10', '3.11', '3.12', 'pypy3.8', 'pypy3.9', 'pypy3.10']
 
         steps:
             - name: Checkout
@@ -49,6 +50,13 @@ jobs:
                   # OPENBLAS="$(brew --prefix openblas)"
                   # brew install lapack
                   # pip3 install numpy
+            
+            # Install OpenBLAS when PyPy is used, since it tries to compile numpy and scipt from
+            # source, whic needs OpenBLAS
+            - name: Install package and dependencies (OpenBLAS)
+              if: (contains(matrix.python-version, 'pypy'))
+              run: |
+                  brew install openblas
                   
             # - name: Install CUDA
             #   uses: Jimver/cuda-toolkit@v0.2.11
@@ -71,7 +79,22 @@ jobs:
             # For python 3.10, 3.11 do not install extras (sparsesuite)
             - name: Install package and dependencies
               if: (matrix.python-version != '3.9')
+              if: (!contains(matrix.python-version, 'pypy')) && (matrix.python-version != '3.9')
               run: |
+                  python -m pip install --upgrade pip
+                  python -m pip install --upgrade numpy
+                  python -m pip install --upgrade . -vvv
+              env:
+                  USE_LONG_INT: 0
+                  USE_UNSIGNED_LONG_INT: 0
+                  USE_CBLAS: 0
+                  USE_CUDA: 0
+
+            # For python 3.10, 3.11 do not install extras (sparsesuite)
+            - name: Install package and dependencies
+              if: (contains(matrix.python-version, 'pypy'))
+              run: |
+                  export PKG_CONFIG_PATH="/usr/local/opt/openblas/lib/pkgconfig"
                   python -m pip install --upgrade pip
                   python -m pip install --upgrade numpy
                   python -m pip install --upgrade . -vvv

@@ -56,6 +56,7 @@ pypi_build_wheels_linux_aarch64_task:
       USE_CUDA=1
       CUDA_DYNAMIC_LOADING=1
       CUDA_HOME=/usr/local/cuda
+    CIBW_BEFORE_BUILD: bash ./tools/wheels/install_openblas.sh "${{ matrix.python-version }}"
 
   build_script: |
     apt update
