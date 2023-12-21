@@ -129,18 +129,17 @@ $(document).ready(function(){initNavTree('highres__time__stamp_8cpp.html',''); i
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="highres__time__stamp_8h_source.html">./highres_time_stamp.h</a>&quot;</code><br />
-<code>#include &quot;unistd.h&quot;</code><br />
 <code>#include &lt;ctime&gt;</code><br />
+<code>#include &quot;stdint.h&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for highres_time_stamp.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="highres__time__stamp_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2imate_2imate_2imate_2__random__generator_2highres__time__stamp_8cpp" alt=""/></div>
 <map name="a_2home_2runner_2work_2imate_2imate_2imate_2__random__generator_2highres__time__stamp_8cpp" id="a_2home_2runner_2work_2imate_2imate_2imate_2__random__generator_2highres__time__stamp_8cpp">
-<area shape="rect" title=" " alt="" coords="123,5,361,61"/>
+<area shape="rect" title=" " alt="" coords="99,5,337,61"/>
 <area shape="rect" href="highres__time__stamp_8h.html" title=" " alt="" coords="5,109,180,136"/>
-<area shape="rect" title=" " alt="" coords="205,109,279,136"/>
-<area shape="rect" title=" " alt="" coords="303,109,362,136"/>
-<area shape="rect" title=" " alt="" coords="57,184,128,211"/>
+<area shape="rect" title=" " alt="" coords="120,184,191,211"/>
+<area shape="rect" title=" " alt="" coords="255,109,314,136"/>
 </map>
 </div>
 </div>
@@ -174,53 +173,53 @@ Functions</h2></td></tr>
 <p>Note that this function works without C++11.</p>
 <p>An alternative approach is to use <code>rdtsc()</code>, but its use is discouraged, since it is far less portable and many processors (like ARM64 archetecture) do not support it. Unlike rdtsc, this function works on both X86_64 and ARM64. </p>
 
-<p class="definition">Definition at line <a class="el" href="highres__time__stamp_8cpp_source.html#l00095">95</a> of file <a class="el" href="highres__time__stamp_8cpp_source.html">highres_time_stamp.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;{</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="comment">// Zero means no proper function found for this OS and processor to</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="comment">// support high-precision time counting.</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    uint64_t time_stamp = 0;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">    #if defined(USE_CLOCK_GETTIME)</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="comment">// Using POSIX clock_gettime</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keyword">struct </span>timespec clock;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">if</span> (clock_gettime(CLOCK_REALTIME, &amp;clock) == -1)</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="comment">// One means there is an error, but the program continues without</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            <span class="comment">// raising an error.</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            time_stamp = 1;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        }</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        time_stamp = clock.tv_sec * 1e9 + clock.tv_nsec;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">    #elif defined(USE_QUERY_PERFORMANCE_COUNTER)</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="comment">// Using Windows API for query performance counter</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        LARGE_INTEGER ticks;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keywordflow">if</span> (!QueryPerformanceCounter(&amp;ticks))</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            time_stamp = 1;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        {</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            time_stamp = <span class="keyword">static_cast&lt;</span>uint64_t<span class="keyword">&gt;</span>(ticks.QuadPart);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        }</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">    #else</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="comment">// Use std::time and std::clock.</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        <span class="comment">// Note that std::time has low resolution second accuracy. To improve</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="comment">// it, we add std::clock, which has high-resolution (in UNIX only).</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        <span class="comment">// In UNIX, std::clock is the process time with high resolution. In</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="comment">// Windows, note well that std::clock is the wall time with &quot;second&quot;</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="comment">// resolution, and should be avoided.</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        time_stamp = <span class="keyword">static_cast&lt;</span>uint64_t<span class="keyword">&gt;</span>(std::time(0)) +</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;                     <span class="keyword">static_cast&lt;</span>uint64_t<span class="keyword">&gt;</span>(std::clock());</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">    #endif</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">return</span> time_stamp;</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="highres__time__stamp_8cpp_source.html#l00088">88</a> of file <a class="el" href="highres__time__stamp_8cpp_source.html">highres_time_stamp.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;{</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="comment">// Zero means no proper function found for this OS and processor to</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="comment">// support high-precision time counting.</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    uint64_t time_stamp = 0;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">    #if defined(USE_CLOCK_GETTIME)</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="comment">// Using POSIX clock_gettime</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keyword">struct </span>timespec clock;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">if</span> (clock_gettime(CLOCK_REALTIME, &amp;clock) == -1)</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="comment">// One means there is an error, but the program continues without</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="comment">// raising an error.</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            time_stamp = 1;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        time_stamp = clock.tv_sec * 1e9 + clock.tv_nsec;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="preprocessor">    #elif defined(USE_QUERY_PERFORMANCE_COUNTER)</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="comment">// Using Windows API for query performance counter</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        LARGE_INTEGER ticks;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">if</span> (!QueryPerformanceCounter(&amp;ticks))</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            time_stamp = 1;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        }</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        {</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            time_stamp = <span class="keyword">static_cast&lt;</span>uint64_t<span class="keyword">&gt;</span>(ticks.QuadPart);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        }</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">    #else</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="comment">// Use std::time and std::clock.</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="comment">// Note that std::time has low resolution second accuracy. To improve</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="comment">// it, we add std::clock, which has high-resolution (in UNIX only).</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="comment">// In UNIX, std::clock is the process time with high resolution. In</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="comment">// Windows, note well that std::clock is the wall time with &quot;second&quot;</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="comment">// resolution, and should be avoided.</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        time_stamp = <span class="keyword">static_cast&lt;</span>uint64_t<span class="keyword">&gt;</span>(std::time(0)) +</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                     <span class="keyword">static_cast&lt;</span>uint64_t<span class="keyword">&gt;</span>(std::clock());</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">    #endif</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordflow">return</span> time_stamp;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="split__mix__64_8cpp_source.html#l00028">SplitMix64::SplitMix64()</a>.</p>
 <div class="dynheader">
@@ -241,7 +240,7 @@ Here is the caller graph for this function:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_7cbdf7f1e0681c65fd455a0f383ae44b.html">imate</a></li><li class="navelem"><a class="el" href="dir_77b32d754a5600b39cb38f56cd86ee8c.html">_random_generator</a></li><li class="navelem"><a class="el" href="highres__time__stamp_8cpp.html">highres_time_stamp.cpp</a></li>
-    <li class="footer">Generated on Wed Dec 20 2023 00:36:53 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Dec 21 2023 04:54:02 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
