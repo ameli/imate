@@ -1650,7 +1650,7 @@ def main(argv):
         ),
         ext_modules=external_modules,
         install_requires=requirements,
-        python_requires='>=3.9',
+        python_requires='>=3.8',
         setup_requires=[
             'setuptools',
             'wheel',

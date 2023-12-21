@@ -1,9 +1,9 @@
 name: deploy-pypi
 
 on:
-    # push:
-    #     branches:
-    #         - main
+    push:
+        branches:
+            - main
     release:
         types:
             - published
@@ -115,7 +115,7 @@ jobs:
               env:
                   CIBW_ARCHS_MACOS: "x86_64"
                   CIBW_BUILD: "${{ matrix.python-version }}-macosx_x86_64"
-                  CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
+                  CIBW_SKIP: "pp37-* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 3
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=0"
                   CIBW_BEFORE_BUILD: bash ./tools/wheels/install_openblas.sh "${{ matrix.python-version }}"
