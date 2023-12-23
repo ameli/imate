@@ -69,7 +69,6 @@ jobs:
               if: (matrix.python-version == '3.9')
               run: |
                   python -m pip install --upgrade pip
-                  python -m pip install --upgrade numpy
                   python -m pip install --upgrade .[extra] -vvv
               env:
                   USE_LONG_INT: 0
@@ -82,7 +81,6 @@ jobs:
               if: (!contains(matrix.python-version, 'pypy')) && (matrix.python-version != '3.9')
               run: |
                   python -m pip install --upgrade pip
-                  python -m pip install --upgrade numpy
                   python -m pip install --upgrade . -vvv
               env:
                   USE_LONG_INT: 0
@@ -90,16 +88,15 @@ jobs:
                   USE_CBLAS: 0
                   USE_CUDA: 0
 
-            # For PyPy, export OpenBLAS pkgconfig file, we it tries to build scipy from source
+            # For PyPy, export OpenBLAS pkgconfig file, when pypy tries to build scipy from source
             # which needs OpenBLAS
             - name: Install package and dependencies
               if: (contains(matrix.python-version, 'pypy'))
               run: |
-                  export PKG_CONFIG_PATH="/usr/local/opt/openblas/lib/pkgconfig"
                   python -m pip install --upgrade pip
-                  python -m pip install --upgrade numpy
                   python -m pip install --upgrade . -vvv
               env:
+                  PKG_CONFIG_PATH: /usr/local/opt/openblas/lib/pkgconfig
                   USE_LONG_INT: 0
                   USE_UNSIGNED_LONG_INT: 0
                   USE_CBLAS: 0

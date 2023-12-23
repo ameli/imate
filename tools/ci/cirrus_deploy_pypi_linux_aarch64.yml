@@ -62,6 +62,7 @@ pypi_build_wheels_linux_aarch64_task:
       USE_CUDA=1
       CUDA_DYNAMIC_LOADING=1
       CUDA_HOME=/usr/local/cuda
+    # Install openblas only when PyPy is used, since it builds scipy from source using OpenBLAS
     CIBW_BEFORE_BUILD: bash {project}/tools/wheels/install_openblas.sh "${CIBW_BUILD}"
 
   build_script: |
