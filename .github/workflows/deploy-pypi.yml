@@ -18,9 +18,7 @@ jobs:
                 # os: [ubuntu-latest, windows-latest, macos-latest] # TEST
                 # python-version: ['cp39', 'cp310', 'cp311', 'cp312', 'pp38', 'pp39', 'pp310']
                 os: [windows-latest]
-                # python-version: ['pp38', 'pp39', 'pp310']
-                python-version: ['cp39', 'cp310', 'cp311', 'cp312', 'pp38', 'pp39', 'pp310']
-                arch: ['x86_64', 'arm64']
+                python-version: ['pp38', 'pp39', 'pp310']
                 # exclude: # TEST
                 #     - os: windows-latest
                 #       python-version: 'pp38'
@@ -104,7 +102,7 @@ jobs:
             # the github action's virtual machine using the Jimver's action
             # in the previous action (see above).
             - name: Build wheels in windows with CUDA (X86_64) Python ${{ matrix.python-version }}
-              if: (matrix.os == 'windows-latest') && (matrix.arch == 'x86_64')
+              if: matrix.os == 'windows-latest'
               uses: pypa/cibuildwheel@v2.15.0
               env:
                   CIBW_ARCHS_WINDOWS: "AMD64 x86"
@@ -112,27 +110,9 @@ jobs:
                   CIBW_SKIP: "pp37-* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 3
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1"
-                  CIBW_BEFORE_BUILD_WINDOWS: "pip install delvewheel; choco install mingw -y"
-                  CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair -w {dest_dir} {wheel}"
-              with:
-                output-dir: wheelhouse
-
-            # TEST
-            # Build wheel for windows with CUDA enabled. Note that cibuildwheel
-            # does not need manylinux docker, thuns, CUDA can be installed in
-            # the github action's virtual machine using the Jimver's action
-            # in the previous action (see above).
-            - name: Build wheels in windows with CUDA (ARM64) Python ${{ matrix.python-version }}
-              if: (matrix.os == 'windows-latest') && (matrix.arch == 'arm64')
-              uses: pypa/cibuildwheel@v2.15.0
-              env:
-                  CIBW_ARCHS_WINDOWS: "ARM64"
-                  CIBW_BUILD: "${{ matrix.python-version }}-win_arm64"
-                  CIBW_SKIP: "pp37-* cp36-* cp37-* cp38-*"
-                  CIBW_BUILD_VERBOSITY: 3
-                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1"
-                  # CIBW_BEFORE_BUILD_WINDOWS: "pip install delvewheel"
-                  CIBW_BEFORE_BUILD_WINDOWS: "pip install delvewheel; choco install mingw -y"
+                  CIBW_BEFORE_BUILD_WINDOWS: >
+                    pip install delvewheel
+                    choco install mingw -y
                   CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair -w {dest_dir} {wheel}"
               with:
                 output-dir: wheelhouse
