@@ -18,7 +18,7 @@ jobs:
                 # os: [ubuntu-latest, windows-latest, macos-latest] # TEST
                 # python-version: ['cp39', 'cp310', 'cp311', 'cp312', 'pp38', 'pp39', 'pp310']
                 os: [windows-latest]
-                python-version: ['pp38', 'pp39', 'pp310']
+                python-version: ['cp311', 'pp38', 'pp39', 'pp310']
                 # exclude: # TEST
                 #     - os: windows-latest
                 #       python-version: 'pp38'
@@ -78,6 +78,13 @@ jobs:
               id: cuda-toolkit
               with:
                   cuda: '12.1.0'
+                  method: 'network'
+                  sub-packages: '["nvcc", "visual_studio_integration"]'
+                  non-cuda-sub-packages: '["libcublas", "libcusparse"]'
+
+            - name: CHECK CUDA
+              if: matrix.os == 'windows-latest'
+              run: echo "Installed cuda version is: ${{steps.cuda-toolkit.outputs.cuda}}"
 
             # Build wheel for windows with CUDA enabled. Note that cibuildwheel
             # does not need manylinux docker, thuns, CUDA can be installed in
