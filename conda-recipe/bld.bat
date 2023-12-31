@@ -10,8 +10,8 @@ rem directory of this source tree.
 setlocal EnableDelayedExpansion
 
 rem Get Python major and minor version
-for /f %%i in ('python -c "import sys; print(sys.version_info.major)"') do set python_version_major=%%i
-for /f %%i in ('python -c "import sys; print(sys.version_info.minor)"') do set python_version_minor=%%i
+for /f %%i in ('%PYTHON% -c "import sys; print(sys.version_info.major)"') do set python_version_major=%%i
+for /f %%i in ('%PYTHON% -c "import sys; print(sys.version_info.minor)"') do set python_version_minor=%%i
 
 rem Concatenate major and minor versions
 set python_version="cp%python_version_major%%python_version_minor%"
@@ -48,7 +48,7 @@ for /R %root_dir% %%i in (*.whl) do (
 			if "!platform_matched!"=="true" (
 
 				echo Try installing %%i for python version %python_version%
-                python -m pip install --force-reinstall %%i --verbose
+                %PYTHON% -m pip install --force-reinstall %%i --verbose
 
 				rem Check last error
 				if errorlevel==0 (

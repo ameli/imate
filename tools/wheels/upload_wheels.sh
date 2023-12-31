@@ -104,7 +104,7 @@ build_upload_anaconda() {
 
     # Build wheels and upload them automatically
     if compgen -G "./dist/*.whl"; then
-        conda-build --output-folder conda-bld .
+        conda build --output-folder conda-bld .
         anaconda -t ${ANACONDA_API_TOKEN} upload --force \
             -u ${ANACONDA_USERNAME} conda-bld/${BUILD_SUBDIR}/*.tar.bz2
     else

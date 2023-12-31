@@ -16,7 +16,7 @@ OpenMP (`Required`)
 
     For **Linux** users:
 
-        By installing a C++ compiler such as GCC, Clang, or Intel, you also obtain OpenMP as well. You may alternatively install ``libomp`` (see below) without the need to install a full compiler.
+        By installing a C++ compiler such as GCC, Clang, or Intel, you also obtain OpenMP as well. You may alternatively install ``libgomp`` (see below) without the need to install a full compiler.
 
     For **macOS** users:
 

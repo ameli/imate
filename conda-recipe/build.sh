@@ -12,8 +12,8 @@ set -e
 set -x
 
 # Get python version
-python_version_major=`python -c 'import sys; print(sys.version_info.major)'`
-python_version_minor=`python -c 'import sys; print(sys.version_info.minor)'`
+python_version_major=`${PYTHON} -c 'import sys; print(sys.version_info.major)'`
+python_version_minor=`${PYTHON} -c 'import sys; print(sys.version_info.minor)'`
 python_version="cp${python_version_major}${python_version_minor}"
 
 # Detect operating system
@@ -33,7 +33,8 @@ do
 
         # Matched. Install with pip
         echo "Try installing wheel file '${wheel_filename}'.";
-        python -m pip install --no-deps --force-reinstall $wheel_filename --verbose;
+        ${PYTHON} -m pip install --no-deps --force-reinstall $wheel_filename \
+            --verbose;
 
         # Check last error code
         error_code=$?;

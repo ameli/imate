@@ -119,6 +119,10 @@ Some notes to myself when completing the documentation later.
   ln -s /usr/local/opt/libomp/lib/libomp.a /usr/local/lib/libomp.a
   ln -s /usr/local/opt/libomp/lib/libomp.dylib /usr/local/lib/libomp.dylib
 
+  The above paths might be different. To find where libomp is, use
+
+  brew info libomp
+
 ====
 Name
 ====
@@ -177,29 +181,97 @@ TODO
 Compile and Build Issues
 ========================
 
-------------------
-Local Installation
-------------------
+-----------------------------------------
+Compile issues arising specifically on CI
+-----------------------------------------
 
-- Python 2.7:
-  I dropped support for python 2.7, since
-  ``scipy.special.cython_special.erfinv`` is not defined in the latest scipy
-  that can be installed in python 2.7, which is scipy 1.2.3. The function
-  ``erfinv`` exists in scipy as *python* function, but not as a *cyhton*
-  function in ``cython_special``. The first version of scipy that includes
-  ``erfinv`` as cython function is scipy 1.5.0.
+The configurations below raise issue, not because these configurations cannot
+be compiled, rather, they arise on continuous integration (CI) environments.
 
-- Python 3.5:
-  For some reasons, this package cannot be installed on python 3.5. However,
-  py35 is deprecated as of last year.
+.....
+Linux
+.....
 
-- pypy:
-  Build on pypy is only supported on Linux. The package cannot be built on
-  pypy on windows and macos. On Linux, pypy-3.6 and pypy-3.7 is supported.
+- pypy on linux AARCH64:
+  We build all AARCH64 wheels on Cirrus CI. For CPython, we build wheels on
+  both deploy-conda and deploy-pypi. For PyPy, we only build wheels on
+  deploy-pypi (we do not build pypy wheels on conda).
 
-- CUDA support:
-  CUDA is only available in linux and windows. NVIDIA no longer supports CUDA in
-  macOS, and Apple does not include NVIDA in apple products either.
+  The PyPy wheels for linux (which are built with cuda support) on aarch64
+  on cirrus ci takes more than 60 minutes, and cirrus ci terminates these
+  jobs. As such, we do not support wheels for pypy-linux-aarch64.
+
+  In contrast, pypy-macos-arm64 builds fine on cirrus ci, and this is because
+  on macos, we do not support cuda, hence, the compile time is not long.
+
+-----------------------
+Issues with local build
+-----------------------
+
+.....
+MacOS
+.....
+
+We do not support CUDA for macos, as Apply do not support NVIDIA GPUs.
+
+.......
+Windows
+.......
+
+The following compilation issues are not due to CI runners, rather these
+configurations below cannot be compiled even on a local machine.
+
+- pypy on windows:
+  Build on pypy is only supported on Linux and macos. The package cannot be
+  built on pypy on windows. This is because imate depends on scipy not only at
+  runtime, but also "at compile time" to compile lapack dependency (recall
+  that imate "cimports" scipy.linalg.cython_lapack). Whenever we "import
+  (not import, but cimport), that dependency becomes compile-time dependency.
+
+  Scipy does not have wheel on windows for PyPy. Hence, PyPy tries to
+  compile scipy from source whenever PyPy compiles imate. But there are two
+  issues with PyPy compiling scipy:
+  1. The compilation process raises error that gfortran is not found.
+     This can be easily resolved by: "choco install mingw". As such, the
+     meson.build (build manager in scipy) will use mingw rather than MSVC, and
+     mingw has fortran.
+  2. After the above issue is resolved, another error arises, ans that is that
+     build process cannot find openblas. Scipy finds openblas by internally
+     installing a package called 'scipy_openblas32'. But even installing it
+     does not fix the issue. As of now, I cannot figure how to resolve this.
+
+  Because of the issue, we do not support wheelsL
+  - pp*-win-arm64 and
+  - pp*-win-amd64.
+
+- ARM64 on windows:
+  I built all ARM64 wheels for Linux and MacOS on native ARM64 machines on
+  Cirrus CI. However, for Windows, the ARM64 wheels can be cross-compiled on
+  an X86_64 machine (not native build is needed). This can be done on github
+  runners which are X86_64 machines, and passing ARM64 flags to cibuildwheel.
+
+  Cibuildwheel can cross-compile for ARM64 (from a X86_64 host machine) for
+  windows only if the python package is built based on setuptools, but not
+  based on meson.build. As such, my other package, special_functions, which
+  uses meson.build, cannot be build for Windows ARM64. However, glearn can, and
+  indeed, it compiles for win-arm64 just fine, as glearn uses setuptools.
+
+  Imate also uses setuptools, however, it raises some errors when it is cross
+  compiled for win-arm64. I think this is due to CUDA. So, disabling cuda might
+  allow building for arm64.
+
+  Even if I can build imate for win-arm64, it is still useless, as at runtime,
+  imate needs numpy and scipy. But numpy and scipy do not provide win-arm64
+  wheels neither in cpython nor in pypy. Thus, a user of the package will not
+  have these essential packages (numpy, scipy), even if I provide them wheel
+  for imate.
+
+  Because of the above issue, we do not support wheels:
+  - pp*-win-arm64, and
+  - cp*-win-arm64.
+
+  The only windows-based wheel that we support is:
+  - cp*-win-amd64 (X86_64 and CPyhton on windows)
 
 =====
 Ideas

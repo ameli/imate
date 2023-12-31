@@ -1,9 +1,9 @@
 name: deploy-pypi
 
 on:
-    push:
-        branches:
-            - main
+    # push:
+    #     branches:
+    #         - main
     release:
         types:
             - published
@@ -15,17 +15,15 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                # os: [ubuntu-latest, windows-latest, macos-latest] # TEST
-                # python-version: ['cp39', 'cp310', 'cp311', 'cp312', 'pp38', 'pp39', 'pp310']
-                os: [windows-latest]
-                python-version: ['cp311', 'pp38', 'pp39', 'pp310']
-                # exclude: # TEST
-                #     - os: windows-latest
-                #       python-version: 'pp38'
-                #     - os: windows-latest
-                #       python-version: 'pp39'
-                #     - os: windows-latest
-                #       python-version: 'pp310'
+                os: [ubuntu-latest, windows-latest, macos-latest]
+                python-version: ['cp39', 'cp310', 'cp311', 'cp312', 'pp38', 'pp39', 'pp310']
+                exclude:
+                    - os: windows-latest
+                      python-version: 'pp38'
+                    - os: windows-latest
+                      python-version: 'pp39'
+                    - os: windows-latest
+                      python-version: 'pp310'
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -78,31 +76,9 @@ jobs:
               id: cuda-toolkit
               with:
                   cuda: '12.1.0'
-                  method: 'network'
-                  sub-packages: '["nvcc", "visual_studio_integration"]'
-                  non-cuda-sub-packages: '["libcublas", "libcusparse"]'
-
-            - name: CHECK CUDA
-              if: matrix.os == 'windows-latest'
-              run: echo "Installed cuda version is: ${{ steps.cuda-toolkit.outputs.cuda }}"
-
-            # Build wheel for windows with CUDA enabled. Note that cibuildwheel
-            # does not need manylinux docker, thuns, CUDA can be installed in
-            # the github action's virtual machine using the Jimver's action
-            # in the previous action (see above).
-            # - name: Build wheels in windows with CUDA (X86_64) Python ${{ matrix.python-version }}
-            #   if: matrix.os == 'windows-latest'
-            #   uses: pypa/cibuildwheel@v2.15.0
-            #   env:
-            #       CIBW_ARCHS_WINDOWS: "AMD64 x86"
-            #       CIBW_BUILD: "${{ matrix.python-version }}-win_amd64"
-            #       CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
-            #       CIBW_BUILD_VERBOSITY: 3
-            #       CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1"
-            #       CIBW_BEFORE_BUILD_WINDOWS: "pip install delvewheel"
-            #       CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair -w {dest_dir} {wheel}"
-            #   with:
-            #     output-dir: wheelhouse
+                  # method: 'network'
+                  # sub-packages: '["nvcc", "visual_studio_integration"]'
+                  # non-cuda-sub-packages: '["libcublas", "libcusparse"]'
 
             # Build wheel for windows with CUDA enabled. Note that cibuildwheel
             # does not need manylinux docker, thuns, CUDA can be installed in
@@ -114,10 +90,10 @@ jobs:
               env:
                   CIBW_ARCHS_WINDOWS: "AMD64 x86"
                   CIBW_BUILD: "${{ matrix.python-version }}-win_amd64"
-                  CIBW_SKIP: "pp37-* cp36-* cp37-* cp38-*"
+                  CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
                   CIBW_BUILD_VERBOSITY: 3
                   CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1"
-                  CIBW_BEFORE_BUILD_WINDOWS: "pip install delvewheel && choco install mingw -y"
+                  CIBW_BEFORE_BUILD_WINDOWS: "pip install delvewheel"
                   CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair -w {dest_dir} {wheel}"
               with:
                 output-dir: wheelhouse
@@ -171,8 +147,9 @@ jobs:
 
             # Upload all wheels to an artifact
             - name: Upload artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
+                  name: artifacts-wheel-${{ matrix.os }}-${{ matrix.python-version }}
                   path: ./wheelhouse/*.whl
                   retention-days: 1
 
@@ -194,8 +171,9 @@ jobs:
                 python -m build . --sdist
             
             - name: Upload artifacts
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
+                  name: artifacts-sdist
                   path: dist/*.tar.gz
                   retention-days: 1
 
@@ -210,9 +188,10 @@ jobs:
         # if: github.event_name == 'release' && github.event.action == 'published'
         steps:
             - name: Download artifacts
-              uses: actions/download-artifact@v3
+              uses: actions/download-artifact@v4
               with:
-                  name: artifact
+                  pattern: artifacts-*
+                  merge-multiple: true
                   path: dist
 
             - name: Upload to PyPi

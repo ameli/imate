@@ -43,12 +43,12 @@ pypi_build_wheels_linux_aarch64_task:
         CIBW_BUILD: "cp311-manylinux_aarch64"
     - env:
         CIBW_BUILD: "cp312-manylinux_aarch64"
-    - env:
-        CIBW_BUILD: "pp38-manylinux_aarch64"
-    - env:
-        CIBW_BUILD: "pp39-manylinux_aarch64"
-    - env:
-        CIBW_BUILD: "pp310-manylinux_aarch64"
+    # - env:
+    #     CIBW_BUILD: "pp38-manylinux_aarch64"   # works, but it takes over 60 minutes, and cirrus ci terminates the job
+    # - env:
+    #     CIBW_BUILD: "pp39-manylinux_aarch64"   # works, but it takes over 60 minutes, and cirrus ci terminates the job
+    # - env:
+    #     CIBW_BUILD: "pp310-manylinux_aarch64"  # works, but it takes over 60 minutes, and cirrus ci terminates the job
   env:
     CIBW_ARCHS: "aarch64"
     # CIBW_BUILD: "*-manylinux_aarch64"
