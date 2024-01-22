@@ -139,9 +139,9 @@ $(document).ready(function(){initNavTree('classXoshiro256StarStar.html',''); ini
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa2eb5ff63541b8363011654376f66149"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXoshiro256StarStar.html#aa2eb5ff63541b8363011654376f66149">Xoshiro256StarStar</a> ()</td></tr>
-<tr class="memdesc:aa2eb5ff63541b8363011654376f66149"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. It initializes the state variable with random integers using <code>splitmix64</code> pseudo-random generator.  <a href="classXoshiro256StarStar.html#aa2eb5ff63541b8363011654376f66149">More...</a><br /></td></tr>
-<tr class="separator:aa2eb5ff63541b8363011654376f66149"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a190960399da9bbbcbda6b22abead5675"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXoshiro256StarStar.html#a190960399da9bbbcbda6b22abead5675">Xoshiro256StarStar</a> (const int64_t seed)</td></tr>
+<tr class="memdesc:a190960399da9bbbcbda6b22abead5675"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. It initializes the state variable with random integers using <code>splitmix64</code> pseudo-random generator.  <a href="classXoshiro256StarStar.html#a190960399da9bbbcbda6b22abead5675">More...</a><br /></td></tr>
+<tr class="separator:a190960399da9bbbcbda6b22abead5675"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6d5af89b996d63c3b03e346cb267b46b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXoshiro256StarStar.html#a6d5af89b996d63c3b03e346cb267b46b">~Xoshiro256StarStar</a> ()</td></tr>
 <tr class="memdesc:a6d5af89b996d63c3b03e346cb267b46b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="classXoshiro256StarStar.html#a6d5af89b996d63c3b03e346cb267b46b">More...</a><br /></td></tr>
 <tr class="separator:a6d5af89b996d63c3b03e346cb267b46b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -175,50 +175,58 @@ Protected Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="xoshiro__256__star__star_8h_source.html#l00049">49</a> of file <a class="el" href="xoshiro__256__star__star_8h_source.html">xoshiro_256_star_star.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa2eb5ff63541b8363011654376f66149"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2eb5ff63541b8363011654376f66149">&#9670;&nbsp;</a></span>Xoshiro256StarStar()</h2>
+<a id="a190960399da9bbbcbda6b22abead5675"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a190960399da9bbbcbda6b22abead5675">&#9670;&nbsp;</a></span>Xoshiro256StarStar()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Xoshiro256StarStar::Xoshiro256StarStar </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const int64_t&#160;</td>
+          <td class="paramname"><em>seed</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Constructor. It initializes the state variable with random integers using <code>splitmix64</code> pseudo-random generator. </p>
 
 <p class="definition">Definition at line <a class="el" href="xoshiro__256__star__star_8cpp_source.html#l00033">33</a> of file <a class="el" href="xoshiro__256__star__star_8cpp_source.html">xoshiro_256_star_star.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                                      :</div>
+<div class="fragment"><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                                                        :</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="classXoshiro256StarStar.html#a8a097d46b8c30944d8a3d6f5ebafb5b3">state</a>(NULL)</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="comment">// Allocate state</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    this-&gt;<a class="code" href="classXoshiro256StarStar.html#a8a097d46b8c30944d8a3d6f5ebafb5b3">state</a> = <span class="keyword">new</span> uint64_t[4];</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="comment">// Initializing SplitMix64 random generator</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="classSplitMix64.html">SplitMix64</a> split_mix_64;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="classSplitMix64.html">SplitMix64</a> split_mix_64(seed);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i=0; i &lt; 4; ++i)</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        this-&gt;<a class="code" href="classXoshiro256StarStar.html#a8a097d46b8c30944d8a3d6f5ebafb5b3">state</a>[i] = split_mix_64.<a class="code" href="classSplitMix64.html#a3c6791320e1260d9f559bda1039c9206">next</a>();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        this-&gt;<a class="code" href="classXoshiro256StarStar.html#a8a097d46b8c30944d8a3d6f5ebafb5b3">state</a>[i] = split_mix_64.next();</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
 <div class="ttc" id="aclassSplitMix64_html"><div class="ttname"><a href="classSplitMix64.html">SplitMix64</a></div><div class="ttdoc">Pseudo-random integer generator. This class generates 64-bit integer using SplitMix64 algorithm.</div><div class="ttdef"><b>Definition:</b> <a href="split__mix__64_8h_source.html#l00042">split_mix_64.h:43</a></div></div>
-<div class="ttc" id="aclassSplitMix64_html_a3c6791320e1260d9f559bda1039c9206"><div class="ttname"><a href="classSplitMix64.html#a3c6791320e1260d9f559bda1039c9206">SplitMix64::next</a></div><div class="ttdeci">uint64_t next()</div><div class="ttdoc">Generates the next presudo-random number in the sequence.</div><div class="ttdef"><b>Definition:</b> <a href="split__mix__64_8cpp_source.html#l00065">split_mix_64.cpp:65</a></div></div>
 <div class="ttc" id="aclassXoshiro256StarStar_html_a8a097d46b8c30944d8a3d6f5ebafb5b3"><div class="ttname"><a href="classXoshiro256StarStar.html#a8a097d46b8c30944d8a3d6f5ebafb5b3">Xoshiro256StarStar::state</a></div><div class="ttdeci">uint64_t * state</div><div class="ttdef"><b>Definition:</b> <a href="xoshiro__256__star__star_8h_source.html#l00064">xoshiro_256_star_star.h:64</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="split__mix__64_8cpp_source.html#l00065">SplitMix64::next()</a>, and <a class="el" href="xoshiro__256__star__star_8h_source.html#l00064">state</a>.</p>
+<p class="reference">References <a class="el" href="split__mix__64_8cpp_source.html#l00057">SplitMix64::next()</a>, and <a class="el" href="xoshiro__256__star__star_8h_source.html#l00064">state</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classXoshiro256StarStar_aa2eb5ff63541b8363011654376f66149_cgraph.png" border="0" usemap="#aclassXoshiro256StarStar_aa2eb5ff63541b8363011654376f66149_cgraph" alt=""/></div>
-<map name="aclassXoshiro256StarStar_aa2eb5ff63541b8363011654376f66149_cgraph" id="aclassXoshiro256StarStar_aa2eb5ff63541b8363011654376f66149_cgraph">
-<area shape="rect" title="Constructor. It initializes the state variable with random integers using splitmix64 pseudo&#45;random ge..." alt="" coords="5,5,160,47"/>
-<area shape="rect" href="classSplitMix64.html#a3c6791320e1260d9f559bda1039c9206" title="Generates the next presudo&#45;random number in the sequence." alt="" coords="208,13,336,39"/>
+<div class="center"><img src="classXoshiro256StarStar_a190960399da9bbbcbda6b22abead5675_cgraph.png" border="0" usemap="#aclassXoshiro256StarStar_a190960399da9bbbcbda6b22abead5675_cgraph" alt=""/></div>
+<map name="aclassXoshiro256StarStar_a190960399da9bbbcbda6b22abead5675_cgraph" id="aclassXoshiro256StarStar_a190960399da9bbbcbda6b22abead5675_cgraph">
+<area shape="rect" title="Constructor. It initializes the state variable with random integers using splitmix64 pseudo&#45;random ge..." alt="" coords="5,5,148,47"/>
+<area shape="rect" href="classSplitMix64.html#a3c6791320e1260d9f559bda1039c9206" title="Generates the next presudo&#45;random number in the sequence." alt="" coords="196,13,312,39"/>
 </map>
 </div>
 
@@ -311,15 +319,15 @@ Here is the call graph for this function:</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="xoshiro__256__star__star_8cpp_source.html#l00073">next()</a>, <a class="el" href="xoshiro__256__star__star_8h_source.html#l00064">state</a>, and <a class="el" href="xoshiro__256__star__star_8cpp_source.html#l00022">UINT64_C</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="random__number__generator_8cpp_source.html#l00083">RandomNumberGenerator::initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="random__number__generator_8cpp_source.html#l00120">RandomNumberGenerator::initialize()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classXoshiro256StarStar_aced1e35723f858f228bb7bf5cc5fda6a_cgraph.png" border="0" usemap="#aclassXoshiro256StarStar_aced1e35723f858f228bb7bf5cc5fda6a_cgraph" alt=""/></div>
 <map name="aclassXoshiro256StarStar_aced1e35723f858f228bb7bf5cc5fda6a_cgraph" id="aclassXoshiro256StarStar_aced1e35723f858f228bb7bf5cc5fda6a_cgraph">
-<area shape="rect" title="Jump function for the generator. It is equivalent to 2^128 calls to next(); it can be used to generat..." alt="" coords="5,5,152,47"/>
-<area shape="rect" href="classXoshiro256StarStar.html#a6a99f74d2ed5f6e3667d785c46bf9569" title="Generates the next presudo&#45;random number." alt="" coords="200,5,347,47"/>
-<area shape="rect" href="classXoshiro256StarStar.html#a3b10c22cbac4ff9bf4447e28e57f7a72" title="Rotates the bits of a 64 bit integer toward left." alt="" coords="395,5,541,47"/>
+<area shape="rect" title="Jump function for the generator. It is equivalent to 2^128 calls to next(); it can be used to generat..." alt="" coords="5,5,140,47"/>
+<area shape="rect" href="classXoshiro256StarStar.html#a6a99f74d2ed5f6e3667d785c46bf9569" title="Generates the next presudo&#45;random number." alt="" coords="188,5,323,47"/>
+<area shape="rect" href="classXoshiro256StarStar.html#a3b10c22cbac4ff9bf4447e28e57f7a72" title="Rotates the bits of a 64 bit integer toward left." alt="" coords="371,5,505,47"/>
 </map>
 </div>
 <div class="dynheader">
@@ -327,9 +335,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classXoshiro256StarStar_aced1e35723f858f228bb7bf5cc5fda6a_icgraph.png" border="0" usemap="#aclassXoshiro256StarStar_aced1e35723f858f228bb7bf5cc5fda6a_icgraph" alt=""/></div>
 <map name="aclassXoshiro256StarStar_aced1e35723f858f228bb7bf5cc5fda6a_icgraph" id="aclassXoshiro256StarStar_aced1e35723f858f228bb7bf5cc5fda6a_icgraph">
-<area shape="rect" title="Jump function for the generator. It is equivalent to 2^128 calls to next(); it can be used to generat..." alt="" coords="496,5,643,47"/>
-<area shape="rect" href="classRandomNumberGenerator.html#a39545f8392c54e0f0ed0174cb1d41ded" title="Initializes an array of xoshiro_256_star_star objects." alt="" coords="255,5,448,47"/>
-<area shape="rect" href="classRandomNumberGenerator.html#a8e7e711ea58f13f3ed95becbe33684e9" title="Initializes with one parallel thread." alt="" coords="5,5,207,47"/>
+<area shape="rect" title="Jump function for the generator. It is equivalent to 2^128 calls to next(); it can be used to generat..." alt="" coords="459,5,593,47"/>
+<area shape="rect" href="classRandomNumberGenerator.html#a0ed573969a5b4d2189dae50284c2a2eb" title="Initializes an array of xoshiro_256_star_star objects." alt="" coords="236,5,411,47"/>
+<area shape="rect" href="classRandomNumberGenerator.html#a8e7e711ea58f13f3ed95becbe33684e9" title="Initializes with one parallel thread and default seed." alt="" coords="5,5,188,47"/>
 </map>
 </div>
 
@@ -393,9 +401,9 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classXoshiro256StarStar_a5da35c894b67e2a4a031f145e3946bb9_cgraph.png" border="0" usemap="#aclassXoshiro256StarStar_a5da35c894b67e2a4a031f145e3946bb9_cgraph" alt=""/></div>
 <map name="aclassXoshiro256StarStar_a5da35c894b67e2a4a031f145e3946bb9_cgraph" id="aclassXoshiro256StarStar_a5da35c894b67e2a4a031f145e3946bb9_cgraph">
-<area shape="rect" title="Long jump function for the generator. It is equivalent to 2^192 calls to next(). It can be used to ge..." alt="" coords="5,5,152,47"/>
-<area shape="rect" href="classXoshiro256StarStar.html#a6a99f74d2ed5f6e3667d785c46bf9569" title="Generates the next presudo&#45;random number." alt="" coords="200,5,347,47"/>
-<area shape="rect" href="classXoshiro256StarStar.html#a3b10c22cbac4ff9bf4447e28e57f7a72" title="Rotates the bits of a 64 bit integer toward left." alt="" coords="395,5,541,47"/>
+<area shape="rect" title="Long jump function for the generator. It is equivalent to 2^192 calls to next(). It can be used to ge..." alt="" coords="5,5,140,47"/>
+<area shape="rect" href="classXoshiro256StarStar.html#a6a99f74d2ed5f6e3667d785c46bf9569" title="Generates the next presudo&#45;random number." alt="" coords="188,5,323,47"/>
+<area shape="rect" href="classXoshiro256StarStar.html#a3b10c22cbac4ff9bf4447e28e57f7a72" title="Rotates the bits of a 64 bit integer toward left." alt="" coords="371,5,505,47"/>
 </map>
 </div>
 
@@ -439,14 +447,14 @@ Here is the call graph for this function:</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="xoshiro__256__star__star_8cpp_source.html#l00192">rotation_left()</a>, and <a class="el" href="xoshiro__256__star__star_8h_source.html#l00064">state</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="xoshiro__256__star__star_8cpp_source.html#l00100">jump()</a>, <a class="el" href="xoshiro__256__star__star_8cpp_source.html#l00145">long_jump()</a>, and <a class="el" href="random__number__generator_8cpp_source.html#l00112">RandomNumberGenerator::next()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="xoshiro__256__star__star_8cpp_source.html#l00100">jump()</a>, <a class="el" href="xoshiro__256__star__star_8cpp_source.html#l00145">long_jump()</a>, and <a class="el" href="random__number__generator_8cpp_source.html#l00150">RandomNumberGenerator::next()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classXoshiro256StarStar_a6a99f74d2ed5f6e3667d785c46bf9569_cgraph.png" border="0" usemap="#aclassXoshiro256StarStar_a6a99f74d2ed5f6e3667d785c46bf9569_cgraph" alt=""/></div>
 <map name="aclassXoshiro256StarStar_a6a99f74d2ed5f6e3667d785c46bf9569_cgraph" id="aclassXoshiro256StarStar_a6a99f74d2ed5f6e3667d785c46bf9569_cgraph">
-<area shape="rect" title="Generates the next presudo&#45;random number." alt="" coords="5,5,152,47"/>
-<area shape="rect" href="classXoshiro256StarStar.html#a3b10c22cbac4ff9bf4447e28e57f7a72" title="Rotates the bits of a 64 bit integer toward left." alt="" coords="200,5,347,47"/>
+<area shape="rect" title="Generates the next presudo&#45;random number." alt="" coords="5,5,140,47"/>
+<area shape="rect" href="classXoshiro256StarStar.html#a3b10c22cbac4ff9bf4447e28e57f7a72" title="Rotates the bits of a 64 bit integer toward left." alt="" coords="188,5,323,47"/>
 </map>
 </div>
 <div class="dynheader">
@@ -454,19 +462,19 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classXoshiro256StarStar_a6a99f74d2ed5f6e3667d785c46bf9569_icgraph.png" border="0" usemap="#aclassXoshiro256StarStar_a6a99f74d2ed5f6e3667d785c46bf9569_icgraph" alt=""/></div>
 <map name="aclassXoshiro256StarStar_a6a99f74d2ed5f6e3667d785c46bf9569_icgraph" id="aclassXoshiro256StarStar_a6a99f74d2ed5f6e3667d785c46bf9569_icgraph">
-<area shape="rect" title="Generates the next presudo&#45;random number." alt="" coords="943,77,1089,119"/>
-<area shape="rect" href="classXoshiro256StarStar.html#aced1e35723f858f228bb7bf5cc5fda6a" title="Jump function for the generator. It is equivalent to 2^128 calls to next(); it can be used to generat..." alt="" coords="725,9,871,51"/>
-<area shape="rect" href="classXoshiro256StarStar.html#a5da35c894b67e2a4a031f145e3946bb9" title="Long jump function for the generator. It is equivalent to 2^192 calls to next(). It can be used to ge..." alt="" coords="725,77,871,119"/>
-<area shape="rect" href="classRandomNumberGenerator.html#a91d8b9726bda7dcd40f9b992b2a1bccd" title="Generates the next random number in the sequence, depending on the thread id." alt="" coords="701,148,895,189"/>
-<area shape="rect" href="classRandomNumberGenerator.html#a39545f8392c54e0f0ed0174cb1d41ded" title="Initializes an array of xoshiro_256_star_star objects." alt="" coords="460,8,653,49"/>
-<area shape="rect" href="classRandomNumberGenerator.html#a8e7e711ea58f13f3ed95becbe33684e9" title="Initializes with one parallel thread." alt="" coords="211,5,412,47"/>
-<area shape="rect" href="classRandomArrayGenerator.html#a3a577526f391d531fe4d66bdfa0107db" title="Generates a pseudo&#45;random array with Rademacher distribution where elements are either +1 or &#45;1." alt="" coords="463,159,650,200"/>
-<area shape="rect" href="classcTraceEstimator.html#a02afa505a915c58380b99a62e4d56b30" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="236,71,387,127"/>
-<area shape="rect" href="classcuTraceEstimator.html#ab4edc323dc7dcc98f401eeec9276e245" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="225,151,398,207"/>
-<area shape="rect" href="classcuOrthogonalization.html#aefd27369921be5760a998a60aca49b56" title="Orthogonalizes set of vectors mutually using modified Gram&#45;Schmidt process." alt="" coords="224,232,399,273"/>
-<area shape="rect" href="classcOrthogonalization.html#a7b017e5520083a1cf3ac2ed27bb811d8" title="Orthogonalizes set of vectors mutually using modified Gram&#45;Schmidt process." alt="" coords="224,297,399,339"/>
-<area shape="rect" href="classcTraceEstimator.html#a29144b4d62c71f0889002754384f57f4" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="13,79,155,120"/>
-<area shape="rect" href="classcuTraceEstimator.html#aac1cf44a9dc5522d3104b2cdf3b05285" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,159,163,200"/>
+<area shape="rect" title="Generates the next presudo&#45;random number." alt="" coords="876,77,1011,119"/>
+<area shape="rect" href="classXoshiro256StarStar.html#aced1e35723f858f228bb7bf5cc5fda6a" title="Jump function for the generator. It is equivalent to 2^128 calls to next(); it can be used to generat..." alt="" coords="673,9,808,51"/>
+<area shape="rect" href="classXoshiro256StarStar.html#a5da35c894b67e2a4a031f145e3946bb9" title="Long jump function for the generator. It is equivalent to 2^192 calls to next(). It can be used to ge..." alt="" coords="673,77,808,119"/>
+<area shape="rect" href="classRandomNumberGenerator.html#aa70eff499c338d998fcd834f4792dd98" title="Generates the next random number in the sequence, depending on the thread id." alt="" coords="653,148,828,189"/>
+<area shape="rect" href="classRandomNumberGenerator.html#a0ed573969a5b4d2189dae50284c2a2eb" title="Initializes an array of xoshiro_256_star_star objects." alt="" coords="431,8,605,49"/>
+<area shape="rect" href="classRandomNumberGenerator.html#a8e7e711ea58f13f3ed95becbe33684e9" title="Initializes with one parallel thread and default seed." alt="" coords="200,5,383,47"/>
+<area shape="rect" href="classRandomArrayGenerator.html#a3a577526f391d531fe4d66bdfa0107db" title="Generates a pseudo&#45;random array with Rademacher distribution where elements are either +1 or &#45;1." alt="" coords="435,159,601,200"/>
+<area shape="rect" href="classcTraceEstimator.html#a02afa505a915c58380b99a62e4d56b30" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="221,71,362,127"/>
+<area shape="rect" href="classcuTraceEstimator.html#ab4edc323dc7dcc98f401eeec9276e245" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="210,151,373,207"/>
+<area shape="rect" href="classcuOrthogonalization.html#aefd27369921be5760a998a60aca49b56" title="Orthogonalizes set of vectors mutually using modified Gram&#45;Schmidt process." alt="" coords="213,232,370,273"/>
+<area shape="rect" href="classcOrthogonalization.html#a7b017e5520083a1cf3ac2ed27bb811d8" title="Orthogonalizes set of vectors mutually using modified Gram&#45;Schmidt process." alt="" coords="213,297,370,339"/>
+<area shape="rect" href="classcTraceEstimator.html#a5fb96a5c4d72df3faf68b21b089bf2f2" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="12,79,145,120"/>
+<area shape="rect" href="classcuTraceEstimator.html#afa51423da78f7b1d229d3ca1d010b312" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,159,152,200"/>
 </map>
 </div>
 
@@ -527,20 +535,20 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classXoshiro256StarStar_a3b10c22cbac4ff9bf4447e28e57f7a72_icgraph.png" border="0" usemap="#aclassXoshiro256StarStar_a3b10c22cbac4ff9bf4447e28e57f7a72_icgraph" alt=""/></div>
 <map name="aclassXoshiro256StarStar_a3b10c22cbac4ff9bf4447e28e57f7a72_icgraph" id="aclassXoshiro256StarStar_a3b10c22cbac4ff9bf4447e28e57f7a72_icgraph">
-<area shape="rect" title="Rotates the bits of a 64 bit integer toward left." alt="" coords="1137,77,1284,119"/>
-<area shape="rect" href="classXoshiro256StarStar.html#a6a99f74d2ed5f6e3667d785c46bf9569" title="Generates the next presudo&#45;random number." alt="" coords="943,77,1089,119"/>
-<area shape="rect" href="classXoshiro256StarStar.html#aced1e35723f858f228bb7bf5cc5fda6a" title="Jump function for the generator. It is equivalent to 2^128 calls to next(); it can be used to generat..." alt="" coords="725,9,871,51"/>
-<area shape="rect" href="classXoshiro256StarStar.html#a5da35c894b67e2a4a031f145e3946bb9" title="Long jump function for the generator. It is equivalent to 2^192 calls to next(). It can be used to ge..." alt="" coords="725,77,871,119"/>
-<area shape="rect" href="classRandomNumberGenerator.html#a91d8b9726bda7dcd40f9b992b2a1bccd" title="Generates the next random number in the sequence, depending on the thread id." alt="" coords="701,148,895,189"/>
-<area shape="rect" href="classRandomNumberGenerator.html#a39545f8392c54e0f0ed0174cb1d41ded" title="Initializes an array of xoshiro_256_star_star objects." alt="" coords="460,8,653,49"/>
-<area shape="rect" href="classRandomNumberGenerator.html#a8e7e711ea58f13f3ed95becbe33684e9" title="Initializes with one parallel thread." alt="" coords="211,5,412,47"/>
-<area shape="rect" href="classRandomArrayGenerator.html#a3a577526f391d531fe4d66bdfa0107db" title="Generates a pseudo&#45;random array with Rademacher distribution where elements are either +1 or &#45;1." alt="" coords="463,159,650,200"/>
-<area shape="rect" href="classcTraceEstimator.html#a02afa505a915c58380b99a62e4d56b30" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="236,71,387,127"/>
-<area shape="rect" href="classcuTraceEstimator.html#ab4edc323dc7dcc98f401eeec9276e245" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="225,151,398,207"/>
-<area shape="rect" href="classcuOrthogonalization.html#aefd27369921be5760a998a60aca49b56" title="Orthogonalizes set of vectors mutually using modified Gram&#45;Schmidt process." alt="" coords="224,232,399,273"/>
-<area shape="rect" href="classcOrthogonalization.html#a7b017e5520083a1cf3ac2ed27bb811d8" title="Orthogonalizes set of vectors mutually using modified Gram&#45;Schmidt process." alt="" coords="224,297,399,339"/>
-<area shape="rect" href="classcTraceEstimator.html#a29144b4d62c71f0889002754384f57f4" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="13,79,155,120"/>
-<area shape="rect" href="classcuTraceEstimator.html#aac1cf44a9dc5522d3104b2cdf3b05285" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,159,163,200"/>
+<area shape="rect" title="Rotates the bits of a 64 bit integer toward left." alt="" coords="1059,77,1193,119"/>
+<area shape="rect" href="classXoshiro256StarStar.html#a6a99f74d2ed5f6e3667d785c46bf9569" title="Generates the next presudo&#45;random number." alt="" coords="876,77,1011,119"/>
+<area shape="rect" href="classXoshiro256StarStar.html#aced1e35723f858f228bb7bf5cc5fda6a" title="Jump function for the generator. It is equivalent to 2^128 calls to next(); it can be used to generat..." alt="" coords="673,9,808,51"/>
+<area shape="rect" href="classXoshiro256StarStar.html#a5da35c894b67e2a4a031f145e3946bb9" title="Long jump function for the generator. It is equivalent to 2^192 calls to next(). It can be used to ge..." alt="" coords="673,77,808,119"/>
+<area shape="rect" href="classRandomNumberGenerator.html#aa70eff499c338d998fcd834f4792dd98" title="Generates the next random number in the sequence, depending on the thread id." alt="" coords="653,148,828,189"/>
+<area shape="rect" href="classRandomNumberGenerator.html#a0ed573969a5b4d2189dae50284c2a2eb" title="Initializes an array of xoshiro_256_star_star objects." alt="" coords="431,8,605,49"/>
+<area shape="rect" href="classRandomNumberGenerator.html#a8e7e711ea58f13f3ed95becbe33684e9" title="Initializes with one parallel thread and default seed." alt="" coords="200,5,383,47"/>
+<area shape="rect" href="classRandomArrayGenerator.html#a3a577526f391d531fe4d66bdfa0107db" title="Generates a pseudo&#45;random array with Rademacher distribution where elements are either +1 or &#45;1." alt="" coords="435,159,601,200"/>
+<area shape="rect" href="classcTraceEstimator.html#a02afa505a915c58380b99a62e4d56b30" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="221,71,362,127"/>
+<area shape="rect" href="classcuTraceEstimator.html#ab4edc323dc7dcc98f401eeec9276e245" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="210,151,373,207"/>
+<area shape="rect" href="classcuOrthogonalization.html#aefd27369921be5760a998a60aca49b56" title="Orthogonalizes set of vectors mutually using modified Gram&#45;Schmidt process." alt="" coords="213,232,370,273"/>
+<area shape="rect" href="classcOrthogonalization.html#a7b017e5520083a1cf3ac2ed27bb811d8" title="Orthogonalizes set of vectors mutually using modified Gram&#45;Schmidt process." alt="" coords="213,297,370,339"/>
+<area shape="rect" href="classcTraceEstimator.html#a5fb96a5c4d72df3faf68b21b089bf2f2" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="12,79,145,120"/>
+<area shape="rect" href="classcuTraceEstimator.html#afa51423da78f7b1d229d3ca1d010b312" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,159,152,200"/>
 </map>
 </div>
 
@@ -583,7 +591,7 @@ Here is the caller graph for this function:</div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="classXoshiro256StarStar.html">Xoshiro256StarStar</a></li>
-    <li class="footer">Generated on Thu Dec 21 2023 04:54:02 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Jan 22 2024 00:04:58 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

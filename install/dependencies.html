@@ -354,7 +354,7 @@
 <span id="dependencies-openmp"></span><h2><span class="section-number">3.1. </span>OpenMP (<cite>Required</cite>)<a class="headerlink" href="#openmp-required" title="Permalink to this heading">#</a></h2>
 <p><span class="synco">imate</span> requires OpenMP, which is typically included with most C++ compilers.</p>
 <dl class="simple glossary">
-<dt id="term-For-Linux-users">For <strong>Linux</strong> users:<a class="headerlink" href="#term-For-Linux-users" title="Permalink to this term">#</a></dt><dd><p>By installing a C++ compiler such as GCC, Clang, or Intel, you also obtain OpenMP as well. You may alternatively install <code class="docutils literal notranslate"><span class="pre">libomp</span></code> (see below) without the need to install a full compiler.</p>
+<dt id="term-For-Linux-users">For <strong>Linux</strong> users:<a class="headerlink" href="#term-For-Linux-users" title="Permalink to this term">#</a></dt><dd><p>By installing a C++ compiler such as GCC, Clang, or Intel, you also obtain OpenMP as well. You may alternatively install <code class="docutils literal notranslate"><span class="pre">libgomp</span></code> (see below) without the need to install a full compiler.</p>
 </dd>
 <dt id="term-For-macOS-users">For <strong>macOS</strong> users:<a class="headerlink" href="#term-For-macOS-users" title="Permalink to this term">#</a></dt><dd><p>It’s crucial to note that OpenMP is not part of the default Apple Xcode’s LLVM compiler. Even if you have Apple Xcode LLVM compiler readily installed on macOS, you will still need to install OpenMP separately via <code class="docutils literal notranslate"><span class="pre">libomp</span></code> Homebrew package (see below) or as part of the <em>open source</em> <a class="reference external" href="https://llvm.org/">LLVM compiler</a>, via <code class="docutils literal notranslate"><span class="pre">llvm</span></code> Homebrew package.</p>
 </dd>
@@ -390,20 +390,21 @@ macOS</label><div class="sd-tab-content docutils">
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In <em>macOS</em>, starting from <code class="docutils literal notranslate"><span class="pre">libomp</span></code> with version <code class="docutils literal notranslate"><span class="pre">15</span></code> and above, Homebrew installs OpenMP as <em>keg-only</em>. To be able to use the OpenMP installation, create the following symbolic links :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/opt/libomp/include/omp-tools.h<span class="w"> </span>/usr/local/include/omp-tools.h</span>
-<span class="prompt1">ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/opt/libomp/include/omp.h<span class="w"> </span>/usr/local/include/omp.h</span>
-<span class="prompt1">ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/opt/libomp/include/ompt.h<span class="w"> </span>/usr/local/include/ompt.h</span>
-<span class="prompt1">ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/opt/libomp/lib/libomp.a<span class="w"> </span>/usr/local/lib/libomp.a</span>
-<span class="prompt1">ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/opt/libomp/lib/libomp.dylib<span class="w"> </span>/usr/local/lib/libomp.dylib</span>
+<p>In <em>macOS</em>, for <code class="docutils literal notranslate"><span class="pre">libomp</span></code> versions <code class="docutils literal notranslate"><span class="pre">15</span></code> and above, Homebrew installs OpenMP as <em>keg-only</em>. To utilize the OpenMP installation, you should establish the following symbolic links:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nv">libomp_dir</span><span class="o">=</span><span class="k">$(</span>brew<span class="w"> </span>--prefix<span class="w"> </span>libomp<span class="k">)</span></span>
+<span class="prompt1">ln<span class="w"> </span>-sf<span class="w"> </span><span class="si">${</span><span class="nv">libomp_dir</span><span class="si">}</span>/include/omp-tools.h<span class="w">  </span>/usr/local/include/omp-tools.h</span>
+<span class="prompt1">ln<span class="w"> </span>-sf<span class="w"> </span><span class="si">${</span><span class="nv">libomp_dir</span><span class="si">}</span>/include/omp.h<span class="w">        </span>/usr/local/include/omp.h</span>
+<span class="prompt1">ln<span class="w"> </span>-sf<span class="w"> </span><span class="si">${</span><span class="nv">libomp_dir</span><span class="si">}</span>/include/ompt.h<span class="w">       </span>/usr/local/include/ompt.h</span>
+<span class="prompt1">ln<span class="w"> </span>-sf<span class="w"> </span><span class="si">${</span><span class="nv">libomp_dir</span><span class="si">}</span>/lib/libomp.a<span class="w">         </span>/usr/local/lib/libomp.a</span>
+<span class="prompt1">ln<span class="w"> </span>-sf<span class="w"> </span><span class="si">${</span><span class="nv">libomp_dir</span><span class="si">}</span>/lib/libomp.dylib<span class="w">     </span>/usr/local/lib/libomp.dylib</span>
 </pre></div></div></div>
 </section>
 <section id="cuda-toolkit-and-nvidia-graphic-driver-optional">
 <h2><span class="section-number">3.2. </span>CUDA Toolkit and NVIDIA Graphic Driver (<cite>Optional</cite>)<a class="headerlink" href="#cuda-toolkit-and-nvidia-graphic-driver-optional" title="Permalink to this heading">#</a></h2>
-<p>To use GPU devices, install NVIDIA Graphic Driver and CUDA Toolkit. See the instructions below.</p>
+<p>To use GPU devices, install CUDA runtime libraries and NVIDIA graphic driver. See the instructions below.</p>
 <ul class="simple">
+<li><p><a class="reference internal" href="../gpu/gpu_install_cuda.html#install-cuda-runtime-lib"><span class="std std-ref">Install CUDA runtime libraries</span></a>.</p></li>
 <li><p><a class="reference internal" href="../gpu/gpu_install_cuda.html#install-graphic-driver"><span class="std std-ref">Install NVIDIA Graphic Driver</span></a>.</p></li>
-<li><p><a class="reference internal" href="../gpu/gpu_install_cuda.html#install-cuda-toolkit"><span class="std std-ref">Install CUDA Toolkit</span></a>.</p></li>
 </ul>
 </section>
 <section id="suitesparse-optional">

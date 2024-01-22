@@ -3,18 +3,27 @@
 Install NVIDIA CUDA Toolkit
 ===========================
 
-The following instruction describes installing `CUDA 11.7` for `Ubuntu 22.04`, `CentOS 7`, and `Red Hat 9 (RHEL 9)` on the `X86_64` platform. You may refer to `CUDA installation guide <https://developer.nvidia.com/cuda-downloads>`_ from NVIDIA developer documentation for other operating systems and platforms.
+The following instruction describes installing `CUDA` for `Ubuntu`, `CentOS`, and `Red Hat (RHEL)`. You may refer to `CUDA installation guide <https://developer.nvidia.com/cuda-downloads>`_ from NVIDIA developer documentation for other operating systems and platforms.
 
 .. attention::
 
     NVIDIA does not support macOS. You can install the NVIDIA CUDA Toolkit on Linux and Windows only.
 
-.. _install-graphic-driver:
+.. _install-cuda-runtime-lib:
 
-Install NVIDIA Graphic Driver
------------------------------
+Install CUDA Runtime Libraries
+------------------------------
 
-Register NVIDIA CUDA repository by
+To download and install the CUDA Toolkit on both Linux and Windows, refer to the `NVIDIA Developer website <https://developer.nvidia.com/cuda-downloads>`__. It's important to note that NVIDIA's installation instructions on their website include the entire CUDA Toolkit, which is typically quite large (over 6 GB in size).
+
+However, for running |project|, you don't need to install the entire CUDA Toolkit. Instead, only a few of the CUDA runtime libraries, are required. Below are simplified installation instructions for Linux, allowing you to perform a minimal CUDA installation with only the necessary libraries.
+
+.. _add_cuda_runtime_repos:
+
+Add CUDA Repository
+~~~~~~~~~~~~~~~~~~~
+
+Before installing CUDA libraries, add CUDA repository to your package manager:
 
 .. tab-set::
 
@@ -23,27 +32,113 @@ Register NVIDIA CUDA repository by
 
         .. prompt:: bash
 
-            wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb
-            sudo dpkg -i cuda-keyring_1.0-1_all.deb
+            # Machine architecture
+            ARCH=$(uname -m | grep -q -e 'x86_64' && echo 'x86_64' || echo 'sbsa')
+
+            # OS Version
+            UBUNTU_VERSION=$(awk -F= '/^VERSION_ID/{gsub(/"/, "", $2); print $2}' /etc/os-release)
+            OS_VERSION=$(dpkg --compare-versions "$UBUNTU_VERSION" "ge" "22.04" && echo "2204" || echo "2004")
+
+            # Add CUDA Repository 
             sudo apt update
+            sudo apt install wget -y
+            wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${OS_VERSION}/${ARCH}/cuda-keyring_1.1-1_all.deb -P /tmp
+            sudo dpkg -i /tmp/cuda-keyring_1.1-1_all.deb
+            rm /tmp/cuda-keyring_1.1-1_all.deb
 
     .. tab-item:: CentOS 7
         :sync: centos
 
         .. prompt:: bash
 
-            sudo yum-config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-rhel7.repo
-            sudo yum clean all
+            # Machine architecture
+            ARCH=$(uname -m | grep -q -e 'x86_64' && echo 'x86_64' || echo 'sbsa')
+
+            # OS Version
+            OS_VERSION=$(awk -F= '/^VERSION_ID/{gsub(/"/, "", $2); print $2}' /etc/os-release)
+
+            # Add CUDA Repository 
+            sudo yum install -y yum-utils
+            sudo yum-config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel${OS_VERSION}/${ARCH}/cuda-rhel${OS_VERSION}.repo
 
     .. tab-item:: RHEL 9
         :sync: rhel
 
         .. prompt:: bash
 
-            sudo dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/cuda-rhel9.repo
-            sudo dnf clean all
+            # Machine architecture
+            ARCH=$(uname -m | grep -q -e 'x86_64' && echo 'x86_64' || echo 'sbsa')
 
-Install *NVIDIA graphic driver* with
+            # OS Version
+            OS_VERSION=$(awk -F= '/^VERSION_ID/{gsub(/"/, "", $2); print $2}' /etc/os-release)
+
+            # Add CUDA Repository 
+            sudo dnf install -y dnf-utils
+            sudo dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel${OS_VERSION}/${ARCH}/cuda-rhel${OS_VERSION}.repo
+
+Install Minimal CUDA Libraries
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In the following, you may change ``CUDA_VERSION`` to the CUDA version that you wish to install.
+
+.. tab-set::
+
+    .. tab-item:: Ubuntu/Debian
+        :sync: ubuntu
+
+        .. prompt:: bash
+
+            # Set to the desired cuda version
+            CUDA_VERSION="12-3"
+
+            # Install required CUDA libraries
+            sudo apt-get update
+            sudo apt install -y \
+                cuda-cudart-${CUDA_VERSION} \
+                libcublas-${CUDA_VERSION} \
+                libcusparse-${CUDA_VERSION}
+
+    .. tab-item:: CentOS 7
+        :sync: centos
+
+        .. prompt:: bash
+
+            # Choose a desired cuda version
+            CUDA_VERSION="12-3"
+
+            # Install required CUDA libraries
+            sudo yum install --setopt=obsoletes=0 -y \
+                cuda-cudart-${CUDA_VERSION} \
+                libcublas-${CUDA_VERSION} \
+                libcusparse-${CUDA_VERSION}
+
+    .. tab-item:: RHEL 9
+        :sync: rhel
+
+        .. prompt:: bash
+
+            # Choose a desired cuda version
+            CUDA_VERSION="12-3"
+
+            # Install required CUDA libraries
+            sudo dnf install --setopt=obsoletes=0 -y \
+                cuda-nvcc-${CUDA_VERSION} \
+                libcublas-${CUDA_VERSION} \
+                libcusparse-${CUDA_VERSION}
+
+Export ``LD_LIBRARY_PATH`` environment variable with the CUDA library location by
+
+.. prompt:: bash
+
+    echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64${PATH:+:${LD_LIBRARY_PATH}}' >> ~/.bashrc
+    source ~/.bashrc
+
+.. _install-graphic-driver:
+
+Install NVIDIA Graphic Driver
+-----------------------------
+
+First, make sure you have :ref:`added CUDA repository <add_cuda_runtime_repos>`. Then, install *NVIDIA graphic driver* with
 
 .. tab-set::
 
@@ -75,49 +170,6 @@ The above step might need a *reboot* afterwards to properly load NVIDIA graphic 
 
    nvidia-smi
 
-.. _install-cuda-toolkit:
-
-Install CUDA Toolkit
---------------------
-
-It is not required to install the entire CUDA Toolkit (2.6GB). Rather, only the CUDA runtime library, cuBLAS, and cuSparse libraries are sufficient (700MB in total). These can be installed by
-
-.. tab-set::
-
-    .. tab-item:: Ubuntu/Debian
-        :sync: ubuntu
-
-        .. prompt:: bash
-           
-           sudo apt install cuda-cudart-12-2 libcublas-12-2 libcusparse-12-2 -y
-
-    .. tab-item:: CentOS 7
-        :sync: centos
-
-        .. prompt:: bash
-
-           sudo yum install --setopt=obsoletes=0 -y \
-                cuda-nvcc-12-2.x86_64 \
-                libcublas-12-2.x86_64 \
-                libcusparse-12-2.x86_64
-
-    .. tab-item:: RHEL 9
-        :sync: rhel
-
-        .. prompt:: bash
-
-           sudo dnf install --setopt=obsoletes=0 -y \
-                cuda-nvcc-12-2.x86_64 \
-                libcublas-12-2.x86_64 \
-                libcusparse-12-2.x86_64
-
-Update ``PATH`` with the CUDA installation location by
-
-.. prompt:: bash
-
-    echo 'export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}' >> ~/.bashrc
-    echo 'export CUDA_HOME=/usr/local/cuda${CUDA_HOME:+:${CUDA_HOME}}' >> ~/.bashrc
-    source ~/.bashrc
 
 Install OpenMP
 --------------

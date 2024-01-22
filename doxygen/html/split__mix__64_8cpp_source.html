@@ -151,47 +151,44 @@ $(document).ready(function(){initNavTree('split__mix__64_8cpp_source.html',''); 
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// ===========</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classSplitMix64.html#af7238c806c795612ef638565972de272">   28</a></span>&#160;<a class="code" href="classSplitMix64.html#af7238c806c795612ef638565972de272">SplitMix64::SplitMix64</a>()</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classSplitMix64.html#a818c16ba0ce65c40a4b5f8eb0f8006d2">   28</a></span>&#160;<a class="code" href="classSplitMix64.html#a818c16ba0ce65c40a4b5f8eb0f8006d2">SplitMix64::SplitMix64</a>(<span class="keyword">const</span> int64_t seed_)</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="comment">// Seed the random generating algorithm with a high resolution time counter</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    uint64_t seed = <a class="code" href="highres__time__stamp_8cpp.html#ae3b2a58414a260c6343fda0ebf00d81d">get_highres_time_stamp</a>();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    uint64_t seed;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="comment">// Seeding as follow only fills the first 32 bits of the 64-bit integer.</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="comment">// Repeat the first 32 bits on the second 32-bits to create a better 64-bit</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="comment">// random number</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    this-&gt;<a class="code" href="classSplitMix64.html#a1e881c1af3d1b11f39045eacf87ea7cd">state</a> = (seed &lt;&lt; 32) | seed;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">// ===========</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">// Constructor</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">// ===========</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">if</span> (seed_ &gt;= 0)</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        seed = <span class="keyword">static_cast&lt;</span>uint64_t<span class="keyword">&gt;</span>(seed_);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="comment">// Negative integer is a flag to indicate using time to generate a seed</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        seed = <a class="code" href="highres__time__stamp_8cpp.html#ae3b2a58414a260c6343fda0ebf00d81d">get_highres_time_stamp</a>();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="comment">// Seeding as follow only fills the first 32 bits of the 64-bit integer.</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="comment">// Repeat the first 32 bits on the second 32-bits to create a better 64-bit</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">// random number</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    this-&gt;<a class="code" href="classSplitMix64.html#a1e881c1af3d1b11f39045eacf87ea7cd">state</a> = (seed &lt;&lt; 32) | seed;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="classSplitMix64.html#a656bd12b8d2e496575719ba68efae163">   50</a></span>&#160;<a class="code" href="classSplitMix64.html#af7238c806c795612ef638565972de272">SplitMix64::SplitMix64</a>(uint64_t state_):</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    state(state_)</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;{</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="comment">// Initial state must not be zero.</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    assert(state_ != 0);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">// ====</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">// next</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">// ====</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">// ====</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">// next</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">// ====</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classSplitMix64.html#a3c6791320e1260d9f559bda1039c9206">   65</a></span>&#160;uint64_t <a class="code" href="classSplitMix64.html#a3c6791320e1260d9f559bda1039c9206">SplitMix64::next</a>()</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;{</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    uint64_t z = (<a class="code" href="classSplitMix64.html#a1e881c1af3d1b11f39045eacf87ea7cd">state</a> += 0x9e3779b97f4a7c15);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    z = (z ^ (z &gt;&gt; 30)) * 0xbf58476d1ce4e5b9;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    z = (z ^ (z &gt;&gt; 27)) * 0x94d049bb133111eb;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">return</span> z ^ (z &gt;&gt; 31);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
-<div class="ttc" id="aclassSplitMix64_html_a1e881c1af3d1b11f39045eacf87ea7cd"><div class="ttname"><a href="classSplitMix64.html#a1e881c1af3d1b11f39045eacf87ea7cd">SplitMix64::state</a></div><div class="ttdeci">uint64_t state</div><div class="ttdef"><b>Definition:</b> <a href="split__mix__64_8h_source.html#l00050">split_mix_64.h:50</a></div></div>
-<div class="ttc" id="aclassSplitMix64_html_a3c6791320e1260d9f559bda1039c9206"><div class="ttname"><a href="classSplitMix64.html#a3c6791320e1260d9f559bda1039c9206">SplitMix64::next</a></div><div class="ttdeci">uint64_t next()</div><div class="ttdoc">Generates the next presudo-random number in the sequence.</div><div class="ttdef"><b>Definition:</b> <a href="split__mix__64_8cpp_source.html#l00065">split_mix_64.cpp:65</a></div></div>
-<div class="ttc" id="aclassSplitMix64_html_af7238c806c795612ef638565972de272"><div class="ttname"><a href="classSplitMix64.html#af7238c806c795612ef638565972de272">SplitMix64::SplitMix64</a></div><div class="ttdeci">SplitMix64()</div><div class="ttdoc">Constructor. Initializes the state with current time.</div><div class="ttdef"><b>Definition:</b> <a href="split__mix__64_8cpp_source.html#l00028">split_mix_64.cpp:28</a></div></div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classSplitMix64.html#a3c6791320e1260d9f559bda1039c9206">   57</a></span>&#160;uint64_t <a class="code" href="classSplitMix64.html#a3c6791320e1260d9f559bda1039c9206">SplitMix64::next</a>()</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;{</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    uint64_t z = (<a class="code" href="classSplitMix64.html#a1e881c1af3d1b11f39045eacf87ea7cd">state</a> += 0x9e3779b97f4a7c15);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    z = (z ^ (z &gt;&gt; 30)) * 0xbf58476d1ce4e5b9;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    z = (z ^ (z &gt;&gt; 27)) * 0x94d049bb133111eb;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">return</span> z ^ (z &gt;&gt; 31);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
+<div class="ttc" id="aclassSplitMix64_html_a1e881c1af3d1b11f39045eacf87ea7cd"><div class="ttname"><a href="classSplitMix64.html#a1e881c1af3d1b11f39045eacf87ea7cd">SplitMix64::state</a></div><div class="ttdeci">uint64_t state</div><div class="ttdef"><b>Definition:</b> <a href="split__mix__64_8h_source.html#l00049">split_mix_64.h:49</a></div></div>
+<div class="ttc" id="aclassSplitMix64_html_a3c6791320e1260d9f559bda1039c9206"><div class="ttname"><a href="classSplitMix64.html#a3c6791320e1260d9f559bda1039c9206">SplitMix64::next</a></div><div class="ttdeci">uint64_t next()</div><div class="ttdoc">Generates the next presudo-random number in the sequence.</div><div class="ttdef"><b>Definition:</b> <a href="split__mix__64_8cpp_source.html#l00057">split_mix_64.cpp:57</a></div></div>
+<div class="ttc" id="aclassSplitMix64_html_a818c16ba0ce65c40a4b5f8eb0f8006d2"><div class="ttname"><a href="classSplitMix64.html#a818c16ba0ce65c40a4b5f8eb0f8006d2">SplitMix64::SplitMix64</a></div><div class="ttdeci">SplitMix64(const int64_t seed_)</div><div class="ttdoc">Constructor. Initializes the state with current time.</div><div class="ttdef"><b>Definition:</b> <a href="split__mix__64_8cpp_source.html#l00028">split_mix_64.cpp:28</a></div></div>
 <div class="ttc" id="ahighres__time__stamp_8cpp_html_ae3b2a58414a260c6343fda0ebf00d81d"><div class="ttname"><a href="highres__time__stamp_8cpp.html#ae3b2a58414a260c6343fda0ebf00d81d">get_highres_time_stamp</a></div><div class="ttdeci">uint64_t get_highres_time_stamp(void)</div><div class="ttdef"><b>Definition:</b> <a href="highres__time__stamp_8cpp_source.html#l00088">highres_time_stamp.cpp:88</a></div></div>
 <div class="ttc" id="ahighres__time__stamp_8h_html"><div class="ttname"><a href="highres__time__stamp_8h.html">highres_time_stamp.h</a></div></div>
 <div class="ttc" id="asplit__mix__64_8h_html"><div class="ttname"><a href="split__mix__64_8h.html">split_mix_64.h</a></div></div>
@@ -201,7 +198,7 @@ $(document).ready(function(){initNavTree('split__mix__64_8cpp_source.html',''); 
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_7cbdf7f1e0681c65fd455a0f383ae44b.html">imate</a></li><li class="navelem"><a class="el" href="dir_77b32d754a5600b39cb38f56cd86ee8c.html">_random_generator</a></li><li class="navelem"><a class="el" href="split__mix__64_8cpp.html">split_mix_64.cpp</a></li>
-    <li class="footer">Generated on Thu Dec 21 2023 04:54:01 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Jan 22 2024 00:04:57 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

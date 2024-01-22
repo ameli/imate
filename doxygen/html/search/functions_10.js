@@ -5,7 +5,7 @@ var searchData=
   ['set_5fparameters_833',['set_parameters',['../classcAffineMatrixFunction.html#a3b7e9de00731adfcc930a8fefd21c5c6',1,'cAffineMatrixFunction::set_parameters()'],['../classcLinearOperator.html#ad7395bd04ec8014c9dd0e66c318ae125',1,'cLinearOperator::set_parameters()'],['../classcuAffineMatrixFunction.html#a61f06f563a69f9c5a1580814786a4e20',1,'cuAffineMatrixFunction::set_parameters()']]],
   ['sign_834',['sign',['../special__functions_8cpp.html#a8df1c56975179584e0485c5ddcb1e71b',1,'special_functions.cpp']]],
   ['smoothstep_835',['SmoothStep',['../classSmoothStep.html#a6121bdf07b0ee220e563d478552976d0',1,'SmoothStep']]],
-  ['splitmix64_836',['SplitMix64',['../classSplitMix64.html#af7238c806c795612ef638565972de272',1,'SplitMix64::SplitMix64()'],['../classSplitMix64.html#a656bd12b8d2e496575719ba68efae163',1,'SplitMix64::SplitMix64(uint64_t state_)']]],
+  ['splitmix64_836',['SplitMix64',['../classSplitMix64.html#a818c16ba0ce65c40a4b5f8eb0f8006d2',1,'SplitMix64']]],
   ['start_837',['start',['../classCudaTimer.html#a5db3e05cd63573015bf1a9f55cc37e32',1,'CudaTimer::start()'],['../classTimer.html#a3a8b5272198d029779dc9302a54305a8',1,'Timer::start()']]],
   ['stop_838',['stop',['../classCudaTimer.html#a20e3226471439fed515fdde5d6e4ce75',1,'CudaTimer::stop()'],['../classTimer.html#a63f0eb44b27402196590a03781515dba',1,'Timer::stop()']]],
   ['subtract_5fscaled_5fvector_839',['subtract_scaled_vector',['../classcVectorOperations.html#a9bd28bd08f5a6b096d99a4a2f7d23e90',1,'cVectorOperations::subtract_scaled_vector()'],['../classcuVectorOperations.html#a516e90d70f99436cf48cd5b7deeb69c7',1,'cuVectorOperations::subtract_scaled_vector()']]],

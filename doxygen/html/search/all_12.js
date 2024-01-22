@@ -12,7 +12,7 @@ var searchData=
   ['special_5ffunctions_2eh_419',['special_functions.h',['../special__functions_8h.html',1,'']]],
   ['split_5fmix_5f64_2ecpp_420',['split_mix_64.cpp',['../split__mix__64_8cpp.html',1,'']]],
   ['split_5fmix_5f64_2eh_421',['split_mix_64.h',['../split__mix__64_8h.html',1,'']]],
-  ['splitmix64_422',['SplitMix64',['../classSplitMix64.html#af7238c806c795612ef638565972de272',1,'SplitMix64::SplitMix64()'],['../classSplitMix64.html#a656bd12b8d2e496575719ba68efae163',1,'SplitMix64::SplitMix64(uint64_t state_)'],['../classSplitMix64.html',1,'SplitMix64']]],
+  ['splitmix64_422',['SplitMix64',['../classSplitMix64.html#a818c16ba0ce65c40a4b5f8eb0f8006d2',1,'SplitMix64::SplitMix64()'],['../classSplitMix64.html',1,'SplitMix64']]],
   ['start_423',['start',['../classCudaTimer.html#a5db3e05cd63573015bf1a9f55cc37e32',1,'CudaTimer::start()'],['../classTimer.html#a3a8b5272198d029779dc9302a54305a8',1,'Timer::start()']]],
   ['start_5ftime_424',['start_time',['../classCudaTimer.html#adee1927c98d5463b563d8e350158eac0',1,'CudaTimer::start_time()'],['../classTimer.html#a65d45bf747a05aebad26a6640d09a106',1,'Timer::start_time()']]],
   ['state_425',['state',['../classSplitMix64.html#a1e881c1af3d1b11f39045eacf87ea7cd',1,'SplitMix64::state()'],['../classXoshiro256StarStar.html#a8a097d46b8c30944d8a3d6f5ebafb5b3',1,'Xoshiro256StarStar::state()']]],

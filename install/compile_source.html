@@ -506,12 +506,13 @@ macOS</label><div class="sd-tab-content docutils">
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In <em>macOS</em>, starting from <code class="docutils literal notranslate"><span class="pre">libomp</span></code> with version <code class="docutils literal notranslate"><span class="pre">15</span></code> and above, Homebrew installs OpenMP as <em>keg-only</em>. To be able to use the OpenMP installation, create the following symbolic links :</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/opt/libomp/include/omp-tools.h<span class="w"> </span>/usr/local/include/omp-tools.h</span>
-<span class="prompt1">ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/opt/libomp/include/omp.h<span class="w"> </span>/usr/local/include/omp.h</span>
-<span class="prompt1">ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/opt/libomp/include/ompt.h<span class="w"> </span>/usr/local/include/ompt.h</span>
-<span class="prompt1">ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/opt/libomp/lib/libomp.a<span class="w"> </span>/usr/local/lib/libomp.a</span>
-<span class="prompt1">ln<span class="w"> </span>-s<span class="w"> </span>/usr/local/opt/libomp/lib/libomp.dylib<span class="w"> </span>/usr/local/lib/libomp.dylib</span>
+<p>In <em>macOS</em>, for <code class="docutils literal notranslate"><span class="pre">libomp</span></code> versions <code class="docutils literal notranslate"><span class="pre">15</span></code> and above, Homebrew installs OpenMP as <em>keg-only</em>. To utilize the OpenMP installation, you should establish the following symbolic links:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nv">libomp_dir</span><span class="o">=</span><span class="k">$(</span>brew<span class="w"> </span>--prefix<span class="w"> </span>libomp<span class="k">)</span></span>
+<span class="prompt1">ln<span class="w"> </span>-sf<span class="w"> </span><span class="si">${</span><span class="nv">libomp_dir</span><span class="si">}</span>/include/omp-tools.h<span class="w">  </span>/usr/local/include/omp-tools.h</span>
+<span class="prompt1">ln<span class="w"> </span>-sf<span class="w"> </span><span class="si">${</span><span class="nv">libomp_dir</span><span class="si">}</span>/include/omp.h<span class="w">        </span>/usr/local/include/omp.h</span>
+<span class="prompt1">ln<span class="w"> </span>-sf<span class="w"> </span><span class="si">${</span><span class="nv">libomp_dir</span><span class="si">}</span>/include/ompt.h<span class="w">       </span>/usr/local/include/ompt.h</span>
+<span class="prompt1">ln<span class="w"> </span>-sf<span class="w"> </span><span class="si">${</span><span class="nv">libomp_dir</span><span class="si">}</span>/lib/libomp.a<span class="w">         </span>/usr/local/lib/libomp.a</span>
+<span class="prompt1">ln<span class="w"> </span>-sf<span class="w"> </span><span class="si">${</span><span class="nv">libomp_dir</span><span class="si">}</span>/lib/libomp.dylib<span class="w">     </span>/usr/local/lib/libomp.dylib</span>
 </pre></div></div></div>
 </section>
 <section id="openblas-optional">
@@ -557,39 +558,87 @@ macOS</label><div class="sd-tab-content docutils">
 <p class="admonition-title">Attention</p>
 <p>NVIDIA does not support macOS. You can install the NVIDIA CUDA Toolkit on Linux and Windows only.</p>
 </div>
-<p>It is not required to install the entire CUDA Toolkit. Install only the CUDA compiler and the development libraries of cuBLAS and cuSparse by</p>
+<p>To download and install the CUDA Toolkit on both Linux and Windows, refer to the <a class="reference external" href="https://developer.nvidia.com/cuda-downloads">NVIDIA Developer website</a>. It’s important to note that NVIDIA’s installation instructions on their website include the entire CUDA Toolkit, which is typically quite large (over 6 GB in size).</p>
+<p>However, for compiling <span class="synco">imate</span>, you don’t need to install the entire CUDA Toolkit. Instead, only the CUDA compiler and a few specific development libraries, such as cuBLAS and cuSparse, are required. Below are simplified installation instructions for Linux, allowing you to perform a minimal CUDA installation with only the necessary libraries. Note that in the following, you may change <code class="docutils literal notranslate"><span class="pre">CUDA_VERSION</span></code> to the CUDA version that you wish to install.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-16" name="sd-tab-set-4" type="radio">
 </input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-16">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>cuda-nvcc-12-2<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libcublas-12-2<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libcublas-dev-12-2<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libcusparse-12-2<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libcusparse-dev-12-2</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="c1"># Set to the desired cuda version</span></span>
+<span class="prompt1"><span class="nv">CUDA_VERSION</span><span class="o">=</span><span class="s2">&quot;12-3&quot;</span></span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="c1"># Machine architecture</span></span>
+<span class="prompt1"><span class="nv">ARCH</span><span class="o">=</span><span class="k">$(</span>uname<span class="w"> </span>-m<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;x86_64&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;x86_64&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;sbsa&#39;</span><span class="k">)</span></span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="c1"># OS Version</span></span>
+<span class="prompt1"><span class="nv">UBUNTU_VERSION</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span>-F<span class="o">=</span><span class="w"> </span><span class="s1">&#39;/^VERSION_ID/{gsub(/&quot;/, &quot;&quot;, $2); print $2}&#39;</span><span class="w"> </span>/etc/os-release<span class="k">)</span></span>
+<span class="prompt1"><span class="nv">OS_VERSION</span><span class="o">=</span><span class="k">$(</span>dpkg<span class="w"> </span>--compare-versions<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$UBUNTU_VERSION</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;ge&quot;</span><span class="w"> </span><span class="s2">&quot;22.04&quot;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;2204&quot;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;2004&quot;</span><span class="k">)</span></span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="c1"># Add CUDA Repository</span></span>
+<span class="prompt1">sudo<span class="w"> </span>apt<span class="w"> </span>update</span>
+<span class="prompt1">sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>wget<span class="w"> </span>-y</span>
+<span class="prompt1">wget<span class="w"> </span>https://developer.download.nvidia.com/compute/cuda/repos/ubuntu<span class="si">${</span><span class="nv">OS_VERSION</span><span class="si">}</span>/<span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span>/cuda-keyring_1.1-1_all.deb<span class="w"> </span>-P<span class="w"> </span>/tmp</span>
+<span class="prompt1">sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w"> </span>/tmp/cuda-keyring_1.1-1_all.deb</span>
+<span class="prompt1">rm<span class="w"> </span>/tmp/cuda-keyring_1.1-1_all.deb</span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="c1"># Install required CUDA libraries</span></span>
+<span class="prompt1">sudo<span class="w"> </span>apt-get<span class="w"> </span>update</span>
+<span class="prompt1">sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>cuda-nvcc-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcublas-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcublas-dev-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcusparse-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcusparse-dev-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span></span>
 </pre></div></div></div>
 <input id="sd-tab-item-17" name="sd-tab-set-4" type="radio">
 </input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-17">
 CentOS 7</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>--setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>cuda-nvcc-12-2.x86_64<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>cuda-cudart-devel-12-2.x86_64<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libcublas-12-2.x86_64<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libcublas-devel-12-2.x86_64<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libcusparse-12-2.x86_64<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libcusparse-devel-12-2.x86_64</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="c1"># Set to the desired cuda version</span></span>
+<span class="prompt1"><span class="nv">CUDA_VERSION</span><span class="o">=</span><span class="s2">&quot;12-3&quot;</span></span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="c1"># Machine architecture</span></span>
+<span class="prompt1"><span class="nv">ARCH</span><span class="o">=</span><span class="k">$(</span>uname<span class="w"> </span>-m<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;x86_64&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;x86_64&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;sbsa&#39;</span><span class="k">)</span></span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="c1"># OS Version</span></span>
+<span class="prompt1"><span class="nv">OS_VERSION</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span>-F<span class="o">=</span><span class="w"> </span><span class="s1">&#39;/^VERSION_ID/{gsub(/&quot;/, &quot;&quot;, $2); print $2}&#39;</span><span class="w"> </span>/etc/os-release<span class="k">)</span></span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="c1"># Add CUDA Repository</span></span>
+<span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>yum-utils</span>
+<span class="prompt1">sudo<span class="w"> </span>yum-config-manager<span class="w"> </span>--add-repo<span class="w"> </span>https://developer.download.nvidia.com/compute/cuda/repos/rhel<span class="si">${</span><span class="nv">OS_VERSION</span><span class="si">}</span>/<span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span>/cuda-rhel<span class="si">${</span><span class="nv">OS_VERSION</span><span class="si">}</span>.repo</span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="c1"># Install required CUDA libraries</span></span>
+<span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>--setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>cuda-nvcc-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>cuda-cudart-devel-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcublas-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcublas-devel-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcusparse-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcusparse-devel-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span></span>
 </pre></div></div></div>
 <input id="sd-tab-item-18" name="sd-tab-set-4" type="radio">
 </input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-18">
 RHEL 9</label><div class="sd-tab-content docutils">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>--setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>cuda-nvcc-12-2.x86_64<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>cuda-cudart-devel-12-2.x86_64<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libcublas-12-2.x86_64<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libcublas-devel-12-2.x86_64<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libcusparse-12-2.x86_64<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>libcusparse-devel-12-2.x86_64</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="c1"># Set to the desired cuda version</span></span>
+<span class="prompt1"><span class="nv">CUDA_VERSION</span><span class="o">=</span><span class="s2">&quot;12-3&quot;</span></span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="c1"># Machine architecture</span></span>
+<span class="prompt1"><span class="nv">ARCH</span><span class="o">=</span><span class="k">$(</span>uname<span class="w"> </span>-m<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;x86_64&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;x86_64&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;sbsa&#39;</span><span class="k">)</span></span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="c1"># OS Version</span></span>
+<span class="prompt1"><span class="nv">OS_VERSION</span><span class="o">=</span><span class="k">$(</span>awk<span class="w"> </span>-F<span class="o">=</span><span class="w"> </span><span class="s1">&#39;/^VERSION_ID/{gsub(/&quot;/, &quot;&quot;, $2); print $2}&#39;</span><span class="w"> </span>/etc/os-release<span class="k">)</span></span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="c1"># Add CUDA Repository</span></span>
+<span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>dnf-utils</span>
+<span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>config-manager<span class="w"> </span>--add-repo<span class="w"> </span>https://developer.download.nvidia.com/compute/cuda/repos/rhel<span class="si">${</span><span class="nv">OS_VERSION</span><span class="si">}</span>/<span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span>/cuda-rhel<span class="si">${</span><span class="nv">OS_VERSION</span><span class="si">}</span>.repo</span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="c1"># Install required CUDA libraries</span></span>
+<span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>--setopt<span class="o">=</span><span class="nv">obsoletes</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>-y<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>cuda-nvcc-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>cuda-cudart-devel-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcublas-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcublas-devel-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcusparse-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>libcusparse-devel-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span></span>
 </pre></div></div></div>
 </div>
 <p>Update <code class="docutils literal notranslate"><span class="pre">PATH</span></code> with the CUDA installation location by</p>

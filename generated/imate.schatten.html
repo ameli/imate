@@ -1025,14 +1025,12 @@ and zero order <span class="math notranslate nohighlight">\(p\)</span> among oth
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Importing packages</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.sample_matrices</span> <span class="kn">import</span> <span class="n">correlation_matrix</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">schatten</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Plot settings (optional)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">font_scale</span><span class="o">=</span><span class="mf">1.15</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;ticks&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate._utilities</span> <span class="kn">import</span> <span class="n">set_custom_theme</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">set_custom_theme</span><span class="p">(</span><span class="n">font_scale</span><span class="o">=</span><span class="mf">1.15</span><span class="p">)</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample matrix</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
@@ -1041,10 +1039,10 @@ and zero order <span class="math notranslate nohighlight">\(p\)</span> among oth
 <span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">201</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">norm</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">size</span><span class="p">):</span>
-<span class="hll"><span class="gp">... </span>    <span class="n">norm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">schatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;eigenvalue&#39;</span><span class="p">)</span>
-</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Norm at p=0</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">norm0</span> <span class="o">=</span> <span class="n">schatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;eigenvalue&#39;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">norm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">schatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;eigenvalue&#39;</span><span class="p">)</span>
+
+<span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Norm at p=0</span>
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">norm0</span> <span class="o">=</span> <span class="n">schatten</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;eigenvalue&#39;</span><span class="p">)</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Plotting</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">norm</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>

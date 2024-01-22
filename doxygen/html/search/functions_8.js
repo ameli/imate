@@ -1,7 +1,7 @@
 var searchData=
 [
   ['indicator_801',['Indicator',['../classIndicator.html#a1411d2e28c0694c1a2624f1b0ec8c7a3',1,'Indicator']]],
-  ['initialize_802',['initialize',['../classRandomNumberGenerator.html#a39545f8392c54e0f0ed0174cb1d41ded',1,'RandomNumberGenerator']]],
+  ['initialize_802',['initialize',['../classRandomNumberGenerator.html#a0ed573969a5b4d2189dae50284c2a2eb',1,'RandomNumberGenerator']]],
   ['initialize_5fcublas_5fhandle_803',['initialize_cublas_handle',['../classcuLinearOperator.html#ae2bec474007baff1b7e598a869e83e12',1,'cuLinearOperator']]],
   ['initialize_5fcusparse_5fhandle_804',['initialize_cusparse_handle',['../classcuLinearOperator.html#a118f2b8f1523da52441070340f7c43f9',1,'cuLinearOperator']]],
   ['inner_5fproduct_805',['inner_product',['../classcVectorOperations.html#ab8b945baba573b4479e8095ca87f8b3f',1,'cVectorOperations::inner_product()'],['../classcuVectorOperations.html#a88c6373da3d2fef0dca236aef3ef1ec1',1,'cuVectorOperations::inner_product()']]],

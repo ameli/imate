@@ -145,65 +145,70 @@ $(document).ready(function(){initNavTree('definitions_8h_source.html',''); initR
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">// Definitions</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">// ===========</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">// If set to 0, the LongIndexType is declared as 32-bit integer. Whereas if set</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">// to 1, the LongIndexType is declared as 64-bit integer. The long integer will</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// slow down the performance on reading array if integers. Note that in C++,</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// there is no difference between &quot;int&quot; and &quot;long int&quot;. That is, both are 32</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">// bit. To see the real effect of long type, define the integer by &quot;long long&quot;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">// rather than &quot;long int&quot;. The &quot;long long&quot; is indeed 64-bit. Currently, the</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">// long type in &quot;./types.h&quot; is defined as &quot;long int&quot;. Hence, setting LONG_INT</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">// to 1 will not make any difference unless &quot;long long&quot; is used.</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">// Note: The malloc and cudaMalloc can only allocate at maximum, an array of</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">// the limit size of &quot;size_t&quot; (unsigned int). So, using &quot;long long int&quot; is</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">// not indeed practical for malloc. Thus, it is better to set the type of array</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">// indices as just &quot;signed int&quot;.</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#ifndef LONG_INT</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="definitions_8h.html#ad1811715322a090d0de8c9974245038a">   34</a></span>&#160;<span class="preprocessor">    #define LONG_INT 0</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">// If set to 0, the LongIndexType is declared as signed integer, whereas if set</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">// to 1, the LongIndexType is declared as unsigned integer. The unsigned type</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">// will double the limit of the largest integer index, while keeps the same</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">// speed for index operations. Note that the indices and index pointers of</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">// scipy sparse arrays are defined by &quot;signed int&quot;. Hence, by setting</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">// UNSIGNED_LONG_INT to 1, there is a one-time overhead of convening the numpy</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">// int arrays (two matrices of scipy.sparse.csr_matrix.indices and</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">// scipy.sparse.csr_matrix.indptr) from &quot;int&quot; to &quot;unsigned int&quot;. This overhead</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">// is only one-time and should be around half a second for moderate to large</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">// arrays. But, on the positive side, the unsigned int can handle arrays of</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">// up to twice the index size.</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">// Note: The malloc and cudaMalloc can only allocate at maximum, an array of</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">// the limit size of &quot;size_t&quot; (unsigned int). So, using &quot;unsigned int&quot; for</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">// index is not indeed practical since the array size in bytes is the size of</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">// array times sizeof(DataType). That is, if DataType is double for instance,</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">// the maximum array size could potentially be 8 times the size of maximum</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">// of &quot;size_t&quot; (unsigned int) which is not possible for malloc. Thus, it is</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">// better to set the type of array indices as just &quot;signed int&quot;.</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#ifndef UNSIGNED_LONG_INT</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="definitions_8h.html#aae2f14a52d0d5e952488ce2ccbf41a7b">   57</a></span>&#160;<span class="preprocessor">    #define UNSIGNED_LONG_INT 0</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">// If USE_CBLAS is set to 1, the OpenBlas library is used for dense vector and</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">// matrix operations. Note that Openblas does not declare operations on &quot;long</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">// double&quot; type, rather, only &quot;float&quot; and &quot;double&quot; types are supported. To use</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">// &quot;long double&quot; type, set USE_CBLAS to 0. Openblas is nearly twice faster, but</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">// it looses accuracy on large arrays of float type. This inaccuracy could</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">// matter a lot when computing dot product and norm of very large vectors.</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#ifndef USE_CBLAS</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="definitions_8h.html#ab140247b235bb12fcc3f935beedc337c">   67</a></span>&#160;<span class="preprocessor">    #define USE_CBLAS 0</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// _DEFINITIONS_DEFINITIONS_H_</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">// To suppress warning: __STDC_VERSION__&quot; is not defined, evaluates to 0</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">// #ifndef __STDC_VERSION__</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">//     #define __STDC_VERSION__ 0</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// #endif</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">// If set to 0, the LongIndexType is declared as 32-bit integer. Whereas if set</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">// to 1, the LongIndexType is declared as 64-bit integer. The long integer will</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">// slow down the performance on reading array if integers. Note that in C++,</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">// there is no difference between &quot;int&quot; and &quot;long int&quot;. That is, both are 32</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">// bit. To see the real effect of long type, define the integer by &quot;long long&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">// rather than &quot;long int&quot;. The &quot;long long&quot; is indeed 64-bit. Currently, the</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">// long type in &quot;./types.h&quot; is defined as &quot;long int&quot;. Hence, setting LONG_INT</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">// to 1 will not make any difference unless &quot;long long&quot; is used.</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">// Note: The malloc and cudaMalloc can only allocate at maximum, an array of</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">// the limit size of &quot;size_t&quot; (unsigned int). So, using &quot;long long int&quot; is</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">// not indeed practical for malloc. Thus, it is better to set the type of array</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">// indices as just &quot;signed int&quot;.</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#ifndef LONG_INT</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="definitions_8h.html#ad1811715322a090d0de8c9974245038a">   39</a></span>&#160;<span class="preprocessor">    #define LONG_INT 0</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">// If set to 0, the LongIndexType is declared as signed integer, whereas if set</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">// to 1, the LongIndexType is declared as unsigned integer. The unsigned type</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">// will double the limit of the largest integer index, while keeps the same</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">// speed for index operations. Note that the indices and index pointers of</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">// scipy sparse arrays are defined by &quot;signed int&quot;. Hence, by setting</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">// UNSIGNED_LONG_INT to 1, there is a one-time overhead of convening the numpy</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">// int arrays (two matrices of scipy.sparse.csr_matrix.indices and</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">// scipy.sparse.csr_matrix.indptr) from &quot;int&quot; to &quot;unsigned int&quot;. This overhead</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">// is only one-time and should be around half a second for moderate to large</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">// arrays. But, on the positive side, the unsigned int can handle arrays of</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">// up to twice the index size.</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">// Note: The malloc and cudaMalloc can only allocate at maximum, an array of</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">// the limit size of &quot;size_t&quot; (unsigned int). So, using &quot;unsigned int&quot; for</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">// index is not indeed practical since the array size in bytes is the size of</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">// array times sizeof(DataType). That is, if DataType is double for instance,</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">// the maximum array size could potentially be 8 times the size of maximum</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">// of &quot;size_t&quot; (unsigned int) which is not possible for malloc. Thus, it is</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">// better to set the type of array indices as just &quot;signed int&quot;.</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#ifndef UNSIGNED_LONG_INT</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="definitions_8h.html#aae2f14a52d0d5e952488ce2ccbf41a7b">   62</a></span>&#160;<span class="preprocessor">    #define UNSIGNED_LONG_INT 0</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">// If USE_CBLAS is set to 1, the OpenBlas library is used for dense vector and</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">// matrix operations. Note that Openblas does not declare operations on &quot;long</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">// double&quot; type, rather, only &quot;float&quot; and &quot;double&quot; types are supported. To use</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">// &quot;long double&quot; type, set USE_CBLAS to 0. Openblas is nearly twice faster, but</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">// it looses accuracy on large arrays of float type. This inaccuracy could</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">// matter a lot when computing dot product and norm of very large vectors.</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#ifndef USE_CBLAS</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="definitions_8h.html#ab140247b235bb12fcc3f935beedc337c">   72</a></span>&#160;<span class="preprocessor">    #define USE_CBLAS 0</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// _DEFINITIONS_DEFINITIONS_H_</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_7cbdf7f1e0681c65fd455a0f383ae44b.html">imate</a></li><li class="navelem"><a class="el" href="dir_2ff42a6f7227c02b81ec09c474d04963.html">_definitions</a></li><li class="navelem"><a class="el" href="definitions_8h.html">definitions.h</a></li>
-    <li class="footer">Generated on Thu Dec 21 2023 04:54:01 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Jan 22 2024 00:04:57 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

@@ -1,6 +1,6 @@
 var classXoshiro256StarStar =
 [
-    [ "Xoshiro256StarStar", "classXoshiro256StarStar.html#aa2eb5ff63541b8363011654376f66149", null ],
+    [ "Xoshiro256StarStar", "classXoshiro256StarStar.html#a190960399da9bbbcbda6b22abead5675", null ],
     [ "~Xoshiro256StarStar", "classXoshiro256StarStar.html#a6d5af89b996d63c3b03e346cb267b46b", null ],
     [ "jump", "classXoshiro256StarStar.html#aced1e35723f858f228bb7bf5cc5fda6a", null ],
     [ "long_jump", "classXoshiro256StarStar.html#a5da35c894b67e2a4a031f145e3946bb9", null ],
