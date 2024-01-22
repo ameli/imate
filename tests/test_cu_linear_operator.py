@@ -14,7 +14,18 @@
 # =======
 
 import sys
-import pytest
+
+try:
+    # When using pytest to run this test script, it throws the following
+    # warning, which turns into error and stops testing all other test scripts.
+    # This filter is to prevent such early termination of pytest.
+    import pytest
+    warnings.filterwarnings("ignore", category=pytest.PytestCollectionWarning)
+except ModuleNotFoundError:
+    # When not using pytest, rather, calling this test file directly, there is
+    # no problem and this script prints the "No cuda-capable gpu device was
+    # found." warning gracefully.
+    pass
 
 # This package might not be compiled with the cuda support.
 try:
@@ -29,7 +40,6 @@ except ModuleNotFoundError:
 # test cu linear operator
 # =======================
 
-@pytest.mark.skipif(not subpackage_exists, reason="CUDA support not available")
 def test_cu_linear_operator():
     """
     A wrapper for :mod:`imate._linear_operator.tests` test sub-module.

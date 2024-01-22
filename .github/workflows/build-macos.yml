@@ -50,9 +50,20 @@ jobs:
               if: (contains(matrix.python-version, 'pypy'))
               run: |
                   brew install openblas
-                  brew install libomp
                   brew reinstall gcc
 
+            - name: Install package and dependencies
+              if: (matrix.python-version == '3.9')
+              run: |
+                  python -m pip install --upgrade pip
+                  python -m pip install --upgrade . -vvv
+              env:
+                  USE_LONG_INT: 0
+                  USE_UNSIGNED_LONG_INT: 0
+                  USE_CBLAS: 0
+                  USE_CUDA: 0
+
+            # For python 3.10, 3.11 do not install extras (sparsesuite)
             - name: Install package and dependencies
               if: (!contains(matrix.python-version, 'pypy'))
               run: |

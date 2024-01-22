@@ -87,7 +87,6 @@ jobs:
                   python -m pip install --upgrade pytest
                   python -m pip install --upgrade pytest-cov
                   mv imate imate-DoNotImport
-                  rm tests/test_cu_linear_operator.py  # this raises ImportError
                   pytest
 
             - name: Coverage

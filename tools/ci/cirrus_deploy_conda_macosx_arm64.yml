@@ -47,6 +47,7 @@ conda_build_wheels_macosx_arm64_task:
     # supplied by isuruf.
     # Find out SDKROOT via `xcrun --sdk macosx --show-sdk-path`
     CIBW_ENVIRONMENT_MACOS: >
+      SDKROOT=$(xcrun --sdk macosx --show-sdk-path)
       LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
       CFLAGS="-I/opt/homebrew/opt/libomp/include $CFLAGS"
       CXXFLAGS="-I/opt/homebrew/opt/libomp/include $CXXFLAGS"
@@ -136,7 +137,6 @@ conda_test_macosx_arm64_task:
     - set -x
     - python -c "import platform;print(platform.python_version());print(platform.system());print(platform.machine())"
     - mv imate imate_do_not_import
-    - rm tests/test_cu_linear_operator.py  # this raises ImportError
     - rm setup.cfg
     - conda install -c s-ameli imate -y
     - python -m pip install --upgrade pip

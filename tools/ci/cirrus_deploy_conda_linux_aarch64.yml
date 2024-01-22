@@ -137,7 +137,6 @@ conda_test_linux_aarch64_task:
     set -x
     python -c "import platform;print(platform.python_version());print(platform.system());print(platform.machine())"
     mv imate imate_do_not_import
-    rm tests/test_cu_linear_operator.py  # this raises ImportError
     rm setup.cfg
     conda install -c s-ameli imate -y
     python -m pip install --upgrade pip

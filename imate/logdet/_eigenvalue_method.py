@@ -331,12 +331,13 @@ def eigenvalue_method(
             imag_atol = 1e-8
             imag_rtol = 1e-8
 
-        # Return only the real part
-        complex_types = (numpy.complex64, numpy.complex128)
+        # All complex types in numpy
+        complex_types = [numpy.complex64, numpy.complex128]
         if hasattr(numpy, 'complex256'):
-            complex_types = complex_types + (numpy.complex256)
+            complex_types = complex_types + [numpy.complex256]
 
-        if isinstance(logdet_, complex_types):
+        # Return only the real part
+        if isinstance(logdet_, tuple(complex_types)):
 
             # Get imaginary part as mod of pi
             imag = numpy.mod(logdet_.imag, numpy.pi)
