@@ -166,7 +166,7 @@ void cuOrthogonalization<DataType>::gram_schmidt_process(
     DataType norm;
     DataType norm_v;
     DataType epsilon = std::numeric_limits<DataType>::epsilon();
-    DataType distance;
+    DataType distance2;
 
     // Iterate over vectors
     for (IndexType step=0; step < num_steps; ++step)
@@ -211,11 +211,11 @@ void cuOrthogonalization<DataType>::gram_schmidt_process(
                     cublas_handle, v, vector_size);
 
             // Compute distance between the j-th vector and vector v
-            distance = sqrt(norm_v*norm_v - 2.0*inner_prod + norm*norm);
+            distance2 = norm_v*norm_v - 2.0*inner_prod + norm*norm;
 
             // If distance is zero, do not reorthogonalize i-th against
             // the j-th vector.
-            if (distance < 2.0 * epsilon * sqrt(vector_size))
+            if (distance2 < 2.0 * epsilon * vector_size)
             {
                 continue;
             }
@@ -290,7 +290,6 @@ void cuOrthogonalization<DataType>::orthogonalize_vectors(
     DataType inner_prod;
     DataType norm_j;
     DataType norm_i;
-    DataType distance;
     DataType epsilon = std::numeric_limits<DataType>::epsilon();
     IndexType success = 1;
     IndexType max_num_trials = 20;

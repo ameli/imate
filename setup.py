@@ -67,7 +67,6 @@ from setuptools import Command
 from setuptools.extension import Extension
 from setuptools.errors import CompileError, LinkError, ExecError
 from setuptools.command.build_ext import build_ext
-# from Cython.Distutils import build_ext
 
 # Check scipy is installed (needed for build, but not required to be imported)
 try:
@@ -1029,9 +1028,13 @@ class CustomBuildExtension(build_ext):
 
         # Parallel compilation (can also be set via build_ext -j or --parallel)
         # Note: parallel build often fails (especially in windows) since object
-        # files are accessed by race condition.
-        # if sys.platform != 'win32':
-        #     self.parallel = multiprocessing.cpu_count()
+        # files are accessed by race condition. In MSVC, this usually ends up
+        # with C1083 error code: "Cannot open compiler generated code", since
+        # due to race condition, one threads locks an object file, preventing
+        # other threads to link the object file. On gcc and clang, so far, the
+        # parallel compilation seems to be fine.
+        if sys.platform != 'win32':
+            self.parallel = multiprocessing.cpu_count()
 
         # Modify compiler for cuda
         if use_cuda:
@@ -1211,7 +1214,6 @@ def create_extension(
     runtime_library_dirs = []
     libraries = []
     language = 'c++'
-    define_macros += [('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION')]
 
     # When compiled with Cython>=3.0.1, all externs are defined as
     # "extern C++", however, Cython<=0.29.36 uses "extern C". To avoid this
@@ -1646,7 +1648,11 @@ def main(argv):
             'tests.*',
             'tests',
             'examples.*',
-            'examples']
+            'examples',
+            'benchmark.*',
+            'benchmark',
+            'docs.*',
+            'docs']
         ),
         ext_modules=external_modules,
         install_requires=requirements,

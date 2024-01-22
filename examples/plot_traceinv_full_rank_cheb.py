@@ -19,16 +19,15 @@ import numpy
 # Package modules
 from imate.sample_matrices import correlation_matrix
 from imate import InterpolateSchatten
-from _utilities.plot_utilities import *                      # noqa: F401, F403
-from _utilities.plot_utilities import load_plot_settings, save_plot, plt, \
-        matplotlib, InsetPosition, mark_inset, NullFormatter,  \
-        FormatStrFormatter, PercentFormatter
+from _utilities.plot_utilities import get_custom_theme, save_plot, plt, \
+        matplotlib, NullFormatter,  FormatStrFormatter, PercentFormatter
 
 
 # ====
 # plot
 # ====
 
+@matplotlib.rc_context(get_custom_theme(font_scale=None))
 def plot(TI, p, test):
     """
     Plots the curve of trace of An inverse versus eta (we use t instead of eta
@@ -36,9 +35,6 @@ def plot(TI, p, test):
     """
 
     print('Plotting ... (may take a few minutes!)')
-
-    # Load plot settings
-    load_plot_settings()
 
     # If not a list, embed the object into a list
     if not isinstance(TI, list):
@@ -123,21 +119,9 @@ def plot(TI, p, test):
     ax[0].legend(fontsize='xx-small', loc='lower right')
 
     # Inset plot
-    ax2 = plt.axes([0, 0, 1, 1])
     # Manually set the position and relative size of the inset axes within ax1
-    ip = InsetPosition(ax[0], [0.1, 0.47, 0.5, 0.4])
-    ax2.set_axes_locator(ip)
-    # Mark the region corresponding to the inset axes on ax1 and draw lines
-    # in grey linking the two axes.
-
-    # Avoid inset mark lines intersect the inset axes itself by setting anchor
     inset_color = 'oldlace'
-    if p == 0:
-        mark_inset(ax[0], ax2, loc1=3, loc2=4, facecolor=inset_color,
-                   edgecolor='0.5')
-    else:
-        mark_inset(ax[0], ax2, loc1=3, loc2=4, facecolor=inset_color,
-                   edgecolor='0.5')
+    ax2 = ax[0].inset_axes([0.1, 0.47, 0.5, 0.4], facecolor=inset_color)
     ax2.semilogx(eta, tau_exact, color='black', label='Exact')
     ax2.semilogx(eta, tau_lowerbound, '--', color='black', label=lb_label)
     for j in reversed(range(num_plots)):
@@ -158,10 +142,18 @@ def plot(TI, p, test):
 
     ax2.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
     ax2.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
-    ax2.set_facecolor(inset_color)
     ax2.xaxis.set_tick_params(labelsize=8)
     ax2.yaxis.set_tick_params(labelsize=8)
     # plt.setp(ax2.get_yticklabels(), backgroundcolor='white')
+
+    # Mark the region corresponding to the inset axes on ax1 and draw lines
+    # in grey linking the two axes.
+    _, connects = ax[0].indicate_inset_zoom(ax2, facecolor=inset_color,
+                                            edgecolor='0.5')
+    connects[0].set_visible(True)
+    connects[1].set_visible(False)
+    connects[2].set_visible(True)
+    connects[3].set_visible(False)
 
     # Plot errors
     ax[1].semilogx(eta, 100*(1-tau_lowerbound/tau_exact), '--',
@@ -193,6 +185,11 @@ def plot(TI, p, test):
     ax[1].grid(True)
     ax[1].legend(fontsize='xx-small')
     ax[1].yaxis.set_major_formatter(PercentFormatter(decimals=0))
+
+    # Transparent axes (except inset axes)
+    fig.patch.set_alpha(0)
+    ax[0].patch.set_alpha(0)
+    ax[1].patch.set_alpha(0)
 
     if not test:
         plt.tight_layout()

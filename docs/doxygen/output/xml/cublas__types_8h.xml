@@ -1,0 +1,380 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="cublas__types_8h" kind="file" language="C++">
+    <compoundname>cublas_types.h</compoundname>
+    <includes local="no">cublas_v2.h</includes>
+    <includedby refid="cublas__symbols_8h" local="yes">/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_symbols.h</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>cublas_v2.h</label>
+      </node>
+      <node id="1">
+        <label>/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h</label>
+        <link refid="cublas__types_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_symbols.cpp</label>
+        <link refid="cublas__symbols_8cpp"/>
+      </node>
+      <node id="1">
+        <label>/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h</label>
+        <link refid="cublas__types_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_symbols.h</label>
+        <link refid="cublas__symbols_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="cublas__types_8h_1a671a38310c31f9e6d3f0d3c3a8efd800" prot="public" static="no">
+        <type>cublasStatus_t(*</type>
+        <definition>typedef cublasStatus_t(* cublasCreate_type) (cublasHandle_t *handle)</definition>
+        <argsstring>)(cublasHandle_t *handle)</argsstring>
+        <name>cublasCreate_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" line="29" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cublas__types_8h_1a17ef64bcbe6002258092d209b565d503" prot="public" static="no">
+        <type>cublasStatus_t(*</type>
+        <definition>typedef cublasStatus_t(* cublasDestroy_type) (cublasHandle_t handle)</definition>
+        <argsstring>)(cublasHandle_t handle)</argsstring>
+        <name>cublasDestroy_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" line="32" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cublas__types_8h_1a893eb221d0c732ee423b2290c563b670" prot="public" static="no">
+        <type>cublasStatus_t(*</type>
+        <definition>typedef cublasStatus_t(* cublasSgemv_type) (cublasHandle_t handle, cublasOperation_t trans, int m, int n, const float *alpha, const float *A, int lda, const float *x, int incx, const float *beta, float *y, int incy)</definition>
+        <argsstring>)(cublasHandle_t handle, cublasOperation_t trans, int m, int n, const float *alpha, const float *A, int lda, const float *x, int incx, const float *beta, float *y, int incy)</argsstring>
+        <name>cublasSgemv_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" line="35" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cublas__types_8h_1a3602334145de456d3d99f3fabd3a35f1" prot="public" static="no">
+        <type>cublasStatus_t(*</type>
+        <definition>typedef cublasStatus_t(* cublasDgemv_type) (cublasHandle_t handle, cublasOperation_t trans, int m, int n, const double *alpha, const double *A, int lda, const double *x, int incx, const double *beta, double *y, int incy)</definition>
+        <argsstring>)(cublasHandle_t handle, cublasOperation_t trans, int m, int n, const double *alpha, const double *A, int lda, const double *x, int incx, const double *beta, double *y, int incy)</argsstring>
+        <name>cublasDgemv_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" line="50" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cublas__types_8h_1aa9fc77253396e3aee9751170bcba17db" prot="public" static="no">
+        <type>cublasStatus_t(*</type>
+        <definition>typedef cublasStatus_t(* cublasScopy_type) (cublasHandle_t handle, int n, const float *x, int incx, float *y, int incy)</definition>
+        <argsstring>)(cublasHandle_t handle, int n, const float *x, int incx, float *y, int incy)</argsstring>
+        <name>cublasScopy_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" line="65" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cublas__types_8h_1a493e8caebf12ac3f129a7177e854b300" prot="public" static="no">
+        <type>cublasStatus_t(*</type>
+        <definition>typedef cublasStatus_t(* cublasDcopy_type) (cublasHandle_t handle, int n, const double *x, int incx, double *y, int incy)</definition>
+        <argsstring>)(cublasHandle_t handle, int n, const double *x, int incx, double *y, int incy)</argsstring>
+        <name>cublasDcopy_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" line="73" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cublas__types_8h_1a66a2c6008a30f9b3c5afa70a056a0d76" prot="public" static="no">
+        <type>cublasStatus_t(*</type>
+        <definition>typedef cublasStatus_t(* cublasSaxpy_type) (cublasHandle_t handle, int n, const float *alpha, const float *x, int incx, float *y, int incy)</definition>
+        <argsstring>)(cublasHandle_t handle, int n, const float *alpha, const float *x, int incx, float *y, int incy)</argsstring>
+        <name>cublasSaxpy_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" line="81" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cublas__types_8h_1a5bbf551b1cb4bb075ea42216acf76ae7" prot="public" static="no">
+        <type>cublasStatus_t(*</type>
+        <definition>typedef cublasStatus_t(* cublasDaxpy_type) (cublasHandle_t handle, int n, const double *alpha, const double *x, int incx, double *y, int incy)</definition>
+        <argsstring>)(cublasHandle_t handle, int n, const double *alpha, const double *x, int incx, double *y, int incy)</argsstring>
+        <name>cublasDaxpy_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" line="91" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cublas__types_8h_1aa79bcf0453188c6032b7fcf032f690f6" prot="public" static="no">
+        <type>cublasStatus_t(*</type>
+        <definition>typedef cublasStatus_t(* cublasSdot_type) (cublasHandle_t handle, int n, const float *x, int incx, const float *y, int incy, float *result)</definition>
+        <argsstring>)(cublasHandle_t handle, int n, const float *x, int incx, const float *y, int incy, float *result)</argsstring>
+        <name>cublasSdot_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" line="101" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cublas__types_8h_1acc6ba12a63fc4b8e4cdcb7dc90bdf0d3" prot="public" static="no">
+        <type>cublasStatus_t(*</type>
+        <definition>typedef cublasStatus_t(* cublasDdot_type) (cublasHandle_t handle, int n, const double *x, int incx, const double *y, int incy, double *result)</definition>
+        <argsstring>)(cublasHandle_t handle, int n, const double *x, int incx, const double *y, int incy, double *result)</argsstring>
+        <name>cublasDdot_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" line="111" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cublas__types_8h_1ab64725202d38875be79db87037d8ca11" prot="public" static="no">
+        <type>cublasStatus_t(*</type>
+        <definition>typedef cublasStatus_t(* cublasSnrm2_type) (cublasHandle_t handle, int n, const float *x, int incx, float *result)</definition>
+        <argsstring>)(cublasHandle_t handle, int n, const float *x, int incx, float *result)</argsstring>
+        <name>cublasSnrm2_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" line="121" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cublas__types_8h_1adac5ab5923bbe51255e5aebe2194388f" prot="public" static="no">
+        <type>cublasStatus_t(*</type>
+        <definition>typedef cublasStatus_t(* cublasDnrm2_type) (cublasHandle_t handle, int n, const double *x, int incx, double *result)</definition>
+        <argsstring>)(cublasHandle_t handle, int n, const double *x, int incx, double *result)</argsstring>
+        <name>cublasDnrm2_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" line="129" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cublas__types_8h_1a78e1232b1cc4bf08198057ea0e387140" prot="public" static="no">
+        <type>cublasStatus_t(*</type>
+        <definition>typedef cublasStatus_t(* cublasSscal_type) (cublasHandle_t handle, int n, const float *alpha, float *x, int incx)</definition>
+        <argsstring>)(cublasHandle_t handle, int n, const float *alpha, float *x, int incx)</argsstring>
+        <name>cublasSscal_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" line="137" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cublas__types_8h_1a5e85e300714e83de26da4f5a6072a6fd" prot="public" static="no">
+        <type>cublasStatus_t(*</type>
+        <definition>typedef cublasStatus_t(* cublasDscal_type) (cublasHandle_t handle, int n, const double *alpha, double *x, int incx)</definition>
+        <argsstring>)(cublasHandle_t handle, int n, const double *alpha, double *x, int incx)</argsstring>
+        <name>cublasDscal_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" line="145" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-FileCopyrightText:<sp/>Copyright<sp/>2021,<sp/>Siavash<sp/>Ameli<sp/>&lt;sameli@berkeley.edu&gt;</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-License-Identifier:<sp/>BSD-3-Clause</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-FileType:<sp/>SOURCE</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/>This<sp/>program<sp/>is<sp/>free<sp/>software:<sp/>you<sp/>can<sp/>redistribute<sp/>it<sp/>and/or<sp/>modify<sp/>it</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/><sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>license<sp/>found<sp/>in<sp/>the<sp/>LICENSE.txt<sp/>file<sp/>in<sp/>the<sp/>root</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/><sp/>directory<sp/>of<sp/>this<sp/>source<sp/>tree.</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_CUDA_DYNAMIC_LOADING_CUBLAS_TYPES_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>_CUDA_DYNAMIC_LOADING_CUBLAS_TYPES_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Headers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cublas_v2.h&gt;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>cublasSgemv,<sp/>cublasDgemv,<sp/>cublasScopy,<sp/>cublasDcopy,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>cublasSaxpy,<sp/>cublasDaxpy,<sp/>cublasSdot,<sp/>cublasDdot,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>cublasSnrm2,<sp/>cublasDnrm2,<sp/>cublasSscal,<sp/>cublasDscal</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>cublasHandle_t,<sp/>cublasStatus_t</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=====</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Types</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=====</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cublasCreate</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="cublas__types_8h_1a671a38310c31f9e6d3f0d3c3a8efd800" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cublasStatus_t<sp/>(*<ref refid="cublas__types_8h_1a671a38310c31f9e6d3f0d3c3a8efd800" kindref="member">cublasCreate_type</ref>)(cublasHandle_t*<sp/>handle);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cublasDestroy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32" refid="cublas__types_8h_1a17ef64bcbe6002258092d209b565d503" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cublasStatus_t<sp/>(*<ref refid="cublas__types_8h_1a17ef64bcbe6002258092d209b565d503" kindref="member">cublasDestroy_type</ref>)(cublasHandle_t<sp/>handle);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cublasSgemv</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="cublas__types_8h_1a893eb221d0c732ee423b2290c563b670" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cublasStatus_t<sp/>(*<ref refid="cublas__types_8h_1a893eb221d0c732ee423b2290c563b670" kindref="member">cublasSgemv_type</ref>)(</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublasHandle_t<sp/>handle,</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublasOperation_t<sp/>trans,</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>m,</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n,</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">*<sp/>alpha,</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">*<sp/>A,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>lda,</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">*<sp/>x,</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incx,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">*<sp/>beta,</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">*<sp/>y,</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incy);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cublasDgemv</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="cublas__types_8h_1a3602334145de456d3d99f3fabd3a35f1" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cublasStatus_t<sp/>(*<ref refid="cublas__types_8h_1a3602334145de456d3d99f3fabd3a35f1" kindref="member">cublasDgemv_type</ref>)(</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublasHandle_t<sp/>handle,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublasOperation_t<sp/>trans,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>m,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>alpha,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>A,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>lda,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>x,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incx,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>beta,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>y,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incy);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cublasScopy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="cublas__types_8h_1aa9fc77253396e3aee9751170bcba17db" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cublasStatus_t<sp/>(*<ref refid="cublas__types_8h_1aa9fc77253396e3aee9751170bcba17db" kindref="member">cublasScopy_type</ref>)(</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublasHandle_t<sp/>handle,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">*<sp/>x,</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incx,</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal">*<sp/>y,</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incy);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cublasDcopy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73" refid="cublas__types_8h_1a493e8caebf12ac3f129a7177e854b300" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cublasStatus_t<sp/>(*<ref refid="cublas__types_8h_1a493e8caebf12ac3f129a7177e854b300" kindref="member">cublasDcopy_type</ref>)(</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublasHandle_t<sp/>handle,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n,</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>x,</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incx,</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal">*<sp/>y,</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incy);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cublasSaxpy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="cublas__types_8h_1a66a2c6008a30f9b3c5afa70a056a0d76" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cublasStatus_t<sp/>(*<ref refid="cublas__types_8h_1a66a2c6008a30f9b3c5afa70a056a0d76" kindref="member">cublasSaxpy_type</ref>)(</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublasHandle_t<sp/>handle,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*alpha,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*x,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incx,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*y,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incy);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cublasDaxpy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="cublas__types_8h_1a5bbf551b1cb4bb075ea42216acf76ae7" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cublasStatus_t<sp/>(*<ref refid="cublas__types_8h_1a5bbf551b1cb4bb075ea42216acf76ae7" kindref="member">cublasDaxpy_type</ref>)(</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublasHandle_t<sp/>handle,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*alpha,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*x,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incx,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*y,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incy);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cublasSdot</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101" refid="cublas__types_8h_1aa79bcf0453188c6032b7fcf032f690f6" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cublasStatus_t<sp/>(*<ref refid="cublas__types_8h_1aa79bcf0453188c6032b7fcf032f690f6" kindref="member">cublasSdot_type</ref>)(</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublasHandle_t<sp/>handle,</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n,</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*x,</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incx,</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*y,</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incy,</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*result);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cublasDdot</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="cublas__types_8h_1acc6ba12a63fc4b8e4cdcb7dc90bdf0d3" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cublasStatus_t<sp/>(*<ref refid="cublas__types_8h_1acc6ba12a63fc4b8e4cdcb7dc90bdf0d3" kindref="member">cublasDdot_type</ref>)(</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublasHandle_t<sp/>handle,</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n,</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*x,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incx,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*y,</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incy,</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*result);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cublasSnrm2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121" refid="cublas__types_8h_1ab64725202d38875be79db87037d8ca11" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cublasStatus_t<sp/>(*<ref refid="cublas__types_8h_1ab64725202d38875be79db87037d8ca11" kindref="member">cublasSnrm2_type</ref>)(</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublasHandle_t<sp/>handle,</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n,</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*x,</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incx,</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*result);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cublasDnrm2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129" refid="cublas__types_8h_1adac5ab5923bbe51255e5aebe2194388f" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cublasStatus_t<sp/>(*<ref refid="cublas__types_8h_1adac5ab5923bbe51255e5aebe2194388f" kindref="member">cublasDnrm2_type</ref>)(</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublasHandle_t<sp/>handle,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n,</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*x,</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incx,</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*result);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cublasSscal</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137" refid="cublas__types_8h_1a78e1232b1cc4bf08198057ea0e387140" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cublasStatus_t<sp/>(*<ref refid="cublas__types_8h_1a78e1232b1cc4bf08198057ea0e387140" kindref="member">cublasSscal_type</ref>)(</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublasHandle_t<sp/>handle,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*alpha,</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>*x,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incx);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cublasDscal</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145" refid="cublas__types_8h_1a5e85e300714e83de26da4f5a6072a6fd" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cublasStatus_t<sp/>(*<ref refid="cublas__types_8h_1a5e85e300714e83de26da4f5a6072a6fd" kindref="member">cublasDscal_type</ref>)(</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cublasHandle_t<sp/>handle,</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*alpha,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>*x,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>incx);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>_CUDA_DYNAMIC_LOADING_CUBLAS_TYPES_H_</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cublas_types.h"/>
+  </compounddef>
+</doxygen>

@@ -11,6 +11,7 @@
 # Imports
 # =======
 
+from libc.stdint cimport int64_t
 from .._c_linear_operator cimport cLinearOperator
 from .._definitions.types cimport IndexType, FlagType
 from ..functions cimport Function
@@ -30,9 +31,10 @@ cdef extern from "c_trace_estimator.h":
                 DataType* parameters,
                 const IndexType num_inquiries,
                 const Function* matrix_function,
+                const FlagType gram,
                 const DataType exponent,
-                const FlagType symmetric,
                 const FlagType reorthogonalize,
+                const int64_t seed,
                 const IndexType lanczos_degree,
                 const DataType lanczos_tol,
                 const IndexType min_num_samples,

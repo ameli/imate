@@ -18,6 +18,10 @@ import imate
 from imate import Memory
 from imate import Timer
 
+import warnings
+warnings.resetwarnings()
+warnings.filterwarnings("error")
+
 
 # ===========
 # test device

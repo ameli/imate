@@ -1,9 +1,9 @@
 name: build-linux
 
 on:
-    # push:
-    #     branches:
-    #         - main
+    push:
+        branches:
+            - main
     release:
         types: 
             - published
@@ -66,7 +66,7 @@ jobs:
                   USE_CUDA: 1
                   CUDA_DYNAMIC_LOADING: 1
 
-            # This does not install plot packages (matplotlib, seaborn) when
+            # This does not install plot packages (matplotlib) when
             # using pypy, since on pypy37, the kiwisolver (a dependency of
             # matlotlib) has no wheel candidate.
             - name: Install package and dependencies (PyPy)

@@ -60,24 +60,24 @@ Below are the specific installation for each operating system:
 
 .. note::
 
-    In *macOS*, starting from ``libomp`` with version ``15`` and above, Homebrew installs OpenMP as *keg-only*. To be able to use the OpenMP installation, create the following symbolic links :
+    In *macOS*, for ``libomp`` versions ``15`` and above, Homebrew installs OpenMP as *keg-only*. To utilize the OpenMP installation, you should establish the following symbolic links:
 
     .. prompt:: bash
 
-        ln -s /usr/local/opt/libomp/include/omp-tools.h /usr/local/include/omp-tools.h
-        ln -s /usr/local/opt/libomp/include/omp.h /usr/local/include/omp.h
-        ln -s /usr/local/opt/libomp/include/ompt.h /usr/local/include/ompt.h
-        ln -s /usr/local/opt/libomp/lib/libomp.a /usr/local/lib/libomp.a
-        ln -s /usr/local/opt/libomp/lib/libomp.dylib /usr/local/lib/libomp.dylib
-
+        libomp_dir=$(brew --prefix libomp)
+        ln -sf ${libomp_dir}/include/omp-tools.h  /usr/local/include/omp-tools.h
+        ln -sf ${libomp_dir}/include/omp.h        /usr/local/include/omp.h
+        ln -sf ${libomp_dir}/include/ompt.h       /usr/local/include/ompt.h
+        ln -sf ${libomp_dir}/lib/libomp.a         /usr/local/lib/libomp.a
+        ln -sf ${libomp_dir}/lib/libomp.dylib     /usr/local/lib/libomp.dylib
 
 CUDA Toolkit and NVIDIA Graphic Driver (`Optional`)
 ---------------------------------------------------
 
-To use GPU devices, install NVIDIA Graphic Driver and CUDA Toolkit. See the instructions below.
+To use GPU devices, install CUDA runtime libraries and NVIDIA graphic driver. See the instructions below.
 
+* :ref:`Install CUDA runtime libraries <install-cuda-runtime-lib>`.
 * :ref:`Install NVIDIA Graphic Driver <install-graphic-driver>`.
-* :ref:`Install CUDA Toolkit <install-cuda-toolkit>`.
 
 SuiteSparse (`Optional`)
 ------------------------

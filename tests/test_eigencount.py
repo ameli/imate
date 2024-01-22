@@ -19,6 +19,10 @@ import numpy
 from imate.sample_matrices import toeplitz
 from imate import eigencount
 
+import warnings
+warnings.resetwarnings()
+warnings.filterwarnings("error")
+
 
 # ==============
 # relative error
@@ -71,7 +75,7 @@ def _test_eigencount_methods(K, matrix, gram, p, interval, assume_matrix):
     eigencount2 = eigencount(K, gram=gram, p=p, interval=interval,
                              method='slq', min_num_samples=min_num_samples,
                              max_num_samples=max_num_samples, orthogonalize=-1,
-                             lanczos_degree=lanczos_degree,
+                             seed=-1, lanczos_degree=lanczos_degree,
                              error_rtol=error_rtol, verbose=False)
     time21 = time.time()
 

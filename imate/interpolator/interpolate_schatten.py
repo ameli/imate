@@ -28,8 +28,7 @@ from ._chebyshev_rational_functions_method import \
 from ._spline_method import SplineMethod
 
 try:
-    from .._utilities.plot_utilities import *                # noqa: F401, F403
-    from .._utilities.plot_utilities import load_plot_settings, matplotlib, \
+    from .._utilities.plot_utilities import get_custom_theme, matplotlib, \
         show_or_save_plot, plt
     plot_modules_exist = True
 except ImportError:
@@ -360,12 +359,10 @@ class InterpolateSchatten(object):
     .. code-block:: python
 
         >>> import matplotlib.pyplot as plt
-        >>> import seaborn as sns
 
         >>> # Plot settings (optional)
-        >>> sns.set(font_scale=1.15)
-        >>> sns.set_style("white")
-        >>> sns.set_style("ticks")
+        >>> from imate._utilities import set_custom_theme
+        >>> set_custom_theme(font_scale=1.15)
 
         >>> plt.semilogx(t_array, norm_array, color='black')
         >>> plt.xlim([t_array[0], t_array[-1]])
@@ -898,12 +895,10 @@ class InterpolateSchatten(object):
         .. code-block:: python
 
             >>> import matplotlib.pyplot as plt
-            >>> import seaborn as sns
 
             >>> # Plot settings (optional)
-            >>> sns.set(font_scale=1.15)
-            >>> sns.set_style("white")
-            >>> sns.set_style("ticks")
+            >>> from imate._utilities import set_custom_theme
+            >>> set_custom_theme(font_scale=1.15)
 
             >>> plt.semilogx(t, interp, color='black', label='Interpolation')
             >>> plt.semilogx(t, bound, '--', color='black',
@@ -1029,12 +1024,10 @@ class InterpolateSchatten(object):
         .. code-block:: python
 
             >>> import matplotlib.pyplot as plt
-            >>> import seaborn as sns
 
             >>> # Plot settings (optional)
-            >>> sns.set(font_scale=1.15)
-            >>> sns.set_style("white")
-            >>> sns.set_style("ticks")
+            >>> from imate._utilities import set_custom_theme
+            >>> set_custom_theme(font_scale=1.15)
 
             >>> plt.semilogx(t, interp, color='black', label='Interpolation')
             >>> plt.semilogx(t, ub, '--', color='black', label='Upper bound')
@@ -1107,7 +1100,7 @@ class InterpolateSchatten(object):
         ------
 
         ImportError
-            If `matplotlib` and `seaborn` are not installed.
+            If `matplotlib` is not installed.
 
         ValueError
             If ``t`` is not an array of size greater than one.
@@ -1248,6 +1241,7 @@ class InterpolateSchatten(object):
     # plot semi infinite
     # ==================
 
+    @matplotlib.rc_context(get_custom_theme())
     def _plot_semi_infinite(
             self,
             t,
@@ -1268,16 +1262,7 @@ class InterpolateSchatten(object):
 
         if not plot_modules_exist:
             raise ImportError('Cannot import modules for plotting. Either ' +
-                              'install "matplotlib" and "seaborn" packages, ' +
-                              'or set "plot=False".')
-
-        # Load plot settings
-        try:
-            load_plot_settings()
-        except ImportError:
-            raise ImportError('Cannot import modules for plotting. Either ' +
-                              'install "matplotlib" and "seaborn" packages, ' +
-                              'or set "plot=False".')
+                              'install "matplotlib" or set "plot=False".')
 
         # Check t should be an array
         if numpy.isscalar(t) or (t.size == 1):
@@ -1416,6 +1401,7 @@ class InterpolateSchatten(object):
     # plot finite
     # ===========
 
+    @matplotlib.rc_context(get_custom_theme())
     def _plot_finite(
             self,
             t,
@@ -1449,16 +1435,7 @@ class InterpolateSchatten(object):
 
         if not plot_modules_exist:
             raise ImportError('Cannot import modules for plotting. Either ' +
-                              'install "matplotlib" and "seaborn" packages, ' +
-                              'or set "plot=False".')
-
-        # Load plot settings
-        try:
-            load_plot_settings()
-        except ImportError:
-            raise ImportError('Cannot import modules for plotting. Either ' +
-                              'install "matplotlib" and "seaborn" packages, ' +
-                              'or set "plot=False".')
+                              'install "matplotlib" or set "plot=False".')
 
         # Check t should be an array
         if numpy.isscalar(t) or (t.size == 1):

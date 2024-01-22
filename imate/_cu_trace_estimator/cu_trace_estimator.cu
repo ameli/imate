@@ -95,6 +95,15 @@
 ///             * If set to an integer larger than \c lanczos_degree, it is cut
 ///               to \c lanczos_degree, which effectively orthogonalizes
 ///               against all previous eigenvectors (full reorthogonalization).
+/// \param[in]  seed
+///             A non-negative integer to be used as seed to initiate the
+///             generation of sequences of peudo-random numbers in the
+///             algorithm. This is useful to make the result of the randomized
+///             algorithm to be reproducible. If a negative integer is given,
+///             the given seed value is ignored and the current processor time
+///             is used as the seed to initiate he generation random  number
+///             sequences. In this case, the result is not reproducible,
+///             rather, is pseudo-random.
 /// \param[in]  lanczos_degree
 ///             The number of Lanczos recursive iterations. The operator \c A
 ///             is reduced to a square tridiagonal (or bidiagonal) matrix of
@@ -193,6 +202,7 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
         const FlagType gram,
         const DataType exponent,
         const FlagType orthogonalize,
+        const int64_t seed,
         const IndexType lanczos_degree,
         const DataType lanczos_tol,
         const IndexType min_num_samples,
@@ -228,7 +238,7 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
 
     // Initialize random number generator to generate in parallel threads
     // independently.
-    RandomNumberGenerator random_number_generator(num_gpu_devices);
+    RandomNumberGenerator random_number_generator(num_gpu_devices, seed);
 
     // The counter of filled size of processed_samples_indices array
     // This scalar variable is defined as array to be shared among al threads

@@ -1,0 +1,320 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classcuLinearOperator" kind="class" language="C++" prot="public">
+    <compoundname>cuLinearOperator</compoundname>
+    <basecompoundref refid="classcLinearOperator" prot="public" virt="virtual">cLinearOperator&lt; DataType &gt;</basecompoundref>
+    <derivedcompoundref refid="classcuAffineMatrixFunction" prot="public" virt="non-virtual">cuAffineMatrixFunction&lt; DataType &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classcuMatrix" prot="public" virt="non-virtual">cuMatrix&lt; DataType &gt;</derivedcompoundref>
+    <includes refid="cu__linear__operator_8h" local="no">cu_linear_operator.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename DataType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classcuLinearOperator_1a701c8a301638c78c66a3290b0848483e" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int cuLinearOperator&lt; DataType &gt;::num_gpu_devices</definition>
+        <argsstring></argsstring>
+        <name>num_gpu_devices</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" line="63" column="13" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" bodystart="63" bodyend="-1"/>
+        <referencedby refid="classcuCSCMatrix_1a3052323bdb6799654448ece5e9889837" compoundref="cu__csc__matrix_8cu" startline="52" endline="84">cuCSCMatrix&lt; DataType &gt;::cuCSCMatrix</referencedby>
+        <referencedby refid="classcuCSRMatrix_1a6225b26c34a53755fea5cfd65b0743f3" compoundref="cu__csr__matrix_8cu" startline="52" endline="84">cuCSRMatrix&lt; DataType &gt;::cuCSRMatrix</referencedby>
+        <referencedby refid="classcuLinearOperator_1a003b67351f4a3cf2e574a1e8631e1b24" compoundref="cu__linear__operator_8cu" startline="30" endline="45">cuLinearOperator&lt; DataType &gt;::cuLinearOperator</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="classcuLinearOperator_1ac5b5c2becca5fd6368acd5c98de7bbe5" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool cuLinearOperator&lt; DataType &gt;::copied_host_to_device</definition>
+        <argsstring></argsstring>
+        <name>copied_host_to_device</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" line="64" column="14" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcuLinearOperator_1a46558cb4eb689bf6131c2e2415efea0d" prot="protected" static="no" mutable="no">
+        <type>cublasHandle_t *</type>
+        <definition>cublasHandle_t* cuLinearOperator&lt; DataType &gt;::cublas_handle</definition>
+        <argsstring></argsstring>
+        <name>cublas_handle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" line="65" column="24" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcuLinearOperator_1ab097cf1372d598ceac08237e26bafc6d" prot="protected" static="no" mutable="no">
+        <type>cusparseHandle_t *</type>
+        <definition>cusparseHandle_t* cuLinearOperator&lt; DataType &gt;::cusparse_handle</definition>
+        <argsstring></argsstring>
+        <name>cusparse_handle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" line="66" column="26" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classcuLinearOperator_1a003b67351f4a3cf2e574a1e8631e1b24" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>cuLinearOperator&lt; DataType &gt;::cuLinearOperator</definition>
+        <argsstring>()</argsstring>
+        <name>cuLinearOperator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" line="48" column="9" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.cu" bodystart="30" bodyend="45"/>
+        <references refid="classcuLinearOperator_1ae2bec474007baff1b7e598a869e83e12" compoundref="cu__linear__operator_8cu" startline="185" endline="206">cuLinearOperator&lt; DataType &gt;::initialize_cublas_handle</references>
+        <references refid="classcuLinearOperator_1a701c8a301638c78c66a3290b0848483e" compoundref="cu__linear__operator_8h" startline="63">cuLinearOperator&lt; DataType &gt;::num_gpu_devices</references>
+        <references refid="classcuLinearOperator_1a8dac55aff04e3f372468b21367a6dab8" compoundref="cu__linear__operator_8cu" startline="252" endline="270">cuLinearOperator&lt; DataType &gt;::query_gpu_devices</references>
+      </memberdef>
+      <memberdef kind="function" id="classcuLinearOperator_1a8a27f677cbfb7c9c26d07904cdd0ee74" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>cuLinearOperator&lt; DataType &gt;::cuLinearOperator</definition>
+        <argsstring>(int num_gpu_devices_)</argsstring>
+        <name>cuLinearOperator</name>
+        <param>
+          <type>int</type>
+          <declname>num_gpu_devices_</declname>
+        </param>
+        <briefdescription>
+<para>Constructor with setting <computeroutput>num_rows</computeroutput> and <computeroutput>num_columns</computeroutput>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>For the classed that are virtually derived (virtual inheritance) from this class, this constructor will never be called. Rather, the default constructor is called by the most derived class. Thus, set the member data directly instead of below. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" line="49" column="18" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.cu" bodystart="60" bodyend="95"/>
+        <references refid="classcuLinearOperator_1ae2bec474007baff1b7e598a869e83e12" compoundref="cu__linear__operator_8cu" startline="185" endline="206">cuLinearOperator&lt; DataType &gt;::initialize_cublas_handle</references>
+        <references refid="classcuLinearOperator_1a701c8a301638c78c66a3290b0848483e" compoundref="cu__linear__operator_8h" startline="63">cuLinearOperator&lt; DataType &gt;::num_gpu_devices</references>
+        <references refid="classcuLinearOperator_1a8dac55aff04e3f372468b21367a6dab8" compoundref="cu__linear__operator_8cu" startline="252" endline="270">cuLinearOperator&lt; DataType &gt;::query_gpu_devices</references>
+      </memberdef>
+      <memberdef kind="function" id="classcuLinearOperator_1ad1d14172ed32afa599208af04ec4db0c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>cuLinearOperator&lt; DataType &gt;::~cuLinearOperator</definition>
+        <argsstring>()</argsstring>
+        <name>~cuLinearOperator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" line="51" column="17" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.cu" bodystart="103" bodyend="148"/>
+        <references refid="cusparse__symbols_8cpp_1a14faf9a740077f5e320acf8f74e8317b" compoundref="cusparse__symbols_8cpp" startline="116" endline="130">cusparseDestroy</references>
+        <references refid="classCudaInterface_1aba5754e3b4c02d3b151fdee31fa0fd46" compoundref="cuda__interface_8cu" startline="188" endline="192">CudaInterface&lt; ArrayType &gt;::set_device</references>
+      </memberdef>
+      <memberdef kind="function" id="classcuLinearOperator_1aa0bf630097fc3820d7ec27ec4e1a2994" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>cublasHandle_t</type>
+        <definition>cublasHandle_t cuLinearOperator&lt; DataType &gt;::get_cublas_handle</definition>
+        <argsstring>() const</argsstring>
+        <name>get_cublas_handle</name>
+        <briefdescription>
+<para>This function returns a reference to the <computeroutput>cublasHandle_t</computeroutput> object. The object will be created, if it is not created already. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The <computeroutput>cublasHandle</computeroutput> is needed for the client code (slq method) for vector operations on GPU. However, in this class, the <computeroutput>cublasHandle_t</computeroutput> might not be needed by it self if the derived class is a sparse matrix, becase the sparse matrix needs only <computeroutput>cusparseHandle_t</computeroutput>. In case if the <computeroutput>cublasHandle_t</computeroutput> is not created, it will be created for the purpose of the client codes.</para>
+<para><simplesect kind="return"><para>A void pointer to the cublasHandle_t instance. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" line="53" column="24" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.cu" bodystart="168" bodyend="174"/>
+        <references refid="classCudaInterface_1a29ab521266d2670951510179d719ead1" compoundref="cuda__interface_8cu" startline="206" endline="213">CudaInterface&lt; ArrayType &gt;::get_device</references>
+        <referencedby refid="cu__golub__kahn__bidiagonalization_8cu_1aa755f765f48f41b63d9dab3528b5f0b2" compoundref="cu__golub__kahn__bidiagonalization_8cu" startline="113" endline="242">cu_golub_kahn_bidiagonalization</referencedby>
+        <referencedby refid="cu__lanczos__tridiagonalization_8cu_1a30ec831ebcc2ce17eefefb770b13773d" compoundref="cu__lanczos__tridiagonalization_8cu" startline="119" endline="248">cu_lanczos_tridiagonalization</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classcuLinearOperator_1a8dac55aff04e3f372468b21367a6dab8" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int cuLinearOperator&lt; DataType &gt;::query_gpu_devices</definition>
+        <argsstring>() const</argsstring>
+        <name>query_gpu_devices</name>
+        <briefdescription>
+<para>Before any numerical computation, this method chechs if any gpu device is available on the machine, or notifies the user if nothing was found. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Number of gpu available devices. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" line="58" column="13" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.cu" bodystart="252" bodyend="270"/>
+        <references refid="cudart__symbols_8cpp_1a665468e8cb33be42434f11bee2684ec9" compoundref="cudart__symbols_8cpp" startline="253" endline="267">cudaGetDeviceCount</references>
+        <referencedby refid="classcuLinearOperator_1a003b67351f4a3cf2e574a1e8631e1b24" compoundref="cu__linear__operator_8cu" startline="30" endline="45">cuLinearOperator&lt; DataType &gt;::cuLinearOperator</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcuLinearOperator_1ae2bec474007baff1b7e598a869e83e12" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuLinearOperator&lt; DataType &gt;::initialize_cublas_handle</definition>
+        <argsstring>()</argsstring>
+        <name>initialize_cublas_handle</name>
+        <briefdescription>
+<para>Creates a <computeroutput>cublasHandle_t</computeroutput> object, if not created already. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" line="59" column="14" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.cu" bodystart="185" bodyend="206"/>
+        <references refid="classCudaInterface_1aba5754e3b4c02d3b151fdee31fa0fd46" compoundref="cuda__interface_8cu" startline="188" endline="192">CudaInterface&lt; ArrayType &gt;::set_device</references>
+        <referencedby refid="classcuDenseAffineMatrixFunction_1a7b3a93e837ea2d2d7f6ed6eb0dfbf40a" compoundref="cu__dense__affine__matrix__function_8cu" startline="30" endline="51">cuDenseAffineMatrixFunction&lt; DataType &gt;::cuDenseAffineMatrixFunction</referencedby>
+        <referencedby refid="classcuDenseMatrix_1aec03c5933468d76b576dd0c288df9e13" compoundref="cu__dense__matrix_8cu" startline="40" endline="57">cuDenseMatrix&lt; DataType &gt;::cuDenseMatrix</referencedby>
+        <referencedby refid="classcuLinearOperator_1a003b67351f4a3cf2e574a1e8631e1b24" compoundref="cu__linear__operator_8cu" startline="30" endline="45">cuLinearOperator&lt; DataType &gt;::cuLinearOperator</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcuLinearOperator_1a118f2b8f1523da52441070340f7c43f9" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuLinearOperator&lt; DataType &gt;::initialize_cusparse_handle</definition>
+        <argsstring>()</argsstring>
+        <name>initialize_cusparse_handle</name>
+        <briefdescription>
+<para>Creates a <computeroutput>cusparseHandle_t</computeroutput> object, if not created already. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" line="60" column="14" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.cu" bodystart="217" bodyend="238"/>
+        <references refid="cusparse__symbols_8cpp_1a9e60affbb67ff50ac958838adae4f525" compoundref="cusparse__symbols_8cpp" startline="92" endline="106">cusparseCreate</references>
+        <references refid="classCudaInterface_1aba5754e3b4c02d3b151fdee31fa0fd46" compoundref="cuda__interface_8cu" startline="188" endline="192">CudaInterface&lt; ArrayType &gt;::set_device</references>
+        <referencedby refid="classcuCSCAffineMatrixFunction_1ab35dd09274079e7ea620a9508ee865b9" compoundref="cu__csc__affine__matrix__function_8cu" startline="30" endline="53">cuCSCAffineMatrixFunction&lt; DataType &gt;::cuCSCAffineMatrixFunction</referencedby>
+        <referencedby refid="classcuCSCMatrix_1a3052323bdb6799654448ece5e9889837" compoundref="cu__csc__matrix_8cu" startline="52" endline="84">cuCSCMatrix&lt; DataType &gt;::cuCSCMatrix</referencedby>
+        <referencedby refid="classcuCSRAffineMatrixFunction_1a9dd70267c2e9daa2d74dc029d16ae366" compoundref="cu__csr__affine__matrix__function_8cu" startline="30" endline="53">cuCSRAffineMatrixFunction&lt; DataType &gt;::cuCSRAffineMatrixFunction</referencedby>
+        <referencedby refid="classcuCSRMatrix_1a6225b26c34a53755fea5cfd65b0743f3" compoundref="cu__csr__matrix_8cu" startline="52" endline="84">cuCSRMatrix&lt; DataType &gt;::cuCSRMatrix</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Base class for linear operators. This class serves as interface for all derived classes. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The prefix <computeroutput>c</computeroutput> in this class&apos;s name (and its derivatves), stands for the <computeroutput>cpp</computeroutput> code, intrast to the <computeroutput>cu</computeroutput> prefix, which stands for the cuda code. Most derived classes have a cuda counterpart.</para>
+<para><simplesect kind="see"><para><ref refid="classcuMatrix" kindref="compound">cuMatrix</ref>, <ref refid="classcuAffineMatrixFunction" kindref="compound">cuAffineMatrixFunction</ref>, <ref refid="classcLinearOperator" kindref="compound">cLinearOperator</ref> </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="9">
+        <label>cuCSRMatrix&lt; DataType &gt;</label>
+        <link refid="classcuCSRMatrix"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>cuDenseAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcuDenseAffineMatrixFunction"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>cuLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcuLinearOperator"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>cuCSCAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcuCSCAffineMatrixFunction"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>cuAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcuAffineMatrixFunction"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>cuCSCMatrix&lt; DataType &gt;</label>
+        <link refid="classcuCSCMatrix"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>cuDenseMatrix&lt; DataType &gt;</label>
+        <link refid="classcuDenseMatrix"/>
+        <childnode refid="7" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>cuMatrix&lt; DataType &gt;</label>
+        <link refid="classcuMatrix"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>cLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcLinearOperator"/>
+      </node>
+      <node id="5">
+        <label>cuCSRAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcuCSRAffineMatrixFunction"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>cuLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcuLinearOperator"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>cLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcLinearOperator"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" line="43" column="1" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_linear_operator.h" bodystart="44" bodyend="67"/>
+    <listofallmembers>
+      <member refid="classcLinearOperator_1acb0880fed1d5599d721a9438c207ee5b" prot="public" virt="non-virtual"><scope>cuLinearOperator</scope><name>cLinearOperator</name></member>
+      <member refid="classcLinearOperator_1ac844c5dd7b83eb1e95f3c96181366629" prot="public" virt="non-virtual"><scope>cuLinearOperator</scope><name>cLinearOperator</name></member>
+      <member refid="classcuLinearOperator_1ac5b5c2becca5fd6368acd5c98de7bbe5" prot="protected" virt="non-virtual"><scope>cuLinearOperator</scope><name>copied_host_to_device</name></member>
+      <member refid="classcuLinearOperator_1a46558cb4eb689bf6131c2e2415efea0d" prot="protected" virt="non-virtual"><scope>cuLinearOperator</scope><name>cublas_handle</name></member>
+      <member refid="classcuLinearOperator_1a003b67351f4a3cf2e574a1e8631e1b24" prot="public" virt="non-virtual"><scope>cuLinearOperator</scope><name>cuLinearOperator</name></member>
+      <member refid="classcuLinearOperator_1a8a27f677cbfb7c9c26d07904cdd0ee74" prot="public" virt="non-virtual"><scope>cuLinearOperator</scope><name>cuLinearOperator</name></member>
+      <member refid="classcuLinearOperator_1ab097cf1372d598ceac08237e26bafc6d" prot="protected" virt="non-virtual"><scope>cuLinearOperator</scope><name>cusparse_handle</name></member>
+      <member refid="classcLinearOperator_1a48c76860a74f00fefaa1297368d17a77" prot="public" virt="pure-virtual"><scope>cuLinearOperator</scope><name>dot</name></member>
+      <member refid="classcLinearOperator_1ac4c88c2dcdc8a4d33a77df3979789d42" prot="protected" virt="non-virtual"><scope>cuLinearOperator</scope><name>eigenvalue_relation_known</name></member>
+      <member refid="classcuLinearOperator_1aa0bf630097fc3820d7ec27ec4e1a2994" prot="public" virt="non-virtual"><scope>cuLinearOperator</scope><name>get_cublas_handle</name></member>
+      <member refid="classcLinearOperator_1a0dd6306a434563e4a48a806b43f23d03" prot="public" virt="pure-virtual"><scope>cuLinearOperator</scope><name>get_eigenvalue</name></member>
+      <member refid="classcLinearOperator_1a08a2eb3bd8ff1f47d1141dc164af1c61" prot="public" virt="non-virtual"><scope>cuLinearOperator</scope><name>get_num_columns</name></member>
+      <member refid="classcLinearOperator_1af9be60b44a47eed5b2c98f077ff54987" prot="public" virt="non-virtual"><scope>cuLinearOperator</scope><name>get_num_parameters</name></member>
+      <member refid="classcLinearOperator_1aecc5b62db1d8a41f5112b289c7031aaf" prot="public" virt="non-virtual"><scope>cuLinearOperator</scope><name>get_num_rows</name></member>
+      <member refid="classcuLinearOperator_1ae2bec474007baff1b7e598a869e83e12" prot="protected" virt="non-virtual"><scope>cuLinearOperator</scope><name>initialize_cublas_handle</name></member>
+      <member refid="classcuLinearOperator_1a118f2b8f1523da52441070340f7c43f9" prot="protected" virt="non-virtual"><scope>cuLinearOperator</scope><name>initialize_cusparse_handle</name></member>
+      <member refid="classcLinearOperator_1af0c980ca87c2795e0dbfda1c84f74591" prot="public" virt="non-virtual"><scope>cuLinearOperator</scope><name>is_eigenvalue_relation_known</name></member>
+      <member refid="classcLinearOperator_1acdafe59b033d5a73f5abe380f63f40a1" prot="protected" virt="non-virtual"><scope>cuLinearOperator</scope><name>num_columns</name></member>
+      <member refid="classcuLinearOperator_1a701c8a301638c78c66a3290b0848483e" prot="protected" virt="non-virtual"><scope>cuLinearOperator</scope><name>num_gpu_devices</name></member>
+      <member refid="classcLinearOperator_1aab9f0063e55c2a1a92a7e643f086348b" prot="protected" virt="non-virtual"><scope>cuLinearOperator</scope><name>num_parameters</name></member>
+      <member refid="classcLinearOperator_1a6786391614f08ef1575554f78717fbb0" prot="protected" virt="non-virtual"><scope>cuLinearOperator</scope><name>num_rows</name></member>
+      <member refid="classcLinearOperator_1a22683aa9286bfd651f1f2dbae3660545" prot="protected" virt="non-virtual"><scope>cuLinearOperator</scope><name>parameters</name></member>
+      <member refid="classcuLinearOperator_1a8dac55aff04e3f372468b21367a6dab8" prot="protected" virt="non-virtual"><scope>cuLinearOperator</scope><name>query_gpu_devices</name></member>
+      <member refid="classcLinearOperator_1ad7395bd04ec8014c9dd0e66c318ae125" prot="public" virt="non-virtual"><scope>cuLinearOperator</scope><name>set_parameters</name></member>
+      <member refid="classcLinearOperator_1a40f5051c4399ebfa153ef7147e10a6e6" prot="public" virt="pure-virtual"><scope>cuLinearOperator</scope><name>transpose_dot</name></member>
+      <member refid="classcLinearOperator_1a53065884c6a1349054a96a9fb8838e65" prot="public" virt="virtual"><scope>cuLinearOperator</scope><name>~cLinearOperator</name></member>
+      <member refid="classcuLinearOperator_1ad1d14172ed32afa599208af04ec4db0c" prot="public" virt="virtual"><scope>cuLinearOperator</scope><name>~cuLinearOperator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

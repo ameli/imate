@@ -15,8 +15,8 @@ import numpy
 import scipy.special
 
 try:
-    from .._utilities.plot_utilities import matplotlib, plt
-    from .._utilities.plot_utilities import load_plot_settings, save_plot
+    from .._utilities.plot_utilities import matplotlib, plt, save_plot, \
+            get_custom_theme
     plot_modules_exist = True
 except ImportError:
     plot_modules_exist = False
@@ -196,6 +196,7 @@ def _compute_cumulative_statistics(
 # plot samples
 # ============
 
+@matplotlib.rc_context(get_custom_theme())
 def _plot_samples(
         ax,
         samples,
@@ -250,16 +251,7 @@ def _plot_samples(
 
     if not plot_modules_exist:
         raise ImportError('Cannot import modules for plotting. Either ' +
-                          'install "matplotlib" and "seaborn" packages, ' +
-                          'or set "plot=False".')
-
-    # Load plot settings
-    try:
-        load_plot_settings()
-    except ImportError:
-        raise ImportError('Cannot import modules for plotting. Either ' +
-                          'install "matplotlib" and "seaborn" packages, ' +
-                          'or set "plot=False".')
+                          'install "matplotlib" package or set "plot=False".')
 
     # If samples has multiple columns, only the first column (inquiry) plotted.
     inquiry = 0
@@ -303,6 +295,7 @@ def _plot_samples(
 # plot error
 # ==========
 
+@matplotlib.rc_context(get_custom_theme())
 def _plot_error(
         ax,
         num_samples_used,
@@ -361,16 +354,7 @@ def _plot_error(
 
     if not plot_modules_exist:
         raise ImportError('Cannot import modules for plotting. Either ' +
-                          'install "matplotlib" and "seaborn" packages, ' +
-                          'or set "plot=False".')
-
-    # Load plot settings
-    try:
-        load_plot_settings()
-    except ImportError:
-        raise ImportError('Cannot import modules for plotting. Either ' +
-                          'install "matplotlib" and "seaborn" packages, ' +
-                          'or set "plot=False".')
+                          'install "matplotlib" or set "plot=False".')
 
     relative_color = 'black'
     absolute_color = 'darkgrey'
@@ -509,6 +493,7 @@ def _plot_error(
 # plot convergence
 # ================
 
+@matplotlib.rc_context(get_custom_theme())
 def plot_convergence(info):
     """
     Plots samples, cumulative mean, absolute and relative error.
@@ -519,16 +504,7 @@ def plot_convergence(info):
 
     if not plot_modules_exist:
         raise ImportError('Cannot import modules for plotting. Either ' +
-                          'install "matplotlib" and "seaborn" packages, ' +
-                          'or set "plot=False".')
-
-    # Load plot settings
-    try:
-        load_plot_settings()
-    except ImportError:
-        raise ImportError('Cannot import modules for plotting. Either ' +
-                          'install "matplotlib" and "seaborn" packages, ' +
-                          'or set "plot=False".')
+                          'install "matplotlib" or set "plot=False".')
 
     # Extract variables from info dictionary
     num_inquiries = info['matrix']['num_inquiries']

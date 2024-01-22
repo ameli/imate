@@ -91,7 +91,9 @@ Install CUDA Compiler and Development Libraries
 
     The minimum version of CUDA to compile |project| is `CUDA 10.0`.
 
-If CUDA Toolkit is installed, skip this part. Otherwise, Make sure the CUDA compiler and the development libraries of cuBLAS and cuSparse are installed by
+To download and install the CUDA Toolkit on both Linux and Windows, refer to the `NVIDIA Developer website <https://developer.nvidia.com/cuda-downloads>`__. It's important to note that NVIDIA's installation instructions on their website include the entire CUDA Toolkit, which is typically quite large (over 6 GB in size).
+
+However, for compiling |project|, you don't need to install the entire CUDA Toolkit. Instead, only the CUDA compiler and a few specific development libraries, such as cuBLAS and cuSparse, are required. Below are simplified installation instructions for Linux, allowing you to perform a minimal CUDA installation with only the necessary libraries. Note that in the following, you may change ``CUDA_VERSION`` to the CUDA version that you wish to install.
 
 .. tab-set::
 
@@ -100,38 +102,85 @@ If CUDA Toolkit is installed, skip this part. Otherwise, Make sure the CUDA comp
 
         .. prompt:: bash
 
+            # Set to the desired cuda version
+            CUDA_VERSION="12-3"
+
+            # Machine architecture
+            ARCH=$(uname -m | grep -q -e 'x86_64' && echo 'x86_64' || echo 'sbsa')
+
+            # OS Version
+            UBUNTU_VERSION=$(awk -F= '/^VERSION_ID/{gsub(/"/, "", $2); print $2}' /etc/os-release)
+            OS_VERSION=$(dpkg --compare-versions "$UBUNTU_VERSION" "ge" "22.04" && echo "2204" || echo "2004")
+
+            # Add CUDA Repository 
+            sudo apt update
+            sudo apt install wget -y
+            wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${OS_VERSION}/${ARCH}/cuda-keyring_1.1-1_all.deb -P /tmp
+            sudo dpkg -i /tmp/cuda-keyring_1.1-1_all.deb
+            rm /tmp/cuda-keyring_1.1-1_all.deb
+
+            # Install required CUDA libraries
+            sudo apt-get update
             sudo apt install -y \
-                cuda-nvcc-12-2 \
-                libcublas-12-2 \
-                libcublas-dev-12-2 \
-                libcusparse-12-2 -y \
-                libcusparse-dev-12-2
+                cuda-nvcc-${CUDA_VERSION} \
+                libcublas-${CUDA_VERSION} \
+                libcublas-dev-${CUDA_VERSION} \
+                libcusparse-${CUDA_VERSION} \
+                libcusparse-dev-${CUDA_VERSION}
 
     .. tab-item:: CentOS 7
         :sync: centos
 
         .. prompt:: bash
 
+            # Set to the desired cuda version
+            CUDA_VERSION="12-3"
+
+            # Machine architecture
+            ARCH=$(uname -m | grep -q -e 'x86_64' && echo 'x86_64' || echo 'sbsa')
+
+            # OS Version
+            OS_VERSION=$(awk -F= '/^VERSION_ID/{gsub(/"/, "", $2); print $2}' /etc/os-release)
+
+            # Add CUDA Repository 
+            sudo yum install -y yum-utils
+            sudo yum-config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel${OS_VERSION}/${ARCH}/cuda-rhel${OS_VERSION}.repo
+
+            # Install required CUDA libraries
             sudo yum install --setopt=obsoletes=0 -y \
-                cuda-nvcc-12-2.x86_64 \
-                cuda-cudart-devel-12-2.x86_64 \
-                libcublas-12-2.x86_64 \
-                libcublas-devel-12-2.x86_64 \
-                libcusparse-12-2.x86_64 \
-                libcusparse-devel-12-2.x86_64
+                cuda-nvcc-${CUDA_VERSION} \
+                cuda-cudart-devel-${CUDA_VERSION} \
+                libcublas-${CUDA_VERSION} \
+                libcublas-devel-${CUDA_VERSION} \
+                libcusparse-${CUDA_VERSION} \
+                libcusparse-devel-${CUDA_VERSION}
 
     .. tab-item:: RHEL 9
         :sync: rhel
 
         .. prompt:: bash
 
+            # Set to the desired cuda version
+            CUDA_VERSION="12-3"
+
+            # Machine architecture
+            ARCH=$(uname -m | grep -q -e 'x86_64' && echo 'x86_64' || echo 'sbsa')
+
+            # OS Version
+            OS_VERSION=$(awk -F= '/^VERSION_ID/{gsub(/"/, "", $2); print $2}' /etc/os-release)
+
+            # Add CUDA Repository 
+            sudo dnf install -y dnf-utils
+            sudo dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel${OS_VERSION}/${ARCH}/cuda-rhel${OS_VERSION}.repo
+
+            # Install required CUDA libraries
             sudo dnf install --setopt=obsoletes=0 -y \
-                cuda-nvcc-12-2.x86_64 \
-                cuda-cudart-devel-12-2.x86_64 \
-                libcublas-12-2.x86_64 \
-                libcublas-devel-12-2.x86_64 \
-                libcusparse-12-2.x86_64 \
-                libcusparse-devel-12-2.x86_64
+                cuda-nvcc-${CUDA_VERSION} \
+                cuda-cudart-devel-${CUDA_VERSION} \
+                libcublas-${CUDA_VERSION} \
+                libcublas-devel-${CUDA_VERSION} \
+                libcusparse-${CUDA_VERSION} \
+                libcusparse-devel-${CUDA_VERSION}
 
 Update ``PATH`` with the CUDA installation location by
 

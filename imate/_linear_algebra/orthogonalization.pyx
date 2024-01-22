@@ -168,7 +168,8 @@ cdef void gram_schmidt_process(
 cdef void orthogonalize_vectors(
         DataType* vectors,
         const LongIndexType vector_size,
-        const IndexType num_vectors) nogil:
+        const IndexType num_vectors,
+        const IndexType seed) nogil:
     """
     Orthogonalizes set of vectors mutually using modified Gram-Schmidt process.
 
@@ -279,7 +280,7 @@ cdef void orthogonalize_vectors(
 
                 # Regenerate new random vector for i-th vector
                 py_generate_random_array(&vectors[i*vector_size],
-                                         vector_size, num_threads)
+                                         vector_size, num_threads, seed)
 
                 # Repeat the reorthogonalization for i-th vector against
                 # all previous vectors again.

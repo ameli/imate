@@ -25,33 +25,25 @@
 /// \brief Constructor. Initializes the state with current time.
 ///
 
-SplitMix64::SplitMix64()
+SplitMix64::SplitMix64(const int64_t seed_)
 {
     // Seed the random generating algorithm with a high resolution time counter
-    uint64_t seed = get_highres_time_stamp();
+    uint64_t seed;
+
+    if (seed_ >= 0)
+    {
+        seed = static_cast<uint64_t>(seed_);
+    }
+    else
+    {
+        // Negative integer is a flag to indicate using time to generate a seed
+        seed = get_highres_time_stamp();
+    }
 
     // Seeding as follow only fills the first 32 bits of the 64-bit integer.
     // Repeat the first 32 bits on the second 32-bits to create a better 64-bit
     // random number
     this->state = (seed << 32) | seed;
-}
-
-
-// ===========
-// Constructor
-// ===========
-
-/// \brief     Constructor. Initializes the state with an input integer.
-///
-/// \param[in] state_
-///            A 64-bit integer to initialize the state. This number must be
-///            non-zero.
-
-SplitMix64::SplitMix64(uint64_t state_):
-    state(state_)
-{
-    // Initial state must not be zero.
-    assert(state_ != 0);
 }
 
 

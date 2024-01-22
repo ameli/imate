@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classDiagonalization" kind="class" language="C++" prot="public">
+    <compoundname>Diagonalization</compoundname>
+    <includes refid="diagonalization_8h" local="no">diagonalization.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename DataType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classDiagonalization_1a18924365b0d74983ead3901886d51204" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Diagonalization&lt; DataType &gt;::eigh_tridiagonal</definition>
+        <argsstring>(DataType *diagonals, DataType *subdiagonals, DataType *eigenvectors, IndexType matrix_size)</argsstring>
+        <name>eigh_tridiagonal</name>
+        <param>
+          <type>DataType *</type>
+          <declname>diagonals</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>subdiagonals</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>eigenvectors</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref></type>
+          <declname>matrix_size</declname>
+        </param>
+        <briefdescription>
+<para>Computes all eigenvalues and eigenvectors of a real and symmetric tridiagonal matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The symmetric tridiagonal matrix <formula id="1">$ \mathbf{A} $</formula> is decomposed in to: <formula id="32">\[ \mathbf{A} = \mathbf{V} \boldsymbol{\Lambda} \mathbf{V}^{\intercal} \]</formula></para>
+<para>where <formula id="33">$ \mathbf{V} $</formula> is unitary and <formula id="34">$ \boldsymbol{\Lambda} $</formula> is diagonal.</para>
+<sect4 id="classDiagonalization_1autotoc_md5">
+<title>Algorithm</title>
+<para>This function is equivalent to <computeroutput>scipy.linalg.eigh_tridigonal</computeroutput> which wraps around LAPACK&apos;s <computeroutput>sstev</computeroutput> and <computeroutput>dstev</computeroutput> subroutine. Except, this function does not acquire python&apos;s GIL, whereas the scipy&apos;s function does.</para>
+</sect4>
+<sect4 id="classDiagonalization_1autotoc_md6">
+<title>References</title>
+<para><emphasis>Note:</emphasis> Remove blank in the URLs below when opened in the browser.</para>
+<para><itemizedlist>
+<listitem><para>LAPACK&apos;s dstev routine user guide <ulink url="http://www.netlib.org/lapack/explore-html/dc/dd2/group__Da">http://www.netlib.org/lapack/explore-html/dc/dd2/group__Da</ulink> taType_o_t_h_e_reigen_gaaa6df51cfd92c4ab08d41a54bf05c3ab.h tml</para>
+</listitem><listitem><para>Routines for BLAS, LAPACK, MAGMA <ulink url="http://www.icl.utk.edu/~mgates3/docs/lapack.html">http://www.icl.utk.edu/~mgates3/docs/lapack.html</ulink></para>
+</listitem><listitem><para>Comparison of bdsdc and bdsqr methods <ulink url="http://www.netlib.org/lapack/lug/node53.html">http://www.netlib.org/lapack/lug/node53.html</ulink></para>
+</listitem><listitem><para>Scipy.linalg.dstev <ulink url="https://docs.scipy.org/doc/scipy/reference/generated/scipy">https://docs.scipy.org/doc/scipy/reference/generated/scipy</ulink> .linalg.lapack.dstev.html</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">diagonals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A 1D array of the length <computeroutput>matrix_size</computeroutput> containing the diagonal elements of the matrix. This array will be written in-place with the computed eigenvalues. This array is both input and output of this function. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">subdiagonals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A 1D array of the length <computeroutput>matrix_size-1</computeroutput> containing the sub-diagonal elements of the matrix. This array will be written in-place with intermediate computation values, but is not an output of this function. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">eigenvectors</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1D array of size <computeroutput>matrix_size*matrix_size</computeroutput> and represents a 2D array of the shape <computeroutput></computeroutput>(matrix_size,matrix_size). The second index of the equivalent 2D array iterates over the column vectors. The array has Fortran ordering, meaning that the first index is contiguous. Thus the i-th element of the j-th vector should be accessed by <computeroutput>eigenvectors</computeroutput>[j*matrix_size+i]. This array is written in-place and is the output of this function. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">matrix_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of square matrix. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The <computeroutput>info</computeroutput> result of the <computeroutput>sstev</computeroutput> and <computeroutput>dstev</computeroutput> subroutine. Zero indicates a successful computation. </para>
+</simplesect>
+</para>
+</sect4>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_trace_estimator/diagonalization.h" line="40" column="20" bodyfile="/home/sia/work/github/imate/imate/_c_trace_estimator/diagonalization.cpp" bodystart="89" bodyend="118"/>
+        <references refid="lapack__api_8h_1a829a495cf9df4ce926be95ee1c6163a8">lapack_xstev</references>
+        <referencedby refid="classcTraceEstimator_1a02afa505a915c58380b99a62e4d56b30" compoundref="c__trace__estimator_8cpp" startline="411" endline="654">cTraceEstimator&lt; DataType &gt;::_c_stochastic_lanczos_quadrature</referencedby>
+        <referencedby refid="classcuTraceEstimator_1ab4edc323dc7dcc98f401eeec9276e245" compoundref="cu__trace__estimator_8cu" startline="419" endline="662">cuTraceEstimator&lt; DataType &gt;::_cu_stochastic_lanczos_quadrature</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classDiagonalization_1a636b5e32ca7211d60dadc62b2258b8ea" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Diagonalization&lt; DataType &gt;::svd_bidiagonal</definition>
+        <argsstring>(DataType *diagonals, DataType *subdiagonals, DataType *U, DataType *Vt, IndexType matrix_size)</argsstring>
+        <name>svd_bidiagonal</name>
+        <param>
+          <type>DataType *</type>
+          <declname>diagonals</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>subdiagonals</declname>
+          <defname>supdiagonals</defname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>U</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>Vt</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref></type>
+          <declname>matrix_size</declname>
+        </param>
+        <briefdescription>
+<para>Computes all singular-values and left and right eigenvectors of a real and symmetric upper bi-diagonal matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The symmetric upper bi-diagonal matrix <formula id="1">$ \mathbf{A} $</formula> is decomposed in to <formula id="35">\[ \mathbf{A} = \mathbf{U} \boldsymbol{\Sigma} \mathbf{V}^{\intercal} \]</formula> where <formula id="36">$ \mathbf{U} $</formula> and <formula id="33">$ \mathbf{V} $</formula> are unitary and <formula id="37">$ \boldsymbol{\Sigma} $</formula> is diagonal with positive entries.</para>
+<sect4 id="classDiagonalization_1autotoc_md7">
+<title>Algorithm</title>
+<para>This function uses LAPACK&apos;s <computeroutput>dbdsdc</computeroutput> Fortran subroutine.</para>
+</sect4>
+<sect4 id="classDiagonalization_1autotoc_md8">
+<title>References</title>
+<para><emphasis>Note:</emphasis> Remove blank in the URLs below when opened in the browser.</para>
+<para><itemizedlist>
+<listitem><para>LAPACK&apos;s dbdsdc routine user guide <ulink url="http://www.netlib.org/lapack/explore-html/d9/d08/dbdsdc_8f">http://www.netlib.org/lapack/explore-html/d9/d08/dbdsdc_8f</ulink> .html</para>
+</listitem><listitem><para>Routines for BLAS, LAPACK, MAGMA <ulink url="http://www.icl.utk.edu/~mgates3/docs/lapack.html">http://www.icl.utk.edu/~mgates3/docs/lapack.html</ulink>&gt;</para>
+</listitem><listitem><para>Comparison of bdsdc and bdsqr methods <ulink url="http://www.netlib.org/lapack/lug/node53.html">http://www.netlib.org/lapack/lug/node53.html</ulink></para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">diagonals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A 1D array of the length <computeroutput>matrix_size</computeroutput> containing the diagonal elements of the matrix. This array will be written in-place with the computed eigenvalues. This array is both input and output of this function. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">supdiagonals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A 1D array of the length <computeroutput>matrix_size-1</computeroutput> containing the sub-diagonal elements of the matrix. This array will be written in-place with intermediate computation values, but is not an output of this function. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">U</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Right eigenvectors represented by 1D array of the length <computeroutput>matrix_size*matrix_size</computeroutput> which denotes a 2D array of the shape <computeroutput></computeroutput>(matrix_size, matrix_size). The second index of the matrix iterates over the column vectors. The array has Fortran ordering, meaning that the first index is contiguous. Thus, the i-th element of the j-th vector should be accessed by <computeroutput>U</computeroutput>[j*matrix_size+i]. This array is written in place and is the output of this function. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">Vt</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Transpose of left eigenvectors represented by 1D array of the length <computeroutput>matrix_size*matrix_size</computeroutput> which denotes a 2D array of the shape <computeroutput></computeroutput>(matrix_size, matrix_size). The second index of the matrix iterates over the column vectors. The array has Fortran ordering, meaning that the first index is contiguous. Thus, the i-th element of the j-th vector should be accessed by <computeroutput>Vt</computeroutput>[j*matrix_size+i]. This array is written in place and is the output of this function. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">matrix_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of square matrix. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Integer <computeroutput>info</computeroutput> indicates the status of the computation. Zero indicates a successful computation. </para>
+</simplesect>
+</para>
+</sect4>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_trace_estimator/diagonalization.h" line="47" column="20" bodyfile="/home/sia/work/github/imate/imate/_c_trace_estimator/diagonalization.cpp" bodystart="190" bodyend="231"/>
+        <references refid="lapack__api_8h_1a14ad2b140c825a35e626fadf98fe495b">lapack_xbdsdc</references>
+        <referencedby refid="classcTraceEstimator_1a02afa505a915c58380b99a62e4d56b30" compoundref="c__trace__estimator_8cpp" startline="411" endline="654">cTraceEstimator&lt; DataType &gt;::_c_stochastic_lanczos_quadrature</referencedby>
+        <referencedby refid="classcuTraceEstimator_1ab4edc323dc7dcc98f401eeec9276e245" compoundref="cu__trace__estimator_8cu" startline="419" endline="662">cuTraceEstimator&lt; DataType &gt;::_cu_stochastic_lanczos_quadrature</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A static class to find eigenvalues and eigenvectors (diagonalize) tridiagonal and bidiagonal matrices. This class acts as a templated namespace, where all member methods are <emphasis>public</emphasis> and <emphasis>static</emphasis>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="see"><para>StochasticLanczosQuadrature </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="/home/sia/work/github/imate/imate/_c_trace_estimator/diagonalization.h" line="35" column="1" bodyfile="/home/sia/work/github/imate/imate/_c_trace_estimator/diagonalization.h" bodystart="36" bodyend="53"/>
+    <listofallmembers>
+      <member refid="classDiagonalization_1a18924365b0d74983ead3901886d51204" prot="public" virt="non-virtual"><scope>Diagonalization</scope><name>eigh_tridiagonal</name></member>
+      <member refid="classDiagonalization_1a636b5e32ca7211d60dadc62b2258b8ea" prot="public" virt="non-virtual"><scope>Diagonalization</scope><name>svd_bidiagonal</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

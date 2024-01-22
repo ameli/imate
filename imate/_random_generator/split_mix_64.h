@@ -17,7 +17,7 @@
 // Header
 // ======
 
-#include <stdint.h>  // uint64_t
+#include <stdint.h>  // int64_t, uint64_t
 
 
 // ============
@@ -42,8 +42,7 @@
 class SplitMix64
 {
     public:
-        SplitMix64();
-        explicit SplitMix64(uint64_t state_);
+        explicit SplitMix64(const int64_t seed_);
         uint64_t next();
 
     protected:

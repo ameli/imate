@@ -78,34 +78,40 @@ ctypedef fused MemoryView2DFDataType:
 # Static types (non-templates)
 # ============
 
+# The LongIndexType is defined in definitions.h and is used for the C++ source
+# codes. This type can be 4 byte int or 8 byte long int, depending on macros
+# that is defined at compile time. To expose the LongIndexType to pyx files as
+# well, we extern the definitions.h. But this also requires to re-define this
+# type with ctypedef and with yet another type (here, int), despite it might
+# be defined as long int in definitions.h. Note that the int type here is
+# arbitrary and will be ignored by the cython compiler. Read more about this at
+# https://cython.readthedocs.io/en/latest/src/userguide/external_C_code.html
+# in the typedef section of that page.
+
+cdef extern from "./definitions.h":
+    # Note: here LongIndexType is defined as "int" (which is 4 byte). This is
+    # just a placeholder and is ignored by cython. Rather, the type defined in
+    # definition.h is always used, which could be int or long int.
+    ctypedef int LongIndexType
+
 # Long index types is used for data indices, such a matrix and vectors indices
-IF LONG_INT:
-    IF UNSIGNED_LONG_INT:
-        ctypedef unsigned long LongIndexType
-        ctypedef const unsigned long ConstLongIndexType
+IF MEMORY_VIEW_LONG_INT:
+    IF MEMORY_VIEW_UNSIGNED_LONG_INT:
         ctypedef unsigned long[:] MemoryViewLongIndexType
     ELSE:
-        ctypedef long LongIndexType
-        ctypedef const long ConstLongIndexType
         ctypedef long[:] MemoryViewLongIndexType
 ELSE:
-    IF UNSIGNED_LONG_INT:
-        ctypedef unsigned int LongIndexType
-        ctypedef const unsigned int ConstLongIndexType
+    IF MEMORY_VIEW_UNSIGNED_LONG_INT:
         ctypedef unsigned int[:] MemoryViewLongIndexType
     ELSE:
-        ctypedef int LongIndexType
-        ctypedef const int ConstLongIndexType
         ctypedef int[:] MemoryViewLongIndexType
 
 # Used for indices of small matrices, or small size iterators
 ctypedef int IndexType
-ctypedef const int ConstIndexType
 ctypedef int[:] MemoryViewIndexType
 
 # Used for both flags and integers used as signals, including negative integers
 ctypedef int FlagType
-ctypedef const int ConstFlagType
 ctypedef int[:] MemoryViewFlagType
 
 

@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classSplitMix64" kind="class" language="C++" prot="public">
+    <compoundname>SplitMix64</compoundname>
+    <includes refid="split__mix__64_8h" local="no">split_mix_64.h</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classSplitMix64_1a1e881c1af3d1b11f39045eacf87ea7cd" prot="protected" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t SplitMix64::state</definition>
+        <argsstring></argsstring>
+        <name>state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_random_generator/split_mix_64.h" line="49" column="18" bodyfile="/home/sia/work/github/imate/imate/_random_generator/split_mix_64.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="classSplitMix64_1a3c6791320e1260d9f559bda1039c9206" compoundref="split__mix__64_8cpp" startline="57" endline="64">next</referencedby>
+        <referencedby refid="classSplitMix64_1a818c16ba0ce65c40a4b5f8eb0f8006d2" compoundref="split__mix__64_8cpp" startline="28" endline="47">SplitMix64</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classSplitMix64_1a818c16ba0ce65c40a4b5f8eb0f8006d2" prot="public" static="no" const="no" explicit="yes" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>SplitMix64::SplitMix64</definition>
+        <argsstring>(const int64_t seed_)</argsstring>
+        <name>SplitMix64</name>
+        <param>
+          <type>const int64_t</type>
+          <declname>seed_</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. Initializes the state with current time. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_random_generator/split_mix_64.h" line="45" column="18" bodyfile="/home/sia/work/github/imate/imate/_random_generator/split_mix_64.cpp" bodystart="28" bodyend="47"/>
+        <references refid="highres__time__stamp_8cpp_1ae3b2a58414a260c6343fda0ebf00d81d" compoundref="highres__time__stamp_8cpp" startline="88" endline="134">get_highres_time_stamp</references>
+        <references refid="classSplitMix64_1a1e881c1af3d1b11f39045eacf87ea7cd" compoundref="split__mix__64_8h" startline="49">state</references>
+      </memberdef>
+      <memberdef kind="function" id="classSplitMix64_1a3c6791320e1260d9f559bda1039c9206" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t SplitMix64::next</definition>
+        <argsstring>()</argsstring>
+        <name>next</name>
+        <briefdescription>
+<para>Generates the next presudo-random number in the sequence. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_random_generator/split_mix_64.h" line="46" column="18" bodyfile="/home/sia/work/github/imate/imate/_random_generator/split_mix_64.cpp" bodystart="57" bodyend="64"/>
+        <references refid="classSplitMix64_1a1e881c1af3d1b11f39045eacf87ea7cd" compoundref="split__mix__64_8h" startline="49">state</references>
+        <referencedby refid="classXoshiro256StarStar_1a190960399da9bbbcbda6b22abead5675" compoundref="xoshiro__256__star__star_8cpp" startline="33" endline="46">Xoshiro256StarStar::Xoshiro256StarStar</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Pseudo-random integer generator. This class generates 64-bit integer using <ref refid="classSplitMix64" kindref="compound">SplitMix64</ref> algorithm. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The <ref refid="classSplitMix64" kindref="compound">SplitMix64</ref> algorithm is very fast but does not pass all statistical tests. This class is primarily used to initialize the states of the <computeroutput><ref refid="classXoshiro256StarStar" kindref="compound">Xoshiro256StarStar</ref></computeroutput> class.</para>
+<para>The <ref refid="classSplitMix64" kindref="compound">SplitMix64</ref> algorithm is develped by Sebastiano Vigna (2015) and the source code is available at: <ulink url="https://prng.di.unimi.it/splitmix64.c">https://prng.di.unimi.it/splitmix64.c</ulink></para>
+<para><simplesect kind="see"><para><ref refid="classXoshiro256StarStar" kindref="compound">Xoshiro256StarStar</ref> </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="/home/sia/work/github/imate/imate/_random_generator/split_mix_64.h" line="42" column="1" bodyfile="/home/sia/work/github/imate/imate/_random_generator/split_mix_64.h" bodystart="43" bodyend="50"/>
+    <listofallmembers>
+      <member refid="classSplitMix64_1a3c6791320e1260d9f559bda1039c9206" prot="public" virt="non-virtual"><scope>SplitMix64</scope><name>next</name></member>
+      <member refid="classSplitMix64_1a818c16ba0ce65c40a4b5f8eb0f8006d2" prot="public" virt="non-virtual"><scope>SplitMix64</scope><name>SplitMix64</name></member>
+      <member refid="classSplitMix64_1a1e881c1af3d1b11f39045eacf87ea7cd" prot="protected" virt="non-virtual"><scope>SplitMix64</scope><name>state</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

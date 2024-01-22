@@ -5,7 +5,7 @@ Install
 
 For the majority of users, this package can be easily installed from Python wheels using either `pip <https://pip.pypa.io/en/stable/>`__ or `conda <https://docs.conda.io/en/latest/>`__. More information on installation can be found in the :ref:`Install from Wheels <install-wheels>` or :ref:`Install in Virtual Environment <virtual-env>` sections. 
 
-Additionally, you can explore the :ref:`Optional Runtime Dependencies <optional-dependencies>` section to install any additional optional dependencies that might be necessary based on your specific requirements.
+Additionally, you can explore the :ref:`Runtime Dependencies <dependencies>` section to install any required or optional runtime dependencies that might be necessary based on your specific requirements.
 
 For more advanced usage, there may be cases where you need to compile the package from its source code. Resources and instructions for compiling from source can be found in the :ref:`Compile from Source <compile-source>` and :ref:`Generate Documentation <gen-documentation>` sections. Instructions for testing the package are available in the :ref:`Test Package <test-package>` section.
 

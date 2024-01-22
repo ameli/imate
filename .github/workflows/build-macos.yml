@@ -1,9 +1,9 @@
 name: build-macos
 
 on:
-    # push:
-    #     branches:
-    #         - main
+    push:
+        branches:
+            - main
     release:
         types: 
             - published
@@ -29,7 +29,6 @@ jobs:
             - name: Install prerequisites
               run: |
                   brew install suite-sparse
-                  # brew install libomp
 
                   # Starting from libomp>=15.0, the libomp installation in homebrew is "keg-only",
                   # meaning that libomp is only installed in homebrew's directory, but not moved
@@ -37,18 +36,13 @@ jobs:
                   # of OpenMP). To use the homebrew's version of OpenMP,the following symbolic
                   # links are created. Without these, the installation will fail with the error
                   # of "fatal error: omp.h file found"
-                  ln -s /usr/local/opt/libomp/include/omp-tools.h /usr/local/include/omp-tools.h
-                  ln -s /usr/local/opt/libomp/include/omp.h /usr/local/include/omp.h
-                  ln -s /usr/local/opt/libomp/include/ompt.h /usr/local/include/ompt.h
-                  ln -s /usr/local/opt/libomp/lib/libomp.a /usr/local/lib/libomp.a
-                  ln -s /usr/local/opt/libomp/lib/libomp.dylib /usr/local/lib/libomp.dylib
-
-                  # This is needed to import numpy in pypy3 (but not needed for
-                  # pypy2 and CPython)
-                  # brew install openblas
-                  # OPENBLAS="$(brew --prefix openblas)"
-                  # brew install lapack
-                  # pip3 install numpy
+                  brew install libomp
+                  libomp_dir=$(brew --prefix libomp)
+                  ln -sf ${libomp_dir}/include/omp-tools.h  /usr/local/include/omp-tools.h
+                  ln -sf ${libomp_dir}/include/omp.h        /usr/local/include/omp.h
+                  ln -sf ${libomp_dir}/include/ompt.h       /usr/local/include/ompt.h
+                  ln -sf ${libomp_dir}/lib/libomp.a         /usr/local/lib/libomp.a
+                  ln -sf ${libomp_dir}/lib/libomp.dylib     /usr/local/lib/libomp.dylib
             
             # Install OpenBLAS when PyPy is used, since it tries to compile numpy and scipt from
             # source, whic needs OpenBLAS
@@ -58,12 +52,6 @@ jobs:
                   brew install openblas
                   brew install libomp
                   brew reinstall gcc
-                  
-            # - name: Install CUDA
-            #   uses: Jimver/cuda-toolkit@v0.2.11
-            #   id: cuda-toolkit
-            #   with:
-            #       cuda: '12.1.0'
 
             - name: Install package and dependencies
               if: (matrix.python-version == '3.9')

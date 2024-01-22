@@ -11,6 +11,13 @@ and this project adheres to `Semantic Versioning <https://semver.org/spec/v2.0.0
 [Unreleased]
 ============
 
+---------------------
+[0.23.4] - 2024-01-02
+---------------------
+
+* setup.py, added benchmark and other folders to be excluded from sdist.
+* MANIFEST.in, cleaned the file, and added more prunes.
+
 --------------------
 [0.0.8] - 2020-12-09
 --------------------

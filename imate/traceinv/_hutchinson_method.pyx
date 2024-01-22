@@ -50,6 +50,7 @@ def hutchinson_method(
         outlier_significance_level=0.001,
         solver_tol=1e-6,
         orthogonalize=True,
+        seed=None,
         num_threads=0,
         verbose=False,
         plot=False):
@@ -181,6 +182,23 @@ def hutchinson_method(
         Monte-Carlo sampling. This might lead to a better estimation of the
         output.
 
+    seed : int, default=None
+        A non-negative integer that serves as the seed for generating sequences
+        of pseudo-random numbers within the algorithm. This parameter allows
+        you to control the randomness and make the results of the randomized
+        algorithm reproducible.
+
+        If ``seed`` is set to ``None`` or a negative integer, the provided seed
+        value is ignored, and the algorithm uses the current processor time as
+        the seed. As a result, the generated sequences are pseudo-random, and
+        the outcome is not reproducible.
+
+        .. note::
+
+            For reproducibility, it's essential not only to specify the
+            ``seed`` parameter as a non-negative integer but also to set
+            ``num_threads`` to ``1``.
+
     num_threads : int, default=0
         Number of processor threads to employ for parallel computation on CPU.
         If set to `0` or a number larger than the available number of threads,
@@ -191,10 +209,10 @@ def hutchinson_method(
         Prints extra information about the computations.
 
     plot : bool, default=False
-        Plots convergence of samples. For this, the packages `matplotlib` and
-        `seaborn` should be installed. If no display is available (such as
-        running this code on remote machines), the plots are saved as an `SVG`
-        file in the current directory.
+        Plots convergence of samples. To this end, `matplotlib` package should
+        be installed. If no display is available (such as running this code on
+        remote machines), the plots are saved as an `SVG` file in the current
+        directory.
 
     Returns
     -------
@@ -285,6 +303,7 @@ def hutchinson_method(
             * ``method``: 'hutchinson'.
             * ``solver_tol``: `float`, tolerance of solving linear system.
             * ``orthogonalize``: `bool`, orthogonalization flag.
+            * ``seed`` : `int`, seed value for random number generation.
 
     Raises
     ------
@@ -506,6 +525,7 @@ def hutchinson_method(
             'solver': {
                 'method': 'hutchinson',
                 'orthogonalize': True,
+                'seed': None,
                 'solver_tol': 1e-06,
                 'version': '0.16.0'
             },
@@ -602,8 +622,8 @@ def hutchinson_method(
     error_atol, error_rtol, square = check_arguments(
             A, B, C, gram, p, return_info, assume_matrix, min_num_samples,
             max_num_samples, error_atol, error_rtol, confidence_level,
-            outlier_significance_level, solver_tol, orthogonalize, num_threads,
-            verbose, plot)
+            outlier_significance_level, solver_tol, orthogonalize, seed,
+            num_threads, verbose, plot)
 
     # If the number of random vectors exceed the size of the vectors they
     # cannot be linearly independent and extra calculation with them will be
@@ -612,6 +632,11 @@ def hutchinson_method(
         max_num_samples = A.shape[1]
     if A.shape[1] < min_num_samples:
         min_num_samples = A.shape[1]
+
+    # Seed value None means using processor time as seed. This is indicated by
+    # a inegative integer in the C part of the code.
+    if seed is None:
+        seed = -1
 
     # Parallel processing
     if num_threads < 1:
@@ -628,7 +653,7 @@ def hutchinson_method(
                                          error_atol, error_rtol,
                                          confidence_level,
                                          outlier_significance_level,
-                                         solver_tol, orthogonalize,
+                                         solver_tol, orthogonalize, seed,
                                          num_threads)
 
     elif data_type_name == b'float64':
@@ -640,7 +665,7 @@ def hutchinson_method(
                                           error_atol, error_rtol,
                                           confidence_level,
                                           outlier_significance_level,
-                                          solver_tol, orthogonalize,
+                                          solver_tol, orthogonalize, seed,
                                           num_threads)
     else:
         raise TypeError('Data type should be either "float32" or "float64"')
@@ -662,7 +687,8 @@ def hutchinson_method(
         'error':
         {
             'absolute_error': error,
-            'relative_error': error / numpy.abs(trace),
+            'relative_error': \
+                error / (numpy.abs(trace) + numpy.finfo(float).eps),
             'error_atol': error_atol,
             'error_rtol': error_rtol,
             'confidence_level': confidence_level,
@@ -696,6 +722,7 @@ def hutchinson_method(
         {
             'version': __version__,
             'orthogonalize': orthogonalize,
+            'seed': seed,
             'solver_tol': solver_tol,
             'method': 'hutchinson',
         }
@@ -734,6 +761,7 @@ def _hutchinson_method_float(
         outlier_significance_level,
         solver_tol,
         orthogonalize,
+        seed,
         num_threads):
     """
     This method processes single precision (32-bit) matrix ``A``.
@@ -755,7 +783,8 @@ def _hutchinson_method_float(
 
     # Generate orthogonalized random vectors with unit norm
     generate_random_column_vectors[float](cE, vector_size, max_num_samples,
-                                          int(orthogonalize), num_threads)
+                                          int(orthogonalize), seed,
+                                          num_threads)
 
     samples = numpy.zeros((max_num_samples, ), dtype=numpy.float32)
     processed_samples_indices = numpy.zeros((max_num_samples, ), dtype=int)
@@ -830,6 +859,7 @@ def _hutchinson_method_double(
         outlier_significance_level,
         solver_tol,
         orthogonalize,
+        seed,
         num_threads):
     """
     This method processes double precision (64-bit) matrix ``A``.
@@ -851,7 +881,8 @@ def _hutchinson_method_double(
 
     # Generate orthogonalized random vectors with unit norm
     generate_random_column_vectors[double](cE, vector_size, max_num_samples,
-                                           int(orthogonalize), num_threads)
+                                           int(orthogonalize), seed,
+                                           num_threads)
 
     samples = numpy.zeros((max_num_samples, ), dtype=numpy.float64)
     processed_samples_indices = numpy.zeros((max_num_samples, ), dtype=int)

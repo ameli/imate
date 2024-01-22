@@ -23,13 +23,14 @@
 // Constructor 1
 // =============
 
-/// \brief Initializes with one parallel thread.
+/// \brief Initializes with one parallel thread and default seed.
 ///
 
-RandomNumberGenerator::RandomNumberGenerator()
+RandomNumberGenerator::RandomNumberGenerator():
+    num_threads(1)
 {
-    int num_threads_ = 1;
-    this->initialize(num_threads_);
+    int64_t seed = -1;  // Negative indicates using processor time as seed
+    this->initialize(seed);
 }
 
 
@@ -37,12 +38,41 @@ RandomNumberGenerator::RandomNumberGenerator()
 // Constructor 2
 // =============
 
-/// \brief Initializes with given number of parallel thread.
+/// \brief Initializes with a given number of parallel thread, but with the
+///        default seed.
 ///
+/// \param[in] num_threads_
+///            Number of independent \c xoshiro_256_star_star objects to be
+///            created for each parallel thread.
 
-RandomNumberGenerator::RandomNumberGenerator(int num_threads_)
+RandomNumberGenerator::RandomNumberGenerator(const int num_threads_):
+    num_threads(num_threads_)
 {
-    this->initialize(num_threads_);
+    int64_t seed = -1;  // Negative indicates using processor time as seed
+    this->initialize(seed);
+}
+
+
+// =============
+// Constructor 3
+// =============
+
+/// \brief Initializes with given number of parallel thread and seed.
+///
+/// \param[in] num_threads_
+///            Number of independent \c xoshiro_256_star_star objects to be
+///            created for each parallel thread.
+/// \param[in] seed
+///            Seed for pseudo-random number generation. The same seed value is
+///            used for all threads. If seed is negative integer, the given
+///            seed value is ignored, and the processor time is used istead.
+
+RandomNumberGenerator::RandomNumberGenerator(
+        const int num_threads_,
+        const int64_t seed):
+    num_threads(num_threads_)
+{
+    this->initialize(seed);
 }
 
 
@@ -57,6 +87,12 @@ RandomNumberGenerator::~RandomNumberGenerator()
 {
     if (this->xoshiro_256_star_star != NULL)
     {
+        for (int thread_id=0; thread_id < this->num_threads; ++thread_id)
+        {
+            delete this->xoshiro_256_star_star[thread_id];
+            this->xoshiro_256_star_star[thread_id] = NULL;
+        }
+
         delete[] this->xoshiro_256_star_star;
         this->xoshiro_256_star_star = NULL;
     }
@@ -76,24 +112,26 @@ RandomNumberGenerator::~RandomNumberGenerator()
 ///            it aggregates multiple random generator objects, one for each
 ///            parallel thread, and all have different initial random state.
 ///
-/// \param[in] num_threads_
-///            Number of independent \c xoshiro_256_star_star objects to be
-///            created for each parallel thread.
+/// \param[in] seed
+///            Seed for pseudo-random number generation. The same seed value is
+///            used for all threads. If seed is negative integer, the given
+///            seed value is ignored, and the processor time is used istead.
 
-void RandomNumberGenerator::initialize(int num_threads_)
+void RandomNumberGenerator::initialize(int64_t seed)
 {
-    assert(num_threads_ > 0);
+    assert(this->num_threads > 0);
 
-    this->num_threads = num_threads_;
-    this->xoshiro_256_star_star = new Xoshiro256StarStar[this->num_threads];
+    this->xoshiro_256_star_star = new Xoshiro256StarStar*[this->num_threads];
 
-    for (int i=0; i < this->num_threads; ++i)
+    for (int thread_id=0; thread_id < this->num_threads; ++thread_id)
     {
+        this->xoshiro_256_star_star[thread_id] = new Xoshiro256StarStar(seed);
+
         // Repeate jump j times to have different initial state for each thread
         // This is the main purpose of this class.
-        for (int j=0; j < i+1; ++j)
+        for (int j=0; j < thread_id+1; ++j)
         {
-            this->xoshiro_256_star_star[i].jump();
+            this->xoshiro_256_star_star[thread_id]->jump();
         }
     }
 }
@@ -109,7 +147,7 @@ void RandomNumberGenerator::initialize(int num_threads_)
 /// \param[in] thread_id
 ///            The thread id of the parallel process.
 
-uint64_t RandomNumberGenerator::next(int thread_id)
+uint64_t RandomNumberGenerator::next(const int thread_id)
 {
-    return this->xoshiro_256_star_star[thread_id].next();
+    return this->xoshiro_256_star_star[thread_id]->next();
 }

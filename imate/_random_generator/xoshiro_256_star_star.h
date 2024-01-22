@@ -17,7 +17,7 @@
 // Headers
 // =======
 
-#include <stdint.h>  // uint64_t, UINT64_C
+#include <stdint.h>  // int64_t, uint64_t, UINT64_C
 
 
 // =====================
@@ -49,7 +49,7 @@
 class Xoshiro256StarStar
 {
     public:
-        Xoshiro256StarStar();
+        explicit Xoshiro256StarStar(const int64_t seed);
         ~Xoshiro256StarStar();
         uint64_t next();
         void jump();

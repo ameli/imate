@@ -16,8 +16,7 @@ import numpy
 from numbers import Number
 
 try:
-    from .._utilities.plot_utilities import *                # noqa: F401, F403
-    from .._utilities.plot_utilities import load_plot_settings, matplotlib, \
+    from .._utilities.plot_utilities import get_custom_theme, matplotlib, \
         show_or_save_plot, plt
     plot_modules_exist = True
 except ImportError:
@@ -313,12 +312,10 @@ class InterpolateTrace(InterpolateSchatten):
     .. code-block:: python
 
         >>> import matplotlib.pyplot as plt
-        >>> import seaborn as sns
 
         >>> # Plot settings (optional)
-        >>> sns.set(font_scale=1.15)
-        >>> sns.set_style("white")
-        >>> sns.set_style("ticks")
+        >>> from imate._utilities import set_custom_theme
+        >>> set_custom_theme(font_scale=1.15)
 
         >>> plt.semilogx(t_array, norm_array, color='black')
         >>> plt.xlim([t_array[0], t_array[-1]])
@@ -818,12 +815,10 @@ class InterpolateTrace(InterpolateSchatten):
         .. code-block:: python
 
             >>> import matplotlib.pyplot as plt
-            >>> import seaborn as sns
 
             >>> # Plot settings (optional)
-            >>> sns.set(font_scale=1.15)
-            >>> sns.set_style("white")
-            >>> sns.set_style("ticks")
+            >>> from imate._utilities import set_custom_theme
+            >>> set_custom_theme(font_scale=1.15)
 
             >>> plt.semilogx(t, interp, color='black', label='Interpolation')
             >>> plt.semilogx(t, ub, '--', color='black', label='Upper Bound')
@@ -941,12 +936,10 @@ class InterpolateTrace(InterpolateSchatten):
         .. code-block:: python
 
             >>> import matplotlib.pyplot as plt
-            >>> import seaborn as sns
 
             >>> # Plot settings (optional)
-            >>> sns.set(font_scale=1.15)
-            >>> sns.set_style("white")
-            >>> sns.set_style("ticks")
+            >>> from imate._utilities import set_custom_theme
+            >>> set_custom_theme(font_scale=1.15)
 
             >>> plt.semilogx(t, interp, color='black', label='Interpolation')
             >>> plt.semilogx(t, lb, '--', color='black', label='Lower bound')
@@ -973,6 +966,7 @@ class InterpolateTrace(InterpolateSchatten):
     # plot
     # ====
 
+    @matplotlib.rc_context(get_custom_theme())
     def plot(
             self,
             t,
@@ -1013,7 +1007,7 @@ class InterpolateTrace(InterpolateSchatten):
         ------
 
         ImportError
-            If `matplotlib` and `seaborn` are not installed.
+            If `matplotlib` is not installed.
 
         ValueError
             If ``t`` is not an array of size greater than one.
@@ -1096,16 +1090,7 @@ class InterpolateTrace(InterpolateSchatten):
 
         if not plot_modules_exist:
             raise ImportError('Cannot import modules for plotting. Either ' +
-                              'install "matplotlib" and "seaborn" packages, ' +
-                              'or set "plot=False".')
-
-        # Load plot settings
-        try:
-            load_plot_settings()
-        except ImportError:
-            raise ImportError('Cannot import modules for plotting. Either ' +
-                              'install "matplotlib" and "seaborn" packages, ' +
-                              'or set "plot=False".')
+                              'install "matplotlib" or set "plot=False".')
 
         # Check t should be an array
         if numpy.isscalar(t) or (t.size == 1):

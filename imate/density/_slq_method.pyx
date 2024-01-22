@@ -11,6 +11,7 @@
 # Imports
 # =======
 
+import numpy
 from .._trace_estimator import trace_estimator
 from .._trace_estimator cimport trace_estimator
 from ..functions import pyFunction
@@ -38,14 +39,15 @@ def slq_method(
         lanczos_degree=20,
         lanczos_tol=None,
         orthogonalize=0,
+        seed=None,
         num_threads=0,
         num_gpu_devices=0,
         gpu=False,
         verbose=False,
         plot=False):
     """
-    Trace of the exponential of a matrix or linear operator using stochastic
-    Lanczos quadrature method.
+    Estimate the spectral density of matrix or linear operator using
+    stochastic Lanczos quadrature method.
 
     Given the symmetric matrix or linear operator :math:`\\mathbf{A}` and the
     real exponent :math:`p`, the following is computed:
@@ -200,6 +202,23 @@ def slq_method(
           orthogonalized against a window of last `q` previous eigenvectors
           (known as `partial reorthogonalization`).
 
+    seed : int, default=None
+        A non-negative integer that serves as the seed for generating sequences
+        of pseudo-random numbers within the algorithm. This parameter allows
+        you to control the randomness and make the results of the randomized
+        algorithm reproducible.
+
+        If ``seed`` is set to ``None`` or a negative integer, the provided seed
+        value is ignored, and the algorithm uses the current processor time as
+        the seed. As a result, the generated sequences are pseudo-random, and
+        the outcome is not reproducible.
+
+        .. note::
+
+            For reproducibility, it's essential not only to specify the
+            ``seed`` parameter as a non-negative integer but also to set
+            ``num_threads`` to ``1``.
+
     num_threads : int, default=0
         Number of processor threads to employ for parallel computation on CPU.
         If set to `0` or a number larger than the available number of threads,
@@ -226,10 +245,10 @@ def slq_method(
         Prints extra information about the computations.
 
     plot : bool, default=False
-        Plots convergence of samples. For this, the packages `matplotlib` and
-        `seaborn` should be installed. If no display is available (such as
-        running this code on remote machines), the plots are saved as an `SVG`
-        file in the current directory.
+        Plots convergence of samples. To this end, `matplotlib` package should
+        be installed. If no display is available (such as running this code on
+        remote machines), the plots are saved as an `SVG` file in the current
+        directory.
 
     Returns
     -------
@@ -334,6 +353,7 @@ def slq_method(
             * ``lanczos_degree``: `bool`, Lanczos degree.
             * ``lanczos_tol``: `float`, Lanczos tolerance.
             * ``orthogonalize``: `int`, orthogonalization flag.
+            * ``seed`` : `int`, seed value for random number generation.
 
     Raises
     ------
@@ -620,6 +640,7 @@ def slq_method(
                 'lanczos_tol': 2.220446049250313e-16,
                 'method': 'slq',
                 'orthogonalize': 0,
+                'seed': None,
                 'version': '0.15.0'
             },
             'device': {
@@ -809,6 +830,16 @@ def slq_method(
     # Define matrix function
     cdef Function* matrix_function = new Gaussian(mu, sigma)
 
+    # Convert mu to an array
+    if numpy.isscalar(mu):
+        mu_ = numpy.array([mu])
+    else:
+        # Converting lists and tuples to numpy array
+        mu_ = numpy.array(mu)
+
+    # Output in array form
+    trace_ = numpy.zeros_like(mu_)
+
     # Embed matrix function in python object
     py_matrix_function = pyFunction()
     py_matrix_function.set_function(matrix_function)
@@ -828,6 +859,7 @@ def slq_method(
         lanczos_degree,
         lanczos_tol,
         orthogonalize,
+        seed,
         num_threads,
         num_gpu_devices,
         verbose,
@@ -852,8 +884,11 @@ def check_arguments(mu, sigma, return_info):
     """
 
     # Check mu
-    if (not isinstance(mu, (int, float))):
-        raise TypeError('"mu" should be a scalar real number.')
+    if (not isinstance(mu, (int, float))) and \
+            (not (isinstance(mu, numpy.ndarray) and (mu.ndim == 1))) and \
+            (not isinstance(mu, (list, tuple))):
+        raise TypeError('"mu" should be either a real scalar or a real ' +
+                        '1D array-like, such as list, tuple, or numpy array.')
 
     # Check sigma
     if (not isinstance(sigma, (int, float))):

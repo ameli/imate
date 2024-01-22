@@ -654,7 +654,7 @@ class ChebyshevRationalFunctionsMethod(InterpolantBase):
             res = scipy.optimize.minimize(
                     self.curvature_integral, init_scale, args=(t_i, yi),
                     method='Nelder-Mead')
-            self.scale = numpy.abs(res.x)
+            self.scale = numpy.abs(res.x[0])
 
             # With the optimized scale, now find coeff w_i
             self.coeff = self.linear_system(self.scale, self.t_i, yi)

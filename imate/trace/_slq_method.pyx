@@ -37,6 +37,7 @@ def slq_method(
         lanczos_degree=20,
         lanczos_tol=None,
         orthogonalize=0,
+        seed=None,
         num_threads=0,
         num_gpu_devices=0,
         verbose=False,
@@ -180,6 +181,23 @@ def slq_method(
           orthogonalized against a window of last `q` previous eigenvectors
           (known as `partial reorthogonalization`).
 
+    seed : int, default=None
+        A non-negative integer that serves as the seed for generating sequences
+        of pseudo-random numbers within the algorithm. This parameter allows
+        you to control the randomness and make the results of the randomized
+        algorithm reproducible.
+
+        If ``seed`` is set to ``None`` or a negative integer, the provided seed
+        value is ignored, and the algorithm uses the current processor time as
+        the seed. As a result, the generated sequences are pseudo-random, and
+        the outcome is not reproducible.
+
+        .. note::
+
+            For reproducibility, it's essential not only to specify the
+            ``seed`` parameter as a non-negative integer but also to set
+            ``num_threads`` to ``1``.
+
     num_threads : int, default=0
         Number of processor threads to employ for parallel computation on CPU.
         If set to `0` or a number larger than the available number of threads,
@@ -206,10 +224,10 @@ def slq_method(
         Prints extra information about the computations.
 
     plot : bool, default=False
-        Plots convergence of samples. For this, the packages `matplotlib` and
-        `seaborn` should be installed. If no display is available (such as
-        running this code on remote machines), the plots are saved as an `SVG`
-        file in the current directory.
+        Plots convergence of samples. To this end, `matplotlib` package should
+        be installed. If no display is available (such as running this code on
+        remote machines), the plots are saved as an `SVG` file in the current
+        directory.
 
     Returns
     -------
@@ -314,6 +332,7 @@ def slq_method(
             * ``lanczos_degree``: `bool`, Lanczos degree.
             * ``lanczos_tol``: `float`, Lanczos tolerance.
             * ``orthogonalize``: `int`, orthogonalization flag.
+            * ``seed`` : `int`, seed value for random number generation.
 
     Raises
     ------
@@ -603,6 +622,7 @@ def slq_method(
                 'lanczos_tol': 2.220446049250313e-16,
                 'method': 'slq',
                 'orthogonalize': 0,
+                'seed': None,
                 'version': '0.15.0'
             },
             'time': {
@@ -823,6 +843,7 @@ def slq_method(
         lanczos_degree,
         lanczos_tol,
         orthogonalize,
+        seed,
         num_threads,
         num_gpu_devices,
         verbose,

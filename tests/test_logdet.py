@@ -20,6 +20,10 @@ import scipy.sparse
 from imate.sample_matrices import toeplitz, toeplitz_logdet
 from imate import logdet
 
+import warnings
+warnings.resetwarnings()
+warnings.filterwarnings("error")
+
 
 # ==============
 # relative error
@@ -89,8 +93,8 @@ def _test_logdet_methods(K, matrix, gram, p, assume_matrix):
     time30 = time.time()
     logdet3 = logdet(K, method='slq', min_num_samples=min_num_samples,
                      max_num_samples=max_num_samples, orthogonalize=-1,
-                     lanczos_degree=lanczos_degree, error_rtol=error_rtol,
-                     gram=gram, p=p, verbose=False)
+                     seed=-1, lanczos_degree=lanczos_degree,
+                     error_rtol=error_rtol, gram=gram, p=p, verbose=False)
     time31 = time.time()
 
     # Elapsed times

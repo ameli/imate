@@ -18,26 +18,22 @@ import numpy
 
 # Package modules
 from imate import InterpolateSchatten
-from _utilities.data_utilities import generate_matrix
-from _utilities.plot_utilities import *                      # noqa: F401, F403
-from _utilities.plot_utilities import load_plot_settings, save_plot, plt, \
-        matplotlib, InsetPosition, mark_inset, NullFormatter,  \
-        PercentFormatter, ScalarFormatter
+from _utilities.data_utilities import generate_matrix, generate_basis_functions
+from _utilities.plot_utilities import get_custom_theme, save_plot, plt, \
+        matplotlib, NullFormatter,  PercentFormatter, ScalarFormatter
 
 
 # ====
 # plot
 # ====
 
-def plot_fun_and_error(TI, test):
+@matplotlib.rc_context(get_custom_theme(font_scale=None))
+def plot_func_and_error(TI, test):
     """
     Plots the curve of trace of Kn inverse versus eta.
     """
 
     print('Plotting ... (may take a few minutes!)')
-
-    # Load plot settings
-    load_plot_settings()
 
     # If not a list, embed the object into a list
     if not isinstance(TI, list):
@@ -112,17 +108,9 @@ def plot_fun_and_error(TI, test):
     ax[0].tick_params(axis='x', which='minor', bottom=False)
 
     # Inset plot
-    ax2 = plt.axes([0, 0, 1, 1])
     # Manually set the position and relative size of the inset axes within ax1
-    ip = InsetPosition(ax[0], [0.14, 0.25, 0.45, 0.35])
-    ax2.set_axes_locator(ip)
-    # Mark the region corresponding to the inset axes on ax1 and draw lines
-    # in grey linking the two axes.
-
-    # Avoid inset mark lines intersect the inset axes itself by setting anchor
     inset_color = 'oldlace'
-    mark_inset(ax[0], ax2, loc1=1, loc2=4, facecolor=inset_color,
-               edgecolor='0.5')
+    ax2 = ax[0].inset_axes([0.14, 0.25, 0.45, 0.35], facecolor=inset_color)
     ax2.plot(eta, tau_exact, color='black', label='Exact')
     ax2.plot(eta[zero_index:], tau_lowerbound[zero_index:], '--',
              color='black', label=r'Lower bound (at $t \geq 0$)')
@@ -137,10 +125,18 @@ def plot_fun_and_error(TI, test):
     ax2.xaxis.set_minor_formatter(NullFormatter())
     ax2.set_xticklabels(['0.01', '0.0115'])
     ax2.yaxis.set_major_formatter(ScalarFormatter(useMathText=True))
-    ax2.set_facecolor(inset_color)
     ax2.xaxis.set_tick_params(labelsize=8)
     ax2.yaxis.set_tick_params(labelsize=8)
     # plt.setp(ax2.get_yticklabels(), backgroundcolor='white')
+
+    # Mark the region corresponding to the inset axes on ax1 and draw lines
+    # in grey linking the two axes.
+    _, connects = ax[0].indicate_inset_zoom(ax2, facecolor=inset_color,
+                                            edgecolor='0.5')
+    connects[0].set_visible(False)
+    connects[1].set_visible(False)
+    connects[2].set_visible(True)
+    connects[3].set_visible(True)
 
     # Plot errors
     ax[1].semilogx(eta[zero_index:],
@@ -175,6 +171,11 @@ def plot_fun_and_error(TI, test):
 
     ax[1].yaxis.set_major_formatter(PercentFormatter(decimals=1))
 
+    # Transparent axes (except inset axes)
+    fig.patch.set_alpha(0)
+    ax[0].patch.set_alpha(0)
+    ax[1].patch.set_alpha(0)
+
     if not test:
         plt.tight_layout()
 
@@ -193,15 +194,13 @@ def plot_fun_and_error(TI, test):
 # plot error only
 # ===============
 
+@matplotlib.rc_context(get_custom_theme(font_scale=None))
 def plot_error_only(TI, test):
     """
     Plots the curve of trace of Kn inverse versus eta.
     """
 
     print('Plotting ... (may take a few minutes!)')
-
-    # Load plot settings
-    load_plot_settings()
 
     # If not a list, embed the object into a list
     if not isinstance(TI, list):
@@ -278,15 +277,8 @@ def plot_error_only(TI, test):
     # # Inset plot
     # ax2 = plt.axes([0, 0, 1, 1])
     # # Manually set the position and relative size of inset axes within ax1
-    # ip = InsetPosition(ax[0], [0.14, 0.25, 0.45, 0.35])
-    # ax2.set_axes_locator(ip)
-    # # Mark the region corresponding to the inset axes on ax1 and draw lines
-    # # in grey linking the two axes.
-    #
-    # # Avoid inset mark lines intersect inset axes itself by setting anchor
     # inset_color = 'oldlace'
-    # mark_inset(ax[0], ax2, loc1=1, loc2=4, facecolor=inset_color,
-    #            edgecolor='0.5')
+    # ax2 = ax[0].inset_axes([0.14, 0.25, 0.45, 0.35], facecolor=inset_color)
     # ax2.plot(eta, tau_exact, color='black', label='Exact')
     # ax2.plot(eta[zero_index:], tau_lowerbound[zero_index:], '--',
     #          color='black', label=r'Lower bound (at $t \geq 0$)')
@@ -301,10 +293,18 @@ def plot_error_only(TI, test):
     # ax2.xaxis.set_minor_formatter(NullFormatter())
     # ax2.set_xticklabels(['0.01', '0.0115'])
     # ax2.yaxis.set_major_formatter(ScalarFormatter(useMathText=True))
-    # ax2.set_facecolor(inset_color)
     # ax2.xaxis.set_tick_params(labelsize=8)
     # ax2.yaxis.set_tick_params(labelsize=8)
     # # plt.setp(ax2.get_yticklabels(), backgroundcolor='white')
+
+    # # Mark the region corresponding to the inset axes on ax1 and draw lines
+    # # in grey linking the two axes.
+    # _, connects = ax[0].indicate_inset_zoom(ax2, facecolor=inset_color,
+    #                                         edgecolor='0.5')
+    # connects[0].set_visible(False)
+    # connects[1].set_visible(False)
+    # connects[2].set_visible(True)
+    # connects[3].set_visible(True)
 
     # Plot errors
     ax.semilogx(eta[zero_index:],
@@ -338,6 +338,10 @@ def plot_error_only(TI, test):
     ax.tick_params(axis='x', which='minor', bottom=False)
 
     ax.yaxis.set_major_formatter(PercentFormatter(decimals=1))
+
+    # Transparent axes
+    fig.patch.set_alpha(0)
+    ax.patch.set_alpha(0)
 
     if not test:
         plt.tight_layout()
@@ -391,7 +395,8 @@ def main(test=False):
     else:
         n = 1000
         m = 500
-    K = generate_matrix(n, m, shift)
+    X = generate_basis_functions(n, m)
+    K = generate_matrix(X, n, m, shift)
 
     # Interpolating points
     interpolant_points_1 = [1e-3, 4e-3, 1e-2, 4e-2, 1e-1, 1]
@@ -417,8 +422,8 @@ def main(test=False):
     TI = [TI_1, TI_2, TI_3]
 
     # Plot interpolations
-    # plot_func_and_error(TI, test)
-    plot_error_only(TI, test)
+    plot_func_and_error(TI, test)
+    # plot_error_only(TI, test)
 
 
 # ===========

@@ -1,0 +1,294 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classcCSRAffineMatrixFunction" kind="class" language="C++" prot="public">
+    <compoundname>cCSRAffineMatrixFunction</compoundname>
+    <basecompoundref refid="classcAffineMatrixFunction" prot="public" virt="non-virtual">cAffineMatrixFunction&lt; DataType &gt;</basecompoundref>
+    <includes refid="c__csr__affine__matrix__function_8h" local="no">c_csr_affine_matrix_function.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename DataType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classcCSRAffineMatrixFunction_1ac554b13c20fb4e80323f500c36a84c74" prot="protected" static="no" mutable="no">
+        <type><ref refid="classcCSRMatrix" kindref="compound">cCSRMatrix</ref>&lt; DataType &gt;</type>
+        <definition>cCSRMatrix&lt;DataType&gt; cCSRAffineMatrixFunction&lt; DataType &gt;::A</definition>
+        <argsstring></argsstring>
+        <name>A</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_affine_matrix_function.h" line="65" column="20" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_affine_matrix_function.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcCSRAffineMatrixFunction_1ab1eb39341a9a7a21f9ee2c1a115916b0" prot="protected" static="no" mutable="no">
+        <type><ref refid="classcCSRMatrix" kindref="compound">cCSRMatrix</ref>&lt; DataType &gt;</type>
+        <definition>cCSRMatrix&lt;DataType&gt; cCSRAffineMatrixFunction&lt; DataType &gt;::B</definition>
+        <argsstring></argsstring>
+        <name>B</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_affine_matrix_function.h" line="66" column="20" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_affine_matrix_function.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="classcCSRAffineMatrixFunction_1a3a717b28c19cdf6d54bc4a5a5401b1df" compoundref="c__csr__affine__matrix__function_8cpp" startline="55" endline="78">cCSRAffineMatrixFunction&lt; DataType &gt;::cCSRAffineMatrixFunction</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classcCSRAffineMatrixFunction_1af8dd062a6e8e8bfd65e1ebe09828adc0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>cCSRAffineMatrixFunction&lt; DataType &gt;::cCSRAffineMatrixFunction</definition>
+        <argsstring>(const DataType *A_data_, const LongIndexType *A_indices_, const LongIndexType *A_index_pointer_, const LongIndexType num_rows_, const LongIndexType num_columns_)</argsstring>
+        <name>cCSRAffineMatrixFunction</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_indices_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns_</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. Matrix <computeroutput>B</computeroutput> is assumed to be the identity matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_affine_matrix_function.h" line="35" column="9" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_affine_matrix_function.cpp" bodystart="29" bodyend="47"/>
+        <references refid="classcAffineMatrixFunction_1a44e80d570e57f6960f7c1d7868447624" compoundref="c__affine__matrix__function_8h" startline="68">cAffineMatrixFunction&lt; DataType &gt;::B_is_identity</references>
+        <references refid="classcLinearOperator_1ac4c88c2dcdc8a4d33a77df3979789d42" compoundref="c__linear__operator_8h" startline="77">cLinearOperator&lt; DataType &gt;::eigenvalue_relation_known</references>
+      </memberdef>
+      <memberdef kind="function" id="classcCSRAffineMatrixFunction_1a3a717b28c19cdf6d54bc4a5a5401b1df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>cCSRAffineMatrixFunction&lt; DataType &gt;::cCSRAffineMatrixFunction</definition>
+        <argsstring>(const DataType *A_data_, const LongIndexType *A_indices_, const LongIndexType *A_index_pointer_, const LongIndexType num_rows_, const LongIndexType num_colums_, const DataType *B_data_, const LongIndexType *B_indices_, const LongIndexType *B_index_pointer_)</argsstring>
+        <name>cCSRAffineMatrixFunction</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_indices_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_colums_</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>B_data_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>B_indices_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>B_index_pointer_</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_affine_matrix_function.h" line="42" column="9" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_affine_matrix_function.cpp" bodystart="55" bodyend="78"/>
+        <references refid="classcCSRAffineMatrixFunction_1ab1eb39341a9a7a21f9ee2c1a115916b0" compoundref="c__csr__affine__matrix__function_8h" startline="66">cCSRAffineMatrixFunction&lt; DataType &gt;::B</references>
+        <references refid="classcAffineMatrixFunction_1a44e80d570e57f6960f7c1d7868447624" compoundref="c__affine__matrix__function_8h" startline="68">cAffineMatrixFunction&lt; DataType &gt;::B_is_identity</references>
+        <references refid="classcLinearOperator_1ac4c88c2dcdc8a4d33a77df3979789d42" compoundref="c__linear__operator_8h" startline="77">cLinearOperator&lt; DataType &gt;::eigenvalue_relation_known</references>
+      </memberdef>
+      <memberdef kind="function" id="classcCSRAffineMatrixFunction_1a8b110ac380234069f0bb7c619f309613" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>cCSRAffineMatrixFunction&lt; DataType &gt;::~cCSRAffineMatrixFunction</definition>
+        <argsstring>()</argsstring>
+        <name>~cCSRAffineMatrixFunction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_affine_matrix_function.h" line="52" column="17" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_affine_matrix_function.cpp" bodystart="86" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="classcCSRAffineMatrixFunction_1abaf2110370c3f047b728088a1d6d5316" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void cCSRAffineMatrixFunction&lt; DataType &gt;::dot</definition>
+        <argsstring>(const DataType *vector, DataType *product)</argsstring>
+        <name>dot</name>
+        <reimplements refid="classcLinearOperator_1a48c76860a74f00fefaa1297368d17a77">dot</reimplements>
+        <param>
+          <type>const DataType *</type>
+          <declname>vector</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>product</declname>
+        </param>
+        <briefdescription>
+<para>Computes the matrix vector product: </para>
+        </briefdescription>
+        <detaileddescription>
+<para><formula id="25">\[ \boldsymbol{c} = (\mathbf{A} + t \mathbf{B}) \boldsymbol{b}. \]</formula></para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">vector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input vector :math:<computeroutput>\\boldsymbol{b}</computeroutput> is given by <computeroutput>vector</computeroutput>. If <formula id="1">$ \mathbf{A} $</formula> and <formula id="26">$ \mathbf{B} $</formula> are <formula id="27">$ m \times n $</formula> matrices, the length of input c vector is <computeroutput>n</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">product</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The output of the product, <formula id="7">$ \boldsymbol{c} $</formula>, is written in-place into this array. Let <linebreak/>
+ m be the number of rows of <formula id="1">$ \mathbf{A} $</formula> and <formula id="26">$ \mathbf{B} $</formula>, then, the output vector <computeroutput>product</computeroutput> is 1D column array of length <computeroutput>m</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_affine_matrix_function.h" line="54" column="22" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_affine_matrix_function.cpp" bodystart="112" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="classcCSRAffineMatrixFunction_1ae3dfe817ca504c3b52d0a2fa44e2a9c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void cCSRAffineMatrixFunction&lt; DataType &gt;::transpose_dot</definition>
+        <argsstring>(const DataType *vector, DataType *product)</argsstring>
+        <name>transpose_dot</name>
+        <reimplements refid="classcLinearOperator_1a40f5051c4399ebfa153ef7147e10a6e6">transpose_dot</reimplements>
+        <param>
+          <type>const DataType *</type>
+          <declname>vector</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>product</declname>
+        </param>
+        <briefdescription>
+<para>Computes the matrix vector product: </para>
+        </briefdescription>
+        <detaileddescription>
+<para><formula id="28">\[ \boldsymbol{c} = (\mathbf{A} + t \mathbf{B})^{\intercal} \boldsymbol{b}. \]</formula></para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">vector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input vector <formula id="6">$ \boldsymbol{b} $</formula> is given by <computeroutput>vector</computeroutput>. If <formula id="1">$ \mathbf{A} $</formula> and <formula id="26">$ \mathbf{B} $</formula> are <formula id="27">$ m \times n $</formula> matrices, the length of input <computeroutput>vector</computeroutput> is <computeroutput>n</computeroutput>.</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">product</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The output of the product, <formula id="7">$ \boldsymbol{c} $</formula>, is written in-place into this array. Let <computeroutput>n</computeroutput> be the number of columns of <formula id="1">$ \mathbf{A} $</formula> and <formula id="26">$ \mathbf{B} $</formula>, then, the output vector <computeroutput>product</computeroutput> is 1D column array of length <computeroutput>m</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_affine_matrix_function.h" line="58" column="22" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_affine_matrix_function.cpp" bodystart="168" bodyend="199"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>cAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcAffineMatrixFunction"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>cCSRAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcCSRAffineMatrixFunction"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>cLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcLinearOperator"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>cAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcAffineMatrixFunction"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>cCSRAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcCSRAffineMatrixFunction"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>cLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcLinearOperator"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_affine_matrix_function.h" line="30" column="1" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_affine_matrix_function.h" bodystart="31" bodyend="67"/>
+    <listofallmembers>
+      <member refid="classcAffineMatrixFunction_1a144b790e6cf7ef04d2b140a8031929a4" prot="protected" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>_add_scaled_vector</name></member>
+      <member refid="classcCSRAffineMatrixFunction_1ac554b13c20fb4e80323f500c36a84c74" prot="protected" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>A</name></member>
+      <member refid="classcCSRAffineMatrixFunction_1ab1eb39341a9a7a21f9ee2c1a115916b0" prot="protected" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>B</name></member>
+      <member refid="classcAffineMatrixFunction_1a44e80d570e57f6960f7c1d7868447624" prot="protected" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>B_is_identity</name></member>
+      <member refid="classcAffineMatrixFunction_1a5ea11698bccc5eb587f8227a03dbc257" prot="public" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>cAffineMatrixFunction</name></member>
+      <member refid="classcCSRAffineMatrixFunction_1af8dd062a6e8e8bfd65e1ebe09828adc0" prot="public" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>cCSRAffineMatrixFunction</name></member>
+      <member refid="classcCSRAffineMatrixFunction_1a3a717b28c19cdf6d54bc4a5a5401b1df" prot="public" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>cCSRAffineMatrixFunction</name></member>
+      <member refid="classcLinearOperator_1acb0880fed1d5599d721a9438c207ee5b" prot="public" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>cLinearOperator</name></member>
+      <member refid="classcLinearOperator_1ac844c5dd7b83eb1e95f3c96181366629" prot="public" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>cLinearOperator</name></member>
+      <member refid="classcCSRAffineMatrixFunction_1abaf2110370c3f047b728088a1d6d5316" prot="public" virt="virtual"><scope>cCSRAffineMatrixFunction</scope><name>dot</name></member>
+      <member refid="classcLinearOperator_1ac4c88c2dcdc8a4d33a77df3979789d42" prot="protected" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>eigenvalue_relation_known</name></member>
+      <member refid="classcAffineMatrixFunction_1a9d877f4e35cbdefc4f3d81f4386e1c1e" prot="public" virt="virtual"><scope>cCSRAffineMatrixFunction</scope><name>get_eigenvalue</name></member>
+      <member refid="classcLinearOperator_1a08a2eb3bd8ff1f47d1141dc164af1c61" prot="public" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>get_num_columns</name></member>
+      <member refid="classcLinearOperator_1af9be60b44a47eed5b2c98f077ff54987" prot="public" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>get_num_parameters</name></member>
+      <member refid="classcLinearOperator_1aecc5b62db1d8a41f5112b289c7031aaf" prot="public" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>get_num_rows</name></member>
+      <member refid="classcLinearOperator_1af0c980ca87c2795e0dbfda1c84f74591" prot="public" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>is_eigenvalue_relation_known</name></member>
+      <member refid="classcLinearOperator_1acdafe59b033d5a73f5abe380f63f40a1" prot="protected" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>num_columns</name></member>
+      <member refid="classcLinearOperator_1aab9f0063e55c2a1a92a7e643f086348b" prot="protected" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>num_parameters</name></member>
+      <member refid="classcLinearOperator_1a6786391614f08ef1575554f78717fbb0" prot="protected" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>num_rows</name></member>
+      <member refid="classcLinearOperator_1a22683aa9286bfd651f1f2dbae3660545" prot="protected" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>parameters</name></member>
+      <member refid="classcAffineMatrixFunction_1a3b7e9de00731adfcc930a8fefd21c5c6" prot="public" virt="non-virtual"><scope>cCSRAffineMatrixFunction</scope><name>set_parameters</name></member>
+      <member refid="classcCSRAffineMatrixFunction_1ae3dfe817ca504c3b52d0a2fa44e2a9c6" prot="public" virt="virtual"><scope>cCSRAffineMatrixFunction</scope><name>transpose_dot</name></member>
+      <member refid="classcAffineMatrixFunction_1a353aeed42783e4fc81fca10d48848dcd" prot="public" virt="virtual"><scope>cCSRAffineMatrixFunction</scope><name>~cAffineMatrixFunction</name></member>
+      <member refid="classcCSRAffineMatrixFunction_1a8b110ac380234069f0bb7c619f309613" prot="public" virt="virtual"><scope>cCSRAffineMatrixFunction</scope><name>~cCSRAffineMatrixFunction</name></member>
+      <member refid="classcLinearOperator_1a53065884c6a1349054a96a9fb8838e65" prot="public" virt="virtual"><scope>cCSRAffineMatrixFunction</scope><name>~cLinearOperator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

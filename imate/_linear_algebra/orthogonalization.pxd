@@ -30,4 +30,5 @@ cdef void gram_schmidt_process(
 cdef void orthogonalize_vectors(
         DataType* vectors,
         const LongIndexType vector_size,
-        const IndexType num_vectors) nogil
+        const IndexType num_vectors,
+        const IndexType seed) nogil

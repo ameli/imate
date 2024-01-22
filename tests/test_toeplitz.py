@@ -17,6 +17,10 @@ import sys
 from imate.sample_matrices import toeplitz, toeplitz_logdet, toeplitz_trace, \
         toeplitz_traceinv, toeplitz_schatten
 
+import warnings
+warnings.resetwarnings()
+warnings.filterwarnings("error")
+
 
 # ================
 # test band matrix

@@ -329,9 +329,20 @@ def eigenvalue_method(
     not_nan = numpy.logical_not(numpy.isnan(eigenvalues))
     trace = numpy.sum(1.0 / (eigenvalues[not_nan]**p))
 
+    # Tolerances to allow small imaginary parts when computing eigenvalues
+    if (scipy.sparse.isspmatrix(A)) and (assume_matrix == "gen"):
+        # When matrix is not symmetric, eigenvalues are complex, but the
+        # sum of their logarithm should be real. Since we do not compute
+        # all eigenvalues of sparse matrix, this sum may have a non-zero
+        # imaginary part. Here suppress raising error in favor of the
+        # inaccuracy.
+        angle_rtol = 1e-2
+    else:
+        angle_rtol = 1e-8
+
     # Return only the real part
-    angle_rtol = 1e-6
-    if isinstance(trace, numpy.complex128):
+    if isinstance(trace,
+                  (numpy.complex64, numpy.complex128, numpy.complex256)):
         angle = numpy.abs(numpy.angle(trace))
         if numpy.abs(numpy.mod(angle, numpy.pi)) > angle_rtol * A.shape[0]:
             raise RuntimeError(
@@ -473,13 +484,19 @@ def compute_eigenvalues(
     """
     """
 
+    # Determine complex or real type
+    if (assume_matrix == 'sym') or (gram is True):
+        dtype = numpy.float64
+    else:
+        dtype = numpy.complex128
+
     if gram:
         # Gram matrix. Compute singular values of A.
         if scipy.sparse.isspmatrix(A):
 
             # Sparse matrix
             n = A.shape[0]
-            eigenvalues = numpy.empty(n)
+            eigenvalues = numpy.empty(n, dtype=dtype)
             eigenvalues[:] = numpy.nan
 
             # find 90% of eigenvalues, assume the rest are very close to zero.
@@ -508,7 +525,7 @@ def compute_eigenvalues(
 
             # Sparse matrix
             n = A.shape[0]
-            eigenvalues = numpy.empty(n)
+            eigenvalues = numpy.empty(n, dtype=dtype)
             eigenvalues[:] = numpy.nan
 
             # find 90% of eigenvalues, assume the rest are very close to zero.

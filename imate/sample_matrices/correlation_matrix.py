@@ -17,8 +17,8 @@ from ._dense_correlation_matrix import dense_correlation_matrix
 from ._sparse_correlation_matrix import sparse_correlation_matrix
 
 try:
-    from .._utilities.plot_utilities import matplotlib, plt
-    from .._utilities.plot_utilities import load_plot_settings, save_plot
+    from .._utilities.plot_utilities import matplotlib, plt, save_plot, \
+            get_custom_theme
     plot_modules_exist = True
 except ImportError:
     plot_modules_exist = False
@@ -547,17 +547,6 @@ def _check_arguments(
     elif not isinstance(plot, bool):
         TypeError('"plot" should be boolean.')
 
-    # Check if plot modules exist
-    if plot is True:
-        try:
-            from .._utilities.plot_utilities import matplotlib      # noqa F401
-            from .._utilities.plot_utilities import load_plot_settings
-            load_plot_settings()
-        except ImportError:
-            raise ImportError('Cannot import modules for plotting. Either ' +
-                              'install "matplotlib" and "seaborn" packages, ' +
-                              'or set "plot=False".')
-
     # Check verbose
     if verbose is None:
         raise TypeError('"verbose" cannot be None.')
@@ -571,6 +560,7 @@ def _check_arguments(
 # plot Matrix
 # ===========
 
+@matplotlib.rc_context(get_custom_theme())
 def plot_matrix(matrix, sparse, verbose=False):
     """
     Plots a given matrix.
@@ -596,16 +586,7 @@ def plot_matrix(matrix, sparse, verbose=False):
 
     if not plot_modules_exist:
         raise ImportError('Cannot import modules for plotting. Either ' +
-                          'install "matplotlib" and "seaborn" packages, ' +
-                          'or set "plot=False".')
-
-    # Load plot settings
-    try:
-        load_plot_settings()
-    except ImportError:
-        raise ImportError('Cannot import modules for plotting. Either ' +
-                          'install "matplotlib" and "seaborn" packages, ' +
-                          'or set "plot=False".')
+                          'install "matplotlib" package or set "plot=False".')
 
     # Figure
     fig, ax = plt.subplots(figsize=(5, 4))

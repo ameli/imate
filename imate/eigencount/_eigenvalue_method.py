@@ -39,7 +39,7 @@ def eigenvalue_method(
         assume_matrix='gen',
         non_zero_eig_fraction=0.9):
     """
-    Trace of the exponential of matrix using eigenvalue method.
+    Eigencount of matrix or linear operator using eigenvalue method.
 
     Given the matrix :math:`\\mathbf{A}` and the real exponent :math:`p`, the
     following is computed:
@@ -470,13 +470,19 @@ def compute_eigenvalues(
     """
     """
 
+    # Determine complex or real type
+    if (assume_matrix == 'sym') or (gram is True):
+        dtype = numpy.float64
+    else:
+        dtype = numpy.complex128
+
     if gram:
         # Gram matrix. Compute singular values of A.
         if scipy.sparse.isspmatrix(A):
 
             # Sparse matrix
             n = A.shape[0]
-            eigenvalues = numpy.empty(n)
+            eigenvalues = numpy.empty(n, dtype=dtype)
             eigenvalues[:] = numpy.nan
 
             # find 90% of eigenvalues, assume the rest are very close to zero.
@@ -505,7 +511,7 @@ def compute_eigenvalues(
 
             # Sparse matrix
             n = A.shape[0]
-            eigenvalues = numpy.empty(n)
+            eigenvalues = numpy.empty(n, dtype=dtype)
             eigenvalues[:] = numpy.nan
 
             # find 90% of eigenvalues, assume the rest are very close to zero.

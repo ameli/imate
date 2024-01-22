@@ -28,6 +28,7 @@ cdef void generate_random_column_vectors(
         const LongIndexType vector_size,
         const IndexType num_vectors,
         const IndexType orthogonalize,
+        const IndexType seed,
         const IndexType num_threads):
     """
     Generates a set of random column vectors using Rademacher distribution. The
@@ -59,11 +60,11 @@ cdef void generate_random_column_vectors(
 
     # Generate random array
     cdef LongIndexType vectors_size = vector_size * num_vectors
-    py_generate_random_array(vectors, vectors_size, num_threads)
+    py_generate_random_array(vectors, vectors_size, num_threads, seed)
 
     # Orthogonalize (optional). This section is not parallel (must be serial)
     if orthogonalize:
-        orthogonalize_vectors(vectors, vector_size, num_vectors)
+        orthogonalize_vectors(vectors, vector_size, num_vectors, seed)
 
     # Set the number of threads
     openmp.omp_set_num_threads(num_threads)

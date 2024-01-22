@@ -40,7 +40,8 @@ def eigenvalue_method(
         assume_matrix='gen',
         non_zero_eig_fraction=0.9):
     """
-    Trace of the exponential of matrix using eigenvalue method.
+    Estimate the spectral density of matrix or linear operator using
+    eigenvalue method.
 
     Given the matrix :math:`\\mathbf{A}` and the real exponent :math:`p`, the
     following is computed:
@@ -321,12 +322,31 @@ def eigenvalue_method(
         if gram:
             eigenvalues = eigenvalues**2
 
+    # Convert mu to an array
+    if numpy.isscalar(mu):
+        mu_ = numpy.array([mu])
+    else:
+        # Converting lists and tuples to numpy array
+        mu_ = numpy.array(mu)
+
+    # Output in array form
+    trace_ = numpy.zeros_like(mu_)
+
     # Compute trace of function of matrix
     not_nan = numpy.logical_not(numpy.isnan(eigenvalues))
     lambda_ = eigenvalues[not_nan]**p
-    x = (lambda_ - mu) / sigma
-    f = (1.0 / (numpy.sqrt(2.0 * numpy.pi) * sigma)) * numpy.exp(-0.5 * x**2)
-    trace = numpy.sum(f)
+
+    for i in range(mu_.size):
+        x = (lambda_ - mu_[i]) / sigma
+        f = (1.0 / (numpy.sqrt(2.0 * numpy.pi) * sigma)) * \
+            numpy.exp(-0.5 * x**2)
+        trace_[i] = numpy.sum(f)
+
+    # If mu was a scalar, make trace also a scalar
+    if numpy.isscalar(mu):
+        trace = trace_[0]
+    else:
+        trace = trace_
 
     tot_wall_time = time.perf_counter() - init_tot_wall_time
     cpu_proc_time = time.process_time() - init_cpu_proc_time
@@ -433,8 +453,11 @@ def check_arguments(
         raise TypeError('"return_info" should be boolean.')
 
     # Check mu
-    if (not isinstance(mu, (int, float))):
-        raise TypeError('"mu" should be a scalar real number.')
+    if (not isinstance(mu, (int, float))) and \
+            (not (isinstance(mu, numpy.ndarray) and (mu.ndim == 1))) and \
+            (not isinstance(mu, (list, tuple))):
+        raise TypeError('"mu" should be either a real scalar or a real ' +
+                        '1D array-like, such as list, tuple, or numpy array.')
 
     # Check sigma
     if (not isinstance(sigma, (int, float))):
@@ -476,13 +499,19 @@ def compute_eigenvalues(
     """
     """
 
+    # Determine complex or real type
+    if (assume_matrix == 'sym') or (gram is True):
+        dtype = numpy.float64
+    else:
+        dtype = numpy.complex128
+
     if gram:
         # Gram matrix. Compute singular values of A.
         if scipy.sparse.isspmatrix(A):
 
             # Sparse matrix
             n = A.shape[0]
-            eigenvalues = numpy.empty(n)
+            eigenvalues = numpy.empty(n, dtype=dtype)
             eigenvalues[:] = numpy.nan
 
             # find 90% of eigenvalues, assume the rest are very close to zero.
@@ -511,7 +540,7 @@ def compute_eigenvalues(
 
             # Sparse matrix
             n = A.shape[0]
-            eigenvalues = numpy.empty(n)
+            eigenvalues = numpy.empty(n, dtype=dtype)
             eigenvalues[:] = numpy.nan
 
             # find 90% of eigenvalues, assume the rest are very close to zero.

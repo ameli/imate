@@ -49,6 +49,7 @@ class cuTraceEstimator
                 const FlagType gram,
                 const DataType exponent,
                 const FlagType orthogonalize,
+                const int64_t seed,
                 const IndexType lanczos_degree,
                 const DataType lanczos_tol,
                 const IndexType min_num_samples,

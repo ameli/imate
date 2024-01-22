@@ -1,0 +1,336 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classcCSRMatrix" kind="class" language="C++" prot="public">
+    <compoundname>cCSRMatrix</compoundname>
+    <basecompoundref refid="classcMatrix" prot="public" virt="non-virtual">cMatrix&lt; DataType &gt;</basecompoundref>
+    <derivedcompoundref refid="classcuCSRMatrix" prot="public" virt="non-virtual">cuCSRMatrix&lt; DataType &gt;</derivedcompoundref>
+    <includes refid="c__csr__matrix_8h" local="no">c_csr_matrix.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename DataType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classcCSRMatrix_1a7aab6a9d1cb201890fe6788cef0eae67" prot="protected" static="no" mutable="no">
+        <type>const DataType *</type>
+        <definition>const DataType* cCSRMatrix&lt; DataType &gt;::A_data</definition>
+        <argsstring></argsstring>
+        <name>A_data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" line="70" column="24" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcCSRMatrix_1acc3b6855b8477e6cba3c3151ccbbf735" prot="protected" static="no" mutable="no">
+        <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+        <definition>const LongIndexType* cCSRMatrix&lt; DataType &gt;::A_indices</definition>
+        <argsstring></argsstring>
+        <name>A_indices</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" line="71" column="29" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classcCSRMatrix_1a2bb853f01ed9e1dae7e48f9aae2af2a7" prot="protected" static="no" mutable="no">
+        <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+        <definition>const LongIndexType* cCSRMatrix&lt; DataType &gt;::A_index_pointer</definition>
+        <argsstring></argsstring>
+        <name>A_index_pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" line="72" column="29" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classcCSRMatrix_1ae54d494415328bb4d5e37e9a6bd0b489" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>cCSRMatrix&lt; DataType &gt;::cCSRMatrix</definition>
+        <argsstring>()</argsstring>
+        <name>cCSRMatrix</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" line="34" column="9" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.cpp" bodystart="26" bodyend="31"/>
+      </memberdef>
+      <memberdef kind="function" id="classcCSRMatrix_1ace6216c1ef8eb0b95db68e2692e152d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>cCSRMatrix&lt; DataType &gt;::cCSRMatrix</definition>
+        <argsstring>(const DataType *A_data_, const LongIndexType *A_indices_, const LongIndexType *A_index_pointer_, const LongIndexType num_rows_, const LongIndexType num_columns_)</argsstring>
+        <name>cCSRMatrix</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_indices_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows_</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns_</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" line="36" column="9" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.cpp" bodystart="39" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="classcCSRMatrix_1aa0d385830c4d70fcccd734183f91a13f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>cCSRMatrix&lt; DataType &gt;::~cCSRMatrix</definition>
+        <argsstring>()</argsstring>
+        <name>~cCSRMatrix</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" line="43" column="17" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.cpp" bodystart="62" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="classcCSRMatrix_1a7f2869b79991a2ea2e9a8eaebd050dcb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type><ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+        <definition>FlagType cCSRMatrix&lt; DataType &gt;::is_identity_matrix</definition>
+        <argsstring>() const</argsstring>
+        <name>is_identity_matrix</name>
+        <reimplements refid="classcMatrix_1a1ad379eba2ec9877da2ddd43aa7e2021">is_identity_matrix</reimplements>
+        <briefdescription>
+<para>Checks whether the matrix is identity. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The identity check is primarily performed in the <computeroutput><ref refid="classcAffineMatrixFunction" kindref="compound">cAffineMatrixFunction</ref></computeroutput> class.</para>
+<para><simplesect kind="return"><para>Returns <computeroutput>1</computeroutput> if the input matrix is identity, and <computeroutput>0</computeroutput> otherwise.</para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classcAffineMatrixFunction" kindref="compound">cAffineMatrixFunction</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" line="45" column="26" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.cpp" bodystart="81" bodyend="111"/>
+      </memberdef>
+      <memberdef kind="function" id="classcCSRMatrix_1a5ba91dad4ec62d1ef40a2095e9cefa7b" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+        <definition>LongIndexType cCSRMatrix&lt; DataType &gt;::get_nnz</definition>
+        <argsstring>() const</argsstring>
+        <name>get_nnz</name>
+        <briefdescription>
+<para>Returns the number of non-zero elements of the sparse matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The nnz of a CSR matrix can be obtained from the last element of <computeroutput>A_index_pointer</computeroutput>. The size of array <computeroutput>A_index_pointer</computeroutput> is one plus the number of rows of the matrix.</para>
+<para><simplesect kind="return"><para>The nnz of the matrix. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" line="47" column="23" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.cpp" bodystart="127" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="classcCSRMatrix_1a5074b2a9d415dd6e867713341a00f9be" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void cCSRMatrix&lt; DataType &gt;::dot</definition>
+        <argsstring>(const DataType *vector, DataType *product)</argsstring>
+        <name>dot</name>
+        <reimplements refid="classcLinearOperator_1a48c76860a74f00fefaa1297368d17a77">dot</reimplements>
+        <reimplementedby refid="classcuCSRMatrix_1ac7153e0293610828cf3455d01ffe8c30">dot</reimplementedby>
+        <param>
+          <type>const DataType *</type>
+          <declname>vector</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>product</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" line="49" column="22" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.cpp" bodystart="138" bodyend="149"/>
+        <references refid="classcMatrixOperations_1a0643a3fb0e5bf4f05869bb22440775d2" compoundref="c__matrix__operations_8cpp" startline="469" endline="494">cMatrixOperations&lt; DataType &gt;::csr_matvec</references>
+      </memberdef>
+      <memberdef kind="function" id="classcCSRMatrix_1aeea882fee0e29e012c140ae2f99efffb" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void cCSRMatrix&lt; DataType &gt;::dot_plus</definition>
+        <argsstring>(const DataType *vector, const DataType alpha, DataType *product)</argsstring>
+        <name>dot_plus</name>
+        <reimplements refid="classcMatrix_1a0f5d440b2d592259b6dc26e00335b847">dot_plus</reimplements>
+        <reimplementedby refid="classcuCSRMatrix_1a96db9711b26e1be6b67da4d73f77cf70">dot_plus</reimplementedby>
+        <param>
+          <type>const DataType *</type>
+          <declname>vector</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>product</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" line="53" column="22" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.cpp" bodystart="157" bodyend="170"/>
+        <references refid="classcMatrixOperations_1a11d441f9b2383ff78c4fffb48251f784" compoundref="c__matrix__operations_8cpp" startline="540" endline="571">cMatrixOperations&lt; DataType &gt;::csr_matvec_plus</references>
+      </memberdef>
+      <memberdef kind="function" id="classcCSRMatrix_1a481e0733264a9befe5286bda9c1832d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void cCSRMatrix&lt; DataType &gt;::transpose_dot</definition>
+        <argsstring>(const DataType *vector, DataType *product)</argsstring>
+        <name>transpose_dot</name>
+        <reimplements refid="classcLinearOperator_1a40f5051c4399ebfa153ef7147e10a6e6">transpose_dot</reimplements>
+        <reimplementedby refid="classcuCSRMatrix_1a533fef9f3fd9de1f3c984dae663b0ba7">transpose_dot</reimplementedby>
+        <param>
+          <type>const DataType *</type>
+          <declname>vector</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>product</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" line="58" column="22" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.cpp" bodystart="178" bodyend="190"/>
+        <references refid="classcMatrixOperations_1a03977700d838557830edcc96d35e1720" compoundref="c__matrix__operations_8cpp" startline="606" endline="635">cMatrixOperations&lt; DataType &gt;::csr_transposed_matvec</references>
+      </memberdef>
+      <memberdef kind="function" id="classcCSRMatrix_1a25f9120cad4f8e2f36134a22a4661a92" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void cCSRMatrix&lt; DataType &gt;::transpose_dot_plus</definition>
+        <argsstring>(const DataType *vector, const DataType alpha, DataType *product)</argsstring>
+        <name>transpose_dot_plus</name>
+        <reimplements refid="classcMatrix_1af2feaf32d99537897767b14c2c1708b2">transpose_dot_plus</reimplements>
+        <reimplementedby refid="classcuCSRMatrix_1ae43cfdb290779cd143389a2fa4ed5b3f">transpose_dot_plus</reimplementedby>
+        <param>
+          <type>const DataType *</type>
+          <declname>vector</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>product</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" line="62" column="22" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.cpp" bodystart="198" bodyend="211"/>
+        <references refid="classcMatrixOperations_1a61d07d405149cf9ead02af227bfbb8b3" compoundref="c__matrix__operations_8cpp" startline="672" endline="700">cMatrixOperations&lt; DataType &gt;::csr_transposed_matvec_plus</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>cMatrix&lt; DataType &gt;</label>
+        <link refid="classcMatrix"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>cuCSRMatrix&lt; DataType &gt;</label>
+        <link refid="classcuCSRMatrix"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>cCSRMatrix&lt; DataType &gt;</label>
+        <link refid="classcCSRMatrix"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>cLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcLinearOperator"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>cMatrix&lt; DataType &gt;</label>
+        <link refid="classcMatrix"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>cCSRMatrix&lt; DataType &gt;</label>
+        <link refid="classcCSRMatrix"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>cLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcLinearOperator"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" line="29" column="1" bodyfile="/home/sia/work/github/imate/imate/_c_linear_operator/c_csr_matrix.h" bodystart="30" bodyend="73"/>
+    <listofallmembers>
+      <member refid="classcCSRMatrix_1a7aab6a9d1cb201890fe6788cef0eae67" prot="protected" virt="non-virtual"><scope>cCSRMatrix</scope><name>A_data</name></member>
+      <member refid="classcCSRMatrix_1a2bb853f01ed9e1dae7e48f9aae2af2a7" prot="protected" virt="non-virtual"><scope>cCSRMatrix</scope><name>A_index_pointer</name></member>
+      <member refid="classcCSRMatrix_1acc3b6855b8477e6cba3c3151ccbbf735" prot="protected" virt="non-virtual"><scope>cCSRMatrix</scope><name>A_indices</name></member>
+      <member refid="classcCSRMatrix_1ae54d494415328bb4d5e37e9a6bd0b489" prot="public" virt="non-virtual"><scope>cCSRMatrix</scope><name>cCSRMatrix</name></member>
+      <member refid="classcCSRMatrix_1ace6216c1ef8eb0b95db68e2692e152d9" prot="public" virt="non-virtual"><scope>cCSRMatrix</scope><name>cCSRMatrix</name></member>
+      <member refid="classcLinearOperator_1acb0880fed1d5599d721a9438c207ee5b" prot="public" virt="non-virtual"><scope>cCSRMatrix</scope><name>cLinearOperator</name></member>
+      <member refid="classcLinearOperator_1ac844c5dd7b83eb1e95f3c96181366629" prot="public" virt="non-virtual"><scope>cCSRMatrix</scope><name>cLinearOperator</name></member>
+      <member refid="classcMatrix_1a3e7134e2fe4ad377d33b730ac49ee4c5" prot="public" virt="non-virtual"><scope>cCSRMatrix</scope><name>cMatrix</name></member>
+      <member refid="classcCSRMatrix_1a5074b2a9d415dd6e867713341a00f9be" prot="public" virt="virtual"><scope>cCSRMatrix</scope><name>dot</name></member>
+      <member refid="classcCSRMatrix_1aeea882fee0e29e012c140ae2f99efffb" prot="public" virt="virtual"><scope>cCSRMatrix</scope><name>dot_plus</name></member>
+      <member refid="classcLinearOperator_1ac4c88c2dcdc8a4d33a77df3979789d42" prot="protected" virt="non-virtual"><scope>cCSRMatrix</scope><name>eigenvalue_relation_known</name></member>
+      <member refid="classcMatrix_1afb08422559c53336b4515a6627a9d990" prot="public" virt="virtual"><scope>cCSRMatrix</scope><name>get_eigenvalue</name></member>
+      <member refid="classcCSRMatrix_1a5ba91dad4ec62d1ef40a2095e9cefa7b" prot="public" virt="non-virtual"><scope>cCSRMatrix</scope><name>get_nnz</name></member>
+      <member refid="classcLinearOperator_1a08a2eb3bd8ff1f47d1141dc164af1c61" prot="public" virt="non-virtual"><scope>cCSRMatrix</scope><name>get_num_columns</name></member>
+      <member refid="classcLinearOperator_1af9be60b44a47eed5b2c98f077ff54987" prot="public" virt="non-virtual"><scope>cCSRMatrix</scope><name>get_num_parameters</name></member>
+      <member refid="classcLinearOperator_1aecc5b62db1d8a41f5112b289c7031aaf" prot="public" virt="non-virtual"><scope>cCSRMatrix</scope><name>get_num_rows</name></member>
+      <member refid="classcLinearOperator_1af0c980ca87c2795e0dbfda1c84f74591" prot="public" virt="non-virtual"><scope>cCSRMatrix</scope><name>is_eigenvalue_relation_known</name></member>
+      <member refid="classcCSRMatrix_1a7f2869b79991a2ea2e9a8eaebd050dcb" prot="public" virt="virtual"><scope>cCSRMatrix</scope><name>is_identity_matrix</name></member>
+      <member refid="classcLinearOperator_1acdafe59b033d5a73f5abe380f63f40a1" prot="protected" virt="non-virtual"><scope>cCSRMatrix</scope><name>num_columns</name></member>
+      <member refid="classcLinearOperator_1aab9f0063e55c2a1a92a7e643f086348b" prot="protected" virt="non-virtual"><scope>cCSRMatrix</scope><name>num_parameters</name></member>
+      <member refid="classcLinearOperator_1a6786391614f08ef1575554f78717fbb0" prot="protected" virt="non-virtual"><scope>cCSRMatrix</scope><name>num_rows</name></member>
+      <member refid="classcLinearOperator_1a22683aa9286bfd651f1f2dbae3660545" prot="protected" virt="non-virtual"><scope>cCSRMatrix</scope><name>parameters</name></member>
+      <member refid="classcLinearOperator_1ad7395bd04ec8014c9dd0e66c318ae125" prot="public" virt="non-virtual"><scope>cCSRMatrix</scope><name>set_parameters</name></member>
+      <member refid="classcCSRMatrix_1a481e0733264a9befe5286bda9c1832d5" prot="public" virt="virtual"><scope>cCSRMatrix</scope><name>transpose_dot</name></member>
+      <member refid="classcCSRMatrix_1a25f9120cad4f8e2f36134a22a4661a92" prot="public" virt="virtual"><scope>cCSRMatrix</scope><name>transpose_dot_plus</name></member>
+      <member refid="classcCSRMatrix_1aa0d385830c4d70fcccd734183f91a13f" prot="public" virt="virtual"><scope>cCSRMatrix</scope><name>~cCSRMatrix</name></member>
+      <member refid="classcLinearOperator_1a53065884c6a1349054a96a9fb8838e65" prot="public" virt="virtual"><scope>cCSRMatrix</scope><name>~cLinearOperator</name></member>
+      <member refid="classcMatrix_1a0b7276e140f160bdfbb5cdbd14f4265e" prot="public" virt="virtual"><scope>cCSRMatrix</scope><name>~cMatrix</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

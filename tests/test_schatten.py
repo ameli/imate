@@ -19,6 +19,10 @@ import numpy
 from imate.sample_matrices import toeplitz, toeplitz_schatten
 from imate import schatten
 
+import warnings
+warnings.resetwarnings()
+warnings.filterwarnings("error")
+
 
 # ==============
 # relative error
@@ -71,8 +75,6 @@ def _test_schatten_methods(K, matrix, gram, p, assume_matrix):
     schatten1 = schatten(K, gram=gram, p=p, method='eigenvalue',
                          assume_matrix=assume_matrix,
                          non_zero_eig_fraction=0.95)
-    # Test
-    print(schatten1)
     time11 = time.time()
 
     # Use Cholesky method
@@ -89,8 +91,8 @@ def _test_schatten_methods(K, matrix, gram, p, assume_matrix):
     schatten3 = schatten(K, gram=gram, p=p, method='slq',
                          min_num_samples=min_num_samples,
                          max_num_samples=max_num_samples, orthogonalize=-1,
-                         lanczos_degree=lanczos_degree, error_rtol=error_rtol,
-                         verbose=False)
+                         seed=-1, lanczos_degree=lanczos_degree,
+                         error_rtol=error_rtol, verbose=False)
     time31 = time.time()
 
     # Elapsed times

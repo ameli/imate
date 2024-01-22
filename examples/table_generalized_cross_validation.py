@@ -32,7 +32,6 @@ import scipy.optimize                                              # noqa: E402
 from functools import partial                                      # noqa: E402
 
 # Package Modules
-from _utilities.plot_utilities import *                # noqa: F401, F403, E402
 from _utilities.processing_time_utilities import TimeCounter       # noqa: E402
 from _utilities.processing_time_utilities import process_time      # noqa: E402
 from _utilities.data_utilities import generate_matrix              # noqa: E402

@@ -19,6 +19,10 @@ import numpy
 from imate.sample_matrices import toeplitz
 from imate import density
 
+import warnings
+warnings.resetwarnings()
+warnings.filterwarnings("error")
+
 
 # ==============
 # relative error
@@ -71,8 +75,8 @@ def _test_density_methods(K, matrix, gram, p, mu, sigma, assume_matrix):
     density2 = density(K, gram=gram, p=p, mu=mu, sigma=sigma, method='slq',
                        min_num_samples=min_num_samples,
                        max_num_samples=max_num_samples, orthogonalize=-1,
-                       lanczos_degree=lanczos_degree, error_rtol=error_rtol,
-                       verbose=False)
+                       seed=-1, lanczos_degree=lanczos_degree,
+                       error_rtol=error_rtol, verbose=False)
     time21 = time.time()
 
     # Elapsed times

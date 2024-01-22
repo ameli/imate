@@ -22,6 +22,10 @@ os.environ['IMATE_NO_DISPLAY'] = 'True'  # define before importing imate
 from imate.sample_matrices import correlation_matrix               # noqa: E402
 from imate import InterpolateLogdet                                # noqa: E402
 
+import warnings                                                    # noqa: E402
+warnings.resetwarnings()
+warnings.filterwarnings("error")
+
 
 # =================
 # remove saved plot

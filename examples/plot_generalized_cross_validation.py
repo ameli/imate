@@ -19,8 +19,7 @@ import scipy.optimize
 from functools import partial
 
 # Package Modules
-from _utilities.plot_utilities import *                      # noqa: F401, F403
-from _utilities.plot_utilities import load_plot_settings, save_plot, plt, \
+from _utilities.plot_utilities import get_custom_theme, save_plot, plt, \
         matplotlib, FormatStrFormatter
 from _utilities.processing_time_utilities import TimeCounter, process_time, \
         restrict_computation_to_single_processor
@@ -250,6 +249,7 @@ def minimize_gcv(X, K, z, TI, shift, theta_bounds, initial_elapsed_time,
 # plot generalized cross validation
 # =================================
 
+@matplotlib.rc_context(get_custom_theme(font_scale=None))
 def plot_generalized_cross_validation(data, test):
     """
     Plots GCV for a range of theta_.
@@ -262,9 +262,6 @@ def plot_generalized_cross_validation(data, test):
         * ``'GCV'``: y axis data.
         * ``'label'``: the label of the data GCV in the plot.
     """
-
-    # Load plot settings
-    load_plot_settings()
 
     # Create a list of one item if data is not a list.
     if not isinstance(data, list):

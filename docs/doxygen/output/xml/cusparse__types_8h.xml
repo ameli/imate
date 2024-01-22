@@ -1,0 +1,289 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="cusparse__types_8h" kind="file" language="C++">
+    <compoundname>cusparse_types.h</compoundname>
+    <includes local="no">cusparse.h</includes>
+    <includedby refid="cusparse__symbols_8h" local="yes">/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.h</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h</label>
+        <link refid="cusparse__types_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>cusparse.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.h</label>
+        <link refid="cusparse__symbols_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp</label>
+        <link refid="cusparse__symbols_8cpp"/>
+      </node>
+      <node id="1">
+        <label>/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h</label>
+        <link refid="cusparse__types_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="cusparse__types_8h_1aa15860fbc431b7df1d83c21bce5c5f0f" prot="public" static="no">
+        <name>CUSPARSE_SPMV_ALG_DEFAULT</name>
+        <initializer>CUSPARSE_MV_ALG_DEFAULT</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" line="32" column="13" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="cusparse__types_8h_1ab01d22773ab95718ddab32e5d36d127d" prot="public" static="no">
+        <name>cusparseConstSpMatDescr_t</name>
+        <initializer>cusparseSpMatDescr_t</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" line="33" column="13" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="cusparse__types_8h_1aa4402a2a358dcf82083ab9b026497c9b" prot="public" static="no">
+        <name>cusparseConstDnVecDescr_t</name>
+        <initializer>cusparseDnVecDescr_t</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" line="34" column="13" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="cusparse__types_8h_1a5786eaebd18a407280cb003c2042179a" prot="public" static="no">
+        <type>cusparseStatus_t(*</type>
+        <definition>typedef cusparseStatus_t(* cusparseCreate_type) (cusparseHandle_t *handle)</definition>
+        <argsstring>)(cusparseHandle_t *handle)</argsstring>
+        <name>cusparseCreate_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" line="43" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cusparse__types_8h_1a643c78fa97e5e101802496b041943bcc" prot="public" static="no">
+        <type>cusparseStatus_t(*</type>
+        <definition>typedef cusparseStatus_t(* cusparseDestroy_type) (cusparseHandle_t handle)</definition>
+        <argsstring>)(cusparseHandle_t handle)</argsstring>
+        <name>cusparseDestroy_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" line="46" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cusparse__types_8h_1adc4d0550ce4ff76a3b348a5b6d4929fa" prot="public" static="no">
+        <type>cusparseStatus_t(*</type>
+        <definition>typedef cusparseStatus_t(* cusparseCreateCsr_type) (cusparseSpMatDescr_t *spMatDescr, int64_t rows, int64_t cols, int64_t nnz, void *csrRowOffsets, void *csrColInd, void *csrValues, cusparseIndexType_t csrRowOffsetsType, cusparseIndexType_t csrColIndType, cusparseIndexBase_t idxBase, cudaDataType valueType)</definition>
+        <argsstring>)(cusparseSpMatDescr_t *spMatDescr, int64_t rows, int64_t cols, int64_t nnz, void *csrRowOffsets, void *csrColInd, void *csrValues, cusparseIndexType_t csrRowOffsetsType, cusparseIndexType_t csrColIndType, cusparseIndexBase_t idxBase, cudaDataType valueType)</argsstring>
+        <name>cusparseCreateCsr_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" line="49" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cusparse__types_8h_1a71dba719ab573ea026c14d97b94af527" prot="public" static="no">
+        <type>cusparseStatus_t(*</type>
+        <definition>typedef cusparseStatus_t(* cusparseCreateDnVec_type) (cusparseDnVecDescr_t *dnVecDescr, int64_t size, void *values, cudaDataType valueType)</definition>
+        <argsstring>)(cusparseDnVecDescr_t *dnVecDescr, int64_t size, void *values, cudaDataType valueType)</argsstring>
+        <name>cusparseCreateDnVec_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" line="63" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cusparse__types_8h_1acdb69bb1296e7c25ebc5f0fd71f9b2db" prot="public" static="no">
+        <type>cusparseStatus_t(*</type>
+        <definition>typedef cusparseStatus_t(* cusparseDestroySpMat_type) (cusparseConstSpMatDescr_t spMatDescr)</definition>
+        <argsstring>)(cusparseConstSpMatDescr_t spMatDescr)</argsstring>
+        <name>cusparseDestroySpMat_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" line="70" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cusparse__types_8h_1aaf6d4d0bf94c162866dd9a09a55f1629" prot="public" static="no">
+        <type>cusparseStatus_t(*</type>
+        <definition>typedef cusparseStatus_t(* cusparseDestroyDnVec_type) (cusparseConstDnVecDescr_t dnVecDescr)</definition>
+        <argsstring>)(cusparseConstDnVecDescr_t dnVecDescr)</argsstring>
+        <name>cusparseDestroyDnVec_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" line="74" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cusparse__types_8h_1abfdd42d71c16a0128251eb4d1dbd4213" prot="public" static="no">
+        <type>cusparseStatus_t(*</type>
+        <definition>typedef cusparseStatus_t(* cusparseSpMV_bufferSize_type) (cusparseHandle_t handle, cusparseOperation_t opA, const void *alpha, cusparseConstSpMatDescr_t matA, cusparseConstDnVecDescr_t vecX, const void *beta, cusparseDnVecDescr_t vecY, cudaDataType computeType, cusparseSpMVAlg_t alg, size_t *bufferSize)</definition>
+        <argsstring>)(cusparseHandle_t handle, cusparseOperation_t opA, const void *alpha, cusparseConstSpMatDescr_t matA, cusparseConstDnVecDescr_t vecX, const void *beta, cusparseDnVecDescr_t vecY, cudaDataType computeType, cusparseSpMVAlg_t alg, size_t *bufferSize)</argsstring>
+        <name>cusparseSpMV_bufferSize_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" line="78" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="cusparse__types_8h_1a493351cc6706386f8398e9373846ff77" prot="public" static="no">
+        <type>cusparseStatus_t(*</type>
+        <definition>typedef cusparseStatus_t(* cusparseSpMV_type) (cusparseHandle_t handle, cusparseOperation_t opA, const void *alpha, cusparseConstSpMatDescr_t matA, cusparseConstDnVecDescr_t vecX, const void *beta, cusparseDnVecDescr_t vecY, cudaDataType computeType, cusparseSpMVAlg_t alg, void *externalBuffer)</definition>
+        <argsstring>)(cusparseHandle_t handle, cusparseOperation_t opA, const void *alpha, cusparseConstSpMatDescr_t matA, cusparseConstDnVecDescr_t vecX, const void *beta, cusparseDnVecDescr_t vecY, cudaDataType computeType, cusparseSpMVAlg_t alg, void *externalBuffer)</argsstring>
+        <name>cusparseSpMV_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" line="91" column="9" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-FileCopyrightText:<sp/>Copyright<sp/>2021,<sp/>Siavash<sp/>Ameli<sp/>&lt;sameli@berkeley.edu&gt;</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-License-Identifier:<sp/>BSD-3-Clause</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-FileType:<sp/>SOURCE</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/>This<sp/>program<sp/>is<sp/>free<sp/>software:<sp/>you<sp/>can<sp/>redistribute<sp/>it<sp/>and/or<sp/>modify<sp/>it</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/><sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>license<sp/>found<sp/>in<sp/>the<sp/>LICENSE.txt<sp/>file<sp/>in<sp/>the<sp/>root</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/><sp/>directory<sp/>of<sp/>this<sp/>source<sp/>tree.</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_CUDA_DYNAMIC_LOADING_CUSPARSE_TYPES_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>_CUDA_DYNAMIC_LOADING_CUSPARSE_TYPES_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Headers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cusparse.h&gt;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>cusparseSpMatDescr_t,<sp/>cusparseConstSpMatDescr_t,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>cusparseDnVecDescr_t,<sp/>cusparseConstDnVecDescr_t,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>CusparseStatus_t,<sp/>CUSPARSE_STATUS_SUCCESS,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>cusparseCreateCsr,<sp/>cusparseCreateDnVec,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>cusparseDestroySpMat,<sp/>cusparseDestroyDnVec,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>CUDA_R_32F,<sp/>CUDA_R_64F,<sp/>CUSPARSE_INDEX_32I,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>CUSPARSE_INDEX_BASE_ZERO,<sp/>cusparseHandle_t,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>cusparseSpMVAlg_t,<sp/>cusparseSpMV_buffer_size</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/>CUDA<sp/>Version<sp/>Considerations</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>CUSPARSE_VER_MAJOR<sp/>&lt;<sp/>12</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>These<sp/>types<sp/>were<sp/>defined<sp/>n<sp/>cusparse<sp/>version<sp/>12,<sp/>but<sp/>do<sp/>not<sp/>exist<sp/>in</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>earlier<sp/>versions.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32" refid="cusparse__types_8h_1aa15860fbc431b7df1d83c21bce5c5f0f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>CUSPARSE_SPMV_ALG_DEFAULT<sp/>CUSPARSE_MV_ALG_DEFAULT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="cusparse__types_8h_1ab01d22773ab95718ddab32e5d36d127d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>cusparseConstSpMatDescr_t<sp/>cusparseSpMatDescr_t</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="cusparse__types_8h_1aa4402a2a358dcf82083ab9b026497c9b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>cusparseConstDnVecDescr_t<sp/>cusparseDnVecDescr_t</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=====</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Types</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=====</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cusparse<sp/>Create</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="cusparse__types_8h_1a5786eaebd18a407280cb003c2042179a" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cusparseStatus_t<sp/>(*<ref refid="cusparse__types_8h_1a5786eaebd18a407280cb003c2042179a" kindref="member">cusparseCreate_type</ref>)(cusparseHandle_t*<sp/>handle);</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cusparse<sp/>Destroy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="cusparse__types_8h_1a643c78fa97e5e101802496b041943bcc" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cusparseStatus_t<sp/>(*<ref refid="cusparse__types_8h_1a643c78fa97e5e101802496b041943bcc" kindref="member">cusparseDestroy_type</ref>)(cusparseHandle_t<sp/>handle);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cusparseCreateCsr</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="cusparse__types_8h_1adc4d0550ce4ff76a3b348a5b6d4929fa" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cusparseStatus_t<sp/>(*<ref refid="cusparse__types_8h_1adc4d0550ce4ff76a3b348a5b6d4929fa" kindref="member">cusparseCreateCsr_type</ref>)(</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseSpMatDescr_t*<sp/>spMatDescr,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int64_t<sp/>rows,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int64_t<sp/>cols,</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int64_t<sp/>nnz,</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>csrRowOffsets,</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>csrColInd,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>csrValues,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseIndexType_t<sp/>csrRowOffsetsType,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseIndexType_t<sp/>csrColIndType,</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseIndexBase_t<sp/>idxBase,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cudaDataType<sp/>valueType);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cusparseCreateDnVec</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="cusparse__types_8h_1a71dba719ab573ea026c14d97b94af527" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cusparseStatus_t<sp/>(*<ref refid="cusparse__types_8h_1a71dba719ab573ea026c14d97b94af527" kindref="member">cusparseCreateDnVec_type</ref>)(</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseDnVecDescr_t*<sp/>dnVecDescr,</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int64_t<sp/>size,</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>values,</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cudaDataType<sp/>valueType);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cusparseDestroySpMat</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="cusparse__types_8h_1acdb69bb1296e7c25ebc5f0fd71f9b2db" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cusparseStatus_t<sp/>(*<ref refid="cusparse__types_8h_1acdb69bb1296e7c25ebc5f0fd71f9b2db" kindref="member">cusparseDestroySpMat_type</ref>)(</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="cusparse__types_8h_1ab01d22773ab95718ddab32e5d36d127d" kindref="member">cusparseConstSpMatDescr_t</ref><sp/>spMatDescr);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cusparseDestroyDnVec</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="cusparse__types_8h_1aaf6d4d0bf94c162866dd9a09a55f1629" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cusparseStatus_t<sp/>(*<ref refid="cusparse__types_8h_1aaf6d4d0bf94c162866dd9a09a55f1629" kindref="member">cusparseDestroyDnVec_type</ref>)(</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="cusparse__types_8h_1aa4402a2a358dcf82083ab9b026497c9b" kindref="member">cusparseConstDnVecDescr_t</ref><sp/>dnVecDescr);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cusparseSpMV_buffer_size</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="cusparse__types_8h_1abfdd42d71c16a0128251eb4d1dbd4213" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cusparseStatus_t<sp/>(*<ref refid="cusparse__types_8h_1abfdd42d71c16a0128251eb4d1dbd4213" kindref="member">cusparseSpMV_bufferSize_type</ref>)(</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseHandle_t<sp/>handle,</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseOperation_t<sp/>opA,</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>alpha,</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="cusparse__types_8h_1ab01d22773ab95718ddab32e5d36d127d" kindref="member">cusparseConstSpMatDescr_t</ref><sp/>matA,</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="cusparse__types_8h_1aa4402a2a358dcf82083ab9b026497c9b" kindref="member">cusparseConstDnVecDescr_t</ref><sp/>vecX,</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>beta,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseDnVecDescr_t<sp/>vecY,</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cudaDataType<sp/>computeType,</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseSpMVAlg_t<sp/>alg,</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">*<sp/>bufferSize);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cusparseSpMV</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="cusparse__types_8h_1a493351cc6706386f8398e9373846ff77" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>cusparseStatus_t<sp/>(*<ref refid="cusparse__types_8h_1a493351cc6706386f8398e9373846ff77" kindref="member">cusparseSpMV_type</ref>)(</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseHandle_t<sp/>handle,</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseOperation_t<sp/>opA,</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>alpha,</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="cusparse__types_8h_1ab01d22773ab95718ddab32e5d36d127d" kindref="member">cusparseConstSpMatDescr_t</ref><sp/>matA,</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="cusparse__types_8h_1aa4402a2a358dcf82083ab9b026497c9b" kindref="member">cusparseConstDnVecDescr_t</ref><sp/>vecX,</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>beta,</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseDnVecDescr_t<sp/>vecY,</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cudaDataType<sp/>computeType,</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseSpMVAlg_t<sp/>alg,</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>externalBuffer);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>_CUDA_DYNAMIC_LOADING_CUSPARSE_TYPES_H_</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_types.h"/>
+  </compounddef>
+</doxygen>

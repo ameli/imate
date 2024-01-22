@@ -19,6 +19,10 @@ import numpy
 from imate.sample_matrices import toeplitz, toeplitz_trace
 from imate import trace
 
+import warnings
+warnings.resetwarnings()
+warnings.filterwarnings("error")
+
 
 # ==============
 # relative error
@@ -75,7 +79,7 @@ def _test_trace_methods(K, matrix, gram, p, assume_matrix):
     time30 = time.time()
     trace3 = trace(K, gram=gram, p=p, method='slq',
                    min_num_samples=min_num_samples,
-                   max_num_samples=max_num_samples, orthogonalize=-1,
+                   max_num_samples=max_num_samples, orthogonalize=-1, seed=-1,
                    lanczos_degree=lanczos_degree, error_rtol=error_rtol,
                    verbose=False)
     time31 = time.time()

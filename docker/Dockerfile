@@ -45,6 +45,7 @@ RUN apt-get update && \
 
 # Build package wheel
 ENV USE_CUDA=1
+ENV CUDA_DYNAMIC_LOADING=0
 RUN mkdir /tmp/imate
 
 # Note: ADD does not copy all files. See .dockerignore

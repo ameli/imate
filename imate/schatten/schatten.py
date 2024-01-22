@@ -380,14 +380,12 @@ def schatten(
         >>> # Importing packages
         >>> import numpy
         >>> import matplotlib.pyplot as plt
-        >>> import seaborn as sns
         >>> from imate.sample_matrices import correlation_matrix
         >>> from imate import schatten
 
         >>> # Plot settings (optional)
-        >>> sns.set(font_scale=1.15)
-        >>> sns.set_style("white")
-        >>> sns.set_style("ticks")
+        >>> from imate._utilities import set_custom_theme
+        >>> set_custom_theme(font_scale=1.15)
 
         >>> # Generate a sample matrix
         >>> A = correlation_matrix(size=500)

@@ -35,6 +35,7 @@ def check_arguments(
         outlier_significance_level,
         solver_tol,
         orthogonalize,
+        seed,
         num_threads,
         verbose,
         plot):
@@ -210,6 +211,12 @@ def check_arguments(
     elif not isinstance(orthogonalize, bool):
         raise TypeError('"orthogonalize" should be boolean.')
 
+    # Check seed
+    if (seed is not None) and (not numpy.isscalar(seed)):
+        raise TypeError('"seed" should be a None or a scalar value.')
+    elif (seed is not None) and not isinstance(seed, (int, numpy.integer)):
+        raise TypeError('"seed" should be None or an integer.')
+
     # Check num_threads
     if num_threads is None:
         raise TypeError('"num_threads" cannot be None.')
@@ -235,17 +242,6 @@ def check_arguments(
         raise TypeError('"plot" should be a scalar value.')
     elif not isinstance(plot, bool):
         raise TypeError('"plot" should be boolean.')
-
-    # Check if plot modules exist
-    if plot is True:
-        try:
-            from .._utilities.plot_utilities import matplotlib      # noqa F401
-            from .._utilities.plot_utilities import load_plot_settings
-            load_plot_settings()
-        except ImportError:
-            raise ImportError('Cannot import modules for plotting. Either ' +
-                              'install "matplotlib" and "seaborn" packages, ' +
-                              'or set "plot=False".')
 
     return error_atol, error_rtol, square
 

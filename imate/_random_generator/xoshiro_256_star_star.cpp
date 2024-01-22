@@ -30,14 +30,14 @@
 /// \brief Constructor. It initializes the state variable with random integers
 ///        using \c splitmix64 pseudo-random generator.
 ///
-Xoshiro256StarStar::Xoshiro256StarStar():
+Xoshiro256StarStar::Xoshiro256StarStar(const int64_t seed):
     state(NULL)
 {
     // Allocate state
     this->state = new uint64_t[4];
 
     // Initializing SplitMix64 random generator
-    SplitMix64 split_mix_64;
+    SplitMix64 split_mix_64(seed);
 
     for (int i=0; i < 4; ++i)
     {

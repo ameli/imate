@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespacedynamic__loading" kind="namespace" language="C++">
+    <compoundname>dynamic_loading</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespacedynamic__loading_1a09be62aa2f195a09913adef73dc4a043" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Signature</type>
+          </param>
+        </templateparamlist>
+        <type>Signature</type>
+        <definition>Signature dynamic_loading::load_symbol</definition>
+        <argsstring>(const char *lib_name, const char *symbol_name)</argsstring>
+        <name>load_symbol</name>
+        <param>
+          <type>const char *</type>
+          <declname>lib_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>symbol_name</declname>
+        </param>
+        <briefdescription>
+<para>Loads a symbol within a library and returns a pointer to the symbol (function pointer). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="templateparam"><parameteritem>
+<parameternamelist>
+<parametername>Signature</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The template parameter. The returned symbol pointer is cast from <computeroutput>void*</computeroutput> to the template parameter <computeroutput>Signature</computeroutput>, which is essentially a <computeroutput>typedef</computeroutput> for the output function. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">lib_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the library. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">symbol_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of the symbol within the library. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Returns a pointer to the symbol, which is a pointer to a callable function. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/dynamic_loading.h" line="164" column="15" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/dynamic_loading.h" bodystart="164" bodyend="202"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Dynamic loading of shared libraries using <computeroutput>dlopen</computeroutput> tool. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The dynamic loading is compiled with <computeroutput>CUDA_DYNAMIC_LOADING</computeroutput> set to <computeroutput>1</computeroutput>. When enabeld, the CUDA libraries are loaded at the run- time. This method has an advantage and a disadvatage:</para>
+<para><itemizedlist>
+<listitem><para>Advantage: when dynamic loading is enabled, this package can be distributed without bundling the large cuda libraries. That is, when the wheel of this package is repaired with <computeroutput>auditwheel</computeroutput> tool in manylinux platform, the cuda libraries will not be bundled to the wheel, so the size of the wheel does not increase. In contrast, if this package is not compiled with dynamic loading, the cuda <computeroutput>*</computeroutput>.so (or <computeroutput>*</computeroutput>.dll) shared library files will be bundled with the wheel and increase the size of the wheel upto 400MB. Such a large wheel file cannot be uploaded to PyPI due to the 100MB size limit. But with dynamic loading, the package requires these libraries only at the run-time, not at the compile time.</para>
+</listitem><listitem><para>Disadvantage: The end-user must install the <emphasis>same</emphasis> cuda version that this package is compiled with. For example, if this package is compiled with cuda 11.x, the user must install cuda 11.x (such as 11.0, 11.1, etc), but not cuda 10.x.</para>
+</listitem></itemizedlist>
+</para>
+<para>The run time with/without dynamic loading is the same. That is, using the dynamic loading doesn&apos;t affect the performance at all.</para>
+<para>The functions in this namespace load any generic libraries. We use them to load <computeroutput>libcudart</computeroutput>, <computeroutput>libcublas</computeroutput>, and <computeroutput>libcusparse</computeroutput>.</para>
+<para><simplesect kind="note"><para>When this package is compiled with dynamic loading enabled, make sure that cuda toolkit is available at run-time. For instance on a linux cluster, run: <verbatim>module load cuda
+</verbatim> </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="classcudartSymbols" kindref="compound">cudartSymbols</ref>, <ref refid="classcublasSymbols" kindref="compound">cublasSymbols</ref>, <ref refid="classcusparseSymbols" kindref="compound">cusparseSymbols</ref> </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/dynamic_loading.h" line="37" column="1"/>
+  </compounddef>
+</doxygen>

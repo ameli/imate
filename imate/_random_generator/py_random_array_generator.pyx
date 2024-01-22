@@ -24,7 +24,8 @@ from .random_number_generator cimport RandomNumberGenerator
 cdef void py_generate_random_array(
         DataType* array,
         const LongIndexType array_size,
-        const IndexType num_threads) nogil:
+        const IndexType num_threads,
+        const IndexType seed) nogil:
     """
     A python wrapper for ``RandomArrayGenerator.generate_random_array()``.
 
@@ -40,7 +41,7 @@ cdef void py_generate_random_array(
 
     # Create a random number generator object
     cdef RandomNumberGenerator* random_number_generator = \
-        new RandomNumberGenerator(num_threads)
+        new RandomNumberGenerator(num_threads, seed)
 
     # Pass the random number generator to an array generator
     RandomArrayGenerator[DataType].generate_random_array(

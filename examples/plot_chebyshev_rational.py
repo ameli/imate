@@ -19,8 +19,7 @@ import scipy
 import scipy.special
 
 # Package modules
-from _utilities.plot_utilities import *                      # noqa: F401, F403
-from _utilities.plot_utilities import load_plot_settings, save_plot, plt, \
+from _utilities.plot_utilities import get_custom_theme, save_plot, plt, \
         matplotlib
 
 
@@ -28,13 +27,11 @@ from _utilities.plot_utilities import load_plot_settings, save_plot, plt, \
 # Plot Functions
 # ==============
 
+@matplotlib.rc_context(get_custom_theme(font_scale=1.2))
 def plot_chebyshev_rational(degree=6, test=False):
     """
     Plots Chebyshev rational functions.
     """
-
-    # Load plot settings
-    load_plot_settings(font_scale=1.2)
 
     t = numpy.logspace(-4, 4, 1000)
     x = (t-1.0) / (t+1.0)

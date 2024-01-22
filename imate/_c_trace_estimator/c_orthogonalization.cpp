@@ -162,7 +162,7 @@ void cOrthogonalization<DataType>::gram_schmidt_process(
     DataType norm;
     DataType norm_v;
     DataType epsilon = std::numeric_limits<DataType>::epsilon();
-    DataType distance;
+    DataType distance2;
 
     // Iterate over vectors
     for (IndexType step=0; step < num_steps; ++step)
@@ -198,20 +198,20 @@ void cOrthogonalization<DataType>::gram_schmidt_process(
         // scale for subtraction
         DataType scale = inner_prod / (norm * norm);
 
-        // If scale is is 1, it is possible that vector v and j-th vector are
+        // If scale is 1, it is possible that vector v and j-th vector are
         // identical (or close).
-        if (std::abs(scale - 1.0) <= 2.0 * epsilon)
+        if (std::abs(std::abs(scale) - 1.0) <= 2.0 * epsilon)
         {
             // Norm of the vector v
             norm_v = cVectorOperations<DataType>::euclidean_norm(
                     v, vector_size);
 
             // Compute distance between the j-th vector and vector v
-            distance = sqrt(norm_v*norm_v - 2.0*inner_prod + norm*norm);
+            distance2 = norm_v*norm_v - 2.0*inner_prod + norm*norm;
 
             // If distance is zero, do not reorthogonalize i-th against
             // the j-th vector.
-            if (distance < 2.0 * epsilon * sqrt(vector_size))
+            if (distance2 < 2.0 * epsilon * vector_size)
             {
                 continue;
             }
@@ -283,7 +283,6 @@ void cOrthogonalization<DataType>::orthogonalize_vectors(
     DataType inner_prod;
     DataType norm_j;
     DataType norm_i;
-    DataType distance;
     DataType epsilon = std::numeric_limits<DataType>::epsilon();
     IndexType success = 1;
     IndexType max_num_trials = 20;

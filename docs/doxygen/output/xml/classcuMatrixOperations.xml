@@ -1,0 +1,1488 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classcuMatrixOperations" kind="class" language="C++" prot="public">
+    <compoundname>cuMatrixOperations</compoundname>
+    <includes refid="cu__matrix__operations_8h" local="no">cu_matrix_operations.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename DataType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="classcuMatrixOperations_1a607abe26c3a8e0aa65a03895b1c3b66e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuMatrixOperations&lt; DataType &gt;::dense_matvec</definition>
+        <argsstring>(cublasHandle_t cublas_handle, const DataType *A, const DataType *b, const LongIndexType num_rows, const LongIndexType num_columns, const FlagType A_is_row_major, DataType *c)</argsstring>
+        <name>dense_matvec</name>
+        <param>
+          <type>cublasHandle_t</type>
+          <declname>cublas_handle</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>A_is_row_major</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes the matrix vector multiplication <formula id="0">$ \boldsymbol{c} = \mathbf{A} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is a dense matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cublas_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The cuBLAS object handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1D array that represents a 2D dense array with either C (row) major ordering or Fortran (column) major ordering. The major ordering should de defined by <computeroutput>A_is_row_major</computeroutput> flag. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of <computeroutput>A</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of <computeroutput>A</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_is_row_major</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean, can be <computeroutput>0</computeroutput> or <computeroutput>1</computeroutput> as follows:<itemizedlist>
+<listitem><para>If <computeroutput>A</computeroutput> is row major (C ordering where the last index is contiguous) this value should be <computeroutput>1</computeroutput>.</para>
+</listitem><listitem><para>If <computeroutput>A</computeroutput> is column major (Fortran ordering where the first index is contiguous), this value should be set to <computeroutput>0</computeroutput>. </para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The output column vector (written in-place). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h" line="63" column="21" bodyfile="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu" bodystart="52" bodyend="93"/>
+        <references refid="namespacecublas__interface_1ac4f7c12ce59f4e8701116a92173763db">cublas_interface::cublasXgemv</references>
+        <referencedby refid="classcuDenseMatrix_1acda42015f534adec6df3728f53f2a6d7" compoundref="cu__dense__matrix_8cu" startline="131" endline="148">cuDenseMatrix&lt; DataType &gt;::dot</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcuMatrixOperations_1afd343508b61995018e3a76a461254414" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuMatrixOperations&lt; DataType &gt;::dense_matvec_plus</definition>
+        <argsstring>(cublasHandle_t cublas_handle, const DataType *A, const DataType *b, const DataType alpha, const LongIndexType num_rows, const LongIndexType num_columns, const FlagType A_is_row_major, DataType *c)</argsstring>
+        <name>dense_matvec_plus</name>
+        <param>
+          <type>cublasHandle_t</type>
+          <declname>cublas_handle</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>A_is_row_major</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes the operation <formula id="2">$ \boldsymbol{c} = \boldsymbol{c} + \alpha \mathbf{A} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is a dense matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cublas_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The cuBLAS object handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1D array that represents a 2D dense array with either C (row) major ordering or Fortran (column) major ordering. The major ordering should de defined by <computeroutput>A_is_row_major</computeroutput> flag. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A scalar that scales the matrix vector multiplication. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of <computeroutput>A</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of <computeroutput>A</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_is_row_major</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean, can be <computeroutput>0</computeroutput> or <computeroutput>1</computeroutput> as follows:<itemizedlist>
+<listitem><para>If <computeroutput>A</computeroutput> is row major (C ordering where the last index is contiguous) this value should be <computeroutput>1</computeroutput>.</para>
+</listitem><listitem><para>If <computeroutput>A</computeroutput> is column major (Fortran ordering where the first index is contiguous), this value should be set to <computeroutput>0</computeroutput>. </para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The output column vector (written in-place). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h" line="73" column="21" bodyfile="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu" bodystart="128" bodyend="169"/>
+        <references refid="namespacecublas__interface_1ac4f7c12ce59f4e8701116a92173763db">cublas_interface::cublasXgemv</references>
+        <referencedby refid="classcuDenseMatrix_1a5be7f76677e25f81d4a1edbedfbf3f35" compoundref="cu__dense__matrix_8cu" startline="156" endline="175">cuDenseMatrix&lt; DataType &gt;::dot_plus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcuMatrixOperations_1a87b2dab8b53b2d2095d1a7d87b425348" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuMatrixOperations&lt; DataType &gt;::dense_transposed_matvec</definition>
+        <argsstring>(cublasHandle_t cublas_handle, const DataType *A, const DataType *b, const LongIndexType num_rows, const LongIndexType num_columns, const FlagType A_is_row_major, DataType *c)</argsstring>
+        <name>dense_transposed_matvec</name>
+        <param>
+          <type>cublasHandle_t</type>
+          <declname>cublas_handle</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>A_is_row_major</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes matrix vector multiplication <formula id="3">$\boldsymbol{c} = \mathbf{A}^{\intercal} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is dense, and <formula id="4">$ \mathbf{A}^{\intercal} $</formula> is the transpose of the matrix <formula id="1">$ \mathbf{A} $</formula>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cublas_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The cuBLAS object handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1D array that represents a 2D dense array with either C (row) major ordering or Fortran (column) major ordering. The major ordering should de defined by <computeroutput>A_is_row_major</computeroutput> flag. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of <computeroutput>A</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of <computeroutput>A</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_is_row_major</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean, can be <computeroutput>0</computeroutput> or <computeroutput>1</computeroutput> as follows:<itemizedlist>
+<listitem><para>If <computeroutput>A</computeroutput> is row major (C ordering where the last index is contiguous) this value should be <computeroutput>1</computeroutput>.</para>
+</listitem><listitem><para>f <computeroutput>A</computeroutput> is column major (Fortran ordering where the first index is contiguous), this value should be set to <computeroutput>0</computeroutput>. </para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The output column vector (written in-place). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h" line="84" column="21" bodyfile="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu" bodystart="203" bodyend="244"/>
+        <references refid="namespacecublas__interface_1ac4f7c12ce59f4e8701116a92173763db">cublas_interface::cublasXgemv</references>
+        <referencedby refid="classcuDenseMatrix_1a36bcdf696c8a5b30d818f43d63a1a0ff" compoundref="cu__dense__matrix_8cu" startline="183" endline="200">cuDenseMatrix&lt; DataType &gt;::transpose_dot</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcuMatrixOperations_1a7f9fbf9751a63bf21744f7f343570c9e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuMatrixOperations&lt; DataType &gt;::dense_transposed_matvec_plus</definition>
+        <argsstring>(cublasHandle_t cublas_handle, const DataType *A, const DataType *b, const DataType alpha, const LongIndexType num_rows, const LongIndexType num_columns, const FlagType A_is_row_major, DataType *c)</argsstring>
+        <name>dense_transposed_matvec_plus</name>
+        <param>
+          <type>cublasHandle_t</type>
+          <declname>cublas_handle</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>A</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>A_is_row_major</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="5">$ \boldsymbol{c} = \boldsymbol{c} + \alpha \mathbf{A}^{\intercal} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is dense, and <formula id="4">$ \mathbf{A}^{\intercal} $</formula> is the transpose of the matrix <formula id="1">$ \mathbf{A} $</formula>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cublas_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The cuBLAS object handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1D array that represents a 2D dense array with either C (row) major ordering or Fortran (column) major ordering. The major ordering should de defined by <computeroutput>A_is_row_major</computeroutput> flag. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A scalar that scales the matrix vector multiplication. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of <computeroutput>A</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of <computeroutput>A</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_is_row_major</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean, can be <computeroutput>0</computeroutput> or <computeroutput>1</computeroutput> as follows:<itemizedlist>
+<listitem><para>If <computeroutput>A</computeroutput> is row major (C ordering where the last index is contiguous) this value should be <computeroutput>1</computeroutput>.</para>
+</listitem><listitem><para>f <computeroutput>A</computeroutput> is column major (Fortran ordering where the first index is contiguous), this value should be set to <computeroutput>0</computeroutput>. </para>
+</listitem></itemizedlist>
+</para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The output column vector (written in-place). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h" line="94" column="21" bodyfile="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu" bodystart="280" bodyend="326"/>
+        <references refid="namespacecublas__interface_1ac4f7c12ce59f4e8701116a92173763db">cublas_interface::cublasXgemv</references>
+        <referencedby refid="classcuDenseMatrix_1a04afe283c6f3570cbaffb36b8043d940" compoundref="cu__dense__matrix_8cu" startline="208" endline="227">cuDenseMatrix&lt; DataType &gt;::transpose_dot_plus</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="classcuMatrixOperations_1a2fd7c6aa5c7d9640f97b0d630e36ec34" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuMatrixOperations&lt; DataType &gt;::csr_matvec</definition>
+        <argsstring>(cusparseHandle_t cusparse_handle, const DataType *A_data, const LongIndexType *A_column_indices, const LongIndexType *A_index_pointer, const DataType *b, const LongIndexType num_rows, DataType *c)</argsstring>
+        <name>csr_matvec</name>
+        <param>
+          <type>cusparseHandle_t</type>
+          <declname>cusparse_handle</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_column_indices</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="0">$ \boldsymbol{c} = \mathbf{A} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is compressed sparse row (CSR) matrix and <formula id="6">$ \boldsymbol{b} $</formula> is a dense vector. The output <formula id="7">$ \boldsymbol{c} $</formula> is a dense vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cusparse_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The cuSparse object handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format data array of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_column_indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format column indices of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_index_pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format index pointer. The length of this array is one plus the number of rows of the matrix. Also, the first element of this array is <computeroutput>0</computeroutput>, and the last element is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector with same size of the number of columns of <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of the matrix <computeroutput>A</computeroutput>. This is essentially the size of <computeroutput>A_index_pointer</computeroutput> array minus one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output column vector with the same size as <computeroutput>b</computeroutput>. This array is written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h" line="105" column="21" bodyfile="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu" bodystart="361" bodyend="387"/>
+      </memberdef>
+      <memberdef kind="function" id="classcuMatrixOperations_1ac1666f8f8e25ed218ca852d6d05c511c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuMatrixOperations&lt; DataType &gt;::csr_matvec_plus</definition>
+        <argsstring>(cusparseHandle_t cusparse_handle, const DataType *A_data, const LongIndexType *A_column_indices, const LongIndexType *A_index_pointer, const DataType *b, const DataType alpha, const LongIndexType num_rows, DataType *c)</argsstring>
+        <name>csr_matvec_plus</name>
+        <param>
+          <type>cusparseHandle_t</type>
+          <declname>cusparse_handle</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_column_indices</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="2">$ \boldsymbol{c} = \boldsymbol{c} + \alpha \mathbf{A} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is compressed sparse row (CSR) matrix and <formula id="6">$ \boldsymbol{b} $</formula> is a dense vector. The output <formula id="7">$ \boldsymbol{c} $</formula> is a dense vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cusparse_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The cuSparse object handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format data array of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_column_indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format column indices of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_index_pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format index pointer. The length of this array is one plus the number of rows of the matrix. Also, the first element of this array is <computeroutput>0</computeroutput>, and the last element is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector with same size of the number of columns of <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A scalar that scales the matrix vector multiplication. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of the matrix <computeroutput>A</computeroutput>. This is essentially the size of <computeroutput>A_index_pointer</computeroutput> array minus one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output column vector with the same size as <computeroutput>b</computeroutput>. This array is written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h" line="115" column="21" bodyfile="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu" bodystart="426" bodyend="458"/>
+      </memberdef>
+      <memberdef kind="function" id="classcuMatrixOperations_1acb3faf387005413db6b1ab1bc41a8aec" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuMatrixOperations&lt; DataType &gt;::csr_transposed_matvec</definition>
+        <argsstring>(cusparseHandle_t cusparse_handle, const DataType *A_data, const LongIndexType *A_column_indices, const LongIndexType *A_index_pointer, const DataType *b, const LongIndexType num_rows, const LongIndexType num_columns, DataType *c)</argsstring>
+        <name>csr_transposed_matvec</name>
+        <param>
+          <type>cusparseHandle_t</type>
+          <declname>cusparse_handle</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_column_indices</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="8">$\boldsymbol{c} =\mathbf{A}^{\intercal} \boldsymbol{b}$</formula> where <formula id="1">$ \mathbf{A} $</formula> is compressed sparse row (CSR) matrix and <formula id="6">$ \boldsymbol{b} $</formula> is a dense vector. The output <formula id="7">$ \boldsymbol{c} $</formula> is a dense vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cusparse_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The cuSparse object handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format data array of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_column_indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format column indices of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_index_pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format index pointer. The length of this array is one plus the number of rows of the matrix. Also, the first element of this array is <computeroutput>0</computeroutput>, and the last element is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector with same size of the number of columns of <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of the matrix <computeroutput>A</computeroutput>. This is essentially the size of <computeroutput>A_index_pointer</computeroutput> array minus one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of the matrix <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output column vector with the same size as <computeroutput>b</computeroutput>. This array is written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h" line="126" column="21" bodyfile="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu" bodystart="495" bodyend="525"/>
+      </memberdef>
+      <memberdef kind="function" id="classcuMatrixOperations_1a9cb9f0613072a3ca3067344e594d4ffe" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuMatrixOperations&lt; DataType &gt;::csr_transposed_matvec_plus</definition>
+        <argsstring>(cusparseHandle_t cusparse_handle, const DataType *A_data, const LongIndexType *A_column_indices, const LongIndexType *A_index_pointer, const DataType *b, const DataType alpha, const LongIndexType num_rows, const LongIndexType num_columns, DataType *c)</argsstring>
+        <name>csr_transposed_matvec_plus</name>
+        <param>
+          <type>cusparseHandle_t</type>
+          <declname>cusparse_handle</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_column_indices</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="9">$ \boldsymbol{c} = \boldsymbol{c} + \alpha \mathbf{A}^{\intercal} \boldsymbol{b}$</formula> where <formula id="1">$ \mathbf{A} $</formula> is compressed sparse row (CSR) matrix and <formula id="6">$ \boldsymbol{b} $</formula> is a dense vector. The output <formula id="7">$ \boldsymbol{c} $</formula> is a dense vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cusparse_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The cuSparse object handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format data array of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_column_indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format column indices of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_index_pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSR format index pointer. The length of this array is one plus the number of rows of the matrix. Also, the first element of this array is <computeroutput>0</computeroutput>, and the last element is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector with same size of the number of columns of <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A scalar that scales the matrix vector multiplication. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of the matrix <computeroutput>A</computeroutput>. This is essentially the size of <computeroutput>A_index_pointer</computeroutput> array minus one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of the matrix <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output column vector with the same size as <computeroutput>b</computeroutput>. This array is written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h" line="137" column="21" bodyfile="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu" bodystart="566" bodyend="596"/>
+      </memberdef>
+      <memberdef kind="function" id="classcuMatrixOperations_1afea9c79d7c3f72eb6515e0191bed6bfb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuMatrixOperations&lt; DataType &gt;::csc_matvec</definition>
+        <argsstring>(cusparseHandle_t cusparse_handle, const DataType *A_data, const LongIndexType *A_row_indices, const LongIndexType *A_index_pointer, const DataType *b, const LongIndexType num_rows, const LongIndexType num_columns, DataType *c)</argsstring>
+        <name>csc_matvec</name>
+        <param>
+          <type>cusparseHandle_t</type>
+          <declname>cusparse_handle</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_row_indices</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="0">$ \boldsymbol{c} = \mathbf{A} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is compressed sparse column (CSC) matrix and <formula id="6">$ \boldsymbol{b} $</formula> is a dense vector. The output <formula id="7">$ \boldsymbol{c} $</formula> is a dense vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cusparse_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The cuSparse object handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format data array of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_row_indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format column indices of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_index_pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format index pointer. The length of this array is one plus the number of columns of the matrix. Also, the first element of this array is <computeroutput>0</computeroutput>, and the last element is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector with same size of the number of columns of <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of the matrix <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of the matrix <computeroutput>A</computeroutput>. This is essentially the size of <computeroutput>A_index_pointer</computeroutput> array minus one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output column vector with the same size as <computeroutput>b</computeroutput>. This array is written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h" line="149" column="21" bodyfile="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu" bodystart="633" bodyend="663"/>
+      </memberdef>
+      <memberdef kind="function" id="classcuMatrixOperations_1a6ffff9064e8962959cccd860d5c608a8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuMatrixOperations&lt; DataType &gt;::csc_matvec_plus</definition>
+        <argsstring>(cusparseHandle_t cusparse_handle, const DataType *A_data, const LongIndexType *A_row_indices, const LongIndexType *A_index_pointer, const DataType *b, const DataType alpha, const LongIndexType num_rows, const LongIndexType num_columns, DataType *c)</argsstring>
+        <name>csc_matvec_plus</name>
+        <param>
+          <type>cusparseHandle_t</type>
+          <declname>cusparse_handle</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_row_indices</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_rows</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="2">$ \boldsymbol{c} = \boldsymbol{c} + \alpha \mathbf{A} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is compressed sparse column (CSC) matrix and <formula id="6">$ \boldsymbol{b} $</formula> is a dense vector. The output <formula id="7">$ \boldsymbol{c} $</formula> is a dense vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cusparse_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The cuSparse object handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format data array of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_row_indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format column indices of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_index_pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format index pointer. The length of this array is one plus the number of columns of the matrix. Also, the first element of this array is <computeroutput>0</computeroutput>, and the last element is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector with same size of the number of columns of <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A scalar that scales the matrix vector multiplication. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_rows</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of rows of the matrix <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of the matrix <computeroutput>A</computeroutput>. This is essentially the size of <computeroutput>A_index_pointer</computeroutput> array minus one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output column vector with the same size as <computeroutput>b</computeroutput>. This array is written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h" line="160" column="21" bodyfile="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu" bodystart="704" bodyend="734"/>
+      </memberdef>
+      <memberdef kind="function" id="classcuMatrixOperations_1a24e67dbd7b0814a1df380ff5e89d53ce" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuMatrixOperations&lt; DataType &gt;::csc_transposed_matvec</definition>
+        <argsstring>(cusparseHandle_t cusparse_handle, const DataType *A_data, const LongIndexType *A_row_indices, const LongIndexType *A_index_pointer, const DataType *b, const LongIndexType num_columns, DataType *c)</argsstring>
+        <name>csc_transposed_matvec</name>
+        <param>
+          <type>cusparseHandle_t</type>
+          <declname>cusparse_handle</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_row_indices</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="10">$\boldsymbol{c} =\mathbf{A}^{\intercal} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is compressed sparse column (CSC) matrix and <formula id="6">$ \boldsymbol{b} $</formula> is a dense vector. The output <formula id="7">$ \boldsymbol{c} $</formula> is a dense vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cusparse_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The cuSparse object handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format data array of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_row_indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format column indices of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_index_pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format index pointer. The length of this array is one plus the number of columns of the matrix. Also, the first element of this array is <computeroutput>0</computeroutput>, and the last element is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector with same size of the number of columns of <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of the matrix <computeroutput>A</computeroutput>. This is essentially the size of <computeroutput>A_index_pointer</computeroutput> array minus one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output column vector with the same size as <computeroutput>b</computeroutput>. This array is written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h" line="172" column="21" bodyfile="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu" bodystart="770" bodyend="796"/>
+      </memberdef>
+      <memberdef kind="function" id="classcuMatrixOperations_1a856b765b9c55419a559afcce2a1cddbb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuMatrixOperations&lt; DataType &gt;::csc_transposed_matvec_plus</definition>
+        <argsstring>(cusparseHandle_t cusparse_handle, const DataType *A_data, const LongIndexType *A_row_indices, const LongIndexType *A_index_pointer, const DataType *b, const DataType alpha, const LongIndexType num_columns, DataType *c)</argsstring>
+        <name>csc_transposed_matvec_plus</name>
+        <param>
+          <type>cusparseHandle_t</type>
+          <declname>cusparse_handle</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>A_data</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_row_indices</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref> *</type>
+          <declname>A_index_pointer</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>b</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>num_columns</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>c</declname>
+        </param>
+        <briefdescription>
+<para>Computes <formula id="5">$ \boldsymbol{c} = \boldsymbol{c} + \alpha \mathbf{A}^{\intercal} \boldsymbol{b} $</formula> where <formula id="1">$ \mathbf{A} $</formula> is compressed sparse column (CSC) matrix and <formula id="6">$ \boldsymbol{b} $</formula> is a dense vector. The output <formula id="7">$ \boldsymbol{c} $</formula> is a dense vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cusparse_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The cuSparse object handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format data array of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_row_indices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format column indices of the sparse matrix. The length of this array is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">A_index_pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CSC format index pointer. The length of this array is one plus the number of columns of the matrix. Also, the first element of this array is <computeroutput>0</computeroutput>, and the last element is the nnz of the matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">b</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Column vector with same size of the number of columns of <computeroutput>A</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A scalar that scales the matrix vector multiplication. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>num_columns</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of columns of the matrix <computeroutput>A</computeroutput>. This is essentially the size of <computeroutput>A_index_pointer</computeroutput> array minus one. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">c</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Output column vector with the same size as <computeroutput>b</computeroutput>. This array is written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h" line="182" column="21" bodyfile="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu" bodystart="835" bodyend="867"/>
+      </memberdef>
+      <memberdef kind="function" id="classcuMatrixOperations_1aa18d50115d8617babb4aaa2085c425c1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuMatrixOperations&lt; DataType &gt;::create_band_matrix</definition>
+        <argsstring>(cusparseHandle_t cublas_handle, const DataType *diagonals, const DataType *supdiagonals, const IndexType non_zero_size, const FlagType tridiagonal, DataType **matrix)</argsstring>
+        <name>create_band_matrix</name>
+        <param>
+          <type>cusparseHandle_t</type>
+          <declname>cublas_handle</declname>
+          <defname>cusparse_handle</defname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>diagonals</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>supdiagonals</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1ab1b7173c76e5040d0161e695a129dafe" kindref="member">IndexType</ref></type>
+          <declname>non_zero_size</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a67de833a333e9264ce27ee3d6e4b2732" kindref="member">FlagType</ref></type>
+          <declname>tridiagonal</declname>
+        </param>
+        <param>
+          <type>DataType **</type>
+          <declname>matrix</declname>
+        </param>
+        <briefdescription>
+<para>Creates bi-diagonal or symmetric tri-diagonal matrix from the diagonal array (<computeroutput>diagonals</computeroutput>) and off-diagonal array (<computeroutput>supdiagonals</computeroutput>). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The output is written in place (in <computeroutput>matrix</computeroutput>). The output is only written up to the <computeroutput>non_zero_size</computeroutput> element, that is: <computeroutput>matrix</computeroutput>[:non_zero_size,:non_zero_size] is filled, and the rest is assumed to be zero.</para>
+<para>Depending on <computeroutput>tridiagonal</computeroutput>, the matrix is upper bi-diagonal or symmetric tri-diagonal.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cusparse_handle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The cuSparse object handle. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">diagonals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An array of length <computeroutput>n</computeroutput>. All elements <computeroutput>diagonals</computeroutput> create the diagonals of <computeroutput>matrix</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">supdiagonals</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>An array of length <computeroutput>n</computeroutput>. Elements <computeroutput>supdiagonals</computeroutput>[0:-1] create the upper off-diagonal of <computeroutput>matrix</computeroutput>, making <computeroutput>matrix</computeroutput> an upper bi-diagonal matrix. In addition, if <computeroutput>tridiagonal</computeroutput> is set to <computeroutput>1</computeroutput>, the lower off-diagonal is also created similar to the upper off-diagonal, making <computeroutput>matrix</computeroutput> a symmetric tri-diagonal matrix. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">non_zero_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Up to the <computeroutput>matrix</computeroutput>[:non_zero_size,:non_zero_size] of <computeroutput>matrix</computeroutput> will be written. At most, <computeroutput>non_zero_size</computeroutput> can be <computeroutput>n</computeroutput>, which is the size of <computeroutput>diagonals</computeroutput> array and the size of the square matrix. If <computeroutput>non_zero_size</computeroutput> is less than <computeroutput>n</computeroutput>, it is due to the fact that either <computeroutput>diagonals</computeroutput> or <computeroutput>supdiagonals</computeroutput> has zero elements after the <computeroutput>size</computeroutput> element (possibly due to early termination of Lanczos iterations method). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">tridiagonal</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean. If set to <computeroutput>0</computeroutput>, the matrix <computeroutput>T</computeroutput> becomes upper bi-diagonal. If set to <computeroutput>1</computeroutput>, the matrix becomes symmetric tri-diagonal. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">matrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A 2D matrix (written in place) of the shape <computeroutput></computeroutput>(n,n). This is the output of this function. This matrix is assumed to be initialized to zero before calling this function. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h" line="193" column="21" bodyfile="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.cu" bodystart="916" bodyend="942"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A static class for matrix-vector operations, which are similar to the level-2 operations of the BLAS library. This class acts as a templated namespace, where all member methods are <emphasis>public</emphasis> and <emphasis>static</emphasis>. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This class implements matrix-vector multiplication for three types of matrices:</para>
+<para><itemizedlist>
+<listitem><para>Dense matrix (both row major and column major)</para>
+</listitem><listitem><para>Compressed sparse row matrix (CSR)</para>
+</listitem><listitem><para>Compressed sparse column matrix (CSC)</para>
+</listitem></itemizedlist>
+</para>
+<para>For each of the above matrix types, there are four kinds of matrix vector multiplications implemented.</para>
+<para><orderedlist>
+<listitem><para><computeroutput>dot</computeroutput> : performs <formula id="0">$ \boldsymbol{c} = \mathbf{A} \boldsymbol{b} $</formula>.</para>
+</listitem><listitem><para><computeroutput>dot_plus</computeroutput> : performs <formula id="2">$ \boldsymbol{c} = \boldsymbol{c} + \alpha \mathbf{A} \boldsymbol{b} $</formula>.</para>
+</listitem><listitem><para><computeroutput>transpose_dot</computeroutput> : performs <formula id="11">$ \boldsymbol{c} = \mathbf{A}^{\intercal} \boldsymbol{b} $</formula>.</para>
+</listitem><listitem><para><computeroutput>transpose_dot_plus</computeroutput> : performs <formula id="5">$ \boldsymbol{c} = \boldsymbol{c} + \alpha \mathbf{A}^{\intercal} \boldsymbol{b} $</formula>.</para>
+</listitem></orderedlist>
+</para>
+<para><simplesect kind="see"><para><ref refid="classcuVectorOperations" kindref="compound">cuVectorOperations</ref> </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h" line="58" column="1" bodyfile="/home/sia/work/github/imate/imate/_cu_basic_algebra/cu_matrix_operations.h" bodystart="59" bodyend="200"/>
+    <listofallmembers>
+      <member refid="classcuMatrixOperations_1aa18d50115d8617babb4aaa2085c425c1" prot="public" virt="non-virtual"><scope>cuMatrixOperations</scope><name>create_band_matrix</name></member>
+      <member refid="classcuMatrixOperations_1afea9c79d7c3f72eb6515e0191bed6bfb" prot="public" virt="non-virtual"><scope>cuMatrixOperations</scope><name>csc_matvec</name></member>
+      <member refid="classcuMatrixOperations_1a6ffff9064e8962959cccd860d5c608a8" prot="public" virt="non-virtual"><scope>cuMatrixOperations</scope><name>csc_matvec_plus</name></member>
+      <member refid="classcuMatrixOperations_1a24e67dbd7b0814a1df380ff5e89d53ce" prot="public" virt="non-virtual"><scope>cuMatrixOperations</scope><name>csc_transposed_matvec</name></member>
+      <member refid="classcuMatrixOperations_1a856b765b9c55419a559afcce2a1cddbb" prot="public" virt="non-virtual"><scope>cuMatrixOperations</scope><name>csc_transposed_matvec_plus</name></member>
+      <member refid="classcuMatrixOperations_1a2fd7c6aa5c7d9640f97b0d630e36ec34" prot="public" virt="non-virtual"><scope>cuMatrixOperations</scope><name>csr_matvec</name></member>
+      <member refid="classcuMatrixOperations_1ac1666f8f8e25ed218ca852d6d05c511c" prot="public" virt="non-virtual"><scope>cuMatrixOperations</scope><name>csr_matvec_plus</name></member>
+      <member refid="classcuMatrixOperations_1acb3faf387005413db6b1ab1bc41a8aec" prot="public" virt="non-virtual"><scope>cuMatrixOperations</scope><name>csr_transposed_matvec</name></member>
+      <member refid="classcuMatrixOperations_1a9cb9f0613072a3ca3067344e594d4ffe" prot="public" virt="non-virtual"><scope>cuMatrixOperations</scope><name>csr_transposed_matvec_plus</name></member>
+      <member refid="classcuMatrixOperations_1a607abe26c3a8e0aa65a03895b1c3b66e" prot="public" virt="non-virtual"><scope>cuMatrixOperations</scope><name>dense_matvec</name></member>
+      <member refid="classcuMatrixOperations_1afd343508b61995018e3a76a461254414" prot="public" virt="non-virtual"><scope>cuMatrixOperations</scope><name>dense_matvec_plus</name></member>
+      <member refid="classcuMatrixOperations_1a87b2dab8b53b2d2095d1a7d87b425348" prot="public" virt="non-virtual"><scope>cuMatrixOperations</scope><name>dense_transposed_matvec</name></member>
+      <member refid="classcuMatrixOperations_1a7f9fbf9751a63bf21744f7f343570c9e" prot="public" virt="non-virtual"><scope>cuMatrixOperations</scope><name>dense_transposed_matvec_plus</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

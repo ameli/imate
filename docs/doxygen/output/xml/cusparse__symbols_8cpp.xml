@@ -1,0 +1,674 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="cusparse__symbols_8cpp" kind="file" language="C++">
+    <compoundname>cusparse_symbols.cpp</compoundname>
+    <includes refid="cusparse__symbols_8h" local="yes">./cusparse_symbols.h</includes>
+    <includes local="no">cusparse.h</includes>
+    <includes local="no">cstdlib</includes>
+    <includes local="no">sstream</includes>
+    <includes refid="dynamic__loading_8h" local="yes">./dynamic_loading.h</includes>
+    <incdepgraph>
+      <node id="2">
+        <label>./cusparse_symbols.h</label>
+        <link refid="cusparse__symbols_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>stdexcept</label>
+      </node>
+      <node id="3">
+        <label>string</label>
+      </node>
+      <node id="7">
+        <label>sstream</label>
+      </node>
+      <node id="6">
+        <label>cstdlib</label>
+      </node>
+      <node id="1">
+        <label>/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp</label>
+        <link refid="cusparse__symbols_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>./cusparse_types.h</label>
+        <link refid="cusparse__types_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>cusparse.h</label>
+      </node>
+      <node id="8">
+        <label>./dynamic_loading.h</label>
+        <link refid="dynamic__loading_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="cusparse__symbols_8cpp_1a9e60affbb67ff50ac958838adae4f525" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cusparseStatus_t</type>
+        <definition>cusparseStatus_t cusparseCreate</definition>
+        <argsstring>(cusparseHandle_t *handle)</argsstring>
+        <name>cusparseCreate</name>
+        <param>
+          <type>cusparseHandle_t *</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>Definition of CUDA&apos;s <computeroutput>cusparseCreate</computeroutput> function using dynamically loaded cublas library. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="92" column="18" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="92" bodyend="106"/>
+        <references refid="classcusparseSymbols_1ade8efe7665227cb14709abd0ea3bbc58" compoundref="cusparse__symbols_8h" startline="54">cusparseSymbols::cusparseCreate</references>
+        <references refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" compoundref="cusparse__symbols_8cpp" startline="44" endline="77">cusparseSymbols::get_lib_name</references>
+        <referencedby refid="classcuLinearOperator_1a118f2b8f1523da52441070340f7c43f9" compoundref="cu__linear__operator_8cu" startline="217" endline="238">cuLinearOperator&lt; DataType &gt;::initialize_cusparse_handle</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="cusparse__symbols_8cpp_1a14faf9a740077f5e320acf8f74e8317b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cusparseStatus_t</type>
+        <definition>cusparseStatus_t cusparseDestroy</definition>
+        <argsstring>(cusparseHandle_t handle)</argsstring>
+        <name>cusparseDestroy</name>
+        <param>
+          <type>cusparseHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <briefdescription>
+<para>Definition of CUDA&apos;s <computeroutput>cusparseDestroy</computeroutput> function using dynamically loaded cublas library. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="116" column="18" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="116" bodyend="130"/>
+        <references refid="classcusparseSymbols_1a78e13bb5dc2a3b3ce253f423a82d4c4b" compoundref="cusparse__symbols_8h" startline="55">cusparseSymbols::cusparseDestroy</references>
+        <references refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" compoundref="cusparse__symbols_8cpp" startline="44" endline="77">cusparseSymbols::get_lib_name</references>
+        <referencedby refid="classcuLinearOperator_1ad1d14172ed32afa599208af04ec4db0c" compoundref="cu__linear__operator_8cu" startline="103" endline="148">cuLinearOperator&lt; DataType &gt;::~cuLinearOperator</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="cusparse__symbols_8cpp_1ac3d95efa8a28d3a8ab6f5fd5c7b6a2c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cusparseStatus_t</type>
+        <definition>cusparseStatus_t cusparseCreateCsr</definition>
+        <argsstring>(cusparseSpMatDescr_t *spMatDescr, int64_t rows, int64_t cols, int64_t nnz, void *csrRowOffsets, void *csrColInd, void *csrValues, cusparseIndexType_t csrRowOffsetsType, cusparseIndexType_t csrColIndType, cusparseIndexBase_t idxBase, cudaDataType valueType)</argsstring>
+        <name>cusparseCreateCsr</name>
+        <param>
+          <type>cusparseSpMatDescr_t *</type>
+          <declname>spMatDescr</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>rows</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>cols</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>nnz</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>csrRowOffsets</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>csrColInd</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>csrValues</declname>
+        </param>
+        <param>
+          <type>cusparseIndexType_t</type>
+          <declname>csrRowOffsetsType</declname>
+        </param>
+        <param>
+          <type>cusparseIndexType_t</type>
+          <declname>csrColIndType</declname>
+        </param>
+        <param>
+          <type>cusparseIndexBase_t</type>
+          <declname>idxBase</declname>
+        </param>
+        <param>
+          <type>cudaDataType</type>
+          <declname>valueType</declname>
+        </param>
+        <briefdescription>
+<para>Definition of CUDA&apos;s <computeroutput>cusparseCreateCsr</computeroutput> function using dynamically loaded cublas library. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="140" column="18" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="140" bodyend="167"/>
+        <references refid="classcusparseSymbols_1a51d52cbc237d3f59b7244d954c1b5462" compoundref="cusparse__symbols_8h" startline="56">cusparseSymbols::cusparseCreateCsr</references>
+        <references refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" compoundref="cusparse__symbols_8cpp" startline="44" endline="77">cusparseSymbols::get_lib_name</references>
+        <referencedby refid="namespacecusparse__interface_1a299874ed85d8789ae48d3d7b9826c3fe" compoundref="cusparse__interface_8cu" startline="67" endline="83">cusparse_interface::create_cusparse_matrix&lt; double &gt;</referencedby>
+        <referencedby refid="namespacecusparse__interface_1aa18295200c2d433f8c646ef9fe7788cd" compoundref="cusparse__interface_8cu" startline="40" endline="56">cusparse_interface::create_cusparse_matrix&lt; float &gt;</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="cusparse__symbols_8cpp_1aabd5c006f736178638163674432f654c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cusparseStatus_t</type>
+        <definition>cusparseStatus_t cusparseCreateDnVec</definition>
+        <argsstring>(cusparseDnVecDescr_t *dnVecDescr, int64_t size, void *values, cudaDataType valueType)</argsstring>
+        <name>cusparseCreateDnVec</name>
+        <param>
+          <type>cusparseDnVecDescr_t *</type>
+          <declname>dnVecDescr</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>size</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>values</declname>
+        </param>
+        <param>
+          <type>cudaDataType</type>
+          <declname>valueType</declname>
+        </param>
+        <briefdescription>
+<para>Definition of CUDA&apos;s <computeroutput>cusparseCreateDnVec</computeroutput> function using dynamically loaded cublas library. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="177" column="18" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="177" bodyend="196"/>
+        <references refid="classcusparseSymbols_1a4a123899d5a1e03864f4e0a4155b269a" compoundref="cusparse__symbols_8h" startline="57">cusparseSymbols::cusparseCreateDnVec</references>
+        <references refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" compoundref="cusparse__symbols_8cpp" startline="44" endline="77">cusparseSymbols::get_lib_name</references>
+        <referencedby refid="namespacecusparse__interface_1a3d268461daf7d42e2a41d13ea8f3b762" compoundref="cusparse__interface_8cu" startline="122" endline="131">cusparse_interface::create_cusparse_vector&lt; double &gt;</referencedby>
+        <referencedby refid="namespacecusparse__interface_1a9b5ea1b0435f889dd218d36e892ad529" compoundref="cusparse__interface_8cu" startline="98" endline="107">cusparse_interface::create_cusparse_vector&lt; float &gt;</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="cusparse__symbols_8cpp_1a8a11a0eff8c737a49949a568a0935068" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cusparseStatus_t</type>
+        <definition>cusparseStatus_t cusparseDestroySpMat</definition>
+        <argsstring>(cusparseConstSpMatDescr_t spMatDescr)</argsstring>
+        <name>cusparseDestroySpMat</name>
+        <param>
+          <type><ref refid="cusparse__types_8h_1ab01d22773ab95718ddab32e5d36d127d" kindref="member">cusparseConstSpMatDescr_t</ref></type>
+          <declname>spMatDescr</declname>
+        </param>
+        <briefdescription>
+<para>Definition of CUDA&apos;s <computeroutput>cusparseDestroySpMat</computeroutput> function using dynamically loaded cublas library. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="206" column="18" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="206" bodyend="221"/>
+        <references refid="classcusparseSymbols_1ad584b159e6b0e784435abb2e63166e64" compoundref="cusparse__symbols_8h" startline="58">cusparseSymbols::cusparseDestroySpMat</references>
+        <references refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" compoundref="cusparse__symbols_8cpp" startline="44" endline="77">cusparseSymbols::get_lib_name</references>
+        <referencedby refid="namespacecusparse__interface_1a5ab766d1794cea863c5d79815e9b7537" compoundref="cusparse__interface_8cu" startline="141" endline="146">cusparse_interface::destroy_cusparse_matrix</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="cusparse__symbols_8cpp_1afb122a40700f2f8c14462d9d97447865" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cusparseStatus_t</type>
+        <definition>cusparseStatus_t cusparseDestroyDnVec</definition>
+        <argsstring>(cusparseConstDnVecDescr_t dnVecDescr)</argsstring>
+        <name>cusparseDestroyDnVec</name>
+        <param>
+          <type><ref refid="cusparse__types_8h_1aa4402a2a358dcf82083ab9b026497c9b" kindref="member">cusparseConstDnVecDescr_t</ref></type>
+          <declname>dnVecDescr</declname>
+        </param>
+        <briefdescription>
+<para>Definition of CUDA&apos;s <computeroutput>cusparseDestroyDnVec</computeroutput> function using dynamically loaded cublas library. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="231" column="18" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="231" bodyend="246"/>
+        <references refid="classcusparseSymbols_1a67e7ca43456e20074db7a35827bd3531" compoundref="cusparse__symbols_8h" startline="59">cusparseSymbols::cusparseDestroyDnVec</references>
+        <references refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" compoundref="cusparse__symbols_8cpp" startline="44" endline="77">cusparseSymbols::get_lib_name</references>
+        <referencedby refid="namespacecusparse__interface_1a5bde38e93d3b432f9342e83682db4f2e" compoundref="cusparse__interface_8cu" startline="156" endline="161">cusparse_interface::destroy_cusparse_vector</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="cusparse__symbols_8cpp_1abaa1f42a6e0925ca6e03f0b5574e1ce0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cusparseStatus_t</type>
+        <definition>cusparseStatus_t cusparseSpMV_bufferSize</definition>
+        <argsstring>(cusparseHandle_t handle, cusparseOperation_t opA, const void *alpha, cusparseConstSpMatDescr_t matA, cusparseConstDnVecDescr_t vecX, const void *beta, cusparseDnVecDescr_t vecY, cudaDataType computeType, cusparseSpMVAlg_t alg, size_t *bufferSize)</argsstring>
+        <name>cusparseSpMV_bufferSize</name>
+        <param>
+          <type>cusparseHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>cusparseOperation_t</type>
+          <declname>opA</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type><ref refid="cusparse__types_8h_1ab01d22773ab95718ddab32e5d36d127d" kindref="member">cusparseConstSpMatDescr_t</ref></type>
+          <declname>matA</declname>
+        </param>
+        <param>
+          <type><ref refid="cusparse__types_8h_1aa4402a2a358dcf82083ab9b026497c9b" kindref="member">cusparseConstDnVecDescr_t</ref></type>
+          <declname>vecX</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>beta</declname>
+        </param>
+        <param>
+          <type>cusparseDnVecDescr_t</type>
+          <declname>vecY</declname>
+        </param>
+        <param>
+          <type>cudaDataType</type>
+          <declname>computeType</declname>
+        </param>
+        <param>
+          <type>cusparseSpMVAlg_t</type>
+          <declname>alg</declname>
+        </param>
+        <param>
+          <type>size_t *</type>
+          <declname>bufferSize</declname>
+        </param>
+        <briefdescription>
+<para>Definition of CUDA&apos;s <computeroutput>cusparseSpMV_bufferSize</computeroutput> function using dynamically loaded cublas library. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="256" column="18" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="256" bodyend="282"/>
+        <references refid="classcusparseSymbols_1a992bc5da8fef13610b0aa7a419d8053f" compoundref="cusparse__symbols_8h" startline="60">cusparseSymbols::cusparseSpMV_bufferSize</references>
+        <references refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" compoundref="cusparse__symbols_8cpp" startline="44" endline="77">cusparseSymbols::get_lib_name</references>
+        <referencedby refid="namespacecusparse__interface_1ac67669d75f177e0954adb194b94628fb" compoundref="cusparse__interface_8cu" startline="204" endline="221">cusparse_interface::cusparse_matrix_buffer_size&lt; double &gt;</referencedby>
+        <referencedby refid="namespacecusparse__interface_1a17f62676b78dd01c7da2659917a336e1" compoundref="cusparse__interface_8cu" startline="174" endline="191">cusparse_interface::cusparse_matrix_buffer_size&lt; float &gt;</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="cusparse__symbols_8cpp_1a61c0863953b6c7e7cc9853d758508ec3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>cusparseStatus_t</type>
+        <definition>cusparseStatus_t cusparseSpMV</definition>
+        <argsstring>(cusparseHandle_t handle, cusparseOperation_t opA, const void *alpha, cusparseConstSpMatDescr_t matA, cusparseConstDnVecDescr_t vecX, const void *beta, cusparseDnVecDescr_t vecY, cudaDataType computeType, cusparseSpMVAlg_t alg, void *externalBuffer)</argsstring>
+        <name>cusparseSpMV</name>
+        <param>
+          <type>cusparseHandle_t</type>
+          <declname>handle</declname>
+        </param>
+        <param>
+          <type>cusparseOperation_t</type>
+          <declname>opA</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>alpha</declname>
+        </param>
+        <param>
+          <type><ref refid="cusparse__types_8h_1ab01d22773ab95718ddab32e5d36d127d" kindref="member">cusparseConstSpMatDescr_t</ref></type>
+          <declname>matA</declname>
+        </param>
+        <param>
+          <type><ref refid="cusparse__types_8h_1aa4402a2a358dcf82083ab9b026497c9b" kindref="member">cusparseConstDnVecDescr_t</ref></type>
+          <declname>vecX</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>beta</declname>
+        </param>
+        <param>
+          <type>cusparseDnVecDescr_t</type>
+          <declname>vecY</declname>
+        </param>
+        <param>
+          <type>cudaDataType</type>
+          <declname>computeType</declname>
+        </param>
+        <param>
+          <type>cusparseSpMVAlg_t</type>
+          <declname>alg</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>externalBuffer</declname>
+        </param>
+        <briefdescription>
+<para>Definition of CUDA&apos;s <computeroutput>cusparseSmMV</computeroutput> function using dynamically loaded cublas library. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" line="292" column="18" bodyfile="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp" bodystart="292" bodyend="318"/>
+        <references refid="classcusparseSymbols_1a7457b71806ba434a5a7f1f67a42af4bf" compoundref="cusparse__symbols_8h" startline="61">cusparseSymbols::cusparseSpMV</references>
+        <references refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" compoundref="cusparse__symbols_8cpp" startline="44" endline="77">cusparseSymbols::get_lib_name</references>
+        <referencedby refid="namespacecusparse__interface_1a0da64dcd32e3cf5c84476e8bc2d46bbc" compoundref="cusparse__interface_8cu" startline="263" endline="283">cusparse_interface::cusparse_matvec&lt; double &gt;</referencedby>
+        <referencedby refid="namespacecusparse__interface_1a8520433c9993b4745611c2a647a8d943" compoundref="cusparse__interface_8cu" startline="232" endline="252">cusparse_interface::cusparse_matvec&lt; float &gt;</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-FileCopyrightText:<sp/>Copyright<sp/>2021,<sp/>Siavash<sp/>Ameli<sp/>&lt;sameli@berkeley.edu&gt;</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-License-Identifier:<sp/>BSD-3-Clause</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/><sp/>SPDX-FileType:<sp/>SOURCE</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/><sp/>This<sp/>program<sp/>is<sp/>free<sp/>software:<sp/>you<sp/>can<sp/>redistribute<sp/>it<sp/>and/or<sp/>modify<sp/>it</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/><sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>license<sp/>found<sp/>in<sp/>the<sp/>LICENSE.txt<sp/>file<sp/>in<sp/>the<sp/>root</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/><sp/>directory<sp/>of<sp/>this<sp/>source<sp/>tree.</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Headers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=======</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="cusparse__symbols_8h" kindref="compound">./cusparse_symbols.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cusparse.h&gt;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>CUSPARSE_VER_MAJOR</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdlib&gt;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>NULL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>std::ostringstream</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="dynamic__loading_8h" kindref="compound">./dynamic_loading.h</ref>&quot;</highlight><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>dynamic_loading</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=========================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Initialize<sp/>static<sp/>members</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=========================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><ref refid="cusparse__types_8h_1a643c78fa97e5e101802496b041943bcc" kindref="member">cusparseDestroy_type</ref><sp/><ref refid="classcusparseSymbols_1a78e13bb5dc2a3b3ce253f423a82d4c4b" kindref="member">cusparseSymbols::cusparseDestroy</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><ref refid="cusparse__types_8h_1a5786eaebd18a407280cb003c2042179a" kindref="member">cusparseCreate_type</ref><sp/><ref refid="classcusparseSymbols_1ade8efe7665227cb14709abd0ea3bbc58" kindref="member">cusparseSymbols::cusparseCreate</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><ref refid="cusparse__types_8h_1adc4d0550ce4ff76a3b348a5b6d4929fa" kindref="member">cusparseCreateCsr_type</ref><sp/><ref refid="classcusparseSymbols_1a51d52cbc237d3f59b7244d954c1b5462" kindref="member">cusparseSymbols::cusparseCreateCsr</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><ref refid="cusparse__types_8h_1a71dba719ab573ea026c14d97b94af527" kindref="member">cusparseCreateDnVec_type</ref><sp/><ref refid="classcusparseSymbols_1a4a123899d5a1e03864f4e0a4155b269a" kindref="member">cusparseSymbols::cusparseCreateDnVec</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><ref refid="cusparse__types_8h_1acdb69bb1296e7c25ebc5f0fd71f9b2db" kindref="member">cusparseDestroySpMat_type</ref><sp/><ref refid="classcusparseSymbols_1ad584b159e6b0e784435abb2e63166e64" kindref="member">cusparseSymbols::cusparseDestroySpMat</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><ref refid="cusparse__types_8h_1aaf6d4d0bf94c162866dd9a09a55f1629" kindref="member">cusparseDestroyDnVec_type</ref><sp/><ref refid="classcusparseSymbols_1a67e7ca43456e20074db7a35827bd3531" kindref="member">cusparseSymbols::cusparseDestroyDnVec</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><ref refid="cusparse__types_8h_1abfdd42d71c16a0128251eb4d1dbd4213" kindref="member">cusparseSpMV_bufferSize_type</ref><sp/><ref refid="classcusparseSymbols_1a992bc5da8fef13610b0aa7a419d8053f" kindref="member">cusparseSymbols::cusparseSpMV_bufferSize</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><ref refid="cusparse__types_8h_1a493351cc6706386f8398e9373846ff77" kindref="member">cusparseSpMV_type</ref><sp/><ref refid="classcusparseSymbols_1a7457b71806ba434a5a7f1f67a42af4bf" kindref="member">cusparseSymbols::cusparseSpMV</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//<sp/>============</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">//<sp/>get<sp/>lib<sp/>name</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">//<sp/>============</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" refkind="member"><highlight class="normal">std::string<sp/><ref refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" kindref="member">cusparseSymbols::get_lib_name</ref>()</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Get<sp/>the<sp/>extension<sp/>name<sp/>of<sp/>a<sp/>shared<sp/>library<sp/>depending<sp/>on<sp/>OS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>lib_extension;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#if<sp/>defined(WIN32)<sp/>||<sp/>defined(_WIN32)<sp/>||<sp/>defined(__WIN32)<sp/>||<sp/>\</highlight></codeline>
+<codeline lineno="50"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>defined(__NT__)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lib_extension<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;lib&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#elif<sp/>__APPLE__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lib_extension<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;dylib&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#elif<sp/>__linux__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lib_extension<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;so&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#error<sp/>&quot;Unknown<sp/>compiler&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Check<sp/>cusparse<sp/>version</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#ifndef<sp/>CUSPARSE_VER_MAJOR</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>#error<sp/>&quot;CUSPARSE_VER_MAJOR<sp/>is<sp/>not<sp/>defined.&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>cusparse<sp/>shared<sp/>library<sp/>base<sp/>name</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>lib_base_name<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;libcusparse&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Construct<sp/>the<sp/>lib<sp/>name</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>std::ostringstream<sp/>oss;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>oss<sp/>&lt;&lt;<sp/>lib_base_name<sp/>&lt;&lt;<sp/>&quot;.&quot;<sp/>&lt;&lt;<sp/>lib_extension;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>oss<sp/>&lt;&lt;<sp/>lib_base_name<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;.&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>lib_extension<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;.&quot;</highlight><highlight class="normal"><sp/>\</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&lt;&lt;<sp/>CUSPARSE_VER_MAJOR;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>lib_name<sp/>=<sp/>oss.str();</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>lib_name;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===============</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cusparse<sp/>Create</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===============</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="cusparse__symbols_8cpp_1a9e60affbb67ff50ac958838adae4f525" refkind="member"><highlight class="normal">cusparseStatus_t<sp/><ref refid="cusparse__symbols_8cpp_1a9e60affbb67ff50ac958838adae4f525" kindref="member">cusparseCreate</ref>(cusparseHandle_t*<sp/>handle)</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classcusparseSymbols_1ade8efe7665227cb14709abd0ea3bbc58" kindref="member">cusparseSymbols::cusparseCreate</ref><sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>lib_name<sp/>=<sp/><ref refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" kindref="member">cusparseSymbols::get_lib_name</ref>();</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>symbol_name<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;cusparseCreate&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcusparseSymbols_1ade8efe7665227cb14709abd0ea3bbc58" kindref="member">cusparseSymbols::cusparseCreate</ref><sp/>=<sp/>\</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dynamic_loading::load_symbol&lt;cusparseCreate_type&gt;(</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lib_name.c_str(),</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>symbol_name);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classcusparseSymbols_1ade8efe7665227cb14709abd0ea3bbc58" kindref="member">cusparseSymbols::cusparseCreate</ref>(handle);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="comment">//<sp/>================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cusparse<sp/>Destroy</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">//<sp/>================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="cusparse__symbols_8cpp_1a14faf9a740077f5e320acf8f74e8317b" refkind="member"><highlight class="normal">cusparseStatus_t<sp/><ref refid="cusparse__symbols_8cpp_1a14faf9a740077f5e320acf8f74e8317b" kindref="member">cusparseDestroy</ref>(cusparseHandle_t<sp/>handle)</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classcusparseSymbols_1a78e13bb5dc2a3b3ce253f423a82d4c4b" kindref="member">cusparseSymbols::cusparseDestroy</ref><sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>lib_name<sp/>=<sp/><ref refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" kindref="member">cusparseSymbols::get_lib_name</ref>();</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>symbol_name<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;cusparseDestroy&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcusparseSymbols_1a78e13bb5dc2a3b3ce253f423a82d4c4b" kindref="member">cusparseSymbols::cusparseDestroy</ref><sp/><sp/>=<sp/>\</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dynamic_loading::load_symbol&lt;cusparseDestroy_type&gt;(</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lib_name.c_str(),</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>symbol_name);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classcusparseSymbols_1a78e13bb5dc2a3b3ce253f423a82d4c4b" kindref="member">cusparseSymbols::cusparseDestroy</ref>(handle);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cusparseCreateCsr</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140" refid="cusparse__symbols_8cpp_1ac3d95efa8a28d3a8ab6f5fd5c7b6a2c2" refkind="member"><highlight class="normal">cusparseStatus_t<sp/><ref refid="cusparse__symbols_8cpp_1ac3d95efa8a28d3a8ab6f5fd5c7b6a2c2" kindref="member">cusparseCreateCsr</ref>(</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseSpMatDescr_t*<sp/>spMatDescr,</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int64_t<sp/>rows,</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int64_t<sp/>cols,</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int64_t<sp/>nnz,</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>csrRowOffsets,</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>csrColInd,</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>csrValues,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseIndexType_t<sp/>csrRowOffsetsType,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseIndexType_t<sp/>csrColIndType,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseIndexBase_t<sp/>idxBase,</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cudaDataType<sp/>valueType)</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classcusparseSymbols_1a51d52cbc237d3f59b7244d954c1b5462" kindref="member">cusparseSymbols::cusparseCreateCsr</ref><sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>lib_name<sp/>=<sp/><ref refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" kindref="member">cusparseSymbols::get_lib_name</ref>();</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>symbol_name<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;cusparseCreateCsr&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcusparseSymbols_1a51d52cbc237d3f59b7244d954c1b5462" kindref="member">cusparseSymbols::cusparseCreateCsr</ref><sp/>=<sp/>\</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dynamic_loading::load_symbol&lt;cusparseCreateCsr_type&gt;(</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lib_name.c_str(),</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>symbol_name);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classcusparseSymbols_1a51d52cbc237d3f59b7244d954c1b5462" kindref="member">cusparseSymbols::cusparseCreateCsr</ref>(</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>spMatDescr,<sp/>rows,<sp/>cols,<sp/>nnz,<sp/>csrRowOffsets,<sp/>csrColInd,<sp/>csrValues,</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>csrRowOffsetsType,<sp/>csrColIndType,<sp/>idxBase,<sp/>valueType);</highlight></codeline>
+<codeline lineno="167"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cusparseCreateDnVec</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="comment">//<sp/>===================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177" refid="cusparse__symbols_8cpp_1aabd5c006f736178638163674432f654c" refkind="member"><highlight class="normal">cusparseStatus_t<sp/><ref refid="cusparse__symbols_8cpp_1aabd5c006f736178638163674432f654c" kindref="member">cusparseCreateDnVec</ref>(</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseDnVecDescr_t*<sp/>dnVecDescr,</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int64_t<sp/>size,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>values,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cudaDataType<sp/>valueType)</highlight></codeline>
+<codeline lineno="182"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classcusparseSymbols_1a4a123899d5a1e03864f4e0a4155b269a" kindref="member">cusparseSymbols::cusparseCreateDnVec</ref><sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>lib_name<sp/>=<sp/><ref refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" kindref="member">cusparseSymbols::get_lib_name</ref>();</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>symbol_name<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;cusparseCreateDnVec&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcusparseSymbols_1a4a123899d5a1e03864f4e0a4155b269a" kindref="member">cusparseSymbols::cusparseCreateDnVec</ref><sp/>=<sp/>\</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dynamic_loading::load_symbol&lt;cusparseCreateDnVec_type&gt;(</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lib_name.c_str(),</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>symbol_name);</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classcusparseSymbols_1a4a123899d5a1e03864f4e0a4155b269a" kindref="member">cusparseSymbols::cusparseCreateDnVec</ref>(</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dnVecDescr,<sp/>size,<sp/>values,<sp/>valueType);</highlight></codeline>
+<codeline lineno="196"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="comment">//<sp/>====================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cusparseDestroySpMat</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="comment">//<sp/>====================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206" refid="cusparse__symbols_8cpp_1a8a11a0eff8c737a49949a568a0935068" refkind="member"><highlight class="normal">cusparseStatus_t<sp/><ref refid="cusparse__symbols_8cpp_1a8a11a0eff8c737a49949a568a0935068" kindref="member">cusparseDestroySpMat</ref>(</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="cusparse__types_8h_1ab01d22773ab95718ddab32e5d36d127d" kindref="member">cusparseConstSpMatDescr_t</ref><sp/>spMatDescr)</highlight></codeline>
+<codeline lineno="208"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classcusparseSymbols_1ad584b159e6b0e784435abb2e63166e64" kindref="member">cusparseSymbols::cusparseDestroySpMat</ref><sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>lib_name<sp/>=<sp/><ref refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" kindref="member">cusparseSymbols::get_lib_name</ref>();</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>symbol_name<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;cusparseDestroySpMat&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcusparseSymbols_1ad584b159e6b0e784435abb2e63166e64" kindref="member">cusparseSymbols::cusparseDestroySpMat</ref><sp/>=<sp/>\</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dynamic_loading::load_symbol&lt;cusparseDestroySpMat_type&gt;(</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lib_name.c_str(),</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>symbol_name);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classcusparseSymbols_1ad584b159e6b0e784435abb2e63166e64" kindref="member">cusparseSymbols::cusparseDestroySpMat</ref>(spMatDescr);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="comment">//<sp/>====================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cusparseDestroyDnVec</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="comment">//<sp/>====================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight></codeline>
+<codeline lineno="231" refid="cusparse__symbols_8cpp_1afb122a40700f2f8c14462d9d97447865" refkind="member"><highlight class="normal">cusparseStatus_t<sp/><ref refid="cusparse__symbols_8cpp_1afb122a40700f2f8c14462d9d97447865" kindref="member">cusparseDestroyDnVec</ref>(</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="cusparse__types_8h_1aa4402a2a358dcf82083ab9b026497c9b" kindref="member">cusparseConstDnVecDescr_t</ref><sp/>dnVecDescr)</highlight></codeline>
+<codeline lineno="233"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classcusparseSymbols_1a67e7ca43456e20074db7a35827bd3531" kindref="member">cusparseSymbols::cusparseDestroyDnVec</ref><sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>lib_name<sp/>=<sp/><ref refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" kindref="member">cusparseSymbols::get_lib_name</ref>();</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>symbol_name<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;cusparseDestroyDnVec&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcusparseSymbols_1a67e7ca43456e20074db7a35827bd3531" kindref="member">cusparseSymbols::cusparseDestroyDnVec</ref><sp/>=<sp/>\</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dynamic_loading::load_symbol&lt;cusparseDestroyDnVec_type&gt;(</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lib_name.c_str(),</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>symbol_name);</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classcusparseSymbols_1a67e7ca43456e20074db7a35827bd3531" kindref="member">cusparseSymbols::cusparseDestroyDnVec</ref>(dnVecDescr);</highlight></codeline>
+<codeline lineno="246"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=======================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cusparseSpMV_bufferSize</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight><highlight class="comment">//<sp/>=======================</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256" refid="cusparse__symbols_8cpp_1abaa1f42a6e0925ca6e03f0b5574e1ce0" refkind="member"><highlight class="normal">cusparseStatus_t<sp/><ref refid="cusparse__symbols_8cpp_1abaa1f42a6e0925ca6e03f0b5574e1ce0" kindref="member">cusparseSpMV_bufferSize</ref>(</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseHandle_t<sp/>handle,</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseOperation_t<sp/>opA,</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>alpha,</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="cusparse__types_8h_1ab01d22773ab95718ddab32e5d36d127d" kindref="member">cusparseConstSpMatDescr_t</ref><sp/>matA,</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="cusparse__types_8h_1aa4402a2a358dcf82083ab9b026497c9b" kindref="member">cusparseConstDnVecDescr_t</ref><sp/>vecX,</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>beta,</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseDnVecDescr_t<sp/>vecY,</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cudaDataType<sp/>computeType,</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseSpMVAlg_t<sp/>alg,</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal">*<sp/>bufferSize)</highlight></codeline>
+<codeline lineno="267"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classcusparseSymbols_1a992bc5da8fef13610b0aa7a419d8053f" kindref="member">cusparseSymbols::cusparseSpMV_bufferSize</ref><sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>lib_name<sp/>=<sp/><ref refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" kindref="member">cusparseSymbols::get_lib_name</ref>();</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>symbol_name<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;cusparseSpMV_bufferSize&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcusparseSymbols_1a992bc5da8fef13610b0aa7a419d8053f" kindref="member">cusparseSymbols::cusparseSpMV_bufferSize</ref><sp/>=<sp/>\</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dynamic_loading::load_symbol&lt;cusparseSpMV_bufferSize_type&gt;(</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lib_name.c_str(),</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>symbol_name);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classcusparseSymbols_1a992bc5da8fef13610b0aa7a419d8053f" kindref="member">cusparseSymbols::cusparseSpMV_bufferSize</ref>(</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>handle,<sp/>opA,<sp/>alpha,<sp/>matA,<sp/>vecX,<sp/>beta,<sp/>vecY,<sp/>computeType,<sp/>alg,</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bufferSize);</highlight></codeline>
+<codeline lineno="282"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal"></highlight><highlight class="comment">//<sp/>============</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight><highlight class="comment">//<sp/>cusparseSpMV</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="comment">//<sp/>============</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="292" refid="cusparse__symbols_8cpp_1a61c0863953b6c7e7cc9853d758508ec3" refkind="member"><highlight class="normal">cusparseStatus_t<sp/><ref refid="cusparse__symbols_8cpp_1a61c0863953b6c7e7cc9853d758508ec3" kindref="member">cusparseSpMV</ref>(</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseHandle_t<sp/>handle,</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseOperation_t<sp/>opA,</highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>alpha,</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="cusparse__types_8h_1ab01d22773ab95718ddab32e5d36d127d" kindref="member">cusparseConstSpMatDescr_t</ref><sp/>matA,</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="cusparse__types_8h_1aa4402a2a358dcf82083ab9b026497c9b" kindref="member">cusparseConstDnVecDescr_t</ref><sp/>vecX,</highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>beta,</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseDnVecDescr_t<sp/>vecY,</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cudaDataType<sp/>computeType,</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cusparseSpMVAlg_t<sp/>alg,</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>externalBuffer)</highlight></codeline>
+<codeline lineno="303"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="classcusparseSymbols_1a7457b71806ba434a5a7f1f67a42af4bf" kindref="member">cusparseSymbols::cusparseSpMV</ref><sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::string<sp/>lib_name<sp/>=<sp/><ref refid="classcusparseSymbols_1a8195de91cda101a217b527b3240f287d" kindref="member">cusparseSymbols::get_lib_name</ref>();</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>symbol_name<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;cusparseSpMV&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="classcusparseSymbols_1a7457b71806ba434a5a7f1f67a42af4bf" kindref="member">cusparseSymbols::cusparseSpMV</ref><sp/>=<sp/>\</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dynamic_loading::load_symbol&lt;cusparseSpMV_type&gt;(</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lib_name.c_str(),</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>symbol_name);</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="classcusparseSymbols_1a7457b71806ba434a5a7f1f67a42af4bf" kindref="member">cusparseSymbols::cusparseSpMV</ref>(</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>handle,<sp/>opA,<sp/>alpha,<sp/>matA,<sp/>vecX,<sp/>beta,<sp/>vecY,<sp/>computeType,<sp/>alg,</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>externalBuffer);</highlight></codeline>
+<codeline lineno="318"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="/home/sia/work/github/imate/imate/_cuda_dynamic_loading/cusparse_symbols.cpp"/>
+  </compounddef>
+</doxygen>

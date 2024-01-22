@@ -311,37 +311,57 @@ def eigenvalue_method(
             eigenvalues = singularvalues ** 2
 
     # Compute logdet of matrix
-    not_nan = numpy.logical_not(numpy.isnan(eigenvalues))
-    eig_Ap = eigenvalues[not_nan]**p
-    logdet_ = numpy.sum(numpy.log(eig_Ap.astype(numpy.complex128)))
+    if p == 0:
+        logdet_ = 0
+    else:
+        not_nan = numpy.logical_not(numpy.isnan(eigenvalues))
+        eig_A = eigenvalues[not_nan]
+        logdet_ = numpy.sum(numpy.log(eig_A.astype(numpy.complex128)))
 
-    # Return only the real part
-    imag_atol = 1e-8
-    imag_rtol = 1e-8
-    if isinstance(logdet_, numpy.complex128):
-
-        # Get imaginary part as mod of pi
-        imag = numpy.mod(logdet_.imag, numpy.pi)
-        if (numpy.abs(imag) < imag_atol) or \
-                (numpy.abs(imag - numpy.pi) < imag_atol):
-            imag = 0
-        if imag > imag_rtol * A.shape[0]:
-            raise RuntimeError(
-                    'Determinant is not a purely real number. ' +
-                    'Real part: %f, Imaginary part: %f' % (logdet_, imag))
+        # Tolerances to allow small imaginary parts when computing eigenvalues
+        if (scipy.sparse.isspmatrix(A)) and (assume_matrix == "gen"):
+            # When matrix is not symmetric, eigenvalues are complex, but the
+            # sum of their logarithm should be real. Since we do not compute
+            # all eigenvalues of sparse matrix, this sum may have a non-zero
+            # imaginary part. Here suppress raising error in favor of the
+            # inaccuracy.
+            imag_atol = numpy.inf
+            imag_rtol = numpy.inf
         else:
-            quotient = int(numpy.abs(logdet_.imag) / numpy.pi + 0.5)
+            imag_atol = 1e-8
+            imag_rtol = 1e-8
 
-            # For odd quotient, logdet has i*\pi
-            if (quotient // 2) == int(quotient / 2.0 + 0.5):
-                logdet_ = logdet_.real
+        # Return only the real part
+        if isinstance(logdet_,
+                      (numpy.complex64, numpy.complex128, numpy.complex256)):
+
+            # Get imaginary part as mod of pi
+            imag = numpy.mod(logdet_.imag, numpy.pi)
+            if (numpy.abs(imag) < imag_atol) or \
+                    (numpy.abs(imag - numpy.pi) < imag_atol):
+                imag = 0
+            if imag > imag_rtol * A.shape[0]:
+                raise RuntimeError(
+                        'Determinant is not a purely real number. ' +
+                        'Real part: %f, Imaginary part: %f'
+                        % (logdet_.real, imag))
             else:
-                logdet_ = logdet_.real + complex(0.0, numpy.pi)
+                quotient = int(numpy.abs(logdet_.imag) / numpy.pi + 0.5)
 
-    # Gramian matrix. Make this adjustment only when matrix is square. For non
-    # square gram matrix, we already used the square of singularvalues.
-    if gram and square:
-        logdet_ = 2.0 * logdet_
+                # For odd quotient, logdet has i*\pi
+                if (quotient // 2) == int(quotient / 2.0 + 0.5):
+                    logdet_ = logdet_.real
+                else:
+                    logdet_ = logdet_.real + complex(0.0, numpy.pi)
+
+        # Log determinant of A to the power of p
+        logdet_ *= p
+
+        # Gramian matrix. Make this adjustment only when matrix is square. For
+        # non square gram matrix, we already used the square of singular
+        # values.
+        if gram and square:
+            logdet_ *= 2.0
 
     tot_wall_time = time.perf_counter() - init_tot_wall_time
     cpu_proc_time = time.process_time() - init_cpu_proc_time
@@ -458,11 +478,11 @@ def check_arguments(
         raise TypeError('"non_zero_eig_fraction" cannot be None.')
     elif not numpy.isscalar(non_zero_eig_fraction):
         raise TypeError('"non_zero_eig_fraction" should be a scalar value.')
-    elif not isinstance(non_zero_eig_fraction, float):
+    elif not isinstance(non_zero_eig_fraction, (int, float)):
         raise TypeError('"non_zero_eig_fraction" should be a float type.')
     elif non_zero_eig_fraction <= 0 or non_zero_eig_fraction >= 1.0:
         raise ValueError('"non_zero_eig_fraction" should be greater then 0.0' +
-                         'and smaller than 1.0.')
+                         ' and smaller than 1.0.')
 
     return square
 
@@ -479,11 +499,17 @@ def compute_eigenvalues(
     """
     """
 
+    # Determine complex or real type
+    if assume_matrix == 'sym':
+        dtype = numpy.float64
+    else:
+        dtype = numpy.complex128
+
     if scipy.sparse.isspmatrix(A):
 
         # Sparse matrix
         n = A.shape[0]
-        eigenvalues = numpy.empty(n)
+        eigenvalues = numpy.empty(n, dtype=dtype)
         eigenvalues[:] = numpy.nan
 
         # find 90% of eigenvalues, assume the rest are very close to zero.

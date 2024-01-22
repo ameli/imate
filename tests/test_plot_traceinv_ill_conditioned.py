@@ -16,6 +16,10 @@
 import os
 import sys
 
+import warnings
+warnings.resetwarnings()
+warnings.filterwarnings("error")
+
 
 # =================
 # remove saved plot

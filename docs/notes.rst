@@ -106,32 +106,6 @@ Some notes to myself when completing the documentation later.
   matrix :math:`\mathbf{A}`, which is O(n^3) expensive. See:
   https://scicomp.stackexchange.com/questions/10630/full-rank-update-to-cholesky-decomposition
 
-* Related to libomp in  macOS:
-  The new version of libomp (version 15) is a "keg-only" library. Meaning that
-  libomp only installs OpenMP in the directory of homebrew, and does not copy
-  the installation to /usr/local/ to avoid conflict with other OpenMP
-  installations by GCC. Hence, to use libomp>=15 in macOS, create the following
-  symbolic links:
-
-  ln -s /usr/local/opt/libomp/include/omp-tools.h /usr/local/include/omp-tools.h
-  ln -s /usr/local/opt/libomp/include/omp.h /usr/local/include/omp.h
-  ln -s /usr/local/opt/libomp/include/ompt.h /usr/local/include/ompt.h
-  ln -s /usr/local/opt/libomp/lib/libomp.a /usr/local/lib/libomp.a
-  ln -s /usr/local/opt/libomp/lib/libomp.dylib /usr/local/lib/libomp.dylib
-
-  The above paths might be different. To find where libomp is, use
-
-  brew info libomp
-
-====
-Name
-====
-
-Implicit Matrix Trace Estimator: imte, >>"imate"<<, imtraes, "imtrest",
-    "tracest", "imtest"
-Fast Trace Estimator
-"scikit-trace"
-
 ====
 TODO
 ====
@@ -352,8 +326,8 @@ Here is how it should work:
    >>> # Here, all the previous theta and tau from previous samples are purged,
    >>> # since "lanczos_degree" is changed, which changes theta and tau sizes.
    >>> # Runtime: 10 seconds
-    >>> Aop.traceinv(method='slq', parameters=[9, 10], lanczos_degree=60,
-                     min_num_samples=10, max_num_samples=100, error_rtol=1e-3)
+   >>> Aop.traceinv(method='slq', parameters=[9, 10], lanczos_degree=60,
+                    min_num_samples=10, max_num_samples=100, error_rtol=1e-3)
 
 ==================
 Method Limitations
@@ -363,7 +337,7 @@ Method Limitations
   eigenvalues. If the lanczos degree is ``m``, and it the input matrix's
   eigenvalues have at most ``m`` significant eigenvalues, then the SLQ method
   performs well. Covariance matrices usually have such property, where most of
-  their eigenvalues are zero zero, but a small number of them are significant.
+  their eigenvalues are zero, but a small number of them are significant.
 
 =========================
 Implementation Techniques

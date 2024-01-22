@@ -20,6 +20,10 @@ import scipy.sparse
 from imate.sample_matrices import toeplitz, toeplitz_traceinv
 from imate import traceinv
 
+import warnings
+warnings.resetwarnings()
+warnings.filterwarnings("error")
+
 
 # ==============
 # relative error
@@ -174,7 +178,7 @@ def _test_traceinv_methods(K, B, C, matrix, gram, p, assume_matrix):
     trace4 = traceinv(K, gram=gram, p=p, method='hutchinson', B=B, C=C,
                       min_num_samples=min_num_samples,
                       max_num_samples=max_num_samples, orthogonalize=True,
-                      error_rtol=error_rtol,  verbose=False)
+                      seed=-1, error_rtol=error_rtol,  verbose=False)
     time41 = time.time()
 
     # Use Stochastic Lanczos Quadrature method
@@ -183,7 +187,7 @@ def _test_traceinv_methods(K, B, C, matrix, gram, p, assume_matrix):
         trace5 = traceinv(K, gram=gram, p=p, method='slq',
                           min_num_samples=min_num_samples,
                           max_num_samples=max_num_samples, orthogonalize=-1,
-                          lanczos_degree=lanczos_degree,
+                          seed=-1, lanczos_degree=lanczos_degree,
                           error_rtol=error_rtol, verbose=False)
         time51 = time.time()
     else:

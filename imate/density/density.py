@@ -29,7 +29,7 @@ def density(
         method='eigenvalue',
         **options):
     """
-    Trace of the exponential of matrix or linear operator.
+    Estimate the spectral density of matrix or linear operator.
 
     Given the matrix or the linear operator :math:`\\mathbf{A}` and the real
     exponent :math:`p`, the following is computed:

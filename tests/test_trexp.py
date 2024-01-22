@@ -19,6 +19,10 @@ import numpy
 from imate.sample_matrices import toeplitz
 from imate import trexp
 
+import warnings
+warnings.resetwarnings()
+warnings.filterwarnings("error")
+
 
 # ==============
 # relative error
@@ -70,7 +74,7 @@ def _test_trexp_methods(K, matrix, gram, p, coeff, assume_matrix):
     time20 = time.time()
     trexp2 = trexp(K, gram=gram, p=p, coeff=coeff, method='slq',
                    min_num_samples=min_num_samples,
-                   max_num_samples=max_num_samples, orthogonalize=-1,
+                   max_num_samples=max_num_samples, orthogonalize=-1, seed=-1,
                    lanczos_degree=lanczos_degree, error_rtol=error_rtol,
                    verbose=False)
     time21 = time.time()

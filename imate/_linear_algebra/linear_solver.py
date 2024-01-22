@@ -64,7 +64,7 @@ def linear_solver(A, b, assume_matrix, tol=1e-6):
 
         # Use iterative method
         if b.ndim == 1:
-            x = solver(A, b, tol=tol)[0]
+            x = solver(A, b, tol=tol, **options)[0]
         else:
             x = numpy.zeros(b.shape, order='F')
             for i in range(x.shape[1]):

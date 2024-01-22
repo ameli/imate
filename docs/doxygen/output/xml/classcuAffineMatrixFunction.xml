@@ -1,0 +1,308 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classcuAffineMatrixFunction" kind="class" language="C++" prot="public">
+    <compoundname>cuAffineMatrixFunction</compoundname>
+    <basecompoundref refid="classcuLinearOperator" prot="public" virt="non-virtual">cuLinearOperator&lt; DataType &gt;</basecompoundref>
+    <derivedcompoundref refid="classcuCSCAffineMatrixFunction" prot="public" virt="non-virtual">cuCSCAffineMatrixFunction&lt; DataType &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classcuCSRAffineMatrixFunction" prot="public" virt="non-virtual">cuCSRAffineMatrixFunction&lt; DataType &gt;</derivedcompoundref>
+    <derivedcompoundref refid="classcuDenseAffineMatrixFunction" prot="public" virt="non-virtual">cuDenseAffineMatrixFunction&lt; DataType &gt;</derivedcompoundref>
+    <includes refid="cu__affine__matrix__function_8h" local="no">cu_affine_matrix_function.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename DataType</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="classcuAffineMatrixFunction_1ae7d34c20db47d0ebaa06ec6276fe2577" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool cuAffineMatrixFunction&lt; DataType &gt;::B_is_identity</definition>
+        <argsstring></argsstring>
+        <name>B_is_identity</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.h" line="66" column="14" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.h" bodystart="66" bodyend="-1"/>
+        <referencedby refid="classcuCSCAffineMatrixFunction_1ab35dd09274079e7ea620a9508ee865b9" compoundref="cu__csc__affine__matrix__function_8cu" startline="30" endline="53">cuCSCAffineMatrixFunction&lt; DataType &gt;::cuCSCAffineMatrixFunction</referencedby>
+        <referencedby refid="classcuCSRAffineMatrixFunction_1a9dd70267c2e9daa2d74dc029d16ae366" compoundref="cu__csr__affine__matrix__function_8cu" startline="30" endline="53">cuCSRAffineMatrixFunction&lt; DataType &gt;::cuCSRAffineMatrixFunction</referencedby>
+        <referencedby refid="classcuDenseAffineMatrixFunction_1a7b3a93e837ea2d2d7f6ed6eb0dfbf40a" compoundref="cu__dense__affine__matrix__function_8cu" startline="30" endline="51">cuDenseAffineMatrixFunction&lt; DataType &gt;::cuDenseAffineMatrixFunction</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classcuAffineMatrixFunction_1a577ffadfc3b5d791b152d7c03d257dda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>cuAffineMatrixFunction&lt; DataType &gt;::cuAffineMatrixFunction</definition>
+        <argsstring>()</argsstring>
+        <name>cuAffineMatrixFunction</name>
+        <briefdescription>
+<para>Constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.h" line="45" column="9" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.cu" bodystart="31" bodyend="36"/>
+        <references refid="classcLinearOperator_1aab9f0063e55c2a1a92a7e643f086348b" compoundref="c__linear__operator_8h" startline="79">cLinearOperator&lt; DataType &gt;::num_parameters</references>
+      </memberdef>
+      <memberdef kind="function" id="classcuAffineMatrixFunction_1a253fbd0015b06edbd80b62d6f791486c" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>cuAffineMatrixFunction&lt; DataType &gt;::~cuAffineMatrixFunction</definition>
+        <argsstring>()</argsstring>
+        <name>~cuAffineMatrixFunction</name>
+        <briefdescription>
+<para>Virtual destructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.h" line="47" column="17" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.cu" bodystart="46" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="classcuAffineMatrixFunction_1a61f06f563a69f9c5a1580814786a4e20" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuAffineMatrixFunction&lt; DataType &gt;::set_parameters</definition>
+        <argsstring>(DataType *t)</argsstring>
+        <name>set_parameters</name>
+        <param>
+          <type>DataType *</type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.h" line="49" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="classcuAffineMatrixFunction_1acdf545a2c27a4cb6988548d808474c42" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
+        <type>DataType</type>
+        <definition>DataType cuAffineMatrixFunction&lt; DataType &gt;::get_eigenvalue</definition>
+        <argsstring>(const DataType *known_parameters, const DataType known_eigenvalue, const DataType *inquiry_parameters) const</argsstring>
+        <name>get_eigenvalue</name>
+        <reimplements refid="classcLinearOperator_1a0dd6306a434563e4a48a806b43f23d03">get_eigenvalue</reimplements>
+        <param>
+          <type>const DataType *</type>
+          <declname>known_parameters</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>known_eigenvalue</declname>
+        </param>
+        <param>
+          <type>const DataType *</type>
+          <declname>inquiry_parameters</declname>
+        </param>
+        <briefdescription>
+<para>This function defines an analytic relationship between a given set of parameters and the corresponding eigenvalue of the operator. Namely, given a set of parameters and a <emphasis>known</emphasis> eigenvalue of the operator for that specific set of parameters, this function obtains the eigenvalue of the operator for an other given set of parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>A relation between eigenvalue(s) and the set of parameters can be made when the matrix :math:<computeroutput>\\mathbf{B}</computeroutput> is equal to the identity matrix <formula id="15">$ \mathbf{I} $</formula>, and corresponding linear operator is as follows:</para>
+<para><formula id="16">\[ \mathbf{A}(t) = \mathbf{A} + t \mathbf{I} \]</formula></para>
+<para>Then, the eigenvalues <formula id="17">$ \lambda $</formula> of the operator is</para>
+<para><formula id="18">\[ \lambda(\mathbf{A}(t)) = \lambda(\mathbf{A}) + t. \]</formula></para>
+<para>Thus, by knowing the eigenvalue <formula id="19">$ \lambda_{t_0} $</formula> at the known parameter <formula id="20">$ t_0 $</formula>, the eigenvalue <formula id="21">$ \lambda_{t} $</formula> at the inquiry parameter <formula id="22">$ t $</formula> can be obtained.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">known_parameters</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A set of parameters of the operator where the corresponding eigenvalue of the parameter is known for. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">known_eigenvalue</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The known eigenvalue of the operator for the known parameters. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">inquiry_parameters</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A set of inquiry parameters of the operator where the corresponding eigenvalue of the operator is sought. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The eigenvalue of the operator corresponding the inquiry parameters. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.h" line="51" column="18" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.cu" bodystart="93" bodyend="108"/>
+        <references refid="debugging_8h_1aa06eedd6f738a415870e97a375337d51" compoundref="debugging_8h" startline="20">ASSERT</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="classcuAffineMatrixFunction_1af0a51e03280f6700f6534a94874436c1" prot="protected" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void cuAffineMatrixFunction&lt; DataType &gt;::_add_scaled_vector</definition>
+        <argsstring>(const DataType *input_vector, const LongIndexType vector_size, const DataType scale, DataType *output_vector) const</argsstring>
+        <name>_add_scaled_vector</name>
+        <param>
+          <type>const DataType *</type>
+          <declname>input_vector</declname>
+        </param>
+        <param>
+          <type>const <ref refid="types_8h_1a4918759cb64dcead17269b3613b27d25" kindref="member">LongIndexType</ref></type>
+          <declname>vector_size</declname>
+        </param>
+        <param>
+          <type>const DataType</type>
+          <declname>scale</declname>
+        </param>
+        <param>
+          <type>DataType *</type>
+          <declname>output_vector</declname>
+        </param>
+        <briefdescription>
+<para>Performs the operation <formula id="23">$ \boldsymbol{c} = \boldsymbol{c} + \alpha * \boldsymbol{b} $</formula>, where <formula id="6">$ \boldsymbol{b} $</formula> is an input vector scaled by <formula id="24">$ \alpha $</formula> and <formula id="7">$ \boldsymbol{c} $</formula> it the output vector. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">input_vector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The input 1D vector of size <computeroutput>vector_size</computeroutput>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">vector_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The size of both <computeroutput>input_vector</computeroutput> and <computeroutput>output_vector</computeroutput> </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">scale</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The scalar scale at whch the input vector is multiplied by. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">output_vector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The output 1D vector of size <computeroutput>vector_size</computeroutput>. This array will be written in-place. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.h" line="59" column="14" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.cu" bodystart="131" bodyend="144"/>
+        <references refid="classCudaInterface_1a29ab521266d2670951510179d719ead1" compoundref="cuda__interface_8cu" startline="206" endline="213">CudaInterface&lt; ArrayType &gt;::get_device</references>
+        <references refid="classcuVectorOperations_1a516e90d70f99436cf48cd5b7deeb69c7" compoundref="cu__vector__operations_8cu" startline="126" endline="147">cuVectorOperations&lt; DataType &gt;::subtract_scaled_vector</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Base class for affine matrix functions of one parameter. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>The prefix <computeroutput>c</computeroutput> in this class&apos;s name (and its derivatves), stands for the <computeroutput>cpp</computeroutput> code, intrast to the <computeroutput>cu</computeroutput> prefix, which stands for the cuda code. Most derived classes have a cuda counterpart.</para>
+<para><simplesect kind="see"><para><ref refid="classcuMatrix" kindref="compound">cuMatrix</ref> </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="6">
+        <label>cuDenseAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcuDenseAffineMatrixFunction"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>cuLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcuLinearOperator"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>cuCSCAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcuCSCAffineMatrixFunction"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>cuAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcuAffineMatrixFunction"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>cLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcLinearOperator"/>
+      </node>
+      <node id="5">
+        <label>cuCSRAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcuCSRAffineMatrixFunction"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>cuLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcuLinearOperator"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>cuAffineMatrixFunction&lt; DataType &gt;</label>
+        <link refid="classcuAffineMatrixFunction"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>cLinearOperator&lt; DataType &gt;</label>
+        <link refid="classcLinearOperator"/>
+      </node>
+    </collaborationgraph>
+    <location file="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.h" line="40" column="1" bodyfile="/home/sia/work/github/imate/imate/_cu_linear_operator/cu_affine_matrix_function.h" bodystart="41" bodyend="67"/>
+    <listofallmembers>
+      <member refid="classcuAffineMatrixFunction_1af0a51e03280f6700f6534a94874436c1" prot="protected" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>_add_scaled_vector</name></member>
+      <member refid="classcuAffineMatrixFunction_1ae7d34c20db47d0ebaa06ec6276fe2577" prot="protected" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>B_is_identity</name></member>
+      <member refid="classcLinearOperator_1acb0880fed1d5599d721a9438c207ee5b" prot="public" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>cLinearOperator</name></member>
+      <member refid="classcLinearOperator_1ac844c5dd7b83eb1e95f3c96181366629" prot="public" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>cLinearOperator</name></member>
+      <member refid="classcuLinearOperator_1ac5b5c2becca5fd6368acd5c98de7bbe5" prot="protected" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>copied_host_to_device</name></member>
+      <member refid="classcuAffineMatrixFunction_1a577ffadfc3b5d791b152d7c03d257dda" prot="public" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>cuAffineMatrixFunction</name></member>
+      <member refid="classcuLinearOperator_1a46558cb4eb689bf6131c2e2415efea0d" prot="protected" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>cublas_handle</name></member>
+      <member refid="classcuLinearOperator_1a003b67351f4a3cf2e574a1e8631e1b24" prot="public" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>cuLinearOperator</name></member>
+      <member refid="classcuLinearOperator_1a8a27f677cbfb7c9c26d07904cdd0ee74" prot="public" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>cuLinearOperator</name></member>
+      <member refid="classcuLinearOperator_1ab097cf1372d598ceac08237e26bafc6d" prot="protected" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>cusparse_handle</name></member>
+      <member refid="classcLinearOperator_1a48c76860a74f00fefaa1297368d17a77" prot="public" virt="pure-virtual"><scope>cuAffineMatrixFunction</scope><name>dot</name></member>
+      <member refid="classcLinearOperator_1ac4c88c2dcdc8a4d33a77df3979789d42" prot="protected" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>eigenvalue_relation_known</name></member>
+      <member refid="classcuLinearOperator_1aa0bf630097fc3820d7ec27ec4e1a2994" prot="public" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>get_cublas_handle</name></member>
+      <member refid="classcuAffineMatrixFunction_1acdf545a2c27a4cb6988548d808474c42" prot="public" virt="virtual"><scope>cuAffineMatrixFunction</scope><name>get_eigenvalue</name></member>
+      <member refid="classcLinearOperator_1a08a2eb3bd8ff1f47d1141dc164af1c61" prot="public" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>get_num_columns</name></member>
+      <member refid="classcLinearOperator_1af9be60b44a47eed5b2c98f077ff54987" prot="public" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>get_num_parameters</name></member>
+      <member refid="classcLinearOperator_1aecc5b62db1d8a41f5112b289c7031aaf" prot="public" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>get_num_rows</name></member>
+      <member refid="classcuLinearOperator_1ae2bec474007baff1b7e598a869e83e12" prot="protected" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>initialize_cublas_handle</name></member>
+      <member refid="classcuLinearOperator_1a118f2b8f1523da52441070340f7c43f9" prot="protected" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>initialize_cusparse_handle</name></member>
+      <member refid="classcLinearOperator_1af0c980ca87c2795e0dbfda1c84f74591" prot="public" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>is_eigenvalue_relation_known</name></member>
+      <member refid="classcLinearOperator_1acdafe59b033d5a73f5abe380f63f40a1" prot="protected" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>num_columns</name></member>
+      <member refid="classcuLinearOperator_1a701c8a301638c78c66a3290b0848483e" prot="protected" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>num_gpu_devices</name></member>
+      <member refid="classcLinearOperator_1aab9f0063e55c2a1a92a7e643f086348b" prot="protected" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>num_parameters</name></member>
+      <member refid="classcLinearOperator_1a6786391614f08ef1575554f78717fbb0" prot="protected" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>num_rows</name></member>
+      <member refid="classcLinearOperator_1a22683aa9286bfd651f1f2dbae3660545" prot="protected" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>parameters</name></member>
+      <member refid="classcuLinearOperator_1a8dac55aff04e3f372468b21367a6dab8" prot="protected" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>query_gpu_devices</name></member>
+      <member refid="classcuAffineMatrixFunction_1a61f06f563a69f9c5a1580814786a4e20" prot="public" virt="non-virtual"><scope>cuAffineMatrixFunction</scope><name>set_parameters</name></member>
+      <member refid="classcLinearOperator_1a40f5051c4399ebfa153ef7147e10a6e6" prot="public" virt="pure-virtual"><scope>cuAffineMatrixFunction</scope><name>transpose_dot</name></member>
+      <member refid="classcLinearOperator_1a53065884c6a1349054a96a9fb8838e65" prot="public" virt="virtual"><scope>cuAffineMatrixFunction</scope><name>~cLinearOperator</name></member>
+      <member refid="classcuAffineMatrixFunction_1a253fbd0015b06edbd80b62d6f791486c" prot="public" virt="virtual"><scope>cuAffineMatrixFunction</scope><name>~cuAffineMatrixFunction</name></member>
+      <member refid="classcuLinearOperator_1ad1d14172ed32afa599208af04ec4db0c" prot="public" virt="virtual"><scope>cuAffineMatrixFunction</scope><name>~cuLinearOperator</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

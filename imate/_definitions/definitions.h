@@ -17,6 +17,11 @@
 // Definitions
 // ===========
 
+// To suppress warning: __STDC_VERSION__" is not defined, evaluates to 0
+// #ifndef __STDC_VERSION__
+//     #define __STDC_VERSION__ 0
+// #endif
+
 // If set to 0, the LongIndexType is declared as 32-bit integer. Whereas if set
 // to 1, the LongIndexType is declared as 64-bit integer. The long integer will
 // slow down the performance on reading array if integers. Note that in C++,
