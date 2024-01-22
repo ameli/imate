@@ -53,7 +53,6 @@ pypi_build_wheels_macosx_arm64_task:
     # supplied by isuruf.
     # Find out SDKROOT via `xcrun --sdk macosx --show-sdk-path`
     CIBW_ENVIRONMENT_MACOS: >
-      SDKROOT=/Applications/Xcode-15.1.0.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk
       LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
       CFLAGS="-I/opt/homebrew/opt/libomp/include $CFLAGS"
       CXXFLAGS="-I/opt/homebrew/opt/libomp/include $CXXFLAGS"

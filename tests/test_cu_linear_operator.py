@@ -14,6 +14,7 @@
 # =======
 
 import sys
+import pytest
 
 # This package might not be compiled with the cuda support.
 try:
@@ -28,6 +29,7 @@ except ModuleNotFoundError:
 # test cu linear operator
 # =======================
 
+@pytest.mark.skipif(not subpackage_exists, reason="CUDA support not available")
 def test_cu_linear_operator():
     """
     A wrapper for :mod:`imate._linear_operator.tests` test sub-module.

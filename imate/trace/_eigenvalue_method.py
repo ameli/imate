@@ -337,8 +337,11 @@ def eigenvalue_method(
         angle_rtol = 1e-8
 
     # Return only the real part
-    if isinstance(trace,
-                  (numpy.complex64, numpy.complex128, numpy.complex256)):
+    complex_types = (numpy.complex64, numpy.complex128)
+    if hasattr(numpy, 'complex256'):
+        complex_types = complex_types + (numpy.complex256)
+
+    if isinstance(trace, complex_types):
         angle = numpy.abs(numpy.angle(trace))
         if numpy.abs(numpy.mod(angle, numpy.pi)) > angle_rtol * A.shape[0]:
             raise RuntimeError(
