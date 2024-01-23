@@ -14,6 +14,7 @@
 # =======
 
 import sys
+import warnings
 
 try:
     # When using pytest to run this test script, it throws the following
