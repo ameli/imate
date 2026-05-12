@@ -1051,7 +1051,7 @@ class CustomBuildExtension(build_ext):
         * gcc   : -O3 -march=native -fno-stack-protector -Wall -fopenmp
         * clang : -O3 -march=native -fno-stack-protector -Wall -Xpreprocessor
                   -fopenmp
-        * msvc  : /O2 /Wall /openmp
+        * msvc  : /O2 /Wall /openmp:llvm
 
     Linker flags:
         * gcc   : -fopenmp
@@ -1124,7 +1124,7 @@ class CustomBuildExtension(build_ext):
             # Adding openmp flags
             if use_openmp:
 
-                msvc_compile_args += ['/openmp']
+                msvc_compile_args += ['/openmp:llvm']
                 msvc_has_openmp_flag = check_compiler_has_flag(
                     self.compiler,
                     msvc_compile_args,
@@ -1276,8 +1276,9 @@ class CustomBuildExtension(build_ext):
                 extra_compile_args += ['-g']
                 extra_link_args += ['-g']
         else:
-            extra_compile_args += ['-g0']
-            extra_link_args += ['-g0']
+            if compiler_type != 'msvc':
+                extra_compile_args += ['-g0']
+                extra_link_args += ['-g0']
 
             # The option '-Wl, ..' will send arguments to the linker. Here,
             # '--strip-all' removes all symbols from the shared library.
@@ -1344,7 +1345,7 @@ class CustomBuildExtension(build_ext):
                 extra_compile_args_nvcc += [
                     '--compiler-options=-O2',
                     '--compiler-options=-MD',  # Creates shared library
-                    '--compiler-options=-openmp']
+                    '--compiler-options=/openmp:llvm']
             else:
                 # Set host compiler for nvcc
                 extra_compile_args_nvcc += ['-ccbin=%s' % compiler_cxx]
