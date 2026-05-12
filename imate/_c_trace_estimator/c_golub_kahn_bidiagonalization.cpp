@@ -14,7 +14,7 @@
 // =======
 
 #include "./c_golub_kahn_bidiagonalization.h"
-#include <cmath>  // sqrt
+#include <cmath>  // std::sqrt
 #include "./c_orthogonalization.h"  // cOrthogonalization
 #include "../_c_basic_algebra/c_vector_operations.h"  // cVectorOperations
 
@@ -218,7 +218,7 @@ IndexType c_golub_kahn_bidiagonalization(
         // Exit criterion when the vector r is zero. If each component of a
         // zero vector has the tolerance epsilon, (which is called lanczos_tol
         // here), the tolerance of norm of r is epsilon times sqrt of n.
-        if (beta[j] < lanczos_tol * sqrt(n))
+        if (beta[j] < lanczos_tol * static_cast<DataType>(std::sqrt(n)))
         {
             break;
         }

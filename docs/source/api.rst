@@ -369,3 +369,4 @@ Inquiry hardware information, including CPU and GPU devices employed during comp
     imate.device.get_nvidia_driver_version
     imate.device.locate_cuda
     imate.device.restrict_to_single_processor
+    imate.get_config

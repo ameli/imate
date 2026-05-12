@@ -21,8 +21,13 @@ from .cu_matrix cimport cuMatrix
 from .cu_dense_matrix cimport cuDenseMatrix
 from .cu_csr_matrix cimport cuCSRMatrix
 from .cu_csc_matrix cimport cuCSCMatrix
-from .._definitions.types cimport IndexType, LongIndexType, FlagType, \
-        MemoryViewLongIndexType
+from .._definitions.types cimport LongIndexType, FlagType
+from .._array cimport get_array_buffer
+from .._array import get_data_type_name, get_device, get_ndim, get_shape, \
+        is_row_major
+from .._cu_definitions.cu_types cimport __nv_fp8_e5m2, __nv_fp8_e4m3, __half, \
+        __nv_bfloat16
+from .._array cimport release_buffer
 
 
 # ==========
@@ -115,13 +120,13 @@ cdef class pycuMatrix(pycuLinearOperator):
     # __cinit__
     # =========
 
-    def __cinit__(self, A, num_gpu_devices=0):
+    def __cinit__(self, A, A_is_symmetric=False, num_gpu_devices=0):
         """
         Sets the matrix A.
         """
 
         # Number of gpu devices to use. This might be different (less) than the
-        # number of gpu devices that are avalable. If set to 0, all available
+        # number of gpu devices that are available. If set to 0, all available
         # devices will be used.
         self.num_gpu_devices = num_gpu_devices
 
@@ -129,17 +134,24 @@ cdef class pycuMatrix(pycuLinearOperator):
         if A is None:
             raise ValueError('A cannot be None.')
 
-        if A.ndim != 2:
+        if get_ndim(A) != 2:
             raise ValueError('Input matrix should be a 2-dimensional array.')
 
+        # Symmetric matrix A
+        if not isinstance(A_is_symmetric, bool):
+            raise ValueError('"A_is_symmetric" should be boolean.')
+        self.A_is_symmetric = A_is_symmetric
+
         # Data type
-        if A.dtype == b'float32':
-            self.data_type_name = b'float32'
-        elif A.dtype == b'float64':
-            self.data_type_name = b'float64'
-        else:
-            raise TypeError('When gpu is enabled, data type should be ' +
-                            '"float32" or "float64".')
+        self.data_type_name = get_data_type_name(A)
+
+        if self.data_type_name not in [b'float8_e5m2', b'float8_e4m3',
+                                       b'float16', b'bfloat16', b'float32',
+                                       b'float64']:
+            raise TypeError('When the computation is performed on GPU, the '
+                            'data type should be either "float8_e5m2", '
+                            '"float8_e4m3", "float16", "bfloat16", "float32", '
+                            'or "float64".')
 
         # Determine A is sparse or dense
         if issparse(A):
@@ -151,12 +163,8 @@ cdef class pycuMatrix(pycuLinearOperator):
                 if not A.has_sorted_indices:
                     A.sort_indices()
 
-                # CSR matrix
-                if self.data_type_name == b'float32':
-                    self.set_csr_matrix_float(A)
-
-                elif self.data_type_name == b'float64':
-                    self.set_csr_matrix_double(A)
+                # set CSR matrix
+                self.set_csr_matrix(A)
 
             elif isspmatrix_csc(A):
 
@@ -164,43 +172,43 @@ cdef class pycuMatrix(pycuLinearOperator):
                 if not A.has_sorted_indices:
                     A.sort_indices()
 
-                # CSC matrix
-                if self.data_type_name == b'float32':
-                    self.set_csc_matrix_float(A)
-
-                elif self.data_type_name == b'float64':
-                    self.set_csc_matrix_double(A)
+                # set CSC matrix
+                self.set_csc_matrix(A)
 
             else:
 
                 # If A is neither CSR or CSC, convert A to CSR
-                self.A_csr = csr_matrix(A)
+                self.A_csr = csr_matrix(A, dtype=A.dtype)
 
                 # Check sorted indices
                 if not self.A_csr.has_sorted_indices:
                     self.A_csr.sort_indices()
 
-                # CSR matrix
-                if self.data_type_name == b'float32':
-                    self.set_csr_matrix_float(self.A_csr)
-
-                elif self.data_type_name == b'float64':
-                    self.set_csr_matrix_double(self.A_csr)
+                # set CSR matrix
+                self.set_csr_matrix(self.A_csr)
 
         else:
+            # A is dense matrix
+            self.set_dense_matrix(A)
+            
+    # ===========
+    # __dealloc__
+    # ===========
 
-            # Set a dense matrix
-            if self.data_type_name == b'float32':
-                self.set_dense_matrix_float(A)
+    def __dealloc__(self):
+        """
+        """
 
-            elif self.data_type_name == b'float64':
-                self.set_dense_matrix_double(A)
+        # Release data buffer
+        release_buffer(&self.A_data_py_buffer)
+        release_buffer(&self.A_indices_py_buffer)
+        release_buffer(&self.A_index_pointer_py_buffer)
 
-    # ======================
-    # set dense matrix float
-    # ======================
+    # ================
+    # set dense matrix
+    # ================
 
-    def set_dense_matrix_float(self, A):
+    def set_dense_matrix(self, A):
         """
         Sets matrix A.
 
@@ -208,125 +216,92 @@ cdef class pycuMatrix(pycuLinearOperator):
         :type A: numpy.ndarray, or any scipy.sparse array
         """
 
+        # Get shape
+        num_rows, num_columns = get_shape(A)
+
         # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
+        cdef LongIndexType A_num_rows = num_rows
+        cdef LongIndexType A_num_columns = num_columns
 
         # Contiguity
-        cdef FlagType A_is_row_major
-        if A.flags['C_CONTIGUOUS']:
-            A_is_row_major = 1
-        elif A.flags['F_CONTIGUOUS']:
-            A_is_row_major = 0
-        else:
-            raise TypeError('Matrix A should be either C or F contiguous.')
-
-        # Declare memoryviews to get data pointer
-        cdef float[:, ::1] A_data_float_mv_c
-        cdef float[::1, :] A_data_float_mv_f
+        cdef FlagType A_is_row_major = is_row_major(A)
 
         # Declare pointer of A.data
-        cdef float* A_data_float
+        cdef const void* A_data = get_array_buffer(A, &self.A_data_py_buffer)
 
-        # Get pointer to data of A depending on row or column major
-        if A_is_row_major:
+        # Create a linear operator object 
+        if self.data_type_name == b'float8_e5m2':
+            self.Aop_fp8_e5m2 = new cuDenseMatrix[__nv_fp8_e5m2](
+                    <__nv_fp8_e5m2*> A_data,
+                    A_num_rows,
+                    A_num_columns,
+                    A_is_row_major,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
 
-            # Memoryview of A for row major matrix
-            A_data_float_mv_c = A
+        elif self.data_type_name == b'float8_e4m3':
+            self.Aop_fp8_e4m3 = new cuDenseMatrix[__nv_fp8_e4m3](
+                    <__nv_fp8_e4m3*> A_data,
+                    A_num_rows,
+                    A_num_columns,
+                    A_is_row_major,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
 
-            # Pointer of the data of A
-            A_data_float = &A_data_float_mv_c[0, 0]
+        if self.data_type_name == b'float16':
+            self.Aop_fp16 = new cuDenseMatrix[__half](
+                    <__half*> A_data,
+                    A_num_rows,
+                    A_num_columns,
+                    A_is_row_major,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
 
-        else:
+        elif self.data_type_name == b'bfloat16':
+            self.Aop_bf16 = new cuDenseMatrix[__nv_bfloat16](
+                    <__nv_bfloat16*> A_data,
+                    A_num_rows,
+                    A_num_columns,
+                    A_is_row_major,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
 
-            # Memoryview of A for column major matrix
-            A_data_float_mv_f = A
+        elif self.data_type_name == b'float32':
+            self.Aop_fp32 = new cuDenseMatrix[float](
+                    <float*> A_data,
+                    A_num_rows,
+                    A_num_columns,
+                    A_is_row_major,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
 
-            # Pointer of the data of A
-            A_data_float = &A_data_float_mv_f[0, 0]
+        elif self.data_type_name == b'float64':
+            self.Aop_fp64 = new cuDenseMatrix[double](
+                    <double*> A_data,
+                    A_num_rows,
+                    A_num_columns,
+                    A_is_row_major,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
 
-        # Create a linear operator object
-        self.Aop_float = new cuDenseMatrix[float](
-                A_data_float,
-                A_num_rows,
-                A_num_columns,
-                A_is_row_major,
-                self.num_gpu_devices)
+    # ==============
+    # set csr matrix
+    # ==============
 
-    # =======================
-    # set dense matrix double
-    # =======================
-
-    def set_dense_matrix_double(self, A):
+    def set_csr_matrix(self, A):
         """
-        Sets matrix A.
-
-        :param A: A 2-dimensional matrix.
-        :type A: numpy.ndarray, or any scipy.sparse array
         """
+
+        # Get shape
+        num_rows, num_columns = get_shape(A)
 
         # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # Contiguity
-        cdef FlagType A_is_row_major
-        if A.flags['C_CONTIGUOUS']:
-            A_is_row_major = 1
-        elif A.flags['F_CONTIGUOUS']:
-            A_is_row_major = 0
-        else:
-            raise TypeError('Matrix A should be either C or F contiguous.')
-
-        # Declare memoryviews to get data pointer
-        cdef double[:, ::1] A_data_double_mv_c
-        cdef double[::1, :] A_data_double_mv_f
-
-        # Declare pointer to A.data
-        cdef double* A_data_double
-
-        # Get pointer to data of A depending on row or column major
-        if A_is_row_major:
-
-            # Memoryview of A for row major matrix
-            A_data_double_mv_c = A
-
-            # Pointer of the data of A
-            A_data_double = &A_data_double_mv_c[0, 0]
-
-        else:
-
-            # Memoryview of A for column major matrix
-            A_data_double_mv_f = A
-
-            # Pointer of the data of A
-            A_data_double = &A_data_double_mv_f[0, 0]
-
-        # Create a linear operator object
-        self.Aop_double = new cuDenseMatrix[double](
-                A_data_double,
-                A_num_rows,
-                A_num_columns,
-                A_is_row_major,
-                self.num_gpu_devices)
-
-    # ====================
-    # set csr matrix float
-    # ====================
-
-    def set_csr_matrix_float(self, A):
-        """
-        """
-
-        # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # Declare memoryviews to get pointer of A.data
-        cdef float[:] A_data_float_mv
+        cdef LongIndexType A_num_rows = num_rows
+        cdef LongIndexType A_num_columns = num_columns
 
         # Declare pointer for A.data
-        cdef float* A_data_float
+        cdef const void* A_data = get_array_buffer(
+                A.data, &self.A_data_py_buffer)
 
         # If the input type is the same as LongIndexType, no copy is performed.
         self.A_indices_copy = \
@@ -334,47 +309,91 @@ cdef class pycuMatrix(pycuLinearOperator):
         self.A_index_pointer_copy = \
             A.indptr.astype(self.long_index_type_name, copy=False)
 
-        # Declare memoryviews to get pointer of A.indices and A.indptr
-        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
-        cdef MemoryViewLongIndexType A_index_pointer_mv = \
-            self.A_index_pointer_copy
-
         # Declare pointers to A.indices ans A.indptr
-        cdef LongIndexType* A_indices = &A_indices_mv[0]
-        cdef LongIndexType* A_index_pointer = &A_index_pointer_mv[0]
-
-        # Memoryview of A data
-        A_data_float_mv = A.data
-
-        # Get pointers
-        A_data_float = &A_data_float_mv[0]
+        cdef const void* A_indices = get_array_buffer(
+                self.A_indices_copy, &self.A_indices_py_buffer)
+        cdef const void* A_index_pointer = get_array_buffer(
+                self.A_index_pointer_copy, &self.A_index_pointer_py_buffer)
 
         # Create a linear operator object
-        self.Aop_float = new cuCSRMatrix[float](
-                A_data_float,
-                A_indices,
-                A_index_pointer,
-                A_num_rows,
-                A_num_columns,
-                self.num_gpu_devices)
+        if self.data_type_name == b'float8_e5m2':
+            self.Aop_fp8_e5m2 = new cuCSRMatrix[__nv_fp8_e5m2](
+                    <__nv_fp8_e5m2*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
 
-    # =====================
-    # set csr matrix double
-    # =====================
+        elif self.data_type_name == b'float8_e4m3':
+            self.Aop_fp8_e4m3 = new cuCSRMatrix[__nv_fp8_e4m3](
+                    <__nv_fp8_e4m3*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
 
-    def set_csr_matrix_double(self, A):
+        elif self.data_type_name == b'float16':
+            self.Aop_fp16 = new cuCSRMatrix[__half](
+                    <__half*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
+
+        elif self.data_type_name == b'bfloat16':
+            self.Aop_bf16 = new cuCSRMatrix[__nv_bfloat16](
+                    <__nv_bfloat16*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
+
+        elif self.data_type_name == b'float32':
+            self.Aop_fp32 = new cuCSRMatrix[float](
+                    <float*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
+
+        elif self.data_type_name == b'float64':
+            self.Aop_fp64 = new cuCSRMatrix[double](
+                    <double*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
+
+    # ==============
+    # set csc matrix
+    # ==============
+
+    def set_csc_matrix(self, A):
         """
         """
+
+        # Get shape
+        num_rows, num_columns = get_shape(A)
 
         # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # Declare memoryviews to get pointer of A.data
-        cdef double[:] A_data_double_mv
+        cdef LongIndexType A_num_rows = num_rows
+        cdef LongIndexType A_num_columns = num_columns
 
         # Declare pointer for A.data
-        cdef double* A_data_double
+        cdef const void* A_data = get_array_buffer(
+                A.data, &self.A_data_py_buffer)
 
         # If the input type is the same as LongIndexType, no copy is performed.
         self.A_indices_copy = \
@@ -382,122 +401,69 @@ cdef class pycuMatrix(pycuLinearOperator):
         self.A_index_pointer_copy = \
             A.indptr.astype(self.long_index_type_name, copy=False)
 
-        # Declare memoryviews to get pointer of A.indices and A.indptr
-        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
-        cdef MemoryViewLongIndexType A_index_pointer_mv = \
-            self.A_index_pointer_copy
-
         # Declare pointers to A.indices ans A.indptr
-        cdef LongIndexType* A_indices = &A_indices_mv[0]
-        cdef LongIndexType* A_index_pointer = &A_index_pointer_mv[0]
-
-        # Memoryview of A data
-        A_data_double_mv = A.data
-
-        # Get pointers
-        A_data_double = &A_data_double_mv[0]
+        cdef const void* A_indices = get_array_buffer(
+                self.A_indices_copy, &self.A_indices_py_buffer)
+        cdef const void* A_index_pointer = get_array_buffer(
+                self.A_index_pointer_copy, &self.A_index_pointer_py_buffer)
 
         # Create a linear operator object
-        self.Aop_double = new cuCSRMatrix[double](
-                A_data_double,
-                A_indices,
-                A_index_pointer,
-                A_num_rows,
-                A_num_columns,
-                self.num_gpu_devices)
+        if self.data_type_name == b'float8_e5m2':
+            self.Aop_fp8_e5m2 = new cuCSCMatrix[__nv_fp8_e5m2](
+                    <__nv_fp8_e5m2*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
 
-    # ====================
-    # set csc matrix float
-    # ====================
+        elif self.data_type_name == b'float8_e4m3':
+            self.Aop_fp8_e4m3 = new cuCSCMatrix[__nv_fp8_e4m3](
+                    <__nv_fp8_e4m3*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
 
-    def set_csc_matrix_float(self, A):
-        """
-        """
+        elif self.data_type_name == b'float16':
+            self.Aop_fp16 = new cuCSCMatrix[__half](
+                    <__half*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
 
-        # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
+        elif self.data_type_name == b'bfloat16':
+            self.Aop_bf16 = new cuCSCMatrix[__nv_bfloat16](
+                    <__nv_bfloat16*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
 
-        # Declare memoryviews to get pointer of A.data
-        cdef float[:] A_data_float_mv
+        elif self.data_type_name == b'float32':
+            self.Aop_fp32 = new cuCSCMatrix[float](
+                    <float*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)
 
-        # Declare pointer for A.data
-        cdef float* A_data_float
-
-        # If the input type is the same as LongIndexType, no copy is performed.
-        self.A_indices_copy = \
-            A.indices.astype(self.long_index_type_name, copy=False)
-        self.A_index_pointer_copy = \
-            A.indptr.astype(self.long_index_type_name, copy=False)
-
-        # Declare memoryviews to get pointer of A.indices and A.indptr
-        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
-        cdef MemoryViewLongIndexType A_index_pointer_mv = \
-            self.A_index_pointer_copy
-
-        # Declare pointers to A.indices ans A.indptr
-        cdef LongIndexType* A_indices = &A_indices_mv[0]
-        cdef LongIndexType* A_index_pointer = &A_index_pointer_mv[0]
-
-        # Memoryview of A data
-        A_data_float_mv = A.data
-
-        # Get pointers
-        A_data_float = &A_data_float_mv[0]
-
-        # Create a linear operator object
-        self.Aop_float = new cuCSCMatrix[float](
-                A_data_float,
-                A_indices,
-                A_index_pointer,
-                A_num_rows,
-                A_num_columns,
-                self.num_gpu_devices)
-
-    # =====================
-    # set csc matrix double
-    # =====================
-
-    def set_csc_matrix_double(self, A):
-        """
-        """
-
-        # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # Declare memoryviews to get pointer of A.data
-        cdef double[:] A_data_double_mv
-
-        # Declare pointer for A.data
-        cdef double* A_data_double
-
-        # If the input type is the same as LongIndexType, no copy is performed.
-        self.A_indices_copy = \
-            A.indices.astype(self.long_index_type_name, copy=False)
-        self.A_index_pointer_copy = \
-            A.indptr.astype(self.long_index_type_name, copy=False)
-
-        # Declare memoryviews to get pointer of A.indices and A.indptr
-        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
-        cdef MemoryViewLongIndexType A_index_pointer_mv = \
-            self.A_index_pointer_copy
-
-        # Declare pointers to A.indices ans A.indptr
-        cdef LongIndexType* A_indices = &A_indices_mv[0]
-        cdef LongIndexType* A_index_pointer = &A_index_pointer_mv[0]
-
-        # Memoryview of A data
-        A_data_double_mv = A.data
-
-        # Get pointers
-        A_data_double = &A_data_double_mv[0]
-
-        # Create a linear operator object
-        self.Aop_double = new cuCSCMatrix[double](
-                A_data_double,
-                A_indices,
-                A_index_pointer,
-                A_num_rows,
-                A_num_columns,
-                self.num_gpu_devices)
+        elif self.data_type_name == b'float64':
+            self.Aop_fp64 = new cuCSCMatrix[double](
+                    <double*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric,
+                    self.num_gpu_devices)

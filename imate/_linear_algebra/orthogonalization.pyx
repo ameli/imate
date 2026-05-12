@@ -29,7 +29,7 @@ cdef void gram_schmidt_process(
         const LongIndexType vector_size,
         const IndexType num_vectors,
         const FlagType ortho_depth,
-        DataType* v) nogil:
+        DataType* v) noexcept nogil:
     """
     Modified Gram-Schmidt orthogonalization process to orthogonalize the vector
     ``v`` against a subset of the column vectors in the array ``V``.
@@ -169,7 +169,7 @@ cdef void orthogonalize_vectors(
         DataType* vectors,
         const LongIndexType vector_size,
         const IndexType num_vectors,
-        const IndexType seed) nogil:
+        const IndexType seed) noexcept nogil:
     """
     Orthogonalizes set of vectors mutually using modified Gram-Schmidt process.
 

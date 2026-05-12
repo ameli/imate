@@ -18,6 +18,17 @@
 
 #include "../_definitions/types.h"  // LongIndexType
 
+// Restrict qualifier
+#if defined(_MSC_VER)
+    #define RESTRICT __restrict
+#elif defined(__INTEL_COMPILER)
+    #define RESTRICT __restrict
+#elif defined(__CUDA__) || defined(__GNUC__) || defined(__clang__)
+    #define RESTRICT __restrict__
+#else
+    #define RESTRICT
+#endif
+
 
 // =================
 // Vector Operations
@@ -38,45 +49,45 @@ class cVectorOperations
 
         // copy vector
         static void copy_vector(
-                const DataType* input_vector,
+                const DataType* RESTRICT input_vector,
                 const LongIndexType vector_size,
-                DataType* output_vector);
+                DataType* RESTRICT output_vector);
 
         // copy scaled vector
         static void copy_scaled_vector(
-                const DataType* input_vector,
+                const DataType* RESTRICT input_vector,
                 const LongIndexType vector_size,
                 const DataType scale,
-                DataType* output_vector);
+                DataType* RESTRICT output_vector);
 
         // subtract scaled vector
         static void subtract_scaled_vector(
-                const DataType* input_vector,
+                const DataType* RESTRICT input_vector,
                 const LongIndexType vector_size,
                 const DataType scale,
-                DataType* output_vector);
+                DataType* RESTRICT output_vector);
 
         // inner product
         static DataType inner_product(
-                const DataType* vector1,
-                const DataType* vector2,
+                const DataType* RESTRICT vector1,
+                const DataType* RESTRICT vector2,
                 const LongIndexType vector_size);
 
         // euclidean norm
         static DataType euclidean_norm(
-                const DataType* vector,
+                const DataType* RESTRICT vector,
                 const LongIndexType vector_size);
 
         // normalize vector in place
         static DataType normalize_vector_in_place(
-                DataType* vector,
+                DataType* RESTRICT vector,
                 const LongIndexType vector_size);
 
         // normalize vector and copy
         static DataType normalize_vector_and_copy(
-                const DataType* vector,
+                const DataType* RESTRICT vector,
                 const LongIndexType vector_size,
-                DataType* output_vector);
+                DataType* RESTRICT output_vector);
 };
 
 #endif  // _C_BASIC_ALGEBRA_C_VECTOR_OPERATIONS_H_

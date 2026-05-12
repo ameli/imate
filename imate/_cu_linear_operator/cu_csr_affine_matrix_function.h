@@ -26,6 +26,21 @@
 // cu CSR Affine Matrix Function
 // =============================
 
+/// \class   cuCSRAffineMatrixFunction
+///
+/// \brief   Container for CSR affine matrix functions of one parameter.
+///
+/// \details The \c cuCSRAffineMatrixFunction contains two-dimensional
+///          compressed sparse row matrices \c A and \c B.
+///          This operoator can perofrom matrix-vector product and transposed
+///          matrix-vector product.
+///
+/// \sa      cuAffineMatrixFunction,
+///          cuDenseMatrixFunction,
+///          cuCSCMatrixFunction,
+///          cuCSRMatrix,
+///          cCSRAffineMatrixFunction
+
 template <typename DataType>
 class cuCSRAffineMatrixFunction : public cuAffineMatrixFunction<DataType>
 {
@@ -38,6 +53,7 @@ class cuCSRAffineMatrixFunction : public cuAffineMatrixFunction<DataType>
                 const LongIndexType* A_index_pointer_,
                 const LongIndexType num_rows_,
                 const LongIndexType num_columns_,
+                const FlagType A_is_symmetric_,
                 const int num_gpu_devices_);
 
         cuCSRAffineMatrixFunction(
@@ -45,13 +61,17 @@ class cuCSRAffineMatrixFunction : public cuAffineMatrixFunction<DataType>
                 const LongIndexType* A_indices_,
                 const LongIndexType* A_index_pointer_,
                 const LongIndexType num_rows_,
-                const LongIndexType num_colums_,
+                const LongIndexType num_columns_,
+                const FlagType A_is_symmetric_,
                 const DataType* B_data_,
                 const LongIndexType* B_indices_,
                 const LongIndexType* B_index_pointer_,
+                const FlagType B_is_symmetric_,
                 const int num_gpu_devices_);
 
         virtual ~cuCSRAffineMatrixFunction();
+        
+        virtual void set_symmetry(const FlagType symmetric);
 
         virtual void dot(
                 const DataType* vector,

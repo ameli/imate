@@ -25,14 +25,17 @@ cdef extern from "c_dense_affine_matrix_function.h":
 
         cDenseAffineMatrixFunction(
                 const DataType* A_,
-                const FlagType A_is_row_major_,
                 const LongIndexType num_rows_,
-                const LongIndexType num_colums_) except +
+                const LongIndexType num_columns_,
+                const FlagType A_is_row_major_,
+                const FlagType A_is_symmetric_) except +
 
         cDenseAffineMatrixFunction(
                 const DataType* A_,
-                const FlagType A_is_row_major_,
                 const LongIndexType num_rows_,
                 const LongIndexType num_columns_,
+                const FlagType A_is_row_major_,
+                const FlagType A_is_symmetric_,
                 const DataType* B_,
-                const FlagType B_is_row_major_) except +
+                const FlagType B_is_row_major_,
+                const FlagType B_is_symmetric_) except +

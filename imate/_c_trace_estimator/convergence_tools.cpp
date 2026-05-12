@@ -14,9 +14,10 @@
 // =======
 
 #include "./convergence_tools.h"
-#include <cmath>  // sqrt, std::abs, INFINITY, NAN, isnan
+#include <cmath>  // std::sqrt, std::abs, INFINITY, NAN, isnan
 #include <algorithm>  // std::max
 #include "./special_functions.h"  // erf_inv
+#include "../_c_arithmetics/c_arithmetics.h"  // c_arithmetics
 
 
 // =================
@@ -127,11 +128,13 @@ FlagType ConvergenceTools<DataType>::check_convergence(
     IndexType i;
     DataType summand;
     DataType mean;
+    DataType mean_abs;
     DataType std;
+    DataType mean_discrepancy;
     DataType data;
 
     // Quantile of normal distribution (usually known as the "z" coefficient)
-    DataType standard_z_score = sqrt(2) * \
+    DataType standard_z_score = std::sqrt(2) * \
         static_cast<DataType>(erf_inv(static_cast<double>(confidence_level)));
 
     // For each column of samples, compute error of all processed rows
@@ -148,6 +151,24 @@ FlagType ConvergenceTools<DataType>::check_convergence(
             }
             mean = summand / num_processed_samples;
 
+            // mean of absolute values of j-th column using all processed rows
+            // of j-th column
+            summand = 0.0;
+            for (i=0; i < num_processed_samples; ++i)
+            {
+                summand += std::abs(samples[processed_samples_indices[i]][j]);
+            }
+            mean_abs = summand / num_processed_samples;
+
+            // If mean of absolute values is zero, do not scale data with it as
+            // it causes divide by zero. In this case, all sample data are
+            // zero, and there is no need to scale them.
+            DataType zero = 0.0;
+            if (c_arithmetics::is_equal(mean_abs, zero))
+            {
+                mean_abs = 1.0;
+            }
+
             // std of j-th column using all processed rows of j-th column
             if (num_processed_samples > 1)
             {
@@ -155,9 +176,20 @@ FlagType ConvergenceTools<DataType>::check_convergence(
                 for (i=0; i < num_processed_samples; ++i)
                 {
                     data = samples[processed_samples_indices[i]][j];
-                    summand += (data - mean) * (data - mean);
+                    mean_discrepancy = data - mean;
+
+                    // Normalize to the mean of absolute values to avoid
+                    // underflow and overflow, but later, re-scale it back. The
+                    // underflow or overflow is caused by taking the square two
+                    // lines below.
+                    mean_discrepancy /= mean_abs;
+                    
+                    summand += mean_discrepancy * mean_discrepancy;
                 }
-                std = sqrt(summand / (num_processed_samples - 1.0));
+                std = std::sqrt(summand / (num_processed_samples - 1.0));
+
+                // Re-scale back by mean of absolute values
+                std *= mean_abs;
             }
             else
             {
@@ -165,7 +197,8 @@ FlagType ConvergenceTools<DataType>::check_convergence(
             }
 
             // Compute error based of std and confidence level
-            error[j] = standard_z_score * std / sqrt(num_processed_samples);
+            error[j] = standard_z_score * std / \
+                std::sqrt(num_processed_samples);
 
             // Check error with atol and rtol to find if j-th column converged
             if (error[j] < std::max(error_atol, error_rtol*mean))
@@ -203,8 +236,8 @@ FlagType ConvergenceTools<DataType>::check_convergence(
 ///             the outliers.
 ///
 /// \note       The elimination of outliers does not affect the elements of
-///             samples array, rather it only affects the reevaluation of trac
-///             and error arrays.
+///             samples array, rather it only affects the re-evaluation of
+///             trace and error arrays.
 ///
 /// \param[in]  confidence_level
 ///             The confidence level of the error, which is a number between
@@ -269,6 +302,7 @@ void ConvergenceTools<DataType>::average_estimates(
     IndexType j;
     DataType summand;
     DataType mean;
+    DataType mean_abs;
     DataType std;
     DataType mean_discrepancy;
     DataType outlier_half_interval;
@@ -277,13 +311,14 @@ void ConvergenceTools<DataType>::average_estimates(
     FlagType* outlier_indices = new FlagType[max_num_samples];
 
     // Quantile of normal distribution (usually known as the "z" coefficient)
-    DataType error_z_score = sqrt(2) * erf_inv(confidence_level);
+    DataType error_z_score = std::sqrt(2) * erf_inv(confidence_level);
 
     // Confidence level of outlier is the complement of significance level
     DataType outlier_confidence_level = 1.0 - outlier_significance_level;
 
     // Quantile of normal distribution area where is not considered as outlier
-    DataType outlier_z_score = sqrt(2.0) * erf_inv(outlier_confidence_level);
+    DataType outlier_z_score = std::sqrt(2.0) * \
+        erf_inv(outlier_confidence_level);
 
     for (j=0; j < num_inquiries; ++j)
     {
@@ -302,8 +337,24 @@ void ConvergenceTools<DataType>::average_estimates(
         }
         mean = summand / num_samples_used[j];
 
-        // Compute std of the j-th column
+        // Compute mean of the absolute values of j-th column
+        summand = 0.0;
+        for (i=0; i < num_samples_used[j]; ++i)
+        {
+            summand += std::abs(samples[processed_samples_indices[i]][j]);
+        }
+        mean_abs = summand / num_samples_used[j];
 
+        // If mean of absolute values is zero, do not scale data with it as it
+        // causes divide by zero. In this case, all sample data are zero, and
+        // there is no need to scale them.
+        DataType zero = 0.0;
+        if (c_arithmetics::is_equal(mean_abs, zero))
+        {
+            mean_abs = 1.0;
+        }
+
+        // Compute std of the j-th column
         if (num_samples_used[j] > 1)
         {
             summand = 0.0;
@@ -311,9 +362,18 @@ void ConvergenceTools<DataType>::average_estimates(
             {
                 mean_discrepancy = \
                     samples[processed_samples_indices[i]][j] - mean;
+
+                // Normalize to the mean of absolute values to avoid underflow
+                // and overflow, but later, re-scale it back. The underflow or
+                // overflow is caused by taking the square two lines below.
+                mean_discrepancy /= mean_abs;
+
                 summand += mean_discrepancy * mean_discrepancy;
             }
-            std = sqrt(summand / (num_samples_used[j] - 1.0));
+            std = std::sqrt(summand / (num_samples_used[j] - 1.0));
+
+            // Re-scale back by mean of absolute values
+            std *= mean_abs;
         }
         else
         {
@@ -323,7 +383,7 @@ void ConvergenceTools<DataType>::average_estimates(
         // Outlier half interval
         outlier_half_interval = outlier_z_score * std;
 
-        // Difference of each element from
+        // Find outliers by the difference of each element from mean
         for (i=0; i < num_samples_used[j]; ++i)
         {
             mean_discrepancy = samples[processed_samples_indices[i]][j] - mean;
@@ -335,7 +395,7 @@ void ConvergenceTools<DataType>::average_estimates(
             }
         }
 
-        // Reevaluate mean but leave out outliers
+        // Re-evaluate mean but leave out outliers
         summand = 0.0;
         for (i=0; i < num_samples_used[j]; ++i)
         {
@@ -346,7 +406,7 @@ void ConvergenceTools<DataType>::average_estimates(
         }
         mean = summand / (num_samples_used[j] - num_outliers[j]);
 
-        // Reevaluate std but leave out outliers
+        // Re-evaluate std but leave out outliers
         if (num_samples_used[j] > 1 + num_outliers[j])
         {
             summand = 0.0;
@@ -356,10 +416,20 @@ void ConvergenceTools<DataType>::average_estimates(
                 {
                     mean_discrepancy = \
                         samples[processed_samples_indices[i]][j] - mean;
+
+                // Normalize to the mean of absolute values to avoid underflow
+                // and overflow, but later, re-scale it back. The underflow or
+                // overflow is caused by taking the square two lines below.
+                mean_discrepancy /= mean_abs;
+
                     summand += mean_discrepancy * mean_discrepancy;
                 }
             }
-            std = sqrt(summand/(num_samples_used[j] - num_outliers[j] - 1.0));
+            std = std::sqrt(
+                summand/(num_samples_used[j] - num_outliers[j] - 1.0));
+
+            // Re-scale back by mean of absolute values
+            std *= mean_abs;
         }
         else
         {
@@ -369,7 +439,7 @@ void ConvergenceTools<DataType>::average_estimates(
         // trace and its error
         trace[j] = mean;
         error[j] = error_z_score * std / \
-            sqrt(num_samples_used[j] - num_outliers[j]);
+            std::sqrt(num_samples_used[j] - num_outliers[j]);
     }
 
     delete[] outlier_indices;

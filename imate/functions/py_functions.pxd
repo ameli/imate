@@ -24,4 +24,4 @@ cdef class pyFunction(object):
 
     # Member functions
     cdef void set_function(self, Function* matrix_function_) except *
-    cdef Function* get_function(self) nogil
+    cdef Function* get_function(self) noexcept nogil

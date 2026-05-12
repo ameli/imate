@@ -29,6 +29,7 @@ cdef extern from "cu_csc_affine_matrix_function.h":
                 const LongIndexType* A_index_pointer_,
                 const LongIndexType num_rows_,
                 const LongIndexType num_columns_,
+                const FlagType A_is_symmetric_,
                 const int num_gpu_devices_) except +
 
         cuCSCAffineMatrixFunction(
@@ -36,8 +37,10 @@ cdef extern from "cu_csc_affine_matrix_function.h":
                 const LongIndexType* A_indices_,
                 const LongIndexType* A_index_pointer_,
                 const LongIndexType num_rows_,
-                const LongIndexType num_colums_,
+                const LongIndexType num_columns_,
+                const FlagType A_is_symmetric_,
                 const DataType* B_data_,
                 const LongIndexType* B_indices_,
                 const LongIndexType* B_index_pointer_,
+                const FlagType B_is_symmetric_,
                 const int num_gpu_devices_) except +

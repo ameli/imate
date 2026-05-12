@@ -62,14 +62,54 @@
     #define UNSIGNED_LONG_INT 0
 #endif
 
-// If USE_CBLAS is set to 1, the OpenBlas library is used for dense vector and
-// matrix operations. Note that Openblas does not declare operations on "long
+// If USE_LOOP_UNROLLING is set to 1, the for loops in dense matrix-vector
+// multiplications and vector-vector multiplications use loop unrolling.
+// Otherwise set to 0. Default is 1.
+#ifndef USE_LOOP_UNROLLING
+    #define USE_LOOP_UNROLLING 1
+#endif
+
+// Small tasks (e.g. vector operations) do not leverage OpenMP parallelization
+// unless the arrays size are large enough to overcome the OpenMP overhead.
+// Here we define the threshold of array size in which arrays smaller than this
+// size will have vector operations in serial, and arrays larger than this size
+// will have vector operations in parallel. A threshold between 100K and 1M
+// seems to be a fine spot to make this switch.
+#define LARGE_ARRAY_SIZE 100000
+
+// If USE_OPENMP is set to 1, the OpenMP for shared-memory parallelization will
+// be enabled. Otherwise, set this to 0. You can also set this as an
+// environment variable, or in setup.py script.
+#ifndef USE_OPENMP
+    #define USE_OPENMP 1
+#endif
+
+// If USE_CBLAS is set to 1, the OpenBLAS library is used for dense vector and
+// matrix operations. Note that OpenBLAS does not declare operations on "long
 // double" type, rather, only "float" and "double" types are supported. To use
-// "long double" type, set USE_CBLAS to 0. Openblas is nearly twice faster, but
+// "long double" type, set USE_CBLAS to 0. OpenBLAS is nearly twice faster, but
 // it looses accuracy on large arrays of float type. This inaccuracy could
 // matter a lot when computing dot product and norm of very large vectors.
 #ifndef USE_CBLAS
     #define USE_CBLAS 0
+#endif
+
+// If USE_MKL is set to 1, the MKL library is used for dense vector and matrix
+// operations. Note that MKL does not declare operations on "long double" type,
+// rather, only "float" and "double" types are supported. To use "long double"
+// type, set USE_MKL to 0. MKL is nearly twice faster, but it looses accuracy
+// on large arrays of float type. This inaccuracy could matter a lot when
+// computing dot product and norm of very large vectors.
+#ifndef USE_MKL
+    #define USE_MKL 0
+#endif
+
+// USE_CBLAS or USE_MKL is set to 1, the USE_ANY_CBLAS is set to signal other
+// parts of the code to use CBLAS. Since the BLAS interface (regardless of
+// using OpenBLAS, MKL, etc) is the same, we use a unified USE_ANY_CBLAS flag.
+#if (defined(USE_CBLAS) && (USE_CBLAS == 1)) || \
+    (defined(USE_MKL) && (USE_MKL == 1))
+    #define USE_ANY_CBLAS 1
 #endif
 
 

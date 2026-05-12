@@ -14,17 +14,27 @@
 // =======
 
 #include "./cu_linear_operator.h"
-#include <omp.h>  // omp_set_num_threads
+#include "../_definitions/definitions.h"  // USE_OPENMP
+#include "../_cu_definitions/cu_types.h" // __nv_fp8_e5m2, __nv_fp8_e4m3,
+                                         // __half, __nv_bfloat16
+
+#if defined(USE_OPENMP) && (USE_OPENMP == 1)
+    #include <omp.h>  // omp_set_num_threads
+#endif
+
 #include <cstddef>  // NULL
 #include <cassert>  // assert
 #include <cstdlib>  // abort
 #include <iostream>
-#include "../_cuda_utilities/cuda_interface.h"  // CudaInterface
+#include "../_cuda_utilities/cuda_api.h"  // CudaAPI
 
 
 // =============
 // constructor 1
 // =============
+
+/// \brief Default constructor.
+///
 
 template <typename DataType>
 cuLinearOperator<DataType>::cuLinearOperator():
@@ -51,14 +61,17 @@ cuLinearOperator<DataType>::cuLinearOperator():
 
 /// \brief  Constructor with setting \c num_rows and \c num_columns.
 ///
-/// \note   For the classed that are virtually derived (virtual inheritance)
-///         from this class, this constructor will never be called. Rather, the
-///         default constructor is called by the most derived class. Thus, set
-///         the member data directly instead of below.
+/// \note      For the classed that are virtually derived (virtual inheritance)
+///            from this class, this constructor will never be called. Rather,
+///            the default constructor is called by the most derived class.
+///            Thus, set the member data directly instead of below.
+///
+/// \param[in] num_gpu_devices_
+///            Number of GPU devices to used for parallelization.
 
 template <typename DataType>
 cuLinearOperator<DataType>::cuLinearOperator(
-        const IndexType num_gpu_devices_):
+        const int num_gpu_devices_):
 
     // Initializer list
     num_gpu_devices(0),
@@ -99,6 +112,10 @@ cuLinearOperator<DataType>::cuLinearOperator(
 // destructor
 // ==========
 
+/// \brief   Destructor.
+///
+/// \details This function offloads data from GPUs.
+
 template <typename DataType>
 cuLinearOperator<DataType>::~cuLinearOperator()
 {
@@ -106,13 +123,23 @@ cuLinearOperator<DataType>::~cuLinearOperator()
     if (this->cublas_handle != NULL)
     {
         // Set the number of threads
-        omp_set_num_threads(this->num_gpu_devices);
+        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+            omp_set_num_threads(this->num_gpu_devices);
+        #endif
 
+        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
         #pragma omp parallel
+        #endif
         {
             // Switch to a device with the same device id as the cpu thread id
-            unsigned int thread_id = omp_get_thread_num();
-            CudaInterface<DataType>::set_device(thread_id);
+            unsigned int thread_id;
+            #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+                thread_id = omp_get_thread_num();
+            #else
+                thread_id = 0;
+            #endif
+
+            CudaAPI<DataType>::set_device(thread_id);
 
             cublasStatus_t status = cublasDestroy(
                     this->cublas_handle[thread_id]);
@@ -128,13 +155,23 @@ cuLinearOperator<DataType>::~cuLinearOperator()
     if (this->cusparse_handle != NULL)
     {
         // Set the number of threads
-        omp_set_num_threads(this->num_gpu_devices);
+        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+            omp_set_num_threads(this->num_gpu_devices);
+        #endif
 
+        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
         #pragma omp parallel
+        #endif
         {
             // Switch to a device with the same device id as the cpu thread id
-            unsigned int thread_id = omp_get_thread_num();
-            CudaInterface<DataType>::set_device(thread_id);
+            unsigned int thread_id;
+            #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+                thread_id = omp_get_thread_num();
+            #else
+                thread_id = 0;
+            #endif
+
+            CudaAPI<DataType>::set_device(thread_id);
 
             cusparseStatus_t status = cusparseDestroy(
                     this->cusparse_handle[thread_id]);
@@ -168,7 +205,7 @@ template <typename DataType>
 cublasHandle_t cuLinearOperator<DataType>::get_cublas_handle() const
 {
     // Get device id
-    int device_id = CudaInterface<DataType>::get_device();
+    int device_id = CudaAPI<DataType>::get_device();
 
     return this->cublas_handle[device_id];
 }
@@ -190,17 +227,32 @@ void cuLinearOperator<DataType>::initialize_cublas_handle()
         this->cublas_handle = new cublasHandle_t[this->num_gpu_devices];
 
         // Set the number of threads
-        omp_set_num_threads(this->num_gpu_devices);
+        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+            omp_set_num_threads(this->num_gpu_devices);
+        #endif
 
+        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
         #pragma omp parallel
+        #endif
         {
             // Switch to a device with the same device id as the cpu thread id
-            unsigned int thread_id = omp_get_thread_num();
-            CudaInterface<DataType>::set_device(thread_id);
+            unsigned int thread_id;
+            #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+                thread_id = omp_get_thread_num();
+            #else
+                thread_id = 0;
+            #endif
 
-            cublasStatus_t status = cublasCreate(
+            CudaAPI<DataType>::set_device(thread_id);
+
+            cublasStatus_t status_create = cublasCreate(
                     &this->cublas_handle[thread_id]);
-            assert(status == CUBLAS_STATUS_SUCCESS);
+            assert(status_create == CUBLAS_STATUS_SUCCESS);
+
+            // Set tensor core whenever possible (usually for cublasXgemm)
+            cublasStatus_t status_set = cublasSetMathMode(
+                    this->cublas_handle[thread_id], CUBLAS_TENSOR_OP_MATH);
+            assert(status_set == CUBLAS_STATUS_SUCCESS);
         }
     }
 }
@@ -222,13 +274,23 @@ void cuLinearOperator<DataType>::initialize_cusparse_handle()
         this->cusparse_handle = new cusparseHandle_t[this->num_gpu_devices];
 
         // Set the number of threads
-        omp_set_num_threads(this->num_gpu_devices);
+        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+            omp_set_num_threads(this->num_gpu_devices);
+        #endif
 
+        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
         #pragma omp parallel
+        #endif
         {
             // Switch to a device with the same device id as the cpu thread id
-            unsigned int thread_id = omp_get_thread_num();
-            CudaInterface<DataType>::set_device(thread_id);
+            unsigned int thread_id;
+            #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+                thread_id = omp_get_thread_num();
+            #else
+                thread_id = 0;
+            #endif
+
+            CudaAPI<DataType>::set_device(thread_id);
 
             cusparseStatus_t status = cusparseCreate(
                     &this->cusparse_handle[thread_id]);
@@ -270,9 +332,48 @@ int cuLinearOperator<DataType>::query_gpu_devices() const
 }
 
 
+// ==============
+// set parameters
+// ==============
+
+/// \brief     Sets the scalar parameter \c this->parameters. Parameter is
+///            initialized to \c NULL. However, before calling \c dot or
+///            \c transpose_dot functions, the parameters must be set.
+///
+/// \param[in] parameters_
+///            A pointer to the scalar or array of parameters.
+
+template <typename DataType>
+void cuLinearOperator<DataType>::set_parameters(DataType* parameters_)
+{
+    this->parameters = parameters_;
+}
+
+
 // ===============================
 // Explicit template instantiation
 // ===============================
 
-template class cuLinearOperator<float>;
-template class cuLinearOperator<double>;
+#if defined(USE_CUDA_FP8_E5M2) && (USE_CUDA_FP8_E5M2 == 1)
+    template class cuLinearOperator<__nv_fp8_e5m2>;
+#endif
+
+#if defined(USE_CUDA_FP8_E4M3) && (USE_CUDA_FP8_E4M3 == 1)
+    template class cuLinearOperator<__nv_fp8_e4m3>;
+#endif
+
+#if defined(USE_CUDA_FP16) && (USE_CUDA_FP16 == 1)
+    template class cuLinearOperator<__half>;
+#endif
+
+#if defined(USE_CUDA_BF16) && (USE_CUDA_BF16 == 1)
+    template class cuLinearOperator<__nv_bfloat16>;
+#endif
+
+#if defined(USE_CUDA_FP32) && (USE_CUDA_FP32 == 1)
+    template class cuLinearOperator<float>;
+#endif
+
+#if defined(USE_CUDA_FP64) && (USE_CUDA_FP64 == 1)
+    template class cuLinearOperator<double>;
+#endif

@@ -16,7 +16,10 @@
 #include "./cu_vector_operations.h"
 #include <cmath>  // sqrt
 #include <cassert>  // assert
-#include "./cublas_interface.h"  // cublas_interface
+#include "../_cu_definitions/cu_types.h" // __nv_fp8_e5m2, __nv_fp8_e4m3,
+                                         // __half, __nv_bfloat16
+#include "../_cu_arithmetics/cu_arithmetics.h"  // cu_arithmetics
+#include "./cublas_api.h"  // cublas_api
 
 
 // ===========
@@ -37,14 +40,14 @@
 template <typename DataType>
 void cuVectorOperations<DataType>::copy_vector(
         cublasHandle_t cublas_handle,
-        const DataType* input_vector,
+        const DataType* RESTRICT input_vector,
         const LongIndexType vector_size,
-        DataType* output_vector)
+        DataType* RESTRICT output_vector)
 {
     int incx = 1;
     int incy = 1;
 
-    cublasStatus_t status = cublas_interface::cublasXcopy(
+    cublasStatus_t status = cublas_api::cublasXcopy(
             cublas_handle, vector_size, input_vector, incx, output_vector,
             incy);
 
@@ -72,25 +75,24 @@ void cuVectorOperations<DataType>::copy_vector(
 template <typename DataType>
 void cuVectorOperations<DataType>::copy_scaled_vector(
         cublasHandle_t cublas_handle,
-        const DataType* input_vector,
+        const DataType* RESTRICT input_vector,
         const LongIndexType vector_size,
         const DataType scale,
-        DataType* output_vector)
+        DataType* RESTRICT output_vector)
 {
     cublasStatus_t status;
     int incx = 1;
     int incy = 1;
 
     // Copy input to output vector
-    status = cublas_interface::cublasXcopy(cublas_handle, vector_size,
-                                           input_vector, incx,
-                                           output_vector, incy);
+    status = cublas_api::cublasXcopy(cublas_handle, vector_size, input_vector,
+                                     incx, output_vector, incy);
 
     assert(status == CUBLAS_STATUS_SUCCESS);
 
-    // Scale outpu vector
-    status = cublas_interface::cublasXscal(cublas_handle, vector_size, &scale,
-                                           output_vector, incy);
+    // Scale output vector
+    status = cublas_api::cublasXscal(cublas_handle, vector_size, &scale,
+                                     output_vector, incy);
 
     assert(status == CUBLAS_STATUS_SUCCESS);
 }
@@ -125,12 +127,13 @@ void cuVectorOperations<DataType>::copy_scaled_vector(
 template <typename DataType>
 void cuVectorOperations<DataType>::subtract_scaled_vector(
         cublasHandle_t cublas_handle,
-        const DataType* input_vector,
+        const DataType* RESTRICT input_vector,
         const LongIndexType vector_size,
         const DataType scale,
-        DataType* output_vector)
+        DataType* RESTRICT output_vector)
 {
-    if (scale == 0.0)
+    DataType zero = 0.0;
+    if (cu_arithmetics::is_equal(scale, zero))
     {
         return;
     }
@@ -139,7 +142,7 @@ void cuVectorOperations<DataType>::subtract_scaled_vector(
     int incy = 1;
 
     DataType neg_scale = -scale;
-    cublasStatus_t status = cublas_interface::cublasXaxpy(
+    cublasStatus_t status = cublas_api::cublasXaxpy(
             cublas_handle, vector_size, &neg_scale, input_vector, incx,
             output_vector, incy);
 
@@ -165,15 +168,15 @@ void cuVectorOperations<DataType>::subtract_scaled_vector(
 template <typename DataType>
 DataType cuVectorOperations<DataType>::inner_product(
         cublasHandle_t cublas_handle,
-        const DataType* vector1,
-        const DataType* vector2,
+        const DataType* RESTRICT vector1,
+        const DataType* RESTRICT vector2,
         const LongIndexType vector_size)
 {
     DataType inner_prod;
     int incx = 1;
     int incy = 1;
 
-    cublasStatus_t status = cublas_interface::cublasXdot(
+    cublasStatus_t status = cublas_api::cublasXdot(
             cublas_handle, vector_size, vector1, incx, vector2, incy,
             &inner_prod);
 
@@ -200,13 +203,13 @@ DataType cuVectorOperations<DataType>::inner_product(
 template <typename DataType>
 DataType cuVectorOperations<DataType>::euclidean_norm(
         cublasHandle_t cublas_handle,
-        const DataType* vector,
+        const DataType* RESTRICT vector,
         const LongIndexType vector_size)
 {
     DataType norm;
     int incx = 1;
 
-    cublasStatus_t status = cublas_interface::cublasXnrm2(
+    cublasStatus_t status = cublas_api::cublasXnrm2(
             cublas_handle, vector_size, vector, incx, &norm);
 
     assert(status == CUBLAS_STATUS_SUCCESS);
@@ -233,7 +236,7 @@ DataType cuVectorOperations<DataType>::euclidean_norm(
 template <typename DataType>
 DataType cuVectorOperations<DataType>::normalize_vector_in_place(
         cublasHandle_t cublas_handle,
-        DataType* vector,
+        DataType* RESTRICT vector,
         const LongIndexType vector_size)
 {
     // Norm of vector
@@ -241,9 +244,11 @@ DataType cuVectorOperations<DataType>::normalize_vector_in_place(
             cublas_handle, vector, vector_size);
 
     // Normalize in place
-    DataType scale = 1.0 / norm;
+    DataType scale = cu_arithmetics::div(
+            cu_arithmetics::cast<double, DataType>(1.0),
+            norm);
     int incx = 1;
-    cublasStatus_t status = cublas_interface::cublasXscal(
+    cublasStatus_t status = cublas_api::cublasXscal(
             cublas_handle, vector_size, &scale, vector, incx);
 
     assert(status == CUBLAS_STATUS_SUCCESS);
@@ -272,16 +277,18 @@ DataType cuVectorOperations<DataType>::normalize_vector_in_place(
 template <typename DataType>
 DataType cuVectorOperations<DataType>::normalize_vector_and_copy(
         cublasHandle_t cublas_handle,
-        const DataType* vector,
+        const DataType* RESTRICT vector,
         const LongIndexType vector_size,
-        DataType* output_vector)
+        DataType* RESTRICT output_vector)
 {
     // Norm of vector
     DataType norm = cuVectorOperations<DataType>::euclidean_norm(
             cublas_handle, vector, vector_size);
 
     // Normalize to output
-    DataType scale = 1.0 / norm;
+    DataType scale = cu_arithmetics::div(
+            cu_arithmetics::cast<double, DataType>(1.0),
+            norm);
     cuVectorOperations<DataType>::copy_scaled_vector(cublas_handle, vector,
                                                      vector_size, scale,
                                                      output_vector);
@@ -294,5 +301,26 @@ DataType cuVectorOperations<DataType>::normalize_vector_and_copy(
 // Explicit template instantiation
 // ===============================
 
-template class cuVectorOperations<float>;
-template class cuVectorOperations<double>;
+#if defined(USE_CUDA_FP8_E5M2) && (USE_CUDA_FP8_E5M2 == 1)
+    template class cuVectorOperations<__nv_fp8_e5m2>;
+#endif
+
+#if defined(USE_CUDA_FP8_E4M3) && (USE_CUDA_FP8_E4M3 == 1)
+    template class cuVectorOperations<__nv_fp8_e4m3>;
+#endif
+
+#if defined(USE_CUDA_FP16) && (USE_CUDA_FP16 == 1)
+    template class cuVectorOperations<__half>;
+#endif
+
+#if defined(USE_CUDA_BF16) && (USE_CUDA_BF16 == 1)
+    template class cuVectorOperations<__nv_bfloat16>;
+#endif
+
+#if defined(USE_CUDA_FP32) && (USE_CUDA_FP32 == 1)
+    template class cuVectorOperations<float>;
+#endif
+
+#if defined(USE_CUDA_FP64) && (USE_CUDA_FP64 == 1)
+    template class cuVectorOperations<double>;
+#endif

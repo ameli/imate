@@ -42,11 +42,11 @@ float Indicator::function(const float lambda_) const
 {
     if ((lambda_ < this->a) || (lambda_ > this->b))
     {
-        return 0.0;
+        return 0.0f;
     }
     else
     {
-        return 1.0;
+        return 1.0f;
     }
 }
 
@@ -84,10 +84,10 @@ long double Indicator::function(const long double lambda_) const
 {
     if ((lambda_ < this->a) || (lambda_ > this->b))
     {
-        return 0.0;
+        return 0.0l;
     }
     else
     {
-        return 1.0;
+        return 1.0l;
     }
 }

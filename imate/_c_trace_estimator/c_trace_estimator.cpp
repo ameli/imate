@@ -14,8 +14,11 @@
 // =======
 
 #include "./c_trace_estimator.h"
-#include <omp.h>  // omp_set_num_threads
-#include <cmath>  // sqrt, pow
+#include "../_definitions/definitions.h"  // USE_OPENMP
+#if defined(USE_OPENMP) && (USE_OPENMP == 1)
+    #include <omp.h>  // omp_set_num_threads, omp_in_parallel
+#endif
+#include <cmath>  // std::sqrt, std::pow
 #include <cstddef>  // NULL
 #include "./c_lanczos_tridiagonalization.h"  // c_lanczos_tridiagonalization
 #include "./c_golub_kahn_bidiagonalization.h"  // c_golub_kahn_bidiagonaliza...
@@ -214,13 +217,15 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
         IndexType* num_samples_used,
         IndexType* num_outliers,
         FlagType* converged,
-        float& alg_wall_time)
+        double& alg_wall_time)
 {
     // Matrix size
     IndexType matrix_size = A->get_num_rows();
 
     // Set the number of threads
-    omp_set_num_threads(num_threads);
+    #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+        omp_set_num_threads(num_threads);
+    #endif
 
     // Allocate 1D array of random vectors We only allocate a random vector
     // per parallel thread. Thus, the total size of the random vectors is
@@ -244,7 +249,8 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
 
     // Using square-root of max possible chunk size for parallel schedules
     unsigned int chunk_size = static_cast<int>(
-            sqrt(static_cast<DataType>(max_num_samples) / num_threads));
+        std::sqrt(static_cast<DataType>(max_num_samples) / \
+                  static_cast<DataType>(num_threads)));
     if (chunk_size < 1)
     {
         chunk_size = 1;
@@ -256,12 +262,21 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
 
     // Shared-memory parallelism over Monte-Carlo ensemble sampling
     IndexType i;
-    #pragma omp parallel for schedule(dynamic, chunk_size)
+    #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+    #pragma omp parallel for \
+        schedule(dynamic, chunk_size) \
+        if (max_num_samples >= num_threads)
+    #endif
     for (i=0; i < max_num_samples; ++i)
     {
         if (!static_cast<bool>(all_converged))
         {
-            int thread_id = omp_get_thread_num();
+            int thread_id;
+            #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+                thread_id = omp_get_thread_num();
+            #else
+                thread_id = 0;
+            #endif
 
             // Perform one Monte-Carlo sampling to estimate trace
             cTraceEstimator<DataType>::_c_stochastic_lanczos_quadrature(
@@ -272,7 +287,9 @@ FlagType cTraceEstimator<DataType>::c_trace_estimator(
                     samples[i]);
 
             // Critical section
+            #if defined(USE_OPENMP) && (USE_OPENMP == 1)
             #pragma omp critical
+            #endif
             {
                 // Store the index of processed samples
                 processed_samples_indices[num_processed_samples] = i;
@@ -614,10 +631,11 @@ void cTraceEstimator<DataType>::_c_stochastic_lanczos_quadrature(
         for (i=0; i < lanczos_size[j]; ++i)
         {
             quadrature_sum += tau[j][i] * tau[j][i] * \
-                    matrix_function->function(pow(theta[j][i], exponent));
+                    matrix_function->function(std::pow(theta[j][i], exponent));
         }
 
-        trace_estimate[j] = matrix_size * quadrature_sum;
+        trace_estimate[j] = \
+                static_cast<DataType>(matrix_size) * quadrature_sum;
     }
 
     // Release dynamic memory

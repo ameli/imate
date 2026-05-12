@@ -19,9 +19,11 @@ import scipy.linalg
 import scipy.sparse
 import scipy.sparse.linalg
 from scipy.sparse import isspmatrix
-import multiprocessing
+from .._openmp import get_avail_num_threads
 from .._linear_algebra.matrix_utilities import get_data_type_name, get_nnz, \
         get_density
+from .kde import kde
+from .plot_kde import plot_kde
 from ..__version__ import __version__
 
 
@@ -33,12 +35,22 @@ def eigenvalue_method(
         A,
         gram=False,
         p=1.0,
-        mu=1.0,
-        sigma=1.0,
+        mu=None,
+        sigma=None,
+        kernel='normal',
+        sensitivity=0.5,
+        min_quant=0.5,
+        bw_iter=3,
+        scale_bw=1.0,
+        integrator='simpson',
+        log_scale=False,
+        cumulative=False,
         return_info=False,
         eigenvalues=None,
         assume_matrix='gen',
-        non_zero_eig_fraction=0.9):
+        non_zero_eig_fraction=0.9,
+        plot=False,
+        verbose=False):
     """
     Estimate the spectral density of matrix or linear operator using
     eigenvalue method.
@@ -121,11 +133,27 @@ def eigenvalue_method(
         to be negligible. By setting this parameter, a fraction of
         non-negligible eigenvalues is determined.
 
+    plot : bool, default=False
+        If `True`, the density function will be plotted. If no graphical
+        backend is available (such as executing on remote machines) the plot is
+        instead saved in the current directory as both ``svg`` and ``pdf``
+        format. If ``plot`` is a string, the plot is not shown, rather saved
+        with a filename as the given string. If the filename does not contain
+        file extension, the plot is saved in both ``svg`` and ``pdf`` formats.
+        If the filename does not have directory path, the plot is saved in the
+        current directory.
+
+    verbose : bool, default=False
+        If `True`, it prints some information during the process.
+
     Returns
     -------
 
     density : float or numpy.array
-        Trace of exponential of `A`.
+        Spectral density
+
+    mu : float or numpy.array
+        Eigenvalues where the spectral density is evaluated for them
 
     info : dict
         (Only if ``return_info`` is `True`) A dictionary of information with
@@ -323,30 +351,30 @@ def eigenvalue_method(
             eigenvalues = eigenvalues**2
 
     # Convert mu to an array
+    if mu is None:
+        mu_ = mu
     if numpy.isscalar(mu):
         mu_ = numpy.array([mu])
-    else:
+    elif isinstance(mu, (list, tuple)):
         # Converting lists and tuples to numpy array
         mu_ = numpy.array(mu)
 
     # Output in array form
-    trace_ = numpy.zeros_like(mu_)
+    density_, mu_, bw_list, min_bw, max_bw = kde(
+            eigenvalues, mu_, bw=sigma, kernel=kernel, log_scale=log_scale,
+            cumulative=cumulative, sensitivity=sensitivity,
+            bw_iter=bw_iter, scale_bw=scale_bw, min_quant=min_quant,
+            integrator='simpson')
 
-    # Compute trace of function of matrix
-    not_nan = numpy.logical_not(numpy.isnan(eigenvalues))
-    lambda_ = eigenvalues[not_nan]**p
+    if plot:
+        plot_kde(eigenvalues, mu_, density_, bw_list, min_bw, max_bw,
+                 cumulative, log_scale, filename=plot, verbose=verbose)
 
-    for i in range(mu_.size):
-        x = (lambda_ - mu_[i]) / sigma
-        f = (1.0 / (numpy.sqrt(2.0 * numpy.pi) * sigma)) * \
-            numpy.exp(-0.5 * x**2)
-        trace_[i] = numpy.sum(f)
-
-    # If mu was a scalar, make trace also a scalar
+    # If mu was a scalar, make density also a scalar
     if numpy.isscalar(mu):
-        trace = trace_[0]
+        density = density_[0]
     else:
-        trace = trace_
+        density = density_
 
     tot_wall_time = time.perf_counter() - init_tot_wall_time
     cpu_proc_time = time.process_time() - init_cpu_proc_time
@@ -367,7 +395,7 @@ def eigenvalue_method(
         },
         'device':
         {
-            'num_cpu_threads': multiprocessing.cpu_count(),
+            'num_cpu_threads': get_avail_num_threads(),
             'num_gpu_devices': 0,
             'num_gpu_multiprocessors': 0,
             'num_gpu_threads_per_multiprocessor': 0
@@ -386,9 +414,9 @@ def eigenvalue_method(
     }
 
     if return_info:
-        return trace, info
+        return density, mu_, info
     else:
-        return trace
+        return density, mu_
 
 
 # ===============
@@ -453,16 +481,17 @@ def check_arguments(
         raise TypeError('"return_info" should be boolean.')
 
     # Check mu
-    if (not isinstance(mu, (int, float))) and \
+    if (mu is not None) and (not isinstance(mu, (int, float))) and \
             (not (isinstance(mu, numpy.ndarray) and (mu.ndim == 1))) and \
             (not isinstance(mu, (list, tuple))):
-        raise TypeError('"mu" should be either a real scalar or a real ' +
-                        '1D array-like, such as list, tuple, or numpy array.')
+        raise TypeError('"mu" should be either "None", a real scalar or ' +
+                        ' a real 1D array-like, such as list, tuple, or ' +
+                        'numpy array.')
 
     # Check sigma
-    if (not isinstance(sigma, (int, float))):
-        raise TypeError('"sigma" should be a scalar real number.')
-    elif sigma <= 0.0:
+    if (sigma is not None) and (not isinstance(sigma, (int, float))):
+        raise TypeError('"sigma" should "None" or a scalar real number.')
+    elif (sigma is not None) and (sigma <= 0.0):
         raise ValueError('"sigma" should be positive.')
 
     # Check assume_matrix

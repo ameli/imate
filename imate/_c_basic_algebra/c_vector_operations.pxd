@@ -31,40 +31,40 @@ cdef extern from "c_vector_operations.h":
         void copy_vector(
                 const DataType* input_vector,
                 const LongIndexType vector_size,
-                DataType* output_vector) nogil
+                DataType* output_vector) noexcept nogil
 
         @staticmethod
         void copy_scaled_vector(
                 const DataType* input_vector,
                 const LongIndexType vector_size,
                 const DataType scale,
-                DataType* output_vector) nogil
+                DataType* output_vector) noexcept nogil
 
         @staticmethod
         void subtract_scaled_vector(
                 const DataType* input_vector,
                 const LongIndexType vector_size,
                 const DataType scale,
-                DataType* output_vector) nogil
+                DataType* output_vector) noexcept nogil
 
         @staticmethod
         DataType inner_product(
                 const DataType* vector1,
                 const DataType* vector2,
-                const LongIndexType vector_size) nogil
+                const LongIndexType vector_size) noexcept nogil
 
         @staticmethod
         DataType euclidean_norm(
                 const DataType* vector,
-                const LongIndexType vector_size) nogil
+                const LongIndexType vector_size) noexcept nogil
 
         @staticmethod
         DataType normalize_vector_in_place(
                 DataType* vector,
-                const LongIndexType vector_size) nogil
+                const LongIndexType vector_size) noexcept nogil
 
         @staticmethod
         DataType normalize_vector_and_copy(
                 const DataType* vector,
                 const LongIndexType vector_size,
-                DataType* output_vector) nogil
+                DataType* output_vector) noexcept nogil

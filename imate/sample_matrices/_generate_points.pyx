@@ -15,27 +15,28 @@ import numpy
 from libc.time cimport time, time_t
 from libc.stdlib cimport rand, srand, RAND_MAX
 
-__all__ = ['generated_points']
+__all__ = ['generate_points']
 
 
 # ===============
 # generate points
 # ===============
 
-def generate_points(size, dimension=2, grid=True):
+def generate_points(size, input_dim=2, grid=True):
     """
     Generates a set of points in the unit hypercube.
 
     :param size: Indicates the number of generated points as follows:
         * If ``grid`` is ``True``, the points are equi-distanced structured
           grid where there are ``size`` points along each axis. Hence, the
-          overall number of points are equal to ``size**dimension``.
+          overall number of points are equal to ``size**input_dim``.
         * If ``grid is ``False``, random points are generated with uniform
           distribution. The overall number of points are equal to ``size``.
     :type size: int
 
-    :param dimension: The dimension of the hypercube.
-    :type dimension: int
+    :param input_dim: The dimension of the hypercube.
+    :type input_dim: int
+
     :param grid: Determines whether the points are generated on a structured
         grid (if ``True``) or randomly (if ``False``).
     :type grid: bool
@@ -47,14 +48,14 @@ def generate_points(size, dimension=2, grid=True):
     """
 
     if grid:
-        num_points = size**dimension
-        coords = numpy.zeros((num_points, dimension), dtype=float)
-        _generate_grid_points(size, dimension, coords)
+        num_points = size**input_dim
+        coords = numpy.zeros((num_points, input_dim), dtype=float)
+        _generate_grid_points(size, input_dim, coords)
 
     else:
         num_points = size
-        coords = numpy.zeros((num_points, dimension), dtype=float)
-        _generate_random_points(num_points, dimension, coords)
+        coords = numpy.zeros((num_points, input_dim), dtype=float)
+        _generate_random_points(num_points, input_dim, coords)
 
     return coords
 
@@ -65,25 +66,25 @@ def generate_points(size, dimension=2, grid=True):
 
 cdef void _generate_grid_points(
         const int grid_size,
-        const int dimension,
-        double[:, ::1] coords) nogil:
+        const int input_dim,
+        double[:, ::1] coords) noexcept nogil:
     """
     Generates set of structured grid points in the unit hypercube and outputs
     their coordinates. The grid points are equi-distanced.
 
-    The number of generated points is equal to ``grid_size**dimension``. Hence,
+    The number of generated points is equal to ``grid_size**input_dim``. Hence,
     the output array, ``coords` has the shape
-    ``(grid_size**dimension, dimension)``.
+    ``(grid_size**input_dim, input_dim)``.
 
     :param grid_size: Number of points along each axis of the grid of points.
     :type grid_size: int
 
-    :param dimension: Dimension of unit hypercube.
-    :type dimension: int
+    :param input_dim: Dimension of unit hypercube.
+    :type input_dim: int
 
     :param coords: Coordinates of generated points. First index of this array
         is the point id from ``0`` to ``num_points`` and the second index is
-        the dimension of point coordinate from ``0`` to ``dimension - 1``. This
+        the dimension of point coordinate from ``0`` to ``input_dim - 1``. This
         array is the output.
     :type coords: cython memoryview (double)
     """
@@ -91,19 +92,19 @@ cdef void _generate_grid_points(
     cdef int point_id
     cdef int dim
     cdef int shift_next_dim
-    cdef int num_points = grid_size**dimension
+    cdef int num_points = grid_size**input_dim
 
     for point_id in range(num_points):
 
         # Initialize first point
         if point_id == 0:
-            for dim in range(dimension):
+            for dim in range(input_dim):
                 coords[point_id][dim] = 0.0
 
         else:
             # Increment a coordinate with respect to the previous point
             shift_next_dim = 1
-            for dim in range(dimension):
+            for dim in range(input_dim):
                 if shift_next_dim:
 
                     # If a point reached end of axis, do not increment
@@ -128,7 +129,7 @@ cdef void _generate_grid_points(
     # Scale an integer grid to unit hypercube
     cdef double dx = 1.0 / (grid_size - 1.0)
     for point_id in range(num_points):
-        for dim in range(dimension):
+        for dim in range(input_dim):
             coords[point_id][dim] = coords[point_id][dim] * dx
 
 
@@ -138,24 +139,24 @@ cdef void _generate_grid_points(
 
 cdef void _generate_random_points(
         const int size,
-        const int dimension,
-        double[:, ::1] coords) nogil:
+        const int input_dim,
+        double[:, ::1] coords) noexcept nogil:
     """
     Generates set of spatial random points in the unit hypercube and outputs
     their coordinates. Coordinates in each axis have uniform distribution.
 
     The number of generated points is equal to ``num_points``. Hence, the
-    output array, ``coords` has the shape (num_points, dimension)``.
+    output array, ``coords` has the shape (num_points, input_dim)``.
 
     :param size: Number of generated points.
     :type size: int
 
-    :param dimension: Dimension of unit hypercube.
-    :type dimension: int
+    :param input_dim: Dimension of unit hypercube.
+    :type input_dim: int
 
     :param coords: Coordinates of generated points. First index of this array
         is the point id from ``0`` to ``num_points`` and the second index is
-        the dimension of point coordinate from ``0`` to ``dimension - 1``. This
+        the dimension of point coordinate from ``0`` to ``input_dim - 1``. This
         array is the output.
     :type coords: cython memoryview (double)
     """
@@ -168,5 +169,5 @@ cdef void _generate_random_points(
     cdef int point_id
 
     for point_id in range(size):
-        for dim in range(dimension):
+        for dim in range(input_dim):
             coords[point_id][dim] = rand() / (<double> RAND_MAX)

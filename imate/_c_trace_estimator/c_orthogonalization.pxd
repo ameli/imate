@@ -29,11 +29,11 @@ cdef extern from "c_orthogonalization.h":
                 const IndexType num_vectors,
                 const IndexType last_vector,
                 const FlagType num_ortho,
-                DataType* r) nogil
+                DataType* r) noexcept nogil
 
         # Orthogonalize Vectors
         @staticmethod
         void orthogonalize_vectors(
                 DataType* vectors,
                 const LongIndexType vector_size,
-                const IndexType num_vectors) nogil
+                const IndexType num_vectors) noexcept nogil

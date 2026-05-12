@@ -15,6 +15,7 @@ import re
 import numpy
 import scipy.sparse
 from ..linear_operator import LinearOperator, Matrix
+from .._array import get_ndim, get_shape
 
 
 # ============
@@ -25,16 +26,25 @@ def get_operator(A, gram):
     """
     Check the input operator (or matrix) has proper type and shape. If A is a
     numpy dense matrix or a scipy sparse matrix, it will be converted to an
-    instance of :class:`ConstantMatrix` class.
+    instance of :class:`Matrix` class.
     """
 
-    if isinstance(A, numpy.ndarray) or scipy.sparse.issparse(A):
+    if ((isinstance(A, numpy.ndarray)) or
+        (scipy.sparse.issparse(A)) or
+        ((type(A).__module__ == 'torch') and
+         ('Tensor' in type(A).__name__)) or
+        (('tensorflow' in type(A).__module__) and
+         ('Tensor' in type(A).__name__)) or
+        (('jaxlib' in type(A).__module__) and
+         ('ArrayImpl' in type(A).__name__))):
 
         # Check matrix dimension and shape
-        if A.ndim != 2:
+        if get_ndim(A) != 2:
             raise ValueError('Input matrix should be a 2-dimensional array.')
-        elif (not gram) and (A.shape[0] != A.shape[1]):
-            raise ValueError('Input matrix should be a square matrix.')
+        else:
+            num_rows, num_columns = get_shape(A)
+            if (not gram) and (num_rows != num_columns):
+                raise ValueError('Input matrix should be a square matrix.')
 
         # Convert matrix A to a linear operator A
         return Matrix(A)
@@ -50,9 +60,9 @@ def get_operator(A, gram):
     else:
 
         raise TypeError('The linear operator "A" should be either a ' +
-                        'numpy.ndarray, a scipy.sparse array, or an ' +
-                        'instance of a class derived from the ' +
-                        '"LinearOperator" class.')
+                        'numpy.ndarray, scipy.sparse array, torch tensor, ' +
+                        'tensorflow Tensor, JAX tensor or an instance of a ' +
+                        'class derived from the "LinearOperator" class.')
 
 
 # =======================
@@ -120,9 +130,9 @@ def check_arguments(
         seed,
         num_threads,
         num_gpu_devices,
+        gpu,
         verbose,
-        plot,
-        gpu):
+        plot):
     """
     Checks if the input arguments have proper type and values.
 
@@ -287,12 +297,8 @@ def check_arguments(
         raise TypeError('"verbose" should be boolean.')
 
     # Check plot
-    if plot is None:
-        raise TypeError('"plot" cannot be None.')
-    elif not numpy.isscalar(plot):
-        raise TypeError('"plot" should be a scalar value.')
-    elif not isinstance(plot, bool):
-        raise TypeError('"plot" should be boolean.')
+    if not isinstance(plot, (bool, str)):
+        raise TypeError('"plot" should be boolean or string.')
 
     # Check gpu
     if gpu is None:
@@ -328,7 +334,7 @@ def get_machine_precision(data_type_name):
     :rtype: float
     """
 
-    return numpy.finfo(data_type_name).eps
+    return float(numpy.finfo(data_type_name).eps)
 
 
 # ==================
@@ -475,11 +481,11 @@ def print_summary(info):
 
             # will print one row
             if numpy.isnan(trace) or numpy.isinf(trace):
-                print('%10e   ' % trace, end="")
+                print('%10e  ' % trace, end="")
             else:
                 print('%+7.3e   ' % trace, end="")
             if numpy.isnan(absolute_error) or numpy.isinf(absolute_error):
-                print('%9e  ' % absolute_error, end="")
+                print('%10e  ' % absolute_error, end="")
             else:
                 print('%7.3e  ' % absolute_error, end="")
             if numpy.isnan(relative_error) or numpy.isinf(relative_error):
@@ -498,7 +504,7 @@ def print_summary(info):
                 print('%+7.3e   ' % trace[i], end="")
             if numpy.isnan(absolute_error[i]) or \
                numpy.isinf(absolute_error[i]):
-                print('%9e  ' % absolute_error[i], end="")
+                print('%10e  ' % absolute_error[i], end="")
             else:
                 print('%7.3e  ' % absolute_error[i], end="")
             if numpy.isnan(relative_error[i]) or \

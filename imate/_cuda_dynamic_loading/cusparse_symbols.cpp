@@ -27,6 +27,7 @@
 cusparseDestroy_type cusparseSymbols::cusparseDestroy = NULL;
 cusparseCreate_type cusparseSymbols::cusparseCreate = NULL;
 cusparseCreateCsr_type cusparseSymbols::cusparseCreateCsr = NULL;
+cusparseCreateCsc_type cusparseSymbols::cusparseCreateCsc = NULL;
 cusparseCreateDnVec_type cusparseSymbols::cusparseCreateDnVec = NULL;
 cusparseDestroySpMat_type cusparseSymbols::cusparseDestroySpMat = NULL;
 cusparseDestroyDnVec_type cusparseSymbols::cusparseDestroyDnVec = NULL;
@@ -49,9 +50,9 @@ std::string cusparseSymbols::get_lib_name()
     #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) || \
         defined(__NT__)
         lib_extension = "lib";
-    #elif __APPLE__
+    #elif defined(__APPLE__)
         lib_extension = "dylib";
-    #elif __linux__
+    #elif defined(__linux__)
         lib_extension = "so";
     #else
         #error "Unknown compiler"
@@ -162,6 +163,43 @@ cusparseStatus_t cusparseCreateCsr(
     }
 
     return cusparseSymbols::cusparseCreateCsr(
+            spMatDescr, rows, cols, nnz, csrRowOffsets, csrColInd, csrValues,
+            csrRowOffsetsType, csrColIndType, idxBase, valueType);
+}
+
+
+// =================
+// cusparseCreateCsc
+// =================
+
+/// \brief Definition of CUDA's \c cusparseCreateCsc function using dynamically
+///        loaded cublas library.
+
+cusparseStatus_t cusparseCreateCsc(
+        cusparseSpMatDescr_t* spMatDescr,
+        int64_t rows,
+        int64_t cols,
+        int64_t nnz,
+        void* csrRowOffsets,
+        void* csrColInd,
+        void* csrValues,
+        cusparseIndexType_t csrRowOffsetsType,
+        cusparseIndexType_t csrColIndType,
+        cusparseIndexBase_t idxBase,
+        cudaDataType valueType)
+{
+    if (cusparseSymbols::cusparseCreateCsc == NULL)
+    {
+        std::string lib_name = cusparseSymbols::get_lib_name();
+        const char* symbol_name = "cusparseCreateCsc";
+
+        cusparseSymbols::cusparseCreateCsc = \
+            dynamic_loading::load_symbol<cusparseCreateCsc_type>(
+                    lib_name.c_str(),
+                    symbol_name);
+    }
+
+    return cusparseSymbols::cusparseCreateCsc(
             spMatDescr, rows, cols, nnz, csrRowOffsets, csrColInd, csrValues,
             csrRowOffsetsType, csrColIndType, idxBase, valueType);
 }

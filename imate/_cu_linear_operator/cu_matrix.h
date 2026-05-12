@@ -21,9 +21,9 @@
 #include "./cu_linear_operator.h"  // cuLinearOperator
 
 
-// ========
-// c Matrix
-// ========
+// =========
+// cu Matrix
+// =========
 
 /// \class   cuMatrix
 ///
@@ -33,21 +33,50 @@
 ///          for the \c cpp code, intrast to the \c cu prefix, which stands for
 ///          the cuda code. Most derived classes have a cuda counterpart.
 ///
-/// \sa      cuAffineMatrixFunction
-
+/// \sa      cuLinearOperator,
+///          cuAffineMatrixFunction,
+///          cuDenseMatrix,
+///          cuCSRMatrix,
+///          cuCSCMatrix,
+///          cMatrix
 
 template <typename DataType>
-class cuMatrix : public cuLinearOperator<DataType>
+class cuMatrix : virtual public cuLinearOperator<DataType>
 {
     public:
 
         // Member methods
         cuMatrix();
-        explicit cuMatrix(int num_gpu_devices_);
+        
+        explicit cuMatrix(const FlagType A_is_symmetric_);
 
         virtual ~cuMatrix();
 
         virtual void copy_host_to_device() = 0;
+        
+        DataType get_eigenvalue(
+                const DataType* known_parameters,
+                const DataType known_eigenvalue,
+                const DataType* inquiry_parameters) const;
+
+        virtual FlagType is_identity_matrix() const = 0;
+
+        virtual void set_symmetry(const FlagType symmetric);
+
+        virtual void dot_plus(
+                const DataType* vector,
+                const DataType alpha,
+                DataType* product) = 0;
+
+        virtual void transpose_dot_plus(
+                const DataType* vector,
+                const DataType alpha,
+                DataType* product) = 0;
+
+    protected:
+
+        // Member data
+        FlagType A_is_symmetric;
 };
 
 

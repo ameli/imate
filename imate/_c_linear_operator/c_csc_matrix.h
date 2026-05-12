@@ -25,6 +25,20 @@
 // c CSC Matrix
 // ============
 
+/// \class   cCSCMatrix
+///
+/// \brief   Container for CSC matrices.
+///
+/// \details The \c cCSCMatrix holds a two-dimensional compressed sparse column
+///          matrix, and can perofrom matrix-vector product and transposed
+///          matrix-vector product.
+///
+/// \sa      cMatrix,
+///          cDenseMatrix,
+///          cCSRMatrix,
+///          cCSCAffineMatrixFunction,
+///          cuCSCMatrix
+
 template <typename DataType>
 class cCSCMatrix : public cMatrix<DataType>
 {
@@ -38,7 +52,8 @@ class cCSCMatrix : public cMatrix<DataType>
                 const LongIndexType* A_indices_,
                 const LongIndexType* A_index_pointer_,
                 const LongIndexType num_rows_,
-                const LongIndexType num_columns_);
+                const LongIndexType num_columns_,
+                const FlagType A_is_symmetric_);
 
         virtual ~cCSCMatrix();
 

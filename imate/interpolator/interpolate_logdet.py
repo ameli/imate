@@ -16,8 +16,8 @@ import numpy
 from numbers import Number
 
 try:
-    from .._utilities.plot_utilities import get_custom_theme, matplotlib, \
-        show_or_save_plot, plt
+    from .._utilities.plot_utilities import get_theme, matplotlib, plt, \
+        show_or_save_plot
     plot_modules_exist = True
 except ImportError:
     plot_modules_exist = False
@@ -298,8 +298,8 @@ class InterpolateLogdet(InterpolateSchatten):
         >>> import matplotlib.pyplot as plt
 
         >>> # Plot settings (optional)
-        >>> from imate._utilities import set_custom_theme
-        >>> set_custom_theme(font_scale=1.15)
+        >>> from imate._utilities import set_theme
+        >>> set_theme(font_scale=1.15)
 
         >>> plt.semilogx(t_array, norm_array, color='black')
         >>> plt.xlim([t_array[0], t_array[-1]])
@@ -779,8 +779,8 @@ class InterpolateLogdet(InterpolateSchatten):
             >>> import matplotlib.pyplot as plt
 
             >>> # Plot settings (optional)
-            >>> from imate._utilities import set_custom_theme
-            >>> set_custom_theme(font_scale=1.15)
+            >>> from imate._utilities import set_theme
+            >>> set_theme(font_scale=1.15)
 
             >>> plt.semilogx(t, interp, color='black', label='Interpolation')
             >>> plt.semilogx(t, lb, '--', color='black', label='Lower Bound')
@@ -807,12 +807,14 @@ class InterpolateLogdet(InterpolateSchatten):
     # plot
     # ====
 
-    @matplotlib.rc_context(get_custom_theme())
+    @matplotlib.rc_context(get_theme())
     def plot(
             self,
             t,
             normalize=False,
-            compare=False):
+            compare=False,
+            filename=None,
+            verbose=False):
         """
         Plot the interpolation results.
 
@@ -843,6 +845,13 @@ class InterpolateLogdet(InterpolateSchatten):
                 When this option is enabled, the exact solution will be
                 computed for all inquiry points, which can take a very long
                 time.
+
+        filename : str, default=None
+            A filename to save the file. In this case, the plot will not be
+            shown, bit saved to a file only. If `None`, plot will not be saved.
+
+        verbose : bool, default=False
+            If `True`, the location os saved plot is printed.
 
         Raises
         ------
@@ -1039,10 +1048,7 @@ class InterpolateLogdet(InterpolateSchatten):
 
         plt.tight_layout()
 
-        # Check if the graphical backend exists
-        if matplotlib.get_backend() != 'agg':
-            plt.show()
-        else:
-            # Save the plot as SVG file in the current directory
-            show_or_save_plot(plt, 'interpolation',
-                              transparent_background=True)
+        # Save the plot as SVG file in the current directory
+        show_or_save_plot(plt, filename=filename,
+                          default_filename='logdet_interpolation',
+                          transparent_background=True, verbose=verbose)

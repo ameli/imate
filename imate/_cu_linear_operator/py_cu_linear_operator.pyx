@@ -14,9 +14,9 @@
 import numpy
 from libc.stdlib cimport exit
 
-from .._definitions.types cimport DataType, IndexType, LongIndexType, FlagType
+from .._definitions.types cimport LongIndexType
 from .cu_linear_operator cimport cuLinearOperator
-from .._cuda_utilities cimport py_query_device, DeviceProperties
+from .._cuda_utilities cimport py_query_device
 
 
 # ====================
@@ -37,10 +37,15 @@ cdef class pycuLinearOperator(object):
         """
 
         # Initialize member data
-        self.Aop_float = NULL
-        self.Aop_double = NULL
-        self.data_type_name = NULL
-        self.long_index_type_name = NULL
+        self.Aop_fp8_e5m2 = NULL
+        self.Aop_fp8_e4m3 = NULL
+        self.Aop_fp16 = NULL
+        self.Aop_bf16 = NULL
+        self.Aop_fp32 = NULL
+        self.Aop_fp64 = NULL
+        self.data_type_name = ""
+        self.long_index_type_name = ""
+        self.parameters = None
         self.num_gpu_devices = 0
         self.device_properties_dict = py_query_device()
 
@@ -70,7 +75,7 @@ cdef class pycuLinearOperator(object):
             else:
                 self.long_index_type_name = r'int64'
         else:
-            raise TypeError('"LongIndexType" has Unconventional byte size.')
+            raise TypeError('"LongIndexType" has unconventional byte size.')
 
     # ===========
     # __dealloc__
@@ -80,13 +85,29 @@ cdef class pycuLinearOperator(object):
         """
         """
 
-        if self.Aop_float != NULL:
-            del self.Aop_float
-            self.Aop_float = NULL
+        if self.Aop_fp8_e5m2 != NULL:
+            del self.Aop_fp8_e5m2
+            self.Aop_fp8_e5m2 = NULL
 
-        if self.Aop_double != NULL:
-            del self.Aop_double
-            self.Aop_double = NULL
+        if self.Aop_fp8_e4m3 != NULL:
+            del self.Aop_fp8_e4m3
+            self.Aop_fp8_e4m3 = NULL
+
+        if self.Aop_fp16 != NULL:
+            del self.Aop_fp16
+            self.Aop_fp16 = NULL
+
+        if self.Aop_bf16 != NULL:
+            del self.Aop_bf16
+            self.Aop_bf16 = NULL
+
+        if self.Aop_fp32 != NULL:
+            del self.Aop_fp32
+            self.Aop_fp32 = NULL
+
+        if self.Aop_fp64 != NULL:
+            del self.Aop_fp64
+            self.Aop_fp64 = NULL
 
     # ============
     # get num rows
@@ -98,10 +119,20 @@ cdef class pycuLinearOperator(object):
         :rtype: LongIdexType
         """
 
-        if self.data_type_name == b'float32' and self.Aop_float != NULL:
-            return self.Aop_float.get_num_rows()
-        elif self.data_type_name == b'float64' and self.Aop_double != NULL:
-            return self.Aop_double.get_num_rows()
+        if (self.data_type_name == b'float8_e5m2') and \
+                (self.Aop_fp8_e5m2 != NULL):
+            return self.Aop_fp8_e5m2.get_num_rows()
+        elif (self.data_type_name == b'float8_e4m3') and \
+                (self.Aop_fp8_e4m3 != NULL):
+            return self.Aop_fp8_e4m3.get_num_rows()
+        elif (self.data_type_name == b'float16') and (self.Aop_fp16 != NULL):
+            return self.Aop_fp16.get_num_rows()
+        elif (self.data_type_name == b'bfloat16') and (self.Aop_bf16 != NULL):
+            return self.Aop_bf16.get_num_rows()
+        elif (self.data_type_name == b'float32') and (self.Aop_fp32 != NULL):
+            return self.Aop_fp32.get_num_rows()
+        elif (self.data_type_name == b'float64') and (self.Aop_fp64 != NULL):
+            return self.Aop_fp64.get_num_rows()
         else:
             raise ValueError('Linear operator is not set.')
 
@@ -115,10 +146,20 @@ cdef class pycuLinearOperator(object):
         :rtype: LongIdexType
         """
 
-        if self.data_type_name == b'float32' and self.Aop_float != NULL:
-            return self.Aop_float.get_num_columns()
-        elif self.data_type_name == b'float64' and self.Aop_double != NULL:
-            return self.Aop_double.get_num_columns()
+        if (self.data_type_name == b'float8_e5m2') and \
+                (self.Aop_fp8_e5m2 != NULL):
+            return self.Aop_fp8_e5m2.get_num_columns()
+        elif (self.data_type_name == b'float8_e4m3') and \
+                (self.Aop_fp8_e4m3 != NULL):
+            return self.Aop_fp8_e4m3.get_num_columns()
+        elif (self.data_type_name == b'float16') and (self.Aop_fp16 != NULL):
+            return self.Aop_fp16.get_num_columns()
+        elif (self.data_type_name == b'bfloat16') and (self.Aop_bf16 != NULL):
+            return self.Aop_bf16.get_num_columns()
+        elif (self.data_type_name == b'float32') and (self.Aop_fp32 != NULL):
+            return self.Aop_fp32.get_num_columns()
+        elif (self.data_type_name == b'float64') and (self.Aop_fp64 != NULL):
+            return self.Aop_fp64.get_num_columns()
         else:
             raise ValueError('Linear operator is not set.')
 
@@ -129,13 +170,23 @@ cdef class pycuLinearOperator(object):
     def get_num_parameters(self):
         """
         :return: Number of parameters.
-        :rtype: IndexType
+        :rtype: int
         """
 
-        if self.data_type_name == b'float32' and self.Aop_float != NULL:
-            return self.Aop_float.get_num_parameters()
-        elif self.data_type_name == b'float64' and self.Aop_double != NULL:
-            return self.Aop_double.get_num_parameters()
+        if (self.data_type_name == b'float8_e5m2') and \
+                (self.Aop_fp8_e5m2 != NULL):
+            return self.Aop_fp8_e5m2.get_num_parameters()
+        elif (self.data_type_name == b'float8_e4m3') and \
+                (self.Aop_fp8_e4m3 != NULL):
+            return self.Aop_fp8_e4m3.get_num_parameters()
+        elif (self.data_type_name == b'float16') and (self.Aop_fp16 != NULL):
+            return self.Aop_fp16.get_num_parameters()
+        elif (self.data_type_name == b'bfloat16') and (self.Aop_bf16 != NULL):
+            return self.Aop_bf16.get_num_parameters()
+        elif (self.data_type_name == b'float32') and (self.Aop_fp32 != NULL):
+            return self.Aop_fp32.get_num_parameters()
+        elif (self.data_type_name == b'float64') and (self.Aop_fp64 != NULL):
+            return self.Aop_fp64.get_num_parameters()
         else:
             raise ValueError('Linear operator is not set.')
 
@@ -143,24 +194,102 @@ cdef class pycuLinearOperator(object):
     # get data type name
     # ==================
 
-    cdef char* get_data_type_name(self) except *:
+    def get_data_type_name(self):
         """
         """
 
-        if self.data_type_name == NULL:
+        if self.data_type_name == "":
             raise RuntimeError('Linear operator data type is not set.')
 
         return self.data_type_name
 
-    # =========================
-    # get linear operator float
-    # =========================
+    # ============================
+    # get linear operator fp8 e5m2
+    # ============================
 
-    cdef cuLinearOperator[float]* get_linear_operator_float(self) except *:
+    cdef cuLinearOperator[__nv_fp8_e5m2]* get_linear_operator_fp8_e5m2(
+            self) except *:
         """
         """
 
-        if self.Aop_float == NULL:
+        if self.Aop_fp8_e5m2 == NULL:
+            raise RuntimeError('Linear operator (__nv_fp8_e5m2 type) is not '
+                               'set.')
+
+        if self.data_type_name != b'float16':
+            raise RuntimeError('Wrong accessors is called. The type of the ' +
+                               'LinearOperator object is: %s'
+                               % self.data_type_name)
+
+        return self.Aop_fp8_e5m2
+
+    # ============================
+    # get linear operator fp8 e4m3
+    # ============================
+
+    cdef cuLinearOperator[__nv_fp8_e4m3]* get_linear_operator_fp8_e4m3(
+            self) except *:
+        """
+        """
+
+        if self.Aop_fp8_e4m3 == NULL:
+            raise RuntimeError('Linear operator (__nv_fp8_e4m3 type) is not '
+                               'set.')
+
+        if self.data_type_name != b'float16':
+            raise RuntimeError('Wrong accessors is called. The type of the ' +
+                               'LinearOperator object is: %s'
+                               % self.data_type_name)
+
+        return self.Aop_fp8_e4m3
+
+    # ========================
+    # get linear operator fp16
+    # ========================
+
+    cdef cuLinearOperator[__half]* get_linear_operator_fp16(self) except *:
+        """
+        """
+
+        if self.Aop_fp16 == NULL:
+            raise RuntimeError('Linear operator (__half type) is not set.')
+
+        if self.data_type_name != b'float16':
+            raise RuntimeError('Wrong accessors is called. The type of the ' +
+                               'LinearOperator object is: %s'
+                               % self.data_type_name)
+
+        return self.Aop_fp16
+
+    # ========================
+    # get linear operator bf16
+    # ========================
+
+    cdef cuLinearOperator[__nv_bfloat16]* get_linear_operator_bf16(
+            self) except *:
+        """
+        """
+
+        if self.Aop_bf16 == NULL:
+            raise RuntimeError('Linear operator (__nv_bfloat16 type) is not '
+                               'set.')
+
+        if self.data_type_name != b'bfloat16':
+            raise RuntimeError('Wrong accessors is called. The type of the ' +
+                               'LinearOperator object is: %s'
+                               % self.data_type_name)
+
+        return self.Aop_bf16
+
+    # ========================
+    # get linear operator fp32
+    # ========================
+
+    cdef cuLinearOperator[float]* get_linear_operator_fp32(self) except *:
+        """
+        """
+
+        if self.Aop_fp32 == NULL:
             raise RuntimeError('Linear operator (float type) is not set.')
 
         if self.data_type_name != b'float32':
@@ -168,17 +297,17 @@ cdef class pycuLinearOperator(object):
                                'LinearOperator object is: %s'
                                % self.data_type_name)
 
-        return self.Aop_float
+        return self.Aop_fp32
 
-    # ==========================
-    # get linear operator double
-    # ==========================
+    # ========================
+    # get linear operator fp64
+    # ========================
 
-    cdef cuLinearOperator[double]* get_linear_operator_double(self) except *:
+    cdef cuLinearOperator[double]* get_linear_operator_fp64(self) except *:
         """
         """
 
-        if self.Aop_double == NULL:
+        if self.Aop_fp64 == NULL:
             raise RuntimeError('Linear operator (double type) is not set.')
 
         if self.data_type_name != b'float64':
@@ -186,7 +315,7 @@ cdef class pycuLinearOperator(object):
                                'LinearOperator object is: %s'
                                % self.data_type_name)
 
-        return self.Aop_double
+        return self.Aop_fp64
 
     # =====================
     # get device properties
@@ -199,22 +328,77 @@ cdef class pycuLinearOperator(object):
         if self.device_properties_dict is None:
             self.device_properties_dict = py_query_device()
         return self.device_properties_dict
+    
+    # ============
+    # set symmetry
+    # ============
+
+    cpdef void set_symmetry(self, symmetric) except *:
+        """
+        Sets the matrix A (or matrices A and B in case of affine operator) to
+        be symmetric or non-symmetric.
+        """
+
+        if not isinstance(symmetric, bool):
+            raise ValueError('"symmetric" should be boolean.')
+
+        symmetric = int(symmetric)
+
+        if (self.data_type_name == b'float8_e5m2') and \
+                (self.Aop_fp8_e5m2 != NULL):
+            self.Aop_fp8_e5m2.set_symmetry(symmetric)
+        elif (self.data_type_name == b'float8_e4m3') and \
+                (self.Aop_fp8_e4m3 != NULL):
+            self.Aop_fp8_e4m3.set_symmetry(symmetric)
+        elif (self.data_type_name == b'float16') and (self.Aop_fp16 != NULL):
+            self.Aop_fp16.set_symmetry(symmetric)
+        elif (self.data_type_name == b'bfloat16') and (self.Aop_bf16 != NULL):
+            self.Aop_bf16.set_symmetry(symmetric)
+        elif (self.data_type_name == b'float32') and (self.Aop_fp32 != NULL):
+            self.Aop_fp32.set_symmetry(symmetric)    
+        elif (self.data_type_name == b'float64') and (self.Aop_fp64 != NULL):
+            self.Aop_fp64.set_symmetry(symmetric)
+        else:
+            raise ValueError('Linear operator is not set.')
 
     # ==============
     # set parameters
     # ==============
 
-    def set_parameters(self, parameters_):
+    cpdef void set_parameters(self, parameters) except *:
         """
         This function is only used for the test unit of this class. For the
         actual computations, the parameters are set though ``cLinearOperator``
         object directly, but not by this function.
         """
 
-        if numpy.isscalar(parameters_):
-            self.parameters = numpy.array([parameters_], dtype=float)
+        if numpy.isscalar(parameters):
+            self.parameters = numpy.array([parameters], dtype=float)
+        elif isinstance(parameters, (list, tuple)):
+            self.parameters = numpy.array(parameters, dtype=float)
         else:
-            self.parameters = parameters_
+            self.parameters = parameters
+
+        # Declare memory views for parameters
+        cdef float[:] mv_parameters_fp32
+        cdef double[:] mv_parameters_fp64
+
+        # Declare c pointers for parameters
+        cdef float* c_parameters_fp32
+        cdef double* c_parameters_fp64
+
+        if (self.data_type_name == b'float32') and (self.Aop_fp32 != NULL):
+            mv_parameters_fp32 = self.parameters.astype('float32')
+            c_parameters_fp32 = &mv_parameters_fp32[0]
+            self.Aop_fp32.set_parameters(c_parameters_fp32)
+            
+        elif (self.data_type_name == b'float64') and (self.Aop_fp64 != NULL):
+            mv_parameters_fp64 = self.parameters.astype('float64')
+            c_parameters_fp64 = &mv_parameters_fp64[0]
+            self.Aop_fp64.set_parameters(c_parameters_fp64)
+
+        else:
+            raise ValueError('Linear operator is not set.')
 
     # ===
     # dot
@@ -224,71 +408,58 @@ cdef class pycuLinearOperator(object):
         """
         """
 
-        if vector.dtype != product.dtype:
-            raise TypeError('The input vector and product should have ')
+        # Make sure input vector and matrix have the same data type
+        if vector.dtype != self.data_type_name:
+            vector_typed = vector.astype(self.data_type_name)
+        else:
+            vector_typed = vector
+
+        if vector_typed.dtype != product.dtype:
+            raise TypeError('The input and output vectors should have the '
+                            'same data type.')
 
         # Declare memory views for input vector
-        cdef float[:] mv_vector_float
-        cdef double[:] mv_vector_double
+        cdef float[:] mv_vector_fp32
+        cdef double[:] mv_vector_fp64
 
         # Declare memory views for output product
-        cdef float[:] mv_product_float
-        cdef double[:] mv_product_double
-
-        # Declare memoryviews for parameters
-        cdef float[:] mv_parameters_float
-        cdef double[:] mv_parameters_double
+        cdef float[:] mv_product_fp32
+        cdef double[:] mv_product_fp64
 
         # Declare c pointers for input vector
-        cdef float* c_vector_float
-        cdef double* c_vector_double
+        cdef float* c_vector_fp32
+        cdef double* c_vector_fp64
 
         # Declare c pointers for output product
-        cdef float* c_product_float
-        cdef double* c_product_double
+        cdef float* c_product_fp32
+        cdef double* c_product_fp64
 
-        # Declare c pointers for parameters
-        cdef float* c_parameters_float
-        cdef double* c_parameters_double
-
-        # Dispatch to single, double or quadro precision
-        if vector.dtype == 'float32':
+        # Dispatch to single or double precision
+        if vector_typed.dtype == 'float32':
 
             # input vector
-            mv_vector_float = vector
-            c_vector_float = &mv_vector_float[0]
+            mv_vector_fp32 = vector_typed
+            c_vector_fp32 = &mv_vector_fp32[0]
 
             # output product
-            mv_product_float = product
-            c_product_float = &mv_product_float[0]
-
-            # Set parameters
-            if self.parameters is not None:
-                mv_parameters_float = self.parameters.astype('float32')
-                c_parameters_float = &mv_parameters_float[0]
-                self.Aop_float.set_parameters(c_parameters_float)
+            mv_product_fp32 = product
+            c_product_fp32 = &mv_product_fp32[0]
 
             # Call c object
-            self.Aop_float.dot(c_vector_float, c_product_float)
+            self.Aop_fp32.dot(c_vector_fp32, c_product_fp32)
 
-        elif vector.dtype == 'float64':
+        elif vector_typed.dtype == 'float64':
 
             # input vector
-            mv_vector_double = vector
-            c_vector_double = &mv_vector_double[0]
+            mv_vector_fp64 = vector_typed
+            c_vector_fp64 = &mv_vector_fp64[0]
 
             # output product
-            mv_product_double = product
-            c_product_double = &mv_product_double[0]
-
-            # Set parameters
-            if self.parameters is not None:
-                mv_parameters_double = self.parameters.astype('float64')
-                c_parameters_double = &mv_parameters_double[0]
-                self.Aop_double.set_parameters(c_parameters_double)
+            mv_product_fp64 = product
+            c_product_fp64 = &mv_product_fp64[0]
 
             # Call c object
-            self.Aop_double.dot(c_vector_double, c_product_double)
+            self.Aop_fp64.dot(c_vector_fp64, c_product_fp64)
 
         else:
             raise TypeError('Vector type should be either "float32", or ' +
@@ -302,71 +473,58 @@ cdef class pycuLinearOperator(object):
         """
         """
 
-        if vector.dtype != product.dtype:
-            raise TypeError('The input vector and product should have ')
+        # Make sure input vector and matrix have the same data type
+        if vector.dtype != self.data_type_name:
+            vector_typed = vector.astype(self.data_type_name)
+        else:
+            vector_typed = vector
+
+        if vector_typed.dtype != product.dtype:
+            raise TypeError('The input and output vectors should have the '
+                            'same data type.')
 
         # Declare memory views for input vector
-        cdef float[:] mv_vector_float
-        cdef double[:] mv_vector_double
+        cdef float[:] mv_vector_fp32
+        cdef double[:] mv_vector_fp64
 
         # Declare memory views for output product
-        cdef float[:] mv_product_float
-        cdef double[:] mv_product_double
-
-        # Declare memoryviews for parameters
-        cdef float[:] mv_parameters_float
-        cdef double[:] mv_parameters_double
+        cdef float[:] mv_product_fp32
+        cdef double[:] mv_product_fp64
 
         # Declare c pointers for input vector
-        cdef float* c_vector_float
-        cdef double* c_vector_double
+        cdef float* c_vector_fp32
+        cdef double* c_vector_fp64
 
         # Declare c pointers for output product
-        cdef float* c_product_float
-        cdef double* c_product_double
+        cdef float* c_product_fp32
+        cdef double* c_product_fp64
 
-        # Declare c pointers for parameters
-        cdef float* c_parameters_float
-        cdef double* c_parameters_double
-
-        # Dispatch to single, double or quadro precision
-        if vector.dtype == 'float32':
+        # Dispatch to single or double precision
+        if vector_typed.dtype == 'float32':
 
             # input vector
-            mv_vector_float = vector
-            c_vector_float = &mv_vector_float[0]
+            mv_vector_fp32 = vector_typed
+            c_vector_fp32 = &mv_vector_fp32[0]
 
             # output product
-            mv_product_float = product
-            c_product_float = &mv_product_float[0]
-
-            # Set parameters
-            if self.parameters is not None:
-                mv_parameters_float = self.parameters.astype('float32')
-                c_parameters_float = &mv_parameters_float[0]
-                self.Aop_float.set_parameters(c_parameters_float)
+            mv_product_fp32 = product
+            c_product_fp32 = &mv_product_fp32[0]
 
             # Call c object
-            self.Aop_float.transpose_dot(c_vector_float, c_product_float)
+            self.Aop_fp32.transpose_dot(c_vector_fp32, c_product_fp32)
 
-        elif vector.dtype == 'float64':
+        elif vector_typed.dtype == 'float64':
 
             # input vector
-            mv_vector_double = vector
-            c_vector_double = &mv_vector_double[0]
+            mv_vector_fp64 = vector_typed
+            c_vector_fp64 = &mv_vector_fp64[0]
 
             # output product
-            mv_product_double = product
-            c_product_double = &mv_product_double[0]
-
-            # Set parameters
-            if self.parameters is not None:
-                mv_parameters_double = self.parameters.astype('float64')
-                c_parameters_double = &mv_parameters_double[0]
-                self.Aop_double.set_parameters(c_parameters_double)
+            mv_product_fp64 = product
+            c_product_fp64 = &mv_product_fp64[0]
 
             # Call c object
-            self.Aop_double.transpose_dot(c_vector_double, c_product_double)
+            self.Aop_fp64.transpose_dot(c_vector_fp64, c_product_fp64)
 
         else:
             raise TypeError('Vector type should be either "float32", or ' +

@@ -20,11 +20,12 @@ from .trace_estimator_utilities import get_operator, \
         get_operator_parameters, check_arguments, get_machine_precision, \
         find_num_inquiries, print_summary
 from ..linear_operator import LinearOperator
+from .._definitions import get_config
 
 # Cython
 from .._definitions.types cimport IndexType, FlagType
 from ..functions cimport pyFunction
-cimport openmp
+from .._openmp cimport omp_get_max_threads
 
 # Type names
 cdef char* index_type_name = b'int32'
@@ -53,9 +54,9 @@ cpdef trace_estimator(
         seed,
         num_threads,
         num_gpu_devices,
+        gpu,
         verbose,
-        plot,
-        gpu):
+        plot):
     """
     Computes the trace of inverse of matrix based on stochastic Lanczos
     quadrature (SLQ) method.
@@ -112,8 +113,21 @@ cpdef trace_estimator(
     """
 
     # Set number of parallel openmp threads
-    if num_threads < 1:
-        num_threads = openmp.omp_get_max_threads()
+    if not get_config('use_openmp'):
+        
+        if num_threads > 1:
+            raise ValueError('"num_threads" cannot be greater than "1" '
+                             'since this package is currently not compiled '
+                             'with OpenMP. To utilize greater number of CPU '
+                             'threads with OpenMP parallelization, recompile '
+                             'by setting the environment variable '
+                             '"USE_OPENMP=1".')
+        else:
+            # Set to one as the default value is zero.
+            num_threads = 1
+
+    elif num_threads < 1:
+        num_threads = omp_get_max_threads()
 
     # Check operator A, and convert to a linear operator (if not already)
     Aop = get_operator(A, gram)
@@ -137,10 +151,10 @@ cpdef trace_estimator(
             gram, exponent, min_num_samples, max_num_samples, error_atol,
             error_rtol, confidence_level, outlier_significance_level,
             lanczos_degree, lanczos_tol, orthogonalize, seed, num_threads,
-            num_gpu_devices, verbose, plot, gpu)
+            num_gpu_devices, gpu, verbose, plot)
 
     # Seed value None means using processor time as seed. This is indicated by
-    # a inegative integer in the C part of the code.
+    # a negative integer in the C part of the code.
     if seed is None:
         seed = -1
 
@@ -199,6 +213,10 @@ cpdef trace_estimator(
         pycuAop = Aop.get_linear_operator(gpu=True,
                                           num_gpu_devices=num_gpu_devices)
 
+        # Assume the operator is symmetric (required for SLQ algorithm)
+        if not gram:
+            pycuAop.set_symmetry(True)
+
         # Get device properties
         device_properties_dict = pycuAop.get_device_properties()
 
@@ -249,6 +267,10 @@ cpdef trace_estimator(
         # dispatch execution on cpu
         from .._c_trace_estimator import pyc_trace_estimator
         pycAop = Aop.get_linear_operator(gpu=False)
+
+        # Assume the operator is symmetric (required for SLQ algorithm)
+        if not gram:
+            pycAop.set_symmetry(True)
 
         all_converged = pyc_trace_estimator(
             pycAop,
@@ -327,7 +349,7 @@ cpdef trace_estimator(
         'time':
         {
             'tot_wall_time': tot_wall_time,
-            'alg_wall_time': alg_wall_times[0],
+            'alg_wall_time': float(alg_wall_times[0]),
             'cpu_proc_time': cpu_proc_time
         },
         'device':
@@ -366,14 +388,14 @@ cpdef trace_estimator(
         info['convergence']['samples'] = samples
         info['convergence']['samples_mean'] = trace
     else:
-        info['error']['absolute_error'] = error[0]
+        info['error']['absolute_error'] = float(error[0])
         info['error']['relative_error'] = \
-            error[0] / (numpy.abs(trace[0]) + numpy.finfo(float).eps)
+            float(error[0] / (numpy.abs(trace[0]) + numpy.finfo(float).eps))
         info['convergence']['converged'] = bool(converged[0])
         info['convergence']['num_samples_used'] = num_samples_used[0]
-        info['convergence']['num_outliers'] = num_outliers[0]
+        info['convergence']['num_outliers'] = int(num_outliers[0])
         info['convergence']['samples'] = samples[:, 0]
-        info['convergence']['samples_mean'] = trace[0]
+        info['convergence']['samples_mean'] = float(trace[0])
 
     # print summary
     if verbose:
@@ -381,7 +403,7 @@ cpdef trace_estimator(
 
     # Plot results
     if plot:
-        plot_convergence(info)
+        plot_convergence(info, filename=plot, verbose=verbose)
 
     # return output
     if output_is_array:

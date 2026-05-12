@@ -11,8 +11,7 @@
 # Imports
 # =======
 
-from .._definitions.types cimport DataType, ConstDataType, IndexType, \
-        LongIndexType, FlagType
+from .._definitions.types cimport IndexType, LongIndexType
 from .c_linear_operator cimport cLinearOperator
 
 
@@ -23,20 +22,21 @@ from .c_linear_operator cimport cLinearOperator
 cdef class pycLinearOperator(object):
 
     # Attributes
-    cdef cLinearOperator[float]* Aop_float
-    cdef cLinearOperator[double]* Aop_double
-    cdef cLinearOperator[long double]* Aop_long_double
-    cdef char* data_type_name
-    cdef char* long_index_type_name
+    cdef cLinearOperator[float]* Aop_fp32
+    cdef cLinearOperator[double]* Aop_fp64
+    cdef cLinearOperator[long double]* Aop_fp128
     cdef IndexType num_parameters
+    cdef data_type_name
+    cdef long_index_type_name
     cdef parameters
 
     # Cython methods
     cdef LongIndexType get_num_rows(self) except *
     cdef LongIndexType get_num_columns(self) except *
-    cdef cLinearOperator[float]* get_linear_operator_float(self) except *
-    cdef cLinearOperator[double]* get_linear_operator_double(self) except *
-    cdef cLinearOperator[long double]* get_linear_operator_long_double(
-            self) except *
+    cdef cLinearOperator[float]* get_linear_operator_fp32(self) except *
+    cdef cLinearOperator[double]* get_linear_operator_fp64(self) except *
+    cdef cLinearOperator[long double]* get_linear_operator_fp128(self) except *
+    cpdef void set_symmetry(self, symmetric) except *
+    cpdef void set_parameters(self, parameters) except *
     cpdef void dot(self, vector, product) except *
     cpdef void transpose_dot(self, vector, product) except *

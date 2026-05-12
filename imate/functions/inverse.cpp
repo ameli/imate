@@ -26,7 +26,7 @@
 
 float Inverse::function(const float lambda_) const
 {
-    return 1.0 / lambda_;
+    return 1.0f / lambda_;
 }
 
 
@@ -54,5 +54,5 @@ double Inverse::function(const double lambda_) const
 
 long double Inverse::function(const long double lambda_) const
 {
-    return 1.0 / lambda_;
+    return 1.0l / lambda_;
 }

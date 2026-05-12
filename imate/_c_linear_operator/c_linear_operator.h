@@ -17,6 +17,7 @@
 // =======
 
 #include "../_definitions/types.h"  // FlagType, IndexType, LongIndexType
+#include "./c_linear_operator_base.h"  // cLinearOperatorBase
 
 
 // =================
@@ -34,27 +35,20 @@
 ///
 /// \sa      cMatrix,
 ///          cAffineMatrixFunction,
-///          cuLinearOperator
+///          cuLinearOperator,
+///          cLinearOperatorBase
 
 template <typename DataType>
-class cLinearOperator
+class cLinearOperator : virtual public cLinearOperatorBase
 {
     public:
 
         // Member methods
         cLinearOperator();
 
-        cLinearOperator(
-                const LongIndexType num_rows_,
-                const LongIndexType num_columns_);
-
         virtual ~cLinearOperator();
 
-        LongIndexType get_num_rows() const;
-        LongIndexType get_num_columns() const;
         void set_parameters(DataType* parameters_);
-        IndexType get_num_parameters() const;
-        FlagType is_eigenvalue_relation_known() const;
 
         virtual DataType get_eigenvalue(
                 const DataType* known_parameters,
@@ -72,11 +66,7 @@ class cLinearOperator
     protected:
 
         // Member data
-        const LongIndexType num_rows;
-        const LongIndexType num_columns;
-        FlagType eigenvalue_relation_known;
         DataType* parameters;
-        IndexType num_parameters;
 };
 
 #endif  // _C_LINEAR_OPERATOR_C_LINEAR_OPERATOR_H_

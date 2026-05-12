@@ -12,8 +12,7 @@
 # =======
 
 from .._definitions.types cimport LongIndexType, FlagType
-from .._c_linear_operator.c_csr_matrix cimport cCSRMatrix
-from .cu_linear_operator cimport cuLinearOperator
+from .cu_matrix cimport cuMatrix
 
 
 # =======
@@ -22,7 +21,7 @@ from .cu_linear_operator cimport cuLinearOperator
 
 cdef extern from "cu_csr_matrix.h":
 
-    cdef cppclass cuCSRMatrix[DataType](cCSRMatrix, cuLinearOperator):
+    cdef cppclass cuCSRMatrix[DataType](cuMatrix):
 
         cuCSRMatrix() except +
 
@@ -32,4 +31,5 @@ cdef extern from "cu_csr_matrix.h":
                 const LongIndexType* A_index_pointer_,
                 const LongIndexType num_rows_,
                 const LongIndexType num_columns_,
+                const FlagType A_is_symmetric_,
                 const int num_gpu_devices_) except +

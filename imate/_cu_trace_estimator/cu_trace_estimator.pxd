@@ -52,4 +52,4 @@ cdef extern from "cu_trace_estimator.h":
                 IndexType* num_samples_used,
                 IndexType* num_outliers,
                 FlagType* converged,
-                float& alg_wall_time) nogil
+                double& alg_wall_time) noexcept nogil

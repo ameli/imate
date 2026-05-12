@@ -15,8 +15,14 @@
 
 #include "./cu_matrix_operations.h"
 #include <cassert>  // assert
-#include "./cublas_interface.h"  // cublas_interface
-#include "./cusparse_interface.h"  // cusparse_interface
+#include <omp.h>  // omp_in_parallel
+#include "../_cu_definitions/cu_types.h" // __nv_fp8_e5m2, __nv_fp8_e4m3,
+                                         // __half, __nv_bfloat16
+#include "../_cu_arithmetics/cu_arithmetics.h"  // cu_arithmetics
+#include "./cublas_api.h"  // cublas_api
+#include "./cusparse_api.h"  // cusparse_api
+#include "../_definitions/definitions.h"  // LARGE_ARRAY_SIZE
+#include <stdexcept>  // std::invalid_argument
 
 
 // ============
@@ -51,19 +57,19 @@
 template <typename DataType>
 void cuMatrixOperations<DataType>::dense_matvec(
         cublasHandle_t cublas_handle,
-        const DataType* A,
-        const DataType* b,
+        const DataType* RESTRICT A,
+        const DataType* RESTRICT b,
         const LongIndexType num_rows,
         const LongIndexType num_columns,
         const FlagType A_is_row_major,
-        DataType* c)
+        DataType* RESTRICT c)
 {
     cublasOperation_t trans;
     int m;
     int n;
     int lda;
-    DataType alpha = 1.0;
-    DataType beta = 0.0;
+    DataType alpha = cu_arithmetics::cast<float, DataType>(1.0f);
+    DataType beta = cu_arithmetics::cast<float, DataType>(0.0f);
     int incb = 1;
     int incc = 1;
 
@@ -71,12 +77,14 @@ void cuMatrixOperations<DataType>::dense_matvec(
     // row_major matrix.
     if (A_is_row_major)
     {
+        // A is row-major, not compatible with cublas. Use transpose instead.
         trans = CUBLAS_OP_T;
         m = num_columns;
         n = num_rows;
     }
     else
     {
+        // A is column-major, compatible with cublas.
         trans = CUBLAS_OP_N;
         m = num_rows;
         n = num_columns;
@@ -85,10 +93,10 @@ void cuMatrixOperations<DataType>::dense_matvec(
     lda = m;
 
     // Calling cublas
-    cublasStatus_t status = cublas_interface::cublasXgemv(cublas_handle, trans,
-                                                          m, n, &alpha, A, lda,
-                                                          b, incb, &beta, c,
-                                                          incc);
+    cublasStatus_t status = cublas_api::cublasXgemv<DataType>(
+            cublas_handle, trans, m, n, &alpha, A, lda, b, incb, &beta, c,
+            incc);
+
     assert(status == CUBLAS_STATUS_SUCCESS);
 }
 
@@ -127,19 +135,25 @@ void cuMatrixOperations<DataType>::dense_matvec(
 template <typename DataType>
 void cuMatrixOperations<DataType>::dense_matvec_plus(
         cublasHandle_t cublas_handle,
-        const DataType* A,
-        const DataType* b,
+        const DataType* RESTRICT A,
+        const DataType* RESTRICT b,
         const DataType alpha,
         const LongIndexType num_rows,
         const LongIndexType num_columns,
         const FlagType A_is_row_major,
-        DataType* c)
+        DataType* RESTRICT c)
 {
+    DataType zero = cu_arithmetics::cast<float, DataType>(0.0f);
+    if (cu_arithmetics::is_equal(alpha, zero))
+    {
+        return;
+    }
+    
     cublasOperation_t trans;
     int m;
     int n;
     int lda;
-    DataType beta = 1.0;
+    DataType beta = cu_arithmetics::cast<float, DataType>(1.0f);
     int incb = 1;
     int incc = 1;
 
@@ -161,10 +175,10 @@ void cuMatrixOperations<DataType>::dense_matvec_plus(
     lda = m;
 
     // Calling cublas
-    cublasStatus_t status = cublas_interface::cublasXgemv(cublas_handle, trans,
-                                                          m, n, &alpha, A, lda,
-                                                          b, incb, &beta, c,
-                                                          incc);
+    cublasStatus_t status = cublas_api::cublasXgemv<DataType>(
+            cublas_handle, trans, m, n, &alpha, A, lda, b, incb, &beta, c,
+            incc);
+
     assert(status == CUBLAS_STATUS_SUCCESS);
 }
 
@@ -202,19 +216,19 @@ void cuMatrixOperations<DataType>::dense_matvec_plus(
 template <typename DataType>
 void cuMatrixOperations<DataType>::dense_transposed_matvec(
         cublasHandle_t cublas_handle,
-        const DataType* A,
-        const DataType* b,
+        const DataType* RESTRICT A,
+        const DataType* RESTRICT b,
         const LongIndexType num_rows,
         const LongIndexType num_columns,
         const FlagType A_is_row_major,
-        DataType* c)
+        DataType* RESTRICT c)
 {
     cublasOperation_t trans;
     int m;
     int n;
     int lda;
-    DataType alpha = 1.0;
-    DataType beta = 0.0;
+    DataType alpha = cu_arithmetics::cast<float, DataType>(1.0f);
+    DataType beta = cu_arithmetics::cast<float, DataType>(0.0f);
     int incb = 1;
     int incc = 1;
 
@@ -236,10 +250,10 @@ void cuMatrixOperations<DataType>::dense_transposed_matvec(
     lda = m;
 
     // Calling cublas
-    cublasStatus_t status = cublas_interface::cublasXgemv(cublas_handle, trans,
-                                                          m, n, &alpha, A, lda,
-                                                          b, incb, &beta, c,
-                                                          incc);
+    cublasStatus_t status = cublas_api::cublasXgemv<DataType>(
+            cublas_handle, trans, m, n, &alpha, A, lda, b, incb, &beta, c,
+            incc);
+
     assert(status == CUBLAS_STATUS_SUCCESS);
 }
 
@@ -279,15 +293,16 @@ void cuMatrixOperations<DataType>::dense_transposed_matvec(
 template <typename DataType>
 void cuMatrixOperations<DataType>::dense_transposed_matvec_plus(
         cublasHandle_t cublas_handle,
-        const DataType* A,
-        const DataType* b,
+        const DataType* RESTRICT A,
+        const DataType* RESTRICT b,
         const DataType alpha,
         const LongIndexType num_rows,
         const LongIndexType num_columns,
         const FlagType A_is_row_major,
-        DataType* c)
+        DataType* RESTRICT c)
 {
-    if (alpha == 0.0)
+    DataType zero = cu_arithmetics::cast<float, DataType>(0.0f);
+    if (cu_arithmetics::is_equal(alpha, zero))
     {
         return;
     }
@@ -296,7 +311,7 @@ void cuMatrixOperations<DataType>::dense_transposed_matvec_plus(
     int m;
     int n;
     int lda;
-    DataType beta = 0.0;
+    DataType beta = cu_arithmetics::cast<float, DataType>(0.0f);
     int incb = 1;
     int incc = 1;
 
@@ -318,10 +333,10 @@ void cuMatrixOperations<DataType>::dense_transposed_matvec_plus(
     lda = m;
 
     // Calling cublas
-    cublasStatus_t status = cublas_interface::cublasXgemv(cublas_handle, trans,
-                                                          m, n, &alpha, A, lda,
-                                                          b, incb, &beta, c,
-                                                          incc);
+    cublasStatus_t status = cublas_api::cublasXgemv<DataType>(
+            cublas_handle, trans, m, n, &alpha, A, lda, b, incb, &beta, c,
+            incc);
+
     assert(status == CUBLAS_STATUS_SUCCESS);
 }
 
@@ -360,30 +375,14 @@ void cuMatrixOperations<DataType>::dense_transposed_matvec_plus(
 template <typename DataType>
 void cuMatrixOperations<DataType>::csr_matvec(
         cusparseHandle_t cusparse_handle,
-        const DataType* A_data,
-        const LongIndexType* A_column_indices,
-        const LongIndexType* A_index_pointer,
-        const DataType* b,
+        const DataType* RESTRICT A_data,
+        const LongIndexType* RESTRICT A_column_indices,
+        const LongIndexType* RESTRICT A_index_pointer,
+        const DataType* RESTRICT b,
         const LongIndexType num_rows,
-        DataType* c)
+        DataType* RESTRICT c)
 {
-    LongIndexType index_pointer;
-    LongIndexType row;
-    LongIndexType column;
-    DataType sum;
-
-    for (row=0; row < num_rows; ++row)
-    {
-        sum = 0.0;
-        for (index_pointer=A_index_pointer[row];
-             index_pointer < A_index_pointer[row+1];
-             ++index_pointer)
-        {
-            column = A_column_indices[index_pointer];
-            sum += A_data[index_pointer] * b[column];
-        }
-        c[row] = sum;
-    }
+    throw std::runtime_error("Function not implemented.");
 }
 
 
@@ -425,36 +424,15 @@ void cuMatrixOperations<DataType>::csr_matvec(
 template <typename DataType>
 void cuMatrixOperations<DataType>::csr_matvec_plus(
         cusparseHandle_t cusparse_handle,
-        const DataType* A_data,
-        const LongIndexType* A_column_indices,
-        const LongIndexType* A_index_pointer,
-        const DataType* b,
+        const DataType* RESTRICT A_data,
+        const LongIndexType* RESTRICT A_column_indices,
+        const LongIndexType* RESTRICT A_index_pointer,
+        const DataType* RESTRICT b,
         const DataType alpha,
         const LongIndexType num_rows,
-        DataType* c)
+        DataType* RESTRICT c)
 {
-    if (alpha == 0.0)
-    {
-        return;
-    }
-
-    LongIndexType index_pointer;
-    LongIndexType row;
-    LongIndexType column;
-    DataType sum;
-
-    for (row=0; row < num_rows; ++row)
-    {
-        sum = 0.0;
-        for (index_pointer=A_index_pointer[row];
-             index_pointer < A_index_pointer[row+1];
-             ++index_pointer)
-        {
-            column = A_column_indices[index_pointer];
-            sum += A_data[index_pointer] * b[column];
-        }
-        c[row] += alpha * sum;
-    }
+    throw std::runtime_error("Function not implemented.");
 }
 
 
@@ -494,34 +472,15 @@ void cuMatrixOperations<DataType>::csr_matvec_plus(
 template <typename DataType>
 void cuMatrixOperations<DataType>::csr_transposed_matvec(
         cusparseHandle_t cusparse_handle,
-        const DataType* A_data,
-        const LongIndexType* A_column_indices,
-        const LongIndexType* A_index_pointer,
-        const DataType* b,
+        const DataType* RESTRICT A_data,
+        const LongIndexType* RESTRICT A_column_indices,
+        const LongIndexType* RESTRICT A_index_pointer,
+        const DataType* RESTRICT b,
         const LongIndexType num_rows,
         const LongIndexType num_columns,
-        DataType* c)
+        DataType* RESTRICT c)
 {
-    LongIndexType index_pointer;
-    LongIndexType row;
-    LongIndexType column;
-
-    // Initialize output to zero
-    for (column=0; column < num_columns; ++column)
-    {
-        c[column] = 0.0;
-    }
-
-    for (row=0; row < num_rows; ++row)
-    {
-        for (index_pointer=A_index_pointer[row];
-             index_pointer < A_index_pointer[row+1];
-             ++index_pointer)
-        {
-            column = A_column_indices[index_pointer];
-            c[column] += A_data[index_pointer] * b[row];
-        }
-    }
+    throw std::runtime_error("Function not implemented.");
 }
 
 
@@ -565,34 +524,16 @@ void cuMatrixOperations<DataType>::csr_transposed_matvec(
 template <typename DataType>
 void cuMatrixOperations<DataType>::csr_transposed_matvec_plus(
         cusparseHandle_t cusparse_handle,
-        const DataType* A_data,
-        const LongIndexType* A_column_indices,
-        const LongIndexType* A_index_pointer,
-        const DataType* b,
+        const DataType* RESTRICT A_data,
+        const LongIndexType* RESTRICT A_column_indices,
+        const LongIndexType* RESTRICT A_index_pointer,
+        const DataType* RESTRICT b,
         const DataType alpha,
         const LongIndexType num_rows,
         const LongIndexType num_columns,
-        DataType* c)
+        DataType* RESTRICT c)
 {
-    if (alpha == 0.0)
-    {
-        return;
-    }
-
-    LongIndexType index_pointer;
-    LongIndexType row;
-    LongIndexType column;
-
-    for (row=0; row < num_rows; ++row)
-    {
-        for (index_pointer=A_index_pointer[row];
-             index_pointer < A_index_pointer[row+1];
-             ++index_pointer)
-        {
-            column = A_column_indices[index_pointer];
-            c[column] += alpha * A_data[index_pointer] * b[row];
-        }
-    }
+    throw std::runtime_error("Function not implemented.");
 }
 
 
@@ -632,34 +573,15 @@ void cuMatrixOperations<DataType>::csr_transposed_matvec_plus(
 template <typename DataType>
 void cuMatrixOperations<DataType>::csc_matvec(
         cusparseHandle_t cusparse_handle,
-        const DataType* A_data,
-        const LongIndexType* A_row_indices,
-        const LongIndexType* A_index_pointer,
-        const DataType* b,
+        const DataType* RESTRICT A_data,
+        const LongIndexType* RESTRICT A_row_indices,
+        const LongIndexType* RESTRICT A_index_pointer,
+        const DataType* RESTRICT b,
         const LongIndexType num_rows,
         const LongIndexType num_columns,
-        DataType* c)
+        DataType* RESTRICT c)
 {
-    LongIndexType index_pointer;
-    LongIndexType row;
-    LongIndexType column;
-
-    // Initialize output to zero
-    for (row=0; row < num_rows; ++row)
-    {
-        c[row] = 0.0;
-    }
-
-    for (column=0; column < num_columns; ++column)
-    {
-        for (index_pointer=A_index_pointer[column];
-             index_pointer < A_index_pointer[column+1];
-             ++index_pointer)
-        {
-            row = A_row_indices[index_pointer];
-            c[row] += A_data[index_pointer] * b[column];
-        }
-    }
+    throw std::runtime_error("Function not implemented.");
 }
 
 
@@ -703,34 +625,16 @@ void cuMatrixOperations<DataType>::csc_matvec(
 template <typename DataType>
 void cuMatrixOperations<DataType>::csc_matvec_plus(
         cusparseHandle_t cusparse_handle,
-        const DataType* A_data,
-        const LongIndexType* A_row_indices,
-        const LongIndexType* A_index_pointer,
-        const DataType* b,
+        const DataType* RESTRICT A_data,
+        const LongIndexType* RESTRICT A_row_indices,
+        const LongIndexType* RESTRICT A_index_pointer,
+        const DataType* RESTRICT b,
         const DataType alpha,
         const LongIndexType num_rows,
         const LongIndexType num_columns,
-        DataType* c)
+        DataType* RESTRICT c)
 {
-    if (alpha == 0.0)
-    {
-        return;
-    }
-
-    LongIndexType index_pointer;
-    LongIndexType row;
-    LongIndexType column;
-
-    for (column=0; column < num_columns; ++column)
-    {
-        for (index_pointer=A_index_pointer[column];
-             index_pointer < A_index_pointer[column+1];
-             ++index_pointer)
-        {
-            row = A_row_indices[index_pointer];
-            c[row] += alpha * A_data[index_pointer] * b[column];
-        }
-    }
+    throw std::runtime_error("Function not implemented.");
 }
 
 
@@ -769,30 +673,14 @@ void cuMatrixOperations<DataType>::csc_matvec_plus(
 template <typename DataType>
 void cuMatrixOperations<DataType>::csc_transposed_matvec(
         cusparseHandle_t cusparse_handle,
-        const DataType* A_data,
-        const LongIndexType* A_row_indices,
-        const LongIndexType* A_index_pointer,
-        const DataType* b,
+        const DataType* RESTRICT A_data,
+        const LongIndexType* RESTRICT A_row_indices,
+        const LongIndexType* RESTRICT A_index_pointer,
+        const DataType* RESTRICT b,
         const LongIndexType num_columns,
-        DataType* c)
+        DataType* RESTRICT c)
 {
-    LongIndexType index_pointer;
-    LongIndexType row;
-    LongIndexType column;
-    DataType sum;
-
-    for (column=0; column < num_columns; ++column)
-    {
-        sum = 0.0;
-        for (index_pointer=A_index_pointer[column];
-             index_pointer < A_index_pointer[column+1];
-             ++index_pointer)
-        {
-            row = A_row_indices[index_pointer];
-            sum += A_data[index_pointer] * b[row];
-        }
-        c[column] = sum;
-    }
+    throw std::runtime_error("Function not implemented.");
 }
 
 
@@ -834,36 +722,15 @@ void cuMatrixOperations<DataType>::csc_transposed_matvec(
 template <typename DataType>
 void cuMatrixOperations<DataType>::csc_transposed_matvec_plus(
         cusparseHandle_t cusparse_handle,
-        const DataType* A_data,
-        const LongIndexType* A_row_indices,
-        const LongIndexType* A_index_pointer,
-        const DataType* b,
+        const DataType* RESTRICT A_data,
+        const LongIndexType* RESTRICT A_row_indices,
+        const LongIndexType* RESTRICT A_index_pointer,
+        const DataType* RESTRICT b,
         const DataType alpha,
         const LongIndexType num_columns,
-        DataType* c)
+        DataType* RESTRICT c)
 {
-    if (alpha == 0.0)
-    {
-        return;
-    }
-
-    LongIndexType index_pointer;
-    LongIndexType row;
-    LongIndexType column;
-    DataType sum;
-
-    for (column=0; column < num_columns; ++column)
-    {
-        sum = 0.0;
-        for (index_pointer=A_index_pointer[column];
-             index_pointer < A_index_pointer[column+1];
-             ++index_pointer)
-        {
-            row = A_row_indices[index_pointer];
-            sum += A_data[index_pointer] * b[row];
-        }
-        c[column] += alpha * sum;
-    }
+    throw std::runtime_error("Function not implemented.");
 }
 
 
@@ -883,7 +750,7 @@ void cuMatrixOperations<DataType>::csc_transposed_matvec_plus(
 ///             Depending on \c tridiagonal, the matrix is upper bi-diagonal or
 ///             symmetric tri-diagonal.
 ///
-/// \param[in]  cusparse_handle
+/// \param[in]  cublas_handle
 ///             The cuSparse object handle.
 /// \param[in]  diagonals
 ///             An array of length \c n. All elements \c diagonals create the
@@ -914,31 +781,14 @@ void cuMatrixOperations<DataType>::csc_transposed_matvec_plus(
 
 template <typename DataType>
 void cuMatrixOperations<DataType>::create_band_matrix(
-        cusparseHandle_t cusparse_handle,
-        const DataType* diagonals,
-        const DataType* supdiagonals,
+        cusparseHandle_t cublas_handle,
+        const DataType* RESTRICT diagonals,
+        const DataType* RESTRICT supdiagonals,
         const IndexType non_zero_size,
         const FlagType tridiagonal,
-        DataType** matrix)
+        DataType** RESTRICT matrix)
 {
-    for (IndexType j=0; j < non_zero_size; ++j)
-    {
-        // Diagonals
-        matrix[j][j] = diagonals[j];
-
-        // Off diagonals
-        if (j < non_zero_size-1)
-        {
-            // Sup-diagonal
-            matrix[j][j+1] = supdiagonals[j];
-
-            // Sub-diagonal, making symmetric tri-diagonal matrix
-            if (tridiagonal)
-            {
-                matrix[j+1][j] = supdiagonals[j];
-            }
-        }
-    }
+    throw std::runtime_error("Function not implemented.");
 }
 
 
@@ -946,5 +796,26 @@ void cuMatrixOperations<DataType>::create_band_matrix(
 // Explicit template instantiation
 // ===============================
 
-template class cuMatrixOperations<float>;
-template class cuMatrixOperations<double>;
+#if defined(USE_CUDA_FP8_E5M2) && (USE_CUDA_FP8_E5M2 == 1)
+    template class cuMatrixOperations<__nv_fp8_e5m2>;
+#endif
+
+#if defined(USE_CUDA_FP8_E4M3) && (USE_CUDA_FP8_E4M3 == 1)
+    template class cuMatrixOperations<__nv_fp8_e4m3>;
+#endif
+
+#if defined(USE_CUDA_FP16) && (USE_CUDA_FP16 == 1)
+    template class cuMatrixOperations<__half>;
+#endif
+
+#if defined(USE_CUDA_BF16) && (USE_CUDA_BF16 == 1)
+    template class cuMatrixOperations<__nv_bfloat16>;
+#endif
+
+#if defined(USE_CUDA_FP32) && (USE_CUDA_FP32 == 1)
+    template class cuMatrixOperations<float>;
+#endif
+
+#if defined(USE_CUDA_FP64) && (USE_CUDA_FP64 == 1)
+    template class cuMatrixOperations<double>;
+#endif

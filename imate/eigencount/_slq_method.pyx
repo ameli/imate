@@ -237,11 +237,15 @@ def slq_method(
     verbose : bool, default=False
         Prints extra information about the computations.
 
-    plot : bool, default=False
-        Plots convergence of samples. To this end, `matplotlib` package should
-        be installed. If no display is available (such as running this code on
-        remote machines), the plots are saved as an `SVG` file in the current
-        directory.
+    plot : bool or str, default=False
+        If `True`, convergence of samples will be plotted. If no graphical
+        backend is available (such as executing on remote machines) the plot is
+        instead saved in the current directory as both ``svg`` and ``pdf``
+        format. If ``plot`` is a string, the plot is not shown, rather saved
+        with a filename as the given string. If the filename does not contain
+        file extension, the plot is saved in both ``svg`` and ``pdf`` formats.
+        If the filename does not have directory path, the plot is saved in the
+        current directory.
 
     Returns
     -------
@@ -845,9 +849,9 @@ def slq_method(
         seed,
         num_threads,
         num_gpu_devices,
+        gpu,
         verbose,
-        plot,
-        gpu)
+        plot)
 
     del matrix_function
 

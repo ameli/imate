@@ -22,6 +22,7 @@
 
 #include <cmath>  // sqrt, log, exp, erf, INFINITY, M_PI
 #include "./special_functions.h"
+#include "../_c_arithmetics/c_arithmetics.h"  // c_arithmetics
 
 
 // ====
@@ -31,7 +32,7 @@
 /// \brief sign function.
 ///
 
-double sign(const double x)
+double _sign(const double x)
 {
     return (x > 0) - (x < 0);
 }
@@ -56,7 +57,8 @@ double sign(const double x)
 ///            \c [-1, 1] is in the order of 1e-15 compared to
 ///            \c scipy.special.erfinv function.
 ///
-/// \param[in] Input value, a float number between -1 to 1.
+/// \param[in] x
+///            Input value, a float number between -1 to 1.
 ///
 /// \return    The inverse error function ranging from -INFINITY to INFINITY.
 
@@ -66,9 +68,9 @@ double erf_inv(const double x)
     double r;
 
     // Check extreme values
-    if ((x == 1.0) || (x == -1.0))
+    if (c_arithmetics::is_equal(x, 1.0) || c_arithmetics::is_equal(x, -1.0))
     {
-        r = sign(x) * INFINITY;
+        r = _sign(x) * INFINITY;
         return r;
     }
 
@@ -77,7 +79,7 @@ double erf_inv(const double x)
     double c[4] = {-1.970840454, -1.62490649, 3.429567803, 1.641345311};
     double d[3] = {1.0, 3.543889200, 1.637067800};
 
-    double z = sign(x) * x;
+    double z = _sign(x) * x;
 
     if (z <= 0.7)
     {
@@ -92,8 +94,8 @@ double erf_inv(const double x)
         r /= ((d[2] * y + d[1]) * y + d[0]);
     }
 
-    r = r * sign(x);
-    z = z * sign(x);
+    r = r * _sign(x);
+    z = z * _sign(x);
 
     // These two lines below are identical and repeated for double refinement.
     // Comment one line below for a single refinement of the Newton method.

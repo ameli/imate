@@ -49,7 +49,8 @@ cdef class pyRandomNumberGenerator(object):
     # get random number generator
     # ===========================
 
-    cdef RandomNumberGenerator* get_random_number_generator(self) nogil:
+    cdef RandomNumberGenerator* get_random_number_generator(
+            self) noexcept nogil:
         """
         Returns a pointer to an instance of ``RandomNumberGenerator``.
         """

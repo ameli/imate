@@ -25,6 +25,20 @@
 // c CSR Matrix
 // ============
 
+/// \class   cCSRMatrix
+///
+/// \brief   Container for CSR matrices.
+///
+/// \details The \c cCSRMatrix holds a two-dimensional compressed sparse row
+///          matrix, and can perofrom matrix-vector product and transposed
+///          matrix-vector product.
+///
+/// \sa      cMatrix,
+///          cDenseMatrix,
+///          cCSCMatrix,
+///          cCSRAffineMatrixFunction,
+///          cuCSRMatrix
+
 template <typename DataType>
 class cCSRMatrix : public cMatrix<DataType>
 {
@@ -38,7 +52,8 @@ class cCSRMatrix : public cMatrix<DataType>
                 const LongIndexType* A_indices_,
                 const LongIndexType* A_index_pointer_,
                 const LongIndexType num_rows_,
-                const LongIndexType num_columns_);
+                const LongIndexType num_columns_,
+                const FlagType A_is_symmetric);
 
         virtual ~cCSRMatrix();
 

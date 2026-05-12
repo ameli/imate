@@ -28,4 +28,4 @@ cdef extern from "random_array_generator.h":
                 RandomNumberGenerator& random_number_generator,
                 DataType* array,
                 const LongIndexType array_size,
-                const IndexType num_threads) nogil
+                const IndexType num_threads) noexcept nogil

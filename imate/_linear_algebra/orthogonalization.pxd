@@ -24,11 +24,11 @@ cdef void gram_schmidt_process(
         const LongIndexType vector_size,
         const IndexType num_vectors,
         const FlagType ortho_depth,
-        DataType* r) nogil
+        DataType* r) noexcept nogil
 
 # Orthogonalize Vectors
 cdef void orthogonalize_vectors(
         DataType* vectors,
         const LongIndexType vector_size,
         const IndexType num_vectors,
-        const IndexType seed) nogil
+        const IndexType seed) noexcept nogil

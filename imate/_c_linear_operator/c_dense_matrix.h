@@ -25,6 +25,20 @@
 // c Dense Matrix
 // ==============
 
+/// \class   cDenseMatrix
+///
+/// \brief   Container for dense matrices.
+///
+/// \details The \c cDenseMatrix holds a two-dimensional dense matrix, and
+///          can perofrom matrix-vector product and transposed matrix-vector
+///          product.
+///
+/// \sa      cMatrix,
+///          cCSRMatrix,
+///          cCSCMatrix,
+///          cDenseAffineMatrixFunction,
+///          cuDenseMatrix
+
 template <typename DataType>
 class cDenseMatrix : public cMatrix<DataType>
 {
@@ -37,7 +51,8 @@ class cDenseMatrix : public cMatrix<DataType>
                 const DataType* A_,
                 const LongIndexType num_rows_,
                 const LongIndexType num_columns_,
-                const FlagType A_is_row_major_);
+                const FlagType A_is_row_major_,
+                const FlagType A_is_symmetric_);
 
         virtual ~cDenseMatrix();
 

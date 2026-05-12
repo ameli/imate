@@ -14,7 +14,10 @@
 // =======
 
 #include "./random_array_generator.h"
-#include <omp.h>  // omp_set_num_threads
+#include "../_definitions/definitions.h"  // USE_OPENMP
+#if defined(USE_OPENMP) && (USE_OPENMP == 1)
+    #include <omp.h>  // omp_set_num_threads
+#endif
 #include <stdint.h>  // uint64_t
 #include "../_c_trace_estimator/c_orthogonalization.h"  // cOrthogonalization
 #include "../_c_basic_algebra/c_vector_operations.h"  // cVectorOperations
@@ -74,7 +77,9 @@ void RandomArrayGenerator<DataType>::generate_random_array(
     if (num_threads > 0)
     {
         // num_threads parallel threads will be created in this function.
-        omp_set_num_threads(num_threads);
+        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+            omp_set_num_threads(num_threads);
+        #endif
     }
 
     // Finding the thread id. It depends where we call omp_get_thread_num. If
@@ -86,7 +91,11 @@ void RandomArrayGenerator<DataType>::generate_random_array(
     {
         // If num_threads is zero (which means we will not create a new thread
         // in this function), we get the thread id of the parent function.
-        thread_id = omp_get_thread_num();
+        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+            thread_id = omp_get_thread_num();
+        #else
+            thread_id = 0;
+        #endif
     }
 
     // Number of bits to generate in each call of the random generator. This is
@@ -101,7 +110,9 @@ void RandomArrayGenerator<DataType>::generate_random_array(
     // Shared-memory parallelism over individual row vectors. The parallel
     // section only works if num_threads is non-zero. Otherwise it runs in
     // serial order.
+    #if defined(USE_OPENMP) && (USE_OPENMP == 1)
     #pragma omp parallel if (num_threads > 0)
+    #endif
     {
         // If num_threads is zero, the following thread_id is the thread id
         // that the parent (caller) function created outside of this function.
@@ -109,10 +120,16 @@ void RandomArrayGenerator<DataType>::generate_random_array(
         // thread id that is created inside this parallel loop.
         if (num_threads > 0)
         {
-            thread_id = omp_get_thread_num();
+            #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+                thread_id = omp_get_thread_num();
+            #else
+                thread_id = 0;
+            #endif
         }
 
+        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
         #pragma omp for schedule(static)
+        #endif
         for (LongIndexType i=0; i < num_chunks; ++i)
         {
             // Generate 64 bits (one integer)

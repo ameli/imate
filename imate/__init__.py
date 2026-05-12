@@ -44,21 +44,23 @@ def _check_import():
     _project_dir = os.path.dirname(_package_dir)                # It is: ../../
 
     if (_user_current_dir == _project_dir):
-        raise RuntimeError('You are in the source-code directory of this ' +
-                           'package. Importing the package will fail. To ' +
-                           'resolve this issue, consider changing the ' +
-                           'current directory outside of the directory of ' +
-                           'the source-code of this package. Your current ' +
-                           'directory is: %s.' % _user_current_dir)
+        msg = 'You are in the source-code directory of this package. ' + \
+               'Importing the package will fail. To resolve this issue, ' + \
+               'consider changing the current directory outside of the ' + \
+               'directory of the source-code of this package. Your ' + \
+               'current directory is: %s.' % _user_current_dir
 
-    if (_executable_dir == _project_dir):
-        raise RuntimeError('You are running a script in the source-code ' +
-                           'directory of this package. Importing the ' +
-                           'package will fail. To resolve this issue, ' +
-                           'consider changing the script directory outside ' +
-                           'of the directory of the source-code of this ' +
-                           'package. Your current directory is: %s.'
-                           % _executable_dir)
+        sys.stderr.write(msg)
+
+    elif (_executable_dir == _project_dir):
+        msg = 'You are running a script in the source-code directory of ' + \
+               'this package. Importing the package will fail. To ' + \
+               'resolve this issue, consider changing the script ' + \
+               'directory outside of the directory of the source-code of ' + \
+               'this package. Your current directory is: ' + \
+               '%s.' % _executable_dir
+
+        sys.stderr.write(msg)
 
 
 # =======
@@ -82,6 +84,7 @@ try:
     from .sample_matrices import correlation_matrix                # noqa: E402
     from .sample_matrices import toeplitz                          # noqa: E402
     from .device import Timer, Memory, info
+    from ._definitions import get_config                           # noqa: E402
 
 except Exception as e:
     # Before printing the exception, check if the exception is raised due to
@@ -110,6 +113,7 @@ __all__ = [
         'toeplitz',
         'Timer',
         'Memory',
-        'info']
+        'info',
+        'get_config']
 
 from .__version__ import __version__                          # noqa: F401 E402

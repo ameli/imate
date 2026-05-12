@@ -23,10 +23,20 @@ def density(
         A,
         gram=False,
         p=1.0,
-        mu=1.0,
-        sigma=1.0,
+        mu=None,
+        sigma=None,
+        kernel='normal',
+        sensitivity=0.5,
+        min_quant=0.5,
+        bw_iter=3,
+        scale_bw=1.0,
+        integrator='simpson',
+        log_scale=False,
+        cumulative=False,
         return_info=False,
         method='eigenvalue',
+        plot=False,
+        verbose=False,
         **options):
     """
     Estimate the spectral density of matrix or linear operator.
@@ -124,9 +134,10 @@ def density(
     -------
 
     density : float or numpy.array
-        Trace-exponential of matrix. If ``method=slq`` and if `A` is of type
-        :class:`imate.AffineMatrixFunction` with an array of ``parameters``,
-        then the output is an array.
+        Spectral density
+
+    mu : float or numpy.array
+        Eigenvalues where the spectral density is evaluated for them
 
     info : dict
         (Only if ``return_info`` is `True`) A dictionary of information with at
@@ -388,10 +399,16 @@ def density(
 
     if method == 'eigenvalue':
         return eigenvalue_method(A, gram=gram, p=p, mu=mu, sigma=sigma,
-                                 return_info=return_info, **options)
+                                 kernel=kernel, sensitivity=sensitivity,
+                                 min_quant=min_quant, bw_iter=bw_iter,
+                                 scale_bw=scale_bw, integrator=integrator,
+                                 log_scale=log_scale, cumulative=cumulative,
+                                 return_info=return_info, plot=plot,
+                                 verbose=verbose, **options)
 
     elif method == 'slq':
         return slq_method(A, gram=gram, p=p, mu=mu, sigma=sigma,
+                          log_scale=log_scale, cumulative=cumulative,
                           return_info=return_info, **options)
 
     else:

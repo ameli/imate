@@ -27,7 +27,7 @@
 
 float Logarithm::function(const float lambda_) const
 {
-    return log(lambda_);
+    return std::log(lambda_);
 }
 
 
@@ -41,7 +41,7 @@ float Logarithm::function(const float lambda_) const
 
 double Logarithm::function(const double lambda_) const
 {
-    return log(lambda_);
+    return std::log(lambda_);
 }
 
 
@@ -55,5 +55,5 @@ double Logarithm::function(const double lambda_) const
 
 long double Logarithm::function(const long double lambda_) const
 {
-    return log(lambda_);
+    return std::log(lambda_);
 }

@@ -13,6 +13,7 @@
 
 from .linear_operator import LinearOperator
 from scipy.sparse import isspmatrix
+from .._array import get_data_type_name
 
 
 # ======================
@@ -50,6 +51,12 @@ class AffineMatrixFunction(LinearOperator):
         either in row-ordering (`C` style) or column-ordering (`Fortran`
         style).
 
+    A_is_symmetric : bool, default=False
+        If `True`, the matrix `A` is assumed to be symmetric.
+
+    B_is_symmetric : bool, default=False
+        If `True`, the matrix `B` is assumed to be symmetric.
+
         .. note::
 
             `128-bit` data type is not supported on GPU.
@@ -67,6 +74,12 @@ class AffineMatrixFunction(LinearOperator):
 
     B : numpy.ndarray or scipy.sparse, (n, n)
         Input matrix `B` from python object.
+
+    A_is_symmetric : bool, default=False
+        If `True`, the matrix `A` is assumed to be symmetric.
+
+    B_is_symmetric : bool, default=False
+        If `True`, the matrix `B` is assumed to be symmetric.
 
     cpu_Aop : object
         Matrix object `A` on CPU.
@@ -275,34 +288,36 @@ class AffineMatrixFunction(LinearOperator):
     # init
     # ====
 
-    def __init__(self, A, B=None):
+    def __init__(self, A, B=None, A_is_symmetric=False, B_is_symmetric=False):
         """
         """
 
         # Calling base class to initialize member data
         super(AffineMatrixFunction, self).__init__()
 
-        # A reference to numpy or scipt sparse matrices
+        # A reference to numpy or scipy sparse matrices
         self.A = A
         self.B = B
+        self.A_is_symmetric = A_is_symmetric
+        self.B_is_symmetric = B_is_symmetric
         self.num_parameters = 1
-        self.set_data_type_name(self.A)
+        self.data_type_name = get_data_type_name(self.A)
 
     # ==========
     # initialize
     # ==========
 
-    def initialize(self, gpu, num_gpu_devices):
+    def initialize(self, gpu=False, num_gpu_devices=0):
         """
         Initializes the object.
 
         Parameters
         ----------
 
-        gpu : bool
+        gpu : bool, default=False
             If `True`, the matrix array is initialized on GPU device.
 
-        num_gpu_devices : int
+        num_gpu_devices : int, default=0
             Number of GPU devices to use.
         """
 
@@ -312,8 +327,11 @@ class AffineMatrixFunction(LinearOperator):
 
                 # Create a linear operator on GPU
                 from .._cu_linear_operator import pycuAffineMatrixFunction
-                self.gpu_Aop = pycuAffineMatrixFunction(self.A, self.B,
-                                                        num_gpu_devices)
+                self.gpu_Aop = pycuAffineMatrixFunction(
+                    self.A, self.B, A_is_symmetric=self.A_is_symmetric,
+                    B_is_symmetric=self.B_is_symmetric,
+                    num_gpu_devices=num_gpu_devices)
+                self.Aop = self.gpu_Aop
                 self.initialized_on_gpu = True
 
             elif num_gpu_devices != self.num_gpu_devices:
@@ -345,8 +363,11 @@ class AffineMatrixFunction(LinearOperator):
                     if self.gpu_Aop is not None:
                         del self.gpu_Aop
 
-                    self.gpu_Aop = pycuAffineMatrixFunction(self.A, self.B,
-                                                            num_gpu_devices)
+                    self.gpu_Aop = pycuAffineMatrixFunction(
+                        self.A, self.B, A_is_symmetric=self.A_is_symmetric,
+                        B_is_symmetric=self.B_is_symmetric,
+                        num_gpu_devices=num_gpu_devices)
+                    self.Aop = self.gpu_Aop
                     self.initialized_on_gpu = True
 
         else:
@@ -355,7 +376,10 @@ class AffineMatrixFunction(LinearOperator):
 
                 # Create a linear operator on CPU
                 from .._c_linear_operator import pycAffineMatrixFunction
-                self.cpu_Aop = pycAffineMatrixFunction(self.A, self.B)
+                self.cpu_Aop = pycAffineMatrixFunction(
+                        self.A, self.B, A_is_symmetric=self.A_is_symmetric,
+                        B_is_symmetric=self.B_is_symmetric)
+                self.Aop = self.cpu_Aop
                 self.initialized_on_cpu = True
 
         self.gpu = gpu

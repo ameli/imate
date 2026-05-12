@@ -15,10 +15,16 @@
 
 #include "./c_vector_operations.h"
 #include <cmath>  // sqrt
-#include "../_definitions/definitions.h"  // USE_CBLAS
+#include "../_c_arithmetics/c_arithmetics.h"  // c_arithmetics
+#include "../_definitions/definitions.h"  // USE_OPENMP, USE_ANY_CBLAS,
+                                          // USE_LOOP_UNROLLING,
+                                          // LARGE_ARRAY_SIZE
+#if defined(USE_OPENMP) && (USE_OPENMP == 1)
+    #include <omp.h>  // omp_in_parallel
+#endif
 
-#if (USE_CBLAS == 1)
-    #include "./cblas_interface.h"
+#if defined(USE_ANY_CBLAS) && (USE_ANY_CBLAS == 1)
+    #include "./cblas_api.h"  // cblas_api
 #endif
 
 
@@ -37,22 +43,28 @@
 
 template <typename DataType>
 void cVectorOperations<DataType>::copy_vector(
-        const DataType* input_vector,
+        const DataType* RESTRICT input_vector,
         const LongIndexType vector_size,
-        DataType* output_vector)
+        DataType* RESTRICT output_vector)
 {
-    #if (USE_CBLAS == 1)
+    #if defined(USE_ANY_CBLAS) && (USE_ANY_CBLAS == 1)
 
-    // Using Openblas
+    // Using BLAS
     int incx = 1;
     int incy = 1;
 
-    cblas_interface::xcopy(vector_size, input_vector, incx, output_vector,
-                           incy);
+    cblas_api::xcopy(vector_size, input_vector, incx, output_vector, incy);
 
     #else
 
-    // Not using OpenBlas
+    // Not using BLAS
+    #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+    #pragma omp parallel for \
+        schedule(static) \
+        if ((!omp_in_parallel()) && (vector_size >= LARGE_ARRAY_SIZE)) \
+        default(none) \
+        shared(input_vector, output_vector, vector_size)
+    #endif
     for (LongIndexType i=0; i < vector_size; ++i)
     {
         output_vector[i] = input_vector[i];
@@ -79,25 +91,31 @@ void cVectorOperations<DataType>::copy_vector(
 
 template <typename DataType>
 void cVectorOperations<DataType>::copy_scaled_vector(
-        const DataType* input_vector,
+        const DataType* RESTRICT input_vector,
         const LongIndexType vector_size,
         const DataType scale,
-        DataType* output_vector)
+        DataType* RESTRICT output_vector)
 {
-    #if (USE_CBLAS == 1)
+    #if defined(USE_ANY_CBLAS) && (USE_ANY_CBLAS == 1)
 
-    // Using OpenBlas
+    // Using BLAS
     int incx = 1;
     int incy = 1;
 
-    cblas_interface::xcopy(vector_size, input_vector, incx, output_vector,
-                           incy);
+    cblas_api::xcopy(vector_size, input_vector, incx, output_vector, incy);
 
-    cblas_interface::xscal(vector_size, scale, output_vector, incy); 
+    cblas_api::xscal(vector_size, scale, output_vector, incy); 
 
     #else
 
-    // Not using OpenBlas
+    // Not using BLAS
+    #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+    #pragma omp parallel for \
+        schedule(static) \
+        if ((!omp_in_parallel()) && (vector_size >= LARGE_ARRAY_SIZE)) \
+        default(none) \
+        shared(input_vector, output_vector, vector_size, scale)
+    #endif
     for (LongIndexType i=0; i < vector_size; ++i)
     {
         output_vector[i] = scale * input_vector[i];
@@ -133,30 +151,38 @@ void cVectorOperations<DataType>::copy_scaled_vector(
 
 template <typename DataType>
 void cVectorOperations<DataType>::subtract_scaled_vector(
-        const DataType* input_vector,
+        const DataType* RESTRICT input_vector,
         const LongIndexType vector_size,
         const DataType scale,
-        DataType* output_vector)
+        DataType* RESTRICT output_vector)
 {
 
-    #if (USE_CBLAS == 1)
+    #if defined(USE_ANY_CBLAS) && (USE_ANY_CBLAS == 1)
 
-    // Using OpenBlas
+    // Using BLAS
     int incx = 1;
     int incy = 1;
 
     DataType neg_scale = -scale;
-    cblas_interface::xaxpy(vector_size, neg_scale, input_vector, incx,
-                           output_vector, incy);
+    cblas_api::xaxpy(vector_size, neg_scale, input_vector, incx, output_vector,
+                     incy);
 
     #else
 
-    // Not using OpenBlas
-    if (scale == 0.0)
+    // Not using BLAS
+    DataType zero = 0.0;
+    if (c_arithmetics::is_equal(scale, zero))
     {
         return;
     }
 
+    #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+    #pragma omp parallel for \
+        schedule(static) \
+        if ((!omp_in_parallel()) && (vector_size >= LARGE_ARRAY_SIZE)) \
+        default(none) \
+        shared(input_vector, output_vector, vector_size, scale)
+    #endif
     for (LongIndexType i=0; i < vector_size; ++i)
     {
         output_vector[i] -= scale * input_vector[i];
@@ -202,28 +228,40 @@ void cVectorOperations<DataType>::subtract_scaled_vector(
 
 template <typename DataType>
 DataType cVectorOperations<DataType>::inner_product(
-        const DataType* vector1,
-        const DataType* vector2,
+        const DataType* RESTRICT vector1,
+        const DataType* RESTRICT vector2,
         const LongIndexType vector_size)
 {
-    #if (USE_CBLAS == 1)
+    #if defined(USE_ANY_CBLAS) && (USE_ANY_CBLAS == 1)
 
-    // Using OpenBlas
+    // Using BLAS
     int incx = 1;
     int incy = 1;
 
-    DataType inner_prod = cblas_interface::xdot(vector_size, vector1, incx,
-                                                vector2, incy);
+    DataType inner_prod = cblas_api::xdot(vector_size, vector1, incx, vector2,
+                                          incy);
 
     return inner_prod;
 
     #else
 
-    // Not using OpenBlas
+    // Not using BLAS
     long double inner_prod = 0.0;
+    #if defined(USE_LOOP_UNROLLING) && (USE_LOOP_UNROLLING == 1)
     LongIndexType chunk = 5;
     LongIndexType vector_size_chunked = vector_size - (vector_size % chunk);
+    #endif
 
+    #if defined(USE_LOOP_UNROLLING) && (USE_LOOP_UNROLLING == 1)
+        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+        #pragma omp parallel for \
+            schedule(static) \
+            if ((!omp_in_parallel()) && \
+                (vector_size_chunked >= LARGE_ARRAY_SIZE)) \
+            default(none) \
+            shared(vector1, vector2, vector_size, vector_size_chunked, chunk) \
+            reduction(+: inner_prod)
+        #endif
     for (LongIndexType i=0; i < vector_size_chunked; i += chunk)
     {
         inner_prod += vector1[i] * vector2[i] +
@@ -232,8 +270,21 @@ DataType cVectorOperations<DataType>::inner_product(
                       vector1[i+3] * vector2[i+3] +
                       vector1[i+4] * vector2[i+4];
     }
+    #endif
 
+    #if defined(USE_LOOP_UNROLLING) && (USE_LOOP_UNROLLING == 1)
     for (LongIndexType i=vector_size_chunked; i < vector_size; ++i)
+    #else
+        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+        #pragma omp parallel for \
+            schedule(static) \
+            if ((!omp_in_parallel()) && (vector_size >= LARGE_ARRAY_SIZE)) \
+            default(none) \
+            shared(vector1, vector2, vector_size) \
+            reduction(+: inner_prod)
+        #endif
+    for (LongIndexType i=0; i < vector_size; ++i)
+    #endif
     {
         inner_prod += vector1[i] * vector2[i];
     }
@@ -279,15 +330,15 @@ DataType cVectorOperations<DataType>::inner_product(
 
 template <typename DataType>
 DataType cVectorOperations<DataType>::euclidean_norm(
-        const DataType* vector,
+        const DataType* RESTRICT vector,
         const LongIndexType vector_size)
 {
-    #if (USE_CBLAS == 1)
+    #if defined(USE_ANY_CBLAS) && (USE_ANY_CBLAS == 1)
 
-    // Using OpenBlas
+    // Using BLAS
     int incx = 1;
 
-    DataType norm = cblas_interface::xnrm2(vector_size, vector, incx);
+    DataType norm = cblas_api::xnrm2(vector_size, vector, incx);
 
     return norm;
 
@@ -295,9 +346,21 @@ DataType cVectorOperations<DataType>::euclidean_norm(
 
     // Compute norm squared
     long double norm2 = 0.0;
+    #if defined(USE_LOOP_UNROLLING) && (USE_LOOP_UNROLLING == 1)
     LongIndexType chunk = 5;
     LongIndexType vector_size_chunked = vector_size - (vector_size % chunk);
+    #endif
 
+    #if defined(USE_LOOP_UNROLLING) && (USE_LOOP_UNROLLING == 1)
+        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+        #pragma omp parallel for \
+            schedule(static) \
+            if ((!omp_in_parallel()) && \
+                (vector_size_chunked >= LARGE_ARRAY_SIZE)) \
+            default(none) \
+            shared(vector, vector_size, vector_size_chunked, chunk) \
+            reduction(+: norm2)
+        #endif
     for (LongIndexType i=0; i < vector_size_chunked; i += chunk)
     {
         norm2 += vector[i] * vector[i] +
@@ -306,14 +369,27 @@ DataType cVectorOperations<DataType>::euclidean_norm(
                  vector[i+3] * vector[i+3] +
                  vector[i+4] * vector[i+4];
     }
+    #endif
 
+    #if defined(USE_LOOP_UNROLLING) && (USE_LOOP_UNROLLING == 1)
     for (LongIndexType i=vector_size_chunked; i < vector_size; ++i)
+    #else
+        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+        #pragma omp parallel for \
+            schedule(static) \
+            if ((!omp_in_parallel()) && (vector_size >= LARGE_ARRAY_SIZE)) \
+            default(none) \
+            shared(vector, vector_size) \
+            reduction(+: norm2)
+        #endif
+    for (LongIndexType i=0; i < vector_size; ++i)
+    #endif
     {
         norm2 += vector[i] * vector[i];
     }
 
     // Norm
-    DataType norm = sqrt(static_cast<DataType>(norm2));
+    DataType norm = std::sqrt(static_cast<DataType>(norm2));
 
     return norm;
 
@@ -336,10 +412,10 @@ DataType cVectorOperations<DataType>::euclidean_norm(
 
 template <typename DataType>
 DataType cVectorOperations<DataType>::normalize_vector_in_place(
-        DataType* vector,
+        DataType* RESTRICT vector,
         const LongIndexType vector_size)
 {
-    #if (USE_CBLAS == 1)
+    #if defined(USE_ANY_CBLAS) && (USE_ANY_CBLAS == 1)
 
     // Norm of vector
     DataType norm = cVectorOperations<DataType>::euclidean_norm(
@@ -348,7 +424,7 @@ DataType cVectorOperations<DataType>::normalize_vector_in_place(
     // Normalize in place
     DataType scale = 1.0 / norm;
     int incx = 1;
-    cblas_interface::xscal(vector_size, scale, vector, incx);
+    cblas_api::xscal(vector_size, scale, vector, incx);
 
     return norm;
 
@@ -359,6 +435,13 @@ DataType cVectorOperations<DataType>::normalize_vector_in_place(
                                                                 vector_size);
 
     // Normalize in place
+    #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+    #pragma omp parallel for \
+        schedule(static) \
+        if ((!omp_in_parallel()) && (vector_size >= LARGE_ARRAY_SIZE)) \
+        default(none) \
+        shared(vector, vector_size, norm)
+    #endif
     for (LongIndexType i=0; i < vector_size; ++i)
     {
         vector[i] /= norm;
@@ -387,11 +470,11 @@ DataType cVectorOperations<DataType>::normalize_vector_in_place(
 
 template <typename DataType>
 DataType cVectorOperations<DataType>::normalize_vector_and_copy(
-        const DataType* vector,
+        const DataType* RESTRICT vector,
         const LongIndexType vector_size,
-        DataType* output_vector)
+        DataType* RESTRICT output_vector)
 {
-    #if (USE_CBLAS == 1)
+    #if defined(USE_ANY_CBLAS) && (USE_ANY_CBLAS == 1)
 
     // Norm of vector
     DataType norm = cVectorOperations<DataType>::euclidean_norm(
@@ -411,6 +494,13 @@ DataType cVectorOperations<DataType>::normalize_vector_and_copy(
                                                                 vector_size);
 
     // Normalize to output
+    #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+    #pragma omp parallel for \
+        schedule(static) \
+        if ((!omp_in_parallel()) && (vector_size >= LARGE_ARRAY_SIZE)) \
+        default(none) \
+        shared(vector, output_vector, vector_size, norm)
+    #endif
     for (LongIndexType i=0; i < vector_size; ++i)
     {
         output_vector[i] = vector[i] / norm;

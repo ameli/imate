@@ -14,8 +14,15 @@
 // =======
 
 #include "./cu_trace_estimator.h"
-#include <omp.h>  // omp_set_num_threads
-#include <cmath>  // sqrt, pow
+#include "../_definitions/definitions.h"  // USE_OPENMP
+#include "../_cu_definitions/cu_types.h" // __nv_fp8_e5m2, __nv_fp8_e4m3,
+                                         // __half, __nv_bfloat16
+
+#if defined(USE_OPENMP) && (USE_OPENMP == 1)
+    #include <omp.h>  // omp_set_num_threads
+#endif
+
+#include <cmath>  // std::sqrt, std::pow
 #include <cstddef>  // NULL
 #include "./cu_lanczos_tridiagonalization.h"  // cu_lanczos_tridiagonalization
 #include "./cu_golub_kahn_bidiagonalization.h"  // cu_golub_kahn_bidiagonali...
@@ -23,7 +30,8 @@
 #include "../_c_trace_estimator/diagonalization.h"  // Diagonalization
 #include "../_c_trace_estimator/convergence_tools.h"  // check_convergence, ...
 #include "../_cuda_utilities/cuda_timer.h"  // CudaTimer
-#include "../_cuda_utilities/cuda_interface.h"  // CudaInterface
+#include "../_cuda_utilities/cuda_api.h"  // CudaAPI
+#include "../_cu_arithmetics/cu_arithmetics.h" // cu_arithmetics
 
 
 // ==================
@@ -220,13 +228,17 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
         IndexType* num_samples_used,
         IndexType* num_outliers,
         FlagType* converged,
-        float& alg_wall_time)
+        double& alg_wall_time)
 {
     // Matrix size
     IndexType matrix_size = A->get_num_rows();
 
     // Set the number of threads
-    omp_set_num_threads(num_gpu_devices);
+    #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+        omp_set_num_threads(num_gpu_devices);
+    #else
+        num_threads = 1;
+    #endif
 
     // Allocate 1D array of random vectors We only allocate a random vector
     // per parallel thread. Thus, the total size of the random vectors is
@@ -250,7 +262,8 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
 
     // Using square-root of max possible chunk size for parallel schedules
     unsigned int chunk_size = static_cast<int>(
-            sqrt(static_cast<DataType>(max_num_samples) / num_gpu_devices));
+        std::sqrt(static_cast<double>(max_num_samples) / \
+                  static_cast<double>(num_gpu_devices)));
     if (chunk_size < 1)
     {
         chunk_size = 1;
@@ -262,14 +275,17 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
 
     // Shared-memory parallelism over Monte-Carlo ensemble sampling
     IndexType i;
-    #pragma omp parallel for schedule(dynamic, chunk_size)
+    #if defined(USE_OPENMP) && (USE_OPENMP == 1)
+    #pragma omp parallel for \
+        schedule(dynamic, chunk_size)
+    #endif
     for (i=0; i < max_num_samples; ++i)
     {
         if (!static_cast<bool>(all_converged))
         {
             // Switch to a device with the same device id as the cpu thread id
             unsigned int thread_id = omp_get_thread_num();
-            CudaInterface<DataType>::set_device(thread_id);
+            CudaAPI<DataType>::set_device(thread_id);
 
             // Perform one Monte-Carlo sampling to estimate trace
             cuTraceEstimator<DataType>::_cu_stochastic_lanczos_quadrature(
@@ -280,7 +296,9 @@ FlagType cuTraceEstimator<DataType>::cu_trace_estimator(
                     samples[i]);
 
             // Critical section
+            #if defined(USE_OPENMP) && (USE_OPENMP == 1)
             #pragma omp critical
+            #endif
             {
                 // Store the index of processed samples
                 processed_samples_indices[num_processed_samples] = i;
@@ -440,7 +458,7 @@ void cuTraceEstimator<DataType>::_cu_stochastic_lanczos_quadrature(
     // function is inside a parallel thread.
     IndexType num_threads = 0;
     RandomArrayGenerator<DataType>::generate_random_array(
-            random_number_generator, random_vector, matrix_size, num_threads);
+        random_number_generator, random_vector, matrix_size, num_threads);
 
     // Allocate diagonals (alpha) and supdiagonals (beta) of Lanczos matrix
     DataType* alpha = new DataType[lanczos_degree];
@@ -537,7 +555,7 @@ void cuTraceEstimator<DataType>::_cu_stochastic_lanczos_quadrature(
             // theta and tau from singular values and vectors
             for (i=0; i < lanczos_size[j]; ++i)
             {
-                theta[j][i] = alpha[i] * alpha[i];
+                theta[j][i] = cu_arithmetics::mul(alpha[i], alpha[i]);
                 tau[j][i] = right_singularvectors_transposed[i];
             }
         }
@@ -621,11 +639,26 @@ void cuTraceEstimator<DataType>::_cu_stochastic_lanczos_quadrature(
         // issues with special matrices will resolve.
         for (i=0; i < lanczos_size[j]; ++i)
         {
-            quadrature_sum += tau[j][i] * tau[j][i] * \
-                    matrix_function->function(pow(theta[j][i], exponent));
+            quadrature_sum += cu_arithmetics::mul(
+                tau[j][i],
+                tau[j][i],
+                cu_arithmetics::cast<double, DataType>(
+                    matrix_function->function(std::pow(
+                        cu_arithmetics::cast<DataType, double>(theta[j][i]),
+                        cu_arithmetics::cast<DataType, double>(exponent)
+                        )
+                    )
+                )
+            );
         }
 
-        trace_estimate[j] = matrix_size * quadrature_sum;
+        trace_estimate[j] = \
+            cu_arithmetics::mul(
+                quadrature_sum,
+                cu_arithmetics::cast<unsigned long long int, DataType>(
+                    static_cast<unsigned long long int>(matrix_size)
+                )
+            );
     }
 
     // Release dynamic memory
@@ -666,5 +699,26 @@ void cuTraceEstimator<DataType>::_cu_stochastic_lanczos_quadrature(
 // Explicit template instantiation
 // ===============================
 
-template class cuTraceEstimator<float>;
-template class cuTraceEstimator<double>;
+#if defined(USE_CUDA_FP8_E5M2) && (USE_CUDA_FP8_E5M2 == 1)
+    template class cuTraceEstimator<__nv_fp8_e5m2>;
+#endif
+
+#if defined(USE_CUDA_FP8_E4M3) && (USE_CUDA_FP8_E4M3 == 1)
+    template class cuTraceEstimator<__nv_fp8_e4m3>;
+#endif
+
+#if defined(USE_CUDA_FP16) && (USE_CUDA_FP16 == 1)
+    template class cuTraceEstimator<__half>;
+#endif
+
+#if defined(USE_CUDA_BF16) && (USE_CUDA_BF16 == 1)
+    template class cuTraceEstimator<__nv_bfloat16>;
+#endif
+
+#if defined(USE_CUDA_FP32) && (USE_CUDA_FP32 == 1)
+    template class cuTraceEstimator<float>;
+#endif
+
+#if defined(USE_CUDA_FP64) && (USE_CUDA_FP64 == 1)
+    template class cuTraceEstimator<double>;
+#endif

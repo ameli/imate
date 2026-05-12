@@ -2,7 +2,7 @@
 Notes
 *****
 
-Some notes to myself when completing the documentation later.
+Some notes to myself:
 
 * How to make the results of GPU and CPU identical for testing purposes:
 
@@ -110,6 +110,241 @@ Some notes to myself when completing the documentation later.
 TODO
 ====
 
+Solved
+------
+
+* why larger range of parameters cause nan (solved, issue was std computed with
+  underflow of squared variables.)
+* Check for immutable default function argument like var=[] in all codes.
+
+Not Solved
+----------
+
+* Switch to OpenBLAS for PyPI and Conda wheels:
+  I recently added USE_MKL, along with the existing USE_CBLAS options. There
+  are cons and pros on using them:
+
+  Pros
+  ~~~~
+
+  * several times faster as they leverage AVX-512 vectorizations. In fact, the
+    flops per hardware instructions when using these BLAS libs are about 2,
+    while for my own implementation is 0.5 on Xeon cpus.
+  * Besides ``xgemv``, they also have ``xsymv``, which is twice faster in
+    matrix-vector multiplication (I tested it and it is really faster).
+
+  Cons
+  ~~~~
+
+  * They do not support ``long double``.
+  * When building wheels in cibuildwheels, OpenBLAS is bundled to the final
+    wheel and adds 35 MB in size.
+
+  By using OpenBLAS (or MKL), despite loosing ``long double`` and the addition
+  of more linopenblas space (35 MB), the speed using ``ssymv`` and `` dsymv``
+  is very appealing, especially for SLQ method. Note they will be only used
+  for dense matrices. For sparse matrices, still my own implementation will be
+  used.
+
+  Between using OpenBLAS and MKL, I think OpenBLAS is better option as it is
+  portable on all CPUs (not just Intel), has smaller lib when bundled. Scipy
+  and numpy also use it.
+
+  What Needs to be Done
+  ~~~~~~~~~~~~~~~~~~~~~
+
+  To use OpenBLAS, set ``USE_CBLAS=1`` in
+  ``/.github/workflows/deploy-pypi.yml`` and ``deploy-conda.yml``. Also we need
+  to call ``./tools/wheels/install_openblas.sh`` in ``CIBW_BEFORE_BUILD``.
+  Currently, this bash file installs OpenBLAS only when the Python is PyPy
+  (since in pypy there is no wheel for numpy and scipy, and they should be
+  compiled too) but it does not install openblas when Python is CPython.
+  However, in the case of setting ``USE_CBLAS=1``, we need to install
+  OpenBLAS regardless of python being CPython or PyPy. So, this file needs to
+  be modified.
+
+  In addition, we need to write a similar file for windows, like
+  ``./tools/wheels/install_openblas.bat``.
+
+* when latex not installed, plotting density raises error
+
+* GPU codes do not work with __half, __nv_bfloat16.
+  The code compiles fine, but it does not run, and gives "symbol not found"
+  error at runtime when "gpu=True" is enabled. The unfound symbols are the
+  c codes that the cu codes depend on.
+
+  For instance, cuDenseMatrix is publicly inherited from cDenseMatrix. We
+  instantiate cDenseuMatrix<__half>, but we do not instantiate
+  cDenseMatrix<__half>, and this causes symbol not found for all functions
+  (like get_eigenvalues) that exists in cDenseMatrix and cDenseuMatrix needs.
+
+  Currently, in _cu_lineaer_operator, the following cu classes are inherited
+  from c classes:
+
+   - cuDenseMatrix <= cDenseMatrix
+   - cuCSRMatrix <= cCSRMatrix
+   - cuCSCMatrix <= cCSCMatrix
+   - cuLinearOperator <= cLinearOperator
+
+  Solution: make all cu classes independent of c classes. See setup.py to find
+  which cu modules depended on which c functions. These incldue removing
+
+  - _c_linear_operator
+  - _c_basic_algebra
+  - _c_trace_estimator
+
+ from _cu_ classes. Also, I just noticed _c_basic_algebra is not used in
+ _cu_linear_operator, and this dependency should be completely removed.
+
+* In _trace_estimator/trace_estimator.pyx, where there is a "try" to load gpu
+  modules, the "expcpt ImportError" should be changed to something else,
+  otherwise this causes the following issue:
+
+  When one of the GPU classes (say, cuMatrix) has a linking problem due to a
+  bug, the current "try/except" of the GPU part of the code raises an issue,
+  but the printed message says "You should compile the code with GPU enabled".
+  This error message hides the actual issue.
+
+  The solution should be to raise the correct error, not any "ImportError".
+  That is, that try/except clause should only raise when the GPU modules are
+  not available (not compiled, do not exist).
+
+  To find what exact Error class should be used, compile once without GPU, then
+  try loading with gpu (gpu=True in one of the funcitons) and see what is
+  raised.
+
+* doxygen issue:
+  I get this warning:
+  _cu_abs.h:171: warning: argument 'x' from the argument list of
+  cu_arithmetics::abs< float > has multiple @param documentation sections
+  There are hundreds other warnings like the above. (see docs/doxygen/log).
+  All the above warnings are coming from the functions from these three files
+  only:
+  1. cu_arithmetics (all functions)
+  2. cublas_api (all functions)
+  3. cusparse_api (all functions)
+  For each function, only and only the <float> type gets these warnings, but
+  other templated instantiations, like <double> do not get any warning. Because
+  of I suspect there might be one class whose its template might be
+  instantiated with float type twice. But I have not find any so far.
+
+* in documentation, add support of Torch, TensorFlow, and JAX.
+
+* add several new macros to the documentation:
+  USE_LOOP_UNROLLING, ...
+
+* For Torch, Tensorflow, and JAX, only dense matrices are implemented. Sparse
+  matrices are not implemented. Essentially, in
+    - py_c_matrix.pxd
+    - py_c_affine_matrix_function.pyx
+    - py_cu_matrix.pxd
+    - py_cu_affine_matrix_function.pyx
+  in the functions "set_csr_matrix" and "set_csc_matrix", these should be
+  modified:
+    A.data
+    A.indices
+    A.index_pointer
+    B.data
+    B.indices
+    B.index_pointer
+  The above interface to get data, indices, and index_pointer are for
+  scipy.sparse matrices. For Torch, TensorFlow and JAX, accessing these arrays
+  might be different.
+
+  To test sparse tensors, see lab:~/Downloads/test/type/
+
+* cublas does not seem to support arithmetic operations for __nv_fp8_e5m2 and
+  __nv_fp8_e4m3 (though their API supports casting only). It seems they have
+  cuBLASLt (cublasLt.h) which supports these operations. This library only
+  implemented gemm function.
+  
+* In _cu_basic_operations/cusparse.cu implement functions for __nv_fp8_e5m2 and
+  __nv_fp_e4m3. These functions are now just placeholders for future dev.
+  
+* Similar to the ComputeType typename in cu_matric_operations.cu, write similar
+  ComputeType in template typename for c codes in c_matrix_operations.cpp.
+  
+* cublas_api.h and cusparse_api.h exists in CUDA. Does this conflict with the
+  namespaces cublas_api and cusparse_api? Yhese namespaces previously called
+  cublas_interface and cusparse_interface.
+  
+* inverse beta in lanczos and golub-kahn
+
+* cusparse size_t is not templated in c_csr_matrix
+  
+* do not use long int, since on Windows OS, long int corresponds to i32 bit.
+  To get actual 64-bit integers, use long long int, which ensures 64-bit on all
+  OS, including Windows.
+  
+* Implementations of CSR and CSC matrix-vector multiplications in CUDA in
+  cu_matrix_operations.cu seem to be irrelevant and unnecessary, as they are
+  just copy-paste from their C version from c_matrix_operations.cpp without
+  transition to the cuda version.
+  
+* When matrix A is not positive or negative definite, when computing logdet,
+  the log function encounters negative eigenvalues (theta[j][i]) and returns
+  nan. The logdet function should be able to process any symmetric matrix.
+  The only way is to incorporate the i*pi from complex log functions. A
+  solution is to change log() to log(abs()) in the C++ to get "any" result,
+  then once I implemented the keep feature and returned thetas and taus, in
+  python incorporate the complex log.
+  
+* change interface to api in c_matrix_op and c_vector_op files.
+  
+* check 256 num threads are actually optimal
+  
+* add mixed precision to docs
+  
+* in cuspase, does matrix indices i and j overflow with int? Might check in
+  constructor.
+
+* cu matrix operations, implement symmetry, just like c_basic_operations
+  for the case of column major.
+* Check doxygen
+* half type in cython
+* see how test in cu is implemented.
+
+* in linear operator classes constructor, check if num rows*columns overflows.
+  This should be different for dense and sparse.
+* Error when USE_LONG_INT=1. This happens since in definition.pxi, we have to
+  cdef with int, not long int.
+
+* CUDA add symmetric A
+* When creating Aop in estimate_trace, add symmetric option to Aop
+* cuda add doxygen
+* cuda check doxygen
+* test for cuda matrices and affine matrix function
+* cuda split matrices across multiple GPUs
+* Use long int when sparse matrix comes with long int indices
+* add the keep feature
+* lognormal kernel
+* Documentations in _c_linear_operator/py_c*.pyx and
+  _cu_linear_oeprator/py_cu*.pyx is not updated, especially after adding the
+  A_is_symmetric, arguments.
+
+* Remove test folder in _cu_linear_operator, and write one in /test
+* In all cu and py_cu files, add A_is_symmetric and B_is_symmetric.
+* Check Cython 3 does not cause any issue. Se pyproject.yml, setup.py and
+  meta.yml.
+* why log scale does not work for parameters: log normal is not symmetric, we
+  use this property to compute all spectrum at once. Namely, to compute all
+  eigenvalues, we used two properties:
+    1. Shift property of SLQ
+    2. Symmetry of the kernel (like normal distribution).
+  But the log-normal distribution is not symmetric, violating the second
+  condition in the above.
+* csc_matvec can benefit symmetric matrices to switch to use
+  csc_transposed_matvec. Similarly, csr_transponsed_matvec can benefit
+  symmetric matrices to use csr_matvec instead. This should be implemented in
+  imate/_c_basic_operations/c_matrix_operations.cpp by adding a flag like
+  "symmetric" boolean to the function arguments and switch implementation.
+  Then, the "symmetric" attribute should be added to linear operator in
+  imate/_c_linear_operator classes.
+* Consider compilation against "mkl_spblas.h", see these routines:
+  https://www.intel.com/content/www/us/en/docs/onemkl/developer-reference-c/2024-0/sparse-blas-level-2-and-level-3-routines-002.html
+* For large data, the indices of scipy.sparse matrices change from int32 to
+  int64. Can I do this with memoryviews?
+
 * Implement ``keep`` functionality for slq method.
 * Hutchinson method can be implemented in C++ and also in CUDA on GPU.
 * Other functions (besides traceinv and logdet)
@@ -120,7 +355,6 @@ TODO
   return trace. However, in the arguments, include "full_output=False". If
   True, it then outputs the dictionary of info. See scipy.optimize.fsolve.
   https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.fsolve.html
-* Check compilation with CUDA 12.
 * Imate compiled with scipy==1.9.3 leads to the following runtime error:
 
     File "imate/_c_trace_estimator/py_c_trace_estimator.pyx", line 1, in init

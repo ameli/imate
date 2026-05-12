@@ -14,11 +14,31 @@
 // =======
 
 #include "./cu_golub_kahn_bidiagonalization.h"
-#include <cublas_v2.h>  // cublasHandle_t
-#include <cmath>  // sqrt
+#include "../_cu_definitions/cu_types.h" // __nv_fp8_e5m2, __nv_fp8_e4m3,
+                                         // __half, __nv_bfloat16
+#include <cmath>  // std::sqrt
 #include "../_cu_basic_algebra/cu_vector_operations.h"  // cuVectorOperations
 #include "../_cu_trace_estimator/cu_orthogonalization.h"  // cuOrthogonaliza...
-#include "../_cuda_utilities/cuda_interface.h"  // alloc, copy_to_device, del
+#include "../_cuda_utilities/cuda_api.h"  // CudaAPI
+#include "../_cu_arithmetics/cu_arithmetics.h" // cu_arithmetics
+
+// Avoid CUBLAS numeration value not handled in switch [-Wswitch-enum] warning
+#ifdef _MSC_VER
+    #pragma warning(push, 0)  // Suppress all warnings from the followings
+    #include <cublas_v2.h>  // cublasHandle_t
+    #pragma warning(pop)  // Restore previous warning level
+#elif defined(__INTEL_LLVM_COMPILER) || defined(__INTEL_COMPILER)
+    #pragma warning(push, 0)
+    #include <cublas_v2.h>  // cublasHandle_t
+    #pragma warning(pop)
+#elif defined(__GNUC__) || defined(__clang__)
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wswitch-enum"
+    #include <cublas_v2.h>  // cublasHandle_t
+    #pragma GCC diagnostic pop
+#else
+    #include <cublas_v2.h>  // cublasHandle_t
+#endif
 
 
 // ============================
@@ -133,7 +153,7 @@ IndexType cu_golub_kahn_bidiagonalization(
     else if ((orthogonalize < 0) ||
              (orthogonalize > static_cast<FlagType>(m) - 1))
     {
-        // Using full reorthogonalization, keep all of the m vectors in buffer
+        // Using full re-orthogonalization, keep all of the m vectors in buffer
         buffer_size = m;
     }
     else
@@ -146,11 +166,11 @@ IndexType cu_golub_kahn_bidiagonalization(
     // Allocate 2D array (as 1D array, and coalesced row-wise) to store
     // the last buffer_size of orthogonalized vectors of length n. New vectors
     // are stored by cycling through the buffer to replace with old ones.
-    DataType* device_U = CudaInterface<DataType>::alloc(n * buffer_size);
-    DataType* device_V = CudaInterface<DataType>::alloc(n * buffer_size);
+    DataType* device_U = CudaAPI<DataType>::alloc(n * buffer_size);
+    DataType* device_V = CudaAPI<DataType>::alloc(n * buffer_size);
 
     // Normalize vector v and copy to v_old
-    CudaInterface<DataType>::copy_to_device(v, n, &device_V[0]);
+    CudaAPI<DataType>::copy_to_device(v, n, &device_V[0]);
     cuVectorOperations<DataType>::normalize_vector_in_place(
             cublas_handle, &device_V[0], n);
 
@@ -228,15 +248,20 @@ IndexType cu_golub_kahn_bidiagonalization(
         // Exit criterion when the vector r is zero. If each component of a
         // zero vector has the tolerance epsilon, (which is called lanczos_tol
         // here), the tolerance of norm of r is epsilon times sqrt of n.
-        if (beta[j] < lanczos_tol * sqrt(n))
+        if (beta[j] < cu_arithmetics::mul(
+                    lanczos_tol,
+                    cu_arithmetics::cast<double, DataType>(
+                        static_cast<double>(std::sqrt(n)))
+                    )
+           )
         {
             break;
         }
     }
 
     // Free dynamic memory
-    CudaInterface<DataType>::del(device_U);
-    CudaInterface<DataType>::del(device_V);
+    CudaAPI<DataType>::del(device_U);
+    CudaAPI<DataType>::del(device_V);
 
     return lanczos_size;
 }
@@ -246,23 +271,80 @@ IndexType cu_golub_kahn_bidiagonalization(
 // Explicit template instantiation
 // ===============================
 
-// golub kahn bidiagonalization
-template IndexType cu_golub_kahn_bidiagonalization<float>(
-        cuLinearOperator<float>* A,
-        const float* v,
-        const LongIndexType n,
-        const IndexType m,
-        const float lanczos_tol,
-        const FlagType orthogonalize,
-        float* alpha,
-        float* beta);
+// golub kahn bidiagonalization (__nv_fp8_e5m2)
+#if defined(USE_CUDA_FP8_E5M2) && (USE_CUDA_FP8_E5M2 == 1)
+    template IndexType cu_golub_kahn_bidiagonalization<__nv_fp8_e5m2>(
+            cuLinearOperator<__nv_fp8_e5m2>* A,
+            const __nv_fp8_e5m2* v,
+            const LongIndexType n,
+            const IndexType m,
+            const __nv_fp8_e5m2 lanczos_tol,
+            const FlagType orthogonalize,
+            __nv_fp8_e5m2* alpha,
+            __nv_fp8_e5m2* beta);
+#endif
 
-template IndexType cu_golub_kahn_bidiagonalization<double>(
-        cuLinearOperator<double>* A,
-        const double* v,
-        const LongIndexType n,
-        const IndexType m,
-        const double lanczos_tol,
-        const FlagType orthogonalize,
-        double* alpha,
-        double* beta);
+// golub kahn bidiagonalization (__nv_fp8_e5m2)
+#if defined(USE_CUDA_FP8_E4M3) && (USE_CUDA_FP8_E4M3 == 1)
+    template IndexType cu_golub_kahn_bidiagonalization<__nv_fp8_e4m3>(
+            cuLinearOperator<__nv_fp8_e4m3>* A,
+            const __nv_fp8_e4m3* v,
+            const LongIndexType n,
+            const IndexType m,
+            const __nv_fp8_e4m3 lanczos_tol,
+            const FlagType orthogonalize,
+            __nv_fp8_e4m3* alpha,
+            __nv_fp8_e4m3* beta);
+#endif
+
+// golub kahn bidiagonalization (__half)
+#if defined(USE_CUDA_FP16) && (USE_CUDA_FP16 == 1)
+    template IndexType cu_golub_kahn_bidiagonalization<__half>(
+            cuLinearOperator<__half>* A,
+            const __half* v,
+            const LongIndexType n,
+            const IndexType m,
+            const __half lanczos_tol,
+            const FlagType orthogonalize,
+            __half* alpha,
+            __half* beta);
+#endif
+
+// golub kahn bidiagonalization (__nv_bfloat16)
+#if defined(USE_CUDA_BF16) && (USE_CUDA_BF16 == 1)
+    template IndexType cu_golub_kahn_bidiagonalization<__nv_bfloat16>(
+            cuLinearOperator<__nv_bfloat16>* A,
+            const __nv_bfloat16* v,
+            const LongIndexType n,
+            const IndexType m,
+            const __nv_bfloat16 lanczos_tol,
+            const FlagType orthogonalize,
+            __nv_bfloat16* alpha,
+            __nv_bfloat16* beta);
+#endif
+
+// golub kahn bidiagonalization (float)
+#if defined(USE_CUDA_FP32) && (USE_CUDA_FP32 == 1)
+    template IndexType cu_golub_kahn_bidiagonalization<float>(
+            cuLinearOperator<float>* A,
+            const float* v,
+            const LongIndexType n,
+            const IndexType m,
+            const float lanczos_tol,
+            const FlagType orthogonalize,
+            float* alpha,
+            float* beta);
+#endif
+
+// golub kahn bidiagonalization (double)
+#if defined(USE_CUDA_FP64) && (USE_CUDA_FP64 == 1)
+    template IndexType cu_golub_kahn_bidiagonalization<double>(
+            cuLinearOperator<double>* A,
+            const double* v,
+            const LongIndexType n,
+            const IndexType m,
+            const double lanczos_tol,
+            const FlagType orthogonalize,
+            double* alpha,
+            double* beta);
+#endif

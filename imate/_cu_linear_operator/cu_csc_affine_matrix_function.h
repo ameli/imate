@@ -26,6 +26,21 @@
 // cu CSC Affine Matrix Function
 // =============================
 
+/// \class   cuCSCAffineMatrixFunction
+///
+/// \brief   Container for CSC affine matrix functions of one parameter.
+///
+/// \details The \c cuCSCAffineMatrixFunction contains two-dimensional
+///          compressed sparse column matrices \c A and \c B.
+///          This operoator can perofrom matrix-vector product and transposed
+///          matrix-vector product.
+///
+/// \sa      cuAffineMatrixFunction,
+///          cuDenseMatrixFunction,
+///          cuCSRMatrixFunction,
+///          cuCSCMatrix,
+///          cCSCAffineMatrixFunction
+
 template <typename DataType>
 class cuCSCAffineMatrixFunction : public cuAffineMatrixFunction<DataType>
 {
@@ -38,6 +53,7 @@ class cuCSCAffineMatrixFunction : public cuAffineMatrixFunction<DataType>
                 const LongIndexType* A_index_pointer_,
                 const LongIndexType num_rows_,
                 const LongIndexType num_columns_,
+                const FlagType A_is_symmetric_,
                 const int num_gpu_devices_);
 
         cuCSCAffineMatrixFunction(
@@ -45,13 +61,17 @@ class cuCSCAffineMatrixFunction : public cuAffineMatrixFunction<DataType>
                 const LongIndexType* A_indices_,
                 const LongIndexType* A_index_pointer_,
                 const LongIndexType num_rows_,
-                const LongIndexType num_colums_,
+                const LongIndexType num_columns_,
+                const FlagType A_is_symmetric_,
                 const DataType* B_data_,
                 const LongIndexType* B_indices_,
                 const LongIndexType* B_index_pointer_,
+                const FlagType B_is_symmetric_,
                 const int num_gpu_devices_);
 
         virtual ~cuCSCAffineMatrixFunction();
+        
+        virtual void set_symmetry(const FlagType symmetric);
 
         virtual void dot(
                 const DataType* vector,

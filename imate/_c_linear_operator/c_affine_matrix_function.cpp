@@ -26,13 +26,7 @@
 ///
 
 template <typename DataType>
-cAffineMatrixFunction<DataType>::cAffineMatrixFunction(
-        const LongIndexType num_rows_,
-        const LongIndexType num_columns_):
-
-    // Base class constructor
-    cLinearOperator<DataType>(num_rows_, num_columns_),
-
+cAffineMatrixFunction<DataType>::cAffineMatrixFunction():
     B_is_identity(false)
 {
     // This class has one parameter that is t in A+tB
@@ -65,7 +59,7 @@ cAffineMatrixFunction<DataType>::~cAffineMatrixFunction()
 ///            other given set of parameters.
 ///
 /// \details   A relation between eigenvalue(s) and the set of parameters can
-///            be made when the matrix :math:`\\mathbf{B}` is equal to the
+///            be made when the matrix \f$ \mathbf{B} \f$ is equal to the
 ///            identity matrix \f$ \mathbf{I} \f$, and corresponding linear
 ///            operator is as follows:
 ///
@@ -118,7 +112,7 @@ DataType cAffineMatrixFunction<DataType>::get_eigenvalue(
 // =================
 
 /// \brief         Performs the operation \f$ \boldsymbol{c} = \boldsymbol{c} +
-///                \alpha * \boldsymbol{b} \f$, where \f$ \boldsymbol{b} \f$ is
+///                \alpha \boldsymbol{b} \f$, where \f$ \boldsymbol{b} \f$ is
 ///                an input vector scaled by \f$ \alpha \f$ and \f$
 ///                \boldsymbol{c} \f$ it the output vector.
 ///

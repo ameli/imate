@@ -15,7 +15,8 @@ import numpy
 from .._trace_estimator import trace_estimator
 from .._trace_estimator cimport trace_estimator
 from ..functions import pyFunction
-from ..functions cimport pyFunction, Function, Gaussian
+from ..functions cimport pyFunction, Function, Gaussian, GaussianInt, \
+        LogGaussian, LogGaussianInt
 
 
 # ==========
@@ -28,6 +29,8 @@ def slq_method(
         p=1.0,
         mu=1.0,
         sigma=1.0,
+        log_scale=False,
+        cumulative=False,
         return_info=False,
         parameters=None,
         min_num_samples=10,
@@ -244,19 +247,24 @@ def slq_method(
     verbose : bool, default=False
         Prints extra information about the computations.
 
-    plot : bool, default=False
-        Plots convergence of samples. To this end, `matplotlib` package should
-        be installed. If no display is available (such as running this code on
-        remote machines), the plots are saved as an `SVG` file in the current
-        directory.
+    plot : bool or str, default=False
+        If `True`, convergence of samples will be plotted. If no graphical
+        backend is available (such as executing on remote machines) the plot is
+        instead saved in the current directory as both ``svg`` and ``pdf``
+        format. If ``plot`` is a string, the plot is not shown, rather saved
+        with a filename as the given string. If the filename does not contain
+        file extension, the plot is saved in both ``svg`` and ``pdf`` formats.
+        If the filename does not have directory path, the plot is saved in the
+        current directory.
 
     Returns
     -------
 
-    trlinexp : float or numpy.array
-        Log-determinant of `A`. If `A` is of type
-        :class:`imate.AffineMatrixFunction` with an array of ``parameters``,
-        then the output is an array.
+    density : float or numpy.array
+        Spectral density
+
+    mu : float or numpy.array
+        Eigenvalues where the spectral density is evaluated for them
 
     info : dict
         (Only if ``return_info`` is `True`) A dictionary of information with
@@ -828,7 +836,17 @@ def slq_method(
     check_arguments(mu, sigma, return_info)
 
     # Define matrix function
-    cdef Function* matrix_function = new Gaussian(mu, sigma)
+    cdef Function* matrix_function
+    if log_scale:
+        if cumulative:
+            matrix_function = new LogGaussianInt(mu, sigma)
+        else:
+            matrix_function = new LogGaussian(mu, sigma)
+    else:
+        if cumulative:
+            matrix_function = new GaussianInt(mu, sigma)
+        else:
+            matrix_function = new Gaussian(mu, sigma)
 
     # Convert mu to an array
     if numpy.isscalar(mu):
@@ -862,16 +880,21 @@ def slq_method(
         seed,
         num_threads,
         num_gpu_devices,
+        gpu,
         verbose,
-        plot,
-        gpu)
+        plot)
+
+    # Using the number of columns for size, which works for both gram and non
+    # gram matrix
+    size = info['matrix']['size'][1]
+    density = trace / size
 
     del matrix_function
 
     if return_info:
-        return trace, info
+        return density, mu_, info
     else:
-        return trace
+        return density, mu_
 
 
 # ===============

@@ -7,6 +7,13 @@
 # directory of this source tree.
 
 
+# =======
+# Imports
+# =======
+
+import numpy
+
+
 # ===============
 # Linear Operator
 # ===============
@@ -133,40 +140,18 @@ class LinearOperator(object):
         """
 
         # Initialize matrix either on cpu or gpu (implemented in sub-classes)
-        self.initialize(gpu, num_gpu_devices)
+        self.initialize(gpu=gpu, num_gpu_devices=num_gpu_devices)
 
         if gpu:
             if self.gpu_Aop is None or not self.initialized_on_gpu:
-                raise RuntimeError('Matrix is not initialized on gpu.')
+                raise RuntimeError('Matrix is not initialized on GPU.')
             self.Aop = self.gpu_Aop
         else:
             if self.cpu_Aop is None or not self.initialized_on_cpu:
-                raise RuntimeError('Matrix is not initialized on cpu.')
+                raise RuntimeError('Matrix is not initialized on CPU.')
             self.Aop = self.cpu_Aop
 
         return self.Aop
-
-    # ==================
-    # set data type name
-    # ==================
-
-    def set_data_type_name(self, A):
-        """
-        """
-
-        # data type name
-        if A.dtype == b'float32':
-            self.data_type_name = b'float32'
-
-        elif A.dtype == b'float64':
-            self.data_type_name = b'float64'
-
-        elif A.dtype == b'float128':
-            self.data_type_name = b'float128'
-
-        else:
-            raise TypeError('Data type should be "float32", "float64", or ' +
-                            '"float128".')
 
     # ==================
     # get data type name
@@ -211,3 +196,80 @@ class LinearOperator(object):
             raise RuntimeError('"num_parameters" is None.')
 
         return self.num_parameters
+
+    # ============
+    # set symmetry
+    # ============
+
+    def set_symmetry(self, symmetric):
+        """
+        Specify whether the linear operator is symmetric or non-symmetric.
+        This setting overwrites the constructor setting.
+        """
+
+        if self.Aop is None:
+            raise RuntimeError('Operator is not initialized. You should '
+                               ' first call "initialize()" member function.')
+
+        self.Aop.set_symmetry(symmetric)
+
+    # ==============
+    # set parameters
+    # ==============
+
+    def set_parameters(self, parameters):
+        """
+        This function is only used for the test unit of this class. For the
+        actual computations, the parameters are set though ``cLinearOperator``
+        object directly, but not by this function.
+        """
+
+        if numpy.isscalar(parameters):
+            self.parameters = numpy.array([parameters], dtype=float)
+        elif isinstance(parameters, (list, tuple)):
+            self.parameters = numpy.array(parameters, dtype=float)
+        else:
+            self.parameters = parameters
+
+        if self.Aop is None:
+            raise RuntimeError('Operator is not initialized. You should '
+                               ' first call "initialize()" member function.')
+
+        self.Aop.set_parameters(parameters)
+
+    # ===
+    # dot
+    # ===
+
+    def dot(self, vector):
+        """
+        Operator times vector.
+        """
+
+        if self.Aop is None:
+            raise RuntimeError('Operator is not initialized. You should '
+                               ' first call "initialize()" member function.')
+
+        product = numpy.empty(self.get_num_rows(), dtype=self.data_type_name)
+        self.Aop.dot(vector, product)
+
+        return product
+
+    # =============
+    # transpose dot
+    # =============
+
+    def transpose_dot(self, vector):
+        """
+        Transposed-operator times vector.
+        """
+
+        if self.Aop is None:
+            raise RuntimeError('Operator is not initialized. You should '
+                               ' first call "initialize()" member function.')
+
+        product = numpy.empty(self.get_num_columns(),
+                              dtype=self.data_type_name)
+        self.Aop.transpose_dot(vector, product)
+
+        return product

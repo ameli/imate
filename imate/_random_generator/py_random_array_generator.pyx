@@ -25,7 +25,7 @@ cdef void py_generate_random_array(
         DataType* array,
         const LongIndexType array_size,
         const IndexType num_threads,
-        const IndexType seed) nogil:
+        const IndexType seed) noexcept nogil:
     """
     A python wrapper for ``RandomArrayGenerator.generate_random_array()``.
 

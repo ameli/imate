@@ -40,7 +40,7 @@ typedef cudaError_t (*cudaFree_type)(void* devPtr);
 typedef cudaError_t (*cudaMalloc_type)(void** devPtr, size_t size);
 typedef cudaError_t (*cudaMemcpy_type)(void* dst, const void* src,
                                        size_t count, cudaMemcpyKind kind);
-typedef cudaError_t (*cudaSetDevice_type)(int  device);
+typedef cudaError_t (*cudaSetDevice_type)(int device);
 typedef void** (*__cudaRegisterFatBinary_type)(void *fatCubin);
 typedef void (*__cudaRegisterFatBinaryEnd_type)(void **fatCubinHandle);
 typedef void (*__cudaUnregisterFatBinary_type)(void **fatCubinHandle);

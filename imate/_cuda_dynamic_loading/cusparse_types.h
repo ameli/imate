@@ -19,11 +19,12 @@
 #include <cusparse.h>  // cusparseSpMatDescr_t, cusparseConstSpMatDescr_t,
                        // cusparseDnVecDescr_t, cusparseConstDnVecDescr_t,
                        // CusparseStatus_t, CUSPARSE_STATUS_SUCCESS,
-                       // cusparseCreateCsr, cusparseCreateDnVec,
-                       // cusparseDestroySpMat, cusparseDestroyDnVec,
-                       // CUDA_R_32F, CUDA_R_64F, CUSPARSE_INDEX_32I,
-                       // CUSPARSE_INDEX_BASE_ZERO, cusparseHandle_t,
-                       // cusparseSpMVAlg_t, cusparseSpMV_buffer_size
+                       // cusparseCreateCsr, cusparseCreateCsc,
+                       // cusparseCreateDnVec, cusparseDestroySpMat,
+                       // cusparseDestroyDnVec, CUDA_R_32F, CUDA_R_64F,
+                       // CUSPARSE_INDEX_32I, CUSPARSE_INDEX_BASE_ZERO,
+                       // cusparseHandle_t, cusparseSpMVAlg_t,
+                       // cusparseSpMV_buffer_size
 
 // CUDA Version Considerations
 #if CUSPARSE_VER_MAJOR < 12
@@ -56,6 +57,20 @@ typedef cusparseStatus_t (*cusparseCreateCsr_type)(
         void* csrValues,
         cusparseIndexType_t csrRowOffsetsType,
         cusparseIndexType_t csrColIndType,
+        cusparseIndexBase_t idxBase,
+        cudaDataType valueType);
+
+// cusparseCreateCsc
+typedef cusparseStatus_t (*cusparseCreateCsc_type)(
+        cusparseSpMatDescr_t* spMatDescr,
+        int64_t rows,
+        int64_t cols,
+        int64_t nnz,
+        void* cscRowOffsets,
+        void* cscColInd,
+        void* cscValues,
+        cusparseIndexType_t cscRowOffsetsType,
+        cusparseIndexType_t cscColIndType,
         cusparseIndexBase_t idxBase,
         cudaDataType valueType);
 

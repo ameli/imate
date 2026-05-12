@@ -16,15 +16,15 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest, windows-latest, macos-latest]
-                python-version: ['cp39', 'cp310', 'cp311', 'cp312']
+                python-version: ['cp310', 'cp311', 'cp312', 'cp313']
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v6
             
             - name: Setup Python 
-              uses: actions/setup-python@v4
+              uses: actions/setup-python@v6
               with:
-                python-version: '3.12'
+                python-version: '3.13'
 
             - name: Install OpenMP for mac
               if: runner.os == 'macos'
@@ -37,11 +37,15 @@ jobs:
                   # of "fatal error: omp.h file found"
                   brew install libomp
                   libomp_dir=$(brew --prefix libomp)
-                  ln -sf ${libomp_dir}/include/omp-tools.h  /usr/local/include/omp-tools.h
-                  ln -sf ${libomp_dir}/include/omp.h        /usr/local/include/omp.h
-                  ln -sf ${libomp_dir}/include/ompt.h       /usr/local/include/ompt.h
-                  ln -sf ${libomp_dir}/lib/libomp.a         /usr/local/lib/libomp.a
-                  ln -sf ${libomp_dir}/lib/libomp.dylib     /usr/local/lib/libomp.dylib
+                  custom_include_dir=/usr/local/include
+                  custom_lib_dir=/usr/local/lib
+                  sudo mkdir -p ${custom_include_dir}
+                  sudo mkdir -p ${custom_lib_dir}
+                  sudo ln -sf ${libomp_dir}/include/omp-tools.h  ${custom_include_dir}/omp-tools.h
+                  sudo ln -sf ${libomp_dir}/include/omp.h        ${custom_include_dir}/omp.h
+                  sudo ln -sf ${libomp_dir}/include/ompt.h       ${custom_include_dir}/ompt.h
+                  sudo ln -sf ${libomp_dir}/lib/libomp.a         ${custom_lib_dir}/libomp.a
+                  sudo ln -sf ${libomp_dir}/lib/libomp.dylib     ${custom_lib_dir}/libomp.dylib
 
               # Without this, installing cuda give error: no much space left on device
             - name: Clear Cache
@@ -58,10 +62,10 @@ jobs:
             # support".
             - name: Install CUDA
               if: matrix.os == 'windows-latest'
-              uses: Jimver/cuda-toolkit@v0.2.11
+              uses: Jimver/cuda-toolkit@v0.2.35
               id: cuda-toolkit
               with:
-                  cuda: '12.1.0'
+                  cuda: '13.0.0'
 
             # Build wheel for windows with CUDA enabled. Note that cibuildwheel
             # does not need manylinux docker, thuns, CUDA can be installed in
@@ -69,13 +73,13 @@ jobs:
             # in the previous action (see above).
             - name: Build wheels in windows with CUDA (X86_64) Python ${{ matrix.python-version }}
               if: matrix.os == 'windows-latest'
-              uses: pypa/cibuildwheel@v2.15.0
+              uses: pypa/cibuildwheel@v3.4.1
               env:
                   CIBW_ARCHS_WINDOWS: "AMD64 x86"
                   CIBW_BUILD: "${{ matrix.python-version }}-win_amd64"
-                  CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
+                  CIBW_SKIP: "pp* cp38-* cp39-*"
                   CIBW_BUILD_VERBOSITY: 3
-                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1"
+                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_MKL=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1"
                   CIBW_BEFORE_BUILD_WINDOWS: "pip install delvewheel"
                   CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair -w {dest_dir} {wheel}"
               with:
@@ -86,13 +90,13 @@ jobs:
             # Note that wheels for macos ARM64 will be built on cirrus ci (see /tools/ci)
             - name: Build wheels in mac without CUDA (X86_64) Python ${{ matrix.python-version }}
               if: matrix.os == 'macos-latest'
-              uses: pypa/cibuildwheel@v2.15.0
+              uses: pypa/cibuildwheel@v3.4.1
               env:
                   CIBW_ARCHS_MACOS: "x86_64"
                   CIBW_BUILD: "${{ matrix.python-version }}-macosx_x86_64"
-                  CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
+                  CIBW_SKIP: "pp* cp38-* cp39-*"
                   CIBW_BUILD_VERBOSITY: 3
-                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=0"
+                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_MKL=0 USE_CUDA=0"
               with:
                 output-dir: wheelhouse
 
@@ -112,22 +116,22 @@ jobs:
             # Note that wheels for linux AARCH64 will be built on cirrus ci (see /tools/ci)
             - name: Build wheels in linux with CUDA (X86_64) Python ${{ matrix.python-version }}
               if: matrix.os == 'ubuntu-latest'
-              uses: pypa/cibuildwheel@v2.15.0
+              uses: pypa/cibuildwheel@v3.4.1
               env:
-                  CIBW_MANYLINUX_X86_64_IMAGE: sameli/manylinux2014_x86_64_cuda_12.3
+                  CIBW_MANYLINUX_X86_64_IMAGE: sameli/manylinux_2_34_x86_64_cuda_13.0
                   # CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
                   # CIBW_BEFORE_ALL_LINUX: chmod +x .github/scripts/install_cuda.sh && .github/scripts/install_cuda.sh
                   CIBW_ARCHS_LINUX: "x86_64"
                   CIBW_BUILD: "${{ matrix.python-version }}-manylinux_x86_64"
-                  CIBW_SKIP: "pp* cp36-* cp37-* cp38-*"
+                  CIBW_SKIP: "pp* cp38-* cp39-*"
                   CIBW_BUILD_VERBOSITY: 1
-                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1 CUDA_HOME=/usr/local/cuda"
+                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_MKL=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1 CUDA_HOME=/usr/local/cuda"
               with:
                 output-dir: wheelhouse
 
             # Upload all wheels to an artifact
             - name: Upload artifacts
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v7
               with:
                   name: artifacts-wheel-${{ matrix.os }}-${{ matrix.python-version }}
                   path: ./wheelhouse/*.whl
@@ -158,17 +162,17 @@ jobs:
                   docker system prune -af
 
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@v6
 
             - name: Download artifacts
-              uses: actions/download-artifact@v4
+              uses: actions/download-artifact@v8
               with:
                   pattern: artifacts-*
                   merge-multiple: true
                   path: dist
 
             - name: Setup Miniconda
-              uses: conda-incubator/setup-miniconda@v2
+              uses: conda-incubator/setup-miniconda@v3
               with:
                   miniconda-version: "latest"
                   auto-update-conda: true
@@ -220,18 +224,18 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ubuntu-latest, windows-latest, macos-latest]
-                python-version: ['3.9', '3.10', '3.11', '3.12']
+                python-version: ['3.10', '3.11', '3.12', '3.13']
 
         steps:
             - name: Setup Miniconda
-              uses: conda-incubator/setup-miniconda@v2
+              uses: conda-incubator/setup-miniconda@v3
               with:
                   auto-update-conda: true
                   python-version: ${{ matrix.python-version }}
                   activate-environment: myenv
 
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@v6
 
             # Remove MKL as it causes error in initializing libomp. This only happens in MacOS and
             # the conda (but not pip) installation of this package.

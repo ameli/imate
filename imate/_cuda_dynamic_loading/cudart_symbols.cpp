@@ -16,7 +16,12 @@
 
 #include "./cudart_symbols.h"
 #include <cuda_runtime_api.h>  // cudaError_t, cudaEvent_t, cudaStream_t,
-                               // cudaDeviceProp, cudaMemcpyKind
+                               // cudaDeviceProp, cudaMemcpyKind,
+                               // cudaEventCreate, cudaEventDestroy,
+                               // cudaEventElapsedTime, cudaEventRecord,
+                               // cudaEventSynchronize, cudaGetDevice,
+                               // cudaGetDeviceProperties,  cudaFree,
+                               // cudaMalloc, cudaMemcpy, cudaSetDevice
 #include <cstdlib>  // NULL
 #include <sstream>  // std::ostringstream
 #include "./dynamic_loading.h"  // dynamic_loading
@@ -59,9 +64,9 @@ std::string cudartSymbols::get_lib_name()
     #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) || \
         defined(__NT__)
         lib_extension = "lib";
-    #elif __APPLE__
+    #elif defined(__APPLE__)
         lib_extension = "dylib";
-    #elif __linux__
+    #elif defined(__linux__)
         lib_extension = "so";
     #else
         #error "Unknown compiler"
@@ -375,7 +380,7 @@ cudaError_t cudaMemcpy(
 /// \brief Definition of CUDA's \c cudaSetDevice function using dynamically
 ///        loaded cudart library.
 
-cudaError_t cudaSetDevice(int  device)
+cudaError_t cudaSetDevice(int device)
 {
     if (cudartSymbols::cudaSetDevice == NULL)
     {

@@ -19,6 +19,7 @@
 
 #include <string>  // std::string
 #include "./cusparse_types.h"  // cusparseCreateCsr_type,
+                               // cusparseCreateCsc_type,
                                // cusparseCreateDnVec_type,
                                // cusparseDestroySpMat_type,
                                // cusparseDestroyDnVec_type,
@@ -54,6 +55,7 @@ class cusparseSymbols
         static cusparseCreate_type cusparseCreate;
         static cusparseDestroy_type cusparseDestroy;
         static cusparseCreateCsr_type cusparseCreateCsr;
+        static cusparseCreateCsc_type cusparseCreateCsc;
         static cusparseCreateDnVec_type cusparseCreateDnVec;
         static cusparseDestroySpMat_type cusparseDestroySpMat;
         static cusparseDestroyDnVec_type cusparseDestroyDnVec;

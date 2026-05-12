@@ -17,7 +17,7 @@ import numpy.linalg
 import scipy
 import scipy.sparse
 from scipy.sparse import isspmatrix
-import multiprocessing
+from .._openmp import get_avail_num_threads
 from .._linear_algebra.matrix_utilities import get_data_type_name, get_nnz, \
         get_density
 from ..__version__ import __version__
@@ -349,7 +349,7 @@ def exact_method(
         },
         'device':
         {
-            'num_cpu_threads': multiprocessing.cpu_count(),
+            'num_cpu_threads': get_avail_num_threads(),
             'num_gpu_devices': 0,
             'num_gpu_multiprocessors': 0,
             'num_gpu_threads_per_multiprocessor': 0

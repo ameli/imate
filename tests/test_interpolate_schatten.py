@@ -15,6 +15,7 @@
 
 import os
 import sys
+import glob
 import numpy
 
 # For plotting matrix, we disable interactive display
@@ -31,23 +32,27 @@ warnings.filterwarnings("error")
 # remove saved plot
 # =================
 
-def _remove_saved_plot(filename):
+def _remove_saved_plot(filenames):
     """
     When the option ``plot=True`` is used in :mod:`imate.correlation_matrix`, a
     file named ``CorrelationMatrix.svg`` is saved in the current directory.
     Call this function to delete this file.
     """
 
-    save_dir = os.getcwd()
-    save_fullname = os.path.join(save_dir, filename)
+    directory = os.getcwd()
+    fullpath_filenames = os.path.join(directory, filenames)
 
-    if os.path.exists(save_fullname):
+    # Get a list of all files matching wildcard
+    files_list = glob.glob(fullpath_filenames)
+
+    # Iterate over files
+    for file in files_list:
         try:
-            os.remove(save_fullname)
-        except OSError:
-            pass
-
-    print('File %s is deleted.' % save_fullname)
+            os.remove(file)
+            print('File %s is deleted.' % file)
+        except BaseException as error:
+            print('An exception occurred: {}'.format(error))
+            print("Error while removing file : ", file)
 
 
 # ==========================
@@ -199,19 +204,19 @@ def _interpolate_trace_exp(p):
     inquiry_points = numpy.logspace(numpy.log10(interpolant_points[0]),
                                     numpy.log10(interpolant_points[-1]), 5)
 
-    TI00.plot(inquiry_points, normalize=True, compare=True)
-    TI01.plot(inquiry_points, normalize=True, compare=True)
-    TI02.plot(inquiry_points, normalize=True, compare=True)
-    TI03.plot(inquiry_points, normalize=True, compare=True)
-    TI06.plot(inquiry_points, normalize=True, compare=True)
-    TI08.plot(inquiry_points, normalize=True, compare=True)
-    TI09.plot(inquiry_points, normalize=True, compare=True)
-    TI10.plot(inquiry_points, normalize=True, compare=True)
-    TI12.plot(inquiry_points, normalize=True, compare=True)
+    TI00.plot(inquiry_points, normalize=True, compare=True, filename='TI00')
+    TI01.plot(inquiry_points, normalize=True, compare=True, filename='TI01')
+    TI02.plot(inquiry_points, normalize=True, compare=True, filename='TI02')
+    TI03.plot(inquiry_points, normalize=True, compare=True, filename='TI03')
+    TI06.plot(inquiry_points, normalize=True, compare=True, filename='TI06')
+    TI08.plot(inquiry_points, normalize=True, compare=True, filename='TI08')
+    TI09.plot(inquiry_points, normalize=True, compare=True, filename='TI09')
+    TI10.plot(inquiry_points, normalize=True, compare=True, filename='TI10')
+    TI12.plot(inquiry_points, normalize=True, compare=True, filename='TI12')
 
     # Remove saved plot
-    _remove_saved_plot('interpolation.pdf')
-    _remove_saved_plot('interpolation.svg')
+    _remove_saved_plot('TI*.pdf')
+    _remove_saved_plot('TI*.svg')
 
 
 # ======================

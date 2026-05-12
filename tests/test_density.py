@@ -65,18 +65,18 @@ def _test_density_methods(K, matrix, gram, p, mu, sigma, assume_matrix):
 
     # Use eigenvalue method
     time10 = time.time()
-    density1 = density(K, gram=gram, p=p, mu=mu, sigma=sigma,
-                       method='eigenvalue', assume_matrix=assume_matrix,
-                       non_zero_eig_fraction=0.95)
+    density1, _ = density(K, gram=gram, p=p, mu=mu, sigma=sigma,
+                          method='eigenvalue', assume_matrix=assume_matrix,
+                          non_zero_eig_fraction=0.95)
     time11 = time.time()
 
     # Use Stochastic Lanczos Quadrature method
     time20 = time.time()
-    density2 = density(K, gram=gram, p=p, mu=mu, sigma=sigma, method='slq',
-                       min_num_samples=min_num_samples,
-                       max_num_samples=max_num_samples, orthogonalize=-1,
-                       seed=-1, lanczos_degree=lanczos_degree,
-                       error_rtol=error_rtol, verbose=False)
+    density2, _ = density(K, gram=gram, p=p, mu=mu, sigma=sigma, method='slq',
+                          min_num_samples=min_num_samples,
+                          max_num_samples=max_num_samples, orthogonalize=-1,
+                          seed=-1, lanczos_degree=lanczos_degree,
+                          error_rtol=error_rtol, verbose=False)
     time21 = time.time()
 
     # Elapsed times

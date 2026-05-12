@@ -121,6 +121,6 @@ References
 
 .. [R7] Golub, G. H., and Meurant, G. (2010). *Matrices, Moments and Quadrature with Applications*. Princeton University Press. isbn: 0691143412. `jstor.org/stable/j.ctt7tbvs <http://www.jstor.org/stable/j.ctt7tbvs>`_.
 
-.. [R8] Dongarra, J., and Sullivan, F. (2000). *The Top 10 Algorithms. Computing in Science and Eng*. 2, 1, pp. 22–23. `doi: 10.1109/MCISE.2000.814652 <https://doi.org/10.1109/MCISE.2000.814652>`_.
+.. [R8] Dongarra, J., and Sullivan, F. (2000). *The Top 10 Algorithms. Computing in Science and Eng*. 2, 1, pp. 22-23. `doi: 10.1109/MCISE.2000.814652 <https://doi.org/10.1109/MCISE.2000.814652>`_.
 
 .. [R9] Higham, N. J., (2016). `Nicholas J. Higham on the top 10 algorithms in applied mathematics <https://press.princeton.edu/ideas/nicholas-higham-on-the-top-10-algorithms-in-applied-mathematics>`_. The Princeton Companion to Applied Mathematics. Princeton University Press. isbn: 786842300.

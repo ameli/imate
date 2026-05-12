@@ -13,12 +13,13 @@
 
 import numpy
 from ._generate_points import generate_points
+from ._generate_covs import generate_covs
 from ._dense_correlation_matrix import dense_correlation_matrix
 from ._sparse_correlation_matrix import sparse_correlation_matrix
 
 try:
-    from .._utilities.plot_utilities import matplotlib, plt, save_plot, \
-            get_custom_theme
+    from .._utilities.plot_utilities import matplotlib, plt, get_theme, \
+            show_or_save_plot
     plot_modules_exist = True
 except ImportError:
     plot_modules_exist = False
@@ -32,7 +33,9 @@ __all__ = ['correlation_matrix']
 
 def correlation_matrix(
         size=20,
-        dimension=1,
+        input_dim=1,
+        output_dim=1,
+        corr=True,
         scale=0.1,
         kernel='exponential',
         kernel_param=None,
@@ -41,6 +44,7 @@ def correlation_matrix(
         density=0.001,
         format=r'csr',
         dtype=r'float64',
+        order='C',
         plot=False,
         verbose=False):
     """
@@ -59,19 +63,28 @@ def correlation_matrix(
     size : int, default=20
         The size of matrix, which is determined as follows:
 
-        * If ``grid`` is `False`, the size of the matrix is ``size``.
-        * If ``grid`` is `True`, the size of the matrix is ``size**dimension``.
+        * If ``grid`` is `False`, the size of the matrix is
+          ``size * output_dim``.
+        * If ``grid`` is `True`, the size of the matrix is
+          ``(size * output_dim)**input_dim``.
 
-    dimension : int, default=1
+    input_dim : int, default=1
         The dimension of the space of points to generate the correlation
         matrix.
+
+    output_dim : int, default=1
+        The dimension of the space of output of the model.
+
+    corr : boolean, default=True
+        If `True`, correlation matrix is generated where diagonals are one. If
+        `False`, a covariance matrix is generated.
 
     scale : float, default=0.1
         A positive parameter :math:`\\rho` of the correlation function that
         scales distance :math:`r` to :math:`r/\\rho`
 
-    kernel : {'matern', 'exponential', 'square_exponential', \
-        'rational_quadratic'}, default='exponential'
+    kernel : {``'matern'``, ``'exponential'``, ``'square-exponential'``, \
+        ``'rational-quadratic'``}, default='exponential'
         The kernel function of the correlation, which takes a distance
         :math:`r` and yields its spatial  correlation. See details in the Notes
         section below.
@@ -79,7 +92,7 @@ def correlation_matrix(
     kernel_param : float, default=None
         Parameter :math:`\\theta` of the kernel function. This option only
         applies to ``kernel=matern`` (see the parameter :math:`\\nu` in Notes
-        below) and ``kernel=rational_quadratic`` (see the parameter
+        below) and ``kernel=rational-quadratic`` (see the parameter
         :math:`\\alpha` in Notes below).
 
     grid : bool, default=True
@@ -88,9 +101,10 @@ def correlation_matrix(
 
         * If `True`, the points are generated on a structured grid in a unit
           hypercube with equal distances. In this case, the size of matrix
-          (which is equal to the number of points) is ``size**dimension``.
+          (which is equal to the number of points) is
+          ``(size * output_dim)**dimension``.
         * If `False`, the points are generated randomly. In this case, the size
-          of the generated matrix is ``size``.
+          of the generated matrix is ``size * output_dim``.
 
     sparse : bool, default=False
         Flag to indicate the correlation matrix should be a sparse or dense
@@ -104,15 +118,28 @@ def correlation_matrix(
 
     format : {'csr', 'csc'}, default='csr'
         The format of the sparse matrix. `CSR` generates compressed sparse rows
-        and CSC generates compressed sparse columns matrix.
+        and CSC generates compressed sparse columns matrix. This option is only
+        relevant if ``sparse`` is `True`.
 
-    dtype : {'float32', 'float64', 'float128'}, default='float64'
+    dtype : {``'float32'``, ``'float64'``, ``'float128'``}, \
+            default=``'float64'``
         Data type of the matrix.
 
-    plot : bool, default=False
-        If `True`, the matrix will be plotted. If no display is available
-        (such as executing on remote machines) the plot is saved in the current
-        directory in `SVG` format.
+    order : {``'C'``, ``'F'``}, default=``'C'``
+        Row or column major array:
+        * ``'C'``: C-contiguous (row major)
+        * ``'F'``: Fortran-contiguous (column major)
+        This option is relevant only if ``sparse`` is `False`.
+
+    plot : bool or str, default=False
+        If `True`, the matrix will be plotted. If no graphical backend is
+        available (such as executing on remote machines) the plot is instead
+        saved in the current directory as both ``svg`` and ``pdf`` format.
+        If ``plot`` is a string, the plot is not shown, rather saved with a
+        filename as the given string. If the filename does not contain file
+        extension, the plot is saved in both ``svg`` and ``pdf`` formats. If
+        the filename does not have directory path, the plot is saved in the
+        current directory.
 
     verbose : bool, default=False
         If `True`, it prints some information during the process.
@@ -134,13 +161,14 @@ def correlation_matrix(
     **Matrix Size:**
 
     The size of matrix, :math:`N`, is determined by the parameter ``size``
-    which we refer to as :math:`n`, the dimension, ``dimension``, which we
+    which we refer to as :math:`n`, the input dimension, ``input_dim``, which
+    we refer to as :math:`p`, the output dimension ``output_dim``, which we
     refer to as :math:`d`, and the boolean ``grid`` variable.
 
         * If ``grid`` is `True`, then, the size of the square matrix is
-          :math:`N = n^d`.
+          :math:`N = (nd)^p`.
         * If ``grid`` is `False`, then, the size of the square matrix is
-          :math:`N = n`.
+          :math:`N = nd`.
 
     **Complexity of computation:**
 
@@ -159,7 +187,7 @@ def correlation_matrix(
 
     The correlation matrix of size :math:`N \\times N` is generated by the
     mutual correlation of a set of :math:`N` points in the unit hypercube,
-    :math:`\\boldsymbol{x}_i \\in [0, 1]^d`. The correlation between each two
+    :math:`\\boldsymbol{x}_i \\in [0, 1]^p`. The correlation between each two
     points :math:`\\boldsymbol{x}_i` and :math:`\\boldsymbol{x}_j` is computed
     by
 
@@ -288,8 +316,8 @@ def correlation_matrix(
 
     * If no graphical backend exists (such as running the code on a remote
       server or manually disabling the X11 backend), the plot will not be
-      shown, rather, it will be saved as an ``svg`` file in the current
-      directory.
+      shown, rather, it will be saved as an ``pdf`` and ``svg`` file in the
+      current directory.
     * If the executable ``latex`` is available on ``PATH``, the plot is
       rendered using :math:`\\rm\\LaTeX` and it may take slightly longer to
       produce the plot.
@@ -329,14 +357,14 @@ def correlation_matrix(
     .. code-block:: python
 
        >>> from imate.sample_matrices import correlation_matrix
-       >>> A = correlation_matrix(20, dimension=2)
+       >>> A = correlation_matrix(20, input_dim=2)
 
     Generate a correlation matrix of the size `(20, 20)` based on 20 random
     points in unit square:
 
     .. code-block:: python
 
-       >>> A = correlation_matrix(size=20, dimension=2, grid=False)
+       >>> A = correlation_matrix(size=20, input_dim=2, grid=False)
 
     Generate a matrix of the size :math:`(20^2, 20^2)` for the correlation of
     a grid of `20x20` points in the unit square using Matern correlation
@@ -345,7 +373,7 @@ def correlation_matrix(
 
     .. code-block:: python
 
-       >>> correlation_matrix(size=20, dimension=2, kernel='matern',
+       >>> correlation_matrix(size=20, input_dim=2, kernel='matern',
        ...                    kernel_param=2.5, scale=0.2, plot=True)
 
 
@@ -360,7 +388,7 @@ def correlation_matrix(
 
     .. code-block:: python
 
-       >>> A = correlation_matrix(size=30, dimension=2, scale=0.1, sparse=True,
+       >>> A = correlation_matrix(size=30, input_dim=2, scale=0.1, sparse=True,
        ...                        density=5e-2, format='csr', dtype='float32')
 
 
@@ -371,8 +399,9 @@ def correlation_matrix(
     """
 
     # Check input arguments
-    _check_arguments(size, dimension, scale, kernel, kernel_param, grid,
-                     sparse, density, format, dtype, plot, verbose)
+    _check_arguments(size, input_dim, output_dim, corr, scale, kernel,
+                     kernel_param, grid, sparse, density, format, dtype, order,
+                     plot, verbose)
 
     # Default for kernel parameter
     if kernel_param is None:
@@ -385,7 +414,10 @@ def correlation_matrix(
     kernel = kernel.encode('utf-8')
 
     # correlation a set of points in the unit square
-    coords = generate_points(size, dimension, grid)
+    coords = generate_points(size, input_dim, grid)
+
+    # Generate covariances
+    covs = generate_covs(size, input_dim, output_dim, grid, corr)
 
     # Compute the correlation between the set of points
     if sparse:
@@ -393,6 +425,7 @@ def correlation_matrix(
         # Generate as sparse matrix
         correlation_matrix = sparse_correlation_matrix(
             coords,
+            covs,
             scale,
             kernel,
             kernel_param,
@@ -406,15 +439,17 @@ def correlation_matrix(
         # Generate a dense matrix
         correlation_matrix = dense_correlation_matrix(
             coords,
+            covs,
             scale,
             kernel,
             kernel_param,
             dtype,
+            order,
             verbose)
 
     # Plot Correlation Matrix
-    if plot:
-        plot_matrix(correlation_matrix, sparse, verbose)
+    if plot is not False:
+        plot_matrix(correlation_matrix, sparse, filename=plot, verbose=verbose)
 
     return correlation_matrix
 
@@ -425,7 +460,9 @@ def correlation_matrix(
 
 def _check_arguments(
         size,
-        dimension,
+        input_dim,
+        output_dim,
+        corr,
         scale,
         kernel,
         kernel_param,
@@ -434,6 +471,7 @@ def _check_arguments(
         density,
         format,
         dtype,
+        order,
         plot,
         verbose):
     """
@@ -450,15 +488,33 @@ def _check_arguments(
     elif size < 1:
         raise ValueError('"size" should be a positive integer.')
 
-    # Check dimension
-    if dimension is None:
-        raise TypeError('"dimension" cannot be None.')
-    elif not numpy.isscalar(dimension):
-        raise TypeError('"dimension" should be a scalar value.')
-    elif not isinstance(dimension, (int, numpy.integer)):
-        TypeError('"dimension" should be an integer.')
-    elif dimension < 1:
-        raise ValueError('"dimension" should be a positive integer.')
+    # Check input_dim
+    if input_dim is None:
+        raise TypeError('"input_dim" cannot be None.')
+    elif not numpy.isscalar(input_dim):
+        raise TypeError('"input_dim" should be a scalar value.')
+    elif not isinstance(input_dim, (int, numpy.integer)):
+        TypeError('"input_dim" should be an integer.')
+    elif input_dim < 1:
+        raise ValueError('"input_dim" should be a positive integer.')
+
+    # Check output_dim
+    if output_dim is None:
+        raise TypeError('"output_dim" cannot be None.')
+    elif not numpy.isscalar(output_dim):
+        raise TypeError('"output_dim" should be a scalar value.')
+    elif not isinstance(output_dim, (int, numpy.integer)):
+        TypeError('"output_dim" should be an integer.')
+    elif output_dim < 1:
+        raise ValueError('"output_dim" should be a positive integer.')
+
+    # Check corr
+    if corr is None:
+        raise TypeError('"corr" cannot be None.')
+    elif not numpy.isscalar(corr):
+        raise TypeError('"corr" should be a scalar value.')
+    elif not isinstance(corr, bool):
+        TypeError('"corr" should be boolean.')
 
     # Check scale
     if scale is None:
@@ -473,11 +529,11 @@ def _check_arguments(
     # Check kernel
     if not isinstance(kernel, str):
         raise TypeError('"kernel" should be a string.')
-    elif kernel not in ['matern', 'exponential', 'square_exponential',
-                        'rational_quadratic']:
+    elif kernel not in ['matern', 'exponential', 'square-exponential',
+                        'rational-quadratic']:
         raise ValueError('"kernel" should be one of "matern", ' +
                          '"exponential", "square-exponential", or ' +
-                         '"ratioanl_quadratic".')
+                         '"rational_quadratic".')
 
     # Check kernel_param
     if kernel_param is not None:
@@ -539,6 +595,10 @@ def _check_arguments(
         raise TypeError('"dtype" should be either "float32", "float64", or ' +
                         '"float128".')
 
+    # Check order
+    if order not in ['C', 'F']:
+        raise TypeError('"order" should be either "C" or "F".')
+
     # Check plot
     if plot is None:
         raise TypeError('"plot" cannot be None.')
@@ -560,8 +620,8 @@ def _check_arguments(
 # plot Matrix
 # ===========
 
-@matplotlib.rc_context(get_custom_theme())
-def plot_matrix(matrix, sparse, verbose=False):
+@matplotlib.rc_context(get_theme())
+def plot_matrix(matrix, sparse, filename=None, verbose=False):
     """
     Plots a given matrix.
 
@@ -600,15 +660,16 @@ def plot_matrix(matrix, sparse, verbose=False):
         cbar = fig.colorbar(p, ax=ax)
         cbar.set_label('Correlation')
 
-    ax.set_title('Correlation Matrix', y=1.11)
     ax.set_xlabel('Index $i$')
     ax.set_ylabel('Index $j$')
+    ax.tick_params(axis='x', bottom=False, labelbottom=False, top=True,
+                   labeltop=True)
+    ax.xaxis.set_label_position('top')
+    ax.set_title('Correlation Matrix', y=-0.12)
 
     plt.tight_layout()
 
-    # Check if the graphical backend exists
-    if matplotlib.get_backend() != 'agg':
-        plt.show()
-    else:
-        # write the plot as SVG file in the current working directory
-        save_plot(plt, 'correlation_matrix', transparent_background=True)
+    # write the plot as SVG file in the current working directory
+    show_or_save_plot(plt, filename=filename,
+                      default_filename='correlation_matrix',
+                      transparent_background=True, verbose=verbose)

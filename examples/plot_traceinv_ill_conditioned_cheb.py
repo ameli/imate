@@ -19,7 +19,7 @@ import numpy
 # Package modules
 from imate import InterpolateSchatten
 from _utilities.data_utilities import generate_matrix, generate_basis_functions
-from _utilities.plot_utilities import get_custom_theme, save_plot, plt, \
+from _utilities.plot_utilities import get_theme, show_or_save_plot, plt, \
         matplotlib, NullFormatter,  PercentFormatter, ScalarFormatter
 
 
@@ -27,7 +27,7 @@ from _utilities.plot_utilities import get_custom_theme, save_plot, plt, \
 # plot
 # ====
 
-@matplotlib.rc_context(get_custom_theme(font_scale=None))
+@matplotlib.rc_context(get_theme(font_scale=None))
 def plot_func_and_error(TI, test):
     """
     Plots the curve of trace of Kn inverse versus eta.
@@ -181,9 +181,12 @@ def plot_func_and_error(TI, test):
 
     # Save Plot
     filename = 'traceinv_ill_conditioned_cheb'
+    show_and_save = True
     if test:
         filename = "test_" + filename
-    save_plot(plt, filename, transparent_background=False)
+        show_and_save = False
+    show_or_save_plot(plt, filename=filename, transparent_background=False,
+                      show_and_save=show_and_save)
 
     # If no display backend is enabled, do not plot in the interactive mode
     if (not test) and (matplotlib.get_backend() != 'agg'):
@@ -194,7 +197,7 @@ def plot_func_and_error(TI, test):
 # plot error only
 # ===============
 
-@matplotlib.rc_context(get_custom_theme(font_scale=None))
+@matplotlib.rc_context(get_theme(font_scale=None))
 def plot_error_only(TI, test):
     """
     Plots the curve of trace of Kn inverse versus eta.
@@ -348,9 +351,12 @@ def plot_error_only(TI, test):
 
     # Save Plot
     filename = 'traceinv_ill_conditioned_cheb'
+    show_and_save = True
     if test:
         filename = "test_" + filename
-    save_plot(plt, filename, transparent_background=False)
+        show_and_save = False
+    show_or_save_plot(plt, filename=filename, transparent_background=False,
+                      show_and_save=show_and_save)
 
     # If no display backend is enabled, do not plot in the interactive mode
     if (not test) and (matplotlib.get_backend() != 'agg'):

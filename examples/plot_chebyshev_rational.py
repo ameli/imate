@@ -19,7 +19,7 @@ import scipy
 import scipy.special
 
 # Package modules
-from _utilities.plot_utilities import get_custom_theme, save_plot, plt, \
+from _utilities.plot_utilities import get_theme, show_or_save_plot, plt, \
         matplotlib
 
 
@@ -27,7 +27,7 @@ from _utilities.plot_utilities import get_custom_theme, save_plot, plt, \
 # Plot Functions
 # ==============
 
-@matplotlib.rc_context(get_custom_theme(font_scale=1.2))
+@matplotlib.rc_context(get_theme(font_scale=1.2))
 def plot_chebyshev_rational(degree=6, test=False):
     """
     Plots Chebyshev rational functions.
@@ -60,9 +60,12 @@ def plot_chebyshev_rational(degree=6, test=False):
 
     # Save plot
     filename = 'chebyshev'
+    show_and_save = True
     if test:
         filename = "test_" + filename
-    save_plot(plt, filename, transparent_background=True)
+        show_and_save = False
+    show_or_save_plot(plt, filename=filename, transparent_background=True,
+                      show_and_save=show_and_save)
 
     # If no display backend is enabled, do not plot in the interactive mode
     if (not test) and (matplotlib.get_backend() != 'agg'):

@@ -26,16 +26,19 @@ cdef extern from "cu_dense_affine_matrix_function.h":
 
         cuDenseAffineMatrixFunction(
                 const DataType* A_,
-                const FlagType A_is_row_major_,
                 const LongIndexType num_rows_,
-                const LongIndexType num_colums_,
+                const LongIndexType num_columns_,
+                const FlagType A_is_row_major_,
+                const FlagType A_is_symmetric_,
                 const int num_gpu_devices_) except +
 
         cuDenseAffineMatrixFunction(
                 const DataType* A_,
-                const FlagType A_is_row_major_,
                 const LongIndexType num_rows_,
                 const LongIndexType num_columns_,
+                const FlagType A_is_row_major_,
+                const FlagType A_is_symmetric_,
                 const DataType* B_,
                 const FlagType B_is_row_major_,
+                const FlagType B_is_symmetric_,
                 const int num_gpu_devices_) except +

@@ -25,7 +25,29 @@
 ///
 
 template <typename DataType>
-cMatrix<DataType>::cMatrix()
+cMatrix<DataType>::cMatrix():
+
+    // Initializer list
+    A_is_symmetric(0)
+{
+}
+
+
+// =============
+// constructor 2
+// =============
+
+/// \brief     Constructor.
+///
+/// \param[in] A_is_symmetric_
+///            If \c 1, it is assumed that the matrix is symmetric, otherwise
+///            set to \c 0.
+
+template <typename DataType>
+cMatrix<DataType>::cMatrix(const FlagType A_is_symmetric_):
+
+    // Initializer list
+    A_is_symmetric(A_is_symmetric_)
 {
 }
 
@@ -34,9 +56,39 @@ cMatrix<DataType>::cMatrix()
 // destructor
 // ==========
 
+/// \brief Destructor
+///
+
 template <typename DataType>
 cMatrix<DataType>::~cMatrix()
 {
+}
+
+
+// ============
+// set symmetry
+// ============
+
+/// \brief     Specify whether the matrix is symmetic or non-symmetric.
+///
+/// \details   This function overwrites the symmetry status that has been set
+///            by the constructor.
+///
+/// \param[in] symmetric
+///            Boolean. If set to \c 1, the matrix is assumed to be symmetric.
+///            Otherwiese non-symmetric.
+
+template <typename DataType>
+void cMatrix<DataType>::set_symmetry(const FlagType symmetric)
+{
+    if (symmetric == 1)
+    {
+        this->A_is_symmetric = 1;
+    }
+    else
+    {
+        this->A_is_symmetric = 0;
+    }
 }
 
 
@@ -66,9 +118,9 @@ DataType cMatrix<DataType>::get_eigenvalue(
         const DataType known_eigenvalue,
         const DataType* inquiry_parameters) const
 {
-    assert((false) && "This function should no be called within this class");
+    assert((false) && "This function should not be called within this class");
 
-    // Mark unused variables to avoid compiler warnings (-Wno-unused-parameter)
+    // Void unused variables to avoid compiler warnings (-Wno-unused-parameter)
     (void) known_parameters;
     (void) known_eigenvalue;
     (void) inquiry_parameters;

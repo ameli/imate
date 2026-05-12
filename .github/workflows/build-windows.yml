@@ -15,22 +15,22 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                python-version: ['3.9', '3.10', '3.11', '3.12']
+                python-version: ['3.10', '3.11', '3.12', '3.13']
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@v6
 
             - name: Set up Python ${{ matrix.python-version }}
-              uses: actions/setup-python@v4
+              uses: actions/setup-python@v6
               with:
                   python-version: ${{ matrix.python-version }}
 
             - name: Install CUDA
-              uses: Jimver/cuda-toolkit@v0.2.11
+              uses: Jimver/cuda-toolkit@v0.2.35
               id: cuda-toolkit
               with:
-                  cuda: '12.1.0'
+                  cuda: '13.0.0'
 
             - name: Install package and dependencies
               run: |
@@ -40,6 +40,7 @@ jobs:
                   USE_LONG_INT: 0
                   USE_UNSIGNED_LONG_INT: 0
                   USE_CBLAS: 0
+                  USE_MKL: 0
                   USE_CUDA: 1
                   CUDA_DYNAMIC_LOADING: 1
 

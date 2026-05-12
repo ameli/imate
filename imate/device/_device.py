@@ -15,6 +15,7 @@ import os
 import re
 import platform
 import subprocess
+from .._openmp import get_avail_num_threads
 
 __all__ = ['get_processor_name', 'get_num_cpu_threads', 'get_gpu_name',
            'get_num_gpu_devices', 'get_nvidia_driver_version',
@@ -77,15 +78,15 @@ def get_processor_name():
 
     elif platform.system() == "Darwin":
         os.environ['PATH'] = os.environ['PATH'] + os.pathsep + '/usr/sbin'
-        command = "sysctl -n machdep.cpu.brand_string"
-        return subprocess.getoutput(command).strip()
+        command = ["sysctl", "-n", "machdep.cpu.brand_string"]
+        return subprocess.check_output(command).strip()
 
     elif platform.system() == "Linux":
         command = "cat /proc/cpuinfo"
         all_info = subprocess.getoutput(command).strip()
         for line in all_info.split("\n"):
             if "model name" in line:
-                return re.sub(".*model name.*:", "", line, 1)[1:]
+                return re.sub(".*model name.*:", "", line, count=1)[1:]
 
     return ""
 
@@ -146,12 +147,7 @@ def get_num_cpu_threads():
         8
     """
 
-    if hasattr(os, 'sched_getaffinity'):
-        num_cpu_threads = len(os.sched_getaffinity(0))
-    else:
-        num_cpu_threads = os.cpu_count()
-
-    return num_cpu_threads
+    return get_avail_num_threads()
 
 
 # ============

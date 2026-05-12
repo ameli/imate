@@ -12,9 +12,9 @@
 #ifndef _C_TRACE_ESTIMATOR_C_TRACE_ESTIMATOR_H_
 #define _C_TRACE_ESTIMATOR_C_TRACE_ESTIMATOR_H_
 
-// ======
+// =======
 // Headers
-// ======
+// =======
 
 #include "../functions/functions.h"  // Function
 #include "../_c_linear_operator/c_linear_operator.h"  // cLinearOperator
@@ -66,7 +66,7 @@ class cTraceEstimator
                 IndexType* num_samples_used,
                 IndexType* num_outliers,
                 FlagType* converged,
-                float& alg_wall_time);
+                double& alg_wall_time);
 
     private:
 

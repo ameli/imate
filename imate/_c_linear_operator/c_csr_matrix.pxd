@@ -30,4 +30,5 @@ cdef extern from "c_csr_matrix.h":
                 const LongIndexType* A_indices_,
                 const LongIndexType* A_index_pointer_,
                 const LongIndexType num_rows_,
-                const LongIndexType num_columns_) except +
+                const LongIndexType num_columns_,
+                const FlagType A_is_symmetric_) except +

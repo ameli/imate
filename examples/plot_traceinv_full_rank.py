@@ -19,15 +19,15 @@ import numpy
 # Package modules
 from imate.sample_matrices import correlation_matrix
 from imate import InterpolateSchatten
-from _utilities.plot_utilities import get_custom_theme, save_plot, plt, \
-        matplotlib, NullFormatter,  FormatStrFormatter, PercentFormatter
+from _utilities.plot_utilities import get_theme, show_or_save_plot, \
+        plt, matplotlib, NullFormatter,  FormatStrFormatter, PercentFormatter
 
 
 # ====
 # plot
 # ====
 
-@matplotlib.rc_context(get_custom_theme(font_scale=None))
+@matplotlib.rc_context(get_theme(font_scale=None))
 def plot(TI, p, test):
     """
     Plots the curve of trace of An inverse versus eta (we use t instead of eta
@@ -196,13 +196,12 @@ def plot(TI, p, test):
 
     # Save plot
     filename = 'traceinv_full_rank_p' + str(int(numpy.abs(p)))
+    show_and_save = True
     if test:
         filename = "test_" + filename
-    save_plot(plt, filename, transparent_background=False)
-
-    # If no display backend is enabled, do not plot in the interactive mode
-    if (not test) and (matplotlib.get_backend() != 'agg'):
-        plt.show()
+        show_and_save = False
+    show_or_save_plot(plt, filename=filename, transparent_background=False,
+                      show_and_save=show_and_save)
 
 
 # ====

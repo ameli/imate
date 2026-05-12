@@ -15,14 +15,14 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                python-version: ['3.9', '3.10', '3.11', '3.12', 'pypy3.8', 'pypy3.9', 'pypy3.10']
+                python-version: ['3.10', '3.11', '3.12', '3.13', 'pypy3.10', 'pypy3.11']
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@v6
 
             - name: Set up Python ${{ matrix.python-version }}
-              uses: actions/setup-python@v4
+              uses: actions/setup-python@v6
               with:
                   python-version: ${{ matrix.python-version }}
 
@@ -61,6 +61,7 @@ jobs:
                   USE_LONG_INT: 0
                   USE_UNSIGNED_LONG_INT: 0
                   USE_CBLAS: 0
+                  USE_MKL: 0
                   USE_CUDA: 0
 
             # For python 3.10, 3.11 do not install extras (sparsesuite)
@@ -73,6 +74,7 @@ jobs:
                   USE_LONG_INT: 0
                   USE_UNSIGNED_LONG_INT: 0
                   USE_CBLAS: 0
+                  USE_MKL: 0
                   USE_CUDA: 0
 
             # For PyPy, export OpenBLAS pkgconfig file, when pypy tries to build scipy from source
@@ -87,6 +89,7 @@ jobs:
                   USE_LONG_INT: 0
                   USE_UNSIGNED_LONG_INT: 0
                   USE_CBLAS: 0
+                  USE_MKL: 0
                   USE_CUDA: 0
 
             # Despite the package is built on both cpython and pypy, here we

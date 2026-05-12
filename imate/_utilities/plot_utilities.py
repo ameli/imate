@@ -51,8 +51,7 @@ warnings.filterwarnings(
         message=('This figure includes Axes that are not compatible with ' +
                  'tight_layout, so results might be incorrect.'))
 
-__all__ = ['get_custom_theme', 'set_custom_theme', 'save_plot',
-           'show_or_save_plot']
+__all__ = ['get_theme', 'set_theme', 'reset_theme', 'show_or_save_plot']
 
 
 # =====================
@@ -228,22 +227,22 @@ def _customize_theme_text():
     return text_dict
 
 
-# ================
-# get custom theme
-# ================
+# =========
+# get theme
+# =========
 
-def get_custom_theme(
+def get_theme(
         context="notebook",
         font_scale=1,
         use_latex=True,
-        **kwargs):
+        rc=None):
     """
     Returns a dictionary that can be used to update plt.rcParams.
 
     Usage:
     Before a function, add this line:
 
-    @matplotlib.rc_context(get_custom_theme(font_scale=1.2))
+    @matplotlib.rc_context(get_theme(font_scale=1.2))
     def some_plotting_function():
         ...
 
@@ -276,35 +275,50 @@ def get_custom_theme(
         plt_rc_params.update(_customize_theme_text())
 
     # Add extra arguments
-    plt_rc_params.update(kwargs)
+    if rc is not None:
+        plt_rc_params.update(rc)
 
     return plt_rc_params
 
 
-# ================
-# set custom theme
-# ================
+# =========
+# set theme
+# =========
 
-def set_custom_theme(context="notebook", font_scale=1, use_latex=True):
+def set_theme(
+        context="notebook",
+        font_scale=1,
+        use_latex=True,
+        rc=None):
     """
     Sets a customized theme for plotting.
     """
 
-    plt_rc_params = get_custom_theme(context=context, font_scale=font_scale,
-                                     use_latex=use_latex)
+    plt_rc_params = get_theme(context=context, font_scale=font_scale,
+                              use_latex=use_latex, rc=rc)
     matplotlib.rcParams.update(plt_rc_params)
+
+
+# ===========
+# reset theme
+# ===========
+
+def reset_theme():
+    """
+    Reset the matplotlib theme back it default.
+    """
+
+    matplotlib.rcParams.update(matplotlib.rcParamsDefault)
 
 
 # =========
 # save plot
 # =========
 
-def save_plot(
+def _save_plot(
         plt,
         filename,
-        save_dir=None,
         transparent_background=True,
-        pdf=True,
         bbox_extra_artists=None,
         dpi=200,
         verbose=False):
@@ -322,34 +336,48 @@ def save_plot(
     :type transparent_background: bool
     """
 
-    # If no directory specified, write in the current working directory
-    if save_dir is None:
-        save_dir = os.getcwd()
+    # Is filename contain path, use the current path
+    if os.path.isabs(filename) or os.path.isabs(os.path.expanduser(filename)):
 
-    # Save plot in both svg and pdf format
-    filename_svg = filename + '.svg'
-    filename_pdf = filename + '.pdf'
-    if os.access(save_dir, os.W_OK):
-        save_fullname_svg = os.path.join(save_dir, filename_svg)
-        save_fullname_pdf = os.path.join(save_dir, filename_pdf)
+        # Remove redundant separators
+        filename = os.path.normpath(filename)
+
+        # Extract the directory, base filename, and file extension
+        directory, base_and_ext = os.path.split(filename)
+        base_filename, extension = os.path.splitext(base_and_ext)
+
+        # Initialize a list of extensions
+        extensions = [extension]
+
+    else:
+        # If no directory specified, write in the current working directory
+        directory = os.getcwd()
+        base_filename, extension = os.path.splitext(filename)
+
+        # Determine whether a file extension is provided or not.
+        if bool(extension):
+            # filename contains an extension
+            extensions = [extension]
+        else:
+            # No extension is provided. Save to both svg and pdf
+            extensions = ['svg', 'pdf']
+
+    if not os.access(directory, os.W_OK):
+        raise RuntimeError(
+            'Cannot save plot to %s. Directory is not writable.' % directory)
+
+    # For each extension, save a file
+    for extension in extensions:
+        fullpath_filename = os.path.join(directory,
+                                         base_filename + '.' + extension)
 
         plt.savefig(
-                save_fullname_svg,
+                fullpath_filename, dpi=dpi,
                 transparent=transparent_background,
-                bbox_inches='tight')
-        if verbose:
-            print('Plot saved to "%s".' % (save_fullname_svg))
+                bbox_extra_artists=bbox_extra_artists, bbox_inches='tight')
 
-        if pdf:
-            plt.savefig(
-                    save_fullname_pdf, dpi=dpi,
-                    transparent=transparent_background,
-                    bbox_extra_artists=bbox_extra_artists, bbox_inches='tight')
-            plt.close()
-            if verbose:
-                print('Plot saved to "%s".' % (save_fullname_pdf))
-    else:
-        print('Cannot save plot to %s. Directory is not writable.' % save_dir)
+        if verbose:
+            print('Plot saved to "%s".' % fullpath_filename)
 
 
 # =================
@@ -358,22 +386,115 @@ def save_plot(
 
 def show_or_save_plot(
         plt,
-        filename,
+        filename=None,
+        default_filename=None,
         transparent_background=True,
-        pdf=True,
         bbox_extra_artists=None,
         dpi=200,
+        show_and_save=False,
         verbose=False):
     """
-    Shows the plot. If no graphical beckend exists, saves the plot.
+    Show and/or save plot.
+
+    Parameters
+    ----------
+
+    filename : str or bool, default=None
+        If `False`, the plot is neither shown nor saved. If `True` or `None`,
+        the plot is shown. If string, the plot is saved instead, where the
+        filename is the given string. If the filename contains no file
+        extension, the plot is saved as both ``svg`` and ``pdf`` format. If the
+        filename contains no directory path, the plot is saved in the current
+        directory.
+
+    default_filename : str, default=None
+        If the plot cannot be shown (such as when no graphical backend exists),
+        the plot is saved instead with the default filename.
+
+    transparent_background : bool, default=True
+        If `True`, the figure and axes backgrounds will be rendered transparent
+        in saved file. This only works for the file formats that support the
+        alpha channel, such as ``svg``, ``pdf``, and ``png`` files.
+
+    bbox_extra_artist : list, default=None
+        A list of extra artists to pass to the renderer.
+
+    dpi : int, default=200
+        Dots per inch for rendering plots.
+
+    show_and_save : bool, default=False
+        By default, the plot is either shown xor saved. But when this argument
+        is `True`, the plot is forced to both be shown and saved.
+
+    verbose : bool, default=False
+        If `True`, the fullpath filename of the saved plot is printed.
+
+    Notes
+    -----
+
+    The ``filename`` argument determines that whether the plot should be shown
+    of saved. However, there the following exceptions are made:
+
+    1. If ``show_and_save`` is enabled, plot is both shown and saved.
+
+    2. If no graphical beckend exists, it the plot is saved instead of being
+       shown, even of it was not intended to be saved.
+
+    2. If the environment is Jupyter notebook, the plot is always shown, even
+       if it was not intended to be shown. If a filename is given, it is both
+       shown and saved.
     """
 
-    # Check if the graphical back-end exists
-    if matplotlib.get_backend() != 'agg' or is_notebook():
-        plt.show()
+    if filename is False:
+        # Do nothing
+        return
+    elif (filename is True) or (filename is None):
+        # Show the plot, but do not save it
+        if matplotlib.get_backend() != 'agg':
+            show = True
+            if show_and_save:
+                save = True
+            else:
+                save = False
+        else:
+            # There is no graphical backend, no other choice but to save it
+            save = True
+            if show_and_save:
+                show = True
+            else:
+                show = False
+    elif isinstance(filename, str):
+        # Save the plot, but do not show it, unless it is a Jupyter notebook
+        save = True
+        if is_notebook():
+            show = True
+        else:
+            show = False
     else:
+        raise ValueError('"filename" should be boolean or a string.')
+
+    # Determine filename
+    if (save is True) and (not isinstance(filename, str)):
+        if isinstance(default_filename, str):
+            filename = default_filename
+        else:
+            raise NotImplementedError('"default_filename" is not set. ' +
+                                      'This is a bug. Please report the ' +
+                                      'issue.')
+
+    # Save plot to file(s)
+    if save:
+
         # write the plot as SVG file in the current working directory
-        save_plot(plt, filename, transparent_background=transparent_background,
-                  pdf=pdf, bbox_extra_artists=bbox_extra_artists, dpi=dpi,
-                  verbose=verbose)
-        plt.close()
+        _save_plot(plt, filename,
+                   transparent_background=transparent_background,
+                   bbox_extra_artists=bbox_extra_artists, dpi=dpi,
+                   verbose=verbose)
+
+        # Closing is necessary especially if a large number of plots are saved.
+        if not show:
+            plt.close()
+
+    # Show plot
+    if show:
+        plt.show()

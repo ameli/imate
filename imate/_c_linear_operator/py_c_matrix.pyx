@@ -22,8 +22,11 @@ from .c_matrix cimport cMatrix
 from .c_dense_matrix cimport cDenseMatrix
 from .c_csr_matrix cimport cCSRMatrix
 from .c_csc_matrix cimport cCSCMatrix
-from .._definitions.types cimport IndexType, LongIndexType, FlagType, \
-        MemoryViewLongIndexType
+from .._definitions.types cimport LongIndexType, FlagType
+from .._array cimport get_array_buffer
+from .._array import get_data_type_name, get_device, get_ndim, get_shape, \
+        is_row_major
+from .._array cimport release_buffer
 
 
 # =========
@@ -116,7 +119,7 @@ cdef class pycMatrix(pycLinearOperator):
     # __cinit__
     # =========
 
-    def __cinit__(self, A):
+    def __cinit__(self, A, A_is_symmetric=False):
         """
         Sets the matrix A.
         """
@@ -125,22 +128,21 @@ cdef class pycMatrix(pycLinearOperator):
         if A is None:
             raise ValueError('A cannot be None.')
 
-        if A.ndim != 2:
+        if get_ndim(A) != 2:
             raise ValueError('Input matrix should be a 2-dimensional array.')
 
+        # Symmetric matrix A
+        if not isinstance(A_is_symmetric, bool):
+            raise ValueError('"A_is_symmetric" should be boolean.')
+        self.A_is_symmetric = A_is_symmetric
+
         # Data type
-        if A.dtype == b'float32':
-            self.data_type_name = b'float32'
+        self.data_type_name = get_data_type_name(A)
 
-        elif A.dtype == b'float64':
-            self.data_type_name = b'float64'
-
-        elif A.dtype == b'float128':
-            self.data_type_name = b'float128'
-
-        else:
-            raise TypeError('Data type should be "float32", "float64", or ' +
-                            '"float128".')
+        if self.data_type_name not in [b'float32', b'float64', b'float128']:
+            raise TypeError('When the computation is performed on CPU, the '
+                            'data type should be either "float32", "float64", '
+                            'or "float128".')
 
         # Determine A is sparse or dense
         if issparse(A):
@@ -152,15 +154,8 @@ cdef class pycMatrix(pycLinearOperator):
                 if not A.has_sorted_indices:
                     A.sort_indices()
 
-                # CSR matrix
-                if self.data_type_name == b'float32':
-                    self.set_csr_matrix_float(A)
-
-                elif self.data_type_name == b'float64':
-                    self.set_csr_matrix_double(A)
-
-                elif self.data_type_name == b'float128':
-                    self.set_csr_matrix_long_double(A)
+                # set CSR matrix
+                self.set_csr_matrix(A)
 
             elif isspmatrix_csc(A):
 
@@ -168,52 +163,43 @@ cdef class pycMatrix(pycLinearOperator):
                 if not A.has_sorted_indices:
                     A.sort_indices()
 
-                # CSC matrix
-                if self.data_type_name == b'float32':
-                    self.set_csc_matrix_float(A)
-
-                elif self.data_type_name == b'float64':
-                    self.set_csc_matrix_double(A)
-
-                elif self.data_type_name == b'float128':
-                    self.set_csc_matrix_long_double(A)
+                # set CSC matrix
+                self.set_csc_matrix(A)
 
             else:
 
                 # If A is neither CSR or CSC, convert A to CSR
-                self.A_csr = csr_matrix(A)
+                self.A_csr = csr_matrix(A, dtype=A.dtype)
 
                 # Check sorted indices
                 if not self.A_csr.has_sorted_indices:
                     self.A_csr.sort_indices()
 
-                # CSR matrix
-                if self.data_type_name == b'float32':
-                    self.set_csr_matrix_float(self.A_csr)
-
-                elif self.data_type_name == b'float64':
-                    self.set_csr_matrix_double(self.A_csr)
-
-                elif self.data_type_name == b'float128':
-                    self.set_csr_matrix_long_double(self.A_csr)
+                # set CSR matrix
+                self.set_csr_matrix(self.A_csr)
 
         else:
+            # A is dense matrix
+            self.set_dense_matrix(A)
 
-            # Set a dense matrix
-            if self.data_type_name == b'float32':
-                self.set_dense_matrix_float(A)
+    # ===========
+    # __dealloc__
+    # ===========
 
-            elif self.data_type_name == b'float64':
-                self.set_dense_matrix_double(A)
+    def __dealloc__(self):
+        """
+        """
 
-            elif self.data_type_name == b'float128':
-                self.set_dense_matrix_long_double(A)
+        # Release data buffer
+        release_buffer(&self.A_data_py_buffer)
+        release_buffer(&self.A_indices_py_buffer)
+        release_buffer(&self.A_index_pointer_py_buffer)
 
-    # ======================
-    # set dense matrix float
-    # ======================
+    # ================
+    # set dense matrix
+    # ================
 
-    def set_dense_matrix_float(self, A):
+    def set_dense_matrix(self, A):
         """
         Sets matrix A.
 
@@ -221,179 +207,62 @@ cdef class pycMatrix(pycLinearOperator):
         :type A: numpy.ndarray, or any scipy.sparse array
         """
 
+        # Get shape
+        num_rows, num_columns = get_shape(A)
+
         # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
+        cdef LongIndexType A_num_rows = num_rows
+        cdef LongIndexType A_num_columns = num_columns
 
         # Contiguity
-        cdef FlagType A_is_row_major
-        if A.flags['C_CONTIGUOUS']:
-            A_is_row_major = 1
-        elif A.flags['F_CONTIGUOUS']:
-            A_is_row_major = 0
-        else:
-            raise TypeError('Matrix A should be either C or F contiguous.')
-
-        # Declare memoryviews to get data pointer
-        cdef float[:, ::1] A_data_float_mv_c
-        cdef float[::1, :] A_data_float_mv_f
+        cdef FlagType A_is_row_major = is_row_major(A)
 
         # Declare pointer of A.data
-        cdef float* A_data_float
-
-        # Get pointer to data of A depending on row or column major
-        if A_is_row_major:
-
-            # Memoryview of A for row major matrix
-            A_data_float_mv_c = A
-
-            # Pointer of the data of A
-            A_data_float = &A_data_float_mv_c[0, 0]
-
-        else:
-
-            # Memoryview of A for column major matrix
-            A_data_float_mv_f = A
-
-            # Pointer of the data of A
-            A_data_float = &A_data_float_mv_f[0, 0]
+        cdef const void* A_data = get_array_buffer(A, &self.A_data_py_buffer)
 
         # Create a linear operator object
-        self.Aop_float = new cDenseMatrix[float](
-                A_data_float,
-                A_num_rows,
-                A_num_columns,
-                A_is_row_major)
+        if self.data_type_name == b'float32':
+            self.Aop_fp32 = new cDenseMatrix[float](
+                    <float*> A_data,
+                    A_num_rows,
+                    A_num_columns,
+                    A_is_row_major,
+                    self.A_is_symmetric)
 
-    # =======================
-    # set dense matrix double
-    # =======================
+        elif self.data_type_name == b'float64':
+            self.Aop_fp64 = new cDenseMatrix[double](
+                    <double*> A_data,
+                    A_num_rows,
+                    A_num_columns,
+                    A_is_row_major,
+                    self.A_is_symmetric)
 
-    def set_dense_matrix_double(self, A):
+        elif self.data_type_name == b'float128':
+            self.Aop_fp128 = new cDenseMatrix[long double](
+                    <long double*> A_data,
+                    A_num_rows,
+                    A_num_columns,
+                    A_is_row_major,
+                    self.A_is_symmetric)
+
+    # ==============
+    # set csr matrix
+    # ==============
+
+    def set_csr_matrix(self, A):
         """
-        Sets matrix A.
-
-        :param A: A 2-dimensional matrix.
-        :type A: numpy.ndarray, or any scipy.sparse array
         """
+
+        # Get shape
+        num_rows, num_columns = get_shape(A)
 
         # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # Contiguity
-        cdef FlagType A_is_row_major
-        if A.flags['C_CONTIGUOUS']:
-            A_is_row_major = 1
-        elif A.flags['F_CONTIGUOUS']:
-            A_is_row_major = 0
-        else:
-            raise TypeError('Matrix A should be either C or F contiguous.')
-
-        # Declare memoryviews to get data pointer
-        cdef double[:, ::1] A_data_double_mv_c
-        cdef double[::1, :] A_data_double_mv_f
-
-        # Declare pointer to A.data
-        cdef double* A_data_double
-
-        # Get pointer to data of A depending on row or column major
-        if A_is_row_major:
-
-            # Memoryview of A for row major matrix
-            A_data_double_mv_c = A
-
-            # Pointer of the data of A
-            A_data_double = &A_data_double_mv_c[0, 0]
-
-        else:
-
-            # Memoryview of A for column major matrix
-            A_data_double_mv_f = A
-
-            # Pointer of the data of A
-            A_data_double = &A_data_double_mv_f[0, 0]
-
-        # Create a linear operator object
-        self.Aop_double = new cDenseMatrix[double](
-                A_data_double,
-                A_num_rows,
-                A_num_columns,
-                A_is_row_major)
-
-    # ============================
-    # set dense matrix long double
-    # ============================
-
-    def set_dense_matrix_long_double(self, A):
-        """
-        Sets matrix A.
-
-        :param A: A 2-dimensional matrix.
-        :type A: numpy.ndarray, or any scipy.sparse array
-        """
-
-        # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # Contiguity
-        cdef FlagType A_is_row_major
-        if A.flags['C_CONTIGUOUS']:
-            A_is_row_major = 1
-        elif A.flags['F_CONTIGUOUS']:
-            A_is_row_major = 0
-        else:
-            raise TypeError('Matrix A should be either C or F contiguous.')
-
-        # Declare memoryviews to get data pointer
-        cdef long double[:, ::1] A_data_long_double_mv_c
-        cdef long double[::1, :] A_data_long_double_mv_f
-
-        # Declare pointer to A.data
-        cdef long double* A_data_long_double
-
-        # Get pointer to data of A depending on row or column major
-        if A_is_row_major:
-
-            # Memoryview of A for row major matrix
-            A_data_long_double_mv_c = A
-
-            # Pointer of the data of A
-            A_data_long_double = &A_data_long_double_mv_c[0, 0]
-
-        else:
-
-            # Memoryview of A for column major matrix
-            A_data_long_double_mv_f = A
-
-            # Pointer of the data of A
-            A_data_long_double = &A_data_long_double_mv_f[0, 0]
-
-        # Create a linear operator object
-        self.Aop_long_double = new cDenseMatrix[long double](
-                A_data_long_double,
-                A_num_rows,
-                A_num_columns,
-                A_is_row_major)
-
-    # ====================
-    # set csr matrix float
-    # ====================
-
-    def set_csr_matrix_float(self, A):
-        """
-        """
-
-        # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # Declare memoryviews to get pointer of A.data
-        cdef float[:] A_data_float_mv
+        cdef LongIndexType A_num_rows = num_rows
+        cdef LongIndexType A_num_columns = num_columns
 
         # Declare pointer for A.data
-        cdef float* A_data_float
+        cdef const void* A_data = get_array_buffer(
+                A.data, &self.A_data_py_buffer)
 
         # If the input type is the same as LongIndexType, no copy is performed.
         self.A_indices_copy = \
@@ -401,46 +270,58 @@ cdef class pycMatrix(pycLinearOperator):
         self.A_index_pointer_copy = \
             A.indptr.astype(self.long_index_type_name, copy=False)
 
-        # Declare memoryviews to get pointer of A.indices and A.indptr
-        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
-        cdef MemoryViewLongIndexType A_index_pointer_mv = \
-            self.A_index_pointer_copy
-
-        # Declare pointers to A.indices ans A.indptr
-        cdef LongIndexType* A_indices = &A_indices_mv[0]
-        cdef LongIndexType* A_index_pointer = &A_index_pointer_mv[0]
-
-        # Memoryview of A data
-        A_data_float_mv = A.data
-
-        # Get pointers
-        A_data_float = &A_data_float_mv[0]
+        # Declare pointers to A.indices and A.indptr
+        cdef const void* A_indices = get_array_buffer(
+                self.A_indices_copy, &self.A_indices_py_buffer)
+        cdef const void* A_index_pointer = get_array_buffer(
+                self.A_index_pointer_copy, &self.A_index_pointer_py_buffer)
 
         # Create a linear operator object
-        self.Aop_float = new cCSRMatrix[float](
-                A_data_float,
-                A_indices,
-                A_index_pointer,
-                A_num_rows,
-                A_num_columns)
+        if self.data_type_name == b'float32':
+            self.Aop_fp32 = new cCSRMatrix[float](
+                    <float*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric)
 
-    # =====================
-    # set csr matrix double
-    # =====================
+        elif self.data_type_name == b'float64':
+            self.Aop_fp64 = new cCSRMatrix[double](
+                    <double*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric)
 
-    def set_csr_matrix_double(self, A):
+        elif self.data_type_name == b'float128':
+            self.Aop_fp128 = new cCSRMatrix[long double](
+                    <long double*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric)
+
+    # ==============
+    # set csc matrix
+    # ==============
+
+    def set_csc_matrix(self, A):
         """
         """
+
+        # Get shape
+        num_rows, num_columns = get_shape(A)
 
         # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # Declare memoryviews to get pointer of A.data
-        cdef double[:] A_data_double_mv
+        cdef LongIndexType A_num_rows = num_rows
+        cdef LongIndexType A_num_columns = num_columns
 
         # Declare pointer for A.data
-        cdef double* A_data_double
+        cdef const void* A_data = get_array_buffer(
+                A.data, &self.A_data_py_buffer)
 
         # If the input type is the same as LongIndexType, no copy is performed.
         self.A_indices_copy = \
@@ -448,213 +329,36 @@ cdef class pycMatrix(pycLinearOperator):
         self.A_index_pointer_copy = \
             A.indptr.astype(self.long_index_type_name, copy=False)
 
-        # Declare memoryviews to get pointer of A.indices and A.indptr
-        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
-        cdef MemoryViewLongIndexType A_index_pointer_mv = \
-            self.A_index_pointer_copy
-
         # Declare pointers to A.indices ans A.indptr
-        cdef LongIndexType* A_indices = &A_indices_mv[0]
-        cdef LongIndexType* A_index_pointer = &A_index_pointer_mv[0]
-
-        # Memoryview of A data
-        A_data_double_mv = A.data
-
-        # Get pointers
-        A_data_double = &A_data_double_mv[0]
+        cdef const void* A_indices = get_array_buffer(
+                self.A_indices_copy, &self.A_indices_py_buffer)
+        cdef const void* A_index_pointer = get_array_buffer(
+                self.A_index_pointer_copy, &self.A_index_pointer_py_buffer)
 
         # Create a linear operator object
-        self.Aop_double = new cCSRMatrix[double](
-                A_data_double,
-                A_indices,
-                A_index_pointer,
-                A_num_rows,
-                A_num_columns)
+        if self.data_type_name == b'float32':
+            self.Aop_fp32 = new cCSCMatrix[float](
+                    <float*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric)
 
-    # ==========================
-    # set csr matrix long double
-    # ==========================
+        elif self.data_type_name == b'float64':
+            self.Aop_fp64 = new cCSCMatrix[double](
+                    <double*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric)
 
-    def set_csr_matrix_long_double(self, A):
-        """
-        """
-
-        # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # Declare memoryviews to get pointer of A.data
-        cdef long double[:] A_data_long_double_mv
-
-        # Declare pointer for A.data
-        cdef long double* A_data_long_double
-
-        # If the input type is the same as LongIndexType, no copy is performed.
-        self.A_indices_copy = \
-            A.indices.astype(self.long_index_type_name, copy=False)
-        self.A_index_pointer_copy = \
-            A.indptr.astype(self.long_index_type_name, copy=False)
-
-        # Declare memoryviews to get pointer of A.indices and A.indptr
-        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
-        cdef MemoryViewLongIndexType A_index_pointer_mv = \
-            self.A_index_pointer_copy
-
-        # Declare pointers to A.indices ans A.indptr
-        cdef LongIndexType* A_indices = &A_indices_mv[0]
-        cdef LongIndexType* A_index_pointer = &A_index_pointer_mv[0]
-
-        # Memoryview of A data
-        A_data_long_double_mv = A.data
-
-        # Get pointers
-        A_data_long_double = &A_data_long_double_mv[0]
-
-        # Create a linear operator object
-        self.Aop_long_double = new cCSRMatrix[long double](
-                A_data_long_double,
-                A_indices,
-                A_index_pointer,
-                A_num_rows,
-                A_num_columns)
-
-    # ====================
-    # set csc matrix float
-    # ====================
-
-    def set_csc_matrix_float(self, A):
-        """
-        """
-
-        # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # Declare memoryviews to get pointer of A.data
-        cdef float[:] A_data_float_mv
-
-        # Declare pointer for A.data
-        cdef float* A_data_float
-
-        # If the input type is the same as LongIndexType, no copy is performed.
-        self.A_indices_copy = \
-            A.indices.astype(self.long_index_type_name, copy=False)
-        self.A_index_pointer_copy = \
-            A.indptr.astype(self.long_index_type_name, copy=False)
-
-        # Declare memoryviews to get pointer of A.indices and A.indptr
-        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
-        cdef MemoryViewLongIndexType A_index_pointer_mv = \
-            self.A_index_pointer_copy
-
-        # Declare pointers to A.indices ans A.indptr
-        cdef LongIndexType* A_indices = &A_indices_mv[0]
-        cdef LongIndexType* A_index_pointer = &A_index_pointer_mv[0]
-
-        # Memoryview of A data
-        A_data_float_mv = A.data
-
-        # Get pointers
-        A_data_float = &A_data_float_mv[0]
-
-        # Create a linear operator object
-        self.Aop_float = new cCSCMatrix[float](
-                A_data_float,
-                A_indices,
-                A_index_pointer,
-                A_num_rows,
-                A_num_columns)
-
-    # =====================
-    # set csc matrix double
-    # =====================
-
-    def set_csc_matrix_double(self, A):
-        """
-        """
-
-        # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # Declare memoryviews to get pointer of A.data
-        cdef double[:] A_data_double_mv
-
-        # Declare pointer for A.data
-        cdef double* A_data_double
-
-        # If the input type is the same as LongIndexType, no copy is performed.
-        self.A_indices_copy = \
-            A.indices.astype(self.long_index_type_name, copy=False)
-        self.A_index_pointer_copy = \
-            A.indptr.astype(self.long_index_type_name, copy=False)
-
-        # Declare memoryviews to get pointer of A.indices and A.indptr
-        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
-        cdef MemoryViewLongIndexType A_index_pointer_mv = \
-            self.A_index_pointer_copy
-
-        # Declare pointers to A.indices ans A.indptr
-        cdef LongIndexType* A_indices = &A_indices_mv[0]
-        cdef LongIndexType* A_index_pointer = &A_index_pointer_mv[0]
-
-        # Memoryview of A data
-        A_data_double_mv = A.data
-
-        # Get pointers
-        A_data_double = &A_data_double_mv[0]
-
-        # Create a linear operator object
-        self.Aop_double = new cCSCMatrix[double](
-                A_data_double,
-                A_indices,
-                A_index_pointer,
-                A_num_rows,
-                A_num_columns)
-
-    # ==========================
-    # set csc matrix long double
-    # ==========================
-
-    def set_csc_matrix_long_double(self, A):
-        """
-        """
-
-        # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # Declare memoryviews to get pointer of A.data
-        cdef long double[:] A_data_long_double_mv
-
-        # Declare pointer for A.data
-        cdef long double* A_data_long_double
-
-        # If the input type is the same as LongIndexType, no copy is performed.
-        self.A_indices_copy = \
-            A.indices.astype(self.long_index_type_name, copy=False)
-        self.A_index_pointer_copy = \
-            A.indptr.astype(self.long_index_type_name, copy=False)
-
-        # Declare memoryviews to get pointer of A.indices and A.indptr
-        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
-        cdef MemoryViewLongIndexType A_index_pointer_mv = \
-            self.A_index_pointer_copy
-
-        # Declare pointers to A.indices ans A.indptr
-        cdef LongIndexType* A_indices = &A_indices_mv[0]
-        cdef LongIndexType* A_index_pointer = &A_index_pointer_mv[0]
-
-        # Memoryview of A data
-        A_data_long_double_mv = A.data
-
-        # Get pointers
-        A_data_long_double = &A_data_long_double_mv[0]
-
-        # Create a linear operator object
-        self.Aop_long_double = new cCSCMatrix[long double](
-                A_data_long_double,
-                A_indices,
-                A_index_pointer,
-                A_num_rows,
-                A_num_columns)
+        elif self.data_type_name == b'float128':
+            self.Aop_fp128 = new cCSCMatrix[long double](
+                    <long double*> A_data,
+                    <LongIndexType*> A_indices,
+                    <LongIndexType*> A_index_pointer,
+                    A_num_rows,
+                    A_num_columns,
+                    self.A_is_symmetric)

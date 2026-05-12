@@ -21,8 +21,11 @@ from .c_linear_operator cimport cLinearOperator
 from .c_dense_affine_matrix_function cimport cDenseAffineMatrixFunction
 from .c_csr_affine_matrix_function cimport cCSRAffineMatrixFunction
 from .c_csc_affine_matrix_function cimport cCSCAffineMatrixFunction
-from .._definitions.types cimport IndexType, LongIndexType, FlagType, \
-        MemoryViewLongIndexType
+from .._definitions.types cimport LongIndexType, FlagType
+from .._array cimport get_array_buffer
+from .._array import get_data_type_name, get_device, get_shape, get_ndim, \
+        is_row_major
+from .._array cimport release_buffer
 
 
 # ==========================
@@ -32,7 +35,7 @@ from .._definitions.types cimport IndexType, LongIndexType, FlagType, \
 cdef class pycAffineMatrixFunction(pycLinearOperator):
     """
     Defines a linear operator that is an affine function of a single parameter.
-    Given two matrices :math:`\\mathbf{A}` and :math:`\\mathf{B}`, the linear
+    Given two matrices :math:`\\mathbf{A}` and :math:`\\mathbf{B}`, the linear
     operator is defined by
 
     .. math::
@@ -169,7 +172,12 @@ cdef class pycAffineMatrixFunction(pycLinearOperator):
     # __cinit__
     # =========
 
-    def __cinit__(self, A, B=None):
+    def __cinit__(
+            self,
+            A,
+            B=None,
+            A_is_symmetric=False,
+            B_is_symmetric=False):
         """
         Sets matrices A and B.
         """
@@ -178,30 +186,38 @@ cdef class pycAffineMatrixFunction(pycLinearOperator):
         if A is None:
             raise ValueError('A cannot be None.')
 
-        if A.ndim != 2:
+        if get_ndim(A) != 2:
             raise ValueError('Input matrix should be a 2-dimensional array.')
 
         # Data type
-        if A.dtype == b'float32':
-            self.data_type_name = b'float32'
-        elif A.dtype == b'float64':
-            self.data_type_name = b'float64'
-        elif A.dtype == b'float128':
-            self.data_type_name = b'float128'
-        else:
-            raise TypeError('Data type should be float32, float64, or ' +
-                            'float128.')
+        self.data_type_name = get_data_type_name(A)
 
-        # Check if B is noe to be considered as identity matrix
+        if self.data_type_name not in [b'float32', b'float64', b'float128']:
+            raise TypeError('When the computation is performed on CPU, the '
+                            'data type should be either "float32", "float64", '
+                            'or "float128".')
+
+        # Symmetric matrix A
+        if not isinstance(A_is_symmetric, bool):
+            raise ValueError('"A_is_symmetric" should be boolean.')
+        self.A_is_symmetric = A_is_symmetric
+
+        # Check if B is not to be considered as identity matrix
         if B is None:
 
             # B is assumed to be identity
             B_is_identity = True
+            self.B_is_symmetric = True
 
         else:
 
             # B is neither zero nor identity
             B_is_identity = False
+
+            # Symmetric matrix B
+            if not isinstance(B_is_symmetric, bool):
+                raise ValueError('"B_is_symmetric" should be boolean.')
+            self.B_is_symmetric = B_is_symmetric
 
             # Check similar types of A and B
             if not (type(A) == type(B)):
@@ -228,15 +244,8 @@ cdef class pycAffineMatrixFunction(pycLinearOperator):
                 if (not B_is_identity) and (not B.has_sorted_indices):
                     B.sort_indices()
 
-                # CSR matrix
-                if self.data_type_name == b'float32':
-                    self.set_csr_matrix_float(A, B, B_is_identity)
-
-                elif self.data_type_name == b'float64':
-                    self.set_csr_matrix_double(A, B, B_is_identity)
-
-                elif self.data_type_name == b'float128':
-                    self.set_csr_matrix_long_double(A, B, B_is_identity)
+                # set CSR matrix
+                self.set_csr_matrix(A, B, B_is_identity)
 
             elif isspmatrix_csc(A):
 
@@ -247,23 +256,16 @@ cdef class pycAffineMatrixFunction(pycLinearOperator):
                 if (not B_is_identity) and (not B.has_sorted_indices):
                     B.sort_indices()
 
-                # CSC matrix
-                if self.data_type_name == b'float32':
-                    self.set_csc_matrix_float(A, B, B_is_identity)
-
-                elif self.data_type_name == b'float64':
-                    self.set_csc_matrix_double(A, B, B_is_identity)
-
-                elif self.data_type_name == b'float128':
-                    self.set_csc_matrix_long_double(A, B, B_is_identity)
+                # set CSC matrix
+                self.set_csc_matrix(A, B, B_is_identity)
 
             else:
 
                 # If A is neither CSR or CSC, convert A to CSR
-                self.A_csr = csr_matrix(A)
+                self.A_csr = csr_matrix(A, dtype=A.dtype)
 
                 if not B_is_identity:
-                    self.B_csr = csr_matrix(B)
+                    self.B_csr = csr_matrix(B, dtype=B.dtype)
                 else:
                     self.B_csr = B
 
@@ -274,36 +276,34 @@ cdef class pycAffineMatrixFunction(pycLinearOperator):
                 if (not B_is_identity) and (not self.B_csr.has_sorted_indices):
                     self.B_csr.sort_indices()
 
-                # CSR matrix
-                if self.data_type_name == b'float32':
-                    self.set_csr_matrix_float(self.A_csr, self.B_csr,
-                                              B_is_identity)
-
-                elif self.data_type_name == b'float64':
-                    self.set_csr_matrix_double(self.A_csr, self.B_csr,
-                                               B_is_identity)
-
-                elif self.data_type_name == b'float128':
-                    self.set_csr_matrix_long_double(self.A_csr, self.B_csr,
-                                                    B_is_identity)
+                # set CSR matrix
+                self.set_csr_matrix(self.A_csr, self.B_csr, B_is_identity)
 
         else:
+            # A and B are dense matrices
+            self.set_dense_matrix(A, B, B_is_identity)
 
-            # Set a dense matrix
-            if self.data_type_name == b'float32':
-                self.set_dense_matrix_float(A, B, B_is_identity)
+    # ===========
+    # __dealloc__
+    # ===========
 
-            elif self.data_type_name == b'float64':
-                self.set_dense_matrix_double(A, B, B_is_identity)
+    def __dealloc__(self):
+        """
+        """
 
-            elif self.data_type_name == b'float128':
-                self.set_dense_matrix_long_double(A, B, B_is_identity)
+        # Release data buffer
+        release_buffer(&self.A_data_py_buffer)
+        release_buffer(&self.A_indices_py_buffer)
+        release_buffer(&self.A_index_pointer_py_buffer)
+        release_buffer(&self.B_data_py_buffer)
+        release_buffer(&self.B_indices_py_buffer)
+        release_buffer(&self.B_index_pointer_py_buffer)
 
-    # ======================
-    # set dense matrix float
-    # ======================
+    # ================
+    # set dense matrix
+    # ================
 
-    def set_dense_matrix_float(self, A, B, B_is_identity):
+    def set_dense_matrix(self, A, B, B_is_identity):
         """
         Sets matrix A.
 
@@ -311,308 +311,232 @@ cdef class pycAffineMatrixFunction(pycLinearOperator):
         :type A: numpy.ndarray, or any scipy.sparse array
         """
 
+        # Get shape
+        num_rows, num_columns = get_shape(A)
+
         # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
+        cdef LongIndexType A_num_rows = num_rows
+        cdef LongIndexType A_num_columns = num_columns
 
         # Contiguity
-        cdef FlagType A_is_row_major
+        cdef FlagType A_is_row_major = is_row_major(A)
         cdef FlagType B_is_row_major = 0
 
-        if A.flags['C_CONTIGUOUS']:
-            A_is_row_major = 1
-        elif A.flags['F_CONTIGUOUS']:
-            A_is_row_major = 0
-        else:
-            raise TypeError('Matrix A should be either C or F contiguous.')
-
         if not B_is_identity:
-            if B.flags['C_CONTIGUOUS']:
-                B_is_row_major = 1
-            elif B.flags['F_CONTIGUOUS']:
-                B_is_row_major = 0
-            else:
-                raise TypeError('Matrix B should be either C or F contiguous.')
-
-        # Declare memoryviews to get data pointer
-        cdef float[:, ::1] A_data_mv_c
-        cdef float[::1, :] A_data_mv_f
-        cdef float[:, ::1] B_data_mv_c = None
-        cdef float[::1, :] B_data_mv_f = None
+            B_is_row_major = is_row_major(B)
 
         # Declare pointer of A.data and B.data
-        cdef float* A_data
-        cdef float* B_data = NULL
-
-        # Get pointer to data of A depending on row or column major
-        if A_is_row_major:
-
-            # Memoryview of A for row major matrix
-            A_data_mv_c = A
-
-            # Pointer of the data of A
-            A_data = &A_data_mv_c[0, 0]
-
-        else:
-
-            # Memoryview of A for column major matrix
-            A_data_mv_f = A
-
-            # Pointer of the data of A
-            A_data = &A_data_mv_f[0, 0]
+        cdef const void* A_data = get_array_buffer(A, &self.A_data_py_buffer)
+        cdef const void* B_data
 
         # Get pointer to data of B depending on row or column major
-        if not B_is_identity:
-            if B_is_row_major:
+        if B_is_identity:
+            B_data = NULL
+        else:
+            B_data = get_array_buffer(B, &self.B_data_py_buffer)
 
-                # Memoryview of B for row major matrix
-                B_data_mv_c = B
+        # Create a linear operator object
+        if self.data_type_name == b'float32':
 
-                # Pointer of the data of B
-                B_data = &B_data_mv_c[0, 0]
-
+            if B_is_identity:
+                self.Aop_fp32 = new cDenseAffineMatrixFunction[float](
+                        <float*> A_data,
+                        A_num_rows,
+                        A_num_columns,
+                        A_is_row_major,
+                        self.A_is_symmetric)
             else:
+                self.Aop_fp32 = new cDenseAffineMatrixFunction[float](
+                        <float*> A_data,
+                        A_num_rows,
+                        A_num_columns,
+                        A_is_row_major,
+                        self.A_is_symmetric,
+                        <float*> B_data,
+                        B_is_row_major,
+                        self.B_is_symmetric)
 
-                # Memoryview of B for column major matrix
-                B_data_mv_f = B
+        elif self.data_type_name == b'float64':
 
-                # Pointer of the data of B
-                B_data = &B_data_mv_f[0, 0]
-
-        # Create a linear operator object
-        if B_is_identity:
-            self.Aop_float = new cDenseAffineMatrixFunction[float](
-                    A_data,
-                    A_is_row_major,
-                    A_num_rows,
-                    A_num_columns)
-        else:
-            self.Aop_float = new cDenseAffineMatrixFunction[float](
-                    A_data,
-                    A_is_row_major,
-                    A_num_rows,
-                    A_num_columns,
-                    B_data,
-                    B_is_row_major)
-
-    # =======================
-    # set dense matrix double
-    # =======================
-
-    def set_dense_matrix_double(self, A, B, B_is_identity):
-        """
-        Sets matrix A.
-
-        :param A: A 2-dimensional matrix.
-        :type A: numpy.ndarray, or any scipy.sparse array
-        """
-
-        # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # Contiguity
-        cdef FlagType A_is_row_major
-        cdef FlagType B_is_row_major = 0
-
-        if A.flags['C_CONTIGUOUS']:
-            A_is_row_major = 1
-        elif A.flags['F_CONTIGUOUS']:
-            A_is_row_major = 0
-        else:
-            raise TypeError('Matrix A should be either C or F contiguous.')
-
-        if not B_is_identity:
-            if B.flags['C_CONTIGUOUS']:
-                B_is_row_major = 1
-            elif B.flags['F_CONTIGUOUS']:
-                B_is_row_major = 0
+            if B_is_identity:
+                self.Aop_fp64 = new cDenseAffineMatrixFunction[double](
+                        <double*> A_data,
+                        A_num_rows,
+                        A_num_columns,
+                        A_is_row_major,
+                        self.A_is_symmetric)
             else:
-                raise TypeError('Matrix B should be either C or F contiguous.')
+                self.Aop_fp64 = new cDenseAffineMatrixFunction[double](
+                        <double*> A_data,
+                        A_num_rows,
+                        A_num_columns,
+                        A_is_row_major,
+                        self.A_is_symmetric,
+                        <double*> B_data,
+                        B_is_row_major,
+                        self.B_is_symmetric)
 
-        # Declare memoryviews to get data pointer
-        cdef double[:, ::1] A_data_mv_c
-        cdef double[::1, :] A_data_mv_f
-        cdef double[:, ::1] B_data_mv_c = None
-        cdef double[::1, :] B_data_mv_f = None
+        elif self.data_type_name == b'float128':
 
-        # Declare pointer to A.data and B.data
-        cdef double* A_data
-        cdef double* B_data = NULL
-
-        # Get pointer to data of A depending on row or column major
-        if A_is_row_major:
-
-            # Memoryview of A for row major matrix
-            A_data_mv_c = A
-
-            # Pointer of the data of A
-            A_data = &A_data_mv_c[0, 0]
-
-        else:
-
-            # Memoryview of A for column major matrix
-            A_data_mv_f = A
-
-            # Pointer of the data of A
-            A_data = &A_data_mv_f[0, 0]
-
-        # Get pointer to data of B depending on row or column major
-        if not B_is_identity:
-            if B_is_row_major:
-
-                # Memoryview of B for row major matrix
-                B_data_mv_c = B
-
-                # Pointer of the data of B
-                B_data = &B_data_mv_c[0, 0]
-
+            if B_is_identity:
+                self.Aop_fp128 = new cDenseAffineMatrixFunction[long double](
+                        <long double*> A_data,
+                        A_num_rows,
+                        A_num_columns,
+                        A_is_row_major,
+                        self.A_is_symmetric)
             else:
+                self.Aop_fp128 = new cDenseAffineMatrixFunction[long double](
+                        <long double*> A_data,
+                        A_num_rows,
+                        A_num_columns,
+                        A_is_row_major,
+                        self.A_is_symmetric,
+                        <long double*> B_data,
+                        B_is_row_major,
+                        self.B_is_symmetric)
 
-                # Memoryview of B for column major matrix
-                B_data_mv_f = B
+    # ==============
+    # set csr matrix
+    # ==============
 
-                # Pointer of the data of B
-                B_data = &B_data_mv_f[0, 0]
-
-        # Create a linear operator object
-        if B_is_identity:
-            self.Aop_double = new cDenseAffineMatrixFunction[double](
-                    A_data,
-                    A_is_row_major,
-                    A_num_rows,
-                    A_num_columns)
-        else:
-            self.Aop_double = new cDenseAffineMatrixFunction[double](
-                    A_data,
-                    A_is_row_major,
-                    A_num_rows,
-                    A_num_columns,
-                    B_data,
-                    B_is_row_major)
-
-    # ============================
-    # set dense matrix long double
-    # ============================
-
-    def set_dense_matrix_long_double(self, A, B, B_is_identity):
+    def set_csr_matrix(self, A, B, B_is_identity):
         """
-        Sets matrix A.
-
-        :param A: A 2-dimensional matrix.
-        :type A: numpy.ndarray, or any scipy.sparse array
         """
+
+        # Get shape
+        num_rows, num_columns = get_shape(A)
 
         # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
+        cdef LongIndexType A_num_rows = num_rows
+        cdef LongIndexType A_num_columns = num_columns
 
-        # Contiguity
-        cdef FlagType A_is_row_major
-        cdef FlagType B_is_row_major = 0
-
-        if A.flags['C_CONTIGUOUS']:
-            A_is_row_major = 1
-        elif A.flags['F_CONTIGUOUS']:
-            A_is_row_major = 0
-        else:
-            raise TypeError('Matrix A should be either C or F contiguous.')
+        # If the input type is the same as LongIndexType, no copy is performed.
+        self.A_indices_copy = \
+            A.indices.astype(self.long_index_type_name, copy=False)
+        self.A_index_pointer_copy = \
+            A.indptr.astype(self.long_index_type_name, copy=False)
 
         if not B_is_identity:
-            if B.flags['C_CONTIGUOUS']:
-                B_is_row_major = 1
-            elif B.flags['F_CONTIGUOUS']:
-                B_is_row_major = 0
+
+            # If input type is the same as LongIndexType, no copy is performed.
+            self.B_indices_copy = \
+                B.indices.astype(self.long_index_type_name, copy=False)
+            self.B_index_pointer_copy = \
+                B.indptr.astype(self.long_index_type_name, copy=False)
+
+        # Declare pointers
+        cdef const void* A_data = get_array_buffer(
+                A.data, &self.A_data_py_buffer)
+        cdef const void* A_indices = get_array_buffer(
+                self.A_indices_copy, &self.A_indices_py_buffer)
+        cdef const void* A_index_pointer = get_array_buffer(
+                self.A_index_pointer_copy, &self.A_index_pointer_py_buffer)
+        cdef const void* B_data
+        cdef const void* B_indices
+        cdef const void* B_index_pointer
+
+        if B_is_identity:
+            B_data = NULL
+            B_indices = NULL
+            B_index_pointer = NULL
+        else:
+            B_data = get_array_buffer(B.data, &self.B_data_py_buffer)
+            B_indices = get_array_buffer(
+                    self.B_indices_copy, &self.B_indices_py_buffer)
+            B_index_pointer = get_array_buffer(
+                    self.B_index_pointer_copy, &self.B_index_pointer_py_buffer)
+
+        # Create a linear operator object
+        if self.data_type_name == b'float32':
+
+            if B_is_identity:
+                self.Aop_fp32 = new cCSRAffineMatrixFunction[float](
+                        <float*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric)
             else:
-                raise TypeError('Matrix B should be either C or F contiguous.')
+                self.Aop_fp32 = new cCSRAffineMatrixFunction[float](
+                        <float*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        <float*> B_data,
+                        <LongIndexType*> B_indices,
+                        <LongIndexType*> B_index_pointer,
+                        self.B_is_symmetric)
 
-        # Declare memoryviews to get data pointer
-        cdef long double[:, ::1] A_data_mv_c
-        cdef long double[::1, :] A_data_mv_f
-        cdef long double[:, ::1] B_data_mv_c = None
-        cdef long double[::1, :] B_data_mv_f = None
+        elif self.data_type_name == b'float64':
 
-        # Declare pointer to A.data and B.data
-        cdef long double* A_data
-        cdef long double* B_data = NULL
-
-        # Get pointer to data of A depending on row or column major
-        if A_is_row_major:
-
-            # Memoryview of A for row major matrix
-            A_data_mv_c = A
-
-            # Pointer of the data of A
-            A_data = &A_data_mv_c[0, 0]
-
-        else:
-
-            # Memoryview of A for column major matrix
-            A_data_mv_f = A
-
-            # Pointer of the data of A
-            A_data = &A_data_mv_f[0, 0]
-
-        # Get pointer to data of AB depending on row or column major
-        if not B_is_identity:
-            if B_is_row_major:
-
-                # Memoryview of A for row major matrix
-                B_data_mv_c = B
-
-                # Pointer of the data of A
-                B_data = &B_data_mv_c[0, 0]
-
+            if B_is_identity:
+                self.Aop_fp64 = new cCSRAffineMatrixFunction[double](
+                        <double*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric)
             else:
+                self.Aop_fp64 = new cCSRAffineMatrixFunction[double](
+                        <double*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        <double*> B_data,
+                        <LongIndexType*> B_indices,
+                        <LongIndexType*> B_index_pointer,
+                        self.B_is_symmetric)
 
-                # Memoryview of A for column major matrix
-                B_data_mv_f = B
+        elif self.data_type_name == b'float128':
 
-                # Pointer of the data of B
-                B_data = &B_data_mv_f[0, 0]
+            if B_is_identity:
+                self.Aop_fp128 = new cCSRAffineMatrixFunction[long double](
+                        <long double*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric)
+            else:
+                self.Aop_fp128 = new cCSRAffineMatrixFunction[long double](
+                        <long double*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        <long double*> B_data,
+                        <LongIndexType*> B_indices,
+                        <LongIndexType*> B_index_pointer,
+                        self.B_is_symmetric)
 
-        # Create a linear operator object
-        if B_is_identity:
-            self.Aop_long_double = new cDenseAffineMatrixFunction[long double](
-                    A_data,
-                    A_is_row_major,
-                    A_num_rows,
-                    A_num_columns)
-        else:
-            self.Aop_long_double = new cDenseAffineMatrixFunction[long double](
-                    A_data,
-                    A_is_row_major,
-                    A_num_rows,
-                    A_num_columns,
-                    B_data,
-                    B_is_row_major)
+    # ==============
+    # set csc matrix
+    # ==============
 
-    # ====================
-    # set csr matrix float
-    # ====================
-
-    def set_csr_matrix_float(self, A, B, B_is_identity):
+    def set_csc_matrix(self, A, B, B_is_identity):
         """
         """
+
+        # Get shape
+        num_rows, num_columns = get_shape(A)
 
         # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
+        cdef LongIndexType A_num_rows = num_rows
+        cdef LongIndexType A_num_columns = num_columns
 
         # If the input type is the same as LongIndexType, no copy is performed.
         self.A_indices_copy = \
             A.indices.astype(self.long_index_type_name, copy=False)
         self.A_index_pointer_copy = \
             A.indptr.astype(self.long_index_type_name, copy=False)
-
-        # Declare memoryviews to get pointers
-        cdef float[:] A_data_mv = A.data
-        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
-        cdef MemoryViewLongIndexType A_index_pointer_mv = \
-            self.A_index_pointer_copy
-        cdef float[:] B_data_mv = None
-        cdef MemoryViewLongIndexType B_indices_mv = None
-        cdef MemoryViewLongIndexType B_index_pointer_mv = None
 
         if not B_is_identity:
 
@@ -622,393 +546,94 @@ cdef class pycAffineMatrixFunction(pycLinearOperator):
             self.B_index_pointer_copy = \
                 B.indptr.astype(self.long_index_type_name, copy=False)
 
-            B_data_mv = B.data
-            B_indices_mv = self.B_indices_copy
-            B_index_pointer_mv = self.B_index_pointer_copy
-
         # Declare pointers
-        cdef float* A_data = &A_data_mv[0]
-        cdef LongIndexType* A_indices = &A_indices_mv[0]
-        cdef LongIndexType* A_index_pointer = &A_index_pointer_mv[0]
-        cdef float* B_data = NULL
-        cdef LongIndexType* B_indices = NULL
-        cdef LongIndexType* B_index_pointer = NULL
+        cdef const void* A_data = get_array_buffer(
+                A.data, &self.A_data_py_buffer)
+        cdef const void* A_indices = get_array_buffer(
+                self.A_indices_copy, &self.A_indices_py_buffer)
+        cdef const void* A_index_pointer = get_array_buffer(
+                self.A_index_pointer_copy, &self.A_index_pointer_py_buffer)
+        cdef const void* B_data
+        cdef const void* B_indices
+        cdef const void* B_index_pointer
 
-        if not B_is_identity:
-            B_data = &B_data_mv[0]
-            B_indices = &B_indices_mv[0]
-            B_index_pointer = &B_index_pointer_mv[0]
+        if B_is_identity:
+            B_data = NULL
+            B_indices = NULL
+            B_index_pointer = NULL
+        else:
+            B_data = get_array_buffer(B.data, &self.B_data_py_buffer)
+            B_indices = get_array_buffer(
+                    self.B_indices_copy, &self.B_indices_py_buffer)
+            B_index_pointer = get_array_buffer(
+                    self.B_index_pointer_copy, &self.B_index_pointer_py_buffer)
 
         # Create a linear operator object
-        if B_is_identity:
-            self.Aop_float = new cCSRAffineMatrixFunction[float](
-                    A_data,
-                    A_indices,
-                    A_index_pointer,
-                    A_num_rows,
-                    A_num_columns)
-        else:
-            self.Aop_float = new cCSRAffineMatrixFunction[float](
-                    A_data,
-                    A_indices,
-                    A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    B_data,
-                    B_indices,
-                    B_index_pointer)
+        if self.data_type_name == b'float32':
 
-    # =====================
-    # set csr matrix double
-    # =====================
+            if B_is_identity:
+                self.Aop_fp32 = new cCSCAffineMatrixFunction[float](
+                        <float*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric)
+            else:
+                self.Aop_fp32 = new cCSCAffineMatrixFunction[float](
+                        <float*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        <float*> B_data,
+                        <LongIndexType*> B_indices,
+                        <LongIndexType*> B_index_pointer,
+                        self.B_is_symmetric)
 
-    def set_csr_matrix_double(self, A, B, B_is_identity):
-        """
-        """
+        elif self.data_type_name == b'float64':
 
-        # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
+            if B_is_identity:
+                self.Aop_fp64 = new cCSCAffineMatrixFunction[double](
+                        <double*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric)
+            else:
+                self.Aop_fp64 = new cCSCAffineMatrixFunction[double](
+                        <double*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        <double*> B_data,
+                        <LongIndexType*> B_indices,
+                        <LongIndexType*> B_index_pointer,
+                        self.B_is_symmetric)
 
-        # If the input type is the same as LongIndexType, no copy is performed.
-        self.A_indices_copy = \
-            A.indices.astype(self.long_index_type_name, copy=False)
-        self.A_index_pointer_copy = \
-            A.indptr.astype(self.long_index_type_name, copy=False)
+        elif self.data_type_name == b'float128':
 
-        # Declare memoryviews to get pointers
-        cdef double[:] A_data_mv = A.data
-        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
-        cdef MemoryViewLongIndexType A_index_pointer_mv = \
-            self.A_index_pointer_copy
-        cdef double[:] B_data_mv = None
-        cdef MemoryViewLongIndexType B_indices_mv = None
-        cdef MemoryViewLongIndexType B_index_pointer_mv = None
-
-        if not B_is_identity:
-
-            # If input type is the same as LongIndexType, no copy is performed.
-            self.B_indices_copy = \
-                B.indices.astype(self.long_index_type_name, copy=False)
-            self.B_index_pointer_copy = \
-                B.indptr.astype(self.long_index_type_name, copy=False)
-
-            B_data_mv = B.data
-            B_indices_mv = self.B_indices_copy
-            B_index_pointer_mv = self.B_index_pointer_copy
-
-        # Declare pointers
-        cdef double* A_data = &A_data_mv[0]
-        cdef LongIndexType* A_indices = &A_indices_mv[0]
-        cdef LongIndexType* A_index_pointer = &A_index_pointer_mv[0]
-        cdef double* B_data = NULL
-        cdef LongIndexType* B_indices = NULL
-        cdef LongIndexType* B_index_pointer = NULL
-
-        if not B_is_identity:
-            B_data = &B_data_mv[0]
-            B_indices = &B_indices_mv[0]
-            B_index_pointer = &B_index_pointer_mv[0]
-
-        # Create a linear operator object
-        if B_is_identity:
-            self.Aop_double = new cCSRAffineMatrixFunction[double](
-                    A_data,
-                    A_indices,
-                    A_index_pointer,
-                    A_num_rows,
-                    A_num_columns)
-        else:
-            self.Aop_double = new cCSRAffineMatrixFunction[double](
-                    A_data,
-                    A_indices,
-                    A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    B_data,
-                    B_indices,
-                    B_index_pointer)
-
-    # ==========================
-    # set csr matrix long double
-    # ==========================
-
-    def set_csr_matrix_long_double(self, A, B, B_is_identity):
-        """
-        """
-
-        # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # If the input type is the same as LongIndexType, no copy is performed.
-        self.A_indices_copy = \
-            A.indices.astype(self.long_index_type_name, copy=False)
-        self.A_index_pointer_copy = \
-            A.indptr.astype(self.long_index_type_name, copy=False)
-
-        # Declare memoryviews to get pointers
-        cdef long double[:] A_data_mv = A.data
-        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
-        cdef MemoryViewLongIndexType A_index_pointer_mv = \
-            self.A_index_pointer_copy
-        cdef long double[:] B_data_mv = None
-        cdef MemoryViewLongIndexType B_indices_mv = None
-        cdef MemoryViewLongIndexType B_index_pointer_mv = None
-
-        if not B_is_identity:
-
-            # If input type is the same as LongIndexType, no copy is performed.
-            self.B_indices_copy = \
-                B.indices.astype(self.long_index_type_name, copy=False)
-            self.B_index_pointer_copy = \
-                B.indptr.astype(self.long_index_type_name, copy=False)
-
-            B_data_mv = B.data
-            B_indices_mv = self.B_indices_copy
-            B_index_pointer_mv = self.B_index_pointer_copy
-
-        # Declare pointers
-        cdef long double* A_data = &A_data_mv[0]
-        cdef LongIndexType* A_indices = &A_indices_mv[0]
-        cdef LongIndexType* A_index_pointer = &A_index_pointer_mv[0]
-        cdef long double* B_data = NULL
-        cdef LongIndexType* B_indices = NULL
-        cdef LongIndexType* B_index_pointer = NULL
-
-        if not B_is_identity:
-            B_data = &B_data_mv[0]
-            B_indices = &B_indices_mv[0]
-            B_index_pointer = &B_index_pointer_mv[0]
-
-        # Create a linear operator object
-        if B_is_identity:
-            self.Aop_long_double = new cCSRAffineMatrixFunction[long double](
-                    A_data,
-                    A_indices,
-                    A_index_pointer,
-                    A_num_rows,
-                    A_num_columns)
-        else:
-            self.Aop_long_double = new cCSRAffineMatrixFunction[long double](
-                    A_data,
-                    A_indices,
-                    A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    B_data,
-                    B_indices,
-                    B_index_pointer)
-
-    # ====================
-    # set csc matrix float
-    # ====================
-
-    def set_csc_matrix_float(self, A, B, B_is_identity):
-        """
-        """
-
-        # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # If the input type is the same as LongIndexType, no copy is performed.
-        self.A_indices_copy = \
-            A.indices.astype(self.long_index_type_name, copy=False)
-        self.A_index_pointer_copy = \
-            A.indptr.astype(self.long_index_type_name, copy=False)
-
-        # Declare memoryviews to get pointers
-        cdef float[:] A_data_mv = A.data
-        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
-        cdef MemoryViewLongIndexType A_index_pointer_mv = \
-            self.A_index_pointer_copy
-        cdef float[:] B_data_mv = None
-        cdef MemoryViewLongIndexType B_indices_mv = None
-        cdef MemoryViewLongIndexType B_index_pointer_mv = None
-
-        if not B_is_identity:
-
-            # If input type is the same as LongIndexType, no copy is performed.
-            self.B_indices_copy = \
-                B.indices.astype(self.long_index_type_name, copy=False)
-            self.B_index_pointer_copy = \
-                B.indptr.astype(self.long_index_type_name, copy=False)
-
-            B_data_mv = B.data
-            B_indices_mv = self.B_indices_copy
-            B_index_pointer_mv = self.B_index_pointer_copy
-
-        # Declare pointers
-        cdef float* A_data = &A_data_mv[0]
-        cdef LongIndexType* A_indices = &A_indices_mv[0]
-        cdef LongIndexType* A_index_pointer = &A_index_pointer_mv[0]
-        cdef float* B_data = NULL
-        cdef LongIndexType* B_indices = NULL
-        cdef LongIndexType* B_index_pointer = NULL
-
-        if not B_is_identity:
-            B_data = &B_data_mv[0]
-            B_indices = &B_indices_mv[0]
-            B_index_pointer = &B_index_pointer_mv[0]
-
-        # Create a linear operator object
-        if B_is_identity:
-            self.Aop_float = new cCSCAffineMatrixFunction[float](
-                    A_data,
-                    A_indices,
-                    A_index_pointer,
-                    A_num_rows,
-                    A_num_columns)
-        else:
-            self.Aop_float = new cCSCAffineMatrixFunction[float](
-                    A_data,
-                    A_indices,
-                    A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    B_data,
-                    B_indices,
-                    B_index_pointer)
-
-    # =====================
-    # set csc matrix double
-    # =====================
-
-    def set_csc_matrix_double(self, A, B, B_is_identity):
-        """
-        """
-
-        # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # If the input type is the same as LongIndexType, no copy is performed.
-        self.A_indices_copy = \
-            A.indices.astype(self.long_index_type_name, copy=False)
-        self.A_index_pointer_copy = \
-            A.indptr.astype(self.long_index_type_name, copy=False)
-
-        # Declare memoryviews to get pointers
-        cdef double[:] A_data_mv = A.data
-        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
-        cdef MemoryViewLongIndexType A_index_pointer_mv = \
-            self.A_index_pointer_copy
-        cdef double[:] B_data_mv = None
-        cdef MemoryViewLongIndexType B_indices_mv = None
-        cdef MemoryViewLongIndexType B_index_pointer_mv = None
-
-        if not B_is_identity:
-
-            # If input type is the same as LongIndexType, no copy is performed.
-            self.B_indices_copy = \
-                B.indices.astype(self.long_index_type_name, copy=False)
-            self.B_index_pointer_copy = \
-                B.indptr.astype(self.long_index_type_name, copy=False)
-
-            B_data_mv = B.data
-            B_indices_mv = self.B_indices_copy
-            B_index_pointer_mv = self.B_index_pointer_copy
-
-        # Declare pointers
-        cdef double* A_data = &A_data_mv[0]
-        cdef LongIndexType* A_indices = &A_indices_mv[0]
-        cdef LongIndexType* A_index_pointer = &A_index_pointer_mv[0]
-        cdef double* B_data = NULL
-        cdef LongIndexType* B_indices = NULL
-        cdef LongIndexType* B_index_pointer = NULL
-
-        if not B_is_identity:
-            B_data = &B_data_mv[0]
-            B_indices = &B_indices_mv[0]
-            B_index_pointer = &B_index_pointer_mv[0]
-
-        # Create a linear operator object
-        if B_is_identity:
-            self.Aop_double = new cCSCAffineMatrixFunction[double](
-                    A_data,
-                    A_indices,
-                    A_index_pointer,
-                    A_num_rows,
-                    A_num_columns)
-        else:
-            self.Aop_double = new cCSCAffineMatrixFunction[double](
-                    A_data,
-                    A_indices,
-                    A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    B_data,
-                    B_indices,
-                    B_index_pointer)
-
-    # ==========================
-    # set csc matrix long double
-    # ==========================
-
-    def set_csc_matrix_long_double(self, A, B, B_is_identity):
-        """
-        """
-
-        # Matrix size
-        cdef LongIndexType A_num_rows = A.shape[0]
-        cdef LongIndexType A_num_columns = A.shape[1]
-
-        # If the input type is the same as LongIndexType, no copy is performed.
-        self.A_indices_copy = \
-            A.indices.astype(self.long_index_type_name, copy=False)
-        self.A_index_pointer_copy = \
-            A.indptr.astype(self.long_index_type_name, copy=False)
-
-        # Declare memoryviews to get pointers
-        cdef long double[:] A_data_mv = A.data
-        cdef MemoryViewLongIndexType A_indices_mv = self.A_indices_copy
-        cdef MemoryViewLongIndexType A_index_pointer_mv = \
-            self.A_index_pointer_copy
-        cdef long double[:] B_data_mv = None
-        cdef MemoryViewLongIndexType B_indices_mv = None
-        cdef MemoryViewLongIndexType B_index_pointer_mv = None
-
-        if not B_is_identity:
-
-            # If input type is the same as LongIndexType, no copy is performed.
-            self.B_indices_copy = \
-                B.indices.astype(self.long_index_type_name, copy=False)
-            self.B_index_pointer_copy = \
-                B.indptr.astype(self.long_index_type_name, copy=False)
-
-            B_data_mv = B.data
-            B_indices_mv = self.B_indices_copy
-            B_index_pointer_mv = self.B_index_pointer_copy
-
-        # Declare pointers
-        cdef long double* A_data = &A_data_mv[0]
-        cdef LongIndexType* A_indices = &A_indices_mv[0]
-        cdef LongIndexType* A_index_pointer = &A_index_pointer_mv[0]
-        cdef long double* B_data = NULL
-        cdef LongIndexType* B_indices = NULL
-        cdef LongIndexType* B_index_pointer = NULL
-
-        if not B_is_identity:
-            B_data = &B_data_mv[0]
-            B_indices = &B_indices_mv[0]
-            B_index_pointer = &B_index_pointer_mv[0]
-
-        # Create a linear operator object
-        if B_is_identity:
-            self.Aop_long_double = new cCSCAffineMatrixFunction[long double](
-                    A_data,
-                    A_indices,
-                    A_index_pointer,
-                    A_num_rows,
-                    A_num_columns)
-        else:
-            self.Aop_long_double = new cCSCAffineMatrixFunction[long double](
-                    A_data,
-                    A_indices,
-                    A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    B_data,
-                    B_indices,
-                    B_index_pointer)
+            if B_is_identity:
+                self.Aop_fp128 = new cCSCAffineMatrixFunction[long double](
+                        <long double*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric)
+            else:
+                self.Aop_fp128 = new cCSCAffineMatrixFunction[long double](
+                        <long double*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        <long double*> B_data,
+                        <LongIndexType*> B_indices,
+                        <LongIndexType*> B_index_pointer,
+                        self.B_is_symmetric)

@@ -15,9 +15,12 @@
 
 #include "./cu_affine_matrix_function.h"
 #include <cassert>  // assert
+#include "../_cu_definitions/cu_types.h" // __nv_fp8_e5m2, __nv_fp8_e4m3,
+                                         // __half, __nv_bfloat16
 #include "../_definitions/debugging.h"  // ASSERT
 #include "../_cu_basic_algebra/cu_vector_operations.h"  // cuVectorOperations
-#include "../_cuda_utilities/cuda_interface.h"  // CudaInterface
+#include "../_cuda_utilities/cuda_api.h"  // CudaAPI
+#include "../_cu_arithmetics/cu_arithmetics.h"  // cu_arithmetics
 
 
 // ===========
@@ -41,6 +44,7 @@ cuAffineMatrixFunction<DataType>::cuAffineMatrixFunction():
 // ==========
 
 /// \brief Virtual destructor.
+///
 
 template <typename DataType>
 cuAffineMatrixFunction<DataType>::~cuAffineMatrixFunction()
@@ -60,7 +64,7 @@ cuAffineMatrixFunction<DataType>::~cuAffineMatrixFunction()
 ///            other given set of parameters.
 ///
 /// \details   A relation between eigenvalue(s) and the set of parameters can
-///            be made when the matrix :math:`\\mathbf{B}` is equal to the
+///            be made when the matrix \f$ \mathbf{B} \f$ is equal to the
 ///            identity matrix \f$ \mathbf{I} \f$, and corresponding linear
 ///            operator is as follows:
 ///
@@ -102,7 +106,12 @@ DataType cuAffineMatrixFunction<DataType>::get_eigenvalue(
 
     // Shift the eigenvalue by the parameter
     DataType inquiry_eigenvalue = \
-        known_eigenvalue - known_parameters[0] + inquiry_parameters[0];
+        cu_arithmetics::add<DataType>(
+            cu_arithmetics::sub<DataType>(
+                known_eigenvalue,
+                known_parameters[0]),
+            inquiry_parameters[0]
+        );
 
     return inquiry_eigenvalue;
 }
@@ -113,7 +122,7 @@ DataType cuAffineMatrixFunction<DataType>::get_eigenvalue(
 // =================
 
 /// \brief         Performs the operation \f$ \boldsymbol{c} = \boldsymbol{c} +
-///                \alpha * \boldsymbol{b} \f$, where \f$ \boldsymbol{b} \f$ is
+///                \alpha \boldsymbol{b} \f$, where \f$ \boldsymbol{b} \f$ is
 ///                an input vector scaled by \f$ \alpha \f$ and \f$
 ///                \boldsymbol{c} \f$ it the output vector.
 ///
@@ -135,12 +144,17 @@ void cuAffineMatrixFunction<DataType>::_add_scaled_vector(
         DataType* output_vector) const
 {
     // Get device id
-    int device_id = CudaInterface<DataType>::get_device();
+    int device_id = CudaAPI<DataType>::get_device();
+
+    // Negative of scale (negate in double type as some types like
+    // __nv_fp8_exmx does not yet support such operation yet)
+    DataType neg_scale = cu_arithmetics::cast<double, DataType>(
+            -cu_arithmetics::cast<DataType, double>(scale));
 
     // Subtracting two vectors with minus scale sign, which is adding.
     cuVectorOperations<DataType>::subtract_scaled_vector(
-            this->cublas_handle[device_id], input_vector, vector_size, -scale,
-            output_vector);
+            this->cublas_handle[device_id], input_vector, vector_size,
+            neg_scale, output_vector);
 }
 
 
@@ -148,5 +162,26 @@ void cuAffineMatrixFunction<DataType>::_add_scaled_vector(
 // Explicit template instantiation
 // ===============================
 
-template class cuAffineMatrixFunction<float>;
-template class cuAffineMatrixFunction<double>;
+#if defined(USE_CUDA_FP8_E5M2) && (USE_CUDA_FP8_E5M2 == 1)
+    template class cuAffineMatrixFunction<__nv_fp8_e5m2>;
+#endif
+
+#if defined(USE_CUDA_FP8_E4M3) && (USE_CUDA_FP8_E4M3 == 1)
+    template class cuAffineMatrixFunction<__nv_fp8_e4m3>;
+#endif
+
+#if defined(USE_CUDA_FP16) && (USE_CUDA_FP16 == 1)
+    template class cuAffineMatrixFunction<__half>;
+#endif
+
+#if defined(USE_CUDA_BF16) && (USE_CUDA_BF16 == 1)
+    template class cuAffineMatrixFunction<__nv_bfloat16>;
+#endif
+
+#if defined(USE_CUDA_FP32) && (USE_CUDA_FP32 == 1)
+    template class cuAffineMatrixFunction<float>;
+#endif
+
+#if defined(USE_CUDA_FP64) && (USE_CUDA_FP64 == 1)
+    template class cuAffineMatrixFunction<double>;
+#endif

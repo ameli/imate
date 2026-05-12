@@ -29,12 +29,27 @@
 ///
 /// \brief   Base class for affine matrix functions of one parameter.
 ///
-/// \details The prefix \c c in this class's name (and its derivatves), stands
+/// \details The \c cAffineMatrixFunction holds a two two-dimensional
+///          dense matrices \f$ \mathbf{A} \f$ and \f$ \mathbf{B} \f$. The
+///          affine matrix function with the parameter \f$ t \f$ is defined by:
+///
+///          \f[
+///             t \mapsto \mathbf{A} + t \mathbf{B}.
+///          \f]
+///
+///          This operoator can perofrom matrix-vector product and transposed
+///          matrix-vector product.
+///
+/// \note The prefix \c c in this class's name (and its derivatves), stands
 ///          for the \c cpp code, intrast to the \c cu prefix, which stands for
 ///          the cuda code. Most derived classes have a cuda counterpart.
 ///
-/// \sa      cMatrix
-
+/// \sa      cMatrix,
+///          cDenseAffineMatricFunction,
+///          cCSRAffineMatrixFunction,
+///          cCSCAffineMatrixFunction,
+///          cLinearOperator,
+///          cuAffineMatrixFunction
 
 template <typename DataType>
 class cAffineMatrixFunction : public cLinearOperator<DataType>
@@ -42,13 +57,11 @@ class cAffineMatrixFunction : public cLinearOperator<DataType>
     public:
 
         // Member methods
-        cAffineMatrixFunction(
-                const LongIndexType num_rows_,
-                const LongIndexType num_columns_);
+        cAffineMatrixFunction();
 
         virtual ~cAffineMatrixFunction();
 
-        void set_parameters(DataType* t);
+        virtual void set_symmetry(FlagType symmetric) = 0;
 
         DataType get_eigenvalue(
                 const DataType* known_parameters,

@@ -16,7 +16,7 @@ from .._definitions.types cimport DataType, IndexType, LongIndexType
 from .._random_generator cimport py_generate_random_array
 from .orthogonalization cimport orthogonalize_vectors
 from .._c_basic_algebra cimport cVectorOperations
-cimport openmp
+from .._openmp cimport omp_set_num_threads
 
 
 # ==============================
@@ -67,7 +67,7 @@ cdef void generate_random_column_vectors(
         orthogonalize_vectors(vectors, vector_size, num_vectors, seed)
 
     # Set the number of threads
-    openmp.omp_set_num_threads(num_threads)
+    omp_set_num_threads(num_threads)
 
     # Using max possible chunk size for parallel schedules
     cdef IndexType chunk_size = int((<DataType> num_vectors) / num_threads)

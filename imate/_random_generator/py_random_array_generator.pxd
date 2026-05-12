@@ -22,4 +22,4 @@ cdef void py_generate_random_array(
         DataType* array,
         const LongIndexType array_size,
         const IndexType num_threads,
-        const IndexType seed) nogil
+        const IndexType seed) noexcept nogil

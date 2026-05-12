@@ -40,7 +40,8 @@ SmoothStep::SmoothStep(double alpha_)
 
 float SmoothStep::function(const float lambda_) const
 {
-    return 0.5 * (1.0 + tanh(static_cast<float>(this->alpha) * lambda_));
+    return 0.5f * (1.0f + std::tanh(
+        static_cast<float>(this->alpha) * lambda_));
 }
 
 
@@ -54,7 +55,7 @@ float SmoothStep::function(const float lambda_) const
 
 double SmoothStep::function(const double lambda_) const
 {
-    return 0.5 * (1.0 + tanh(this->alpha * lambda_));
+    return 0.5 * (1.0 + std::tanh(this->alpha * lambda_));
 }
 
 
@@ -68,5 +69,6 @@ double SmoothStep::function(const double lambda_) const
 
 long double SmoothStep::function(const long double lambda_) const
 {
-    return 0.5 * (1.0 + tanh(static_cast<long double>(this->alpha) * lambda_));
+    return 0.5l * (1.0l + std::tanh(
+        static_cast<long double>(this->alpha) * lambda_));
 }

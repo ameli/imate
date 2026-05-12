@@ -70,6 +70,7 @@ def info(print_only=True):
     imate.device.get_nvidia_driver_version
     imate.Memory
     imate.device.locate_cuda
+    imate.get_config
 
     Notes
     -----

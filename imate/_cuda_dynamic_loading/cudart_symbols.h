@@ -69,4 +69,23 @@ class cudartSymbols
 };
 
 
+// ============
+// Declarations
+// ============
+
+// The following functions are not a part of CUDA runtime API. As such, the
+// compiler might warn that previous declaration of these functions do not
+// exist. To silence the warning, we declare them. Note that these functions
+// are defined in cuda-installation-dir/include/crt/host_runtime.h
+#ifdef __cplusplus
+extern "C" {
+#endif
+    void** __cudaRegisterFatBinary(void *fatCubin);
+    void __cudaRegisterFatBinaryEnd(void **fatCubinHandle);
+    void __cudaUnregisterFatBinary(void **fatCubinHandle);
+#ifdef __cplusplus
+}
+#endif
+
+
 #endif  // _CUDA_DYNAMIC_LOADING_CUDART_SYMBOLS_H_

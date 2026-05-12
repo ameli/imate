@@ -26,6 +26,21 @@
 // cu Dense Affine Matrix Function
 // ===============================
 
+/// \class   cuDenseAffineMatrixFunction
+///
+/// \brief   Container for dense affine matrix functions of one parameter.
+///
+/// \details The \c cuDenseAffineMatrixFunction contains two-dimensional
+///          dense matrices \c A and \c B.
+///          This operoator can perofrom matrix-vector product and transposed
+///          matrix-vector product.
+///
+/// \sa      cuAffineMatrixFunction,
+///          cuCSRMatrixFunction,
+///          cuCSCMatrixFunction,
+///          cuDenseMatrix,
+///          cDenseAffineMatrixFunction
+
 template <typename DataType>
 class cuDenseAffineMatrixFunction : public cuAffineMatrixFunction<DataType>
 {
@@ -34,21 +49,26 @@ class cuDenseAffineMatrixFunction : public cuAffineMatrixFunction<DataType>
         // Member methods
         cuDenseAffineMatrixFunction(
                 const DataType* A_,
-                const FlagType A_is_row_major_,
                 const LongIndexType num_rows_,
-                const LongIndexType num_colums_,
+                const LongIndexType num_columns_,
+                const FlagType A_is_row_major_,
+                const FlagType A_is_symmetric_,
                 const int num_gpu_devices_);
 
         cuDenseAffineMatrixFunction(
                 const DataType* A_,
-                const FlagType A_is_row_major_,
                 const LongIndexType num_rows_,
                 const LongIndexType num_columns_,
+                const FlagType A_is_row_major_,
+                const FlagType A_is_symmetric_,
                 const DataType* B_,
                 const FlagType B_is_row_major_,
+                const FlagType B_is_symmetric_,
                 const int num_gpu_devices_);
 
         virtual ~cuDenseAffineMatrixFunction();
+        
+        virtual void set_symmetry(const FlagType symmetric);
 
         virtual void dot(
                 const DataType* vector,

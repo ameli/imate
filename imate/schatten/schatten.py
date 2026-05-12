@@ -384,8 +384,8 @@ def schatten(
         >>> from imate import schatten
 
         >>> # Plot settings (optional)
-        >>> from imate._utilities import set_custom_theme
-        >>> set_custom_theme(font_scale=1.15)
+        >>> from imate._utilities import set_theme
+        >>> set_theme(font_scale=1.15)
 
         >>> # Generate a sample matrix
         >>> A = correlation_matrix(size=500)

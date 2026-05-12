@@ -67,7 +67,7 @@ class cuTraceEstimator
                 IndexType* num_samples_used,
                 IndexType* num_outliers,
                 FlagType* converged,
-                float& alg_wall_time);
+                double& alg_wall_time);
 
     private:
 

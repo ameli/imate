@@ -40,7 +40,7 @@ Power::Power():
 
 float Power::function(const float lambda_) const
 {
-    return pow(lambda_, static_cast<float>(this->exponent));
+    return std::pow(lambda_, static_cast<float>(this->exponent));
 }
 
 
@@ -54,7 +54,7 @@ float Power::function(const float lambda_) const
 
 double Power::function(const double lambda_) const
 {
-    return pow(lambda_, this->exponent);
+    return std::pow(lambda_, this->exponent);
 }
 
 
@@ -68,5 +68,5 @@ double Power::function(const double lambda_) const
 
 long double Power::function(const long double lambda_) const
 {
-    return pow(lambda_, static_cast<long double>(this->exponent));
+    return std::pow(lambda_, static_cast<long double>(this->exponent));
 }

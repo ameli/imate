@@ -28,8 +28,8 @@ from ._chebyshev_rational_functions_method import \
 from ._spline_method import SplineMethod
 
 try:
-    from .._utilities.plot_utilities import get_custom_theme, matplotlib, \
-        show_or_save_plot, plt
+    from .._utilities.plot_utilities import get_theme, matplotlib, plt, \
+        show_or_save_plot
     plot_modules_exist = True
 except ImportError:
     plot_modules_exist = False
@@ -361,8 +361,8 @@ class InterpolateSchatten(object):
         >>> import matplotlib.pyplot as plt
 
         >>> # Plot settings (optional)
-        >>> from imate._utilities import set_custom_theme
-        >>> set_custom_theme(font_scale=1.15)
+        >>> from imate._utilities import set_theme
+        >>> set_theme(font_scale=1.15)
 
         >>> plt.semilogx(t_array, norm_array, color='black')
         >>> plt.xlim([t_array[0], t_array[-1]])
@@ -897,8 +897,8 @@ class InterpolateSchatten(object):
             >>> import matplotlib.pyplot as plt
 
             >>> # Plot settings (optional)
-            >>> from imate._utilities import set_custom_theme
-            >>> set_custom_theme(font_scale=1.15)
+            >>> from imate._utilities import set_theme
+            >>> set_theme(font_scale=1.15)
 
             >>> plt.semilogx(t, interp, color='black', label='Interpolation')
             >>> plt.semilogx(t, bound, '--', color='black',
@@ -1026,8 +1026,8 @@ class InterpolateSchatten(object):
             >>> import matplotlib.pyplot as plt
 
             >>> # Plot settings (optional)
-            >>> from imate._utilities import set_custom_theme
-            >>> set_custom_theme(font_scale=1.15)
+            >>> from imate._utilities import set_theme
+            >>> set_theme(font_scale=1.15)
 
             >>> plt.semilogx(t, interp, color='black', label='Interpolation')
             >>> plt.semilogx(t, ub, '--', color='black', label='Upper bound')
@@ -1065,7 +1065,9 @@ class InterpolateSchatten(object):
             self,
             t,
             normalize=True,
-            compare=False):
+            compare=False,
+            filename=None,
+            verbose=False):
         """
         Plot the interpolation results.
 
@@ -1095,6 +1097,13 @@ class InterpolateSchatten(object):
                 When this option is enabled, the exact solution will be
                 computed for all inquiry points, which can take a very long
                 time.
+
+        filename : str, default=False
+            A filename to save the file. In this case, the plot will not be
+            shown, bit saved to a file only. If `None`, plot will not be saved.
+
+        verbose : bool, default=False
+            If `True`, the location os saved plot is printed.
 
         Raises
         ------
@@ -1232,21 +1241,25 @@ class InterpolateSchatten(object):
 
         if self.kind.lower() in ['crf', 'spl']:
             # Plots tau where abscissa is the finite domain [-1, 1]
-            self._plot_finite(t, normalize=normalize, compare=compare)
+            self._plot_finite(t, normalize=normalize, compare=compare,
+                              filename=filename, verbose=verbose)
         else:
             # Plots tau where abscissa is the semi-infinite domain [0, inf)
-            self._plot_semi_infinite(t, normalize=normalize, compare=compare)
+            self._plot_semi_infinite(t, normalize=normalize, compare=compare,
+                                     filename=filename, verbose=verbose)
 
     # ==================
     # plot semi infinite
     # ==================
 
-    @matplotlib.rc_context(get_custom_theme())
+    @matplotlib.rc_context(get_theme())
     def _plot_semi_infinite(
             self,
             t,
             normalize=True,
-            compare=False):
+            compare=False,
+            filename=None,
+            verbose=False):
         """
         Plots the interpolation results, together with the comparison with the
         exact solution and the relative error of the interpolation.
@@ -1258,6 +1271,13 @@ class InterpolateSchatten(object):
         ----------
         t : numpy.array
             Inquiry points to be interpolated
+
+        filename : str, default=None
+            A filename to save the file. In this case, the plot will not be
+            shown, bit saved to a file only. If `None`, plot will not be saved.
+
+        verbose : bool, default=False
+            If `True`, the location os saved plot is printed.
         """
 
         if not plot_modules_exist:
@@ -1389,24 +1409,23 @@ class InterpolateSchatten(object):
 
         plt.tight_layout()
 
-        # Check if the graphical backend exists
-        if matplotlib.get_backend() != 'agg':
-            plt.show()
-        else:
-            # Save the plot as SVG file in the current directory
-            show_or_save_plot(plt, 'interpolation',
-                              transparent_background=True)
+        # Save the plot in the current directory
+        show_or_save_plot(plt, filename=filename,
+                          default_filename='schatten_interpolation',
+                          transparent_background=True, verbose=verbose)
 
     # ===========
     # plot finite
     # ===========
 
-    @matplotlib.rc_context(get_custom_theme())
+    @matplotlib.rc_context(get_theme())
     def _plot_finite(
             self,
             t,
             normalize=False,
-            compare=False):
+            compare=False,
+            filename=None,
+            verbose=False):
         """
         Plots the interpolation results, together with the comparison with the
         exact solution and the relative error of the interpolation.
@@ -1431,6 +1450,13 @@ class InterpolateSchatten(object):
             Relative errors of the interpolation with respect to the exact
             solution. If not None, the relative errors will be plotted on a
             second axis.
+
+        filename : str, default=False
+            A filename to save the file. In this case, the plot will not be
+            shown, bit saved to a file only. If `None`, plot will not be saved.
+
+        verbose : bool, default=False
+            If `True`, the location os saved plot is printed.
         """
 
         if not plot_modules_exist:
@@ -1593,10 +1619,7 @@ class InterpolateSchatten(object):
 
         plt.tight_layout()
 
-        # Check if the graphical backend exists
-        if matplotlib.get_backend() != 'agg':
-            plt.show()
-        else:
-            # Save the plot as SVG file in the current directory
-            show_or_save_plot(plt, 'interpolation',
-                              transparent_background=True)
+        # Save the plot as SVG file in the current directory
+        show_or_save_plot(plt, filename=filename,
+                          default_filename='schatten_interpolation',
+                          transparent_background=True, verbose=verbose)

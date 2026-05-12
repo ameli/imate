@@ -14,7 +14,7 @@
 // =======
 
 #include "./c_lanczos_tridiagonalization.h"
-#include <cmath>  // sqrt
+#include <cmath>  // std::sqrt
 #include "./c_orthogonalization.h"  // cOrthogonalization
 #include "../_c_basic_algebra/c_vector_operations.h"  // cVectorOperations
 
@@ -134,7 +134,7 @@ IndexType c_lanczos_tridiagonalization(
     else if ((orthogonalize < 0) ||
              (orthogonalize > static_cast<FlagType>(m)))
     {
-        // Using full reorthogonalization, keep all of the m vectors in buffer
+        // Using full re-orthogonalization, keep all of the m vectors in buffer
         buffer_size = m;
     }
     else
@@ -172,12 +172,14 @@ IndexType c_lanczos_tridiagonalization(
         if (j == 0)
         {
             cVectorOperations<DataType>::copy_scaled_vector(
-                    r, n, 1.0/initial_beta, &V[(j % buffer_size)*n]);
+                    r, n, static_cast<DataType>(1.0)/initial_beta,
+                    &V[(j % buffer_size)*n]);
         }
         else
         {
             cVectorOperations<DataType>::copy_scaled_vector(
-                    r, n, 1.0/beta[j-1], &V[(j % buffer_size)*n]);
+                    r, n, static_cast<DataType>(1.0)/beta[j-1],
+                    &V[(j % buffer_size)*n]);
         }
 
         // Multiply A to the j-th column of V, write into r
@@ -222,7 +224,7 @@ IndexType c_lanczos_tridiagonalization(
         // Exit criterion when the vector r is zero. If each component of a
         // zero vector has the tolerance epsilon, (which is called lanczos_tol
         // here), the tolerance of norm of r is epsilon times sqrt of n.
-        if (beta[j] < lanczos_tol * sqrt(n))
+        if (beta[j] < lanczos_tol * static_cast<DataType>(std::sqrt(n)))
         {
             break;
         }

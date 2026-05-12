@@ -14,11 +14,31 @@
 // =======
 
 #include "./cu_lanczos_tridiagonalization.h"
-#include <cublas_v2.h>  // cublasHandle_t
-#include <cmath>  // sqrt
+#include "../_cu_definitions/cu_types.h" // __nv_fp8_e5m2, __nv_fp8_e4m3,
+                                         // __half, __nv_bfloat16
+#include <cmath>  // std::sqrt
 #include "./cu_orthogonalization.h"  // cuOrthogonalization
 #include "../_cu_basic_algebra/cu_vector_operations.h"  // cuVectorOperations
-#include "../_cuda_utilities/cuda_interface.h"  // alloc, copy_to_device, del
+#include "../_cuda_utilities/cuda_api.h"  // CudaAPI
+#include "../_cu_arithmetics/cu_arithmetics.h" // cu_arithmetics
+
+// Avoid CUBLAS numeration value not handled in switch [-Wswitch-enum] warning
+#ifdef _MSC_VER
+    #pragma warning(push, 0)  // Suppress all warnings from the followings
+    #include <cublas_v2.h>  // cublasHandle_t
+    #pragma warning(pop)  // Restore previous warning level
+#elif defined(__INTEL_LLVM_COMPILER) || defined(__INTEL_COMPILER)
+    #pragma warning(push, 0)
+    #include <cublas_v2.h>  // cublasHandle_t
+    #pragma warning(pop)
+#elif defined(__GNUC__) || defined(__clang__)
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wswitch-enum"
+    #include <cublas_v2.h>  // cublasHandle_t
+    #pragma GCC diagnostic pop
+#else
+    #include <cublas_v2.h>  // cublasHandle_t
+#endif
 
 
 // ============================
@@ -139,7 +159,7 @@ IndexType cu_lanczos_tridiagonalization(
     else if ((orthogonalize < 0) ||
              (orthogonalize > static_cast<FlagType>(m)))
     {
-        // Using full reorthogonalization, keep all of the m vectors in buffer
+        // Using full re-orthogonalization, keep all of the m vectors in buffer
         buffer_size = m;
     }
     else
@@ -151,13 +171,13 @@ IndexType cu_lanczos_tridiagonalization(
     // Allocate 2D array (as 1D array, and coalesced row-wise) to store
     // the last buffer_size of orthogonalized vectors of length n. New vectors
     // are stored by cycling through the buffer to replace with old ones.
-    DataType* device_V = CudaInterface<DataType>::alloc(n * buffer_size);
+    DataType* device_V = CudaAPI<DataType>::alloc(n * buffer_size);
 
     // Allocate vector r
-    DataType* device_r = CudaInterface<DataType>::alloc(n);
+    DataType* device_r = CudaAPI<DataType>::alloc(n);
 
     // Copy v into r
-    CudaInterface<DataType>::copy_to_device(v, n, device_r);
+    CudaAPI<DataType>::copy_to_device(v, n, device_r);
 
     // Initial beta
     DataType initial_beta = cuVectorOperations<DataType>::euclidean_norm(
@@ -178,13 +198,15 @@ IndexType cu_lanczos_tridiagonalization(
         if (j == 0)
         {
             cuVectorOperations<DataType>::copy_scaled_vector(
-                    cublas_handle, device_r, n, 1.0/initial_beta,
+                    cublas_handle, device_r, n,
+                    cu_arithmetics::cast<double, DataType>(1.0)/initial_beta,
                     &device_V[(j % buffer_size)*n]);
         }
         else
         {
             cuVectorOperations<DataType>::copy_scaled_vector(
-                    cublas_handle, device_r, n, 1.0/beta[j-1],
+                    cublas_handle, device_r, n,
+                    cu_arithmetics::cast<double, DataType>(1.0)/beta[j-1],
                     &device_V[(j % buffer_size)*n]);
         }
 
@@ -234,15 +256,20 @@ IndexType cu_lanczos_tridiagonalization(
         // Exit criterion when the vector r is zero. If each component of a
         // zero vector has the tolerance epsilon, (which is called lanczos_tol
         // here), the tolerance of norm of r is epsilon times sqrt of n.
-        if (beta[j] < lanczos_tol * sqrt(n))
+        if (beta[j] < cu_arithmetics::mul(
+                    lanczos_tol,
+                    cu_arithmetics::cast<double, DataType>(
+                        static_cast<double>(std::sqrt(n)))
+                    )
+           )
         {
             break;
         }
     }
 
     // Free dynamic memory
-    CudaInterface<DataType>::del(device_V);
-    CudaInterface<DataType>::del(device_r);
+    CudaAPI<DataType>::del(device_V);
+    CudaAPI<DataType>::del(device_r);
 
     return lanczos_size;
 }
@@ -252,23 +279,80 @@ IndexType cu_lanczos_tridiagonalization(
 // Explicit template instantiation
 // ===============================
 
-// lanczos tridiagonalization
-template IndexType cu_lanczos_tridiagonalization<float>(
-        cuLinearOperator<float>* A,
-        const float* v,
-        const LongIndexType n,
-        const IndexType m,
-        const float lanczos_tol,
-        const FlagType orthogonalize,
-        float* alpha,
-        float* beta);
+// lanczos tridiagonalization (__nv_fp8_e5m2)
+#if defined(USE_CUDA_FP8_E5M2) && (USE_CUDA_FP8_E5M2 == 1)
+    template IndexType cu_lanczos_tridiagonalization<__nv_fp8_e5m2>(
+            cuLinearOperator<__nv_fp8_e5m2>* A,
+            const __nv_fp8_e5m2* v,
+            const LongIndexType n,
+            const IndexType m,
+            const __nv_fp8_e5m2 lanczos_tol,
+            const FlagType orthogonalize,
+            __nv_fp8_e5m2* alpha,
+            __nv_fp8_e5m2* beta);
+#endif
 
-template IndexType cu_lanczos_tridiagonalization<double>(
-        cuLinearOperator<double>* A,
-        const double* v,
-        const LongIndexType n,
-        const IndexType m,
-        const double lanczos_tol,
-        const FlagType orthogonalize,
-        double* alpha,
-        double* beta);
+// lanczos tridiagonalization (__nv_fp8_e4m3)
+#if defined(USE_CUDA_FP8_E4M3) && (USE_CUDA_FP8_E4M3 == 1)
+    template IndexType cu_lanczos_tridiagonalization<__nv_fp8_e4m3>(
+            cuLinearOperator<__nv_fp8_e4m3>* A,
+            const __nv_fp8_e4m3* v,
+            const LongIndexType n,
+            const IndexType m,
+            const __nv_fp8_e4m3 lanczos_tol,
+            const FlagType orthogonalize,
+            __nv_fp8_e4m3* alpha,
+            __nv_fp8_e4m3* beta);
+#endif
+
+// lanczos tridiagonalization (__half)
+#if defined(USE_CUDA_FP16) && (USE_CUDA_FP16 == 1)
+    template IndexType cu_lanczos_tridiagonalization<__half>(
+            cuLinearOperator<__half>* A,
+            const __half* v,
+            const LongIndexType n,
+            const IndexType m,
+            const __half lanczos_tol,
+            const FlagType orthogonalize,
+            __half* alpha,
+            __half* beta);
+#endif
+
+// lanczos tridiagonalization (__nv_bfloat16)
+#if defined(USE_CUDA_BF16) && (USE_CUDA_BF16 == 1)
+    template IndexType cu_lanczos_tridiagonalization<__nv_bfloat16>(
+            cuLinearOperator<__nv_bfloat16>* A,
+            const __nv_bfloat16* v,
+            const LongIndexType n,
+            const IndexType m,
+            const __nv_bfloat16 lanczos_tol,
+            const FlagType orthogonalize,
+            __nv_bfloat16* alpha,
+            __nv_bfloat16* beta);
+#endif
+
+// lanczos tridiagonalization (float)
+#if defined(USE_CUDA_FP32) && (USE_CUDA_FP32 == 1)
+    template IndexType cu_lanczos_tridiagonalization<float>(
+            cuLinearOperator<float>* A,
+            const float* v,
+            const LongIndexType n,
+            const IndexType m,
+            const float lanczos_tol,
+            const FlagType orthogonalize,
+            float* alpha,
+            float* beta);
+#endif
+
+// lanczos tridiagonalization (double)
+#if defined(USE_CUDA_FP64) && (USE_CUDA_FP64 == 1)
+    template IndexType cu_lanczos_tridiagonalization<double>(
+            cuLinearOperator<double>* A,
+            const double* v,
+            const LongIndexType n,
+            const IndexType m,
+            const double lanczos_tol,
+            const FlagType orthogonalize,
+            double* alpha,
+            double* beta);
+#endif

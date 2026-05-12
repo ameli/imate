@@ -16,7 +16,7 @@
 #include "./c_orthogonalization.h"
 #include <cstdlib>  // abort
 #include <iostream>  // std::cerr, std::endl
-#include <cmath>  // sqrt, std::fabs
+#include <cmath>  // std::sqrt, std::fabs
 #include <limits>  // std::numeric_limits
 #include "../_c_basic_algebra/c_vector_operations.h"  // cVectorOperations
 #include "../_random_generator/random_array_generator.h"  // RandomArrayGene...
@@ -183,7 +183,7 @@ void cOrthogonalization<DataType>::gram_schmidt_process(
                 &V[vector_size*i], vector_size);
 
         // Check norm
-        if (norm < epsilon * sqrt(vector_size))
+        if (norm < epsilon * static_cast<DataType>(std::sqrt(vector_size)))
         {
             std::cerr << "WARNING: norm of the given vector is too small. " \
                       << "Cannot orthogonalize against zero vector. " \
@@ -200,18 +200,24 @@ void cOrthogonalization<DataType>::gram_schmidt_process(
 
         // If scale is 1, it is possible that vector v and j-th vector are
         // identical (or close).
-        if (std::abs(std::abs(scale) - 1.0) <= 2.0 * epsilon)
+        if (static_cast<DataType>(std::abs(
+                static_cast<DataType>(std::abs(scale)) - \
+                static_cast<DataType>(1.0))) <= \
+                static_cast<DataType>(2.0) * epsilon)
         {
             // Norm of the vector v
             norm_v = cVectorOperations<DataType>::euclidean_norm(
                     v, vector_size);
 
             // Compute distance between the j-th vector and vector v
-            distance2 = norm_v*norm_v - 2.0*inner_prod + norm*norm;
+            distance2 = norm_v*norm_v - \
+                    static_cast<DataType>(2.0)*inner_prod + norm*norm;
 
             // If distance is zero, do not reorthogonalize i-th against
             // the j-th vector.
-            if (distance2 < 2.0 * epsilon * vector_size)
+            if (distance2 < \
+                static_cast<DataType>(2.0) * epsilon * \
+                static_cast<DataType>(vector_size))
             {
                 continue;
             }
@@ -322,7 +328,8 @@ void cOrthogonalization<DataType>::orthogonalize_vectors(
                     &vectors[j*vector_size], vector_size);
 
             // Check norm
-            if (norm_j < epsilon * sqrt(vector_size))
+            if (norm_j < \
+                    epsilon * static_cast<DataType>(std::sqrt(vector_size)))
             {
                 std::cerr << "WARNING: norm of the given vector is too " \
                           << " small. Cannot reorthogonalize against zero" \
@@ -349,7 +356,8 @@ void cOrthogonalization<DataType>::orthogonalize_vectors(
                     &vectors[i*vector_size], vector_size);
 
             // If the norm is too small, regenerate the i-th vector randomly
-            if (norm_i < epsilon * sqrt(vector_size))
+            if (norm_i < \
+                    epsilon * static_cast<DataType>(std::sqrt(vector_size)))
             {
                 // Regenerate new random vector for i-th vector
                 RandomArrayGenerator<DataType>::generate_random_array(

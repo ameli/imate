@@ -63,6 +63,7 @@ pypi_build_wheels_macosx_arm64_task:
       USE_LONG_INT=0
       USE_UNSIGNED_LONG_INT=0
       USE_CBLAS=0
+      USE_MKL=0
       USE_CUDA=0
     CIBW_ARCHS: "arm64"
     # CIBW_BUILD: "*-macosx_arm64"
@@ -78,6 +79,7 @@ pypi_build_wheels_macosx_arm64_task:
   build_script:
     - uname -m
     - brew install python@3.11
+    - sudo mkdir -p /usr/local/bin
     - sudo ln -s /opt/homebrew/opt/python@3.11/bin/python3.11 /usr/local/bin/python
     - which python
     - python -c "import platform;print(platform.python_version());print(platform.system());print(platform.machine())"

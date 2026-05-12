@@ -18,7 +18,6 @@
 // =======
 
 #include "../_definitions/types.h"  // FlagType, LongIndexType
-#include "../_c_linear_operator/c_dense_matrix.h"  // cDenseMatrix
 #include "./cu_matrix.h"  // cuMatrix
 
 
@@ -26,10 +25,22 @@
 // cu Dense Matrix
 // ===============
 
+/// \class   cuDenseMatrix
+///
+/// \brief   Container for dense matrices.
+///
+/// \details The \c cuDenseMatrix holds a two-dimensional dense matrix, and
+///          can perofrom matrix-vector product and transposed matrix-vector
+///          product.
+///
+/// \sa      cuMatrix,
+///          cuCSRMatrix,
+///          cuCSCMatrix,
+///          cuDenseAffineMatrixFunction,
+///          cDenseMatrix
+
 template <typename DataType>
-class cuDenseMatrix :
-    public cuMatrix<DataType>,
-    public cDenseMatrix<DataType>
+class cuDenseMatrix : public cuMatrix<DataType>
 {
     public:
 
@@ -41,9 +52,12 @@ class cuDenseMatrix :
                 const LongIndexType num_rows_,
                 const LongIndexType num_columns_,
                 const FlagType A_is_row_major_,
+                const FlagType A_is_symmetric_,
                 const int num_gpu_devices_);
 
         virtual ~cuDenseMatrix();
+
+        virtual FlagType is_identity_matrix() const;
 
         virtual void dot(
                 const DataType* device_vector,
@@ -70,6 +84,8 @@ class cuDenseMatrix :
 
         // Member data
         DataType** device_A;
+        const DataType* A;
+        const FlagType A_is_row_major;
 };
 
 #endif  // _CU_LINEAR_OPERATOR_CU_DENSE_MATRIX_H_

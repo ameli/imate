@@ -50,7 +50,8 @@ float Gaussian::function(const float lambda_) const
     float mu_ = static_cast<float>(this->mu);
     float sigma_ = static_cast<float>(this->sigma);
     float x = (lambda_ - mu_) / sigma_;
-    return (0.5 * M_SQRT1_2 * M_2_SQRTPI / sigma_) * exp(-0.5 * x * x);
+    return (0.5f * M_SQRT1_2 * M_2_SQRTPI / sigma_) * \
+        std::exp(-0.5 * x * x);
 }
 
 
@@ -65,7 +66,8 @@ float Gaussian::function(const float lambda_) const
 double Gaussian::function(const double lambda_) const
 {
     double x = (lambda_ - this->mu) / this->sigma;
-    return (0.5 * M_SQRT1_2 * M_2_SQRTPI / this->sigma) * exp(-0.5 * x * x);
+    return (0.5 * M_SQRT1_2 * M_2_SQRTPI / this->sigma) * \
+        std::exp(-0.5 * x * x);
 }
 
 
@@ -82,5 +84,6 @@ long double Gaussian::function(const long double lambda_) const
     long double mu_ = static_cast<long double>(this->mu);
     long double sigma_ = static_cast<long double>(this->sigma);
     long double x = (lambda_ - mu_) / sigma_;
-    return (0.5 * M_SQRT1_2 * M_2_SQRTPI / sigma_) * exp(-0.5 * x * x);
+    return (0.5l * M_SQRT1_2 * M_2_SQRTPI / sigma_) * \
+        std::exp(-0.5 * x * x);
 }

@@ -40,7 +40,7 @@ Exponential::Exponential(double coeff_)
 
 float Exponential::function(const float lambda_) const
 {
-    return exp(lambda_ * static_cast<float>(this->coeff));
+    return std::exp(lambda_ * static_cast<float>(this->coeff));
 }
 
 
@@ -54,7 +54,7 @@ float Exponential::function(const float lambda_) const
 
 double Exponential::function(const double lambda_) const
 {
-    return exp(lambda_ * static_cast<double>(this->coeff));
+    return std::exp(lambda_ * static_cast<double>(this->coeff));
 }
 
 
@@ -68,5 +68,5 @@ double Exponential::function(const double lambda_) const
 
 long double Exponential::function(const long double lambda_) const
 {
-    return exp(lambda_ * static_cast<long double>(this->coeff));
+    return std::exp(lambda_ * static_cast<long double>(this->coeff));
 }

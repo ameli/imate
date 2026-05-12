@@ -22,21 +22,41 @@
 // constructor 1
 // =============
 
-/// \brief Constructor. Matrix \c B is assumed to be the identity matrix.
+/// \brief      Default constructor.
 ///
+/// \details    Matrix \c B is assumed to be the identity matrix.
+///
+/// \param[in]  A_
+///             1D array that represents a 2D dense array with either C (row)
+///             major ordering or Fortran (column) major ordering. The major
+///             ordering should de defined by \c A_is_row_major flag.
+/// \param[in]  num_rows_
+///             Number of rows of \c A and \c B
+/// \param[in]  num_columns_
+///             Number of columns of \c A and \c B
+/// \param[in]  A_is_row_major_
+///             Boolean, can be \c 0 or \c 1 as follows:
+///             * If \c A is row major (C ordering where the last index is
+///               contiguous) this value should be \c 1.
+///             * If \c A is column major (Fortran ordering where the first
+///               index is contiguous), this value should be set to \c 0.
+/// \param[in]  A_is_symmetric_
+///             Boolean. If \c A is symmetric, set this value to \c 1,
+///             otherwise \c 0.
 
 template <typename DataType>
 cDenseAffineMatrixFunction<DataType>::cDenseAffineMatrixFunction(
         const DataType* A_,
-        const FlagType A_is_row_major_,
         const LongIndexType num_rows_,
-        const LongIndexType num_columns_):
+        const LongIndexType num_columns_,
+        const FlagType A_is_row_major_,
+        const FlagType A_is_symmetric_):
 
     // Base class constructor
-    cAffineMatrixFunction<DataType>(num_rows_, num_columns_),
+    cLinearOperatorBase(num_rows_, num_columns_),
 
     // Initializer list
-    A(A_, num_rows_, num_columns_, A_is_row_major_)
+    A(A_, num_rows_, num_columns_, A_is_row_major_, A_is_symmetric_)
 {
     // This constructor is called assuming B is identity
     this->B_is_identity = true;
@@ -50,21 +70,58 @@ cDenseAffineMatrixFunction<DataType>::cDenseAffineMatrixFunction(
 // constructor 2
 // =============
 
+/// \brief      Constructor.
+///
+/// \details    Matrix \c B is assumed to be the identity matrix.
+///
+/// \param[in]  A_
+///             1D array that represents a 2D dense array with either C (row)
+///             major ordering or Fortran (column) major ordering. The major
+///             ordering should de defined by \c A_is_row_major flag.
+/// \param[in]  num_rows_
+///             Number of rows of \c A and \c B
+/// \param[in]  num_columns_
+///             Number of columns of \c A and \c B
+/// \param[in]  A_is_row_major_
+///             Boolean, can be \c 0 or \c 1 as follows:
+///             * If \c A is row major (C ordering where the last index is
+///               contiguous) this value should be \c 1.
+///             * If \c A is column major (Fortran ordering where the first
+///               index is contiguous), this value should be set to \c 0.
+/// \param[in]  A_is_symmetric_
+///             Boolean. If \c A is symmetric, set this value to \c 1,
+///             otherwise \c 0.
+/// \param[in]  B_
+///             1D array that represents a 2D dense array with either C (row)
+///             major ordering or Fortran (column) major ordering. The major
+///             ordering should de defined by \c A_is_row_major flag.
+/// \param[in]  B_is_row_major_
+///             Boolean, can be \c 0 or \c 1 as follows:
+///             * If \c B is row major (C ordering where the last index is
+///               contiguous) this value should be \c 1.
+///             * If \c B is column major (Fortran ordering where the first
+///               index is contiguous), this value should be set to \c 0.
+/// \param[in]  B_is_symmetric_
+///             Boolean. If \c B is symmetric, set this value to \c 1,
+///             otherwise \c 0.
+
 template <typename DataType>
 cDenseAffineMatrixFunction<DataType>::cDenseAffineMatrixFunction(
         const DataType* A_,
-        const FlagType A_is_row_major_,
         const LongIndexType num_rows_,
         const LongIndexType num_columns_,
+        const FlagType A_is_row_major_,
+        const FlagType A_is_symmetric_,
         const DataType* B_,
-        const FlagType B_is_row_major_):
+        const FlagType B_is_row_major_,
+        const FlagType B_is_symmetric_):
 
     // Base class constructor
-    cAffineMatrixFunction<DataType>(num_rows_, num_columns_),
+    cLinearOperatorBase(num_rows_, num_columns_),
 
     // Initializer list
-    A(A_, num_rows_, num_columns_, A_is_row_major_),
-    B(B_, num_rows_, num_columns_, B_is_row_major_)
+    A(A_, num_rows_, num_columns_, A_is_row_major_, A_is_symmetric_),
+    B(B_, num_rows_, num_columns_, B_is_row_major_, B_is_symmetric_)
 {
     // Matrix B is assumed to be non-zero. Check if it is identity or generic
     if (this->B.is_identity_matrix())
@@ -79,9 +136,45 @@ cDenseAffineMatrixFunction<DataType>::cDenseAffineMatrixFunction(
 // destructor
 // ==========
 
+/// \brief Destructor.
+/// 
+
 template <typename DataType>
 cDenseAffineMatrixFunction<DataType>::~cDenseAffineMatrixFunction()
 {
+}
+
+
+// ============
+// set symmetry
+// ============
+
+/// \brief     Specify whether the matrices are symmetic or non-symmetric.
+///
+/// \details   This function overwrites the symmetry status that has been set
+///            by the constructor. Note that the symmetry status of both
+///            matrices \f$ \mathbf{A} \f$ and \f$ \mathbf{B} \f$ in the
+///            linear operator \f$ \mathbf{A} + t \mathbf{B} \f$ will be set
+///            together.
+///
+/// \param[in] symmetric
+///            Boolean. If set to \c 1, the matrix is assumed to be symmetric.
+///            Otherwiese non-symmetric.
+
+template <typename DataType>
+void cDenseAffineMatrixFunction<DataType>::set_symmetry(
+        const FlagType symmetric)
+{
+    if (symmetric == 1)
+    {
+        this->A.set_symmetry(1);
+        this->B.set_symmetry(1);
+    }
+    else
+    {
+        this->A.set_symmetry(0);
+        this->B.set_symmetry(0);
+    }
 }
 
 
@@ -89,21 +182,20 @@ cDenseAffineMatrixFunction<DataType>::~cDenseAffineMatrixFunction()
 // dot
 // ===
 
-/// \brief      Computes the matrix vector product:
-///             \f[
-///                 \boldsymbol{c} = (\mathbf{A} + t \mathbf{B})
-///                 \boldsymbol{b}.
-///             \f]
+/// \brief      Matrix vector product.
+///
+/// \details    Performs the matrix vector product \f$ \boldsymbol{y} =
+///             (\mathbf{A} + t \mathbf{B}) \boldsymbol{x} \f$.
 ///
 /// \param[in]  vector
-///             The input vector :math:`\\boldsymbol{b}` is given by \c vector.
-///             If \f$ \mathbf{A} \f$ and \f$ \mathbf{B} \f$ are \f$ m \times n
-///             \f$ matrices, the length of input c vector is \c n.
+///             A one-dimensional input vector \f$ \boldsymbol{x} \f$ with size
+///             the of the number of columns of the matrix \f$ \mathbf{A} \f$.
 /// \param[out] product
-///             The output of the product, \f$ \boldsymbol{c} \f$, is written
-///             in-place into this array. Let \n m be the number of rows of \f$
-///             \mathbf{A} \f$ and \f$ \mathbf{B} \f$, then, the output vector
-///             \c product is 1D column array of length \c m.
+///             A one-dimensional output vector \f$ \boldsymbol{y} \f$ with the
+///             size of the number of rows of \f$ \mathbf{A} \f$. This vector
+///             will be overwritten.
+///
+/// \sa         cDenseAffineMatrixFunction::transpose_dot
 
 template <typename DataType>
 void cDenseAffineMatrixFunction<DataType>::dot(
@@ -144,22 +236,19 @@ void cDenseAffineMatrixFunction<DataType>::dot(
 // transpose dot
 // =============
 
-/// \brief      Computes the matrix vector product:
-///             \f[
-///                 \boldsymbol{c} = (\mathbf{A} + t \mathbf{B})^{\intercal}
-///                 \boldsymbol{b}.
-///             \f]
+/// \brief      Matrix vector product written in place.
+///
+/// \details    Performs the matrix vector product \f$ \boldsymbol{y} =
+///             (\mathbf{A} + t \mathbf{B})^{\intercal} \boldsymbol{x} \f$.
 ///
 /// \param[in]  vector
-///             The input vector \f$ \boldsymbol{b} \f$ is given by \c vector.
-///             If \f$ \mathbf{A} \f$ and \f$ \mathbf{B} \f$ are \f$ m \times n
-///             \f$ matrices, the length of input \c vector is \c n.
-///
+///             A one-dimensional input vector \f$ \boldsymbol{x} \f$ with size
+///             the of the number of columns of the matrix \f$ \mathbf{A} \f$.
 /// \param[out] product
-///             The output of the product, \f$ \boldsymbol{c} \f$, is written
-///             in-place into this array. Let \c n be the number of columns of
-///             \f$ \mathbf{A} \f$ and \f$ \mathbf{B} \f$, then, the output
-///             vector \c product is 1D column array of length \c m.
+///             A one-dimensional output vector \f$ \boldsymbol{y} \f$ with the
+///             size of the number of rows of \f$ \mathbf{A} \f$.
+///
+/// \sa         cDenseAffineMatrixFunction::dot
 
 template <typename DataType>
 void cDenseAffineMatrixFunction<DataType>::transpose_dot(

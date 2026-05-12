@@ -15,7 +15,7 @@
 import numpy
 import scipy
 from scipy import sparse
-import multiprocessing
+from .._openmp import get_avail_num_threads
 
 # Cython
 from cython.parallel cimport parallel, prange
@@ -25,11 +25,12 @@ from libc.stdlib cimport exit, malloc, free
 from libc.math cimport NAN
 from .._definitions.types cimport DataType, kernel_type
 cimport cython
-cimport openmp
+from .._openmp cimport omp_set_num_threads, omp_lock_t, omp_init_lock, \
+    omp_get_thread_num, omp_set_lock, omp_unset_lock
 
 __all__ = ['sparse_correlation_matrix']
 
-# To avoid a bug where cython does not recognize long doubler as a type in the
+# To avoid a bug where cython does not recognize long double as a type in the
 # template functions, we define long_double as an alias
 ctypedef long double long_double
 
@@ -54,7 +55,7 @@ cdef int _generate_matrix(
         long[:] nnz,
         long[:] matrix_row_indices,
         long[:] matrix_column_indices,
-        DataType* c_matrix_data) nogil:
+        DataType* c_matrix_data) noexcept nogil:
     """
     Generates a sparse correlation matrix.
 
@@ -146,15 +147,15 @@ cdef int _generate_matrix(
         percent_update = 1
 
     # Set number of parallel threads
-    openmp.omp_set_num_threads(num_threads)
+    omp_set_num_threads(num_threads)
 
     # Initialize openmp lock to setup a critical section
-    cdef openmp.omp_lock_t lock
-    openmp.omp_init_lock(&lock)
+    cdef omp_lock_t lock
+    omp_init_lock(&lock)
 
     # Initialize an openmp lock for the counter and printing the progress
-    cdef openmp.omp_lock_t lock_counter
-    openmp.omp_init_lock(&lock_counter)
+    cdef omp_lock_t lock_counter
+    omp_init_lock(&lock_counter)
 
     # Using max possible chunk size for parallel threads
     cdef int chunk_size = int((<double> matrix_size) / num_threads)
@@ -176,7 +177,7 @@ cdef int _generate_matrix(
             for j in range(i, matrix_size):
 
                 # Compute an element of the matrix
-                thread_data[openmp.omp_get_thread_num()] = kernel_function(
+                thread_data[omp_get_thread_num()] = kernel_function(
                         euclidean_distance(
                             coords[i][:],
                             coords[j][:],
@@ -185,13 +186,13 @@ cdef int _generate_matrix(
                         kernel_param)
 
                 # Check with kernel threshold to taper out or store
-                if thread_data[openmp.omp_get_thread_num()] > kernel_threshold:
+                if thread_data[omp_get_thread_num()] > kernel_threshold:
 
                     # Halt operation if preallocated sparse array is not enough
                     if nnz[0] >= max_nnz:
 
                         # Critical section
-                        openmp.omp_set_lock(&lock)
+                        omp_set_lock(&lock)
 
                         # Avoid duplicate if success is falsified already
                         if success[0]:
@@ -200,19 +201,19 @@ cdef int _generate_matrix(
                             success[0] = 0
 
                         # Release lock to end the openmp critical section
-                        openmp.omp_unset_lock(&lock)
+                        omp_unset_lock(&lock)
 
                         # The inner loop is not an openmp loop, so we can break
                         break
 
                     # Add data to the arrays in an openmp critical section
-                    openmp.omp_set_lock(&lock)
+                    omp_set_lock(&lock)
 
                     nnz[0] += 1
                     matrix_row_indices[nnz[0]-1] = i
                     matrix_column_indices[nnz[0]-1] = j
                     c_matrix_data[nnz[0]-1] = \
-                        thread_data[openmp.omp_get_thread_num()]
+                        thread_data[omp_get_thread_num()]
 
                     # Use symmetry of the matrix
                     if i != j:
@@ -220,13 +221,13 @@ cdef int _generate_matrix(
                         matrix_row_indices[nnz[0]-1] = j
                         matrix_column_indices[nnz[0]-1] = i
                         c_matrix_data[nnz[0]-1] = \
-                            thread_data[openmp.omp_get_thread_num()]
+                            thread_data[omp_get_thread_num()]
 
                     # Release lock to end the openmp critical section
-                    openmp.omp_unset_lock(&lock)
+                    omp_unset_lock(&lock)
 
             # Critical section
-            openmp.omp_set_lock(&lock_counter)
+            omp_set_lock(&lock_counter)
 
             # Update counter
             counter[0] = counter[0] + 1
@@ -239,7 +240,7 @@ cdef int _generate_matrix(
                     printf('Generate matrix progress: %3d%%\n', progress)
 
             # Release lock to end the openmp critical section
-            openmp.omp_unset_lock(&lock_counter)
+            omp_unset_lock(&lock_counter)
 
     free(thread_data)
 
@@ -451,6 +452,7 @@ def _estimate_max_nnz(
 
 def sparse_correlation_matrix(
         coords,
+        covs,
         scale=0.1,
         kernel='exponential',
         kernel_param=None,
@@ -515,9 +517,9 @@ def sparse_correlation_matrix(
     dimension = coords.shape[1]
 
     # Get number of CPU threads
-    num_threads = multiprocessing.cpu_count()
+    num_threads = get_avail_num_threads()
 
-    # Get the kernel functon
+    # Get the kernel function
     cdef kernel_type kernel_function = get_kernel(kernel)
 
     # kernel threshold
@@ -536,14 +538,14 @@ def sparse_correlation_matrix(
             density)
 
     # Memory view of the correlation matrix
-    cdef float[:] mv_matrix_data_float
-    cdef double[:] mv_matrix_data_double
-    cdef long double[:] mv_matrix_data_long_double
+    cdef float[:] mv_matrix_data_fp32
+    cdef double[:] mv_matrix_data_fp64
+    cdef long double[:] mv_matrix_data_fp128
 
     # C pointer to the correlation matrix
-    cdef float* c_matrix_data_float
-    cdef double* c_matrix_data_double
-    cdef long double* c_matrix_data_long_double
+    cdef float* c_matrix_data_fp32
+    cdef double* c_matrix_data_fp64
+    cdef long double* c_matrix_data_fp128
 
     # Try with the estimated nnz. If not enough, we will double and retry
     success = 0
@@ -559,8 +561,8 @@ def sparse_correlation_matrix(
         if dtype == r'float32':
 
             # Get pointer to the correlation matrix
-            mv_matrix_data_float = matrix_data
-            c_matrix_data_float = &mv_matrix_data_float[0]
+            mv_matrix_data_fp32 = matrix_data
+            c_matrix_data_fp32 = &mv_matrix_data_fp32[0]
 
             # Generate matrix assuming the estimated nnz is enough
             success = _generate_matrix[float](
@@ -577,13 +579,13 @@ def sparse_correlation_matrix(
                     nnz,
                     matrix_row_indices,
                     matrix_column_indices,
-                    c_matrix_data_float)
+                    c_matrix_data_fp32)
 
         elif dtype == r'float64':
 
             # Get pointer to the correlation matrix
-            mv_matrix_data_double = matrix_data
-            c_matrix_data_double = &mv_matrix_data_double[0]
+            mv_matrix_data_fp64 = matrix_data
+            c_matrix_data_fp64 = &mv_matrix_data_fp64[0]
 
             # Generate matrix assuming the estimated nnz is enough
             success = _generate_matrix[double](
@@ -600,13 +602,13 @@ def sparse_correlation_matrix(
                     nnz,
                     matrix_row_indices,
                     matrix_column_indices,
-                    c_matrix_data_double)
+                    c_matrix_data_fp64)
 
         elif dtype == r'float128':
 
             # Get pointer to the correlation matrix
-            mv_matrix_data_long_double = matrix_data
-            c_matrix_data_long_double = &mv_matrix_data_long_double[0]
+            mv_matrix_data_fp128 = matrix_data
+            c_matrix_data_fp128 = &mv_matrix_data_fp128[0]
 
             # Generate matrix assuming the estimated nnz is enough
             success = _generate_matrix[long_double](
@@ -623,7 +625,7 @@ def sparse_correlation_matrix(
                     nnz,
                     matrix_row_indices,
                     matrix_column_indices,
-                    c_matrix_data_long_double)
+                    c_matrix_data_fp128)
 
         else:
             raise TypeError('"dtype" should be either "float32", "float64" ' +

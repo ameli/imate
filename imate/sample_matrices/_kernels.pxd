@@ -22,22 +22,22 @@ cdef kernel_type get_kernel(const char* kernel_type)
 
 cdef double _matern_kernel(
         const double x,
-        const double param) nogil
+        const double param) noexcept nogil
 
 cdef double _exponential_kernel(
         const double x,
-        const double param) nogil
+        const double param) noexcept nogil
 
 cdef double _square_exponential_kernel(
         const double x,
-        const double param) nogil
+        const double param) noexcept nogil
 
 cdef double _rational_quadratic_kernel(
         const double x,
-        const double param) nogil
+        const double param) noexcept nogil
 
 cdef double euclidean_distance(
         const double[:] point1,
         const double[:] point2,
         const double scale,
-        const int dimension) nogil
+        const int dimension) noexcept nogil

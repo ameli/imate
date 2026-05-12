@@ -14,14 +14,17 @@
 // =======
 
 #include "./cu_orthogonalization.h"
+#include "../_cu_definitions/cu_types.h" // __nv_fp8_e5m2, __nv_fp8_e4m3,
+                                         // __half, __nv_bfloat16
 #include <cstdlib>  // abort, NULL
 #include <iostream>  // std::cerr, std::endl
-#include <cmath>  // sqrt, std::fabs
+#include <cmath>  // std::sqrt, std::fabs
 #include <limits>  // std::numeric_limits
 #include "../_cu_basic_algebra/cu_vector_operations.h"  // cuVectorOperations
 #include "../_random_generator/random_array_generator.h"  // RandomArrayGene...
 #include "../_random_generator/random_number_generator.h"  // RandomNumberGe...
-#include "../_cuda_utilities/cuda_interface.h"  // CudaInterface
+#include "../_cuda_utilities/cuda_api.h"  // CudaAPI
+#include "../_cu_arithmetics/cu_arithmetics.h" // cu_arithmetics
 
 
 // ====================
@@ -165,7 +168,7 @@ void cuOrthogonalization<DataType>::gram_schmidt_process(
     DataType inner_prod;
     DataType norm;
     DataType norm_v;
-    DataType epsilon = std::numeric_limits<DataType>::epsilon();
+    DataType epsilon = cu_arithmetics::epsilon<DataType>();
     DataType distance2;
 
     // Iterate over vectors
@@ -187,7 +190,13 @@ void cuOrthogonalization<DataType>::gram_schmidt_process(
                 cublas_handle, &V[vector_size*i], vector_size);
 
         // Check norm
-        if (norm < epsilon * sqrt(vector_size))
+        if (norm < \
+                cu_arithmetics::mul(
+                    epsilon,
+                    cu_arithmetics::cast<double, DataType>(
+                        std::sqrt(vector_size))
+                )
+           )
         {
             std::cerr << "WARNING: norm of the given vector is too small. " \
                       << "Cannot orthogonalize against zero vector. " \
@@ -200,22 +209,40 @@ void cuOrthogonalization<DataType>::gram_schmidt_process(
                 cublas_handle, &V[vector_size*i], v, vector_size);
 
         // scale for subtraction
-        DataType scale = inner_prod / (norm * norm);
+        DataType scale = cu_arithmetics::div(
+                inner_prod,
+                cu_arithmetics::mul(norm, norm));
+        DataType scale_abs = cu_arithmetics::abs(scale);
+        DataType one = cu_arithmetics::cast<double, DataType>(1.0);
+        DataType two = cu_arithmetics::cast<double, DataType>(2.0);
 
-        // If scale is is 1, it is possible that vector v and j-th vector are
+        // If scale is 1, it is possible that vector v and j-th vector are
         // identical (or close).
-        if (std::abs(scale - 1.0) <= 2.0 * epsilon)
+        if (cu_arithmetics::abs(cu_arithmetics::sub(scale_abs, one)) <= \
+            cu_arithmetics::mul(two, epsilon))
         {
             // Norm of the vector v
             norm_v = cuVectorOperations<DataType>::euclidean_norm(
                     cublas_handle, v, vector_size);
 
             // Compute distance between the j-th vector and vector v
-            distance2 = norm_v*norm_v - 2.0*inner_prod + norm*norm;
+            distance2 = \
+                cu_arithmetics::add(
+                    cu_arithmetics::mul(norm_v, norm_v),
+                    cu_arithmetics::mul(-two, inner_prod),
+                    cu_arithmetics::mul(norm, norm)
+                );
 
-            // If distance is zero, do not reorthogonalize i-th against
+            // If distance is zero, do not re-orthogonalize i-th against
             // the j-th vector.
-            if (distance2 < 2.0 * epsilon * vector_size)
+            if (distance2 < \
+                    cu_arithmetics::mul(
+                        two,
+                        epsilon,
+                        cu_arithmetics::cast<unsigned long long int, DataType>(
+                            static_cast<unsigned long long int>(vector_size))
+                    )
+               )
             {
                 continue;
             }
@@ -290,7 +317,7 @@ void cuOrthogonalization<DataType>::orthogonalize_vectors(
     DataType inner_prod;
     DataType norm_j;
     DataType norm_i;
-    DataType epsilon = std::numeric_limits<DataType>::epsilon();
+    DataType epsilon = cu_arithmetics::epsilon<DataType>();
     IndexType success = 1;
     IndexType max_num_trials = 20;
     IndexType num_trials = 0;
@@ -322,7 +349,7 @@ void cuOrthogonalization<DataType>::orthogonalize_vectors(
             start_j = 0;
         }
 
-        // Reorthogonalize against previous vectors
+        // Re-orthogonalize against previous vectors
         for (j=start_j; j < i; ++j)
         {
             // Norm of the j-th vector
@@ -330,10 +357,16 @@ void cuOrthogonalization<DataType>::orthogonalize_vectors(
                     cublas_handle, &vectors[j*vector_size], vector_size);
 
             // Check norm
-            if (norm_j < epsilon * sqrt(vector_size))
+            if (norm_j < \
+                    cu_arithmetics::mul(
+                        epsilon,
+                        cu_arithmetics::cast<double, DataType>(
+                            std::sqrt(vector_size))
+                    )
+               )
             {
                 std::cerr << "WARNING: norm of the given vector is too " \
-                          << " small. Cannot reorthogonalize against zero" \
+                          << " small. Cannot re-orthogonalize against zero" \
                           << "vector. Skipping."
                           << std::endl;
                 continue;
@@ -345,7 +378,9 @@ void cuOrthogonalization<DataType>::orthogonalize_vectors(
                     &vectors[j*vector_size], vector_size);
 
             // Scale of subtraction
-            DataType scale = inner_prod / (norm_j * norm_j);
+            DataType scale = cu_arithmetics::div(
+                    inner_prod,
+                    cu_arithmetics::mul(norm_j, norm_j));
 
             // Subtraction
             cuVectorOperations<DataType>::subtract_scaled_vector(
@@ -357,7 +392,13 @@ void cuOrthogonalization<DataType>::orthogonalize_vectors(
                     cublas_handle, &vectors[i*vector_size], vector_size);
 
             // If the norm is too small, regenerate the i-th vector randomly
-            if (norm_i < epsilon * sqrt(vector_size))
+            if (norm_i < \
+                    cu_arithmetics::mul(
+                        epsilon,
+                        cu_arithmetics::cast<double, DataType>(
+                            std::sqrt(vector_size))
+                    )
+                )
             {
                 // Allocate buffer
                 if (buffer == NULL)
@@ -371,10 +412,10 @@ void cuOrthogonalization<DataType>::orthogonalize_vectors(
                         vector_size, num_threads);
 
                 // Copy buffer to the i-th vector on device
-                CudaInterface<DataType>::copy_to_device(
+                CudaAPI<DataType>::copy_to_device(
                         buffer, vector_size, &vectors[i*vector_size]);
 
-                // Repeat the reorthogonalization for i-th vector against
+                // Repeat the re-orthogonalization for i-th vector against
                 // all previous vectors again.
                 success = 0;
                 ++num_trials;
@@ -404,5 +445,26 @@ void cuOrthogonalization<DataType>::orthogonalize_vectors(
 // Explicit template instantiation
 // ===============================
 
-template class cuOrthogonalization<float>;
-template class cuOrthogonalization<double>;
+#if defined(USE_CUDA_FP8_E5M2) && (USE_CUDA_FP8_E5M2 == 1)
+    template class cuOrthogonalization<__nv_fp8_e5m2>;
+#endif
+
+#if defined(USE_CUDA_FP8_E4M3) && (USE_CUDA_FP8_E4M3 == 1)
+    template class cuOrthogonalization<__nv_fp8_e4m3>;
+#endif
+    
+#if defined(USE_CUDA_FP16) && (USE_CUDA_FP16 == 1)
+    template class cuOrthogonalization<__half>;
+#endif
+
+#if defined(USE_CUDA_BF16) && (USE_CUDA_BF16 == 1)
+    template class cuOrthogonalization<__nv_bfloat16>;
+#endif
+
+#if defined(USE_CUDA_FP32) && (USE_CUDA_FP32 == 1)
+    template class cuOrthogonalization<float>;
+#endif
+
+#if defined(USE_CUDA_FP64) && (USE_CUDA_FP64 == 1)
+    template class cuOrthogonalization<double>;
+#endif

@@ -36,6 +36,6 @@ cpdef trace_estimator(
         seed,
         num_threads,
         num_gpu_devices,
+        gpu,
         verbose,
-        plot,
-        gpu)
+        plot)

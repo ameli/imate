@@ -11,7 +11,7 @@
 # Imports
 # =======
 
-from .._definitions.types cimport LongIndexType
+from .._definitions.types cimport LongIndexType, FlagType
 from .c_linear_operator cimport cLinearOperator
 
 
@@ -24,3 +24,4 @@ cdef extern from "c_matrix.h":
     cdef cppclass cMatrix[DataType](cLinearOperator):
 
         cMatrix() except +
+        cMatrix(const FlagType A_is_symmetric_) except +

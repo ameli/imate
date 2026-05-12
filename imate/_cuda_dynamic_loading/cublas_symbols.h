@@ -24,7 +24,8 @@
                              // cublasSdot_type, cublasDdot_type,
                              // cublasSnrm2_type, cublasDnrm2_type,
                              // cublasSscal_type, cublasDscal_type
-                             // cublasHandle_t, cublasStatus_t
+                             // cublasHandle_t, cublasStatus_t,
+                             // cublasSetMathMode
 
 // ==============
 // cublas Symbols
@@ -53,6 +54,7 @@ class cublasSymbols
         // Data
         static cublasCreate_type cublasCreate;
         static cublasDestroy_type cublasDestroy;
+        static cublasSetMathMode_type cublasSetMathMode;
         static cublasSgemv_type cublasSgemv;
         static cublasDgemv_type cublasDgemv;
         static cublasScopy_type cublasScopy;

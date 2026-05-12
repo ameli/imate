@@ -16,10 +16,28 @@
 // Headers
 // =======
 
-#include <cublas_v2.h>  // cublasSgemv, cublasDgemv, cublasScopy, cublasDcopy,
-                        // cublasSaxpy, cublasDaxpy, cublasSdot, cublasDdot,
-                        // cublasSnrm2, cublasDnrm2, cublasSscal, cublasDscal
-                        // cublasHandle_t, cublasStatus_t
+// Avoid CUBLAS numeration value not handled in switch [-Wswitch-enum] warning
+#ifdef _MSC_VER
+    #pragma warning(push, 0)  // Suppress all warnings from the followings
+    #include <cublas_v2.h>
+    #pragma warning(pop)  // Restore previous warning level
+#elif defined(__INTEL_LLVM_COMPILER) || defined(__INTEL_COMPILER)
+    #pragma warning(push, 0)
+    #include <cublas_v2.h>
+    #pragma warning(pop)
+#elif defined(__GNUC__) || defined(__clang__)
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wswitch-enum"
+    #include <cublas_v2.h>
+    #pragma GCC diagnostic pop
+#else
+    #include <cublas_v2.h>  // cublasSgemv, cublasDgemv, cublasScopy,
+                            // cublasDcopy, cublasSaxpy, cublasDaxpy,
+                            // cublasSdot, cublasDdot, cublasSnrm2,
+                            // cublasDnrm2, cublasSscal, cublasDscal
+                            // cublasHandle_t, cublasStatus_t,
+                            // cublasSetMathMode
+#endif
 
 // =====
 // Types
@@ -30,6 +48,11 @@ typedef cublasStatus_t (*cublasCreate_type)(cublasHandle_t* handle);
 
 // cublasDestroy
 typedef cublasStatus_t (*cublasDestroy_type)(cublasHandle_t handle);
+
+// cublasSetMathMode
+typedef cublasStatus_t (*cublasSetMathMode_type)(
+        cublasHandle_t handle,
+        cublasMath_t mode);
 
 // cublasSgemv
 typedef cublasStatus_t (*cublasSgemv_type)(

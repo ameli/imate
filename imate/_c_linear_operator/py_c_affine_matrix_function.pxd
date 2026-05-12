@@ -12,6 +12,7 @@
 # =======
 
 from .py_c_linear_operator cimport pycLinearOperator
+from .._definitions.types cimport FlagType
 
 
 # ==========================
@@ -19,9 +20,17 @@ from .py_c_linear_operator cimport pycLinearOperator
 # ==========================
 
 cdef class pycAffineMatrixFunction(pycLinearOperator):
+    cdef FlagType A_is_symmetric
+    cdef FlagType B_is_symmetric
     cdef A_csr
     cdef B_csr
     cdef A_indices_copy
     cdef A_index_pointer_copy
     cdef B_indices_copy
     cdef B_index_pointer_copy
+    cdef Py_buffer A_data_py_buffer
+    cdef Py_buffer A_indices_py_buffer
+    cdef Py_buffer A_index_pointer_py_buffer
+    cdef Py_buffer B_data_py_buffer
+    cdef Py_buffer B_indices_py_buffer
+    cdef Py_buffer B_index_pointer_py_buffer

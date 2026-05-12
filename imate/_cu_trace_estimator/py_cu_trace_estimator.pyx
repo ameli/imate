@@ -65,11 +65,11 @@ cpdef FlagType pycu_trace_estimator(
     """
 
     cdef FlagType all_converged = 0
-    cdef float alg_wall_time = 0.0
+    cdef double alg_wall_time = 0.0
 
     if data_type_name == b'float32':
 
-        all_converged = _pycu_trace_estimator_float(
+        all_converged = _pycu_trace_estimator_fp32(
             Aop,
             parameters,
             num_inquiries,
@@ -99,7 +99,7 @@ cpdef FlagType pycu_trace_estimator(
 
     elif data_type_name == b'float64':
 
-        all_converged = _pycu_trace_estimator_double(
+        all_converged = _pycu_trace_estimator_fp64(
             Aop,
             parameters,
             num_inquiries,
@@ -137,11 +137,11 @@ cpdef FlagType pycu_trace_estimator(
     return all_converged
 
 
-# ==========================
-# pycu trace estimator float
-# ==========================
+# =========================
+# pycu trace estimator fp32
+# =========================
 
-cdef FlagType _pycu_trace_estimator_float(
+cdef FlagType _pycu_trace_estimator_fp32(
         pycuLinearOperator Aop,
         parameters,
         const IndexType num_inquiries,
@@ -167,7 +167,7 @@ cdef FlagType _pycu_trace_estimator_float(
         MemoryViewIndexType num_samples_used,
         MemoryViewIndexType num_outliers,
         MemoryViewFlagType converged,
-        float& alg_wall_time) except *:
+        double& alg_wall_time) except *:
     """
     """
 
@@ -206,39 +206,43 @@ cdef FlagType _pycu_trace_estimator_float(
             c_samples[i][j] = NAN
 
     # Get cLinearOperator
-    cdef cuLinearOperator[float]* Aop_float = Aop.get_linear_operator_float()
+    cdef cuLinearOperator[float]* Aop_fp32 = Aop.get_linear_operator_fp32()
 
     cdef Function* matrix_function = py_matrix_function.get_function()
+    cdef FlagType all_converged
 
-    # Call templated c++ module
-    cdef FlagType all_converged = \
-        cuTraceEstimator[float].cu_trace_estimator(
-            Aop_float,
-            c_parameters,
-            num_inquiries,
-            matrix_function,
-            gram,
-            exponent,
-            reorthogonalize,
-            seed,
-            lanczos_degree,
-            lanczos_tol,
-            min_num_samples,
-            max_num_samples,
-            error_atol,
-            error_rtol,
-            confidence_level,
-            outlier_significance_level,
-            num_threads,
-            num_gpu_devices,
-            c_trace,
-            c_error,
-            c_samples,
-            c_processed_samples_indices,
-            c_num_samples_used,
-            c_num_outliers,
-            c_converged,
-            alg_wall_time)
+    # Despite c_trace_estimator is a "nogil" function, declaring nogil here
+    # is necessary (see https://github.com/cython/cython/issues/6107])
+    with nogil:
+        # Call templated c++ module
+        all_converged = \
+            cuTraceEstimator[float].cu_trace_estimator(
+                Aop_fp32,
+                c_parameters,
+                num_inquiries,
+                matrix_function,
+                gram,
+                exponent,
+                reorthogonalize,
+                seed,
+                lanczos_degree,
+                lanczos_tol,
+                min_num_samples,
+                max_num_samples,
+                error_atol,
+                error_rtol,
+                confidence_level,
+                outlier_significance_level,
+                num_threads,
+                num_gpu_devices,
+                c_trace,
+                c_error,
+                c_samples,
+                c_processed_samples_indices,
+                c_num_samples_used,
+                c_num_outliers,
+                c_converged,
+                alg_wall_time)
 
     # Write the processed samples to samples to a numpy array. The unprocessed
     # elements of samples array is nan.
@@ -256,11 +260,11 @@ cdef FlagType _pycu_trace_estimator_float(
     return all_converged
 
 
-# ===========================
-# pycu trace estimator double
-# ===========================
+# =========================
+# pycu trace estimator fp64
+# =========================
 
-cdef FlagType _pycu_trace_estimator_double(
+cdef FlagType _pycu_trace_estimator_fp64(
         pycuLinearOperator Aop,
         parameters,
         const IndexType num_inquiries,
@@ -286,7 +290,7 @@ cdef FlagType _pycu_trace_estimator_double(
         MemoryViewIndexType num_samples_used,
         MemoryViewIndexType num_outliers,
         MemoryViewFlagType converged,
-        float& alg_wall_time) except *:
+        double& alg_wall_time) except *:
     """
     """
 
@@ -325,40 +329,44 @@ cdef FlagType _pycu_trace_estimator_double(
             c_samples[i][j] = NAN
 
     # Get cLinearOperator
-    cdef cuLinearOperator[double]* Aop_double = \
-        Aop.get_linear_operator_double()
+    cdef cuLinearOperator[double]* Aop_fp64 = \
+        Aop.get_linear_operator_fp64()
 
     cdef Function* matrix_function = py_matrix_function.get_function()
+    cdef FlagType all_converged
 
-    # Call templated c++ module
-    cdef FlagType all_converged = \
-        cuTraceEstimator[double].cu_trace_estimator(
-            Aop_double,
-            c_parameters,
-            num_inquiries,
-            matrix_function,
-            gram,
-            exponent,
-            reorthogonalize,
-            seed,
-            lanczos_degree,
-            lanczos_tol,
-            min_num_samples,
-            max_num_samples,
-            error_atol,
-            error_rtol,
-            confidence_level,
-            outlier_significance_level,
-            num_threads,
-            num_gpu_devices,
-            c_trace,
-            c_error,
-            c_samples,
-            c_processed_samples_indices,
-            c_num_samples_used,
-            c_num_outliers,
-            c_converged,
-            alg_wall_time)
+    # Despite c_trace_estimator is a "nogil" function, declaring nogil here
+    # is necessary (see https://github.com/cython/cython/issues/6107])
+    with nogil:
+        # Call templated c++ module
+        all_converged = \
+            cuTraceEstimator[double].cu_trace_estimator(
+                Aop_fp64,
+                c_parameters,
+                num_inquiries,
+                matrix_function,
+                gram,
+                exponent,
+                reorthogonalize,
+                seed,
+                lanczos_degree,
+                lanczos_tol,
+                min_num_samples,
+                max_num_samples,
+                error_atol,
+                error_rtol,
+                confidence_level,
+                outlier_significance_level,
+                num_threads,
+                num_gpu_devices,
+                c_trace,
+                c_error,
+                c_samples,
+                c_processed_samples_indices,
+                c_num_samples_used,
+                c_num_outliers,
+                c_converged,
+                alg_wall_time)
 
     # Write the processed samples to samples to a numpy array. The unprocessed
     # elements of samples array is nan.

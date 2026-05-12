@@ -23,12 +23,16 @@
 // Gaussian
 // ========
 
-/// \brief   Defines the function
+/// \brief   Defines the normal probability density function
 ///          \f[
 ///              f: \lambda \mapsto \frac{1}{\sigma \sqrt{2 \pi}}
-///              e^{-\frac{1}{2} \frac{(\lambda - \mu)^2}{\sigma^2}},
+///              e^{-\frac{1}{2} x^2},
 ///          \f]
-///          where \f$ \mu \f$ and \f$ \sigma \f$ parameters are the mean and
+///          where
+///          \f[
+///              x = \frac{\lambda - \mu}{\sigma},
+///          \f]
+///          and \f$ \mu \f$ and \f$ \sigma \f$ parameters are the mean and
 ///          standard deviation of the Gaussian function and should be set by
 ///          \c this->mu and \c this->sigma members, respectively.
 ///

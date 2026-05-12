@@ -27,4 +27,4 @@ cdef extern from "random_number_generator.h":
         RandomNumberGenerator(
                 const int num_threads_,
                 const int64_t seed) except + nogil
-        uint64_t next(const int thread_id) nogil
+        uint64_t next(const int thread_id) noexcept nogil

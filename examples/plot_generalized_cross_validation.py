@@ -19,7 +19,7 @@ import scipy.optimize
 from functools import partial
 
 # Package Modules
-from _utilities.plot_utilities import get_custom_theme, save_plot, plt, \
+from _utilities.plot_utilities import get_theme, show_or_save_plot, plt, \
         matplotlib, FormatStrFormatter
 from _utilities.processing_time_utilities import TimeCounter, process_time, \
         restrict_computation_to_single_processor
@@ -249,7 +249,7 @@ def minimize_gcv(X, K, z, TI, shift, theta_bounds, initial_elapsed_time,
 # plot generalized cross validation
 # =================================
 
-@matplotlib.rc_context(get_custom_theme(font_scale=None))
+@matplotlib.rc_context(get_theme(font_scale=None))
 def plot_generalized_cross_validation(data, test):
     """
     Plots GCV for a range of theta_.
@@ -303,9 +303,12 @@ def plot_generalized_cross_validation(data, test):
 
     # Save Plot
     filename = 'generalized_cross_validation'
+    show_and_save = True
     if test:
         filename = "test_" + filename
-    save_plot(plt, filename)
+        show_and_save = False
+    show_or_save_plot(plt, filename=filename, transparent_background=True,
+                      show_and_save=show_and_save)
 
     # If no display backend is enabled, do not plot in the interactive mode
     if (not test) and (matplotlib.get_backend() != 'agg'):

@@ -26,10 +26,22 @@
 // cu CSR Matrix
 // =============
 
+/// \class   cuCSRMatrix
+///
+/// \brief   Container for CSR matrices.
+///
+/// \details The \c cCSRMatrix holds a two-dimensional compressed sparse row
+///          matrix, and can perofrom matrix-vector product and transposed
+///          matrix-vector product.
+///
+/// \sa      cuMatrix,
+///          cuDenseMatrix,
+///          cuCSCMatrix,
+///          cuCSRAffineMatrixFunction,
+///          cCSRMatrix
+
 template <typename DataType>
-class cuCSRMatrix :
-    public cuMatrix<DataType>,
-    public cCSRMatrix<DataType>
+class cuCSRMatrix : public cuMatrix<DataType>
 {
     public:
 
@@ -42,9 +54,14 @@ class cuCSRMatrix :
                 const LongIndexType* A_index_pointer_,
                 const LongIndexType num_rows_,
                 const LongIndexType num_columns_,
+                const FlagType A_is_symmetric_,
                 const int num_gpu_devices_);
 
         virtual ~cuCSRMatrix();
+        
+        virtual FlagType is_identity_matrix() const;
+        
+        LongIndexType get_nnz() const;
 
         virtual void dot(
                 const DataType* device_vector,
@@ -79,6 +96,9 @@ class cuCSRMatrix :
                 cusparseSpMVAlg_t algorithm);
 
         // Member data
+        const DataType* A_data;
+        const LongIndexType* A_indices;
+        const LongIndexType* A_index_pointer;
         DataType** device_A_data;
         LongIndexType** device_A_indices;
         LongIndexType** device_A_index_pointer;

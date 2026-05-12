@@ -72,8 +72,8 @@ void DeviceProperties::deallocate_members()
 // set num devices
 // ===============
 
-/// \brief      Sets the number of devices and allocates memory for member data
-///             with the size of devices.
+/// \brief     Sets the number of devices and allocates memory for member data
+///            with the size of devices.
 ///
 /// \param[in] num_devices_
 ///            Number of gpu devices.

@@ -16,6 +16,8 @@
 #include "./cu_dense_affine_matrix_function.h"
 #include <cstddef>  // NULL
 #include <cassert>  // assert
+#include "../_cu_definitions/cu_types.h" // __nv_fp8_e5m2, __nv_fp8_e4m3,
+                                         // __half, __nv_bfloat16
 #include "../_definitions/debugging.h"  // ASSERT
 
 
@@ -23,22 +25,46 @@
 // constructor 1
 // =============
 
-/// \brief Constructor. Matrix \c B is assumed to be the identity matrix.
+/// \brief      Default constructor.
 ///
+/// \details    Matrix \c B is assumed to be the identity matrix.
+///
+/// \param[in]  A_
+///             1D array that represents a 2D dense array with either C (row)
+///             major ordering or Fortran (column) major ordering. The major
+///             ordering should de defined by \c A_is_row_major flag.
+/// \param[in]  num_rows_
+///             Number of rows of \c A and \c B
+/// \param[in]  num_columns_
+///             Number of columns of \c A and \c B
+/// \param[in]  A_is_row_major_
+///             Boolean, can be \c 0 or \c 1 as follows:
+///             * If \c A is row major (C ordering where the last index is
+///               contiguous) this value should be \c 1.
+///             * If \c A is column major (Fortran ordering where the first
+///               index is contiguous), this value should be set to \c 0.
+/// \param[in]  A_is_symmetric_
+///             Boolean. If \c A is symmetric, set this value to \c 1,
+///             otherwise \c 0.
+/// \param[in]  num_gpu_devices_
+///             Number of GPU devices to be utilized for parallelization.
 
 template <typename DataType>
 cuDenseAffineMatrixFunction<DataType>::cuDenseAffineMatrixFunction(
         const DataType* A_,
-        const FlagType A_is_row_major_,
         const LongIndexType num_rows_,
         const LongIndexType num_columns_,
+        const FlagType A_is_row_major_,
+        const FlagType A_is_symmetric_,
         const int num_gpu_devices_):
 
     // Base class constructor
-    cLinearOperator<DataType>(num_rows_, num_columns_),
+    cLinearOperatorBase(num_rows_, num_columns_),
+    cuLinearOperator<DataType>(num_gpu_devices_),
 
     // Initializer list
-    A(A_, num_rows_, num_columns_, A_is_row_major_, num_gpu_devices_)
+    A(A_, num_rows_, num_columns_, A_is_row_major_, A_is_symmetric_,
+      num_gpu_devices_)
 {
     // This constructor is called assuming B is identity
     this->B_is_identity = true;
@@ -55,22 +81,64 @@ cuDenseAffineMatrixFunction<DataType>::cuDenseAffineMatrixFunction(
 // constructor 2
 // =============
 
+/// \brief      Constructor.
+///
+/// \details    Matrix \c B is assumed to be the identity matrix.
+///
+/// \param[in]  A_
+///             1D array that represents a 2D dense array with either C (row)
+///             major ordering or Fortran (column) major ordering. The major
+///             ordering should de defined by \c A_is_row_major flag.
+/// \param[in]  num_rows_
+///             Number of rows of \c A and \c B
+/// \param[in]  num_columns_
+///             Number of columns of \c A and \c B
+/// \param[in]  A_is_row_major_
+///             Boolean, can be \c 0 or \c 1 as follows:
+///             * If \c A is row major (C ordering where the last index is
+///               contiguous) this value should be \c 1.
+///             * If \c A is column major (Fortran ordering where the first
+///               index is contiguous), this value should be set to \c 0.
+/// \param[in]  A_is_symmetric_
+///             Boolean. If \c A is symmetric, set this value to \c 1,
+///             otherwise \c 0.
+/// \param[in]  B_
+///             1D array that represents a 2D dense array with either C (row)
+///             major ordering or Fortran (column) major ordering. The major
+///             ordering should de defined by \c A_is_row_major flag.
+/// \param[in]  B_is_row_major_
+///             Boolean, can be \c 0 or \c 1 as follows:
+///             * If \c B is row major (C ordering where the last index is
+///               contiguous) this value should be \c 1.
+///             * If \c B is column major (Fortran ordering where the first
+///               index is contiguous), this value should be set to \c 0.
+/// \param[in]  B_is_symmetric_
+///             Boolean. If \c B is symmetric, set this value to \c 1,
+///             otherwise \c 0.
+/// \param[in]  num_gpu_devices_
+///             Number of GPU devices to be utilized for parallelization.
+
 template <typename DataType>
 cuDenseAffineMatrixFunction<DataType>::cuDenseAffineMatrixFunction(
         const DataType* A_,
-        const FlagType A_is_row_major_,
         const LongIndexType num_rows_,
         const LongIndexType num_columns_,
+        const FlagType A_is_row_major_,
+        const FlagType A_is_symmetric_,
         const DataType* B_,
         const FlagType B_is_row_major_,
+        const FlagType B_is_symmetric_,
         const int num_gpu_devices_):
 
     // Base class constructor
-    cLinearOperator<DataType>(num_rows_, num_columns_),
+    cLinearOperatorBase(num_rows_, num_columns_),
+    cuLinearOperator<DataType>(num_gpu_devices_),
 
     // Initializer list
-    A(A_, num_rows_, num_columns_, A_is_row_major_, num_gpu_devices_),
-    B(B_, num_rows_, num_columns_, B_is_row_major_, num_gpu_devices_)
+    A(A_, num_rows_, num_columns_, A_is_row_major_, A_is_symmetric_,
+      num_gpu_devices_),
+    B(B_, num_rows_, num_columns_, B_is_row_major_, B_is_symmetric_,
+      num_gpu_devices_)
 {
     // Matrix B is assumed to be non-zero. Check if it is identity or generic
     if (this->B.is_identity_matrix())
@@ -88,9 +156,45 @@ cuDenseAffineMatrixFunction<DataType>::cuDenseAffineMatrixFunction(
 // destructor
 // ==========
 
+/// \brief Destructor.
+/// 
+
 template <typename DataType>
 cuDenseAffineMatrixFunction<DataType>::~cuDenseAffineMatrixFunction()
 {
+}
+
+
+// ============
+// set symmetry
+// ============
+
+/// \brief     Specify whether the matrices are symmetic or non-symmetric.
+///
+/// \details   This function overwrites the symmetry status that has been set
+///            by the constructor. Note that the symmetry status of both
+///            matrices \f$ \mathbf{A} \f$ and \f$ \mathbf{B} \f$ in the
+///            linear operator \f$ \mathbf{A} + t \mathbf{B} \f$ will be set
+///            together.
+///
+/// \param[in] symmetric
+///            Boolean. If set to \c 1, the matrix is assumed to be symmetric.
+///            Otherwiese non-symmetric.
+
+template <typename DataType>
+void cuDenseAffineMatrixFunction<DataType>::set_symmetry(
+        const FlagType symmetric)
+{
+    if (symmetric == 1)
+    {
+        this->A.set_symmetry(1);
+        this->B.set_symmetry(1);
+    }
+    else
+    {
+        this->A.set_symmetry(0);
+        this->B.set_symmetry(0);
+    }
 }
 
 
@@ -98,21 +202,21 @@ cuDenseAffineMatrixFunction<DataType>::~cuDenseAffineMatrixFunction()
 // dot
 // ===
 
-/// \brief      Computes the matrix vector product:
-///             \f[
-///                 \boldsymbol{c} = (\mathbf{A} + t \mathbf{B})
-///                 \boldsymbol{b}.
-///             \f]
+/// \brief      Matrix vector product.
+///
+/// \details    Performs the matrix vector product \f$ \boldsymbol{y} =
+///             (\mathbf{A} + t \mathbf{B}) \boldsymbol{x} \f$.
 ///
 /// \param[in]  vector
-///             The input vector :math:`\\boldsymbol{b}` is given by \c vector.
-///             If \f$ \mathbf{A} \f$ and \f$ \mathbf{B} \f$ are \f$ m \times n
-///             \f$ matrices, the length of input c vector is \c n.
+///             A one-dimensional input vector \f$ \boldsymbol{x} \f$ with size
+///             the of the number of columns of the matrix \f$ \mathbf{A} \f$.
+///             This array should be on GPU device.
 /// \param[out] product
-///             The output of the product, \f$ \boldsymbol{c} \f$, is written
-///             in-place into this array. Let \n m be the number of rows of \f$
-///             \mathbf{A} \f$ and \f$ \mathbf{B} \f$, then, the output vector
-///             \c product is 1D column array of length \c m.
+///             A one-dimensional output vector \f$ \boldsymbol{y} \f$ with the
+///             size of the number of rows of \f$ \mathbf{A} \f$. This vector
+///             will be overwritten. This array should be on GPU device.
+///
+/// \sa         cuDenseAffineMatrixFunction::transpose_dot
 
 template <typename DataType>
 void cuDenseAffineMatrixFunction<DataType>::dot(
@@ -153,22 +257,21 @@ void cuDenseAffineMatrixFunction<DataType>::dot(
 // transpose dot
 // =============
 
-/// \brief      Computes the matrix vector product:
-///             \f[
-///                 \boldsymbol{c} = (\mathbf{A} + t \mathbf{B})^{\intercal}
-///                 \boldsymbol{b}.
-///             \f]
+/// \brief      Matrix vector product written in place.
+///
+/// \details    Performs the matrix vector product \f$ \boldsymbol{y} =
+///             (\mathbf{A} + t \mathbf{B})^{\intercal} \boldsymbol{x} \f$.
 ///
 /// \param[in]  vector
-///             The input vector \f$ \boldsymbol{b} \f$ is given by \c vector.
-///             If \f$ \mathbf{A} \f$ and \f$ \mathbf{B} \f$ are \f$ m \times n
-///             \f$ matrices, the length of input \c vector is \c n.
-///
+///             A one-dimensional input vector \f$ \boldsymbol{x} \f$ with size
+///             the of the number of columns of the matrix \f$ \mathbf{A} \f$.
+///             This array should be on GPU device.
 /// \param[out] product
-///             The output of the product, \f$ \boldsymbol{c} \f$, is written
-///             in-place into this array. Let \c n be the number of columns of
-///             \f$ \mathbf{A} \f$ and \f$ \mathbf{B} \f$, then, the output
-///             vector \c product is 1D column array of length \c m.
+///             A one-dimensional output vector \f$ \boldsymbol{y} \f$ with the
+///             size of the number of rows of \f$ \mathbf{A} \f$. This array
+///             should be on GPU device.
+///
+/// \sa         cuDenseAffineMatrixFunction::dot
 
 template <typename DataType>
 void cuDenseAffineMatrixFunction<DataType>::transpose_dot(
@@ -209,5 +312,26 @@ void cuDenseAffineMatrixFunction<DataType>::transpose_dot(
 // Explicit template instantiation
 // ===============================
 
-template class cuDenseAffineMatrixFunction<float>;
-template class cuDenseAffineMatrixFunction<double>;
+#if defined(USE_CUDA_FP8_E5M2) && (USE_CUDA_FP8_E5M2 == 1)
+    template class cuDenseAffineMatrixFunction<__nv_fp8_e5m2>;
+#endif
+
+#if defined(USE_CUDA_FP8_E4M3) && (USE_CUDA_FP8_E4M3 == 1)
+    template class cuDenseAffineMatrixFunction<__nv_fp8_e4m3>;
+#endif
+
+#if defined(USE_CUDA_FP16) && (USE_CUDA_FP16 == 1)
+    template class cuDenseAffineMatrixFunction<__half>;
+#endif
+
+#if defined(USE_CUDA_BF16) && (USE_CUDA_BF16 == 1)
+    template class cuDenseAffineMatrixFunction<__nv_bfloat16>;
+#endif
+
+#if defined(USE_CUDA_FP32) && (USE_CUDA_FP32 == 1)
+    template class cuDenseAffineMatrixFunction<float>;
+#endif
+
+#if defined(USE_CUDA_FP64) && (USE_CUDA_FP64 == 1)
+    template class cuDenseAffineMatrixFunction<double>;
+#endif

@@ -15,8 +15,8 @@ import numpy
 import scipy.special
 
 try:
-    from .._utilities.plot_utilities import matplotlib, plt, save_plot, \
-            get_custom_theme
+    from .._utilities.plot_utilities import matplotlib, plt, get_theme, \
+            show_or_save_plot
     plot_modules_exist = True
 except ImportError:
     plot_modules_exist = False
@@ -196,7 +196,7 @@ def _compute_cumulative_statistics(
 # plot samples
 # ============
 
-@matplotlib.rc_context(get_custom_theme())
+@matplotlib.rc_context(get_theme())
 def _plot_samples(
         ax,
         samples,
@@ -295,7 +295,7 @@ def _plot_samples(
 # plot error
 # ==========
 
-@matplotlib.rc_context(get_custom_theme())
+@matplotlib.rc_context(get_theme())
 def _plot_error(
         ax,
         num_samples_used,
@@ -493,8 +493,8 @@ def _plot_error(
 # plot convergence
 # ================
 
-@matplotlib.rc_context(get_custom_theme())
-def plot_convergence(info):
+@matplotlib.rc_context(get_theme())
+def plot_convergence(info, filename=None, verbose=False):
     """
     Plots samples, cumulative mean, absolute and relative error.
 
@@ -569,9 +569,6 @@ def plot_convergence(info):
 
     plt.tight_layout()
 
-    # Check if the graphical backend exists
-    if matplotlib.get_backend() != 'agg':
-        plt.show()
-    else:
-        # write the plot as SVG file in the current working directory
-        save_plot(plt, 'Convergence', transparent_background=True)
+    # write the plot as SVG file in the current working directory
+    show_or_save_plot(plt, filename=filename, default_filename='convergence',
+                      transparent_background=True, verbose=verbose)

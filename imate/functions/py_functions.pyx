@@ -33,7 +33,7 @@ cdef class pyFunction(object):
         """
         self.matrix_function = matrix_function_
 
-    cdef Function* get_function(self) nogil:
+    cdef Function* get_function(self) noexcept nogil:
         """
         """
         return self.matrix_function

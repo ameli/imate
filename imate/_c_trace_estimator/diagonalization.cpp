@@ -109,7 +109,7 @@ int Diagonalization<DataType>::eigh_tridiagonal(
 
     // Calling Fortran subroutine
     lapack_xstev(&jobz, &n, diagonals, subdiagonals, eigenvectors, &ldz, work,
-              &info);
+                 &info);
 
     delete[] work;
     assert((info == 0, "?stev subroutine returned non-zero status."));
@@ -220,12 +220,12 @@ int Diagonalization<DataType>::svd_bidiagonal(
 
     // Calling Fortran subroutine
     lapack_xbdsdc(&UPLO, &COMPQ, &n, diagonals, supdiagonals, U, &LDU, Vt,
-            &LDVT, Q, IQ, work, iwork, &info);
+                  &LDVT, Q, IQ, work, iwork, &info);
 
     delete[] work;
     delete[] iwork;
 
-    assert((info == 0, "?stev subroutine returned non-zero status."));
+    assert((info == 0, "?bdsdc subroutine returned non-zero status."));
 
     return info;
 }

@@ -24,4 +24,5 @@ cdef class pyRandomNumberGenerator(object):
     cdef RandomNumberGenerator* random_number_generator
 
     # Member methods
-    cdef RandomNumberGenerator* get_random_number_generator(self) nogil
+    cdef RandomNumberGenerator* get_random_number_generator(
+        self) noexcept nogil

@@ -47,7 +47,7 @@ Alternatively, you can install |project| via ``conda``. To do so, you may refer 
 
 .. prompt:: bash
 
-    conda install -c s-ameli imate -y
+    conda install s-ameli::imate
 
 .. |pypi| image:: https://img.shields.io/pypi/v/imate
    :target: https://pypi.org/project/imate

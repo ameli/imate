@@ -11,7 +11,8 @@
 # Imports
 # =======
 
-from .._definitions.types cimport IndexType, LongIndexType
+from .._definitions.types cimport IndexType, LongIndexType, FlagType
+from .c_linear_operator_base cimport cLinearOperatorBase
 
 
 # =======
@@ -20,23 +21,16 @@ from .._definitions.types cimport IndexType, LongIndexType
 
 cdef extern from "c_linear_operator.h":
 
-    cdef cppclass cLinearOperator[DataType]:
+    cdef cppclass cLinearOperator[DataType](cLinearOperatorBase):
 
         cLinearOperator() except +
 
-        cLinearOperator(
-                const LongIndexType num_rows_,
-                const LongIndexType num_columns_) except +
-
-        LongIndexType get_num_rows() nogil
-        LongIndexType get_num_columns() nogil
-        void set_parameters(DataType* parameters_) nogil
-        IndexType get_num_parameters() nogil
+        void set_parameters(DataType* parameters_) noexcept nogil
 
         void dot(
                 const DataType* vector,
-                DataType* product) nogil
+                DataType* product) noexcept nogil
 
         void transpose_dot(
                 const DataType* vector,
-                DataType* product) nogil
+                DataType* product) noexcept nogil

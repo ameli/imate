@@ -11,7 +11,7 @@
 # Imports
 # =======
 
-from .._definitions.types cimport LongIndexType
+from .._definitions.types cimport LongIndexType, FlagType
 from .cu_linear_operator cimport cuLinearOperator
 
 
@@ -24,7 +24,4 @@ cdef extern from "cu_matrix.h":
     cdef cppclass cuMatrix[DataType](cuLinearOperator):
 
         cuMatrix() except +
-
-        cuMatrix(
-                const LongIndexType num_rows_,
-                const LongIndexType num_columns_) except +
+        cuMatrix(const FlagType A_is_symmetric_) except +

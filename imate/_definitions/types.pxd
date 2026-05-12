@@ -7,12 +7,6 @@
 # of this source tree.
 
 
-# ========
-# Includes
-# ========
-
-include "definitions.pxi"
-
 # =====
 # Types
 # =====
@@ -53,27 +47,6 @@ ctypedef fused DataType:
     double
     long double
 
-ctypedef fused ConstDataType:
-    const float
-    const double
-    const long double
-
-ctypedef fused MemoryViewDataType:
-    float[:]
-    double[:]
-    long double[:]
-
-ctypedef fused MemoryView2DCDataType:
-    float[:, ::1]
-    double[:, ::1]
-    long double[:, ::1]
-
-ctypedef fused MemoryView2DFDataType:
-    float[::1, :]
-    double[::1, :]
-    long double[::1, :]
-
-
 # ============
 # Static types (non-templates)
 # ============
@@ -88,23 +61,11 @@ ctypedef fused MemoryView2DFDataType:
 # https://cython.readthedocs.io/en/latest/src/userguide/external_C_code.html
 # in the typedef section of that page.
 
-cdef extern from "./definitions.h":
+cdef extern from "./types.h":
     # Note: here LongIndexType is defined as "int" (which is 4 byte). This is
     # just a placeholder and is ignored by cython. Rather, the type defined in
     # definition.h is always used, which could be int or long int.
     ctypedef int LongIndexType
-
-# Long index types is used for data indices, such a matrix and vectors indices
-IF MEMORY_VIEW_LONG_INT:
-    IF MEMORY_VIEW_UNSIGNED_LONG_INT:
-        ctypedef unsigned long[:] MemoryViewLongIndexType
-    ELSE:
-        ctypedef long[:] MemoryViewLongIndexType
-ELSE:
-    IF MEMORY_VIEW_UNSIGNED_LONG_INT:
-        ctypedef unsigned int[:] MemoryViewLongIndexType
-    ELSE:
-        ctypedef int[:] MemoryViewLongIndexType
 
 # Used for indices of small matrices, or small size iterators
 ctypedef int IndexType
@@ -121,4 +82,4 @@ ctypedef int[:] MemoryViewFlagType
 
 ctypedef double (*kernel_type)(                                    # noqa: E211
         const double x,
-        const double kernel_param) nogil
+        const double kernel_param) noexcept nogil

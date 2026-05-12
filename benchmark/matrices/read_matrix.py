@@ -27,13 +27,13 @@ How to convert the ``Queen_4147.mat`` file:
     >> [i, j, v] = find(A);
 
     In the above, ``i`` is the row indices, ``j`` is the column indices, and
-    ``v`` is the data. Convert ``i`` and ``j`` from double type to integr by:
+    ``v`` is the data. Convert ``i`` and ``j`` from double type to integer by:
 
     >> i = uint64(i);
     >> j = uint64(j);
 
     Save them in files. Note, since the variable sizes are more than 2GB, the
-    option ``-v7.3`` is neccessary to write tem as HDF format.
+    option ``-v7.3`` is necessary to write them as HDF format.
 
     >> save('Queen_4147_i.mat', 'i', '-v7.3');
     >> save('Queen_4147_j.mat', 'j', '-v7.3');

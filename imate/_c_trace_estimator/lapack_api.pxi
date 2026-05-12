@@ -19,7 +19,7 @@ from scipy.linalg.cython_lapack cimport sstev, dstev, sbdsdc, dbdsdc     # noqa
 # ============
 
 cdef public void lapack_sstev(char* jobz, int* n, float* d, float* e, float* z,
-                              int* ldz, float* work, int* info) nogil:
+                              int* ldz, float* work, int* info) noexcept nogil:
     """
     Wrapper for cython's lapack's ``sstev`` function. This function is defined
     as ``public``, so that cython generates a C++ header file that can be
@@ -40,7 +40,7 @@ cdef public void lapack_sstev(char* jobz, int* n, float* d, float* e, float* z,
 
 cdef public void lapack_dstev(char* jobz, int* n, double* d, double* e,
                               double* z, int* ldz, double* work,
-                              int* info) nogil:
+                              int* info) noexcept nogil:
     """
     Wrapper for cython's lapack's ``dstev`` function. This function is defined
     as ``public``, so that cython generates a C++ header file that can be
@@ -62,7 +62,7 @@ cdef public void lapack_dstev(char* jobz, int* n, double* d, double* e,
 cdef public void lapack_sbdsdc(char* uplo, char* compq, int* n, float* d,
                                float *e, float* u, int* ldu, float* vt,
                                int* ldvt, float* q, int* iq, float* work,
-                               int* iwork, int* info) nogil:
+                               int* iwork, int* info) noexcept nogil:
     """
     Wrapper for cython's lapack's ``sbdsdc`` function. This function is defined
     as ``public``, so that cython generates a C++ header file that can be
@@ -84,7 +84,7 @@ cdef public void lapack_sbdsdc(char* uplo, char* compq, int* n, float* d,
 cdef public void lapack_dbdsdc(char* uplo, char* compq, int* n, double* d,
                                double *e, double* u, int* ldu, double* vt,
                                int* ldvt, double* q, int* iq, double* work,
-                               int* iwork, int* info) nogil:
+                               int* iwork, int* info) noexcept nogil:
     """
     Wrapper for cython's lapack's ``dbdsdc`` function. This function is defined
     as ``public``, so that cython generates a C++ header file that can be

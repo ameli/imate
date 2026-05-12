@@ -9,7 +9,7 @@
 % Usage:
 % 
 % 1. Download *.mat file from: https://sparse.tamu.edu/Janna/Queen_4147
-% 2. Run this funciton with the name of the *.mat file as input argument:
+% 2. Run this function with the name of the *.mat file as input argument:
 %
 %    >> read_matrix('Queen_4147.mat');
 %
@@ -35,7 +35,7 @@ function read_matrix(filename)
     [i, j, v] = find(A);
 
     % In the above, ``i`` is the row indices, ``j`` is the column indices, and
-    % ``v`` is the data. Convert ``i`` and ``j`` from double type to integr by:
+    % ``v`` is the data. Convert ``i`` and ``j`` from double type to integer by:
     i = uint64(i);
     j = uint64(j);
 

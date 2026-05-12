@@ -16,7 +16,7 @@ import time
 import numpy
 import scipy.sparse
 from scipy.sparse import isspmatrix
-import multiprocessing
+from .._openmp import get_avail_num_threads
 from ..__version__ import __version__
 from .._linear_algebra import linear_solver
 from ._convergence_tools import check_convergence, average_estimates
@@ -640,7 +640,7 @@ def hutchinson_method(
 
     # Parallel processing
     if num_threads < 1:
-        num_threads = multiprocessing.cpu_count()
+        num_threads = get_avail_num_threads()
 
     # Dispatch depending on 32-bit or 64-bit
     data_type_name = get_data_type_name(A)
@@ -648,25 +648,25 @@ def hutchinson_method(
         trace, error, num_outliers, samples, processed_samples_indices, \
                 num_processed_samples, num_samples_used, converged, \
                 tot_wall_time, alg_wall_time, cpu_proc_time = \
-                _hutchinson_method_float(A, B, C, gram, p, assume_matrix,
-                                         min_num_samples, max_num_samples,
-                                         error_atol, error_rtol,
-                                         confidence_level,
-                                         outlier_significance_level,
-                                         solver_tol, orthogonalize, seed,
-                                         num_threads)
+                _hutchinson_method_fp32(A, B, C, gram, p, assume_matrix,
+                                        min_num_samples, max_num_samples,
+                                        error_atol, error_rtol,
+                                        confidence_level,
+                                        outlier_significance_level,
+                                        solver_tol, orthogonalize, seed,
+                                        num_threads)
 
     elif data_type_name == b'float64':
         trace, error, num_outliers, samples, processed_samples_indices, \
                 num_processed_samples, num_samples_used, converged, \
                 tot_wall_time, alg_wall_time, cpu_proc_time = \
-                _hutchinson_method_double(A, B, C, gram, p, assume_matrix,
-                                          min_num_samples, max_num_samples,
-                                          error_atol, error_rtol,
-                                          confidence_level,
-                                          outlier_significance_level,
-                                          solver_tol, orthogonalize, seed,
-                                          num_threads)
+                _hutchinson_method_fp64(A, B, C, gram, p, assume_matrix,
+                                        min_num_samples, max_num_samples,
+                                        error_atol, error_rtol,
+                                        confidence_level,
+                                        outlier_significance_level,
+                                        solver_tol, orthogonalize, seed,
+                                        num_threads)
     else:
         raise TypeError('Data type should be either "float32" or "float64"')
 
@@ -742,11 +742,11 @@ def hutchinson_method(
         return trace
 
 
-# =======================
-# hutchinson method float
-# =======================
+# ======================
+# hutchinson method fp32
+# ======================
 
-def _hutchinson_method_float(
+def _hutchinson_method_fp32(
         A,
         B,
         C,
@@ -811,7 +811,7 @@ def _hutchinson_method_float(
         if converged == 0:
 
             # Stochastic estimator of trace using the i-th column of E
-            samples[i] = _stochastic_trace_estimator_float(
+            samples[i] = _stochastic_trace_estimator_fp32(
                     A, AtA, B, C, E[:, i], gram, p, assume_matrix, solver_tol)
 
             # Store the index of processed samples
@@ -840,11 +840,11 @@ def _hutchinson_method_float(
         alg_wall_time, cpu_proc_time
 
 
-# ========================
-# hutchinson method double
-# ========================
+# ======================
+# hutchinson method fp64
+# ======================
 
-def _hutchinson_method_double(
+def _hutchinson_method_fp64(
         A,
         B,
         C,
@@ -909,7 +909,7 @@ def _hutchinson_method_double(
         if converged == 0:
 
             # Stochastic estimator of trace using the i-th column of E
-            samples[i] = _stochastic_trace_estimator_double(
+            samples[i] = _stochastic_trace_estimator_fp64(
                     A, AtA, B, C, E[:, i], gram, p, assume_matrix, solver_tol)
 
             # Store the index of processed samples
@@ -938,11 +938,11 @@ def _hutchinson_method_double(
         alg_wall_time, cpu_proc_time
 
 
-# ================================
-# stochastic trace estimator float
-# ================================
+# ===============================
+# stochastic trace estimator fp32
+# ===============================
 
-cdef float _stochastic_trace_estimator_float(
+cdef float _stochastic_trace_estimator_fp32(
         A,
         AtA,
         B,
@@ -1017,11 +1017,11 @@ cdef float _stochastic_trace_estimator_float(
     return trace_estimate
 
 
-# =================================
-# stochastic trace estimator double
-# =================================
+# ===============================
+# stochastic trace estimator fp64
+# ===============================
 
-cdef double _stochastic_trace_estimator_double(
+cdef double _stochastic_trace_estimator_fp64(
         A,
         AtA,
         B,

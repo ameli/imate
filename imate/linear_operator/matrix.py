@@ -13,6 +13,7 @@
 
 from .linear_operator import LinearOperator
 from scipy.sparse import isspmatrix
+from .._array import get_data_type_name
 
 
 # ======
@@ -42,6 +43,9 @@ class Matrix(LinearOperator):
         either in row-ordering (`C` style) or column-ordering (`Fortran`
         style).
 
+    symmetric : bool, default=False
+        If `True`, the matrix `A` is assumed to be symmetric.
+
         .. note::
 
             `128-bit` data type is not supported on GPU.
@@ -51,6 +55,9 @@ class Matrix(LinearOperator):
 
     A : numpy.ndarray or scipy.sparse
         Input matrix `A` from python object.
+
+    A_is_symmetric : boolean
+        If `True`, is is assumed that the matrix A is symmetric.
 
     cpu_Aop : object
         Matrix object on CPU.
@@ -266,7 +273,7 @@ class Matrix(LinearOperator):
     # init
     # ====
 
-    def __init__(self, A):
+    def __init__(self, A, symmetric=False):
         """
         Initializes attributes.
         """
@@ -274,26 +281,27 @@ class Matrix(LinearOperator):
         # Calling base class to initialize member data
         super(Matrix, self).__init__()
 
-        # A reference to numpy or scipt sparse matrix
+        # A reference to numpy or scipy sparse matrix
         self.A = A
+        self.symmetric = symmetric
         self.num_parameters = 0
-        self.set_data_type_name(self.A)
+        self.data_type_name = get_data_type_name(self.A)
 
     # ==========
     # initialize
     # ==========
 
-    def initialize(self, gpu, num_gpu_devices):
+    def initialize(self, gpu=False, num_gpu_devices=0):
         """
         Initializes the object.
 
         Parameters
         ----------
 
-        gpu : bool
+        gpu : bool, default=False
             If `True`, the matrix array will be initialized on GPU devices.
 
-        num_gpu_devices : int
+        num_gpu_devices : int, default=0
             The number of GPU devices to use. If `0`, it uses the maximum
             number of available GPU devices.
         """
@@ -304,7 +312,10 @@ class Matrix(LinearOperator):
 
                 # Create a linear operator on GPU
                 from .._cu_linear_operator import pycuMatrix
-                self.gpu_Aop = pycuMatrix(self.A, num_gpu_devices)
+                self.gpu_Aop = pycuMatrix(
+                        self.A, A_is_symmetric=self.symmetric,
+                        num_gpu_devices=num_gpu_devices)
+                self.Aop = self.gpu_Aop
                 self.initialized_on_gpu = True
 
             elif num_gpu_devices != self.num_gpu_devices:
@@ -336,7 +347,10 @@ class Matrix(LinearOperator):
                     if self.gpu_Aop is not None:
                         del self.gpu_Aop
 
-                    self.gpu_Aop = pycuMatrix(self.A, num_gpu_devices)
+                    self.gpu_Aop = pycuMatrix(
+                            self.A, A_is_symmetric=self.symmetric,
+                            num_gpu_devices=num_gpu_devices)
+                    self.Aop = self.gpu_Aop
                     self.initialized_on_gpu = True
 
         else:
@@ -345,7 +359,9 @@ class Matrix(LinearOperator):
 
                 # Create a linear operator on CPU
                 from .._c_linear_operator import pycMatrix
-                self.cpu_Aop = pycMatrix(self.A)
+                self.cpu_Aop = pycMatrix(
+                    self.A, A_is_symmetric=self.symmetric)
+                self.Aop = self.cpu_Aop
                 self.initialized_on_cpu = True
 
         self.gpu = gpu

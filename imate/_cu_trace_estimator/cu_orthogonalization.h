@@ -16,8 +16,25 @@
 // Imports
 // =======
 
-#include <cublas_v2.h>  // cublasHandle_t
 #include "../_definitions/types.h"  // IndexType, LongIndexType, FlagType
+
+// Avoid CUBLAS numeration value not handled in switch [-Wswitch-enum] warning
+#ifdef _MSC_VER
+    #pragma warning(push, 0)  // Suppress all warnings from the followings
+    #include <cublas_v2.h>  // cublasHandle_t
+    #pragma warning(pop)  // Restore previous warning level
+#elif defined(__INTEL_LLVM_COMPILER) || defined(__INTEL_COMPILER)
+    #pragma warning(push, 0)
+    #include <cublas_v2.h>  // cublasHandle_t
+    #pragma warning(pop)
+#elif defined(__GNUC__) || defined(__clang__)
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wswitch-enum"
+    #include <cublas_v2.h>  // cublasHandle_t
+    #pragma GCC diagnostic pop
+#else
+    #include <cublas_v2.h>  // cublasHandle_t
+#endif
 
 
 // ====================

@@ -14,11 +14,27 @@
 // =======
 
 #include "./cublas_symbols.h"
-#include <cublas_api.h>  // CUBLAS_VER_MAJOR
 #include <cstdlib>  // NULL
 #include <sstream>  // std::ostringstream
 #include "./dynamic_loading.h"  // dynamic_loading
 
+// Avoid CUBLAS numeration value not handled in switch [-Wswitch-enum] warning
+#ifdef _MSC_VER
+    #pragma warning(push, 0)  // Suppress all warnings from the followings
+    #include <cublas_api.h>  // CUBLAS_VER_MAJOR
+    #pragma warning(pop)  // Restore previous warning level
+#elif defined(__INTEL_LLVM_COMPILER) || defined(__INTEL_COMPILER)
+    #pragma warning(push, 0)
+    #include <cublas_api.h>  // CUBLAS_VER_MAJOR
+    #pragma warning(pop)
+#elif defined(__GNUC__) || defined(__clang__)
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wswitch-enum"
+    #include <cublas_api.h>  // CUBLAS_VER_MAJOR
+    #pragma GCC diagnostic pop
+#else
+    #include <cublas_api.h>  // CUBLAS_VER_MAJOR
+#endif
 
 // =========================
 // Initialize static members
@@ -26,6 +42,7 @@
 
 cublasCreate_type cublasSymbols::cublasCreate = NULL;
 cublasDestroy_type cublasSymbols::cublasDestroy = NULL;
+cublasSetMathMode_type cublasSymbols::cublasSetMathMode = NULL;
 cublasSgemv_type cublasSymbols::cublasSgemv = NULL;
 cublasDgemv_type cublasSymbols::cublasDgemv = NULL;
 cublasScopy_type cublasSymbols::cublasScopy = NULL;
@@ -55,9 +72,9 @@ std::string cublasSymbols::get_lib_name()
     #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) || \
         defined(__NT__)
         lib_extension = "lib";
-    #elif __APPLE__
+    #elif defined(__APPLE__)
         lib_extension = "dylib";
-    #elif __linux__
+    #elif defined(__linux__)
         lib_extension = "so";
     #else
         #error "Unknown compiler"
@@ -134,6 +151,34 @@ cublasStatus_t cublasDestroy_v2(cublasHandle_t handle)
 
     return cublasSymbols::cublasDestroy(handle);
 }
+
+
+// ====================
+// cublas Set Math Mode
+// ====================
+
+
+/// \brief Definition of CUDA's \c cublasSetmathMode function using dynamically
+///        loaded cublas library.
+
+cublasStatus_t cublasSetMathMode(
+        cublasHandle_t handle,
+        cublasMath_t mode)
+{
+    if (cublasSymbols::cublasSetMathMode == NULL)
+    {
+        std::string lib_name = cublasSymbols::get_lib_name();
+        const char* symbol_name = "cublasSetMathMode_v2";
+
+        cublasSymbols::cublasSetMathMode = \
+                dynamic_loading::load_symbol<cublasSetMathMode_type>(
+                        lib_name.c_str(),
+                        symbol_name);
+    }
+
+    return cublasSymbols::cublasSetMathMode(handle, mode);
+}
+
 
 // ===========
 // cublasSgemv

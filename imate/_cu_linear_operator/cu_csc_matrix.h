@@ -26,10 +26,22 @@
 // cu CSC Matrix
 // =============
 
+/// \class   cuCSCMatrix
+///
+/// \brief   Container for CSC matrices.
+///
+/// \details The \c cCSCMatrix holds a two-dimensional compressed sparse column
+///          matrix, and can perofrom matrix-vector product and transposed
+///          matrix-vector product.
+///
+/// \sa      cuMatrix,
+///          cuDenseMatrix,
+///          cuCSRMatrix,
+///          cuCSCAffineMatrixFunction,
+///          cCSCMatrix
+
 template <typename DataType>
-class cuCSCMatrix :
-    public cuMatrix<DataType>,
-    public cCSCMatrix<DataType>
+class cuCSCMatrix : public cuMatrix<DataType>
 {
     public:
 
@@ -42,9 +54,14 @@ class cuCSCMatrix :
                 const LongIndexType* A_index_pointer_,
                 const LongIndexType num_rows_,
                 const LongIndexType num_columns_,
+                const FlagType A_is_symmetric_,
                 const int num_gpu_devices_);
 
         virtual ~cuCSCMatrix();
+        
+        virtual FlagType is_identity_matrix() const;
+
+        LongIndexType get_nnz() const;
 
         virtual void dot(
                 const DataType* device_vector,
@@ -79,6 +96,9 @@ class cuCSCMatrix :
                 cusparseSpMVAlg_t algorithm);
 
         // Member data
+        const DataType* A_data;
+        const LongIndexType* A_indices;
+        const LongIndexType* A_index_pointer;
         DataType** device_A_data;
         LongIndexType** device_A_indices;
         LongIndexType** device_A_index_pointer;

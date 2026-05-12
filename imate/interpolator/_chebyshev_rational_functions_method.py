@@ -439,7 +439,8 @@ class ChebyshevRationalFunctionsMethod(InterpolantBase):
         """
 
         if (ti is None) or (ti == []):
-            raise ValueError('"ti" should be an integer, list, or array.')
+            raise ValueError('"ti" should be an integer, non-empty list, or '
+                             'array.')
         elif numpy.isscalar(ti):
             if not isinstance(ti, (int, numpy.integer)):
                 raise ValueError('"ti" as a scalar should be an integer.')

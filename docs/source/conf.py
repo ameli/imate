@@ -116,6 +116,21 @@ rst_epilog = '''
 #     'table': 'Table %s'
 # }
 
+# Package sphinx-prompt changed how they call the package since version 1.10.0
+from importlib.metadata import version as pkg_version              # noqa: E402
+from importlib.metadata import PackageNotFoundError                # noqa: E402
+from packaging.version import Version                              # noqa: E402
+
+try:
+    installed_version = Version(pkg_version("sphinx-prompt"))
+except PackageNotFoundError:
+    installed_version = Version("0")
+
+if installed_version >= Version("1.10.0"):
+    sphinx_prompt = 'sphinx_prompt'
+else:
+    sphinx_prompt = 'sphinx-prompt'
+
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
@@ -136,7 +151,7 @@ extensions = [
     'numpydoc',                               # either use napoleon or numpydoc
     'sphinx_design',
     # 'sphinx_multitoc_numbering',
-    'sphinx-prompt',
+    sphinx_prompt,                            # See code above
     'sphinx_copybutton',
     'nbsphinx',
     'sphinx_gallery.load_style',
@@ -157,7 +172,7 @@ autosummary_imported_members = True
 # automodapi
 numpydoc_show_class_members = False
 
-# Added after including sphinx_math_dollar. The following prevents msthjax to
+# Added after including sphinx_math_dollar. The following prevents mathjax to
 # parse $ and $$.
 mathjax3_config = {
     'tex2jax': {
@@ -233,7 +248,7 @@ html_theme_options = {
         },
         {
             "name": "Lanuch Jupyter on Binder",
-            "url": "https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=" + \
+            "url": "https://mybinder.org/v2/gh/ameli/imate/HEAD?filepath=" +
                    "notebooks%2FInterpolateTraceOfInverse.ipynb",
             "icon": "fa fa-chart-line",
             "type": "fontawesome",
@@ -307,12 +322,12 @@ html_favicon = '_static/images/icons/favicon.ico'
 ogp_site_url = 'https://ameli.github.io/imate'
 ogp_image = 'https://raw.githubusercontent.com/ameli/imate/main/docs/' + \
             'source/_static/images/icons/logo-imate-light.svg'
-ogp_site_name = 'RestoreIO'
+ogp_site_name = 'IMATE'
 ogp_description_length = 300
 ogp_type = "website"
 ogp_enable_meta_description = True
 ogp_custom_meta_tags = [
-    '<meta property="og:title" content="RestoreIO">',
+    '<meta property="og:title" content="IMATE">',
     '<meta property="og:description" content="imate, short for Implicit ' +
     'Matrix Trace Estimator, is a modular and high-performance C++/CUDA ' +
     'library distributed as a Python package that provides scalable ' +

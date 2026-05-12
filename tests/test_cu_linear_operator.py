@@ -33,7 +33,7 @@ try:
     from imate._cu_linear_operator.tests import test_cu_matrix, \
             test_cu_affine_matrix_function
     subpackage_exists = True
-except ModuleNotFoundError:
+except (ImportError, ModuleNotFoundError):
     subpackage_exists = False
 
 

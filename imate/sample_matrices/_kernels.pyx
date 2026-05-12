@@ -12,8 +12,8 @@
 # =======
 
 from cython import boundscheck, wraparound
-from scipy.special.cython_special cimport gamma, kv
-from libc.math cimport sqrt, exp, isnan, isinf, INFINITY
+from scipy.special.cython_special cimport gammaln, kve
+from libc.math cimport sqrt, log, exp, fabs, isnan, isinf, INFINITY
 from libc.stdio cimport printf
 from libc.string cimport strcmp
 from libc.stdlib cimport abort
@@ -69,7 +69,7 @@ cdef kernel_type get_kernel(const char* kernel):
 
 cdef double _matern_kernel(
         const double x,
-        const double param) nogil:
+        const double param) noexcept nogil:
     """
     Computes the Matern class correlation function for a given Euclidean
     distance of two spatial points.
@@ -125,7 +125,15 @@ cdef double _matern_kernel(
 
     # scaled distance
     cdef double nu = param
+    cdef double y
+    cdef double log_coeff
     cdef double correlation
+
+    # IEEE-754 logarithm of DBL_MAX
+    cdef double LOG_DBL_MAX = 700  # 709.782712893384
+    cdef double log_kve_asym
+    cdef double small_y = 1e-4
+    cdef double kve_nu_y
 
     if x == 0:
         correlation = 1.0
@@ -135,19 +143,36 @@ cdef double _matern_kernel(
         elif nu == 1.5:
             correlation = (1.0 + sqrt(3.0) * x) * exp(-sqrt(3.0) * x)
         elif nu == 2.5:
-            correlation = (1.0 + sqrt(5.0) * x + (5.0 / 3.0) * (x**2)) * \
+            correlation = (1.0 + sqrt(5.0) * x + (5.0 / 3.0) * (x * x)) * \
                     exp(-sqrt(5.0) * x)
         elif nu < 100:
 
-            # Change zero elements of y to a dummy number, to avoid
-            # multiplication of zero by Inf in Bessel function below
-            correlation = ((2.0**(1.0-nu)) / gamma(nu)) * \
-                    ((sqrt(2.0*nu) * x)**nu) * kv(nu, sqrt(2.0*nu)*x)
+            # log prefactor to avoid uder/overflow at large nu
+            y = sqrt(2.0 * nu) * x
+
+            # Estimate log(kve) using small-y asymptotic to predict overflow
+            log_kve_asym = gammaln(nu) + (nu - 1.0) * log(2.0) - nu * log(y)
+            kve_nu_y = kve(nu, y)
+
+            if (log_kve_asym > LOG_DBL_MAX - 1.0) or \
+                    ((isinf(kve_nu_y) or isnan(kve_nu_y)) and (y < small_y)):
+                # Small-y series: K_nu(y) = 2^{nu-1} Gamma(nu) y^{-nu}[1 +
+                # y^2/(4(1-nu)) + O(y^4)], hence Matern becomes corr = 1 + 
+                # y^2/(4(1-nu)) (accurate for such tiny y and large nu)
+                if fabs(1.0 - nu) < 1e-12:
+                    correlation = 1.0
+                else:
+                    correlation = 1.0 + y * y / (4.0 * (1.0 - nu))
+            else:
+                log_coeff = nu * log(0.5 * y) - gammaln(nu)
+
+                # Scaled Bessel: avoid under/overflow: kve(nu, y) = e^y K_nu(y)
+                correlation = 2.0 * exp(log_coeff - y) * kve_nu_y
 
         else:
             # For nu > 100, assume nu is Inf. In this case, Matern function
             # approaches Gaussian kernel
-            correlation = exp(-0.5*x**2)
+            correlation = exp(-0.5 * x * x)
 
         if isnan(correlation):
             printf('correlation is nan.\n')
@@ -163,7 +188,7 @@ cdef double _matern_kernel(
 
 cdef double _exponential_kernel(
         const double x,
-        const double param) nogil:
+        const double param) noexcept nogil:
     """
     Exponential kernel is also known as the Gaussian kernel. The exponential
     kernel is a special case of Matern class kernel where
@@ -186,7 +211,7 @@ cdef double _exponential_kernel(
 
 cdef double _square_exponential_kernel(
         const double x,
-        const double param) nogil:
+        const double param) noexcept nogil:
     """
     Square exponential kernel is also known as the Gaussian kernel. The square
     exponential kernel is a special case of Matern class kernel where
@@ -202,13 +227,13 @@ cdef double _square_exponential_kernel(
 
 cdef double _rational_quadratic_kernel(
         const double x,
-        const double param) nogil:
+        const double param) noexcept nogil:
     """
     Rational quadratic kernel.
     """
 
     cdef double alpha = param
-    cdef double correlation = 1.0 + x**2 / (2.0 * alpha)
+    cdef double correlation = 1.0 + x * x / (2.0 * alpha)
 
     if alpha != 1.0:
         correlation = correlation**(-alpha)
@@ -226,7 +251,7 @@ cdef double euclidean_distance(
         const double[:] point1,
         const double[:] point2,
         const double scale,
-        const int dimension) nogil:
+        const int dimension) noexcept nogil:
     """
     Returns the Euclidean distance between two points.
 
@@ -242,7 +267,7 @@ cdef double euclidean_distance(
     :param dimension: Dimension of the coordinates of the points.
     :type dimension: int
 
-    :return: Euclidean distance betwrrn point1 and point2
+    :return: Euclidean distance between point1 and point2
     :rtype: double
     """
 

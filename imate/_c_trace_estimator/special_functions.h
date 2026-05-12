@@ -23,6 +23,7 @@
 // ============
 
 // erf inv
+double _sign(const double x);
 double erf_inv(const double x);
 
 #endif  // _C_TRACE_ESTIMATOR_SPECIAL_FUNCTIONS_H_

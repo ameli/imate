@@ -33,8 +33,12 @@
 ///          for the \c cpp code, intrast to the \c cu prefix, which stands for
 ///          the cuda code. Most derived classes have a cuda counterpart.
 ///
-/// \sa      cAffineMatrixFunction
-
+/// \sa      cLinearOperator,
+///          cAffineMatrixFunction,
+///          cDenseMatrix,
+///          cCSRMatrix,
+///          cCSCMatrix,
+///          cuMatrix
 
 template <typename DataType>
 class cMatrix : virtual public cLinearOperator<DataType>
@@ -43,6 +47,8 @@ class cMatrix : virtual public cLinearOperator<DataType>
 
         // Member methods
         cMatrix();
+        
+        explicit cMatrix(const FlagType A_is_symmetric_);
 
         virtual ~cMatrix();
 
@@ -53,6 +59,8 @@ class cMatrix : virtual public cLinearOperator<DataType>
 
         virtual FlagType is_identity_matrix() const = 0;
 
+        virtual void set_symmetry(const FlagType symmetric);
+
         virtual void dot_plus(
                 const DataType* vector,
                 const DataType alpha,
@@ -62,6 +70,11 @@ class cMatrix : virtual public cLinearOperator<DataType>
                 const DataType* vector,
                 const DataType alpha,
                 DataType* product) = 0;
+
+    protected:
+
+        // Member data
+        FlagType A_is_symmetric;
 };
 
 

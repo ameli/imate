@@ -11,9 +11,10 @@
 # Imports
 # =======
 
-from .._definitions.types cimport DataType, IndexType, LongIndexType, FlagType
+from .._definitions.types cimport IndexType, LongIndexType
 from .cu_linear_operator cimport cuLinearOperator
-from .._cuda_utilities cimport DeviceProperties
+from .._cu_definitions.cu_types cimport __nv_fp8_e5m2, __nv_fp8_e4m3, __half, \
+        __nv_bfloat16
 
 
 # ====================
@@ -23,19 +24,32 @@ from .._cuda_utilities cimport DeviceProperties
 cdef class pycuLinearOperator(object):
 
     # Attributes
-    cdef cuLinearOperator[float]* Aop_float
-    cdef cuLinearOperator[double]* Aop_double
-    cdef char* data_type_name
-    cdef char* long_index_type_name
+    cdef cuLinearOperator[__nv_fp8_e5m2]* Aop_fp8_e5m2
+    cdef cuLinearOperator[__nv_fp8_e4m3]* Aop_fp8_e4m3
+    cdef cuLinearOperator[__half]* Aop_fp16
+    cdef cuLinearOperator[__nv_bfloat16]* Aop_bf16
+    cdef cuLinearOperator[float]* Aop_fp32
+    cdef cuLinearOperator[double]* Aop_fp64
     cdef IndexType num_parameters
+    cdef data_type_name
+    cdef long_index_type_name
+    cdef parameters
     cdef int num_gpu_devices
     cdef dict device_properties_dict
 
     # Cython methods
     cdef LongIndexType get_num_rows(self) except *
     cdef LongIndexType get_num_columns(self) except *
-    cdef char* get_data_type_name(self) except *
-    cdef cuLinearOperator[float]* get_linear_operator_float(self) except *
-    cdef cuLinearOperator[double]* get_linear_operator_double(self) except *
+    cdef cuLinearOperator[__nv_fp8_e5m2]* get_linear_operator_fp8_e5m2(
+            self) except *
+    cdef cuLinearOperator[__nv_fp8_e4m3]* get_linear_operator_fp8_e4m3(
+            self) except *
+    cdef cuLinearOperator[__half]* get_linear_operator_fp16(self) except *
+    cdef cuLinearOperator[__nv_bfloat16]* get_linear_operator_bf16(
+            self) except *
+    cdef cuLinearOperator[float]* get_linear_operator_fp32(self) except *
+    cdef cuLinearOperator[double]* get_linear_operator_fp64(self) except *
+    cpdef void set_symmetry(self, symmetric) except *
+    cpdef void set_parameters(self, parameters) except *
     cpdef void dot(self, vector, product) except *
     cpdef void transpose_dot(self, vector, product) except *

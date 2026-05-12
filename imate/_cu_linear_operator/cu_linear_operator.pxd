@@ -12,7 +12,7 @@
 # =======
 
 from .._definitions.types cimport IndexType, LongIndexType
-from .._c_linear_operator.c_linear_operator cimport cLinearOperator
+from .._c_linear_operator.c_linear_operator_base cimport cLinearOperatorBase
 
 
 # =======
@@ -21,10 +21,18 @@ from .._c_linear_operator.c_linear_operator cimport cLinearOperator
 
 cdef extern from "cu_linear_operator.h":
 
-    cdef cppclass cuLinearOperator[DataType](cLinearOperator):
+    cdef cppclass cuLinearOperator[DataType](cLinearOperatorBase):
 
         cuLinearOperator() except +
 
-        cuLinearOperator(
-                const LongIndexType num_rows_,
-                const LongIndexType num_columns_) except +
+        cuLinearOperator(const int num_gpu_devices) except +
+        
+        void set_parameters(DataType* parameters_) noexcept nogil
+
+        void dot(
+                const DataType* vector,
+                DataType* product) noexcept nogil
+
+        void transpose_dot(
+                const DataType* vector,
+                DataType* product) noexcept nogil

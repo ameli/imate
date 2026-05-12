@@ -426,7 +426,7 @@ class InverseMonomialBasisFunctionsMethod(InterpolantBase):
         """
 
         if (ti is None) or (ti == []):
-            raise ValueError('"ti" should be a list or array.')
+            raise ValueError('"ti" should be a non-empty list or array.')
 
         # Base class constructor
         super(InverseMonomialBasisFunctionsMethod, self).__init__(
