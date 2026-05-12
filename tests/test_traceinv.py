@@ -58,7 +58,7 @@ def _traceinv_exact(K, B, C, matrix, gram, p):
     # Exact solution of traceinv for band matrix
     if B is not None:
 
-        if scipy.sparse.isspmatrix(K):
+        if scipy.sparse.issparse(K):
             K_ = K.toarray()
             B_ = B.toarray()
 
@@ -100,7 +100,7 @@ def _traceinv_exact(K, B, C, matrix, gram, p):
                                            matrix['size'], True)
     else:
         # B and C are identity. Compute traceinv directly.
-        if scipy.sparse.isspmatrix(K):
+        if scipy.sparse.issparse(K):
             K_ = K.toarray()
         else:
             K_ = K

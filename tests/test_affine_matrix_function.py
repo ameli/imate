@@ -16,6 +16,7 @@
 import sys
 import numpy
 import scipy.sparse
+from scipy.sparse import issparse
 from imate import AffineMatrixFunction, get_config
 
 __all__ = ['test_affine_matrix_function']
@@ -190,7 +191,7 @@ def _test(A, B, t, symmetric=False, gpu=False, factor=1.0):
     """
 
     A_matrices = {
-        'float16': A.astype(numpy.float16),
+        'float16': A.astype(numpy.float16) if not issparse(A) else None,
         'float32': A.astype(numpy.float32),
         'float64': A.astype(numpy.float64),
         'float128': A.astype(numpy.float128)
@@ -198,7 +199,7 @@ def _test(A, B, t, symmetric=False, gpu=False, factor=1.0):
 
     if B is not None:
         B_matrices = {
-            'float16': B.astype(numpy.float16),
+            'float16': B.astype(numpy.float16) if not issparse(B) else None,
             'float32': B.astype(numpy.float32),
             'float64': B.astype(numpy.float64),
             'float128': B.astype(numpy.float128)

@@ -17,7 +17,7 @@ import scipy
 import scipy.linalg
 import scipy.sparse
 import scipy.sparse.linalg
-from scipy.sparse import isspmatrix
+from scipy.sparse import issparse
 from .._openmp import get_avail_num_threads
 from ..__version__ import __version__
 from .._linear_algebra.matrix_utilities import get_data_type_name, get_nnz, \
@@ -305,7 +305,7 @@ def cholesky_method(
 
     # Determine to use Sparse
     sparse = False
-    if scipy.sparse.isspmatrix(A):
+    if issparse(A):
         sparse = True
 
     # Determine to use suitesparse or scipy.sparse to compute cholesky
@@ -343,7 +343,7 @@ def cholesky_method(
         if B is None:
             trace = A.shape[0]
         else:
-            if isspmatrix(B):
+            if issparse(B):
                 trace = 0
                 for i in range(B.shape[0]):
                     trace += B[i, i]
@@ -427,7 +427,7 @@ def cholesky_method(
             'gram': gram,
             'exponent': p,
             'size': A.shape,
-            'sparse': isspmatrix(A),
+            'sparse': issparse(A),
             'nnz': get_nnz(A),
             'density': get_density(A),
             'num_inquiries': 1
@@ -470,7 +470,7 @@ def check_arguments(A, B, gram, p, return_info, invert_cholesky, cholmod):
     """
 
     # Check A
-    if (not isinstance(A, numpy.ndarray)) and (not isspmatrix(A)):
+    if (not isinstance(A, numpy.ndarray)) and (not issparse(A)):
         raise TypeError('Input matrix should be either a "numpy.ndarray" or ' +
                         'a "scipy.sparse" matrix.')
 
@@ -487,7 +487,7 @@ def check_arguments(A, B, gram, p, return_info, invert_cholesky, cholmod):
             raise TypeError('When the input matrix "A" is of type ' +
                             '"numpy.ndarray", matrix "B" should also be of ' +
                             'the same type.')
-        if isspmatrix(A) and not isspmatrix(B):
+        if issparse(A) and not issparse(B):
             raise TypeError('When the input matrix "A" is of type ' +
                             '"scipy.sparse", matrix "B" should also be of ' +
                             'the same type.')
@@ -732,7 +732,7 @@ def compute_traceinv_invert_cholesky_indirectly(
                         e.tocsc(),
                         use_LDLt_decomposition=False).toarray()
 
-            elif scipy.sparse.isspmatrix(L_A):
+            elif issparse(L_A):
 
                 # Using scipy
                 x = scipy.sparse.linalg.spsolve_triangular(

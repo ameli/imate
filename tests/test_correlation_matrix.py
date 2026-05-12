@@ -59,14 +59,14 @@ def test_correlation_matrix():
     Test for :mod:`imate.sample_matrices.correlation_matrix` sub-package.
     """
     # Generate a dense matrix using points on a grid
-    correlation_matrix(size=20, dimension=2, sparse=False, plot=True)
+    correlation_matrix(size=20, input_dim=2, sparse=False, plot=True)
 
     # Generate a dense matrix using random set of points
-    correlation_matrix(size=20, dimension=2, grid=False, sparse=False,
+    correlation_matrix(size=20, input_dim=2, grid=False, sparse=False,
                        plot=True)
 
     # Generate sparse matrix
-    correlation_matrix(size=20, dimension=2, sparse=True, density=1e-2,
+    correlation_matrix(size=20, input_dim=2, sparse=True, density=1e-2,
                        plot=True)
 
     # Remove saved plot

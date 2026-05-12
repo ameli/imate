@@ -18,7 +18,7 @@ import scipy
 import scipy.linalg
 import scipy.sparse
 import scipy.sparse.linalg
-from scipy.sparse import isspmatrix
+from scipy.sparse import issparse
 from .._openmp import get_avail_num_threads
 from .._linear_algebra.matrix_utilities import get_data_type_name, get_nnz, \
         get_density
@@ -330,7 +330,7 @@ def eigenvalue_method(
     trace = numpy.sum(1.0 / (eigenvalues[not_nan]**p))
 
     # Tolerances to allow small imaginary parts when computing eigenvalues
-    if (scipy.sparse.isspmatrix(A)) and (assume_matrix == "gen"):
+    if issparse(A) and (assume_matrix == "gen"):
         # When matrix is not symmetric, eigenvalues are complex, but the
         # sum of their logarithm should be real. Since we do not compute
         # all eigenvalues of sparse matrix, this sum may have a non-zero
@@ -366,7 +366,7 @@ def eigenvalue_method(
             'exponent': p,
             'assume_matrix': assume_matrix,
             'size': A.shape,
-            'sparse': isspmatrix(A),
+            'sparse': issparse(A),
             'nnz': get_nnz(A),
             'density': get_density(A),
             'num_inquiries': 1
@@ -414,7 +414,7 @@ def check_arguments(
     """
 
     # Check A
-    if (not isinstance(A, numpy.ndarray)) and (not scipy.sparse.issparse(A)):
+    if (not isinstance(A, numpy.ndarray)) and (not issparse(A)):
         raise TypeError('Input matrix should be either a "numpy.ndarray" or ' +
                         'a "scipy.sparse" matrix.')
 
@@ -496,7 +496,7 @@ def compute_eigenvalues(
 
     if gram:
         # Gram matrix. Compute singular values of A.
-        if scipy.sparse.isspmatrix(A):
+        if issparse(A):
 
             # Sparse matrix
             n = A.shape[0]
@@ -525,7 +525,7 @@ def compute_eigenvalues(
 
     else:
         # Not Gram matrix. Compute eigenvalues directly
-        if scipy.sparse.isspmatrix(A):
+        if issparse(A):
 
             # Sparse matrix
             n = A.shape[0]

@@ -18,7 +18,7 @@ import scipy
 import scipy.linalg
 import scipy.sparse
 import scipy.sparse.linalg
-from scipy.sparse import isspmatrix
+from scipy.sparse import issparse
 from .._openmp import get_avail_num_threads
 from .._linear_algebra.matrix_utilities import get_data_type_name, get_nnz, \
         get_density
@@ -319,7 +319,7 @@ def eigenvalue_method(
         logdet_ = numpy.sum(numpy.log(eig_A.astype(numpy.complex128)))
 
         # Tolerances to allow small imaginary parts when computing eigenvalues
-        if (scipy.sparse.isspmatrix(A)) and (assume_matrix == "gen"):
+        if issparse(A) and (assume_matrix == "gen"):
             # When matrix is not symmetric, eigenvalues are complex, but the
             # sum of their logarithm should be real. Since we do not compute
             # all eigenvalues of sparse matrix, this sum may have a non-zero
@@ -379,7 +379,7 @@ def eigenvalue_method(
             'exponent': p,
             'assume_matrix': assume_matrix,
             'size': A.shape,
-            'sparse': isspmatrix(A),
+            'sparse': issparse(A),
             'nnz': get_nnz(A),
             'density': get_density(A),
             'num_inquiries': 1
@@ -509,7 +509,7 @@ def compute_eigenvalues(
     else:
         dtype = numpy.complex128
 
-    if scipy.sparse.isspmatrix(A):
+    if issparse(A):
 
         # Sparse matrix
         n = A.shape[0]
@@ -574,7 +574,7 @@ def compute_singularvalues(
     """
     """
 
-    if scipy.sparse.isspmatrix(A):
+    if issparse(A):
 
         # Sparse matrix
         n = numpy.min([A.shape[0], A.shape[1]])

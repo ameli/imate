@@ -15,7 +15,7 @@
 import time
 import numpy
 import scipy.sparse
-from scipy.sparse import isspmatrix
+from scipy.sparse import issparse
 from .._openmp import get_avail_num_threads
 from ..__version__ import __version__
 from .._linear_algebra import linear_solver
@@ -679,7 +679,7 @@ def hutchinson_method(
             'exponent': p,
             'assume_matrix': assume_matrix,
             'size': A.shape,
-            'sparse': isspmatrix(A),
+            'sparse': issparse(A),
             'nnz': get_nnz(A),
             'density': get_density(A),
             'num_inquiries': 1

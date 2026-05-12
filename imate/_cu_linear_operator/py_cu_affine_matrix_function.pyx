@@ -13,7 +13,7 @@
 
 # Python
 import numpy
-from scipy.sparse import issparse, isspmatrix_csr, isspmatrix_csc, csr_matrix
+from scipy.sparse import issparse, csr_matrix
 
 # Cython
 from .py_cu_linear_operator cimport pycuLinearOperator
@@ -230,7 +230,11 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
             self.B_is_symmetric = B_is_symmetric
 
             # Check similar types of A and B
-            if not (type(A) == type(B)):
+            if issparse(A) and issparse(B):
+                if (A.format != B.format):
+                    raise TypeError('Sparse matrices A and B should have '
+                                    'similar formats.')
+            elif not (type(A) == type(B)):
                 raise TypeError('Matrices A and B should have similar types.')
 
             # Check A and B have the same data types
@@ -245,7 +249,7 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
         if issparse(A):
 
             # Matrix type codes: 'r' for CSR, and 'c' for CSC
-            if isspmatrix_csr(A):
+            if A.format == 'csr':
 
                 # Check sorted indices
                 if not A.has_sorted_indices:
@@ -257,7 +261,7 @@ cdef class pycuAffineMatrixFunction(pycuLinearOperator):
                 # set CSR matrix
                 self.set_csr_matrix(A, B, B_is_identity)
 
-            elif isspmatrix_csc(A):
+            elif A.format == 'csc':
 
                 # Check sorted indices
                 if not A.has_sorted_indices:

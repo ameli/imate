@@ -18,7 +18,7 @@ import scipy
 import scipy.linalg
 import scipy.sparse
 import scipy.sparse.linalg
-from scipy.sparse import isspmatrix
+from scipy.sparse import issparse
 from .._openmp import get_avail_num_threads
 from .._linear_algebra.matrix_utilities import get_data_type_name, get_nnz, \
         get_density
@@ -339,7 +339,7 @@ def eigenvalue_method(
             'exponent': p,
             'assume_matrix': assume_matrix,
             'size': A.shape,
-            'sparse': isspmatrix(A),
+            'sparse': issparse(A),
             'nnz': get_nnz(A),
             'density': get_density(A),
             'num_inquiries': 1
@@ -478,7 +478,7 @@ def compute_eigenvalues(
 
     if gram:
         # Gram matrix. Compute singular values of A.
-        if scipy.sparse.isspmatrix(A):
+        if issparse(A):
 
             # Sparse matrix
             n = A.shape[0]
@@ -507,7 +507,7 @@ def compute_eigenvalues(
 
     else:
         # Not Gram matrix. Compute eigenvalues directly
-        if scipy.sparse.isspmatrix(A):
+        if issparse(A):
 
             # Sparse matrix
             n = A.shape[0]

@@ -12,7 +12,7 @@
 # =======
 
 import numpy
-from scipy.sparse import isspmatrix
+from scipy.sparse import issparse
 
 
 # ===============
@@ -44,7 +44,7 @@ def check_arguments(
     """
 
     # Check A
-    if (not isinstance(A, numpy.ndarray)) and (not isspmatrix(A)):
+    if (not isinstance(A, numpy.ndarray)) and (not issparse(A)):
         raise TypeError('Input matrix should be either a "numpy.ndarray" or ' +
                         'a "scipy.sparse" matrix.')
 
@@ -61,7 +61,7 @@ def check_arguments(
             raise TypeError('When the input matrix "A" is of type ' +
                             '"numpy.ndarray", matrix "B" should also be of ' +
                             'the same type.')
-        if isspmatrix(A) and not isspmatrix(B):
+        if issparse(A) and not issparse(B):
             raise TypeError('When the input matrix "A" is of type ' +
                             '"scipy.sparse", matrix "B" should also be of ' +
                             'the same type.')
@@ -81,7 +81,7 @@ def check_arguments(
             raise TypeError('When the input matrix "A" is of type ' +
                             '"numpy.ndarray", matrix "C" should also be of ' +
                             'the same type.')
-        if isspmatrix(A) and not isspmatrix(C):
+        if issparse(A) and not issparse(C):
             raise TypeError('When the input matrix "A" is of type ' +
                             '"scipy.sparse", matrix "C" should also be of ' +
                             'the same type.')
@@ -106,7 +106,7 @@ def check_arguments(
     elif not numpy.isscalar(exponent):
         raise TypeError('"exponent" should be a scalar value.')
     elif not isinstance(exponent, (int, numpy.integer)):
-        TypeError('"exponent" cannot be an integer.')
+        raise TypeError('"exponent" cannot be an integer.')
 
     # Check return info
     if not isinstance(return_info, bool):

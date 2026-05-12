@@ -1884,8 +1884,8 @@ def cythonize_extensions(extensions):
         # Bind cython files with python objects
         compiler_directives['binding'] = True
 
-        # Line trace
-        compiler_directives['linetrace'] = True
+        # Line trace (DO NOT USE, it still causes compilation issues anyway)
+        # compiler_directives['linetrace'] = True
 
     # Debugging
     if debug_mode:

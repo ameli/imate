@@ -48,7 +48,7 @@ def linear_solver(A, b, assume_matrix, tol=1e-6):
     if assume_matrix == "sym_pos":
         assume_matrix = "pos"
 
-    if scipy.sparse.isspmatrix(A):
+    if scipy.sparse.issparse(A):
 
         # Use direct method
         # x = scipy.sparse.linalg.spsolve(A,b)
@@ -73,7 +73,7 @@ def linear_solver(A, b, assume_matrix, tol=1e-6):
 
                 # Convert a column of b into a dense numpy array
                 b_ = b[:, i]
-                if scipy.sparse.isspmatrix(b_):
+                if scipy.sparse.issparse(b_):
                     b_ = b_.toarray()[:, 0]
 
                 x[:, i] = solver(A, b_, rtol=tol, **options)[0]

@@ -15,7 +15,7 @@ import time
 import numpy
 import scipy
 import scipy.linalg
-from scipy.sparse import isspmatrix
+from scipy.sparse import issparse
 from .._openmp import get_avail_num_threads
 from .._linear_algebra.matrix_utilities import get_data_type_name, get_nnz, \
         get_density
@@ -263,7 +263,7 @@ def cholesky_method(
 
     # Determine to use Sparse
     sparse = False
-    if scipy.sparse.isspmatrix(A):
+    if issparse(A):
         sparse = True
 
     # Determine to use suitesparse or scipy.sparse to compute cholesky
@@ -331,7 +331,7 @@ def cholesky_method(
             'gram': gram,
             'exponent': p,
             'size': A.shape,
-            'sparse': isspmatrix(A),
+            'sparse': issparse(A),
             'nnz': get_nnz(A),
             'density': get_density(A),
             'num_inquiries': 1

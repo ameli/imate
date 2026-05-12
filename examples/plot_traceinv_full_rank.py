@@ -148,8 +148,9 @@ def plot(TI, p, test):
 
     # Mark the region corresponding to the inset axes on ax1 and draw lines
     # in grey linking the two axes.
-    _, connects = ax[0].indicate_inset_zoom(ax2, facecolor=inset_color,
-                                            edgecolor='0.5')
+    inset_indicator = ax[0].indicate_inset_zoom(ax2, facecolor=inset_color,
+                                                edgecolor='0.5')
+    connects = inset_indicator.connectors
     connects[0].set_visible(True)
     connects[1].set_visible(False)
     connects[2].set_visible(True)
@@ -251,7 +252,7 @@ def main(test=False):
     # Generate matrix
     A = correlation_matrix(
         size,
-        dimension=2,
+        input_dim=2,
         scale=0.1,
         kernel='exponential',
         sparse=False,

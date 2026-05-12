@@ -11,7 +11,7 @@
 # Imports
 # =======
 
-from scipy.sparse import isspmatrix
+from scipy.sparse import issparse
 
 
 # ==================
@@ -47,7 +47,7 @@ def get_nnz(A):
     Returns the number of non-zero elements of a matrix.
     """
 
-    if isspmatrix(A):
+    if issparse(A):
         return A.nnz
     else:
         return A.shape[0] * A.shape[1]
@@ -62,7 +62,7 @@ def get_density(A):
     Returns the density of non-zero elements of a matrix.
     """
 
-    if isspmatrix(A):
+    if issparse(A):
         return get_nnz(A) / (A.shape[0] * A.shape[1])
     else:
         return 1.0

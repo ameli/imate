@@ -12,7 +12,7 @@
 # =======
 
 from .linear_operator import LinearOperator
-from scipy.sparse import isspmatrix
+from scipy.sparse import issparse
 from .._array import get_data_type_name
 
 
@@ -434,7 +434,7 @@ class AffineMatrixFunction(LinearOperator):
             If `True`, the matrix is sparse. Otherwise, the matrix is dense.
         """
 
-        return isspmatrix(self.A)
+        return issparse(self.A)
 
     # =======
     # get nnz

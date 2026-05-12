@@ -83,7 +83,7 @@ class InterpolantBase(object):
 
         # Determine to use sparse
         self.use_sparse = False
-        if scipy.sparse.isspmatrix(A):
+        if scipy.sparse.issparse(A):
             self.use_sparse = True
 
         # Matrix B
