@@ -37,12 +37,18 @@ jobs:
                   # links are created. Without these, the installation will fail with the error
                   # of "fatal error: omp.h file found"
                   brew install libomp
-                  libomp_dir=$(brew --prefix libomp)
-                  ln -sf ${libomp_dir}/include/omp-tools.h  /usr/local/include/omp-tools.h
-                  ln -sf ${libomp_dir}/include/omp.h        /usr/local/include/omp.h
-                  ln -sf ${libomp_dir}/include/ompt.h       /usr/local/include/ompt.h
-                  ln -sf ${libomp_dir}/lib/libomp.a         /usr/local/lib/libomp.a
-                  ln -sf ${libomp_dir}/lib/libomp.dylib     /usr/local/lib/libomp.dylib
+                  # libomp_dir=$(brew --prefix libomp)
+                  # brew_prefix=$(brew --prefix)
+                  # mkdir -p ${brew_prefix}/include ${brew_prefix}/lib
+                  # ln -sf ${libomp_dir}/include/omp-tools.h  ${brew_prefix}/include/omp-tools.h
+                  # ln -sf ${libomp_dir}/include/omp.h        ${brew_prefix}/include/omp.h
+                  # ln -sf ${libomp_dir}/include/ompt.h       ${brew_prefix}/include/ompt.h
+                  # ln -sf ${libomp_dir}/lib/libomp.a         ${brew_prefix}/lib/libomp.a
+                  # ln -sf ${libomp_dir}/lib/libomp.dylib     ${brew_prefix}/lib/libomp.dylib
+                  echo "CPPFLAGS=-I$(brew --prefix libomp)/include" >> $GITHUB_ENV
+                  echo "CFLAGS=-I$(brew --prefix libomp)/include" >> $GITHUB_ENV
+                  echo "CXXFLAGS=-I$(brew --prefix libomp)/include" >> $GITHUB_ENV
+                  echo "LDFLAGS=-L$(brew --prefix libomp)/lib -lomp" >> $GITHUB_ENV
             
             # Install OpenBLAS when PyPy is used, since it tries to compile numpy and scipt from
             # source, whic needs OpenBLAS
