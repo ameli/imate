@@ -208,19 +208,20 @@ def _test(A, B, t, symmetric=False, gpu=False, factor=1.0):
         }
 
     # Make 128-bit data truly contain 19 decimals by filling decimals 16 to 19
-    precision = 1.084202172485504434e-19   # epsilon for log-double
-    A_matrices['float128'] = A_matrices['float128'] * \
-        (1.0 + (1.0e+0 + 1.0e+1 + 1.0e+2 + 1.0e+3) * precision)
-
-    if B is not None:
-        B_matrices['float128'] = B_matrices['float128'] * \
+    if A_matrices['float128'] is not None:
+        precision = 1.084202172485504434e-19   # epsilon for log-double
+        A_matrices['float128'] = A_matrices['float128'] * \
             (1.0 + (1.0e+0 + 1.0e+1 + 1.0e+2 + 1.0e+3) * precision)
+
+        if B is not None:
+            B_matrices['float128'] = B_matrices['float128'] * \
+                (1.0 + (1.0e+0 + 1.0e+1 + 1.0e+2 + 1.0e+3) * precision)
 
     successes = []
 
-    for dtype in A_matrices.keys():
+    for dtype, A_ in A_matrices.items():
 
-        if dtype is None:
+        if A_ is None:
             continue
 
         # Currently, 16-bit data type is not implemented
@@ -235,7 +236,6 @@ def _test(A, B, t, symmetric=False, gpu=False, factor=1.0):
         if get_config()['use_cblas'] and (dtype == 'float128'):
             continue
 
-        A_ = A_matrices[dtype]
         if B is not None:
             B_ = B_matrices[dtype]
         else:
