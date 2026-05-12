@@ -10,12 +10,12 @@
 <meta property="og:title" content="3. Runtime Dependencies" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ameli.github.io/install/dependencies.html" />
-<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:site_name" content="IMATE" />
 <meta property="og:description" content="The followings are dependencies used during the runtime of imate. Note that, among these dependencies, OpenMP is required, while the rest of the dependencies are optional. OpenMP ( Required): imate requires OpenMP, which is typically included with most C++ compilers. For Linux users:, By installi..." />
 <meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
-<meta property="og:image:alt" content="RestoreIO" />
+<meta property="og:image:alt" content="IMATE" />
 <meta name="description" content="The followings are dependencies used during the runtime of imate. Note that, among these dependencies, OpenMP is required, while the rest of the dependencies are optional. OpenMP ( Required): imate requires OpenMP, which is typically included with most C++ compilers. For Linux users:, By installi..." />
-<meta property="og:title" content="RestoreIO">
+<meta property="og:title" content="IMATE">
 <meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
     <title>3. Runtime Dependencies &#8212; imate Manual</title>
@@ -41,7 +41,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -65,6 +65,9 @@
     <link rel="next" title="4. Compile from Source" href="compile_source.html" />
     <link rel="prev" title="2. Install in Virtual Environments" href="virtual_env.html" />
 
+    <!-- Robots -->
+	<meta name="robots" content="index,follow">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
     <script>
@@ -74,8 +77,6 @@
 
         gtag('config', 'G-4JHJ15SKEY');
     </script>
-
-    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
 
     <!-- My custom JS -->
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
@@ -321,6 +322,15 @@
    )
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#intel-s-math-kernel-library-optional">
+   3.5. Intel’s Math Kernel Library (
+   <cite>
+    Optional
+   </cite>
+   )
+  </a>
+ </li>
 </ul>
 
 </nav>
@@ -364,7 +374,7 @@
 <p>Below are the specific installation for each operating system:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-0">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="ubuntu" for="sd-tab-item-0">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
 span.prompt1:before {
@@ -373,17 +383,17 @@ span.prompt1:before {
 </style><span class="prompt1">sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libgomp1<span class="w"> </span>-y</span>
 </pre></div></div></div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-1">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="centos" for="sd-tab-item-1">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>libgomp<span class="w"> </span>-y</span>
 </pre></div></div></div>
 <input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-2">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="rhel" for="sd-tab-item-2">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>libgomp<span class="w"> </span>-y</span>
 </pre></div></div></div>
 <input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="osx" for="sd-tab-item-3">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="osx" for="sd-tab-item-3">
 macOS</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>brew<span class="w"> </span>install<span class="w"> </span>libomp</span>
 </pre></div></div></div>
@@ -418,22 +428,22 @@ macOS</label><div class="sd-tab-content docutils">
 <li><p>Install SuiteSparse development library by</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-4">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="ubuntu" for="sd-tab-item-4">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libsuitesparse-dev</span>
 </pre></div></div></div>
 <input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-5">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="centos" for="sd-tab-item-5">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>libsuitesparse-devel</span>
 </pre></div></div></div>
 <input id="sd-tab-item-6" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-6">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="rhel" for="sd-tab-item-6">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>libsuitesparse-devel</span>
 </pre></div></div></div>
 <input id="sd-tab-item-7" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="osx" for="sd-tab-item-7">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="osx" for="sd-tab-item-7">
 macOS</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>brew<span class="w"> </span>install<span class="w"> </span>suite-sparse</span>
 </pre></div></div></div>
@@ -456,22 +466,22 @@ macOS</label><div class="sd-tab-content docutils">
 <p>Install OpenBLAS library by</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-8">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="ubuntu" for="sd-tab-item-8">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libopenblas-dev</span>
 </pre></div></div></div>
 <input id="sd-tab-item-9" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-9">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="centos" for="sd-tab-item-9">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>openblas-devel</span>
 </pre></div></div></div>
 <input id="sd-tab-item-10" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-10">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="rhel" for="sd-tab-item-10">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>openblas-devel</span>
 </pre></div></div></div>
 <input id="sd-tab-item-11" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="osx" for="sd-tab-item-11">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="osx" for="sd-tab-item-11">
 macOS</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>brew<span class="w"> </span>install<span class="w"> </span>openblas</span>
 </pre></div></div></div>
@@ -479,6 +489,26 @@ macOS</label><div class="sd-tab-content docutils">
 <p>Alternatively, you can install OpenBLAS using <code class="docutils literal notranslate"><span class="pre">conda</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>anaconda<span class="w"> </span>openblas</span>
 </pre></div></div></section>
+<section id="intel-s-math-kernel-library-optional">
+<h2><span class="section-number">3.5. </span>Intel’s Math Kernel Library (<cite>Optional</cite>)<a class="headerlink" href="#intel-s-math-kernel-library-optional" title="Permalink to this heading">#</a></h2>
+<p>If <span class="synco">imate</span> is compiled with Math Kernel Library (MKL), this library should also be available at the runtime. You can install MKL with <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl-download.html">Intel oneAPI</a>, or with <code class="docutils literal notranslate"><span class="pre">conda</span></code> by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">conda<span class="w"> </span>install<span class="w"> </span>mkl<span class="w"> </span>mkl-include<span class="w"> </span>-y</span>
+</pre></div></div><p>You may need to configure <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> by:</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="unix" for="sd-tab-item-12">
+UNIX</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nv">CONDA_PREFIX</span><span class="o">=</span><span class="k">$(</span>conda<span class="w"> </span>info<span class="w"> </span>--base<span class="k">)</span></span>
+<span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="s2">&quot;-L</span><span class="nv">$CONDA_PREFIX</span><span class="s2">/lib </span><span class="nv">$LD_LIBRARY_PATH</span><span class="s2">&quot;</span></span>
+</pre></div></div></div>
+<input id="sd-tab-item-13" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="win" for="sd-tab-item-13">
+Windows (Powershell)</label><div class="sd-tab-content docutils">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nv">$env</span>:CONDA_PREFIX<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span>conda<span class="w"> </span>info<span class="w"> </span>--base<span class="o">)</span>.Trim<span class="o">()</span></span>
+<span class="prompt1"><span class="nv">$env</span>:LD_LIBRARY_PATH<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;-L</span><span class="nv">$env</span><span class="s2">:CONDA_PREFIX\lib </span><span class="nv">$env</span><span class="s2">:LD_LIBRARY_PATH&quot;</span></span>
+</pre></div></div></div>
+</div>
+</section>
 </section>
 
 

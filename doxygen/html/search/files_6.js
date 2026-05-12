@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['identity_2ecpp_617',['identity.cpp',['../identity_8cpp.html',1,'']]],
-  ['identity_2eh_618',['identity.h',['../identity_8h.html',1,'']]],
-  ['indicator_2ecpp_619',['indicator.cpp',['../indicator_8cpp.html',1,'']]],
-  ['indicator_2eh_620',['indicator.h',['../indicator_8h.html',1,'']]],
-  ['inverse_2ecpp_621',['inverse.cpp',['../inverse_8cpp.html',1,'']]],
-  ['inverse_2eh_622',['inverse.h',['../inverse_8h.html',1,'']]]
+  ['gaussian_2ecpp_0',['gaussian.cpp',['../gaussian_8cpp.html',1,'']]],
+  ['gaussian_2eh_1',['gaussian.h',['../gaussian_8h.html',1,'']]],
+  ['gaussian_5fder_2ecpp_2',['gaussian_der.cpp',['../gaussian__der_8cpp.html',1,'']]],
+  ['gaussian_5fder_2eh_3',['gaussian_der.h',['../gaussian__der_8h.html',1,'']]],
+  ['gaussian_5fint_2ecpp_4',['gaussian_int.cpp',['../gaussian__int_8cpp.html',1,'']]],
+  ['gaussian_5fint_2eh_5',['gaussian_int.h',['../gaussian__int_8h.html',1,'']]]
 ];

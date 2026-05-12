@@ -1,10 +1,10 @@
 var classcVectorOperations =
 [
-    [ "copy_scaled_vector", "classcVectorOperations.html#a6627fe95659faa224dca2af1dab1fab3", null ],
-    [ "copy_vector", "classcVectorOperations.html#a492894cdc368a4f60b28aa15109cf9bc", null ],
-    [ "euclidean_norm", "classcVectorOperations.html#abd0d2c941f9d3598f42026755cbc4709", null ],
-    [ "inner_product", "classcVectorOperations.html#ab8b945baba573b4479e8095ca87f8b3f", null ],
-    [ "normalize_vector_and_copy", "classcVectorOperations.html#aeb0171f2644e3036907bbbddf47ce998", null ],
-    [ "normalize_vector_in_place", "classcVectorOperations.html#ab0991d74cadf3a3969f0723dbff55dc9", null ],
-    [ "subtract_scaled_vector", "classcVectorOperations.html#a9bd28bd08f5a6b096d99a4a2f7d23e90", null ]
+    [ "copy_scaled_vector", "classcVectorOperations.html#a144960643ef104a5eec59b25bca2636d", null ],
+    [ "copy_vector", "classcVectorOperations.html#a866d2f747d82a3668fb1f511a9a7e7d7", null ],
+    [ "euclidean_norm", "classcVectorOperations.html#adbe8da0d2f3bd3abb610c8b08667b9d8", null ],
+    [ "inner_product", "classcVectorOperations.html#a409c7c4455d967d13aca526fdac418f2", null ],
+    [ "normalize_vector_and_copy", "classcVectorOperations.html#a567ca2830d78a488c7bc2052a9636a8b", null ],
+    [ "normalize_vector_in_place", "classcVectorOperations.html#aba48631df8bd8d64c10ca4353088cb5f", null ],
+    [ "subtract_scaled_vector", "classcVectorOperations.html#ac915f8854ebde9704a38f72836f98122", null ]
 ];

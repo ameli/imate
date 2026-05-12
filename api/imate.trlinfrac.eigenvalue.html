@@ -10,10 +10,10 @@
 <meta property="og:title" content="imate.trlinfrac(method=’eigenvalue’)" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ameli.github.io/api/imate.trlinfrac.eigenvalue.html" />
-<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:site_name" content="IMATE" />
 <meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
-<meta property="og:image:alt" content="RestoreIO" />
-<meta property="og:title" content="RestoreIO">
+<meta property="og:image:alt" content="IMATE" />
+<meta property="og:title" content="IMATE">
 <meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
     <title>imate.trlinfrac(method=’eigenvalue’) &#8212; imate Manual</title>
@@ -39,7 +39,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -65,6 +65,9 @@
     <link rel="next" title="imate.trlinfrac(method=’slq’)" href="imate.trlinfrac.slq.html" />
     <link rel="prev" title="imate.trlinfrac" href="../generated/imate.trlinfrac.html" />
 
+    <!-- Robots -->
+	<meta name="robots" content="index,follow">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
     <script>
@@ -74,8 +77,6 @@
 
         gtag('config', 'G-4JHJ15SKEY');
     </script>
-
-    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
 
     <!-- My custom JS -->
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
@@ -593,6 +594,11 @@
    imate.device.restrict_to_single_processor
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.get_config.html">
+   imate.get_config
+  </a>
+ </li>
 </ul>
 
     
@@ -801,7 +807,7 @@ all eigenvalues of sparse matrices can be computed.</p>
 <p>Compute the trace-exponential of a sample sparse Toeplitz matrix created
 by <a class="reference internal" href="../generated/imate.toeplitz.html#imate.toeplitz" title="imate.toeplitz"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.toeplitz()</span></code></a> function:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import packages</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">trlinfrac</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">trlinfrac</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample symmetric matrix (a toeplitz matrix)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -818,7 +824,7 @@ by <a class="reference internal" href="../generated/imate.toeplitz.html#imate.to
 <p>Alternatively, compute the eigenvalues of <cite>A</cite> in advance, and pass it to
 this function:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute eigenvalues of symmetric matrix A.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">eigh</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.linalg</span><span class="w"> </span><span class="kn">import</span> <span class="n">eigh</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">eigenvalues</span> <span class="o">=</span> <span class="n">eigh</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">eigvals_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Pass the eigenvalues to trace-exponential function</span>
@@ -836,7 +842,7 @@ may change, such as <cite>p</cite>.</p>
 <span class="go">138.6294361119891</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Print dictionary neatly using pprint</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
 <span class="go">{</span>
 <span class="go">    &#39;matrix&#39;: {</span>

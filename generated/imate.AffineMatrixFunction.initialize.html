@@ -10,10 +10,10 @@
 <meta property="og:title" content="imate.AffineMatrixFunction.initialize" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ameli.github.io/generated/imate.AffineMatrixFunction.initialize.html" />
-<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:site_name" content="IMATE" />
 <meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
-<meta property="og:image:alt" content="RestoreIO" />
-<meta property="og:title" content="RestoreIO">
+<meta property="og:image:alt" content="IMATE" />
+<meta property="og:title" content="IMATE">
 <meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
     <title>imate.AffineMatrixFunction.initialize &#8212; imate Manual</title>
@@ -39,7 +39,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -63,6 +63,9 @@
     <link rel="next" title="imate.AffineMatrixFunction.get_num_rows" href="imate.AffineMatrixFunction.get_num_rows.html" />
     <link rel="prev" title="imate.AffineMatrixFunction" href="imate.AffineMatrixFunction.html" />
 
+    <!-- Robots -->
+	<meta name="robots" content="index,follow">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
     <script>
@@ -72,8 +75,6 @@
 
         gtag('config', 'G-4JHJ15SKEY');
     </script>
-
-    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
 
     <!-- My custom JS -->
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
@@ -643,6 +644,11 @@
    imate.device.restrict_to_single_processor
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.get_config.html">
+   imate.get_config
+  </a>
+ </li>
 </ul>
 
     
@@ -707,14 +713,14 @@
 <h1>imate.AffineMatrixFunction.initialize<a class="headerlink" href="#imate-affinematrixfunction-initialize" title="Permalink to this heading">#</a></h1>
 <dl class="py method">
 <dt class="sig sig-object py" id="imate.AffineMatrixFunction.initialize">
-<span class="sig-prename descclassname"><span class="pre">AffineMatrixFunction.</span></span><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gpu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gpu_devices</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.AffineMatrixFunction.initialize" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">AffineMatrixFunction.</span></span><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_gpu_devices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.AffineMatrixFunction.initialize" title="Permalink to this definition">#</a></dt>
 <dd><p>Initializes the object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
-<dt><strong>gpu</strong><span class="classifier">bool</span></dt><dd><p>If <cite>True</cite>, the matrix array is initialized on GPU device.</p>
+<dt><strong>gpu</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, the matrix array is initialized on GPU device.</p>
 </dd>
-<dt><strong>num_gpu_devices</strong><span class="classifier">int</span></dt><dd><p>Number of GPU devices to use.</p>
+<dt><strong>num_gpu_devices</strong><span class="classifier">int, default=0</span></dt><dd><p>Number of GPU devices to use.</p>
 </dd>
 </dl>
 </dd>

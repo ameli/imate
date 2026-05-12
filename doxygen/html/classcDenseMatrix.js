@@ -1,7 +1,7 @@
 var classcDenseMatrix =
 [
     [ "cDenseMatrix", "classcDenseMatrix.html#ae13485f0d227101e25614109e27918cf", null ],
-    [ "cDenseMatrix", "classcDenseMatrix.html#a99c07f0387923a448e03de65a6c78f98", null ],
+    [ "cDenseMatrix", "classcDenseMatrix.html#a1f50ee6b2fbd46edaba838f9f766e1d5", null ],
     [ "~cDenseMatrix", "classcDenseMatrix.html#a255cfaafcb124cc20f74caa038be44df", null ],
     [ "dot", "classcDenseMatrix.html#af74821f413996e44b0a7ecf767054bda", null ],
     [ "dot_plus", "classcDenseMatrix.html#a9ea1621bef79d3410e3617798ec0fd59", null ],

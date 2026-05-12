@@ -1,7 +1,7 @@
 var classcCSRMatrix =
 [
     [ "cCSRMatrix", "classcCSRMatrix.html#ae54d494415328bb4d5e37e9a6bd0b489", null ],
-    [ "cCSRMatrix", "classcCSRMatrix.html#ace6216c1ef8eb0b95db68e2692e152d9", null ],
+    [ "cCSRMatrix", "classcCSRMatrix.html#a0af8e4cba05c8053cc46da798d65d46f", null ],
     [ "~cCSRMatrix", "classcCSRMatrix.html#aa0d385830c4d70fcccd734183f91a13f", null ],
     [ "dot", "classcCSRMatrix.html#a5074b2a9d415dd6e867713341a00f9be", null ],
     [ "dot_plus", "classcCSRMatrix.html#aeea882fee0e29e012c140ae2f99efffb", null ],

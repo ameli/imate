@@ -1,6 +1,6 @@
 var cudart__types_8h =
 [
-    [ "__cudaRegisterFatBinary_type", "cudart__types_8h.html#a8ba77889f2397fe1b41a5828d433283d", null ],
+    [ "__cudaRegisterFatBinary_type", "cudart__types_8h.html#a353129c68721d82802da0eb651988bf8", null ],
     [ "__cudaRegisterFatBinaryEnd_type", "cudart__types_8h.html#a1e4ee21179992633deaa0ea9f9da6e9b", null ],
     [ "__cudaUnregisterFatBinary_type", "cudart__types_8h.html#aa137d2c7b09b0ffd11404fde378a9fda", null ],
     [ "cudaEventCreate_type", "cudart__types_8h.html#ae67b19a0c3dd4de67545a965fdaf6fbd", null ],

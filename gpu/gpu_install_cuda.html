@@ -10,12 +10,12 @@
 <meta property="og:title" content="1. Install NVIDIA CUDA Toolkit" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ameli.github.io/gpu/gpu_install_cuda.html" />
-<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:site_name" content="IMATE" />
 <meta property="og:description" content="The following instruction describes installing CUDA for Ubuntu, CentOS, and Red Hat (RHEL). You may refer to CUDA installation guide from NVIDIA developer documentation for other operating systems and platforms. Install CUDA Runtime Libraries: To download and install the CUDA Toolkit on both Linu..." />
 <meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
-<meta property="og:image:alt" content="RestoreIO" />
+<meta property="og:image:alt" content="IMATE" />
 <meta name="description" content="The following instruction describes installing CUDA for Ubuntu, CentOS, and Red Hat (RHEL). You may refer to CUDA installation guide from NVIDIA developer documentation for other operating systems and platforms. Install CUDA Runtime Libraries: To download and install the CUDA Toolkit on both Linu..." />
-<meta property="og:title" content="RestoreIO">
+<meta property="og:title" content="IMATE">
 <meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
     <title>1. Install NVIDIA CUDA Toolkit &#8212; imate Manual</title>
@@ -41,7 +41,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -65,6 +65,9 @@
     <link rel="next" title="2. Compile imate from Source with CUDA" href="gpu_compile_source.html" />
     <link rel="prev" title="Using GPU Devices" href="gpu.html" />
 
+    <!-- Robots -->
+	<meta name="robots" content="index,follow">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
     <script>
@@ -74,8 +77,6 @@
 
         gtag('config', 'G-4JHJ15SKEY');
     </script>
-
-    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
 
     <!-- My custom JS -->
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
@@ -361,7 +362,7 @@
 <p>Before installing CUDA libraries, add CUDA repository to your package manager:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-0">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="ubuntu" for="sd-tab-item-0">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
 span.prompt1:before {
@@ -382,7 +383,7 @@ span.prompt1:before {
 <span class="prompt1">rm<span class="w"> </span>/tmp/cuda-keyring_1.1-1_all.deb</span>
 </pre></div></div></div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-1">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="centos" for="sd-tab-item-1">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="c1"># Machine architecture</span></span>
 <span class="prompt1"><span class="nv">ARCH</span><span class="o">=</span><span class="k">$(</span>uname<span class="w"> </span>-m<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;x86_64&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;x86_64&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;sbsa&#39;</span><span class="k">)</span></span>
@@ -395,7 +396,7 @@ CentOS 7</label><div class="sd-tab-content docutils">
 <span class="prompt1">sudo<span class="w"> </span>yum-config-manager<span class="w"> </span>--add-repo<span class="w"> </span>https://developer.download.nvidia.com/compute/cuda/repos/rhel<span class="si">${</span><span class="nv">OS_VERSION</span><span class="si">}</span>/<span class="si">${</span><span class="nv">ARCH</span><span class="si">}</span>/cuda-rhel<span class="si">${</span><span class="nv">OS_VERSION</span><span class="si">}</span>.repo</span>
 </pre></div></div></div>
 <input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-2">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="rhel" for="sd-tab-item-2">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="c1"># Machine architecture</span></span>
 <span class="prompt1"><span class="nv">ARCH</span><span class="o">=</span><span class="k">$(</span>uname<span class="w"> </span>-m<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span>-e<span class="w"> </span><span class="s1">&#39;x86_64&#39;</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;x86_64&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;sbsa&#39;</span><span class="k">)</span></span>
@@ -414,7 +415,7 @@ RHEL 9</label><div class="sd-tab-content docutils">
 <p>In the following, you may change <code class="docutils literal notranslate"><span class="pre">CUDA_VERSION</span></code> to the CUDA version that you wish to install.</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-3">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="ubuntu" for="sd-tab-item-3">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="c1"># Set to the desired cuda version</span></span>
 <span class="prompt1"><span class="nv">CUDA_VERSION</span><span class="o">=</span><span class="s2">&quot;12-3&quot;</span></span>
@@ -427,7 +428,7 @@ Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <span class="w">    </span>libcusparse-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span></span>
 </pre></div></div></div>
 <input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-4">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="centos" for="sd-tab-item-4">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="c1"># Choose a desired cuda version</span></span>
 <span class="prompt1"><span class="nv">CUDA_VERSION</span><span class="o">=</span><span class="s2">&quot;12-3&quot;</span></span>
@@ -439,7 +440,7 @@ CentOS 7</label><div class="sd-tab-content docutils">
 <span class="w">    </span>libcusparse-<span class="si">${</span><span class="nv">CUDA_VERSION</span><span class="si">}</span></span>
 </pre></div></div></div>
 <input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-5">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="rhel" for="sd-tab-item-5">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="c1"># Choose a desired cuda version</span></span>
 <span class="prompt1"><span class="nv">CUDA_VERSION</span><span class="o">=</span><span class="s2">&quot;12-3&quot;</span></span>
@@ -461,18 +462,18 @@ RHEL 9</label><div class="sd-tab-content docutils">
 <p>First, make sure you have <a class="reference internal" href="#add-cuda-runtime-repos"><span class="std std-ref">added CUDA repository</span></a>. Then, install <em>NVIDIA graphic driver</em> with</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-6" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-6">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="ubuntu" for="sd-tab-item-6">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive</span>
 <span class="prompt1">sudo<span class="w"> </span>-E<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>cuda-drivers<span class="w"> </span>-y</span>
 </pre></div></div></div>
 <input id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-7">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="centos" for="sd-tab-item-7">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>nvidia-driver-latest-dkms</span>
 </pre></div></div></div>
 <input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-8">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="rhel" for="sd-tab-item-8">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>-y<span class="w"> </span>module<span class="w"> </span>install<span class="w"> </span>nvidia-driver:latest-dkms</span>
 </pre></div></div></div>
@@ -485,17 +486,17 @@ RHEL 9</label><div class="sd-tab-content docutils">
 <p>In addition to CUDA Toolkit, make sure the <cite>OpenMP</cite> library is also installed using</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-9" name="sd-tab-set-3" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-9">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="ubuntu" for="sd-tab-item-9">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libgomp1<span class="w"> </span>-y</span>
 </pre></div></div></div>
 <input id="sd-tab-item-10" name="sd-tab-set-3" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-10">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="centos" for="sd-tab-item-10">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>libgomp<span class="w"> </span>-y</span>
 </pre></div></div></div>
 <input id="sd-tab-item-11" name="sd-tab-set-3" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-11">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="rhel" for="sd-tab-item-11">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>libgomp<span class="w"> </span>-y</span>
 </pre></div></div></div>

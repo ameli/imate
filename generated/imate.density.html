@@ -10,10 +10,10 @@
 <meta property="og:title" content="imate.density" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ameli.github.io/generated/imate.density.html" />
-<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:site_name" content="IMATE" />
 <meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
-<meta property="og:image:alt" content="RestoreIO" />
-<meta property="og:title" content="RestoreIO">
+<meta property="og:image:alt" content="IMATE" />
+<meta property="og:title" content="IMATE">
 <meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
     <title>imate.density &#8212; imate Manual</title>
@@ -39,7 +39,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -65,6 +65,9 @@
     <link rel="next" title="imate.density(method=’eigenvalue’)" href="../api/imate.density.eigenvalue.html" />
     <link rel="prev" title="imate.eigencount(method=’slq’)" href="../api/imate.eigencount.slq.html" />
 
+    <!-- Robots -->
+	<meta name="robots" content="index,follow">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
     <script>
@@ -74,8 +77,6 @@
 
         gtag('config', 'G-4JHJ15SKEY');
     </script>
-
-    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
 
     <!-- My custom JS -->
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
@@ -593,6 +594,11 @@
    imate.device.restrict_to_single_processor
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.get_config.html">
+   imate.get_config
+  </a>
+ </li>
 </ul>
 
     
@@ -657,7 +663,7 @@
 <h1>imate.density<a class="headerlink" href="#imate-density" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="imate.density">
-<span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gram</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'eigenvalue'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.density" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gram</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'normal'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sensitivity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_quant</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_bw</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">integrator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'simpson'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cumulative</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'eigenvalue'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.density" title="Permalink to this definition">#</a></dt>
 <dd><p>Estimate the spectral density of matrix or linear operator.</p>
 <p>Given the matrix or the linear operator <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and the real
 exponent <span class="math notranslate nohighlight">\(p\)</span>, the following is computed:</p>
@@ -730,9 +736,9 @@ for each <cite>method</cite> for details.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl class="simple">
-<dt><strong>density</strong><span class="classifier">float or numpy.array</span></dt><dd><p>Trace-exponential of matrix. If <code class="docutils literal notranslate"><span class="pre">method=slq</span></code> and if <cite>A</cite> is of type
-<a class="reference internal" href="imate.AffineMatrixFunction.html#imate.AffineMatrixFunction" title="imate.AffineMatrixFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.AffineMatrixFunction</span></code></a> with an array of <code class="docutils literal notranslate"><span class="pre">parameters</span></code>,
-then the output is an array.</p>
+<dt><strong>density</strong><span class="classifier">float or numpy.array</span></dt><dd><p>Spectral density</p>
+</dd>
+<dt><strong>mu</strong><span class="classifier">float or numpy.array</span></dt><dd><p>Eigenvalues where the spectral density is evaluated for them</p>
 </dd>
 <dt><strong>info</strong><span class="classifier">dict</span></dt><dd><p>(Only if <code class="docutils literal notranslate"><span class="pre">return_info</span></code> is <cite>True</cite>) A dictionary of information with at
 least the following keys. Further keys specific to each method can be
@@ -859,7 +865,7 @@ the rest of <span class="math notranslate nohighlight">\(q=2, \dots, q\)</span> 
 <p>Compute the trace-exponential of a sample sparse Toeplitz matrix created by
 <a class="reference internal" href="imate.toeplitz.html#imate.toeplitz" title="imate.toeplitz"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.toeplitz()</span></code></a> function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import packages</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">density</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">density</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample matrix (a toeplitz matrix)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
@@ -883,7 +889,7 @@ the rest of <span class="math notranslate nohighlight">\(q=2, \dots, q\)</span> 
 <span class="go">138.6294361119891</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Print dictionary neatly using pprint</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
 <span class="go">{</span>
 <span class="go">    &#39;matrix&#39;: {</span>
@@ -944,7 +950,7 @@ at least <cite>100</cite> samples.</p>
 this can be only applied to <code class="docutils literal notranslate"><span class="pre">method=slq</span></code>. See further details in
 <a class="reference internal" href="../api/imate.density.slq.html#imate-density-slq"><span class="std std-ref">slq method</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import matrix operator</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">Matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">Matrix</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample matrix (a toeplitz matrix)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -965,7 +971,7 @@ this can be only applied to <code class="docutils literal notranslate"><span cla
 <p>Note that this can be only applied to <code class="docutils literal notranslate"><span class="pre">method=slq</span></code>. See further details
 in <a class="reference internal" href="../api/imate.density.slq.html#imate-density-slq"><span class="std std-ref">slq method</span></a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import affine matrix function</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">AffineMatrixFunction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">AffineMatrixFunction</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample matrix (a toeplitz matrix)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

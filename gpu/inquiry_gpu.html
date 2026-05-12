@@ -10,12 +10,12 @@
 <meta property="og:title" content="1. Inquiry GPU and CUDA with imate" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ameli.github.io/gpu/inquiry_gpu.html" />
-<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:site_name" content="IMATE" />
 <meta property="og:description" content="Inquiry GPU and CUDA with imate: First, make sure imate recognizes the CUDA libraries and GPU device. There are a number of functions available in imate.device module to inquiry GPU device. Locate CUDA Toolkit: Use imate.device.locate_cuda() function to find the location of CUDA home directory. I..." />
 <meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
-<meta property="og:image:alt" content="RestoreIO" />
+<meta property="og:image:alt" content="IMATE" />
 <meta name="description" content="Inquiry GPU and CUDA with imate: First, make sure imate recognizes the CUDA libraries and GPU device. There are a number of functions available in imate.device module to inquiry GPU device. Locate CUDA Toolkit: Use imate.device.locate_cuda() function to find the location of CUDA home directory. I..." />
-<meta property="og:title" content="RestoreIO">
+<meta property="og:title" content="IMATE">
 <meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
     <title>1. Inquiry GPU and CUDA with imate &#8212; imate Manual</title>
@@ -41,7 +41,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -65,6 +65,9 @@
     <link rel="next" title="2. Run imate Functions on GPU" href="run_functions_gpu.html" />
     <link rel="prev" title="3. Use imate Docker Container on GPU" href="gpu_docker.html" />
 
+    <!-- Robots -->
+	<meta name="robots" content="index,follow">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
     <script>
@@ -74,8 +77,6 @@
 
         gtag('config', 'G-4JHJ15SKEY');
     </script>
-
-    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
 
     <!-- My custom JS -->
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
@@ -339,7 +340,7 @@
 <section id="locate-cuda-toolkit">
 <h2><span class="section-number">1.1. </span>Locate CUDA Toolkit<a class="headerlink" href="#locate-cuda-toolkit" title="Permalink to this heading">#</a></h2>
 <p>Use <a class="reference internal" href="../generated/imate.device.locate_cuda.html#imate.device.locate_cuda" title="imate.device.locate_cuda"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.device.locate_cuda()</span></code></a> function to find the location of CUDA home directory.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">imate</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">imate</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get the location and version of CUDA Toolkit</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">imate</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">locate_cuda</span><span class="p">()</span>

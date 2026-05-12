@@ -1,0 +1,675 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>imate: cLinearOperatorBase Class Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js", "TeX/AMSfonts.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom-alternative.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/ameli/imate" class="github-corner" title="View source on GitHub" target="_blank">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo-imate-light.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">imate
+   </div>
+   <div id="projectbrief">C++/CUDA Reference</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('classcLinearOperatorBase.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="classcLinearOperatorBase-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">cLinearOperatorBase Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Base class for <code><a class="el" href="classcLinearOperator.html" title="Base class for linear operators. This class serves as interface for all derived classes.">cLinearOperator</a></code> and <code><a class="el" href="classcuLinearOperator.html" title="Base class for linear operators. This class serves as interface for all derived classes.">cuLinearOperator</a></code> . This class is not templated so that both cpp and cu classed can be derived from it without conflict of data types.  
+ <a href="classcLinearOperatorBase.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="c__linear__operator__base_8h_source.html">c_linear_operator_base.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for cLinearOperatorBase:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcLinearOperatorBase__inherit__graph.png" border="0" usemap="#acLinearOperatorBase_inherit__map" alt="Inheritance graph"/></div>
+<map name="acLinearOperatorBase_inherit__map" id="acLinearOperatorBase_inherit__map">
+<area shape="rect" title="Base class for cLinearOperator and cuLinearOperator . This class is not templated so that both cpp an..." alt="" coords="5,333,164,358"/>
+<area shape="rect" href="classcLinearOperator.html" title="Base class for linear operators. This class serves as interface for all derived classes." alt="" coords="216,247,433,273"/>
+<area shape="poly" title=" " alt="" coords="133,325,287,270,289,275,135,330"/>
+<area shape="rect" href="classcuLinearOperator.html" title="Base class for linear operators. This class serves as interface for all derived classes." alt="" coords="212,418,437,443"/>
+<area shape="poly" title=" " alt="" coords="135,360,289,415,287,420,133,365"/>
+<area shape="rect" href="classcAffineMatrixFunction.html" title="Base class for affine matrix functions of one parameter." alt="" coords="489,101,653,141"/>
+<area shape="poly" title=" " alt="" coords="359,238,533,139,536,144,362,243"/>
+<area shape="rect" href="classcMatrix.html" title="Base class for constant matrices." alt="" coords="490,247,653,273"/>
+<area shape="poly" title=" " alt="" coords="447,257,490,257,490,263,447,263"/>
+<area shape="rect" href="classcCSCAffineMatrixFunction.html" title="Container for CSC affine matrix functions of one parameter." alt="" coords="717,5,907,45"/>
+<area shape="poly" title=" " alt="" coords="621,93,704,55,738,43,740,48,706,60,623,98"/>
+<area shape="rect" href="classcCSRAffineMatrixFunction.html" title="Container for CSR affine matrix functions of one parameter." alt="" coords="717,69,907,109"/>
+<area shape="poly" title=" " alt="" coords="667,106,716,99,717,105,668,111"/>
+<area shape="rect" href="classcDenseAffineMatrixFunction.html" title="Container for dense affine matrix functions of one parameter." alt="" coords="709,133,915,173"/>
+<area shape="poly" title=" " alt="" coords="668,131,710,137,709,142,667,137"/>
+<area shape="rect" href="classcCSCMatrix.html" title="Container for CSC matrices." alt="" coords="718,198,906,223"/>
+<area shape="poly" title=" " alt="" coords="647,242,749,221,750,226,648,247"/>
+<area shape="rect" href="classcCSRMatrix.html" title="Container for CSR matrices." alt="" coords="718,247,906,273"/>
+<area shape="poly" title=" " alt="" coords="667,257,718,257,718,263,667,263"/>
+<area shape="rect" href="classcDenseMatrix.html" title="Container for dense matrices." alt="" coords="711,297,913,322"/>
+<area shape="poly" title=" " alt="" coords="648,273,750,294,749,299,647,278"/>
+<area shape="rect" href="classcuAffineMatrixFunction.html" title="Base class for affine matrix functions of one parameter." alt="" coords="485,411,657,451"/>
+<area shape="poly" title=" " alt="" coords="451,428,485,428,485,433,451,433"/>
+<area shape="rect" href="classcuMatrix.html" title="Base class for constant matrices." alt="" coords="486,563,657,589"/>
+<area shape="poly" title=" " alt="" coords="361,448,550,561,547,565,358,453"/>
+<area shape="rect" href="classcuCSCAffineMatrixFunction.html" title="Container for CSC affine matrix functions of one parameter." alt="" coords="713,347,911,387"/>
+<area shape="poly" title=" " alt="" coords="660,404,736,384,737,389,661,410"/>
+<area shape="rect" href="classcuCSRAffineMatrixFunction.html" title="Container for CSR affine matrix functions of one parameter." alt="" coords="713,411,911,451"/>
+<area shape="poly" title=" " alt="" coords="671,428,712,428,712,433,671,433"/>
+<area shape="rect" href="classcuDenseAffineMatrixFunction.html" title="Container for dense affine matrix functions of one parameter." alt="" coords="705,475,919,515"/>
+<area shape="poly" title=" " alt="" coords="661,452,737,472,736,477,660,457"/>
+<area shape="rect" href="classcuCSCMatrix.html" title="Container for CSC matrices." alt="" coords="714,539,910,565"/>
+<area shape="poly" title=" " alt="" coords="670,563,714,559,714,564,671,569"/>
+<area shape="rect" href="classcuCSRMatrix.html" title="Container for CSR matrices." alt="" coords="714,589,910,614"/>
+<area shape="poly" title=" " alt="" coords="671,584,714,588,714,594,670,589"/>
+<area shape="rect" href="classcuDenseMatrix.html" title="Container for dense matrices." alt="" coords="707,638,917,663"/>
+<area shape="poly" title=" " alt="" coords="616,591,706,624,749,635,747,640,705,629,614,596"/>
+</map>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a1d6d28e51b40af06ea01ee053b2cff1f" id="r_a1d6d28e51b40af06ea01ee053b2cff1f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperatorBase.html#a1d6d28e51b40af06ea01ee053b2cff1f">cLinearOperatorBase</a> ()</td></tr>
+<tr class="memdesc:a1d6d28e51b40af06ea01ee053b2cff1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <br /></td></tr>
+<tr class="separator:a1d6d28e51b40af06ea01ee053b2cff1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24582a55c7fe317222c51c29ed312afd" id="r_a24582a55c7fe317222c51c29ed312afd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperatorBase.html#a24582a55c7fe317222c51c29ed312afd">cLinearOperatorBase</a> (const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> num_rows_, const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> num_columns_)</td></tr>
+<tr class="memdesc:a24582a55c7fe317222c51c29ed312afd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with setting <code>num_rows</code> and <code>num_columns</code>.  <br /></td></tr>
+<tr class="separator:a24582a55c7fe317222c51c29ed312afd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a008e918ea53b55eb31d29e20db2989fb" id="r_a008e918ea53b55eb31d29e20db2989fb"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperatorBase.html#a008e918ea53b55eb31d29e20db2989fb">~cLinearOperatorBase</a> ()</td></tr>
+<tr class="memdesc:a008e918ea53b55eb31d29e20db2989fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <br /></td></tr>
+<tr class="separator:a008e918ea53b55eb31d29e20db2989fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53420b228a31aea78b34804a5d6ad762" id="r_a53420b228a31aea78b34804a5d6ad762"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperatorBase.html#a53420b228a31aea78b34804a5d6ad762">get_num_rows</a> () const</td></tr>
+<tr class="memdesc:a53420b228a31aea78b34804a5d6ad762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of rows of the matrix.  <br /></td></tr>
+<tr class="separator:a53420b228a31aea78b34804a5d6ad762"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d66c122b1c4c25965dde9d3cf4ac767" id="r_a7d66c122b1c4c25965dde9d3cf4ac767"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperatorBase.html#a7d66c122b1c4c25965dde9d3cf4ac767">get_num_columns</a> () const</td></tr>
+<tr class="memdesc:a7d66c122b1c4c25965dde9d3cf4ac767"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of columns of the matrix.  <br /></td></tr>
+<tr class="separator:a7d66c122b1c4c25965dde9d3cf4ac767"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2173b8b70737e81788a4b98030a62b8c" id="r_a2173b8b70737e81788a4b98030a62b8c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#ab1b7173c76e5040d0161e695a129dafe">IndexType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperatorBase.html#a2173b8b70737e81788a4b98030a62b8c">get_num_parameters</a> () const</td></tr>
+<tr class="memdesc:a2173b8b70737e81788a4b98030a62b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of parameters of the linear operator.  <br /></td></tr>
+<tr class="separator:a2173b8b70737e81788a4b98030a62b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca240dbdc52237e50f2026bc60e96214" id="r_aca240dbdc52237e50f2026bc60e96214"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a67de833a333e9264ce27ee3d6e4b2732">FlagType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperatorBase.html#aca240dbdc52237e50f2026bc60e96214">is_eigenvalue_relation_known</a> () const</td></tr>
+<tr class="memdesc:aca240dbdc52237e50f2026bc60e96214"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a flag that determines whether a relation between the parameters of the operator and its eigenvalue(s) is known.  <br /></td></tr>
+<tr class="separator:aca240dbdc52237e50f2026bc60e96214"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c2f912aa48d519a54c3ed272a418a66" id="r_a3c2f912aa48d519a54c3ed272a418a66"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperatorBase.html#a3c2f912aa48d519a54c3ed272a418a66">set_symmetry</a> (<a class="el" href="types_8h.html#a67de833a333e9264ce27ee3d6e4b2732">FlagType</a> symmetric)=0</td></tr>
+<tr class="separator:a3c2f912aa48d519a54c3ed272a418a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a8e23cc50e3cf3b9df1545e0d36174d20" id="r_a8e23cc50e3cf3b9df1545e0d36174d20"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperatorBase.html#a8e23cc50e3cf3b9df1545e0d36174d20">num_rows</a></td></tr>
+<tr class="separator:a8e23cc50e3cf3b9df1545e0d36174d20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad30d9b9b1c8ee0eeb3263c838c32a37f" id="r_ad30d9b9b1c8ee0eeb3263c838c32a37f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperatorBase.html#ad30d9b9b1c8ee0eeb3263c838c32a37f">num_columns</a></td></tr>
+<tr class="separator:ad30d9b9b1c8ee0eeb3263c838c32a37f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1775597fad04e341adfb31268dd3e417" id="r_a1775597fad04e341adfb31268dd3e417"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a67de833a333e9264ce27ee3d6e4b2732">FlagType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperatorBase.html#a1775597fad04e341adfb31268dd3e417">eigenvalue_relation_known</a></td></tr>
+<tr class="separator:a1775597fad04e341adfb31268dd3e417"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addfd8abe72822bf71f89e288dfad8c12" id="r_addfd8abe72822bf71f89e288dfad8c12"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#ab1b7173c76e5040d0161e695a129dafe">IndexType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinearOperatorBase.html#addfd8abe72822bf71f89e288dfad8c12">num_parameters</a></td></tr>
+<tr class="separator:addfd8abe72822bf71f89e288dfad8c12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base class for <code><a class="el" href="classcLinearOperator.html" title="Base class for linear operators. This class serves as interface for all derived classes.">cLinearOperator</a></code> and <code><a class="el" href="classcuLinearOperator.html" title="Base class for linear operators. This class serves as interface for all derived classes.">cuLinearOperator</a></code> . This class is not templated so that both cpp and cu classed can be derived from it without conflict of data types. </p>
+<p>The prefix <code>c</code> in this class's name (and its derivatves), stands for the <code>cpp</code> code, intrast to the <code>cu</code> prefix, which stands for the cuda code. Most derived classes have a cuda counterpart.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classcLinearOperator.html" title="Base class for linear operators. This class serves as interface for all derived classes.">cLinearOperator</a>, <a class="el" href="classcuLinearOperator.html" title="Base class for linear operators. This class serves as interface for all derived classes.">cuLinearOperator</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="c__linear__operator__base_8h_source.html#l00039">39</a> of file <a class="el" href="c__linear__operator__base_8h_source.html">c_linear_operator_base.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a1d6d28e51b40af06ea01ee053b2cff1f" name="a1d6d28e51b40af06ea01ee053b2cff1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d6d28e51b40af06ea01ee053b2cff1f">&#9670;&#160;</a></span>cLinearOperatorBase() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">cLinearOperatorBase::cLinearOperatorBase </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Default constructor. </p>
+
+<p class="definition">Definition at line <a class="el" href="c__linear__operator__base_8cpp_source.html#l00027">27</a> of file <a class="el" href="c__linear__operator__base_8cpp_source.html">c_linear_operator_base.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   27</span>                                        :</div>
+<div class="line"><span class="lineno">   28</span>    <a class="code hl_variable" href="classcLinearOperatorBase.html#a8e23cc50e3cf3b9df1545e0d36174d20">num_rows</a>(0),</div>
+<div class="line"><span class="lineno">   29</span>    <a class="code hl_variable" href="classcLinearOperatorBase.html#ad30d9b9b1c8ee0eeb3263c838c32a37f">num_columns</a>(0),</div>
+<div class="line"><span class="lineno">   30</span>    <a class="code hl_variable" href="classcLinearOperatorBase.html#a1775597fad04e341adfb31268dd3e417">eigenvalue_relation_known</a>(0),</div>
+<div class="line"><span class="lineno">   31</span>    <a class="code hl_variable" href="classcLinearOperatorBase.html#addfd8abe72822bf71f89e288dfad8c12">num_parameters</a>(0)</div>
+<div class="line"><span class="lineno">   32</span>{</div>
+<div class="line"><span class="lineno">   33</span>}</div>
+<div class="ttc" id="aclasscLinearOperatorBase_html_a1775597fad04e341adfb31268dd3e417"><div class="ttname"><a href="classcLinearOperatorBase.html#a1775597fad04e341adfb31268dd3e417">cLinearOperatorBase::eigenvalue_relation_known</a></div><div class="ttdeci">FlagType eigenvalue_relation_known</div><div class="ttdef"><b>Definition</b> <a href="c__linear__operator__base_8h_source.html#l00064">c_linear_operator_base.h:64</a></div></div>
+<div class="ttc" id="aclasscLinearOperatorBase_html_a8e23cc50e3cf3b9df1545e0d36174d20"><div class="ttname"><a href="classcLinearOperatorBase.html#a8e23cc50e3cf3b9df1545e0d36174d20">cLinearOperatorBase::num_rows</a></div><div class="ttdeci">const LongIndexType num_rows</div><div class="ttdef"><b>Definition</b> <a href="c__linear__operator__base_8h_source.html#l00062">c_linear_operator_base.h:62</a></div></div>
+<div class="ttc" id="aclasscLinearOperatorBase_html_ad30d9b9b1c8ee0eeb3263c838c32a37f"><div class="ttname"><a href="classcLinearOperatorBase.html#ad30d9b9b1c8ee0eeb3263c838c32a37f">cLinearOperatorBase::num_columns</a></div><div class="ttdeci">const LongIndexType num_columns</div><div class="ttdef"><b>Definition</b> <a href="c__linear__operator__base_8h_source.html#l00063">c_linear_operator_base.h:63</a></div></div>
+<div class="ttc" id="aclasscLinearOperatorBase_html_addfd8abe72822bf71f89e288dfad8c12"><div class="ttname"><a href="classcLinearOperatorBase.html#addfd8abe72822bf71f89e288dfad8c12">cLinearOperatorBase::num_parameters</a></div><div class="ttdeci">IndexType num_parameters</div><div class="ttdef"><b>Definition</b> <a href="c__linear__operator__base_8h_source.html#l00065">c_linear_operator_base.h:65</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a24582a55c7fe317222c51c29ed312afd" name="a24582a55c7fe317222c51c29ed312afd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24582a55c7fe317222c51c29ed312afd">&#9670;&#160;</a></span>cLinearOperatorBase() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">cLinearOperatorBase::cLinearOperatorBase </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>&#160;</td>
+          <td class="paramname"><em>num_rows_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a>&#160;</td>
+          <td class="paramname"><em>num_columns_</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor with setting <code>num_rows</code> and <code>num_columns</code>. </p>
+<dl class="section note"><dt>Note</dt><dd>For the classed that are virtually derived (virtual inheritance) from this class, this constructor will never be called. Rather, the default constructor is called by the most derived class. Thus, set the member data directly instead of below.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">num_rows_</td><td>Number of rows of <code>A</code> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">num_columns_</td><td>Number of columns of <code>A</code> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="c__linear__operator__base_8cpp_source.html#l00053">53</a> of file <a class="el" href="c__linear__operator__base_8cpp_source.html">c_linear_operator_base.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   55</span>                                         :</div>
+<div class="line"><span class="lineno">   56</span> </div>
+<div class="line"><span class="lineno">   57</span>    <span class="comment">// Initializer list</span></div>
+<div class="line"><span class="lineno">   58</span>    <a class="code hl_variable" href="classcLinearOperatorBase.html#a8e23cc50e3cf3b9df1545e0d36174d20">num_rows</a>(num_rows_),</div>
+<div class="line"><span class="lineno">   59</span>    <a class="code hl_variable" href="classcLinearOperatorBase.html#ad30d9b9b1c8ee0eeb3263c838c32a37f">num_columns</a>(num_columns_),</div>
+<div class="line"><span class="lineno">   60</span>    <a class="code hl_variable" href="classcLinearOperatorBase.html#a1775597fad04e341adfb31268dd3e417">eigenvalue_relation_known</a>(0),</div>
+<div class="line"><span class="lineno">   61</span>    <a class="code hl_variable" href="classcLinearOperatorBase.html#addfd8abe72822bf71f89e288dfad8c12">num_parameters</a>(0)</div>
+<div class="line"><span class="lineno">   62</span>{</div>
+<div class="line"><span class="lineno">   63</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a008e918ea53b55eb31d29e20db2989fb" name="a008e918ea53b55eb31d29e20db2989fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a008e918ea53b55eb31d29e20db2989fb">&#9670;&#160;</a></span>~cLinearOperatorBase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">cLinearOperatorBase::~cLinearOperatorBase </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destructor. </p>
+
+<p class="definition">Definition at line <a class="el" href="c__linear__operator__base_8cpp_source.html#l00073">73</a> of file <a class="el" href="c__linear__operator__base_8cpp_source.html">c_linear_operator_base.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   74</span>{</div>
+<div class="line"><span class="lineno">   75</span>}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a7d66c122b1c4c25965dde9d3cf4ac767" name="a7d66c122b1c4c25965dde9d3cf4ac767"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d66c122b1c4c25965dde9d3cf4ac767">&#9670;&#160;</a></span>get_num_columns()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> cLinearOperatorBase::get_num_columns </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the number of columns of the matrix. </p>
+<dl class="section return"><dt>Returns</dt><dd>Number of matrix columns </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="c__linear__operator__base_8cpp_source.html#l00100">100</a> of file <a class="el" href="c__linear__operator__base_8cpp_source.html">c_linear_operator_base.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  101</span>{</div>
+<div class="line"><span class="lineno">  102</span>    <span class="keywordflow">return</span> this-&gt;<a class="code hl_variable" href="classcLinearOperatorBase.html#ad30d9b9b1c8ee0eeb3263c838c32a37f">num_columns</a>;</div>
+<div class="line"><span class="lineno">  103</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="c__linear__operator__base_8h_source.html#l00063">num_columns</a>.</p>
+
+</div>
+</div>
+<a id="a2173b8b70737e81788a4b98030a62b8c" name="a2173b8b70737e81788a4b98030a62b8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2173b8b70737e81788a4b98030a62b8c">&#9670;&#160;</a></span>get_num_parameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#ab1b7173c76e5040d0161e695a129dafe">IndexType</a> cLinearOperatorBase::get_num_parameters </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the number of parameters of the linear operator. </p>
+<p>For the subclass <code><a class="el" href="classcMatrix.html" title="Base class for constant matrices.">cMatrix</a></code>, this value is zero. For the subclass <code><a class="el" href="classcAffineMatrixFunction.html" title="Base class for affine matrix functions of one parameter.">cAffineMatrixFunction</a></code>, this value is a non-zero integer.</p>
+<dl class="section return"><dt>Returns</dt><dd>Number of nonzero elements </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="c__linear__operator__base_8cpp_source.html#l00117">117</a> of file <a class="el" href="c__linear__operator__base_8cpp_source.html">c_linear_operator_base.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  118</span>{</div>
+<div class="line"><span class="lineno">  119</span>    <span class="keywordflow">return</span> this-&gt;<a class="code hl_variable" href="classcLinearOperatorBase.html#addfd8abe72822bf71f89e288dfad8c12">num_parameters</a>;</div>
+<div class="line"><span class="lineno">  120</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="c__linear__operator__base_8h_source.html#l00065">num_parameters</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="c__trace__estimator_8cpp_source.html#l00428">cTraceEstimator&lt; DataType &gt;::_c_stochastic_lanczos_quadrature()</a>, and <a class="el" href="cu__trace__estimator_8cu_source.html#l00437">cuTraceEstimator&lt; DataType &gt;::_cu_stochastic_lanczos_quadrature()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcLinearOperatorBase_a2173b8b70737e81788a4b98030a62b8c_icgraph.png" border="0" usemap="#aclasscLinearOperatorBase_a2173b8b70737e81788a4b98030a62b8c_icgraph" alt=""/></div>
+<map name="aclasscLinearOperatorBase_a2173b8b70737e81788a4b98030a62b8c_icgraph" id="aclasscLinearOperatorBase_a2173b8b70737e81788a4b98030a62b8c_icgraph">
+<area shape="rect" title="Returns the number of parameters of the linear operator." alt="" coords="432,53,601,93"/>
+<area shape="rect" href="classcTraceEstimator.html#a02afa505a915c58380b99a62e4d56b30" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="222,5,373,60"/>
+<area shape="poly" title=" " alt="" coords="418,57,372,49,373,44,419,52"/>
+<area shape="rect" href="classcuTraceEstimator.html#ab4edc323dc7dcc98f401eeec9276e245" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="211,84,384,139"/>
+<area shape="poly" title=" " alt="" coords="419,93,384,99,384,93,418,87"/>
+<area shape="rect" href="classcTraceEstimator.html#a2a0ed3beb44685f88e9c640ced901a84" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="13,13,155,53"/>
+<area shape="poly" title=" " alt="" coords="208,35,155,35,155,30,208,30"/>
+<area shape="rect" href="classcuTraceEstimator.html#ad1a582750252acdd51bfad02879369df" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,91,163,131"/>
+<area shape="poly" title=" " alt="" coords="197,114,163,114,163,109,197,109"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a53420b228a31aea78b34804a5d6ad762" name="a53420b228a31aea78b34804a5d6ad762"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53420b228a31aea78b34804a5d6ad762">&#9670;&#160;</a></span>get_num_rows()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> cLinearOperatorBase::get_num_rows </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the number of rows of the matrix. </p>
+<dl class="section return"><dt>Returns</dt><dd>Number of matrix rows </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="c__linear__operator__base_8cpp_source.html#l00086">86</a> of file <a class="el" href="c__linear__operator__base_8cpp_source.html">c_linear_operator_base.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   87</span>{</div>
+<div class="line"><span class="lineno">   88</span>    <span class="keywordflow">return</span> this-&gt;<a class="code hl_variable" href="classcLinearOperatorBase.html#a8e23cc50e3cf3b9df1545e0d36174d20">num_rows</a>;</div>
+<div class="line"><span class="lineno">   89</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="c__linear__operator__base_8h_source.html#l00062">num_rows</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="c__trace__estimator_8cpp_source.html#l00428">cTraceEstimator&lt; DataType &gt;::_c_stochastic_lanczos_quadrature()</a>, <a class="el" href="cu__trace__estimator_8cu_source.html#l00437">cuTraceEstimator&lt; DataType &gt;::_cu_stochastic_lanczos_quadrature()</a>, <a class="el" href="c__trace__estimator_8cpp_source.html#l00195">cTraceEstimator&lt; DataType &gt;::c_trace_estimator()</a>, and <a class="el" href="cu__trace__estimator_8cu_source.html#l00205">cuTraceEstimator&lt; DataType &gt;::cu_trace_estimator()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcLinearOperatorBase_a53420b228a31aea78b34804a5d6ad762_icgraph.png" border="0" usemap="#aclasscLinearOperatorBase_a53420b228a31aea78b34804a5d6ad762_icgraph" alt=""/></div>
+<map name="aclasscLinearOperatorBase_a53420b228a31aea78b34804a5d6ad762_icgraph" id="aclasscLinearOperatorBase_a53420b228a31aea78b34804a5d6ad762_icgraph">
+<area shape="rect" title="Returns the number of rows of the matrix." alt="" coords="432,111,591,151"/>
+<area shape="rect" href="classcTraceEstimator.html#a02afa505a915c58380b99a62e4d56b30" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="222,5,373,60"/>
+<area shape="poly" title=" " alt="" coords="453,108,356,63,359,58,456,103"/>
+<area shape="rect" href="classcTraceEstimator.html#a2a0ed3beb44685f88e9c640ced901a84" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="13,46,155,86"/>
+<area shape="poly" title=" " alt="" coords="418,120,154,79,155,74,419,115"/>
+<area shape="rect" href="classcuTraceEstimator.html#ab4edc323dc7dcc98f401eeec9276e245" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="211,136,384,191"/>
+<area shape="poly" title=" " alt="" coords="419,148,385,153,384,148,418,143"/>
+<area shape="rect" href="classcuTraceEstimator.html#ad1a582750252acdd51bfad02879369df" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,175,163,215"/>
+<area shape="poly" title=" " alt="" coords="475,161,433,187,385,206,327,216,269,219,213,217,163,212,163,207,213,212,269,214,327,211,383,201,431,182,472,157"/>
+<area shape="poly" title=" " alt="" coords="209,49,155,58,154,52,208,44"/>
+<area shape="poly" title=" " alt="" coords="197,181,163,186,162,181,197,176"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aca240dbdc52237e50f2026bc60e96214" name="aca240dbdc52237e50f2026bc60e96214"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca240dbdc52237e50f2026bc60e96214">&#9670;&#160;</a></span>is_eigenvalue_relation_known()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a67de833a333e9264ce27ee3d6e4b2732">FlagType</a> cLinearOperatorBase::is_eigenvalue_relation_known </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a flag that determines whether a relation between the parameters of the operator and its eigenvalue(s) is known. </p>
+<dl class="section return"><dt>Returns</dt><dd>If the relation between parameters and eigenvalue of the operator is known, returns <code>1</code>, otherwise returns <code>0</code>. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="c__linear__operator__base_8cpp_source.html#l00133">133</a> of file <a class="el" href="c__linear__operator__base_8cpp_source.html">c_linear_operator_base.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  134</span>{</div>
+<div class="line"><span class="lineno">  135</span>    <span class="keywordflow">return</span> this-&gt;<a class="code hl_variable" href="classcLinearOperatorBase.html#a1775597fad04e341adfb31268dd3e417">eigenvalue_relation_known</a>;</div>
+<div class="line"><span class="lineno">  136</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="c__linear__operator__base_8h_source.html#l00064">eigenvalue_relation_known</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="c__trace__estimator_8cpp_source.html#l00428">cTraceEstimator&lt; DataType &gt;::_c_stochastic_lanczos_quadrature()</a>, and <a class="el" href="cu__trace__estimator_8cu_source.html#l00437">cuTraceEstimator&lt; DataType &gt;::_cu_stochastic_lanczos_quadrature()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcLinearOperatorBase_aca240dbdc52237e50f2026bc60e96214_icgraph.png" border="0" usemap="#aclasscLinearOperatorBase_aca240dbdc52237e50f2026bc60e96214_icgraph" alt=""/></div>
+<map name="aclasscLinearOperatorBase_aca240dbdc52237e50f2026bc60e96214_icgraph" id="aclasscLinearOperatorBase_aca240dbdc52237e50f2026bc60e96214_icgraph">
+<area shape="rect" title="Returns a flag that determines whether a relation between the parameters of the operator and its eige..." alt="" coords="432,53,659,93"/>
+<area shape="rect" href="classcTraceEstimator.html#a02afa505a915c58380b99a62e4d56b30" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="222,5,373,60"/>
+<area shape="poly" title=" " alt="" coords="418,55,373,47,373,42,419,50"/>
+<area shape="rect" href="classcuTraceEstimator.html#ab4edc323dc7dcc98f401eeec9276e245" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="211,84,384,139"/>
+<area shape="poly" title=" " alt="" coords="419,95,384,101,384,95,418,90"/>
+<area shape="rect" href="classcTraceEstimator.html#a2a0ed3beb44685f88e9c640ced901a84" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="13,13,155,53"/>
+<area shape="poly" title=" " alt="" coords="208,35,155,35,155,30,208,30"/>
+<area shape="rect" href="classcuTraceEstimator.html#ad1a582750252acdd51bfad02879369df" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,91,163,131"/>
+<area shape="poly" title=" " alt="" coords="197,114,163,114,163,109,197,109"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a3c2f912aa48d519a54c3ed272a418a66" name="a3c2f912aa48d519a54c3ed272a418a66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c2f912aa48d519a54c3ed272a418a66">&#9670;&#160;</a></span>set_symmetry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void cLinearOperatorBase::set_symmetry </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a67de833a333e9264ce27ee3d6e4b2732">FlagType</a>&#160;</td>
+          <td class="paramname"><em>symmetric</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classcCSCAffineMatrixFunction.html#a8cc03de7b6144d63a7bc2b641c8091f0">cCSCAffineMatrixFunction&lt; DataType &gt;</a>, <a class="el" href="classcCSRAffineMatrixFunction.html#a494a5babd954ca8c1b0e6be28980ed53">cCSRAffineMatrixFunction&lt; DataType &gt;</a>, <a class="el" href="classcDenseAffineMatrixFunction.html#aef8445f47cb3b13960049cb8609a9c92">cDenseAffineMatrixFunction&lt; DataType &gt;</a>, <a class="el" href="classcMatrix.html#ac41e7c7194fc63ed1230fdc1878820a3">cMatrix&lt; DataType &gt;</a>, <a class="el" href="classcuCSCAffineMatrixFunction.html#afa778d5e723d71adf5245d9384a034aa">cuCSCAffineMatrixFunction&lt; DataType &gt;</a>, <a class="el" href="classcuCSRAffineMatrixFunction.html#a1d5c2a764e508eeea6a9eca2cb1f62e8">cuCSRAffineMatrixFunction&lt; DataType &gt;</a>, <a class="el" href="classcuDenseAffineMatrixFunction.html#a62177c23148a5c538fc4c08fb63744f2">cuDenseAffineMatrixFunction&lt; DataType &gt;</a>, <a class="el" href="classcuMatrix.html#aeb17c060ffb35008164d451b077e0bad">cuMatrix&lt; DataType &gt;</a>, <a class="el" href="classcAffineMatrixFunction.html#af7a811a442a80e50f5ca11adcffb7250">cAffineMatrixFunction&lt; DataType &gt;</a>, and <a class="el" href="classcuAffineMatrixFunction.html#acccca38d91f3b67f52c9ff47f1e5b5b5">cuAffineMatrixFunction&lt; DataType &gt;</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="c__csc__affine__matrix__function_8cpp_source.html#l00172">cCSCAffineMatrixFunction&lt; DataType &gt;::set_symmetry()</a>, <a class="el" href="c__csr__affine__matrix__function_8cpp_source.html#l00172">cCSRAffineMatrixFunction&lt; DataType &gt;::set_symmetry()</a>, and <a class="el" href="c__dense__affine__matrix__function_8cpp_source.html#l00165">cDenseAffineMatrixFunction&lt; DataType &gt;::set_symmetry()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcLinearOperatorBase_a3c2f912aa48d519a54c3ed272a418a66_icgraph.png" border="0" usemap="#aclasscLinearOperatorBase_a3c2f912aa48d519a54c3ed272a418a66_icgraph" alt=""/></div>
+<map name="aclasscLinearOperatorBase_a3c2f912aa48d519a54c3ed272a418a66_icgraph" id="aclasscLinearOperatorBase_a3c2f912aa48d519a54c3ed272a418a66_icgraph">
+<area shape="rect" title=" " alt="" coords="259,69,417,109"/>
+<area shape="rect" href="classcCSCAffineMatrixFunction.html#a8cc03de7b6144d63a7bc2b641c8091f0" title="Specify whether the matrices are symmetic or non&#45;symmetric." alt="" coords="13,5,203,45"/>
+<area shape="poly" title=" " alt="" coords="252,68,180,48,181,43,253,63"/>
+<area shape="rect" href="classcCSRAffineMatrixFunction.html#a494a5babd954ca8c1b0e6be28980ed53" title="Specify whether the matrices are symmetic or non&#45;symmetric." alt="" coords="13,69,203,109"/>
+<area shape="poly" title=" " alt="" coords="245,92,203,92,203,87,245,87"/>
+<area shape="rect" href="classcDenseAffineMatrixFunction.html#aef8445f47cb3b13960049cb8609a9c92" title="Specify whether the matrices are symmetic or non&#45;symmetric." alt="" coords="5,133,211,173"/>
+<area shape="poly" title=" " alt="" coords="253,116,181,136,180,131,252,110"/>
+</map>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a1775597fad04e341adfb31268dd3e417" name="a1775597fad04e341adfb31268dd3e417"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1775597fad04e341adfb31268dd3e417">&#9670;&#160;</a></span>eigenvalue_relation_known</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a67de833a333e9264ce27ee3d6e4b2732">FlagType</a> cLinearOperatorBase::eigenvalue_relation_known</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="c__linear__operator__base_8h_source.html#l00064">64</a> of file <a class="el" href="c__linear__operator__base_8h_source.html">c_linear_operator_base.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="c__csc__affine__matrix__function_8cpp_source.html#l00049">cCSCAffineMatrixFunction&lt; DataType &gt;::cCSCAffineMatrixFunction()</a>, <a class="el" href="c__csc__affine__matrix__function_8cpp_source.html#l00112">cCSCAffineMatrixFunction&lt; DataType &gt;::cCSCAffineMatrixFunction()</a>, <a class="el" href="c__csr__affine__matrix__function_8cpp_source.html#l00049">cCSRAffineMatrixFunction&lt; DataType &gt;::cCSRAffineMatrixFunction()</a>, <a class="el" href="c__csr__affine__matrix__function_8cpp_source.html#l00112">cCSRAffineMatrixFunction&lt; DataType &gt;::cCSRAffineMatrixFunction()</a>, <a class="el" href="c__dense__affine__matrix__function_8cpp_source.html#l00048">cDenseAffineMatrixFunction&lt; DataType &gt;::cDenseAffineMatrixFunction()</a>, <a class="el" href="c__dense__affine__matrix__function_8cpp_source.html#l00109">cDenseAffineMatrixFunction&lt; DataType &gt;::cDenseAffineMatrixFunction()</a>, <a class="el" href="cu__csc__affine__matrix__function_8cu_source.html#l00124">cuCSCAffineMatrixFunction&lt; DataType &gt;::cuCSCAffineMatrixFunction()</a>, <a class="el" href="cu__csc__affine__matrix__function_8cu_source.html#l00054">cuCSCAffineMatrixFunction&lt; DataType &gt;::cuCSCAffineMatrixFunction()</a>, <a class="el" href="cu__csr__affine__matrix__function_8cu_source.html#l00124">cuCSRAffineMatrixFunction&lt; DataType &gt;::cuCSRAffineMatrixFunction()</a>, <a class="el" href="cu__csr__affine__matrix__function_8cu_source.html#l00054">cuCSRAffineMatrixFunction&lt; DataType &gt;::cuCSRAffineMatrixFunction()</a>, <a class="el" href="cu__dense__affine__matrix__function_8cu_source.html#l00122">cuDenseAffineMatrixFunction&lt; DataType &gt;::cuDenseAffineMatrixFunction()</a>, <a class="el" href="cu__dense__affine__matrix__function_8cu_source.html#l00053">cuDenseAffineMatrixFunction&lt; DataType &gt;::cuDenseAffineMatrixFunction()</a>, and <a class="el" href="c__linear__operator__base_8cpp_source.html#l00133">is_eigenvalue_relation_known()</a>.</p>
+
+</div>
+</div>
+<a id="ad30d9b9b1c8ee0eeb3263c838c32a37f" name="ad30d9b9b1c8ee0eeb3263c838c32a37f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad30d9b9b1c8ee0eeb3263c838c32a37f">&#9670;&#160;</a></span>num_columns</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> cLinearOperatorBase::num_columns</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="c__linear__operator__base_8h_source.html#l00063">63</a> of file <a class="el" href="c__linear__operator__base_8h_source.html">c_linear_operator_base.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="c__linear__operator__base_8cpp_source.html#l00100">get_num_columns()</a>.</p>
+
+</div>
+</div>
+<a id="addfd8abe72822bf71f89e288dfad8c12" name="addfd8abe72822bf71f89e288dfad8c12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addfd8abe72822bf71f89e288dfad8c12">&#9670;&#160;</a></span>num_parameters</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#ab1b7173c76e5040d0161e695a129dafe">IndexType</a> cLinearOperatorBase::num_parameters</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="c__linear__operator__base_8h_source.html#l00065">65</a> of file <a class="el" href="c__linear__operator__base_8h_source.html">c_linear_operator_base.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="c__affine__matrix__function_8cpp_source.html#l00029">cAffineMatrixFunction&lt; DataType &gt;::cAffineMatrixFunction()</a>, <a class="el" href="cu__affine__matrix__function_8cu_source.html#l00034">cuAffineMatrixFunction&lt; DataType &gt;::cuAffineMatrixFunction()</a>, and <a class="el" href="c__linear__operator__base_8cpp_source.html#l00117">get_num_parameters()</a>.</p>
+
+</div>
+</div>
+<a id="a8e23cc50e3cf3b9df1545e0d36174d20" name="a8e23cc50e3cf3b9df1545e0d36174d20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e23cc50e3cf3b9df1545e0d36174d20">&#9670;&#160;</a></span>num_rows</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="types_8h.html#a4918759cb64dcead17269b3613b27d25">LongIndexType</a> cLinearOperatorBase::num_rows</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="c__linear__operator__base_8h_source.html#l00062">62</a> of file <a class="el" href="c__linear__operator__base_8h_source.html">c_linear_operator_base.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="c__linear__operator__base_8cpp_source.html#l00086">get_num_rows()</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/imate/imate/imate/_c_linear_operator/<a class="el" href="c__linear__operator__base_8h_source.html">c_linear_operator_base.h</a></li>
+<li>/home/runner/work/imate/imate/imate/_c_linear_operator/<a class="el" href="c__linear__operator__base_8cpp_source.html">c_linear_operator_base.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="classcLinearOperatorBase.html">cLinearOperatorBase</a></li>
+    <li class="footer">Generated on Tue May 12 2026 22:54:39 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

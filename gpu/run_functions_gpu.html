@@ -10,12 +10,12 @@
 <meta property="og:title" content="2. Run imate Functions on GPU" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ameli.github.io/gpu/run_functions_gpu.html" />
-<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:site_name" content="IMATE" />
 <meta property="og:description" content="Run imate Functions on GPU: All functions in imate that accept the SLQ method (using method=slq argument) can perform computations on GPU devices. To do so, include gpu=True argument to the function syntax. The following examples show using multi-GPU devices to compute the log-determinant of a la..." />
 <meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
-<meta property="og:image:alt" content="RestoreIO" />
+<meta property="og:image:alt" content="IMATE" />
 <meta name="description" content="Run imate Functions on GPU: All functions in imate that accept the SLQ method (using method=slq argument) can perform computations on GPU devices. To do so, include gpu=True argument to the function syntax. The following examples show using multi-GPU devices to compute the log-determinant of a la..." />
-<meta property="og:title" content="RestoreIO">
+<meta property="og:title" content="IMATE">
 <meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
     <title>2. Run imate Functions on GPU &#8212; imate Manual</title>
@@ -41,7 +41,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -65,6 +65,9 @@
     <link rel="next" title="3. Deploy imate on GPU Clusters" href="gpu_cluster.html" />
     <link rel="prev" title="1. Inquiry GPU and CUDA with imate" href="inquiry_gpu.html" />
 
+    <!-- Robots -->
+	<meta name="robots" content="index,follow">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
     <script>
@@ -74,8 +77,6 @@
 
         gtag('config', 'G-4JHJ15SKEY');
     </script>
-
-    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
 
     <!-- My custom JS -->
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
@@ -345,7 +346,7 @@
 <h2><span class="section-number">2.1. </span>A Simple Example<a class="headerlink" href="#a-simple-example" title="Permalink to this heading">#</a></h2>
 <p>First, create a sample Toeplitz matrix with ten million in size using <a class="reference internal" href="../generated/imate.toeplitz.html#imate.toeplitz" title="imate.toeplitz"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.toeplitz()</span></code></a> function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import toeplitz matrix</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">toeplitz</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample matrix (a toeplitz matrix)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="mi">10000000</span>
@@ -354,7 +355,7 @@
 </div>
 <p>Next, create an <a class="reference internal" href="../generated/imate.Matrix.html#imate.Matrix" title="imate.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.Matrix</span></code></a> object from matrix <cite>A</cite>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import Matrix class</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">Matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">Matrix</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a matrix operator object from matrix A</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Aop</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -362,7 +363,7 @@
 </div>
 <p>Compute the log-determinant of the above matrix on GPU by passing <code class="docutils literal notranslate"><span class="pre">gpu=True</span></code> to <a class="reference internal" href="../generated/imate.logdet.html#imate.logdet" title="imate.logdet"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.logdet()</span></code></a> function. Recall GPU can only be employed using <cite>SLQ</cite> method by passing <code class="docutils literal notranslate"><span class="pre">method=slq</span></code> argument.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import logdet function</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">logdet</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">logdet</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
 <span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -378,7 +379,7 @@
 </pre></div>
 </div>
 <p>The information about GPU devices used during the computation can be found in <code class="docutils literal notranslate"><span class="pre">info['device']</span></code> key:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">])</span>
 <span class="go">{</span>
 <span class="go">    &#39;num_cpu_threads&#39;: 8,</span>
@@ -443,7 +444,7 @@
 <h2><span class="section-number">2.4. </span>Set Number of GPU Devices<a class="headerlink" href="#set-number-of-gpu-devices" title="Permalink to this heading">#</a></h2>
 <p>By default, <span class="synco">imate</span> employs the maximum number of available GPU devices. To employ a specific number of GPU devices, set <code class="docutils literal notranslate"><span class="pre">num_gpu-devices</span></code> in the function arguments. For instance</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import logdet function</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">logdet</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">logdet</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">ld</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_info</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>

@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['uint64_5fc_993',['UINT64_C',['../xoshiro__256__star__star_8cpp.html#a26a7bac63d90ef61175acb9f6fc4f2ca',1,'xoshiro_256_star_star.cpp']]],
-  ['unsigned_5flong_5fint_994',['UNSIGNED_LONG_INT',['../definitions_8h.html#aae2f14a52d0d5e952488ce2ccbf41a7b',1,'definitions.h']]],
-  ['use_5fcblas_995',['USE_CBLAS',['../definitions_8h.html#ab140247b235bb12fcc3f935beedc337c',1,'definitions.h']]]
+  ['restrict_0',['restrict',['../c__matrix__operations_8h.html#aae3356b63849abbe8789dd41648ee90a',1,'RESTRICT:&#160;c_matrix_operations.h'],['../c__vector__operations_8h.html#aae3356b63849abbe8789dd41648ee90a',1,'RESTRICT:&#160;c_vector_operations.h'],['../cu__matrix__operations_8h.html#aae3356b63849abbe8789dd41648ee90a',1,'RESTRICT:&#160;cu_matrix_operations.h'],['../cu__vector__operations_8h.html#aae3356b63849abbe8789dd41648ee90a',1,'RESTRICT:&#160;cu_vector_operations.h'],['../cublas__api_8h.html#aae3356b63849abbe8789dd41648ee90a',1,'RESTRICT:&#160;cublas_api.h'],['../cublas__impl_8h.html#aae3356b63849abbe8789dd41648ee90a',1,'RESTRICT:&#160;cublas_impl.h'],['../cublas__impl__kernels_8h.html#aae3356b63849abbe8789dd41648ee90a',1,'RESTRICT:&#160;cublas_impl_kernels.h'],['../cusparse__api_8h.html#aae3356b63849abbe8789dd41648ee90a',1,'RESTRICT:&#160;cusparse_api.h']]]
 ];

@@ -5,5 +5,6 @@ var classcuAffineMatrixFunction =
     [ "_add_scaled_vector", "classcuAffineMatrixFunction.html#af0a51e03280f6700f6534a94874436c1", null ],
     [ "get_eigenvalue", "classcuAffineMatrixFunction.html#acdf545a2c27a4cb6988548d808474c42", null ],
     [ "set_parameters", "classcuAffineMatrixFunction.html#a61f06f563a69f9c5a1580814786a4e20", null ],
+    [ "set_symmetry", "classcuAffineMatrixFunction.html#acccca38d91f3b67f52c9ff47f1e5b5b5", null ],
     [ "B_is_identity", "classcuAffineMatrixFunction.html#ae7d34c20db47d0ebaa06ec6276fe2577", null ]
 ];

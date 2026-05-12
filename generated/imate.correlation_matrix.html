@@ -10,10 +10,10 @@
 <meta property="og:title" content="imate.correlation_matrix" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ameli.github.io/generated/imate.correlation_matrix.html" />
-<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:site_name" content="IMATE" />
 <meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
-<meta property="og:image:alt" content="RestoreIO" />
-<meta property="og:title" content="RestoreIO">
+<meta property="og:image:alt" content="IMATE" />
+<meta property="og:title" content="IMATE">
 <meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
     <title>imate.correlation_matrix &#8212; imate Manual</title>
@@ -39,7 +39,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -65,6 +65,9 @@
     <link rel="next" title="imate.toeplitz" href="imate.toeplitz.html" />
     <link rel="prev" title="imate.AffineMatrixFunction.get_linear_operator" href="imate.AffineMatrixFunction.get_linear_operator.html" />
 
+    <!-- Robots -->
+	<meta name="robots" content="index,follow">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
     <script>
@@ -74,8 +77,6 @@
 
         gtag('config', 'G-4JHJ15SKEY');
     </script>
-
-    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
 
     <!-- My custom JS -->
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
@@ -593,6 +594,11 @@
    imate.device.restrict_to_single_processor
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.get_config.html">
+   imate.get_config
+  </a>
+ </li>
 </ul>
 
     
@@ -657,35 +663,42 @@
 <h1>imate.correlation_matrix<a class="headerlink" href="#imate-correlation-matrix" title="Permalink to this heading">#</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="imate.correlation_matrix">
-<span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">correlation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'exponential'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'csr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'float64'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.correlation_matrix" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">correlation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">corr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'exponential'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_param</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sparse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'csr'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'float64'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'C'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.correlation_matrix" title="Permalink to this definition">#</a></dt>
 <dd><p>Generate symmetric and positive-definite matrix for test purposes.</p>
 <p>The elements of the correlation matrix are generated by the spatial
 correlation of a set of points. The set of points is either randomly
 generated in a hypercube or defined on a grid of points of a lattice in a
 hypercube. The correlation is computed by a kernel function applied to the
 Euclidean distance of the set of points.</p>
-<dl class="field-list simple">
+<dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><dl class="simple">
+<dd class="field-odd"><dl>
 <dt><strong>size</strong><span class="classifier">int, default=20</span></dt><dd><p>The size of matrix, which is determined as follows:</p>
 <ul class="simple">
-<li><p>If <code class="docutils literal notranslate"><span class="pre">grid</span></code> is <cite>False</cite>, the size of the matrix is <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p></li>
-<li><p>If <code class="docutils literal notranslate"><span class="pre">grid</span></code> is <cite>True</cite>, the size of the matrix is <code class="docutils literal notranslate"><span class="pre">size**dimension</span></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">grid</span></code> is <cite>False</cite>, the size of the matrix is
+<code class="docutils literal notranslate"><span class="pre">size</span> <span class="pre">*</span> <span class="pre">output_dim</span></code>.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">grid</span></code> is <cite>True</cite>, the size of the matrix is
+<code class="docutils literal notranslate"><span class="pre">(size</span> <span class="pre">*</span> <span class="pre">output_dim)**input_dim</span></code>.</p></li>
 </ul>
 </dd>
-<dt><strong>dimension</strong><span class="classifier">int, default=1</span></dt><dd><p>The dimension of the space of points to generate the correlation
+<dt><strong>input_dim</strong><span class="classifier">int, default=1</span></dt><dd><p>The dimension of the space of points to generate the correlation
 matrix.</p>
+</dd>
+<dt><strong>output_dim</strong><span class="classifier">int, default=1</span></dt><dd><p>The dimension of the space of output of the model.</p>
+</dd>
+<dt><strong>corr</strong><span class="classifier">boolean, default=True</span></dt><dd><p>If <cite>True</cite>, correlation matrix is generated where diagonals are one. If
+<cite>False</cite>, a covariance matrix is generated.</p>
 </dd>
 <dt><strong>scale</strong><span class="classifier">float, default=0.1</span></dt><dd><p>A positive parameter <span class="math notranslate nohighlight">\(\rho\)</span> of the correlation function that
 scales distance <span class="math notranslate nohighlight">\(r\)</span> to <span class="math notranslate nohighlight">\(r/\rho\)</span></p>
 </dd>
-<dt><strong>kernel</strong><span class="classifier">{‘matern’, ‘exponential’, ‘square_exponential’,         ‘rational_quadratic’}, default=’exponential’</span></dt><dd><p>The kernel function of the correlation, which takes a distance
+<dt><strong>kernel</strong><span class="classifier">{<code class="docutils literal notranslate"><span class="pre">'matern'</span></code>, <code class="docutils literal notranslate"><span class="pre">'exponential'</span></code>, <code class="docutils literal notranslate"><span class="pre">'square-exponential'</span></code>,         <code class="docutils literal notranslate"><span class="pre">'rational-quadratic'</span></code>}, default=’exponential’</span></dt><dd><p>The kernel function of the correlation, which takes a distance
 <span class="math notranslate nohighlight">\(r\)</span> and yields its spatial  correlation. See details in the Notes
 section below.</p>
 </dd>
 <dt><strong>kernel_param</strong><span class="classifier">float, default=None</span></dt><dd><p>Parameter <span class="math notranslate nohighlight">\(\theta\)</span> of the kernel function. This option only
 applies to <code class="docutils literal notranslate"><span class="pre">kernel=matern</span></code> (see the parameter <span class="math notranslate nohighlight">\(\nu\)</span> in Notes
-below) and <code class="docutils literal notranslate"><span class="pre">kernel=rational_quadratic</span></code> (see the parameter
+below) and <code class="docutils literal notranslate"><span class="pre">kernel=rational-quadratic</span></code> (see the parameter
 <span class="math notranslate nohighlight">\(\alpha\)</span> in Notes below).</p>
 </dd>
 <dt><strong>grid</strong><span class="classifier">bool, default=True</span></dt><dd><p>Determines whether to generate the set of points on a lattice grid or
@@ -693,9 +706,10 @@ to randomly generate points inside the unit hypercube.</p>
 <ul class="simple">
 <li><p>If <cite>True</cite>, the points are generated on a structured grid in a unit
 hypercube with equal distances. In this case, the size of matrix
-(which is equal to the number of points) is <code class="docutils literal notranslate"><span class="pre">size**dimension</span></code>.</p></li>
+(which is equal to the number of points) is
+<code class="docutils literal notranslate"><span class="pre">(size</span> <span class="pre">*</span> <span class="pre">output_dim)**dimension</span></code>.</p></li>
 <li><p>If <cite>False</cite>, the points are generated randomly. In this case, the size
-of the generated matrix is <code class="docutils literal notranslate"><span class="pre">size</span></code>.</p></li>
+of the generated matrix is <code class="docutils literal notranslate"><span class="pre">size</span> <span class="pre">*</span> <span class="pre">output_dim</span></code>.</p></li>
 </ul>
 </dd>
 <dt><strong>sparse</strong><span class="classifier">bool, default=False</span></dt><dd><p>Flag to indicate the correlation matrix should be a sparse or dense
@@ -707,13 +721,24 @@ exactly the same as this value. This option is only relevant if
 <code class="docutils literal notranslate"><span class="pre">sparse</span></code> is <cite>True</cite>.</p>
 </dd>
 <dt><strong>format</strong><span class="classifier">{‘csr’, ‘csc’}, default=’csr’</span></dt><dd><p>The format of the sparse matrix. <cite>CSR</cite> generates compressed sparse rows
-and CSC generates compressed sparse columns matrix.</p>
+and CSC generates compressed sparse columns matrix. This option is only
+relevant if <code class="docutils literal notranslate"><span class="pre">sparse</span></code> is <cite>True</cite>.</p>
 </dd>
-<dt><strong>dtype</strong><span class="classifier">{‘float32’, ‘float64’, ‘float128’}, default=’float64’</span></dt><dd><p>Data type of the matrix.</p>
+<dt><strong>dtype</strong><span class="classifier">{<code class="docutils literal notranslate"><span class="pre">'float32'</span></code>, <code class="docutils literal notranslate"><span class="pre">'float64'</span></code>, <code class="docutils literal notranslate"><span class="pre">'float128'</span></code>},             default=``’float64’``</span></dt><dd><p>Data type of the matrix.</p>
 </dd>
-<dt><strong>plot</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, the matrix will be plotted. If no display is available
-(such as executing on remote machines) the plot is saved in the current
-directory in <cite>SVG</cite> format.</p>
+<dt><strong>order</strong><span class="classifier">{<code class="docutils literal notranslate"><span class="pre">'C'</span></code>, <code class="docutils literal notranslate"><span class="pre">'F'</span></code>}, default=``’C’``</span></dt><dd><p>Row or column major array:
+* <code class="docutils literal notranslate"><span class="pre">'C'</span></code>: C-contiguous (row major)
+* <code class="docutils literal notranslate"><span class="pre">'F'</span></code>: Fortran-contiguous (column major)
+This option is relevant only if <code class="docutils literal notranslate"><span class="pre">sparse</span></code> is <cite>False</cite>.</p>
+</dd>
+<dt><strong>plot</strong><span class="classifier">bool or str, default=False</span></dt><dd><p>If <cite>True</cite>, the matrix will be plotted. If no graphical backend is
+available (such as executing on remote machines) the plot is instead
+saved in the current directory as both <code class="docutils literal notranslate"><span class="pre">svg</span></code> and <code class="docutils literal notranslate"><span class="pre">pdf</span></code> format.
+If <code class="docutils literal notranslate"><span class="pre">plot</span></code> is a string, the plot is not shown, rather saved with a
+filename as the given string. If the filename does not contain file
+extension, the plot is saved in both <code class="docutils literal notranslate"><span class="pre">svg</span></code> and <code class="docutils literal notranslate"><span class="pre">pdf</span></code> formats. If
+the filename does not have directory path, the plot is saved in the
+current directory.</p>
 </dd>
 <dt><strong>verbose</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, it prints some information during the process.</p>
 </dd>
@@ -735,14 +760,15 @@ directory in <cite>SVG</cite> format.</p>
 <p class="rubric">Notes</p>
 <p><strong>Matrix Size:</strong></p>
 <p>The size of matrix, <span class="math notranslate nohighlight">\(N\)</span>, is determined by the parameter <code class="docutils literal notranslate"><span class="pre">size</span></code>
-which we refer to as <span class="math notranslate nohighlight">\(n\)</span>, the dimension, <code class="docutils literal notranslate"><span class="pre">dimension</span></code>, which we
+which we refer to as <span class="math notranslate nohighlight">\(n\)</span>, the input dimension, <code class="docutils literal notranslate"><span class="pre">input_dim</span></code>, which
+we refer to as <span class="math notranslate nohighlight">\(p\)</span>, the output dimension <code class="docutils literal notranslate"><span class="pre">output_dim</span></code>, which we
 refer to as <span class="math notranslate nohighlight">\(d\)</span>, and the boolean <code class="docutils literal notranslate"><span class="pre">grid</span></code> variable.</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>If <code class="docutils literal notranslate"><span class="pre">grid</span></code> is <cite>True</cite>, then, the size of the square matrix is
-<span class="math notranslate nohighlight">\(N = n^d\)</span>.</p></li>
+<span class="math notranslate nohighlight">\(N = (nd)^p\)</span>.</p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">grid</span></code> is <cite>False</cite>, then, the size of the square matrix is
-<span class="math notranslate nohighlight">\(N = n\)</span>.</p></li>
+<span class="math notranslate nohighlight">\(N = nd\)</span>.</p></li>
 </ul>
 </div></blockquote>
 <p><strong>Complexity of computation:</strong></p>
@@ -759,7 +785,7 @@ correlation matrix.</p>
 <p><strong>Spatial Correlation:</strong></p>
 <p>The correlation matrix of size <span class="math notranslate nohighlight">\(N \times N\)</span> is generated by the
 mutual correlation of a set of <span class="math notranslate nohighlight">\(N\)</span> points in the unit hypercube,
-<span class="math notranslate nohighlight">\(\boldsymbol{x}_i \in [0, 1]^d\)</span>. The correlation between each two
+<span class="math notranslate nohighlight">\(\boldsymbol{x}_i \in [0, 1]^p\)</span>. The correlation between each two
 points <span class="math notranslate nohighlight">\(\boldsymbol{x}_i\)</span> and <span class="math notranslate nohighlight">\(\boldsymbol{x}_j\)</span> is computed
 by</p>
 <div class="math notranslate nohighlight">
@@ -853,8 +879,8 @@ where at some rows, the only non-zero element is its diagonal element.</p>
 <ul class="simple">
 <li><p>If no graphical backend exists (such as running the code on a remote
 server or manually disabling the X11 backend), the plot will not be
-shown, rather, it will be saved as an <code class="docutils literal notranslate"><span class="pre">svg</span></code> file in the current
-directory.</p></li>
+shown, rather, it will be saved as an <code class="docutils literal notranslate"><span class="pre">pdf</span></code> and <code class="docutils literal notranslate"><span class="pre">svg</span></code> file in the
+current directory.</p></li>
 <li><p>If the executable <code class="docutils literal notranslate"><span class="pre">latex</span></code> is available on <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, the plot is
 rendered using <span class="math notranslate nohighlight">\(\rm\LaTeX\)</span> and it may take slightly longer to
 produce the plot.</p></li>
@@ -864,7 +890,7 @@ font to render the plot.</p></li>
 <p>To manually disable interactive plot display and save the plot as
 <code class="docutils literal notranslate"><span class="pre">svg</span></code> instead, add the following at the very beginning of your code
 before importing <a class="reference internal" href="../index.html#module-imate" title="imate"><code class="xref py py-mod docutils literal notranslate"><span class="pre">imate</span></code></a>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;IMATE_NO_DISPLAY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
 </pre></div>
 </div>
@@ -878,26 +904,26 @@ elsewhere.</p>
 <p class="rubric">Examples</p>
 <p>Generate a matrix of the size <cite>(20,20)</cite> corresponding to the spatial
 correlation of a set of <cite>20</cite> points in the unit interval:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.sample_matrices</span> <span class="kn">import</span> <span class="n">correlation_matrix</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate.sample_matrices</span><span class="w"> </span><span class="kn">import</span> <span class="n">correlation_matrix</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Generate a matrix of the size <span class="math notranslate nohighlight">\((20^2, 20^2)\)</span> corresponding to the
 spatial correlation of a 2D grid of <cite>20x20</cite> points in the unit square:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate.sample_matrices</span> <span class="kn">import</span> <span class="n">correlation_matrix</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate.sample_matrices</span><span class="w"> </span><span class="kn">import</span> <span class="n">correlation_matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Generate a correlation matrix of the size <cite>(20, 20)</cite> based on 20 random
 points in unit square:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">grid</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Generate a matrix of the size <span class="math notranslate nohighlight">\((20^2, 20^2)\)</span> for the correlation of
 a grid of <cite>20x20</cite> points in the unit square using Matern correlation
 function with the parameter <span class="math notranslate nohighlight">\(\nu=2.5\)</span> and scale <span class="math notranslate nohighlight">\(\rho=0.2\)</span>,
 and plot the matrix:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;matern&#39;</span><span class="p">,</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;matern&#39;</span><span class="p">,</span>
 <span class="gp">... </span>                   <span class="n">kernel_param</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -905,7 +931,7 @@ and plot the matrix:</p>
 <p>Sparsify correlation matrix of size <span class="math notranslate nohighlight">\((30^2, 30^2)\)</span> with approximate
 density <span class="math notranslate nohighlight">\(5 \times 10^{-2}\)</span>. Use <cite>CSR</cite> format and <cite>32-bit</cite> floating
 point.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">dimension</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">correlation_matrix</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">input_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">sparse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
 <span class="gp">... </span>                       <span class="n">density</span><span class="o">=</span><span class="mf">5e-2</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csr&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
 </pre></div>
 </div>

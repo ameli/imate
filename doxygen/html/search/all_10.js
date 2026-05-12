@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['query_5fdevice_398',['query_device',['../query__device_8cu.html#a6738c790bb99e337eb12d743f0b0652b',1,'query_device(DeviceProperties &amp;device_properties):&#160;query_device.cu'],['../query__device_8h.html#a6738c790bb99e337eb12d743f0b0652b',1,'query_device(DeviceProperties &amp;device_properties):&#160;query_device.cu']]],
-  ['query_5fdevice_2ecu_399',['query_device.cu',['../query__device_8cu.html',1,'']]],
-  ['query_5fdevice_2eh_400',['query_device.h',['../query__device_8h.html',1,'']]],
-  ['query_5fgpu_5fdevices_401',['query_gpu_devices',['../classcuLinearOperator.html#a8dac55aff04e3f372468b21367a6dab8',1,'cuLinearOperator']]]
+  ['parameters_0',['parameters',['../classcLinearOperator.html#a22683aa9286bfd651f1f2dbae3660545',1,'cLinearOperator::parameters'],['../classcuLinearOperator.html#a299ab68118b8f538b5b2a0c94ec2d6cc',1,'cuLinearOperator::parameters']]],
+  ['power_1',['power',['../classPower.html',1,'Power'],['../classPower.html#a909af60fdce9dbe98b5054f9c4917645',1,'Power::Power()']]],
+  ['power_2ecpp_2',['power.cpp',['../power_8cpp.html',1,'']]],
+  ['power_2eh_3',['power.h',['../power_8h.html',1,'']]],
+  ['project_4',['When to Compile |project|',['../index.html#autotoc_md16',1,'']]]
 ];

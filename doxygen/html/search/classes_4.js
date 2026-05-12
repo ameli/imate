@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gaussian_503',['Gaussian',['../classGaussian.html',1,'']]]
+  ['function_0',['Function',['../classFunction.html',1,'']]]
 ];

@@ -1,0 +1,880 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- BEGIN opengraph metadata -->
+<meta property="og:title" content="Doxygen Awesome" />
+<meta property="og:image" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta property="og:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<meta property="og:url" content="https://jothepro.github.io/doxygen-awesome-css/" />
+<!-- END opengraph metadata -->
+<!-- BEGIN twitter metadata -->
+<meta name="twitter:image:src" content="https://repository-images.githubusercontent.com/348492097/4f16df80-88fb-11eb-9d31-4015ff22c452" />
+<meta name="twitter:title" content="Doxygen Awesome" />
+<meta name="twitter:description" content="Custom CSS theme for doxygen html-documentation with lots of customization parameters." />
+<!-- END twitter metadata -->
+<title>imate: CudaAPI&lt; ArrayType &gt; Class Template Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link rel="icon" type="image/svg+xml" href="logo.drawio.svg"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="doxygen-awesome-darkmode-toggle.js"></script>
+<script type="text/javascript" src="doxygen-awesome-fragment-copy-button.js"></script>
+<script type="text/javascript" src="doxygen-awesome-paragraph-link.js"></script>
+<script type="text/javascript" src="doxygen-awesome-interactive-toc.js"></script>
+<script type="text/javascript" src="toggle-alternative-theme.js"></script>
+<script type="text/javascript">
+    DoxygenAwesomeFragmentCopyButton.init()
+    DoxygenAwesomeDarkModeToggle.init()
+    DoxygenAwesomeParagraphLink.init()
+    DoxygenAwesomeInteractiveToc.init()
+</script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  extensions: ["tex2jax.js", "TeX/AMSmath.js", "TeX/AMSsymbols.js", "TeX/AMSfonts.js"],
+  jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom-alternative.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- https://tholman.com/github-corners/ -->
+<a href="https://github.com/ameli/imate" class="github-corner" title="View source on GitHub" target="_blank">
+    <svg viewBox="0 0 250 250" width="40" height="40" style="position: absolute; top: 0; border: 0; right: 0; z-index: 99;" aria-hidden="true">
+    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="logo-imate-light.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">imate
+   </div>
+   <div id="projectbrief">C++/CUDA Reference</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generated by Doxygen 1.9.8 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','Search');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('classCudaAPI.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="classCudaAPI-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">CudaAPI&lt; ArrayType &gt; Class Template Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>An interface to CUDA linrary to facilitate working with CUDA, such as memory allocation, copy data to and from device, etc. This class contains all public static functions and serves as a namespace.  
+ <a href="classCudaAPI.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="cuda__api_8h_source.html">cuda_api.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a2523d141294b2587a3abefeef1c60809" id="r_a2523d141294b2587a3abefeef1c60809"><td class="memItemLeft" align="right" valign="top">static ArrayType *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCudaAPI.html#a2523d141294b2587a3abefeef1c60809">alloc</a> (const size_t array_size)</td></tr>
+<tr class="memdesc:a2523d141294b2587a3abefeef1c60809"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates memory on gpu device. This function creates a pointer and returns it.  <br /></td></tr>
+<tr class="separator:a2523d141294b2587a3abefeef1c60809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd9fc63bdad7d82ee7318348fa9281a8" id="r_afd9fc63bdad7d82ee7318348fa9281a8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCudaAPI.html#afd9fc63bdad7d82ee7318348fa9281a8">alloc</a> (ArrayType *&amp;device_array, const size_t array_size)</td></tr>
+<tr class="memdesc:afd9fc63bdad7d82ee7318348fa9281a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates memory on gpu device. This function uses an existing given pointer.  <br /></td></tr>
+<tr class="separator:afd9fc63bdad7d82ee7318348fa9281a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b30f23332d8cb55aa78eaff457863d5" id="r_a7b30f23332d8cb55aa78eaff457863d5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCudaAPI.html#a7b30f23332d8cb55aa78eaff457863d5">alloc_bytes</a> (void *&amp;device_array, const size_t num_bytes)</td></tr>
+<tr class="memdesc:a7b30f23332d8cb55aa78eaff457863d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates memory on gpu device. This function uses an existing given pointer.  <br /></td></tr>
+<tr class="separator:a7b30f23332d8cb55aa78eaff457863d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9d22d29b465f3ffec42deecbe0f6874" id="r_aa9d22d29b465f3ffec42deecbe0f6874"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCudaAPI.html#aa9d22d29b465f3ffec42deecbe0f6874">copy_to_device</a> (const ArrayType *host_array, const size_t array_size, ArrayType *device_array)</td></tr>
+<tr class="memdesc:aa9d22d29b465f3ffec42deecbe0f6874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies memory on host to device memory.  <br /></td></tr>
+<tr class="separator:aa9d22d29b465f3ffec42deecbe0f6874"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5602b49ab7ba7581558bdbd57d8dfd9f" id="r_a5602b49ab7ba7581558bdbd57d8dfd9f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCudaAPI.html#a5602b49ab7ba7581558bdbd57d8dfd9f">del</a> (void *device_array)</td></tr>
+<tr class="memdesc:a5602b49ab7ba7581558bdbd57d8dfd9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes memory on gpu device if its pointer is not <code>NULL</code>, then sets the pointer to <code>NULL</code>.  <br /></td></tr>
+<tr class="separator:a5602b49ab7ba7581558bdbd57d8dfd9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bb426f65bd0c9f13b1ec57df6af17be" id="r_a1bb426f65bd0c9f13b1ec57df6af17be"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCudaAPI.html#a1bb426f65bd0c9f13b1ec57df6af17be">set_device</a> (int device_id)</td></tr>
+<tr class="memdesc:a1bb426f65bd0c9f13b1ec57df6af17be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the current device in multi-gpu applications.  <br /></td></tr>
+<tr class="separator:a1bb426f65bd0c9f13b1ec57df6af17be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8682c4316b1f3b223e10023b87794ed4" id="r_a8682c4316b1f3b223e10023b87794ed4"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classCudaAPI.html#a8682c4316b1f3b223e10023b87794ed4">get_device</a> ()</td></tr>
+<tr class="memdesc:a8682c4316b1f3b223e10023b87794ed4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current device in multi-gpu applications.  <br /></td></tr>
+<tr class="separator:a8682c4316b1f3b223e10023b87794ed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename ArrayType&gt;<br />
+class CudaAPI&lt; ArrayType &gt;</div><p>An interface to CUDA linrary to facilitate working with CUDA, such as memory allocation, copy data to and from device, etc. This class contains all public static functions and serves as a namespace. </p>
+
+<p class="definition">Definition at line <a class="el" href="cuda__api_8h_source.html#l00035">35</a> of file <a class="el" href="cuda__api_8h_source.html">cuda_api.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="afd9fc63bdad7d82ee7318348fa9281a8" name="afd9fc63bdad7d82ee7318348fa9281a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd9fc63bdad7d82ee7318348fa9281a8">&#9670;&#160;</a></span>alloc() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ArrayType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCudaAPI.html">CudaAPI</a>&lt; ArrayType &gt;::alloc </td>
+          <td>(</td>
+          <td class="paramtype">ArrayType *&amp;&#160;</td>
+          <td class="paramname"><em>device_array</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const size_t&#160;</td>
+          <td class="paramname"><em>array_size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Allocates memory on gpu device. This function uses an existing given pointer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">device_array</td><td>A pointer to the device memory to be allocated </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">array_size</td><td>Size of the array to be allocated. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="cuda__api_8cu_source.html#l00079">79</a> of file <a class="el" href="cuda__api_8cu_source.html">cuda_api.cu</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   82</span>{</div>
+<div class="line"><span class="lineno">   83</span>    <span class="comment">// Check if overflowing might make array_size negative if array_size is</span></div>
+<div class="line"><span class="lineno">   84</span>    <span class="comment">// a signed type. For unsigned type, we have no clue at this point.</span></div>
+<div class="line"><span class="lineno">   85</span>    assert(array_size &gt; 0);</div>
+<div class="line"><span class="lineno">   86</span> </div>
+<div class="line"><span class="lineno">   87</span>    <span class="comment">// Check if computing num_bytes will not overflow size_t (unsigned int)</span></div>
+<div class="line"><span class="lineno">   88</span>    <span class="keywordtype">size_t</span> max_index = std::numeric_limits&lt;size_t&gt;::max();</div>
+<div class="line"><span class="lineno">   89</span>    <span class="keywordflow">if</span> (max_index / <span class="keyword">sizeof</span>(ArrayType) &lt; array_size)</div>
+<div class="line"><span class="lineno">   90</span>    {</div>
+<div class="line"><span class="lineno">   91</span>        std::cerr &lt;&lt; <span class="stringliteral">&quot;The size of array in bytes exceeds the maximum &quot;</span> \</div>
+<div class="line"><span class="lineno">   92</span>                  &lt;&lt; <span class="stringliteral">&quot;integer limit, which is: &quot;</span> &lt;&lt; max_index &lt;&lt; <span class="stringliteral">&quot;. The &quot;</span> \</div>
+<div class="line"><span class="lineno">   93</span>                  &lt;&lt; <span class="stringliteral">&quot;array size is: &quot;</span> &lt;&lt; array_size &lt;&lt; <span class="stringliteral">&quot;, and the size of &quot;</span> \</div>
+<div class="line"><span class="lineno">   94</span>                  &lt;&lt; <span class="stringliteral">&quot;data type is: &quot;</span> &lt;&lt; <span class="keyword">sizeof</span>(ArrayType) &lt;&lt; <span class="stringliteral">&quot;-bytes.&quot;</span> \</div>
+<div class="line"><span class="lineno">   95</span>                  &lt;&lt; std::endl;</div>
+<div class="line"><span class="lineno">   96</span>        abort();</div>
+<div class="line"><span class="lineno">   97</span>    }</div>
+<div class="line"><span class="lineno">   98</span> </div>
+<div class="line"><span class="lineno">   99</span>    <span class="keywordtype">size_t</span> num_bytes = array_size * <span class="keyword">sizeof</span>(ArrayType);</div>
+<div class="line"><span class="lineno">  100</span>    cudaError_t error = <a class="code hl_function" href="cudart__symbols_8cpp.html#ac63ffd93e344b939d6399199d8b12fef">cudaMalloc</a>(&amp;device_array, num_bytes);</div>
+<div class="line"><span class="lineno">  101</span>    assert(error == cudaSuccess);</div>
+<div class="line"><span class="lineno">  102</span>}</div>
+<div class="ttc" id="acudart__symbols_8cpp_html_ac63ffd93e344b939d6399199d8b12fef"><div class="ttname"><a href="cudart__symbols_8cpp.html#ac63ffd93e344b939d6399199d8b12fef">cudaMalloc</a></div><div class="ttdeci">cudaError_t cudaMalloc(void **devPtr, size_t size)</div><div class="ttdoc">Definition of CUDA's cudaMalloc function using dynamically loaded cudart library.</div><div class="ttdef"><b>Definition</b> <a href="cudart__symbols_8cpp_source.html#l00331">cudart_symbols.cpp:331</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cudart__symbols_8cpp_source.html#l00331">cudaMalloc()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCudaAPI_afd9fc63bdad7d82ee7318348fa9281a8_cgraph.png" border="0" usemap="#aclassCudaAPI_afd9fc63bdad7d82ee7318348fa9281a8_cgraph" alt=""/></div>
+<map name="aclassCudaAPI_afd9fc63bdad7d82ee7318348fa9281a8_cgraph" id="aclassCudaAPI_afd9fc63bdad7d82ee7318348fa9281a8_cgraph">
+<area shape="rect" title="Allocates memory on gpu device. This function uses an existing given pointer." alt="" coords="5,13,120,38"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#ac63ffd93e344b939d6399199d8b12fef" title="Definition of CUDA&#39;s cudaMalloc function using dynamically loaded cudart library." alt="" coords="168,13,264,38"/>
+<area shape="poly" title=" " alt="" coords="120,23,154,23,154,28,120,28"/>
+<area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="312,5,460,45"/>
+<area shape="poly" title=" " alt="" coords="264,23,298,23,298,28,264,28"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a2523d141294b2587a3abefeef1c60809" name="a2523d141294b2587a3abefeef1c60809"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2523d141294b2587a3abefeef1c60809">&#9670;&#160;</a></span>alloc() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ArrayType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ArrayType * <a class="el" href="classCudaAPI.html">CudaAPI</a>&lt; ArrayType &gt;::alloc </td>
+          <td>(</td>
+          <td class="paramtype">const size_t&#160;</td>
+          <td class="paramname"><em>array_size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Allocates memory on gpu device. This function creates a pointer and returns it. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">array_size</td><td>Size of the array to be allocated. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the allocated 1D array on device. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cuda__api_8cu_source.html#l00039">39</a> of file <a class="el" href="cuda__api_8cu_source.html">cuda_api.cu</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   40</span>{</div>
+<div class="line"><span class="lineno">   41</span>    <span class="comment">// Check if overflowing might make array_size negative if array_size is</span></div>
+<div class="line"><span class="lineno">   42</span>    <span class="comment">// a signed type. For unsigned type, we have no clue at this point.</span></div>
+<div class="line"><span class="lineno">   43</span>    assert(array_size &gt; 0);</div>
+<div class="line"><span class="lineno">   44</span> </div>
+<div class="line"><span class="lineno">   45</span>    <span class="comment">// Check if computing num_bytes will not overflow size_t (unsigned int)</span></div>
+<div class="line"><span class="lineno">   46</span>    <span class="keywordtype">size_t</span> max_index = std::numeric_limits&lt;size_t&gt;::max();</div>
+<div class="line"><span class="lineno">   47</span>    <span class="keywordflow">if</span> (max_index / <span class="keyword">sizeof</span>(ArrayType) &lt; array_size)</div>
+<div class="line"><span class="lineno">   48</span>    {</div>
+<div class="line"><span class="lineno">   49</span>        std::cerr &lt;&lt; <span class="stringliteral">&quot;The size of array in bytes exceeds the maximum &quot;</span> \</div>
+<div class="line"><span class="lineno">   50</span>                  &lt;&lt; <span class="stringliteral">&quot;integer limit, which is: &quot;</span> &lt;&lt; max_index &lt;&lt; <span class="stringliteral">&quot;. The &quot;</span> \</div>
+<div class="line"><span class="lineno">   51</span>                  &lt;&lt; <span class="stringliteral">&quot;array size is: &quot;</span> &lt;&lt; array_size &lt;&lt; <span class="stringliteral">&quot;, and the size of &quot;</span> \</div>
+<div class="line"><span class="lineno">   52</span>                  &lt;&lt; <span class="stringliteral">&quot;data type is: &quot;</span> &lt;&lt; <span class="keyword">sizeof</span>(ArrayType) &lt;&lt; <span class="stringliteral">&quot;-bytes.&quot;</span> \</div>
+<div class="line"><span class="lineno">   53</span>                  &lt;&lt; std::endl;</div>
+<div class="line"><span class="lineno">   54</span>        abort();</div>
+<div class="line"><span class="lineno">   55</span>    }</div>
+<div class="line"><span class="lineno">   56</span> </div>
+<div class="line"><span class="lineno">   57</span>    ArrayType* device_array;</div>
+<div class="line"><span class="lineno">   58</span>    <span class="keywordtype">size_t</span> num_bytes = array_size * <span class="keyword">sizeof</span>(ArrayType);</div>
+<div class="line"><span class="lineno">   59</span>    cudaError_t error = <a class="code hl_function" href="cudart__symbols_8cpp.html#ac63ffd93e344b939d6399199d8b12fef">cudaMalloc</a>(&amp;device_array, num_bytes);</div>
+<div class="line"><span class="lineno">   60</span>    assert(error == cudaSuccess);</div>
+<div class="line"><span class="lineno">   61</span> </div>
+<div class="line"><span class="lineno">   62</span>    <span class="keywordflow">return</span> device_array;</div>
+<div class="line"><span class="lineno">   63</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cudart__symbols_8cpp_source.html#l00331">cudaMalloc()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cu__csc__matrix_8cu_source.html#l00205">cuCSCMatrix&lt; DataType &gt;::copy_host_to_device()</a>, <a class="el" href="cu__csr__matrix_8cu_source.html#l00199">cuCSRMatrix&lt; DataType &gt;::copy_host_to_device()</a>, <a class="el" href="cu__dense__matrix_8cu_source.html#l00137">cuDenseMatrix&lt; DataType &gt;::copy_host_to_device()</a>, <a class="el" href="cu__golub__kahn__bidiagonalization_8cu_source.html#l00133">cu_golub_kahn_bidiagonalization()</a>, and <a class="el" href="cu__lanczos__tridiagonalization_8cu_source.html#l00139">cu_lanczos_tridiagonalization()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCudaAPI_a2523d141294b2587a3abefeef1c60809_cgraph.png" border="0" usemap="#aclassCudaAPI_a2523d141294b2587a3abefeef1c60809_cgraph" alt=""/></div>
+<map name="aclassCudaAPI_a2523d141294b2587a3abefeef1c60809_cgraph" id="aclassCudaAPI_a2523d141294b2587a3abefeef1c60809_cgraph">
+<area shape="rect" title="Allocates memory on gpu device. This function creates a pointer and returns it." alt="" coords="5,13,120,38"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#ac63ffd93e344b939d6399199d8b12fef" title="Definition of CUDA&#39;s cudaMalloc function using dynamically loaded cudart library." alt="" coords="168,13,264,38"/>
+<area shape="poly" title=" " alt="" coords="120,23,154,23,154,28,120,28"/>
+<area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="312,5,460,45"/>
+<area shape="poly" title=" " alt="" coords="264,23,298,23,298,28,264,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCudaAPI_a2523d141294b2587a3abefeef1c60809_icgraph.png" border="0" usemap="#aclassCudaAPI_a2523d141294b2587a3abefeef1c60809_icgraph" alt=""/></div>
+<map name="aclassCudaAPI_a2523d141294b2587a3abefeef1c60809_icgraph" id="aclassCudaAPI_a2523d141294b2587a3abefeef1c60809_icgraph">
+<area shape="rect" title="Allocates memory on gpu device. This function creates a pointer and returns it." alt="" coords="771,141,885,166"/>
+<area shape="rect" href="classcuCSCMatrix.html#ad56cd20e4a4603cf94fb54e65f22e3eb" title="Copies the member data from the host memory to the device memory." alt="" coords="515,5,693,45"/>
+<area shape="poly" title=" " alt="" coords="805,131,769,94,721,60,693,47,695,42,724,55,772,90,809,128"/>
+<area shape="rect" href="classcuCSRMatrix.html#af1c70b75225b3c39e9e8beab3255d897" title="Copies the member data from the host memory to the device memory." alt="" coords="515,69,693,109"/>
+<area shape="poly" title=" " alt="" coords="772,139,722,124,680,112,681,107,723,119,774,134"/>
+<area shape="rect" href="classcuDenseMatrix.html#a7a6f586d01300175558bc9706ff4346e" title="Copies the member data from the host memory to the device memory." alt="" coords="525,133,683,173"/>
+<area shape="poly" title=" " alt="" coords="757,156,683,156,683,151,757,151"/>
+<area shape="rect" href="cu__golub__kahn__bidiagonalization_8cu.html#aa755f765f48f41b63d9dab3528b5f0b2" title="Bi&#45;diagonalizes the positive&#45;definite matrix A using Golub&#45;Kahn&#45;Lanczos method." alt="" coords="485,198,723,223"/>
+<area shape="poly" title=" " alt="" coords="776,173,723,188,670,201,668,195,722,183,774,168"/>
+<area shape="rect" href="cu__lanczos__tridiagonalization_8cu.html#a30ec831ebcc2ce17eefefb770b13773d" title="Tri&#45;diagonalizes matrix A to T using the start vector v. is the Lanczos degree, which will be the siz..." alt="" coords="497,247,711,273"/>
+<area shape="poly" title=" " alt="" coords="807,178,770,210,724,238,692,250,691,245,722,234,767,205,803,174"/>
+<area shape="rect" href="classcuCSCMatrix.html#a318ac462b7f918ac8d8c8263a57ee400" title="Constructor." alt="" coords="226,13,422,38"/>
+<area shape="poly" title=" " alt="" coords="501,28,422,28,422,23,501,23"/>
+<area shape="rect" href="classcuCSRMatrix.html#a63f193a5df0ac2d15819e4aa5a822ea2" title="Constructor." alt="" coords="226,77,422,102"/>
+<area shape="poly" title=" " alt="" coords="501,92,422,92,422,87,501,87"/>
+<area shape="rect" href="classcuDenseMatrix.html#ac2c0902b58036df868cd451e39e974a0" title="Constructor." alt="" coords="211,141,437,166"/>
+<area shape="poly" title=" " alt="" coords="511,156,438,156,438,151,511,151"/>
+<area shape="rect" href="classcuTraceEstimator.html#ab4edc323dc7dcc98f401eeec9276e245" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="237,211,411,266"/>
+<area shape="poly" title=" " alt="" coords="472,227,411,233,410,227,471,221"/>
+<area shape="rect" href="classcuTraceEstimator.html#ad1a582750252acdd51bfad02879369df" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,219,163,259"/>
+<area shape="poly" title=" " alt="" coords="223,241,163,241,163,236,223,236"/>
+<area shape="poly" title=" " alt="" coords="483,253,411,248,411,243,483,248"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a7b30f23332d8cb55aa78eaff457863d5" name="a7b30f23332d8cb55aa78eaff457863d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b30f23332d8cb55aa78eaff457863d5">&#9670;&#160;</a></span>alloc_bytes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ArrayType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCudaAPI.html">CudaAPI</a>&lt; ArrayType &gt;::alloc_bytes </td>
+          <td>(</td>
+          <td class="paramtype">void *&amp;&#160;</td>
+          <td class="paramname"><em>device_array</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const size_t&#160;</td>
+          <td class="paramname"><em>num_bytes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Allocates memory on gpu device. This function uses an existing given pointer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">device_array</td><td>A pointer to the device memory to be allocated </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">num_bytes</td><td>Number of bytes of the array to be allocated. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="cuda__api_8cu_source.html#l00118">118</a> of file <a class="el" href="cuda__api_8cu_source.html">cuda_api.cu</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  121</span>{</div>
+<div class="line"><span class="lineno">  122</span>    <span class="comment">// Check if overflowing might make num_bytes negative if size_t is</span></div>
+<div class="line"><span class="lineno">  123</span>    <span class="comment">// a signed type. For unsigned type, we have no clue at this point.</span></div>
+<div class="line"><span class="lineno">  124</span>    assert(num_bytes &gt; 0);</div>
+<div class="line"><span class="lineno">  125</span> </div>
+<div class="line"><span class="lineno">  126</span>    cudaError_t error = <a class="code hl_function" href="cudart__symbols_8cpp.html#ac63ffd93e344b939d6399199d8b12fef">cudaMalloc</a>(&amp;device_array, num_bytes);</div>
+<div class="line"><span class="lineno">  127</span>    assert(error == cudaSuccess);</div>
+<div class="line"><span class="lineno">  128</span>}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cudart__symbols_8cpp_source.html#l00331">cudaMalloc()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cu__csc__matrix_8cu_source.html#l00335">cuCSCMatrix&lt; DataType &gt;::allocate_buffer()</a>, and <a class="el" href="cu__csr__matrix_8cu_source.html#l00306">cuCSRMatrix&lt; DataType &gt;::allocate_buffer()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCudaAPI_a7b30f23332d8cb55aa78eaff457863d5_cgraph.png" border="0" usemap="#aclassCudaAPI_a7b30f23332d8cb55aa78eaff457863d5_cgraph" alt=""/></div>
+<map name="aclassCudaAPI_a7b30f23332d8cb55aa78eaff457863d5_cgraph" id="aclassCudaAPI_a7b30f23332d8cb55aa78eaff457863d5_cgraph">
+<area shape="rect" title="Allocates memory on gpu device. This function uses an existing given pointer." alt="" coords="5,13,164,38"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#ac63ffd93e344b939d6399199d8b12fef" title="Definition of CUDA&#39;s cudaMalloc function using dynamically loaded cudart library." alt="" coords="212,13,308,38"/>
+<area shape="poly" title=" " alt="" coords="164,23,198,23,198,28,164,28"/>
+<area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="356,5,504,45"/>
+<area shape="poly" title=" " alt="" coords="308,23,342,23,342,28,308,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCudaAPI_a7b30f23332d8cb55aa78eaff457863d5_icgraph.png" border="0" usemap="#aclassCudaAPI_a7b30f23332d8cb55aa78eaff457863d5_icgraph" alt=""/></div>
+<map name="aclassCudaAPI_a7b30f23332d8cb55aa78eaff457863d5_icgraph" id="aclassCudaAPI_a7b30f23332d8cb55aa78eaff457863d5_icgraph">
+<area shape="rect" title="Allocates memory on gpu device. This function uses an existing given pointer." alt="" coords="219,45,377,70"/>
+<area shape="rect" href="classcuCSCMatrix.html#af9b7af845f6f68d64b812709cd0f59ef" title="Allocates an external buffer for matrix&#45;vector multiplication using cusparseSpMV function." alt="" coords="5,5,171,45"/>
+<area shape="poly" title=" " alt="" coords="205,46,171,41,171,35,205,41"/>
+<area shape="rect" href="classcuCSRMatrix.html#ae629d237f7336a31473b637b9aeb2741" title="Allocates an external buffer for matrix&#45;vector multiplication using cusparseSpMV function." alt="" coords="5,69,171,109"/>
+<area shape="poly" title=" " alt="" coords="205,74,171,79,171,74,205,69"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aa9d22d29b465f3ffec42deecbe0f6874" name="aa9d22d29b465f3ffec42deecbe0f6874"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9d22d29b465f3ffec42deecbe0f6874">&#9670;&#160;</a></span>copy_to_device()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ArrayType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCudaAPI.html">CudaAPI</a>&lt; ArrayType &gt;::copy_to_device </td>
+          <td>(</td>
+          <td class="paramtype">const ArrayType *&#160;</td>
+          <td class="paramname"><em>host_array</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const size_t&#160;</td>
+          <td class="paramname"><em>array_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">ArrayType *&#160;</td>
+          <td class="paramname"><em>device_array</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copies memory on host to device memory. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">host_array</td><td>Pointer of 1D array memory on host </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">array_size</td><td>The size of array on host. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">device_array</td><td>Pointer to the destination memory on device. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="cuda__api_8cu_source.html#l00145">145</a> of file <a class="el" href="cuda__api_8cu_source.html">cuda_api.cu</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  149</span>{</div>
+<div class="line"><span class="lineno">  150</span>    <span class="keywordtype">size_t</span> num_bytes = array_size * <span class="keyword">sizeof</span>(ArrayType);</div>
+<div class="line"><span class="lineno">  151</span>    cudaError_t error = <a class="code hl_function" href="cudart__symbols_8cpp.html#ac6037fee0e6fa6d528cb60e1c8e7ba26">cudaMemcpy</a>(device_array, host_array, num_bytes,</div>
+<div class="line"><span class="lineno">  152</span>                                   cudaMemcpyHostToDevice);</div>
+<div class="line"><span class="lineno">  153</span>    assert(error == cudaSuccess);</div>
+<div class="line"><span class="lineno">  154</span>}</div>
+<div class="ttc" id="acudart__symbols_8cpp_html_ac6037fee0e6fa6d528cb60e1c8e7ba26"><div class="ttname"><a href="cudart__symbols_8cpp.html#ac6037fee0e6fa6d528cb60e1c8e7ba26">cudaMemcpy</a></div><div class="ttdeci">cudaError_t cudaMemcpy(void *dst, const void *src, size_t count, cudaMemcpyKind kind)</div><div class="ttdoc">Definition of CUDA's cudaMemcpy function using dynamically loaded cudart library.</div><div class="ttdef"><b>Definition</b> <a href="cudart__symbols_8cpp_source.html#l00355">cudart_symbols.cpp:355</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cudart__symbols_8cpp_source.html#l00355">cudaMemcpy()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cu__csc__matrix_8cu_source.html#l00205">cuCSCMatrix&lt; DataType &gt;::copy_host_to_device()</a>, <a class="el" href="cu__csr__matrix_8cu_source.html#l00199">cuCSRMatrix&lt; DataType &gt;::copy_host_to_device()</a>, <a class="el" href="cu__dense__matrix_8cu_source.html#l00137">cuDenseMatrix&lt; DataType &gt;::copy_host_to_device()</a>, <a class="el" href="cu__golub__kahn__bidiagonalization_8cu_source.html#l00133">cu_golub_kahn_bidiagonalization()</a>, <a class="el" href="cu__lanczos__tridiagonalization_8cu_source.html#l00139">cu_lanczos_tridiagonalization()</a>, and <a class="el" href="cu__orthogonalization_8cu_source.html#l00302">cuOrthogonalization&lt; DataType &gt;::orthogonalize_vectors()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCudaAPI_aa9d22d29b465f3ffec42deecbe0f6874_cgraph.png" border="0" usemap="#aclassCudaAPI_aa9d22d29b465f3ffec42deecbe0f6874_cgraph" alt=""/></div>
+<map name="aclassCudaAPI_aa9d22d29b465f3ffec42deecbe0f6874_cgraph" id="aclassCudaAPI_aa9d22d29b465f3ffec42deecbe0f6874_cgraph">
+<area shape="rect" title="Copies memory on host to device memory." alt="" coords="5,13,191,38"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#ac6037fee0e6fa6d528cb60e1c8e7ba26" title="Definition of CUDA&#39;s cudaMemcpy function using dynamically loaded cudart library." alt="" coords="239,13,348,38"/>
+<area shape="poly" title=" " alt="" coords="191,23,225,23,225,28,191,28"/>
+<area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="396,5,544,45"/>
+<area shape="poly" title=" " alt="" coords="348,23,382,23,382,28,348,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCudaAPI_aa9d22d29b465f3ffec42deecbe0f6874_icgraph.png" border="0" usemap="#aclassCudaAPI_aa9d22d29b465f3ffec42deecbe0f6874_icgraph" alt=""/></div>
+<map name="aclassCudaAPI_aa9d22d29b465f3ffec42deecbe0f6874_icgraph" id="aclassCudaAPI_aa9d22d29b465f3ffec42deecbe0f6874_icgraph">
+<area shape="rect" title="Copies memory on host to device memory." alt="" coords="771,170,956,195"/>
+<area shape="rect" href="classcuCSCMatrix.html#ad56cd20e4a4603cf94fb54e65f22e3eb" title="Copies the member data from the host memory to the device memory." alt="" coords="515,5,693,45"/>
+<area shape="poly" title=" " alt="" coords="841,162,790,110,757,83,721,60,693,47,695,42,724,55,760,79,794,106,845,158"/>
+<area shape="rect" href="classcuCSRMatrix.html#af1c70b75225b3c39e9e8beab3255d897" title="Copies the member data from the host memory to the device memory." alt="" coords="515,69,693,109"/>
+<area shape="poly" title=" " alt="" coords="823,167,722,124,685,112,686,107,724,119,825,162"/>
+<area shape="rect" href="classcuDenseMatrix.html#a7a6f586d01300175558bc9706ff4346e" title="Copies the member data from the host memory to the device memory." alt="" coords="525,133,683,173"/>
+<area shape="poly" title=" " alt="" coords="757,173,683,165,684,160,757,168"/>
+<area shape="rect" href="cu__golub__kahn__bidiagonalization_8cu.html#aa755f765f48f41b63d9dab3528b5f0b2" title="Bi&#45;diagonalizes the positive&#45;definite matrix A using Golub&#45;Kahn&#45;Lanczos method." alt="" coords="485,198,723,223"/>
+<area shape="poly" title=" " alt="" coords="757,197,722,201,721,195,757,191"/>
+<area shape="rect" href="cu__lanczos__tridiagonalization_8cu.html#a30ec831ebcc2ce17eefefb770b13773d" title="Tri&#45;diagonalizes matrix A to T using the start vector v. is the Lanczos degree, which will be the siz..." alt="" coords="497,247,711,273"/>
+<area shape="poly" title=" " alt="" coords="821,203,723,239,678,250,677,245,722,233,819,198"/>
+<area shape="rect" href="classcuOrthogonalization.html#aefd27369921be5760a998a60aca49b56" title="Orthogonalizes set of vectors mutually using modified Gram&#45;Schmidt process." alt="" coords="517,297,691,337"/>
+<area shape="poly" title=" " alt="" coords="840,206,789,248,724,288,693,300,691,295,721,283,786,243,837,202"/>
+<area shape="rect" href="classcuCSCMatrix.html#a318ac462b7f918ac8d8c8263a57ee400" title="Constructor." alt="" coords="226,13,422,38"/>
+<area shape="poly" title=" " alt="" coords="501,28,422,28,422,23,501,23"/>
+<area shape="rect" href="classcuCSRMatrix.html#a63f193a5df0ac2d15819e4aa5a822ea2" title="Constructor." alt="" coords="226,77,422,102"/>
+<area shape="poly" title=" " alt="" coords="501,92,422,92,422,87,501,87"/>
+<area shape="rect" href="classcuDenseMatrix.html#ac2c0902b58036df868cd451e39e974a0" title="Constructor." alt="" coords="211,141,437,166"/>
+<area shape="poly" title=" " alt="" coords="511,156,438,156,438,151,511,151"/>
+<area shape="rect" href="classcuTraceEstimator.html#ab4edc323dc7dcc98f401eeec9276e245" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="237,211,411,266"/>
+<area shape="poly" title=" " alt="" coords="472,227,411,233,410,227,471,221"/>
+<area shape="rect" href="classcuTraceEstimator.html#ad1a582750252acdd51bfad02879369df" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,219,163,259"/>
+<area shape="poly" title=" " alt="" coords="223,241,163,241,163,236,223,236"/>
+<area shape="poly" title=" " alt="" coords="483,253,411,248,411,243,483,248"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a5602b49ab7ba7581558bdbd57d8dfd9f" name="a5602b49ab7ba7581558bdbd57d8dfd9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5602b49ab7ba7581558bdbd57d8dfd9f">&#9670;&#160;</a></span>del()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ArrayType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCudaAPI.html">CudaAPI</a>&lt; ArrayType &gt;::del </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>device_array</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deletes memory on gpu device if its pointer is not <code>NULL</code>, then sets the pointer to <code>NULL</code>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">device_array</td><td>A pointer to memory on device to be deleted. This pointer will be set to <code>NULL</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="cuda__api_8cu_source.html#l00169">169</a> of file <a class="el" href="cuda__api_8cu_source.html">cuda_api.cu</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  170</span>{</div>
+<div class="line"><span class="lineno">  171</span>    <span class="keywordflow">if</span> (device_array != NULL)</div>
+<div class="line"><span class="lineno">  172</span>    {</div>
+<div class="line"><span class="lineno">  173</span>        cudaError_t error = <a class="code hl_function" href="cudart__symbols_8cpp.html#ab17fef862d4d1fefb9dba35bd62a187e">cudaFree</a>(device_array);</div>
+<div class="line"><span class="lineno">  174</span>        assert(error == cudaSuccess);</div>
+<div class="line"><span class="lineno">  175</span>        device_array = NULL;</div>
+<div class="line"><span class="lineno">  176</span>    }</div>
+<div class="line"><span class="lineno">  177</span>}</div>
+<div class="ttc" id="acudart__symbols_8cpp_html_ab17fef862d4d1fefb9dba35bd62a187e"><div class="ttname"><a href="cudart__symbols_8cpp.html#ab17fef862d4d1fefb9dba35bd62a187e">cudaFree</a></div><div class="ttdeci">cudaError_t cudaFree(void *devPtr)</div><div class="ttdoc">Definition of CUDA's cudaFree function using dynamically loaded cudart library.</div><div class="ttdef"><b>Definition</b> <a href="cudart__symbols_8cpp_source.html#l00308">cudart_symbols.cpp:308</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cudart__symbols_8cpp_source.html#l00308">cudaFree()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cu__csc__matrix_8cu_source.html#l00335">cuCSCMatrix&lt; DataType &gt;::allocate_buffer()</a>, <a class="el" href="cu__csr__matrix_8cu_source.html#l00306">cuCSRMatrix&lt; DataType &gt;::allocate_buffer()</a>, <a class="el" href="cu__golub__kahn__bidiagonalization_8cu_source.html#l00133">cu_golub_kahn_bidiagonalization()</a>, <a class="el" href="cu__lanczos__tridiagonalization_8cu_source.html#l00139">cu_lanczos_tridiagonalization()</a>, <a class="el" href="cu__csc__matrix_8cu_source.html#l00130">cuCSCMatrix&lt; DataType &gt;::~cuCSCMatrix()</a>, <a class="el" href="cu__csr__matrix_8cu_source.html#l00129">cuCSRMatrix&lt; DataType &gt;::~cuCSRMatrix()</a>, and <a class="el" href="cu__dense__matrix_8cu_source.html#l00108">cuDenseMatrix&lt; DataType &gt;::~cuDenseMatrix()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCudaAPI_a5602b49ab7ba7581558bdbd57d8dfd9f_cgraph.png" border="0" usemap="#aclassCudaAPI_a5602b49ab7ba7581558bdbd57d8dfd9f_cgraph" alt=""/></div>
+<map name="aclassCudaAPI_a5602b49ab7ba7581558bdbd57d8dfd9f_cgraph" id="aclassCudaAPI_a5602b49ab7ba7581558bdbd57d8dfd9f_cgraph">
+<area shape="rect" title="Deletes memory on gpu device if its pointer is not NULL, then sets the pointer to NULL." alt="" coords="5,13,109,38"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#ab17fef862d4d1fefb9dba35bd62a187e" title="Definition of CUDA&#39;s cudaFree function using dynamically loaded cudart library." alt="" coords="157,13,239,38"/>
+<area shape="poly" title=" " alt="" coords="110,23,143,23,143,28,110,28"/>
+<area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="287,5,435,45"/>
+<area shape="poly" title=" " alt="" coords="239,23,273,23,273,28,239,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCudaAPI_a5602b49ab7ba7581558bdbd57d8dfd9f_icgraph.png" border="0" usemap="#aclassCudaAPI_a5602b49ab7ba7581558bdbd57d8dfd9f_icgraph" alt=""/></div>
+<map name="aclassCudaAPI_a5602b49ab7ba7581558bdbd57d8dfd9f_icgraph" id="aclassCudaAPI_a5602b49ab7ba7581558bdbd57d8dfd9f_icgraph">
+<area shape="rect" title="Deletes memory on gpu device if its pointer is not NULL, then sets the pointer to NULL." alt="" coords="717,183,821,209"/>
+<area shape="rect" href="classcuCSCMatrix.html#af9b7af845f6f68d64b812709cd0f59ef" title="Allocates an external buffer for matrix&#45;vector multiplication using cusparseSpMV function." alt="" coords="468,5,633,45"/>
+<area shape="poly" title=" " alt="" coords="754,172,721,115,697,85,668,60,632,42,635,37,671,55,700,81,725,112,759,169"/>
+<area shape="rect" href="classcuCSRMatrix.html#ae629d237f7336a31473b637b9aeb2741" title="Allocates an external buffer for matrix&#45;vector multiplication using cusparseSpMV function." alt="" coords="468,69,633,109"/>
+<area shape="poly" title=" " alt="" coords="743,176,709,149,668,124,633,110,635,105,671,119,712,144,746,172"/>
+<area shape="rect" href="cu__golub__kahn__bidiagonalization_8cu.html#aa755f765f48f41b63d9dab3528b5f0b2" title="Bi&#45;diagonalizes the positive&#45;definite matrix A using Golub&#45;Kahn&#45;Lanczos method." alt="" coords="432,134,669,159"/>
+<area shape="poly" title=" " alt="" coords="707,182,669,173,617,162,618,157,670,168,708,177"/>
+<area shape="rect" href="cu__lanczos__tridiagonalization_8cu.html#a30ec831ebcc2ce17eefefb770b13773d" title="Tri&#45;diagonalizes matrix A to T using the start vector v. is the Lanczos degree, which will be the siz..." alt="" coords="443,183,658,209"/>
+<area shape="poly" title=" " alt="" coords="703,199,658,199,658,193,703,193"/>
+<area shape="rect" href="classcuCSCMatrix.html#afb187a61a6f4d735409a989524a85336" title="Destructor." alt="" coords="447,233,654,258"/>
+<area shape="poly" title=" " alt="" coords="704,214,670,223,613,235,612,230,669,217,703,209"/>
+<area shape="rect" href="classcuCSRMatrix.html#a5040e7af906ebb5e7b4ec1f5af701263" title="Destructor." alt="" coords="447,282,654,307"/>
+<area shape="poly" title=" " alt="" coords="746,220,712,247,670,272,634,284,632,279,668,267,709,243,743,216"/>
+<area shape="rect" href="classcuDenseMatrix.html#a883fe7e26f157544ad8f6f836703bc05" title="Destructor. This function removes data from GPU devices." alt="" coords="432,331,669,357"/>
+<area shape="poly" title=" " alt="" coords="757,222,723,273,699,299,671,321,643,334,641,329,668,316,695,295,719,270,753,219"/>
+<area shape="rect" href="classcuTraceEstimator.html#ab4edc323dc7dcc98f401eeec9276e245" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="211,145,384,199"/>
+<area shape="poly" title=" " alt="" coords="418,163,384,166,384,161,418,157"/>
+<area shape="rect" href="classcuTraceEstimator.html#ad1a582750252acdd51bfad02879369df" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,152,163,192"/>
+<area shape="poly" title=" " alt="" coords="197,175,163,175,163,169,197,169"/>
+<area shape="poly" title=" " alt="" coords="429,187,384,183,385,178,430,182"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a8682c4316b1f3b223e10023b87794ed4" name="a8682c4316b1f3b223e10023b87794ed4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8682c4316b1f3b223e10023b87794ed4">&#9670;&#160;</a></span>get_device()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ArrayType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classCudaAPI.html">CudaAPI</a>&lt; ArrayType &gt;::get_device </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the current device in multi-gpu applications. </p>
+<dl class="section return"><dt>Returns</dt><dd>device_id The id of the current device. The id is a number from <code>0</code> to <code>num_gpu_devices-1</code> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cuda__api_8cu_source.html#l00209">209</a> of file <a class="el" href="cuda__api_8cu_source.html">cuda_api.cu</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  210</span>{</div>
+<div class="line"><span class="lineno">  211</span>    <span class="keywordtype">int</span> device_id = -1;</div>
+<div class="line"><span class="lineno">  212</span>    cudaError_t error = <a class="code hl_function" href="cudart__symbols_8cpp.html#a1795645d53ca669d84d2aff6f3706917">cudaGetDevice</a>(&amp;device_id);</div>
+<div class="line"><span class="lineno">  213</span>    assert(error == cudaSuccess);</div>
+<div class="line"><span class="lineno">  214</span> </div>
+<div class="line"><span class="lineno">  215</span>    <span class="keywordflow">return</span> device_id;</div>
+<div class="line"><span class="lineno">  216</span>}</div>
+<div class="ttc" id="acudart__symbols_8cpp_html_a1795645d53ca669d84d2aff6f3706917"><div class="ttname"><a href="cudart__symbols_8cpp.html#a1795645d53ca669d84d2aff6f3706917">cudaGetDevice</a></div><div class="ttdeci">cudaError_t cudaGetDevice(int *device)</div><div class="ttdoc">Definition of CUDA's cudaGetDevice function using dynamically loaded cudart library.</div><div class="ttdef"><b>Definition</b> <a href="cudart__symbols_8cpp_source.html#l00234">cudart_symbols.cpp:234</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cudart__symbols_8cpp_source.html#l00234">cudaGetDevice()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cu__affine__matrix__function_8cu_source.html#l00140">cuAffineMatrixFunction&lt; DataType &gt;::_add_scaled_vector()</a>, <a class="el" href="cu__csc__matrix_8cu_source.html#l00478">cuCSCMatrix&lt; DataType &gt;::dot()</a>, <a class="el" href="cu__csr__matrix_8cu_source.html#l00449">cuCSRMatrix&lt; DataType &gt;::dot()</a>, <a class="el" href="cu__dense__matrix_8cu_source.html#l00333">cuDenseMatrix&lt; DataType &gt;::dot()</a>, <a class="el" href="cu__csc__matrix_8cu_source.html#l00556">cuCSCMatrix&lt; DataType &gt;::dot_plus()</a>, <a class="el" href="cu__csr__matrix_8cu_source.html#l00517">cuCSRMatrix&lt; DataType &gt;::dot_plus()</a>, <a class="el" href="cu__dense__matrix_8cu_source.html#l00378">cuDenseMatrix&lt; DataType &gt;::dot_plus()</a>, <a class="el" href="cu__linear__operator_8cu_source.html#l00205">cuLinearOperator&lt; DataType &gt;::get_cublas_handle()</a>, <a class="el" href="cu__csc__matrix_8cu_source.html#l00632">cuCSCMatrix&lt; DataType &gt;::transpose_dot()</a>, <a class="el" href="cu__csr__matrix_8cu_source.html#l00583">cuCSRMatrix&lt; DataType &gt;::transpose_dot()</a>, <a class="el" href="cu__dense__matrix_8cu_source.html#l00423">cuDenseMatrix&lt; DataType &gt;::transpose_dot()</a>, <a class="el" href="cu__csc__matrix_8cu_source.html#l00711">cuCSCMatrix&lt; DataType &gt;::transpose_dot_plus()</a>, <a class="el" href="cu__csr__matrix_8cu_source.html#l00652">cuCSRMatrix&lt; DataType &gt;::transpose_dot_plus()</a>, and <a class="el" href="cu__dense__matrix_8cu_source.html#l00469">cuDenseMatrix&lt; DataType &gt;::transpose_dot_plus()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCudaAPI_a8682c4316b1f3b223e10023b87794ed4_cgraph.png" border="0" usemap="#aclassCudaAPI_a8682c4316b1f3b223e10023b87794ed4_cgraph" alt=""/></div>
+<map name="aclassCudaAPI_a8682c4316b1f3b223e10023b87794ed4_cgraph" id="aclassCudaAPI_a8682c4316b1f3b223e10023b87794ed4_cgraph">
+<area shape="rect" title="Gets the current device in multi&#45;gpu applications." alt="" coords="5,13,160,38"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#a1795645d53ca669d84d2aff6f3706917" title="Definition of CUDA&#39;s cudaGetDevice function using dynamically loaded cudart library." alt="" coords="208,13,329,38"/>
+<area shape="poly" title=" " alt="" coords="160,23,194,23,194,28,160,28"/>
+<area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="377,5,525,45"/>
+<area shape="poly" title=" " alt="" coords="329,23,363,23,363,28,329,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCudaAPI_a8682c4316b1f3b223e10023b87794ed4_icgraph.png" border="0" usemap="#aclassCudaAPI_a8682c4316b1f3b223e10023b87794ed4_icgraph" alt=""/></div>
+<map name="aclassCudaAPI_a8682c4316b1f3b223e10023b87794ed4_icgraph" id="aclassCudaAPI_a8682c4316b1f3b223e10023b87794ed4_icgraph">
+<area shape="rect" title="Gets the current device in multi&#45;gpu applications." alt="" coords="985,346,1140,371"/>
+<area shape="rect" href="classcuAffineMatrixFunction.html#af0a51e03280f6700f6534a94874436c1" title="Performs the operation , where &#160;is an input vector scaled by &#160;and &#160;it the output vector." alt="" coords="741,5,913,45"/>
+<area shape="poly" title=" " alt="" coords="1056,333,1045,276,1024,202,1008,163,988,125,964,90,936,59,912,44,915,40,939,55,968,87,993,123,1013,161,1029,200,1050,275,1061,332"/>
+<area shape="rect" href="classcuCSCMatrix.html#a1eb47019eaa7abd083d644e37893fc3a" title="Matrix vector product." alt="" coords="760,70,895,95"/>
+<area shape="poly" title=" " alt="" coords="1054,333,1041,284,1018,223,984,161,961,133,936,109,916,97,894,90,896,85,918,92,939,105,965,129,988,158,1023,221,1046,283,1059,332"/>
+<area shape="rect" href="classcuCSRMatrix.html#ac7153e0293610828cf3455d01ffe8c30" title="Matrix vector product." alt="" coords="760,119,895,145"/>
+<area shape="poly" title=" " alt="" coords="1051,334,1035,294,1011,246,978,198,958,177,936,158,916,147,894,140,896,135,918,143,939,154,962,173,982,195,1015,243,1040,292,1056,332"/>
+<area shape="rect" href="classcuDenseMatrix.html#acda42015f534adec6df3728f53f2a6d7" title="Matrix vector product." alt="" coords="753,169,902,194"/>
+<area shape="poly" title=" " alt="" coords="1046,335,1003,270,972,236,936,208,901,193,903,188,939,203,976,232,1007,267,1051,332"/>
+<area shape="rect" href="classcuCSCMatrix.html#ac4759c30ffb86521f4ae29eac739db42" title="Matrix vector product written in place." alt="" coords="743,218,911,243"/>
+<area shape="poly" title=" " alt="" coords="1039,338,994,296,966,275,936,257,907,246,909,241,938,252,969,270,998,292,1043,334"/>
+<area shape="rect" href="classcuCSRMatrix.html#a96db9711b26e1be6b67da4d73f77cf70" title="Matrix vector product written in place." alt="" coords="743,267,911,293"/>
+<area shape="poly" title=" " alt="" coords="1023,342,936,307,895,295,897,290,938,301,1025,337"/>
+<area shape="rect" href="classcuDenseMatrix.html#a5be7f76677e25f81d4a1edbedfbf3f35" title="Matrix vector product written in place." alt="" coords="736,317,919,342"/>
+<area shape="poly" title=" " alt="" coords="971,350,918,343,919,338,972,345"/>
+<area shape="rect" href="classcuLinearOperator.html#aa0bf630097fc3820d7ec27ec4e1a2994" title="This function returns a reference to the cublasHandle_t object. The object will be created,..." alt="" coords="746,367,909,407"/>
+<area shape="poly" title=" " alt="" coords="972,372,909,380,909,374,971,367"/>
+<area shape="rect" href="classcuCSCMatrix.html#a0af6927d0301ce630c70a88c1d799300" title="Transposed&#45;matrix vector product." alt="" coords="725,431,930,457"/>
+<area shape="poly" title=" " alt="" coords="1028,380,986,401,938,421,894,434,893,429,936,416,984,397,1026,376"/>
+<area shape="rect" href="classcuCSRMatrix.html#a533fef9f3fd9de1f3c984dae663b0ba7" title="Transposed&#45;matrix vector product." alt="" coords="725,481,930,506"/>
+<area shape="poly" title=" " alt="" coords="1044,384,999,429,970,452,939,472,910,483,908,478,936,467,967,448,996,425,1040,380"/>
+<area shape="rect" href="classcuDenseMatrix.html#a36bcdf696c8a5b30d818f43d63a1a0ff" title="Transposed&#45;matrix vector product." alt="" coords="717,530,937,555"/>
+<area shape="poly" title=" " alt="" coords="1051,385,1034,417,1008,454,977,490,939,521,915,532,913,528,936,516,973,486,1004,450,1029,414,1047,382"/>
+<area shape="rect" href="classcuCSCMatrix.html#a19f87522864944c7d622c1a3653bf883" title="Transposed&#45;matrix vector product written in place." alt="" coords="739,580,916,620"/>
+<area shape="poly" title=" " alt="" coords="1055,386,1040,427,1015,476,982,527,939,570,918,583,915,578,936,566,978,523,1010,474,1035,424,1050,384"/>
+<area shape="rect" href="classcuCSRMatrix.html#ae43cfdb290779cd143389a2fa4ed5b3f" title="Transposed&#45;matrix vector product written in place." alt="" coords="739,644,916,684"/>
+<area shape="poly" title=" " alt="" coords="1059,386,1047,438,1025,505,989,574,966,606,939,634,918,648,915,643,936,630,962,603,985,571,1020,503,1042,437,1054,385"/>
+<area shape="rect" href="classcuDenseMatrix.html#a04afe283c6f3570cbaffb36b8043d940" title="Transposed&#45;matrix vector product written in place." alt="" coords="731,708,923,748"/>
+<area shape="poly" title=" " alt="" coords="1062,385,1053,449,1033,533,1017,577,997,621,971,662,939,698,923,710,920,706,936,694,967,659,992,619,1013,575,1028,531,1048,448,1057,385"/>
+<area shape="rect" href="cu__golub__kahn__bidiagonalization_8cu.html#aa755f765f48f41b63d9dab3528b5f0b2" title="Bi&#45;diagonalizes the positive&#45;definite matrix A using Golub&#45;Kahn&#45;Lanczos method." alt="" coords="432,350,669,375"/>
+<area shape="poly" title=" " alt="" coords="732,381,669,376,670,370,732,376"/>
+<area shape="rect" href="cu__lanczos__tridiagonalization_8cu.html#a30ec831ebcc2ce17eefefb770b13773d" title="Tri&#45;diagonalizes matrix A to T using the start vector v. is the Lanczos degree, which will be the siz..." alt="" coords="443,399,658,425"/>
+<area shape="poly" title=" " alt="" coords="732,398,659,405,658,400,732,393"/>
+<area shape="rect" href="classcuTraceEstimator.html#ab4edc323dc7dcc98f401eeec9276e245" title="For a given random input vector, computes one Monte&#45;Carlo sample to estimate trace using Lanczos quad..." alt="" coords="211,361,384,415"/>
+<area shape="poly" title=" " alt="" coords="418,379,384,382,384,377,418,373"/>
+<area shape="rect" href="classcuTraceEstimator.html#ad1a582750252acdd51bfad02879369df" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="5,368,163,408"/>
+<area shape="poly" title=" " alt="" coords="197,391,163,391,163,385,197,385"/>
+<area shape="poly" title=" " alt="" coords="429,403,384,399,385,394,430,398"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a1bb426f65bd0c9f13b1ec57df6af17be" name="a1bb426f65bd0c9f13b1ec57df6af17be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bb426f65bd0c9f13b1ec57df6af17be">&#9670;&#160;</a></span>set_device()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ArrayType &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classCudaAPI.html">CudaAPI</a>&lt; ArrayType &gt;::set_device </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>device_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the current device in multi-gpu applications. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">device_id</td><td>The id of the device to switch to. The id is a number from <code>0</code> to <code>num_gpu_devices-1</code> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="cuda__api_8cu_source.html#l00191">191</a> of file <a class="el" href="cuda__api_8cu_source.html">cuda_api.cu</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  192</span>{</div>
+<div class="line"><span class="lineno">  193</span>    cudaError_t error = <a class="code hl_function" href="cudart__symbols_8cpp.html#a418c299b069c4803bfb7cab4943da383">cudaSetDevice</a>(device_id);</div>
+<div class="line"><span class="lineno">  194</span>    assert(error == cudaSuccess);</div>
+<div class="line"><span class="lineno">  195</span>}</div>
+<div class="ttc" id="acudart__symbols_8cpp_html_a418c299b069c4803bfb7cab4943da383"><div class="ttname"><a href="cudart__symbols_8cpp.html#a418c299b069c4803bfb7cab4943da383">cudaSetDevice</a></div><div class="ttdeci">cudaError_t cudaSetDevice(int device)</div><div class="ttdoc">Definition of CUDA's cudaSetDevice function using dynamically loaded cudart library.</div><div class="ttdef"><b>Definition</b> <a href="cudart__symbols_8cpp_source.html#l00383">cudart_symbols.cpp:383</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="cudart__symbols_8cpp_source.html#l00383">cudaSetDevice()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="cu__csc__matrix_8cu_source.html#l00205">cuCSCMatrix&lt; DataType &gt;::copy_host_to_device()</a>, <a class="el" href="cu__csr__matrix_8cu_source.html#l00199">cuCSRMatrix&lt; DataType &gt;::copy_host_to_device()</a>, <a class="el" href="cu__dense__matrix_8cu_source.html#l00137">cuDenseMatrix&lt; DataType &gt;::copy_host_to_device()</a>, <a class="el" href="cu__trace__estimator_8cu_source.html#l00205">cuTraceEstimator&lt; DataType &gt;::cu_trace_estimator()</a>, <a class="el" href="cu__linear__operator_8cu_source.html#l00222">cuLinearOperator&lt; DataType &gt;::initialize_cublas_handle()</a>, <a class="el" href="cu__linear__operator_8cu_source.html#l00269">cuLinearOperator&lt; DataType &gt;::initialize_cusparse_handle()</a>, <a class="el" href="cu__csc__matrix_8cu_source.html#l00130">cuCSCMatrix&lt; DataType &gt;::~cuCSCMatrix()</a>, <a class="el" href="cu__csr__matrix_8cu_source.html#l00129">cuCSRMatrix&lt; DataType &gt;::~cuCSRMatrix()</a>, <a class="el" href="cu__dense__matrix_8cu_source.html#l00108">cuDenseMatrix&lt; DataType &gt;::~cuDenseMatrix()</a>, and <a class="el" href="cu__linear__operator_8cu_source.html#l00120">cuLinearOperator&lt; DataType &gt;::~cuLinearOperator()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCudaAPI_a1bb426f65bd0c9f13b1ec57df6af17be_cgraph.png" border="0" usemap="#aclassCudaAPI_a1bb426f65bd0c9f13b1ec57df6af17be_cgraph" alt=""/></div>
+<map name="aclassCudaAPI_a1bb426f65bd0c9f13b1ec57df6af17be_cgraph" id="aclassCudaAPI_a1bb426f65bd0c9f13b1ec57df6af17be_cgraph">
+<area shape="rect" title="Sets the current device in multi&#45;gpu applications." alt="" coords="5,13,160,38"/>
+<area shape="rect" href="cudart__symbols_8cpp.html#a418c299b069c4803bfb7cab4943da383" title="Definition of CUDA&#39;s cudaSetDevice function using dynamically loaded cudart library." alt="" coords="208,13,327,38"/>
+<area shape="poly" title=" " alt="" coords="160,23,194,23,194,28,160,28"/>
+<area shape="rect" href="classcudartSymbols.html#a9ecf36abdbb090bbc573672be6e538eb" title="Returns the name of cudart shared library." alt="" coords="375,5,523,45"/>
+<area shape="poly" title=" " alt="" coords="327,23,361,23,361,28,327,28"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classCudaAPI_a1bb426f65bd0c9f13b1ec57df6af17be_icgraph.png" border="0" usemap="#aclassCudaAPI_a1bb426f65bd0c9f13b1ec57df6af17be_icgraph" alt=""/></div>
+<map name="aclassCudaAPI_a1bb426f65bd0c9f13b1ec57df6af17be_icgraph" id="aclassCudaAPI_a1bb426f65bd0c9f13b1ec57df6af17be_icgraph">
+<area shape="rect" title="Sets the current device in multi&#45;gpu applications." alt="" coords="565,451,720,476"/>
+<area shape="rect" href="classcuCSCMatrix.html#ad56cd20e4a4603cf94fb54e65f22e3eb" title="Copies the member data from the host memory to the device memory." alt="" coords="309,9,488,49"/>
+<area shape="poly" title=" " alt="" coords="638,437,632,366,613,269,598,216,577,165,550,116,516,73,484,51,487,47,519,69,554,113,582,162,603,215,619,267,637,365,643,437"/>
+<area shape="rect" href="classcuCSRMatrix.html#af1c70b75225b3c39e9e8beab3255d897" title="Copies the member data from the host memory to the device memory." alt="" coords="309,83,488,123"/>
+<area shape="poly" title=" " alt="" coords="635,437,623,381,601,307,566,228,543,192,515,159,492,140,466,126,468,121,495,135,519,155,547,188,570,226,606,305,628,380,640,436"/>
+<area shape="rect" href="classcuDenseMatrix.html#a7a6f586d01300175558bc9706ff4346e" title="Copies the member data from the host memory to the device memory." alt="" coords="319,347,478,387"/>
+<area shape="poly" title=" " alt="" coords="607,446,564,423,516,402,478,389,479,384,518,397,567,419,609,441"/>
+<area shape="rect" href="classcuTraceEstimator.html#ad1a582750252acdd51bfad02879369df" title="Stochastic Lanczos quadrature method to estimate trace of a function of a linear operator...." alt="" coords="320,475,477,515"/>
+<area shape="poly" title=" " alt="" coords="552,478,478,488,477,482,551,473"/>
+<area shape="rect" href="classcuLinearOperator.html#ae2bec474007baff1b7e598a869e83e12" title="Creates a cublasHandle_t object, if not created already." alt="" coords="299,411,498,451"/>
+<area shape="poly" title=" " alt="" coords="551,454,498,447,499,442,552,449"/>
+<area shape="rect" href="classcuLinearOperator.html#a118f2b8f1523da52441070340f7c43f9" title="Creates a cusparseHandle_t object, if not created already." alt="" coords="299,169,498,209"/>
+<area shape="poly" title=" " alt="" coords="619,442,416,211,420,207,623,439"/>
+<area shape="rect" href="classcuCSCMatrix.html#afb187a61a6f4d735409a989524a85336" title="Destructor." alt="" coords="295,540,502,565"/>
+<area shape="poly" title=" " alt="" coords="610,485,567,509,518,530,474,542,473,537,516,525,565,504,608,481"/>
+<area shape="rect" href="classcuCSRMatrix.html#a5040e7af906ebb5e7b4ec1f5af701263" title="Destructor." alt="" coords="295,589,502,615"/>
+<area shape="poly" title=" " alt="" coords="625,489,580,535,550,559,519,579,486,592,484,587,516,574,547,555,576,531,621,485"/>
+<area shape="rect" href="classcuDenseMatrix.html#a883fe7e26f157544ad8f6f836703bc05" title="Destructor. This function removes data from GPU devices." alt="" coords="280,639,517,664"/>
+<area shape="poly" title=" " alt="" coords="632,490,614,522,589,560,557,598,519,630,495,641,493,636,516,625,553,594,585,557,610,519,627,487"/>
+<area shape="rect" href="classcuLinearOperator.html#ad1d14172ed32afa599208af04ec4db0c" title="Destructor." alt="" coords="326,689,471,729"/>
+<area shape="poly" title=" " alt="" coords="636,490,621,531,596,582,563,634,542,658,519,679,497,692,473,701,471,696,494,687,516,675,538,654,558,631,592,580,616,529,631,488"/>
+<area shape="rect" href="classcuCSCMatrix.html#a318ac462b7f918ac8d8c8263a57ee400" title="Constructor." alt="" coords="21,5,217,31"/>
+<area shape="poly" title=" " alt="" coords="295,27,217,24,217,19,296,22"/>
+<area shape="rect" href="classcuCSRMatrix.html#a63f193a5df0ac2d15819e4aa5a822ea2" title="Constructor." alt="" coords="21,55,217,80"/>
+<area shape="poly" title=" " alt="" coords="296,93,217,83,217,77,296,88"/>
+<area shape="rect" href="classcuDenseMatrix.html#ac2c0902b58036df868cd451e39e974a0" title="Constructor." alt="" coords="5,361,232,387"/>
+<area shape="poly" title=" " alt="" coords="306,372,232,374,232,369,305,367"/>
+<area shape="poly" title=" " alt="" coords="287,411,181,389,182,384,288,406"/>
+<area shape="rect" href="classcuDenseAffineMatrixFunction.html#a434ab7e5146103c8ef54a1ef9082e3a9" title="Constructor." alt="" coords="8,475,229,515"/>
+<area shape="poly" title=" " alt="" coords="298,457,207,478,206,473,296,452"/>
+<area shape="rect" href="classcuDenseAffineMatrixFunction.html#a4390da1a915dda43ba12bcf9c8b28ce2" title="Default constructor." alt="" coords="8,539,229,579"/>
+<area shape="poly" title=" " alt="" coords="291,460,282,465,266,480,258,496,250,513,234,529,212,542,209,537,230,525,246,510,254,494,262,477,278,461,289,455"/>
+<area shape="rect" href="classcuLinearOperator.html#a003b67351f4a3cf2e574a1e8631e1b24" title="Default constructor." alt="" coords="20,603,217,643"/>
+<area shape="poly" title=" " alt="" coords="289,459,282,465,269,480,262,496,259,528,255,560,247,577,234,593,217,605,214,601,230,589,243,574,249,559,253,527,257,494,265,477,278,461,286,455"/>
+<area shape="rect" href="classcuLinearOperator.html#aca3eea5672c88aa9b4a6fa6b631e6a0a" title="Constructor with setting num_rows and num_columns." alt="" coords="20,411,217,451"/>
+<area shape="poly" title=" " alt="" coords="285,434,218,434,218,429,285,429"/>
+<area shape="poly" title=" " alt="" coords="319,165,298,153,278,137,261,112,255,88,248,65,230,44,211,33,214,29,234,40,253,63,260,87,266,110,282,134,301,148,322,160"/>
+<area shape="poly" title=" " alt="" coords="330,165,278,137,255,115,245,105,231,95,199,83,200,78,233,90,249,101,258,111,282,133,333,161"/>
+<area shape="rect" href="classcuCSCAffineMatrixFunction.html#a1228826287e0eaa00b1197bc4a0161d7" title="Constructor." alt="" coords="15,169,222,209"/>
+<area shape="poly" title=" " alt="" coords="286,191,222,191,222,186,286,186"/>
+<area shape="rect" href="classcuCSCAffineMatrixFunction.html#afe58ee4c91bbf4c4f086c17990c10b5a" title="Default constructor." alt="" coords="15,233,222,273"/>
+<area shape="poly" title=" " alt="" coords="298,214,207,235,206,230,296,209"/>
+<area shape="rect" href="classcuCSRAffineMatrixFunction.html#ae6ea1994bd2b736e055f5a9d1f1ebe8b" title="Constructor." alt="" coords="15,297,222,337"/>
+<area shape="poly" title=" " alt="" coords="358,218,300,253,233,287,201,299,199,294,231,282,298,249,355,214"/>
+<area shape="rect" href="classcuCSRAffineMatrixFunction.html#a51df17081468c7252dd52bdfceeaa152" title="Default constructor." alt="" coords="15,105,222,145"/>
+<area shape="poly" title=" " alt="" coords="296,168,206,147,207,142,298,163"/>
+</map>
+</div>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/runner/work/imate/imate/imate/_cuda_utilities/<a class="el" href="cuda__api_8h_source.html">cuda_api.h</a></li>
+<li>/home/runner/work/imate/imate/imate/_cuda_utilities/<a class="el" href="cuda__api_8cu_source.html">cuda_api.cu</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="classCudaAPI.html">CudaAPI</a></li>
+    <li class="footer">Generated on Tue May 12 2026 22:54:39 for imate by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+  </ul>
+</div>
+</body>
+</html>

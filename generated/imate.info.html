@@ -10,10 +10,10 @@
 <meta property="og:title" content="imate.info" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ameli.github.io/generated/imate.info.html" />
-<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:site_name" content="IMATE" />
 <meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
-<meta property="og:image:alt" content="RestoreIO" />
-<meta property="og:title" content="RestoreIO">
+<meta property="og:image:alt" content="IMATE" />
+<meta property="og:title" content="IMATE">
 <meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
     <title>imate.info &#8212; imate Manual</title>
@@ -39,7 +39,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -63,6 +63,9 @@
     <link rel="next" title="imate.device.get_processor_name" href="imate.device.get_processor_name.html" />
     <link rel="prev" title="imate.Memory.get_resident_memory" href="imate.Memory.get_resident_memory.html" />
 
+    <!-- Robots -->
+	<meta name="robots" content="index,follow">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
     <script>
@@ -72,8 +75,6 @@
 
         gtag('config', 'G-4JHJ15SKEY');
     </script>
-
-    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
 
     <!-- My custom JS -->
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
@@ -591,6 +592,11 @@
    imate.device.restrict_to_single_processor
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.get_config.html">
+   imate.get_config
+  </a>
+ </li>
 </ul>
 
     
@@ -702,6 +708,7 @@ Mega-Byte, <code class="docutils literal notranslate"><span class="pre">&quot;GB
 <dt><a class="reference internal" href="imate.device.get_nvidia_driver_version.html#imate.device.get_nvidia_driver_version" title="imate.device.get_nvidia_driver_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.device.get_nvidia_driver_version</span></code></a></dt><dd></dd>
 <dt><a class="reference internal" href="imate.Memory.html#imate.Memory" title="imate.Memory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.Memory</span></code></a></dt><dd></dd>
 <dt><a class="reference internal" href="imate.device.locate_cuda.html#imate.device.locate_cuda" title="imate.device.locate_cuda"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.device.locate_cuda</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="imate.get_config.html#imate.get_config" title="imate.get_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imate.get_config</span></code></a></dt><dd></dd>
 </dl>
 </div>
 <p class="rubric">Notes</p>
@@ -747,7 +754,7 @@ hardware. The unit of the reported memory size can be found in
 for Mega-Bytes, and so on.</p>
 <p class="rubric">Examples</p>
 <p>Print information:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">info</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">info</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">info</span><span class="p">()</span>
 <span class="go">imate version   : 0.13.0</span>
 <span class="go">processor       : Intel(R) Xeon(R) CPU E5-2623 v3 @ 3.00GHz</span>
@@ -760,11 +767,11 @@ for Mega-Bytes, and so on.</p>
 </pre></div>
 </div>
 <p>Return information as a dictionary:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">info</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">info</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">info_dict</span> <span class="o">=</span> <span class="n">info</span><span class="p">(</span><span class="n">print_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Neatly print dictionary using pprint</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">info_dict</span><span class="p">)</span>
 <span class="go">{</span>
 <span class="go">    &#39;imate version&#39;: 0.13.0,</span>

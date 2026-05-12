@@ -5,21 +5,13 @@ var dir_5951bf1a1af500d6bf056d938250a591 =
     [ "c_lanczos_tridiagonalization.cpp", "c__lanczos__tridiagonalization_8cpp.html", "c__lanczos__tridiagonalization_8cpp" ],
     [ "c_lanczos_tridiagonalization.h", "c__lanczos__tridiagonalization_8h.html", "c__lanczos__tridiagonalization_8h" ],
     [ "c_orthogonalization.cpp", "c__orthogonalization_8cpp.html", null ],
-    [ "c_orthogonalization.h", "c__orthogonalization_8h.html", [
-      [ "cOrthogonalization", "classcOrthogonalization.html", "classcOrthogonalization" ]
-    ] ],
+    [ "c_orthogonalization.h", "c__orthogonalization_8h.html", "c__orthogonalization_8h" ],
     [ "c_trace_estimator.cpp", "c__trace__estimator_8cpp.html", null ],
-    [ "c_trace_estimator.h", "c__trace__estimator_8h.html", [
-      [ "cTraceEstimator", "classcTraceEstimator.html", "classcTraceEstimator" ]
-    ] ],
+    [ "c_trace_estimator.h", "c__trace__estimator_8h.html", "c__trace__estimator_8h" ],
     [ "convergence_tools.cpp", "convergence__tools_8cpp.html", null ],
-    [ "convergence_tools.h", "convergence__tools_8h.html", [
-      [ "ConvergenceTools", "classConvergenceTools.html", "classConvergenceTools" ]
-    ] ],
+    [ "convergence_tools.h", "convergence__tools_8h.html", "convergence__tools_8h" ],
     [ "diagonalization.cpp", "diagonalization_8cpp.html", null ],
-    [ "diagonalization.h", "diagonalization_8h.html", [
-      [ "Diagonalization", "classDiagonalization.html", "classDiagonalization" ]
-    ] ],
+    [ "diagonalization.h", "diagonalization_8h.html", "diagonalization_8h" ],
     [ "lapack_api.cpp", "lapack__api_8cpp.html", "lapack__api_8cpp" ],
     [ "lapack_api.h", "lapack__api_8h.html", "lapack__api_8h" ],
     [ "special_functions.cpp", "special__functions_8cpp.html", "special__functions_8cpp" ],

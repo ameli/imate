@@ -10,10 +10,10 @@
 <meta property="og:title" content="imate.trexp(method=’slq’)" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ameli.github.io/api/imate.trexp.slq.html" />
-<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:site_name" content="IMATE" />
 <meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
-<meta property="og:image:alt" content="RestoreIO" />
-<meta property="og:title" content="RestoreIO">
+<meta property="og:image:alt" content="IMATE" />
+<meta property="og:title" content="IMATE">
 <meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
     <title>imate.trexp(method=’slq’) &#8212; imate Manual</title>
@@ -39,7 +39,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -65,6 +65,9 @@
     <link rel="next" title="imate.trlinfrac" href="../generated/imate.trlinfrac.html" />
     <link rel="prev" title="imate.trexp(method=’eigenvalue’)" href="imate.trexp.eigenvalue.html" />
 
+    <!-- Robots -->
+	<meta name="robots" content="index,follow">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
     <script>
@@ -74,8 +77,6 @@
 
         gtag('config', 'G-4JHJ15SKEY');
     </script>
-
-    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
 
     <!-- My custom JS -->
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
@@ -593,6 +594,11 @@
    imate.device.restrict_to_single_processor
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../generated/imate.get_config.html">
+   imate.get_config
+  </a>
+ </li>
 </ul>
 
     
@@ -806,10 +812,14 @@ See examples below for clarification.</p>
 </dd>
 <dt><strong>verbose</strong><span class="classifier">bool, default=False</span></dt><dd><p>Prints extra information about the computations.</p>
 </dd>
-<dt><strong>plot</strong><span class="classifier">bool, default=False</span></dt><dd><p>Plots convergence of samples. To this end, <cite>matplotlib</cite> package should
-be installed. If no display is available (such as running this code on
-remote machines), the plots are saved as an <cite>SVG</cite> file in the current
-directory.</p>
+<dt><strong>plot</strong><span class="classifier">bool or str, default=False</span></dt><dd><p>If <cite>True</cite>, convergence of samples will be plotted. If no graphical
+backend is available (such as executing on remote machines) the plot is
+instead saved in the current directory as both <code class="docutils literal notranslate"><span class="pre">svg</span></code> and <code class="docutils literal notranslate"><span class="pre">pdf</span></code>
+format. If <code class="docutils literal notranslate"><span class="pre">plot</span></code> is a string, the plot is not shown, rather saved
+with a filename as the given string. If the filename does not contain
+file extension, the plot is saved in both <code class="docutils literal notranslate"><span class="pre">svg</span></code> and <code class="docutils literal notranslate"><span class="pre">pdf</span></code> formats.
+If the filename does not have directory path, the plot is saved in the
+current directory.</p>
 </dd>
 </dl>
 </dd>
@@ -1069,7 +1079,7 @@ font to render the plot.</p></li>
 <p>To manually disable interactive plot display and save the plot as
 <code class="docutils literal notranslate"><span class="pre">svg</span></code> instead, add the following at the very beginning of your code
 before importing <a class="reference internal" href="../index.html#module-imate" title="imate"><code class="xref py py-mod docutils literal notranslate"><span class="pre">imate</span></code></a>:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;IMATE_NO_DISPLAY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
 </pre></div>
 </div>
@@ -1085,7 +1095,7 @@ Quadrature, SIAM J. Matrix Anal. Appl., 38(4), 1075-1099.</p></li>
 to be symmetric when <code class="docutils literal notranslate"><span class="pre">gram</span></code> is <cite>False</cite>. For the first example, generate a
 symmetric sample matrix using <a class="reference internal" href="../generated/imate.toeplitz.html#imate.toeplitz" title="imate.toeplitz"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.toeplitz()</span></code></a> function as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import packages</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">toeplitz</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a symmetric matrix by setting gram=True.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1095,7 +1105,7 @@ symmetric sample matrix using <a class="reference internal" href="../generated/i
 the Gramian of the Toeplitz matrix is returned, which is symmetric. Compute
 the race-exponential of <span class="math notranslate nohighlight">\(\mathbf{A}^{2.5}\)</span>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import packages</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">trexp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">trexp</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute the trace-exponential</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">trexp</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">)</span>
@@ -1166,7 +1176,7 @@ printed.</p>
 <span class="go">138.6294361119891</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Print dictionary neatly using pprint</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pprint</span><span class="p">(</span><span class="n">info</span><span class="p">)</span>
 <span class="go">{</span>
 <span class="go">    &#39;matrix&#39;: {</span>
@@ -1272,7 +1282,7 @@ iterations by <code class="docutils literal notranslate"><span class="pre">max_n
 <p>Use an object of <a class="reference internal" href="../generated/imate.Matrix.html#imate.Matrix" title="imate.Matrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">imate.Matrix</span></code></a> class as an alternative method to
 pass the matrix <cite>A</cite> to the <cite>trexp</cite> function.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import matrix operator</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">trexp</span><span class="p">,</span> <span class="n">Matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">trexp</span><span class="p">,</span> <span class="n">Matrix</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample matrix (a toeplitz matrix)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1324,7 +1334,7 @@ operator</p>
 multiple values for the parameter <span class="math notranslate nohighlight">\(t\)</span> to compute their
 trace-exponential all at once, as follows.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import affine matrix function</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">trexp</span><span class="p">,</span> <span class="n">AffineMatrixFunction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">toeplitz</span><span class="p">,</span> <span class="n">trexp</span><span class="p">,</span> <span class="n">AffineMatrixFunction</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Generate a sample matrix (a toeplitz matrix)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

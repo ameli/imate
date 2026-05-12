@@ -10,10 +10,10 @@
 <meta property="og:title" content="imate.AffineMatrixFunction" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ameli.github.io/generated/imate.AffineMatrixFunction.html" />
-<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:site_name" content="IMATE" />
 <meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
-<meta property="og:image:alt" content="RestoreIO" />
-<meta property="og:title" content="RestoreIO">
+<meta property="og:image:alt" content="IMATE" />
+<meta property="og:title" content="IMATE">
 <meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
     <title>imate.AffineMatrixFunction &#8212; imate Manual</title>
@@ -39,7 +39,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -65,6 +65,9 @@
     <link rel="next" title="imate.AffineMatrixFunction.initialize" href="imate.AffineMatrixFunction.initialize.html" />
     <link rel="prev" title="imate.Matrix.get_linear_operator" href="imate.Matrix.get_linear_operator.html" />
 
+    <!-- Robots -->
+	<meta name="robots" content="index,follow">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
     <script>
@@ -74,8 +77,6 @@
 
         gtag('config', 'G-4JHJ15SKEY');
     </script>
-
-    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
 
     <!-- My custom JS -->
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
@@ -645,6 +646,11 @@
    imate.device.restrict_to_single_processor
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.get_config.html">
+   imate.get_config
+  </a>
+ </li>
 </ul>
 
     
@@ -709,7 +715,7 @@
 <h1>imate.AffineMatrixFunction<a class="headerlink" href="#imate-affinematrixfunction" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="imate.AffineMatrixFunction">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">AffineMatrixFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.AffineMatrixFunction" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">AffineMatrixFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A_is_symmetric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B_is_symmetric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.AffineMatrixFunction" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a one-parameter affine matrix function object from input matrices.</p>
 <p>Given two matrices <span class="math notranslate nohighlight">\(\mathbf{A}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{B}\)</span>, a
 one-parameter affine operator <span class="math notranslate nohighlight">\(t \mapsto \mathbf{A}(t)\)</span> is created
@@ -731,6 +737,10 @@ formats are supported). Also, the matrix data type can be either
 <cite>32-bit</cite>, <cite>64-bit</cite>, or <cite>128-bit</cite>. The input matrix can be stored
 either in row-ordering (<cite>C</cite> style) or column-ordering (<cite>Fortran</cite>
 style).</p>
+</dd>
+<dt><strong>A_is_symmetric</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, the matrix <cite>A</cite> is assumed to be symmetric.</p>
+</dd>
+<dt><strong>B_is_symmetric</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, the matrix <cite>B</cite> is assumed to be symmetric.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><cite>128-bit</cite> data type is not supported on GPU.</p>
@@ -830,7 +840,7 @@ unifies all these implementations in one interface.</p>
 <p><strong>Create an affine matrix function object:</strong></p>
 <p>Create a very large sparse matrix with 64-bit data type:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a random sparse matrix with the size of ten million</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">toeplitz</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="mi">10000000</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csr&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
@@ -844,7 +854,7 @@ unifies all these implementations in one interface.</p>
 <span class="math notranslate nohighlight">\(\mathbf{A}(t) = \mathbf{A} + t \mathbf{I}\)</span> from the matrix <cite>A</cite>
 where <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> is the identity matrix:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import affine matrix function class</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">AffineMatrixFunction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">AffineMatrixFunction</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a matrix operator object from matrix A</span>
 <span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">Aop</span> <span class="o">=</span> <span class="n">AffineMatrixFunction</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -856,7 +866,7 @@ where <span class="math notranslate nohighlight">\(\mathbf{I}\)</span> is the id
 <a class="reference internal" href="imate.logdet.html#imate.logdet" title="imate.logdet"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.logdet()</span></code></a>. Compute log-determinant of <span class="math notranslate nohighlight">\(\mathbf{A}(t)\)</span> for
 an array of <span class="math notranslate nohighlight">\(t = [-1, 0, +1]\)</span> all at once:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import affine matrix function</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">logdet</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">logdet</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># A list of parameters t to pass to Aop</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
@@ -882,6 +892,10 @@ multi-GPU devices (then, it will be available on both CPU and GPU devices).</p>
 <dt><strong>A</strong><span class="classifier">numpy.ndarray or scipy.sparse, (n, n)</span></dt><dd><p>Input matrix <cite>A</cite> from python object.</p>
 </dd>
 <dt><strong>B</strong><span class="classifier">numpy.ndarray or scipy.sparse, (n, n)</span></dt><dd><p>Input matrix <cite>B</cite> from python object.</p>
+</dd>
+<dt><strong>A_is_symmetric</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, the matrix <cite>A</cite> is assumed to be symmetric.</p>
+</dd>
+<dt><strong>B_is_symmetric</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, the matrix <cite>B</cite> is assumed to be symmetric.</p>
 </dd>
 <dt><strong>cpu_Aop</strong><span class="classifier">object</span></dt><dd><p>Matrix object <cite>A</cite> on CPU.</p>
 </dd>
@@ -909,7 +923,7 @@ this parameter is always <cite>1</cite> corresponding to the parameter <cite>t</
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="imate.AffineMatrixFunction.initialize.html#imate.AffineMatrixFunction.initialize" title="imate.AffineMatrixFunction.initialize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize</span></code></a>(gpu, num_gpu_devices)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="imate.AffineMatrixFunction.initialize.html#imate.AffineMatrixFunction.initialize" title="imate.AffineMatrixFunction.initialize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize</span></code></a>([gpu, num_gpu_devices])</p></td>
 <td><p>Initializes the object.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="imate.AffineMatrixFunction.get_num_rows.html#imate.AffineMatrixFunction.get_num_rows" title="imate.AffineMatrixFunction.get_num_rows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_num_rows</span></code></a>()</p></td>

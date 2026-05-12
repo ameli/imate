@@ -1,20 +1,18 @@
 var hierarchy =
 [
-    [ "cLinearOperator< DataType >", "classcLinearOperator.html", [
-      [ "cAffineMatrixFunction< DataType >", "classcAffineMatrixFunction.html", [
-        [ "cCSCAffineMatrixFunction< DataType >", "classcCSCAffineMatrixFunction.html", null ],
-        [ "cCSRAffineMatrixFunction< DataType >", "classcCSRAffineMatrixFunction.html", null ],
-        [ "cDenseAffineMatrixFunction< DataType >", "classcDenseAffineMatrixFunction.html", null ]
-      ] ],
-      [ "cMatrix< DataType >", "classcMatrix.html", [
-        [ "cCSCMatrix< DataType >", "classcCSCMatrix.html", [
-          [ "cuCSCMatrix< DataType >", "classcuCSCMatrix.html", null ]
+    [ "__nv_fp8_e4m3", "struct____nv__fp8__e4m3.html", null ],
+    [ "__nv_fp8_e5m2", "struct____nv__fp8__e5m2.html", null ],
+    [ "cLinearOperatorBase", "classcLinearOperatorBase.html", [
+      [ "cLinearOperator< DataType >", "classcLinearOperator.html", [
+        [ "cAffineMatrixFunction< DataType >", "classcAffineMatrixFunction.html", [
+          [ "cCSCAffineMatrixFunction< DataType >", "classcCSCAffineMatrixFunction.html", null ],
+          [ "cCSRAffineMatrixFunction< DataType >", "classcCSRAffineMatrixFunction.html", null ],
+          [ "cDenseAffineMatrixFunction< DataType >", "classcDenseAffineMatrixFunction.html", null ]
         ] ],
-        [ "cCSRMatrix< DataType >", "classcCSRMatrix.html", [
-          [ "cuCSRMatrix< DataType >", "classcuCSRMatrix.html", null ]
-        ] ],
-        [ "cDenseMatrix< DataType >", "classcDenseMatrix.html", [
-          [ "cuDenseMatrix< DataType >", "classcuDenseMatrix.html", null ]
+        [ "cMatrix< DataType >", "classcMatrix.html", [
+          [ "cCSCMatrix< DataType >", "classcCSCMatrix.html", null ],
+          [ "cCSRMatrix< DataType >", "classcCSRMatrix.html", null ],
+          [ "cDenseMatrix< DataType >", "classcDenseMatrix.html", null ]
         ] ]
       ] ],
       [ "cuLinearOperator< DataType >", "classcuLinearOperator.html", [
@@ -35,7 +33,7 @@ var hierarchy =
     [ "cOrthogonalization< DataType >", "classcOrthogonalization.html", null ],
     [ "cTraceEstimator< DataType >", "classcTraceEstimator.html", null ],
     [ "cublasSymbols", "classcublasSymbols.html", null ],
-    [ "CudaInterface< ArrayType >", "classCudaInterface.html", null ],
+    [ "CudaAPI< ArrayType >", "classCudaAPI.html", null ],
     [ "cudartSymbols", "classcudartSymbols.html", null ],
     [ "CudaTimer", "classCudaTimer.html", null ],
     [ "cuMatrixOperations< DataType >", "classcuMatrixOperations.html", null ],
@@ -49,10 +47,15 @@ var hierarchy =
     [ "Function", "classFunction.html", [
       [ "Exponential", "classExponential.html", null ],
       [ "Gaussian", "classGaussian.html", null ],
+      [ "GaussianDer", "classGaussianDer.html", null ],
+      [ "GaussianInt", "classGaussianInt.html", null ],
       [ "Homographic", "classHomographic.html", null ],
       [ "Identity", "classIdentity.html", null ],
       [ "Indicator", "classIndicator.html", null ],
       [ "Inverse", "classInverse.html", null ],
+      [ "LogGaussian", "classLogGaussian.html", null ],
+      [ "LogGaussianDer", "classLogGaussianDer.html", null ],
+      [ "LogGaussianInt", "classLogGaussianInt.html", null ],
       [ "Logarithm", "classLogarithm.html", null ],
       [ "Power", "classPower.html", null ],
       [ "SmoothStep", "classSmoothStep.html", null ]

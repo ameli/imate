@@ -178,3 +178,32 @@ Alternatively, you can install OpenBLAS using ``conda``:
 .. prompt:: bash
 
     conda install -c anaconda openblas
+
+Intel's Math Kernel Library (`Optional`)
+----------------------------------------
+
+If |project| is compiled with Math Kernel Library (MKL), this library should also be available at the runtime. You can install MKL with `Intel oneAPI <https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl-download.html>`__, or with ``conda`` by:
+
+.. prompt:: bash
+
+    conda install mkl mkl-include -y
+
+You may need to configure ``LD_LIBRARY_PATH`` by:
+
+.. tab-set::
+
+    .. tab-item:: UNIX
+        :sync: unix
+
+        .. prompt:: bash
+
+            CONDA_PREFIX=$(conda info --base)
+            export LD_LIBRARY_PATH="-L$CONDA_PREFIX/lib $LD_LIBRARY_PATH"
+
+    .. tab-item:: Windows (Powershell)
+        :sync: win
+
+        .. prompt:: bash
+
+            $env:CONDA_PREFIX = (conda info --base).Trim()
+            $env:LD_LIBRARY_PATH = "-L$env:CONDA_PREFIX\lib $env:LD_LIBRARY_PATH"

@@ -10,12 +10,12 @@
 <meta property="og:title" content="Install" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ameli.github.io/install/install.html" />
-<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:site_name" content="IMATE" />
 <meta property="og:description" content="For the majority of users, this package can be easily installed from Python wheels using either pip or conda. More information on installation can be found in the Install from Wheels or Install in Virtual Environment sections. Additionally, you can explore the Runtime Dependencies section to inst..." />
 <meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
-<meta property="og:image:alt" content="RestoreIO" />
+<meta property="og:image:alt" content="IMATE" />
 <meta name="description" content="For the majority of users, this package can be easily installed from Python wheels using either pip or conda. More information on installation can be found in the Install from Wheels or Install in Virtual Environment sections. Additionally, you can explore the Runtime Dependencies section to inst..." />
-<meta property="og:title" content="RestoreIO">
+<meta property="og:title" content="IMATE">
 <meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
     <title>Install &#8212; imate Manual</title>
@@ -41,7 +41,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -65,6 +65,9 @@
     <link rel="next" title="1. Install from Wheels" href="install_wheels.html" />
     <link rel="prev" title="&lt;no title&gt;" href="../contents.html" />
 
+    <!-- Robots -->
+	<meta name="robots" content="index,follow">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
     <script>
@@ -74,8 +77,6 @@
 
         gtag('config', 'G-4JHJ15SKEY');
     </script>
-
-    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
 
     <!-- My custom JS -->
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
@@ -330,17 +331,19 @@
 <li class="toctree-l2"><a class="reference internal" href="dependencies.html#cuda-toolkit-and-nvidia-graphic-driver-optional">3.2. CUDA Toolkit and NVIDIA Graphic Driver (<cite>Optional</cite>)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dependencies.html#suitesparse-optional">3.3. SuiteSparse (<cite>Optional</cite>)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dependencies.html#openblas-optional">3.4. OpenBLAS (<cite>Optional</cite>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dependencies.html#intel-s-math-kernel-library-optional">3.5. Intel’s Math Kernel Library (<cite>Optional</cite>)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="compile_source.html">4. Compile from Source</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="compile_source.html#when-to-compile-project">4.1. When to Compile <span class="synco">imate</span></a></li>
 <li class="toctree-l2"><a class="reference internal" href="compile_source.html#install-c-compiler-required">4.2. Install C++ Compiler (<cite>Required</cite>)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="compile_source.html#install-openmp-required">4.3. Install OpenMP (<cite>Required</cite>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="compile_source.html#openblas-optional">4.4. OpenBLAS (<cite>Optional</cite>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="compile_source.html#install-cuda-compiler-optional">4.5. Install CUDA Compiler (<cite>Optional</cite>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="compile_source.html#load-cuda-compiler-on-gpu-cluster-optional">4.6. Load CUDA Compiler on GPU Cluster (<cite>Optional</cite>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="compile_source.html#configure-compile-time-environment-variables-optional">4.7. Configure Compile-Time Environment Variables (<cite>Optional</cite>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="compile_source.html#compile-and-install">4.8. Compile and Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compile_source.html#install-openblas-optional">4.4. Install OpenBLAS (<cite>Optional</cite>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compile_source.html#install-intel-s-math-kernel-library-optional">4.5. Install Intel’s Math Kernel Library (<cite>Optional</cite>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compile_source.html#install-cuda-compiler-optional">4.6. Install CUDA Compiler (<cite>Optional</cite>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compile_source.html#load-cuda-compiler-on-gpu-cluster-optional">4.7. Load CUDA Compiler on GPU Cluster (<cite>Optional</cite>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compile_source.html#configure-compile-time-environment-variables-optional">4.8. Configure Compile-Time Environment Variables (<cite>Optional</cite>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compile_source.html#compile-and-install">4.9. Compile and Install</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="gen_documentation.html">5. Generate Documentation</a><ul>

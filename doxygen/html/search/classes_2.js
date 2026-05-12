@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['exponential_501',['Exponential',['../classExponential.html',1,'']]]
+  ['deviceproperties_0',['DeviceProperties',['../structDeviceProperties.html',1,'']]],
+  ['diagonalization_1',['Diagonalization',['../classDiagonalization.html',1,'']]]
 ];

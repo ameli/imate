@@ -10,12 +10,12 @@
 <meta property="og:title" content="5. Generate Documentation" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ameli.github.io/install/gen_documentation.html" />
-<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:site_name" content="IMATE" />
 <meta property="og:description" content="The documentation consists of a Doxygen documentation and a Sphinx documentation. You should generate the Doxygen documentation first. Before generating the Sphinx documentation, you should compile the package. Get the source code from the GitHub repository. If you already had the source code, cl..." />
 <meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
-<meta property="og:image:alt" content="RestoreIO" />
+<meta property="og:image:alt" content="IMATE" />
 <meta name="description" content="The documentation consists of a Doxygen documentation and a Sphinx documentation. You should generate the Doxygen documentation first. Before generating the Sphinx documentation, you should compile the package. Get the source code from the GitHub repository. If you already had the source code, cl..." />
-<meta property="og:title" content="RestoreIO">
+<meta property="og:title" content="IMATE">
 <meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
     <title>5. Generate Documentation &#8212; imate Manual</title>
@@ -41,7 +41,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -65,6 +65,9 @@
     <link rel="next" title="6. Test Package" href="test_package.html" />
     <link rel="prev" title="4. Compile from Source" href="compile_source.html" />
 
+    <!-- Robots -->
+	<meta name="robots" content="index,follow">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
     <script>
@@ -74,8 +77,6 @@
 
         gtag('config', 'G-4JHJ15SKEY');
     </script>
-
-    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
 
     <!-- My custom JS -->
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
@@ -343,27 +344,27 @@ span.prompt1:before {
 <p>Install <cite>doxygen</cite> and <cite>graphviz</cite> by</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-0">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="ubuntu" for="sd-tab-item-0">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>doxygen<span class="w"> </span>graphviz<span class="w"> </span>-y</span>
 </pre></div></div></div>
 <input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-1">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="centos" for="sd-tab-item-1">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>doxygen<span class="w"> </span>graphviz<span class="w"> </span>-y</span>
 </pre></div></div></div>
 <input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-2">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="rhel" for="sd-tab-item-2">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>doxygen<span class="w"> </span>graphviz<span class="w"> </span>-y</span>
 </pre></div></div></div>
 <input id="sd-tab-item-3" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="osx" for="sd-tab-item-3">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="osx" for="sd-tab-item-3">
 macOS</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>brew<span class="w"> </span>install<span class="w"> </span>doxygen<span class="w"> </span>graphviz<span class="w"> </span>-y</span>
 </pre></div></div></div>
 <input id="sd-tab-item-4" name="sd-tab-set-0" type="radio">
-</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-4">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="win" for="sd-tab-item-4">
 Windows (Powershell)</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
 span.prompt2:before {
@@ -386,14 +387,14 @@ span.prompt2:before {
 <p>Set <code class="docutils literal notranslate"><span class="pre">CYTHON_BUILD_FOR_DOC</span></code> to <cite>1</cite> (see <a class="reference internal" href="compile_source.html#config-env-variables"><span class="std std-ref">Configure Compile-Time Environment variables</span></a>). Compile and install the package by</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-5">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="unix" for="sd-tab-item-5">
 UNIX</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">CYTHON_BUILD_FOR_DOC</span><span class="o">=</span><span class="m">1</span></span>
 <span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">USE_CUDA</span><span class="o">=</span><span class="m">0</span></span>
 <span class="prompt1">sudo<span class="w"> </span>-E<span class="w"> </span>python<span class="w"> </span>setup.py<span class="w"> </span>install</span>
 </pre></div></div></div>
 <input id="sd-tab-item-6" name="sd-tab-set-1" type="radio">
-</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-6">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="win" for="sd-tab-item-6">
 Windows (Powershell)</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="nv">$env:CYTHON_BUILD_FOR_DOC</span> <span class="p">=</span> <span class="s2">&quot;1&quot;</span></span>
 <span class="prompt2"><span class="nv">$env:USE_CUDA</span> <span class="p">=</span> <span class="s2">&quot;0&quot;</span></span>
@@ -406,27 +407,27 @@ Windows (Powershell)</label><div class="sd-tab-content docutils">
 <p>Install <a class="reference external" href="https://pandoc.org/">Pandoc</a> by</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-7" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="ubuntu" for="sd-tab-item-7">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="ubuntu" for="sd-tab-item-7">
 Ubuntu/Debian</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>pandoc<span class="w"> </span>-y</span>
 </pre></div></div></div>
 <input id="sd-tab-item-8" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="centos" for="sd-tab-item-8">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="centos" for="sd-tab-item-8">
 CentOS 7</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>pandoc<span class="w"> </span>-y</span>
 </pre></div></div></div>
 <input id="sd-tab-item-9" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="rhel" for="sd-tab-item-9">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="rhel" for="sd-tab-item-9">
 RHEL 9</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>pandoc<span class="w"> </span>-y</span>
 </pre></div></div></div>
 <input id="sd-tab-item-10" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="osx" for="sd-tab-item-10">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="osx" for="sd-tab-item-10">
 macOS</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">sudo<span class="w"> </span>brew<span class="w"> </span>install<span class="w"> </span>pandoc<span class="w"> </span>-y</span>
 </pre></div></div></div>
 <input id="sd-tab-item-11" name="sd-tab-set-2" type="radio">
-</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-11">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="win" for="sd-tab-item-11">
 Windows (Powershell)</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="n">scoop</span> <span class="n">install</span> <span class="n">pandoc</span></span>
 </pre></div></div></div>
@@ -436,13 +437,13 @@ Windows (Powershell)</label><div class="sd-tab-content docutils">
 </pre></div></div><p>The above command installs the required packages in Python’s path directory. Make sure python’s directory is on the <cite>PATH</cite>, for instance, by</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-12" name="sd-tab-set-3" type="radio">
-</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-12">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="unix" for="sd-tab-item-12">
 UNIX</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="nv">PYTHON_PATH</span><span class="o">=</span><span class="sb">`</span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import os, sys; print(os.path.dirname(sys.executable))&quot;</span><span class="sb">`</span></span>
 <span class="prompt1"><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="si">${</span><span class="nv">PYTHON_PATH</span><span class="si">}</span>:<span class="nv">$PATH</span></span>
 </pre></div></div></div>
 <input id="sd-tab-item-13" name="sd-tab-set-3" type="radio">
-</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-13">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="win" for="sd-tab-item-13">
 Windows (Powershell)</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="nv">$PYTHON_PATH</span> <span class="p">=</span> <span class="p">(</span><span class="n">python</span> <span class="n">-c</span> <span class="s2">&quot;import os, sys; print(os.path.dirname(sys.executable))&quot;</span><span class="p">)</span></span>
 <span class="prompt2"><span class="nv">$env:Path</span> <span class="p">+=</span> <span class="s2">&quot;;$PYTHON_PATH&quot;</span></span>
@@ -451,12 +452,12 @@ Windows (Powershell)</label><div class="sd-tab-content docutils">
 <p>Now, build the documentation:</p>
 <div class="sd-tab-set docutils">
 <input checked="checked" id="sd-tab-item-14" name="sd-tab-set-4" type="radio">
-</input><label class="sd-tab-label" data-sync-id="unix" for="sd-tab-item-14">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="unix" for="sd-tab-item-14">
 UNIX</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1">make<span class="w"> </span>clean<span class="w"> </span>html<span class="w"> </span>--directory<span class="o">=</span>docs</span>
 </pre></div></div></div>
 <input id="sd-tab-item-15" name="sd-tab-set-4" type="radio">
-</input><label class="sd-tab-label" data-sync-id="win" for="sd-tab-item-15">
+<label class="sd-tab-label" data-sync-group="tab" data-sync-id="win" for="sd-tab-item-15">
 Windows (Powershell)</label><div class="sd-tab-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="nb">cd </span><span class="n">docs</span></span>
 <span class="prompt2"><span class="n">make</span><span class="p">.</span><span class="n">bat</span> <span class="n">clean</span> <span class="n">html</span></span>

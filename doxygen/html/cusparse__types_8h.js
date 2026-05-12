@@ -4,6 +4,7 @@ var cusparse__types_8h =
     [ "cusparseConstDnVecDescr_t", "cusparse__types_8h.html#aa4402a2a358dcf82083ab9b026497c9b", null ],
     [ "cusparseConstSpMatDescr_t", "cusparse__types_8h.html#ab01d22773ab95718ddab32e5d36d127d", null ],
     [ "cusparseCreate_type", "cusparse__types_8h.html#a5786eaebd18a407280cb003c2042179a", null ],
+    [ "cusparseCreateCsc_type", "cusparse__types_8h.html#a74b77d82c9617d9409cc1465fbbebe79", null ],
     [ "cusparseCreateCsr_type", "cusparse__types_8h.html#adc4d0550ce4ff76a3b348a5b6d4929fa", null ],
     [ "cusparseCreateDnVec_type", "cusparse__types_8h.html#a71dba719ab573ea026c14d97b94af527", null ],
     [ "cusparseDestroy_type", "cusparse__types_8h.html#a643c78fa97e5e101802496b041943bcc", null ],

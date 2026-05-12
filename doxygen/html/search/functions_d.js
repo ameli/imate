@@ -1,4 +1,10 @@
 var searchData=
 [
-  ['power_826',['Power',['../classPower.html#a909af60fdce9dbe98b5054f9c4917645',1,'Power']]]
+  ['omp_5fget_5fmax_5fthreads_0',['omp_get_max_threads',['../conditional__openmp_8cpp.html#a84e35f14fe6cb1b6648be757446483e2',1,'omp_get_max_threads():&#160;conditional_openmp.cpp'],['../conditional__openmp_8h.html#a84e35f14fe6cb1b6648be757446483e2',1,'omp_get_max_threads():&#160;conditional_openmp.cpp']]],
+  ['omp_5fget_5fthread_5fnum_1',['omp_get_thread_num',['../conditional__openmp_8cpp.html#aba06990768c6b572ca3f69029334a9df',1,'omp_get_thread_num():&#160;conditional_openmp.cpp'],['../conditional__openmp_8h.html#aba06990768c6b572ca3f69029334a9df',1,'omp_get_thread_num():&#160;conditional_openmp.cpp']]],
+  ['omp_5finit_5flock_2',['omp_init_lock',['../conditional__openmp_8cpp.html#ad7aaef18c634aa145dc61603001d9857',1,'omp_init_lock(omp_lock_t *lock):&#160;conditional_openmp.cpp'],['../conditional__openmp_8h.html#ad7aaef18c634aa145dc61603001d9857',1,'omp_init_lock(omp_lock_t *lock):&#160;conditional_openmp.cpp']]],
+  ['omp_5fset_5flock_3',['omp_set_lock',['../conditional__openmp_8cpp.html#a8f5b90eefa752f326e748ab61cfe2591',1,'omp_set_lock(omp_lock_t *lock):&#160;conditional_openmp.cpp'],['../conditional__openmp_8h.html#a8f5b90eefa752f326e748ab61cfe2591',1,'omp_set_lock(omp_lock_t *lock):&#160;conditional_openmp.cpp']]],
+  ['omp_5fset_5fnum_5fthreads_4',['omp_set_num_threads',['../conditional__openmp_8cpp.html#ab2a1aadbe72ac6b1f9aed9a2ef8e0044',1,'omp_set_num_threads(int num_threads):&#160;conditional_openmp.cpp'],['../conditional__openmp_8h.html#ab2a1aadbe72ac6b1f9aed9a2ef8e0044',1,'omp_set_num_threads(int num_threads):&#160;conditional_openmp.cpp']]],
+  ['omp_5funset_5flock_5',['omp_unset_lock',['../conditional__openmp_8cpp.html#a0e91fc1ebaec18150a9cf93c8f76b1d7',1,'omp_unset_lock(omp_lock_t *lock):&#160;conditional_openmp.cpp'],['../conditional__openmp_8h.html#a0e91fc1ebaec18150a9cf93c8f76b1d7',1,'omp_unset_lock(omp_lock_t *lock):&#160;conditional_openmp.cpp']]],
+  ['orthogonalize_5fvectors_6',['orthogonalize_vectors',['../classcOrthogonalization.html#a7b017e5520083a1cf3ac2ed27bb811d8',1,'cOrthogonalization::orthogonalize_vectors()'],['../classcuOrthogonalization.html#aefd27369921be5760a998a60aca49b56',1,'cuOrthogonalization::orthogonalize_vectors()']]]
 ];

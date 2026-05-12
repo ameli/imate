@@ -1,14 +1,7 @@
 var searchData=
 [
-  ['next_382',['next',['../classRandomNumberGenerator.html#aa70eff499c338d998fcd834f4792dd98',1,'RandomNumberGenerator::next()'],['../classSplitMix64.html#a3c6791320e1260d9f559bda1039c9206',1,'SplitMix64::next()'],['../classXoshiro256StarStar.html#a6a99f74d2ed5f6e3667d785c46bf9569',1,'Xoshiro256StarStar::next()']]],
-  ['normalize_5fvector_5fand_5fcopy_383',['normalize_vector_and_copy',['../classcVectorOperations.html#aeb0171f2644e3036907bbbddf47ce998',1,'cVectorOperations::normalize_vector_and_copy()'],['../classcuVectorOperations.html#ace661476791a4a662aab05c9af19b94a',1,'cuVectorOperations::normalize_vector_and_copy()']]],
-  ['normalize_5fvector_5fin_5fplace_384',['normalize_vector_in_place',['../classcVectorOperations.html#ab0991d74cadf3a3969f0723dbff55dc9',1,'cVectorOperations::normalize_vector_in_place()'],['../classcuVectorOperations.html#a624e0023a7be0d361c31be756229b68c',1,'cuVectorOperations::normalize_vector_in_place()']]],
-  ['num_5fcolumns_385',['num_columns',['../classcLinearOperator.html#acdafe59b033d5a73f5abe380f63f40a1',1,'cLinearOperator']]],
-  ['num_5fdevices_386',['num_devices',['../structDeviceProperties.html#a5ef23763a5467359ca71788990882b74',1,'DeviceProperties']]],
-  ['num_5fgpu_5fdevices_387',['num_gpu_devices',['../classcuLinearOperator.html#a701c8a301638c78c66a3290b0848483e',1,'cuLinearOperator']]],
-  ['num_5fmultiprocessors_388',['num_multiprocessors',['../structDeviceProperties.html#a963edf07af1f6d25930fc2a44378f551',1,'DeviceProperties']]],
-  ['num_5fparameters_389',['num_parameters',['../classcLinearOperator.html#aab9f0063e55c2a1a92a7e643f086348b',1,'cLinearOperator']]],
-  ['num_5frows_390',['num_rows',['../classcLinearOperator.html#a6786391614f08ef1575554f78717fbb0',1,'cLinearOperator']]],
-  ['num_5fthreads_391',['num_threads',['../classRandomNumberGenerator.html#a02a095ac2ebd2711fffbcc5d6d53db41',1,'RandomNumberGenerator']]],
-  ['num_5fthreads_5fper_5fmultiprocessor_392',['num_threads_per_multiprocessor',['../structDeviceProperties.html#ad83b48199a4c37f79bd092cf88f9ae06',1,'DeviceProperties']]]
+  ['mu_0',['mu',['../classGaussian.html#a8817a6b8a77b65a1cfe69c01cf959fe8',1,'Gaussian::mu'],['../classGaussianDer.html#a35eea7fd4a51238f76ef233de357abc9',1,'GaussianDer::mu'],['../classGaussianInt.html#ab2ed3d9d2214cc8d065059841f4184fb',1,'GaussianInt::mu'],['../classLogGaussian.html#a25db3da6addb5dce5bebd799127b9783',1,'LogGaussian::mu'],['../classLogGaussianDer.html#a441abd4bad925ce0acf8c597c3aa96e1',1,'LogGaussianDer::mu'],['../classLogGaussianInt.html#aa7c2d6b5425f7df418c5abfd5c9d7fdc',1,'LogGaussianInt::mu']]],
+  ['mul_1',['mul',['../namespacecu__arithmetics.html#a07a2e0548758bdec666ee66d523b99e0',1,'cu_arithmetics::mul(const DataType x, const DataType y)'],['../namespacecu__arithmetics.html#ae31ce1cdb3a75e04cc9b0e5f0fdd6a1e',1,'cu_arithmetics::mul(const DataType x, const DataType y, const DataType z)']]],
+  ['mul_3c_20double_20_3e_2',['mul&lt; double &gt;',['../namespacecu__arithmetics.html#ab709be9340dcc6e41c604d80ddfae6ae',1,'cu_arithmetics::mul&lt; double &gt;(const double x, const double y)'],['../namespacecu__arithmetics.html#a97a265a62a21f9d749c71288559f85b1',1,'cu_arithmetics::mul&lt; double &gt;(const double x, const double y, const double z)']]],
+  ['mul_3c_20float_20_3e_3',['mul&lt; float &gt;',['../namespacecu__arithmetics.html#ac130344f4714d7b1ab6420bc1d7f2394',1,'cu_arithmetics::mul&lt; float &gt;(const float x, const float y)'],['../namespacecu__arithmetics.html#a3f0472bdf54e481cfb0da22b605bb060',1,'cu_arithmetics::mul&lt; float &gt;(const float x, const float y, const float z)']]]
 ];

@@ -11,6 +11,7 @@ var cublas__symbols_8cpp =
     [ "cublasSaxpy", "cublas__symbols_8cpp.html#a62acf2de66cac606d7a4bd27112aa803", null ],
     [ "cublasScopy", "cublas__symbols_8cpp.html#a89ae1ea2d0e82912eb230b596bcbe10a", null ],
     [ "cublasSdot", "cublas__symbols_8cpp.html#a44c8284e4c9bdd530f002f7bee7792e5", null ],
+    [ "cublasSetMathMode", "cublas__symbols_8cpp.html#a284181af4d27fcf5876dfd7a74d4d490", null ],
     [ "cublasSgemv_v2", "cublas__symbols_8cpp.html#a1d66fdeb4131b1523aee093318a204ee", null ],
     [ "cublasSnrm2", "cublas__symbols_8cpp.html#a5e52724d6890361c8cbf8ba1e8aa1097", null ],
     [ "cublasSscal", "cublas__symbols_8cpp.html#a1d9fddf373b0f2f694aef356e9f7e46c", null ]

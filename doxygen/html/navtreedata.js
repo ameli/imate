@@ -25,18 +25,7 @@
 var NAVTREE =
 [
   [ "imate", "index.html", [
-    [ "How to Build", "index.html", [
-      [ "Compile from Source", "index.html#autotoc_md15", [
-        [ "When to Compile |project|", "index.html#autotoc_md16", null ],
-        [ "Install C++ Compiler and OpenMP (<tt>Required</tt>)", "index.html#autotoc_md17", null ],
-        [ "Install OpenMP (<tt>Required</tt>)", "index.html#autotoc_md18", null ],
-        [ "OpenBLAS (<tt>Optional</tt>)", "index.html#autotoc_md19", null ],
-        [ "Install CUDA Compiler (<tt>Optional</tt>)", "index.html#autotoc_md20", null ],
-        [ "Load CUDA Compiler on GPU Cluster (<tt>Optional</tt>)", "index.html#autotoc_md21", null ],
-        [ "Configure Compile-Time Environment Variables (<tt>Optional</tt>)", "index.html#autotoc_md22", null ],
-        [ "Compile and Install", "index.html#autotoc_md23", null ]
-      ] ]
-    ] ],
+    [ "How to Build", "index.html", "index" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -69,10 +58,12 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html",
-"classcDenseMatrix.html#abbe448d93aee2b26c12daca4c0ec9250",
-"cu__dense__matrix_8h_source.html",
-"functions_func_q.html"
+"__c__is__equal_8h.html",
+"classIndicator.html#ab68d7d45a8119a18a7f79cb202ea66e8",
+"classcuCSRAffineMatrixFunction.html#ae6ea1994bd2b736e055f5a9d1f1ebe8b",
+"cu__vector__operations_8h.html#aae3356b63849abbe8789dd41648ee90a",
+"functions_c.html",
+"random__array__generator_8h_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

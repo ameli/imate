@@ -2,6 +2,7 @@ var classcusparseSymbols =
 [
     [ "get_lib_name", "classcusparseSymbols.html#a8195de91cda101a217b527b3240f287d", null ],
     [ "cusparseCreate", "classcusparseSymbols.html#ade8efe7665227cb14709abd0ea3bbc58", null ],
+    [ "cusparseCreateCsc", "classcusparseSymbols.html#aa2d1c913fb7b9bbf15a5ee26c06a5870", null ],
     [ "cusparseCreateCsr", "classcusparseSymbols.html#a51d52cbc237d3f59b7244d954c1b5462", null ],
     [ "cusparseCreateDnVec", "classcusparseSymbols.html#a4a123899d5a1e03864f4e0a4155b269a", null ],
     [ "cusparseDestroy", "classcusparseSymbols.html#a78e13bb5dc2a3b3ce253f423a82d4c4b", null ],

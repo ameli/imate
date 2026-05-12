@@ -1,43 +1,33 @@
 var dir_b9c2215538fdb66ef13c462a340a5421 =
 [
     [ "exponential.cpp", "exponential_8cpp.html", null ],
-    [ "exponential.h", "exponential_8h.html", [
-      [ "Exponential", "classExponential.html", "classExponential" ]
-    ] ],
+    [ "exponential.h", "exponential_8h.html", "exponential_8h" ],
     [ "functions.cpp", "functions_8cpp.html", null ],
-    [ "functions.h", "functions_8h.html", [
-      [ "Function", "classFunction.html", "classFunction" ]
-    ] ],
+    [ "functions.h", "functions_8h.html", "functions_8h" ],
     [ "gaussian.cpp", "gaussian_8cpp.html", null ],
-    [ "gaussian.h", "gaussian_8h.html", [
-      [ "Gaussian", "classGaussian.html", "classGaussian" ]
-    ] ],
+    [ "gaussian.h", "gaussian_8h.html", "gaussian_8h" ],
+    [ "gaussian_der.cpp", "gaussian__der_8cpp.html", null ],
+    [ "gaussian_der.h", "gaussian__der_8h.html", "gaussian__der_8h" ],
+    [ "gaussian_int.cpp", "gaussian__int_8cpp.html", null ],
+    [ "gaussian_int.h", "gaussian__int_8h.html", "gaussian__int_8h" ],
     [ "homographic.cpp", "homographic_8cpp.html", null ],
-    [ "homographic.h", "homographic_8h.html", [
-      [ "Homographic", "classHomographic.html", "classHomographic" ]
-    ] ],
+    [ "homographic.h", "homographic_8h.html", "homographic_8h" ],
     [ "identity.cpp", "identity_8cpp.html", null ],
-    [ "identity.h", "identity_8h.html", [
-      [ "Identity", "classIdentity.html", "classIdentity" ]
-    ] ],
+    [ "identity.h", "identity_8h.html", "identity_8h" ],
     [ "indicator.cpp", "indicator_8cpp.html", null ],
-    [ "indicator.h", "indicator_8h.html", [
-      [ "Indicator", "classIndicator.html", "classIndicator" ]
-    ] ],
+    [ "indicator.h", "indicator_8h.html", "indicator_8h" ],
     [ "inverse.cpp", "inverse_8cpp.html", null ],
-    [ "inverse.h", "inverse_8h.html", [
-      [ "Inverse", "classInverse.html", "classInverse" ]
-    ] ],
+    [ "inverse.h", "inverse_8h.html", "inverse_8h" ],
+    [ "log_gaussian.cpp", "log__gaussian_8cpp.html", null ],
+    [ "log_gaussian.h", "log__gaussian_8h.html", "log__gaussian_8h" ],
+    [ "log_gaussian_der.cpp", "log__gaussian__der_8cpp.html", null ],
+    [ "log_gaussian_der.h", "log__gaussian__der_8h.html", "log__gaussian__der_8h" ],
+    [ "log_gaussian_int.cpp", "log__gaussian__int_8cpp.html", null ],
+    [ "log_gaussian_int.h", "log__gaussian__int_8h.html", "log__gaussian__int_8h" ],
     [ "logarithm.cpp", "logarithm_8cpp.html", null ],
-    [ "logarithm.h", "logarithm_8h.html", [
-      [ "Logarithm", "classLogarithm.html", "classLogarithm" ]
-    ] ],
+    [ "logarithm.h", "logarithm_8h.html", "logarithm_8h" ],
     [ "power.cpp", "power_8cpp.html", null ],
-    [ "power.h", "power_8h.html", [
-      [ "Power", "classPower.html", "classPower" ]
-    ] ],
+    [ "power.h", "power_8h.html", "power_8h" ],
     [ "smoothstep.cpp", "smoothstep_8cpp.html", null ],
-    [ "smoothstep.h", "smoothstep_8h.html", [
-      [ "SmoothStep", "classSmoothStep.html", "classSmoothStep" ]
-    ] ]
+    [ "smoothstep.h", "smoothstep_8h.html", "smoothstep_8h" ]
 ];

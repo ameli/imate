@@ -11,6 +11,7 @@ var cublas__types_8h =
     [ "cublasSaxpy_type", "cublas__types_8h.html#a66a2c6008a30f9b3c5afa70a056a0d76", null ],
     [ "cublasScopy_type", "cublas__types_8h.html#aa9fc77253396e3aee9751170bcba17db", null ],
     [ "cublasSdot_type", "cublas__types_8h.html#aa79bcf0453188c6032b7fcf032f690f6", null ],
+    [ "cublasSetMathMode_type", "cublas__types_8h.html#a73190a901e8e704a879734c8962baee0", null ],
     [ "cublasSgemv_type", "cublas__types_8h.html#a893eb221d0c732ee423b2290c563b670", null ],
     [ "cublasSnrm2_type", "cublas__types_8h.html#ab64725202d38875be79db87037d8ca11", null ],
     [ "cublasSscal_type", "cublas__types_8h.html#a78e1232b1cc4bf08198057ea0e387140", null ]

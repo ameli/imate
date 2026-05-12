@@ -10,10 +10,10 @@
 <meta property="og:title" content="imate.Matrix" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://ameli.github.io/generated/imate.Matrix.html" />
-<meta property="og:site_name" content="RestoreIO" />
+<meta property="og:site_name" content="IMATE" />
 <meta property="og:image" content="https://raw.githubusercontent.com/ameli/imate/main/docs/source/_static/images/icons/logo-imate-light.svg" />
-<meta property="og:image:alt" content="RestoreIO" />
-<meta property="og:title" content="RestoreIO">
+<meta property="og:image:alt" content="IMATE" />
+<meta property="og:title" content="IMATE">
 <meta property="og:description" content="imate, short for Implicit Matrix Trace Estimator, is a modular and high-performance C++/CUDA library distributed as a Python package that provides scalable randomized algorithms for the computationally expensive matrix functions in machine learning.">
 
     <title>imate.Matrix &#8212; imate Manual</title>
@@ -39,7 +39,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/custom-pydata.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
 
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=92025949c220c2e29695">
@@ -65,6 +65,9 @@
     <link rel="next" title="imate.Matrix.initialize" href="imate.Matrix.initialize.html" />
     <link rel="prev" title="imate.InterpolateSchatten(kind=’rpf’)" href="../api/imate.InterpolateSchatten.rpf.html" />
 
+    <!-- Robots -->
+	<meta name="robots" content="index,follow">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JHJ15SKEY"></script>
     <script>
@@ -74,8 +77,6 @@
 
         gtag('config', 'G-4JHJ15SKEY');
     </script>
-
-    <script defer data-domain="docs.scipy.org" src="https://views.scientific-python.org/js/script.js"></script>
 
     <!-- My custom JS -->
     <script type="text/javascript" src="../_static/js/custom-pydata.js"></script>
@@ -645,6 +646,11 @@
    imate.device.restrict_to_single_processor
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="imate.get_config.html">
+   imate.get_config
+  </a>
+ </li>
 </ul>
 
     
@@ -709,7 +715,7 @@
 <h1>imate.Matrix<a class="headerlink" href="#imate-matrix" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="imate.Matrix">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">Matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.Matrix" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">imate.</span></span><span class="sig-name descname"><span class="pre">Matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imate.Matrix" title="Permalink to this definition">#</a></dt>
 <dd><p>Create a linear operator object from an input matrix.</p>
 <p>The linear operator is a container for various matrix types with a unified
 interface, establishes a fully automatic dynamic buffer to allocate,
@@ -726,6 +732,8 @@ formats are supported). Also, the matrix data type can be either
 <cite>32-bit</cite>, <cite>64-bit</cite>, or <cite>128-bit</cite>. The input matrix can be stored
 either in row-ordering (<cite>C</cite> style) or column-ordering (<cite>Fortran</cite>
 style).</p>
+</dd>
+<dt><strong>symmetric</strong><span class="classifier">bool, default=False</span></dt><dd><p>If <cite>True</cite>, the matrix <cite>A</cite> is assumed to be symmetric.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><cite>128-bit</cite> data type is not supported on GPU.</p>
@@ -804,7 +812,7 @@ in one interface.</p>
 <p><strong>Create Matrix object:</strong></p>
 <p>Create a very large sparse matrix with 64-bit data type:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a random sparse matrix with the size of ten million</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">toeplitz</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">toeplitz</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="mi">10000000</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">toeplitz</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">gram</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;csr&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
@@ -816,7 +824,7 @@ in one interface.</p>
 </div>
 <p>Create a linear operator from the matrix <cite>A</cite>:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import matrix operator</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">Matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">Matrix</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a matrix operator object from matrix A</span>
 <span class="hll"><span class="gp">&gt;&gt;&gt; </span><span class="n">Aop</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -827,7 +835,7 @@ in one interface.</p>
 <a class="reference internal" href="../index.html#module-imate" title="imate"><code class="xref py py-mod docutils literal notranslate"><span class="pre">imate</span></code></a> that accepts <code class="docutils literal notranslate"><span class="pre">slq</span></code> method, such as
 <a class="reference internal" href="imate.logdet.html#imate.logdet" title="imate.logdet"><code class="xref py py-func docutils literal notranslate"><span class="pre">imate.logdet()</span></code></a> as follows:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute log-determinant of Aop</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">logdet</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">logdet</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">logdet</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">)</span>
 <span class="go">13861581.003237441</span>
 </pre></div>
@@ -859,7 +867,7 @@ matrix, the data of this matrix does not have to be re-allocated on the GPU
 device again. The next example highlights this point. Call a second
 function, for instance, <cite>traceinv</cite>, on the same object <cite>Aop</cite> as follows.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compute trace of inverse of Aop on GPU</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">imate</span> <span class="kn">import</span> <span class="n">traceinv</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">imate</span><span class="w"> </span><span class="kn">import</span> <span class="n">traceinv</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">traceinv</span><span class="p">(</span><span class="n">Aop</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;slq&#39;</span><span class="p">,</span> <span class="n">gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">13861581.003237441</span>
 </pre></div>
@@ -875,6 +883,8 @@ automatically.</p>
 <dt class="field-odd">Attributes<span class="colon">:</span></dt>
 <dd class="field-odd"><dl class="simple">
 <dt><strong>A</strong><span class="classifier">numpy.ndarray or scipy.sparse</span></dt><dd><p>Input matrix <cite>A</cite> from python object.</p>
+</dd>
+<dt><strong>A_is_symmetric</strong><span class="classifier">boolean</span></dt><dd><p>If <cite>True</cite>, is is assumed that the matrix A is symmetric.</p>
 </dd>
 <dt><strong>cpu_Aop</strong><span class="classifier">object</span></dt><dd><p>Matrix object on CPU.</p>
 </dd>
@@ -901,7 +911,7 @@ this parameter is always <cite>0</cite>.</p>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="imate.Matrix.initialize.html#imate.Matrix.initialize" title="imate.Matrix.initialize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize</span></code></a>(gpu, num_gpu_devices)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="imate.Matrix.initialize.html#imate.Matrix.initialize" title="imate.Matrix.initialize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">initialize</span></code></a>([gpu, num_gpu_devices])</p></td>
 <td><p>Initializes the object.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="imate.Matrix.get_num_rows.html#imate.Matrix.get_num_rows" title="imate.Matrix.get_num_rows"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_num_rows</span></code></a>()</p></td>

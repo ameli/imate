@@ -12,6 +12,7 @@ var classcublasSymbols =
     [ "cublasSaxpy", "classcublasSymbols.html#a081a6588a23665595fe7cf8354d7996c", null ],
     [ "cublasScopy", "classcublasSymbols.html#a2960e9dac5c45347af206f6fa5ba0433", null ],
     [ "cublasSdot", "classcublasSymbols.html#a7f181eeafc39ce8adc05bcc9e69d72e6", null ],
+    [ "cublasSetMathMode", "classcublasSymbols.html#a2842934604c5a56d3915726b83f48727", null ],
     [ "cublasSgemv", "classcublasSymbols.html#ad6084d34a2ccff797c7ce38f128d887f", null ],
     [ "cublasSnrm2", "classcublasSymbols.html#ad4b032ac6931d4b4ee6c5a0fb5daf526", null ],
     [ "cublasSscal", "classcublasSymbols.html#a482e26d53d3efd7fe0ea795f37c24029", null ]
