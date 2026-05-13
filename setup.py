@@ -1345,7 +1345,7 @@ class CustomBuildExtension(build_ext):
                 extra_compile_args_nvcc += [
                     '--compiler-options=-O2',
                     '--compiler-options=-MD',  # Creates shared library
-                    '--compiler-options=/openmp:llvm']
+                    '--compiler-options=-openmp']
             else:
                 # Set host compiler for nvcc
                 extra_compile_args_nvcc += ['-ccbin=%s' % compiler_cxx]
