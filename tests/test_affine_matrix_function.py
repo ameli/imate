@@ -190,13 +190,14 @@ def _test(A, B, t, symmetric=False, gpu=False, factor=1.0):
     """
     """
 
+    # Usually windows and mac does not have numpy.float128
     has_fp128 = hasattr(numpy, "float128")
 
     A_matrices = {
         'float16': A.astype(numpy.float16) if not issparse(A) else None,
         'float32': A.astype(numpy.float32),
         'float64': A.astype(numpy.float64),
-        'float128': A.astype(numpy.float128) if not has_fp128 else None,
+        'float128': A.astype(numpy.float128) if has_fp128 else None,
     }
 
     if B is not None:
@@ -204,7 +205,7 @@ def _test(A, B, t, symmetric=False, gpu=False, factor=1.0):
             'float16': B.astype(numpy.float16) if not issparse(B) else None,
             'float32': B.astype(numpy.float32),
             'float64': B.astype(numpy.float64),
-            'float128': B.astype(numpy.float128) if not has_fp128 else None,
+            'float128': B.astype(numpy.float128) if has_fp128 else None,
         }
 
     # Make 128-bit data truly contain 19 decimals by filling decimals 16 to 19
