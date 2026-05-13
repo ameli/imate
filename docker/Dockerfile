@@ -28,9 +28,9 @@
 # Build
 # -----
 
-FROM nvidia/cuda:12.3.1-devel-ubuntu22.04 as builder
+FROM nvidia/cuda:13.2.1-devel-ubuntu24.04 as builder
 MAINTAINER Siavash Ameli <samei@berkeley.edu>
-LABEL Description="imate python package with cuda-12 support"
+LABEL Description="imate python package with cuda-13 support"
 
 # Install python3
 RUN apt-get update && \
@@ -63,15 +63,15 @@ RUN /usr/bin/python3 -m build --wheel --outdir dist
 # Runtime
 # -------
 
-FROM nvidia/cuda:12.3.1-base-ubuntu22.04
+FROM nvidia/cuda:13.2.1-base-ubuntu24.04
 
 # Install python3 and libcudablas, libcusparse, since they are not in the NVIDIA
 # cuda's "base" image.
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get install -y --no-install-recommends \
-        libcublas-12-3 \
-        libcusparse-12-3 \
+        libcublas-13-2 \
+        libcusparse-13-2 \
         python3-pip \
         libgomp1 \
         libsuitesparse-dev \

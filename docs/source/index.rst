@@ -331,6 +331,9 @@ Some notable implementation techniques used to develop |project| are:
   * `manylinux CUDA 11.8 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_11.8>`_
   * `manylinux CUDA 12.0 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_12.0>`_
   * `manylinux CUDA 12.2 <https://hub.docker.com/r/sameli/manylinux2014_x86_64_cuda_12.2>`_
+  * `manylinux CUDA 12.8 <https://hub.docker.com/r/sameli/manylinux_2_34_x86_64_cuda_12.8>`_
+  * `manylinux CUDA 12.9 <https://hub.docker.com/r/sameli/manylinux_2_34_x86_64_cuda_12.9>`_
+  * `manylinux CUDA 13.0 <https://hub.docker.com/r/sameli/manylinux_2_34_x86_64_cuda_13.0>`_
 
 How to Contribute
 =================
