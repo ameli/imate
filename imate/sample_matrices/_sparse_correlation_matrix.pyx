@@ -51,10 +51,10 @@ cdef int _generate_matrix(
         const double kernel_threshold,
         const int num_threads,
         const int verbose,
-        const long max_nnz,
-        long[:] nnz,
-        long[:] matrix_row_indices,
-        long[:] matrix_column_indices,
+        const long long max_nnz,
+        long long[:] nnz,
+        long long[:] matrix_row_indices,
+        long long[:] matrix_column_indices,
         DataType* c_matrix_data) noexcept nogil:
     """
     Generates a sparse correlation matrix.
@@ -126,7 +126,7 @@ cdef int _generate_matrix(
     :rtype: int
     """
 
-    cdef long i, j
+    cdef long long i, j
     cdef int dim
     cdef double *thread_data = <double *> malloc(num_threads * sizeof(double))
     cdef int[1] success
@@ -197,7 +197,8 @@ cdef int _generate_matrix(
                         # Avoid duplicate if success is falsified already
                         if success[0]:
                             printf('Pre-allocated sparse array reached max ')
-                            printf('nnz: %ld. Terminate operation.\n', max_nnz)
+                            printf('nnz: %lld. Terminate operation.\n',
+                                   max_nnz)
                             success[0] = 0
 
                         # Release lock to end the openmp critical section
@@ -553,10 +554,10 @@ def sparse_correlation_matrix(
     while not bool(success):
 
         # Allocate sparse arrays
-        matrix_row_indices = numpy.zeros((max_nnz,), dtype=int)
-        matrix_column_indices = numpy.zeros((max_nnz,), dtype=int)
+        matrix_row_indices = numpy.zeros((max_nnz,), dtype=numpy.int64)
+        matrix_column_indices = numpy.zeros((max_nnz,), dtype=numpy.int64)
         matrix_data = numpy.zeros((max_nnz,), dtype=dtype)
-        nnz = numpy.zeros((1,), dtype=int)
+        nnz = numpy.zeros((1,), dtype=numpy.int64)
 
         if dtype == r'float32':
 
