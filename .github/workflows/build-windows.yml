@@ -15,8 +15,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                # python-version: ['3.10', '3.11', '3.12', '3.13']
-                python-version: ['3.12']  # TEST
+                python-version: ['3.10', '3.11', '3.12', '3.13']
 
         steps:
             - name: Checkout
@@ -31,7 +30,7 @@ jobs:
               uses: Jimver/cuda-toolkit@v0.2.35
               id: cuda-toolkit
               with:
-                  cuda: '12.8.0'
+                  cuda: '13.0.0'
                   log-file-suffix: ${{ matrix.python-version }}-log.txt
 
             - name: Install package and dependencies
@@ -43,7 +42,7 @@ jobs:
                   USE_UNSIGNED_LONG_INT: 0
                   USE_CBLAS: 0
                   USE_MKL: 0
-                  USE_CUDA: 1
+                  USE_CUDA: 0
                   CUDA_DYNAMIC_LOADING: 1
 
             - name: Test

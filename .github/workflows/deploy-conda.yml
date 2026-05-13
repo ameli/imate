@@ -1,9 +1,9 @@
 name: deploy-conda
 
 on:
-    # push:
-    #     branches:
-    #         - main
+    push:
+        branches:
+            - main
     release:
         types:
             - published
@@ -67,7 +67,7 @@ jobs:
               uses: Jimver/cuda-toolkit@v0.2.35
               id: cuda-toolkit
               with:
-                  cuda: '12.9.0'
+                  cuda: '13.0.0'
                   log-file-suffix: ${{ matrix.os }}-${{ matrix.python-version }}-log.txt
 
             # Build wheel for windows with CUDA enabled. Note that cibuildwheel
@@ -82,7 +82,7 @@ jobs:
                   CIBW_BUILD: "${{ matrix.python-version }}-win_amd64"
                   CIBW_SKIP: "pp* cp38-* cp39-*"
                   CIBW_BUILD_VERBOSITY: 3
-                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_MKL=0 USE_CUDA=1 CUDA_DYNAMIC_LOADING=1"
+                  CIBW_ENVIRONMENT: "USE_LONG_INT=0 USE_UNSIGNED_LONG_INT=0 USE_CBLAS=0 USE_MKL=0 USE_CUDA=0 CUDA_DYNAMIC_LOADING=1"
                   CIBW_BEFORE_BUILD_WINDOWS: "pip install delvewheel"
                   CIBW_REPAIR_WHEEL_COMMAND_WINDOWS: "delvewheel repair -w {dest_dir} {wheel}"
               with:
