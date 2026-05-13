@@ -32,6 +32,9 @@ FROM nvidia/cuda:13.2.1-devel-ubuntu24.04 as builder
 MAINTAINER Siavash Ameli <samei@berkeley.edu>
 LABEL Description="imate python package with cuda-13 support"
 
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Etc/UTC
+
 # Install python3
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -54,7 +57,6 @@ WORKDIR /tmp/imate
 RUN rm -rf build dist
 
 # Note: run setup.py clean to remove in-source cpp build files (if there are any)
-RUN /usr/bin/python3 -m pip install --break-system-packages --upgrade pip
 RUN /usr/bin/python3 -m pip install --break-system-packages --prefer-binary numpy scipy cython build
 RUN /usr/bin/python3 setup.py clean
 RUN /usr/bin/python3 -m build --wheel --outdir dist --no-isolation
