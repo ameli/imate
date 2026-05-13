@@ -28,8 +28,8 @@
 # Build
 # -----
 
-FROM nvidia/cuda:13.2.1-devel-ubuntu24.04 as builder
-MAINTAINER Siavash Ameli <samei@berkeley.edu>
+FROM nvidia/cuda:13.2.1-devel-ubuntu24.04 AS builder
+LABEL maintainer="Siavash Ameli <sameli@berkeley.edu>"
 LABEL Description="imate python package with cuda-13 support"
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -87,14 +87,14 @@ RUN apt-get update && \
 # Copy the wheel from the previous build (on NVIDIA cuda-devel image) and
 # install it on this image.
 COPY --from=builder /tmp/imate/dist/*.whl /tmp/
-RUN /usr/bin/python3 -m pip --no-cache-dir install /tmp/*.whl
+RUN /usr/bin/python3 -m pip --no-cache-dir install --break-system-packages /tmp/*.whl
 RUN rm /tmp/*.whl
 
 # Create a startup file to auto-import package when python starts
 RUN echo "import imate" > /home/.start_python.py
 ENV PYTHONSTARTUP=/home/.start_python.py
 ENV PATH=$PATH:/usr/bin/
-RUN /usr/bin/python3 -m pip install --upgrade pip ipython jupyter
+RUN /usr/bin/python3 -m pip install --break-system-packages ipython jupyter
 
 # Change working directory for entrypoint
 VOLUME ["/root"]
