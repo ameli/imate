@@ -233,27 +233,18 @@ void cuLinearOperator<DataType>::initialize_cublas_handle()
             omp_set_num_threads(this->num_gpu_devices);
         #endif
 
-        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
-        #pragma omp parallel
-        #endif
+        for (int device_id = 0; device_id < this->num_gpu_devices; ++device_id)
         {
-            // Switch to a device with the same device id as the cpu thread id
-            unsigned int thread_id;
-            #if defined(USE_OPENMP) && (USE_OPENMP == 1)
-                thread_id = omp_get_thread_num();
-            #else
-                thread_id = 0;
-            #endif
-
-            CudaAPI<DataType>::set_device(thread_id);
+            // Switch to device
+            CudaAPI<DataType>::set_device(device_id);
 
             cublasStatus_t status_create = cublasCreate(
-                    &this->cublas_handle[thread_id]);
+                    &this->cublas_handle[device_id]);
             assert(status_create == CUBLAS_STATUS_SUCCESS);
 
             // Set tensor core whenever possible (usually for cublasXgemm)
             cublasStatus_t status_set = cublasSetMathMode(
-                    this->cublas_handle[thread_id], CUBLAS_TENSOR_OP_MATH);
+                    this->cublas_handle[device_id], CUBLAS_TENSOR_OP_MATH);
             assert(status_set == CUBLAS_STATUS_SUCCESS);
         }
     }
@@ -280,22 +271,13 @@ void cuLinearOperator<DataType>::initialize_cusparse_handle()
             omp_set_num_threads(this->num_gpu_devices);
         #endif
 
-        #if defined(USE_OPENMP) && (USE_OPENMP == 1)
-        #pragma omp parallel
-        #endif
+        for (int device_id = 0; device_id < this->num_gpu_devices; ++device_id)
         {
-            // Switch to a device with the same device id as the cpu thread id
-            unsigned int thread_id;
-            #if defined(USE_OPENMP) && (USE_OPENMP == 1)
-                thread_id = omp_get_thread_num();
-            #else
-                thread_id = 0;
-            #endif
-
-            CudaAPI<DataType>::set_device(thread_id);
+            // Switch to device
+            CudaAPI<DataType>::set_device(device_id);
 
             cusparseStatus_t status = cusparseCreate(
-                    &this->cusparse_handle[thread_id]);
+                    &this->cusparse_handle[device_id]);
             assert(status == CUSPARSE_STATUS_SUCCESS);
         }
     }
