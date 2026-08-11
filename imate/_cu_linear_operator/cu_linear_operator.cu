@@ -26,7 +26,6 @@
 #include <cassert>  // assert
 #include <sstream>  // std::ostringstream
 #include <stdexcept>  // std::runtime_error
-#include <string>  // std::string
 #include "../_cuda_utilities/cuda_api.h"  // CudaAPI
 
 
@@ -319,12 +318,14 @@ int cuLinearOperator<DataType>::query_gpu_devices() const
     int device_count = 0;
     cudaError_t error = cudaGetDeviceCount(&device_count);
 
-    // Error code 38 means no cuda-capable device was detected.
     if (error != cudaSuccess)
     {
-        throw std::runtime_error(
-            std::string("CUDA device query failed: ") +
-            cudaGetErrorString(error));
+        std::ostringstream message;
+        message << "CUDA device query failed with error code: "
+                << static_cast<int>(error)
+                << ".";
+
+        throw std::runtime_error(message.str());
     }
 
     if (device_count < 1)
