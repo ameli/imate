@@ -34,7 +34,11 @@ cdef py_query_device():
 
     # Create and fill a C class
     cdef DeviceProperties device_properties
-    query_device(device_properties)
+    cdef int error = query_device(device_properties)
+
+    if error != 0:
+        raise RuntimeError(
+            'CUDA device query failed with error code %d.' % error)
 
     # Declare arrays to hold data for each gpu device
     num_multiprocessors = numpy.empty(

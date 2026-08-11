@@ -23,6 +23,6 @@
 // Declarations
 // ============
 
-void query_device(DeviceProperties& device_properties);
+int query_device(DeviceProperties& device_properties);
 
 #endif  // _CUDA_UTILITIES_QUERY_DEVICE_H_

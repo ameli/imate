@@ -85,29 +85,35 @@ cdef class pycuLinearOperator(object):
         """
         """
 
-        if self.Aop_fp8_e5m2 != NULL:
-            del self.Aop_fp8_e5m2
-            self.Aop_fp8_e5m2 = NULL
+        IF USE_CUDA_FP8_E5M2:
+            if self.Aop_fp8_e5m2 != NULL:
+                del self.Aop_fp8_e5m2
+                self.Aop_fp8_e5m2 = NULL
 
-        if self.Aop_fp8_e4m3 != NULL:
-            del self.Aop_fp8_e4m3
-            self.Aop_fp8_e4m3 = NULL
+        IF USE_CUDA_FP8_E4M3:
+            if self.Aop_fp8_e4m3 != NULL:
+                del self.Aop_fp8_e4m3
+                self.Aop_fp8_e4m3 = NULL
 
-        if self.Aop_fp16 != NULL:
-            del self.Aop_fp16
-            self.Aop_fp16 = NULL
+        IF USE_CUDA_BF16:
+            if self.Aop_bf16 != NULL:
+                del self.Aop_bf16
+                self.Aop_bf16 = NULL
 
-        if self.Aop_bf16 != NULL:
-            del self.Aop_bf16
-            self.Aop_bf16 = NULL
+        IF USE_CUDA_FP16:
+            if self.Aop_fp16 != NULL:
+                del self.Aop_fp16
+                self.Aop_fp16 = NULL
 
-        if self.Aop_fp32 != NULL:
-            del self.Aop_fp32
-            self.Aop_fp32 = NULL
+        IF USE_CUDA_FP32:
+            if self.Aop_fp32 != NULL:
+                del self.Aop_fp32
+                self.Aop_fp32 = NULL
 
-        if self.Aop_fp64 != NULL:
-            del self.Aop_fp64
-            self.Aop_fp64 = NULL
+        IF USE_CUDA_FP64:
+            if self.Aop_fp64 != NULL:
+                del self.Aop_fp64
+                self.Aop_fp64 = NULL
 
     # ============
     # get num rows
@@ -121,18 +127,48 @@ cdef class pycuLinearOperator(object):
 
         if (self.data_type_name == b'float8_e5m2') and \
                 (self.Aop_fp8_e5m2 != NULL):
-            return self.Aop_fp8_e5m2.get_num_rows()
+            IF USE_CUDA_FP8_E5M2:
+                return self.Aop_fp8_e5m2.get_num_rows()
+            ELSE:
+                raise TypeError('Package was not compiled with FP8-E5M2 '
+                                'precision support for CUDA.')
+
         elif (self.data_type_name == b'float8_e4m3') and \
                 (self.Aop_fp8_e4m3 != NULL):
-            return self.Aop_fp8_e4m3.get_num_rows()
-        elif (self.data_type_name == b'float16') and (self.Aop_fp16 != NULL):
-            return self.Aop_fp16.get_num_rows()
+            IF USE_CUDA_FP8_E4M3:
+                return self.Aop_fp8_e4m3.get_num_rows()
+            ELSE:
+                raise TypeError('Package was not compiled with FP8-E4M3 '
+                                'precision support for CUDA.')
+
         elif (self.data_type_name == b'bfloat16') and (self.Aop_bf16 != NULL):
-            return self.Aop_bf16.get_num_rows()
+            IF USE_CUDA_BF16:
+                return self.Aop_bf16.get_num_rows()
+            ELSE:
+                raise TypeError('Package was not compiled with BF16 '
+                                'precision support for CUDA.')
+
+        elif (self.data_type_name == b'float16') and (self.Aop_fp16 != NULL):
+            IF USE_CUDA_FP16:
+                return self.Aop_fp16.get_num_rows()
+            ELSE:
+                raise TypeError('Package was not compiled with FP16 '
+                                'precision support for CUDA.')
+
         elif (self.data_type_name == b'float32') and (self.Aop_fp32 != NULL):
-            return self.Aop_fp32.get_num_rows()
+            IF USE_CUDA_FP32:
+                return self.Aop_fp32.get_num_rows()
+            ELSE:
+                raise TypeError('Package was not compiled with FP32 '
+                                'precision support for CUDA.')
+
         elif (self.data_type_name == b'float64') and (self.Aop_fp64 != NULL):
-            return self.Aop_fp64.get_num_rows()
+            IF USE_CUDA_FP64:
+                return self.Aop_fp64.get_num_rows()
+            ELSE:
+                raise TypeError('Package was not compiled with FP64 '
+                                'precision support for CUDA.')
+
         else:
             raise ValueError('Linear operator is not set.')
 
@@ -148,18 +184,48 @@ cdef class pycuLinearOperator(object):
 
         if (self.data_type_name == b'float8_e5m2') and \
                 (self.Aop_fp8_e5m2 != NULL):
-            return self.Aop_fp8_e5m2.get_num_columns()
+            IF USE_CUDA_FP8_E5M2:
+                return self.Aop_fp8_e5m2.get_num_columns()
+            ELSE:
+                raise TypeError('Package was not compiled with FP8-E5M2 '
+                                'precision support for CUDA.')
+
         elif (self.data_type_name == b'float8_e4m3') and \
                 (self.Aop_fp8_e4m3 != NULL):
-            return self.Aop_fp8_e4m3.get_num_columns()
-        elif (self.data_type_name == b'float16') and (self.Aop_fp16 != NULL):
-            return self.Aop_fp16.get_num_columns()
+            IF USE_CUDA_FP8_E4M3:
+                return self.Aop_fp8_e4m3.get_num_columns()
+            ELSE:
+                raise TypeError('Package was not compiled with FP8-E4M3 '
+                                'precision support for CUDA.')
+
         elif (self.data_type_name == b'bfloat16') and (self.Aop_bf16 != NULL):
-            return self.Aop_bf16.get_num_columns()
+            IF USE_CUDA_BF16:
+                return self.Aop_bf16.get_num_columns()
+            ELSE:
+                raise TypeError('Package was not compiled with BF16 '
+                                'precision support for CUDA.')
+
+        elif (self.data_type_name == b'float16') and (self.Aop_fp16 != NULL):
+            IF USE_CUDA_FP16:
+                return self.Aop_fp16.get_num_columns()
+            ELSE:
+                raise TypeError('Package was not compiled with FP16 '
+                                'precision support for CUDA.')
+
         elif (self.data_type_name == b'float32') and (self.Aop_fp32 != NULL):
-            return self.Aop_fp32.get_num_columns()
+            IF USE_CUDA_FP32:
+                return self.Aop_fp32.get_num_columns()
+            ELSE:
+                raise TypeError('Package was not compiled with FP32 '
+                                'precision support for CUDA.')
+
         elif (self.data_type_name == b'float64') and (self.Aop_fp64 != NULL):
-            return self.Aop_fp64.get_num_columns()
+            IF USE_CUDA_FP64:
+                return self.Aop_fp64.get_num_columns()
+            ELSE:
+                raise TypeError('Package was not compiled with FP64 '
+                                'precision support for CUDA.')
+
         else:
             raise ValueError('Linear operator is not set.')
 
@@ -175,18 +241,48 @@ cdef class pycuLinearOperator(object):
 
         if (self.data_type_name == b'float8_e5m2') and \
                 (self.Aop_fp8_e5m2 != NULL):
-            return self.Aop_fp8_e5m2.get_num_parameters()
+            IF USE_CUDA_FP8_E5M2:
+                return self.Aop_fp8_e5m2.get_num_parameters()
+            ELSE:
+                raise TypeError('Package was not compiled with FP8-E5M2 '
+                                'precision support for CUDA.')
+
         elif (self.data_type_name == b'float8_e4m3') and \
                 (self.Aop_fp8_e4m3 != NULL):
-            return self.Aop_fp8_e4m3.get_num_parameters()
-        elif (self.data_type_name == b'float16') and (self.Aop_fp16 != NULL):
-            return self.Aop_fp16.get_num_parameters()
+            IF USE_CUDA_FP8_E4M3:
+                return self.Aop_fp8_e4m3.get_num_parameters()
+            ELSE:
+                raise TypeError('Package was not compiled with FP8-E4M3 '
+                                'precision support for CUDA.')
+
         elif (self.data_type_name == b'bfloat16') and (self.Aop_bf16 != NULL):
-            return self.Aop_bf16.get_num_parameters()
+            IF USE_CUDA_BF16:
+                return self.Aop_bf16.get_num_parameters()
+            ELSE:
+                raise TypeError('Package was not compiled with BF16 '
+                                'precision support for CUDA.')
+
+        elif (self.data_type_name == b'float16') and (self.Aop_fp16 != NULL):
+            IF USE_CUDA_FP16:
+                return self.Aop_fp16.get_num_parameters()
+            ELSE:
+                raise TypeError('Package was not compiled with FP16 '
+                                'precision support for CUDA.')
+
         elif (self.data_type_name == b'float32') and (self.Aop_fp32 != NULL):
-            return self.Aop_fp32.get_num_parameters()
+            IF USE_CUDA_FP32:
+                return self.Aop_fp32.get_num_parameters()
+            ELSE:
+                raise TypeError('Package was not compiled with FP32 '
+                                'precision support for CUDA.')
+
         elif (self.data_type_name == b'float64') and (self.Aop_fp64 != NULL):
-            return self.Aop_fp64.get_num_parameters()
+            IF USE_CUDA_FP64:
+                return self.Aop_fp64.get_num_parameters()
+            ELSE:
+                raise TypeError('Package was not compiled with FP64 '
+                                'precision support for CUDA.')
+
         else:
             raise ValueError('Linear operator is not set.')
 
@@ -216,7 +312,7 @@ cdef class pycuLinearOperator(object):
             raise RuntimeError('Linear operator (__nv_fp8_e5m2 type) is not '
                                'set.')
 
-        if self.data_type_name != b'float16':
+        if self.data_type_name != b'float8_e5m2':
             raise RuntimeError('Wrong accessors is called. The type of the ' +
                                'LinearOperator object is: %s'
                                % self.data_type_name)
@@ -236,7 +332,7 @@ cdef class pycuLinearOperator(object):
             raise RuntimeError('Linear operator (__nv_fp8_e4m3 type) is not '
                                'set.')
 
-        if self.data_type_name != b'float16':
+        if self.data_type_name != b'float8_e4m3':
             raise RuntimeError('Wrong accessors is called. The type of the ' +
                                'LinearOperator object is: %s'
                                % self.data_type_name)
@@ -346,18 +442,47 @@ cdef class pycuLinearOperator(object):
 
         if (self.data_type_name == b'float8_e5m2') and \
                 (self.Aop_fp8_e5m2 != NULL):
-            self.Aop_fp8_e5m2.set_symmetry(symmetric)
+            IF USE_CUDA_FP8_E5M2:
+                self.Aop_fp8_e5m2.set_symmetry(symmetric)
+            ELSE:
+                raise TypeError('Package was not compiled with FP8-E5M2 '
+                                'precision support for CUDA.')
+
         elif (self.data_type_name == b'float8_e4m3') and \
                 (self.Aop_fp8_e4m3 != NULL):
-            self.Aop_fp8_e4m3.set_symmetry(symmetric)
-        elif (self.data_type_name == b'float16') and (self.Aop_fp16 != NULL):
-            self.Aop_fp16.set_symmetry(symmetric)
+            IF USE_CUDA_FP8_E4M3:
+                self.Aop_fp8_e4m3.set_symmetry(symmetric)
+            ELSE:
+                raise TypeError('Package was not compiled with FP8-E4M3 '
+                                'precision support for CUDA.')
+
         elif (self.data_type_name == b'bfloat16') and (self.Aop_bf16 != NULL):
-            self.Aop_bf16.set_symmetry(symmetric)
+            IF USE_CUDA_BF16:
+                self.Aop_bf16.set_symmetry(symmetric)
+            ELSE:
+                raise TypeError('Package was not compiled with BF16 '
+                                'precision support for CUDA.')
+
+        elif (self.data_type_name == b'float16') and (self.Aop_fp16 != NULL):
+            IF USE_CUDA_FP16:
+                self.Aop_fp16.set_symmetry(symmetric)
+            ELSE:
+                raise TypeError('Package was not compiled with FP16 '
+                                'precision support for CUDA.')
+
         elif (self.data_type_name == b'float32') and (self.Aop_fp32 != NULL):
-            self.Aop_fp32.set_symmetry(symmetric)    
+            IF USE_CUDA_FP32:
+                self.Aop_fp32.set_symmetry(symmetric)
+            ELSE:
+                raise TypeError('Package was not compiled with FP32 '
+                                'precision support for CUDA.')
+
         elif (self.data_type_name == b'float64') and (self.Aop_fp64 != NULL):
-            self.Aop_fp64.set_symmetry(symmetric)
+            IF USE_CUDA_FP64:
+                self.Aop_fp64.set_symmetry(symmetric)
+            ELSE:
+                raise TypeError('Package was not compiled with FP64 '
+                                'precision support for CUDA.')
         else:
             raise ValueError('Linear operator is not set.')
 
@@ -388,14 +513,22 @@ cdef class pycuLinearOperator(object):
         cdef double* c_parameters_fp64
 
         if (self.data_type_name == b'float32') and (self.Aop_fp32 != NULL):
-            mv_parameters_fp32 = self.parameters.astype('float32')
-            c_parameters_fp32 = &mv_parameters_fp32[0]
-            self.Aop_fp32.set_parameters(c_parameters_fp32)
+            IF USE_CUDA_FP32:
+                mv_parameters_fp32 = self.parameters.astype('float32')
+                c_parameters_fp32 = &mv_parameters_fp32[0]
+                self.Aop_fp32.set_parameters(c_parameters_fp32)
+            ELSE:
+                raise TypeError('Package was not compiled with FP32 '
+                                'precision support for CUDA.')
             
         elif (self.data_type_name == b'float64') and (self.Aop_fp64 != NULL):
-            mv_parameters_fp64 = self.parameters.astype('float64')
-            c_parameters_fp64 = &mv_parameters_fp64[0]
-            self.Aop_fp64.set_parameters(c_parameters_fp64)
+            IF USE_CUDA_FP64:
+                mv_parameters_fp64 = self.parameters.astype('float64')
+                c_parameters_fp64 = &mv_parameters_fp64[0]
+                self.Aop_fp64.set_parameters(c_parameters_fp64)
+            ELSE:
+                raise TypeError('Package was not compiled with FP64 '
+                                'precision support for CUDA.')
 
         else:
             raise ValueError('Linear operator is not set.')
@@ -436,30 +569,38 @@ cdef class pycuLinearOperator(object):
 
         # Dispatch to single or double precision
         if vector_typed.dtype == 'float32':
+            IF USE_CUDA_FP32:
 
-            # input vector
-            mv_vector_fp32 = vector_typed
-            c_vector_fp32 = &mv_vector_fp32[0]
+                # input vector
+                mv_vector_fp32 = vector_typed
+                c_vector_fp32 = &mv_vector_fp32[0]
 
-            # output product
-            mv_product_fp32 = product
-            c_product_fp32 = &mv_product_fp32[0]
+                # output product
+                mv_product_fp32 = product
+                c_product_fp32 = &mv_product_fp32[0]
 
-            # Call c object
-            self.Aop_fp32.dot(c_vector_fp32, c_product_fp32)
+                # Call c object
+                self.Aop_fp32.dot(c_vector_fp32, c_product_fp32)
+            ELSE:
+                raise TypeError('Package was not compiled with FP32 '
+                                'precision support for CUDA.')
 
         elif vector_typed.dtype == 'float64':
+            IF USE_CUDA_FP64:
 
-            # input vector
-            mv_vector_fp64 = vector_typed
-            c_vector_fp64 = &mv_vector_fp64[0]
+                # input vector
+                mv_vector_fp64 = vector_typed
+                c_vector_fp64 = &mv_vector_fp64[0]
 
-            # output product
-            mv_product_fp64 = product
-            c_product_fp64 = &mv_product_fp64[0]
+                # output product
+                mv_product_fp64 = product
+                c_product_fp64 = &mv_product_fp64[0]
 
-            # Call c object
-            self.Aop_fp64.dot(c_vector_fp64, c_product_fp64)
+                # Call c object
+                self.Aop_fp64.dot(c_vector_fp64, c_product_fp64)
+            ELSE:
+                raise TypeError('Package was not compiled with FP64 '
+                                'precision support for CUDA.')
 
         else:
             raise TypeError('Vector type should be either "float32", or ' +
@@ -501,30 +642,38 @@ cdef class pycuLinearOperator(object):
 
         # Dispatch to single or double precision
         if vector_typed.dtype == 'float32':
+            IF USE_CUDA_FP32:
 
-            # input vector
-            mv_vector_fp32 = vector_typed
-            c_vector_fp32 = &mv_vector_fp32[0]
+                # input vector
+                mv_vector_fp32 = vector_typed
+                c_vector_fp32 = &mv_vector_fp32[0]
 
-            # output product
-            mv_product_fp32 = product
-            c_product_fp32 = &mv_product_fp32[0]
+                # output product
+                mv_product_fp32 = product
+                c_product_fp32 = &mv_product_fp32[0]
 
-            # Call c object
-            self.Aop_fp32.transpose_dot(c_vector_fp32, c_product_fp32)
+                # Call c object
+                self.Aop_fp32.transpose_dot(c_vector_fp32, c_product_fp32)
+            ELSE:
+                raise TypeError('Package was not compiled with FP32 '
+                                'precision support for CUDA.')
 
         elif vector_typed.dtype == 'float64':
+            IF USE_CUDA_FP64:
 
-            # input vector
-            mv_vector_fp64 = vector_typed
-            c_vector_fp64 = &mv_vector_fp64[0]
+                # input vector
+                mv_vector_fp64 = vector_typed
+                c_vector_fp64 = &mv_vector_fp64[0]
 
-            # output product
-            mv_product_fp64 = product
-            c_product_fp64 = &mv_product_fp64[0]
+                # output product
+                mv_product_fp64 = product
+                c_product_fp64 = &mv_product_fp64[0]
 
-            # Call c object
-            self.Aop_fp64.transpose_dot(c_vector_fp64, c_product_fp64)
+                # Call c object
+                self.Aop_fp64.transpose_dot(c_vector_fp64, c_product_fp64)
+            ELSE:
+                raise TypeError('Package was not compiled with FP64 '
+                                'precision support for CUDA.')
 
         else:
             raise TypeError('Vector type should be either "float32", or ' +

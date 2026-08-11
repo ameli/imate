@@ -1291,30 +1291,42 @@ class CustomBuildExtension(build_ext):
 
             # Code generations for various device architectures
             gencodes = []
+            architectures = []
+            version = (cuda['version']['major'], cuda['version']['minor'])
 
-            if cuda['version']['major'] < 12:
-                gencodes += ['-gencode', 'arch=compute_35,code=sm_35']
+            # Kepler support (older campus clusters)
+            if version < (12, 0):
+                architectures += [35]
 
-            # TEST (uncomment these back)
-            # gencodes += ['-gencode', 'arch=compute_50,code=sm_50',
-            #              '-gencode', 'arch=compute_52,code=sm_52',
-            #              '-gencode', 'arch=compute_60,code=sm_60',
-            #              '-gencode', 'arch=compute_61,code=sm_61',
-            #              '-gencode', 'arch=compute_70,code=sm_70',
-            #              '-gencode', 'arch=compute_75,code=sm_75']
+            # Turing
+            architectures += [75]
 
-            if cuda['version']['major'] < 11:
-                gencodes += \
-                    ['-gencode', 'arch=compute_75,code=compute_75']
-            else:
-                # TEST (uncomment these back)
-                # gencodes += \
-                #     ['-gencode', 'arch=compute_80,code=sm_80',
-                #      '-gencode', 'arch=compute_86,code=sm_86',
-                #      '-gencode', 'arch=compute_86,code=compute_86']
-                gencodes += \
-                     ['-gencode', 'arch=compute_86,code=sm_86',
-                      '-gencode', 'arch=compute_86,code=compute_86']
+            # Ampere
+            if version >= (11, 0):
+                architectures += [80]
+
+            if version >= (11, 1):
+                architectures += [86]
+
+            # Ada and Hopper
+            if version >= (11, 8):
+                architectures += [89, 90]
+
+            # Blackwell
+            if version >= (12, 8):
+                architectures += [100]
+
+            # Native code
+            for architecture in architectures:
+                gencodes += [
+                    '-gencode',
+                    'arch=compute_{0},code=sm_{0}'.format(architecture)]
+
+            # Forward-compatible PTX for the newest supported target
+            ptx_architecture = architectures[-1]
+            gencodes += [
+                '-gencode',
+                'arch=compute_{0},code=compute_{0}'.format(ptx_architecture)]
 
             extra_compile_args_nvcc = gencodes + [
                     '--ptxas-options=-v',
@@ -1894,6 +1906,18 @@ def cythonize_extensions(extensions):
     else:
         gdb_debug = False
 
+    # Sync same envs between Cython-generated C++ code and existing C++ code,
+    # controlled by "define_macros". This is important when some envs related
+    # to lower-precision is disabled.
+    cuda_precision_compile_time_env = {
+        'USE_CUDA_FP8_E5M2': use_cuda_fp8_e5m2,
+        'USE_CUDA_FP8_E4M3': use_cuda_fp8_e4m3,
+        'USE_CUDA_BF16': use_cuda_bf16,
+        'USE_CUDA_FP16': use_cuda_fp16,
+        'USE_CUDA_FP32': use_cuda_fp32,
+        'USE_CUDA_FP64': use_cuda_fp64,
+    }
+
     # Cythonize
     cythonized_extensions = cythonize(
         extensions,
@@ -1902,6 +1926,7 @@ def cythonize_extensions(extensions):
         language_level="3",
         nthreads=get_avail_num_threads(),
         compiler_directives=compiler_directives,
+        compile_time_env=cuda_precision_compile_time_env,
         gdb_debug=gdb_debug,
     )
 

@@ -20,4 +20,4 @@ from .device_properties cimport DeviceProperties
 
 cdef extern from "query_device.h":
 
-    cdef void query_device(DeviceProperties& device_properties) noexcept nogil
+    cdef int query_device(DeviceProperties& device_properties) noexcept nogil

@@ -17,8 +17,8 @@
 #include "../_cu_definitions/cu_types.h" // __nv_fp8_e5m2, __nv_fp8_e4m3,
                                          // __half, __nv_bfloat16
 #include <cassert>  // assert
-#include <iostream>  // std::cerr
-#include <cstdlib>  // abort
+#include <sstream>  // std::ostringstream
+#include <stdexcept>  // std::runtime_error
 #include <limits>  // std::numeric_limits
 #include "../_definitions/types.h"  // LongIndexType
 
@@ -46,12 +46,13 @@ ArrayType* CudaAPI<ArrayType>::alloc(const size_t array_size)
     size_t max_index = std::numeric_limits<size_t>::max();
     if (max_index / sizeof(ArrayType) < array_size)
     {
-        std::cerr << "The size of array in bytes exceeds the maximum " \
-                  << "integer limit, which is: " << max_index << ". The " \
-                  << "array size is: " << array_size << ", and the size of " \
-                  << "data type is: " << sizeof(ArrayType) << "-bytes." \
-                  << std::endl;
-        abort();
+        std::ostringstream message;
+        message << "The size of array in bytes exceeds the maximum " \
+                << "integer limit, which is: " << max_index << ". The " \
+                << "array size is: " << array_size << ", and the size of " \
+                << "data type is: " << sizeof(ArrayType) << "-bytes.";
+
+        throw std::runtime_error(message.str());
     }
 
     ArrayType* device_array;
@@ -88,12 +89,13 @@ void CudaAPI<ArrayType>::alloc(
     size_t max_index = std::numeric_limits<size_t>::max();
     if (max_index / sizeof(ArrayType) < array_size)
     {
-        std::cerr << "The size of array in bytes exceeds the maximum " \
-                  << "integer limit, which is: " << max_index << ". The " \
-                  << "array size is: " << array_size << ", and the size of " \
-                  << "data type is: " << sizeof(ArrayType) << "-bytes." \
-                  << std::endl;
-        abort();
+        std::ostringstream message;
+        message << "The size of array in bytes exceeds the maximum " \
+                << "integer limit, which is: " << max_index << ". The " \
+                << "array size is: " << array_size << ", and the size of " \
+                << "data type is: " << sizeof(ArrayType) << "-bytes.";
+
+        throw std::runtime_error(message.str());
     }
 
     size_t num_bytes = array_size * sizeof(ArrayType);

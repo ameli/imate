@@ -168,7 +168,7 @@ cublasStatus_t cublasSetMathMode(
     if (cublasSymbols::cublasSetMathMode == NULL)
     {
         std::string lib_name = cublasSymbols::get_lib_name();
-        const char* symbol_name = "cublasSetMathMode_v2";
+        const char* symbol_name = "cublasSetMathMode";
 
         cublasSymbols::cublasSetMathMode = \
                 dynamic_loading::load_symbol<cublasSetMathMode_type>(

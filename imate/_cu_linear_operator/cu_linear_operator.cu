@@ -24,8 +24,9 @@
 
 #include <cstddef>  // NULL
 #include <cassert>  // assert
-#include <cstdlib>  // abort
-#include <iostream>
+#include <sstream>  // std::ostringstream
+#include <stdexcept>  // std::runtime_error
+#include <string>  // std::string
 #include "../_cuda_utilities/cuda_api.h"  // CudaAPI
 
 
@@ -59,7 +60,7 @@ cuLinearOperator<DataType>::cuLinearOperator():
 // constructor 2
 // =============
 
-/// \brief  Constructor with setting \c num_rows and \c num_columns.
+/// \brief     Constructor with setting \c num_rows and \c num_columns.
 ///
 /// \note      For the classed that are virtually derived (virtual inheritance)
 ///            from this class, this constructor will never be called. Rather,
@@ -89,12 +90,14 @@ cuLinearOperator<DataType>::cuLinearOperator(
     }
     else if (num_gpu_devices_ > device_count)
     {
-        std::cerr << "ERROR: Number of requested gpu devices exceeds the " \
-                  << "number of available gpu devices. Nummber of detected " \
-                  << "devices are " << device_count << " while the " \
-                  << "requested number of devices are " << num_gpu_devices_ \
-                  << "." << std::endl;
-        abort();
+        std::ostringstream message;
+        message << "Number of requested GPU devices ("
+                << num_gpu_devices_
+                << ") exceeds the number of available GPU devices ("
+                << device_count
+                << ").";
+
+        throw std::runtime_error(message.str());
     }
     else
     {
@@ -317,15 +320,17 @@ int cuLinearOperator<DataType>::query_gpu_devices() const
     cudaError_t error = cudaGetDeviceCount(&device_count);
 
     // Error code 38 means no cuda-capable device was detected.
-    if ((error != cudaSuccess) || (device_count < 1))
+    if (error != cudaSuccess)
     {
-        std::cerr << "ERROR: No cuda-capable GPU device was detected on " \
-                  << "this machine. If a cuda-capable GPU device exists, " \
-                  << "install its cuda driver. Alternatively, set " \
-                  << "'gpu=False' to use cpu instead." \
-                  << std::endl;
+        throw std::runtime_error(
+            std::string("CUDA device query failed: ") +
+            cudaGetErrorString(error));
+    }
 
-        abort();
+    if (device_count < 1)
+    {
+        throw std::runtime_error(
+            "No CUDA-capable GPU device was detected.");
     }
 
     return device_count;

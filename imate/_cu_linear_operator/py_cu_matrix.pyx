@@ -231,58 +231,82 @@ cdef class pycuMatrix(pycuLinearOperator):
 
         # Create a linear operator object 
         if self.data_type_name == b'float8_e5m2':
-            self.Aop_fp8_e5m2 = new cuDenseMatrix[__nv_fp8_e5m2](
-                    <__nv_fp8_e5m2*> A_data,
-                    A_num_rows,
-                    A_num_columns,
-                    A_is_row_major,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
+            IF USE_CUDA_FP8_E5M2:
+                self.Aop_fp8_e5m2 = new cuDenseMatrix[__nv_fp8_e5m2](
+                        <__nv_fp8_e5m2*> A_data,
+                        A_num_rows,
+                        A_num_columns,
+                        A_is_row_major,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with FP8-E5M2 '
+                                'precision support for CUDA.')
 
         elif self.data_type_name == b'float8_e4m3':
-            self.Aop_fp8_e4m3 = new cuDenseMatrix[__nv_fp8_e4m3](
-                    <__nv_fp8_e4m3*> A_data,
-                    A_num_rows,
-                    A_num_columns,
-                    A_is_row_major,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
-
-        if self.data_type_name == b'float16':
-            self.Aop_fp16 = new cuDenseMatrix[__half](
-                    <__half*> A_data,
-                    A_num_rows,
-                    A_num_columns,
-                    A_is_row_major,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
+            IF USE_CUDA_FP8_E4M3:
+                self.Aop_fp8_e4m3 = new cuDenseMatrix[__nv_fp8_e4m3](
+                        <__nv_fp8_e4m3*> A_data,
+                        A_num_rows,
+                        A_num_columns,
+                        A_is_row_major,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with FP8-E4M3 '
+                                'precision support for CUDA.')
 
         elif self.data_type_name == b'bfloat16':
-            self.Aop_bf16 = new cuDenseMatrix[__nv_bfloat16](
-                    <__nv_bfloat16*> A_data,
-                    A_num_rows,
-                    A_num_columns,
-                    A_is_row_major,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
+            IF USE_CUDA_BF16:
+                self.Aop_bf16 = new cuDenseMatrix[__nv_bfloat16](
+                        <__nv_bfloat16*> A_data,
+                        A_num_rows,
+                        A_num_columns,
+                        A_is_row_major,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with BF16 '
+                                'precision support for CUDA.')
+
+        elif self.data_type_name == b'float16':
+            IF USE_CUDA_FP16:
+                self.Aop_fp16 = new cuDenseMatrix[__half](
+                        <__half*> A_data,
+                        A_num_rows,
+                        A_num_columns,
+                        A_is_row_major,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with FP16 '
+                                'precision support for CUDA.')
 
         elif self.data_type_name == b'float32':
-            self.Aop_fp32 = new cuDenseMatrix[float](
-                    <float*> A_data,
-                    A_num_rows,
-                    A_num_columns,
-                    A_is_row_major,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
+            IF USE_CUDA_FP32:
+                self.Aop_fp32 = new cuDenseMatrix[float](
+                        <float*> A_data,
+                        A_num_rows,
+                        A_num_columns,
+                        A_is_row_major,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with FP32 '
+                                'precision support for CUDA.')
 
         elif self.data_type_name == b'float64':
-            self.Aop_fp64 = new cuDenseMatrix[double](
-                    <double*> A_data,
-                    A_num_rows,
-                    A_num_columns,
-                    A_is_row_major,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
+            IF USE_CUDA_FP64:
+                self.Aop_fp64 = new cuDenseMatrix[double](
+                        <double*> A_data,
+                        A_num_rows,
+                        A_num_columns,
+                        A_is_row_major,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with FP64 '
+                                'precision support for CUDA.')
 
     # ==============
     # set csr matrix
@@ -317,64 +341,88 @@ cdef class pycuMatrix(pycuLinearOperator):
 
         # Create a linear operator object
         if self.data_type_name == b'float8_e5m2':
-            self.Aop_fp8_e5m2 = new cuCSRMatrix[__nv_fp8_e5m2](
-                    <__nv_fp8_e5m2*> A_data,
-                    <LongIndexType*> A_indices,
-                    <LongIndexType*> A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
+            IF USE_CUDA_FP8_E5M2:
+                self.Aop_fp8_e5m2 = new cuCSRMatrix[__nv_fp8_e5m2](
+                        <__nv_fp8_e5m2*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with FP8-E5M2 '
+                                'precision support for CUDA.')
 
         elif self.data_type_name == b'float8_e4m3':
-            self.Aop_fp8_e4m3 = new cuCSRMatrix[__nv_fp8_e4m3](
-                    <__nv_fp8_e4m3*> A_data,
-                    <LongIndexType*> A_indices,
-                    <LongIndexType*> A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
-
-        elif self.data_type_name == b'float16':
-            self.Aop_fp16 = new cuCSRMatrix[__half](
-                    <__half*> A_data,
-                    <LongIndexType*> A_indices,
-                    <LongIndexType*> A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
+            IF USE_CUDA_FP8_E4M3:
+                self.Aop_fp8_e4m3 = new cuCSRMatrix[__nv_fp8_e4m3](
+                        <__nv_fp8_e4m3*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with FP8-E4M3 '
+                                'precision support for CUDA.')
 
         elif self.data_type_name == b'bfloat16':
-            self.Aop_bf16 = new cuCSRMatrix[__nv_bfloat16](
-                    <__nv_bfloat16*> A_data,
-                    <LongIndexType*> A_indices,
-                    <LongIndexType*> A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
+            IF USE_CUDA_BF16:
+                self.Aop_bf16 = new cuCSRMatrix[__nv_bfloat16](
+                        <__nv_bfloat16*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with BF16 '
+                                'precision support for CUDA.')
+
+        elif self.data_type_name == b'float16':
+            IF USE_CUDA_FP16:
+                self.Aop_fp16 = new cuCSRMatrix[__half](
+                        <__half*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with FP16 '
+                                'precision support for CUDA.')
 
         elif self.data_type_name == b'float32':
-            self.Aop_fp32 = new cuCSRMatrix[float](
-                    <float*> A_data,
-                    <LongIndexType*> A_indices,
-                    <LongIndexType*> A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
+            IF USE_CUDA_FP32:
+                self.Aop_fp32 = new cuCSRMatrix[float](
+                        <float*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with FP32 '
+                                'precision support for CUDA.')
 
         elif self.data_type_name == b'float64':
-            self.Aop_fp64 = new cuCSRMatrix[double](
-                    <double*> A_data,
-                    <LongIndexType*> A_indices,
-                    <LongIndexType*> A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
+            IF USE_CUDA_FP64:
+                self.Aop_fp64 = new cuCSRMatrix[double](
+                        <double*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with FP64 '
+                                'precision support for CUDA.')
 
     # ==============
     # set csc matrix
@@ -409,61 +457,85 @@ cdef class pycuMatrix(pycuLinearOperator):
 
         # Create a linear operator object
         if self.data_type_name == b'float8_e5m2':
-            self.Aop_fp8_e5m2 = new cuCSCMatrix[__nv_fp8_e5m2](
-                    <__nv_fp8_e5m2*> A_data,
-                    <LongIndexType*> A_indices,
-                    <LongIndexType*> A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
+            IF USE_CUDA_FP8_E5M2:
+                self.Aop_fp8_e5m2 = new cuCSCMatrix[__nv_fp8_e5m2](
+                        <__nv_fp8_e5m2*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with FP8-E5M2 '
+                                'precision support for CUDA.')
 
         elif self.data_type_name == b'float8_e4m3':
-            self.Aop_fp8_e4m3 = new cuCSCMatrix[__nv_fp8_e4m3](
-                    <__nv_fp8_e4m3*> A_data,
-                    <LongIndexType*> A_indices,
-                    <LongIndexType*> A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
-
-        elif self.data_type_name == b'float16':
-            self.Aop_fp16 = new cuCSCMatrix[__half](
-                    <__half*> A_data,
-                    <LongIndexType*> A_indices,
-                    <LongIndexType*> A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
+            IF USE_CUDA_FP8_E4M3:
+                self.Aop_fp8_e4m3 = new cuCSCMatrix[__nv_fp8_e4m3](
+                        <__nv_fp8_e4m3*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with FP8-E4M3 '
+                                'precision support for CUDA.')
 
         elif self.data_type_name == b'bfloat16':
-            self.Aop_bf16 = new cuCSCMatrix[__nv_bfloat16](
-                    <__nv_bfloat16*> A_data,
-                    <LongIndexType*> A_indices,
-                    <LongIndexType*> A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
+            IF USE_CUDA_BF16:
+                self.Aop_bf16 = new cuCSCMatrix[__nv_bfloat16](
+                        <__nv_bfloat16*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with BF16 '
+                                'precision support for CUDA.')
+
+        elif self.data_type_name == b'float16':
+            IF USE_CUDA_FP16:
+                self.Aop_fp16 = new cuCSCMatrix[__half](
+                        <__half*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with FP16 '
+                                'precision support for CUDA.')
 
         elif self.data_type_name == b'float32':
-            self.Aop_fp32 = new cuCSCMatrix[float](
-                    <float*> A_data,
-                    <LongIndexType*> A_indices,
-                    <LongIndexType*> A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
+            IF USE_CUDA_FP32:
+                self.Aop_fp32 = new cuCSCMatrix[float](
+                        <float*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with FP32 '
+                                'precision support for CUDA.')
 
         elif self.data_type_name == b'float64':
-            self.Aop_fp64 = new cuCSCMatrix[double](
-                    <double*> A_data,
-                    <LongIndexType*> A_indices,
-                    <LongIndexType*> A_index_pointer,
-                    A_num_rows,
-                    A_num_columns,
-                    self.A_is_symmetric,
-                    self.num_gpu_devices)
+            IF USE_CUDA_FP64:
+                self.Aop_fp64 = new cuCSCMatrix[double](
+                        <double*> A_data,
+                        <LongIndexType*> A_indices,
+                        <LongIndexType*> A_index_pointer,
+                        A_num_rows,
+                        A_num_columns,
+                        self.A_is_symmetric,
+                        self.num_gpu_devices)
+            ELSE:
+                raise TypeError('Package was not compiled with FP64 '
+                                'precision support for CUDA.')

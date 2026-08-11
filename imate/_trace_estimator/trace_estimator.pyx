@@ -203,12 +203,15 @@ cpdef trace_estimator(
         # dispatch execution on gpu
         try:
             from .._cu_trace_estimator import pycu_trace_estimator
-        except ImportError:
-            raise ImportError('This package has not been compiled with GPU ' +
-                              'support. Either set "gpu=False" to use the ' +
-                              'existing installed package, or export the ' +
-                              'environment variable "USE_CUDA=1" and ' +
-                              'recompile the source code of the package.')
+        except ModuleNotFoundError as error:
+            if error.name == 'imate._cu_trace_estimator.py_cu_trace_estimator':
+                raise ImportError(
+                    'This package has not been compiled with GPU support. '
+                    'Either set "gpu=False" to use the existing installed '
+                    'package, or export the environment variable "USE_CUDA=1" '
+                    'and recompile the source code of the package.')
+            else:
+                raise
 
         pycuAop = Aop.get_linear_operator(gpu=True,
                                           num_gpu_devices=num_gpu_devices)

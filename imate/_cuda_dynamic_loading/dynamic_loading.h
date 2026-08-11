@@ -190,7 +190,7 @@ namespace dynamic_loading
             char *error = dlerror();
             if (error != NULL)
             {
-                throw std::runtime_error(dlerror());
+                throw std::runtime_error(error);
             }
 
         #else

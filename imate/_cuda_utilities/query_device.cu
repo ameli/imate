@@ -20,22 +20,25 @@
 // query device
 // ============
 
-/// \brief      Queries GPU device information, such as the number of devices,
-///             number of multiprocessors, and the number of threads per each
-///             multiprocessor.
+/// \brief          Queries GPU device information, such as the number of
+///                 devices, number of multiprocessors, and the number of
+///                 threads per each multiprocessor.
 ///
-/// \param[out] device_properties
-///             A struct to be filled with the number of devices, threads and
-///             multiprocessors.
+/// \param[in, out] device_properties
+///                 A struct to be filled with the number of devices, threads
+///                 and multiprocessors.
+///
+/// \return         error
+///                 Integer error code.
 
-void query_device(DeviceProperties& device_properties)
+int query_device(DeviceProperties& device_properties)
 {
     // Query number of devices
     int num_devices;
     cudaError_t error = cudaGetDeviceCount(&num_devices);
     if (error != cudaSuccess)
     {
-        return;
+        return static_cast<int>(error);
     }
 
     // Set number of devices
@@ -45,7 +48,12 @@ void query_device(DeviceProperties& device_properties)
     struct cudaDeviceProp properties;
     for (int device = 0; device < num_devices; ++device)
     {
-        cudaGetDeviceProperties(&properties, device);
+        error = cudaGetDeviceProperties(&properties, device);
+
+        if (error != cudaSuccess)
+        {
+            return static_cast<int>(error);
+        }
 
         // Machines with no GPUs may still report one emulation device
         if (properties.major == 9999)
@@ -64,4 +72,6 @@ void query_device(DeviceProperties& device_properties)
                 properties.maxThreadsPerMultiProcessor;
         }
     }
+
+    return 0;
 }

@@ -490,7 +490,7 @@ namespace cublas_impl_kernels
 #endif
 
 // cublasTgemv kernel (__nv_fp8_e4m3)
-#if defined(USE_CUDA_FP8_e4m3) && (USE_CUDA_FP8_e4m3 == 1)
+#if defined(USE_CUDA_FP8_E4M3) && (USE_CUDA_FP8_E4M3 == 1)
     template
     __global__ void cublas_impl_kernels::cublasTgemv_kernel<
         __nv_fp8_e4m3, float, 640>(
